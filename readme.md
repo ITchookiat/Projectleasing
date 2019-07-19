@@ -1,1 +1,1 @@
-https://github.com/ITchookiat/Projcetleasing.git
+https://github.com/ITchookiat/Projectleasing.git
