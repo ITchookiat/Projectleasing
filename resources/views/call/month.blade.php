@@ -166,24 +166,51 @@ return "$strDay $strMonthThai $strYear";
                   <td><center>{{ $sum_pt_month_0 }}</center></td>
                   <td><center>{{ $sum_pt_month_l1 }}</center></td>
                   <td><center>{{ $sum_pt_month_1 }}</center></td>
+                  @if($sum_pt_month_0 == 0 && $sum_pt_month_1 == 0)
+                  <td><center>0 %</center></td>
+                  @else
                   <td><center>{{ round(number_format(($sum_pt_month_0 / $sum_pt_month_1) * 100, 2)) }} %</center></td>
+                  @endif
+
+                  @if($sum_pt_month_l1 == 0 && $sum_pt_month_1 == 0)
+                  <td><center>0 %</center></td>
+                  @else
                   <td><center>{{ round(number_format(($sum_pt_month_l1 / $sum_pt_month_1) * 100, 2)) }} %</center></td>
+                  @endif
                 </tr>
                 <tr>
                   <td><center>ยะลา (03)</center></td>
                   <td><center>{{ $sum_yl_month_0 }}</center></td>
                   <td><center>{{ $sum_yl_month_l1 }}</center></td>
                   <td><center>{{ $sum_yl_month_1 }}</center></td>
+                  @if($sum_yl_month_0 == 0 && $sum_yl_month_1 == 0)
+                  <td><center>0 %</center></td>
+                  @else
                   <td><center>{{ round(number_format(($sum_yl_month_0 / $sum_yl_month_1) * 100, 2)) }} %</center></td>
+                  @endif
+
+                  @if($sum_yl_month_l1 == 0 && $sum_yl_month_1 == 0)
+                  <td><center>0 %</center></td>
+                  @else
                   <td><center>{{ round(number_format(($sum_yl_month_l1 / $sum_yl_month_1) * 100, 2)) }} %</center></td>
+                  @endif
                 </tr>
                 <tr>
                   <td><center>นราธิวาส (04)</center></td>
                   <td><center>{{ $sum_nr_month_0 }}</center></td>
                   <td><center>{{ $sum_nr_month_l1 }}</center></td>
                   <td><center>{{ $sum_nr_month_1 }}</center></td>
+                  @if($sum_nr_month_0 == 0 && $sum_nr_month_1 == 0)
+                  <td><center>0 %</center></td>
+                  @else
                   <td><center>{{ round(number_format(($sum_nr_month_0 / $sum_nr_month_1) * 100, 2)) }} %</center></td>
+                  @endif
+
+                  @if($sum_nr_month_l1 == 0 && $sum_nr_month_1 == 0)
+                  <td><center>0 %</center></td>
+                  @else
                   <td><center>{{ round(number_format(($sum_nr_month_l1 / $sum_nr_month_1) * 100, 2)) }} %</center></td>
+                  @endif
                 </tr>
                 <tr>
                   <td><center>สายบุรี (05)</center></td>
@@ -241,8 +268,17 @@ return "$strDay $strMonthThai $strYear";
                   <td><center>{{ $sum_02_month_0 }}</center></td>
                   <td><center>{{ $sum_02_month_l1 }}</center></td>
                   <td><center>{{ $sum_02_month_1 }}</center></td>
+                  @if($sum_02_month_0 == 0 && $sum_02_month_1 == 0)
+                  <td><center>0 %</center></td>
+                  @else
                   <td><center>{{ round(number_format(($sum_02_month_0 / $sum_02_month_1) * 100, 2)) }} %</center></td>
+                  @endif
+
+                  @if($sum_02_month_l1 == 0 && $sum_02_month_1 == 0)
+                  <td><center>0 %</center></td>
+                  @else
                   <td><center>{{ round(number_format(($sum_02_month_l1 / $sum_02_month_1) * 100, 2)) }} %</center></td>
+                  @endif
                 </tr>
                 <tr>
                   <td><center>รวม (10)</center></td>
@@ -266,8 +302,17 @@ return "$strDay $strMonthThai $strYear";
                   <td><center><b><font color="red">{{ $sum_all_month_0 }}</b></font></center></td>
                   <td><center><b><font color="red">{{ $sum_all_month_l1 }}</font></b></center></td>
                   <td><center><b><font color="red">{{ $sum_all_month_1 }}</font></b></center></td>
+                  @if($sum_all_month_0 == 0 && $sum_all_month_1 == 0)
+                  <td><center>0 %</center></td>
+                  @else
                   <td><center>{{ round(number_format(($sum_all_month_0 / $sum_all_month_1) * 100, 2)) }} %</center></td>
+                  @endif
+
+                  @if($sum_all_month_l1 == 0 && $sum_all_month_1 == 0)
+                  <td><center>0 %</center></td>
+                  @else
                   <td><center>{{ round(number_format(($sum_all_month_l1 / $sum_all_month_1) * 100, 2)) }} %</center></td>
+                  @endif
                 </tr>
               </tbody>
             </table>
