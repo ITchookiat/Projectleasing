@@ -42,6 +42,10 @@ Route::group(['middleware' => 'auth'], function()
     Route::get('/call/viewdetail/{Str1}/{Str2}', 'CallController@viewdetail')->name('callDetail.viewdetail');
     Route::get('/call/{type}', 'CallController@index')->name('call');
     Route::get('/Reportcall/{type}', 'ReportCallController@index')->name('reportcall');
+    Route::get('/ReportCall/{type}', 'ReportCallController@update')->name('ReportCall.update');
+    route::resource('ReportCall','ReportCallController');
+
+    Route::get('/finance/{type}', 'FinanceController@index')->name('finance');
 
 
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');

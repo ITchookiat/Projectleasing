@@ -422,6 +422,11 @@ return "$strDay/$strMonthThai/$strYear";
 
               <div id="menu5" class="tab-pane fade">
                 <br>
+                @if($info3 == null)
+                <div class="row">
+                  <p align="center"> ไม่มีข้อมูลแสดง !!! </p>
+                </div>
+                @else
                 <div class="row">
 
                   <div class="col-sm-5" align="right">
@@ -489,6 +494,7 @@ return "$strDay/$strMonthThai/$strYear";
                   <div class="col-sm-1" align="right"></div>
 
                   </div>
+                  @endif
               </div>
               <!-- end tab menu5 -->
 

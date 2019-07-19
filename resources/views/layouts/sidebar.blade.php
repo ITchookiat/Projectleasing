@@ -65,6 +65,9 @@
           <li>
               <a href="{{ route('call',1) }}"><i class="fa fa-steam text-danger"></i> งานโทร</a>
           </li>
+          <li>
+              <a href="{{ route('finance',1) }}"><i class="fa fa-steam text-success"></i> ประเภทจัดไฟแนนซ์</a>
+          </li>
         </ul>
       </li>
 

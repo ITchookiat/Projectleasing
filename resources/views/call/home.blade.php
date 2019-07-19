@@ -25,17 +25,11 @@ return "$strDay $strMonthThai $strYear";
 }
 @endphp
 
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css">
 
-  <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
-
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
-<script src="src/jquery.tagsinput-revisited.js"></script>
-<link rel="stylesheet" href="src/jquery.tagsinput-revisited.css">
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
 
     <section class="content-header">
       <h1>
@@ -84,19 +78,44 @@ return "$strDay $strMonthThai $strYear";
             <div class="nav-tabs-custom">
             <ul class="nav nav-tabs bg-success">
               <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">ยอดประจำวัน</a></li>
-              <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">ทุกสาขา</a></li>
               <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">สาขาปัตตานี (01) </a></li>
               <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false">สาขายะลา (03)</a></li>
               <li class=""><a href="#tab_5" data-toggle="tab" aria-expanded="false">สาขานราธิวาส (04)</a></li>
               <li class=""><a href="#tab_6" data-toggle="tab" aria-expanded="false">สาขาสายบุรี (05)</a></li>
-              <li class=""><a href="#tab_7" data-toggle="tab" aria-expanded="false">สาขาสุไงโกลก (06)</a></li>
+              <li class=""><a href="#tab_7" data-toggle="tab" aria-expanded="false">สาขาสุไหงโก-ลก (06)</a></li>
               <li class=""><a href="#tab_8" data-toggle="tab" aria-expanded="false">สาขาเบตง (07)</a></li>
+              <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">รวมทุกสาขา(ทุกรหัส)</a></li>
             </ul>
             <div class="tab-content">
               <div class="tab-pane active" id="tab_1">
                 <!-- <b>How to use:</b> -->
+
+                @if($check == 0)
                 <br>
-                <form>
+                <form name="form1" action="{{ route('ReportCall.store') }}" method="post" enctype="multipart/form-data">
+                  @csrf
+                  <div align = "center">
+                    <button type="submit" class="delete-modal btn btn-success">
+                      <span class="glyphicon glyphicon-floppy-save"></span> บันทึก
+                    </button>
+                  </div>
+                      @foreach($allbranch as $key => $row)
+                      <input type="hidden" name="contno[]" value="{{$row->CONTNO}}"/>
+                      <input type="hidden" name="name[]" value="{{iconv('Tis-620','utf-8',$row->SNAM.$row->NAME1."     ".str_replace(" ", "", $row->NAME2))}}" />
+                      <input type="hidden" name="fdate[]" value="{{$row->FDATE}}" />
+                      <input type="hidden" name="tel[]" value="{{iconv('Tis-620','utf-8',str_replace(" ", "", $row->TELP))}}"/>
+                      <input type="hidden" name="exp_amt[]" value="{{number_format($row->EXP_AMT, 2)}}" />
+                      <input type="hidden" name="exp_frm[]" value="{{$row->EXP_FRM}}"/>
+                      <input type="hidden" name="exp_to[]" value="{{$row->EXP_TO}}"/>
+                      <input type="hidden" name="exp_prd[]" value="{{number_format($row->EXP_PRD, 2)}}"/>
+                      <input type="hidden" name="hldno[]" value="{{number_format($row->HLDNO, 2)}}"/>
+                      @endforeach
+                      <input type="hidden" name="_token" value="{{csrf_token()}}" />
+
+                </form>
+                @endif
+                  <br>
+              @if($check != 0)
                   <table class="table table-bordered" style="width: 60%" align="center">
                     <thead class="thead-light bg-gray-light">
                       <tr>
@@ -108,52 +127,52 @@ return "$strDay $strMonthThai $strYear";
                     <tbody>
                       <tr>
                         <td><center>ปัตตานี (01)</center></td>
-                        <td><center>{{ $sumpt }}</center></td>
-                        <td><center>{{ number_format(($sumpt/$sumall)*100, 0).' %' }}</center></td>
+                        <td><center>{{ $sum_data_pt }}</center></td>
+                        <td><center>{{ number_format(($sum_data_pt/$sum_data_today)*100, 0).' %' }}</center></td>
                       </tr>
                       <tr>
                         <td><center>ยะลา (03)</center></td>
-                        <td><center>{{ $sumyl }}</center></td>
-                        <td><center>{{ number_format(($sumyl/$sumall)*100, 0).' %' }}</center></td>
+                        <td><center>{{ $sum_data_yl }}</center></td>
+                        <td><center>{{ number_format(($sum_data_yl/$sum_data_today)*100, 0).' %' }}</center></td>
                       </tr>
                       <tr>
                         <td><center>นราธิวาส (04)</center></td>
-                        <td><center>{{ $sumnr }}</center></td>
-                        <td><center>{{ number_format(($sumnr/$sumall)*100, 0).' %' }}</center></td>
+                        <td><center>{{ $sum_data_nr }}</center></td>
+                        <td><center>{{ number_format(($sumnr/$sum_data_today)*100, 0).' %' }}</center></td>
                       </tr>
                       <tr>
                         <td><center>สายบุรี (05)</center></td>
-                        <td><center>{{ $sumsb }}</center></td>
-                        <td><center>{{ number_format(($sumsb/$sumall)*100, 0).' %' }}</center></td>
+                        <td><center>{{ $sum_data_sb }}</center></td>
+                        <td><center>{{ number_format(($sumsb/$sum_data_today)*100, 0).' %' }}</center></td>
                       </tr>
                       <tr>
-                        <td><center>สุไงโกลก (06)</center></td>
-                        <td><center>{{ $sumkl }}</center></td>
-                        <td><center>{{ number_format(($sumkl/$sumall)*100, 0).' %' }}</center></td>
+                        <td><center>สุไหงโก-ลก (06)</center></td>
+                        <td><center>{{ $sum_data_kl }}</center></td>
+                        <td><center>{{ number_format(($sumkl/$sum_data_today)*100, 0).' %' }}</center></td>
                       </tr>
                       <tr>
                         <td><center>เบตง (07)</center></td>
-                        <td><center>{{ $sumbt }}</center></td>
-                        <td><center>{{ number_format(($sumbt/$sumall)*100, 0).' %' }}</center></td>
+                        <td><center>{{ $sum_data_bt }}</center></td>
+                        <td><center>{{ number_format(($sumbt/$sum_data_today)*100, 0).' %' }}</center></td>
                       </tr>
                       <tr>
                         <td><center>รวม (02)</center></td>
-                        <td><center>{{ $sum02 }}</center></td>
-                        <td><center>{{ number_format(($sum02/$sumall)*100, 0).' %' }}</center></td>
+                        <td><center>{{ $sum_data_02 }}</center></td>
+                        <td><center>{{ number_format(($sum02/$sum_data_today)*100, 0).' %' }}</center></td>
                       </tr>
                       <tr>
                         <td><center>รวม (10)</center></td>
-                        <td><center>{{ $sum10 }}</center></td>
-                        <td><center>{{ number_format(($sum10/$sumall)*100, 0).' %' }}</center></td>
+                        <td><center>{{ $sum_data_10 }}</center></td>
+                        <td><center>{{ number_format(($sum10/$sum_data_today)*100, 0).' %' }}</center></td>
                       </tr>
                       <tr>
                         <td><center><b><font color="red">รวมทั้งหมด</font></b></center></td>
-                        <td><center><b><font color="red">{{ $sumall }}</b></font></center></td>
-                        <td><center><b><font color="red">{{ number_format(($sumall/$sumall)*100, 0).' %' }}</font></b></center></td>
+                        <td><center><b><font color="red">{{ $sum_data_today }}</b></font></center></td>
+                        <td><center><b><font color="red">{{ number_format(($sum_data_today/$sum_data_today)*100, 0).' %' }}</font></b></center></td>
                       </tr>
                     </tbody>
                   </table>
-                </form>
+                  @endif
 
               </div>
               <!-- /.tab-pane -->
@@ -162,9 +181,9 @@ return "$strDay $strMonthThai $strYear";
                 <!-- แสดงทุกสาขา -->
                     <div class="table-responsive">
                       <br>
-                      <a class="btn btn-primary pull-right" href="{{ route('reportcall', 1) }}"><i class="fa fa-print fa-sm"></i> พิมพ์ </a>
                       <!-- <a class="btn btn-info pull-right"><i class="fa fa-save fa-sm"></i> บันทึก </a> -->
-                      <p align="left"><b>งานโทรค้าง 1 - 1.49 ดิววันที่ {{ DateThai($date)}}</b></p>
+                      <p align="left"><b>งานโทรค้าง 1 - 1.49 ดิววันที่ {{ DateThai($date)}}</b> <a class="btn btn-primary pull-right" href="{{ route('reportcall', 1) }}" target="_blank"><i class="fa fa-print fa-sm"></i> พิมพ์ </a></p>
+                      <br>
                      <table class="table table-bordered" id="table1">
                        <thead class="thead-dark bg-gray-light" >
                          <tr>
@@ -179,21 +198,20 @@ return "$strDay $strMonthThai $strYear";
                        </thead>
 
                        <tbody>
-                         @foreach($allbranch as $key => $row)
+                         @foreach($data_all as $key => $row)
                            <tr>
                              <td class="text-center">{{$key+1}}</td>
                              @php
-                                $StrCon = explode("/",$row->CONTNO);
+                                $StrCon = explode("/",$row->contno);
                                 $SetStr1 = $StrCon[0];
                                 $SetStr2 = $StrCon[1];
-
-                                $fdate = date_create($row->FDATE);
+                                $fdate = date_create($row->fdate);
                              @endphp
-                             <td class="text-center"><a href="{{ route('callDetail.viewdetail', [$SetStr1,$SetStr2]) }}" data-toggle="modal" data-target="#modal-default">{{$row->CONTNO}}</a></td>
-                             <td>{{iconv('Tis-620','utf-8',$row->SNAM.$row->NAME1."   ".$row->NAME2)}}</td>
-                             <td class="text-center">{{date_format($fdate, 'd-m-Y')}}</td>
-                             <td>{{iconv('Tis-620','utf-8',$row->TELP)}}</td>
-                             <td class="text-right">{{number_format($row->EXP_AMT, 2)}}</td>
+                             <td class="text-center"><a href="{{ route('callDetail.viewdetail', [$SetStr1,$SetStr2]) }}" data-toggle="modal" data-target="#modal-default">{{$row->contno}}</a></td>
+                             <td>{{ $row->name }}</td>
+                             <td class="text-center">{{ date_format($fdate, 'd-m-Y') }}</td>
+                             <td>{{ $row->tel }}</td>
+                             <td class="text-right">{{ $row->exp_amt }}</td>
                              <td class="text-right"> </td>
                            </tr>
                          @endforeach
@@ -209,41 +227,41 @@ return "$strDay $strMonthThai $strYear";
                 <div class="table-responsive">
                   <br>
                   <!-- <a class="btn btn-primary pull-right"><i class="fa fa-print fa-sm"></i> พิมพ์</a> -->
-                  <p align="left"><b>งานโทรค้าง 1 - 1.49 ดิววันที่ {{ DateThai($date)}} สาขา ปัตตานี (01)</b></p>
-                 <table class="table table-bordered" id="table2">
-                   <thead class="thead-dark bg-gray-light" >
-                     <tr>
-                       <th class="text-center" style="width:50px">ลำดับ</th>
-                       <th class="text-center">เลขสัญญา</th>
-                       <th class="text-center">ชื่อลูกค้า</th>
-                       <th class="text-center">วันดิวงวดแรก</th>
-                       <th class="text-center">เบอร์โทร</th>
-                       <th class="text-center">ค้างชำระ</th>
-                       <th class="text-center" style="width:150px">หมายเหตุ</th>
-                     </tr>
-                   </thead>
+                  <p align="left"><b>งานโทรค้าง 1 - 1.49 ดิววันที่ {{ DateThai($date)}} สาขา ปัตตานี (01)</b> <a class="btn btn-primary pull-right" href="{{ route('reportcall', 2) }}" target="_blank"><i class="fa fa-print fa-sm"></i> พิมพ์ </a></p>
+                  <br>
+                  <table class="table table-bordered" id="table2">
+                    <thead class="thead-dark bg-gray-light" >
+                      <tr>
+                        <th class="text-center" style="width:50px">ลำดับ</th>
+                        <th class="text-center">เลขสัญญา</th>
+                        <th class="text-center">ชื่อลูกค้า</th>
+                        <th class="text-center">วันดิวงวดแรก</th>
+                        <th class="text-center">เบอร์โทร</th>
+                        <th class="text-center">ค้างชำระ</th>
+                        <th class="text-center" style="width:150px">หมายเหตุ</th>
+                      </tr>
+                    </thead>
 
-                   <tbody>
-                     @foreach($ptbranch as $key => $row)
-                     <tr>
-                       <td class="text-center">{{$key+1}}</td>
-                       @php
-                          $StrCon = explode("/",$row->CONTNO);
-                          $SetStr1 = $StrCon[0];
-                          $SetStr2 = $StrCon[1];
-
-                          $fdate = date_create($row->FDATE);
-                       @endphp
-                       <td class="text-center"><a href="{{ route('callDetail.viewdetail', [$SetStr1,$SetStr2]) }}" data-toggle="modal" data-target="#modal-default">{{$row->CONTNO}}</a></td>
-                       <td>{{iconv('Tis-620','utf-8',$row->SNAM.$row->NAME1."   ".$row->NAME2)}}</td>
-                       <td class="text-center">{{date_format($fdate, 'd-m-Y')}}</td>
-                       <td>{{iconv('Tis-620','utf-8',$row->TELP)}}</td>
-                       <td class="text-right">{{number_format($row->EXP_AMT, 2)}}</td>
-                       <td class="text-right"> </td>
-                     </tr>
-                     @endforeach
-                   </tbody>
-                 </table>
+                    <tbody>
+                      @foreach($data_pt as $key => $row)
+                        <tr>
+                          <td class="text-center">{{$key+1}}</td>
+                          @php
+                             $StrCon = explode("/",$row->contno);
+                             $SetStr1 = $StrCon[0];
+                             $SetStr2 = $StrCon[1];
+                             $fdate = date_create($row->fdate);
+                          @endphp
+                          <td class="text-center"><a href="{{ route('callDetail.viewdetail', [$SetStr1,$SetStr2]) }}" data-toggle="modal" data-target="#modal-default">{{$row->contno}}</a></td>
+                          <td>{{ $row->name }}</td>
+                          <td class="text-center">{{ date_format($fdate, 'd-m-Y') }}</td>
+                          <td>{{ $row->tel }}</td>
+                          <td class="text-right">{{ $row->exp_amt }}</td>
+                          <td class="text-right"> </td>
+                        </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
                  </div>
 
                  <hr>
@@ -265,21 +283,20 @@ return "$strDay $strMonthThai $strYear";
                     </thead>
 
                     <tbody>
-                      @foreach($count1 as $key => $row)
+                      @foreach($pattani as $key => $row)
                       <tr>
                         <td class="text-center">{{$key+1}}</td>
                         @php
-                           $StrCon = explode("/",$row->CONTNO);
+                           $StrCon = explode("/",$row->contno);
                            $SetStr1 = $StrCon[0];
                            $SetStr2 = $StrCon[1];
-
-                           $fdate = date_create($row->FDATE);
+                           $fdate = date_create($row->fdate);
                         @endphp
-                        <td class="text-center"><a href="{{ route('callDetail.viewdetail', [$SetStr1,$SetStr2]) }}" data-toggle="modal" data-target="#modal-default">{{$row->CONTNO}}</a></td>
-                        <td>{{iconv('Tis-620','utf-8',$row->SNAM.$row->NAME1."   ".$row->NAME2)}}</td>
-                        <td class="text-center">{{date_format($fdate, 'd-m-Y')}}</td>
-                        <td>{{iconv('Tis-620','utf-8',$row->TELP)}}</td>
-                        <td class="text-right">{{number_format($row->EXP_AMT, 2)}}</td>
+                        <td class="text-center"><a href="{{ route('callDetail.viewdetail', [$SetStr1,$SetStr2]) }}" data-toggle="modal" data-target="#modal-default">{{$row->contno}}</a></td>
+                        <td>{{ $row->name }}</td>
+                        <td class="text-center">{{ date_format($fdate, 'd-m-Y') }}</td>
+                        <td>{{ $row->tel }}</td>
+                        <td class="text-right">{{ $row->exp_amt }}</td>
                         <td class="text-right"> </td>
                       </tr>
                       @endforeach
@@ -295,7 +312,8 @@ return "$strDay $strMonthThai $strYear";
                  <div class="table-responsive">
                   <br>
                   <!-- <a class="btn btn-primary pull-right"><i class="fa fa-print fa-sm"></i> พิมพ์ </a> -->
-                  <p align="left"> <b>งานโทรค้าง 1 - 1.49 ดิววันที่ {{ DateThai($date)}} สาขา ยะลา (03)</b> </p>
+                  <p align="left"> <b>งานโทรค้าง 1 - 1.49 ดิววันที่ {{ DateThai($date)}} สาขา ยะลา (03)</b> <a class="btn btn-primary pull-right" href="{{ route('reportcall', 3) }}" target="_blank"><i class="fa fa-print fa-sm"></i> พิมพ์ </a></p>
+                  <br>
                  <table class="table table-bordered" id="table3">
                    <thead class="thead-dark bg-gray-light" >
                      <tr>
@@ -310,21 +328,21 @@ return "$strDay $strMonthThai $strYear";
                    </thead>
 
                    <tbody>
-                     @foreach($ylbranch as $key => $row)
+                     @foreach($data_yl as $key => $row)
                      <tr>
                        <td class="text-center">{{$key+1}}</td>
                        @php
-                          $StrCon = explode("/",$row->CONTNO);
+                          $StrCon = explode("/",$row->contno);
                           $SetStr1 = $StrCon[0];
                           $SetStr2 = $StrCon[1];
 
-                          $fdate = date_create($row->FDATE);
+                          $fdate = date_create($row->fdate);
                        @endphp
-                       <td class="text-center"><a href="{{ route('callDetail.viewdetail', [$SetStr1,$SetStr2]) }}" data-toggle="modal" data-target="#modal-default">{{$row->CONTNO}}</a></td>
-                       <td>{{iconv('Tis-620','utf-8',$row->SNAM.$row->NAME1."   ".$row->NAME2)}}</td>
-                       <td class="text-center">{{date_format($fdate, 'd-m-Y')}}</td>
-                       <td>{{iconv('Tis-620','utf-8',$row->TELP)}}</td>
-                       <td class="text-right">{{number_format($row->EXP_AMT, 2)}}</td>
+                       <td class="text-center"><a href="{{ route('callDetail.viewdetail', [$SetStr1,$SetStr2]) }}" data-toggle="modal" data-target="#modal-default">{{$row->contno}}</a></td>
+                       <td>{{ $row->name }}</td>
+                       <td class="text-center">{{ date_format($fdate, 'd-m-Y') }}</td>
+                       <td>{{ $row->tel }}</td>
+                       <td class="text-right">{{ $row->exp_amt }}</td>
                        <td class="text-right"> </td>
                      </tr>
                      @endforeach
@@ -351,21 +369,20 @@ return "$strDay $strMonthThai $strYear";
                     </thead>
 
                     <tbody>
-                      @foreach($count2 as $key => $row)
+                      @foreach($yala as $key => $row)
                       <tr>
                         <td class="text-center">{{$key+1}}</td>
                         @php
-                           $StrCon = explode("/",$row->CONTNO);
+                           $StrCon = explode("/",$row->contno);
                            $SetStr1 = $StrCon[0];
                            $SetStr2 = $StrCon[1];
-
-                           $fdate = date_create($row->FDATE);
+                           $fdate = date_create($row->fdate);
                         @endphp
-                        <td class="text-center"><a href="{{ route('callDetail.viewdetail', [$SetStr1,$SetStr2]) }}" data-toggle="modal" data-target="#modal-default">{{$row->CONTNO}}</a></td>
-                        <td>{{iconv('Tis-620','utf-8',$row->SNAM.$row->NAME1."   ".$row->NAME2)}}</td>
-                        <td class="text-center">{{date_format($fdate, 'd-m-Y')}}</td>
-                        <td>{{iconv('Tis-620','utf-8',$row->TELP)}}</td>
-                        <td class="text-right">{{number_format($row->EXP_AMT, 2)}}</td>
+                        <td class="text-center"><a href="{{ route('callDetail.viewdetail', [$SetStr1,$SetStr2]) }}" data-toggle="modal" data-target="#modal-default">{{$row->contno}}</a></td>
+                        <td>{{ $row->name }}</td>
+                        <td class="text-center">{{ date_format($fdate, 'd-m-Y') }}</td>
+                        <td>{{ $row->tel }}</td>
+                        <td class="text-right">{{ $row->exp_amt }}</td>
                         <td class="text-right"> </td>
                       </tr>
                       @endforeach
@@ -381,7 +398,8 @@ return "$strDay $strMonthThai $strYear";
                 <div class="table-responsive">
                   <br>
                   <!-- <a class="btn btn-primary pull-right"><i class="fa fa-print fa-sm"></i> พิมพ์</a> -->
-                  <p align="left"><b>งานโทรค้าง 1 - 1.49 ดิววันที่ {{ DateThai($date)}} สาขา นราธิวาส (04)</b></p>
+                  <p align="left"><b>งานโทรค้าง 1 - 1.49 ดิววันที่ {{ DateThai($date)}} สาขา นราธิวาส (04)</b> <a class="btn btn-primary pull-right" href="{{ route('reportcall', 4) }}" target="_blank"><i class="fa fa-print fa-sm"></i> พิมพ์ </a></p>
+                 <br>
                  <table class="table table-bordered" id="table4">
                    <thead class="thead-dark bg-gray-light" >
                      <tr>
@@ -396,21 +414,20 @@ return "$strDay $strMonthThai $strYear";
                    </thead>
 
                    <tbody>
-                     @foreach($nrbranch as $key => $row)
+                     @foreach($data_nr as $key => $row)
                      <tr>
                        <td class="text-center">{{$key+1}}</td>
                        @php
-                          $StrCon = explode("/",$row->CONTNO);
+                          $StrCon = explode("/",$row->contno);
                           $SetStr1 = $StrCon[0];
                           $SetStr2 = $StrCon[1];
-
-                          $fdate = date_create($row->FDATE);
+                          $fdate = date_create($row->fdate);
                        @endphp
-                       <td class="text-center"><a href="{{ route('callDetail.viewdetail', [$SetStr1,$SetStr2]) }}" data-toggle="modal" data-target="#modal-default">{{$row->CONTNO}}</a></td>
-                       <td>{{iconv('Tis-620','utf-8',$row->SNAM.$row->NAME1."   ".$row->NAME2)}}</td>
-                       <td class="text-center">{{date_format($fdate, 'd-m-Y')}}</td>
-                       <td>{{iconv('Tis-620','utf-8',$row->TELP)}}</td>
-                       <td class="text-right">{{number_format($row->EXP_AMT, 2)}}</td>
+                       <td class="text-center"><a href="{{ route('callDetail.viewdetail', [$SetStr1,$SetStr2]) }}" data-toggle="modal" data-target="#modal-default">{{$row->contno}}</a></td>
+                       <td>{{ $row->name }}</td>
+                       <td class="text-center">{{ date_format($fdate, 'd-m-Y') }}</td>
+                       <td>{{ $row->tel }}</td>
+                       <td class="text-right">{{ $row->exp_amt }}</td>
                        <td class="text-right"> </td>
                      </tr>
                      @endforeach
@@ -437,21 +454,20 @@ return "$strDay $strMonthThai $strYear";
                     </thead>
 
                     <tbody>
-                      @foreach($count3 as $key => $row)
+                      @foreach($nara as $key => $row)
                       <tr>
                         <td class="text-center">{{$key+1}}</td>
                         @php
-                           $StrCon = explode("/",$row->CONTNO);
+                           $StrCon = explode("/",$row->contno);
                            $SetStr1 = $StrCon[0];
                            $SetStr2 = $StrCon[1];
-
-                           $fdate = date_create($row->FDATE);
+                           $fdate = date_create($row->fdate);
                         @endphp
-                        <td class="text-center"><a href="{{ route('callDetail.viewdetail', [$SetStr1,$SetStr2]) }}" data-toggle="modal" data-target="#modal-default">{{$row->CONTNO}}</a></td>
-                        <td>{{iconv('Tis-620','utf-8',$row->SNAM.$row->NAME1."   ".$row->NAME2)}}</td>
-                        <td class="text-center">{{date_format($fdate, 'd-m-Y')}}</td>
-                        <td>{{iconv('Tis-620','utf-8',$row->TELP)}}</td>
-                        <td class="text-right">{{number_format($row->EXP_AMT, 2)}}</td>
+                        <td class="text-center"><a href="{{ route('callDetail.viewdetail', [$SetStr1,$SetStr2]) }}" data-toggle="modal" data-target="#modal-default">{{$row->contno}}</a></td>
+                        <td>{{ $row->name }}</td>
+                        <td class="text-center">{{ date_format($fdate, 'd-m-Y') }}</td>
+                        <td>{{ $row->tel }}</td>
+                        <td class="text-right">{{ $row->exp_amt }}</td>
                         <td class="text-right"> </td>
                       </tr>
                       @endforeach
@@ -467,7 +483,8 @@ return "$strDay $strMonthThai $strYear";
                 <div class="table-responsive">
                   <br>
                   <!-- <a class="btn btn-primary pull-right"><i class="fa fa-print fa-sm"></i> พิมพ์</a> -->
-                  <p align="left"><b>งานโทรค้าง 1 - 1.49 ดิววันที่ {{ DateThai($date)}} สาขา สายบุรี (05)</b></p>
+                  <p align="left"><b>งานโทรค้าง 1 - 1.49 ดิววันที่ {{ DateThai($date)}} สาขา สายบุรี (05)</b> <a class="btn btn-primary pull-right" href="{{ route('reportcall', 5) }}" target="_blank"><i class="fa fa-print fa-sm"></i> พิมพ์ </a></p>
+                  <br>
                  <table class="table table-bordered" id="table5">
                    <thead class="thead-dark bg-gray-light" >
                      <tr>
@@ -482,21 +499,20 @@ return "$strDay $strMonthThai $strYear";
                    </thead>
 
                    <tbody>
-                     @foreach($sbbranch as $key => $row)
+                     @foreach($data_sb as $key => $row)
                      <tr>
                        <td class="text-center">{{$key+1}}</td>
                        @php
-                          $StrCon = explode("/",$row->CONTNO);
+                          $StrCon = explode("/",$row->contno);
                           $SetStr1 = $StrCon[0];
                           $SetStr2 = $StrCon[1];
-
-                          $fdate = date_create($row->FDATE);
+                          $fdate = date_create($row->fdate);
                        @endphp
-                       <td class="text-center"><a href="{{ route('callDetail.viewdetail', [$SetStr1,$SetStr2]) }}" data-toggle="modal" data-target="#modal-default">{{$row->CONTNO}}</a></td>
-                       <td>{{iconv('Tis-620','utf-8',$row->SNAM.$row->NAME1."   ".$row->NAME2)}}</td>
-                       <td class="text-center">{{date_format($fdate, 'd-m-Y')}}</td>
-                       <td>{{iconv('Tis-620','utf-8',$row->TELP)}}</td>
-                       <td class="text-right">{{number_format($row->EXP_AMT, 2)}}</td>
+                       <td class="text-center"><a href="{{ route('callDetail.viewdetail', [$SetStr1,$SetStr2]) }}" data-toggle="modal" data-target="#modal-default">{{$row->contno}}</a></td>
+                       <td>{{ $row->name }}</td>
+                       <td class="text-center">{{ date_format($fdate, 'd-m-Y') }}</td>
+                       <td>{{ $row->tel }}</td>
+                       <td class="text-right">{{ $row->exp_amt }}</td>
                        <td class="text-right"> </td>
                      </tr>
                      @endforeach
@@ -523,21 +539,20 @@ return "$strDay $strMonthThai $strYear";
                     </thead>
 
                     <tbody>
-                      @foreach($count4 as $key => $row)
+                      @foreach($saiburi as $key => $row)
                       <tr>
                         <td class="text-center">{{$key+1}}</td>
                         @php
-                           $StrCon = explode("/",$row->CONTNO);
+                           $StrCon = explode("/",$row->contno);
                            $SetStr1 = $StrCon[0];
                            $SetStr2 = $StrCon[1];
-
-                           $fdate = date_create($row->FDATE);
+                           $fdate = date_create($row->fdate);
                         @endphp
-                        <td class="text-center"><a href="{{ route('callDetail.viewdetail', [$SetStr1,$SetStr2]) }}" data-toggle="modal" data-target="#modal-default">{{$row->CONTNO}}</a></td>
-                        <td>{{iconv('Tis-620','utf-8',$row->SNAM.$row->NAME1."   ".$row->NAME2)}}</td>
-                        <td class="text-center">{{date_format($fdate, 'd-m-Y')}}</td>
-                        <td>{{iconv('Tis-620','utf-8',$row->TELP)}}</td>
-                        <td class="text-right">{{number_format($row->EXP_AMT, 2)}}</td>
+                        <td class="text-center"><a href="{{ route('callDetail.viewdetail', [$SetStr1,$SetStr2]) }}" data-toggle="modal" data-target="#modal-default">{{$row->contno}}</a></td>
+                        <td>{{ $row->name }}</td>
+                        <td class="text-center">{{ date_format($fdate, 'd-m-Y') }}</td>
+                        <td>{{ $row->tel }}</td>
+                        <td class="text-right">{{ $row->exp_amt }}</td>
                         <td class="text-right"> </td>
                       </tr>
                       @endforeach
@@ -553,7 +568,8 @@ return "$strDay $strMonthThai $strYear";
                 <div class="table-responsive">
                   <br>
                   <!-- <a class="btn btn-primary pull-right"><i class="fa fa-print fa-sm"></i> พิมพ์</a> -->
-                  <p align="left"><b>งานโทรค้าง 1 - 1.49 ดิววันที่ {{ DateThai($date)}} สาขา สุไงโก-ลก (06)</b></p>
+                  <p align="left"><b>งานโทรค้าง 1 - 1.49 ดิววันที่ {{ DateThai($date)}} สาขา สุไงโก-ลก (06)</b> <a class="btn btn-primary pull-right" href="{{ route('reportcall', 6) }}" target="_blank"><i class="fa fa-print fa-sm"></i> พิมพ์ </a></p>
+                  <br>
                  <table class="table table-bordered" id="table6">
                    <thead class="thead-dark bg-gray-light" >
                      <tr>
@@ -568,21 +584,20 @@ return "$strDay $strMonthThai $strYear";
                    </thead>
 
                    <tbody>
-                     @foreach($klbranch as $key => $row)
+                     @foreach($data_kl as $key => $row)
                      <tr>
                        <td class="text-center">{{$key+1}}</td>
                        @php
-                          $StrCon = explode("/",$row->CONTNO);
+                          $StrCon = explode("/",$row->contno);
                           $SetStr1 = $StrCon[0];
                           $SetStr2 = $StrCon[1];
-
-                          $fdate = date_create($row->FDATE);
+                          $fdate = date_create($row->fdate);
                        @endphp
-                       <td class="text-center"><a href="{{ route('callDetail.viewdetail', [$SetStr1,$SetStr2]) }}" data-toggle="modal" data-target="#modal-default">{{$row->CONTNO}}</a></td>
-                       <td>{{iconv('Tis-620','utf-8',$row->SNAM.$row->NAME1."   ".$row->NAME2)}}</td>
-                       <td class="text-center">{{date_format($fdate, 'd-m-Y')}}</td>
-                       <td>{{iconv('Tis-620','utf-8',$row->TELP)}}</td>
-                       <td class="text-right">{{number_format($row->EXP_AMT, 2)}}</td>
+                       <td class="text-center"><a href="{{ route('callDetail.viewdetail', [$SetStr1,$SetStr2]) }}" data-toggle="modal" data-target="#modal-default">{{$row->contno}}</a></td>
+                       <td>{{ $row->name }}</td>
+                       <td class="text-center">{{ date_format($fdate, 'd-m-Y') }}</td>
+                       <td>{{ $row->tel }}</td>
+                       <td class="text-right">{{ $row->exp_amt }}</td>
                        <td class="text-right"> </td>
                      </tr>
                      @endforeach
@@ -609,21 +624,20 @@ return "$strDay $strMonthThai $strYear";
                     </thead>
 
                     <tbody>
-                      @foreach($count5 as $key => $row)
+                      @foreach($kolok as $key => $row)
                       <tr>
                         <td class="text-center">{{$key+1}}</td>
                         @php
-                           $StrCon = explode("/",$row->CONTNO);
+                           $StrCon = explode("/",$row->contno);
                            $SetStr1 = $StrCon[0];
                            $SetStr2 = $StrCon[1];
-
-                           $fdate = date_create($row->FDATE);
+                           $fdate = date_create($row->fdate);
                         @endphp
-                        <td class="text-center"><a href="{{ route('callDetail.viewdetail', [$SetStr1,$SetStr2]) }}" data-toggle="modal" data-target="#modal-default">{{$row->CONTNO}}</a></td>
-                        <td>{{iconv('Tis-620','utf-8',$row->SNAM.$row->NAME1."   ".$row->NAME2)}}</td>
-                        <td class="text-center">{{date_format($fdate, 'd-m-Y')}}</td>
-                        <td>{{iconv('Tis-620','utf-8',$row->TELP)}}</td>
-                        <td class="text-right">{{number_format($row->EXP_AMT, 2)}}</td>
+                        <td class="text-center"><a href="{{ route('callDetail.viewdetail', [$SetStr1,$SetStr2]) }}" data-toggle="modal" data-target="#modal-default">{{$row->contno}}</a></td>
+                        <td>{{ $row->name }}</td>
+                        <td class="text-center">{{ date_format($fdate, 'd-m-Y') }}</td>
+                        <td>{{ $row->tel }}</td>
+                        <td class="text-right">{{ $row->exp_amt }}</td>
                         <td class="text-right"> </td>
                       </tr>
                       @endforeach
@@ -639,7 +653,8 @@ return "$strDay $strMonthThai $strYear";
                 <div class="table-responsive">
                   <br>
                   <!-- <a class="btn btn-primary pull-right"><i class="fa fa-print fa-sm"></i> พิมพ์</a> -->
-                  <p align="left"><b>งานโทรค้าง 1 - 1.49 ดิววันที่ {{ DateThai($date)}} สาขา เบตง (07)</b></p>
+                  <p align="left"><b>งานโทรค้าง 1 - 1.49 ดิววันที่ {{ DateThai($date)}} สาขา เบตง (07)</b> <a class="btn btn-primary pull-right" href="{{ route('reportcall', 7) }}" target="_blank"><i class="fa fa-print fa-sm"></i> พิมพ์ </a></p>
+                  <br>
                  <table class="table table-bordered" id="table7">
                    <thead class="thead-dark bg-gray-light" >
                      <tr>
@@ -654,21 +669,21 @@ return "$strDay $strMonthThai $strYear";
                    </thead>
 
                    <tbody>
-                     @foreach($btbranch as $key => $row)
+                     @foreach($data_bt as $key => $row)
                      <tr>
                        <td class="text-center">{{$key+1}}</td>
                        @php
-                          $StrCon = explode("/",$row->CONTNO);
+                          $StrCon = explode("/",$row->contno);
                           $SetStr1 = $StrCon[0];
                           $SetStr2 = $StrCon[1];
 
-                          $fdate = date_create($row->FDATE);
+                          $fdate = date_create($row->fdate);
                        @endphp
-                       <td class="text-center"><a href="{{ route('callDetail.viewdetail', [$SetStr1,$SetStr2]) }}" data-toggle="modal" data-target="#modal-default">{{$row->CONTNO}}</a></td>
-                       <td>{{iconv('Tis-620','utf-8',$row->SNAM.$row->NAME1."   ".$row->NAME2)}}</td>
-                       <td class="text-center">{{date_format($fdate, 'd-m-Y')}}</td>
-                       <td>{{iconv('Tis-620','utf-8',$row->TELP)}}</td>
-                       <td class="text-right">{{number_format($row->EXP_AMT, 2)}}</td>
+                       <td class="text-center"><a href="{{ route('callDetail.viewdetail', [$SetStr1,$SetStr2]) }}" data-toggle="modal" data-target="#modal-default">{{$row->contno}}</a></td>
+                       <td>{{ $row->name }}</td>
+                       <td class="text-center">{{ date_format($fdate, 'd-m-Y') }}</td>
+                       <td>{{ $row->tel }}</td>
+                       <td class="text-right">{{ $row->exp_amt }}</td>
                        <td class="text-right"> </td>
                      </tr>
                      @endforeach
@@ -695,21 +710,20 @@ return "$strDay $strMonthThai $strYear";
                     </thead>
 
                     <tbody>
-                      @foreach($count6 as $key => $row)
+                      @foreach($betong as $key => $row)
                       <tr>
                         <td class="text-center">{{$key+1}}</td>
                         @php
-                           $StrCon = explode("/",$row->CONTNO);
+                           $StrCon = explode("/",$row->contno);
                            $SetStr1 = $StrCon[0];
                            $SetStr2 = $StrCon[1];
-
-                           $fdate = date_create($row->FDATE);
+                           $fdate = date_create($row->fdate);
                         @endphp
-                        <td class="text-center"><a href="{{ route('callDetail.viewdetail', [$SetStr1,$SetStr2]) }}" data-toggle="modal" data-target="#modal-default">{{$row->CONTNO}}</a></td>
-                        <td>{{iconv('Tis-620','utf-8',$row->SNAM.$row->NAME1."   ".$row->NAME2)}}</td>
-                        <td class="text-center">{{date_format($fdate, 'd-m-Y')}}</td>
-                        <td>{{iconv('Tis-620','utf-8',$row->TELP)}}</td>
-                        <td class="text-right">{{number_format($row->EXP_AMT, 2)}}</td>
+                        <td class="text-center"><a href="{{ route('callDetail.viewdetail', [$SetStr1,$SetStr2]) }}" data-toggle="modal" data-target="#modal-default">{{$row->contno}}</a></td>
+                        <td>{{ $row->name }}</td>
+                        <td class="text-center">{{ date_format($fdate, 'd-m-Y') }}</td>
+                        <td>{{ $row->tel }}</td>
+                        <td class="text-right">{{ $row->exp_amt }}</td>
                         <td class="text-right"> </td>
                       </tr>
                       @endforeach
@@ -723,10 +737,7 @@ return "$strDay $strMonthThai $strYear";
             <!-- /.tab-content -->
           </div>
 
-
-                  <!-- <input type="hidden" name="_token" value="{{csrf_token()}}" />
-
-                  <div class="form-group" align="center">
+                  <!-- <div class="form-group" align="center">
                     <button type="submit" class="delete-modal btn btn-success">
                       <span class="glyphicon glyphicon-floppy-save"></span> บันทึก
                     </button>
@@ -742,14 +753,13 @@ return "$strDay $strMonthThai $strYear";
 
             <script type="text/javascript">
               $(function() {
-                 $('#table, #table1, #table2, #table22, #table3, #table33, #table4, #table44, #table5, #table55, #table6, #table6, #table7, #table77').DataTable(
+                 $('#table1, #table2, #table22, #table3, #table33, #table4, #table44, #table5, #table55, #table6, #table66, #table7, #table77').DataTable(
                    {
                      "ordering" : false,
-                     "lengthChange" : true,
-                     // "pageLength": 25, //กำหนดแสดงข้อมูลเป็น 10 25 50 75 100
+                     "lengthChange" : false,
                      "paging" : false,
                      "searching" : false,
-                     "info" : false,
+                     "info" : true,
                      "autoWidth" : true,
                       "oLanguage": {
                       "sLengthMenu": "แสดง _MENU_ รายการ ต่อหนึ่งหน้า",
@@ -768,6 +778,12 @@ return "$strDay $strMonthThai $strYear";
                       } );
                       }
                  );
+            </script>
+
+            <script>
+              $(".alert").fadeTo(3000, 500).slideUp(500, function(){
+              $(".alert").alert('close');
+              });
             </script>
 
         </div>
