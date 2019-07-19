@@ -115,29 +115,29 @@ return "$strDay $strMonthThai $strYear";
             <hr>
 
             @if($fmonth == 01)
-            <p align="center"><b>รายงานประเภทจัดไฟแนนซ์ ประจำเดือน มกราคม {{ $fyear }}</b></p>
+            <p align="center"><b>รายงานประเภทจัดไฟแนนซ์ ประจำเดือน มกราคม {{ $fyear+543 }}</b></p>
             @elseif($fmonth == 02)
-            <p align="center"><b>รายงานประเภทจัดไฟแนนซ์ ประจำเดือน กุมภาพันธ์ {{ $fyear }}</b></p>
+            <p align="center"><b>รายงานประเภทจัดไฟแนนซ์ ประจำเดือน กุมภาพันธ์ {{ $fyear+543 }}</b></p>
             @elseif($fmonth == 03)
-            <p align="center"><b>รายงานประเภทจัดไฟแนนซ์ ประจำเดือน มีนาคม {{ $fyear }}</b></p>
+            <p align="center"><b>รายงานประเภทจัดไฟแนนซ์ ประจำเดือน มีนาคม {{ $fyear+543 }}</b></p>
             @elseif($fmonth == 04)
-            <p align="center"><b>รายงานประเภทจัดไฟแนนซ์ ประจำเดือน เมษายน {{ $fyear }}</b></p>
+            <p align="center"><b>รายงานประเภทจัดไฟแนนซ์ ประจำเดือน เมษายน {{ $fyear+543 }}</b></p>
             @elseif($fmonth == 05)
-            <p align="center"><b>รายงานประเภทจัดไฟแนนซ์ ประจำเดือน พฤษภาคม {{ $fyear }}</b></p>
+            <p align="center"><b>รายงานประเภทจัดไฟแนนซ์ ประจำเดือน พฤษภาคม {{ $fyear+543 }}</b></p>
             @elseif($fmonth == 06)
-            <p align="center"><b>รายงานประเภทจัดไฟแนนซ์ ประจำเดือน มิถุนายน {{ $fyear }}</b></p>
+            <p align="center"><b>รายงานประเภทจัดไฟแนนซ์ ประจำเดือน มิถุนายน {{ $fyear+543 }}</b></p>
             @elseif($fmonth == 07)
-            <p align="center"><b>รายงานประเภทจัดไฟแนนซ์ ประจำเดือน กรกฎาคม {{ $fyear }}</b></p>
+            <p align="center"><b>รายงานประเภทจัดไฟแนนซ์ ประจำเดือน กรกฎาคม {{ $fyear+543 }}</b></p>
             @elseif($fmonth == 8)
-            <p align="center"><b>รายงานประเภทจัดไฟแนนซ์ ประจำเดือน สิงหาคม {{ $fyear }}</b></p>
+            <p align="center"><b>รายงานประเภทจัดไฟแนนซ์ ประจำเดือน สิงหาคม {{ $fyear+543 }}</b></p>
             @elseif($fmonth == 9)
-            <p align="center"><b>รายงานประเภทจัดไฟแนนซ์ ประจำเดือน กันยายน {{ $fyear }}</b></p>
+            <p align="center"><b>รายงานประเภทจัดไฟแนนซ์ ประจำเดือน กันยายน {{ $fyear+543 }}</b></p>
             @elseif($fmonth == 10)
-            <p align="center"><b>รายงานประเภทจัดไฟแนนซ์ ประจำเดือน ตุลาคม {{ $fyear }}</b></p>
+            <p align="center"><b>รายงานประเภทจัดไฟแนนซ์ ประจำเดือน ตุลาคม {{ $fyear+543 }}</b></p>
             @elseif($fmonth == 11)
-            <p align="center"><b>รายงานประเภทจัดไฟแนนซ์ ประจำเดือน พฤศจิกายน {{ $fyear }}</b></p>
+            <p align="center"><b>รายงานประเภทจัดไฟแนนซ์ ประจำเดือน พฤศจิกายน {{ $fyear+543 }}</b></p>
             @elseif($fmonth == 12)
-            <p align="center"><b>รายงานประเภทจัดไฟแนนซ์ ประจำเดือน ธันวาคม {{ $fyear }}</b></p>
+            <p align="center"><b>รายงานประเภทจัดไฟแนนซ์ ประจำเดือน ธันวาคม {{ $fyear+543 }}</b></p>
             @endif
             <table class="table table-bordered" style="width: 60%" align="center">
               <thead class="thead-light bg-gray-light">
@@ -155,83 +155,115 @@ return "$strDay $strMonthThai $strYear";
               <tbody>
                 <tr>
                   <td><center>กส.ค้ำมีหลักทรัพย์</center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
+                  <td><center>{{ $count_pt1 }}</center></td>
+                  <td><center>{{ $count_yl1 }}</center></td>
+                  <td><center>{{ $count_nr1 }}</center></td>
+                  <td><center>{{ $count_sb1 }}</center></td>
+                  <td><center>{{ $count_kl1 }}</center></td>
+                  <td><center>{{ $count_bt1 }}</center></td>
+                  <td>
+                    <center>
+                      <b>{{ $sum1 = $count_pt1+$count_yl1+$count_nr1+$count_sb1+$count_kl1+$count_bt1 }}</b>
+                    </center>
+                  </td>
                 </tr>
                 <tr>
                   <td><center>กส.ค้ำไม่มีหลักทรัพย์</center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
+                  <td><center>{{ $count_pt2 }}</center></td>
+                  <td><center>{{ $count_yl2 }}</center></td>
+                  <td><center>{{ $count_nr2 }}</center></td>
+                  <td><center>{{ $count_sb2 }}</center></td>
+                  <td><center>{{ $count_kl2 }}</center></td>
+                  <td><center>{{ $count_bt2 }}</center></td>
+                  <td>
+                    <center>
+                      <b>{{ $sum2 = $count_pt2+$count_yl2+$count_nr2+$count_sb2+$count_kl2+$count_bt2 }}</b>
+                    </center>
+                  </td>
                 </tr>
                 <tr>
                   <td><center>กส.ไม่ค้ำประกัน</center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
+                  <td><center>{{ $count_pt3 }}</center></td>
+                  <td><center>{{ $count_yl3 }}</center></td>
+                  <td><center>{{ $count_nr3 }}</center></td>
+                  <td><center>{{ $count_sb3 }}</center></td>
+                  <td><center>{{ $count_kl3 }}</center></td>
+                  <td><center>{{ $count_bt3 }}</center></td>
+                  <td>
+                    <center>
+                      <b>{{ $sum3 = $count_pt3+$count_yl3+$count_nr3+$count_sb3+$count_kl3+$count_bt3 }}</b>
+                    </center>
+                  </td>
                 </tr>
                 <tr>
                   <td><center>ซข.ค้ำมีหลักทรัพย์</center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
+                  <td><center>{{ $count_pt4 }}</center></td>
+                  <td><center>{{ $count_yl4 }}</center></td>
+                  <td><center>{{ $count_nr4 }}</center></td>
+                  <td><center>{{ $count_sb4 }}</center></td>
+                  <td><center>{{ $count_kl4 }}</center></td>
+                  <td><center>{{ $count_bt4 }}</center></td>
+                  <td>
+                    <center>
+                      <b>{{ $sum4 = $count_pt4+$count_yl4+$count_nr4+$count_sb4+$count_kl4+$count_bt4 }}</b>
+                    </center>
+                  </td>
                 </tr>
                 <tr>
                   <td><center>ซข.ค้ำไม่มีหลักทรัพย์</center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
+                  <td><center>{{ $count_pt5 }}</center></td>
+                  <td><center>{{ $count_yl5 }}</center></td>
+                  <td><center>{{ $count_nr5 }}</center></td>
+                  <td><center>{{ $count_sb5 }}</center></td>
+                  <td><center>{{ $count_kl5 }}</center></td>
+                  <td><center>{{ $count_bt5 }}</center></td>
+                  <td>
+                    <center>
+                      <b>{{ $sum5 = $count_pt5+$count_yl5+$count_nr5+$count_sb5+$count_kl5+$count_bt5 }}</b>
+                    </center>
+                  </td>
                 </tr>
                 <tr>
                   <td><center>ซข.ไม่ค้ำประกัน</center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
+                  <td><center>{{ $count_pt6 }}</center></td>
+                  <td><center>{{ $count_yl6 }}</center></td>
+                  <td><center>{{ $count_nr6 }}</center></td>
+                  <td><center>{{ $count_sb6 }}</center></td>
+                  <td><center>{{ $count_kl6 }}</center></td>
+                  <td><center>{{ $count_bt6 }}</center></td>
+                  <td>
+                    <center>
+                      <b>{{ $sum6 = $count_pt6+$count_yl6+$count_nr6+$count_sb6+$count_kl6+$count_bt6 }}</b>
+                    </center>
+                  </td>
                 </tr>
                 <tr>
-                  <td><center>VIP</center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
+                  <td><center>VIP 1</center></td>
+                  <td><center>{{ $count_pt7 }}</center></td>
+                  <td><center>{{ $count_yl7 }}</center></td>
+                  <td><center>{{ $count_nr7 }}</center></td>
+                  <td><center>{{ $count_sb7 }}</center></td>
+                  <td><center>{{ $count_kl7 }}</center></td>
+                  <td><center>{{ $count_bt7 }}</center></td>
+                  <td>
+                    <center>
+                      <b>{{ $sum7 = $count_pt7+$count_yl7+$count_nr7+$count_sb7+$count_kl7+$count_bt7 }}</b>
+                    </center>
+                  </td>
                 </tr>
                 <tr>
                   <td><center><b>ยอดรวม</b></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
-                  <td><center></center></td>
+                  <td><center><b>{{ $sum_count_pt }}</b></center></td>
+                  <td><center><b>{{ $sum_count_yl }}</b></center></td>
+                  <td><center><b>{{ $sum_count_nr }}</b></center></td>
+                  <td><center><b>{{ $sum_count_sb }}</b></center></td>
+                  <td><center><b>{{ $sum_count_kl }}</b></center></td>
+                  <td><center><b>{{ $sum_count_bt }}</b></center></td>
+                  <td>
+                    <center>
+                      <b>{{ $sum8 = $sum_count_pt+$sum_count_yl+$sum_count_nr+$sum_count_sb+$sum_count_kl+$sum_count_bt }}</b>
+                    </center>
+                  </td>
                 </tr>
               </tbody>
             </table>
