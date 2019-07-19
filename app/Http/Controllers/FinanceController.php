@@ -43,67 +43,285 @@ class FinanceController extends Controller
        }else{
        $end = $SetMonth."-"."31";
        }
-       // $a = 'กส ไม่ค้ำประกัน';
-       // $allstat = DB::connection('ibmi')
-       //       ->table('SFHP.INVTRAN')
-       //       ->where('SFHP.INVTRAN.BAAB', 'like', $a)
-       //       ->get();
-       // $sum_allstat = count($allstat);
-       $allstat = DB::connection('ibmi')
+
+        ///// เริ่มส่วนของปัตตานี //////////
+       $pt_stat = DB::connection('ibmi')
              ->table('SFHP.ARMAST')
              ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
-             ->where('SFHP.ARMAST.CONTNO', 'not like', '02-%')
-             ->where('SFHP.ARMAST.CONTNO', 'not like', '10-%')
-             ->whereBetween('SFHP.ARMAST.ISSUDT',['2019-01-01','2019-01-31'])
+             ->where('SFHP.ARMAST.CONTNO', 'like', '01-%')
+             ->whereBetween('SFHP.ARMAST.ISSUDT',[$star,$end])
              ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
              ->get();
-       $sum_allstat = count($allstat);
+       $sum_pt_stat = count($pt_stat);
 
-       // dd($allstat);
-
-       for($i=0; $i<$sum_allstat; $i++){
-         $test[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$allstat[$i]->BAAB)));
-
+       for($i=0; $i<$sum_pt_stat; $i++){
+         $pt[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$pt_stat[$i]->BAAB)));
        }
 
-       $count_test = count($test);
-       $count1 = 0;
-       $count2 = 0;
-       $count3 = 0;
-       $count4 = 0;
-       $count5 = 0;
-       $count6 = 0;
-       $count7 = 0;
+       $count_pt = count($pt);
+       $count_pt1 = 0;
+       $count_pt2 = 0;
+       $count_pt3 = 0;
+       $count_pt4 = 0;
+       $count_pt5 = 0;
+       $count_pt6 = 0;
+       $count_pt7 = 0;
 
 
-
-       for($j=0; $j<$count_test; $j++){
-           if ($test[$j] == "กสค้ำมีหลักทรัพย์") {
-             $count1 = $count1 + 1;
-           }elseif ($test[$j] == "กสค้ำไม่มีหลักทรัพย") {
-             $count2 = $count2 + 1;
-           }elseif ($test[$j] == "กสไม่ค้ำประกัน") {
-             $count3 = $count3 + 1;
-           }elseif ($test[$j] == "ซขค้ำมีหลักทรัพย์") {
-             $count4 = $count4 + 1;
-           }elseif ($test[$j] == "ซขค้ำไม่มีหลักทรัพย") {
-             $count5 = $count5 + 1;
-           }elseif ($test[$j] == "ซขไม่ค้ำประกัน") {
-             $count6 = $count6 + 1;
-           }elseif ($test[$j] == "ลูกค้าVIP1") {
-             $count7 = $count7 + 1;
+       for($j=0; $j<$count_pt; $j++){
+           if ($pt[$j] == "กสค้ำมีหลักทรัพย์") {
+             $count_pt1 = $count_pt1 + 1;
+           }elseif ($pt[$j] == "กสค้ำไม่มีหลักทรัพย") {
+             $count_pt2 = $count_pt2 + 1;
+           }elseif ($pt[$j] == "กสไม่ค้ำประกัน") {
+             $count_pt3 = $count_pt3 + 1;
+           }elseif ($pt[$j] == "ซขค้ำมีหลักทรัพย์") {
+             $count_pt4 = $count_pt4 + 1;
+           }elseif ($pt[$j] == "ซขค้ำไม่มีหลักทรัพย") {
+             $count_pt5 = $count_pt5 + 1;
+           }elseif ($pt[$j] == "ซขไม่ค้ำประกัน") {
+             $count_pt6 = $count_pt6 + 1;
+           }elseif ($pt[$j] == "ลูกค้าVIP1") {
+             $count_pt7 = $count_pt7 + 1;
            }
        }
 
-       dump($count1);
-       dump($count2);
-       dump($count3);
-       dump($count4);
-       dump($count5);
-       dump($count6);
-       dump($count7);
+       $sum_count_pt = $count_pt1 + $count_pt2 + $count_pt3 + $count_pt4 + $count_pt5 + $count_pt6 + $count_pt7;
+       ///// สิ้นสุดส่วนของปัตตานี //////////
 
-         return view('finance.home', compact('type','fmonth','fyear'));
+       ///// เริ่มส่วนของยะลา//////////
+      $yl_stat = DB::connection('ibmi')
+            ->table('SFHP.ARMAST')
+            ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+            ->where('SFHP.ARMAST.CONTNO', 'like', '03-%')
+            ->whereBetween('SFHP.ARMAST.ISSUDT',[$star,$end])
+            ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+            ->get();
+      $sum_yl_stat = count($yl_stat);
+
+      for($i=0; $i<$sum_yl_stat; $i++){
+        $yl[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$yl_stat[$i]->BAAB)));
+      }
+
+      $count_yl = count($yl);
+      $count_yl1 = 0;
+      $count_yl2 = 0;
+      $count_yl3 = 0;
+      $count_yl4 = 0;
+      $count_yl5 = 0;
+      $count_yl6 = 0;
+      $count_yl7 = 0;
+
+
+      for($j=0; $j<$count_yl; $j++){
+          if ($yl[$j] == "กสค้ำมีหลักทรัพย์") {
+            $count_yl1 = $count_yl1 + 1;
+          }elseif ($yl[$j] == "กสค้ำไม่มีหลักทรัพย") {
+            $count_yl2 = $count_yl2 + 1;
+          }elseif ($yl[$j] == "กสไม่ค้ำประกัน") {
+            $count_yl3 = $count_yl3 + 1;
+          }elseif ($yl[$j] == "ซขค้ำมีหลักทรัพย์") {
+            $count_yl4 = $count_yl4 + 1;
+          }elseif ($yl[$j] == "ซขค้ำไม่มีหลักทรัพย") {
+            $count_yl5 = $count_yl5 + 1;
+          }elseif ($yl[$j] == "ซขไม่ค้ำประกัน") {
+            $count_yl6 = $count_yl6 + 1;
+          }elseif ($yl[$j] == "ลูกค้าVIP1") {
+            $count_yl7 = $count_yl7 + 1;
+          }
+      }
+
+      $sum_count_yl = $count_yl1 + $count_yl2 + $count_yl3 + $count_yl4 + $count_yl5 + $count_yl6 + $count_yl7;
+      ///// สิ้นสุดส่วนของยะลา //////////
+
+      ///// เริ่มส่วนของนรา//////////
+     $nr_stat = DB::connection('ibmi')
+           ->table('SFHP.ARMAST')
+           ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+           ->where('SFHP.ARMAST.CONTNO', 'like', '04-%')
+           ->whereBetween('SFHP.ARMAST.ISSUDT',[$star,$end])
+           ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+           ->get();
+     $sum_nr_stat = count($nr_stat);
+
+     for($i=0; $i<$sum_nr_stat; $i++){
+       $nr[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$nr_stat[$i]->BAAB)));
+     }
+
+     $count_nr = count($nr);
+     $count_nr1 = 0;
+     $count_nr2 = 0;
+     $count_nr3 = 0;
+     $count_nr4 = 0;
+     $count_nr5 = 0;
+     $count_nr6 = 0;
+     $count_nr7 = 0;
+
+
+     for($j=0; $j<$count_nr; $j++){
+         if ($nr[$j] == "กสค้ำมีหลักทรัพย์") {
+           $count_nr1 = $count_nr1 + 1;
+         }elseif ($nr[$j] == "กสค้ำไม่มีหลักทรัพย") {
+           $count_nr2 = $count_nr2 + 1;
+         }elseif ($nr[$j] == "กสไม่ค้ำประกัน") {
+           $count_nr3 = $count_nr3 + 1;
+         }elseif ($nr[$j] == "ซขค้ำมีหลักทรัพย์") {
+           $count_nr4 = $count_nr4 + 1;
+         }elseif ($nr[$j] == "ซขค้ำไม่มีหลักทรัพย") {
+           $count_nr5 = $count_nr5 + 1;
+         }elseif ($nr[$j] == "ซขไม่ค้ำประกัน") {
+           $count_nr6 = $count_nr6 + 1;
+         }elseif ($nr[$j] == "ลูกค้าVIP1") {
+           $count_nr7 = $count_nr7 + 1;
+         }
+     }
+
+     $sum_count_nr = $count_nr1 + $count_nr2 + $count_nr3 + $count_nr4 + $count_nr5 + $count_nr6 + $count_nr7;
+     ///// สิ้นสุดส่วนของนรา //////////
+
+     ///// เริ่มส่วนของสายบุรี//////////
+    $sb_stat = DB::connection('ibmi')
+          ->table('SFHP.ARMAST')
+          ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+          ->where('SFHP.ARMAST.CONTNO', 'like', '05-%')
+          ->whereBetween('SFHP.ARMAST.ISSUDT',[$star,$end])
+          ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+          ->get();
+    $sum_sb_stat = count($sb_stat);
+
+    for($i=0; $i<$sum_sb_stat; $i++){
+      $sb[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$sb_stat[$i]->BAAB)));
+    }
+
+    $count_sb = count($sb);
+    $count_sb1 = 0;
+    $count_sb2 = 0;
+    $count_sb3 = 0;
+    $count_sb4 = 0;
+    $count_sb5 = 0;
+    $count_sb6 = 0;
+    $count_sb7 = 0;
+
+
+    for($j=0; $j<$count_sb; $j++){
+        if ($sb[$j] == "กสค้ำมีหลักทรัพย์") {
+          $count_sb1 = $count_sb1 + 1;
+        }elseif ($sb[$j] == "กสค้ำไม่มีหลักทรัพย") {
+          $count_sb2 = $count_sb2 + 1;
+        }elseif ($sb[$j] == "กสไม่ค้ำประกัน") {
+          $count_sb3 = $count_sb3 + 1;
+        }elseif ($sb[$j] == "ซขค้ำมีหลักทรัพย์") {
+          $count_sb4 = $count_sb4 + 1;
+        }elseif ($sb[$j] == "ซขค้ำไม่มีหลักทรัพย") {
+          $count_sb5 = $count_sb5 + 1;
+        }elseif ($sb[$j] == "ซขไม่ค้ำประกัน") {
+          $count_sb6 = $count_sb6 + 1;
+        }elseif ($sb[$j] == "ลูกค้าVIP1") {
+          $count_sb7 = $count_sb7 + 1;
+        }
+    }
+
+    $sum_count_sb = $count_sb1 + $count_sb2 + $count_sb3 + $count_sb4 + $count_sb5 + $count_sb6 + $count_sb7;
+    ///// สิ้นสุดส่วนของสายบุรี //////////
+
+    ///// เริ่มส่วนของโก-ลก//////////
+   $kl_stat = DB::connection('ibmi')
+         ->table('SFHP.ARMAST')
+         ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+         ->where('SFHP.ARMAST.CONTNO', 'like', '06-%')
+         ->whereBetween('SFHP.ARMAST.ISSUDT',[$star,$end])
+         ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+         ->get();
+   $sum_kl_stat = count($kl_stat);
+
+   for($i=0; $i<$sum_kl_stat; $i++){
+     $kl[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$kl_stat[$i]->BAAB)));
+   }
+
+   $count_kl = count($kl);
+   $count_kl1 = 0;
+   $count_kl2 = 0;
+   $count_kl3 = 0;
+   $count_kl4 = 0;
+   $count_kl5 = 0;
+   $count_kl6 = 0;
+   $count_kl7 = 0;
+
+
+   for($j=0; $j<$count_kl; $j++){
+       if ($kl[$j] == "กสค้ำมีหลักทรัพย์") {
+         $count_kl1 = $count_kl1 + 1;
+       }elseif ($kl[$j] == "กสค้ำไม่มีหลักทรัพย") {
+         $count_kl2 = $count_kl2 + 1;
+       }elseif ($kl[$j] == "กสไม่ค้ำประกัน") {
+         $count_kl3 = $count_kl3 + 1;
+       }elseif ($kl[$j] == "ซขค้ำมีหลักทรัพย์") {
+         $count_kl4 = $count_kl4 + 1;
+       }elseif ($kl[$j] == "ซขค้ำไม่มีหลักทรัพย") {
+         $count_kl5 = $count_kl5 + 1;
+       }elseif ($kl[$j] == "ซขไม่ค้ำประกัน") {
+         $count_kl6 = $count_kl6 + 1;
+       }elseif ($kl[$j] == "ลูกค้าVIP1") {
+         $count_kl7 = $count_kl7 + 1;
+       }
+   }
+
+   $sum_count_kl = $count_kl1 + $count_kl2 + $count_kl3 + $count_kl4 + $count_kl5 + $count_kl6 + $count_kl7;
+   ///// สิ้นสุดส่วนของโก-ลก //////////
+
+   ///// เริ่มส่วนของเบตง//////////
+  $bt_stat = DB::connection('ibmi')
+        ->table('SFHP.ARMAST')
+        ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+        ->where('SFHP.ARMAST.CONTNO', 'like', '07-%')
+        ->whereBetween('SFHP.ARMAST.ISSUDT',[$star,$end])
+        ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+        ->get();
+  $sum_bt_stat = count($bt_stat);
+
+  for($i=0; $i<$sum_bt_stat; $i++){
+    $bt[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$bt_stat[$i]->BAAB)));
+  }
+
+  $count_bt = count($bt);
+  $count_bt1 = 0;
+  $count_bt2 = 0;
+  $count_bt3 = 0;
+  $count_bt4 = 0;
+  $count_bt5 = 0;
+  $count_bt6 = 0;
+  $count_bt7 = 0;
+
+
+  for($j=0; $j<$count_bt; $j++){
+      if ($bt[$j] == "กสค้ำมีหลักทรัพย์") {
+        $count_bt1 = $count_bt1 + 1;
+      }elseif ($bt[$j] == "กสค้ำไม่มีหลักทรัพย") {
+        $count_bt2 = $count_bt2 + 1;
+      }elseif ($bt[$j] == "กสไม่ค้ำประกัน") {
+        $count_bt3 = $count_bt3 + 1;
+      }elseif ($bt[$j] == "ซขค้ำมีหลักทรัพย์") {
+        $count_bt4 = $count_bt4 + 1;
+      }elseif ($bt[$j] == "ซขค้ำไม่มีหลักทรัพย") {
+        $count_bt5 = $count_bt5 + 1;
+      }elseif ($bt[$j] == "ซขไม่ค้ำประกัน") {
+        $count_bt6 = $count_bt6 + 1;
+      }elseif ($bt[$j] == "ลูกค้าVIP1") {
+        $count_bt7 = $count_bt7 + 1;
+      }
+  }
+
+  $sum_count_bt = $count_bt1 + $count_bt2 + $count_bt3 + $count_bt4 + $count_bt5 + $count_bt6 + $count_bt7;
+  ///// สิ้นสุดส่วนของเบตง //////////
+
+
+         return view('finance.home', compact('type','fmonth','fyear',
+         'count_pt1','count_pt2','count_pt3','count_pt4','count_pt5','count_pt6','count_pt7','sum_count_pt',
+         'count_yl1','count_yl2','count_yl3','count_yl4','count_yl5','count_yl6','count_yl7','sum_count_yl',
+         'count_nr1','count_nr2','count_nr3','count_nr4','count_nr5','count_nr6','count_nr7','sum_count_nr',
+         'count_sb1','count_sb2','count_sb3','count_sb4','count_sb5','count_sb6','count_sb7','sum_count_sb',
+         'count_kl1','count_kl2','count_kl3','count_kl4','count_kl5','count_kl6','count_kl7','sum_count_kl',
+         'count_bt1','count_bt2','count_bt3','count_bt4','count_bt5','count_bt6','count_bt7','sum_count_bt'));
      }
 
 
