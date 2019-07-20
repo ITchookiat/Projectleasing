@@ -264,9 +264,6 @@ class AnalysController extends Controller
       ]);
       $Sponsordb->save();
 
-      // $SetAccountbrancecar = str_replace ("-","",$request->get('Accountbrancecar'));
-      // $SetAccountagentcar = str_replace ("-","",$request->get('Accountagentcar'));
-
       if ($request->get('Topcar') != Null) {
         $SetTopcar = str_replace (",","",$request->get('Topcar'));
       }else {
@@ -327,7 +324,6 @@ class AnalysController extends Controller
       }else {
         $SettranPrice = 0;
       }
-
       if ($request->get('otherPrice') != Null) {
         $SetotherPrice = str_replace (",","",$request->get('otherPrice'));
       }else {
@@ -348,10 +344,27 @@ class AnalysController extends Controller
       }else {
         $SetcommitPrice = 0;
       }
+      if ($request->get('actPrice') != Null) {
+        $SetactPrice = str_replace (",","",$request->get('actPrice'));
+      }else {
+        $SetactPrice = 0;
+      }
+      if ($request->get('closeAccountPrice') != Null) {
+        $SetcloseAccountPrice = str_replace (",","",$request->get('closeAccountPrice'));
+      }else {
+        $SetcloseAccountPrice = 0;
+      }
+      if ($request->get('P2Price') != Null) {
+        $SetP2Price = str_replace (",","",$request->get('P2Price'));
+      }else {
+        $SetP2Price = 0;
+      }
 
       $Expensesdb = new Expenses([
         'Buyerexpenses_id' => $Buyerdb->id,
-        'act_Price' => $request->get('actPrice'),
+        'act_Price' => $SetactPrice,
+        'closeAccount_Price' => $SetcloseAccountPrice,
+        'P2_Price' => $SetP2Price,
         'vat_Price' => $request->get('vatPrice'),
         'tran_Price' => $SettranPrice,
         'other_Price' => $SetotherPrice,
@@ -686,11 +699,17 @@ class AnalysController extends Controller
           $sponsor->support_SP = $request->get('supportSP');
         $sponsor->update();
 
-        $SetTopcar = str_replace (",","",$request->get('Topcar'));
-        $SetCommissioncar = str_replace (",","",$request->get('Commissioncar'));
+        if ($request->get('Topcar') != Null) {
+          $SetTopcar = str_replace (",","",$request->get('Topcar'));
+        }else {
+          $SetTopcar = 0;
+        }
 
-        // $SetAccountbrancecar = str_replace ("-","",$request->get('Accountbrancecar'));
-        // $SetAccountagentcar = str_replace ("-","",$request->get('Accountagentcar'));
+        if ($request->get('Commissioncar') != Null) {
+          $SetCommissioncar = str_replace (",","",$request->get('Commissioncar'));
+        }else {
+          $SetCommissioncar = 0;
+        }
 
         $cardetail = Cardetail::where('Buyercar_id',$id)->first();
           $cardetail->Brand_car = $request->get('Brandcar');
@@ -713,8 +732,8 @@ class AnalysController extends Controller
           $cardetail->Totalpay2_car = $request->get('Totalpay2car');
 
 // dd($cardetail->Date_Appcar);
-
           if ($request->get('Approverscar') != Null) {
+            $SetStatusApp = 'อนุมัติ';
             if ($cardetail->Date_Appcar == Null) {
               $Y = date('Y') +543;
               $Y2 = date('Y');
@@ -752,14 +771,51 @@ class AnalysController extends Controller
           $cardetail->branch_car = $request->get('branchcar');
         $cardetail->update();
 
-        $SettranPrice = str_replace (",","",$request->get('tranPrice'));
-        $SetotherPrice = str_replace (",","",$request->get('otherPrice'));
-        $SettotalkPrice = str_replace (",","",$request->get('totalkPrice'));
-        $SetbalancePrice = str_replace (",","",$request->get('balancePrice'));
-        $SetcommitPrice = str_replace (",","",$request->get('commitPrice'));
+        if ($request->get('tranPrice') != Null) {
+          $SettranPrice = str_replace (",","",$request->get('tranPrice'));
+        }else {
+          $SettranPrice = 0;
+        }
+        if ($request->get('otherPrice') != Null) {
+          $SetotherPrice = str_replace (",","",$request->get('otherPrice'));
+        }else {
+          $SetotherPrice = 0;
+        }
+        if ($request->get('totalkPrice') != Null) {
+          $SettotalkPrice = str_replace (",","",$request->get('totalkPrice'));
+        }else {
+          $SettotalkPrice = 0;
+        }
+        if ($request->get('balancePrice') != Null) {
+          $SetbalancePrice = str_replace (",","",$request->get('balancePrice'));
+        }else {
+          $SetbalancePrice = 0;
+        }
+        if ($request->get('commitPrice') != Null) {
+          $SetcommitPrice = str_replace (",","",$request->get('commitPrice'));
+        }else {
+          $SetcommitPrice = 0;
+        }
+        if ($request->get('actPrice') != Null) {
+          $SetactPrice = str_replace (",","",$request->get('actPrice'));
+        }else {
+          $SetactPrice = 0;
+        }
+        if ($request->get('closeAccountPrice') != Null) {
+          $SetcloseAccountPrice = str_replace (",","",$request->get('closeAccountPrice'));
+        }else {
+          $SetcloseAccountPrice = 0;
+        }
+        if ($request->get('P2Price') != Null) {
+          $SetP2Price = str_replace (",","",$request->get('P2Price'));
+        }else {
+          $SetP2Price = 0;
+        }
 
         $expenses = Expenses::where('Buyerexpenses_id',$id)->first();
-          $expenses->act_Price = $request->get('actPrice');
+          $expenses->act_Price = $SetactPrice;
+          $expenses->closeAccount_Price = $SetcloseAccountPrice;
+          $expenses->P2_Price = $SetP2Price;
           $expenses->vat_Price = $request->get('vatPrice');
           $expenses->tran_Price = $SettranPrice;
           $expenses->other_Price = $SetotherPrice;

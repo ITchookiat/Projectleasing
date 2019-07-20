@@ -82,7 +82,7 @@
           </tr>
           <tr align="center">
             <td width="305px"></td>
-            <td width="50px">{{$value->act_Price}}</td>
+            <td width="50px">พรบ. {{number_format($value->act_Price)}}</td>
             <td width="40px"></td>
             <td width="35px"></td>
             <td width="35px"></td>
@@ -94,12 +94,24 @@
           </tr>
           <tr align="center">
             <td width="305px"></td>
-            <td width="50px"></td>
+            <td width="50px">ปิดบัญชี {{number_format($value->closeAccount_Price)}}</td>
             <td width="40px"></td>
             <td width="35px"></td>
             <td width="35px"></td>
             <td width="100px">โทร : {{$value->Tellbrance_car}}</td>
             <td width="100px">โทร : {{$value->Tellagent_car}}</td>
+            <td width="40px"></td>
+            <td width="40px"></td>
+            <td width="40px"></td>
+          </tr>
+          <tr align="center">
+            <td width="305px"></td>
+            <td width="50px">ซื้อป2+ {{number_format($value->P2_Price)}}</td>
+            <td width="40px"></td>
+            <td width="35px"></td>
+            <td width="35px"></td>
+            <td width="100px"></td>
+            <td width="100px"></td>
             <td width="40px"></td>
             <td width="40px"></td>
             <td width="40px"></td>
