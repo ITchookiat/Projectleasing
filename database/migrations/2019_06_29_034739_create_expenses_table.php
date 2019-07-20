@@ -17,6 +17,8 @@ class CreateExpensesTable extends Migration
             $table->bigIncrements('expenses_id');
             $table->integer('Buyerexpenses_id')->nullable();
             $table->string('act_Price')->nullable();
+            $table->string('closeAccount_Price')->nullable();
+            $table->string('P2_Price')->nullable();
             $table->string('vat_Price')->nullable();
             $table->string('tran_Price')->nullable();
             $table->string('other_Price')->nullable();

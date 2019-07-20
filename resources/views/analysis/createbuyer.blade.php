@@ -1104,21 +1104,6 @@
                               <div class="tab-pane" id="tab_4">
                                 <h3 class="card-title p-3" align="center">แบบฟอร์มรายละเอียดค่าใช้จ่าย</h3>
                                 <br>
-                                <div class="row">
-                                  <div class="col-md-5">
-                                    <div class="form-inline" align="right">
-                                       <label>พรบ. : </label>
-                                       <input type="text" name="actPrice" class="form-control" style="width: 250px;" placeholder="พรบ." />
-                                     </div>
-                                  </div>
-
-                                  <div class="col-md-6">
-                                   <div class="form-inline" align="right">
-                                       <label>เปอร์เซ็นต์ค่าคอม : </label>
-                                       <input type="text" name="vatPrice" class="form-control" style="width: 250px;" placeholder="เปอร์เซ็นต์ค่าคอม" />
-                                   </div>
-                                  </div>
-                                </div>
 
                                 <script>
                                 function sum() {
@@ -1132,14 +1117,55 @@
                                   var num44 = num4.replace(",","");
                                   var num5 = document.getElementById('commitPrice').value;
                                   var num55 = num5.replace(",","");
+                                  var num6 = document.getElementById('closeAccountPrice').value;
+                                  var num66 = num6.replace(",","");
+                                  var num7 = document.getElementById('P2Price').value;
+                                  var num77 = num7.replace(",","");
+                                  var num8 = document.getElementById('actPrice').value;
+                                  var num88 = num8.replace(",","");
 
                                  document.form1.tranPrice.value = addCommas(num1);
                                  document.form1.otherPrice.value = addCommas(num2);
                                  document.form1.totalkPrice.value = addCommas(num3);
                                  document.form1.balancePrice.value = addCommas(num4);
                                  document.form1.commitPrice.value = addCommas(num5);
+                                 document.form1.closeAccountPrice.value = addCommas(num6);
+                                 document.form1.P2Price.value = addCommas(num7);
+                                 document.form1.actPrice.value = addCommas(num8);
                                  }
                                 </script>
+
+                                <div class="row">
+                                  <div class="col-md-5">
+                                    <div class="form-inline" align="right">
+                                       <label>พรบ. : </label>
+                                       <input type="text" id="actPrice" name="actPrice" class="form-control" style="width: 250px;" placeholder="พรบ." onchange="sum()"/>
+                                     </div>
+                                  </div>
+
+                                  <div class="col-md-6">
+                                   <div class="form-inline" align="right">
+                                       <label>เปอร์เซ็นต์ค่าคอม : </label>
+                                       <input type="text" name="vatPrice" class="form-control" style="width: 250px;" placeholder="เปอร์เซ็นต์ค่าคอม" />
+                                   </div>
+                                  </div>
+                                </div>
+
+                                <div class="row">
+                                  <div class="col-md-5">
+                                    <div class="form-inline" align="right">
+                                      <label>ยอดปิดบัญชี : </label>
+                                      <input type="text" id="closeAccountPrice" name="closeAccountPrice" class="form-control" style="width: 250px;" placeholder="ยอดปิดบัญชี" onchange="sum()"/>
+                                    </div>
+                                  </div>
+
+                                  <div class="col-md-6">
+                                   <div class="form-inline" align="right">
+                                     <label>ซื้อ ป2+ : </label>
+                                     <input type="text" id="P2Price" name="P2Price" class="form-control" style="width: 250px;" placeholder="ซื้อ ป2+" onchange="sum()"/>
+                                   </div>
+                                  </div>
+                                </div>
 
                                 <hr />
                                 <div class="row">

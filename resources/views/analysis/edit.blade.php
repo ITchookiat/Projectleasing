@@ -159,6 +159,7 @@
                 <form name="form1" method="post" action="{{ action('AnalysController@update',$id) }}" enctype="multipart/form-data">
                   @csrf
                   @method('put')
+
                   <div class="card">
                     <div class="card-body">
                       <div class="tab-content">
@@ -384,22 +385,20 @@
                           </div>
 
                           <div class="col-md-12">
-                              <div class="form-group">
-                                  @foreach($dataImage as $images)
+                            <div class="form-group">
+                              @foreach($dataImage as $images)
+                                <!-- <a href="{{ asset('upload-image/'.$images->Name_fileimage) }}" class="MagicZoom" data-options="zoomMode: magnifier">
+                                <img src="{{ asset('upload-image/'.$images->Name_fileimage) }}"></a> -->
 
-                                      <!-- <a href="{{ asset('upload-image/'.$images->Name_fileimage) }}" class="MagicZoom" data-options="zoomMode: magnifier">
-                                      <img src="{{ asset('upload-image/'.$images->Name_fileimage) }}"></a> -->
+                                <!-- <a href="{{ asset('upload-image/'.$images->Name_fileimage) }}" class="MagicZoom" ata-gallery="gallery" data-options="zoomPosition: inner">
+                                <img src="{{ asset('upload-image/'.$images->Name_fileimage) }}"></a> -->
 
-                                      <!-- <a href="{{ asset('upload-image/'.$images->Name_fileimage) }}" class="MagicZoom" ata-gallery="gallery" data-options="zoomPosition: inner">
-                                      <img src="{{ asset('upload-image/'.$images->Name_fileimage) }}"></a> -->
-
-                                      <a href="{{ asset('upload-image/'.$images->Name_fileimage) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true" style="width: 300px; height: auto;">
-                                        <img src="{{ asset('upload-image/'.$images->Name_fileimage) }}">
-                                      </a>
-                                  @endforeach
-                              </div>
+                                <a href="{{ asset('upload-image/'.$images->Name_fileimage) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true" style="width: 300px; height: auto;">
+                                  <img src="{{ asset('upload-image/'.$images->Name_fileimage) }}">
+                                </a>
+                              @endforeach
+                            </div>
                           </div>
-
                         </div>
                         <div class="tab-pane" id="tab_2">
                             <div class="row">
@@ -604,7 +603,6 @@
                               <div class="col-md-6">
                                </div>
                             </div>
-
                           </div>
                         <div class="tab-pane" id="tab_3">
                           <div class="row">
@@ -814,7 +812,6 @@
                             </div>
                           </div>
 
-
                           <div class="row">
                             <div class="col-md-5">
                               <div class="form-inline" align="right">
@@ -918,7 +915,6 @@
                             </div>
                           </div>
 
-
                          <div class="row">
                             <div class="col-md-5">
                               <div class="form-inline" align="right">
@@ -971,14 +967,43 @@
                                </div>
                             </div>
                            </div>
-
                         </div>
                         <div class="tab-pane" id="tab_4">
+                          <script>
+                            function sum() {
+                            var num1 = document.getElementById('tranPrice').value;
+                            var num11 = num1.replace(",","");
+                            var num2 = document.getElementById('otherPrice').value;
+                            var num22 = num2.replace(",","");
+                            var num3 = document.getElementById('totalkPrice').value;
+                            var num33 = num3.replace(",","");
+                            var num4 = document.getElementById('balancePrice').value;
+                            var num44 = num4.replace(",","");
+                            var num5 = document.getElementById('commitPrice').value;
+                            var num55 = num5.replace(",","");
+                            var num6 = document.getElementById('closeAccountPrice').value;
+                            var num66 = num6.replace(",","");
+                            var num7 = document.getElementById('P2Price').value;
+                            var num77 = num7.replace(",","");
+                            var num8 = document.getElementById('actPrice').value;
+                            var num88 = num8.replace(",","");
+
+                           document.form1.tranPrice.value = addCommas(num1);
+                           document.form1.otherPrice.value = addCommas(num2);
+                           document.form1.totalkPrice.value = addCommas(num3);
+                           document.form1.balancePrice.value = addCommas(num4);
+                           document.form1.commitPrice.value = addCommas(num5);
+                           document.form1.closeAccountPrice.value = addCommas(num6);
+                           document.form1.P2Price.value = addCommas(num7);
+                           document.form1.actPrice.value = addCommas(num8);
+                           }
+                          </script>
+
                           <div class="row">
                             <div class="col-md-5">
                               <div class="form-inline" align="right">
                                  <label>พรบ. : </label>
-                                 <input type="text" name="actPrice" value="{{$data->act_Price}}" class="form-control" style="width: 250px;" placeholder="พรบ." />
+                                 <input type="text" id="actPrice" name="actPrice" value="{{number_format($data->act_Price)}}" class="form-control" style="width: 250px;" placeholder="พรบ." onchange="sum()"/>
                                </div>
                             </div>
 
@@ -990,26 +1015,21 @@
                             </div>
                           </div>
 
-                          <script>
-                          function sum() {
-                            var num1 = document.getElementById('tranPrice').value;
-                            var num11 = num1.replace(",","");
-                            var num2 = document.getElementById('otherPrice').value;
-                            var num22 = num2.replace(",","");
-                            var num3 = document.getElementById('totalkPrice').value;
-                            var num33 = num3.replace(",","");
-                            var num4 = document.getElementById('balancePrice').value;
-                            var num44 = num4.replace(",","");
-                            var num5 = document.getElementById('commitPrice').value;
-                            var num55 = num5.replace(",","");
+                          <div class="row">
+                            <div class="col-md-5">
+                              <div class="form-inline" align="right">
+                                <label>ยอดปิดบัญชี : </label>
+                                <input type="text" id="closeAccountPrice" name="closeAccountPrice" value="{{number_format($data->closeAccount_Price)}}" class="form-control" style="width: 250px;" placeholder="ยอดปิดบัญชี" onchange="sum()"/>
+                              </div>
+                            </div>
 
-                           document.form1.tranPrice.value = addCommas(num1);
-                           document.form1.otherPrice.value = addCommas(num2);
-                           document.form1.totalkPrice.value = addCommas(num3);
-                           document.form1.balancePrice.value = addCommas(num4);
-                           document.form1.commitPrice.value = addCommas(num5);
-                           }
-                          </script>
+                            <div class="col-md-6">
+                             <div class="form-inline" align="right">
+                               <label>ซื้อ ป2+ : </label>
+                               <input type="text" id="P2Price" name="P2Price" value="{{number_format($data->P2_Price)}}" class="form-control" style="width: 250px;" placeholder="ซื้อ ป2+" onchange="sum()"/>
+                             </div>
+                            </div>
+                          </div>
 
                           <hr />
                           <div class="row">
@@ -1143,30 +1163,29 @@
                     </table>
                   @else
                     <table class="table table-bordered" id="table" border="3" align="center" style="width: 30%;" align="center">
-                    <thead class="thead-dark">
-                      <tr>
-                        <th class="text-center"><font color="red"><h3>ตรวจสอบเอกสาร</h3></font></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th class="text-center">
-                          <p></p>
-                          <label class="con">
-                            @if ( $data->DocComplete_car != Null)
-                              <input type="checkbox" class="checkbox" name="doccomplete" id="" value="{{ auth::user()->name }}" checked="checked"> <!-- checked="checked"  -->
-                            @else
-                              <input type="checkbox" class="checkbox" name="doccomplete" id="" value="{{ auth::user()->name }}">
-                            @endif
-                          <span class="checkmark"></span>
-                          <p></p>
-                          </label>
-                        </th>
-                      </tr>
-                    </tbody>
-                  </table>
+                      <thead class="thead-dark">
+                        <tr>
+                          <th class="text-center"><font color="red"><h3>ตรวจสอบเอกสาร</h3></font></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th class="text-center">
+                            <p></p>
+                            <label class="con">
+                              @if ( $data->DocComplete_car != Null)
+                                <input type="checkbox" class="checkbox" name="doccomplete" id="" value="{{ auth::user()->name }}" checked="checked"> <!-- checked="checked"  -->
+                              @else
+                                <input type="checkbox" class="checkbox" name="doccomplete" id="" value="{{ auth::user()->name }}">
+                              @endif
+                            <span class="checkmark"></span>
+                            <p></p>
+                            </label>
+                          </th>
+                        </tr>
+                      </tbody>
+                    </table>
                   @endif
-
                   <br>
                   <div class="form-group" align="center">
                     <button type="submit" class="delete-modal btn btn-success">
