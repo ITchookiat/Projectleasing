@@ -969,35 +969,7 @@
                            </div>
                         </div>
                         <div class="tab-pane" id="tab_4">
-                          <script>
-                            function sum() {
-                            var num1 = document.getElementById('tranPrice').value;
-                            var num11 = num1.replace(",","");
-                            var num2 = document.getElementById('otherPrice').value;
-                            var num22 = num2.replace(",","");
-                            var num3 = document.getElementById('totalkPrice').value;
-                            var num33 = num3.replace(",","");
-                            var num4 = document.getElementById('balancePrice').value;
-                            var num44 = num4.replace(",","");
-                            var num5 = document.getElementById('commitPrice').value;
-                            var num55 = num5.replace(",","");
-                            var num6 = document.getElementById('closeAccountPrice').value;
-                            var num66 = num6.replace(",","");
-                            var num7 = document.getElementById('P2Price').value;
-                            var num77 = num7.replace(",","");
-                            var num8 = document.getElementById('actPrice').value;
-                            var num88 = num8.replace(",","");
 
-                           document.form1.tranPrice.value = addCommas(num1);
-                           document.form1.otherPrice.value = addCommas(num2);
-                           document.form1.totalkPrice.value = addCommas(num3);
-                           document.form1.balancePrice.value = addCommas(num4);
-                           document.form1.commitPrice.value = addCommas(num5);
-                           document.form1.closeAccountPrice.value = addCommas(num6);
-                           document.form1.P2Price.value = addCommas(num7);
-                           document.form1.actPrice.value = addCommas(num8);
-                           }
-                          </script>
 
                           <div class="row">
                             <div class="col-md-5">
@@ -1063,8 +1035,8 @@
 
                             <div class="col-md-6">
                              <div class="form-inline" align="right">
-                                 <label>ค่าการตลาด : </label>
-                                 <input type="text" name="marketingPrice" value="{{ $data->marketing_Price }}" class="form-control" style="width: 250px;" placeholder="การตลาด" readonly />
+                               <label>อากร : </label>
+                               <input type="text" name="dutyPrice" value="{{$data->duty_Price}}" class="form-control" style="width: 250px;" placeholder="อากร" readonly />
                              </div>
                             </div>
                           </div>
@@ -1072,8 +1044,8 @@
                           <div class="row">
                             <div class="col-md-5">
                               <div class="form-inline" align="right">
-                                 <label>อากร : </label>
-                                 <input type="text" name="dutyPrice" value="{{$data->duty_Price}}" class="form-control" style="width: 250px;" placeholder="อากร" readonly />
+                                <label>ค่าการตลาด : </label>
+                                <input type="text" name="marketingPrice" value="{{ $data->marketing_Price }}" class="form-control" style="width: 250px;" placeholder="การตลาด" readonly />
                                </div>
                             </div>
 
@@ -1101,17 +1073,6 @@
                              </div>
                           </div>
 
-                          <div class="row">
-                            <div class="col-md-5">
-                              <div class="form-inline" align="right">
-                                <label>แถมประกัน 2 + ฟรี 1 ปี (เริ่ม) : </label>
-                                <input type="text" name="insurancePrice" value="{{$data->insurance_Price}}" class="form-control" style="width: 250px;" placeholder="แถมประกัน2+ฟรี1ปี(เริ่ม)" />
-                              </div>
-                            </div>
-
-                            <div class="col-md-6">
-                            </div>
-                          </div>
                         </div>
                       </div>
                     </div>

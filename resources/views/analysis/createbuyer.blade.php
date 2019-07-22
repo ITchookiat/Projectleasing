@@ -740,26 +740,39 @@
 
                                 <hr />
                                 <script>
-                                  function addCommas(nStr){
-                                   nStr += '';
-                                   x = nStr.split('.');
-                                   x1 = x[0];
-                                   x2 = x.length > 1 ? '.' + x[1] : '';
-                                   var rgx = /(\d+)(\d{3})/;
-                                   while (rgx.test(x1)) {
-                                   x1 = x1.replace(rgx, '$1' + ',' + '$2');
-                                   }
-                                   return x1 + x2;
-                                   }
+                                    function addCommas(nStr){
+   nStr += '';
+   x = nStr.split('.');
+   x1 = x[0];
+   x2 = x.length > 1 ? '.' + x[1] : '';
+   var rgx = /(\d+)(\d{3})/;
+   while (rgx.test(x1)) {
+     x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    }
+  return x1 + x2;
+}
+
                                     function calculate(){
+
                                       var num11 = document.getElementById('Topcar').value;
                                       var num1 = num11.replace(",","");
                                       var num22 = document.getElementById('Interestcar').value;
                                       var num2 = num22.replace("%","");
                                       var num3 = document.getElementById('Vatcar').value;
                                       var num4 = document.getElementById('Timeslackencar').value;
+
+                                      var num55 = document.getElementById('P2Price').value;
+                                      var num5 = num55.replace(",","");
+                                          if(num55 == ''){
+                                            var num5 = 0;
+                                          }
+
+                                     var ori = document.getElementById('TopcarOri').value;
+
+                                     var totaltopcar = parseFloat(num1)+parseFloat(num5);
+
                                       var a = (num2*num4)+100;
-                                      var b = (((num1*a)/100)*1.07)/num4;
+                                      var b = (((totaltopcar*a)/100)*1.07)/num4;
                                       var result = Math.ceil(b/10)*10;
 
                                       var durate = result/1.07;
@@ -771,30 +784,110 @@
                                       var total = result*num4;
                                       var total2 = durate2+tax2;
 
-                                      if(!isNaN(result)){
-                                          document.form1.Paycar.value = addCommas(result.toFixed(2));
-                                          document.form1.Topcar.value = addCommas(num1);
-                                          document.form1.Paymemtcar.value = addCommas(durate.toFixed(2));
-                                          document.form1.Timepaymentcar.value = addCommas(durate2.toFixed(2));
-                                          document.form1.Taxcar.value = addCommas(tax.toFixed(2));
-                                          document.form1.Taxpaycar.value = addCommas(tax2.toFixed(2));
-                                          document.form1.Totalpay1car.value = addCommas(total.toFixed(2));
-                                          document.form1.Totalpay2car.value = addCommas(total2.toFixed(2));
-                                         }
-                                       }
-                                     function sum2() {
-                                       var num1 = document.getElementById('Commissioncar').value;
-                                       var num11 = num1.replace(",","");
+                                        if(!isNaN(result)){
+                                            document.form1.Paycar.value = addCommas(result.toFixed(2));
+                                            document.form1.Topcar.value = addCommas(totaltopcar);
+                                            document.form1.TopcarOri.value = addCommas(num1);
+                                            document.form1.Paymemtcar.value = addCommas(durate.toFixed(2));
+                                            document.form1.Timepaymentcar.value = addCommas(durate2.toFixed(2));
+                                            document.form1.Taxcar.value = addCommas(tax.toFixed(2));
+                                            document.form1.Taxpaycar.value = addCommas(tax2.toFixed(2));
+                                            document.form1.Totalpay1car.value = addCommas(total.toFixed(2));
+                                            document.form1.Totalpay2car.value = addCommas(total2.toFixed(2));
+                                            document.form1.P2Price.value = addCommas(num5);
+                                            document.form1.tempTopcar.value = addCommas(totaltopcar);
+                                        }
+                                    }
 
-                                      document.form1.Commissioncar.value = addCommas(num1);
+                                    function commission(){
+                                       var num11 = document.getElementById('Commissioncar').value;
+                                       var num1 = num11.replace(",","");
+                                       if(num1 > 1000){
+                                           if(num11 == ''){
+                                             var num11 = 0;
+                                           }
+                                           else{
+                                             var sumCom = (num11*0.03);
+                                             var result = num11 - sumCom;
+                                           }
+                                       }else{
+                                         var result = num1;
+                                       }
+                                       if(!isNaN(num11)){
+                                           document.form1.Commissioncar.value = addCommas(num1);
+                                           document.form1.commitPrice.value = addCommas(result);
                                       }
-                                   </script>
+
+                                     }
+
+                                     function balance(){
+                                        var num11 = document.getElementById('tranPrice').value;
+                                        var num1 = num11.replace(",","");
+
+                                        var num22 = document.getElementById('otherPrice').value;
+                                        var num2 = num22.replace(",","");
+
+                                        var num33 = document.getElementById('evaluetionPrice').value;
+                                        var num3 = num33.replace(",","");
+                                        if(num33 == ''){
+                                          var num3 = 0;
+                                        }
+
+                                        var num44 = document.getElementById('dutyPrice').value;
+                                        var num4 = num44.replace(",","");
+
+                                        var num55 = document.getElementById('marketingPrice').value;
+                                        var num5 = num55.replace(",","");
+
+
+                                        var num66 = document.getElementById('actPrice').value;
+                                        var num6 = num66.replace(",","");
+
+                                        var num77 = document.getElementById('closeAccountPrice').value;
+                                        var num7 = num77.replace(",","");
+
+                                        var num88 = document.getElementById('P2Price').value;
+                                        var num8 = num88.replace(",","");
+
+                                        var temp = document.getElementById('tempTopcar').value;
+                                        var toptemp = temp.replace(",","");
+
+                                        var ori = document.getElementById('TopcarOri').value;
+                                        var Topori = ori.replace(",","");
+
+                                        var tempresult = parseFloat(num1)+parseFloat(num2)+parseFloat(num3)+parseFloat(num4)+parseFloat(num5)+parseFloat(num6);
+                                        var result = parseFloat(num1)+parseFloat(num2)+parseFloat(num3)+parseFloat(num4)+parseFloat(num5)+parseFloat(num6)+parseFloat(num7);
+
+                                        if(num88 == 0){
+                                          var TotalBalance = parseFloat(toptemp)-result;
+                                        }
+                                        else{
+                                          var TotalBalance = parseFloat(Topori)-result;
+                                        }
+
+
+                                        if(!isNaN(result)){
+                                            document.form1.totalkPrice.value = addCommas(tempresult);
+                                            document.form1.temptotalkPrice.value = addCommas(result);
+                                            document.form1.tranPrice.value = addCommas(num1);
+                                            document.form1.otherPrice.value = addCommas(num2);
+                                            document.form1.dutyPrice.value = addCommas(num4);
+                                            document.form1.marketingPrice.value = addCommas(num5);
+                                            document.form1.actPrice.value = addCommas(num6);
+                                            document.form1.closeAccountPrice.value = addCommas(num7);
+                                            document.form1.balancePrice.value = addCommas(TotalBalance);
+                                        }
+
+                                      }
+
+                               </script>
 
                                 <div class="row">
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                       <label>ยอดจัด : </label>
-                                      <input type="text" id="Topcar" name="Topcar" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" onchange="calculate()" />
+                                      <input type="text" id="Topcar" name="Topcar" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" oninput="calculate()" />
+                                      <input type="hidden" id="TopcarOri" name="TopcarOri" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" />
                                     </div>
                                   </div>
 
@@ -810,7 +903,7 @@
                                   <div class="col-md-5">
                                    <div class="form-inline" align="right">
                                        <label>VAT : </label>
-                                       <input type="text" id="Vatcar" name="Vatcar" class="form-control" style="width: 250px;" placeholder="7 %" value="7 %" readonly onchange="calculate()"/>
+                                       <input type="text" id="Vatcar" name="Vatcar" class="form-control" style="width: 250px;" value="7 %" readonly onchange="calculate()"/>
                                    </div>
 
                                   </div>
@@ -828,7 +921,7 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                        <label>ดอกเบี้ย : </label>
-                                       <select id="Interestcar" name="Interestcar" class="form-control" style="width: 250px;">
+                                       <select id="Interestcar" name="Interestcar" class="form-control" style="width: 250px;" onchange="calculate()">
                                          <option value="" disabled selected>--- ดอกเบี้ย ---</option>
                                          <option value="0.55">0.55</option>
                                          <option value="0.65">0.65</option>
@@ -978,7 +1071,7 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                       <label>ค่าคอม : </label>
-                                      <input type="text" id="Commissioncar" name="Commissioncar" class="form-control" style="width: 250px;" placeholder="ค่าคอม" onchange="sum2()"/>
+                                      <input type="text" id="Commissioncar" name="Commissioncar" class="form-control" style="width: 250px;" placeholder="ค่าคอม" oninput="commission()"/>
                                     </div>
                                   </div>
 
@@ -1105,48 +1198,20 @@
                                 <h3 class="card-title p-3" align="center">แบบฟอร์มรายละเอียดค่าใช้จ่าย</h3>
                                 <br>
 
-                                <script>
-                                function sum() {
-                                  var num1 = document.getElementById('tranPrice').value;
-                                  var num11 = num1.replace(",","");
-                                  var num2 = document.getElementById('otherPrice').value;
-                                  var num22 = num2.replace(",","");
-                                  var num3 = document.getElementById('totalkPrice').value;
-                                  var num33 = num3.replace(",","");
-                                  var num4 = document.getElementById('balancePrice').value;
-                                  var num44 = num4.replace(",","");
-                                  var num5 = document.getElementById('commitPrice').value;
-                                  var num55 = num5.replace(",","");
-                                  var num6 = document.getElementById('closeAccountPrice').value;
-                                  var num66 = num6.replace(",","");
-                                  var num7 = document.getElementById('P2Price').value;
-                                  var num77 = num7.replace(",","");
-                                  var num8 = document.getElementById('actPrice').value;
-                                  var num88 = num8.replace(",","");
-
-                                 document.form1.tranPrice.value = addCommas(num1);
-                                 document.form1.otherPrice.value = addCommas(num2);
-                                 document.form1.totalkPrice.value = addCommas(num3);
-                                 document.form1.balancePrice.value = addCommas(num4);
-                                 document.form1.commitPrice.value = addCommas(num5);
-                                 document.form1.closeAccountPrice.value = addCommas(num6);
-                                 document.form1.P2Price.value = addCommas(num7);
-                                 document.form1.actPrice.value = addCommas(num8);
-                                 }
-                                </script>
-
                                 <div class="row">
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                        <label>พรบ. : </label>
-                                       <input type="text" id="actPrice" name="actPrice" class="form-control" style="width: 250px;" placeholder="พรบ." onchange="sum()"/>
+                                       <input type="text" id="actPrice" name="actPrice" class="form-control" value="0" style="width: 250px;" placeholder="พรบ." oninput="balance()"/>
+                                       <!-- <input type="hidden" id="tempTopcar" name="tempTopcar" class="form-control" style="width: 250px;" placeholder="พรบ."/> -->
                                      </div>
                                   </div>
 
                                   <div class="col-md-6">
                                    <div class="form-inline" align="right">
-                                       <label>เปอร์เซ็นต์ค่าคอม : </label>
-                                       <input type="text" name="vatPrice" class="form-control" style="width: 250px;" placeholder="เปอร์เซ็นต์ค่าคอม" />
+                                       <label>รวมยอดจัด : </label>
+                                       <input type="text" id="tempTopcar" name="tempTopcar" class="form-control" style="width: 250px;" placeholder="รวมยอดจัด" readonly/>
+                                       <!-- <input type="text" name="vatPrice" class="form-control" style="width: 250px;" placeholder="เปอร์เซ็นต์ค่าคอม" /> -->
                                    </div>
                                   </div>
                                 </div>
@@ -1155,14 +1220,14 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                       <label>ยอดปิดบัญชี : </label>
-                                      <input type="text" id="closeAccountPrice" name="closeAccountPrice" class="form-control" style="width: 250px;" placeholder="ยอดปิดบัญชี" onchange="sum()"/>
+                                      <input type="text" id="closeAccountPrice" name="closeAccountPrice" class="form-control" value="0" style="width: 250px;" placeholder="ยอดปิดบัญชี" oninput="balance()"/>
                                     </div>
                                   </div>
 
                                   <div class="col-md-6">
                                    <div class="form-inline" align="right">
                                      <label>ซื้อ ป2+ : </label>
-                                     <input type="text" id="P2Price" name="P2Price" class="form-control" style="width: 250px;" placeholder="ซื้อ ป2+" onchange="sum()"/>
+                                     <input type="text" id="P2Price" name="P2Price" class="form-control" value="0" style="width: 250px;" placeholder="ซื้อ ป2+" onchange="calculate()"/>
                                    </div>
                                   </div>
                                 </div>
@@ -1172,14 +1237,14 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                        <label>ค่าใช้จ่ายขนส่ง : </label>
-                                       <input type="text" id="tranPrice" name="tranPrice" class="form-control" style="width: 250px;" placeholder="ค่าใช้จ่ายขนส่ง" onchange="sum()"/>
+                                       <input type="text" id="tranPrice" name="tranPrice" class="form-control" value="0" style="width: 250px;" placeholder="ค่าใช้จ่ายขนส่ง" oninput="balance()"/>
                                      </div>
                                   </div>
 
                                   <div class="col-md-6">
                                    <div class="form-inline" align="right">
                                        <label>อื่นๆ : </label>
-                                       <input type="text" id="otherPrice" name="otherPrice" class="form-control" style="width: 250px;" placeholder="อื่นๆ" onchange="sum()"/>
+                                       <input type="text" id="otherPrice" name="otherPrice" class="form-control" value="0" style="width: 250px;" placeholder="อื่นๆ" oninput="balance()"/>
                                    </div>
                                   </div>
                                 </div>
@@ -1188,7 +1253,7 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                        <label>ค่าประเมิน : </label>
-                                       <select name="evaluetionPrice" class="form-control" style="width: 250px;">
+                                       <select id="evaluetionPrice" name="evaluetionPrice" class="form-control" style="width: 250px;" oninput="balance()">
                                          <option value="" disabled selected>--- ค่าประเมิน ---</option>
                                          <option value="1,000">1,000</option>
                                          <option value="1,500">1,500</option>
@@ -1201,8 +1266,8 @@
 
                                   <div class="col-md-6">
                                    <div class="form-inline" align="right">
-                                       <label>ค่าการตลาด : </label>
-                                       <input type="text" name="marketingPrice" class="form-control" style="width: 250px;"  placeholder="1,500" value="1,500" readonly />
+                                     <label>อากร : </label>
+                                     <input type="text" id="dutyPrice" name="dutyPrice" class="form-control" style="width: 250px;" placeholder="1,500" value="1,500" readonly oninput="balance()"/>
                                    </div>
                                   </div>
                                 </div>
@@ -1210,45 +1275,36 @@
                                 <div class="row">
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
-                                       <label>อากร : </label>
-                                       <input type="text" name="dutyPrice" class="form-control" style="width: 250px;" placeholder="1,500" value="1,500" readonly />
+                                      <label>ค่าการตลาด : </label>
+                                      <input type="text" id="marketingPrice" name="marketingPrice" class="form-control" style="width: 250px;"  placeholder="1,500" value="1,500" readonly oninput="balance()"/>
                                      </div>
                                   </div>
 
                                   <div class="col-md-6">
                                      <div class="form-inline" align="right">
                                        <label>รวม คชจ. : </label>
-                                       <input type="text" id="totalkPrice" name="totalkPrice" class="form-control" style="width: 250px;" placeholder="รวม คชจ." onchange="sum()"/>
+                                       <input type="text" id="totalkPrice" name="totalkPrice" class="form-control" style="width: 250px;" placeholder="รวม คชจ." onchange="balance()" readonly/>
+                                       <input type="hidden" id="temptotalkPrice" name="temptotalkPrice" class="form-control" style="width: 250px;" placeholder="รวม คชจ." onchange="balance()"/>
                                      </div>
                                   </div>
                                 </div>
+
+                                <hr>
 
                                 <div class="row">
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                        <label>คงเหลือ : </label>
-                                       <input type="text" id="balancePrice" name="balancePrice" class="form-control" style="width: 250px;" placeholder="คงเหลือ" onchange="sum()"/>
+                                       <input type="text" id="balancePrice" name="balancePrice" class="form-control" style="width: 250px;" placeholder="คงเหลือ" readonly/>
                                      </div>
                                    </div>
 
                                    <div class="col-md-6">
                                       <div class="form-inline" align="right">
                                         <label>ค่าคอมหลังหัก 3% : </label>
-                                        <input type="text" id="commitPrice" name="commitPrice" class="form-control" style="width: 250px;" placeholder="ค่าคอมหลังหัก" onchange="sum()"/>
+                                        <input type="text" id="commitPrice" name="commitPrice" class="form-control" style="width: 250px;" placeholder="ค่าคอมหลังหัก" readonly/>
                                       </div>
                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-5">
-                                      <div class="form-inline" align="right">
-                                        <label>แถมประกัน 2 + ฟรี 1 ปี (เริ่ม) : </label>
-                                        <input type="text" name="insurancePrice" class="form-control" style="width: 250px;" placeholder="แถมประกัน2+ฟรี1ปี(เริ่ม)" />
-                                      </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                    </div>
                                 </div>
 
                               </div>

@@ -436,7 +436,7 @@ class CallController extends Controller
 
                     for ($j=0; $j < $sum_data_today; $j++) {
 
-                      for ($i=0; $i < $sumall; $i++) {
+                      for ($i=0; $i < $allsum; $i++) {
 
                         if ($data_today[$j] == $all[$i]) {
                               $sum_for_all1[] = $all[$i];
@@ -446,7 +446,7 @@ class CallController extends Controller
                         if($data_today[$j] <> $all[$i]) {
                             $numall = $i;
 
-                          if ($numall == ($sumall - 1)) {
+                          if ($numall == ($allsum - 1)) {
                             $sum_for_all2[] = $data_today[$j];
                             $numall = 0;
                           }
@@ -459,7 +459,7 @@ class CallController extends Controller
                $num1 = count($sum_for_all1);
                $num2 = count($sum_for_all2);
 
-               // dump($sum_data_today, $sumall, $num1, $num2);
+               // dump($sum_data_today, $allsum, $num1, $num2);
 
 
                for($c=0; $c<$num2; $c++){
