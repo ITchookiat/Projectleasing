@@ -741,16 +741,16 @@
                                 <hr />
                                 <script>
                                     function addCommas(nStr){
-   nStr += '';
-   x = nStr.split('.');
-   x1 = x[0];
-   x2 = x.length > 1 ? '.' + x[1] : '';
-   var rgx = /(\d+)(\d{3})/;
-   while (rgx.test(x1)) {
-     x1 = x1.replace(rgx, '$1' + ',' + '$2');
-    }
-  return x1 + x2;
-}
+                                       nStr += '';
+                                       x = nStr.split('.');
+                                       x1 = x[0];
+                                       x2 = x.length > 1 ? '.' + x[1] : '';
+                                       var rgx = /(\d+)(\d{3})/;
+                                       while (rgx.test(x1)) {
+                                         x1 = x1.replace(rgx, '$1' + ',' + '$2');
+                                        }
+                                      return x1 + x2;
+                                    }
 
                                     function calculate(){
 
@@ -769,7 +769,11 @@
 
                                      var ori = document.getElementById('TopcarOri').value;
 
-                                     var totaltopcar = parseFloat(num1)+parseFloat(num5);
+                                     if(num5 > 6700){
+                                       var totaltopcar = parseFloat(num1);
+                                     }else {
+                                       var totaltopcar = parseFloat(num1)+parseFloat(num5);
+                                     }
 
                                       var a = (num2*num4)+100;
                                       var b = (((totaltopcar*a)/100)*1.07)/num4;
@@ -855,14 +859,25 @@
                                         var ori = document.getElementById('TopcarOri').value;
                                         var Topori = ori.replace(",","");
 
-                                        var tempresult = parseFloat(num1)+parseFloat(num2)+parseFloat(num3)+parseFloat(num4)+parseFloat(num5)+parseFloat(num6);
-                                        var result = parseFloat(num1)+parseFloat(num2)+parseFloat(num3)+parseFloat(num4)+parseFloat(num5)+parseFloat(num6)+parseFloat(num7);
+                                        if(num8 > 6700){
+                                        var tempresult = parseFloat(num1)+parseFloat(num2)+parseFloat(num3)+parseFloat(num4)+parseFloat(num5)+parseFloat(num6)+parseFloat(num8);
+                                       }else{
+                                         var tempresult = parseFloat(num1)+parseFloat(num2)+parseFloat(num3)+parseFloat(num4)+parseFloat(num5)+parseFloat(num6);
+                                       }
+                                        if(num8 > 6700){
+                                        var result = parseFloat(num1)+parseFloat(num2)+parseFloat(num3)+parseFloat(num4)+parseFloat(num5)+parseFloat(num6)+parseFloat(num7)+parseFloat(num8);
+                                      }else {
+                                        var result = parseFloat(num1)+parseFloat(num2)+parseFloat(num3)+parseFloat(num4)+parseFloat(num5)+parseFloat(num6)+parseFloat(num7)+parseFloat(num8);
+                                      }
 
                                         if(num88 == 0){
                                           var TotalBalance = parseFloat(toptemp)-result;
                                         }
-                                        else{
+                                        else if(num8 > 6700){
                                           var TotalBalance = parseFloat(Topori)-result;
+                                        }
+                                        else{
+                                          var TotalBalance = parseFloat(toptemp)-result;
                                         }
 
 
