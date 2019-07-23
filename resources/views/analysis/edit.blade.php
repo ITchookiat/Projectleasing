@@ -686,26 +686,52 @@
 
                           <hr />
                           <script>
-                            function addCommas(nStr){
-                             nStr += '';
-                             x = nStr.split('.');
-                             x1 = x[0];
-                             x2 = x.length > 1 ? '.' + x[1] : '';
-                             var rgx = /(\d+)(\d{3})/;
-                             while (rgx.test(x1)) {
-                             x1 = x1.replace(rgx, '$1' + ',' + '$2');
-                             }
-                             return x1 + x2;
-                             }
+                              function addCommas(nStr){
+                                 nStr += '';
+                                 x = nStr.split('.');
+                                 x1 = x[0];
+                                 x2 = x.length > 1 ? '.' + x[1] : '';
+                                 var rgx = /(\d+)(\d{3})/;
+                                 while (rgx.test(x1)) {
+                                   x1 = x1.replace(rgx, '$1' + ',' + '$2');
+                                  }
+                                return x1 + x2;
+                              }
+
                               function calculate(){
+
                                 var num11 = document.getElementById('Topcar').value;
                                 var num1 = num11.replace(",","");
                                 var num22 = document.getElementById('Interestcar').value;
                                 var num2 = num22.replace("%","");
                                 var num3 = document.getElementById('Vatcar').value;
                                 var num4 = document.getElementById('Timeslackencar').value;
+
+                                var num55 = document.getElementById('P2Price').value;
+                                var num5 = num55.replace(",","");
+
+                                var num66 = document.getElementById('P2PriceOri').value;
+                                var num6 = num66.replace(",","");
+
+                                    if(num55 == ''){
+                                      var num5 = 0;
+                                    }else if (num5 == 0) {
+                                      var num1 = parseFloat(num1) - parseFloat(num6);
+                                    }
+                              console.log(num1);
+
+                                   if(num5 > 6700){
+                                     var totaltopcar = parseFloat(num1);
+                                   }else {
+                                     if (num5 == 0) {
+                                       var totaltopcar = parseFloat(num1);
+                                     }else {
+                                       var totaltopcar = parseFloat(num1)+parseFloat(num5);
+                                     }
+                                   }
+
                                 var a = (num2*num4)+100;
-                                var b = (((num1*a)/100)*1.07)/num4;
+                                var b = (((totaltopcar*a)/100)*1.07)/num4;
                                 var result = Math.ceil(b/10)*10;
 
                                 var durate = result/1.07;
@@ -717,29 +743,121 @@
                                 var total = result*num4;
                                 var total2 = durate2+tax2;
 
-                                if(!isNaN(result)){
-                                    document.form1.Paycar.value = addCommas(result.toFixed(2));
-                                    document.form1.Topcar.value = addCommas(num1);
-                                    document.form1.Paymemtcar.value = addCommas(durate.toFixed(2));
-                                    document.form1.Timepaymentcar.value = addCommas(durate2.toFixed(2));
-                                    document.form1.Taxcar.value = addCommas(tax.toFixed(2));
-                                    document.form1.Taxpaycar.value = addCommas(tax2.toFixed(2));
-                                    document.form1.Totalpay1car.value = addCommas(total.toFixed(2));
-                                    document.form1.Totalpay2car.value = addCommas(total2.toFixed(2));
-                                   }
-                                 }
-                               function sum2() {
-                                 var num1 = document.getElementById('Commissioncar').value;
-                                 var num11 = num1.replace(",","");
+                                  if(!isNaN(result)){
+                                      document.form1.Paycar.value = addCommas(result.toFixed(2));
+                                      document.form1.Topcar.value = addCommas(totaltopcar);
+                                      document.form1.TopcarOri.value = addCommas(num1);
+                                      document.form1.Paymemtcar.value = addCommas(durate.toFixed(2));
+                                      document.form1.Timepaymentcar.value = addCommas(durate2.toFixed(2));
+                                      document.form1.Taxcar.value = addCommas(tax.toFixed(2));
+                                      document.form1.Taxpaycar.value = addCommas(tax2.toFixed(2));
+                                      document.form1.Totalpay1car.value = addCommas(total.toFixed(2));
+                                      document.form1.Totalpay2car.value = addCommas(total2.toFixed(2));
+                                      document.form1.P2Price.value = addCommas(num5);
+                                      document.form1.tempTopcar.value = addCommas(totaltopcar);
+                                      document.form1.P2PriceOri.value = addCommas(num5);
+                                  }
+                              }
 
-                                document.form1.Commissioncar.value = addCommas(num1);
+                              function commission(){
+                                 var num11 = document.getElementById('Commissioncar').value;
+                                 var num1 = num11.replace(",","");
+                                 if(num1 > 1000){
+                                     if(num11 == ''){
+                                       var num11 = 0;
+                                     }
+                                     else{
+                                       var sumCom = (num11*0.03);
+                                       var result = num11 - sumCom;
+                                     }
+                                 }else{
+                                   var result = num1;
+                                 }
+                                 if(!isNaN(num11)){
+                                     document.form1.Commissioncar.value = addCommas(num1);
+                                     document.form1.commitPrice.value = addCommas(result);
                                 }
-                             </script>
+
+                               }
+
+                               function balance(){
+                                  var num11 = document.getElementById('tranPrice').value;
+                                  var num1 = num11.replace(",","");
+
+                                  var num22 = document.getElementById('otherPrice').value;
+                                  var num2 = num22.replace(",","");
+
+                                  var num33 = document.getElementById('evaluetionPrice').value;
+                                  var num3 = num33.replace(",","");
+                                  if(num33 == ''){
+                                    var num3 = 0;
+                                  }
+
+                                  var num44 = document.getElementById('dutyPrice').value;
+                                  var num4 = num44.replace(",","");
+
+                                  var num55 = document.getElementById('marketingPrice').value;
+                                  var num5 = num55.replace(",","");
+
+
+                                  var num66 = document.getElementById('actPrice').value;
+                                  var num6 = num66.replace(",","");
+
+                                  var num77 = document.getElementById('closeAccountPrice').value;
+                                  var num7 = num77.replace(",","");
+
+                                  var num88 = document.getElementById('P2Price').value;
+                                  var num8 = num88.replace(",","");
+
+                                  var temp = document.getElementById('tempTopcar').value;
+                                  var toptemp = temp.replace(",","");
+
+                                  var ori = document.getElementById('TopcarOri').value;
+                                  var Topori = ori.replace(",","");
+
+                                  if(num8 > 6700){
+                                  var tempresult = parseFloat(num1)+parseFloat(num2)+parseFloat(num3)+parseFloat(num4)+parseFloat(num5)+parseFloat(num6)+parseFloat(num8);
+                                 }else{
+                                   var tempresult = parseFloat(num1)+parseFloat(num2)+parseFloat(num3)+parseFloat(num4)+parseFloat(num5)+parseFloat(num6);
+                                 }
+                                  if(num8 > 6700){
+                                  var result = parseFloat(num1)+parseFloat(num2)+parseFloat(num3)+parseFloat(num4)+parseFloat(num5)+parseFloat(num6)+parseFloat(num7)+parseFloat(num8);
+                                }else {
+                                  var result = parseFloat(num1)+parseFloat(num2)+parseFloat(num3)+parseFloat(num4)+parseFloat(num5)+parseFloat(num6)+parseFloat(num7)+parseFloat(num8);
+                                }
+
+                                  if(num88 == 0){
+                                    var TotalBalance = parseFloat(toptemp)-result;
+                                  }
+                                  else if(num8 > 6700){
+                                    var TotalBalance = parseFloat(Topori)-result;
+                                  }
+                                  else{
+                                    var TotalBalance = parseFloat(toptemp)-result;
+                                  }
+
+
+                                  if(!isNaN(result)){
+                                      document.form1.totalkPrice.value = addCommas(tempresult);
+                                      document.form1.temptotalkPrice.value = addCommas(result);
+                                      document.form1.tranPrice.value = addCommas(num1);
+                                      document.form1.otherPrice.value = addCommas(num2);
+                                      document.form1.dutyPrice.value = addCommas(num4);
+                                      document.form1.marketingPrice.value = addCommas(num5);
+                                      document.form1.actPrice.value = addCommas(num6);
+                                      document.form1.closeAccountPrice.value = addCommas(num7);
+                                      document.form1.balancePrice.value = addCommas(TotalBalance);
+                                  }
+
+                                }
+                          </script>
+
                           <div class="row">
                             <div class="col-md-5">
                               <div class="form-inline" align="right">
                                 <label>ยอดจัด : </label>
-                                <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car, 2)}}" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" onchange="calculate()" />
+                                <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" onchange="calculate()" />
+                                <input type="hidden" id="TopcarOri" name="TopcarOri" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" />
                               </div>
                             </div>
 
@@ -903,7 +1021,7 @@
                             <div class="col-md-5">
                               <div class="form-inline" align="right">
                                 <label>ค่าคอม : </label>
-                                <input type="text" id="Commissioncar" name="Commissioncar" value="{{number_format($data->Commission_car, 2)}}" class="form-control" style="width: 250px;" placeholder="ค่าคอม" onchange="sum2()"/>
+                                <input type="text" id="Commissioncar" name="Commissioncar" value="{{number_format($data->Commission_car, 2)}}" class="form-control" style="width: 250px;" placeholder="ค่าคอม" oninput="commission()"/>
                               </div>
                             </div>
 
@@ -969,19 +1087,18 @@
                            </div>
                         </div>
                         <div class="tab-pane" id="tab_4">
-
-
                           <div class="row">
                             <div class="col-md-5">
                               <div class="form-inline" align="right">
                                  <label>พรบ. : </label>
-                                 <input type="text" id="actPrice" name="actPrice" value="{{number_format($data->act_Price)}}" class="form-control" style="width: 250px;" placeholder="พรบ." onchange="sum()"/>
+                                 <input type="text" id="actPrice" name="actPrice" value="{{number_format($data->act_Price)}}" class="form-control" style="width: 250px;" placeholder="พรบ." onchange="balance()"/>
                                </div>
                             </div>
 
                             <div class="col-md-6">
                              <div class="form-inline" align="right">
                                  <label>เปอร์เซ็นต์ค่าคอม : </label>
+                                 <input type="hidden" id="tempTopcar" value="{{$data->Top_car}}" name="tempTopcar" class="form-control" style="width: 250px;" placeholder="รวมยอดจัด" readonly/>
                                  <input type="text" name="vatPrice" value="{{$data->vat_Price}}" class="form-control" style="width: 250px;" placeholder="เปอร์เซ็นต์ค่าคอม" />
                              </div>
                             </div>
@@ -991,14 +1108,15 @@
                             <div class="col-md-5">
                               <div class="form-inline" align="right">
                                 <label>ยอดปิดบัญชี : </label>
-                                <input type="text" id="closeAccountPrice" name="closeAccountPrice" value="{{number_format($data->closeAccount_Price)}}" class="form-control" style="width: 250px;" placeholder="ยอดปิดบัญชี" onchange="sum()"/>
+                                <input type="text" id="closeAccountPrice" name="closeAccountPrice" value="{{number_format($data->closeAccount_Price)}}" class="form-control" style="width: 250px;" placeholder="ยอดปิดบัญชี" onchange="balance()"/>
                               </div>
                             </div>
 
                             <div class="col-md-6">
                              <div class="form-inline" align="right">
                                <label>ซื้อ ป2+ : </label>
-                               <input type="text" id="P2Price" name="P2Price" value="{{number_format($data->P2_Price)}}" class="form-control" style="width: 250px;" placeholder="ซื้อ ป2+" onchange="sum()"/>
+                               <input type="text" id="P2Price" name="P2Price" value="{{number_format($data->P2_Price)}}" class="form-control" style="width: 250px;" placeholder="ซื้อ ป2+" onchange="calculate()"/>
+                               <input type="hidden" id="P2PriceOri" name="P2PriceOri" class="form-control" value="{{number_format($data->P2_Price)}}" style="width: 250px;" placeholder="ซื้อ ป2+" onchange="calculate()"/>
                              </div>
                             </div>
                           </div>
@@ -1008,14 +1126,14 @@
                             <div class="col-md-5">
                               <div class="form-inline" align="right">
                                  <label>ค่าใช้จ่ายขนส่ง : </label>
-                                 <input type="text" id="tranPrice" name="tranPrice" value="{{number_format($data->tran_Price, 2)}}" class="form-control" style="width: 250px;" placeholder="ค่าใช้จ่ายขนส่ง" onchange="sum()"/>
+                                 <input type="text" id="tranPrice" name="tranPrice" value="{{number_format($data->tran_Price)}}" class="form-control" style="width: 250px;" placeholder="ค่าใช้จ่ายขนส่ง" onchange="balance()"/>
                                </div>
                             </div>
 
                             <div class="col-md-6">
                              <div class="form-inline" align="right">
                                  <label>อื่นๆ : </label>
-                                 <input type="text" id="otherPrice" name="otherPrice" value="{{number_format($data->other_Price, 2)}}" class="form-control" style="width: 250px;" placeholder="อื่นๆ" onchange="sum()"/>
+                                 <input type="text" id="otherPrice" name="otherPrice" value="{{number_format($data->other_Price)}}" class="form-control" style="width: 250px;" placeholder="อื่นๆ" onchange="balance()"/>
                              </div>
                             </div>
                           </div>
@@ -1024,7 +1142,7 @@
                             <div class="col-md-5">
                               <div class="form-inline" align="right">
                                  <label>ค่าประเมิน : </label>
-                                 <select name="evaluetionPrice" class="form-control" style="width: 250px;">
+                                 <select id="evaluetionPrice" name="evaluetionPrice" class="form-control" style="width: 250px;" onchange="balance()">
                                    <option value="" disabled selected>--- ค่าประเมิน ---</option>
                                    @foreach ($evaluetionPricee as $key => $value)
                                      <option value="{{$key}}" {{ ($key == $data->evaluetion_Price) ? 'selected' : '' }}>{{$value}}</option>
@@ -1036,7 +1154,7 @@
                             <div class="col-md-6">
                              <div class="form-inline" align="right">
                                <label>อากร : </label>
-                               <input type="text" name="dutyPrice" value="{{$data->duty_Price}}" class="form-control" style="width: 250px;" placeholder="อากร" readonly />
+                               <input type="text" id="dutyPrice" name="dutyPrice" value="{{$data->duty_Price}}" class="form-control" style="width: 250px;" placeholder="อากร" onchange="balance()" readonly />
                              </div>
                             </div>
                           </div>
@@ -1045,30 +1163,33 @@
                             <div class="col-md-5">
                               <div class="form-inline" align="right">
                                 <label>ค่าการตลาด : </label>
-                                <input type="text" name="marketingPrice" value="{{ $data->marketing_Price }}" class="form-control" style="width: 250px;" placeholder="การตลาด" readonly />
+                                <input type="text" id="marketingPrice" name="marketingPrice" value="{{ $data->marketing_Price }}" class="form-control" style="width: 250px;" placeholder="การตลาด" onchange="balance()" readonly />
                                </div>
                             </div>
 
                             <div class="col-md-6">
                                <div class="form-inline" align="right">
                                  <label>รวม คชจ. : </label>
-                                 <input type="text" id="totalkPrice" name="totalkPrice" value="{{number_format($data->totalk_Price, 2)}}" class="form-control" style="width: 250px;" placeholder="รวม คชจ." onchange="sum()"/>
+                                 <input type="text" id="totalkPrice" name="totalkPrice" value="{{number_format($data->totalk_Price, 2)}}" class="form-control" style="width: 250px;" placeholder="รวม คชจ." onchange="balance()" readonly/>
+                                 <input type="hidden" id="temptotalkPrice" name="temptotalkPrice" value="{{number_format($data->totalk_Price, 2)}}" class="form-control" style="width: 250px;" placeholder="รวม คชจ." onchange="balance()"/>
                                </div>
                             </div>
                           </div>
+
+                          <hr>
 
                           <div class="row">
                             <div class="col-md-5">
                               <div class="form-inline" align="right">
                                  <label>คงเหลือ : </label>
-                                 <input type="text" id="balancePrice" name="balancePrice" value="{{number_format($data->balance_Price, 2)}}" class="form-control" style="width: 250px;" placeholder="คงเหลือ" onchange="sum()"/>
+                                 <input type="text" id="balancePrice" name="balancePrice" value="{{number_format($data->balance_Price)}}" class="form-control" style="width: 250px;" placeholder="คงเหลือ" readonly/>
                                </div>
                              </div>
 
                              <div class="col-md-6">
                                 <div class="form-inline" align="right">
                                   <label>ค่าคอมหลังหัก 3% : </label>
-                                  <input type="text" id="commitPrice" name="commitPrice" value="{{number_format($data->commit_Price, 2)}}" class="form-control" style="width: 250px;" placeholder="ค่าคอมหลังหัก" onchange="sum()"/>
+                                  <input type="text" id="commitPrice" name="commitPrice" value="{{number_format($data->commit_Price, 2)}}" class="form-control" style="width: 250px;" placeholder="ค่าคอมหลังหัก" readonly/>
                                 </div>
                              </div>
                           </div>
