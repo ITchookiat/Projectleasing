@@ -763,17 +763,26 @@
 
                                       var num55 = document.getElementById('P2Price').value;
                                       var num5 = num55.replace(",","");
+
+                                      var num66 = document.getElementById('P2PriceOri').value;
+                                      var num6 = num66.replace(",","");
+
                                           if(num55 == ''){
                                             var num5 = 0;
+                                          }else if (num5 == 0) {
+                                            var num1 = parseFloat(num1) - parseFloat(num6);
                                           }
+                                    console.log(num1);
 
-                                     var ori = document.getElementById('TopcarOri').value;
-
-                                     if(num5 > 6700){
-                                       var totaltopcar = parseFloat(num1);
-                                     }else {
-                                       var totaltopcar = parseFloat(num1)+parseFloat(num5);
-                                     }
+                                         if(num5 > 6700){
+                                           var totaltopcar = parseFloat(num1);
+                                         }else {
+                                           if (num5 == 0) {
+                                             var totaltopcar = parseFloat(num1);
+                                           }else {
+                                             var totaltopcar = parseFloat(num1)+parseFloat(num5);
+                                           }
+                                         }
 
                                       var a = (num2*num4)+100;
                                       var b = (((totaltopcar*a)/100)*1.07)/num4;
@@ -800,6 +809,7 @@
                                             document.form1.Totalpay2car.value = addCommas(total2.toFixed(2));
                                             document.form1.P2Price.value = addCommas(num5);
                                             document.form1.tempTopcar.value = addCommas(totaltopcar);
+                                            document.form1.P2PriceOri.value = addCommas(num5);
                                         }
                                     }
 
@@ -894,8 +904,7 @@
                                         }
 
                                       }
-
-                               </script>
+                                </script>
 
                                 <div class="row">
                                   <div class="col-md-5">
@@ -1224,9 +1233,9 @@
 
                                   <div class="col-md-6">
                                    <div class="form-inline" align="right">
-                                       <label>รวมยอดจัด : </label>
-                                       <input type="text" id="tempTopcar" name="tempTopcar" class="form-control" style="width: 250px;" placeholder="รวมยอดจัด" readonly/>
-                                       <!-- <input type="text" name="vatPrice" class="form-control" style="width: 250px;" placeholder="เปอร์เซ็นต์ค่าคอม" /> -->
+                                       <label>เปอร์เซ็นต์ค่าคอม : </label>
+                                       <input type="hidden" id="tempTopcar" name="tempTopcar" class="form-control" style="width: 250px;" placeholder="รวมยอดจัด" readonly/>
+                                       <input type="text" name="vatPrice" class="form-control" style="width: 250px;" placeholder="เปอร์เซ็นต์ค่าคอม" />
                                    </div>
                                   </div>
                                 </div>
@@ -1243,6 +1252,7 @@
                                    <div class="form-inline" align="right">
                                      <label>ซื้อ ป2+ : </label>
                                      <input type="text" id="P2Price" name="P2Price" class="form-control" value="0" style="width: 250px;" placeholder="ซื้อ ป2+" onchange="calculate()"/>
+                                     <input type="hidden" id="P2PriceOri" name="P2PriceOri" class="form-control" value="0" style="width: 250px;" placeholder="ซื้อ ป2+" onchange="calculate()"/>
                                    </div>
                                   </div>
                                 </div>
