@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="{{ asset('dist/css/skins/_all-skins.min.css') }}">
 
   <style>
-      .a1 {color: #0832F9;}
+      .a1 {color: #E6E6FA;}
       .a2 {color: #4A0B52;}
       .a3 {color: #262A5E;}
       .a4 {color: #B1692E;}
