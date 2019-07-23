@@ -31,7 +31,7 @@
                                   </div>
                                 </div>
                               </div>
-                              <a href="{{ route('Analysis',0) }}">
+                              <a href="#" data-toggle="modal" data-target="#modal-default">
                                 <div class="panel-footer">
                                   <span class="pull-left">ดูเพิ่มเติม</span>
                                   <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -172,14 +172,14 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">ปิด</span></button>
-        <p align="center" class="modal-title">เมนูย่อย</p>
+        <p align="center" class="modal-title"><font size="5">แผนกสินเชื่อ</font></p>
       </div>
       <div class="modal-body">
         <div class="row">
           <div class="col-lg-4 col-md-4">
             <div class="info-box">
               <span class="info-box-icon bg-red">
-                <a href="{{ route('Analysis',1) }}" class="a1"><i class="fa fa-google-plus"></i></a>
+                <a href="{{ route('Analysis',1) }}" class="a1"><i class="fa fa-fax"></i></a>
               </span>
               <div class="info-box-content">
                 <span class="info-box-text"><br /></span>
@@ -203,7 +203,7 @@
           <div class="col-lg-4 col-md-4">
             <div class="info-box">
               <span class="info-box-icon bg-aqua">
-                <a href="{{ route('call',1) }}" class="a1"><i class="fa fa-google-plus"></i></a>
+                <a href="{{ route('finance',1) }}" class="a1"><i class="fa fa-money"></i></a>
               </span>
               <div class="info-box-content">
                 <span class="info-box-text"><br /></span>
