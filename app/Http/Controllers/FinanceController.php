@@ -314,7 +314,8 @@ class FinanceController extends Controller
   $sum_count_bt = $count_bt1 + $count_bt2 + $count_bt3 + $count_bt4 + $count_bt5 + $count_bt6 + $count_bt7;
   ///// สิ้นสุดส่วนของเบตง //////////
 
-
+        if($request->type == 1) {
+          // dd($type);
          return view('finance.home', compact('type','fmonth','fyear',
          'count_pt1','count_pt2','count_pt3','count_pt4','count_pt5','count_pt6','count_pt7','sum_count_pt',
          'count_yl1','count_yl2','count_yl3','count_yl4','count_yl5','count_yl6','count_yl7','sum_count_yl',
@@ -322,6 +323,36 @@ class FinanceController extends Controller
          'count_sb1','count_sb2','count_sb3','count_sb4','count_sb5','count_sb6','count_sb7','sum_count_sb',
          'count_kl1','count_kl2','count_kl3','count_kl4','count_kl5','count_kl6','count_kl7','sum_count_kl',
          'count_bt1','count_bt2','count_bt3','count_bt4','count_bt5','count_bt6','count_bt7','sum_count_bt'));
+        }
+         if($request->type == 2){
+           // dd($type);
+           $ReportType = $request->type;
+
+           $view = \View::make('finance.reportFinance', compact('ReportType','fmonth','fyear',
+           'count_pt1','count_pt2','count_pt3','count_pt4','count_pt5','count_pt6','count_pt7','sum_count_pt',
+           'count_yl1','count_yl2','count_yl3','count_yl4','count_yl5','count_yl6','count_yl7','sum_count_yl',
+           'count_nr1','count_nr2','count_nr3','count_nr4','count_nr5','count_nr6','count_nr7','sum_count_nr',
+           'count_sb1','count_sb2','count_sb3','count_sb4','count_sb5','count_sb6','count_sb7','sum_count_sb',
+           'count_kl1','count_kl2','count_kl3','count_kl4','count_kl5','count_kl6','count_kl7','sum_count_kl',
+           'count_bt1','count_bt2','count_bt3','count_bt4','count_bt5','count_bt6','count_bt7','sum_count_bt'));
+           $html = $view->render();
+
+           $pdf = new PDF();
+
+           $pdf::SetTitle('รายงานประเภทจัดไฟแนนซ์ประจำเดือน');
+           $pdf::AddPage('P', 'A4');
+
+
+           // $pdf::AddPage('P', 'A4');
+                   // set margins
+           $pdf::SetMargins(5, 5, 6);
+
+           $pdf::SetFont('freeserif', 24);
+
+           $pdf::WriteHTML($html,true,false,true,false,'');
+           $pdf::Output('financereport.pdf');
+         }
+
      }
 
 

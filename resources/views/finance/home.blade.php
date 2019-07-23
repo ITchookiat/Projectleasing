@@ -75,6 +75,10 @@ return "$strDay $strMonthThai $strYear";
             <form method="get" action="{{ route('finance', 1) }}">
               <div align="right" class="form-inline">
 
+                <a target="_blank" href="{{ route('finance', 2) }}" class="btn btn-primary btn-app">
+                  <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
+                </a>
+
                 <button type="submit" class="btn btn-warning btn-app">
                 <span class="glyphicon glyphicon-search"></span> Search
                 </button>
@@ -139,7 +143,7 @@ return "$strDay $strMonthThai $strYear";
             @elseif($fmonth == 12)
             <p align="center"><b>รายงานประเภทจัดไฟแนนซ์ ประจำเดือน ธันวาคม {{ $fyear+543 }}</b></p>
             @endif
-            <table class="table table-bordered" style="width: 60%" align="center">
+            <table class="table table-bordered" style="width: 70%" align="center">
               <thead class="thead-light bg-gray-light">
                 <tr>
                   <td><center>แบบ</center></td>

@@ -51,7 +51,7 @@
         </li>
       @endif
 
-      <li class="treeview {{ (request()->is('Analysis/*')) ? 'active' : '' }} {{ (request()->is('call/*')) ? 'active' : '' }}">
+      <li class="treeview {{ (request()->is('Analysis/*')) ? 'active' : '' }} {{ (request()->is('call/*')) ? 'active' : '' }} {{ (request()->is('finance/*')) ? 'active' : '' }}">
         <a href="#">
           <i class="fa fa-database"></i> <span> แผนกสินเชื่อ</span>
           <span class="pull-right-container">
