@@ -600,6 +600,209 @@ return "$strDay $strMonthThai $strYear";
         </table>
         @endif
 
+        @if($ReportType == 8)
+
+        @if($fmonth == 01)
+        <p align="center"><b><font size="+5">รายงานการโทรไฟแนนซ์ ลูกค้าค้าง ประจำเดือน มกราคม {{ $fyear+543 }}</font></b></p>
+        @elseif($fmonth == 02)
+        <p align="center"><b><font size="+5">รายงานการโทรไฟแนนซ์ ลูกค้าค้าง ประจำเดือน กุมภาพันธ์ {{ $fyear+543 }}</font></b></p>
+        @elseif($fmonth == 03)
+        <p align="center"><b><font size="+5">รายงานการโทรไฟแนนซ์ ลูกค้าค้าง ประจำเดือน มีนาคม {{ $fyear+543 }}</font></b></p>
+        @elseif($fmonth == 04)
+        <p align="center"><b><font size="+5">รายงานการโทรไฟแนนซ์ ลูกค้าค้าง ประจำเดือน เมษายน {{ $fyear+543 }}</font></b></p>
+        @elseif($fmonth == 05)
+        <p align="center"><b><font size="+5">รายงานการโทรไฟแนนซ์ ลูกค้าค้าง ประจำเดือน พฤษภาคม {{ $fyear+543 }}</font></b></p>
+        @elseif($fmonth == 06)
+        <p align="center"><b><font size="+5">รายงานการโทรไฟแนนซ์ ลูกค้าค้าง ประจำเดือน มิถุนายน {{ $fyear+543 }}</font></b></p>
+        @elseif($fmonth == 07)
+        <p align="center"><b><font size="+5">รายงานการโทรไฟแนนซ์ ลูกค้าค้าง ประจำเดือน กรกฎาคม {{ $fyear+543 }}</font></b></p>
+        @elseif($fmonth == 8)
+        <p align="center"><b><font size="+5">รายงานการโทรไฟแนนซ์ ลูกค้าค้าง ประจำเดือน สิงหาคม {{ $fyear+543 }}</font></b></p>
+        @elseif($fmonth == 9)
+        <p align="center"><b><font size="+5">รายงานการโทรไฟแนนซ์ ลูกค้าค้าง ประจำเดือน กันยายน {{ $fyear+543 }}</font></b></p>
+        @elseif($fmonth == 10)
+        <p align="center"><b><font size="+5">รายงานการโทรไฟแนนซ์ ลูกค้าค้าง ประจำเดือน ตุลาคม {{ $fyear+543 }}</font></b></p>
+        @elseif($fmonth == 11)
+        <p align="center"><b><font size="+5">รายงานการโทรไฟแนนซ์ ลูกค้าค้าง ประจำเดือน พฤศจิกายน {{ $fyear+543 }}</font></b></p>
+        @elseif($fmonth == 12)
+        <p align="center"><b><font size="+5">รายงานการโทรไฟแนนซ์ ลูกค้าค้าง ประจำเดือน ธันวาคม {{ $fyear+543 }}</font></b></p>
+        @endif
+        <table border="1">
+          <thead class="thead-light bg-gray-light">
+            <tr align="center">
+              <td rowspan="2" valign="middle"><b>ชื่อสาขา</b></td>
+              <td><b>ลูกค้ามาจ่าย</b></td>
+              <td><b>ลูกค้ามาจ่าย</b></td>
+              <td><b>ลูกค้าค้าง</b></td>
+              <td><b>% ลูกค้ามาชำระ</b></td>
+              <td><b>% ลูกค้ามาชำระ</b></td>
+            </tr>
+            <tr align="center">
+              <td><b>เป็น 0 งวด</b></td>
+              <td><b>ต่ำกว่า 1 งวด</b></td>
+              <td><b>1 งวด</b></td>
+              <td><b>เป็น 0 งวด</b></td>
+              <td><b>ต่ำกว่า 1 งวด</b></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr align="center">
+              <td>ปัตตานี (01)</td>
+              <td>{{ $sum_pt_month_0 }}</td>
+              <td>{{ $sum_pt_month_l1 }}</td>
+              <td>{{ $sum_pt_month_1 }}</td>
+              @if($sum_pt_month_0 == 0 && $sum_pt_month_1 == 0)
+              <td>0 %</td>
+              @else
+              <td>{{ round(number_format(($sum_pt_month_0 / $sum_pt_month_1) * 100, 2)) }} %</td>
+              @endif
+
+              @if($sum_pt_month_l1 == 0 && $sum_pt_month_1 == 0)
+              <td>0 %</td>
+              @else
+              <td>{{ round(number_format(($sum_pt_month_l1 / $sum_pt_month_1) * 100, 2)) }} %</td>
+              @endif
+            </tr>
+            <tr align="center">
+              <td>ยะลา (03)</td>
+              <td>{{ $sum_yl_month_0 }}</td>
+              <td>{{ $sum_yl_month_l1 }}</td>
+              <td>{{ $sum_yl_month_1 }}</td>
+              @if($sum_yl_month_0 == 0 && $sum_yl_month_1 == 0)
+              <td>0 %</td>
+              @else
+              <td>{{ round(number_format(($sum_yl_month_0 / $sum_yl_month_1) * 100, 2)) }} %</td>
+              @endif
+
+              @if($sum_yl_month_l1 == 0 && $sum_yl_month_1 == 0)
+              <td>0 %</td>
+              @else
+              <td>{{ round(number_format(($sum_yl_month_l1 / $sum_yl_month_1) * 100, 2)) }} %</td>
+              @endif
+            </tr>
+            <tr align="center">
+              <td>นราธิวาส (04)</td>
+              <td>{{ $sum_nr_month_0 }}</td>
+              <td>{{ $sum_nr_month_l1 }}</td>
+              <td>{{ $sum_nr_month_1 }}</td>
+              @if($sum_nr_month_0 == 0 && $sum_nr_month_1 == 0)
+              <td>0 %</td>
+              @else
+              <td>{{ round(number_format(($sum_nr_month_0 / $sum_nr_month_1) * 100, 2)) }} %</td>
+              @endif
+
+              @if($sum_nr_month_l1 == 0 && $sum_nr_month_1 == 0)
+              <td>0 %</td>
+              @else
+              <td>{{ round(number_format(($sum_nr_month_l1 / $sum_nr_month_1) * 100, 2)) }} %</td>
+              @endif
+            </tr>
+            <tr align="center">
+              <td>สายบุรี (05)</td>
+              <td>{{ $sum_sb_month_0 }}</td>
+              <td>{{ $sum_sb_month_l1 }}</td>
+              <td>{{ $sum_sb_month_1 }}</td>
+              @if($sum_sb_month_0 == 0 && $sum_sb_month_1 == 0)
+              <td>0 %</td>
+              @else
+              <td>{{ round(number_format(($sum_sb_month_0 / $sum_sb_month_1) * 100, 2)) }} %</td>
+              @endif
+
+              @if($sum_sb_month_l1 == 0 && $sum_sb_month_1 == 0)
+              <td>0 %</td>
+              @else
+              <td>{{ round(number_format(($sum_sb_month_l1 / $sum_sb_month_1) * 100, 2)) }} %</td>
+              @endif
+            </tr>
+            <tr align="center">
+              <td>สุไหงโก-ลก (06)</td>
+              <td>{{ $sum_kl_month_0 }}</td>
+              <td>{{ $sum_kl_month_l1 }}</td>
+              <td>{{ $sum_kl_month_1 }}</td>
+              @if($sum_kl_month_0 == 0 && $sum_kl_month_1 == 0)
+              <td>0 %</td>
+              @else
+              <td>{{ round(number_format(($sum_kl_month_0 / $sum_kl_month_1) * 100, 2)) }} %</td>
+              @endif
+
+              @if($sum_kl_month_l1 == 0 && $sum_kl_month_1 == 0)
+              <td>0 %</td>
+              @else
+              <td>{{ round(number_format(($sum_kl_month_l1 / $sum_kl_month_1) * 100, 2)) }} %</td>
+              @endif
+            </tr>
+            <tr align="center">
+              <td>เบตง (07)</td>
+              <td>{{ $sum_bt_month_0 }}</td>
+              <td>{{ $sum_bt_month_l1 }}</td>
+              <td>{{ $sum_bt_month_1 }}</td>
+              @if($sum_bt_month_0 == 0 && $sum_bt_month_1 == 0)
+              <td>0 %</td>
+              @else
+              <td>{{ round(number_format(($sum_bt_month_0 / $sum_bt_month_1) * 100, 2)) }} %</td>
+              @endif
+
+              @if($sum_bt_month_l1 == 0 && $sum_bt_month_1 == 0)
+              <td>0 %</td>
+              @else
+              <td>{{ round(number_format(($sum_bt_month_l1 / $sum_bt_month_1) * 100, 2)) }} %</td>
+              @endif
+            </tr>
+            <tr align="center">
+              <td>รวม (02)</td>
+              <td>{{ $sum_02_month_0 }}</td>
+              <td>{{ $sum_02_month_l1 }}</td>
+              <td>{{ $sum_02_month_1 }}</td>
+              @if($sum_02_month_0 == 0 && $sum_02_month_1 == 0)
+              <td>0 %</td>
+              @else
+              <td>{{ round(number_format(($sum_02_month_0 / $sum_02_month_1) * 100, 2)) }} %</td>
+              @endif
+
+              @if($sum_02_month_l1 == 0 && $sum_02_month_1 == 0)
+              <td>0 %</td>
+              @else
+              <td>{{ round(number_format(($sum_02_month_l1 / $sum_02_month_1) * 100, 2)) }} %</td>
+              @endif
+            </tr>
+            <tr align="center">
+              <td>รวม (10)</td>
+              <td>{{ $sum_10_month_0 }}</td>
+              <td>{{ $sum_10_month_l1 }}</td>
+              <td>{{ $sum_10_month_1 }}</td>
+              @if($sum_10_month_0 == 0 && $sum_10_month_1 == 0)
+              <td>0 %</td>
+              @else
+              <td>{{ round(number_format(($sum_10_month_0 / $sum_10_month_1) * 100, 2)) }} %</td>
+              @endif
+
+              @if($sum_10_month_l1 == 0 && $sum_10_month_1 == 0)
+              <td>0 %</td>
+              @else
+              <td>{{ round(number_format(($sum_10_month_l1 / $sum_10_month_1) * 100, 2)) }} %</td>
+              @endif
+            </tr>
+            <tr align="center">
+              <td><b><font>รวมทั้งหมด</font></b></td>
+              <td><b><font>{{ $sum_all_month_0 }}</b></font></td>
+              <td><b><font>{{ $sum_all_month_l1 }}</font></b></td>
+              <td><b><font>{{ $sum_all_month_1 }}</font></b></td>
+              @if($sum_all_month_0 == 0 && $sum_all_month_1 == 0)
+              <td><b><font>0 %</font></b></td>
+              @else
+              <td><b><font>{{ round(number_format(($sum_all_month_0 / $sum_all_month_1) * 100, 2)) }} %</font></b></td>
+              @endif
+
+              @if($sum_all_month_l1 == 0 && $sum_all_month_1 == 0)
+              <td><b><font>0 %</font></b></td>
+              @else
+              <td><b><font>{{ round(number_format(($sum_all_month_l1 / $sum_all_month_1) * 100, 2)) }} %</font></b></td>
+              @endif
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        @endif
 
   </body>
 </html>
