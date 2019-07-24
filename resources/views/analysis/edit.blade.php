@@ -245,7 +245,7 @@
                             <div class="col-md-6">
                               <div class="form-inline" align="right">
                                 <label>เลขบัตรประชาชน : </label>
-                                <input type="text" name="Idcardbuyer" value="{{ $data->Idcard_buyer }}" class="form-control" style="width: 250px;" placeholder="ป้อนเลขบัตรประชาชน" />
+                                <input type="text" name="Idcardbuyer" value="{{ $data->Idcard_buyer }}" class="form-control" style="width: 250px;" placeholder="ป้อนเลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask=""/>
                               </div>
                             </div>
                           </div>
@@ -470,7 +470,7 @@
                               <div class="col-md-6">
                                <div class="form-inline" align="right">
                                    <label>เลขบัตรประชาชน : </label>
-                                   <input type="text" name="idcardSP" value="{{$data->idcard_SP}}" class="form-control" style="width: 250px;" placeholder="เลขบัตรประชาชน" />
+                                   <input type="text" name="idcardSP" value="{{$data->idcard_SP}}" class="form-control" style="width: 250px;" placeholder="เลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask=""/>
                                </div>
                               </div>
                             </div>
@@ -537,7 +537,7 @@
                                 <div class="col-md-5">
                                   <div class="form-inline" align="right">
                                      <label>เนื้อที่ : </label>
-                                     <input type="text" name="areaSP" value="{{$data->area_SP}}" class="form-control" style="width: 250px;" placeholder="เนื้อที่" />
+                                     <input type="text" name="areaSP" value="{{$data->area_SP}}" class="form-control" style="width: 250px;" placeholder="เนื้อที่" data-inputmask="&quot;mask&quot;:&quot;9-9-99&quot;" data-mask=""/>
                                    </div>
                                 </div>
 
