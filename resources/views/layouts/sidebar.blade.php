@@ -59,12 +59,24 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li>
-              <a href="{{ route('Analysis',1) }}"><i class="fa fa-steam text-info"></i> งานสินเชื่อ</a>
+
+          <li class="treeview {{ (request()->is('Analysis/Home/*')) ? 'active' : '' }}">
+              <a href="#">
+                <i class="fa fa-folder-open text-info"></i>สินเชื่อ
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{{ route('Analysis',1) }}"><i class="fa fa-tags"></i>งานสินเชื่อ</a></li>
+                <li><a href="{{ route('Analysis',3) }}"><i class="fa fa-tags"></i>รายงาน สินเชื่อ</a></li>
+              </ul>
           </li>
+
           <li>
               <a href="{{ route('call',1) }}"><i class="fa fa-steam text-danger"></i> งานโทร</a>
           </li>
+
           <li>
               <a href="{{ route('finance',1) }}"><i class="fa fa-steam text-success"></i> ประเภทจัดไฟแนนซ์</a>
           </li>

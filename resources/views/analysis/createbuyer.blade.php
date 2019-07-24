@@ -520,7 +520,7 @@
                                     <div class="col-md-5">
                                       <div class="form-inline" align="right">
                                          <label>เนื้อที่ : </label>
-                                         <input type="text" name="areaSP" class="form-control" style="width: 250px;" placeholder="เนื้อที่" />
+                                         <input type="text" name="areaSP" class="form-control" style="width: 250px;" placeholder="เนื้อที่" data-inputmask="&quot;mask&quot;:&quot;9-9-99&quot;" data-mask=""/>
                                        </div>
                                     </div>
 
@@ -705,7 +705,7 @@
                                   <div class="col-md-6">
                                    <div class="form-inline" align="right">
                                        <label>ป้ายเดิม : </label>
-                                       <input type="text" name="Licensecar" class="form-control" style="width: 250px;" placeholder="ป้ายเดิม" />
+                                       <input type="text" name="Licensecar" class="form-control" style="width: 250px;" placeholder="ป้ายเดิม"/>
                                    </div>
                                   </div>
                                 </div>

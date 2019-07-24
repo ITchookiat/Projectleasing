@@ -52,6 +52,10 @@
           <th class="text-center" width="110px"><b>ใบขับขี่ : </b> {{$dataReport->Driver_buyer}}</th>
         </tr>
         <tr>
+          <th class="text-center" width="140px"><b>ที่อยู่ : </b></th>
+          <th class="text-center" width="400px">{{$dataReport->Address_buyer}}</th>
+        </tr>
+        <tr>
           <th class="text-center" width="140px"><b>ที่อยู่ปัจจุบัน/ส่งเอกสาร : </b></th>
           <th class="text-center" width="400px">{{$dataReport->AddN_buyer}}</th>
         </tr>
@@ -107,6 +111,10 @@
           <th class="text-center" width="80px"><b>คู่สมรส : </b></th>
           <th class="text-center" width="150px">{{$dataReport->mate_SP}}</th>
           <th class="text-center" width="310px"><b>เลขบัตรประชาชน : </b> {{$dataReport->idcard_SP}}</th>
+        </tr>
+        <tr>
+          <th class="text-center" width="140px"><b>ที่อยู่ : </b></th>
+          <th class="text-center" width="400px">{{$dataReport->add_SP}}</th>
         </tr>
         <tr>
           <th class="text-center" width="140px"><b>ที่อยู่ปัจจุบัน/ส่งเอกสาร : </b></th>
