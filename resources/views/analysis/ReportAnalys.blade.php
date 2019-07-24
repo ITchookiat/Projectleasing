@@ -39,7 +39,7 @@
           <td width="120px"> <b>{{$dataReport->last_buyer}}</b></td>
           <td width="60px"> <b>{{$dataReport->Nick_buyer}}</b></td>
           <td width="60px"> <b>{{$dataReport->Status_buyer}}</b></td>
-          <td width="90px"> <b>{{$dataReport->Phone_buyer}}</b></td>
+          <td width="90px"> <b>{{str_replace(",", ",     ", $dataReport->Phone_buyer)}}</b></td>
           <td width="90px"> <b>{{$dataReport->Phone2_buyer}}</b></td>
         </tr>
       </tbody>
