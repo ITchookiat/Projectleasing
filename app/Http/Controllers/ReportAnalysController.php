@@ -115,9 +115,13 @@ class ReportAnalysController extends Controller
       $pdf = new PDF();
       $pdf::SetTitle('แบบฟอร์มขออนุมัติเช่าซื้อรถยนต์');
       $pdf::AddPage('P', 'A4');
-      $pdf::SetFont('freeserif');
+      $pdf::SetMargins(10, 5, 5, 5);
+      $pdf::SetFont('freeserif', '', 11, '', true);
+      $pdf::SetAutoPageBreak(TRUE, 10);
       $pdf::WriteHTML($html,true,false,true,false,'');
       $pdf::Output('report.pdf');
+
+
     }
 
     public function ReportDueDate(Request $request)

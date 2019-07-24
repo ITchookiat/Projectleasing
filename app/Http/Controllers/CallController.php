@@ -304,8 +304,8 @@ class CallController extends Controller
        $pattani = collect([$count1,$count10])->collapse();
        $yala = collect([$count2,$count5])->collapse();
        $nara = collect([$count11,$count16,$count8])->collapse();
-       $saiburi = collect([$count3,$count9,$count15])->collapse();
-       $kolok = collect([$count4,$count13,$count7])->collapse();
+       $saiburi  = collect([$count4,$count13,$count7])->collapse();
+       $kolok = collect([$count3,$count9,$count15])->collapse();
        $betong = collect([$count12,$count14,$count6])->collapse();
 
          $data_all = DB::table('recordcalls')

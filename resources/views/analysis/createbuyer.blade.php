@@ -767,10 +767,14 @@
                                       var num66 = document.getElementById('P2PriceOri').value;
                                       var num6 = num66.replace(",","");
 
-                                          if(num55 == ''){
+                                          if(num5 == ''){
                                             var num5 = 0;
                                           }else if (num5 == 0) {
-                                            var num1 = parseFloat(num1) - parseFloat(num6);
+                                            if (num6 > 6700) {
+                                              var num1 = parseFloat(num1);
+                                            }else {
+                                              var num1 = parseFloat(num1) - parseFloat(num6);
+                                            }
                                           }
                                     console.log(num1);
 
@@ -1251,7 +1255,7 @@
                                   <div class="col-md-6">
                                    <div class="form-inline" align="right">
                                      <label>ซื้อ ป2+ : </label>
-                                     <input type="text" id="P2Price" name="P2Price" class="form-control" value="0" style="width: 250px;" placeholder="ซื้อ ป2+" onchange="calculate()"/>
+                                     <input type="text" id="P2Price" name="P2Price" class="form-control" value="0" style="width: 250px;" placeholder="ซื้อ ป2+" onchange="calculate();balance();"/>
                                      <input type="hidden" id="P2PriceOri" name="P2PriceOri" class="form-control" value="0" style="width: 250px;" placeholder="ซื้อ ป2+" onchange="calculate()"/>
                                    </div>
                                   </div>
