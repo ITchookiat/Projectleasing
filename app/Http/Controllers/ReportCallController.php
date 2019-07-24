@@ -248,7 +248,7 @@ class ReportCallController extends Controller
            $pdf::SetTitle('รายงานงานโทรสาขาสุไงโก-ลก');
            $pdf::AddPage('P', 'A4');
          }elseif ($request->type == 7) {
-           $pdf::SetTitle('รายงานงานโทรสาขาสุไงเบตง');
+           $pdf::SetTitle('รายงานงานโทรสาขาเบตง');
            $pdf::AddPage('P', 'A4');
          }
 
