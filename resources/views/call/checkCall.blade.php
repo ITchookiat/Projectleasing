@@ -233,14 +233,14 @@ return "$strDay/$strMonthThai/$strYear";
                           <form name="form1" action="{{ route('ReportCall.store') }}" method="post" enctype="multipart/form-data">
                             @csrf
                           <p align="left"><b>ข้อมูลจาก SMART</b>
-                          @if($count_update_all2 != 0)
+                          <!-- @if($count_update_all2 != 0)
                           <button type="submit" class="btn btn-success btn-sm pull-right"><i class="fa fa-refresh"></i> อัพเดทข้อมูล </button>
                           @endif
                           @foreach($sum_update_all2 as $key => $row)
                           <input type="hidden" name="" value="{{$key+1}}"/>
                           <input type="hidden" name="contno[]" value="{{$row->CONTNO}}"/>
                           <input type="hidden" name="date" value="{{ $fdate }}"/>
-                          @endforeach
+                          @endforeach -->
                           <input type="hidden" name="_token" value="{{csrf_token()}}" />
                           </p>
                         </form>
