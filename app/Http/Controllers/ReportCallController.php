@@ -213,9 +213,12 @@ class ReportCallController extends Controller
          if ($request->type == 7){
            $data_bt = DB::table('recordcalls')
            ->where('CONTNO', 'like', '07-%')
+           ->where('date_record', '=', $date)
            ->orderBy('CONTNO', 'ASC')
            ->get();
            $sum_data_bt = count($data_bt);
+
+           // dd($data_bt);
 
          }
 
