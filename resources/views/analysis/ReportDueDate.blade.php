@@ -36,10 +36,9 @@
           <th align="center" width="40px" style="background-color: #FFFF00;"><b>การตลาด</b></th>
           <th align="center" width="50px" style="background-color: #BEBEBE;"><b>รวมค่าใช้จ่าย</b></th>
           <th align="center" width="40px" style="background-color: #BEBEBE;"><b>คงเหลือ</b></th>
-          <th align="center" width="30px" style="background-color: #BEBEBE;"><b>คอม</b></th>
           <th align="center" width="35px" style="background-color: #BEBEBE;"><b>หัก 3%</b></th>
-          <th align="center" width="90px" style="background-color: #BEBEBE;"><b>ผู้รับเงิน</b></th>
-          <th align="center" width="90px" style="background-color: #BEBEBE;"><b>ผู้รับคอม</b></th>
+          <th align="center" width="105px" style="background-color: #BEBEBE;"><b>ผู้รับเงิน</b></th>
+          <th align="center" width="105px" style="background-color: #BEBEBE;"><b>ผู้รับคอม</b></th>
           <th align="center" width="50px" style="background-color: #BEBEBE;"><b>รวม</b></th>
         </tr>
       </thead>
@@ -76,10 +75,9 @@
             <td width="40px" rowspan="3" style="background-color: #FFFF00; line-height:550%;">{{ $value->marketing_Price }}</td>
             <td width="50px" rowspan="3" style="line-height:550%;">{{number_format($value->totalk_Price)}}</td>
             <td width="40px" rowspan="3" style="line-height:550%;">{{number_format($value->balance_Price)}}</td>
-            <td width="30px" rowspan="3" style="line-height:550%;">{{number_format($value->Commission_car)}}</td>
             <td width="35px" rowspan="3" style="line-height:550%;">{{number_format($value->commit_Price)}}</td>
-            <td width="90px">{{$value->Payee_car}}</td>
-            <td width="90px">{{$value->Agent_car}}</td>
+            <td width="105px">{{$value->Payee_car}}</td>
+            <td width="105px">{{$value->Agent_car}}</td>
             <td width="50px">
               @if($value->Accountbrance_car == $value->Accountagent_car and $value->Accountbrance_car != Null)
                 @php
@@ -99,21 +97,21 @@
                 ปิดบัญชี {{number_format($value->closeAccount_Price)}}
               @endif
             </td>
-            <td width="90px">
+            <td width="105px">
               @if($value->Accountbrance_car != Null)
-                บัญชี : {{$value->Accountbrance_car}}
+                บัญชี :{{$value->Accountbrance_car}}/{{$value->branchbrance_car}}
               @endif
             </td>
-            <td width="90px">
+            <td width="105px">
               @if($value->Accountagent_car != Null)
-                บัญชี : {{$value->Accountagent_car}}
+                บัญชี :{{$value->Accountagent_car}}/{{$value->branchAgent_car}}
               @endif
             </td>
             <td width="50px">
-              @if($value->Accountbrance_car != $value->Accountagent_car)
+              @if($value->Accountbrance_car != $value->Accountagent_car and $value->Accountagent_car != Null)
                 ค่าคอม {{ number_format($value->Commission_car) }}
-              @elseif($value->Accountagent_car == Null and $value->Agent_car == Null)
-
+              @elseif($value->Accountagent_car == Null and $value->Agent_car != Null)
+                รับเงินสด
               @elseif($value->Accountagent_car == Null)
                 รับเงินสด
               @endif
@@ -125,12 +123,12 @@
                 ซื้อป2+ {{number_format($value->P2_Price)}}
               @endif
             </td>
-            <td width="90px">
+            <td width="105px">
               @if($value->Tellbrance_car != Null)
                 โทร : {{$value->Tellbrance_car}}
               @endif
             </td>
-            <td width="90px">
+            <td width="105px">
               @if($value->Tellagent_car != Null)
                   โทร : {{$value->Tellagent_car}}
               @endif

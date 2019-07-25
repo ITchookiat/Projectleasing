@@ -1061,9 +1061,21 @@
 
                                   <div class="col-md-6">
                                    <div class="form-inline" align="right">
-                                       <label>เลขที่บัญชี/สาขา : </label>
-                                       <input type="text" name="Accountbrancecar" class="form-control" style="width: 250px;" placeholder="เลขที่บัญชี/สาขา" data-inputmask="&quot;mask&quot;:&quot;999-9-99999-9&quot;" data-mask="" />
+                                       <label>เลขที่บัญชี : </label>
+                                       <input type="text" name="Accountbrancecar" class="form-control" style="width: 250px;" placeholder="เลขที่บัญชีผู้รับเงิน" data-inputmask="&quot;mask&quot;:&quot;999-9-99999-9&quot;" data-mask="" />
                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="row">
+                                  <div class="col-md-5">
+                                  </div>
+
+                                  <div class="col-md-6">
+                                    <div class="form-inline" align="right">
+                                      <label>สาขา : </label>
+                                      <input type="text" name="branchbrancecar" class="form-control" style="width: 250px;" placeholder="สาขาผู้รับเงิน" />
+                                    </div>
                                   </div>
                                 </div>
 
@@ -1089,8 +1101,8 @@
 
                                   <div class="col-md-6">
                                    <div class="form-inline" align="right">
-                                       <label>เลขที่บัญชี/สาขา : </label>
-                                       <input type="text" name="Accountagentcar" class="form-control" style="width: 250px;" placeholder="เลขที่บัญชี/สาขา" data-inputmask="&quot;mask&quot;:&quot;999-9-99999-9&quot;" data-mask="" />
+                                       <label>เลขที่บัญชี : </label>
+                                       <input type="text" name="Accountagentcar" class="form-control" style="width: 250px;" placeholder="เลขที่บัญชีนายหน้า" data-inputmask="&quot;mask&quot;:&quot;999-9-99999-9&quot;" data-mask="" />
                                    </div>
                                   </div>
                                 </div>
@@ -1105,8 +1117,8 @@
 
                                   <div class="col-md-6">
                                     <div class="form-inline" align="right">
-                                      <label>เบอร์โทรศัพท์ : </label>
-                                      <input type="text" name="Tellagentcar" class="form-control" style="width: 250px;" placeholder="เบอร์โทรศัพท์" data-inputmask="&quot;mask&quot;:&quot;999-9999999&quot;" data-mask="" />
+                                      <label>สาขา : </label>
+                                      <input type="text" name="branchAgentcar" class="form-control" style="width: 250px;" placeholder="สาขานายหน้า" />
                                     </div>
                                   </div>
                                 </div>
@@ -1168,6 +1180,22 @@
                                   </div>
 
                                   <div class="col-md-6">
+                                    <div class="form-inline" align="right">
+                                      <label>เบอร์โทรศัพท์ : </label>
+                                      <input type="text" name="Tellagentcar" class="form-control" style="width: 250px;" placeholder="เบอร์โทรศัพท์" data-inputmask="&quot;mask&quot;:&quot;999-9999999&quot;" data-mask="" />
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="row">
+                                  <div class="col-md-5">
+                                    <div class="form-inline" align="right">
+                                      <label>หมายเหตุ : </label>
+                                      <input type="text" name="Notecar" class="form-control" style="width: 250px;" placeholder="หมายเหตุ"/>
+                                    </div>
+                                  </div>
+
+                                  <div class="col-md-6">
                                   </div>
                                 </div>
 
@@ -1212,13 +1240,6 @@
                                        </select>
                                      </div>
                                   </div>
-
-                                  <!-- <div class="col-md-6">
-                                   <div class="form-inline" align="right">
-                                       <label>ผู้อนุมัติ : </label>
-                                       <input type="text" name="Approverscar" class="form-control" style="width: 250px;" placeholder="ผู้อนุมัติ" />
-                                   </div>
-                                  </div> -->
                                 </div>
 
                               </div>
