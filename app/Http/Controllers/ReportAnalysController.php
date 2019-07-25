@@ -152,4 +152,48 @@ class ReportAnalysController extends Controller
       $pdf::WriteHTML($html,true,false,true,false,'');
       $pdf::Output('report.pdf');
     }
+
+    public function ReportCredit(Request $request)
+    {
+      date_default_timezone_set('Asia/Bangkok');
+      $Y = date('Y');
+      $Y2 = date('Y') +543;
+      $m = date('m');
+      $d = date('d');
+      $date = $Y.'-'.$m.'-'.$d;
+      $date2 = $d.'-'.$m.'-'.$Y2;
+
+      $newfdate = '';
+      $newtdate = '';
+      $agen = '';
+      $yearcar = '';
+      $typecar = '';
+
+      if ($request->has('Fromdate')) {
+        $fdate = $request->get('Fromdate');
+        $newfdate = \Carbon\Carbon::parse($fdate)->format('Y')-543 ."-". \Carbon\Carbon::parse($fdate)->format('m')."-". \Carbon\Carbon::parse($fdate)->format('d');
+      }
+      if ($request->has('Todate')) {
+        $tdate = $request->get('Todate');
+        $newtdate = \Carbon\Carbon::parse($tdate)->format('Y')-543 ."-". \Carbon\Carbon::parse($tdate)->format('m')."-". \Carbon\Carbon::parse($tdate)->format('d');
+      }
+      if ($request->has('agen')) {
+        $agen = $request->get('agen');
+      }
+      if ($request->has('yearcar')) {
+        $yearcar = $request->get('yearcar');
+      }
+      if ($request->has('typecar')) {
+        $typecar = $request->get('typecar');
+      }
+
+      $view = \View::make('analysis.ReportCredit' ,compact('date2'));
+      $html = $view->render();
+      $pdf = new PDF();
+      $pdf::SetTitle('รายงานนำเสนอ');
+      $pdf::AddPage('L', 'A4');
+      $pdf::SetFont('freeserif','',8,'false');
+      $pdf::WriteHTML($html,true,false,true,false,'');
+      $pdf::Output('report.pdf');
+    }
 }

@@ -71,7 +71,7 @@
                 <form method="get" action="{{ route('Analysis',3) }}">
 
                     <div align="right" class="form-inline">
-                      <a target="_blank" href="#" class="btn btn-primary btn-app">
+                      <a target="_blank" href="{{ action('ReportAnalysController@ReportCredit') }}?&Fromdate={{$newfdate}}&Todate={{$newtdate}}&agen={{$agen}}&yearcar={{$yearcar}}&typecar={{$typecar}}" class="btn btn-primary btn-app">
                         <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
                       </a>
                       <button type="submit" class="btn btn-warning btn-app">
@@ -98,16 +98,16 @@
                     <label for="text" class="mr-sm-2">ปี : </label>
                       <select name="yearcar" class="form-control mb-2 mr-sm-2" id="text" style="width: 180px">
                         <option selected disabled value="">---เลือกปี---</option>
-                        @foreach($datadrop as $row)
-                          <option value="{{ $row->Agent_car }}" {{ ($agen == $row->Agent_car) ? 'selected' : '' }}>{{ $row->Agent_car }}</otion>
+                        @foreach($datayear as $row)
+                          <option value="{{ $row->Year_car }}" {{ ($yearcar == $row->Year_car) ? 'selected' : '' }}>{{ $row->Year_car }}</otion>
                         @endforeach
                       </select>
                     &nbsp;&nbsp;&nbsp;
                     <label for="text" class="mr-sm-2">แบบ : </label>
                       <select name="typecar" class="form-control mb-2 mr-sm-2" id="text" style="width: 180px">
                         <option selected disabled value="">---เลือกแบบ---</option>
-                        @foreach($datadrop as $row)
-                          <option value="{{ $row->Agent_car }}" {{ ($agen == $row->Agent_car) ? 'selected' : '' }}>{{ $row->Agent_car }}</otion>
+                        @foreach($datastatus as $row)
+                          <option value="{{ $row->status_car }}" {{ ($typecar == $row->status_car) ? 'selected' : '' }}>{{ $row->status_car }}</otion>
                         @endforeach
                       </select>
 
