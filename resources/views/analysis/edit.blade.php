@@ -983,9 +983,21 @@
 
                             <div class="col-md-6">
                              <div class="form-inline" align="right">
-                                 <label>เลขที่บัญชี/สาขา : </label>
-                                 <input type="text" name="Accountbrancecar" value="{{$data->Accountbrance_car}}" class="form-control" style="width: 250px;" placeholder="เลขที่บัญชี/สาขา" data-inputmask="&quot;mask&quot;:&quot;999-9-99999-9&quot;" data-mask=""/>
+                                 <label>เลขที่บัญชี : </label>
+                                 <input type="text" name="Accountbrancecar" value="{{$data->Accountbrance_car}}" class="form-control" style="width: 250px;" placeholder="เลขที่บัญชี" data-inputmask="&quot;mask&quot;:&quot;999-9-99999-9&quot;" data-mask=""/>
                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-md-5">
+                            </div>
+
+                            <div class="col-md-6">
+                              <div class="form-inline" align="right">
+                                <label>สาขา : </label>
+                                <input type="text" name="branchbrancecar" value="{{$data->branchbrance_car}}" class="form-control" style="width: 250px;" placeholder="สาขาผู้รับเงิน" />
+                              </div>
                             </div>
                           </div>
 
@@ -1011,8 +1023,8 @@
 
                             <div class="col-md-6">
                              <div class="form-inline" align="right">
-                                 <label>เลขที่บัญชี/สาขา : </label>
-                                 <input type="text" name="Accountagentcar" value="{{$data->Accountagent_car}}" class="form-control" style="width: 250px;" placeholder="เลขที่บัญชี/สาขา" data-inputmask="&quot;mask&quot;:&quot;999-9-99999-9&quot;" data-mask=""/>
+                                 <label>เลขที่บัญชี : </label>
+                                 <input type="text" name="Accountagentcar" value="{{$data->Accountagent_car}}" class="form-control" style="width: 250px;" placeholder="เลขที่บัญชี" data-inputmask="&quot;mask&quot;:&quot;999-9-99999-9&quot;" data-mask=""/>
                              </div>
                             </div>
                           </div>
@@ -1027,8 +1039,8 @@
 
                             <div class="col-md-6">
                               <div class="form-inline" align="right">
-                                <label>เบอร์โทรศัพท์ : </label>
-                                <input type="text" name="Tellagentcar" value="{{$data->Tellagent_car}}" class="form-control" style="width: 250px;" placeholder="เบอร์โทรศัพท์" data-inputmask="&quot;mask&quot;:&quot;999-9999999&quot;" data-mask=""/>
+                                <label>สาขา : </label>
+                                <input type="text" name="branchAgentcar" value="{{$data->branchAgent_car}}" class="form-control" style="width: 250px;" placeholder="สาขานายหน้า"/>
                               </div>
                             </div>
                           </div>
@@ -1053,6 +1065,22 @@
                                 </select>
                               </div>
                            </div>
+
+                            <div class="col-md-6">
+                              <div class="form-inline" align="right">
+                                <label>เบอร์โทรศัพท์ : </label>
+                                <input type="text" name="Tellagentcar" value="{{$data->Tellagent_car}}" class="form-control" style="width: 250px;" placeholder="เบอร์โทรศัพท์" data-inputmask="&quot;mask&quot;:&quot;999-9999999&quot;" data-mask=""/>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-md-5">
+                              <div class="form-inline" align="right">
+                                <label>หมายเหตุ : </label>
+                                <input type="text" name="Notecar" value="{{$data->Note_car}}" class="form-control" style="width: 250px;" placeholder="หมายเหตุ"/>
+                              </div>
+                            </div>
 
                             <div class="col-md-6">
                             </div>

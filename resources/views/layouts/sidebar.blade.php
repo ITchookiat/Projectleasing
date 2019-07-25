@@ -60,7 +60,7 @@
         </a>
         <ul class="treeview-menu">
 
-          <li class="treeview {{ (request()->is('Analysis/Home/*')) ? 'active' : '' }}">
+          <li class="treeview {{ (request()->is('Analysis/Home/*')) ? 'active' : '' }} {{ (request()->is('Analysis/edit/*')) ? 'active' : '' }}">
               <a href="#">
                 <i class="fa fa-folder-open text-info"></i>สินเชื่อ
                 <span class="pull-right-container">

@@ -398,6 +398,9 @@ class AnalysController extends Controller
         'StatusApp_car' => 'รออนุมัติ',
         'DocComplete_car' => $request->get('doccomplete'),
         'branch_car' => $request->get('branchcar'),
+        'branchbrance_car' => $request->get('branchbrancecar'),
+        'branchAgent_car' => $request->get('branchAgentcar'),
+        'Note_car' => $request->get('Notecar'),
       ]);
       $Cardetaildb ->save();
 
@@ -851,6 +854,9 @@ class AnalysController extends Controller
           $cardetail->StatusApp_car = $SetStatusApp;
           $cardetail->DocComplete_car = $request->get('doccomplete');
           $cardetail->branch_car = $request->get('branchcar');
+          $cardetail->branchbrance_car = $request->get('branchbrancecar');
+          $cardetail->branchAgent_car = $request->get('branchAgentcar');
+          $cardetail->Note_car = $request->get('Notecar');
         $cardetail->update();
 
         if ($request->get('tranPrice') != Null) {
