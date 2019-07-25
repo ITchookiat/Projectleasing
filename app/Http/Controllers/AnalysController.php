@@ -141,17 +141,33 @@ class AnalysController extends Controller
       elseif ($request->type == 3){
 
         $datadrop = DB::table('buyers')
-        ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
         ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
-        ->join('expenses','buyers.id','=','expenses.Buyerexpenses_id')
         ->select('cardetails.Agent_car', DB::raw('count(*) as total'))
         ->where('cardetails.Agent_car','<>',Null)
         ->groupBy('cardetails.Agent_car')
         ->get();
 
+        $datayear = DB::table('buyers')
+        ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
+        ->select('cardetails.Year_car', DB::raw('count(*) as total'))
+        ->where('cardetails.Year_car','<>',Null)
+        ->groupBy('cardetails.Year_car')
+        ->get();
+
+        $datastatus = DB::table('buyers')
+        ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
+        ->select('cardetails.status_car', DB::raw('count(*) as total'))
+        ->where('cardetails.status_car','<>',Null)
+        ->groupBy('cardetails.status_car')
+        ->get();
+
+        // dd($datastatus);
+
         $newfdate = '';
         $newtdate = '';
         $agen = '';
+        $yearcar = '';
+        $typecar = '';
 
         if ($request->has('Fromdate')) {
           $fdate = $request->get('Fromdate');
@@ -163,6 +179,12 @@ class AnalysController extends Controller
         }
         if ($request->has('agen')) {
           $agen = $request->get('agen');
+        }
+        if ($request->has('yearcar')) {
+          $yearcar = $request->get('yearcar');
+        }
+        if ($request->has('typecar')) {
+          $typecar = $request->get('typecar');
         }
 
 
@@ -185,6 +207,12 @@ class AnalysController extends Controller
           ->when(!empty($agen), function($q) use($agen){
             return $q->where('cardetails.Agent_car',$agen);
           })
+          ->when(!empty($yearcar), function($q) use($yearcar){
+            return $q->where('cardetails.Year_car',$yearcar);
+          })
+          ->when(!empty($typecar), function($q) use($typecar){
+            return $q->where('cardetails.status_car',$typecar);
+          })
           ->get();
         }
 
@@ -194,7 +222,7 @@ class AnalysController extends Controller
 
         // $datedue = \Carbon\Carbon::parse($data->Date_Due)->format('Y')+543 ."-". \Carbon\Carbon::parse($data->Date_Due)->format('m')."-". \Carbon\Carbon::parse($data->Date_Due)->format('d');
 
-        return view('analysis.ViewReport', compact('type', 'data','newfdate','newtdate','datadrop','agen','datedue'));
+        return view('analysis.ViewReport', compact('type', 'data','newfdate','newtdate','datadrop','agen','datedue','datayear','yearcar','datastatus','typecar'));
       }
     }
 

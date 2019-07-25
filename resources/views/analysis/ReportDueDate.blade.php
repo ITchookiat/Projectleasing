@@ -36,18 +36,18 @@
           <th align="center" width="40px" style="background-color: #FFFF00;"><b>การตลาด</b></th>
           <th align="center" width="50px" style="background-color: #BEBEBE;"><b>รวมค่าใช้จ่าย</b></th>
           <th align="center" width="40px" style="background-color: #BEBEBE;"><b>คงเหลือ</b></th>
+          <th align="center" width="30px" style="background-color: #BEBEBE;"><b>คอม</b></th>
           <th align="center" width="35px" style="background-color: #BEBEBE;"><b>หัก 3%</b></th>
           <th align="center" width="90px" style="background-color: #BEBEBE;"><b>ผู้รับเงิน</b></th>
           <th align="center" width="90px" style="background-color: #BEBEBE;"><b>ผู้รับคอม</b></th>
-          <th align="center" width="40px" style="background-color: #BEBEBE;"><b>รวม</b></th>
-          <th align="center" width="40px" style="background-color: #BEBEBE;"><b>ค่าคอม</b></th>
+          <th align="center" width="50px" style="background-color: #BEBEBE;"><b>รวม</b></th>
         </tr>
       </thead>
       <tbody>
         @foreach($dataReport as $key => $value)
           <tr align="center" style="line-height: 200%;">
-            <td width="50px" rowspan="3" style="background-color: #33FF00;">{{$value->Brand_car}}</td>
-            <td width="25px">
+            <td width="50px" rowspan="3" style="background-color: #33FF00; line-height:550%;">{{$value->Brand_car}}</td>
+            <td width="25px" rowspan="3" style="line-height:550%;">
               @if($value->branch_car == 'ปัตตานี')
                 ปน
               @elseif($value->branch_car == 'ยะลา')
@@ -62,82 +62,80 @@
                 บต
               @endif
             </td>
-            <td width="50px" >{{$value->License_car}}</td>
-            <td width="40px" >{{number_format($value->Top_car)}}</td>
-            <td width="60px" rowspan="3" >
+            <td width="50px" rowspan="3" style="line-height:550%;">{{$value->License_car}}</td>
+            <td width="40px" rowspan="3" style="line-height:550%;">{{number_format($value->Top_car)}}</td>
+            <td width="60px">
               @if($value->act_Price != 0)
-                พรบ. {{number_format($value->act_Price)}}<br />
-              @endif
-              @if($value->closeAccount_Price != 0)
-                ปิดบัญชี {{number_format($value->closeAccount_Price)}}<br />
-              @endif
-              @if($value->P2_Price != 0)
-              ซื้อป2+ {{number_format($value->P2_Price)}}
+                พรบ. {{number_format($value->act_Price)}}
               @endif
             </td>
-            <td width="40px" style="background-color: #FFFF00;">{{number_format($value->tran_Price)}}</td>
-            <td width="30px" style="background-color: #FFFF00;">{{number_format($value->other_Price)}}</td>
-            <td width="40px" style="background-color: #FFFF00;">{{ $value->evaluetion_Price }}</td>
-            <td width="30px" style="background-color: #FFFF00;">{{ $value->duty_Price }}</td>
-            <td width="40px" style="background-color: #FFFF00;">{{ $value->marketing_Price }}</td>
-            <td width="50px" >{{number_format($value->totalk_Price)}}</td>
-            <td width="40px" rowspan="3">{{number_format($value->balance_Price)}}</td>
-            <td width="35px" >{{number_format($value->commit_Price)}}</td>
-            <td width="90px" rowspan="3">{{$value->Payee_car}}<br />บัญชี : {{$value->Accountbrance_car}}<br />โทร : {{$value->Tellbrance_car}}</td>
-            <td width="90px" rowspan="3">
-              {{$value->Agent_car}}
-              <br />
-              @if($value->Accountagent_car != Null)
-                บัญชี : {{$value->Accountagent_car}}
-              @endif
-              <br />
-              @if($value->Tellagent_car != Null)
-                โทร : {{$value->Tellagent_car}}
-              @endif
-            </td>
-            <td width="40px" >
-              @if($value->Accountbrance_car == $value->Accountagent_car)
+            <td width="40px" rowspan="3" style="background-color: #FFFF00; line-height:550%;">{{number_format($value->tran_Price)}}</td>
+            <td width="30px" rowspan="3" style="background-color: #FFFF00; line-height:550%;">{{number_format($value->other_Price)}}</td>
+            <td width="40px" rowspan="3" style="background-color: #FFFF00; line-height:550%;">{{ $value->evaluetion_Price }}</td>
+            <td width="30px" rowspan="3" style="background-color: #FFFF00; line-height:550%;">{{ $value->duty_Price }}</td>
+            <td width="40px" rowspan="3" style="background-color: #FFFF00; line-height:550%;">{{ $value->marketing_Price }}</td>
+            <td width="50px" rowspan="3" style="line-height:550%;">{{number_format($value->totalk_Price)}}</td>
+            <td width="40px" rowspan="3" style="line-height:550%;">{{number_format($value->balance_Price)}}</td>
+            <td width="30px" rowspan="3" style="line-height:550%;">{{number_format($value->Commission_car)}}</td>
+            <td width="35px" rowspan="3" style="line-height:550%;">{{number_format($value->commit_Price)}}</td>
+            <td width="90px">{{$value->Payee_car}}</td>
+            <td width="90px">{{$value->Agent_car}}</td>
+            <td width="50px">
+              @if($value->Accountbrance_car == $value->Accountagent_car and $value->Accountbrance_car != Null)
                 @php
                     $ArcSum = $value->balance_Price + $value->commit_Price;
                 @endphp
                 {{number_format($ArcSum)}}
+              @elseif($value->Accountbrance_car == Null)
+                รับเงินสด
               @else
                 {{number_format($value->balance_Price)}}
               @endif
             </td>
-            <td width="40px" >
+          </tr>
+          <tr align="center" style="line-height: 200%;">
+            <td width="60px">
+              @if($value->closeAccount_Price != 0)
+                ปิดบัญชี {{number_format($value->closeAccount_Price)}}
+              @endif
+            </td>
+            <td width="90px">
+              @if($value->Accountbrance_car != Null)
+                บัญชี : {{$value->Accountbrance_car}}
+              @endif
+            </td>
+            <td width="90px">
+              @if($value->Accountagent_car != Null)
+                บัญชี : {{$value->Accountagent_car}}
+              @endif
+            </td>
+            <td width="50px">
               @if($value->Accountbrance_car != $value->Accountagent_car)
-                {{ number_format($value->Commission_car) }}
+                ค่าคอม {{ number_format($value->Commission_car) }}
+              @elseif($value->Accountagent_car == Null and $value->Agent_car == Null)
+
+              @elseif($value->Accountagent_car == Null)
+                รับเงินสด
               @endif
             </td>
           </tr>
           <tr align="center" style="line-height: 200%;">
-            <td width="25px"></td>
+            <td width="60px">
+              @if($value->P2_Price != 0)
+                ซื้อป2+ {{number_format($value->P2_Price)}}
+              @endif
+            </td>
+            <td width="90px">
+              @if($value->Tellbrance_car != Null)
+                โทร : {{$value->Tellbrance_car}}
+              @endif
+            </td>
+            <td width="90px">
+              @if($value->Tellagent_car != Null)
+                  โทร : {{$value->Tellagent_car}}
+              @endif
+            </td>
             <td width="50px"></td>
-            <td width="40px"></td>
-            <td width="40px"></td>
-            <td width="30px"></td>
-            <td width="40px"></td>
-            <td width="30px"></td>
-            <td width="40px"></td>
-            <td width="50px"></td>
-            <td width="35px"></td>
-            <td width="40px"></td>
-            <td width="40px"></td>
-          </tr>
-          <tr align="center" style="line-height: 200%;">
-            <td width="25px"></td>
-            <td width="50px"></td>
-            <td width="40px"></td>
-            <td width="40px"></td>
-            <td width="30px"></td>
-            <td width="40px"></td>
-            <td width="30px"></td>
-            <td width="40px"></td>
-            <td width="50px"></td>
-            <td width="35px"></td>
-            <td width="40px"></td>
-            <td width="40px"></td>
           </tr>
           <br>
         @endforeach

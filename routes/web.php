@@ -37,6 +37,7 @@ Route::group(['middleware' => 'auth'], function()
     Route::delete('/Analysis/delete/{id}', 'AnalysController@destroy')->name('Analysis.destroy');
     Route::get('/Analysis/Report/{id}', 'ReportAnalysController@ReportPDFIndex');
     Route::get('/Analysis/ReportDueDate', 'ReportAnalysController@ReportDueDate');
+    Route::get('/Analysis/ReportCredit', 'ReportAnalysController@ReportCredit');
 
     Route::get('/call/viewdetail/{Str1}/{Str2}', 'CallController@viewdetail')->name('callDetail.viewdetail');
     Route::get('/call/{type}', 'CallController@index')->name('call');
