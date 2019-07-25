@@ -117,7 +117,7 @@ class ReportAnalysController extends Controller
       $pdf::AddPage('P', 'A4');
       $pdf::SetMargins(10, 5, 5, 5);
       $pdf::SetFont('freeserif', '', 11, '', true);
-      $pdf::SetAutoPageBreak(TRUE, 10);
+      $pdf::SetAutoPageBreak(TRUE, 5);
       $pdf::WriteHTML($html,true,false,true,false,'');
       $pdf::Output('report.pdf');
 
