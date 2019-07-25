@@ -867,10 +867,10 @@
                                         var num88 = document.getElementById('P2Price').value;
                                         var num8 = num88.replace(",","");
 
-                                        var temp = document.getElementById('tempTopcar').value;
+                                        var temp = document.getElementById('Topcar').value;
                                         var toptemp = temp.replace(",","");
 
-                                        var ori = document.getElementById('TopcarOri').value;
+                                        var ori = document.getElementById('Topcar').value;
                                         var Topori = ori.replace(",","");
 
                                         if(num8 > 6700){
@@ -914,8 +914,8 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                       <label>ยอดจัด : </label>
-                                      <input type="text" id="Topcar" name="Topcar" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" oninput="calculate()" />
-                                      <input type="hidden" id="TopcarOri" name="TopcarOri" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" />
+                                      <input type="text" id="Topcar" name="Topcar" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" oninput="calculate();balance();" />
+                                      <input type="hidden" id="TopcarOri" name="TopcarOri" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" oninput="balance()" />
                                     </div>
                                   </div>
 
@@ -1238,7 +1238,7 @@
                                   <div class="col-md-6">
                                    <div class="form-inline" align="right">
                                        <label>เปอร์เซ็นต์ค่าคอม : </label>
-                                       <input type="hidden" id="tempTopcar" name="tempTopcar" class="form-control" style="width: 250px;" placeholder="รวมยอดจัด" readonly/>
+                                       <input type="hidden" id="tempTopcar" name="tempTopcar" class="form-control" style="width: 250px;" placeholder="รวมยอดจัด" oninput="balance()" readonly/>
                                        <input type="text" name="vatPrice" class="form-control" style="width: 250px;" placeholder="เปอร์เซ็นต์ค่าคอม" />
                                    </div>
                                   </div>
