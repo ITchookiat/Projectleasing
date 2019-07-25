@@ -105,7 +105,7 @@
           <td width="120px"> <b>{{$dataReport->lname_SP}}</b></td>
           <td width="60px"> <b>{{$dataReport->nikname_SP}}</b></td>
           <td width="60px"> <b>{{$dataReport->status_SP}}</b></td>
-          <td width="90px"> <b>{{$dataReport->tel_SP}}</b></td>
+          <td width="90px"> <b>{{str_replace(",", ",     ", $dataReport->tel_SP)}}</b></td>
           <td width="90px"> <b>{{$dataReport->relation_SP}}</b></td>
         </tr>
       </tbody>
@@ -281,7 +281,9 @@
       </tr>
       <tr>
         <th align="right" width="120px"> ผู้อนุมัติ &nbsp;</th>
-        <th class="text-center" width="420px" style="background-color: yellow;"> <b>{{$dataReport->Approvers_car}}</b></th>
+        <th class="text-center" width="120px" style="background-color: yellow;"> <b>{{$dataReport->Approvers_car}}</b></th>
+        <th align="right" width="120px"> หมายเหตุ &nbsp;</th>
+        <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataReport->Note_car}}</b></th>
       </tr>
 
     </table>
