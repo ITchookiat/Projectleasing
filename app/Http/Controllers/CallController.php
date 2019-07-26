@@ -513,6 +513,7 @@ class CallController extends Controller
 
                 $count_update_all2 = count($sum_update_all2);
 
+
                  return view('call.checkCall', compact('type','allbranch','ptbranch','ylbranch','nrbranch','sbbranch','klbranch','btbranch',
                  'sumall','sumpt','sumyl','sumnr','sumsb','sumkl','sumbt','sum02','sum10','branch0210',
                  'pattani','yala','nara','saiburi','kolok','betong','check',
