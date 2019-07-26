@@ -95,7 +95,7 @@
                                    <div class="col-md-5">
                                      <div class="form-inline" align="right">
                                         <label><font color="red">เลขที่สัญญา : </font></label>
-                                        <input type="text" name="Contract_buyer" class="form-control" style="width: 250px;" value="{{ $StrConn }}" />
+                                        <input type="text" name="Contract_buyer" class="form-control" style="width: 250px;" />
                                       </div>
                                    </div>
 
