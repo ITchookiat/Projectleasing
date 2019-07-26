@@ -222,7 +222,7 @@ class AnalysController extends Controller
 
         // $datedue = \Carbon\Carbon::parse($data->Date_Due)->format('Y')+543 ."-". \Carbon\Carbon::parse($data->Date_Due)->format('m')."-". \Carbon\Carbon::parse($data->Date_Due)->format('d');
 
-        return view('analysis.ViewReport', compact('type', 'data','newfdate','newtdate','datadrop','agen','datedue','datayear','yearcar','datastatus','typecar'));
+        return view('analysis.viewReport', compact('type', 'data','newfdate','newtdate','datadrop','agen','datedue','datayear','yearcar','datastatus','typecar'));
       }
     }
 
@@ -962,6 +962,45 @@ class AnalysController extends Controller
 
         Storage::delete($itemPath);
       }
+
+      // $datadelete = DB::table('buyers')
+      //           ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
+      //           ->join('cardetails','Buyers.id','=','cardetails.Buyercar_id')
+      //           ->join('expenses','Buyers.id','=','expenses.Buyerexpenses_id')
+      //           ->where('buyers.id',$id)->first();
+      //
+      // $datacontract = DB::table('buyers')
+      //                 ->orderBy('Contract_buyer', 'ASC')
+      //                 ->get();
+      //
+      // $numcount = count($datacontract);
+      // // dd($numcount);
+      //
+      //   $getnum = 0;
+      //   for ($i=0; $i < $numcount; $i++) {
+      //     // dump($datacontract[$i]->Contract_buyer);
+      //     dump($i);
+      //     if ($datacontract[$i]->Contract_buyer == $datadelete->Contract_buyer) {
+      //       $getnum = $i  + 1;
+      //
+      //       if ($getnum != $numcount) { //ลบข้าม
+      //         $GetContract = $datacontract[$i]->Contract_buyer;
+      //
+      //         $SetStrCon = $GetContract;
+      //         $SetStr = explode("-",$SetStrCon);
+      //         $StrNum = $SetStr[0];
+      //         dd($StrNum);
+      //
+      //         $user = Buyer::find($id);
+      //         $user->Date_Soldout_plus = $GetContract;
+      //
+      //         dump($getnum);
+      //         dump($GetContract);
+      //       }elseif ($getnum == $numcount) {
+      //         dd('sdf');
+      //       }
+      //     }
+      //   }
 
         $deleteItem = UploadfileImage::where('Buyerfileimage_id',$itemID);
         $deleteItem->Delete();
