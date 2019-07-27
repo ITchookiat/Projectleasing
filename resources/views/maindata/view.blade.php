@@ -80,7 +80,25 @@
                           จัดไฟแนนท์
                         @endif
                       </td>
-                      <td class="text-center" width='20%'>{{ $row->created_at }}</td>
+                      <td class="text-center">
+                        @if($row->branch == 99)
+                          admin
+                        @elseif ($row->branch  == 01)
+                          ปัตตานี
+                        @elseif ($row->branch  == 03)
+                          ยะลา
+                        @elseif ($row->branch  == 04)
+                          นราธิวาส
+                        @elseif ($row->branch  == 05)
+                          สายบุรี
+                        @elseif ($row->branch  == 06)
+                          โกลก
+                        @elseif ($row->branch  == 07)
+                          เบตง
+                        @elseif ($row->branch  == 10)
+                          รถบ้าน
+                        @endif
+                      </td>
                       <td class="text-center">
                         <a href="{{ action('UserController@edit',[$row['id']]) }}" class="btn btn-warning btn-sm">
                         <span class="glyphicon glyphicon-edit"></span> Edit

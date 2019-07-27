@@ -72,7 +72,18 @@ class UserController extends Controller
         3 => 'จัดไฟแนนท์',
       ];
 
-      return view('maindata.edit',compact('user','id','arrayType'));
+      $arrayBranch = [
+        99 => 'Admin',
+        01 => 'ปัตตานี',
+        03 => 'ยะลา',
+        04 => 'นราธิวาส',
+        05 => 'สายบุรี',
+        06 => 'โกลก',
+        07 => 'เบตง',
+        10 => 'รถบ้าน',
+      ];
+
+      return view('maindata.edit',compact('user','id','arrayType','arrayBranch'));
     }
 
     /**

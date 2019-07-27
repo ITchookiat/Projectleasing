@@ -75,6 +75,15 @@
                     </select>
                   </div>
 
+                  <div class="form-inline form-group" align="center">
+                    <label>branch : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <select name="branch" class="form-control" style="width: 400px;">
+                      @foreach ($arrayBranch as $key => $value)
+                        <option value="{{$key}}" {{ ($key == $user->branch) ? 'selected' : '' }}>{{$value}}</option>
+                      @endforeach
+                    </select>
+                  </div>
+
                   <br>
                   <div class="form-group" align="center">
                     <button type="submit" class="delete-modal btn btn-success">
