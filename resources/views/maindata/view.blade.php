@@ -59,7 +59,7 @@
                     <th class="text-center">Username</th>
                     <th class="text-center">Email</th>
                     <th class="text-center">Role</th>
-                    <th class="text-center">Creation Date</th>
+                    <th class="text-center">branch</th>
                     <th class="text-center" width="150px">Action</th>
                   </tr>
                 </thead>

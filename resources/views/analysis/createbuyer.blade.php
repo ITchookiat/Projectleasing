@@ -95,7 +95,7 @@
                                    <div class="col-md-5">
                                      <div class="form-inline" align="right">
                                         <label><font color="red">เลขที่สัญญา : </font></label>
-                                        <input type="text" name="Contract_buyer" class="form-control" style="width: 250px;" />
+                                        <input type="text" name="Contract_buyer" class="form-control" style="width: 250px;" required/>
                                       </div>
                                    </div>
 
@@ -281,7 +281,7 @@
                                         <option value="เจ้าของธุรกิจ">เจ้าของธุรกิจ</option>
                                         <option value="เจ้าของอู่รถ">เจ้าของอู่รถ</option>
                                         <option value="ให้เช่ารถบรรทุก">ให้เช่ารถบรรทุก</option>
-                                        <option value="ช่างตัดผม">ชั่งตัดผม</option>
+                                        <option value="ช่างตัดผม">ช่างตัดผม</option>
                                         <option value="ชาวนา">ชาวนา</option>
                                         <option value="ชาวไร่">ชาวไร่</option>
                                         <option value="แม่บ้าน">แม่บ้าน</option>
@@ -565,7 +565,7 @@
                                            <option value="เจ้าของธุรกิจ">เจ้าของธุรกิจ</option>
                                            <option value="เจ้าของอู่รถ">เจ้าของอู่รถ</option>
                                            <option value="ให้เช่ารถบรรทุก">ให้เช่ารถบรรทุก</option>
-                                           <option value="ช่างตัดผม">ชั่งตัดผม</option>
+                                           <option value="ช่างตัดผม">ช่างตัดผม</option>
                                            <option value="ชาวนา">ชาวนา</option>
                                            <option value="ชาวไร่">ชาวไร่</option>
                                            <option value="แม่บ้าน">แม่บ้าน</option>
@@ -1203,58 +1203,30 @@
                                 <div class="row">
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
-                                       <label><font color="red">เจ้าหน้าที่สินเชื่อ : </font></label>
-                                       <!-- <select name="Loanofficercar" class="form-control" style="width: 250px;" required>
-                                         <option value="" disabled selected>--- เจ้าหน้าที่สินเชื่อ ---</option>
-                                         <option value="นาย.ซอลาฮุดดีน ตอแก">นาย.ซอลาฮุดดีน ตอแก</option>
-                                         <option value="นาง.วิธุกร ณ พิชัย">นาง.วิธุกร ณ พิชัย</option>
-                                         <option value="นาง.วุฐิกุล ศุกลรัตน์">นาง.วุฐิกุล ศุกลรัตน์</option>
-                                         <option value="นาย.ต่วนมุหยีดีน ลอจ">นาย.ต่วนมุหยีดีน ลอจิ</option>
-                                         <option value="นาย.ฤทธิพร ดือราแม">นาย.ฤทธิพร ดือราแม</option>
-                                         <option value="นาย.เดะมะ มะ">นาย.เดะมะ มะ</option>
-                                         <option value="นาย.มะยูโซะ อามะ">นาย.มะยูโซะ อามะ</option>
-                                         <option value="น.ส.รุสนีดา อูมา">น.ส.รุสนีดา อูมา</option>
-                                         <option value="น.ส.ฮายาตี นิบง">น.ส.ฮายาตี นิบง</option>
-                                         <option value="นาย.ซุลกิฟลี แมเราะ">นาย.ซุลกิฟลี แมเราะ</option>
-                                         <option value="น.ส.สาลีละห์ เจะโซะ">น.ส.สาลีละห์ เจะโซะ</option>
-                                         <option value="นาย.ฟิกรีย์ บาราเต๊ะ">นาย.ฟิกรีย์ บาราเต๊ะ</option>
-                                         <option value="น.ส.ซูไฮดา สะมาแอ">น.ส.ซูไฮดา สะมาแอ</option>
-                                         <option value="นาย.ธนวัฒน์ อาแว">นาย.ธนวัฒน์ อาแว</option>
-                                         <option value="นาย.มัซวัน มะสาแม">นาย.มัซวัน มะสาแม</option>
-                                         <option value="น.ส.เพ็ญทิพย์ หนูบุญล้อม">น.ส.เพ็ญทิพย์ หนูบุญล้อม</option>
-                                       </select> -->
-                                       <input name="Loanofficercar" class="form-control" style="width: 250px;" value="{{ Auth::user()->name }}" readonly />
+                                       <!-- <label><font color="red">เจ้าหน้าที่สินเชื่อ : </font></label> -->
+                                       <input type="hidden" name="Loanofficercar" class="form-control" style="width: 250px;" value="{{ Auth::user()->name }}" readonly />
                                      </div>
                                   </div>
 
                                   <div class="col-md-6">
                                     <div class="form-inline" align="right">
-                                       <label><font color="red">สาขา : </font></label>
-                                       <!-- <select name="branchcar" class="form-control" style="width: 250px;" required>
-                                         <option value="" disabled selected>--- เลือกสาขา ---</option>
-                                         <option value="ปัตตานี">ปัตตานี</option>
-                                         <option value="ยะลา">ยะลา</option>
-                                         <option value="นราธิวาส">นราธิวาส</option>
-                                         <option value="สายบุรี">สายบุรี</option>
-                                         <option value="สุไหงโก-ลก">สุไหงโก-ลก</option>
-                                         <option value="เบตง">เบตง</option>
-                                       </select> -->
+                                       <!-- <label><font color="red">สาขา : </font></label> -->
                                        @if(Auth::user()->branch == 99)
-                                       <input name="branchcar" class="form-control" style="width: 250px;" value="Admin" readonly />
+                                          <input type="hidden" name="branchcar" class="form-control" style="width: 250px;" value="Admin" readonly />
                                        @elseif(Auth::user()->branch == 01)
-                                       <input name="branchcar" class="form-control" style="width: 250px;" value="ปัตตานี" readonly />
+                                          <input type="hidden" name="branchcar" class="form-control" style="width: 250px;" value="ปัตตานี" readonly />
                                        @elseif(Auth::user()->branch == 03)
-                                       <input name="branchcar" class="form-control" style="width: 250px;" value="ยะลา" readonly />
+                                          <input type="hidden" name="branchcar" class="form-control" style="width: 250px;" value="ยะลา" readonly />
                                        @elseif(Auth::user()->branch == 04)
-                                       <input name="branchcar" class="form-control" style="width: 250px;" value="นราธิวาส" readonly />
+                                          <input type="hidden" name="branchcar" class="form-control" style="width: 250px;" value="นราธิวาส" readonly />
                                        @elseif(Auth::user()->branch == 05)
-                                       <input name="branchcar" class="form-control" style="width: 250px;" value="สายบุรี" readonly />
+                                          <input type="hidden" name="branchcar" class="form-control" style="width: 250px;" value="สายบุรี" readonly />
                                        @elseif(Auth::user()->branch == 06)
-                                       <input name="branchcar" class="form-control" style="width: 250px;" value="โกลก" readonly />
+                                          <input type="hidden" name="branchcar" class="form-control" style="width: 250px;" value="โกลก" readonly />
                                        @elseif(Auth::user()->branch == 07)
-                                       <input name="branchcar" class="form-control" style="width: 250px;" value="เบตง" readonly />
+                                          <input type="hidden" name="branchcar" class="form-control" style="width: 250px;" value="เบตง" readonly />
                                        @elseif(Auth::user()->branch == 10)
-                                       <input name="branchcar" class="form-control" style="width: 250px;" value="รถบ้าน" readonly />
+                                          <input type="hidden" name="branchcar" class="form-control" style="width: 250px;" value="รถบ้าน" readonly />
                                        @endif
                                      </div>
                                   </div>
