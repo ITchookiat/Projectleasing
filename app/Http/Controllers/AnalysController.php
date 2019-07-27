@@ -56,6 +56,7 @@ class AnalysController extends Controller
           ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
           ->join('expenses','buyers.id','=','expenses.Buyerexpenses_id')
           ->where('cardetails.Approvers_car','=',Null)
+          ->orderBy('buyers.Contract_buyer', 'ASC')
           ->get();
         }else {
           $data = DB::table('buyers')
@@ -65,15 +66,13 @@ class AnalysController extends Controller
           ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
             return $q->whereBetween('buyers.Date_Due',[$newfdate,$newtdate]);
           })
-          // ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
-          //   return $q->whereBetween('cardetails.Date_Appcar',[$newfdate,$newtdate]);
-          // })
           ->when(!empty($branch), function($q) use($branch){
             return $q->where('cardetails.branch_car',$branch);
           })
           ->when(!empty($status), function($q) use($status){
             return $q->where('cardetails.StatusApp_car','=',$status);
           })
+          ->orderBy('buyers.Contract_buyer', 'ASC')
           ->get();
         }
 
@@ -82,7 +81,6 @@ class AnalysController extends Controller
         $newtdate = \Carbon\Carbon::parse($newtdate)->format('Y')+543 ."-". \Carbon\Carbon::parse($newtdate)->format('m')."-". \Carbon\Carbon::parse($newtdate)->format('d');
 
         return view('analysis.view', compact('type', 'data','branch','newfdate','newtdate','status'));
-
       }
       elseif ($request->type == 2){
         // $connect = Buyer::all();
@@ -135,11 +133,9 @@ class AnalysController extends Controller
         // }else {
         //     $StrConn = "";
         // }
-
         return view('analysis.createbuyer');
       }
       elseif ($request->type == 3){
-
         $datadrop = DB::table('buyers')
         ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
         ->select('cardetails.Agent_car', DB::raw('count(*) as total'))
@@ -162,7 +158,6 @@ class AnalysController extends Controller
         ->get();
 
         // dd($datastatus);
-
         $newfdate = '';
         $newtdate = '';
         $agen = '';
@@ -187,13 +182,13 @@ class AnalysController extends Controller
           $typecar = $request->get('typecar');
         }
 
-
         if ($request->has('Fromdate') == false and $request->has('Todate') == false and $request->has('agen') == false) {
           $data = DB::table('buyers')
           ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
           ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
           ->join('expenses','buyers.id','=','expenses.Buyerexpenses_id')
           ->where('cardetails.Approvers_car','!=',Null)
+          ->orderBy('buyers.Contract_buyer', 'ASC')
           ->get();
         }else {
           $data = DB::table('buyers')
@@ -213,15 +208,15 @@ class AnalysController extends Controller
           ->when(!empty($typecar), function($q) use($typecar){
             return $q->where('cardetails.status_car',$typecar);
           })
+          ->orderBy('buyers.Contract_buyer', 'ASC')
           ->get();
         }
 
-        // dd($data[0]->Date_Due);
+        // dd($data);
         $newfdate = \Carbon\Carbon::parse($newfdate)->format('Y')+543 ."-". \Carbon\Carbon::parse($newfdate)->format('m')."-". \Carbon\Carbon::parse($newfdate)->format('d');
         $newtdate = \Carbon\Carbon::parse($newtdate)->format('Y')+543 ."-". \Carbon\Carbon::parse($newtdate)->format('m')."-". \Carbon\Carbon::parse($newtdate)->format('d');
 
         // $datedue = \Carbon\Carbon::parse($data->Date_Due)->format('Y')+543 ."-". \Carbon\Carbon::parse($data->Date_Due)->format('m')."-". \Carbon\Carbon::parse($data->Date_Due)->format('d');
-
         return view('analysis.viewReport', compact('type', 'data','newfdate','newtdate','datadrop','agen','datedue','datayear','yearcar','datastatus','typecar'));
       }
     }
@@ -244,50 +239,7 @@ class AnalysController extends Controller
      */
     public function store(Request $request)
     {
-      // if (auth()->user()->type != 1 and auth()->user()->type != 2) {
-      //   if (auth()->user()->branch == 01) { //สาขาปัตตานี
-      //     $connect = Buyer::where('Contract_buyer', 'like', '01%' )
-      //                       ->orderBy('Contract_buyer', 'desc')->limit(1)
-      //                       ->get();
-      //   }elseif (auth()->user()->branch == 03) { //สาขายะลา
-      //     $connect = Buyer::where('Contract_buyer', 'like', '03%' )
-      //                       ->orderBy('Contract_buyer', 'desc')->limit(1)
-      //                       ->get();
-      //   }elseif (auth()->user()->branch == 04) { //สาขานรา
-      //     $connect = Buyer::where('Contract_buyer', 'like', '04%' )
-      //                       ->orderBy('Contract_buyer', 'desc')->limit(1)
-      //                       ->get();
-      //   }elseif (auth()->user()->branch == 05) { //สาขาสายบรุี
-      //     $connect = Buyer::where('Contract_buyer', 'like', '05%' )
-      //                       ->orderBy('Contract_buyer', 'desc')->limit(1)
-      //                       ->get();
-      //   }elseif (auth()->user()->branch == 06) { //สาขาโกลก
-      //     $connect = Buyer::where('Contract_buyer', 'like', '06%' )
-      //                       ->orderBy('Contract_buyer', 'desc')->limit(1)
-      //                       ->get();
-      //   }elseif (auth()->user()->branch == 07) { //สาขาเบตง
-      //     $connect = Buyer::where('Contract_buyer', 'like', '07%' )
-      //                       ->orderBy('Contract_buyer', 'desc')->limit(1)
-      //                       ->get();
-      //   }elseif (auth()->user()->branch == 10) { //สาขารถบ้าน
-      //     $connect = Buyer::where('Contract_buyer', 'like', '10%' )
-      //                       ->orderBy('Contract_buyer', 'desc')->limit(1)
-      //                       ->get();
-      //   }
-      //
-      //   $contract = $connect[0]->Contract_buyer;
-      //   $SetStr = explode("/",$contract);
-      //   $StrNum = $SetStr[1] + 1;
-      //
-      //   $num = "1000";
-      //   $SubStr = substr($num.$StrNum, -4);
-      //   $StrConn = $SetStr[0]."/".$SubStr;
-      //
-      // }else {
-      //   $StrConn = $request->get('Contract_buyer');
-      // }
 
-      $StrConn = $request->get('Contract_buyer');
       $SetDateDue = str_replace ("/","-",$request->get('DateDue'));
       $dateConvert0 = date_create($SetDateDue);
       $DateDue = date_format($dateConvert0, 'Y-m-d');
@@ -296,7 +248,7 @@ class AnalysController extends Controller
       $SetPhonebuyer = str_replace ( "_","",$request->get('Phonebuyer'));
 
       $Buyerdb = new Buyer([
-        'Contract_buyer' => $StrConn,
+        'Contract_buyer' => $request->get('Contract_buyer'),
         'Date_Due' => $newDateDue,
         'Name_buyer' => $request->get('Namebuyer'),
         'last_buyer' => $request->get('lastbuyer'),
@@ -666,32 +618,32 @@ class AnalysController extends Controller
         'ซข.ไม่ค้ำประกัน' => 'ซข.ไม่ค้ำประกัน',
         'VIP1' => 'VIP1',
       ];
-      $Loanofficercarr = [
-        'นาย.ซอลาฮุดดีน ตอแก' => 'นาย.ซอลาฮุดดีน ตอแก',
-        'นาง.วิธุกร ณ พิชัย' => 'นาง.วิธุกร ณ พิชัย',
-        'นาง.วุฐิกุล ศุกลรัตน์' => 'นาง.วุฐิกุล ศุกลรัตน์',
-        'นาย.ต่วนมุหยีดีน ลอจ' => 'นาย.ต่วนมุหยีดีน ลอจิ',
-        'นาย.ฤทธิพร ดือราแม' => 'นาย.ฤทธิพร ดือราแม',
-        'นาย.เดะมะ มะ' => 'นาย.เดะมะ มะ',
-        'นาย.มะยูโซะ อามะ' => 'นาย.มะยูโซะ อามะ',
-        'น.ส.รุสนีดา อูมา' => 'น.ส.รุสนีดา อูมา',
-        'น.ส.ฮายาตี นิบง' => 'น.ส.ฮายาตี นิบง',
-        'นาย.ซุลกิฟลี แมเราะ' => 'นาย.ซุลกิฟลี แมเราะ',
-        'น.ส.สาลีละห์ เจะโซะ' => 'น.ส.สาลีละห์ เจะโซะ',
-        'นาย.ฟิกรีย์ บาราเต๊ะ' => 'นาย.ฟิกรีย์ บาราเต๊ะ',
-        'น.ส.ซูไฮดา สะมาแอ' => 'น.ส.ซูไฮดา สะมาแอ',
-        'นาย.ธนวัฒน์ อาแว' => 'นาย.ธนวัฒน์ อาแว',
-        'นาย.มัซวัน มะสาแม' => 'นาย.มัซวัน มะสาแม',
-        'น.ส.เพ็ญทิพย์ หนูบุญล้อม' => 'น.ส.เพ็ญทิพย์ หนูบุญล้อม',
-      ];
-      $branchcarr = [
-        'ปัตตานี' => 'ปัตตานี',
-        'ยะลา' => 'ยะลา',
-        'นราธิวาส' => 'นราธิวาส',
-        'สายบุรี' => 'สายบุรี',
-        'สุไหงโก-ลก' => 'สุไหงโก-ลก',
-        'เบตง' => 'เบตง',
-      ];
+      // $Loanofficercarr = [
+      //   'นาย.ซอลาฮุดดีน ตอแก' => 'นาย.ซอลาฮุดดีน ตอแก',
+      //   'นาง.วิธุกร ณ พิชัย' => 'นาง.วิธุกร ณ พิชัย',
+      //   'นาง.วุฐิกุล ศุกลรัตน์' => 'นาง.วุฐิกุล ศุกลรัตน์',
+      //   'นาย.ต่วนมุหยีดีน ลอจ' => 'นาย.ต่วนมุหยีดีน ลอจิ',
+      //   'นาย.ฤทธิพร ดือราแม' => 'นาย.ฤทธิพร ดือราแม',
+      //   'นาย.เดะมะ มะ' => 'นาย.เดะมะ มะ',
+      //   'นาย.มะยูโซะ อามะ' => 'นาย.มะยูโซะ อามะ',
+      //   'น.ส.รุสนีดา อูมา' => 'น.ส.รุสนีดา อูมา',
+      //   'น.ส.ฮายาตี นิบง' => 'น.ส.ฮายาตี นิบง',
+      //   'นาย.ซุลกิฟลี แมเราะ' => 'นาย.ซุลกิฟลี แมเราะ',
+      //   'น.ส.สาลีละห์ เจะโซะ' => 'น.ส.สาลีละห์ เจะโซะ',
+      //   'นาย.ฟิกรีย์ บาราเต๊ะ' => 'นาย.ฟิกรีย์ บาราเต๊ะ',
+      //   'น.ส.ซูไฮดา สะมาแอ' => 'น.ส.ซูไฮดา สะมาแอ',
+      //   'นาย.ธนวัฒน์ อาแว' => 'นาย.ธนวัฒน์ อาแว',
+      //   'นาย.มัซวัน มะสาแม' => 'นาย.มัซวัน มะสาแม',
+      //   'น.ส.เพ็ญทิพย์ หนูบุญล้อม' => 'น.ส.เพ็ญทิพย์ หนูบุญล้อม',
+      // ];
+      // $branchcarr = [
+      //   'ปัตตานี' => 'ปัตตานี',
+      //   'ยะลา' => 'ยะลา',
+      //   'นราธิวาส' => 'นราธิวาส',
+      //   'สายบุรี' => 'สายบุรี',
+      //   'สุไหงโก-ลก' => 'สุไหงโก-ลก',
+      //   'เบตง' => 'เบตง',
+      // ];
       $evaluetionPricee = [
         '1,000' => '1,000',
         '1,500' => '1,500',
@@ -702,7 +654,7 @@ class AnalysController extends Controller
       return view('Analysis.edit',
           compact('data','id','dataImage','Statusby','Addby','Houseby','Driverby','HouseStyleby','Careerby','Incomeby',
           'HisCarby','StatusSPp','relationSPp','addSPp','housestyleSPp','Brandcarr','Interestcarr','Timeslackencarr',
-          'Insurancecarr','statuscarr','Loanofficercarr','branchcarr','newDateDue','evaluetionPricee'));
+          'Insurancecarr','statuscarr','newDateDue','evaluetionPricee'));
     }
 
     /**
@@ -872,7 +824,6 @@ class AnalysController extends Controller
                                   ->get();
               }
 
-
               $contract = $connect[0]->Contract_buyer;
               $SetStr = explode("/",$contract);
               $StrNum = $SetStr[1] + 1;
@@ -884,7 +835,6 @@ class AnalysController extends Controller
               $GetIdConn = Buyer::where('id',$id)->first();
                 $GetIdConn->Contract_buyer = $StrConn;
               $GetIdConn->update();
-
             }
 
           }else {
@@ -903,12 +853,10 @@ class AnalysController extends Controller
           $cardetail->Tellagent_car = $request->get('Tellagentcar');
           $cardetail->Purchasehistory_car = $request->get('Purchasehistorycar');
           $cardetail->Supporthistory_car = $request->get('Supporthistorycar');
-          $cardetail->Loanofficer_car = $request->get('Loanofficercar');
           $cardetail->Approvers_car = $request->get('Approverscar');
           $cardetail->Check_car = $request->get('Checkcar');
           $cardetail->StatusApp_car = $SetStatusApp;
           $cardetail->DocComplete_car = $request->get('doccomplete');
-          $cardetail->branch_car = $request->get('branchcar');
           $cardetail->branchbrance_car = $request->get('branchbrancecar');
           $cardetail->branchAgent_car = $request->get('branchAgentcar');
           $cardetail->Note_car = $request->get('Notecar');
@@ -1056,7 +1004,6 @@ class AnalysController extends Controller
       //       }
       //     }
       //   }
-
 
         $deleteItem = UploadfileImage::where('Buyerfileimage_id',$itemID);
         $deleteItem->Delete();

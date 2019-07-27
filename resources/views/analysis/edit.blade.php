@@ -1086,9 +1086,9 @@
                             </div>
                           </div>
 
-
-                          <hr />
-                          <div class="row">
+{{--
+                          <!-- <hr /> -->
+                          <!-- <div class="row">
                             <div class="col-md-5">
                               <div class="form-inline" align="right">
                                  <label><font color="red">เจ้าหน้าที่สินเชื่อ : </font></label>
@@ -1112,7 +1112,8 @@
                                  </select>
                                </div>
                             </div>
-                           </div>
+                           </div> -->
+--}}
                         </div>
                         <div class="tab-pane" id="tab_4">
                           <div class="row">
