@@ -660,10 +660,13 @@ class AnalysController extends Controller
         'นส.4 จ' => 'นส.4 จ',
       ];
 
+      $GetDocComplete = $data->DocComplete_car;
+      // dd($data->Status_buyer);
+
       return view('Analysis.edit',
           compact('data','id','dataImage','Statusby','Addby','Houseby','Driverby','HouseStyleby','Careerby','Incomeby',
           'HisCarby','StatusSPp','relationSPp','addSPp','housestyleSPp','Brandcarr','Interestcarr','Timeslackencarr',
-          'Insurancecarr','statuscarr','newDateDue','evaluetionPricee','securitiesSPp'));
+          'Insurancecarr','statuscarr','newDateDue','evaluetionPricee','securitiesSPp','GetDocComplete'));
     }
 
     /**
@@ -677,6 +680,7 @@ class AnalysController extends Controller
     {
         date_default_timezone_set('Asia/Bangkok');
         // $this->validate($request,['Approverscar' => 'required']);
+        // dd($request->get('Statusbuyer'));
 
         $newDateDue = \Carbon\Carbon::parse($request->DateDue)->format('Y')-543 ."-". \Carbon\Carbon::parse($request->DateDue)->format('m')."-". \Carbon\Carbon::parse($request->DateDue)->format('d');
 
