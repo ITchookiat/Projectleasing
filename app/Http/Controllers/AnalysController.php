@@ -416,6 +416,7 @@ class AnalysController extends Controller
       $Expensesdb ->save();
 
       $image_new_name = "";
+      // dd('sdf');
 
       if ($request->hasFile('file_image')) {
         $image_array = $request->file('file_image');
@@ -770,6 +771,7 @@ class AnalysController extends Controller
 
           if ($request->get('Approverscar') != Null) {
             $SetStatusApp = 'อนุมัติ';
+
             if ($cardetail->Date_Appcar == Null) {
               $Y = date('Y') +543;
               $Y2 = date('Y');
@@ -836,9 +838,14 @@ class AnalysController extends Controller
                 $GetIdConn->Contract_buyer = $StrConn;
               $GetIdConn->update();
             }
-
           }else {
             $SetStatusApp = 'รออนุมัติ';
+          }
+
+          if ($request->get('Checkcar') != Null) {
+            $SetCheckcar = $request->get('Checkcar');
+          }else {
+            $SetCheckcar = Null;
           }
 
           $cardetail->Insurance_car = $request->get('Insurancecar');
@@ -854,7 +861,7 @@ class AnalysController extends Controller
           $cardetail->Purchasehistory_car = $request->get('Purchasehistorycar');
           $cardetail->Supporthistory_car = $request->get('Supporthistorycar');
           $cardetail->Approvers_car = $request->get('Approverscar');
-          $cardetail->Check_car = $request->get('Checkcar');
+          $cardetail->Check_car = $SetCheckcar;
           $cardetail->StatusApp_car = $SetStatusApp;
           $cardetail->DocComplete_car = $request->get('doccomplete');
           $cardetail->branchbrance_car = $request->get('branchbrancecar');

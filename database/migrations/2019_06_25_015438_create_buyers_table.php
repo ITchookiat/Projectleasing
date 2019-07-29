@@ -15,8 +15,8 @@ class CreateBuyersTable extends Migration
     {
         Schema::create('buyers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('Contract_buyer')->unique();
-            $table->date('Date_Due');
+            $table->string('Contract_buyer')->nullable();
+            $table->date('Date_Due')->nullable();
             $table->string('Name_buyer')->nullable();
             $table->string('last_buyer')->nullable();
             $table->string('Nick_buyer')->nullable();

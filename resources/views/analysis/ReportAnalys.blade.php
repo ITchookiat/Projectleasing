@@ -82,7 +82,7 @@
         <tr>
           <th align="right" width="120px"> รายได้ &nbsp;</th>
           <th class="text-center" width="120px" style="background-color: yellow;"> <b>{{$dataReport->Income_buyer}}</b></th>
-          <th align="right" width="120"> ค้ำ &nbsp;</th>
+          <th align="right" width="120"> ประวัติค้ำ &nbsp;</th>
           <th class="text-center" width="180" style="background-color: yellow;"> <b>{{$dataReport->Support_buyer}}</b></th>
         </tr>
     </table>
@@ -153,7 +153,7 @@
         <tr>
           <th align="right" width="120px"> รายได้ &nbsp;</th>
           <th class="text-center" width="120px" style="background-color: yellow;"> <b>{{$dataReport->income_SP}}</b></th>
-          <th align="right" width="120px"> ค้ำ &nbsp;</th>
+          <th align="right" width="120px"> ประวัติค้ำ &nbsp;</th>
           <th class="text-center" width="180" style="background-color: yellow;"> <b>{{$dataReport->support_SP}}</b></th>
         </tr>
     </table>
@@ -242,7 +242,15 @@
         <th align="right" width="120px"> ผู้รับเงิน &nbsp;</th>
         <th class="text-center" width="120px" style="background-color: yellow;"> <b>{{$dataReport->Payee_car}}</b></th>
         <th align="right" width="120px"> เลขที่บัญชี/สาขา &nbsp;</th>
-        <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataReport->Accountbrance_car}}</b></th>
+        <th class="text-center" width="180px" style="background-color: yellow;">
+          <b>
+            @if($dataReport->Accountbrance_car != Null)
+              {{$dataReport->Accountbrance_car}} / {{$dataReport->branchbrance_car}}
+            @else
+              รับเงินสด
+            @endif
+          </b>
+        </th>
       </tr>
       <tr>
         <th class="text-center" width="240px"></th>
@@ -256,7 +264,15 @@
         <th align="right" width="120px"> แนะนำ/นายหน้า &nbsp;</th>
         <th class="text-center" width="120px" style="background-color: yellow;"> <b>{{$dataReport->Agent_car}}</b></th>
         <th align="right" width="120px"> เลขที่บัญชี/สาขา &nbsp;</th>
-        <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataReport->Accountagent_car}}</b></th>
+        <th class="text-center" width="180px" style="background-color: yellow;">
+          <b>
+            @if($dataReport->Accountagent_car != Null)
+              {{$dataReport->Accountagent_car}} / {{$dataReport->branchAgent_car}}
+            @else
+              รับเงินสด
+            @endif
+          </b>
+        </th>
       </tr>
       <tr>
         <th align="right" width="120px"> ค่าคอม &nbsp;</th>

@@ -85,9 +85,9 @@
                 @endphp
                 {{number_format($ArcSum)}}
               @elseif($value->Accountbrance_car == Null)
-                รับเงินสด
+                สด {{number_format($value->balance_Price)}}
               @else
-                {{number_format($value->balance_Price)}}
+                รถ {{number_format($value->balance_Price)}}
               @endif
             </td>
           </tr>
@@ -109,18 +109,22 @@
             </td>
             <td width="50px">
               @if($value->Accountbrance_car != $value->Accountagent_car and $value->Accountagent_car != Null)
-                ค่าคอม {{ number_format($value->Commission_car) }}
+                คอม {{ number_format($value->Commission_car) }}
               @elseif($value->Accountagent_car == Null and $value->Agent_car != Null)
-                รับเงินสด
+                สด {{number_format($value->commit_Price)}}
               @elseif($value->Accountagent_car == Null)
-                รับเงินสด
+
               @endif
             </td>
           </tr>
           <tr align="center" style="line-height: 200%;">
             <td width="60px">
               @if($value->P2_Price != 0)
-                ซื้อป2+ {{number_format($value->P2_Price)}}
+                @if($value->P2_Price > 6700)
+                  ซื้อป1 {{number_format($value->P2_Price)}}
+                @else
+                  ซื้อป2+ {{number_format($value->P2_Price)}}
+                @endif
               @endif
             </td>
             <td width="105px">

@@ -255,33 +255,11 @@ $date = date('Y-m-d', strtotime('-1 days'));
              </div>
            </div>
            <script type="text/javascript">
-             $(function() {
-                $('#table').DataTable(
-                  {
-                    "ordering" : false,
-                    "lengthChange" : true,
-                    // "pageLength": 25, //กำหนดแสดงข้อมูลเป็น 10 25 50 75 100
-                    "paging" : true,
-                    "searching" : true,
-                    "info" : true,
-                    "autoWidth" : true,
-                     "oLanguage": {
-                     "sLengthMenu": "แสดง _MENU_ รายการ ต่อหนึ่งหน้า",
-                     "sZeroRecords": "ไม่เจอข้อมูลที่ค้นหา",
-                     "sInfo": "แสดง _START_ ถึง _END_ ของ _TOTAL_ รายการ",
-                     "sInfoEmpty": "แสดง 0 ถึง 0 ของ 0 รายการ",
-                     "sInfoFiltered": "(จากเร็คคอร์ดทั้งหมด _MAX_ รายการ)",
-                     "oPaginate": {
-                     "sFirst": "หน้าแรก",
-                     "sPrevious": "ก่อนหน้า",
-                     "sNext": "ถัดไป",
-                     "sLast": "หน้าสุดท้าย"
-                     },
-                     "sSearch": "ค้นหา :"
-                     }
-                     } );
-                     }
-                );
+           $(document).ready(function() {
+             $('#table').DataTable( {
+               "order": [[ 1, "asc" ]]
+             } );
+           } );
            </script>
 
           <script type="text/javascript">
