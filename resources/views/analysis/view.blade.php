@@ -88,7 +88,6 @@ $date = date('Y-m-d', strtotime('-1 days'));
                       <label>ถึงวันที่ : </label>
                       <input type="date" name="Todate" style="width: 180px;" value="{{ ($newtdate != '') ?$newtdate: $date2 }}" class="form-control" />
 
-
                     </div>
                     <div align="right" class="form-inline">
                     <label for="text" class="mr-sm-2">สาขา : </label>
