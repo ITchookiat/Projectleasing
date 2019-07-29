@@ -721,7 +721,7 @@
                               console.log(num1);
 
                                    if(num5 > 6700){
-                                     var totaltopcar = parseFloat(num1);
+                                     var totaltopcar = parseFloat(num1) - parseFloat(num6);
                                    }else {
                                      if (num5 == 0) {
                                        var totaltopcar = parseFloat(num1);
@@ -1255,7 +1255,7 @@
                             <p></p>
                             <label class="con">
                             @if($data->Check_car != Null)
-                              <input type="checkbox" class="checkbox" name="Checkcar" id="" value="{{ auth::user()->name }}" checked="checked"> <!-- checked="checked"  -->
+                              <input type="checkbox" class="checkbox" name="Checkcar" id="" value="{{ $data->Check_car }}" checked="checked"> <!-- checked="checked"  -->
                             @else
                               <input type="checkbox" class="checkbox" name="Checkcar" id="" value="{{ auth::user()->name }}"> <!-- checked="checked"  -->
                             @endif

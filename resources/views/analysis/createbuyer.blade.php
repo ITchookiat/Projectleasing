@@ -95,7 +95,7 @@
                                    <div class="col-md-5">
                                      <div class="form-inline" align="right">
                                         <label><font color="red">เลขที่สัญญา : </font></label>
-                                        <input type="text" name="Contract_buyer" class="form-control" style="width: 250px;" required/>
+                                        <input type="text" name="Contract_buyer" class="form-control" style="width: 250px;" data-inputmask="&quot;mask&quot;:&quot;99-9999/&quot;" data-mask="" required/>
                                       </div>
                                    </div>
 
@@ -776,10 +776,9 @@
                                               var num1 = parseFloat(num1) - parseFloat(num6);
                                             }
                                           }
-                                    console.log(num1);
 
                                          if(num5 > 6700){
-                                           var totaltopcar = parseFloat(num1);
+                                           var totaltopcar = parseFloat(num1) - parseFloat(num6);
                                          }else {
                                            if (num5 == 0) {
                                              var totaltopcar = parseFloat(num1);
@@ -787,6 +786,8 @@
                                              var totaltopcar = parseFloat(num1)+parseFloat(num5);
                                            }
                                          }
+                                         console.log(num1);
+                                         console.log(totaltopcar);
 
                                       var a = (num2*num4)+100;
                                       var b = (((totaltopcar*a)/100)*1.07)/num4;
@@ -1357,7 +1358,7 @@
                       <table class="table table-bordered" id="table" border="3" align="center" style="width: 30%;" align="center">
                         <thead class="thead-dark">
                           <tr>
-                            <th class="text-center"><font color="red"><h3>ตรวจสอบเอกสาร</h3></font></th>
+                            <th class="text-center"><font color="red"><h3>เอกสารครบ</h3></font></th>
                           </tr>
                         </thead>
                         <tbody>
