@@ -195,7 +195,7 @@ return "$strDay/$strMonthThai/$strYear";
               <!-- /.tab-pane -->
               <div class="tab-pane active" id="tab_2">
                 <div class="row">
-                  <div class="col-md-3">
+                  <div class="col-md-2">
                     <!-- แสดงทุกสาขา -->
                         <div class="table-responsive">
                           <br>
@@ -225,7 +225,7 @@ return "$strDay/$strMonthThai/$strYear";
                          </div>
                   </div>
 
-                  <div class="col-md-5">
+                  <div class="col-md-6">
                         <div class="table-responsive">
                           <br>
                           <!-- <a class="btn btn-info pull-right"><i class="fa fa-save fa-sm"></i> บันทึก </a> -->
