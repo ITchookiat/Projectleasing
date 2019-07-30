@@ -26,6 +26,7 @@ class CreateRecordcallsTable extends Migration
           $table->string('hldno')->nullable();
           $table->string('l_hldno')->nullable();
           $table->string('pay_status')->nullable();
+          $table->string('group')->nullable();
           $table->date('date_record')->nullable();
           $table->timestamps();
         });

@@ -78,7 +78,7 @@ return "$strDay $strMonthThai $strYear";
             <form method="get" action="{{ route('call', 2) }}">
               <div align="right" class="form-inline">
 
-                <a target="_blank" href="{{ route('monthreport', [8, $fmonth, $fyear]) }}" class="btn btn-primary btn-app">
+                <a target="_blank" href="{{ route('monthreport', [8, $fdate, $tdate]) }}" class="btn btn-primary btn-app">
                   <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
                 </a>
 
@@ -87,65 +87,16 @@ return "$strDay $strMonthThai $strYear";
                 </button>
                 <p>
                 </p>
-                <label>เดือน : </label>
-                <select name="Frommonth" class="form-control" style="width: 150px;">
-                  <option value="" {{ ($fmonth == '') ? 'selected' : '' }} disabled>---เลือกเดือน---</option>
-                  <option value="01" {{ ($fmonth == 01) ? 'selected' : '' }}>มกราคม</option>
-                  <option value="02" {{ ($fmonth == 02) ? 'selected' : '' }}>กุมภาพันธ์</option>
-                  <option value="03" {{ ($fmonth == 03) ? 'selected' : '' }}>มีนาคม</option>
-                  <option value="04" {{ ($fmonth == 04) ? 'selected' : '' }}>เมษายน</option>
-                  <option value="05" {{ ($fmonth == 05) ? 'selected' : '' }}>พฤษภาคม</option>
-                  <option value="06" {{ ($fmonth == 06) ? 'selected' : '' }}>มิถุนายน</option>
-                  <option value="07" {{ ($fmonth == 07) ? 'selected' : '' }}>กรกฎาคม</option>
-                  <option value="08" {{ ($fmonth == 8) ? 'selected' : '' }}>สิงหาคม</option>
-                  <option value="09" {{ ($fmonth == 9) ? 'selected' : '' }}>กันยายน</option>
-                  <option value="10" {{ ($fmonth == 10) ? 'selected' : '' }}>ตุลาคม</option>
-                  <option value="11" {{ ($fmonth == 11) ? 'selected' : '' }}>พฤศจิกายน</option>
-                  <option value="12" {{ ($fmonth == 12) ? 'selected' : '' }}>ธันวาคม</option>
-                </select>
-                <label>ปี : </label>
-                <select name="Fromyear" class="form-control" style="width: 150px;">
-                  <option value="" disabled>--- เลือกปี ---</option>
-                   @php
-                       $Year = date('Y');
-                   @endphp
-                   @for ($i = 0; $i < 10; $i++)
-                       <option value="{{ $Year }}" {{ ($fyear == $Year) ? 'selected' : '' }}>{{ $Year }}</option>
-                       @php
-                           $Year -= 1;
-                       @endphp
-                   @endfor
-                </select>
+                <label>จากวันที่ : </label>
+                <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($fdate != '') ?$fdate: $date }}" class="form-control" />
+
+                <label>ถึงวันที่ : </label>
+                <input type="date" name="Todate" style="width: 180px;" value="{{ ($tdate != '') ?$tdate: $date }}" class="form-control" />
               </div>
             </form>
 
             <hr>
-
-            @if($fmonth == 01)
-            <p align="center"><b>รายงานการโทรไฟแนนซ์ ลูกค้าค้าง ประจำเดือน มกราคม {{ $fyear }}</b></p>
-            @elseif($fmonth == 02)
-            <p align="center"><b>รายงานการโทรไฟแนนซ์ ลูกค้าค้าง ประจำเดือน กุมภาพันธ์ {{ $fyear }}</b></p>
-            @elseif($fmonth == 03)
-            <p align="center"><b>รายงานการโทรไฟแนนซ์ ลูกค้าค้าง ประจำเดือน มีนาคม {{ $fyear }}</b></p>
-            @elseif($fmonth == 04)
-            <p align="center"><b>รายงานการโทรไฟแนนซ์ ลูกค้าค้าง ประจำเดือน เมษายน {{ $fyear }}</b></p>
-            @elseif($fmonth == 05)
-            <p align="center"><b>รายงานการโทรไฟแนนซ์ ลูกค้าค้าง ประจำเดือน พฤษภาคม {{ $fyear }}</b></p>
-            @elseif($fmonth == 06)
-            <p align="center"><b>รายงานการโทรไฟแนนซ์ ลูกค้าค้าง ประจำเดือน มิถุนายน {{ $fyear }}</b></p>
-            @elseif($fmonth == 07)
-            <p align="center"><b>รายงานการโทรไฟแนนซ์ ลูกค้าค้าง ประจำเดือน กรกฎาคม {{ $fyear }}</b></p>
-            @elseif($fmonth == 8)
-            <p align="center"><b>รายงานการโทรไฟแนนซ์ ลูกค้าค้าง ประจำเดือน สิงหาคม {{ $fyear }}</b></p>
-            @elseif($fmonth == 9)
-            <p align="center"><b>รายงานการโทรไฟแนนซ์ ลูกค้าค้าง ประจำเดือน กันยายน {{ $fyear }}</b></p>
-            @elseif($fmonth == 10)
-            <p align="center"><b>รายงานการโทรไฟแนนซ์ ลูกค้าค้าง ประจำเดือน ตุลาคม {{ $fyear }}</b></p>
-            @elseif($fmonth == 11)
-            <p align="center"><b>รายงานการโทรไฟแนนซ์ ลูกค้าค้าง ประจำเดือน พฤศจิกายน {{ $fyear }}</b></p>
-            @elseif($fmonth == 12)
-            <p align="center"><b>รายงานการโทรไฟแนนซ์ ลูกค้าค้าง ประจำเดือน ธันวาคม {{ $fyear }}</b></p>
-            @endif
+            <p align="center"><b>รายงานการโทรไฟแนนซ์ ลูกค้าค้าง จากวันที่ {{ DateThai($fdate) }} ถึงวันที่ {{ DateThai($tdate) }}</b></p>
             <table class="table table-bordered" style="width: 70%" align="center">
               <thead class="thead-light bg-gray-light">
                 <tr>
@@ -265,40 +216,6 @@ return "$strDay $strMonthThai $strYear";
                   <td><center>0 %</center></td>
                   @else
                   <td><center>{{ round(number_format(($sum_bt_month_l1 / $sum_bt_month_1) * 100, 2)) }} %</center></td>
-                  @endif
-                </tr>
-                <tr>
-                  <td><center>รวม (02)</center></td>
-                  <td><center>{{ $sum_02_month_0 }}</center></td>
-                  <td><center>{{ $sum_02_month_l1 }}</center></td>
-                  <td><center>{{ $sum_02_month_1 }}</center></td>
-                  @if($sum_02_month_0 == 0 && $sum_02_month_1 == 0)
-                  <td><center>0 %</center></td>
-                  @else
-                  <td><center>{{ round(number_format(($sum_02_month_0 / $sum_02_month_1) * 100, 2)) }} %</center></td>
-                  @endif
-
-                  @if($sum_02_month_l1 == 0 && $sum_02_month_1 == 0)
-                  <td><center>0 %</center></td>
-                  @else
-                  <td><center>{{ round(number_format(($sum_02_month_l1 / $sum_02_month_1) * 100, 2)) }} %</center></td>
-                  @endif
-                </tr>
-                <tr>
-                  <td><center>รวม (10)</center></td>
-                  <td><center>{{ $sum_10_month_0 }}</center></td>
-                  <td><center>{{ $sum_10_month_l1 }}</center></td>
-                  <td><center>{{ $sum_10_month_1 }}</center></td>
-                  @if($sum_10_month_0 == 0 && $sum_10_month_1 == 0)
-                  <td><center>0 %</center></td>
-                  @else
-                  <td><center>{{ round(number_format(($sum_10_month_0 / $sum_10_month_1) * 100, 2)) }} %</center></td>
-                  @endif
-
-                  @if($sum_10_month_l1 == 0 && $sum_10_month_1 == 0)
-                  <td><center>0 %</center></td>
-                  @else
-                  <td><center>{{ round(number_format(($sum_10_month_l1 / $sum_10_month_1) * 100, 2)) }} %</center></td>
                   @endif
                 </tr>
                 <tr>

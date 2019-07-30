@@ -601,32 +601,7 @@ return "$strDay $strMonthThai $strYear";
         @endif
 
         @if($ReportType == 8)
-
-        @if($fmonth == 01)
-        <p align="center"><b><font size="+5">รายงานการโทรไฟแนนซ์ ลูกค้าค้าง ประจำเดือน มกราคม {{ $fyear+543 }}</font></b></p>
-        @elseif($fmonth == 02)
-        <p align="center"><b><font size="+5">รายงานการโทรไฟแนนซ์ ลูกค้าค้าง ประจำเดือน กุมภาพันธ์ {{ $fyear+543 }}</font></b></p>
-        @elseif($fmonth == 03)
-        <p align="center"><b><font size="+5">รายงานการโทรไฟแนนซ์ ลูกค้าค้าง ประจำเดือน มีนาคม {{ $fyear+543 }}</font></b></p>
-        @elseif($fmonth == 04)
-        <p align="center"><b><font size="+5">รายงานการโทรไฟแนนซ์ ลูกค้าค้าง ประจำเดือน เมษายน {{ $fyear+543 }}</font></b></p>
-        @elseif($fmonth == 05)
-        <p align="center"><b><font size="+5">รายงานการโทรไฟแนนซ์ ลูกค้าค้าง ประจำเดือน พฤษภาคม {{ $fyear+543 }}</font></b></p>
-        @elseif($fmonth == 06)
-        <p align="center"><b><font size="+5">รายงานการโทรไฟแนนซ์ ลูกค้าค้าง ประจำเดือน มิถุนายน {{ $fyear+543 }}</font></b></p>
-        @elseif($fmonth == 07)
-        <p align="center"><b><font size="+5">รายงานการโทรไฟแนนซ์ ลูกค้าค้าง ประจำเดือน กรกฎาคม {{ $fyear+543 }}</font></b></p>
-        @elseif($fmonth == 8)
-        <p align="center"><b><font size="+5">รายงานการโทรไฟแนนซ์ ลูกค้าค้าง ประจำเดือน สิงหาคม {{ $fyear+543 }}</font></b></p>
-        @elseif($fmonth == 9)
-        <p align="center"><b><font size="+5">รายงานการโทรไฟแนนซ์ ลูกค้าค้าง ประจำเดือน กันยายน {{ $fyear+543 }}</font></b></p>
-        @elseif($fmonth == 10)
-        <p align="center"><b><font size="+5">รายงานการโทรไฟแนนซ์ ลูกค้าค้าง ประจำเดือน ตุลาคม {{ $fyear+543 }}</font></b></p>
-        @elseif($fmonth == 11)
-        <p align="center"><b><font size="+5">รายงานการโทรไฟแนนซ์ ลูกค้าค้าง ประจำเดือน พฤศจิกายน {{ $fyear+543 }}</font></b></p>
-        @elseif($fmonth == 12)
-        <p align="center"><b><font size="+5">รายงานการโทรไฟแนนซ์ ลูกค้าค้าง ประจำเดือน ธันวาคม {{ $fyear+543 }}</font></b></p>
-        @endif
+        <p align="center"><b><font size="+3">รายงานการโทรไฟแนนซ์ ลูกค้าค้าง จากวันที่ {{ DateThai($fdate) }} ถึงวันที่ {{ DateThai($tdate) }}</font></b></p>
         <table border="1">
           <thead class="thead-light bg-gray-light">
             <tr align="center">
@@ -749,40 +724,6 @@ return "$strDay $strMonthThai $strYear";
               @endif
             </tr>
             <tr align="center">
-              <td>รวม (02)</td>
-              <td>{{ $sum_02_month_0 }}</td>
-              <td>{{ $sum_02_month_l1 }}</td>
-              <td>{{ $sum_02_month_1 }}</td>
-              @if($sum_02_month_0 == 0 && $sum_02_month_1 == 0)
-              <td>0 %</td>
-              @else
-              <td>{{ round(number_format(($sum_02_month_0 / $sum_02_month_1) * 100, 2)) }} %</td>
-              @endif
-
-              @if($sum_02_month_l1 == 0 && $sum_02_month_1 == 0)
-              <td>0 %</td>
-              @else
-              <td>{{ round(number_format(($sum_02_month_l1 / $sum_02_month_1) * 100, 2)) }} %</td>
-              @endif
-            </tr>
-            <tr align="center">
-              <td>รวม (10)</td>
-              <td>{{ $sum_10_month_0 }}</td>
-              <td>{{ $sum_10_month_l1 }}</td>
-              <td>{{ $sum_10_month_1 }}</td>
-              @if($sum_10_month_0 == 0 && $sum_10_month_1 == 0)
-              <td>0 %</td>
-              @else
-              <td>{{ round(number_format(($sum_10_month_0 / $sum_10_month_1) * 100, 2)) }} %</td>
-              @endif
-
-              @if($sum_10_month_l1 == 0 && $sum_10_month_1 == 0)
-              <td>0 %</td>
-              @else
-              <td>{{ round(number_format(($sum_10_month_l1 / $sum_10_month_1) * 100, 2)) }} %</td>
-              @endif
-            </tr>
-            <tr align="center">
               <td><b><font>รวมทั้งหมด</font></b></td>
               <td><b><font>{{ $sum_all_month_0 }}</b></font></td>
               <td><b><font>{{ $sum_all_month_l1 }}</font></b></td>
@@ -803,6 +744,5 @@ return "$strDay $strMonthThai $strYear";
         </table>
         <br>
         @endif
-
   </body>
 </html>

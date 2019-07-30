@@ -128,7 +128,7 @@ return "$strDay/$strMonthThai/$strYear";
                       <tr>
                         <th><center>ชื่อสาขา</center></th>
                         <th><center>ข้อมูลที่บันทึก </center></th>
-                        <th><center>ข้อมูลจาก SMART</center></th>
+                        <!-- <th><center>ข้อมูลจาก SMART</center></th> -->
                         <th><center>มาชำระ</center></th>
                       </tr>
                     </thead>
@@ -136,40 +136,41 @@ return "$strDay/$strMonthThai/$strYear";
                       <tr>
                         <td><center>ปัตตานี (01)</center></td>
                         <td><center>{{ $sum_data_pt }}</center></td>
-                        <td><center>{{ $sumpt }}</center></td>
-                        <td><center>{{ $sum_data_pt - $sumpt }}</center></td>
+                        <!-- <td><center>{{ $sumpt }}</center></td> -->
+                        <td><center>{{ $data_pt_pay }}</center></td>
                       </tr>
                       <tr>
                         <td><center>ยะลา (03)</center></td>
                         <td><center>{{ $sum_data_yl }}</center></td>
-                        <td><center>{{ $sumyl }}</center></td>
-                        <td><center>{{ $sum_data_yl - $sumyl }}</center></td>
+                        <!-- <td><center>{{ $sumyl }}</center></td> -->
+                        <td><center>{{ $data_yl_pay }}</center></td>
                       </tr>
                       <tr>
                         <td><center>นราธิวาส (04)</center></td>
                         <td><center>{{ $sum_data_nr }}</center></td>
-                        <td><center>{{ $sumnr }}</center></td>
-                        <td><center>{{ $sum_data_nr - $sumnr }}</center></td>
+                        <!-- <td><center>{{ $sumnr }}</center></td> -->
+                        <td><center>{{ $data_nr_pay }}</center></td>
                       </tr>
                       <tr>
                         <td><center>สายบุรี (05)</center></td>
                         <td><center>{{ $sum_data_sb }}</center></td>
-                        <td><center>{{ $sumsb }}</center></td>
-                        <td><center>{{ $sum_data_sb - $sumsb }}</center></td>
+                        <!-- <td><center>{{ $sumsb }}</center></td> -->
+                        <td><center>{{ $data_sb_pay }}</center></td>
                       </tr>
                       <tr>
                         <td><center>สุไหงโก-ลก (06)</center></td>
                         <td><center>{{ $sum_data_kl }}</center></td>
-                        <td><center>{{ $sumkl }}</center></td>
-                        <td><center>{{ $sum_data_kl - $sumkl }}</center></td>
+                        <!-- <td><center>{{ $sumkl }}</center></td> -->
+                        <td><center>{{ $data_kl_pay }}</center></td>
                       </tr>
                       <tr>
                         <td><center>เบตง (07)</center></td>
                         <td><center>{{ $sum_data_bt }}</center></td>
-                        <td><center>{{ $sumbt }}</center></td>
-                        <td><center>{{ $sum_data_bt - $sumbt }}</center></td>
+                        <!-- <td><center>{{ $sumbt }}</center></td> -->
+                        <td><center>{{ $data_bt_pay }}</center></td>
                       </tr>
-                      <tr>
+                      {{--
+                      <!-- <tr>
                         <td><center>รวม (02)</center></td>
                         <td><center>{{ $sum_data_02 }}</center></td>
                         <td><center>{{ $sum02 }}</center></td>
@@ -180,12 +181,13 @@ return "$strDay/$strMonthThai/$strYear";
                         <td><center>{{ $sum_data_10 }}</center></td>
                         <td><center>{{ $sum10 }}</center></td>
                         <td><center>{{ $sum_data_10 - $sum10 }}</center></td>
-                      </tr>
+                      </tr> -->
+                      --}}
                       <tr>
                         <td><center><b><font color="red">รวมทั้งหมด</font></b></center></td>
-                        <td><center><b><font color="red">{{ $sum_data_today }}</b></font></center></td>
-                        <td><center><b><font color="red">{{ $sumall }}</b></font></center></td>
-                        <td><center><b><font color="red">{{ $sum_data_today - $sumall }}</font></b></center></td>
+                        <td><center><b><font color="red">{{ $sum_data_today }}</font></b></center></td>
+                        <!-- <td><center><b><font color="red">{{ $sumall }}</b></font></center></td> -->
+                        <td><center><b><font color="red">{{ $data_all_pay }}</font></b></center></td>
                       </tr>
                     </tbody>
                   </table>
