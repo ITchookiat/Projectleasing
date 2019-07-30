@@ -239,7 +239,6 @@ class AnalysController extends Controller
      */
     public function store(Request $request)
     {
-
       $SetDateDue = str_replace ("/","-",$request->get('DateDue'));
       $dateConvert0 = date_create($SetDateDue);
       $DateDue = date_format($dateConvert0, 'Y-m-d');
@@ -533,9 +532,9 @@ class AnalysController extends Controller
         'พระ' => 'พระ',
       ];
       $Incomeby = [
-        '5,000-10,000' => '5,000-10,000',
-        '10,000-15,000' => '10,000-15,000',
-        '15,000-20,000' => '15,000-20,000',
+        '5,000 - 10,000' => '5,000 - 10,000',
+        '10,000 - 15,000' => '10,000 - 15,000',
+        '15,000 - 20,000' => '15,000 - 20,000',
         'มากกว่า 20,000' => 'มากกว่า 20,000',
       ];
       $HisCarby = [
