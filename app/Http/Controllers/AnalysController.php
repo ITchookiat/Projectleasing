@@ -295,6 +295,7 @@ class AnalysController extends Controller
         'income_SP' => $request->get('incomeSP'),
         'puchase_SP' => $request->get('puchaseSP'),
         'support_SP' => $request->get('supportSP'),
+        'securities_SP' => $request->get('securitiesSP'),
       ]);
       $Sponsordb->save();
 
@@ -651,11 +652,21 @@ class AnalysController extends Controller
         '2,000' => '2,000',
         '2,500' => '2,500',
       ];
+      $securitiesSPp = [
+        'โฉนด' => 'โฉนด',
+        'นส.3' => 'นส.3',
+        'นส.3 ก' => 'นส.3 ก',
+        'นส.4' => 'นส.4',
+        'นส.4 จ' => 'นส.4 จ',
+      ];
+
+      $GetDocComplete = $data->DocComplete_car;
+      // dd($data->Status_buyer);
 
       return view('Analysis.edit',
           compact('data','id','dataImage','Statusby','Addby','Houseby','Driverby','HouseStyleby','Careerby','Incomeby',
           'HisCarby','StatusSPp','relationSPp','addSPp','housestyleSPp','Brandcarr','Interestcarr','Timeslackencarr',
-          'Insurancecarr','statuscarr','newDateDue','evaluetionPricee'));
+          'Insurancecarr','statuscarr','newDateDue','evaluetionPricee','securitiesSPp','GetDocComplete'));
     }
 
     /**
@@ -669,6 +680,7 @@ class AnalysController extends Controller
     {
         date_default_timezone_set('Asia/Bangkok');
         // $this->validate($request,['Approverscar' => 'required']);
+        // dd($request->get('Statusbuyer'));
 
         $newDateDue = \Carbon\Carbon::parse($request->DateDue)->format('Y')-543 ."-". \Carbon\Carbon::parse($request->DateDue)->format('m')."-". \Carbon\Carbon::parse($request->DateDue)->format('d');
 
@@ -735,6 +747,7 @@ class AnalysController extends Controller
           $sponsor->income_SP = $request->get('incomeSP');
           $sponsor->puchase_SP = $request->get('puchaseSP');
           $sponsor->support_SP = $request->get('supportSP');
+          $sponsor->securities_SP = $request->get('securitiesSP');
         $sponsor->update();
 
         if ($request->get('Topcar') != Null) {
