@@ -109,7 +109,7 @@
             </td>
             <td width="50px">
               @if($value->Accountbrance_car != $value->Accountagent_car and $value->Accountagent_car != Null)
-                คอม {{ number_format($value->Commission_car) }}
+                คอม {{ number_format($value->commit_Price) }}
               @elseif($value->Accountagent_car == Null and $value->Agent_car != Null)
                 สด {{number_format($value->commit_Price)}}
               @elseif($value->Accountagent_car == Null)

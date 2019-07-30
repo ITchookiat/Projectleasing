@@ -13,12 +13,12 @@
   <section class="sidebar">
     <!-- Sidebar user panel -->
     <div class="user-panel">
-      <div class="pull-left image">
-        <img src="{{ asset('dist/img/leasingLogo.png') }}" class="img-circle" alt="User Image">
+      <div class="pull-left">
+        <img src="{{ asset('dist/img/leasingLogo.png') }}" alt="User Image" style="width: 30%;">
       </div>
       <div class="pull-left info">
-        <p>{{ Auth::user()->name }}</p>
-        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        <p>&nbsp;&nbsp;&nbsp;{{ Auth::user()->username }}</p>
+        <a href="#">&nbsp;&nbsp;&nbsp;<i class="fa fa-circle text-success"></i> Online</a>
       </div>
     </div>
     <!-- search form -->
