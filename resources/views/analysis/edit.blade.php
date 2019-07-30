@@ -1518,7 +1518,7 @@
                                    </select>
                                  @else
                                    @if($GetDocComplete != Null)
-                                     <input type="text" id="Insurancecar" name="Insurancecar" value="{{$data->Insurance_car}}" class="form-control" style="width: 250px;" placeholder="ประกันภัย" readonly />
+                                     <input type="text" id="statuscar" name="statuscar" value="{{$data->status_car}}" class="form-control" style="width: 250px;" placeholder="สถานะ" readonly />
                                    @else
                                      <select name="statuscar" class="form-control" style="width: 250px;">
                                        <option value="" disabled selected>--- สถานะ ---</option>
