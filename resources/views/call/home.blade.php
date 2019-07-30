@@ -222,12 +222,18 @@ return "$strDay $strMonthThai $strYear";
               </div>
               <!-- /.tab-pane -->
               <div class="tab-pane" id="tab_3">
-
                 <!-- แสดงสาขา (ปัตตานี) -->
+                <form name="form1" action="{{ route('updategroup', 1) }}" enctype="multipart/form-data">
                 <div class="table-responsive">
                   <br>
-                  <!-- <a class="btn btn-primary pull-right"><i class="fa fa-print fa-sm"></i> พิมพ์</a> -->
-                  <p align="left"><b>งานโทรค้าง 1 - 1.49 ดิววันที่ {{ DateThai($date)}} สาขา ปัตตานี (01)</b> <a class="btn btn-primary pull-right" href="{{ route('reportcall', 2) }}" target="_blank"><i class="fa fa-print fa-sm"></i> พิมพ์ </a></p>
+                  <p align="left"><b>งานโทรค้าง 1 - 1.49 ดิววันที่ {{ DateThai($date)}} สาขา ปัตตานี (01)</b>
+                    @if($group01 == 0)
+                    <input type="hidden" name="group" value="01" />
+                    <button type="submit" class="btn btn-warning pull-right"><i class="fa fa-exclamation fa-sm"></i> จัดกลุ่ม </button>
+                    @else
+                    <a class="btn btn-primary pull-right" href="{{ route('reportcall', 2) }}" target="_blank"><i class="fa fa-print fa-sm"></i> พิมพ์ </a>&nbsp;
+                    @endif
+                  </p>
                   <br>
                   <table class="table table-bordered" id="table2">
                     <thead class="thead-dark bg-gray-light" >
@@ -253,6 +259,7 @@ return "$strDay $strMonthThai $strYear";
                              $fdate = date_create($row->fdate);
                           @endphp
                           <td class="text-center"><a href="{{ route('callDetail.viewdetail', [$SetStr1,$SetStr2]) }}" data-toggle="modal" data-target="#modal-default">{{$row->contno}}</a></td>
+                          <input type="hidden" name="contno1[]" value="{{$row->contno}}" />
                           <td>{{ $row->name }}</td>
                           <td class="text-center">{{ date_format($fdate, 'd-m-Y') }}</td>
                           <td>{{ $row->tel }}</td>
@@ -293,6 +300,7 @@ return "$strDay $strMonthThai $strYear";
                            $fdate = date_create($row->fdate);
                         @endphp
                         <td class="text-center"><a href="{{ route('callDetail.viewdetail', [$SetStr1,$SetStr2]) }}" data-toggle="modal" data-target="#modal-default">{{$row->contno}}</a></td>
+                        <input type="hidden" name="contno2[]" value="{{$row->contno}}" />
                         <td>{{ $row->name }}</td>
                         <td class="text-center">{{ date_format($fdate, 'd-m-Y') }}</td>
                         <td>{{ $row->tel }}</td>
@@ -303,16 +311,24 @@ return "$strDay $strMonthThai $strYear";
                     </tbody>
                   </table>
                   </div>
+                </form>
 
               </div>
               <!-- /.tab-pane -->
               <div class="tab-pane" id="tab_4">
-
                 <!-- แสดงสาขา (ยะลา) -->
+                <form name="form1" action="{{ route('updategroup', 1) }}" enctype="multipart/form-data">
                  <div class="table-responsive">
                   <br>
                   <!-- <a class="btn btn-primary pull-right"><i class="fa fa-print fa-sm"></i> พิมพ์ </a> -->
-                  <p align="left"> <b>งานโทรค้าง 1 - 1.49 ดิววันที่ {{ DateThai($date)}} สาขา ยะลา (03)</b> <a class="btn btn-primary pull-right" href="{{ route('reportcall', 3) }}" target="_blank"><i class="fa fa-print fa-sm"></i> พิมพ์ </a></p>
+                  <p align="left"> <b>งานโทรค้าง 1 - 1.49 ดิววันที่ {{ DateThai($date)}} สาขา ยะลา (03)</b>
+                    @if($group03 == 0)
+                    <input type="hidden" name="group" value="03" />
+                    <button type="submit" class="btn btn-warning pull-right"><i class="fa fa-exclamation fa-sm"></i> จัดกลุ่ม </button>
+                    @else
+                     <a class="btn btn-primary pull-right" href="{{ route('reportcall', 3) }}" target="_blank"><i class="fa fa-print fa-sm"></i> พิมพ์ </a>
+                    @endif
+                   </p>
                   <br>
                  <table class="table table-bordered" id="table3">
                    <thead class="thead-dark bg-gray-light" >
@@ -339,6 +355,7 @@ return "$strDay $strMonthThai $strYear";
                           $fdate = date_create($row->fdate);
                        @endphp
                        <td class="text-center"><a href="{{ route('callDetail.viewdetail', [$SetStr1,$SetStr2]) }}" data-toggle="modal" data-target="#modal-default">{{$row->contno}}</a></td>
+                       <input type="hidden" name="contno1[]" value="{{$row->contno}}" />
                        <td>{{ $row->name }}</td>
                        <td class="text-center">{{ date_format($fdate, 'd-m-Y') }}</td>
                        <td>{{ $row->tel }}</td>
@@ -379,6 +396,7 @@ return "$strDay $strMonthThai $strYear";
                            $fdate = date_create($row->fdate);
                         @endphp
                         <td class="text-center"><a href="{{ route('callDetail.viewdetail', [$SetStr1,$SetStr2]) }}" data-toggle="modal" data-target="#modal-default">{{$row->contno}}</a></td>
+                        <input type="hidden" name="contno2[]" value="{{$row->contno}}" />
                         <td>{{ $row->name }}</td>
                         <td class="text-center">{{ date_format($fdate, 'd-m-Y') }}</td>
                         <td>{{ $row->tel }}</td>
@@ -389,16 +407,23 @@ return "$strDay $strMonthThai $strYear";
                     </tbody>
                   </table>
                 </div>
-
+              </form>
               </div>
               <!-- /.tab-pane -->
               <div class="tab-pane" id="tab_5">
-
                 <!-- แสดงสาขา (นราธิวาส) -->
+                <form name="form1" action="{{ route('updategroup', 1) }}" enctype="multipart/form-data">
                 <div class="table-responsive">
                   <br>
                   <!-- <a class="btn btn-primary pull-right"><i class="fa fa-print fa-sm"></i> พิมพ์</a> -->
-                  <p align="left"><b>งานโทรค้าง 1 - 1.49 ดิววันที่ {{ DateThai($date)}} สาขา นราธิวาส (04)</b> <a class="btn btn-primary pull-right" href="{{ route('reportcall', 4) }}" target="_blank"><i class="fa fa-print fa-sm"></i> พิมพ์ </a></p>
+                  <p align="left"><b>งานโทรค้าง 1 - 1.49 ดิววันที่ {{ DateThai($date)}} สาขา นราธิวาส (04)</b>
+                    @if($group04 == 0)
+                    <input type="hidden" name="group" value="04" />
+                    <button type="submit" class="btn btn-warning pull-right"><i class="fa fa-exclamation fa-sm"></i> จัดกลุ่ม </button>
+                    @else
+                     <a class="btn btn-primary pull-right" href="{{ route('reportcall', 4) }}" target="_blank"><i class="fa fa-print fa-sm"></i> พิมพ์ </a>
+                    @endif
+                   </p>
                  <br>
                  <table class="table table-bordered" id="table4">
                    <thead class="thead-dark bg-gray-light" >
@@ -424,6 +449,7 @@ return "$strDay $strMonthThai $strYear";
                           $fdate = date_create($row->fdate);
                        @endphp
                        <td class="text-center"><a href="{{ route('callDetail.viewdetail', [$SetStr1,$SetStr2]) }}" data-toggle="modal" data-target="#modal-default">{{$row->contno}}</a></td>
+                       <input type="hidden" name="contno1[]" value="{{$row->contno}}" />
                        <td>{{ $row->name }}</td>
                        <td class="text-center">{{ date_format($fdate, 'd-m-Y') }}</td>
                        <td>{{ $row->tel }}</td>
@@ -464,6 +490,7 @@ return "$strDay $strMonthThai $strYear";
                            $fdate = date_create($row->fdate);
                         @endphp
                         <td class="text-center"><a href="{{ route('callDetail.viewdetail', [$SetStr1,$SetStr2]) }}" data-toggle="modal" data-target="#modal-default">{{$row->contno}}</a></td>
+                        <input type="hidden" name="contno2[]" value="{{$row->contno}}" />
                         <td>{{ $row->name }}</td>
                         <td class="text-center">{{ date_format($fdate, 'd-m-Y') }}</td>
                         <td>{{ $row->tel }}</td>
@@ -474,16 +501,23 @@ return "$strDay $strMonthThai $strYear";
                     </tbody>
                   </table>
                   </div>
-
+                </form>
               </div>
               <!-- /.tab-pane -->
               <div class="tab-pane" id="tab_6">
-
                 <!-- แสดงสาขา (สายบุรี) -->
+                <form name="form1" action="{{ route('updategroup', 1) }}" enctype="multipart/form-data">
                 <div class="table-responsive">
                   <br>
                   <!-- <a class="btn btn-primary pull-right"><i class="fa fa-print fa-sm"></i> พิมพ์</a> -->
-                  <p align="left"><b>งานโทรค้าง 1 - 1.49 ดิววันที่ {{ DateThai($date)}} สาขา สายบุรี (05)</b> <a class="btn btn-primary pull-right" href="{{ route('reportcall', 5) }}" target="_blank"><i class="fa fa-print fa-sm"></i> พิมพ์ </a></p>
+                  <p align="left"><b>งานโทรค้าง 1 - 1.49 ดิววันที่ {{ DateThai($date)}} สาขา สายบุรี (05)</b>
+                    @if($group05 == 0)
+                    <input type="hidden" name="group" value="05" />
+                    <button type="submit" class="btn btn-warning pull-right"><i class="fa fa-exclamation fa-sm"></i> จัดกลุ่ม </button>
+                    @else
+                     <a class="btn btn-primary pull-right" href="{{ route('reportcall', 5) }}" target="_blank"><i class="fa fa-print fa-sm"></i> พิมพ์ </a>
+                    @endif
+                   </p>
                   <br>
                  <table class="table table-bordered" id="table5">
                    <thead class="thead-dark bg-gray-light" >
@@ -509,6 +543,7 @@ return "$strDay $strMonthThai $strYear";
                           $fdate = date_create($row->fdate);
                        @endphp
                        <td class="text-center"><a href="{{ route('callDetail.viewdetail', [$SetStr1,$SetStr2]) }}" data-toggle="modal" data-target="#modal-default">{{$row->contno}}</a></td>
+                       <input type="hidden" name="contno1[]" value="{{$row->contno}}" />
                        <td>{{ $row->name }}</td>
                        <td class="text-center">{{ date_format($fdate, 'd-m-Y') }}</td>
                        <td>{{ $row->tel }}</td>
@@ -549,6 +584,7 @@ return "$strDay $strMonthThai $strYear";
                            $fdate = date_create($row->fdate);
                         @endphp
                         <td class="text-center"><a href="{{ route('callDetail.viewdetail', [$SetStr1,$SetStr2]) }}" data-toggle="modal" data-target="#modal-default">{{$row->contno}}</a></td>
+                        <input type="hidden" name="contno2[]" value="{{$row->contno}}" />
                         <td>{{ $row->name }}</td>
                         <td class="text-center">{{ date_format($fdate, 'd-m-Y') }}</td>
                         <td>{{ $row->tel }}</td>
@@ -559,16 +595,23 @@ return "$strDay $strMonthThai $strYear";
                     </tbody>
                   </table>
                   </div>
-
+                </form>
               </div>
               <!-- /.tab-pane -->
               <div class="tab-pane" id="tab_7">
-
                 <!-- แสดงสาขา สุไงโก-ลก -->
+                <form name="form1" action="{{ route('updategroup', 1) }}" enctype="multipart/form-data">
                 <div class="table-responsive">
                   <br>
                   <!-- <a class="btn btn-primary pull-right"><i class="fa fa-print fa-sm"></i> พิมพ์</a> -->
-                  <p align="left"><b>งานโทรค้าง 1 - 1.49 ดิววันที่ {{ DateThai($date)}} สาขา สุไงโก-ลก (06)</b> <a class="btn btn-primary pull-right" href="{{ route('reportcall', 6) }}" target="_blank"><i class="fa fa-print fa-sm"></i> พิมพ์ </a></p>
+                  <p align="left"><b>งานโทรค้าง 1 - 1.49 ดิววันที่ {{ DateThai($date)}} สาขา สุไงโก-ลก (06)</b>
+                    @if($group06 == 0)
+                    <input type="hidden" name="group" value="06" />
+                    <button type="submit" class="btn btn-warning pull-right"><i class="fa fa-exclamation fa-sm"></i> จัดกลุ่ม </button>
+                    @else
+                    <a class="btn btn-primary pull-right" href="{{ route('reportcall', 6) }}" target="_blank"><i class="fa fa-print fa-sm"></i> พิมพ์ </a>
+                    @endif
+                  </p>
                   <br>
                  <table class="table table-bordered" id="table6">
                    <thead class="thead-dark bg-gray-light" >
@@ -594,6 +637,7 @@ return "$strDay $strMonthThai $strYear";
                           $fdate = date_create($row->fdate);
                        @endphp
                        <td class="text-center"><a href="{{ route('callDetail.viewdetail', [$SetStr1,$SetStr2]) }}" data-toggle="modal" data-target="#modal-default">{{$row->contno}}</a></td>
+                       <input type="hidden" name="contno1[]" value="{{$row->contno}}" />
                        <td>{{ $row->name }}</td>
                        <td class="text-center">{{ date_format($fdate, 'd-m-Y') }}</td>
                        <td>{{ $row->tel }}</td>
@@ -634,6 +678,7 @@ return "$strDay $strMonthThai $strYear";
                            $fdate = date_create($row->fdate);
                         @endphp
                         <td class="text-center"><a href="{{ route('callDetail.viewdetail', [$SetStr1,$SetStr2]) }}" data-toggle="modal" data-target="#modal-default">{{$row->contno}}</a></td>
+                        <input type="hidden" name="contno2[]" value="{{$row->contno}}" />
                         <td>{{ $row->name }}</td>
                         <td class="text-center">{{ date_format($fdate, 'd-m-Y') }}</td>
                         <td>{{ $row->tel }}</td>
@@ -644,16 +689,23 @@ return "$strDay $strMonthThai $strYear";
                     </tbody>
                   </table>
                   </div>
-
+                </form>
               </div>
               <!-- /.tab-pane -->
               <div class="tab-pane" id="tab_8">
-
                 <!-- แสดงสาขาเบตง -->
+                <form name="form1" action="{{ route('updategroup', 1) }}" enctype="multipart/form-data">
                 <div class="table-responsive">
                   <br>
                   <!-- <a class="btn btn-primary pull-right"><i class="fa fa-print fa-sm"></i> พิมพ์</a> -->
-                  <p align="left"><b>งานโทรค้าง 1 - 1.49 ดิววันที่ {{ DateThai($date)}} สาขา เบตง (07)</b> <a class="btn btn-primary pull-right" href="{{ route('reportcall', 7) }}" target="_blank"><i class="fa fa-print fa-sm"></i> พิมพ์ </a></p>
+                  <p align="left"><b>งานโทรค้าง 1 - 1.49 ดิววันที่ {{ DateThai($date)}} สาขา เบตง (07)</b>
+                    @if($group07 == 0)
+                    <input type="hidden" name="group" value="07" />
+                    <button type="submit" class="btn btn-warning pull-right"><i class="fa fa-exclamation fa-sm"></i> จัดกลุ่ม </button>
+                    @else
+                    <a class="btn btn-primary pull-right" href="{{ route('reportcall', 7) }}" target="_blank"><i class="fa fa-print fa-sm"></i> พิมพ์ </a>
+                    @endif
+                  </p>
                   <br>
                  <table class="table table-bordered" id="table7">
                    <thead class="thead-dark bg-gray-light" >
@@ -680,6 +732,7 @@ return "$strDay $strMonthThai $strYear";
                           $fdate = date_create($row->fdate);
                        @endphp
                        <td class="text-center"><a href="{{ route('callDetail.viewdetail', [$SetStr1,$SetStr2]) }}" data-toggle="modal" data-target="#modal-default">{{$row->contno}}</a></td>
+                       <input type="hidden" name="contno1[]" value="{{$row->contno}}" />
                        <td>{{ $row->name }}</td>
                        <td class="text-center">{{ date_format($fdate, 'd-m-Y') }}</td>
                        <td>{{ $row->tel }}</td>
@@ -720,6 +773,7 @@ return "$strDay $strMonthThai $strYear";
                            $fdate = date_create($row->fdate);
                         @endphp
                         <td class="text-center"><a href="{{ route('callDetail.viewdetail', [$SetStr1,$SetStr2]) }}" data-toggle="modal" data-target="#modal-default">{{$row->contno}}</a></td>
+                        <input type="hidden" name="contno2[]" value="{{$row->contno}}" />
                         <td>{{ $row->name }}</td>
                         <td class="text-center">{{ date_format($fdate, 'd-m-Y') }}</td>
                         <td>{{ $row->tel }}</td>
@@ -730,7 +784,7 @@ return "$strDay $strMonthThai $strYear";
                     </tbody>
                   </table>
                   </div>
-
+                </form>
               </div>
               <!-- /.tab-pane -->
             </div>

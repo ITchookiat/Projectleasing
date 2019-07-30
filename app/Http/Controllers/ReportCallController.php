@@ -18,7 +18,6 @@ class ReportCallController extends Controller
      public function index(Request $request, $type)
      {
          //
-         // dd($type);
          date_default_timezone_set('Asia/Bangkok');
          $today = date('Y-m-d');
          $date = date('Y-m-d', strtotime('-1 days'));
@@ -28,7 +27,7 @@ class ReportCallController extends Controller
          ->where('date_record', '=', $date)
          ->orderBy('CONTNO', 'ASC')
          ->get();
-         // dd($data_today);
+
          $sum_data_today = count($data_today);
 
          $data_0210 = DB::table('recordcalls')
@@ -59,7 +58,6 @@ class ReportCallController extends Controller
          $flag16 = false;            $count16 = [];
 
          foreach ($data_0210 as $key => $value) {
-         // code...
          if($flag1 == true){
          $count1[] = $data_0210[$key];
          $flag1 = false;
@@ -79,71 +77,69 @@ class ReportCallController extends Controller
          $count4[] = $data_0210[$key];
          $flag4 = false;
          $flag5 = true;
-         // dump($count4);
+
          }elseif($flag5 == true){
          $count5[] = $data_0210[$key];
          $flag5 = false;
          $flag6 = true;
-         // dump($count5);
+
          }elseif($flag6 == true){
          $count6[] = $data_0210[$key];
          $flag6 = false;
          $flag7 = true;
-         // dump($count6);
+
          }elseif($flag7 == true){
          $count7[] = $data_0210[$key];
          $flag7 = false;
          $flag8 = true;
-         // dump($count6);
+
          }elseif($flag8 == true){
          $count8[] = $data_0210[$key];
          $flag8 = false;
          $flag9 = true;
-         // dump($count6);
+
          }elseif($flag9 == true){
          $count9[] = $data_0210[$key];
          $flag9 = false;
          $flag10 = true;
-         // dump($count6);
+
          }elseif($flag10 == true){
          $count10[] = $data_0210[$key];
          $flag10 = false;
          $flag11 = true;
-         // dump($count6);
+
          }elseif($flag11 == true){
          $count11[] = $data_0210[$key];
          $flag11 = false;
          $flag12 = true;
-         // dump($count6);
+
          }elseif($flag12 == true){
          $count12[] = $data_0210[$key];
          $flag12 = false;
          $flag13 = true;
-         // dump($count6);
+
          }elseif($flag13 == true){
          $count13[] = $data_0210[$key];
          $flag13 = false;
          $flag14 = true;
-         // dump($count6);
+
          }elseif($flag14 == true){
          $count14[] = $data_0210[$key];
          $flag14 = false;
          $flag15 = true;
-         // dump($count6);
+
          }elseif($flag15 == true){
          $count15[] = $data_0210[$key];
          $flag15 = false;
          $flag16 = true;
-         // dump($count6);
+
          }elseif($flag16 == true){
          $count16[] = $data_0210[$key];
          $flag16 = false;
          $flag1 = true;
-         // dump($count6);
-         }
-         }
 
-         // dd($count1,$count2,$count3,$count4,$count5,$count6,$count7,$count8,$count9,$count10,$count11,$count12,$count13,$count14,$count15,$count16);
+         }
+         }
 
          $pattani = collect([$count1,$count10])->collapse();
          $yala = collect([$count2,$count5])->collapse();
@@ -167,7 +163,6 @@ class ReportCallController extends Controller
            ->orderBy('CONTNO', 'ASC')
            ->get();
            $sum_data_pt = count($data_pt);
-
          }
 
          if ($request->type == 3){
@@ -177,7 +172,6 @@ class ReportCallController extends Controller
            ->orderBy('CONTNO', 'ASC')
            ->get();
            $sum_data_yl = count($data_yl);
-
          }
 
          if ($request->type == 4){
@@ -187,7 +181,6 @@ class ReportCallController extends Controller
            ->orderBy('CONTNO', 'ASC')
            ->get();
            $sum_data_nr = count($data_nr);
-
          }
 
          if ($request->type == 5){
@@ -197,7 +190,6 @@ class ReportCallController extends Controller
            ->orderBy('CONTNO', 'ASC')
            ->get();
            $sum_data_sb = count($data_sb);
-
          }
 
          if ($request->type == 6){
@@ -207,7 +199,6 @@ class ReportCallController extends Controller
            ->orderBy('CONTNO', 'ASC')
            ->get();
            $sum_data_kl = count($data_kl);
-
          }
 
          if ($request->type == 7){
@@ -217,9 +208,6 @@ class ReportCallController extends Controller
            ->orderBy('CONTNO', 'ASC')
            ->get();
            $sum_data_bt = count($data_bt);
-
-           // dd($data_bt);
-
          }
 
          $ReportType = $request->type;
@@ -252,8 +240,6 @@ class ReportCallController extends Controller
            $pdf::AddPage('P', 'A4');
          }
 
-         // $pdf::AddPage('P', 'A4');
-                 // set margins
          $pdf::SetMargins(5, 5, 6);
 
          $pdf::SetFont('freeserif', 8);
@@ -267,13 +253,12 @@ class ReportCallController extends Controller
 
     public function store(Request $request)
     {
-      // dd($request);
+
       if($request->get('date') == ''){
       $date = date('Y-m-d', strtotime('-1 days'));
       }else{
       $date = $request->get('date');
       }
-      // dd($date);
 
       $SetContno = $request->get('contno');
       $SetName = $request->get('name');
@@ -311,13 +296,10 @@ class ReportCallController extends Controller
           ]);
           $recordcalldb->save();
       }
-      // dd($recordcalldb);
       $type = 1;
       return redirect()->Route('call', $type)->with('success','บันทึกข้อมูลเรียบร้อย');
 
       }
-
-      //dhfdj
       public function update(Request $request, $type)
       {
 
@@ -325,8 +307,6 @@ class ReportCallController extends Controller
         $SetLhldo = $request->get('l_hldno');
         $SetPaid = $request->get('paid');
         $array_len = count($SetContno);
-
-        // dd($SetContno, $SetLhldo, $SetPaid);
 
         for($i=0; $i<$array_len; $i++){
 
@@ -348,244 +328,204 @@ class ReportCallController extends Controller
 
         }
 
-        public function monthReport(Request $request, $type, $fmonth, $fyear){
+        public function updategroup(Request $request, $type)
+       {
+         $SetGroup = $request->get('group');
+         $SetContno1 = $request->get('contno1');
+         $SetContno2 = $request->get('contno2');
+         if($SetContno1 == ''){
+           $SetContno1 = [];
+         }
+         $SetContno = array_merge($SetContno1,$SetContno2);
 
-        $SetMonth = $fyear."-".$fmonth;
-        $star = $SetMonth."-"."01";
-        if($SetMonth == "$fyear-02"){
-         $end = $SetMonth."-"."28";
-        }elseif($SetMonth == "$fyear-04"){
-        $end = $SetMonth."-"."30";
-        }elseif($SetMonth == "$fyear-06"){
-          $end = $SetMonth."-"."30";
-        }elseif($SetMonth == "$fyear-09"){
-          $end = $SetMonth."-"."30";
-        }elseif($SetMonth == "$fyear-11"){
-        $end = $SetMonth."-"."30";
-        }else{
-        $end = $SetMonth."-"."31";
-        }
+         $array_len = count($SetContno);
 
-        // dd($star, $end);
+         for($i=0; $i<$array_len; $i++){
+
+             $Contno = $SetContno[$i];
+
+             $updateG = DB::table('recordcalls')
+                     ->whereIn('CONTNO', [$Contno])
+                     ->update(['group' => $SetGroup]);
+           }
+         $type = 1;
+         return redirect()->Route('call', $type)->with('success','อัพเดทข้อมูลเรียบร้อย');
+
+         }
+
+        public function monthReport(Request $request, $type, $fdate, $tdate){
+
         $all_month_0 = DB::table('recordcalls')
-        ->whereBetween('date_record',[$star,$end])
+        ->whereBetween('date_record',[$fdate,$tdate])
         ->where('l_hldno', '=', '0.00')
         ->orderBy('CONTNO', 'ASC')
         ->get();
         $sum_all_month_0 = count($all_month_0);
 
         $pt_month_0 = DB::table('recordcalls')
-        ->whereBetween('date_record',[$star,$end])
-        ->where('CONTNO', 'like', '01-%')
+        ->whereBetween('date_record',[$fdate,$tdate])
+        ->where('group', '=', '01')
         ->where('l_hldno', '=', '0.00')
         ->orderBy('CONTNO', 'ASC')
         ->get();
         $sum_pt_month_0 = count($pt_month_0);
 
         $yl_month_0 = DB::table('recordcalls')
-        ->whereBetween('date_record',[$star,$end])
-        ->where('CONTNO', 'like', '03-%')
+        ->whereBetween('date_record',[$fdate,$tdate])
+        ->where('group', '=', '03')
         ->where('l_hldno', '=', '0.00')
         ->orderBy('CONTNO', 'ASC')
         ->get();
         $sum_yl_month_0 = count($yl_month_0);
 
         $nr_month_0 = DB::table('recordcalls')
-        ->whereBetween('date_record',[$star,$end])
-        ->where('CONTNO', 'like', '04-%')
+        ->whereBetween('date_record',[$fdate,$tdate])
+        ->where('group', '=', '04')
         ->where('l_hldno', '=', '0.00')
         ->orderBy('CONTNO', 'ASC')
         ->get();
         $sum_nr_month_0 = count($nr_month_0);
 
         $sb_month_0 = DB::table('recordcalls')
-        ->whereBetween('date_record',[$star,$end])
-        ->where('CONTNO', 'like', '05-%')
+        ->whereBetween('date_record',[$fdate,$tdate])
+        ->where('group', '=', '05')
         ->where('l_hldno', '=', '0.00')
         ->orderBy('CONTNO', 'ASC')
         ->get();
         $sum_sb_month_0 = count($sb_month_0);
 
         $kl_month_0 = DB::table('recordcalls')
-        ->whereBetween('date_record',[$star,$end])
-        ->where('CONTNO', 'like', '06-%')
+        ->whereBetween('date_record',[$fdate,$tdate])
+        ->where('group', '=', '06')
         ->where('l_hldno', '=', '0.00')
         ->orderBy('CONTNO', 'ASC')
         ->get();
         $sum_kl_month_0 = count($kl_month_0);
 
         $bt_month_0 = DB::table('recordcalls')
-        ->whereBetween('date_record',[$star,$end])
-        ->where('CONTNO', 'like', '07-%')
+        ->whereBetween('date_record',[$fdate,$tdate])
+        ->where('group', '=', '07')
         ->where('l_hldno', '=', '0.00')
         ->orderBy('CONTNO', 'ASC')
         ->get();
         $sum_bt_month_0 = count($bt_month_0);
 
-        $b02_month_0 = DB::table('recordcalls')
-        ->whereBetween('date_record',[$star,$end])
-        ->where('CONTNO', 'like', '02-%')
-        ->where('l_hldno', '=', '0.00')
-        ->orderBy('CONTNO', 'ASC')
-        ->get();
-        $sum_02_month_0 = count($b02_month_0);
-
-        $b10_month_0 = DB::table('recordcalls')
-        ->whereBetween('date_record',[$star,$end])
-        ->where('CONTNO', 'like', '10-%')
-        ->where('l_hldno', '=', '0.00')
-        ->orderBy('CONTNO', 'ASC')
-        ->get();
-        $sum_10_month_0 = count($b10_month_0);
-
         $all_month_l1 = DB::table('recordcalls')
-        ->whereBetween('date_record',[$star,$end])
+        ->whereBetween('date_record',[$fdate,$tdate])
         ->whereBetween('l_hldno',[0.01,0.99])
         ->orderBy('CONTNO', 'ASC')
         ->get();
         $sum_all_month_l1 = count($all_month_l1);
 
         $pt_month_l1 = DB::table('recordcalls')
-        ->whereBetween('date_record',[$star,$end])
-        ->where('CONTNO', 'like', '01-%')
+        ->whereBetween('date_record',[$fdate,$tdate])
+        ->where('group', '=', '01')
         ->whereBetween('l_hldno',[0.01,0.99])
         ->orderBy('CONTNO', 'ASC')
         ->get();
         $sum_pt_month_l1 = count($pt_month_l1);
 
         $yl_month_l1 = DB::table('recordcalls')
-        ->whereBetween('date_record',[$star,$end])
-        ->where('CONTNO', 'like', '03-%')
+        ->whereBetween('date_record',[$fdate,$tdate])
+        ->where('group', '=', '03')
         ->whereBetween('l_hldno',[0.01,0.99])
         ->orderBy('CONTNO', 'ASC')
         ->get();
         $sum_yl_month_l1 = count($yl_month_l1);
 
         $nr_month_l1 = DB::table('recordcalls')
-        ->whereBetween('date_record',[$star,$end])
-        ->where('CONTNO', 'like', '04-%')
+        ->whereBetween('date_record',[$fdate,$tdate])
+        ->where('group', '=', '04')
         ->whereBetween('l_hldno',[0.01,0.99])
         ->orderBy('CONTNO', 'ASC')
         ->get();
         $sum_nr_month_l1 = count($nr_month_l1);
 
         $sb_month_l1 = DB::table('recordcalls')
-        ->whereBetween('date_record',[$star,$end])
-        ->where('CONTNO', 'like', '05-%')
+        ->whereBetween('date_record',[$fdate,$tdate])
+        ->where('group', '=', '05')
         ->whereBetween('l_hldno',[0.01,0.99])
         ->orderBy('CONTNO', 'ASC')
         ->get();
         $sum_sb_month_l1 = count($sb_month_l1);
 
         $kl_month_l1 = DB::table('recordcalls')
-        ->whereBetween('date_record',[$star,$end])
-        ->where('CONTNO', 'like', '06-%')
+        ->whereBetween('date_record',[$fdate,$tdate])
+        ->where('group', '=', '06')
         ->whereBetween('l_hldno',[0.01,0.99])
         ->orderBy('CONTNO', 'ASC')
         ->get();
         $sum_kl_month_l1 = count($kl_month_l1);
 
         $bt_month_l1 = DB::table('recordcalls')
-        ->whereBetween('date_record',[$star,$end])
-        ->where('CONTNO', 'like', '07-%')
+        ->whereBetween('date_record',[$fdate,$tdate])
+        ->where('group', '=', '07')
         ->whereBetween('l_hldno',[0.01,0.99])
         ->orderBy('CONTNO', 'ASC')
         ->get();
         $sum_bt_month_l1 = count($bt_month_l1);
 
-        $b02_month_l1 = DB::table('recordcalls')
-        ->whereBetween('date_record',[$star,$end])
-        ->where('CONTNO', 'like', '02-%')
-        ->whereBetween('l_hldno',[0.01,0.99])
-        ->orderBy('CONTNO', 'ASC')
-        ->get();
-        $sum_02_month_l1 = count($b02_month_l1);
-
-        $b10_month_l1 = DB::table('recordcalls')
-        ->whereBetween('date_record',[$star,$end])
-        ->where('CONTNO', 'like', '10-%')
-        ->whereBetween('l_hldno',[0.01,0.99])
-        ->orderBy('CONTNO', 'ASC')
-        ->get();
-        $sum_10_month_l1 = count($b10_month_l1);
-
         $all_month_1 = DB::table('recordcalls')
-        ->whereBetween('date_record',[$star,$end])
+        ->whereBetween('date_record',[$fdate,$tdate])
         ->whereBetween('hldno',[1.00,1.49])
         ->orderBy('CONTNO', 'ASC')
         ->get();
         $sum_all_month_1 = count($all_month_1);
 
         $pt_month_1 = DB::table('recordcalls')
-        ->whereBetween('date_record',[$star,$end])
-        ->where('CONTNO', 'like', '01-%')
+        ->whereBetween('date_record',[$fdate,$tdate])
+        ->where('group', '=', '01')
         ->whereBetween('hldno',[1.00,1.49])
         ->orderBy('CONTNO', 'ASC')
         ->get();
         $sum_pt_month_1 = count($pt_month_1);
 
         $yl_month_1 = DB::table('recordcalls')
-        ->whereBetween('date_record',[$star,$end])
-        ->where('CONTNO', 'like', '03-%')
+        ->whereBetween('date_record',[$fdate,$tdate])
+        ->where('group', '=', '03')
         ->whereBetween('hldno',[1.00,1.49])
         ->orderBy('CONTNO', 'ASC')
         ->get();
         $sum_yl_month_1 = count($yl_month_1);
 
         $nr_month_1 = DB::table('recordcalls')
-        ->whereBetween('date_record',[$star,$end])
-        ->where('CONTNO', 'like', '04-%')
+        ->whereBetween('date_record',[$fdate,$tdate])
+        ->where('group', '=', '04')
         ->whereBetween('hldno',[1.00,1.49])
         ->orderBy('CONTNO', 'ASC')
         ->get();
         $sum_nr_month_1 = count($nr_month_1);
 
         $sb_month_1 = DB::table('recordcalls')
-        ->whereBetween('date_record',[$star,$end])
-        ->where('CONTNO', 'like', '05-%')
+        ->whereBetween('date_record',[$fdate,$tdate])
+        ->where('group', '=', '05')
         ->whereBetween('hldno',[1.00,1.49])
         ->orderBy('CONTNO', 'ASC')
         ->get();
         $sum_sb_month_1 = count($sb_month_1);
 
         $kl_month_1 = DB::table('recordcalls')
-        ->whereBetween('date_record',[$star,$end])
-        ->where('CONTNO', 'like', '06-%')
+        ->whereBetween('date_record',[$fdate,$tdate])
+        ->where('group', '=', '06')
         ->whereBetween('hldno',[1.00,1.49])
         ->orderBy('CONTNO', 'ASC')
         ->get();
         $sum_kl_month_1 = count($kl_month_1);
 
         $bt_month_1 = DB::table('recordcalls')
-        ->whereBetween('date_record',[$star,$end])
-        ->where('CONTNO', 'like', '07-%')
+        ->whereBetween('date_record',[$fdate,$tdate])
+        ->where('group', '=', '07')
         ->whereBetween('hldno',[1.00,1.49])
         ->orderBy('CONTNO', 'ASC')
         ->get();
         $sum_bt_month_1 = count($bt_month_1);
 
-        $b02_month_1 = DB::table('recordcalls')
-        ->whereBetween('date_record',[$star,$end])
-        ->where('CONTNO', 'like', '02-%')
-        ->whereBetween('hldno',[1.00,1.49])
-        ->orderBy('CONTNO', 'ASC')
-        ->get();
-        $sum_02_month_1 = count($b02_month_1);
-
-        $b10_month_1 = DB::table('recordcalls')
-        ->whereBetween('date_record',[$star,$end])
-        ->where('CONTNO', 'like', '10-%')
-        ->whereBetween('hldno',[1.00,1.49])
-        ->orderBy('CONTNO', 'ASC')
-        ->get();
-        $sum_10_month_1 = count($b10_month_1);
-
         $ReportType = $request->type;
 
-        $view = \View::make('call.reportAll', compact('ReportType', 'fmonth','fyear',
-        'sum_all_month_0','sum_pt_month_0','sum_yl_month_0','sum_nr_month_0','sum_sb_month_0','sum_kl_month_0','sum_bt_month_0','sum_02_month_0','sum_10_month_0',
-        'sum_all_month_l1','sum_pt_month_l1','sum_yl_month_l1','sum_nr_month_l1','sum_sb_month_l1','sum_kl_month_l1','sum_bt_month_l1','sum_02_month_l1','sum_10_month_l1',
-        'sum_all_month_1','sum_pt_month_1','sum_yl_month_1','sum_nr_month_1','sum_sb_month_1','sum_kl_month_1','sum_bt_month_1','sum_02_month_1','sum_10_month_1'));
+        $view = \View::make('call.reportAll', compact('ReportType', 'fdate','tdate',
+        'sum_all_month_0','sum_pt_month_0','sum_yl_month_0','sum_nr_month_0','sum_sb_month_0','sum_kl_month_0','sum_bt_month_0',
+        'sum_all_month_l1','sum_pt_month_l1','sum_yl_month_l1','sum_nr_month_l1','sum_sb_month_l1','sum_kl_month_l1','sum_bt_month_l1',
+        'sum_all_month_1','sum_pt_month_1','sum_yl_month_1','sum_nr_month_1','sum_sb_month_1','sum_kl_month_1','sum_bt_month_1'));
         $html = $view->render();
 
         $pdf = new PDF();
@@ -600,8 +540,5 @@ class ReportCallController extends Controller
         $pdf::WriteHTML($html,true,false,true,false,'');
         $pdf::lastPage();
         $pdf::Output('monthreport.pdf');
-
       }
-
-
 }
