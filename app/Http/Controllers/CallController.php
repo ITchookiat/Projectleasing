@@ -305,6 +305,14 @@ class CallController extends Controller
          ->get();
          $sum_data_all = count($data_all);
 
+         $data_pt_ori = DB::table('recordcalls')
+         ->where('CONTNO', 'like', '01-%')
+         ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+                return $q->whereBetween('date_record',[$fdate,$tdate]);
+                })
+         ->orderBy('CONTNO', 'ASC')
+         ->get();
+
          $data_pt = DB::table('recordcalls')
          ->where('group', 'like', '01')
          ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
@@ -313,6 +321,14 @@ class CallController extends Controller
          ->orderBy('CONTNO', 'ASC')
          ->get();
          $sum_data_pt = count($data_pt);
+
+         $data_yl_ori = DB::table('recordcalls')
+         ->where('CONTNO', 'like', '03-%')
+         ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+                return $q->whereBetween('date_record',[$fdate,$tdate]);
+                })
+         ->orderBy('CONTNO', 'ASC')
+         ->get();
 
          $data_yl = DB::table('recordcalls')
          ->where('group', 'like', '03')
@@ -323,6 +339,14 @@ class CallController extends Controller
          ->get();
          $sum_data_yl = count($data_yl);
 
+         $data_nr_ori = DB::table('recordcalls')
+         ->where('CONTNO', 'like', '04-%')
+         ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+                return $q->whereBetween('date_record',[$fdate,$tdate]);
+                })
+         ->orderBy('CONTNO', 'ASC')
+         ->get();
+
          $data_nr = DB::table('recordcalls')
          ->where('group', 'like', '04')
          ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
@@ -331,6 +355,14 @@ class CallController extends Controller
          ->orderBy('CONTNO', 'ASC')
          ->get();
          $sum_data_nr = count($data_nr);
+
+         $data_sb_ori = DB::table('recordcalls')
+         ->where('CONTNO', 'like', '05-%')
+         ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+                return $q->whereBetween('date_record',[$fdate,$tdate]);
+                })
+         ->orderBy('CONTNO', 'ASC')
+         ->get();
 
          $data_sb = DB::table('recordcalls')
          ->where('group', 'like', '05')
@@ -341,6 +373,14 @@ class CallController extends Controller
          ->get();
          $sum_data_sb = count($data_sb);
 
+         $data_kl_ori = DB::table('recordcalls')
+         ->where('CONTNO', 'like', '06-%')
+         ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+                return $q->whereBetween('date_record',[$fdate,$tdate]);
+                })
+         ->orderBy('CONTNO', 'ASC')
+         ->get();
+
          $data_kl = DB::table('recordcalls')
          ->where('group', 'like', '06')
          ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
@@ -350,6 +390,14 @@ class CallController extends Controller
          ->get();
          $sum_data_kl = count($data_kl);
 
+         $data_bt_ori = DB::table('recordcalls')
+         ->where('CONTNO', 'like', '07-%')
+         ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+                return $q->whereBetween('date_record',[$fdate,$tdate]);
+                })
+         ->orderBy('CONTNO', 'ASC')
+         ->get();
+
          $data_bt = DB::table('recordcalls')
          ->where('group', 'like', '07')
          ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
@@ -358,24 +406,6 @@ class CallController extends Controller
          ->orderBy('CONTNO', 'ASC')
          ->get();
          $sum_data_bt = count($data_bt);
-
-         // $data_02 = DB::table('recordcalls')
-         // ->where('CONTNO', 'like', '02-%')
-         // ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
-         //        return $q->whereBetween('date_record',[$fdate,$tdate]);
-         //        })
-         // ->orderBy('CONTNO', 'ASC')
-         // ->get();
-         // $sum_data_02 = count($data_02);
-         //
-         // $data_10 = DB::table('recordcalls')
-         // ->where('CONTNO', 'like', '10-%')
-         // ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
-         //        return $q->whereBetween('date_record',[$fdate,$tdate]);
-         //        })
-         // ->orderBy('CONTNO', 'ASC')
-         // ->get();
-         // $sum_data_10 = count($data_10);
 
                if ($request->type == 1)
                {
@@ -424,6 +454,7 @@ class CallController extends Controller
                  return view('call.home', compact('type','allbranch','ptbranch','ylbranch','nrbranch','sbbranch','klbranch','btbranch',
                  'sumall','sumpt','sumyl','sumnr','sumsb','sumkl','sumbt','sum02','sum10','branch0210',
                  'pattani','yala','nara','saiburi','kolok','betong','check',
+                 'data_pt_ori','data_yl_ori','data_nr_ori','data_sb_ori','data_kl_ori','data_bt_ori',
                  'data_all','data_today','data_pt','data_yl','data_nr','data_sb','data_kl','data_bt','data_02','data_10',
                  'sum_data_all','sum_data_today','sum_data_pt','sum_data_yl','sum_data_nr','sum_data_sb','sum_data_kl','sum_data_bt','sum_data_02','sum_data_10',
                  'differ','sum_for_all1','sum_for_all2',
