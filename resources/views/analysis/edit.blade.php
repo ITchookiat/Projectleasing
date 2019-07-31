@@ -1957,7 +1957,7 @@
                     <table class="table table-bordered" id="table" border="3" align="center" style="width: 50%;" align="center">
                       <thead class="thead-dark">
                         <tr>
-                          <th class="text-center"><font color="red"><h3 class="card-title p-3">ผู้อนุมัติ</h3></font></th>
+                          <th class="text-center"><font color="red"><h3 class="card-title p-3">อนุมัติ</h3></font></th>
                           <th class="text-center"><font color="red"><h3 class="card-title p-3">ตรวจสอบ</h3></font></th>
                           <th class="text-center"><font color="red"><h3 class="card-title p-3">ปิดสิทธิ์แก้ไข</h3></font></th>
                         </tr>
@@ -1996,7 +1996,7 @@
                               @if ( $data->DocComplete_car != Null)
                                 <input type="checkbox" class="checkbox" name="doccomplete" id="" value="{{ $data->DocComplete_car }}" checked="checked"> <!-- checked="checked"  -->
                               @else
-                                <input type="checkbox" class="checkbox" name="doccomplete" id="" value="">
+                                <input type="checkbox" class="checkbox" name="doccomplete" id="" value="{{ auth::user()->name }}">
                               @endif
                             <span class="checkmark"></span>
                             <p></p>

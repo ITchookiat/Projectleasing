@@ -15,6 +15,41 @@
       }
     </style>
 
+    <SCRIPT>
+    function toggleOption(thisselect) {
+        var selected = thisselect.options[thisselect.selectedIndex].value;
+        toggleRow(selected);
+    }
+
+    function toggleRow(id) {
+      var row = document.getElementById(id);
+      if (row.style.display == '') {
+        row.style.display = 'none';
+      }
+      else {
+         row.style.display = '';
+      }
+    }
+
+    function showRow(id) {
+      var row = document.getElementById(id);
+      row.style.display = '';
+    }
+
+    function hideRow(id) {
+      var row = document.getElementById(id);
+      row.style.display = 'none';
+    }
+
+    function hideAll() {
+     hideRow('optionA');
+     hideRow('optionB');
+     hideRow('optionC');
+     hideRow('optionD');
+   }
+
+</SCRIPT>
+
   </head>
     <label align="right">วันที่ : <u>{{$date2}}</u></label>
     <h2 class="card-title p-3" align="center">รายงานนำเสนอ</h2>
@@ -44,6 +79,8 @@
       </thead>
       <tbody>
         @foreach($dataReport as $key => $value)
+
+
           <tr align="center" style="line-height: 200%;">
             <td width="50px" rowspan="3" style="background-color: #33FF00; line-height:550%;">{{$value->Brand_car}}</td>
             <td width="25px" rowspan="3" style="line-height:550%;">
@@ -139,10 +176,20 @@
             </td>
             <td width="50px"></td>
           </tr>
+
           <br>
+          @if($key == 6)
+          <!-- <div style="height: 0 !important; page-break-after: always !important;">
+          </div>
+          <tr id="optionA">
+            <td></td>
+          </tr> -->
+
+          @endif
         @endforeach
       </tbody>
     </table>
+
 
 
   </body>
