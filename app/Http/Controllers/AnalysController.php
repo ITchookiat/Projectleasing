@@ -679,7 +679,7 @@ class AnalysController extends Controller
     {
         date_default_timezone_set('Asia/Bangkok');
         // $this->validate($request,['Approverscar' => 'required']);
-        // dd($request->get('Statusbuyer'));
+        dd($request->get('doccomplete'));
 
         $newDateDue = \Carbon\Carbon::parse($request->DateDue)->format('Y')-543 ."-". \Carbon\Carbon::parse($request->DateDue)->format('m')."-". \Carbon\Carbon::parse($request->DateDue)->format('d');
 
