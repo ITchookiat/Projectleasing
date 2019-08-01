@@ -103,6 +103,7 @@
                             <option value="06" > โกลก</option>
                             <option value="07" > เบตง</option>
                             <option value="10" > รถบ้าน</option>
+                            <option value="11" > รถยืดขายผ่อน</option>
                           </select>
                         </div>
 
