@@ -1382,7 +1382,7 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                       <label>ยี่ห้อ : </label>
-                                      <select name="Brandcar" class="form-control" style="width: 250px;">
+                                      <select name="BrandHC" class="form-control" style="width: 250px;">
                                         <option value="" disabled selected>--- ยี่ห้อ ---</option>
                                         <option value="ISUZU">ISUZU</option>
                                         <option value="MITSUBISHI">MITSUBISHI</option>
@@ -1401,7 +1401,7 @@
                                   <div class="col-md-6">
                                     <div class="form-inline" align="right">
                                       <label>ปี : </label>
-                                      <select name="Yearcar" class="form-control" style="width: 250px;">
+                                      <select name="YearHC" class="form-control" style="width: 250px;">
                                         <option value="" disabled selected>--- เลือกปี ---</option>
                                         @php
                                         $Year = date('Y');
@@ -1421,14 +1421,14 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                       <label>สี : </label>
-                                      <input type="text" name="Colourcar" class="form-control" style="width: 250px;" placeholder="สี" />
+                                      <input type="text" name="ColourHC" class="form-control" style="width: 250px;" placeholder="สี" />
                                     </div>
                                   </div>
 
                                   <div class="col-md-6">
                                     <div class="form-inline" align="right">
                                       <label>ป้ายเดิม : </label>
-                                      <input type="text" name="Licensecar" class="form-control" style="width: 250px;" placeholder="ป้ายเดิม"/>
+                                      <input type="text" name="oldplateHC" class="form-control" style="width: 250px;" placeholder="ป้ายเดิม"/>
                                     </div>
                                   </div>
                                 </div>
@@ -1437,14 +1437,14 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                       <label>ป้ายใหม่ : </label>
-                                      <input type="text" name="Nowlicensecar" class="form-control" style="width: 250px;" placeholder="ป้ายใหม่" />
+                                      <input type="text" name="newplateHC" class="form-control" style="width: 250px;" placeholder="ป้ายใหม่" />
                                     </div>
                                   </div>
 
                                   <div class="col-md-6">
                                     <div class="form-inline" align="right">
                                       <label>เลขไมล์ : </label>
-                                      <input type="text" name="Milecar" class="form-control" style="width: 250px;" placeholder="เลขไมล์" />
+                                      <input type="text" name="MileHC" class="form-control" style="width: 250px;" placeholder="เลขไมล์" />
                                     </div>
                                   </div>
                                 </div>
@@ -1453,15 +1453,54 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                       <label>รุ่น : </label>
-                                      <input type="text" name="Modelcar" class="form-control" style="width: 250px;" placeholder="รุ่น" />
+                                      <input type="text" name="modelHC" class="form-control" style="width: 250px;" placeholder="รุ่น" />
                                     </div>
                                   </div>
 
                                   <div class="col-md-6">
+                                    <div class="form-inline" align="right">
+                                      <label>ประเภทรถ : </label>
+                                      <input type="text" name="typeHC" class="form-control" style="width: 250px;" placeholder="ประเภทรถ" />
+                                    </div>
                                   </div>
                                 </div>
 
                                 <hr />
+                                <div class="row">
+                                  <div class="col-md-5">
+                                    <div class="form-inline" align="right">
+                                      <label>ราคารถ : </label>
+                                      <input type="text" name="priceHC" class="form-control" style="width: 250px;" placeholder="ราคารถ" />
+                                    </div>
+                                  </div>
+
+                                  <div class="col-md-6">
+                                    <div class="form-inline" align="right">
+                                      <label>เงินดาวน์ : </label>
+                                      <input type="text" name="downpayHC" class="form-control" style="width: 250px;" placeholder="เงินดาวน์" />
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-5">
+                                    <div class="form-inline" align="right">
+                                      <label>ค่าประกัน : </label>
+                                      <input type="text" name="insuranceHC" class="form-control" style="width: 250px;" placeholder="ค่าประกัน" />
+                                    </div>
+                                  </div>
+
+                                  <div class="col-md-6">
+                                    <div class="form-inline" align="right">
+                                      <label>ค่าโอน : </label>
+                                      <select name="transferHC" class="form-control" style="width: 250px;">
+                                        <option value="" disabled selected>--- ค่าโอน ---</option>
+                                        <option value="3950">3950</option>
+                                        <option value="4950">4950</option>
+                                        <option value="6590">6590</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
                                 <script>
                                   function addCommas(nStr){
                                     nStr += '';
@@ -1638,7 +1677,7 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                       <label>ยอดจัด : </label>
-                                      <input type="text" id="Topcar" name="Topcar" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" oninput="calculate();balance();" />
+                                      <input type="text" id="toppriceHC" name="toppriceHC" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" oninput="calculate();balance();" />
                                       <input type="hidden" id="TopcarOri" name="TopcarOri" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" oninput="balance()" />
                                     </div>
                                   </div>
@@ -1646,7 +1685,7 @@
                                   <div class="col-md-6">
                                     <div class="form-inline" align="right">
                                       <label>ชำระต่องวด : </label>
-                                      <input type="text" id="Paycar" name="Paycar" class="form-control" style="width: 250px;" readonly onchange="calculate()" />
+                                      <input type="text" id="payporHC" name="payporHC" class="form-control" style="width: 250px;" readonly onchange="calculate()" />
                                     </div>
                                   </div>
                                 </div>
@@ -1655,15 +1694,15 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                       <label>VAT : </label>
-                                      <input type="text" id="Vatcar" name="Vatcar" class="form-control" style="width: 250px;" value="7 %" readonly onchange="calculate()"/>
+                                      <input type="text" id="vatHC" name="vatHC" class="form-control" style="width: 250px;" value="7 %" readonly onchange="calculate()"/>
                                     </div>
 
                                   </div>
                                   <div class="col-md-6">
                                     <div class="form-inline" align="right">
                                       <label>ภาษี / ระยะเวลาผ่อน : </label>
-                                      <input type="text" id="Taxcar" name="Taxcar" class="form-control" style="width: 123px;" readonly />
-                                      <input type="text" id="Taxpaycar" name="Taxpaycar" class="form-control" style="width: 123px;" readonly />
+                                      <input type="text" id="taxHC" name="taxHC" class="form-control" style="width: 123px;" readonly />
+                                      <input type="text" id="taxperriodHC" name="taxperriodHC" class="form-control" style="width: 123px;" readonly />
                                     </div>
 
                                   </div>
@@ -1673,17 +1712,15 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                       <label>ดอกเบี้ย : </label>
-                                      <select id="Interestcar" name="Interestcar" class="form-control" style="width: 250px;" onchange="calculate()">
+                                      <select id="interestHC" name="interestHC" class="form-control" style="width: 250px;" onchange="calculate()">
                                         <option value="" disabled selected>--- ดอกเบี้ย ---</option>
                                         <option value="0.55">0.55</option>
                                         <option value="0.65">0.65</option>
-                                        <option value="0.80">0.80</option>
-                                        <option value="0.90">0.90</option>
-                                        <option value="1.05">1.05</option>
+                                        <option value="0.70">0.70</option>
+                                        <option value="0.75">0.75</option>
+                                        <option value="0.85">0.85</option>
+                                        <option value="1.00">1.00</option>
                                         <option value="1.20">1.20</option>
-                                        <option value="1.40">1.40</option>
-                                        <option value="1.55">1.55</option>
-                                        <option value="1.70">1.70</option>
                                       </select>
                                     </div>
                                   </div>
@@ -1691,8 +1728,8 @@
                                   <div class="col-md-6">
                                     <div class="form-inline" align="right">
                                       <label>ค่างวด / ระยะเวลาผ่อน : </label>
-                                      <input type="text" id="Paymemtcar" name="Paymemtcar" class="form-control" style="width: 123px;" readonly />
-                                      <input type="text" id="Timepaymentcar" name="Timepaymentcar" class="form-control" style="width: 123px;" readonly />
+                                      <input type="text" id="paymemtHC" name="paymemtHC" class="form-control" style="width: 123px;" readonly />
+                                      <input type="text" id="payperriodHC" name="payperriodHC" class="form-control" style="width: 123px;" readonly />
                                     </div>
                                   </div>
                                 </div>
@@ -1701,7 +1738,7 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                       <label>ระยะเวลาผ่อน : </label>
-                                      <select id="Timeslackencar" name="Timeslackencar" class="form-control" style="width: 250px;" onchange="calculate()">
+                                      <select id="perriodHC" name="perriodHC" class="form-control" style="width: 250px;" onchange="calculate()">
                                         <option value="" disabled selected>--- ระยะเวลาผ่อน ---</option>
                                         <option value="12">12</option>
                                         <option value="18">18</option>
@@ -1720,8 +1757,8 @@
                                   <div class="col-md-6">
                                     <div class="form-inline" align="right">
                                       <label>ยอดผ่อนชำระทั้งหมด : </label>
-                                      <input type="text" id="Totalpay1car" name="Totalpay1car" class="form-control" style="width: 123px;" readonly />
-                                      <input type="text" id="Totalpay2car" name="Totalpay2car" class="form-control" style="width: 123px;" readonly />
+                                      <input type="text" id="totalinstalmentsHC" name="totalinstalmentsHC" class="form-control" style="width: 123px;" readonly />
+                                      <input type="text" id="totalinstalments1HC" name="totalinstalments1HC" class="form-control" style="width: 123px;" readonly />
                                     </div>
                                   </div>
                                 </div>
@@ -1730,20 +1767,17 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                       <label>วันที่ชำระงวดแรก : </label>
-                                      <input type="text" name="Dateduefirstcar" class="form-control" style="width: 250px;" readonly placeholder="วันที่ชำระงวดแรก" />
+                                      <input type="text" name="firstpayHC" class="form-control" style="width: 250px;" readonly placeholder="วันที่ชำระงวดแรก" />
                                     </div>
                                   </div>
 
                                   <div class="col-md-6">
                                     <div class="form-inline" align="right">
                                       <label>ประกันภัย : </label>
-                                      <select name="Insurancecar" class="form-control" style="width: 250px;">
+                                      <select name="insureHC" class="form-control" style="width: 250px;">
                                         <option value="" disabled selected>--- ประกันภัย ---</option>
-                                        <option value="แถม ป2+ 1ปี">แถม ป2+ 1ปี</option>
-                                        <option value="ไม่แถม">ไม่แถม</option>
-                                        <option value="ซื้อ ป2+ 1ป">ซื้อ ป2+ 1ปี</option>
-                                        <option value="ซื้อ ป1 1ปี">ซื้อ ป1 1ปี</option>
-                                        <option value="มี ป1 อยู่แล้ว">มี ป1 อยู่แล้ว</option>
+                                        <option value="7000">7000</option>
+                                        <option value="20000">20000</option>
                                       </select>
                                     </div>
                                   </div>
@@ -1757,7 +1791,7 @@
                                   <div class="col-md-6">
                                     <div class="form-inline" align="right">
                                       <label>เลขกรมธรรม์ : </label>
-                                      <input type="text" name="Insurancekey" class="form-control" style="width: 250px;" placeholder="เลขกรมธรรม์" />
+                                      <input type="text" name="insurancekeyHC" class="form-control" style="width: 250px;" placeholder="เลขกรมธรรม์" />
                                     </div>
                                   </div>
                                 </div>
@@ -1765,8 +1799,8 @@
                                 <div class="row">
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
-                                      <label>สถานะ : </label>
-                                      <select name="statuscar" class="form-control" style="width: 250px;">
+                                      <label>แบบ : </label>
+                                      <select name="baabHC" class="form-control" style="width: 250px;">
                                         <option value="" disabled selected>--- สถานะ ---</option>
                                         <option value="กส.ค้ำมีหลักทรัพย์">กส.ค้ำมีหลักทรัพย์</option>
                                         <option value="กส.ค้ำไม่มีหลักทรัพย์">กส.ค้ำไม่มีหลักทรัพย์</option>
@@ -1781,66 +1815,28 @@
 
                                   <div class="col-md-6">
                                     <div class="form-inline" align="right">
-                                      <label>เปอร์เซ็นจัดไฟแนนซ์ : </label>
-                                      <input type="text" name="Percentcar" class="form-control" style="width: 250px;" placeholder="เปอร์เซ็นจัดไฟแนนซ์" />
+                                      <label>ค้ำประกัน : </label>
+                                      <input type="text" name="guaranteeHC" class="form-control" style="width: 250px;" placeholder="ค้ำประกัน" />
                                     </div>
+
                                   </div>
                                 </div>
 
                                 <hr />
-                                <div class="row">
-                                  <div class="col-md-5">
-                                    <div class="form-inline" align="right">
-                                      <label>ผู้รับเงิน : </label>
-                                      <input type="text" name="Payeecar" class="form-control" style="width: 250px;" placeholder="ผู้รับเงิน" />
-                                    </div>
-                                  </div>
-
-                                  <div class="col-md-6">
-                                    <div class="form-inline" align="right">
-                                      <label>เลขที่บัญชี : </label>
-                                      <input type="text" name="Accountbrancecar" class="form-control" style="width: 250px;" placeholder="เลขที่บัญชีผู้รับเงิน" data-inputmask="&quot;mask&quot;:&quot;999-9-99999-9&quot;" data-mask="" />
-                                    </div>
-                                  </div>
-                                </div>
-
-                                <div class="row">
-                                  <div class="col-md-5">
-                                  </div>
-
-                                  <div class="col-md-6">
-                                    <div class="form-inline" align="right">
-                                      <label>สาขา : </label>
-                                      <input type="text" name="branchbrancecar" class="form-control" style="width: 250px;" placeholder="สาขาผู้รับเงิน" />
-                                    </div>
-                                  </div>
-                                </div>
-
-                                <div class="row">
-                                  <div class="col-md-5">
-                                  </div>
-
-                                  <div class="col-md-6">
-                                    <div class="form-inline" align="right">
-                                      <label>เบอร์โทรศัพท์ : </label>
-                                      <input type="text" name="Tellbrancecar" class="form-control" style="width: 250px;" placeholder="เบอร์โทรศัพท์" data-inputmask="&quot;mask&quot;:&quot;999-9999999&quot;" data-mask="" />
-                                    </div>
-                                  </div>
-                                </div>
 
                                 <div class="row">
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                       <label>แนะนำ/นายหน้า : </label>
-                                      <input type="text" name="Agentcar" class="form-control" style="width: 250px;" placeholder="แนะนำ/นายหน้า" />
+                                      <input type="text" name="agentHC" class="form-control" style="width: 250px;" placeholder="แนะนำ/นายหน้า" />
                                     </div>
                                   </div>
 
                                   <div class="col-md-6">
                                     <div class="form-inline" align="right">
-                                      <label>เลขที่บัญชี : </label>
-                                      <input type="text" name="Accountagentcar" class="form-control" style="width: 250px;" placeholder="เลขที่บัญชีนายหน้า" data-inputmask="&quot;mask&quot;:&quot;999-9-99999-9&quot;" data-mask="" />
-                                    </div>
+                                      <label>เบอร์โทรศัพท์ : </label>
+                                      <input type="text" name="telHC" class="form-control" style="width: 250px;" placeholder="เบอร์โทรศัพท์" data-inputmask="&quot;mask&quot;:&quot;999-9999999&quot;" data-mask="" />
+                                      </div>
                                   </div>
                                 </div>
 
@@ -1848,23 +1844,14 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                       <label>ค่าคอม : </label>
-                                      <input type="text" id="Commissioncar" name="Commissioncar" class="form-control" style="width: 250px;" placeholder="ค่าคอม" oninput="commission()"/>
+                                      <input type="text" id="commitHC" name="Commissioncar" class="form-control" style="width: 250px;" placeholder="ค่าคอม" oninput="commission()"/>
                                     </div>
                                   </div>
 
                                   <div class="col-md-6">
                                     <div class="form-inline" align="right">
-                                      <label>สาขา : </label>
-                                      <input type="text" name="branchAgentcar" class="form-control" style="width: 250px;" placeholder="สาขานายหน้า" />
-                                    </div>
-                                  </div>
-                                </div>
-
-                                <div class="row">
-                                  <div class="col-md-5">
-                                    <div class="form-inline" align="right">
                                       <label>ประวัติการซื้อ/ค้ำ : </label>
-                                      <select name="Purchasehistorycar" class="form-control" style="width: 108px;">
+                                      <select name="purchhisHC" class="form-control" style="width: 108px;">
                                         <option value="" disabled selected>--- ซื้อ ---</option>
                                         <option value="0 คัน">0 คัน</option>
                                         <option value="1 คัน">1 คัน</option>
@@ -1889,7 +1876,7 @@
                                         <option value="20 คัน">20 คัน</option>
                                       </select>
                                       <label>ค้ำ : </label>
-                                      <select name="Supporthistorycar" class="form-control" style="width: 108px;">
+                                      <select name="supporthisHC" class="form-control" style="width: 108px;">
                                         <option value="" disabled selected>--- ค้ำ ---</option>
                                         <option value="0 คัน">0 คัน</option>
                                         <option value="1 คัน">1 คัน</option>
@@ -1915,12 +1902,15 @@
                                       </select>
                                     </div>
                                   </div>
+                                </div>
+
+                                <div class="row">
+                                  <div class="col-md-5">
+
+                                  </div>
 
                                   <div class="col-md-6">
-                                    <div class="form-inline" align="right">
-                                      <label>เบอร์โทรศัพท์ : </label>
-                                      <input type="text" name="Tellagentcar" class="form-control" style="width: 250px;" placeholder="เบอร์โทรศัพท์" data-inputmask="&quot;mask&quot;:&quot;999-9999999&quot;" data-mask="" />
-                                    </div>
+
                                   </div>
                                 </div>
 
@@ -1928,11 +1918,27 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                       <label>หมายเหตุ : </label>
-                                      <input type="text" name="Notecar" class="form-control" style="width: 250px;" placeholder="หมายเหตุ"/>
+                                      <input type="text" name="otherHC" class="form-control" style="width: 250px;" placeholder="หมายเหตุ"/>
                                     </div>
                                   </div>
 
                                   <div class="col-md-6">
+                                    <div class="form-inline" align="right">
+                                      <label>พนักงานขาย : </label>
+                                      <input type="text" name="saleHC" class="form-control" style="width: 250px;" placeholder="พนักงานขาย"/>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-5">
+
+                                  </div>
+
+                                  <div class="col-md-6">
+                                    <div class="form-inline" align="right">
+                                      <!-- <label>ผู้ทำสัญญา : </label> -->
+                                      <input type="hidden" name="contracHC" class="form-control" style="width: 250px;" value="{{ Auth::user()->name }}" placeholder="ผู้ทำสัญญา" />
+                                    </div>
                                   </div>
                                 </div>
 
