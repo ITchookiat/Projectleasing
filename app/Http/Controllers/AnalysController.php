@@ -9,6 +9,7 @@ use Storage;
 use App\Buyer;
 use App\Sponsor;
 use App\Cardetail;
+use App\homecardetail;
 use App\UploadfileImage;
 use App\Expenses;
 use Carbon\Carbon;
@@ -388,6 +389,46 @@ class AnalysController extends Controller
         'insurance_Price' => $request->get('insurancePrice'),
       ]);
       $Expensesdb ->save();
+
+      $Homecardetaildb = new homecardetail([
+        'Buyerhomecar_id' => $Buyerdb->id,
+        'brand_HC' => $request->get('brandHC'),
+        'year_HC' => $request->get('yearHC'),
+        'colour_HC' => $request->get('colourHC'),
+        'oldplate_HC' => $request->get('oldplateHC'),
+        'newplate_HC' => $request->get('newplateHC'),
+        'mile_HC' => $request->get('mileHC'),
+        'model_HC' => $request->get('modelHC'),
+        'type_HC' => $request->get('typeHC'),
+        'price_HC' => $request->get('priceHC'),
+        'downpay_HC' => $request->get('downpayHC'),
+        'insurance_HC' => $request->get('insuranceHC'),
+        'transfer_HC' => $request->get('transferHC'),
+        'topprice_HC' => $request->get('toppriceHC'),
+        'interest_HC' => $request->get('interestHC'),
+        'vat_HC' => $request->get('vatHC'),
+        'period_HC' => $request->get('periodHC'),
+        'paypor_HC' => $request->get('payporHC'),
+        'payment_HC' => $request->get('paymentHC'),
+        'payperriod_HC' => $request->get('payperriodHC'),
+        'tax_HC' => $request->get('taxHC'),
+        'taxperriod_HC' => $request->get('taxperriodHC'),
+        'totalinstalments_HC' => $request->get('totalinstalmentsHC'),
+        'baab_HC' => $request->get('baabHC'),
+        'guarantee_HC' => $request->get('guaranteeHC'),
+        'firstpay_HC' => $request->get('firstpayHC'),
+        'insure_HC' => $request->get('insureHC'),
+        'agent_HC' => $request->get('agentHC'),
+        'tel_HC' => $request->get('telHC'),
+        'commit_HC' => $request->get('commitHC'),
+        'purchhis_HC' => $request->get('purchhisHC'),
+        'supporthis_HC' => $request->get('supporthisHC'),
+        'other_HC' => $request->get('otherHC'),
+        'sale_HC' => $request->get('saleHC'),
+        'approvers_HC' => $request->get('approversHC'),
+        'contrac_HC' => $request->get('contracHC'),
+      ]);
+      $Homecardetaildb ->save();
 
       $image_new_name = "";
       // dd('sdf');
@@ -925,6 +966,47 @@ class AnalysController extends Controller
           $expenses->duty_Price = $request->get('dutyPrice');
           $expenses->insurance_Price = $request->get('insurancePrice');
         $expenses->update();
+
+        $Homecardetail = homecardetail::where('Buyerhomecar_id',$id)->first();
+          $Homecardetail->Brand_car = $request->get('Brandcar');
+          $Homecardetail->Year_car = $request->get('Yearcar');
+          $Homecardetail->Colour_car = $request->get('Colourcar');
+          $Homecardetail->License_car = $request->get('Licensecar');
+          $Homecardetail->Nowlicense_car = $request->get('Nowlicensecar');
+          $Homecardetail->Mile_car = $request->get('Milecar');
+          $Homecardetail->Model_car = $request->get('Modelcar');
+          $Homecardetail->Top_car = $SetTopcar;
+          $Homecardetail->Interest_car = $request->get('Interestcar');
+          $Homecardetail->Vat_car = $request->get('Vatcar');
+          $Homecardetail->Timeslacken_car = $request->get('Timeslackencar');
+          $Homecardetail->Pay_car = $request->get('Paycar');
+          $Homecardetail->Paymemt_car = $request->get('Paymemtcar');
+          $Homecardetail->Timepayment_car = $request->get('Timepaymentcar');
+          $Homecardetail->Tax_car = $request->get('Taxcar');
+          $Homecardetail->Taxpay_car = $request->get('Taxpaycar');
+          $Homecardetail->Totalpay1_car = $request->get('Totalpay1car');
+          $Homecardetail->Totalpay2_car = $request->get('Totalpay2car');
+          $Homecardetail->Insurance_key = $request->get('Insurancekey');
+          $Homecardetail->Insurance_car = $request->get('Insurancecar');
+          $Homecardetail->status_car = $request->get('statuscar');
+          $Homecardetail->Percent_car = $request->get('Percentcar');
+          $Homecardetail->Payee_car = $request->get('Payeecar');
+          $Homecardetail->Accountbrance_car = $request->get('Accountbrancecar');
+          $Homecardetail->Tellbrance_car = $request->get('Tellbrancecar');
+          $Homecardetail->Agent_car = $request->get('Agentcar');
+          $Homecardetail->Accountagent_car = $request->get('Accountagentcar');
+          $Homecardetail->Commission_car = $SetCommissioncar;
+          $Homecardetail->Tellagent_car = $request->get('Tellagentcar');
+          $Homecardetail->Purchasehistory_car = $request->get('Purchasehistorycar');
+          $Homecardetail->Supporthistory_car = $request->get('Supporthistorycar');
+          $Homecardetail->Approvers_car = $request->get('Approverscar');
+          $Homecardetail->Check_car = $SetCheckcar;
+          $Homecardetail->StatusApp_car = $SetStatusApp;
+          $Homecardetail->DocComplete_car = $request->get('doccomplete');
+          $Homecardetail->branchbrance_car = $request->get('branchbrancecar');
+          $Homecardetail->branchAgent_car = $request->get('branchAgentcar');
+          $Homecardetail->Note_car = $request->get('Notecar');
+        $Homecardetail->update();
 
         if ($request->hasFile('file_image')) {
           $image_array = $request->file('file_image');
