@@ -74,9 +74,11 @@ $date = date('Y-m-d', strtotime('-1 days'));
               <div class="col-md-12">
                 <form method="get" action="{{ route('Analysis',1) }}">
                     <div align="right" class="form-inline">
-                      <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate') }}" class="btn btn-primary btn-app">
-                        <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
-                      </a>
+                      @if(auth::user()->branch != 10 and auth::user()->branch != 11)
+                        <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate') }}" class="btn btn-primary btn-app">
+                          <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
+                        </a>
+                      @endif
 
                       <button type="submit" class="btn btn-warning btn-app">
                         <span class="glyphicon glyphicon-search"></span> Search
@@ -90,16 +92,18 @@ $date = date('Y-m-d', strtotime('-1 days'));
 
                     </div>
                     <div align="right" class="form-inline">
-                    <label for="text" class="mr-sm-2">สาขา : </label>
-                      <select name="branch" class="form-control mb-2 mr-sm-2" id="text" style="width: 182px">
-                        <option selected disabled value="">---เลือกสาขา---</option>
-                        <option value="ปัตตานี" {{ ($branch == 'ปัตตานี') ? 'selected' : '' }}>ปัตตานี</otion>
-                        <option value="ยะลา" {{ ($branch == 'ยะลา') ? 'selected' : '' }}>ยะลา</otion>
-                        <option value="นราธิวาส" {{ ($branch == 'นราธิวาส') ? 'selected' : '' }}>นราธิวาส</otion>
-                        <option value="สายบุรี" {{ ($branch == 'สายบุรี') ? 'selected' : '' }}>สายบุรี</otion>
-                        <option value="สุไหงโก-ลก" {{ ($branch == 'สุไหงโก-ลก') ? 'selected' : '' }}>สุไหงโก-ลก</otion>
-                        <option value="เบตง" {{ ($branch == 'เบตง') ? 'selected' : '' }}>เบตง</otion>
-                      </select>
+                    @if(auth::user()->branch != 10 and auth::user()->branch != 11)
+                      <label for="text" class="mr-sm-2">สาขา : </label>
+                        <select name="branch" class="form-control mb-2 mr-sm-2" id="text" style="width: 182px">
+                          <option selected disabled value="">---เลือกสาขา---</option>
+                          <option value="ปัตตานี" {{ ($branch == 'ปัตตานี') ? 'selected' : '' }}>ปัตตานี</otion>
+                          <option value="ยะลา" {{ ($branch == 'ยะลา') ? 'selected' : '' }}>ยะลา</otion>
+                          <option value="นราธิวาส" {{ ($branch == 'นราธิวาส') ? 'selected' : '' }}>นราธิวาส</otion>
+                          <option value="สายบุรี" {{ ($branch == 'สายบุรี') ? 'selected' : '' }}>สายบุรี</otion>
+                          <option value="สุไหงโก-ลก" {{ ($branch == 'สุไหงโก-ลก') ? 'selected' : '' }}>สุไหงโก-ลก</otion>
+                          <option value="เบตง" {{ ($branch == 'เบตง') ? 'selected' : '' }}>เบตง</otion>
+                        </select>
+                    @endif
 
                     <label for="text" class="mr-sm-2">สถานะ : </label>
                       <select name="status" class="form-control mb-2 mr-sm-2" id="text" style="width: 180px">
