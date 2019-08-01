@@ -48,9 +48,12 @@ $date = date('Y-m-d', strtotime('-1 days'));
             <li class="nav-item">
               <a class="nav-link" href="#">แบบฟอร์มรถยนต์</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">แบบฟอร์มค่าใช้จ่าย</a>
-            </li>
+
+            @if(auth::user()->branch != 10 and auth::user()->branch != 11)
+              <li class="nav-item">
+                <a class="nav-link" href="#">แบบฟอร์มค่าใช้จ่าย</a>
+              </li>
+            @endif
           </ul>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
