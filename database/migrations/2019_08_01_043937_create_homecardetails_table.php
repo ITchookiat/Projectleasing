@@ -51,6 +51,12 @@ class CreateHomecardetailsTable extends Migration
             $table->string('sale_HC')->nullable();
             $table->string('approvers_HC')->nullable();
             $table->string('contrac_HC')->nullable();
+            $table->string('totalinstalments1_HC')->nullable();
+            $table->string('insurancekey_HC')->nullable();
+            $table->string('dateapp_HC')->nullable();
+            $table->string('statusapp_HC')->nullable();
+            $table->string('branchUS_HC')->nullable();
+            $table->string('note_HC')->nullable();
 
             $table->timestamps();
 
