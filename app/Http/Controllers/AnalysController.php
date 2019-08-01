@@ -353,6 +353,7 @@ class AnalysController extends Controller
         'branchbrance_car' => $request->get('branchbrancecar'),
         'branchAgent_car' => $request->get('branchAgentcar'),
         'Note_car' => $request->get('Notecar'),
+        'Insurance_key' => $request->get('Insurancekey'),
       ]);
       $Cardetaildb ->save();
 
@@ -679,7 +680,7 @@ class AnalysController extends Controller
     {
         date_default_timezone_set('Asia/Bangkok');
         // $this->validate($request,['Approverscar' => 'required']);
-        dd($request->get('doccomplete'));
+        // dd($request->get('Insurancekey'));
 
         $newDateDue = \Carbon\Carbon::parse($request->DateDue)->format('Y')-543 ."-". \Carbon\Carbon::parse($request->DateDue)->format('m')."-". \Carbon\Carbon::parse($request->DateDue)->format('d');
 
@@ -780,6 +781,7 @@ class AnalysController extends Controller
           $cardetail->Taxpay_car = $request->get('Taxpaycar');
           $cardetail->Totalpay1_car = $request->get('Totalpay1car');
           $cardetail->Totalpay2_car = $request->get('Totalpay2car');
+          $cardetail->Insurance_key = $request->get('Insurancekey');
 
           if ($request->get('Approverscar') != Null) {
             $SetStatusApp = 'อนุมัติ';

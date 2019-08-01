@@ -1031,6 +1031,19 @@
 
                                 <div class="row">
                                   <div class="col-md-5">
+
+                                  </div>
+
+                                  <div class="col-md-6">
+                                   <div class="form-inline" align="right">
+                                       <label>เลขกรมธรรม์ : </label>
+                                       <input type="text" name="Insurancekey" class="form-control" style="width: 250px;" placeholder="เลขกรมธรรม์" />
+                                   </div>
+                                  </div>
+                                </div>
+
+                                <div class="row">
+                                  <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                        <label>สถานะ : </label>
                                        <select name="statuscar" class="form-control" style="width: 250px;">
