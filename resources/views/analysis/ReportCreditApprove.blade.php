@@ -51,48 +51,52 @@ return "$strDay-$strMonthThai-$strYear";
          <thead class="thead-dark bg-gray-light" >
            <tr align="center">
              <th width="30px">ลำดับ</th>
-             <th>วันที่อนุมัติ</th>
+             <th width="50px">วันที่อนุมัติ</th>
              <th>สถานะ</th>
-             <th>ยีห้อ</th>
-             <th>รุ่น</th>
-             <th>ทะเบียนเดิม</th>
-             <th>ทะเบียนใหม่</th>
-             <th>เลขสัญญา</th>
-             <th>ปี</th>
-             <th>ยอดจัด</th>
-             <th>ผู้รับเงิน</th>
-             <th>ผู้รับค่าคอม</th>
-             <th>เลขกรมธรรม์</th>
+             <th width="40px">ยีห้อ</th>
+             <th width="90px">รุ่น</th>
+             <th width="50px">ทะเบียนเดิม</th>
+             <th width="50px">ทะเบียนใหม่</th>
+             <th width="60px">เลขสัญญา</th>
+             <th width="30px">ปี</th>
+             <th width="40px">ยอดจัด</th>
+             <th width="75px">ผู้รับเงิน</th>
+             <th width="60px">เลขที่บัญชี</th>
+             <th width="75px">ผู้รับค่าคอม</th>
+             <th width="60px">เลขที่บัญชี</th>
+             <th width="60px">เลขกรมธรรม์</th>
            </tr>
          </thead>
          <tbody>
            @foreach($data as $key => $row)
              <tr align="center">
                <td width="30px"> {{ $key+1 }} </td>
-               <td> {{ DateThai2($row->Date_Due)}} </td>
+               <td width="50px"> {{ DateThai2($row->Date_Due)}} </td>
                <td> {{ $row->status_car}} </td>
-               <td> {{ $row->Brand_car}} </td>
-               <td> {{ $row->Model_car}} </td>
-               <td> {{ $row->License_car}} </td>
-               <td>
+               <td width="40px"> {{ $row->Brand_car}} </td>
+               <td width="90px" align="left"> {{ $row->Model_car}} </td>
+               <td width="50px"> {{ $row->License_car}} </td>
+               <td width="50px">
                  @if($row->Nowlicense_car == Null)
                  -
                  @else
                  {{ $row->Nowlicense_car }}
                  @endif
                </td>
-               <td> {{ $row->Contract_buyer}} </td>
-               <td> {{ $row->Year_car}} </td>
-               <td>
+               <td width="60px"> {{ $row->Contract_buyer}} </td>
+               <td width="30px"> {{ $row->Year_car}} </td>
+               <td width="40px">
                  @if($row->Top_car != Null)
                    {{ number_format($row->Top_car)}}
                  @else
-                   0
+                   -
                  @endif
                </td>
-               <td>{{ $row->Payee_car}}</td>
-               <td>{{ $row->Payee_car}}</td>
-               <td>{{ $row->Payee_car}}</td>
+               <td width="75px" align="left"> {{ $row->Payee_car}}</td>
+               <td width="60px"> {{ $row->Accountbrance_car}}</td>
+               <td width="75px" align="left"> {{ $row->Payee_car}}</td>
+               <td width="60px"> {{ $row->Accountagent_car}}</td>
+               <td width="60px">{{ $row->Insurance_key}}</td>
              </tr>
              @endforeach
 

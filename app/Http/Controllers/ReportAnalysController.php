@@ -223,12 +223,13 @@ class ReportAnalysController extends Controller
       ->get();
 
       // dd($data);
-      
+
       $view = \View::make('analysis.ReportCreditApprove' ,compact('date2', 'data', 'newfdate', 'newtdate'));
       $html = $view->render();
       $pdf = new PDF();
       $pdf::SetTitle('รายงานนำเสนอ');
       $pdf::AddPage('L', 'A4');
+      $pdf::SetMargins(3, 5, 3);
       $pdf::SetFont('freeserif','',8,'false');
       $pdf::WriteHTML($html,true,false,true,false,'');
       $pdf::Output('report.pdf');

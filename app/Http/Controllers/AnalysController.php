@@ -212,7 +212,7 @@ class AnalysController extends Controller
           $tdate = $request->get('Todate');
           $newtdate = \Carbon\Carbon::parse($tdate)->format('Y')-543 ."-". \Carbon\Carbon::parse($tdate)->format('m')."-". \Carbon\Carbon::parse($tdate)->format('d');
         }else{
-          $newtdate = $date;          
+          $newtdate = $date;
         }
 
           // dd($newfdate, $newtdate);
