@@ -196,4 +196,41 @@ class ReportAnalysController extends Controller
       $pdf::WriteHTML($html,true,false,true,false,'');
       $pdf::Output('report.pdf');
     }
+
+    public function ReportCreditApprove(Request $request, $newfdate, $newtdate)
+    {
+      // dd($fdate, $tdate);
+      date_default_timezone_set('Asia/Bangkok');
+      $Y = date('Y');
+      $Y2 = date('Y') +543;
+      $m = date('m');
+      $d = date('d');
+      $date = $Y.'-'.$m.'-'.$d;
+      $date2 = $d.'-'.$m.'-'.$Y2;
+
+        $newfdate = \Carbon\Carbon::parse($newfdate)->format('Y')-543 ."-". \Carbon\Carbon::parse($newfdate)->format('m')."-". \Carbon\Carbon::parse($newfdate)->format('d');
+        $newtdate = \Carbon\Carbon::parse($newtdate)->format('Y')-543 ."-". \Carbon\Carbon::parse($newtdate)->format('m')."-". \Carbon\Carbon::parse($newtdate)->format('d');
+        // dd($newfdate, $newtdate);
+
+
+      $data = DB::table('buyers')
+      ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
+      ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
+      ->join('expenses','buyers.id','=','expenses.Buyerexpenses_id')
+      ->where('cardetails.Approvers_car','!=',Null)
+      ->whereBetween('buyers.Date_Due', [$newfdate,$newtdate])
+      ->orderBy('buyers.Contract_buyer', 'ASC')
+      ->get();
+
+      // dd($data);
+      
+      $view = \View::make('analysis.ReportCreditApprove' ,compact('date2', 'data', 'newfdate', 'newtdate'));
+      $html = $view->render();
+      $pdf = new PDF();
+      $pdf::SetTitle('รายงานนำเสนอ');
+      $pdf::AddPage('L', 'A4');
+      $pdf::SetFont('freeserif','',8,'false');
+      $pdf::WriteHTML($html,true,false,true,false,'');
+      $pdf::Output('report.pdf');
+    }
 }
