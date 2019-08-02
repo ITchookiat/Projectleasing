@@ -29,4 +29,8 @@ class Buyer extends Model
   {
     return $this->hasMany(Expenses::class);
   }
+  public function homecardetails()
+  {
+    return $this->hasMany(Homecardetail::class);
+  }
 }

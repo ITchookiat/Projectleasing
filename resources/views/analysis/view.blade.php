@@ -48,9 +48,12 @@ $date = date('Y-m-d', strtotime('-1 days'));
             <li class="nav-item">
               <a class="nav-link" href="#">แบบฟอร์มรถยนต์</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">แบบฟอร์มค่าใช้จ่าย</a>
-            </li>
+
+            @if(auth::user()->branch != 10 and auth::user()->branch != 11)
+              <li class="nav-item">
+                <a class="nav-link" href="#">แบบฟอร์มค่าใช้จ่าย</a>
+              </li>
+            @endif
           </ul>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -74,9 +77,11 @@ $date = date('Y-m-d', strtotime('-1 days'));
               <div class="col-md-12">
                 <form method="get" action="{{ route('Analysis',1) }}">
                     <div align="right" class="form-inline">
-                      <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate') }}" class="btn btn-primary btn-app">
-                        <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
-                      </a>
+                      @if(auth::user()->branch != 10 and auth::user()->branch != 11)
+                        <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate') }}" class="btn btn-primary btn-app">
+                          <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
+                        </a>
+                      @endif
 
                       <button type="submit" class="btn btn-warning btn-app">
                         <span class="glyphicon glyphicon-search"></span> Search
@@ -90,16 +95,18 @@ $date = date('Y-m-d', strtotime('-1 days'));
 
                     </div>
                     <div align="right" class="form-inline">
-                    <label for="text" class="mr-sm-2">สาขา : </label>
-                      <select name="branch" class="form-control mb-2 mr-sm-2" id="text" style="width: 182px">
-                        <option selected disabled value="">---เลือกสาขา---</option>
-                        <option value="ปัตตานี" {{ ($branch == 'ปัตตานี') ? 'selected' : '' }}>ปัตตานี</otion>
-                        <option value="ยะลา" {{ ($branch == 'ยะลา') ? 'selected' : '' }}>ยะลา</otion>
-                        <option value="นราธิวาส" {{ ($branch == 'นราธิวาส') ? 'selected' : '' }}>นราธิวาส</otion>
-                        <option value="สายบุรี" {{ ($branch == 'สายบุรี') ? 'selected' : '' }}>สายบุรี</otion>
-                        <option value="สุไหงโก-ลก" {{ ($branch == 'สุไหงโก-ลก') ? 'selected' : '' }}>สุไหงโก-ลก</otion>
-                        <option value="เบตง" {{ ($branch == 'เบตง') ? 'selected' : '' }}>เบตง</otion>
-                      </select>
+                    @if(auth::user()->branch != 10 and auth::user()->branch != 11)
+                      <label for="text" class="mr-sm-2">สาขา : </label>
+                        <select name="branch" class="form-control mb-2 mr-sm-2" id="text" style="width: 182px">
+                          <option selected disabled value="">---เลือกสาขา---</option>
+                          <option value="ปัตตานี" {{ ($branch == 'ปัตตานี') ? 'selected' : '' }}>ปัตตานี</otion>
+                          <option value="ยะลา" {{ ($branch == 'ยะลา') ? 'selected' : '' }}>ยะลา</otion>
+                          <option value="นราธิวาส" {{ ($branch == 'นราธิวาส') ? 'selected' : '' }}>นราธิวาส</otion>
+                          <option value="สายบุรี" {{ ($branch == 'สายบุรี') ? 'selected' : '' }}>สายบุรี</otion>
+                          <option value="สุไหงโก-ลก" {{ ($branch == 'สุไหงโก-ลก') ? 'selected' : '' }}>สุไหงโก-ลก</otion>
+                          <option value="เบตง" {{ ($branch == 'เบตง') ? 'selected' : '' }}>เบตง</otion>
+                        </select>
+                    @endif
 
                     <label for="text" class="mr-sm-2">สถานะ : </label>
                       <select name="status" class="form-control mb-2 mr-sm-2" id="text" style="width: 180px">
@@ -243,6 +250,18 @@ $date = date('Y-m-d', strtotime('-1 days'));
                                   </button>
                                 </form>
                               </div>
+                            @else
+                              @if($row->DocComplete_car == Null)
+                              <div class="form-inline form-group">
+                                <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',$row->id) }}">
+                                {{csrf_field()}}
+                                  <input type="hidden" name="_method" value="DELETE" />
+                                  <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
+                                    <span class="glyphicon glyphicon-trash"></span> ลบ
+                                  </button>
+                                </form>
+                              </div>
+                              @endif
                             @endif
                             </td>
                           </tr>

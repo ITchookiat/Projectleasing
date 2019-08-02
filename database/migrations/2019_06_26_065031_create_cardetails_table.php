@@ -57,6 +57,7 @@ class CreateCardetailsTable extends Migration
             $table->string('branchbrance_car')->nullable();
             $table->string('branchAgent_car')->nullable();
             $table->string('Note_car')->nullable();
+            $table->string('Insurance_key')->nullable();
             $table->timestamps();
         });
     }

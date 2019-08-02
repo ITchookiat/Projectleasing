@@ -97,6 +97,8 @@
                           เบตง
                         @elseif ($row->branch  == 10)
                           รถบ้าน
+                        @elseif ($row->branch  == 11)
+                          รถยืดขายผ่อน
                         @endif
                       </td>
                       <td class="text-center">
