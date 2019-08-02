@@ -70,6 +70,7 @@
               <ul class="treeview-menu">
                 <li><a href="{{ route('Analysis',1) }}"><i class="fa fa-tags"></i>งานสินเชื่อ</a></li>
                 <li><a href="{{ route('Analysis',3) }}"><i class="fa fa-tags"></i>รายงาน สินเชื่อ</a></li>
+                <li><a href="{{ route('Analysis',4) }}"><i class="fa fa-tags"></i>รายงานที่อนุมัติ</a></li>
               </ul>
           </li>
 

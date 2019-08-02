@@ -191,6 +191,50 @@ class AnalysController extends Controller
         // $datedue = \Carbon\Carbon::parse($data->Date_Due)->format('Y')+543 ."-". \Carbon\Carbon::parse($data->Date_Due)->format('m')."-". \Carbon\Carbon::parse($data->Date_Due)->format('d');
         return view('analysis.viewReport', compact('type', 'data','newfdate','newtdate','datadrop','agen','datedue','datayear','yearcar','datastatus','typecar'));
       }
+      elseif ($request->type == 4){
+
+        date_default_timezone_set('Asia/Bangkok');
+        $Y = date('Y');
+        $Y2 = date('Y') +543;
+        $m = date('m');
+        $d = date('d');
+        $date = $Y.'-'.$m.'-'.$d;
+        $date2 = $d.'-'.$m.'-'.$Y2;
+
+        // dd($datastatus);
+        if ($request->has('Fromdate')) {
+          $fdate = $request->get('Fromdate');
+          $newfdate = \Carbon\Carbon::parse($fdate)->format('Y')-543 ."-". \Carbon\Carbon::parse($fdate)->format('m')."-". \Carbon\Carbon::parse($fdate)->format('d');
+        }else{
+          $newfdate = $date;
+        }
+        if ($request->has('Todate')) {
+          $tdate = $request->get('Todate');
+          $newtdate = \Carbon\Carbon::parse($tdate)->format('Y')-543 ."-". \Carbon\Carbon::parse($tdate)->format('m')."-". \Carbon\Carbon::parse($tdate)->format('d');
+        }else{
+          $newtdate = $date;
+        }
+
+          // dd($newfdate, $newtdate);
+
+          $data = DB::table('buyers')
+          ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
+          ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
+          ->join('expenses','buyers.id','=','expenses.Buyerexpenses_id')
+          ->where('cardetails.Approvers_car','!=',Null)
+          ->whereBetween('buyers.Date_Due', [$newfdate,$newtdate])
+          ->orderBy('buyers.Contract_buyer', 'ASC')
+          ->get();
+
+
+        // dd($data);
+
+        $newfdate = \Carbon\Carbon::parse($newfdate)->format('Y')+543 ."-". \Carbon\Carbon::parse($newfdate)->format('m')."-". \Carbon\Carbon::parse($newfdate)->format('d');
+        $newtdate = \Carbon\Carbon::parse($newtdate)->format('Y')+543 ."-". \Carbon\Carbon::parse($newtdate)->format('m')."-". \Carbon\Carbon::parse($newtdate)->format('d');
+
+        // $datedue = \Carbon\Carbon::parse($data->Date_Due)->format('Y')+543 ."-". \Carbon\Carbon::parse($data->Date_Due)->format('m')."-". \Carbon\Carbon::parse($data->Date_Due)->format('d');
+        return view('analysis.viewReportApprove', compact('type', 'data','newfdate','newtdate'));
+      }
     }
 
     /**
