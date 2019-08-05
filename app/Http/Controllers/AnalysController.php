@@ -202,6 +202,7 @@ class AnalysController extends Controller
         return view('analysis.viewReport', compact('type', 'data','newfdate','newtdate','datadrop','agen','datedue','datayear','yearcar','datastatus','typecar'));
       }
       elseif ($request->type == 4){
+
         $newfdate = '';
         $newtdate = '';
         $status = '';
