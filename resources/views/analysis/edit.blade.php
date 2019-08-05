@@ -1054,20 +1054,20 @@
                                 <div class="form-inline" align="right">
                                    <label>ยี่ห้อ : </label>
                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                     <select name="BrandHC" class="form-control" style="width: 250px;">
+                                     <select name="Brandcar" class="form-control" style="width: 250px;">
                                        <option value="" disabled selected>--- ยี่ห้อ ---</option>
                                        @foreach ($Brandcarr as $key => $value)
-                                         <option value="{{$key}}" {{ ($key == $data->brand_HC) ? 'selected' : '' }}>{{$value}}</option>
+                                         <option value="{{$key}}" {{ ($key == $data->Brand_car) ? 'selected' : '' }}>{{$value}}</option>
                                        @endforeach
                                      </select>
                                    @else
                                      @if($GetDocComplete != Null)
-                                        <input type="text" name="BrandHC" value="{{$data->brand_HC}}" class="form-control" style="width: 250px;" placeholder="ยี่ห้อ" readonly/>
+                                        <input type="text" name="Brandcar" value="{{$data->Brand_car}}" class="form-control" style="width: 250px;" placeholder="ยี่ห้อ" readonly/>
                                      @else
                                        <select name="Brandcar" class="form-control" style="width: 250px;">
                                          <option value="" disabled selected>--- ยี่ห้อ ---</option>
                                          @foreach ($Brandcarr as $key => $value)
-                                           <option value="{{$key}}" {{ ($key == $data->brand_HC) ? 'selected' : '' }}>{{$value}}</option>
+                                           <option value="{{$key}}" {{ ($key == $data->Brand_car) ? 'selected' : '' }}>{{$value}}</option>
                                          @endforeach
                                        </select>
                                      @endif
@@ -1079,8 +1079,8 @@
                                  <div class="form-inline" align="right">
                                      <label>ปี : </label>
                                      @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                       <select name="YearHC" class="form-control" style="width: 250px;">
-                                         <option value="{{$data->year_HC}}" selected>{{$data->year_HC}}</option>
+                                       <select name="Yearcar" class="form-control" style="width: 250px;">
+                                         <option value="{{$data->Year_car}}" selected>{{$data->Year_car}}</option>
                                          <option value="" disabled>--------------------</option>
                                           @php
                                               $Year = date('Y');
@@ -1094,10 +1094,10 @@
                                        </select>
                                      @else
                                        @if($GetDocComplete != Null)
-                                          <input type="text" name="YearHC" value="{{$data->year_HC}}" class="form-control" style="width: 250px;" placeholder="ปี" readonly/>
+                                          <input type="text" name="Yearcar" value="{{$data->Year_car}}" class="form-control" style="width: 250px;" placeholder="ปี" readonly/>
                                        @else
-                                         <select name="YearHC" class="form-control" style="width: 250px;">
-                                           <option value="{{$data->year_HC}}" selected>{{$data->year_HC}}</option>
+                                         <select name="Yearcar" class="form-control" style="width: 250px;">
+                                           <option value="{{$data->Year_car}}" selected>{{$data->Year_car}}</option>
                                            <option value="" disabled>--------------------</option>
                                             @php
                                                 $Year = date('Y');
@@ -1120,12 +1120,12 @@
                               <div class="form-inline" align="right">
                                  <label>สี : </label>
                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                    <input type="text" name="ColourHC" value="{{ $data->colour_HC }}" class="form-control" style="width: 250px;" placeholder="สี" />
+                                    <input type="text" name="Colourcar" value="{{ $data->Colour_car }}" class="form-control" style="width: 250px;" placeholder="สี" />
                                  @else
                                    @if($GetDocComplete != Null)
-                                      <input type="text" name="ColourHC" value="{{ $data->colour_HC }}" class="form-control" style="width: 250px;" placeholder="สี" readonly/>
+                                      <input type="text" name="Colourcar" value="{{ $data->Colour_car }}" class="form-control" style="width: 250px;" placeholder="สี" readonly/>
                                    @else
-                                      <input type="text" name="ColourHC" value="{{ $data->colour_HC }}" class="form-control" style="width: 250px;" placeholder="สี" />
+                                      <input type="text" name="Colourcar" value="{{ $data->Colour_car }}" class="form-control" style="width: 250px;" placeholder="สี" />
                                    @endif
                                  @endif
                                </div>
@@ -1135,12 +1135,12 @@
                                <div class="form-inline" align="right">
                                  <label>ป้ายเดิม : </label>
                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                    <input type="text" name="oldplateHC"  value="{{ $data->oldplate_HC}}" class="form-control" style="width: 250px;" placeholder="ป้ายเดิม" />
+                                    <input type="text" name="Licensecar"  value="{{ $data->License_car}}" class="form-control" style="width: 250px;" placeholder="ป้ายเดิม" />
                                  @else
                                    @if($GetDocComplete != Null)
-                                      <input type="text" name="oldplateHC"  value="{{ $data->oldplate_HC}}" class="form-control" style="width: 250px;" placeholder="ป้ายเดิม" readonly/>
+                                      <input type="text" name="Licensecar"  value="{{ $data->License_car}}" class="form-control" style="width: 250px;" placeholder="ป้ายเดิม" readonly/>
                                    @else
-                                      <input type="text" name="oldplateHC"  value="{{ $data->oldplate_HC}}" class="form-control" style="width: 250px;" placeholder="ป้ายเดิม" />
+                                      <input type="text" name="Licensecar"  value="{{ $data->License_car}}" class="form-control" style="width: 250px;" placeholder="ป้ายเดิม" />
                                    @endif
                                  @endif
                                </div>
@@ -1151,7 +1151,7 @@
                             <div class="col-md-5">
                               <div class="form-inline" align="right">
                                  <label>ป้ายใหม่ : </label>
-                                    <input type="text" name="newplateHC" value="{{$data->newplate_HC}}" class="form-control" style="width: 250px;" placeholder="ป้ายใหม่" />
+                                    <input type="text" name="Nowlicensecar" value="{{$data->Nowlicense_car}}" class="form-control" style="width: 250px;" placeholder="ป้ายใหม่" />
                                </div>
                             </div>
 
@@ -1159,12 +1159,12 @@
                                <div class="form-inline" align="right">
                                  <label>เลขไมล์ : </label>
                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                    <input type="text" name="mileHC" value="{{$data->mile_HC}}" class="form-control" style="width: 250px;" placeholder="เลขไมล์" />
+                                    <input type="text" name="Milecar" value="{{$data->Mile_car}}" class="form-control" style="width: 250px;" placeholder="เลขไมล์" />
                                  @else
                                    @if($GetDocComplete != Null)
-                                      <input type="text" name="mileHC" value="{{$data->mile_HC}}" class="form-control" style="width: 250px;" placeholder="เลขไมล์" readonly/>
+                                      <input type="text" name="Milecar" value="{{$data->Mile_car}}" class="form-control" style="width: 250px;" placeholder="เลขไมล์" readonly/>
                                    @else
-                                      <input type="text" name="mileHC" value="{{$data->mile_HC}}" class="form-control" style="width: 250px;" placeholder="เลขไมล์" />
+                                      <input type="text" name="Milecar" value="{{$data->Mile_car}}" class="form-control" style="width: 250px;" placeholder="เลขไมล์" />
                                    @endif
                                  @endif
                                </div>
@@ -1176,30 +1176,18 @@
                               <div class="form-inline" align="right">
                                  <label>รุ่น : </label>
                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                    <input type="text" name="modelHC" value="{{$data->model_HC}}" class="form-control" style="width: 250px;" placeholder="รุ่น" />
+                                    <input type="text" name="Modelcar" value="{{$data->Model_car}}" class="form-control" style="width: 250px;" placeholder="รุ่น" />
                                  @else
                                    @if($GetDocComplete != Null)
-                                      <input type="text" name="modelHC" value="{{$data->model_HC}}" class="form-control" style="width: 250px;" placeholder="รุ่น" readonly/>
+                                      <input type="text" name="Modelcar" value="{{$data->Model_car}}" class="form-control" style="width: 250px;" placeholder="รุ่น" readonly/>
                                    @else
-                                      <input type="text" name="modelHC" value="{{$data->model_HC}}" class="form-control" style="width: 250px;" placeholder="รุ่น" />
+                                      <input type="text" name="Modelcar" value="{{$data->Model_car}}" class="form-control" style="width: 250px;" placeholder="รุ่น" />
                                    @endif
                                  @endif
                                </div>
                             </div>
 
                             <div class="col-md-6">
-                              <div class="form-inline" align="right">
-                                 <label>ประเภทรถ : </label>
-                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                    <input type="text" name="typeHC" value="{{$data->type_HC}}" class="form-control" style="width: 250px;" placeholder="ประเภทรถ" />
-                                 @else
-                                   @if($GetDocComplete != Null)
-                                      <input type="text" name="typeHC" value="{{$data->type_HC}}}" class="form-control" style="width: 250px;" placeholder="ประเภทรถ" readonly/>
-                                   @else
-                                      <input type="text" name="typeHC" value="{{$data->type_HC}}}" class="form-control" style="width: 250px;" placeholder="ประเภทรถ" />
-                                   @endif
-                                 @endif
-                               </div>
                             </div>
                           </div>
 
@@ -1279,7 +1267,7 @@
                               }
 
                               function commission(){
-                                 var num11 = document.getElementById('commitHC').value;
+                                 var num11 = document.getElementById('Commissioncar').value;
                                  var num1 = num11.replace(",","");
                                  if(num1 > 1000){
                                      if(num11 == ''){
@@ -1374,55 +1362,24 @@
                           <div class="row">
                             <div class="col-md-5">
                               <div class="form-inline" align="right">
-                                <label>ราคารถ : </label>
-                                <input type="text" id="priceHC" name="priceHC" value="{{number_format($data->price_HC)}}" class="form-control" style="width: 250px;" placeholder="ราคารถ" onchange="calculate()" />
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                              <div class="form-inline" align="right">
-                                <label>เงินดาวน์ : </label>
-                                <input type="text" id="downpayHC" name="downpayHC" value="{{$data->downpay_HC}}" class="form-control" style="width: 250px;" readonly onchange="calculate()" />
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-md-5">
-                              <div class="form-inline" align="right">
-                                <label>ค่าประกัน : </label>
-                                <input type="text" id="insuranceHC" name="insuranceHC" value="{{number_format($data->insurance_HC)}}" class="form-control" style="width: 250px;" placeholder="ค่าประกัน" onchange="calculate()" />
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                              <div class="form-inline" align="right">
-                                <label>ค่าโอน : </label>
-                                <input type="text" id="transferHC" name="transferHC" value="{{$data->transfer_HC}}" class="form-control" style="width: 250px;" readonly onchange="calculate()" />
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="row">
-                            <div class="col-md-5">
-                              <div class="form-inline" align="right">
                                 <label>ยอดจัด : </label>
                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                    <input type="text" id="toppriceHC" name="toppriceHC" value="{{number_format($data->topprice_HC)}}" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" onchange="calculate()" />
+                                    <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" onchange="calculate()" />
                                 @else
                                   @if($GetDocComplete != Null)
-                                      <input type="text" id="toppriceHC" name="toppriceHC" value="{{number_format($data->topprice_HC)}}" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" onchange="calculate()" readonly/>
+                                      <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" onchange="calculate()" readonly/>
                                   @else
-                                      <input type="text" id="toppriceHC" name="toppriceHC" value="{{number_format($data->topprice_HC)}}" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" onchange="calculate()" />
+                                      <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" onchange="calculate()" />
                                   @endif
                                 @endif
-                                <input type="hidden" id="toppriceHCOri" name="toppriceHCOri" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" />
+                                <input type="hidden" id="TopcarOri" name="TopcarOri" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" />
                               </div>
                             </div>
 
                             <div class="col-md-6">
                               <div class="form-inline" align="right">
                                 <label>ชำระต่องวด : </label>
-                                <input type="text" id="payporHC" name="payporHC" value="{{$data->paypor_HC}}" class="form-control" style="width: 250px;" readonly onchange="calculate()" />
+                                <input type="text" id="Paycar" name="Paycar" value="{{$data->Pay_car}}" class="form-control" style="width: 250px;" readonly onchange="calculate()" />
                               </div>
                             </div>
                           </div>
@@ -1431,15 +1388,15 @@
                             <div class="col-md-5">
                              <div class="form-inline" align="right">
                                <label>VAT : </label>
-                               <input type="text" id="vatHC" name="Vatcar" value="{{$data->vat_HC}}" class="form-control" style="width: 250px;" placeholder="7 %" value="7 %" readonly onchange="calculate()"/>
+                               <input type="text" id="Vatcar" name="Vatcar" value="{{$data->Vat_car}}" class="form-control" style="width: 250px;" placeholder="7 %" value="7 %" readonly onchange="calculate()"/>
                              </div>
                             </div>
 
                             <div class="col-md-6">
                               <div class="form-inline" align="right">
                                 <label>ภาษี / ระยะเวลาผ่อน : </label>
-                                <input type="text" id="taxHC" name="taxHC" value="{{$data->tax_HC}}" class="form-control" style="width: 123px;" readonly />
-                                <input type="text" id="taxperriodHC" name="taxperriodHC" value="{{$data->taxperriod_HC}}" class="form-control" style="width: 123px;" readonly />
+                                <input type="text" id="Taxcar" name="Taxcar" value="{{$data->Tax_car}}" class="form-control" style="width: 123px;" readonly />
+                                <input type="text" id="Taxpaycar" name="Taxpaycar" value="{{$data->Taxpay_car}}" class="form-control" style="width: 123px;" readonly />
                               </div>
                             </div>
                           </div>
@@ -1449,7 +1406,7 @@
                               <div class="form-inline" align="right">
                                  <label>ดอกเบี้ย : </label>
                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                   <select id="interestHC" name="interestHC" class="form-control" style="width: 250px;">
+                                   <select id="Interestcar" name="Interestcar" class="form-control" style="width: 250px;">
                                      <option value="" disabled selected>--- ดอกเบี้ย ---</option>
                                      @foreach ($Interestcarr as $key => $value)
                                         <option value="{{$key}}" {{ ($key == $data->Interest_car) ? 'selected' : '' }}>{{$value}}</option>
@@ -1457,9 +1414,9 @@
                                    </select>
                                  @else
                                    @if($GetDocComplete != Null)
-                                      <input type="text" id="interestHC" name="interestHC" value="{{$data->interest_HC}}" class="form-control" style="width: 250px;" placeholder="ดอกเบี้ย" readonly />
+                                      <input type="text" id="Interestcar" name="Interestcar" value="{{$data->Interest_car}}" class="form-control" style="width: 250px;" placeholder="ดอกเบี้ย" readonly />
                                    @else
-                                     <select id="interestHC" name="interestHC" class="form-control" style="width: 250px;">
+                                     <select id="Interestcar" name="Interestcar" class="form-control" style="width: 250px;">
                                        <option value="" disabled selected>--- ดอกเบี้ย ---</option>
                                        @foreach ($Interestcarr as $key => $value)
                                        <option value="{{$key}}" {{ ($key == $data->Interest_car) ? 'selected' : '' }}>{{$value}}</option>
@@ -1473,8 +1430,8 @@
                             <div class="col-md-6">
                               <div class="form-inline" align="right">
                                  <label>ค่างวด / ระยะเวลาผ่อน : </label>
-                                 <input type="text" id="paymemtHC" name="paymemtHC" value="{{$data->payment_HC}}" class="form-control" style="width: 123px;" readonly />
-                                 <input type="text" id="payperriodHC" name="payperriodHC" value="{{$data->payperriod_HC}}" class="form-control" style="width: 123px;" readonly />
+                                 <input type="text" id="Paymemtcar" name="Paymemtcar" value="{{$data->Paymemt_car}}" class="form-control" style="width: 123px;" readonly />
+                                 <input type="text" id="Timepaymentcar" name="Timepaymentcar" value="{{$data->Timepayment_car}}" class="form-control" style="width: 123px;" readonly />
                                </div>
                             </div>
                           </div>
@@ -1484,7 +1441,7 @@
                               <div class="form-inline" align="right">
                                  <label>ระยะเวลาผ่อน : </label>
                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                   <select id="perriodHC" name="perriodHC" class="form-control" style="width: 250px;" onchange="calculate()">
+                                   <select id="Timeslackencar" name="Timeslackencar" class="form-control" style="width: 250px;" onchange="calculate()">
                                      <option value="" disabled selected>--- ระยะเวลาผ่อน ---</option>
                                      @foreach ($Timeslackencarr as $key => $value)
                                         <option value="{{$key}}" {{ ($key == $data->Timeslacken_car) ? 'selected' : '' }}>{{$value}}</option>
@@ -1492,12 +1449,12 @@
                                    </select>
                                  @else
                                    @if($GetDocComplete != Null)
-                                     <input type="text" id="perriodHC" name="perriodHC" value="{{$data->period_HC}}" class="form-control" style="width: 250px;" placeholder="ระยะเวลาผ่อน" readonly />
+                                     <input type="text" id="Timeslackencar" name="Timeslackencar" value="{{$data->Timeslacken_car}}" class="form-control" style="width: 250px;" placeholder="ระยะเวลาผ่อน" readonly />
                                    @else
-                                     <select id="perriodHC" name="perriodHC" class="form-control" style="width: 250px;" onchange="calculate()">
+                                     <select id="Timeslackencar" name="Timeslackencar" class="form-control" style="width: 250px;" onchange="calculate()">
                                        <option value="" disabled selected>--- ระยะเวลาผ่อน ---</option>
                                        @foreach ($Timeslackencarr as $key => $value)
-                                       <option value="{{$key}}" {{ ($key == $data->period_HC) ? 'selected' : '' }}>{{$value}}</option>
+                                       <option value="{{$key}}" {{ ($key == $data->Timeslacken_car) ? 'selected' : '' }}>{{$value}}</option>
                                        @endforeach
                                      </select>
                                    @endif
@@ -1508,8 +1465,8 @@
                             <div class="col-md-6">
                                <div class="form-inline" align="right">
                                  <label>ยอดผ่อนชำระทั้งหมด : </label>
-                                 <input type="text" id="totalinstalmentsHC" name="totalinstalmentsHC" value="{{$data->totalinstalments_HC}}" class="form-control" style="width: 123px;" readonly />
-                                 <input type="text" id="totalinstalments1HC" name="totalinstalments1HC" value="{{$data->totalinstalments1_HC}}" class="form-control" style="width: 123px;" readonly />
+                                 <input type="text" id="Totalpay1car" name="Totalpay1car" value="{{$data->Totalpay1_car}}" class="form-control" style="width: 123px;" readonly />
+                                 <input type="text" id="Totalpay2car" name="Totalpay2car" value="{{$data->Totalpay2_car}}" class="form-control" style="width: 123px;" readonly />
                                </div>
                             </div>
                           </div>
@@ -1518,7 +1475,7 @@
                             <div class="col-md-5">
                               <div class="form-inline" align="right">
                                  <label>วันที่ชำระงวดแรก : </label>
-                                 <input type="text" name="firstpayHC" value="{{$data->firstpay_HC}}" class="form-control" style="width: 250px;" readonly placeholder="วันที่ชำระงวดแรก" />
+                                 <input type="text" name="Dateduefirstcar" value="{{$data->Dateduefirst_car}}" class="form-control" style="width: 250px;" readonly placeholder="วันที่ชำระงวดแรก" />
                                </div>
                             </div>
 
@@ -1526,20 +1483,20 @@
                                <div class="form-inline" align="right">
                                  <label>ประกันภัย : </label>
                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                   <select name="insureHC" class="form-control" style="width: 250px;">
+                                   <select name="Insurancecar" class="form-control" style="width: 250px;">
                                      <option value="" disabled selected>--- ประกันภัย ---</option>
                                      @foreach ($Insurancecarr as $key => $value)
-                                        <option value="{{$key}}" {{ ($key == $data->insure_HC) ? 'selected' : '' }}>{{$value}}</option>
+                                        <option value="{{$key}}" {{ ($key == $data->Insurance_car) ? 'selected' : '' }}>{{$value}}</option>
                                      @endforeach
                                    </select>
                                  @else
                                    @if($GetDocComplete != Null)
-                                     <input type="text" id="insureHC" name="insureHC" value="{{$data->insure_HC}}" class="form-control" style="width: 250px;" placeholder="ประกันภัย" readonly />
+                                     <input type="text" id="Insurancecar" name="Insurancecar" value="{{$data->Insurance_car}}" class="form-control" style="width: 250px;" placeholder="ประกันภัย" readonly />
                                    @else
-                                     <select name="insureHC" class="form-control" style="width: 250px;">
+                                     <select name="Insurancecar" class="form-control" style="width: 250px;">
                                        <option value="" disabled selected>--- ประกันภัย ---</option>
                                        @foreach ($Insurancecarr as $key => $value)
-                                          <option value="{{$key}}" {{ ($key == $data->insure_HC) ? 'selected' : '' }}>{{$value}}</option>
+                                          <option value="{{$key}}" {{ ($key == $data->Insurance_car) ? 'selected' : '' }}>{{$value}}</option>
                                        @endforeach
                                      </select>
                                    @endif
@@ -1550,35 +1507,23 @@
 
                           <div class="row">
                             <div class="col-md-5">
-
-                            </div>
-
-                            <div class="col-md-6">
-                             <div class="form-inline" align="right">
-                                 <label>เลขกรมธรรม์ : </label>
-                                    <input type="text" name="insurancekeyHC" value="{{$data->insurancekey_HC}}" class="form-control" style="width: 250px;" placeholder="เลขกรมธรรม์" />
-                             </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-md-5">
                               <div class="form-inline" align="right">
-                                 <label>แบบ : </label>
+                                 <label>สถานะ : </label>
                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                   <select name="baabHC" class="form-control" style="width: 250px;">
+                                   <select name="statuscar" class="form-control" style="width: 250px;">
                                      <option value="" disabled selected>--- สถานะ ---</option>
                                      @foreach ($statuscarr as $key => $value)
-                                        <option value="{{$key}}" {{ ($key == $data->baab_HC) ? 'selected' : '' }}>{{$value}}</option>
+                                        <option value="{{$key}}" {{ ($key == $data->status_car) ? 'selected' : '' }}>{{$value}}</option>
                                      @endforeach
                                    </select>
                                  @else
                                    @if($GetDocComplete != Null)
-                                     <input type="text" id="baabHC" name="baabHC" value="{{$data->baab_HC}}" class="form-control" style="width: 250px;" placeholder="แบบ" readonly />
+                                     <input type="text" id="statuscar" name="statuscar" value="{{$data->status_car}}" class="form-control" style="width: 250px;" placeholder="สถานะ" readonly />
                                    @else
-                                     <select name="baabHC" class="form-control" style="width: 250px;">
+                                     <select name="statuscar" class="form-control" style="width: 250px;">
                                        <option value="" disabled selected>--- สถานะ ---</option>
                                        @foreach ($statuscarr as $key => $value)
-                                      <option value="{{$key}}" {{ ($key == $data->baab_HC) ? 'selected' : '' }}>{{$value}}</option>
+                                      <option value="{{$key}}" {{ ($key == $data->status_car) ? 'selected' : '' }}>{{$value}}</option>
                                       @endforeach
                                      </select>
                                    @endif
@@ -1588,13 +1533,52 @@
 
                             <div class="col-md-6">
                              <div class="form-inline" align="right">
-                                 <label>ค้ำประกัน : </label>
-                                    <input type="text" name="guaranteeHC" value="{{$data->guarantee_HC}}" class="form-control" style="width: 250px;" placeholder="ค้ำประกัน" />
+                                 <label>เปอร์เซ็นจัดไฟแนนซ์ : </label>
+                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    <input type="text" name="Percentcar" value="{{$data->Percent_car}}" class="form-control" style="width: 250px;" placeholder="เปอร์เซ็นจัดไฟแนนซ์" />
+                                 @else
+                                   @if($GetDocComplete != Null)
+                                      <input type="text" name="Percentcar" value="{{$data->Percent_car}}" class="form-control" style="width: 250px;" placeholder="เปอร์เซ็นจัดไฟแนนซ์" readonly/>
+                                   @else
+                                      <input type="text" name="Percentcar" value="{{$data->Percent_car}}" class="form-control" style="width: 250px;" placeholder="เปอร์เซ็นจัดไฟแนนซ์" />
+                                   @endif
+                                 @endif
                              </div>
                             </div>
                           </div>
 
                           <hr />
+                          <div class="row">
+                            <div class="col-md-5">
+                              <div class="form-inline" align="right">
+                                 <label>ผู้รับเงิน : </label>
+                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    <input type="text" name="Payeecar" value="{{$data->Payee_car}}" class="form-control" style="width: 250px;" placeholder="ผู้รับเงิน" />
+                                 @else
+                                   @if($GetDocComplete != Null)
+                                      <input type="text" name="Payeecar" value="{{$data->Payee_car}}" class="form-control" style="width: 250px;" placeholder="ผู้รับเงิน" readonly/>
+                                   @else
+                                      <input type="text" name="Payeecar" value="{{$data->Payee_car}}" class="form-control" style="width: 250px;" placeholder="ผู้รับเงิน" />
+                                   @endif
+                                 @endif
+                               </div>
+                            </div>
+
+                            <div class="col-md-6">
+                             <div class="form-inline" align="right">
+                                 <label>เลขที่บัญชี : </label>
+                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    <input type="text" name="Accountbrancecar" value="{{$data->Accountbrance_car}}" class="form-control" style="width: 250px;" placeholder="เลขที่บัญชี" data-inputmask="&quot;mask&quot;:&quot;999-9-99999-9&quot;" data-mask=""/>
+                                 @else
+                                   @if($GetDocComplete != Null)
+                                      <input type="text" name="Accountbrancecar" value="{{$data->Accountbrance_car}}" class="form-control" style="width: 250px;" placeholder="เลขที่บัญชี" data-inputmask="&quot;mask&quot;:&quot;999-9-99999-9&quot;" data-mask="" readonly/>
+                                   @else
+                                      <input type="text" name="Accountbrancecar" value="{{$data->Accountbrance_car}}" class="form-control" style="width: 250px;" placeholder="เลขที่บัญชี" data-inputmask="&quot;mask&quot;:&quot;999-9-99999-9&quot;" data-mask=""/>
+                                   @endif
+                                 @endif
+                             </div>
+                            </div>
+                          </div>
 
                           <div class="row">
                             <div class="col-md-5">
@@ -1616,36 +1600,55 @@
                             </div>
                           </div>
 
-
                           <div class="row">
                             <div class="col-md-5">
-                              <div class="form-inline" align="right">
-                                 <label>แนะนำ/นายหน้า : </label>
-                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                    <input type="text" name="agentHC" value="{{$data->agent_HC}}" class="form-control" style="width: 250px;" placeholder="แนะนำ/นายหน้า" />
-                                 @else
-                                   @if($GetDocComplete != Null)
-                                      <input type="text" name="agentHC" value="{{$data->agent_HC}}" class="form-control" style="width: 250px;" placeholder="แนะนำ/นายหน้า" readonly/>
-                                   @else
-                                      <input type="text" name="agentHC" value="{{$data->agent_HC}}" class="form-control" style="width: 250px;" placeholder="แนะนำ/นายหน้า" />
-                                   @endif
-                                 @endif
-                               </div>
                             </div>
 
                             <div class="col-md-6">
                               <div class="form-inline" align="right">
                                 <label>เบอร์โทรศัพท์ : </label>
                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                    <input type="text" name="telHC" value="{{$data->tel_HC}}" class="form-control" style="width: 250px;" placeholder="เบอร์โทรศัพท์" data-inputmask="&quot;mask&quot;:&quot;999-9999999&quot;" data-mask=""/>
+                                    <input type="text" name="Tellbrancecar" value="{{$data->Tellbrance_car}}" class="form-control" style="width: 250px;" placeholder="เบอร์โทรศัพท์" data-inputmask="&quot;mask&quot;:&quot;999-9999999&quot;" data-mask=""/>
                                 @else
                                   @if($GetDocComplete != Null)
-                                      <input type="text" name="telHC" value="{{$data->tel_HC}}" class="form-control" style="width: 250px;" placeholder="เบอร์โทรศัพท์" data-inputmask="&quot;mask&quot;:&quot;999-9999999&quot;" data-mask="" readonly/>
+                                      <input type="text" name="Tellbrancecar" value="{{$data->Tellbrance_car}}" class="form-control" style="width: 250px;" placeholder="เบอร์โทรศัพท์" data-inputmask="&quot;mask&quot;:&quot;999-9999999&quot;" data-mask="" readonly/>
                                   @else
-                                      <input type="text" name="telHC" value="{{$data->tel_HC}}" class="form-control" style="width: 250px;" placeholder="เบอร์โทรศัพท์" data-inputmask="&quot;mask&quot;:&quot;999-9999999&quot;" data-mask=""/>
+                                      <input type="text" name="Tellbrancecar" value="{{$data->Tellbrance_car}}" class="form-control" style="width: 250px;" placeholder="เบอร์โทรศัพท์" data-inputmask="&quot;mask&quot;:&quot;999-9999999&quot;" data-mask=""/>
                                   @endif
                                 @endif
                               </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-md-5">
+                              <div class="form-inline" align="right">
+                                 <label>แนะนำ/นายหน้า : </label>
+                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    <input type="text" name="Agentcar" value="{{$data->Agent_car}}" class="form-control" style="width: 250px;" placeholder="แนะนำ/นายหน้า" />
+                                 @else
+                                   @if($GetDocComplete != Null)
+                                      <input type="text" name="Agentcar" value="{{$data->Agent_car}}" class="form-control" style="width: 250px;" placeholder="แนะนำ/นายหน้า" readonly/>
+                                   @else
+                                      <input type="text" name="Agentcar" value="{{$data->Agent_car}}" class="form-control" style="width: 250px;" placeholder="แนะนำ/นายหน้า" />
+                                   @endif
+                                 @endif
+                               </div>
+                            </div>
+
+                            <div class="col-md-6">
+                             <div class="form-inline" align="right">
+                                 <label>เลขที่บัญชี : </label>
+                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    <input type="text" name="Accountagentcar" value="{{$data->Accountagent_car}}" class="form-control" style="width: 250px;" placeholder="เลขที่บัญชี" data-inputmask="&quot;mask&quot;:&quot;999-9-99999-9&quot;" data-mask=""/>
+                                 @else
+                                   @if($GetDocComplete != Null)
+                                      <input type="text" name="Accountagentcar" value="{{$data->Accountagent_car}}" class="form-control" style="width: 250px;" placeholder="เลขที่บัญชี" data-inputmask="&quot;mask&quot;:&quot;999-9-99999-9&quot;" data-mask="" readonly/>
+                                   @else
+                                      <input type="text" name="Accountagentcar" value="{{$data->Accountagent_car}}" class="form-control" style="width: 250px;" placeholder="เลขที่บัญชี" data-inputmask="&quot;mask&quot;:&quot;999-9-99999-9&quot;" data-mask=""/>
+                                   @endif
+                                 @endif
+                             </div>
                             </div>
                           </div>
 
@@ -1654,12 +1657,12 @@
                               <div class="form-inline" align="right">
                                 <label>ค่าคอม : </label>
                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                  <input type="text" id="commitHC" name="commitHC" value="{{number_format($data->commit_HC, 2)}}" class="form-control" style="width: 250px;" placeholder="ค่าคอม" oninput="commission()"/>
+                                  <input type="text" id="Commissioncar" name="Commissioncar" value="{{number_format($data->Commission_car, 2)}}" class="form-control" style="width: 250px;" placeholder="ค่าคอม" oninput="commission()"/>
                                 @else
                                   @if($GetDocComplete != Null)
-                                    <input type="text" id="commitHC" name="commitHC" value="{{number_format($data->commit_HC, 2)}}" class="form-control" style="width: 250px;" placeholder="ค่าคอม" oninput="commission()" readonly/>
+                                    <input type="text" id="Commissioncar" name="Commissioncar" value="{{number_format($data->Commission_car, 2)}}" class="form-control" style="width: 250px;" placeholder="ค่าคอม" oninput="commission()" readonly/>
                                   @else
-                                    <input type="text" id="commitHC" name="commitHC" value="{{number_format($data->commit_HC, 2)}}" class="form-control" style="width: 250px;" placeholder="ค่าคอม" oninput="commission()"/>
+                                    <input type="text" id="Commissioncar" name="Commissioncar" value="{{number_format($data->Commission_car, 2)}}" class="form-control" style="width: 250px;" placeholder="ค่าคอม" oninput="commission()"/>
                                   @endif
                                 @endif
                               </div>
@@ -1667,22 +1670,39 @@
 
                             <div class="col-md-6">
                               <div class="form-inline" align="right">
+                                <label>สาขา : </label>
+                                @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    <input type="text" name="branchAgentcar" value="{{$data->branchAgent_car}}" class="form-control" style="width: 250px;" placeholder="สาขานายหน้า"/>
+                                @else
+                                  @if($GetDocComplete != Null)
+                                      <input type="text" name="branchAgentcar" value="{{$data->branchAgent_car}}" class="form-control" style="width: 250px;" placeholder="สาขานายหน้า" readonly/>
+                                  @else
+                                      <input type="text" name="branchAgentcar" value="{{$data->branchAgent_car}}" class="form-control" style="width: 250px;" placeholder="สาขานายหน้า"/>
+                                  @endif
+                                @endif
+                              </div>
+                            </div>
+                          </div>
+
+                         <div class="row">
+                            <div class="col-md-5">
+                              <div class="form-inline" align="right">
                                 <label>ประวัติการซื้อ/ค้ำ : </label>
                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                  <select name="purchhisHC" class="form-control" style="width: 108px;">
+                                  <select name="Purchasehistorycar" class="form-control" style="width: 108px;">
                                     <option value="" disabled selected>--- ซื้อ ---</option>
                                     @foreach ($HisCarby as $key => $value)
-                                      <option value="{{$key}}" {{ ($key == $data->purchhis_HC) ? 'selected' : '' }}>{{$value}}</option>
+                                      <option value="{{$key}}" {{ ($key == $data->Purchasehistory_car) ? 'selected' : '' }}>{{$value}}</option>
                                     @endforeach
                                   </select>
                                 @else
                                   @if($GetDocComplete != Null)
-                                    <input type="text" name="purchhisHC" value="{{$data->purchhis_HC}}" class="form-control" style="width: 108px;" placeholder="ซื้อ" readonly/>
+                                    <input type="text" name="Purchasehistorycar" value="{{$data->Purchasehistory_car}}" class="form-control" style="width: 108px;" placeholder="ซื้อ" readonly/>
                                   @else
-                                    <select name="purchhisHC" class="form-control" style="width: 108px;">
+                                    <select name="Purchasehistorycar" class="form-control" style="width: 108px;">
                                       <option value="" disabled selected>--- ซื้อ ---</option>
                                       @foreach ($HisCarby as $key => $value)
-                                        <option value="{{$key}}" {{ ($key == $data->purchhis_HC) ? 'selected' : '' }}>{{$value}}</option>
+                                        <option value="{{$key}}" {{ ($key == $data->Purchasehistory_car) ? 'selected' : '' }}>{{$value}}</option>
                                       @endforeach
                                     </select>
                                   @endif
@@ -1690,56 +1710,62 @@
 
                                 <label>ค้ำ : </label>
                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                  <select name="supporthisHC" class="form-control" style="width: 108px;">
+                                  <select name="Supporthistorycar" class="form-control" style="width: 108px;">
                                     <option value="" disabled selected>--- ค้ำ ---</option>
                                     @foreach ($HisCarby as $key => $value)
-                                      <option value="{{$key}}" {{ ($key == $data->supporthis_HC) ? 'selected' : '' }}>{{$value}}</option>
+                                      <option value="{{$key}}" {{ ($key == $data->Supporthistory_car) ? 'selected' : '' }}>{{$value}}</option>
                                     @endforeach
                                   </select>
                                 @else
                                   @if($GetDocComplete != Null)
-                                    <input type="text" name="supporthisHC" value="{{$data->supporthis_HC}}" class="form-control" style="width: 108px;" placeholder="ค้ำ" readonly/>
+                                    <input type="text" name="Supporthistorycar" value="{{$data->Purchasehistory_car}}" class="form-control" style="width: 108px;" placeholder="ค้ำ" readonly/>
                                   @else
-                                    <select name="supporthisHC" class="form-control" style="width: 108px;">
+                                    <select name="Supporthistorycar" class="form-control" style="width: 108px;">
                                       <option value="" disabled selected>--- ค้ำ ---</option>
                                       @foreach ($HisCarby as $key => $value)
-                                        <option value="{{$key}}" {{ ($key == $data->supporthis_HC) ? 'selected' : '' }}>{{$value}}</option>
+                                        <option value="{{$key}}" {{ ($key == $data->Supporthistory_car) ? 'selected' : '' }}>{{$value}}</option>
                                       @endforeach
                                     </select>
+                                  @endif
+                                @endif
+                              </div>
+                           </div>
+
+                            <div class="col-md-6">
+                              <div class="form-inline" align="right">
+                                <label>เบอร์โทรศัพท์ : </label>
+                                @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    <input type="text" name="Tellagentcar" value="{{$data->Tellagent_car}}" class="form-control" style="width: 250px;" placeholder="เบอร์โทรศัพท์" data-inputmask="&quot;mask&quot;:&quot;999-9999999&quot;" data-mask=""/>
+                                @else
+                                  @if($GetDocComplete != Null)
+                                      <input type="text" name="Tellagentcar" value="{{$data->Tellagent_car}}" class="form-control" style="width: 250px;" placeholder="เบอร์โทรศัพท์" data-inputmask="&quot;mask&quot;:&quot;999-9999999&quot;" data-mask="" readonly/>
+                                  @else
+                                      <input type="text" name="Tellagentcar" value="{{$data->Tellagent_car}}" class="form-control" style="width: 250px;" placeholder="เบอร์โทรศัพท์" data-inputmask="&quot;mask&quot;:&quot;999-9999999&quot;" data-mask=""/>
                                   @endif
                                 @endif
                               </div>
                             </div>
                           </div>
 
-{{--
-                          <!-- <hr /> -->
-                          <!-- <div class="row">
+                          <div class="row">
                             <div class="col-md-5">
                               <div class="form-inline" align="right">
-                                 <label><font color="red">เจ้าหน้าที่สินเชื่อ : </font></label>
-                                 <select name="Loanofficercar" class="form-control" style="width: 250px;" required>
-                                   <option value="" disabled selected>--- เจ้าหน้าที่สินเชื่อ ---</option>
-                                   @foreach ($Loanofficercarr as $key => $value)
-                                     <option value="{{$key}}" {{ ($key == $data->Loanofficer_car) ? 'selected' : '' }}>{{$value}}</option>
-                                   @endforeach
-                                 </select>
-                               </div>
+                                <label>หมายเหตุ : </label>
+                                @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    <input type="text" name="Notecar" value="{{$data->Note_car}}" class="form-control" style="width: 250px;" placeholder="หมายเหตุ"/>
+                                @else
+                                  @if($GetDocComplete != Null)
+                                      <input type="text" name="Notecar" value="{{$data->Note_car}}" class="form-control" style="width: 250px;" placeholder="หมายเหตุ" readonly/>
+                                  @else
+                                      <input type="text" name="Notecar" value="{{$data->Note_car}}" class="form-control" style="width: 250px;" placeholder="หมายเหตุ"/>
+                                  @endif
+                                @endif
+                              </div>
                             </div>
 
                             <div class="col-md-6">
-                              <div class="form-inline" align="right">
-                                 <label><font color="red">สาขา : </font></label>
-                                 <select name="branchcar" class="form-control" style="width: 250px;" required>
-                                   <option value="" disabled selected>--- เลือกสาขา ---</option>
-                                   @foreach ($branchcarr as $key => $value)
-                                     <option value="{{$key}}" {{ ($key == $data->branch_car) ? 'selected' : '' }}>{{$value}}</option>
-                                   @endforeach
-                                 </select>
-                               </div>
                             </div>
-                           </div> -->
---}}
+                          </div>
                         </div>
                         <div class="tab-pane" id="tab_4">
                           <div class="row">
@@ -1898,6 +1924,10 @@
                     </div>
                   </div>
 
+                  <input type="text" name="fdate" value="{{ $fdate }}" />
+                  <input type="text" name="tdate" value="{{ $tdate }}" />
+                  <input type="text" name="branch" value="{{ $branch }}" />
+                  <input type="text" name="status" value="{{ $status }}" />
                   <br/>
                    @if(auth::user()->type == 1 or auth::user()->type == 2)
                     <table class="table table-bordered" id="table" border="3" align="center" style="width: 50%;" align="center">
@@ -1942,7 +1972,7 @@
                               @if ( $data->DocComplete_car != Null)
                                 <input type="checkbox" class="checkbox" name="doccomplete" id="" value="{{ $data->DocComplete_car }}" checked="checked"> <!-- checked="checked"  -->
                               @else
-                                <input type="checkbox" class="checkbox" name="doccomplete" id="" value="{{ auth::user()->name }}">
+                                <input type="checkbox" class="checkbox" name="doccomplete" id="" value="">
                               @endif
                             <span class="checkmark"></span>
                             <p></p>

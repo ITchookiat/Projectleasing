@@ -26,7 +26,7 @@ class CreateHomecardetailsTable extends Migration
             $table->string('type_HC')->nullable();
             $table->string('price_HC')->nullable();
             $table->string('downpay_HC')->nullable();
-            $table->string('insurance_HC')->nullable();
+            $table->string('insurancefee_HC')->nullable();
             $table->string('transfer_HC')->nullable();
             $table->string('topprice_HC')->nullable();
             $table->string('interest_HC')->nullable();
@@ -41,7 +41,7 @@ class CreateHomecardetailsTable extends Migration
             $table->string('baab_HC')->nullable();
             $table->string('guarantee_HC')->nullable();
             $table->string('firstpay_HC')->nullable();
-            $table->string('insure_HC')->nullable();
+            $table->string('insurance_HC')->nullable();
             $table->string('agent_HC')->nullable();
             $table->string('tel_HC')->nullable();
             $table->string('commit_HC')->nullable();
