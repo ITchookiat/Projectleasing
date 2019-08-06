@@ -77,6 +77,7 @@
                     <li><a href="{{ route('Analysis',4) }}"><i class="fa fa-tags"></i>รถบ้าน</a></li>
                 @endif
                 <li><a href="{{ route('Analysis',3) }}"><i class="fa fa-tags"></i>รายงาน สินเชื่อ</a></li>
+                <li><a href="{{ route('Analysis',4) }}"><i class="fa fa-tags"></i>รายงานที่อนุมัติ</a></li>
               </ul>
           </li>
 

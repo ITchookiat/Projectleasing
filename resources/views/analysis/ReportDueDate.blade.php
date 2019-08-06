@@ -78,8 +78,23 @@
         </tr>
       </thead>
       <tbody>
+@php
+$countcar = 0;
+$sumArcsum = 0;
+$sumbalance = 0;
+$sumall = 0;
+@endphp
+
         @foreach($dataReport as $key => $value)
 
+        @php
+        $countcar = $key+1;
+          @$sumtopcar += $value->Top_car;
+          @$sumtotalkprice += str_replace(",","",$value->totalk_Price);
+          @$sumbalanceprice += str_replace(",","",$value->balance_Price);
+          @$sumcommitprice += str_replace(",","",$value->commit_Price);
+
+        @endphp
 
           <tr align="center" style="line-height: 200%;">
             <td width="50px" rowspan="3" style="background-color: #33FF00; line-height:550%;">{{$value->Brand_car}}</td>
@@ -119,12 +134,19 @@
               @if($value->Accountbrance_car == $value->Accountagent_car and $value->Accountbrance_car != Null)
                 @php
                     $ArcSum = $value->balance_Price + $value->commit_Price;
+                    $sumArcsum = $sumArcsum + $ArcSum;
                 @endphp
                 {{number_format($ArcSum)}}
               @elseif($value->Accountbrance_car == Null)
                 สด {{number_format($value->balance_Price)}}
+                @php
+                $sumArcsum = $sumArcsum + $value->balance_Price;
+                @endphp
               @else
                 รถ {{number_format($value->balance_Price)}}
+                @php
+                $sumArcsum = $sumArcsum + $value->balance_Price;
+                @endphp
               @endif
             </td>
           </tr>
@@ -147,8 +169,14 @@
             <td width="50px">
               @if($value->Accountbrance_car != $value->Accountagent_car and $value->Accountagent_car != Null)
                 คอม {{ number_format($value->commit_Price) }}
+                @php
+                  $sumbalance = $sumbalance + $value->commit_Price;
+                @endphp
               @elseif($value->Accountagent_car == Null and $value->Agent_car != Null)
                 สด {{number_format($value->commit_Price)}}
+                @php
+                  $sumbalance = $sumbalance + $value->commit_Price;
+                @endphp
               @elseif($value->Accountagent_car == Null)
 
               @endif
@@ -187,10 +215,24 @@
 
           @endif
         @endforeach
+@php
+$sumall = $sumArcsum + $sumbalance;
+@endphp
+        <tr align="center" style="line-height: 200%;">
+            <td width="125px" style="background-color: #FFFF00; line-height:250%;">รวมยอดจัดเป็น  {{$countcar}}  คัน</td>
+            <td width="100px" style="background-color: #00FFFF; line-height:250%;">ยอดเงิน {{number_format($sumtopcar)}}</td>
+            <td width="105px" style="background-color: #00FFFF; line-height:250%;">รวมค่าใช้จ่าย {{number_format($sumtotalkprice)}}</td>
+            <td width="100px" style="background-color: #00FFFF; line-height:250%;">ค่ารถ {{number_format($sumbalanceprice)}}</td>
+            <td width="100px" style="background-color: #00FFFF; line-height:250%;">ค่าโอน{{number_format($sumcommitprice)}}</td>
+            <td width="210px" style="background-color: red; line-height:250%;"></td>
+            <!-- <td width="50px">{{number_format($sumbalanceprice)}}</td> -->
+
+            <td width="50px" style="background-color: #00FFFF; line-height:250%;">{{number_format($sumall)}}
+
+            </td>
+          </tr>
       </tbody>
     </table>
-
-
 
   </body>
 </html>
