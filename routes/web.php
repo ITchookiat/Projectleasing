@@ -33,7 +33,7 @@ Route::group(['middleware' => 'auth'], function()
     route::resource('MasterAnalysis','AnalysController');
     Route::get('/Analysis/Home/{type}', 'AnalysController@index')->name('Analysis');
     Route::get('/Analysis/edit/{id}/{type}/{fdate}/{tdate}/{branch}/{status}', 'AnalysController@edit')->name('Analysis.edit');
-    Route::patch('/Analysis/update/{id}', 'AnalysController@update')->name('Analysis.update');
+    Route::patch('/Analysis/update/{id}/{type}', 'AnalysController@update')->name('Analysis.update');
     Route::delete('/Analysis/delete/{id}', 'AnalysController@destroy')->name('Analysis.destroy');
     Route::get('/Analysis/Report/{id}', 'ReportAnalysController@ReportPDFIndex');
     Route::get('/Analysis/ReportDueDate', 'ReportAnalysController@ReportDueDate');

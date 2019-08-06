@@ -36,7 +36,7 @@ $date = date('Y-m-d', strtotime('-1 days'));
       <div class="box">
         <div class="box-header with-border">
           <ul class="nav nav-pills ml-auto p-2">
-            @if(auth::user()->branch == 10 or auth::user()->branch == 11)
+            @if(auth::user()->branch == 10 or auth::user()->branch == 11 or auth::user()->type == 4)
               <li class="nav-item active">
                 <a class="nav-link" href="{{ route('Analysis',4) }}">หน้าหลัก</a>
               </li>
@@ -192,21 +192,23 @@ $date = date('Y-m-d', strtotime('-1 days'));
 
                               @if(auth::user()->type == 1 or auth::user()->type == 2)
                                 @if($branch == "")
-                                  @php
-                                    $branch = 'Null';
-                                  @endphp
+                                  @php $branch = 'Null'; @endphp
                                 @endif
                                 @if($status == "")
-                                  @php
-                                    $status = 'Null';
-                                  @endphp
+                                  @php $status = 'Null'; @endphp
                                 @endif
                                 <a href="{{ action('AnalysController@edit',[$row->id,$type,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                   <span class="glyphicon glyphicon-pencil"></span> แก้ไข
                                 </a>
                               @else
                                 @if($row->Approvers_car == Null)
-                                  <a href="{{ action('AnalysController@edit',[$row->id,$type]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
+                                  @if($branch == "")
+                                    @php $branch = 'Null'; @endphp
+                                  @endif
+                                  @if($status == "")
+                                    @php $status = 'Null'; @endphp
+                                  @endif
+                                  <a href="{{ action('AnalysController@edit',[$row->id,$type,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                     <span class="glyphicon glyphicon-pencil"></span> แก้ไข
                                   </a>
                                 @endif
@@ -312,12 +314,20 @@ $date = date('Y-m-d', strtotime('-1 days'));
                               </a>
 
                               @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 4)
-                                <a href="{{ action('AnalysController@edit',[$row->id,$type]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
+                                @php $branch = 'Null'; @endphp
+                                @if($status == "")
+                                  @php $status = 'Null'; @endphp
+                                @endif
+                                <a href="{{ action('AnalysController@edit',[$row->id,$type,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                   <span class="glyphicon glyphicon-pencil"></span> แก้ไข
                                 </a>
                               @else
                                 @if($row->approvers_HC == Null)
-                                  <a href="{{ action('AnalysController@edit',[$row->id,$type]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
+                                  @php $branch = 'Null'; @endphp
+                                  @if($status == "")
+                                    @php $status = 'Null'; @endphp
+                                  @endif
+                                  <a href="{{ action('AnalysController@edit',[$row->id,$type,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                     <span class="glyphicon glyphicon-pencil"></span> แก้ไข
                                   </a>
                                 @endif

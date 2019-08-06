@@ -155,7 +155,7 @@
 
             <div class="row">
               <div class="col-md-12"> <br />
-                <form name="form1" method="post" action="{{ action('AnalysController@update',$id) }}" enctype="multipart/form-data">
+                <form name="form1" method="post" action="{{ action('AnalysController@update',[$id,$Gettype]) }}" enctype="multipart/form-data">
                   @csrf
                   @method('put')
 
@@ -971,6 +971,10 @@
                     </div>
                   </div>
 
+                  <input type="hidden" name="fdate" value="{{ $fdate }}" />
+                  <input type="hidden" name="tdate" value="{{ $tdate }}" />
+                  <input type="hidden" name="branch" value="{{ $branch }}" />
+                  <input type="hidden" name="status" value="{{ $status }}" />
                   <br/>
                    @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 4)
                     <table class="table table-bordered" id="table" border="3" align="center" style="width: 50%;" align="center">
@@ -985,9 +989,9 @@
                             <p></p>
                             <label class="con">
                             @if($data->approvers_HC != Null)
-                              <input type="checkbox" class="checkbox" name="Approverscar" id="" value="{{ auth::user()->name }}" checked="checked"> <!-- checked="checked"  -->
+                              <input type="checkbox" class="checkbox" name="approversHC" id="" value="{{ auth::user()->name }}" checked="checked"> <!-- checked="checked"  -->
                             @else
-                              <input type="checkbox" class="checkbox" name="Approverscar" id="" value="{{ auth::user()->name }}"> <!-- checked="checked"  -->
+                              <input type="checkbox" class="checkbox" name="approversHC" id="" value="{{ auth::user()->name }}"> <!-- checked="checked"  -->
                             @endif
                             <span class="checkmark"></span>
                             <p></p>

@@ -94,7 +94,7 @@
                                    <div class="col-md-5">
                                      <div class="form-inline" align="right">
                                         <label><font color="red">เลขที่สัญญา : </font></label>
-                                        @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                        @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 4)
                                           <input type="text" name="Contract_buyer" class="form-control" style="width: 250px;" required/>
                                         @else
                                           <input type="text" name="Contract_buyer" class="form-control" style="width: 250px;" data-inputmask="&quot;mask&quot;:&quot;99-9999/&quot;" data-mask="" required/>
@@ -1084,6 +1084,8 @@
                                          <input type="hidden" name="branchUSHC" class="form-control" style="width: 250px;" value="รถบ้าน" readonly />
                                       @elseif(Auth::user()->branch == 11)
                                          <input type="hidden" name="branchUSHC" class="form-control" style="width: 250px;" value="รถยืดขายผ่อน" readonly />
+                                      @elseif(Auth::user()->type == 4)
+                                         <input type="hidden" name="branchUSHC" class="form-control" style="width: 250px;" value="admin" readonly />
                                       @endif
                                     </div>
                                   </div>
