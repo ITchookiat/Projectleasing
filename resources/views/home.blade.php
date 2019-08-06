@@ -176,17 +176,44 @@
       </div>
       <div class="modal-body">
         <div class="row">
+          @if(auth::user()->branch != 10 and auth::user()->branch != 11 and auth::user()->type != 4)
+            <div class="col-lg-4 col-md-4">
+              <div class="info-box">
+                <span class="info-box-icon bg-red">
+                  <a href="{{ route('Analysis',1) }}" class="a1"><i class="fa fa-fax"></i></a>
+                </span>
+                <div class="info-box-content">
+                  <span class="info-box-text"><br /></span>
+                  <span class="info-box-number">สินเชื่อ</span>
+                </div>
+              </div>
+            </div>
+            @if(auth::user()->type == 1 or auth::user()->type == 2)
+              <div class="col-lg-4 col-md-4">
+                <div class="info-box">
+                  <span class="info-box-icon bg-yellow">
+                    <a href="{{ route('Analysis',4) }}" class="a1"><i class="fa fa-automobile "></i></a>
+                  </span>
+                  <div class="info-box-content">
+                    <span class="info-box-text"><br /></span>
+                    <span class="info-box-number">รถบ้าน</span>
+                  </div>
+                </div>
+              </div>
+            @endif
+          @else
           <div class="col-lg-4 col-md-4">
             <div class="info-box">
-              <span class="info-box-icon bg-red">
-                <a href="{{ route('Analysis',1) }}" class="a1"><i class="fa fa-fax"></i></a>
+              <span class="info-box-icon bg-yellow">
+                <a href="{{ route('Analysis',4) }}" class="a1"><i class="fa fa-automobile "></i></a>
               </span>
               <div class="info-box-content">
                 <span class="info-box-text"><br /></span>
-                <span class="info-box-number">งานสินเชื่อ</span>
+                <span class="info-box-number">รถบ้าน</span>
               </div>
             </div>
           </div>
+          @endif
 
           <div class="col-lg-4 col-md-4">
             <div class="info-box">

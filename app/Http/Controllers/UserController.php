@@ -70,6 +70,7 @@ class UserController extends Controller
         1 => 'Admin',
         2 => 'ฝ่ายอนุมัติ',
         3 => 'จัดไฟแนนท์',
+        4 => 'ฝ่ายอนุมัติรถบ้าน',
       ];
 
       $arrayBranch = [

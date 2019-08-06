@@ -156,7 +156,7 @@
 
             <div class="row">
               <div class="col-md-12"> <br />
-                <form name="form1" method="post" action="{{ action('AnalysController@update',$id) }}" enctype="multipart/form-data">
+                <form name="form1" method="post" action="{{ action('AnalysController@update',[$id,$Gettype]) }}" enctype="multipart/form-data">
                   @csrf
                   @method('put')
 
@@ -1924,11 +1924,12 @@
                     </div>
                   </div>
 
-                  <input type="text" name="fdate" value="{{ $fdate }}" />
-                  <input type="text" name="tdate" value="{{ $tdate }}" />
-                  <input type="text" name="branch" value="{{ $branch }}" />
-                  <input type="text" name="status" value="{{ $status }}" />
+                  <input type="hidden" name="fdate" value="{{ $fdate }}" />
+                  <input type="hidden" name="tdate" value="{{ $tdate }}" />
+                  <input type="hidden" name="branch" value="{{ $branch }}" />
+                  <input type="hidden" name="status" value="{{ $status }}" />
                   <br/>
+
                    @if(auth::user()->type == 1 or auth::user()->type == 2)
                     <table class="table table-bordered" id="table" border="3" align="center" style="width: 50%;" align="center">
                       <thead class="thead-dark">

@@ -78,6 +78,8 @@
                           ฝ่ายอนุมัติ
                         @elseif ($row->type  == 3)
                           จัดไฟแนนท์
+                        @elseif ($row->type  == 4)
+                          ฝ่ายอนุมัติรถบ้าน
                         @endif
                       </td>
                       <td class="text-center">
