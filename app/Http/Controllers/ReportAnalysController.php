@@ -140,6 +140,7 @@ class ReportAnalysController extends Controller
                       ->join('Expenses','Buyers.id','=','Expenses.Buyerexpenses_id')
                       ->where('cardetails.Date_Appcar',$date)
                       ->where('cardetails.Approvers_car','<>','')
+                      ->orderBy('buyers.Contract_buyer', 'ASC')
                       ->get();
 
       // dd($dataReport);
