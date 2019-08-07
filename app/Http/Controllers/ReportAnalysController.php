@@ -188,17 +188,18 @@ class ReportAnalysController extends Controller
         $typecar = $request->get('typecar');
       }
 
-      $view = \View::make('analysis.ReportCredit' ,compact('date2','type'));
+      $view = \View::make('analysis.ReportCredit' ,compact('date2','type','newfdate','newtdate','agen','yearcar','typecar'));
       $html = $view->render();
       $pdf = new PDF();
       $pdf::SetTitle('รายงานนำเสนอ');
       $pdf::AddPage('L', 'A4');
+      $pdf::SetMargins(3, 5, 3);
       $pdf::SetFont('freeserif','',8,'false');
       $pdf::WriteHTML($html,true,false,true,false,'');
       $pdf::Output('report.pdf');
     }
 
-    public function ReportCreditApprove(Request $request, $newfdate, $newtdate, $type)
+    public function ReportCreditApprove(Request $request, $type)
     {
       date_default_timezone_set('Asia/Bangkok');
       $Y = date('Y');
@@ -208,16 +209,26 @@ class ReportAnalysController extends Controller
       $date = $Y.'-'.$m.'-'.$d;
       $date2 = $d.'-'.$m.'-'.$Y2;
 
-        $newfdate = \Carbon\Carbon::parse($newfdate)->format('Y')-543 ."-". \Carbon\Carbon::parse($newfdate)->format('m')."-". \Carbon\Carbon::parse($newfdate)->format('d');
-        $newtdate = \Carbon\Carbon::parse($newtdate)->format('Y')-543 ."-". \Carbon\Carbon::parse($newtdate)->format('m')."-". \Carbon\Carbon::parse($newtdate)->format('d');
-        // dd($newfdate, $newtdate);
+      $newfdate = '';
+      $newtdate = '';
+
+      if ($request->has('Fromdate')) {
+        $fdate = $request->get('Fromdate');
+        $newfdate = \Carbon\Carbon::parse($fdate)->format('Y')-543 ."-". \Carbon\Carbon::parse($fdate)->format('m')."-". \Carbon\Carbon::parse($fdate)->format('d');
+      }
+      if ($request->has('Todate')) {
+        $tdate = $request->get('Todate');
+        $newtdate = \Carbon\Carbon::parse($tdate)->format('Y')-543 ."-". \Carbon\Carbon::parse($tdate)->format('m')."-". \Carbon\Carbon::parse($tdate)->format('d');
+      }
 
       $data = DB::table('buyers')
       ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
       ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
       ->join('expenses','buyers.id','=','expenses.Buyerexpenses_id')
       ->where('cardetails.Approvers_car','!=',Null)
-      ->whereBetween('buyers.Date_Due', [$newfdate,$newtdate])
+      ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+        return $q->whereBetween('buyers.Date_Due',[$newfdate,$newtdate]);
+      })
       ->orderBy('buyers.Contract_buyer', 'ASC')
       ->get();
 
@@ -258,7 +269,5 @@ class ReportAnalysController extends Controller
       $pdf::SetAutoPageBreak(TRUE, 5);
       $pdf::WriteHTML($html,true,false,true,false,'');
       $pdf::Output('report.pdf');
-
-
     }
 }

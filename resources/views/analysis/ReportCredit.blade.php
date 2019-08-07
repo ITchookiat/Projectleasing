@@ -39,6 +39,18 @@
     <label align="right">วันที่ : <u>{{$date2}}</u></label>
     @if($type == 3)
       <h2 class="card-title p-3" align="center">รายงานสินเชื่อ</h2>
+      <p class="card-title p-3" align="center">จากวันที่ {{ DateThai2($newfdate) }} ถึงวันที่ {{ DateThai2($newtdate) }}</p>
+      <p class="card-title p-3" align="center">
+        @if($agen != Null)
+          <b>นายหน้า</b>&nbsp;&nbsp;{{ $agen }}&nbsp;
+        @endif
+        @if($yearcar != Null)
+          <b>ปีรถ</b>&nbsp;&nbsp;{{ $yearcar }}&nbsp;
+        @endif
+        @if($typecar != Null)
+          <b>สถานะ</b>&nbsp;&nbsp;{{ $typecar }}
+        @endif
+      </p>
     @elseif($type == 11)
       <h2 class="card-title p-3" align="center">รายงานที่อนุมัติ</h2>
       <p class="card-title p-3" align="center">จากวันที่ {{ DateThai2($newfdate) }} ถึงวันที่ {{ DateThai2($newtdate) }}</p>
@@ -47,7 +59,7 @@
   <body>
     <br />
     @if($type == 3)
-    
+
     @elseif($type == 11)
       <table border="1">
          <thead class="thead-dark bg-gray-light" >

@@ -309,7 +309,7 @@ $date = date('Y-m-d', strtotime('-1 days'));
                               @endif
                             </td>
                             <td class="text-center">
-                              <a href="{{ action('ReportAnalysController@ReportHomecar',[$row->id,$type]) }}" class="btn btn-info btn-sm" title="พิมพ์">
+                              <a target="_blank" href="{{ action('ReportAnalysController@ReportHomecar',[$row->id,$type]) }}" class="btn btn-info btn-sm" title="พิมพ์">
                                 <span class="glyphicon glyphicon-eye-open"></span> พิมพ์
                               </a>
 
