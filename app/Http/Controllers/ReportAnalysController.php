@@ -91,7 +91,7 @@ class ReportAnalysController extends Controller
         //
     }
 
-    public function ReportPDFIndex(Request $request, $id)
+    public function ReportPDFIndex(Request $request, $id, $type)
     {
       $dataReport = DB::table('buyers')
                       ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
@@ -104,14 +104,13 @@ class ReportAnalysController extends Controller
       $DateDueYear = \Carbon\Carbon::parse($dataReport->Date_Due)->format('Y')+543;
 
       $newDateDue = $DateDue."-".$DateDueYear;
-      // dd($newDateDue);
       $now = Carbon::now();
       $date = Carbon::parse($now)->format('d-m-Y');
       // dd($date);
 
-      $view = \View::make('analysis.ReportAnalys' ,compact('dataReport','newDateDue','date'));
+      $view = \View::make('analysis.ReportAnalys' ,compact('dataReport','newDateDue','date','type'));
       $html = $view->render();
-      // $title = '<h2>รายการรถยนต์ พร้อมขาย</h2>';
+
       $pdf = new PDF();
       $pdf::SetTitle('แบบฟอร์มขออนุมัติเช่าซื้อรถยนต์');
       $pdf::AddPage('P', 'A4');
@@ -120,8 +119,6 @@ class ReportAnalysController extends Controller
       $pdf::SetAutoPageBreak(TRUE, 5);
       $pdf::WriteHTML($html,true,false,true,false,'');
       $pdf::Output('report.pdf');
-
-
     }
 
     public function ReportDueDate(Request $request)
@@ -200,7 +197,6 @@ class ReportAnalysController extends Controller
 
     public function ReportCreditApprove(Request $request, $newfdate, $newtdate)
     {
-
       date_default_timezone_set('Asia/Bangkok');
       $Y = date('Y');
       $Y2 = date('Y') +543;
@@ -212,7 +208,6 @@ class ReportAnalysController extends Controller
         $newfdate = \Carbon\Carbon::parse($newfdate)->format('Y')-543 ."-". \Carbon\Carbon::parse($newfdate)->format('m')."-". \Carbon\Carbon::parse($newfdate)->format('d');
         $newtdate = \Carbon\Carbon::parse($newtdate)->format('Y')-543 ."-". \Carbon\Carbon::parse($newtdate)->format('m')."-". \Carbon\Carbon::parse($newtdate)->format('d');
         // dd($newfdate, $newtdate);
-
 
       $data = DB::table('buyers')
       ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
@@ -234,5 +229,35 @@ class ReportAnalysController extends Controller
       $pdf::SetFont('freeserif','',8,'false');
       $pdf::WriteHTML($html,true,false,true,false,'');
       $pdf::Output('report.pdf');
+    }
+
+    public function ReportHomecar(Request $request, $id, $type)
+    {
+      $dataReport = DB::table('buyers')
+                      ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
+                      ->join('homecardetails','buyers.id','=','homecardetails.Buyerhomecar_id')
+                      ->where('buyers.id',$id)->first();
+
+      // dd($type);
+      $DateDue = \Carbon\Carbon::parse($dataReport->Date_Due)->format('d')."-".\Carbon\Carbon::parse($dataReport->Date_Due)->format('m');
+      $DateDueYear = \Carbon\Carbon::parse($dataReport->Date_Due)->format('Y')+543;
+
+      $newDateDue = $DateDue."-".$DateDueYear;
+      $now = Carbon::now();
+      $date = Carbon::parse($now)->format('d-m-Y');
+
+      $view = \View::make('analysis.ReportAnalys' ,compact('dataReport','newDateDue','date','type'));
+      $html = $view->render();
+
+      $pdf = new PDF();
+      $pdf::SetTitle('แบบฟอร์มขออนุมัติเช่าซื้อรถยนต์');
+      $pdf::AddPage('P', 'A4');
+      $pdf::SetMargins(10, 5, 5, 5);
+      $pdf::SetFont('freeserif', '', 11, '', true);
+      $pdf::SetAutoPageBreak(TRUE, 5);
+      $pdf::WriteHTML($html,true,false,true,false,'');
+      $pdf::Output('report.pdf');
+
+
     }
 }
