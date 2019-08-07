@@ -1280,7 +1280,7 @@
                                  }else{
                                    var result = num1;
                                  }
-                                 if(!isNaN(num11)){
+                                 if(!isNaN(num1)){
                                      document.form1.Commissioncar.value = addCommas(num1);
                                      document.form1.commitPrice.value = addCommas(result);
                                 }
