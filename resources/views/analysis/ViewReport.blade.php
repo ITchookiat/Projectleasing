@@ -174,6 +174,9 @@
                 <form method="get" action="{{ route('Analysis',11) }}">
 
                     <div align="right" class="form-inline">
+                      <a target="_blank" href="{{ route('export_excel.excel', [$newfdate, $newtdate,$type]) }}" class="btn btn-success btn-app">
+                        <span class="fa fa-file-excel-o"></span> Excel
+                      </a>
                       <a target="_blank" href="{{ action('ReportAnalysController@ReportCreditApprove', [$newfdate, $newtdate,$type]) }}" class="btn btn-primary btn-app">
                         <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
                       </a>

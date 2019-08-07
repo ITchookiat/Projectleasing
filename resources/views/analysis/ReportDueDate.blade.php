@@ -215,9 +215,9 @@ $sumall = 0;
 
           @endif
         @endforeach
-@php
-$sumall = $sumArcsum + $sumbalance;
-@endphp
+        @php
+        $sumall = $sumArcsum + $sumbalance;
+        @endphp
         <tr align="center" style="line-height: 200%;">
             <td width="125px" style="background-color: #FFFF00; line-height:250%;">รวมยอดจัดเป็น    {{$countcar}}    คัน</td>
             <td width="100px" style="background-color: #00FFFF; line-height:250%;">รวมยอดจัด      {{number_format($sumtopcar)}}</td>
