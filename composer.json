@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.1.3",
         "cooperl/laravel-db2": "~5.8",
+        "cyber-duck/laravel-excel": "^1.2",
         "elibyy/tcpdf-laravel": "^5.8",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.8.*",

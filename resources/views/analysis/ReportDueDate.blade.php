@@ -176,7 +176,6 @@
               $sumbalance = $sumbalance + $value->commit_Price;
             @endphp
           @elseif($value->Accountagent_car == Null)
-
           @endif
         </td>
       </tr>

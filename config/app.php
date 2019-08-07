@@ -163,6 +163,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
         Elibyy\TCPDF\ServiceProvider::class,
+        Cyberduck\LaravelExcel\ExcelServiceProvider::class,
 
         /*
          * Package Service Providers...
