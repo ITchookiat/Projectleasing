@@ -218,8 +218,9 @@ class ReportAnalysController extends Controller
       ->orderBy('buyers.Contract_buyer', 'ASC')
       ->get();
 
-      // dd($data);
-      $view = \View::make('analysis.ReportCreditApprove' ,compact('date2', 'data', 'newfdate', 'newtdate'));
+      $ReportType = 11;
+
+      $view = \View::make('analysis.ReportCredit' ,compact('date2', 'data', 'newfdate', 'newtdate', 'ReportType'));
       $html = $view->render();
       $pdf = new PDF();
       $pdf::SetTitle('รายงานนำเสนอ');
