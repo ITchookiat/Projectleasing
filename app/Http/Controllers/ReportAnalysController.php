@@ -200,7 +200,7 @@ class ReportAnalysController extends Controller
 
     public function ReportCreditApprove(Request $request, $newfdate, $newtdate)
     {
-      // dd($fdate, $tdate);
+
       date_default_timezone_set('Asia/Bangkok');
       $Y = date('Y');
       $Y2 = date('Y') +543;
@@ -223,9 +223,9 @@ class ReportAnalysController extends Controller
       ->orderBy('buyers.Contract_buyer', 'ASC')
       ->get();
 
-      // dd($data);
+      $ReportType = 11;
 
-      $view = \View::make('analysis.ReportCreditApprove' ,compact('date2', 'data', 'newfdate', 'newtdate'));
+      $view = \View::make('analysis.ReportCredit' ,compact('date2', 'data', 'newfdate', 'newtdate', 'ReportType'));
       $html = $view->render();
       $pdf = new PDF();
       $pdf::SetTitle('รายงานนำเสนอ');
