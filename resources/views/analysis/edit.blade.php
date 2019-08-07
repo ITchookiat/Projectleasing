@@ -1504,6 +1504,25 @@
                                </div>
                             </div>
                           </div>
+                          <div class="row">
+                            <div class="col-md-5">
+
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-inline" align="right">
+                                  <label>เลขกรมธรรม์ : </label>
+                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                     <input type="text" name="Insurancekey" value="{{$data->Insurance_key}}" class="form-control" style="width: 250px;" placeholder="เลขกรมธรรม์" />
+                                  @else
+                                    @if($GetDocComplete != Null)
+                                       <input type="text" name="Insurancekey" value="{{$data->Insurance_key}}" class="form-control" style="width: 250px;" placeholder="เลขกรมธรรม์" readonly/>
+                                    @else
+                                       <input type="text" name="Insurancekey" value="{{$data->Insurance_key}}" class="form-control" style="width: 250px;" placeholder="เลขกรมธรรม์" />
+                                    @endif
+                                  @endif
+                              </div>
+                            </div>
+                          </Div>
 
                           <div class="row">
                             <div class="col-md-5">
