@@ -88,7 +88,7 @@
                <td width="50px"> {{ DateThai2($row->Date_Due)}} </td>
                <td width="65px"> {{ $row->status_car}} </td>
                <td width="50px"> {{ $row->Brand_car}} </td>
-               <td width="90px" align="left"> {{ $row->Model_car}} </td>
+               <td width="90px" align="left"> {{ str_limit($row->Model_car,20)}} </td>
                <td width="50px"> {{ $row->License_car}} </td>
                <td width="50px">
                  @if($row->Nowlicense_car == Null)
