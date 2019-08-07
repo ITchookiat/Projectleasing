@@ -151,7 +151,7 @@ class ReportAnalysController extends Controller
       $pdf::Output('report.pdf');
     }
 
-    public function ReportCredit(Request $request)
+    public function ReportCredit(Request $request, $type)
     {
       date_default_timezone_set('Asia/Bangkok');
       $Y = date('Y');
@@ -185,7 +185,7 @@ class ReportAnalysController extends Controller
         $typecar = $request->get('typecar');
       }
 
-      $view = \View::make('analysis.ReportCredit' ,compact('date2'));
+      $view = \View::make('analysis.ReportCredit' ,compact('date2','type'));
       $html = $view->render();
       $pdf = new PDF();
       $pdf::SetTitle('รายงานนำเสนอ');
@@ -195,7 +195,7 @@ class ReportAnalysController extends Controller
       $pdf::Output('report.pdf');
     }
 
-    public function ReportCreditApprove(Request $request, $newfdate, $newtdate)
+    public function ReportCreditApprove(Request $request, $newfdate, $newtdate, $type)
     {
       date_default_timezone_set('Asia/Bangkok');
       $Y = date('Y');
@@ -218,9 +218,7 @@ class ReportAnalysController extends Controller
       ->orderBy('buyers.Contract_buyer', 'ASC')
       ->get();
 
-      $ReportType = 11;
-
-      $view = \View::make('analysis.ReportCredit' ,compact('date2', 'data', 'newfdate', 'newtdate', 'ReportType'));
+      $view = \View::make('analysis.ReportCredit' ,compact('date2', 'data', 'newfdate', 'newtdate', 'type'));
       $html = $view->render();
       $pdf = new PDF();
       $pdf::SetTitle('รายงานนำเสนอ');

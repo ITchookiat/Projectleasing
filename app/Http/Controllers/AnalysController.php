@@ -286,7 +286,6 @@ class AnalysController extends Controller
         return view('analysis.createhomecar');
       }
       elseif ($request->type == 11){
-
         date_default_timezone_set('Asia/Bangkok');
         $Y = date('Y');
         $Y2 = date('Y') +543;
@@ -298,20 +297,15 @@ class AnalysController extends Controller
         $newfdate = '';
         $newtdate = '';
 
-
         // dd($newfdate,$newtdate);
-
         if ($request->has('Fromdate')) {
           $fdate = $request->get('Fromdate');
           $newfdate = \Carbon\Carbon::parse($fdate)->format('Y')-543 ."-". \Carbon\Carbon::parse($fdate)->format('m')."-". \Carbon\Carbon::parse($fdate)->format('d');
-          // dd($newfdate);
         }
         if ($request->has('Todate')) {
           $tdate = $request->get('Todate');
           $newtdate = \Carbon\Carbon::parse($tdate)->format('Y')-543 ."-". \Carbon\Carbon::parse($tdate)->format('m')."-". \Carbon\Carbon::parse($tdate)->format('d');
-          // dd($newtdate);
         }
-
 
         $data = DB::table('buyers')
         ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
