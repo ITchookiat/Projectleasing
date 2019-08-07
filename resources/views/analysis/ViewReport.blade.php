@@ -63,9 +63,9 @@
           @endif
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-              <i class="fa fa-minus"></i></button>
+            <i class="fa fa-minus"></i></button>
             <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-              <i class="fa fa-times"></i></button>
+            <i class="fa fa-times"></i></button>
           </div>
         </div>
 
@@ -83,7 +83,7 @@
                 <div class="col-md-12">
                   <form method="get" action="{{ route('Analysis',3) }}">
                     <div align="right" class="form-inline">
-                      <a target="_blank" href="{{ action('ReportAnalysController@ReportCredit',$type) }}?&Fromdate={{$newfdate}}&Todate={{$newtdate}}&agen={{$agen}}&yearcar={{$yearcar}}&typecar={{$typecar}}" class="btn btn-primary btn-app">
+                      <a target="_blank" href="{{ action('ReportAnalysController@ReportCredit',[$type]) }}?&Fromdate={{$newfdate}}&Todate={{$newtdate}}&agen={{$agen}}&yearcar={{$yearcar}}&typecar={{$typecar}}" class="btn btn-primary btn-app">
                         <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
                       </a>
                       <button type="submit" class="btn btn-warning btn-app">
@@ -92,7 +92,6 @@
                       <p></p>
                       <label>จากวันที่ : </label>
                       <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($newfdate != '') ?$newfdate: $date2 }}" class="form-control" />
-
                       <label>ถึงวันที่ : </label>
                       <input type="date" name="Todate" style="width: 180px;" value="{{ ($newtdate != '') ?$newtdate: $date2 }}" class="form-control" />
                     </div>
@@ -171,13 +170,12 @@
                 </div>
               @elseif($type == 11)
                 <div class="col-md-12">
-                <form method="get" action="{{ route('Analysis',11) }}">
-
+                  <form method="get" action="{{ route('Analysis',11) }}">
                     <div align="right" class="form-inline">
                       <a target="_blank" href="{{ route('export_excel.excel', [$newfdate, $newtdate,$type]) }}" class="btn btn-success btn-app">
                         <span class="fa fa-file-excel-o"></span> Excel
                       </a>
-                      <a target="_blank" href="{{ action('ReportAnalysController@ReportCreditApprove', [$newfdate, $newtdate,$type]) }}" class="btn btn-primary btn-app">
+                      <a target="_blank" href="{{ action('ReportAnalysController@ReportCreditApprove',[$type]) }}?&Fromdate={{$newfdate}}&Todate={{$newtdate}}" class="btn btn-primary btn-app">
                         <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
                       </a>
                       <button type="submit" class="btn btn-warning btn-app">
@@ -186,17 +184,14 @@
                       <p></p>
                       <label>จากวันที่ : </label>
                       <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($newfdate != '') ?$newfdate: $date2 }}" class="form-control" />
-
                       <label>ถึงวันที่ : </label>
                       <input type="date" name="Todate" style="width: 180px;" value="{{ ($newtdate != '') ?$newtdate: $date2 }}" class="form-control" />
-
                     </div>
-
                   </form>
-                <hr>
+                  <hr>
 
-                <div class="table-responsive">
-                  <table class="table table-bordered" id="table">
+                  <div class="table-responsive">
+                    <table class="table table-bordered" id="table">
                        <thead class="thead-dark bg-gray-light" >
                          <tr>
                            <th class="text-center">สาขา</th>
@@ -239,7 +234,7 @@
 
                        </tbody>
                      </table>
-                </div>
+                  </div>
               </div>
               @endif
             </div>

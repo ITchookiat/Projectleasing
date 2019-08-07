@@ -38,7 +38,7 @@ Route::group(['middleware' => 'auth'], function()
     Route::get('/Analysis/Report/{id}/{type}', 'ReportAnalysController@ReportPDFIndex');
     Route::get('/Analysis/ReportDueDate', 'ReportAnalysController@ReportDueDate');
     Route::get('/Analysis/ReportCredit/{type}', 'ReportAnalysController@ReportCredit');
-    Route::get('/Analysis/ReportCredit/{newfdate}/{newtdate}/{type}', 'ReportAnalysController@ReportCreditApprove');
+    Route::get('/Analysis/ReportCreditApprove/{type}', 'ReportAnalysController@ReportCreditApprove');
     Route::get('/Analysis/ReportHomecar/{id}/{type}', 'ReportAnalysController@ReportHomecar');
 
     Route::get('/call/viewdetail/{Str1}/{Str2}', 'CallController@viewdetail')->name('callDetail.viewdetail');
