@@ -1,38 +1,22 @@
 @php
-function DateThai($strDate)
-{
-
-$strYear = date("Y",strtotime($strDate))+543;
-
-$strMonth= date("n",strtotime($strDate));
-
-$strDay= date("j",strtotime($strDate));
-
-$strMonthCut = Array("" , "มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม");
-
-$strMonthThai=$strMonthCut[$strMonth];
-
-return "$strDay $strMonthThai $strYear";
-
-}
+  function DateThai($strDate){
+    $strYear = date("Y",strtotime($strDate))+543;
+    $strMonth= date("n",strtotime($strDate));
+    $strDay= date("j",strtotime($strDate));
+    $strMonthCut = Array("" , "มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม");
+    $strMonthThai=$strMonthCut[$strMonth];
+  return "$strDay $strMonthThai $strYear";
+  }
 @endphp
 @php
-function DateThai2($strDate)
-{
-
-$strYear = date("Y",strtotime($strDate))+543;
-
-$strMonth= date("n",strtotime($strDate));
-
-$strDay= date("d",strtotime($strDate));
-
-$strMonthCut = Array("" , "01","02","03","04","05","06","07","08","09","10","11","12");
-
-$strMonthThai=$strMonthCut[$strMonth];
-
-return "$strDay-$strMonthThai-$strYear";
-
-}
+  function DateThai2($strDate){
+    $strYear = date("Y",strtotime($strDate))+543;
+    $strMonth= date("n",strtotime($strDate));
+    $strDay= date("d",strtotime($strDate));
+    $strMonthCut = Array("" , "01","02","03","04","05","06","07","08","09","10","11","12");
+    $strMonthThai=$strMonthCut[$strMonth];
+  return "$strDay-$strMonthThai-$strYear";
+  }
 @endphp
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -53,17 +37,19 @@ return "$strDay-$strMonthThai-$strYear";
 
   </head>
     <label align="right">วันที่ : <u>{{$date2}}</u></label>
-    @if($ReportType == 11)
-    <h2 class="card-title p-3" align="center">รายงานที่อนุมัติ</h2>
-    <p class="card-title p-3" align="center">จากวันที่ {{ DateThai2($newfdate) }} ถึงวันที่ {{ DateThai2($newtdate) }}</p>
-    @else
-    <h2 class="card-title p-3" align="center">รายงานสินเชื่อ</h2>
+    @if($type == 3)
+      <h2 class="card-title p-3" align="center">รายงานสินเชื่อ</h2>
+    @elseif($type == 11)
+      <h2 class="card-title p-3" align="center">รายงานที่อนุมัติ</h2>
+      <p class="card-title p-3" align="center">จากวันที่ {{ DateThai2($newfdate) }} ถึงวันที่ {{ DateThai2($newtdate) }}</p>
     @endif
     <hr>
   <body>
     <br />
-    @if($ReportType == 11)
-    <table border="1">
+    @if($type == 3)
+    
+    @elseif($type == 11)
+      <table border="1">
          <thead class="thead-dark bg-gray-light" >
            <tr align="center">
              <th width="20px">ลำดับ</th>
@@ -118,7 +104,6 @@ return "$strDay-$strMonthThai-$strYear";
 
          </tbody>
        </table>
-    @else
     @endif
 
   </body>
