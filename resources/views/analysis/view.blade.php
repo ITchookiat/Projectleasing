@@ -90,7 +90,7 @@ $date = date('Y-m-d', strtotime('-1 days'));
               <div class="col-md-12">
                 <form method="get" action="{{ route('Analysis',1) }}">
                     <div align="right" class="form-inline">
-                      @if(auth::user()->branch != 10 and auth::user()->branch != 11)
+                      @if(auth::user()->type == 1 or auth::user()->type == 2)
                         <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate') }}" class="btn btn-primary btn-app">
                           <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
                         </a>
