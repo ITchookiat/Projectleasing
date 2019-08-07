@@ -219,15 +219,15 @@ $sumall = 0;
 $sumall = $sumArcsum + $sumbalance;
 @endphp
         <tr align="center" style="line-height: 200%;">
-            <td width="125px" style="background-color: #FFFF00; line-height:250%;">รวมยอดจัดเป็น  {{$countcar}}  คัน</td>
-            <td width="100px" style="background-color: #00FFFF; line-height:250%;">ยอดเงิน {{number_format($sumtopcar)}}</td>
-            <td width="105px" style="background-color: #00FFFF; line-height:250%;">รวมค่าใช้จ่าย {{number_format($sumtotalkprice)}}</td>
-            <td width="100px" style="background-color: #00FFFF; line-height:250%;">ค่ารถ {{number_format($sumbalanceprice)}}</td>
-            <td width="100px" style="background-color: #00FFFF; line-height:250%;">ค่าโอน{{number_format($sumcommitprice)}}</td>
-            <td width="210px" style="background-color: red; line-height:250%;"></td>
+            <td width="125px" style="background-color: #FFFF00; line-height:250%;">รวมยอดจัดเป็น    {{$countcar}}    คัน</td>
+            <td width="100px" style="background-color: #00FFFF; line-height:250%;">รวมยอดจัด      {{number_format($sumtopcar)}}</td>
+            <td width="105px" style="background-color: #00FFFF; line-height:250%;">รวมค่าใช้จ่าย     {{number_format($sumtotalkprice)}}</td>
+            <td width="100px" style="background-color: #00FFFF; line-height:250%;">ค่ารถ     {{number_format($sumbalanceprice)}}</td>
+            <td width="100px" style="background-color: #00FFFF; line-height:250%;">ค่าโอน     {{number_format($sumcommitprice)}}</td>
+            <td width="105px" style="background-color: yellow; line-height:250%;"></td>
             <!-- <td width="50px">{{number_format($sumbalanceprice)}}</td> -->
 
-            <td width="50px" style="background-color: #00FFFF; line-height:250%;">{{number_format($sumall)}}
+            <td width="155px" style="background-color: #00FFFF; line-height:250%;">ยอดรวม        {{number_format($sumall)}}
 
             </td>
           </tr>
