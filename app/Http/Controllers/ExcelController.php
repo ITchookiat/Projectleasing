@@ -15,34 +15,35 @@ class ExcelController extends Controller
       $today = date('Y-m-d');
 
       if($request->type == 1){
-      $data = DB::table('recordcalls')
-      ->whereBetween('date_record',[$today,$today])
-      // ->where('group', '=', '01')
-      ->get()
-      ->toArray();
-      $data_array[] = array('งานโทรค้าง 1 งวด รวมทุกสาขา');
-      $data_array[] = array('ลำดับ', 'เลขที่สัญญา', 'ชื่อลูกค้า', 'วันดิว งวดแรก', 'เบอร์โทร', 'ค้างชำระ', 'หมายเหตุ');
-      foreach($data as $key => $call)
-      {
-      $date = date_create($call->fdate);
-      $fdate = date_format($date, 'd-m-Y');
+          $data = DB::table('recordcalls')
+          ->whereBetween('date_record',[$today,$today])
+          // ->where('group', '=', '01')
+          ->get()
+          ->toArray();
+          $data_array[] = array('งานโทรค้าง 1 งวด รวมทุกสาขา');
+          $data_array[] = array('ลำดับ', 'เลขที่สัญญา', 'ชื่อลูกค้า', 'วันดิว งวดแรก', 'เบอร์โทร', 'ค้างชำระ', 'หมายเหตุ');
+          foreach($data as $key => $call)
+          {
+          $date = date_create($call->fdate);
+          $fdate = date_format($date, 'd-m-Y');
 
-      $data_array[] = array(
-       'ลำดับ' => $key+1,
-       'เลขที่สัญญา' => $call->contno,
-       'ชื่อลูกค้า' => $call->name,
-       'วันดิว งวดแรก' => $fdate,
-       'เบอร์โทร' => $call->tel,
-       'ค้างชำระ' => $call->exp_amt,
-       'หมายเหตุ' => ''
-      );
+          $data_array[] = array(
+          'ลำดับ' => $key+1,
+          'เลขที่สัญญา' => $call->contno,
+          'ชื่อลูกค้า' => $call->name,
+          'วันดิว งวดแรก' => $fdate,
+          'เบอร์โทร' => $call->tel,
+          'ค้างชำระ' => $call->exp_amt,
+          'หมายเหตุ' => ''
+          );
+          }
+          $data_array = collect($data_array);
+          // dd($data_array);
+          $excel = Exporter::make('Excel');
+          $excel->load($data_array);
+          return $excel->stream('calldaily.xlsx');
       }
-      $data_array = collect($data_array);
-      // dd($data_array);
-      $excel = Exporter::make('Excel');
-      $excel->load($data_array);
-      return $excel->stream('calldaily.xlsx');
-      }
+      
       if($request->type == 2){
       dd('ส่วนปัตตานี');
       }
@@ -99,7 +100,7 @@ class ExcelController extends Controller
       );
       }
       $data_array = collect($data_array);
-      // dd($data_array);
+
       $excel = Exporter::make('Excel');
       $excel->load($data_array);
       return $excel->stream('reportapprove.xlsx');
