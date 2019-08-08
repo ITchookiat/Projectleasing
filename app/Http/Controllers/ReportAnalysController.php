@@ -121,6 +121,34 @@ class ReportAnalysController extends Controller
       $pdf::Output('report.pdf');
     }
 
+    public function ReportHomecar(Request $request, $id, $type)
+    {
+      $dataReport = DB::table('buyers')
+      ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
+      ->join('homecardetails','buyers.id','=','homecardetails.Buyerhomecar_id')
+      ->where('buyers.id',$id)->first();
+
+      // dd($type);
+      $DateDue = \Carbon\Carbon::parse($dataReport->Date_Due)->format('d')."-".\Carbon\Carbon::parse($dataReport->Date_Due)->format('m');
+      $DateDueYear = \Carbon\Carbon::parse($dataReport->Date_Due)->format('Y')+543;
+
+      $newDateDue = $DateDue."-".$DateDueYear;
+      $now = Carbon::now();
+      $date = Carbon::parse($now)->format('d-m-Y');
+
+      $view = \View::make('analysis.ReportAnalys' ,compact('dataReport','newDateDue','date','type'));
+      $html = $view->render();
+
+      $pdf = new PDF();
+      $pdf::SetTitle('แบบฟอร์มขออนุมัติเช่าซื้อรถยนต์');
+      $pdf::AddPage('P', 'A4');
+      $pdf::SetMargins(10, 5, 5, 5);
+      $pdf::SetFont('freeserif', '', 11, '', true);
+      $pdf::SetAutoPageBreak(TRUE, 5);
+      $pdf::WriteHTML($html,true,false,true,false,'');
+      $pdf::Output('report.pdf');
+    }
+    
     public function ReportDueDate(Request $request)
     {
       date_default_timezone_set('Asia/Bangkok');
@@ -150,123 +178,6 @@ class ReportAnalysController extends Controller
       $pdf::SetFont('freeserif', '', 8, '', true);
       $pdf::SetAutoPageBreak(TRUE, 25);
 
-      $pdf::WriteHTML($html,true,false,true,false,'');
-      $pdf::Output('report.pdf');
-    }
-
-    public function ReportCredit(Request $request, $type)
-    {
-      date_default_timezone_set('Asia/Bangkok');
-      $Y = date('Y');
-      $Y2 = date('Y') +543;
-      $m = date('m');
-      $d = date('d');
-      $date = $Y.'-'.$m.'-'.$d;
-      $date2 = $d.'-'.$m.'-'.$Y2;
-
-      $newfdate = '';
-      $newtdate = '';
-      $agen = '';
-      $yearcar = '';
-      $typecar = '';
-
-      if ($request->has('Fromdate')) {
-        $fdate = $request->get('Fromdate');
-        $newfdate = \Carbon\Carbon::parse($fdate)->format('Y')-543 ."-". \Carbon\Carbon::parse($fdate)->format('m')."-". \Carbon\Carbon::parse($fdate)->format('d');
-      }
-      if ($request->has('Todate')) {
-        $tdate = $request->get('Todate');
-        $newtdate = \Carbon\Carbon::parse($tdate)->format('Y')-543 ."-". \Carbon\Carbon::parse($tdate)->format('m')."-". \Carbon\Carbon::parse($tdate)->format('d');
-      }
-      if ($request->has('agen')) {
-        $agen = $request->get('agen');
-      }
-      if ($request->has('yearcar')) {
-        $yearcar = $request->get('yearcar');
-      }
-      if ($request->has('typecar')) {
-        $typecar = $request->get('typecar');
-      }
-
-      $view = \View::make('analysis.ReportCredit' ,compact('date2','type','newfdate','newtdate','agen','yearcar','typecar'));
-      $html = $view->render();
-      $pdf = new PDF();
-      $pdf::SetTitle('รายงานนำเสนอ');
-      $pdf::AddPage('L', 'A4');
-      $pdf::SetMargins(3, 5, 3);
-      $pdf::SetFont('freeserif','',8,'false');
-      $pdf::WriteHTML($html,true,false,true,false,'');
-      $pdf::Output('report.pdf');
-    }
-
-    public function ReportCreditApprove(Request $request, $type)
-    {
-      date_default_timezone_set('Asia/Bangkok');
-      $Y = date('Y');
-      $Y2 = date('Y') +543;
-      $m = date('m');
-      $d = date('d');
-      $date = $Y.'-'.$m.'-'.$d;
-      $date2 = $d.'-'.$m.'-'.$Y2;
-
-      $newfdate = '';
-      $newtdate = '';
-
-      if ($request->has('Fromdate')) {
-        $fdate = $request->get('Fromdate');
-        $newfdate = \Carbon\Carbon::parse($fdate)->format('Y')-543 ."-". \Carbon\Carbon::parse($fdate)->format('m')."-". \Carbon\Carbon::parse($fdate)->format('d');
-      }
-      if ($request->has('Todate')) {
-        $tdate = $request->get('Todate');
-        $newtdate = \Carbon\Carbon::parse($tdate)->format('Y')-543 ."-". \Carbon\Carbon::parse($tdate)->format('m')."-". \Carbon\Carbon::parse($tdate)->format('d');
-      }
-
-      $data = DB::table('buyers')
-      ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
-      ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
-      ->join('expenses','buyers.id','=','expenses.Buyerexpenses_id')
-      ->where('cardetails.Approvers_car','!=',Null)
-      ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
-        return $q->whereBetween('buyers.Date_Due',[$newfdate,$newtdate]);
-      })
-      ->orderBy('buyers.Contract_buyer', 'ASC')
-      ->get();
-
-      $view = \View::make('analysis.ReportCredit' ,compact('date2', 'data', 'newfdate', 'newtdate', 'type'));
-      $html = $view->render();
-      $pdf = new PDF();
-      $pdf::SetTitle('รายงานนำเสนอ');
-      $pdf::AddPage('L', 'A4');
-      $pdf::SetMargins(3, 5, 3);
-      $pdf::SetFont('freeserif','',8,'false');
-      $pdf::WriteHTML($html,true,false,true,false,'');
-      $pdf::Output('report.pdf');
-    }
-
-    public function ReportHomecar(Request $request, $id, $type)
-    {
-      $dataReport = DB::table('buyers')
-                      ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
-                      ->join('homecardetails','buyers.id','=','homecardetails.Buyerhomecar_id')
-                      ->where('buyers.id',$id)->first();
-
-      // dd($type);
-      $DateDue = \Carbon\Carbon::parse($dataReport->Date_Due)->format('d')."-".\Carbon\Carbon::parse($dataReport->Date_Due)->format('m');
-      $DateDueYear = \Carbon\Carbon::parse($dataReport->Date_Due)->format('Y')+543;
-
-      $newDateDue = $DateDue."-".$DateDueYear;
-      $now = Carbon::now();
-      $date = Carbon::parse($now)->format('d-m-Y');
-
-      $view = \View::make('analysis.ReportAnalys' ,compact('dataReport','newDateDue','date','type'));
-      $html = $view->render();
-
-      $pdf = new PDF();
-      $pdf::SetTitle('แบบฟอร์มขออนุมัติเช่าซื้อรถยนต์');
-      $pdf::AddPage('P', 'A4');
-      $pdf::SetMargins(10, 5, 5, 5);
-      $pdf::SetFont('freeserif', '', 11, '', true);
-      $pdf::SetAutoPageBreak(TRUE, 5);
       $pdf::WriteHTML($html,true,false,true,false,'');
       $pdf::Output('report.pdf');
     }
