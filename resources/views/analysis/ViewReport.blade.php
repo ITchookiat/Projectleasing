@@ -58,6 +58,8 @@
         <div class="box-header with-border">
           @if($type == 3)
             <h3 class="card-title p-3" align="center">รายงานสินเชื่อ</h3>
+          @elseif($type == 6)
+            <h3 class="card-title p-3" align="center">รายงานรถบ้าน</h3>
           @endif
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -165,6 +167,88 @@
                          </tbody>
                        </table>
                   </div>
+                </div>
+              @elseif($type == 6)
+                <div class="col-md-12">
+                  <form method="get" action="{{ route('Analysis', 6) }}">
+                    <div align="right" class="form-inline">
+                      <a target="_blank" href="{{ action('ExcelController@excel',$type) }}?&Fromdate={{$newfdate}}&Todate={{$newtdate}}&agen={{$agen}}&yearcar={{$yearcar}}" class="btn btn-success btn-app">
+                        <span class="fa fa-file-excel-o"></span> Excel
+                      </a>
+                      <button type="submit" class="btn btn-warning btn-app">
+                        <span class="glyphicon glyphicon-search"></span> Search
+                      </button >
+                      <p></p>
+                      <label>จากวันที่ : </label>
+                      <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($newfdate != '') ?$newfdate: $date2 }}" class="form-control" />
+                      <label>ถึงวันที่ : </label>
+                      <input type="date" name="Todate" style="width: 180px;" value="{{ ($newtdate != '') ?$newtdate: $date2 }}" class="form-control" />
+                    </div>
+                    <div align="right" class="form-inline">
+                      <label for="text" class="mr-sm-2">นายหน้า : </label>
+                      <select name="agen" class="form-control mb-2 mr-sm-2" id="text" style="width: 180px">
+                        <option selected disabled value="">---เลือกนายหน้า---</option>
+                        @foreach($datadrop as $row)
+                          <option value="{{ $row->Agent_car }}" {{ ($agen == $row->Agent_car) ? 'selected' : '' }}>{{ $row->Agent_car }}</otion>
+                        @endforeach
+                      </select>
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <label for="text" class="mr-sm-2">ปี : </label>
+                      <select name="yearcar" class="form-control mb-2 mr-sm-2" id="text" style="width: 180px">
+                        <option selected disabled value="">---เลือกปี---</option>
+                        @foreach($datayear as $row)
+                          <option value="{{ $row->Year_car }}" {{ ($yearcar == $row->Year_car) ? 'selected' : '' }}>{{ $row->Year_car }}</otion>
+                        @endforeach
+                      </select>
+                    </div>
+                  </form>
+                  <hr>
+                  {{--
+                  <div class="table-responsive">
+                    <table class="table table-bordered" id="table">
+                         <thead class="thead-dark bg-gray-light" >
+                           <tr>
+                             <th class="text-center">สาขา</th>
+                             <th class="text-center">เลขที่สัญญา</th>
+                             <th class="text-center">วันที่</th>
+                             <th class="text-center">สถานะ</th>
+                             <th class="text-center">ยีห้อ</th>
+                             <th class="text-center">ทะเบียนเดิม</th>
+                             <th class="text-center">ปี</th>
+                             <th class="text-center">ยอดจัด</th>
+                             <th class="text-center">สถานะอนุมัติ</th>
+                           </tr>
+                         </thead>
+                         <tbody>
+                           @foreach($data as $row)
+                             <tr>
+                               <td class="text-center"> {{ $row->branch_car}} </td>
+                               <td class="text-center"> {{ $row->Contract_buyer}} </td>
+                               <td class="text-center">{{ DateThai($row->Date_Due)}}</td>
+                               <td class="text-center"> {{ $row->status_car}} </td>
+                               <td class="text-center"> {{ $row->Brand_car}} </td>
+                               <td class="text-center"> {{ $row->License_car}} </td>
+                               <td class="text-center"> {{ $row->Year_car}} </td>
+                               <td class="text-center">
+                                 @if($row->Top_car != Null)
+                                   {{ number_format($row->Top_car)}}
+                                 @else
+                                   0
+                                 @endif
+                               </td>
+                               <td class="text-center">
+                                 @if ( $row->Approvers_car != Null)
+                                     {{ $row->Approvers_car }}
+                                 @else
+                                     <font color="red">รออนุมัติ</font>
+                                 @endif
+                               </td>
+                             </tr>
+                             @endforeach
+                         </tbody>
+                       </table>
+                  </div>
+                  --}}
                 </div>
               @endif
             </div>
