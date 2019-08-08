@@ -44,13 +44,6 @@ class ExcelController extends Controller
           $excel->load($data_array);
           return $excel->stream('calldaily.xlsx');
       }
-      
-      if($request->type == 2){
-      dd('ส่วนปัตตานี');
-      }
-      if($request->type == 3){
-      dd('ส่วนยะลา');
-      }
       elseif($request->type == 2){
         dd('ส่วนปัตตานี');
       }
