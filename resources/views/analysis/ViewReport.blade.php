@@ -37,7 +37,7 @@
     <section class="content-header">
       @if($type == 3)
       <h1>
-        รายงานสินเชื่อ
+        สินเชื่อ
         <small>it all starts here</small>
       </h1>
       @endif
@@ -58,8 +58,6 @@
         <div class="box-header with-border">
           @if($type == 3)
             <h3 class="card-title p-3" align="center">รายงานสินเชื่อ</h3>
-          @elseif($type == 11)
-            <h3 class="card-title p-3" align="center">รายงานที่อนุมัติ</h3>
           @endif
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -81,14 +79,14 @@
             <div class="row">
               @if($type == 3)
                 <div class="col-md-12">
-                  <form method="get" action="{{ route('Analysis',3) }}">
+                  <form method="get" action="{{ route('Analysis', 3) }}">
                     <div align="right" class="form-inline">
-                      <a target="_blank" href="{{ action('ReportAnalysController@ReportCredit',[$type]) }}?&Fromdate={{$newfdate}}&Todate={{$newtdate}}&agen={{$agen}}&yearcar={{$yearcar}}&typecar={{$typecar}}" class="btn btn-primary btn-app">
-                        <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
+                      <a target="_blank" href="{{ action('ExcelController@excel',$type) }}?&Fromdate={{$newfdate}}&Todate={{$newtdate}}&agen={{$agen}}&yearcar={{$yearcar}}&typecar={{$typecar}}" class="btn btn-success btn-app">
+                        <span class="fa fa-file-excel-o"></span> Excel
                       </a>
                       <button type="submit" class="btn btn-warning btn-app">
                         <span class="glyphicon glyphicon-search"></span> Search
-                      </button>
+                      </button >
                       <p></p>
                       <label>จากวันที่ : </label>
                       <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($newfdate != '') ?$newfdate: $date2 }}" class="form-control" />
@@ -168,74 +166,6 @@
                        </table>
                   </div>
                 </div>
-              @elseif($type == 11)
-                <div class="col-md-12">
-                  <form method="get" action="{{ route('Analysis',11) }}">
-                    <div align="right" class="form-inline">
-                      <a target="_blank" href="{{ route('export_excel.excel', [$newfdate, $newtdate,$type]) }}" class="btn btn-success btn-app">
-                        <span class="fa fa-file-excel-o"></span> Excel
-                      </a>
-                      <a target="_blank" href="{{ action('ReportAnalysController@ReportCreditApprove',[$type]) }}?&Fromdate={{$newfdate}}&Todate={{$newtdate}}" class="btn btn-primary btn-app">
-                        <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
-                      </a>
-                      <button type="submit" class="btn btn-warning btn-app">
-                        <span class="glyphicon glyphicon-search"></span> Search
-                      </button>
-                      <p></p>
-                      <label>จากวันที่ : </label>
-                      <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($newfdate != '') ?$newfdate: $date2 }}" class="form-control" />
-                      <label>ถึงวันที่ : </label>
-                      <input type="date" name="Todate" style="width: 180px;" value="{{ ($newtdate != '') ?$newtdate: $date2 }}" class="form-control" />
-                    </div>
-                  </form>
-                  <hr>
-
-                  <div class="table-responsive">
-                    <table class="table table-bordered" id="table">
-                       <thead class="thead-dark bg-gray-light" >
-                         <tr>
-                           <th class="text-center">สาขา</th>
-                           <th class="text-center">เลขที่สัญญา</th>
-                           <th class="text-center">วันที่</th>
-                           <th class="text-center">สถานะ</th>
-                           <th class="text-center">ยีห้อ</th>
-                           <th class="text-center">ทะเบียนเดิม</th>
-                           <th class="text-center">ปี</th>
-                           <th class="text-center">ยอดจัด</th>
-                           <th class="text-center">สถานะอนุมัติ</th>
-                         </tr>
-                       </thead>
-                       <tbody>
-                         @foreach($data as $row)
-                           <tr>
-                             <td class="text-center"> {{ $row->branch_car}} </td>
-                             <td class="text-center"> {{ $row->Contract_buyer}} </td>
-                             <td class="text-center">{{ DateThai($row->Date_Due)}}</td>
-                             <td class="text-center"> {{ $row->status_car}} </td>
-                             <td class="text-center"> {{ $row->Brand_car}} </td>
-                             <td class="text-center"> {{ $row->License_car}} </td>
-                             <td class="text-center"> {{ $row->Year_car}} </td>
-                             <td class="text-center">
-                               @if($row->Top_car != Null)
-                                 {{ number_format($row->Top_car)}}
-                               @else
-                                 0
-                               @endif
-                             </td>
-                             <td class="text-center">
-                               @if ( $row->Approvers_car != Null)
-                                   {{ $row->Approvers_car }}
-                               @else
-                                   <font color="red">รออนุมัติ</font>
-                               @endif
-                             </td>
-                           </tr>
-                           @endforeach
-
-                       </tbody>
-                     </table>
-                  </div>
-              </div>
               @endif
             </div>
 
@@ -252,10 +182,6 @@
           </script>
 
         </div>
-
       </div>
-
     </section>
-
-
 @endsection

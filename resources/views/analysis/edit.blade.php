@@ -1504,7 +1504,7 @@
                                </div>
                             </div>
                           </div>
-                          <div class="row">
+                          <!-- <div class="row">
                             <div class="col-md-5">
 
                             </div>
@@ -1522,7 +1522,7 @@
                                   @endif
                               </div>
                             </div>
-                          </Div>
+                          </div> -->
 
                           <div class="row">
                             <div class="col-md-5">
