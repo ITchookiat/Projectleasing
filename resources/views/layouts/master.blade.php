@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>ซูเกียรติลิสซิ่ง</title>
+  <title>ชูเกียรติลิสซิ่ง</title>
   <!-- <title>@yield('title')</title> -->
   <link rel="icon" href="{{ asset('dist/img/leasingLogo.png') }}" type="image/ico" />
   <!-- Tell the browser to be responsive to screen width -->

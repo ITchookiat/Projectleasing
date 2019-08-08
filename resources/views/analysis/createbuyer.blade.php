@@ -1033,7 +1033,7 @@
                                   </div>
                                 </div>
 
-                                <div class="row">
+                                <!-- <div class="row">
                                   <div class="col-md-5">
 
                                   </div>
@@ -1044,7 +1044,7 @@
                                        <input type="text" name="Insurancekey" class="form-control" style="width: 250px;" placeholder="เลขกรมธรรม์" />
                                    </div>
                                   </div>
-                                </div>
+                                </div> -->
 
                                 <div class="row">
                                   <div class="col-md-5">
