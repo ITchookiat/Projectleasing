@@ -123,7 +123,7 @@ class AnalysController extends Controller
       elseif ($request->type == 2){
         return view('analysis.createbuyer');
       }
-      elseif ($request->type == 3){
+      elseif ($request->type == 3){ //รายงาน สินเชื่อ
         $datadrop = DB::table('buyers')
         ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
         ->select('cardetails.Agent_car', DB::raw('count(*) as total'))
@@ -209,7 +209,6 @@ class AnalysController extends Controller
         return view('analysis.viewReport', compact('type', 'data','newfdate','newtdate','datadrop','agen','datedue','datayear','yearcar','datastatus','typecar'));
       }
       elseif ($request->type == 4){
-
         $newfdate = '';
         $newtdate = '';
         $status = '';
@@ -284,45 +283,6 @@ class AnalysController extends Controller
       }
       elseif ($request->type == 5){
         return view('analysis.createhomecar');
-      }
-      elseif ($request->type == 11){
-        date_default_timezone_set('Asia/Bangkok');
-        $Y = date('Y');
-        $Y2 = date('Y') +543;
-        $m = date('m');
-        $d = date('d');
-        $date = $Y.'-'.$m.'-'.$d;
-        $date2 = $d.'-'.$m.'-'.$Y2;
-
-        $newfdate = '';
-        $newtdate = '';
-
-        // dd($newfdate,$newtdate);
-        if ($request->has('Fromdate')) {
-          $fdate = $request->get('Fromdate');
-          $newfdate = \Carbon\Carbon::parse($fdate)->format('Y')-543 ."-". \Carbon\Carbon::parse($fdate)->format('m')."-". \Carbon\Carbon::parse($fdate)->format('d');
-        }
-        if ($request->has('Todate')) {
-          $tdate = $request->get('Todate');
-          $newtdate = \Carbon\Carbon::parse($tdate)->format('Y')-543 ."-". \Carbon\Carbon::parse($tdate)->format('m')."-". \Carbon\Carbon::parse($tdate)->format('d');
-        }
-
-        $data = DB::table('buyers')
-        ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
-        ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
-        ->join('expenses','buyers.id','=','expenses.Buyerexpenses_id')
-        ->where('cardetails.Approvers_car','!=',Null)
-        ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
-               return $q->whereBetween('buyers.Date_Due', [$newfdate,$newtdate]);
-               })
-        ->orderBy('buyers.Contract_buyer', 'ASC')
-        ->get();
-
-        $newfdate = \Carbon\Carbon::parse($newfdate)->format('Y')+543 ."-". \Carbon\Carbon::parse($newfdate)->format('m')."-". \Carbon\Carbon::parse($newfdate)->format('d');
-        $newtdate = \Carbon\Carbon::parse($newtdate)->format('Y')+543 ."-". \Carbon\Carbon::parse($newtdate)->format('m')."-". \Carbon\Carbon::parse($newtdate)->format('d');
-
-        $type = $request->type;
-        return view('analysis.viewReport', compact('type','newfdate','newtdate','data'));
       }
     }
 
