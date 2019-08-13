@@ -215,7 +215,7 @@
           </div>
           @endif
 
-          <div class="col-lg-4 col-md-4">
+          <!-- <div class="col-lg-4 col-md-4">
             <div class="info-box">
               <span class="info-box-icon bg-green">
                 <a href="{{ route('call',1) }}" class="a1"><i class="fa fa-phone"></i></a>
@@ -225,7 +225,7 @@
                 <span class="info-box-number">งานโทร</span>
               </div>
             </div>
-          </div>
+          </div> -->
 
           <div class="col-lg-4 col-md-4">
             <div class="info-box">

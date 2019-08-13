@@ -200,10 +200,12 @@ class AnalysController extends Controller
           ->get();
         }
 
-        // dd($newfdate);
-        $newfdate = \Carbon\Carbon::parse($newfdate)->format('Y')+543 ."-". \Carbon\Carbon::parse($newfdate)->format('m')."-". \Carbon\Carbon::parse($newfdate)->format('d');
-        $newtdate = \Carbon\Carbon::parse($newtdate)->format('Y')+543 ."-". \Carbon\Carbon::parse($newtdate)->format('m')."-". \Carbon\Carbon::parse($newtdate)->format('d');
-
+        if ($newfdate != '' and $newtdate != '') {
+          $newfdate = \Carbon\Carbon::parse($newfdate)->format('Y')+543 ."-". \Carbon\Carbon::parse($newfdate)->format('m')."-". \Carbon\Carbon::parse($newfdate)->format('d');
+          $newtdate = \Carbon\Carbon::parse($newtdate)->format('Y')+543 ."-". \Carbon\Carbon::parse($newtdate)->format('m')."-". \Carbon\Carbon::parse($newtdate)->format('d');
+        }elseif ($newfdate == '' or $newtdate == '') {
+          // dd('123456');
+        }
         $type = $request->type;
         return view('analysis.viewReport', compact('type', 'data','newfdate','newtdate','datadrop','agen','datedue','datayear','yearcar','datastatus','typecar'));
       }
@@ -284,18 +286,19 @@ class AnalysController extends Controller
         return view('analysis.createhomecar');
       }
       elseif ($request->type == 6){
+
         $datadrop = DB::table('buyers')
-                  ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
-                  ->select('cardetails.Agent_car', DB::raw('count(*) as total'))
-                  ->where('cardetails.Agent_car','<>',Null)
-                  ->groupBy('cardetails.Agent_car')
+                  ->join('homecardetails','buyers.id','=','homecardetails.Buyerhomecar_id')
+                  ->select('homecardetails.agent_HC', DB::raw('count(*) as total'))
+                  ->where('homecardetails.agent_HC','<>',Null)
+                  ->groupBy('homecardetails.agent_HC')
                   ->get();
 
         $datayear = DB::table('buyers')
-                  ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
-                  ->select('cardetails.Year_car', DB::raw('count(*) as total'))
-                  ->where('cardetails.Year_car','<>',Null)
-                  ->groupBy('cardetails.Year_car')
+                  ->join('homecardetails','buyers.id','=','homecardetails.Buyerhomecar_id')
+                  ->select('homecardetails.year_HC', DB::raw('count(*) as total'))
+                  ->where('homecardetails.year_HC','<>',Null)
+                  ->groupBy('homecardetails.year_HC')
                   ->get();
 
         $newfdate = '';
@@ -321,36 +324,38 @@ class AnalysController extends Controller
         if ($request->has('Fromdate') == false and $request->has('Todate') == false and $request->has('agen') == false) {
           $data = DB::table('buyers')
                     ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
-                    ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
-                    ->join('expenses','buyers.id','=','expenses.Buyerexpenses_id')
-                    ->where('cardetails.Approvers_car','!=',Null)
+                    ->join('homecardetails','buyers.id','=','homecardetails.Buyerhomecar_id')
+                    ->where('homecardetails.approvers_HC','!=',Null)
                     ->orderBy('buyers.Contract_buyer', 'ASC')
                     ->get();
         }else {
           $data = DB::table('buyers')
                     ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
-                    ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
-                    ->join('expenses','buyers.id','=','expenses.Buyerexpenses_id')
-                    ->where('cardetails.Approvers_car','!=',Null)
+                    ->join('homecardetails','buyers.id','=','homecardetails.Buyerhomecar_id')
+                    ->where('homecardetails.approvers_HC','!=',Null)
                     ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
                       return $q->whereBetween('buyers.Date_Due',[$newfdate,$newtdate]);
                     })
                     ->when(!empty($agen), function($q) use($agen){
-                      return $q->where('cardetails.Agent_car',$agen);
+                      return $q->where('homecardetails.agent_HC',$agen);
                     })
                     ->when(!empty($yearcar), function($q) use($yearcar){
-                      return $q->where('cardetails.Year_car',$yearcar);
+                      return $q->where('homecardetails.year_HC',$yearcar);
                     })
                     ->orderBy('buyers.Contract_buyer', 'ASC')
                     ->get();
         }
 
-        // dd($data);
-        $newfdate = \Carbon\Carbon::parse($newfdate)->format('Y')+543 ."-". \Carbon\Carbon::parse($newfdate)->format('m')."-". \Carbon\Carbon::parse($newfdate)->format('d');
-        $newtdate = \Carbon\Carbon::parse($newtdate)->format('Y')+543 ."-". \Carbon\Carbon::parse($newtdate)->format('m')."-". \Carbon\Carbon::parse($newtdate)->format('d');
+        // dd($newfdate);
+        if ($newfdate != '' and $newtdate != '') {
+          $newfdate = \Carbon\Carbon::parse($newfdate)->format('Y')+543 ."-". \Carbon\Carbon::parse($newfdate)->format('m')."-". \Carbon\Carbon::parse($newfdate)->format('d');
+          $newtdate = \Carbon\Carbon::parse($newtdate)->format('Y')+543 ."-". \Carbon\Carbon::parse($newtdate)->format('m')."-". \Carbon\Carbon::parse($newtdate)->format('d');
+        }elseif ($newfdate == '' or $newtdate == '') {
+          // dd('123456');
+        }
 
         $type = $request->type;
-        return view('analysis.viewReport', compact('type', 'data','newfdate','newtdate','datadrop','agen','datedue','datayear','yearcar','typecar'));
+        return view('analysis.viewReport', compact('type', 'data','newfdate','newtdate','datadrop','agen','datedue','datayear','yearcar'));
       }
     }
 
@@ -898,9 +903,18 @@ class AnalysController extends Controller
 
 
         $Getcardetail = Cardetail::where('Buyercar_id',$id)->first();
+        $Gethomecardetail = homecardetail::where('Buyerhomecar_id',$id)->first();
 
         if ($request->get('Approverscar') != Null) {
           if ($Getcardetail->Date_Appcar == Null) {
+            $Y = date('Y');
+            $m = date('m');
+            $d = date('d');
+
+            $newDateDue = $Y.'-'.$m.'-'.$d;
+          }
+        }elseif ($request->get('approversHC') != Null) {
+          if ($Gethomecardetail->dateapp_HC == Null) {
             $Y = date('Y');
             $m = date('m');
             $d = date('d');
@@ -1010,6 +1024,7 @@ class AnalysController extends Controller
               $Homecardetail->firstpay_HC = $datefirst;
               $Homecardetail->dateapp_HC = $dateApp;
               $SetStatusApp = 'อนุมัติ';
+
 
               $branchType = Null;
               if ($Homecardetail->branchUS_HC == "รถบ้าน") {
