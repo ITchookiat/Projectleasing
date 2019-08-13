@@ -189,7 +189,7 @@
                       <select name="agen" class="form-control mb-2 mr-sm-2" id="text" style="width: 180px">
                         <option selected disabled value="">---เลือกนายหน้า---</option>
                         @foreach($datadrop as $row)
-                          <option value="{{ $row->Agent_car }}" {{ ($agen == $row->Agent_car) ? 'selected' : '' }}>{{ $row->Agent_car }}</otion>
+                          <option value="{{ $row->agent_HC }}" {{ ($agen == $row->agent_HC) ? 'selected' : '' }}>{{ $row->agent_HC }}</otion>
                         @endforeach
                       </select>
                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -197,13 +197,13 @@
                       <select name="yearcar" class="form-control mb-2 mr-sm-2" id="text" style="width: 180px">
                         <option selected disabled value="">---เลือกปี---</option>
                         @foreach($datayear as $row)
-                          <option value="{{ $row->Year_car }}" {{ ($yearcar == $row->Year_car) ? 'selected' : '' }}>{{ $row->Year_car }}</otion>
+                          <option value="{{ $row->year_HC }}" {{ ($yearcar == $row->year_HC) ? 'selected' : '' }}>{{ $row->year_HC }}</otion>
                         @endforeach
                       </select>
                     </div>
                   </form>
                   <hr>
-                  {{--
+
                   <div class="table-responsive">
                     <table class="table table-bordered" id="table">
                          <thead class="thead-dark bg-gray-light" >
@@ -222,23 +222,23 @@
                          <tbody>
                            @foreach($data as $row)
                              <tr>
-                               <td class="text-center"> {{ $row->branch_car}} </td>
+                               <td class="text-center"> {{ $row->branchUS_HC}} </td>
                                <td class="text-center"> {{ $row->Contract_buyer}} </td>
                                <td class="text-center">{{ DateThai($row->Date_Due)}}</td>
-                               <td class="text-center"> {{ $row->status_car}} </td>
-                               <td class="text-center"> {{ $row->Brand_car}} </td>
-                               <td class="text-center"> {{ $row->License_car}} </td>
-                               <td class="text-center"> {{ $row->Year_car}} </td>
+                               <td class="text-center"> {{ $row->baab_HC}} </td>
+                               <td class="text-center"> {{ $row->brand_HC}} </td>
+                               <td class="text-center"> {{ $row->oldplate_HC}} </td>
+                               <td class="text-center"> {{ $row->year_HC}} </td>
                                <td class="text-center">
-                                 @if($row->Top_car != Null)
-                                   {{ number_format($row->Top_car)}}
+                                 @if($row->topprice_HC != Null)
+                                   {{($row->topprice_HC)}}
                                  @else
                                    0
                                  @endif
                                </td>
                                <td class="text-center">
-                                 @if ( $row->Approvers_car != Null)
-                                     {{ $row->Approvers_car }}
+                                 @if ( $row->approvers_HC != Null)
+                                     {{ $row->approvers_HC }}
                                  @else
                                      <font color="red">รออนุมัติ</font>
                                  @endif
@@ -248,7 +248,6 @@
                          </tbody>
                        </table>
                   </div>
-                  --}}
                 </div>
               @endif
             </div>

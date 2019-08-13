@@ -41,6 +41,7 @@
               </p>
             </li>
 
+
             <!-- Menu Footer-->
             <li class="user-footer">
               <div class="pull-left">
@@ -51,6 +52,10 @@
               </div>
             </li>
           </ul>
+        </li>
+        <!-- Control Sidebar Toggle Button -->
+        <li>
+          <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
         </li>
 
       </ul>

@@ -148,7 +148,7 @@ class ReportAnalysController extends Controller
       $pdf::WriteHTML($html,true,false,true,false,'');
       $pdf::Output('report.pdf');
     }
-    
+
     public function ReportDueDate(Request $request)
     {
       date_default_timezone_set('Asia/Bangkok');
