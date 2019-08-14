@@ -1220,11 +1220,13 @@
                                 var num66 = document.getElementById('P2PriceOri').value;
                                 var num6 = num66.replace(",","");
 
-                                    // if(num55 == ''){
-                                    //   var num5 = 0;
-                                    // }else if (num5 == 0) {
-                                    //   var num1 = parseFloat(num1) - parseFloat(num6);
-                                    // }
+                                    if(num55 == ''){
+                                      var num5 = 0;
+                                    }else if (num5 == 0 ) {
+                                      if(num6 == 6700){
+                                        var num1 = parseFloat(num1) - parseFloat(num6);
+                                      }
+                                    }
 
 
 
@@ -1262,7 +1264,7 @@
                                       document.form1.Totalpay2car.value = addCommas(total2.toFixed(2));
                                       document.form1.P2Price.value = addCommas(num5);
                                       document.form1.tempTopcar.value = addCommas(totaltopcar);
-                                      // document.form1.P2PriceOri.value = addCommas(num5);
+                                      document.form1.P2PriceOri.value = addCommas(num5);
                                   }
                               }
 
