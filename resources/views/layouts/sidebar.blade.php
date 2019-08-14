@@ -85,9 +85,9 @@
               <a href="{{ route('call',1) }}"><i class="fa fa-steam text-danger"></i> งานโทร</a>
           </li> -->
 
-          <li>
-              <a href="{{ route('finance',1) }}"><i class="fa fa-steam text-success"></i> ประเภทจัดไฟแนนซ์</a>
-          </li>
+          <!-- <li>
+              <a href="{{ route('finance',1) }}"><i class="fa fa-folder-open text-danger"></i> ประเภทจัดไฟแนนซ์</a>
+          </li> -->
         </ul>
       </li>
 
@@ -103,6 +103,10 @@
               <a href="#"><i class="fa fa-book text-yellow"></i> แผนกฏหมาย 1</a>
           </li>
         </ul>
+      </li>
+
+      <li>
+          <a href="{{ route('report',1) }}"><i class="fa fa-newspaper-o text-yellow"></i> รายงาน ใบเบิกเงิน</a>
       </li>
 
     </ul>
