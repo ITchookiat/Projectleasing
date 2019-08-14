@@ -174,7 +174,7 @@ class ReportAnalysController extends Controller
       $pdf = new PDF();
       $pdf::SetTitle('รายงานนำเสนอ');
       $pdf::AddPage('L', 'A4');
-      $pdf::SetMargins(10, 5, 5, 5);
+      $pdf::SetMargins(3, 5, 5, 3);
       $pdf::SetFont('freeserif', '', 8, '', true);
       $pdf::SetAutoPageBreak(TRUE, 25);
 
