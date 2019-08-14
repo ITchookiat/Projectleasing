@@ -1226,6 +1226,8 @@
                                     //   var num1 = parseFloat(num1) - parseFloat(num6);
                                     // }
 
+
+
                                      if (num5 == 0) {
                                        var totaltopcar = parseFloat(num1);
                                      }else if(num5 == 6700){
@@ -1852,6 +1854,7 @@
                                     <input type="text" id="P2Price" name="P2Price" value="{{number_format($data->P2_Price)}}" class="form-control" style="width: 250px;" placeholder="ซื้อ ป2+" onchange="calculate();balance();" readonly/>
                                  @else
                                     <input type="text" id="P2Price" name="P2Price" value="{{number_format($data->P2_Price)}}" class="form-control" style="width: 250px;" placeholder="ซื้อ ป2+" onchange="calculate();balance();"/>
+                                 @endif;balance();
                                @endif
                                <input type="hidden" id="P2PriceOri" name="P2PriceOri" class="form-control" value="{{number_format($data->P2_Price)}}" style="width: 250px;" placeholder="ซื้อ ป2+" onchange="calculate()" readonly/>
                              </div>
