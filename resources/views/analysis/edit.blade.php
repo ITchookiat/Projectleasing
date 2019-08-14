@@ -1225,17 +1225,15 @@
                                     // }else if (num5 == 0) {
                                     //   var num1 = parseFloat(num1) - parseFloat(num6);
                                     // }
-                              console.log(num1);
 
-                                   if(num5 > 6700){
-                                     var totaltopcar = parseFloat(num1) - parseFloat(num6);
-                                   }else {
                                      if (num5 == 0) {
                                        var totaltopcar = parseFloat(num1);
-                                     }else {
+                                     }else if(num5 == 6700){
                                        var totaltopcar = parseFloat(num1)+parseFloat(num5);
+                                     }else{
+                                       var totaltopcar = parseFloat(num1);
                                      }
-                                   }
+
 
                                 var a = (num2*num4)+100;
                                 var b = (((totaltopcar*a)/100)*1.07)/num4;
@@ -1262,7 +1260,7 @@
                                       document.form1.Totalpay2car.value = addCommas(total2.toFixed(2));
                                       document.form1.P2Price.value = addCommas(num5);
                                       document.form1.tempTopcar.value = addCommas(totaltopcar);
-                                      document.form1.P2PriceOri.value = addCommas(num5);
+                                      // document.form1.P2PriceOri.value = addCommas(num5);
                                   }
                               }
 
@@ -1319,34 +1317,43 @@
                                   var temp = document.getElementById('tempTopcar').value;
                                   var toptemp = temp.replace(",","");
 
-                                  var ori = document.getElementById('TopcarOri').value;
-                                  var Topori = ori.replace(",","");
+                                  // var ori = document.getElementById('TopcarOri').value;
+                                  // var Topori = ori.replace(",","");
 
                                   if(num8 > 6700){
-                                  var tempresult = parseFloat(num1)+parseFloat(num2)+parseFloat(num3)+parseFloat(num4)+parseFloat(num5)+parseFloat(num6)+parseFloat(num8);
-                                 }else{
-                                   var tempresult = parseFloat(num1)+parseFloat(num2)+parseFloat(num3)+parseFloat(num4)+parseFloat(num5)+parseFloat(num6);
-                                 }
-                                  if(num8 > 6700){
                                   var result = parseFloat(num1)+parseFloat(num2)+parseFloat(num3)+parseFloat(num4)+parseFloat(num5)+parseFloat(num6)+parseFloat(num7)+parseFloat(num8);
-                                }else {
-                                  var result = parseFloat(num1)+parseFloat(num2)+parseFloat(num3)+parseFloat(num4)+parseFloat(num5)+parseFloat(num6)+parseFloat(num7)+parseFloat(num8);
-                                }
+                                  }else {
+                                    var result = parseFloat(num1)+parseFloat(num2)+parseFloat(num3)+parseFloat(num4)+parseFloat(num5)+parseFloat(num6)+parseFloat(num7);
+                                  }
 
                                   if(num88 == 0){
-                                    var TotalBalance = parseFloat(toptemp)-result;
+                                    var TotalBalance = parseFloat(toptemp) - result + parseFloat(num8);
                                   }
-                                  else if(num8 > 6700){
-                                    var TotalBalance = parseFloat(Topori)-result;
+                                  else if(num8 >= 6700){
+                                    var TotalBalance = parseFloat(toptemp) - result;
                                   }
                                   else{
-                                    var TotalBalance = parseFloat(toptemp)-result;
+                                    var TotalBalance = parseFloat(toptemp) - result;
                                   }
 
+                                  console.log(num6);
+                                  console.log(num7);
+                                  console.log(num8);
+
+                                  console.log(toptemp);
+
+                                  console.log(num1);
+                                  console.log(num2);
+                                  console.log(num3);
+                                  console.log(num4);
+                                  console.log(num5);
+
+                                  console.log(result);
+
+                                  console.log(TotalBalance);
 
                                   if(!isNaN(result)){
-                                      document.form1.totalkPrice.value = addCommas(tempresult);
-                                      document.form1.temptotalkPrice.value = addCommas(result);
+                                      document.form1.totalkPrice.value = addCommas(result);
                                       document.form1.tranPrice.value = addCommas(num1);
                                       document.form1.otherPrice.value = addCommas(num2);
                                       document.form1.dutyPrice.value = addCommas(num4);
@@ -1355,7 +1362,6 @@
                                       document.form1.closeAccountPrice.value = addCommas(num7);
                                       document.form1.balancePrice.value = addCommas(TotalBalance);
                                   }
-
                                 }
                           </script>
 
@@ -1364,12 +1370,12 @@
                               <div class="form-inline" align="right">
                                 <label>ยอดจัด : </label>
                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                    <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" onchange="calculate()" />
+                                    <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" onchange="calculate();balance();" />
                                 @else
                                   @if($GetDocComplete != Null)
-                                      <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" onchange="calculate()" readonly/>
+                                      <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" onchange="calculate();balance();" readonly/>
                                   @else
-                                      <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" onchange="calculate()" />
+                                      <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" onchange="calculate();balance();" />
                                   @endif
                                 @endif
                                 <input type="hidden" id="TopcarOri" name="TopcarOri" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" />
@@ -1792,12 +1798,12 @@
                               <div class="form-inline" align="right">
                                  <label>พรบ. : </label>
                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                    <input type="text" id="actPrice" name="actPrice" value="{{number_format($data->act_Price)}}" class="form-control" style="width: 250px;" placeholder="พรบ." onchange="balance()"/>
+                                    <input type="text" id="actPrice" name="actPrice" value="{{number_format($data->act_Price)}}" class="form-control" style="width: 250px;" placeholder="พรบ." onchange="balance();"/>
                                  @else
                                    @if($GetDocComplete != Null)
-                                      <input type="text" id="actPrice" name="actPrice" value="{{number_format($data->act_Price)}}" class="form-control" style="width: 250px;" placeholder="พรบ." onchange="balance()" readonly/>
+                                      <input type="text" id="actPrice" name="actPrice" value="{{number_format($data->act_Price)}}" class="form-control" style="width: 250px;" placeholder="พรบ." onchange="balance();" readonly/>
                                    @else
-                                      <input type="text" id="actPrice" name="actPrice" value="{{number_format($data->act_Price)}}" class="form-control" style="width: 250px;" placeholder="พรบ." onchange="balance()"/>
+                                      <input type="text" id="actPrice" name="actPrice" value="{{number_format($data->act_Price)}}" class="form-control" style="width: 250px;" placeholder="พรบ." onchange="balance();"/>
                                    @endif
                                  @endif
                                </div>
@@ -1846,9 +1852,8 @@
                                     <input type="text" id="P2Price" name="P2Price" value="{{number_format($data->P2_Price)}}" class="form-control" style="width: 250px;" placeholder="ซื้อ ป2+" onchange="calculate();balance();" readonly/>
                                  @else
                                     <input type="text" id="P2Price" name="P2Price" value="{{number_format($data->P2_Price)}}" class="form-control" style="width: 250px;" placeholder="ซื้อ ป2+" onchange="calculate();balance();"/>
-                                 @endif
                                @endif
-                               <input type="hidden" id="P2PriceOri" name="P2PriceOri" class="form-control" value="{{number_format($data->P2_Price)}}" style="width: 250px;" placeholder="ซื้อ ป2+" onchange="calculate()"/>
+                               <input type="hidden" id="P2PriceOri" name="P2PriceOri" class="form-control" value="{{number_format($data->P2_Price)}}" style="width: 250px;" placeholder="ซื้อ ป2+" onchange="calculate()" readonly/>
                              </div>
                             </div>
                           </div>
@@ -1916,7 +1921,7 @@
                                <div class="form-inline" align="right">
                                  <label>รวม คชจ. : </label>
                                  <input type="text" id="totalkPrice" name="totalkPrice" value="{{number_format($data->totalk_Price, 2)}}" class="form-control" style="width: 250px;" placeholder="รวม คชจ." onchange="balance()" readonly/>
-                                 <input type="hidden" id="temptotalkPrice" name="temptotalkPrice" value="{{number_format($data->totalk_Price, 2)}}" class="form-control" style="width: 250px;" placeholder="รวม คชจ." onchange="balance()"/>
+                                 <input type="hidden" id="temptotalkPrice" name="temptotalkPrice" value="{{number_format($data->totalk_Price, 2)}}" class="form-control" style="width: 250px;" placeholder="รวม คชจ." onchange="balance()" readonly/>
                                </div>
                             </div>
                           </div>
