@@ -1222,12 +1222,14 @@
 
                                     if(num55 == ''){
                                       var num5 = 0;
-                                    }else if (num5 == 0 ) {
+                                    }else if (num5 == 0) {
                                       if(num6 == 6700){
                                         var num1 = parseFloat(num1) - parseFloat(num6);
                                       }
                                     }else if(num5 > 6700){
-                                     var num1 = parseFloat(num1) - 6700;
+                                      if(num6 != 6700){
+                                        var num1 = parseFloat(num1);
+                                      }
                                     }
 
                               console.log(num6);
