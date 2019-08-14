@@ -52,7 +52,7 @@
   </head>
     <label align="right">วันที่ : <u>{{$date2}}</u></label>
     <h2 class="card-title p-3" align="center">รายงานนำเสนอ</h2>
-    <h4 class="card-title p-3" align="center">บริษัท ชูเกียรติลิสซิ่ง จำกัด โทรศัพท์. ( 073-450-700 )</h4>
+    <h4 class="card-title p-3" align="center">บริษัท ชูเกียรติลิสซิ่ง จำกัด   โทรศัพท์. ( 073-450-700 )</h4>
     <hr>
   <body>
     <br />
@@ -63,14 +63,14 @@
           <th align="center" width="65px" style="background-color: #BEBEBE;"><b>แบบ</b></th>
           <th align="center" width="20px" style="background-color: #BEBEBE;"><b>สาขา</b></th>
           <th align="center" width="45px" style="background-color: #BEBEBE;"><b>ทะเบียน</b></th>
-          <th align="center" width="40px" style="background-color: #BEBEBE;"><b>ยอดจัด</b></th>
+          <th align="center" width="35px" style="background-color: #BEBEBE;"><b>ยอดจัด</b></th>
           <th align="center" width="55px" style="background-color: #BEBEBE;"><b>เพิ่มเติม</b></th>
           <th align="center" width="40px" style="background-color: #FFFF00;"><b>คจช.ขนส่ง</b></th>
           <th align="center" width="25px" style="background-color: #FFFF00;"><b>อื่นๆ</b></th>
           <th align="center" width="35px" style="background-color: #FFFF00;"><b>ค่าประเมิน</b></th>
           <th align="center" width="25px" style="background-color: #FFFF00;"><b>อากร</b></th>
           <th align="center" width="35px" style="background-color: #FFFF00;"><b>การตลาด</b></th>
-          <th align="center" width="50px" style="background-color: #BEBEBE;"><b>รวมค่าใช้จ่าย</b></th>
+          <th align="center" width="45px" style="background-color: #BEBEBE;"><b>รวมค่าใช้จ่าย</b></th>
           <th align="center" width="35px" style="background-color: #BEBEBE;"><b>คงเหลือ</b></th>
           <th align="center" width="30px" style="background-color: #BEBEBE;"><b>หัก 3%</b></th>
           <th align="center" width="110px" style="background-color: #BEBEBE;"><b>ผู้รับเงิน</b></th>
@@ -120,7 +120,7 @@
               @endif
             </td>
             <td width="45px" rowspan="3" style="line-height:550%;">{{$value->License_car}}</td>
-            <td width="40px" rowspan="3" style="line-height:550%;">{{number_format($value->Top_car)}}</td>
+            <td width="35px" rowspan="3" style="line-height:550%;">{{number_format($value->Top_car)}}</td>
             <td width="55px">
               @if($value->act_Price != 0)
                 พรบ. {{number_format($value->act_Price)}}
@@ -131,7 +131,7 @@
             <td width="35px" rowspan="3" style="background-color: #FFFF00; line-height:550%;">{{ $value->evaluetion_Price }}</td>
             <td width="25px" rowspan="3" style="background-color: #FFFF00; line-height:550%;">{{ $value->duty_Price }}</td>
             <td width="35px" rowspan="3" style="background-color: #FFFF00; line-height:550%;">{{ $value->marketing_Price }}</td>
-            <td width="50px" rowspan="3" style="line-height:550%;">{{number_format($value->totalk_Price)}}</td>
+            <td width="45px" rowspan="3" style="line-height:550%;">{{number_format($value->totalk_Price)}}</td>
             <td width="35px" rowspan="3" style="line-height:550%;">{{number_format($value->balance_Price)}}</td>
             <td width="30px" rowspan="3" style="line-height:550%;">{{number_format($value->commit_Price)}}</td>
             <td width="110px">{{$value->Payee_car}}</td>
@@ -216,11 +216,10 @@
         @endphp
           <tr align="center" style="line-height: 200%;">
             <td width="115px" style="background-color: #FFFF00; line-height:250%;">รวมยอดจัดเป็นคัน    {{$countcar}}    คัน</td>
-            <td width="105px" style="background-color: #00FFFF; line-height:250%;">รวมยอดจัดเป็นเงิน      {{number_format($sumtopcar)}}</td>
-            <td width="120px" style="background-color: #00FFFF; line-height:250%;">รวมค่าใช้จ่าย     {{number_format($sumtotalkprice)}}</td>
-            <td width="95px" style="background-color: #00FFFF; line-height:250%;">รวมค่ารถ     {{number_format($sumbalanceprice)}}</td>
-            <td width="115px" style="background-color: #00FFFF; line-height:250%;">รวมค่าคอม     {{number_format($sumcommitprice)}}</td>
-            <td width="110px" style="background-color: yellow; line-height:250%;"></td>
+            <td width="155px" style="background-color: #00FFFF; line-height:250%;">รวมยอดจัดเป็นเงิน      {{number_format($sumtopcar)}}</td>
+            <td width="125px" style="background-color: #00FFFF; line-height:250%;">รวมค่าใช้จ่าย     {{number_format($sumtotalkprice)}}</td>
+            <td width="115px" style="background-color: #00FFFF; line-height:250%;">รวมค่ารถ     {{number_format($sumbalanceprice)}}</td>
+            <td width="140px" style="background-color: #00FFFF; line-height:250%;">รวมค่าคอม     {{number_format($sumcommitprice)}}</td>
             <td width="165px" style="background-color: #00FFFF; line-height:250%;">ยอดรวมอนุมัติ        {{number_format($sumall)}}</td>
           </tr>
       @endif
