@@ -113,7 +113,7 @@
                 นธ
               @elseif($value->branch_car == 'สายบุรี')
                 สบ
-              @elseif($value->branch_car == 'สุไหงโก-ลก')
+              @elseif($value->branch_car == 'โกลก')
                 กล
               @elseif($value->branch_car == 'เบตง')
                 บต
