@@ -1226,9 +1226,9 @@
                                       if(num6 == 6700){
                                         var num1 = parseFloat(num1) - parseFloat(num6);
                                       }
+                                    }else if(num5 > 6700){
+                                     var num1 = parseFloat(num1) - 6700;
                                     }
-
-
 
                                      if (num5 == 0) {
                                        var totaltopcar = parseFloat(num1);
