@@ -51,6 +51,8 @@ Route::group(['middleware' => 'auth'], function()
 
     Route::get('/ExportExcel/{type}', 'ExcelController@excel');
 
+    Route::get('/Report/Home/{type}', 'ReportController@index')->name('report');
+
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
     Route::get('/{name}', 'HomeController@index')->name('index');
 

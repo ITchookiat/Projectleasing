@@ -227,7 +227,7 @@
             </div>
           </div> -->
 
-          <div class="col-lg-4 col-md-4">
+          <!-- <div class="col-lg-4 col-md-4">
             <div class="info-box">
               <span class="info-box-icon bg-aqua">
                 <a href="{{ route('finance',1) }}" class="a1"><i class="fa fa-money"></i></a>
@@ -237,7 +237,8 @@
                 <span class="info-box-number">ประเภทจัดไฟแนนซ์</span>
               </div>
             </div>
-          </div>
+          </div> -->
+          
         </div>
       </div>
     </div>
