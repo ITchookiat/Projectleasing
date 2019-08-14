@@ -1220,11 +1220,11 @@
                                 var num66 = document.getElementById('P2PriceOri').value;
                                 var num6 = num66.replace(",","");
 
-                                    if(num55 == ''){
-                                      var num5 = 0;
-                                    }else if (num5 == 0) {
-                                      var num1 = parseFloat(num1) - parseFloat(num6);
-                                    }
+                                    // if(num55 == ''){
+                                    //   var num5 = 0;
+                                    // }else if (num5 == 0) {
+                                    //   var num1 = parseFloat(num1) - parseFloat(num6);
+                                    // }
                               console.log(num1);
 
                                    if(num5 > 6700){
@@ -1840,12 +1840,12 @@
                              <div class="form-inline" align="right">
                                <label>ซื้อ ป2+ : </label>
                                @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                  <input type="text" id="P2Price" name="P2Price" value="{{number_format($data->P2_Price)}}" class="form-control" style="width: 250px;" placeholder="ซื้อ ป2+" onchange="calculate()"/>
+                                  <input type="text" id="P2Price" name="P2Price" value="{{number_format($data->P2_Price)}}" class="form-control" style="width: 250px;" placeholder="ซื้อ ป2+" onchange="calculate();balance();"/>
                                @else
                                  @if($GetDocComplete != Null)
-                                    <input type="text" id="P2Price" name="P2Price" value="{{number_format($data->P2_Price)}}" class="form-control" style="width: 250px;" placeholder="ซื้อ ป2+" onchange="calculate()" readonly/>
+                                    <input type="text" id="P2Price" name="P2Price" value="{{number_format($data->P2_Price)}}" class="form-control" style="width: 250px;" placeholder="ซื้อ ป2+" onchange="calculate();balance();" readonly/>
                                  @else
-                                    <input type="text" id="P2Price" name="P2Price" value="{{number_format($data->P2_Price)}}" class="form-control" style="width: 250px;" placeholder="ซื้อ ป2+" onchange="calculate()"/>
+                                    <input type="text" id="P2Price" name="P2Price" value="{{number_format($data->P2_Price)}}" class="form-control" style="width: 250px;" placeholder="ซื้อ ป2+" onchange="calculate();balance();"/>
                                  @endif
                                @endif
                                <input type="hidden" id="P2PriceOri" name="P2PriceOri" class="form-control" value="{{number_format($data->P2_Price)}}" style="width: 250px;" placeholder="ซื้อ ป2+" onchange="calculate()"/>
