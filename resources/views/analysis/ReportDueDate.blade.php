@@ -51,8 +51,8 @@
 
   </head>
     <label align="right">วันที่ : <u>{{$date2}}</u></label>
-    <h2 class="card-title p-3" align="center">รายงานนำเสนอ</h2>
-    <h4 class="card-title p-3" align="center">บริษัท ชูเกียรติลิสซิ่ง จำกัด   โทรศัพท์. ( 073-450-700 )</h4>
+    <h2 class="card-title p-3" align="center">รายงานขออนุมัติโอนเงินไฟแนนซ์</h2>
+    <h4 class="card-title p-3" align="center">บริษัท ชูเกียรติลิสซิ่ง จำกัด</h4>
     <hr>
   <body>
     <br />
