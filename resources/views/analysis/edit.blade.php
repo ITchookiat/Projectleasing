@@ -184,12 +184,12 @@
                                 <div class="form-inline" align="right">
                                   <label><font color="red">วันที่ทำสัญญา : </font></label>
                                   @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                    <input type="date" name="DateDue" class="form-control" style="width: 250px;" value="{{ $newDateDue }}" min="{{ $date2 }}">
+                                    <input type="date" name="DateDue" class="form-control" style="width: 250px;" value="{{ $newDateDue }}">
                                   @else
                                     @if($GetDocComplete != Null)
-                                      <input type="date" name="DateDue" class="form-control" style="width: 250px;" value="{{ $newDateDue }}" min="{{ $date2 }}" readonly>
+                                      <input type="date" name="DateDue" class="form-control" style="width: 250px;" value="{{ $newDateDue }}" readonly>
                                     @else
-                                      <input type="date" name="DateDue" class="form-control" style="width: 250px;" value="{{ $newDateDue }}" min="{{ $date2 }}">
+                                      <input type="date" name="DateDue" class="form-control" style="width: 250px;" value="{{ $newDateDue }}">
                                     @endif
                                   @endif
                                 </div>

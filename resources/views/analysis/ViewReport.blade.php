@@ -91,9 +91,9 @@
                       </button >
                       <p></p>
                       <label>จากวันที่ : </label>
-                      <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($newfdate != '') ?$newfdate: $date2 }}" class="form-control" />
+                      <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control" />
                       <label>ถึงวันที่ : </label>
-                      <input type="date" name="Todate" style="width: 180px;" value="{{ ($newtdate != '') ?$newtdate: $date2 }}" class="form-control" />
+                      <input type="date" name="Todate" style="width: 180px;" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control" />
                     </div>
                     <div align="right" class="form-inline">
                       <label for="text" class="mr-sm-2">นายหน้า : </label>
@@ -180,9 +180,9 @@
                       </button >
                       <p></p>
                       <label>จากวันที่ : </label>
-                      <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($newfdate != '') ?$newfdate: $date2 }}" class="form-control" />
+                      <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control" />
                       <label>ถึงวันที่ : </label>
-                      <input type="date" name="Todate" style="width: 180px;" value="{{ ($newtdate != '') ?$newtdate: $date2 }}" class="form-control" />
+                      <input type="date" name="Todate" style="width: 180px;" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control" />
                     </div>
                     <div align="right" class="form-inline">
                       <label for="text" class="mr-sm-2">นายหน้า : </label>
