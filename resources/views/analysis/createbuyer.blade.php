@@ -8,9 +8,8 @@
   $Y2 = date('Y') + 531;
   $m = date('m');
   $d = date('d');
-  //$date = date('Y-m-d');
   $time = date('H:i');
-  $date = $Y.'-'.$m.'-'.$d;
+  $date1 = $Y.'-'.$m.'-'.$d;
   $date2 = $Y2.'-'.'01'.'-'.'01';
 @endphp
 
@@ -106,7 +105,7 @@
                                    <div class="col-md-6">
                                       <div class="form-inline" align="right">
                                         <label><font color="red">วันที่ทำสัญญา : </font></label>
-                                        <input type="date" name="DateDue" class="form-control" style="width: 250px;" value="{{ $date }}" min="{{ $date2 }}">
+                                        <input type="date" name="DateDue" class="form-control" style="width: 250px;" value="{{ date('Y-m-d') }}">
                                       </div>
                                    </div>
                                 </div>
