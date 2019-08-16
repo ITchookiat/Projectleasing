@@ -51,6 +51,9 @@ Route::group(['middleware' => 'auth'], function()
 
     Route::get('/ExportExcel/{type}', 'ExcelController@excel');
 
+    Route::get('/Legislation/Home/', 'LegislationController@index')->name('legislation');
+
+//---------------- ยังไม่ใช้งาน --------------------//
     Route::get('/Report/Home/{type}', 'ReportController@index')->name('report');
 
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
