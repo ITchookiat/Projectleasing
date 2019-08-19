@@ -883,7 +883,7 @@
                                         if(num8 > 6700){
                                         var tempresult = parseFloat(num1)+parseFloat(num2)+parseFloat(num3)+parseFloat(num4)+parseFloat(num5)+parseFloat(num6)+parseFloat(num8);
                                        }else{
-                                         var tempresult = parseFloat(num1)+parseFloat(num2)+parseFloat(num3)+parseFloat(num4)+parseFloat(num5)+parseFloat(num6);
+                                         var tempresult = parseFloat(num1)+parseFloat(num2)+parseFloat(num3)+parseFloat(num4)+parseFloat(num5)+parseFloat(num6)+parseFloat(num8);
                                        }
                                         if(num8 > 6700){
                                         var result = parseFloat(num1)+parseFloat(num2)+parseFloat(num3)+parseFloat(num4)+parseFloat(num5)+parseFloat(num6)+parseFloat(num7)+parseFloat(num8);
@@ -895,7 +895,7 @@
                                           var TotalBalance = parseFloat(toptemp)-result;
                                         }
                                         else if(num8 > 6700){
-                                          var TotalBalance = parseFloat(Topori)-result;
+                                          var TotalBalance = parseFloat(toptemp)-result;
                                         }
                                         else{
                                           var TotalBalance = parseFloat(toptemp)-result;
