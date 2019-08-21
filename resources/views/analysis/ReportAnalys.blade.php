@@ -245,7 +245,7 @@
               @if($dataReport->Accountbrance_car != Null)
               {{$dataReport->Accountbrance_car}} / {{$dataReport->branchbrance_car}}
               @else
-              รับเงินสด
+              
               @endif
             </b>
           </th>
