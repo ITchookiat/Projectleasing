@@ -59,10 +59,9 @@
           </span>
         </a>
         <ul class="treeview-menu">
-
           <li class="treeview {{ (request()->is('Analysis/Home/*')) ? 'active' : '' }} {{ (request()->is('Analysis/edit/*')) ? 'active' : '' }}">
               <a href="#">
-                <i class="fa fa-folder-open text-info"></i>สินเชื่อ
+                <i class="fa fa-folder-open text-danger"></i>สินเชื่อ
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
@@ -81,17 +80,16 @@
               </ul>
           </li>
 
-          <!-- <li>
+          <li>
               <a href="{{ route('call',1) }}"><i class="fa fa-steam text-danger"></i> งานโทร</a>
-          </li> -->
-
-          <!-- <li>
-              <a href="{{ route('finance',1) }}"><i class="fa fa-folder-open text-danger"></i> ประเภทจัดไฟแนนซ์</a>
-          </li> -->
+          </li>
+          <li>
+              <a href="{{ route('finance',1) }}"><i class="fa fa-steam text-danger"></i> ประเภทจัดไฟแนนซ์</a>
+          </li>
         </ul>
       </li>
 
-      <li class="treeview {{ (request()->is('report/view*')) ? 'active' : '' }}"> <!-- /.DINsidebar -->
+      <li class="treeview {{ (request()->is('Legislation/Home*')) ? 'active' : '' }}"> <!-- /.DINsidebar -->
         <a href="#">
           <i class="fa fa-book"></i> <span> แผนกกฏหมาย</span>
           <span class="pull-right-container">
@@ -100,7 +98,10 @@
         </a>
         <ul class="treeview-menu">
           <li>
-              <a href="#"><i class="fa fa-book text-yellow"></i> แผนกฏหมาย 1</a>
+              <a href="{{ route('legislation',1) }}"><i class="fa fa-book text-yellow"></i>รายชื่อส่งฟ้อง</a>
+          </li>
+          <li>
+              <a href="{{ route('legislation',2) }}"><i class="fa fa-book text-yellow"></i>งานฟ้อง</a>
           </li>
         </ul>
       </li>
