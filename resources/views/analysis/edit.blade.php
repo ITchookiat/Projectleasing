@@ -822,14 +822,14 @@
 
                               <div class="col-md-6">
                                <div class="form-inline" align="right">
-                                   <label>สถาที่ทำงาน : </label>
+                                   <label>สถานที่ทำงาน : </label>
                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                      <input type="text" name="workplaceSP" value="{{$data->workplace_SP}}" class="form-control" style="width: 250px;" placeholder="สถาที่ทำงาน" />
+                                      <input type="text" name="workplaceSP" value="{{$data->workplace_SP}}" class="form-control" style="width: 250px;" placeholder="สถานที่ทำงาน" />
                                    @else
                                      @if($GetDocComplete != Null)
-                                        <input type="text" name="workplaceSP" value="{{$data->workplace_SP}}" class="form-control" style="width: 250px;" placeholder="สถาที่ทำงาน" readonly/>
+                                        <input type="text" name="workplaceSP" value="{{$data->workplace_SP}}" class="form-control" style="width: 250px;" placeholder="สถานที่ทำงาน" readonly/>
                                      @else
-                                        <input type="text" name="workplaceSP" value="{{$data->workplace_SP}}" class="form-control" style="width: 250px;" placeholder="สถาที่ทำงาน" />
+                                        <input type="text" name="workplaceSP" value="{{$data->workplace_SP}}" class="form-control" style="width: 250px;" placeholder="สถานที่ทำงาน" />
                                      @endif
                                    @endif
                                </div>
@@ -1159,12 +1159,12 @@
                                <div class="form-inline" align="right">
                                  <label>เลขไมล์ : </label>
                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                    <input type="text" name="Milecar" value="{{$data->Mile_car}}" class="form-control" style="width: 250px;" placeholder="เลขไมล์" />
+                                    <input type="text" id="Milecar" name="Milecar" value="{{$data->Mile_car}}" class="form-control" style="width: 250px;" placeholder="เลขไมล์" onchange="mile();" />
                                  @else
                                    @if($GetDocComplete != Null)
                                       <input type="text" name="Milecar" value="{{$data->Mile_car}}" class="form-control" style="width: 250px;" placeholder="เลขไมล์" readonly/>
                                    @else
-                                      <input type="text" name="Milecar" value="{{$data->Mile_car}}" class="form-control" style="width: 250px;" placeholder="เลขไมล์" />
+                                      <input type="text" id="Milecar" name="Milecar" value="{{$data->Mile_car}}" class="form-control" style="width: 250px;" placeholder="เลขไมล์" onchange="mile();" />
                                    @endif
                                  @endif
                                </div>
@@ -1203,6 +1203,12 @@
                                    x1 = x1.replace(rgx, '$1' + ',' + '$2');
                                   }
                                 return x1 + x2;
+                              }
+
+                              function mile(){
+                                var num11 = document.getElementById('Milecar').value;
+                                var num1 = num11.replace(",","");
+                                document.form1.Milecar.value = addCommas(num1);
                               }
 
                               function calculate(){
@@ -1542,10 +1548,10 @@
                           <div class="row">
                             <div class="col-md-5">
                               <div class="form-inline" align="right">
-                                 <label>สถานะ : </label>
+                                 <label>แบบ : </label>
                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
                                    <select name="statuscar" class="form-control" style="width: 250px;">
-                                     <option value="" disabled selected>--- สถานะ ---</option>
+                                     <option value="" disabled selected>--- เลือกแบบ ---</option>
                                      @foreach ($statuscarr as $key => $value)
                                         <option value="{{$key}}" {{ ($key == $data->status_car) ? 'selected' : '' }}>{{$value}}</option>
                                      @endforeach
@@ -1555,7 +1561,7 @@
                                      <input type="text" id="statuscar" name="statuscar" value="{{$data->status_car}}" class="form-control" style="width: 250px;" placeholder="สถานะ" readonly />
                                    @else
                                      <select name="statuscar" class="form-control" style="width: 250px;">
-                                       <option value="" disabled selected>--- สถานะ ---</option>
+                                       <option value="" disabled selected>--- เลือกแบบ ---</option>
                                        @foreach ($statuscarr as $key => $value)
                                       <option value="{{$key}}" {{ ($key == $data->status_car) ? 'selected' : '' }}>{{$value}}</option>
                                       @endforeach
@@ -1853,7 +1859,7 @@
 
                             <div class="col-md-6">
                              <div class="form-inline" align="right">
-                               <label>ซื้อ ป2+ : </label>
+                               <label>ซื้อ ป2+ / ป1 : </label>
                                @if(auth::user()->type == 1 or auth::user()->type == 2)
                                   <input type="text" id="P2Price" name="P2Price" value="{{number_format($data->P2_Price)}}" class="form-control" style="width: 250px;" placeholder="ซื้อ ป2+" onchange="calculate();balance();"/>
                                @else

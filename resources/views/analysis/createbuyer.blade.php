@@ -489,8 +489,8 @@
 
                                   <div class="col-md-6">
                                    <div class="form-inline" align="right">
-                                       <label>สถาที่ทำงาน : </label>
-                                       <input type="text" name="workplaceSP" class="form-control" style="width: 250px;" placeholder="สถาที่ทำงาน" />
+                                       <label>สถานที่ทำงาน : </label>
+                                       <input type="text" name="workplaceSP" class="form-control" style="width: 250px;" placeholder="สถานที่ทำงาน" />
                                    </div>
                                   </div>
                                 </div>
@@ -727,7 +727,7 @@
                                   <div class="col-md-6">
                                    <div class="form-inline" align="right">
                                        <label>เลขไมล์ : </label>
-                                       <input type="text" name="Milecar" class="form-control" style="width: 250px;" placeholder="เลขไมล์" />
+                                       <input type="text" id="Milecar" name="Milecar" class="form-control" style="width: 250px;" placeholder="เลขไมล์" oninput="mile();" />
                                    </div>
                                   </div>
                                 </div>
@@ -756,6 +756,12 @@
                                          x1 = x1.replace(rgx, '$1' + ',' + '$2');
                                         }
                                       return x1 + x2;
+                                    }
+
+                                    function mile(){
+                                      var num11 = document.getElementById('Milecar').value;
+                                      var num1 = num11.replace(",","");
+                                      document.form1.Milecar.value = addCommas(num1);
                                     }
 
                                     function calculate(){
@@ -1048,9 +1054,9 @@
                                 <div class="row">
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
-                                       <label>สถานะ : </label>
+                                       <label>แบบ : </label>
                                        <select name="statuscar" class="form-control" style="width: 250px;">
-                                         <option value="" disabled selected>--- สถานะ ---</option>
+                                         <option value="" disabled selected>--- เลือกแบบ ---</option>
                                          <option value="กส.ค้ำมีหลักทรัพย์">กส.ค้ำมีหลักทรัพย์</option>
                                          <option value="กส.ค้ำไม่มีหลักทรัพย์">กส.ค้ำไม่มีหลักทรัพย์</option>
                                          <option value="กส.ไม่ค้ำประกัน">กส.ไม่ค้ำประกัน</option>
@@ -1283,7 +1289,7 @@
 
                                   <div class="col-md-6">
                                    <div class="form-inline" align="right">
-                                     <label>ซื้อ ป2+ : </label>
+                                     <label>ซื้อ ป2+ / ป1 : </label>
                                      <input type="text" id="P2Price" name="P2Price" class="form-control" value="0" style="width: 250px;" placeholder="ซื้อ ป2+" onchange="calculate();balance();"/>
                                      <input type="hidden" id="P2PriceOri" name="P2PriceOri" class="form-control" value="0" style="width: 250px;" placeholder="ซื้อ ป2+" onchange="calculate()"/>
                                    </div>
