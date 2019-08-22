@@ -414,6 +414,9 @@ class AnalysController extends Controller
         'Income_buyer' => $request->get('Incomebuyer'),
         'Purchase_buyer' => $request->get('Purchasebuyer'),
         'Support_buyer' => $request->get('Supportbuyer'),
+        'securities_buyer' => $request->get('securitiesbuyer'),
+        'deednumber_buyer' => $request->get('deednumberbuyer'),
+        'area_buyer' => $request->get('areabuyer'),
       ]);
       $Buyerdb->save();
 
@@ -953,6 +956,9 @@ class AnalysController extends Controller
           $user->Income_buyer = $request->get('Incomebuyer');
           $user->Purchase_buyer = $request->get('Purchasebuyer');
           $user->Support_buyer = $request->get('Supportbuyer');
+          $user->securities_buyer = $request->get('securitiesbuyer');
+          $user->deednumber_buyer = $request->get('deednumberbuyer');
+          $user->area_buyer = $request->get('areabuyer');
         $user->update();
 
         $SettelSP = str_replace ("_","",$request->get('telSP'));
