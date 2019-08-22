@@ -36,6 +36,9 @@ class CreateBuyersTable extends Migration
             $table->string('Income_buyer')->nullable();
             $table->string('Purchase_buyer')->nullable();
             $table->string('Support_buyer')->nullable();
+            $table->string('securities_buyer')->nullable();
+            $table->string('deednumber_buyer')->nullable();
+            $table->string('area_buyer')->nullable();
             $table->timestamps();
         });
     }
