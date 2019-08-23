@@ -70,20 +70,26 @@
         <tr>
           <th align="right" width="120px"> ลักษณะบ้าน &nbsp;</th>
           <th class="text-center" width="120px" style="background-color: yellow;"> <b>{{$dataReport->House_buyer}}</b></th>
-          <th align="right" width="120px"> ประเภทบ้าน &nbsp;</th>
-          <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataReport->HouseStyle_buyer}}</b></th>
+          <th align="right" width="60px"> เลขที่โฉนด &nbsp;</th>
+          <th class="text-center" width="60px" style="background-color: yellow;"> <b>{{$dataReport->deednumber_buyer}}</b></th>
+          <th align="right" width="90px"> ประเภทหลักทรัพย์ &nbsp;</th>
+          <th class="text-center" width="90px" style="background-color: yellow;"> <b>{{$dataReport->securities_buyer}}</b></th>
         </tr>
         <tr>
           <th align="right" width="120px"> อาชีพ &nbsp;</th>
           <th class="text-center" width="120px" style="background-color: yellow;"> <b>{{$dataReport->Career_buyer}}</b></th>
-          <th align="right" width="120"> ประวัติซื้อ &nbsp;</th>
-          <th class="text-center" width="180" style="background-color: yellow;"> <b>{{$dataReport->Purchase_buyer}}</b></th>
+          <th align="right" width="60"> เนื้อที่ &nbsp;</th>
+          <th class="text-center" width="60" style="background-color: yellow;"> <b>{{$dataReport->area_buyer}}</b></th>
+          <th align="right" width="90"> ประเภทบ้าน &nbsp;</th>
+          <th class="text-center" width="90" style="background-color: yellow;"> <b>{{$dataReport->HouseStyle_buyer}}</b></th>
         </tr>
         <tr>
           <th align="right" width="120px"> รายได้ &nbsp;</th>
           <th class="text-center" width="120px" style="background-color: yellow;"> <b>{{$dataReport->Income_buyer}}</b></th>
-          <th align="right" width="120"> ประวัติค้ำ &nbsp;</th>
-          <th class="text-center" width="180" style="background-color: yellow;"> <b>{{$dataReport->Support_buyer}}</b></th>
+          <th align="right" width="60"> ประวัติซื้อ &nbsp;</th>
+          <th class="text-center" width="60" style="background-color: yellow;"> <b>{{$dataReport->Purchase_buyer}}</b></th>
+          <th align="right" width="90"> ประวัติค้ำ &nbsp;</th>
+          <th class="text-center" width="90" style="background-color: yellow;"> <b>{{$dataReport->Support_buyer}}</b></th>
         </tr>
     </table>
 
@@ -135,26 +141,26 @@
         <tr>
           <th align="right" width="120px"> ลักษณะบ้าน &nbsp;</th>
           <th class="text-center" width="120px" style="background-color: yellow;"> <b>{{$dataReport->house_SP}}</b></th>
-          <th align="right" width="120px"> ประเภทบ้าน &nbsp;</th>
-          <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataReport->housestyle_SP}}</b></th>
-        </tr>
-        <tr>
-          <th align="right" width="120px"> เลขที่โฉนด &nbsp;</th>
-          <th class="text-center" width="120px" style="background-color: yellow;"> <b>{{$dataReport->deednumber_SP}}</b></th>
-          <th align="right" width="120px"> เนื้อที่ &nbsp;</th>
-          <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataReport->area_SP}}</b></th>
+          <th align="right" width="60px"> เลขที่โฉนด &nbsp;</th>
+          <th class="text-center" width="60px" style="background-color: yellow;"> <b>{{$dataReport->deednumber_SP}}</b></th>
+          <th align="right" width="90px"> ประเภทหลักทรัพย์ &nbsp;</th>
+          <th class="text-center" width="90px" style="background-color: yellow;"> <b>{{$dataReport->securities_SP}}</b></th>
         </tr>
         <tr>
           <th align="right" width="120px"> อาชีพ &nbsp;</th>
           <th class="text-center" width="120px" style="background-color: yellow;"> <b>{{$dataReport->career_SP}}</b></th>
-          <th align="right" width="120px"> ประวัติซื้อ &nbsp;</th>
-          <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataReport->puchase_SP}}</b></th>
+          <th align="right" width="60px"> เนื้อที่ &nbsp;</th>
+          <th class="text-center" width="60px" style="background-color: yellow;"> <b>{{$dataReport->area_SP}}</b></th>
+          <th align="right" width="90px"> ประเภทบ้าน &nbsp;</th>
+          <th class="text-center" width="90px" style="background-color: yellow;"> <b>{{$dataReport->housestyle_SP}}</b></th>
         </tr>
         <tr>
           <th align="right" width="120px"> รายได้ &nbsp;</th>
           <th class="text-center" width="120px" style="background-color: yellow;"> <b>{{$dataReport->income_SP}}</b></th>
-          <th align="right" width="120px"> ประวัติค้ำ &nbsp;</th>
-          <th class="text-center" width="180" style="background-color: yellow;"> <b>{{$dataReport->support_SP}}</b></th>
+          <th align="right" width="60px"> ประวัติซื้อ &nbsp;</th>
+          <th class="text-center" width="60" style="background-color: yellow;"> <b>{{$dataReport->puchase_SP}}</b></th>
+          <th align="right" width="90px"> ประวัติค้ำ &nbsp;</th>
+          <th class="text-center" width="90" style="background-color: yellow;"> <b>{{$dataReport->support_SP}}</b></th>
         </tr>
     </table>
 
@@ -267,7 +273,7 @@
               @if($dataReport->Accountagent_car != Null)
               {{$dataReport->Accountagent_car}} / {{$dataReport->branchAgent_car}}
               @else
-              
+
               @endif
             </b>
           </th>
