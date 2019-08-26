@@ -57,6 +57,7 @@ Route::group(['middleware' => 'auth'], function()
 
     Route::get('/Legislation/store/{Str1}/{Str2}', 'LegislationController@store')->name('legislation.store');
     Route::get('/Legislation/Home/{type}', 'LegislationController@index')->name('legislation');
+    Route::delete('/Legislation/delete/{id}', 'LegislationController@destroy')->name('legislation.destroy');
 
 //---------------- ยังไม่ใช้งาน --------------------//
     Route::get('/Report/Home/{type}', 'ReportController@index')->name('report');

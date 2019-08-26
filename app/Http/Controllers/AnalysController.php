@@ -152,11 +152,19 @@ class AnalysController extends Controller
         ->groupBy('cardetails.status_car')
         ->get();
 
+        $databranch = DB::table('buyers')
+        ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
+        ->select('cardetails.branch_car', DB::raw('count(*) as total'))
+        ->where('cardetails.branch_car','<>',Null)
+        ->groupBy('cardetails.branch_car')
+        ->get();
+
         $newfdate = '';
         $newtdate = '';
         $agen = '';
         $yearcar = '';
         $typecar = '';
+        $branch = '';
 
         if ($request->has('Fromdate')) {
           $fdate = $request->get('Fromdate');
@@ -175,6 +183,10 @@ class AnalysController extends Controller
         if ($request->has('typecar')) {
           $typecar = $request->get('typecar');
         }
+        if ($request->has('branch')) {
+          $branch = $request->get('branch');
+        }
+
 
         if ($request->has('Fromdate') == false and $request->has('Todate') == false and $request->has('agen') == false) {
           $data = DB::table('buyers')
@@ -202,9 +214,14 @@ class AnalysController extends Controller
           ->when(!empty($typecar), function($q) use($typecar){
             return $q->where('cardetails.status_car',$typecar);
           })
+          ->when(!empty($branch), function($q) use($branch){
+            return $q->where('cardetails.branch_car',$branch);
+          })
           ->orderBy('buyers.Contract_buyer', 'ASC')
           ->get();
         }
+
+        // dd($data);
 
         if ($newfdate != '' and $newtdate != '') {
           $newfdate = \Carbon\Carbon::parse($newfdate)->format('Y') ."-". \Carbon\Carbon::parse($newfdate)->format('m')."-". \Carbon\Carbon::parse($newfdate)->format('d');
@@ -213,7 +230,7 @@ class AnalysController extends Controller
           // dd('123456');
         }
         $type = $request->type;
-        return view('analysis.viewReport', compact('type', 'data','newfdate','newtdate','datadrop','agen','datedue','datayear','yearcar','datastatus','typecar'));
+        return view('analysis.viewReport', compact('type', 'data','newfdate','newtdate','datadrop','agen','datedue','datayear','yearcar','datastatus','typecar','databranch','branch'));
       }
       elseif ($request->type == 4){
         $newfdate = '';

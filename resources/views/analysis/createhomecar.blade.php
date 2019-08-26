@@ -40,7 +40,7 @@
     <section class="content">
 
       <!-- Default box -->
-      <div class="box">
+      <div class="box box-primary">
         <div class="box-header with-border">
           <ul class="nav nav-pills ml-auto p-2">
             <li class="nav-item"><a class="nav-link" href="{{ route('Analysis',4) }}">หน้าหลัก</a></li>

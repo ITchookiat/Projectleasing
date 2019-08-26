@@ -53,13 +53,13 @@
     <section class="content">
 
       <!-- Default box -->
-      <div class="box">
+      <div class="box box-primary box-solid">
 
         <div class="box-header with-border">
           @if($type == 3)
-            <h3 class="card-title p-3" align="center">รายงานสินเชื่อ</h3>
+            <h4 class="card-title p-3" align="center">รายงานสินเชื่อ</h4>
           @elseif($type == 6)
-            <h3 class="card-title p-3" align="center">รายงานรถบ้าน</h3>
+            <h4 class="card-title p-3" align="center">รายงานรถบ้าน</h4>
           @endif
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -83,7 +83,7 @@
                 <div class="col-md-12">
                   <form method="get" action="{{ route('Analysis', 3) }}">
                     <div align="right" class="form-inline">
-                      <a target="_blank" href="{{ action('ExcelController@excel',$type) }}?&Fromdate={{$newfdate}}&Todate={{$newtdate}}&agen={{$agen}}&yearcar={{$yearcar}}&typecar={{$typecar}}" class="btn btn-success btn-app">
+                      <a target="_blank" href="{{ action('ExcelController@excel',$type) }}?&Fromdate={{$newfdate}}&Todate={{$newtdate}}&agen={{$agen}}&yearcar={{$yearcar}}&typecar={{$typecar}}&branch={{$branch}}" class="btn btn-success btn-app">
                         <span class="fa fa-file-excel-o"></span> Excel
                       </a>
                       <button type="submit" class="btn btn-warning btn-app">
@@ -104,6 +104,7 @@
                         @endforeach
                       </select>
 
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                       <label for="text" class="mr-sm-2">ปี : </label>
                       <select name="yearcar" class="form-control mb-2 mr-sm-2" id="text" style="width: 180px">
                         <option selected disabled value="">---เลือกปี---</option>
@@ -111,13 +112,21 @@
                           <option value="{{ $row->Year_car }}" {{ ($yearcar == $row->Year_car) ? 'selected' : '' }}>{{ $row->Year_car }}</otion>
                         @endforeach
                       </select>
-
-                      &nbsp;&nbsp;&nbsp;
+                    </div>
+                    <div align="right" class="form-inline">
                       <label for="text" class="mr-sm-2">แบบ : </label>
                       <select name="typecar" class="form-control mb-2 mr-sm-2" id="text" style="width: 180px">
                         <option selected disabled value="">---เลือกแบบ---</option>
                         @foreach($datastatus as $row)
                           <option value="{{ $row->status_car }}" {{ ($typecar == $row->status_car) ? 'selected' : '' }}>{{ $row->status_car }}</otion>
+                        @endforeach
+                      </select>
+
+                      <label for="text" class="mr-sm-2">สาขา : </label>
+                      <select name="branch" class="form-control mb-2 mr-sm-2" id="text" style="width: 180px">
+                        <option selected disabled value="">---เลือกสาขา---</option>
+                        @foreach($databranch as $row)
+                          <option value="{{ $row->branch_car }}" {{ ($branch == $row->branch_car) ? 'selected' : '' }}>{{ $row->branch_car }}</otion>
                         @endforeach
                       </select>
                     </div>

@@ -20,7 +20,7 @@
       .a3 {color: #262A5E;}
       .a4 {color: #B1692E;}
       .a5 {color: #207B15;}
-      .a6 {color: #E7071E;}
+      .a6 {color: #E6E6FA;}
 
 /* The container */
 .con {

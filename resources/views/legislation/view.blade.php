@@ -33,9 +33,16 @@ $date = date('Y-m-d', strtotime('-1 days'));
     <section class="content">
 
       <!-- Default box -->
-      <div class="box">
+      <div class="box box-warning box-solid">
         <div class="box-header with-border">
-          <h3 class="card-title p-3" align="center">รายชื่อส่งฟ้อง</h3>
+          @if($type == 1)
+            <!-- <h3 class="box-title" align="center">รายชื่อส่งฟ้อง</h3> -->
+            <h4 class="card-title" align="center"><b>รายชื่อส่งฟ้อง</b></h4>
+          @elseif($type == 2)
+          <!-- <h3 class="box-title" align="center">งานฟ้อง</h3> -->
+          <h4 class="card-title" align="center"><b>แก้ไขข้อมูลสัญญา</b></h4>
+          @endif
+
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
               <i class="fa fa-minus"></i></button>
@@ -56,21 +63,88 @@ $date = date('Y-m-d', strtotime('-1 days'));
 
             <div class="row">
               @if($type == 1)
-              <div class="col-md-12">
-                {{--
-                <!-- <form name="form1" action="{{ route('Legislation.store') }}" method="post" id="formimage" enctype="multipart/form-data">
-                    @csrf
-                  <div align="right" class="form-inline">
-                    <a href="#" class="btn btn-primary btn-app">
-                      <span class="glyphicon glyphicon-save"></span> Update
-                    </a>
-                  </div>
-                </form> -->
-                --}}
+                <div class="col-md-12">
+                  {{--
+                  <!-- <form name="form1" action="{{ route('Legislation.store') }}" method="post" id="formimage" enctype="multipart/form-data">
+                      @csrf
+                    <div align="right" class="form-inline">
+                      <a href="#" class="btn btn-primary btn-app">
+                        <span class="glyphicon glyphicon-save"></span> Update
+                      </a>
+                    </div>
+                  </form> -->
+                  --}}
+                   <hr>
+                   <div class="table-responsive">
+                     <table class="table table-bordered" id="table">
+                        <thead class="thead-dark bg-gray-light" >
+                          <tr>
+                            <th class="text-center">ลำดับ</th>
+                            <th class="text-center">เลขที่สัญญา</th>
+                            <th class="text-center">ชื่อ-สกุล</th>
+                            <th class="text-center">บัตรประชาชน</th>
+                            <th class="text-center">วันที่ทำสัญญา</th>
+                            <th class="text-center">ยี่ห้อ</th>
+                            <th class="text-center">ปีรถ</th>
+                            <th class="text-center" style="width: 100px">ตัวเลือก</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @foreach($result as $key => $row)
+                            <tr>
+                              <td class="text-center"> {{$key+1}} </td>
+                              <td class="text-center"> {{$row->CONTNO}} </td>
+                              <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->SNAM.$row->NAME1)."   ".str_replace(" ","",$row->NAME2))}} </td>
+                              <td class="text-center"> {{str_replace(" ","",$row->IDNO)}} </td>
+                              <td class="text-center"> {{$row->FDATE}} </td>
+                              <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->TYPE)) }} </td>
+                              <td class="text-center"> {{$row->MANUYR}} </td>
+                              <td class="text-center">
+                                @php
+                                   $StrCon = explode("/",$row->CONTNO);
+                                   $SetStr1 = $StrCon[0];
+                                   $SetStr2 = $StrCon[1];
 
-                 <hr>
-                 <div class="table-responsive">
-                   <table class="table table-bordered" id="table">
+                                   $Tax = "N";
+                                @endphp
+                                @foreach($data as $key => $row1)
+                                  @if($row->CONTNO == $row1->Contract_legis)
+                                    <button class="btn btn-success btn-sm" title="ส่งฟ้องแล้ว">
+                                      <span class="glyphicon glyphicon-lock"></span> ส่งฟ้องแล้ว
+                                    </button>
+                                    @php
+                                      $Tax = "Y";
+                                    @endphp
+                                  @endif
+                                @endforeach
+
+                                @if($Tax == "N")
+                                  <a href="{{ route('legislation.store', [$SetStr1,$SetStr2]) }}" id="edit" class="btn btn-danger btn-sm" title="ส่งฟ้อง">
+                                    <span class="glyphicon glyphicon-edit"></span> รอส่งฟ้อง
+                                  </a>
+                                @endif
+                              </td>
+                            </tr>
+                          @endforeach
+                        </tbody>
+                    </table>
+                   </div>
+                </div>
+              @elseif($type == 2)
+                <div class="col-md-12">
+                  {{--
+                    <form name="form1" action="{{ route('Legislation.store') }}" method="post" id="formimage" enctype="multipart/form-data">
+                      @csrf
+                      <div align="right" class="form-inline">
+                        <a href="#" class="btn btn-primary btn-app">
+                          <span class="glyphicon glyphicon-save"></span> Update
+                        </a>
+                      </div>
+                    </form>
+                  --}}
+                  <hr>
+                  <div class="table-responsive">
+                    <table class="table table-bordered" id="table">
                       <thead class="thead-dark bg-gray-light" >
                         <tr>
                           <th class="text-center">ลำดับ</th>
@@ -78,40 +152,57 @@ $date = date('Y-m-d', strtotime('-1 days'));
                           <th class="text-center">ชื่อ-สกุล</th>
                           <th class="text-center">บัตรประชาชน</th>
                           <th class="text-center">วันที่ทำสัญญา</th>
-                          <th class="text-center">ยี่ห้อ</th>
-                          <th class="text-center">ปีรถ</th>
-                          <th class="text-center" style="width: 100px">ตัวเลือก</th>
+                          <th class="text-center" style="width: 200px">ตัวเลือก</th>
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach($result as $key => $row)
+                        @foreach($data as $key => $row)
                           <tr>
                             <td class="text-center"> {{$key+1}} </td>
-                            <td class="text-center"> {{$row->CONTNO}} </td>
-                            <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->SNAM.$row->NAME1)."   ".str_replace(" ","",$row->NAME2))}} </td>
-                            <td class="text-center"> {{str_replace(" ","",$row->IDNO)}} </td>
-                            <td class="text-center"> {{$row->FDATE}} </td>
-                            <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->TYPE)) }} </td>
-                            <td class="text-center"> {{$row->MANUYR}} </td>
+                            <td class="text-center"> {{$row->Contract_legis}} </td>
+                            <td class="text-center"> {{$row->Name_legis}} </td>
+                            <td class="text-center"> {{$row->Idcard_legis}} </td>
+                            <td class="text-center"> {{$row->DateDue_legis}} </td>
                             <td class="text-center">
-                              @php
-                                 $StrCon = explode("/",$row->CONTNO);
-                                 $SetStr1 = $StrCon[0];
-                                 $SetStr2 = $StrCon[1];
-                              @endphp
-                              <a href="{{ route('legislation.store', [$SetStr1,$SetStr2]) }}" id="edit" class="btn btn-danger btn-sm" title="ส่งฟ้อง">
-                                <span class="glyphicon glyphicon-edit"></span> ส่งฟ้อง
+                              <a target="_blank" href="#" class="btn btn-info btn-sm" title="พิมพ์">
+                                <span class="glyphicon glyphicon-eye-open"></span> พิมพ์
                               </a>
+                              <a href="#" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
+                                <span class="glyphicon glyphicon-pencil"></span> แก้ไข
+                              </a>
+                              <div class="form-inline form-group">
+                                <form method="post" class="delete_form" action="{{ action('LegislationController@destroy',$row->id) }}">
+                                {{csrf_field()}}
+                                  <input type="hidden" name="_method" value="DELETE" />
+                                  <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
+                                    <span class="glyphicon glyphicon-trash"></span> ลบ
+                                  </button>
+                                </form>
+                              </div>
                             </td>
                           </tr>
                         @endforeach
                       </tbody>
-                  </table>
-                 </div>
-              </div>
+                    </table>
+                  </div>
+                </div>
               @endif
            </div>
 
+{{--
+           <!-- <script type="text/javascript">
+              $(document).on('click','.edit', function(){
+                $.ajax({
+                    url:"{{ route('legislation.store', [$SetStr1,$SetStr2]) }}",
+                    method:'get',
+                    dataType:'json',
+                    success:function(data){
+                      $('#SetStrConn').val($row->CONTNO);
+                    }
+                })
+              });
+           </script> -->
+--}}
            <script type="text/javascript">
            $(document).ready(function() {
              $('#table').DataTable( {
