@@ -671,6 +671,14 @@ class AnalysController extends Controller
 
         $GetDocComplete = $data->DocComplete_car;
         $Gettype = $type;
+
+        $type = $type;
+        $fdate = $fdate;
+        $tdate = $tdate;
+        $branch = $branch;
+        $status = $status;
+
+        // dd($Getfdate);
       }
       elseif ($type == 4) {
         $data = DB::table('buyers')
@@ -682,6 +690,8 @@ class AnalysController extends Controller
       }
 
       $dataImage = DB::table('uploadfile_images')->where('Buyerfileimage_id',$data->id)->get();
+      $countImage = count($dataImage);
+      // dd($dataImage, $countImage);
       $newDateDue = \Carbon\Carbon::parse($data->Date_Due)->format('Y') ."-". \Carbon\Carbon::parse($data->Date_Due)->format('m')."-". \Carbon\Carbon::parse($data->Date_Due)->format('d');
 
       $Statusby = [
@@ -885,7 +895,7 @@ class AnalysController extends Controller
             compact('data','id','dataImage','Statusby','Addby','Houseby','Driverby','HouseStyleby','Careerby','Incomeby',
             'HisCarby','StatusSPp','relationSPp','addSPp','housestyleSPp','Brandcarr','Interestcarr','Timeslackencarr',
             'Insurancecarr','statuscarr','newDateDue','evaluetionPricee','securitiesSPp','GetDocComplete','Getinsurance',
-            'Gettransfer','Getinterest','fdate','tdate','branch','status','Gettype'));
+            'Gettransfer','Getinterest','fdate','tdate','branch','status','type','Gettype','countImage'));
       }
       elseif ($type == 4) {
         return view('analysis.edithomecar',
@@ -1400,4 +1410,66 @@ class AnalysController extends Controller
 
       return redirect()->back()->with('success','ลบข้อมูลเรียบร้อย');
     }
+
+    // public function deleteImageAll($id)
+    // {
+    //
+    //   // dd($id);
+    //   $item = UploadfileImage::where('Buyerfileimage_id','=',$id)->get();
+    //
+    //   foreach ($item as $key => $value) {
+    //     $itemID = $value->Buyerfileimage_id;
+    //     $itemPath = $value->Name_fileimage;
+    //
+    //     Storage::delete($itemPath);
+    //   }
+    //
+    //     $deleteItem = UploadfileImage::where('Buyerfileimage_id',$itemID);
+    //     $deleteItem->Delete();
+    //
+    //   return redirect()->back()->with('success','ลบรูปทั้งหมดเรียบร้อยแล้ว');
+    // }
+
+    public function deleteImageEach($id,$type,$fdate,$tdate,$branch,$status,Request $request)
+    {
+
+      // dd($id);
+      $id = $id;
+      $type = $type;
+      $fdate = $fdate;
+      $tdate = $tdate;
+      $branch = $branch;
+      $status = $status;
+
+      $data = UploadfileImage::where('Buyerfileimage_id','=',$id)->get();
+      $countData = count($data);
+      // dd($data[0]->fileimage_id);
+
+      return view('analysis.viewimage', compact('data','countData','id','type','fdate','tdate','branch','status'));
+    }
+
+    public function destroyImage($id,$type,$fdate,$tdate,$branch,$status,Request $request)
+    {
+      // dd($id,$type,$fdate,$tdate,$branch,$status);
+      $id = $id;
+      $type = $type;
+      $fdate = $fdate;
+      $tdate = $tdate;
+      $branch = $branch;
+      $status = $status;
+
+      $item1 = UploadfileImage::where('fileimage_id',$id);
+      // dd($item1);
+      $data = UploadfileImage::where('fileimage_id','=',$id)->get();
+      foreach ($data as $key => $value) {
+        $itemPath = $value->Name_fileimage;
+        Storage::delete($itemPath);
+      }
+
+      $item1->Delete();
+
+      // return redirect()->back()->with('success','ลบรูปเรียบร้อยแล้ว');
+      return redirect()->back()->with(['id' => $id,'type' => $type,'fdate' => $fdate,'tdate' => $tdate,'branch' => $branch,'status' => $status,'success' => 'ลบรูปสำเร็จเรียบร้อย']);
+    }
+
 }
