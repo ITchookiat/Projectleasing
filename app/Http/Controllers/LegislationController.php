@@ -113,7 +113,7 @@ class LegislationController extends Controller
           'Flag' => 'Y',
         ]);
         $LegisDB->save();
-            
+
         return redirect()->Route('legislation',1)->with('success','บันทึกข้อมูลเรียบร้อย');
     }
 

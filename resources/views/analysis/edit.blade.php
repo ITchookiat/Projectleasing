@@ -154,6 +154,14 @@
             </div>
           @endif
 
+          @if(session()->has('success'))
+            <div class="alert alert-success alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+              <strong>สำเร็จ!</strong> {{ session()->get('success') }}
+            </div>
+          @endif
+
             <div class="row">
               <div class="col-md-12"> <br />
                 <form name="form1" method="post" action="{{ action('AnalysController@update',[$id,$Gettype]) }}" enctype="multipart/form-data">
@@ -651,6 +659,11 @@
                           </div>
 
                           <br>
+                          <input type="hidden" name="fdate" value="{{ $fdate }}" />
+                          <input type="hidden" name="tdate" value="{{ $tdate }}" />
+                          <input type="hidden" name="branch" value="{{ $branch }}" />
+                          <input type="hidden" name="status" value="{{ $status }}" />
+
                           <div class="row">
                             <div class="col-md-12">
                               <h3 class="text-center">รูปภาพประกอบ</h3>
@@ -658,6 +671,15 @@
                                 <div class="file-loading">
                                   <input id="image-file" type="file" name="file_image[]" accept="image/*" data-min-file-count="1" multiple>
                                 </div>
+                                @if($countImage != 0)
+                                <!-- <br/>
+                                <a href="{{ action('AnalysController@deleteImageAll',$data->id) }}" class="btn btn-danger pull-right" title="ลบรูปทั้งหมด" onclick="return confirm('คุณต้องการลบรูปทั้งหมดหรือไม่?')"> ลบรูปทั้งหมด.. </a>
+                                <br/>-->
+                                <br/>
+                                <a href="{{ action('AnalysController@deleteImageEach',[$data->id,$type,$fdate,$tdate,$branch,$status]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
+                                <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ.. 
+                                </a>
+                                @endif
                               </div>
                             </div>
                           </div>
@@ -2119,7 +2141,8 @@
                     <button type="submit" class="delete-modal btn btn-success">
                       <span class="glyphicon glyphicon-floppy-save"></span> อัพเดท
                     </button>
-                    <a class="delete-modal btn btn-danger" href="{{ URL::previous() }}">
+                    <!-- <a class="delete-modal btn btn-danger" href="{{ URL::previous() }}"> -->
+                    <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}">
                       <span class="glyphicon glyphicon-remove"></span> ยกเลิก
                     </a>
                   </div>
@@ -2180,6 +2203,12 @@
       $(function () {
         $('[data-mask]').inputmask()
       })
+      </script>
+
+      <script type="text/javascript">
+        $(".alert").fadeTo(3000, 1000).slideUp(1000, function(){
+        $(".alert").alert('close');
+        });
       </script>
 
     </section>
