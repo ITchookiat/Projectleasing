@@ -122,23 +122,22 @@
     <section class="content">
 
       <!-- Default box -->
-      <div class="box">
+      <div class="box box-primary box-solid">
         <div class="box-header with-border">
-          <h3 class="card-title p-3" align="center">แก้ไขข้อมูลสัญญา</h3>
-          <div class="nav-tabs-custom">
-            <ul class="nav nav-tabs bg-success">
-              <li class="nav-item active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">แบบฟอร์มผู้เช่าซื้อ</a></li>
-              <li class="nav-item"><a href="#tab_2" data-toggle="tab" aria-expanded="false">แบบฟอร์มผู้ค้ำ</a></li>
-              <li class="nav-item"><a href="#tab_3" data-toggle="tab" aria-expanded="false">แบบฟอร์มรถยนต์</a></li>
-            </ul>
-          </div>
-
+          <h4 class="card-title p-3" align="center">แก้ไขข้อมูลสัญญา</h4>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
               <i class="fa fa-minus"></i></button>
             <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
               <i class="fa fa-times"></i></button>
           </div>
+        </div>
+        <div class="nav-tabs-custom">
+          <ul class="nav nav-tabs bg-danger">
+            <li class="nav-item active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">แบบฟอร์มผู้เช่าซื้อ</a></li>
+            <li class="nav-item"><a href="#tab_2" data-toggle="tab" aria-expanded="false">แบบฟอร์มผู้ค้ำ</a></li>
+            <li class="nav-item"><a href="#tab_3" data-toggle="tab" aria-expanded="false">แบบฟอร์มรถยนต์</a></li>
+          </ul>
         </div>
 
         <div class="box-body">

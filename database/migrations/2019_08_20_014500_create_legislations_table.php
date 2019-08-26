@@ -17,7 +17,6 @@ class CreateLegislationsTable extends Migration
             $table->bigIncrements('id');
             $table->string('Contract_legis')->nullable();
             $table->string('Name_legis')->nullable();
-            $table->string('last_legis')->nullable();
             $table->string('Idcard_legis')->nullable();
             $table->string('BrandCar_legis')->nullable();
             $table->string('register_legis')->nullable();

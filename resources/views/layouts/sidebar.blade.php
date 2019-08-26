@@ -61,7 +61,7 @@
         <ul class="treeview-menu">
           <li class="treeview {{ (request()->is('Analysis/Home/*')) ? 'active' : '' }} {{ (request()->is('Analysis/edit/*')) ? 'active' : '' }}">
               <a href="#">
-                <i class="fa fa-folder-open text-danger"></i>สินเชื่อ
+                <i class="fa fa-folder-open text-primary"></i>สินเชื่อ
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
@@ -80,12 +80,12 @@
               </ul>
           </li>
 
-          <li>
-              <a href="{{ route('call',1) }}"><i class="fa fa-steam text-danger"></i> งานโทร</a>
+          <!-- <li>
+              <a href="{{ route('call',1) }}"><i class="fa fa-steam text-primary"></i> งานโทร</a>
           </li>
           <li>
-              <a href="{{ route('finance',1) }}"><i class="fa fa-steam text-danger"></i> ประเภทจัดไฟแนนซ์</a>
-          </li>
+              <a href="{{ route('finance',1) }}"><i class="fa fa-steam text-primary"></i> ประเภทจัดไฟแนนซ์</a>
+          </li> -->
         </ul>
       </li>
 

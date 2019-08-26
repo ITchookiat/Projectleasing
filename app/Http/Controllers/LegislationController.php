@@ -33,30 +33,24 @@ class LegislationController extends Controller
                   }
                 }
 
-        // dd($result);
+        $data = DB::table('legislations')
+                  ->orderBy('Contract_legis', 'ASC')
+                  ->get();
+
+                  // dd($data);
 
         $type = $request->type;
-        return view('legislation.view', compact('type', 'result'));
+        return view('legislation.view', compact('type', 'result','data'));
 
       }elseif ($request->type == 2) {
-        // $data = DB::connection('ibmi')
-        //           ->table('SFHP.ARMAST')
-        //           ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
-        //           ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
-        //           ->whereBetween('SFHP.ARMAST.HLDNO',[6.7,7.69])
-        //           ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
-        //           ->get();
+        $data = DB::table('legislations')
+                  ->orderBy('Contract_legis', 'ASC')
+                  ->get();
 
-        //         $count = count($data);
-        //         for($i=0; $i<$count; $i++){
-        //           $str[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$data[$i]->CONTSTAT)));
-        //           if ($str[$i] == "ฟ") {
-        //             $result[] = $data[$i];
-        //           }
-        //         }
+        // dd($data);
 
         $type = $request->type;
-        return view('legislation.view', compact('type', 'data','newfdate','newtdate'));
+        return view('legislation.view', compact('type', 'data'));
       }
     }
 
@@ -78,7 +72,8 @@ class LegislationController extends Controller
      */
     public function store(Request $request, $SetStr1, $SetStr2)
     {
-        $SetStrConn = $SetStr1."/".$SetStr2;
+      // dd('ghjk.');
+         $SetStrConn = $SetStr1."/".$SetStr2;
         $data = DB::connection('ibmi')
                   ->table('SFHP.ARMAST')
                   ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
@@ -92,13 +87,10 @@ class LegislationController extends Controller
                   ->first();
 
         $SetBalancePrice = $data->BALANC - $data->SMPAY;
-        // dump($dataGT);
-        // dd($data);
 
         $LegisDB = new Legislation([
           'Contract_legis' => $data->CONTNO,
-          'Name_legis' => (iconv('TIS-620', 'utf-8', str_replace(" ","",$data->NAME1))),
-          'last_legis' => (iconv('TIS-620', 'utf-8', str_replace(" ","",$data->NAME2))),
+          'Name_legis' => (iconv('TIS-620', 'utf-8', str_replace(" ","",$data->SNAM)." ".str_replace(" ","",$data->NAME1)."  ".str_replace(" ","",$data->NAME2))),
           'Idcard_legis' => (str_replace(" ","",$data->IDNO)),
           'BrandCar_legis' => (iconv('Tis-620','utf-8',str_replace(" ","",$data->TYPE))),
           'register_legis' => (iconv('Tis-620','utf-8',str_replace(" ","",$data->REGNO))),
@@ -113,8 +105,8 @@ class LegislationController extends Controller
           'Flag' => 'Y',
         ]);
         $LegisDB->save();
-            
-        return redirect()->Route('legislation',1)->with('success','บันทึกข้อมูลเรียบร้อย');
+
+        return redirect()->Route('legislation',1)->with('success','ส่งฟ้องเรียบร้อย');
     }
 
     /**
@@ -159,6 +151,8 @@ class LegislationController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $item = Legislation::find($id);
+      $item->Delete();
+      return redirect()->back()->with('success','ลบข้อมูลเรียบร้อย');
     }
 }

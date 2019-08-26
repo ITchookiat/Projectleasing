@@ -33,7 +33,7 @@ $date = date('Y-m-d', strtotime('-1 days'));
     <section class="content">
 
       <!-- Default box -->
-      <div class="box">
+      <div class="box box-primary">
         <div class="box-header with-border">
           <ul class="nav nav-pills ml-auto p-2">
             @if(auth::user()->branch == 10 or auth::user()->branch == 11 or auth::user()->type == 4)

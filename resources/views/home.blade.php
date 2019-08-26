@@ -41,7 +41,7 @@
                 </div>
               </div>
               <div class="col-lg-6 col-md-6">
-                <div class="panel bg-red">
+                <div class="panel bg-yellow">
                   <div class="panel-heading">
                     <div class="row">
                       <div class="col-xs-3">
@@ -163,7 +163,7 @@
             <div class="col-lg-4 col-md-4">
               <div class="info-box">
                 <span class="info-box-icon bg-green">
-                  <a href="{{ route('legislation',1) }}" class="a1"><i class="fa fa-bank"></i></a>
+                  <a href="{{ route('legislation',2) }}" class="a1"><i class="fa fa-bank"></i></a>
                 </span>
                 <div class="info-box-content">
                   <span class="info-box-text"><br /></span>

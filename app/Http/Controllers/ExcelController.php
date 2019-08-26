@@ -61,14 +61,15 @@ class ExcelController extends Controller
         $agen = '';
         $yearcar = '';
         $typecar = '';
+        $branch = '';
 
         if ($request->has('Fromdate')) {
           $fdate = $request->get('Fromdate');
-          $newfdate = \Carbon\Carbon::parse($fdate)->format('Y')-543 ."-". \Carbon\Carbon::parse($fdate)->format('m')."-". \Carbon\Carbon::parse($fdate)->format('d');
+          $newfdate = \Carbon\Carbon::parse($fdate)->format('Y') ."-". \Carbon\Carbon::parse($fdate)->format('m')."-". \Carbon\Carbon::parse($fdate)->format('d');
         }
         if ($request->has('Todate')) {
           $tdate = $request->get('Todate');
-          $newtdate = \Carbon\Carbon::parse($tdate)->format('Y')-543 ."-". \Carbon\Carbon::parse($tdate)->format('m')."-". \Carbon\Carbon::parse($tdate)->format('d');
+          $newtdate = \Carbon\Carbon::parse($tdate)->format('Y') ."-". \Carbon\Carbon::parse($tdate)->format('m')."-". \Carbon\Carbon::parse($tdate)->format('d');
         }
         if ($request->has('agen')) {
           $agen = $request->get('agen');
@@ -78,6 +79,9 @@ class ExcelController extends Controller
         }
         if ($request->has('typecar')) {
           $typecar = $request->get('typecar');
+        }
+        if ($request->has('branch')) {
+          $branch = $request->get('branch');
         }
 
         if ($request->get('Fromdate') == Null and $request->get('Todate') == Null) {
@@ -107,10 +111,16 @@ class ExcelController extends Controller
                     ->when(!empty($typecar), function($q) use($typecar){
                       return $q->where('cardetails.status_car',$typecar);
                     })
+                    ->when(!empty($branch), function($q) use($branch){
+                      return $q->where('cardetails.branch_car',$branch);
+                    })
                     ->orderBy('buyers.Contract_buyer', 'ASC')
                     ->get()
                     ->toArray();
+
         }
+
+        dd($data);
 
         $data_array[] = array('ลำดับ', 'วันที่โอน', 'สถานะ', 'ยี่ห้อ', 'รุ่น', 'ทะเบียนเดิม', 'ทะเบียนใหม่', 'เลขสัญญา', 'ปี', 'ยอดจัด', 'พรบ.', '%ยอดจัด', 'งวดผ่อน(เดือน)', 'ค่าใช้จ่ายขนส่ง', 'อื่นๆ', 'ค่าประเมิน', 'ค่าการตลาด', 'อากร',
                               'รวม คชจ', 'คงเหลือ', 'ค่าคอมก่อนหัก3%', 'ค่ค่าคอมหลังหัก3%', 'เอกสารผู้ค้ำ', 'ผู้รับเงิน', 'เลขที่บัญชี', 'เบอร์โทรผู้รับเงิน', 'ผู้รับค่าคอม', 'เลขที่บัญชี', 'เบอร์โทรผู้แนะนำ', 'ใบขับขี่', 'แถมประกัน');
