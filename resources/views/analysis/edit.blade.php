@@ -151,6 +151,14 @@
             </div>
           @endif
 
+          @if(session()->has('success'))
+            <div class="alert alert-success alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+              <strong>สำเร็จ!</strong> {{ session()->get('success') }}
+            </div>
+          @endif
+
             <div class="row">
               <div class="col-md-12"> <br />
                 <form name="form1" method="post" action="{{ action('AnalysController@update',[$id,$Gettype]) }}" enctype="multipart/form-data">
@@ -434,26 +442,58 @@
 
                             <div class="col-md-6">
                               <div class="form-inline" align="right">
-                                <label>ใบขับขี่ : </label>
+                                <label>ประเภทหลักทรัพย์ : </label>
                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                  <select name="Driverbuyer" class="form-control" style="width: 250px;">
-                                    <option value="" disabled selected>--- เลือกใบขับขี่ ---</option>
-                                    @foreach ($Driverby as $key => $value)
-                                      <option value="{{$key}}" {{ ($key == $data->Driver_buyer) ? 'selected' : '' }}>{{$value}}</option>
+                                  <select name="securitiesbuyer" class="form-control" style="width: 250px;">
+                                    <option value="" disabled selected>--- ประเภทหลักทรัพย์ ---</option>
+                                    @foreach ($securitiesSPp as $key => $value)
+                                      <option value="{{$key}}" {{ ($key == $data->securities_buyer) ? 'selected' : '' }}>{{$value}}</option>
                                     @endforeach
                                   </select>
                                 @else
                                   @if($GetDocComplete != Null)
-                                    <input type="text" name="Driverbuyer" value="{{ $data->Driver_buyer }}" class="form-control" style="width: 250px;" placeholder="เลือกใบขับขี่" readonly/>
+                                    <input type="text" name="securitiesbuyer" value="{{ $data->securities_buyer }}" class="form-control" style="width: 250px;" placeholder="ประเภทหลักทรัพย์" readonly/>
                                   @else
-                                    <select name="Driverbuyer" class="form-control" style="width: 250px;">
-                                      <option value="" disabled selected>--- เลือกใบขับขี่ ---</option>
-                                      @foreach ($Driverby as $key => $value)
-                                        <option value="{{$key}}" {{ ($key == $data->Driver_buyer) ? 'selected' : '' }}>{{$value}}</option>
+                                    <select name="securitiesbuyer" class="form-control" style="width: 250px;">
+                                      <option value="" disabled selected>--- ประเภทหลักทรัพย์ ---</option>
+                                      @foreach ($securitiesSPp as $key => $value)
+                                        <option value="{{$key}}" {{ ($key == $data->securities_buyer) ? 'selected' : '' }}>{{$value}}</option>
                                       @endforeach
                                     </select>
                                   @endif
                                 @endif
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                             <div class="col-md-5">
+                              <div class="form-inline" align="right">
+                                <label>เลขที่โฉนด : </label>
+                                      @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                        <input type="text" name="deednumberbuyer" value="{{$data->deednumber_buyer}}" class="form-control" style="width: 250px;" placeholder="เลขที่โฉนด" />
+                                      @else
+                                        @if($GetDocComplete != Null)
+                                          <input type="text" name="deednumberbuyer" value="{{$data->deednumber_buyer}}" class="form-control" style="width: 250px;" placeholder="เลขที่โฉนด" readonly/>
+                                        @else
+                                          <input type="text" name="deednumberbuyer" value="{{$data->deednumber_buyer}}" class="form-control" style="width: 250px;" placeholder="เลขที่โฉนด" />
+                                        @endif
+                                      @endif
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <div class="form-inline" align="right">
+                                <label>เนื้อที่ : </label>
+                                     @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                        <input type="text" name="areabuyer" value="{{$data->area_buyer}}" class="form-control" style="width: 250px;" placeholder="เนื้อที่" data-inputmask="&quot;mask&quot;:&quot;99-9-99&quot;" data-mask=""/>
+                                     @else
+                                       @if($GetDocComplete != Null)
+                                          <input type="text" name="areabuyer" value="{{$data->area_buyer}}" class="form-control" style="width: 250px;" placeholder="เนื้อที่" data-inputmask="&quot;mask&quot;:&quot;99-9-99&quot;" data-mask="" readonly/>
+                                       @else
+                                          <input type="text" name="areabuyer" value="{{$data->area_buyer}}" class="form-control" style="width: 250px;" placeholder="เนื้อที่" data-inputmask="&quot;mask&quot;:&quot;99-9-99&quot;" data-mask=""/>
+                                       @endif
+                                     @endif
                               </div>
                             </div>
                           </div>
@@ -509,72 +549,51 @@
                               </div>
                             </div>
                           </div>
-
                           <div class="row">
                              <div class="col-md-5">
-                              <div class="form-inline" align="right">
-                                <label>รายได้ : </label>
-                                @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                  <select name="Incomebuyer" class="form-control" style="width: 250px;">
-                                    <option value="" disabled selected>--- รายได้ ---</option>
-                                    @foreach ($Incomeby as $key => $value)
-                                      <option value="{{$key}}" {{ ($key == $data->Income_buyer) ? 'selected' : '' }}>{{$value}}</option>
-                                    @endforeach
-                                  </select>
-                                @else
-                                  @if($GetDocComplete != Null)
-                                    <input type="text" name="Incomebuyer" value="{{ $data->Income_buyer }}" class="form-control" style="width: 250px;" placeholder="เลือกรายได้" readonly/>
-                                  @else
-                                    <select name="Incomebuyer" class="form-control" style="width: 250px;">
-                                      <option value="" disabled selected>--- รายได้ ---</option>
-                                      @foreach ($Incomeby as $key => $value)
-                                        <option value="{{$key}}" {{ ($key == $data->Income_buyer) ? 'selected' : '' }}>{{$value}}</option>
-                                      @endforeach
-                                    </select>
-                                  @endif
-                                @endif
-                              </div>
+                               <div class="form-inline" align="right">
+                                 <label>รายได้ : </label>
+                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                   <select name="Incomebuyer" class="form-control" style="width: 250px;">
+                                     <option value="" disabled selected>--- รายได้ ---</option>
+                                     @foreach ($Incomeby as $key => $value)
+                                       <option value="{{$key}}" {{ ($key == $data->Income_buyer) ? 'selected' : '' }}>{{$value}}</option>
+                                     @endforeach
+                                   </select>
+                                 @else
+                                   @if($GetDocComplete != Null)
+                                     <input type="text" name="Incomebuyer" value="{{ $data->Income_buyer }}" class="form-control" style="width: 250px;" placeholder="เลือกรายได้" readonly/>
+                                   @else
+                                     <select name="Incomebuyer" class="form-control" style="width: 250px;">
+                                       <option value="" disabled selected>--- รายได้ ---</option>
+                                       @foreach ($Incomeby as $key => $value)
+                                         <option value="{{$key}}" {{ ($key == $data->Income_buyer) ? 'selected' : '' }}>{{$value}}</option>
+                                       @endforeach
+                                     </select>
+                                   @endif
+                                 @endif
+                               </div>
+
                             </div>
 
                             <div class="col-md-6">
                               <div class="form-inline" align="right">
-                                <label>ประวัติการซื้อ/ค้ำ : </label>
+                                <label>ใบขับขี่ : </label>
                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                  <select name="Purchasebuyer" class="form-control" style="width: 108px;">
-                                    <option value="" disabled selected>--- ซื้อ ---</option>
-                                    @foreach ($HisCarby as $key => $value)
-                                      <option value="{{$key}}" {{ ($key == $data->Purchase_buyer) ? 'selected' : '' }}>{{$value}}</option>
+                                  <select name="Driverbuyer" class="form-control" style="width: 250px;">
+                                    <option value="" disabled selected>--- เลือกใบขับขี่ ---</option>
+                                    @foreach ($Driverby as $key => $value)
+                                      <option value="{{$key}}" {{ ($key == $data->Driver_buyer) ? 'selected' : '' }}>{{$value}}</option>
                                     @endforeach
                                   </select>
                                 @else
                                   @if($GetDocComplete != Null)
-                                    <input type="text" name="Purchasebuyer" value="{{ $data->Purchase_buyer }}" class="form-control" style="width: 108px;" placeholder="ซื้อ" readonly/>
+                                    <input type="text" name="Driverbuyer" value="{{ $data->Driver_buyer }}" class="form-control" style="width: 250px;" placeholder="เลือกใบขับขี่" readonly/>
                                   @else
-                                    <select name="Purchasebuyer" class="form-control" style="width: 108px;">
-                                      <option value="" disabled selected>--- ซื้อ ---</option>
-                                      @foreach ($HisCarby as $key => $value)
-                                        <option value="{{$key}}" {{ ($key == $data->Purchase_buyer) ? 'selected' : '' }}>{{$value}}</option>
-                                      @endforeach
-                                    </select>
-                                  @endif
-                                @endif
-
-                                <label>ค้ำ : </label>
-                                @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                  <select name="Supportbuyer" class="form-control" style="width: 108px;">
-                                    <option value="" disabled selected>--- ค้ำ ---</option>
-                                    @foreach ($HisCarby as $key => $value)
-                                      <option value="{{$key}}" {{ ($key == $data->Support_buyer) ? 'selected' : '' }}>{{$value}}</option>
-                                    @endforeach
-                                  </select>
-                                @else
-                                  @if($GetDocComplete != Null)
-                                    <input type="text" name="Supportbuyer" value="{{ $data->Support_buyer }}" class="form-control" style="width: 108px;" placeholder="ค้ำ" readonly/>
-                                  @else
-                                    <select name="Supportbuyer" class="form-control" style="width: 108px;">
-                                      <option value="" disabled selected>--- ค้ำ ---</option>
-                                      @foreach ($HisCarby as $key => $value)
-                                        <option value="{{$key}}" {{ ($key == $data->Support_buyer) ? 'selected' : '' }}>{{$value}}</option>
+                                    <select name="Driverbuyer" class="form-control" style="width: 250px;">
+                                      <option value="" disabled selected>--- เลือกใบขับขี่ ---</option>
+                                      @foreach ($Driverby as $key => $value)
+                                        <option value="{{$key}}" {{ ($key == $data->Driver_buyer) ? 'selected' : '' }}>{{$value}}</option>
                                       @endforeach
                                     </select>
                                   @endif
@@ -583,7 +602,65 @@
                             </div>
                           </div>
 
+                          <div class="row">
+                             <div class="col-md-5">
+                               <div class="form-inline" align="right">
+                                 <label>ประวัติการซื้อ/ค้ำ : </label>
+                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                   <select name="Purchasebuyer" class="form-control" style="width: 108px;">
+                                     <option value="" disabled selected>--- ซื้อ ---</option>
+                                     @foreach ($HisCarby as $key => $value)
+                                       <option value="{{$key}}" {{ ($key == $data->Purchase_buyer) ? 'selected' : '' }}>{{$value}}</option>
+                                     @endforeach
+                                   </select>
+                                 @else
+                                   @if($GetDocComplete != Null)
+                                     <input type="text" name="Purchasebuyer" value="{{ $data->Purchase_buyer }}" class="form-control" style="width: 108px;" placeholder="ซื้อ" readonly/>
+                                   @else
+                                     <select name="Purchasebuyer" class="form-control" style="width: 108px;">
+                                       <option value="" disabled selected>--- ซื้อ ---</option>
+                                       @foreach ($HisCarby as $key => $value)
+                                         <option value="{{$key}}" {{ ($key == $data->Purchase_buyer) ? 'selected' : '' }}>{{$value}}</option>
+                                       @endforeach
+                                     </select>
+                                   @endif
+                                 @endif
+
+                                 <label>ค้ำ : </label>
+                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                   <select name="Supportbuyer" class="form-control" style="width: 108px;">
+                                     <option value="" disabled selected>--- ค้ำ ---</option>
+                                     @foreach ($HisCarby as $key => $value)
+                                       <option value="{{$key}}" {{ ($key == $data->Support_buyer) ? 'selected' : '' }}>{{$value}}</option>
+                                     @endforeach
+                                   </select>
+                                 @else
+                                   @if($GetDocComplete != Null)
+                                     <input type="text" name="Supportbuyer" value="{{ $data->Support_buyer }}" class="form-control" style="width: 108px;" placeholder="ค้ำ" readonly/>
+                                   @else
+                                     <select name="Supportbuyer" class="form-control" style="width: 108px;">
+                                       <option value="" disabled selected>--- ค้ำ ---</option>
+                                       @foreach ($HisCarby as $key => $value)
+                                         <option value="{{$key}}" {{ ($key == $data->Support_buyer) ? 'selected' : '' }}>{{$value}}</option>
+                                       @endforeach
+                                     </select>
+                                   @endif
+                                 @endif
+                               </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                            </div>
+                          </div>
+
                           <br>
+                          <input type="hidden" name="fdate" value="{{ $fdate }}" />
+                          <input type="hidden" name="tdate" value="{{ $tdate }}" />
+                          <input type="hidden" name="branch" value="{{ $branch }}" />
+                          <input type="hidden" name="status" value="{{ $status }}" />
+
                           <div class="row">
                             <div class="col-md-12">
                               <h3 class="text-center">รูปภาพประกอบ</h3>
@@ -591,6 +668,15 @@
                                 <div class="file-loading">
                                   <input id="image-file" type="file" name="file_image[]" accept="image/*" data-min-file-count="1" multiple>
                                 </div>
+                                @if($countImage != 0)
+                                <!-- <br/>
+                                <a href="{{ action('AnalysController@deleteImageAll',$data->id) }}" class="btn btn-danger pull-right" title="ลบรูปทั้งหมด" onclick="return confirm('คุณต้องการลบรูปทั้งหมดหรือไม่?')"> ลบรูปทั้งหมด.. </a>
+                                <br/>-->
+                                <br/>
+                                <a href="{{ action('AnalysController@deleteImageEach',[$data->id,$type,$fdate,$tdate,$branch,$status]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
+                                <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ.. 
+                                </a>
+                                @endif
                               </div>
                             </div>
                           </div>
@@ -2052,7 +2138,8 @@
                     <button type="submit" class="delete-modal btn btn-success">
                       <span class="glyphicon glyphicon-floppy-save"></span> อัพเดท
                     </button>
-                    <a class="delete-modal btn btn-danger" href="{{ URL::previous() }}">
+                    <!-- <a class="delete-modal btn btn-danger" href="{{ URL::previous() }}"> -->
+                    <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}">
                       <span class="glyphicon glyphicon-remove"></span> ยกเลิก
                     </a>
                   </div>
@@ -2113,6 +2200,12 @@
       $(function () {
         $('[data-mask]').inputmask()
       })
+      </script>
+
+      <script type="text/javascript">
+        $(".alert").fadeTo(3000, 1000).slideUp(1000, function(){
+        $(".alert").alert('close');
+        });
       </script>
 
     </section>
