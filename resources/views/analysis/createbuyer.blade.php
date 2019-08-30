@@ -115,14 +115,14 @@
                                    <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                       <label>ชื่อ : </label>
-                                      <input type="text" name="Namebuyer" class="form-control" style="width: 250px;" placeholder="ป้อนชื่อ" />
+                                      <input type="text" name="Namebuyer" class="form-control cha" style="width: 250px;" placeholder="ป้อนชื่อ" />
                                     </div>
                                   </div>
 
                                   <div class="col-md-6">
                                     <div class="form-inline" align="right">
                                       <label>นามสกุล : </label>
-                                      <input type="text" name="lastbuyer" class="form-control" style="width: 250px;" placeholder="ป้อนนามสกุล" />
+                                      <input type="text" name="lastbuyer" class="form-control cha" style="width: 250px;" placeholder="ป้อนนามสกุล" />
                                     </div>
                                   </div>
                                 </div>
@@ -131,7 +131,7 @@
                                    <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                       <label>ชื่อเล่น : </label>
-                                      <input type="text" name="Nickbuyer" class="form-control" style="width: 250px;" placeholder="ป้อนชื่อเล่น" />
+                                      <input type="text" name="Nickbuyer" class="form-control cha" style="width: 250px;" placeholder="ป้อนชื่อเล่น" />
                                     </div>
                                   </div>
 
@@ -169,7 +169,7 @@
                                    <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                       <label>คู่สมรส : </label>
-                                      <input type="text" name="Matebuyer" class="form-control" style="width: 250px;" placeholder="ป้อนคู่สมรส" />
+                                      <input type="text" name="Matebuyer" class="form-control cha" style="width: 250px;" placeholder="ป้อนคู่สมรส" />
                                     </div>
                                   </div>
 
@@ -251,7 +251,7 @@
                                    <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                       <label>เลขที่โฉนด : </label>
-                                      <input type="text" name="deednumberbuyer" class="form-control" style="width: 250px;" placeholder="เลขที่โฉนด" />
+                                      <input type="text" name="deednumberbuyer" class="form-control int" style="width: 250px;" placeholder="เลขที่โฉนด" />
                                     </div>
                                   </div>
 
@@ -423,14 +423,14 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                        <label>ชื่อ : </label>
-                                       <input type="text" name="nameSP" class="form-control" style="width: 250px;" placeholder="ชื่อ" />
+                                       <input type="text" name="nameSP" class="form-control cha" style="width: 250px;" placeholder="ชื่อ" />
                                      </div>
                                   </div>
 
                                   <div class="col-md-6">
                                    <div class="form-inline" align="right">
                                        <label>นามสกุล : </label>
-                                       <input type="text" name="lnameSP" class="form-control" style="width: 250px;" placeholder="นามสกุล" />
+                                       <input type="text" name="lnameSP" class="form-control cha" style="width: 250px;" placeholder="นามสกุล" />
                                    </div>
                                   </div>
                                 </div>
@@ -439,7 +439,7 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                        <label>ชื่อเล่น : </label>
-                                       <input type="text" name="niknameSP" class="form-control" style="width: 250px;" placeholder="ชื่อเล่น" />
+                                       <input type="text" name="niknameSP" class="form-control cha" style="width: 250px;" placeholder="ชื่อเล่น" />
                                      </div>
                                   </div>
 
@@ -484,7 +484,7 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                        <label>คู่สมรส : </label>
-                                       <input type="text" name="mateSP" class="form-control" style="width: 250px;" placeholder="คู่สมรส" />
+                                       <input type="text" name="mateSP" class="form-control cha" style="width: 250px;" placeholder="คู่สมรส" />
                                      </div>
                                   </div>
 
@@ -564,7 +564,7 @@
                                     <div class="col-md-5">
                                       <div class="form-inline" align="right">
                                           <label>เลขที่โฉนด : </label>
-                                          <input type="text" name="deednumberSP" class="form-control" style="width: 250px;" placeholder="เลขที่โฉนด" />
+                                          <input type="text" name="deednumberSP" class="form-control int" style="width: 250px;" placeholder="เลขที่โฉนด" />
                                       </div>
                                     </div>
                                     <div class="col-md-6">
@@ -1107,7 +1107,7 @@
                                   <div class="col-md-6">
                                    <div class="form-inline" align="right">
                                        <label>เปอร์เซ็นจัดไฟแนนซ์ : </label>
-                                       <input type="text" name="Percentcar" class="form-control" style="width: 250px;" placeholder="เปอร์เซ็นจัดไฟแนนซ์" />
+                                       <input type="text" name="Percentcar" class="form-control int" style="width: 250px;" placeholder="เปอร์เซ็นจัดไฟแนนซ์" />
                                    </div>
                                   </div>
                                 </div>
@@ -1117,7 +1117,7 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                        <label>ผู้รับเงิน : </label>
-                                       <input type="text" name="Payeecar" class="form-control" style="width: 250px;" placeholder="ผู้รับเงิน" />
+                                       <input type="text" name="Payeecar" class="form-control cha" style="width: 250px;" placeholder="ผู้รับเงิน" />
                                      </div>
                                   </div>
 
@@ -1136,7 +1136,7 @@
                                   <div class="col-md-6">
                                     <div class="form-inline" align="right">
                                       <label>สาขา : </label>
-                                      <input type="text" name="branchbrancecar" class="form-control" style="width: 250px;" placeholder="สาขาผู้รับเงิน" />
+                                      <input type="text" name="branchbrancecar" class="form-control cha" style="width: 250px;" placeholder="สาขาผู้รับเงิน" />
                                     </div>
                                   </div>
                                 </div>
@@ -1157,7 +1157,7 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                        <label>แนะนำ/นายหน้า : </label>
-                                       <input type="text" name="Agentcar" class="form-control" style="width: 250px;" placeholder="แนะนำ/นายหน้า" />
+                                       <input type="text" name="Agentcar" class="form-control cha" style="width: 250px;" placeholder="แนะนำ/นายหน้า" />
                                      </div>
                                   </div>
 
@@ -1180,7 +1180,7 @@
                                   <div class="col-md-6">
                                     <div class="form-inline" align="right">
                                       <label>สาขา : </label>
-                                      <input type="text" name="branchAgentcar" class="form-control" style="width: 250px;" placeholder="สาขานายหน้า" />
+                                      <input type="text" name="branchAgentcar" class="form-control cha" style="width: 250px;" placeholder="สาขานายหน้า" />
                                     </div>
                                   </div>
                                 </div>
@@ -1478,6 +1478,37 @@
         $('[data-mask]').inputmask()
       })
       </script>
+
+      <script>
+          $(".float").on("keypress keyup blur",function (event) {
+          //this.value = this.value.replace(/[^0-9\.]/g,'');
+          $(this).val($(this).val().replace(/[^0-9\.]/g,''));
+          if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
+          event.preventDefault();
+          }
+          });
+
+          $(".int").on("keypress keyup blur",function (event) {
+          $(this).val($(this).val().replace(/[^\d].+/, ""));
+          if ((event.which < 48 || event.which > 57)) {
+          event.preventDefault();
+          }
+          });
+
+          $(function () {
+          $('.cha').keydown(function (e) {
+          if (e.shiftKey || e.ctrlKey || e.altKey) {
+          e.preventDefault();
+          } else {
+          var key = e.keyCode;
+          if (!((key == 8) || (key == 32) || (key == 46) || (key >= 35 && key <= 40) || (key >= 65 && key <= 90))) {
+          e.preventDefault();
+          }
+          }
+          });
+          });
+      </script>
+
 
     </section>
 
