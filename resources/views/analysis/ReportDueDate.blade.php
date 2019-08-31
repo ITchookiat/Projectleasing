@@ -97,7 +97,16 @@
           @php
             $countcar = $key+1;
             $sumtopcar += $value->Top_car;
-            $sumtotalkprice += str_replace(",","",$value->totalk_Price);
+
+            @$sumtotran_Price += str_replace(",","",$value->tran_Price);
+            @$sumtoother_Price += str_replace(",","",$value->other_Price);
+            $sumtotransport = $sumtotran_Price +  $sumtoother_Price;
+
+            @$sumtoevaluetion_Price += str_replace(",","",$value->evaluetion_Price);
+            @$sumtomarketing_Price += str_replace(",","",$value->marketing_Price);
+            @$sumtoduty_Price += str_replace(",","",$value->duty_Price);
+            $sumtocompany = $sumtoevaluetion_Price + $sumtomarketing_Price + $sumtoduty_Price;
+
             $sumbalanceprice += str_replace(",","",$value->balance_Price);
             $sumcommitprice += str_replace(",","",$value->commit_Price);
           @endphp
@@ -216,11 +225,12 @@
         @endphp
           <tr align="center" style="line-height: 200%;">
             <td width="115px" style="background-color: #FFFF00; line-height:250%;">รวมยอดจัดเป็นคัน    {{$countcar}}    คัน</td>
-            <td width="155px" style="background-color: #00FFFF; line-height:250%;">รวมยอดจัดเป็นเงิน      {{number_format($sumtopcar)}}</td>
-            <td width="125px" style="background-color: #00FFFF; line-height:250%;">รวมค่าใช้จ่าย     {{number_format($sumtotalkprice)}}</td>
-            <td width="115px" style="background-color: #00FFFF; line-height:250%;">รวมค่ารถ     {{number_format($sumbalanceprice)}}</td>
-            <td width="140px" style="background-color: #00FFFF; line-height:250%;">รวมค่าคอม     {{number_format($sumcommitprice)}}</td>
-            <td width="165px" style="background-color: #00FFFF; line-height:250%;">ยอดรวมอนุมัติ        {{number_format($sumall)}}</td>
+            <td width="100px" style="background-color: #00FFFF; line-height:250%;">รวมยอดจัดเป็นเงิน      {{number_format($sumtopcar)}}</td>
+            <td width="120px" style="background-color: #00FFFF; line-height:250%;">รวมค่าใช้จ่ายขนส่ง     {{number_format($sumtotransport)}}</td>
+            <td width="95px" style="background-color: #00FFFF; line-height:250%;">รวมค่าใช้จ่ายบริษัท     {{number_format($sumtocompany)}}</td>
+            <td width="110px" style="background-color: #00FFFF; line-height:250%;">รวมค่ารถ     {{number_format($sumbalanceprice)}}</td>
+            <td width="110px" style="background-color: #00FFFF; line-height:250%;">รวมค่าคอม     {{number_format($sumcommitprice)}}</td>
+            <td width="165px" style="background-color: #FFFF00; line-height:250%;">ยอดรวมอนุมัติ        {{number_format($sumall)}}</td>
           </tr>
       @endif
       </tbody>
