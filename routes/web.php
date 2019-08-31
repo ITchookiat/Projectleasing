@@ -55,8 +55,9 @@ Route::group(['middleware' => 'auth'], function()
 
     Route::get('/ExportExcel/{type}', 'ExcelController@excel');
 
-    Route::get('/Legislation/store/{Str1}/{Str2}', 'LegislationController@store')->name('legislation.store');
+    Route::get('/Legislation/store/{Str1}/{Str2}/{Realty}', 'LegislationController@store')->name('legislation.store');
     Route::get('/Legislation/Home/{type}', 'LegislationController@index')->name('legislation');
+    Route::get('/Legislation/edit/{id}', 'LegislationController@edit')->name('legislation.edit');
     Route::delete('/Legislation/delete/{id}', 'LegislationController@destroy')->name('legislation.destroy');
 
 //---------------- ยังไม่ใช้งาน --------------------//

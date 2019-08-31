@@ -933,15 +933,14 @@ class AnalysController extends Controller
     public function update(Request $request, $id, $type)
     {
         date_default_timezone_set('Asia/Bangkok');
-        // dd($request->fdate);
-        // $this->validate($request,['Approverscar' => 'required']);
 
         $newDateDue = \Carbon\Carbon::parse($request->DateDue)->format('Y') ."-". \Carbon\Carbon::parse($request->DateDue)->format('m')."-". \Carbon\Carbon::parse($request->DateDue)->format('d');
         $SetPhonebuyer = str_replace ( "_","",$request->get('Phonebuyer'));
 
-
         $Getcardetail = Cardetail::where('Buyercar_id',$id)->first();
         $Gethomecardetail = homecardetail::where('Buyerhomecar_id',$id)->first();
+
+        // dd('sdfghj');
 
         if ($request->get('Approverscar') != Null) {
           if ($Getcardetail->Date_Appcar == Null) {
@@ -1227,11 +1226,15 @@ class AnalysController extends Controller
           }else {
             $SetStatusApp = 'รออนุมัติ';
           }
-
+          
           if ($request->get('Checkcar') != Null) {
             $SetCheckcar = $request->get('Checkcar');
           }else {
-            $SetCheckcar = Null;
+            if ($cardetail->Check_car != Null) {
+              $SetCheckcar = $cardetail->Check_car;
+            }else {
+              $SetCheckcar = Null;
+            }
           }
 
           $cardetail->Insurance_car = $request->get('Insurancecar');

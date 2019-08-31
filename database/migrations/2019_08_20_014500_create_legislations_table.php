@@ -29,6 +29,7 @@ class CreateLegislationsTable extends Migration
             $table->string('DateVAT_legis')->nullable();
             $table->string('NameGT_legis')->nullable();
             $table->string('IdcardGT_legis')->nullable();
+            $table->string('Realty_legis')->nullable();
             $table->string('Note')->nullable();
             $table->string('Flag')->nullable();
             $table->timestamps();

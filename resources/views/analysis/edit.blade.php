@@ -111,10 +111,10 @@
   </style>
 
     <section class="content-header">
-      <h1>
+      <!-- <h1>
         สินเชื่อ
         <small>it all starts here</small>
-      </h1>
+      </h1> -->
     </section>
 
     <!-- Main content -->
@@ -674,7 +674,7 @@
                                 <br/>-->
                                 <br/>
                                 <a href="{{ action('AnalysController@deleteImageEach',[$data->id,$type,$fdate,$tdate,$branch,$status]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
-                                <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ.. 
+                                <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ..
                                 </a>
                                 @endif
                               </div>
@@ -2102,8 +2102,6 @@
                             <p></p>
                             </label>
                           </th>
-
-
                         </tr>
                       </tbody>
                     </table>

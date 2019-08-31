@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use Carbon\Carbon;
+
 use App\Legislation;
 
 class LegislationController extends Controller
@@ -20,34 +22,44 @@ class LegislationController extends Controller
                   ->table('SFHP.ARMAST')
                   ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
                   ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
-                  // ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
                   ->whereBetween('SFHP.ARMAST.HLDNO',[6.7,7.69])
                   ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
                   ->get();
 
-                $count = count($data);
-                for($i=0; $i<$count; $i++){
-                  $str[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$data[$i]->CONTSTAT)));
-                  if ($str[$i] == "ฟ") {
-                    $result[] = $data[$i];
+                  $count = count($data);
+                  for($i=0; $i<$count; $i++){
+                    $str[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$data[$i]->CONTSTAT)));
+                    if ($str[$i] == "ฟ") {
+                      $result[] = $data[$i];
+                    }
                   }
-                }
+
+        $dataAro = DB::connection('ibmi')
+                  ->table('SFHP.ARMAST')
+                  ->join('SFHP.AROTHGAR','SFHP.ARMAST.CONTNO','=','SFHP.AROTHGAR.CONTNO')
+                  ->whereBetween('SFHP.ARMAST.HLDNO',[6.7,7.69])
+                  ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                  ->get();
+
+                  $count2 = count($dataAro);
+                  for($j=0; $j<$count2; $j++){
+                    $str2[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$dataAro[$j]->CONTSTAT)));
+                    if ($str2[$j] == "ฟ") {
+                      $result2[] = $dataAro[$j];
+                    }
+                  }
 
         $data = DB::table('legislations')
                   ->orderBy('Contract_legis', 'ASC')
                   ->get();
 
-                  // dd($data);
-
         $type = $request->type;
-        return view('legislation.view', compact('type', 'result','data'));
+        return view('legislation.view', compact('type', 'result','data','result2'));
 
       }elseif ($request->type == 2) {
         $data = DB::table('legislations')
                   ->orderBy('Contract_legis', 'ASC')
                   ->get();
-
-        // dd($data);
 
         $type = $request->type;
         return view('legislation.view', compact('type', 'data'));
@@ -70,10 +82,9 @@ class LegislationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $SetStr1, $SetStr2)
+    public function store(Request $request, $SetStr1, $SetStr2, $SetRealty)
     {
-      // dd('ghjk.');
-         $SetStrConn = $SetStr1."/".$SetStr2;
+        $SetStrConn = $SetStr1."/".$SetStr2;
         $data = DB::connection('ibmi')
                   ->table('SFHP.ARMAST')
                   ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
@@ -102,6 +113,7 @@ class LegislationController extends Controller
           'DateVAT_legis' => $data->DTSTOPV,
           'NameGT_legis' => (iconv('Tis-620','utf-8',$dataGT->NAME)),
           'IdcardGT_legis' => (str_replace(" ","",$dataGT->IDNO)),
+          'Realty_legis' => $SetRealty,
           'Flag' => 'Y',
         ]);
         $LegisDB->save();
@@ -128,7 +140,11 @@ class LegislationController extends Controller
      */
     public function edit($id)
     {
-        //
+      $data = DB::table('legislations')
+                ->where('legislations.id',$id)->first();
+
+                dump($data);
+      return view('legislation.edit',compact('data'));
     }
 
     /**
