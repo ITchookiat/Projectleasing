@@ -111,10 +111,10 @@
   </style>
 
     <section class="content-header">
-      <!-- <h1>
+      <h1>
         สินเชื่อ
         <small>it all starts here</small>
-      </h1> -->
+      </h1>
     </section>
 
     <!-- Main content -->
@@ -207,12 +207,12 @@
                               <div class="form-inline" align="right">
                                 <label>ชื่อ : </label>
                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                  <input type="text" name="Namebuyer" value="{{ $data->Name_buyer }}" class="form-control cha" style="width: 250px;" placeholder="ป้อนชื่อ" />
+                                  <input type="text" name="Namebuyer" value="{{ $data->Name_buyer }}" class="form-control" style="width: 250px;" placeholder="ป้อนชื่อ" />
                                 @else
                                   @if($GetDocComplete != Null)
-                                    <input type="text" name="Namebuyer" value="{{ $data->Name_buyer }}" class="form-control cha" style="width: 250px;" placeholder="ป้อนชื่อ" readonly/>
+                                    <input type="text" name="Namebuyer" value="{{ $data->Name_buyer }}" class="form-control" style="width: 250px;" placeholder="ป้อนชื่อ" readonly/>
                                   @else
-                                    <input type="text" name="Namebuyer" value="{{ $data->Name_buyer }}" class="form-control cha" style="width: 250px;" placeholder="ป้อนชื่อ" />
+                                    <input type="text" name="Namebuyer" value="{{ $data->Name_buyer }}" class="form-control" style="width: 250px;" placeholder="ป้อนชื่อ" />
                                   @endif
                                 @endif
                               </div>
@@ -222,12 +222,12 @@
                               <div class="form-inline" align="right">
                                 <label>นามสกุล : </label>
                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                  <input type="text" name="lastbuyer" value="{{ $data->last_buyer }}" class="form-control cha" style="width: 250px;"  placeholder="ป้อนนามสกุล" />
+                                  <input type="text" name="lastbuyer" value="{{ $data->last_buyer }}" class="form-control" style="width: 250px;"  placeholder="ป้อนนามสกุล" />
                                 @else
                                   @if($GetDocComplete != Null)
-                                    <input type="text" name="lastbuyer" value="{{ $data->last_buyer }}" class="form-control cha" style="width: 250px;"  placeholder="ป้อนนามสกุล" readonly/>
+                                    <input type="text" name="lastbuyer" value="{{ $data->last_buyer }}" class="form-control" style="width: 250px;"  placeholder="ป้อนนามสกุล" readonly/>
                                   @else
-                                    <input type="text" name="lastbuyer" value="{{ $data->last_buyer }}" class="form-control cha" style="width: 250px;"  placeholder="ป้อนนามสกุล" />
+                                    <input type="text" name="lastbuyer" value="{{ $data->last_buyer }}" class="form-control" style="width: 250px;"  placeholder="ป้อนนามสกุล" />
                                   @endif
                                 @endif
                               </div>
@@ -239,12 +239,12 @@
                               <div class="form-inline" align="right">
                                 <label>ชื่อเล่น : </label>
                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                  <input type="text" name="Nickbuyer" value="{{ $data->Nick_buyer }}" class="form-control cha" style="width: 250px;" placeholder="ป้อนชื่อเล่น" />
+                                  <input type="text" name="Nickbuyer" value="{{ $data->Nick_buyer }}" class="form-control" style="width: 250px;" placeholder="ป้อนชื่อเล่น" />
                                 @else
                                   @if($GetDocComplete != Null)
-                                    <input type="text" name="Nickbuyer" value="{{ $data->Nick_buyer }}" class="form-control cha" style="width: 250px;" placeholder="ป้อนชื่อเล่น" readonly/>
+                                    <input type="text" name="Nickbuyer" value="{{ $data->Nick_buyer }}" class="form-control" style="width: 250px;" placeholder="ป้อนชื่อเล่น" readonly/>
                                   @else
-                                    <input type="text" name="Nickbuyer" value="{{ $data->Nick_buyer }}" class="form-control cha" style="width: 250px;" placeholder="ป้อนชื่อเล่น" />
+                                    <input type="text" name="Nickbuyer" value="{{ $data->Nick_buyer }}" class="form-control" style="width: 250px;" placeholder="ป้อนชื่อเล่น" />
                                   @endif
                                 @endif
                               </div>
@@ -471,12 +471,12 @@
                               <div class="form-inline" align="right">
                                 <label>เลขที่โฉนด : </label>
                                       @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                        <input type="text" name="deednumberbuyer" value="{{$data->deednumber_buyer}}" class="form-control int" style="width: 250px;" placeholder="เลขที่โฉนด" />
+                                        <input type="text" name="deednumberbuyer" value="{{$data->deednumber_buyer}}" class="form-control" style="width: 250px;" placeholder="เลขที่โฉนด" />
                                       @else
                                         @if($GetDocComplete != Null)
-                                          <input type="text" name="deednumberbuyer" value="{{$data->deednumber_buyer}}" class="form-control int" style="width: 250px;" placeholder="เลขที่โฉนด" readonly/>
+                                          <input type="text" name="deednumberbuyer" value="{{$data->deednumber_buyer}}" class="form-control" style="width: 250px;" placeholder="เลขที่โฉนด" readonly/>
                                         @else
-                                          <input type="text" name="deednumberbuyer" value="{{$data->deednumber_buyer}}" class="form-control int" style="width: 250px;" placeholder="เลขที่โฉนด" />
+                                          <input type="text" name="deednumberbuyer" value="{{$data->deednumber_buyer}}" class="form-control" style="width: 250px;" placeholder="เลขที่โฉนด" />
                                         @endif
                                       @endif
                               </div>
@@ -702,12 +702,12 @@
                                 <div class="form-inline" align="right">
                                    <label>ชื่อ : </label>
                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                      <input type="text" name="nameSP" value="{{$data->name_SP}}" class="form-control cha" style="width: 250px;" placeholder="ชื่อ" />
+                                      <input type="text" name="nameSP" value="{{$data->name_SP}}" class="form-control" style="width: 250px;" placeholder="ชื่อ" />
                                    @else
                                      @if($GetDocComplete != Null)
-                                        <input type="text" name="nameSP" value="{{$data->name_SP}}" class="form-control cha" style="width: 250px;" placeholder="ชื่อ" readonly/>
+                                        <input type="text" name="nameSP" value="{{$data->name_SP}}" class="form-control" style="width: 250px;" placeholder="ชื่อ" readonly/>
                                      @else
-                                        <input type="text" name="nameSP" value="{{$data->name_SP}}" class="form-control cha" style="width: 250px;" placeholder="ชื่อ" />
+                                        <input type="text" name="nameSP" value="{{$data->name_SP}}" class="form-control" style="width: 250px;" placeholder="ชื่อ" />
                                      @endif
                                    @endif
                                  </div>
@@ -717,12 +717,12 @@
                                <div class="form-inline" align="right">
                                    <label>นามสกุล : </label>
                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                      <input type="text" name="lnameSP" value="{{$data->lname_SP}}" class="form-control cha" style="width: 250px;" placeholder="นามสกุล" />
+                                      <input type="text" name="lnameSP" value="{{$data->lname_SP}}" class="form-control" style="width: 250px;" placeholder="นามสกุล" />
                                    @else
                                      @if($GetDocComplete != Null)
-                                        <input type="text" name="lnameSP" value="{{$data->lname_SP}}" class="form-control cha" style="width: 250px;" placeholder="นามสกุล" readonly/>
+                                        <input type="text" name="lnameSP" value="{{$data->lname_SP}}" class="form-control" style="width: 250px;" placeholder="นามสกุล" readonly/>
                                      @else
-                                        <input type="text" name="lnameSP" value="{{$data->lname_SP}}" class="form-control cha" style="width: 250px;" placeholder="นามสกุล" />
+                                        <input type="text" name="lnameSP" value="{{$data->lname_SP}}" class="form-control" style="width: 250px;" placeholder="นามสกุล" />
                                      @endif
                                    @endif
                                </div>
@@ -734,12 +734,12 @@
                                 <div class="form-inline" align="right">
                                    <label>ชื่อเล่น : </label>
                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                      <input type="text" name="niknameSP" value="{{$data->nikname_SP}}" class="form-control cha" style="width: 250px;" placeholder="ชื่อเล่น" />
+                                      <input type="text" name="niknameSP" value="{{$data->nikname_SP}}" class="form-control" style="width: 250px;" placeholder="ชื่อเล่น" />
                                    @else
                                      @if($GetDocComplete != Null)
-                                        <input type="text" name="niknameSP" value="{{$data->nikname_SP}}" class="form-control cha" style="width: 250px;" placeholder="ชื่อเล่น" readonly/>
+                                        <input type="text" name="niknameSP" value="{{$data->nikname_SP}}" class="form-control" style="width: 250px;" placeholder="ชื่อเล่น" readonly/>
                                      @else
-                                        <input type="text" name="niknameSP" value="{{$data->nikname_SP}}" class="form-control cha" style="width: 250px;" placeholder="ชื่อเล่น" />
+                                        <input type="text" name="niknameSP" value="{{$data->nikname_SP}}" class="form-control" style="width: 250px;" placeholder="ชื่อเล่น" />
                                      @endif
                                    @endif
                                  </div>
@@ -818,12 +818,12 @@
                                 <div class="form-inline" align="right">
                                    <label>คู่สมรส : </label>
                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                      <input type="text" name="mateSP" value="{{$data->mate_SP}}" class="form-control cha" style="width: 250px;" placeholder="คู่สมรส" />
+                                      <input type="text" name="mateSP" value="{{$data->mate_SP}}" class="form-control" style="width: 250px;" placeholder="คู่สมรส" />
                                    @else
                                      @if($GetDocComplete != Null)
-                                        <input type="text" name="mateSP" value="{{$data->mate_SP}}" class="form-control cha" style="width: 250px;" placeholder="คู่สมรส" readonly/>
+                                        <input type="text" name="mateSP" value="{{$data->mate_SP}}" class="form-control" style="width: 250px;" placeholder="คู่สมรส" readonly/>
                                      @else
-                                        <input type="text" name="mateSP" value="{{$data->mate_SP}}" class="form-control cha" style="width: 250px;" placeholder="คู่สมรส" />
+                                        <input type="text" name="mateSP" value="{{$data->mate_SP}}" class="form-control" style="width: 250px;" placeholder="คู่สมรส" />
                                      @endif
                                    @endif
                                  </div>
@@ -977,12 +977,12 @@
                                   <div class="form-inline" align="right">
                                       <label>เลขที่โฉนด : </label>
                                       @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                        <input type="text" name="deednumberSP" value="{{$data->deednumber_SP}}" class="form-control int" style="width: 250px;" placeholder="เลขที่โฉนด" />
+                                        <input type="text" name="deednumberSP" value="{{$data->deednumber_SP}}" class="form-control" style="width: 250px;" placeholder="เลขที่โฉนด" />
                                       @else
                                         @if($GetDocComplete != Null)
-                                          <input type="text" name="deednumberSP" value="{{$data->deednumber_SP}}" class="form-control int" style="width: 250px;" placeholder="เลขที่โฉนด" readonly/>
+                                          <input type="text" name="deednumberSP" value="{{$data->deednumber_SP}}" class="form-control" style="width: 250px;" placeholder="เลขที่โฉนด" readonly/>
                                         @else
-                                          <input type="text" name="deednumberSP" value="{{$data->deednumber_SP}}" class="form-control int" style="width: 250px;" placeholder="เลขที่โฉนด" />
+                                          <input type="text" name="deednumberSP" value="{{$data->deednumber_SP}}" class="form-control" style="width: 250px;" placeholder="เลขที่โฉนด" />
                                         @endif
                                       @endif
                                   </div>
@@ -1658,12 +1658,12 @@
                              <div class="form-inline" align="right">
                                  <label>เปอร์เซ็นจัดไฟแนนซ์ : </label>
                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                    <input type="text" name="Percentcar" value="{{$data->Percent_car}}" class="form-control int" style="width: 250px;" placeholder="เปอร์เซ็นจัดไฟแนนซ์" />
+                                    <input type="text" name="Percentcar" value="{{$data->Percent_car}}" class="form-control" style="width: 250px;" placeholder="เปอร์เซ็นจัดไฟแนนซ์" />
                                  @else
                                    @if($GetDocComplete != Null)
-                                      <input type="text" name="Percentcar" value="{{$data->Percent_car}}" class="form-control int" style="width: 250px;" placeholder="เปอร์เซ็นจัดไฟแนนซ์" readonly/>
+                                      <input type="text" name="Percentcar" value="{{$data->Percent_car}}" class="form-control" style="width: 250px;" placeholder="เปอร์เซ็นจัดไฟแนนซ์" readonly/>
                                    @else
-                                      <input type="text" name="Percentcar" value="{{$data->Percent_car}}" class="form-control int" style="width: 250px;" placeholder="เปอร์เซ็นจัดไฟแนนซ์" />
+                                      <input type="text" name="Percentcar" value="{{$data->Percent_car}}" class="form-control" style="width: 250px;" placeholder="เปอร์เซ็นจัดไฟแนนซ์" />
                                    @endif
                                  @endif
                              </div>
@@ -1676,12 +1676,12 @@
                               <div class="form-inline" align="right">
                                  <label>ผู้รับเงิน : </label>
                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                    <input type="text" name="Payeecar" value="{{$data->Payee_car}}" class="form-control cha" style="width: 250px;" placeholder="ผู้รับเงิน" />
+                                    <input type="text" name="Payeecar" value="{{$data->Payee_car}}" class="form-control" style="width: 250px;" placeholder="ผู้รับเงิน" />
                                  @else
                                    @if($GetDocComplete != Null)
-                                      <input type="text" name="Payeecar" value="{{$data->Payee_car}}" class="form-control cha" style="width: 250px;" placeholder="ผู้รับเงิน" readonly/>
+                                      <input type="text" name="Payeecar" value="{{$data->Payee_car}}" class="form-control" style="width: 250px;" placeholder="ผู้รับเงิน" readonly/>
                                    @else
-                                      <input type="text" name="Payeecar" value="{{$data->Payee_car}}" class="form-control cha" style="width: 250px;" placeholder="ผู้รับเงิน" />
+                                      <input type="text" name="Payeecar" value="{{$data->Payee_car}}" class="form-control" style="width: 250px;" placeholder="ผู้รับเงิน" />
                                    @endif
                                  @endif
                                </div>
@@ -1711,12 +1711,12 @@
                               <div class="form-inline" align="right">
                                 <label>สาขา : </label>
                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                    <input type="text" name="branchbrancecar" value="{{$data->branchbrance_car}}" class="form-control cha" style="width: 250px;" placeholder="สาขาผู้รับเงิน" />
+                                    <input type="text" name="branchbrancecar" value="{{$data->branchbrance_car}}" class="form-control" style="width: 250px;" placeholder="สาขาผู้รับเงิน" />
                                 @else
                                   @if($GetDocComplete != Null)
-                                      <input type="text" name="branchbrancecar" value="{{$data->branchbrance_car}}" class="form-control cha" style="width: 250px;" placeholder="สาขาผู้รับเงิน" readonly/>
+                                      <input type="text" name="branchbrancecar" value="{{$data->branchbrance_car}}" class="form-control" style="width: 250px;" placeholder="สาขาผู้รับเงิน" readonly/>
                                   @else
-                                      <input type="text" name="branchbrancecar" value="{{$data->branchbrance_car}}" class="form-control cha" style="width: 250px;" placeholder="สาขาผู้รับเงิน" />
+                                      <input type="text" name="branchbrancecar" value="{{$data->branchbrance_car}}" class="form-control" style="width: 250px;" placeholder="สาขาผู้รับเงิน" />
                                   @endif
                                 @endif
                               </div>
@@ -1748,12 +1748,12 @@
                               <div class="form-inline" align="right">
                                  <label>แนะนำ/นายหน้า : </label>
                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                    <input type="text" name="Agentcar" value="{{$data->Agent_car}}" class="form-control cha" style="width: 250px;" placeholder="แนะนำ/นายหน้า" />
+                                    <input type="text" name="Agentcar" value="{{$data->Agent_car}}" class="form-control" style="width: 250px;" placeholder="แนะนำ/นายหน้า" />
                                  @else
                                    @if($GetDocComplete != Null)
-                                      <input type="text" name="Agentcar" value="{{$data->Agent_car}}" class="form-control cha" style="width: 250px;" placeholder="แนะนำ/นายหน้า" readonly/>
+                                      <input type="text" name="Agentcar" value="{{$data->Agent_car}}" class="form-control" style="width: 250px;" placeholder="แนะนำ/นายหน้า" readonly/>
                                    @else
-                                      <input type="text" name="Agentcar" value="{{$data->Agent_car}}" class="form-control cha" style="width: 250px;" placeholder="แนะนำ/นายหน้า" />
+                                      <input type="text" name="Agentcar" value="{{$data->Agent_car}}" class="form-control" style="width: 250px;" placeholder="แนะนำ/นายหน้า" />
                                    @endif
                                  @endif
                                </div>
@@ -1795,12 +1795,12 @@
                               <div class="form-inline" align="right">
                                 <label>สาขา : </label>
                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                    <input type="text" name="branchAgentcar" value="{{$data->branchAgent_car}}" class="form-control cha" style="width: 250px;" placeholder="สาขานายหน้า"/>
+                                    <input type="text" name="branchAgentcar" value="{{$data->branchAgent_car}}" class="form-control" style="width: 250px;" placeholder="สาขานายหน้า"/>
                                 @else
                                   @if($GetDocComplete != Null)
-                                      <input type="text" name="branchAgentcar" value="{{$data->branchAgent_car}}" class="form-control cha" style="width: 250px;" placeholder="สาขานายหน้า" readonly/>
+                                      <input type="text" name="branchAgentcar" value="{{$data->branchAgent_car}}" class="form-control" style="width: 250px;" placeholder="สาขานายหน้า" readonly/>
                                   @else
-                                      <input type="text" name="branchAgentcar" value="{{$data->branchAgent_car}}" class="form-control cha" style="width: 250px;" placeholder="สาขานายหน้า"/>
+                                      <input type="text" name="branchAgentcar" value="{{$data->branchAgent_car}}" class="form-control" style="width: 250px;" placeholder="สาขานายหน้า"/>
                                   @endif
                                 @endif
                               </div>
@@ -2102,6 +2102,8 @@
                             <p></p>
                             </label>
                           </th>
+
+
                         </tr>
                       </tbody>
                     </table>

@@ -134,7 +134,7 @@ $date = date('Y-m-d', strtotime('-1 days'));
                         <tr>
                           <th class="text-center">สาขา</th>
                           <th class="text-center">เลขที่สัญญา</th>
-                          <th class="text-center">สถานะ</th>
+                          <th class="text-center">แบบ</th>
                           <th class="text-center">ยีห้อ</th>
                           <th class="text-center">ทะเบียนเดิม</th>
                           <th class="text-center">ปี</th>
@@ -170,7 +170,7 @@ $date = date('Y-m-d', strtotime('-1 days'));
                               @endif
                               <span class="checkmark"></span>
                               </label>
-                              
+
                               <label class="con2">
                               @if ( $row->tran_Price != 0)
                                 <input type="checkbox" class="checkbox" name="Checkcar" id="" checked="checked" disabled>
