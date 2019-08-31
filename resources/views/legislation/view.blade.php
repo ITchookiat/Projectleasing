@@ -24,7 +24,7 @@ $date = date('Y-m-d', strtotime('-1 days'));
 
     <section class="content-header">
       <h1>
-        สินเชื่อ
+        กฏหมาย
         <small>it all starts here</small>
       </h1>
     </section>
@@ -36,11 +36,9 @@ $date = date('Y-m-d', strtotime('-1 days'));
       <div class="box box-warning box-solid">
         <div class="box-header with-border">
           @if($type == 1)
-            <!-- <h3 class="box-title" align="center">รายชื่อส่งฟ้อง</h3> -->
             <h4 class="card-title" align="center"><b>รายชื่อส่งฟ้อง</b></h4>
           @elseif($type == 2)
-          <!-- <h3 class="box-title" align="center">งานฟ้อง</h3> -->
-          <h4 class="card-title" align="center"><b>แก้ไขข้อมูลสัญญา</b></h4>
+            <h4 class="card-title" align="center"><b>งานฟ้อง</b></h4>
           @endif
 
           <div class="box-tools pull-right">
@@ -86,6 +84,7 @@ $date = date('Y-m-d', strtotime('-1 days'));
                             <th class="text-center">วันที่ทำสัญญา</th>
                             <th class="text-center">ยี่ห้อ</th>
                             <th class="text-center">ปีรถ</th>
+                            <th class="text-center">สถานะ</th>
                             <th class="text-center" style="width: 100px">ตัวเลือก</th>
                           </tr>
                         </thead>
@@ -101,12 +100,43 @@ $date = date('Y-m-d', strtotime('-1 days'));
                               <td class="text-center"> {{$row->MANUYR}} </td>
                               <td class="text-center">
                                 @php
+                                  $Flag = "N";
+                                  $SetBaab = iconv('Tis-620','utf-8',str_replace(" ","",$row->BAAB));
+                                @endphp
+
+                                @foreach($result2 as $key => $value)
+                                  @if($row->CONTNO == $value->CONTNO)
+                                    มีหลักพรัทย์
+                                    @php
+                                      $Flag = "Y";
+                                      $Realty = "มีหลักพรัทย์";
+                                    @endphp
+                                  @endif
+                                @endforeach
+
+                                @if($Flag == "N")
+                                  @if($SetBaab == "มีหลักพรัทย์")
+                                    มีหลักพรัทย์
+                                    @php
+                                      $Realty = "มีหลักพรัทย์";
+                                    @endphp
+                                  @else
+                                    ไม่มีหลักพรัทย์
+                                    @php
+                                      $Realty = "ไม่มีหลักพรัทย์";
+                                    @endphp
+                                  @endif
+                                @endif
+                              </td>
+                              <td class="text-center">
+                                @php
                                    $StrCon = explode("/",$row->CONTNO);
                                    $SetStr1 = $StrCon[0];
                                    $SetStr2 = $StrCon[1];
 
                                    $Tax = "N";
                                 @endphp
+
                                 @foreach($data as $key => $row1)
                                   @if($row->CONTNO == $row1->Contract_legis)
                                     <button class="btn btn-success btn-sm" title="ส่งฟ้องแล้ว">
@@ -119,7 +149,7 @@ $date = date('Y-m-d', strtotime('-1 days'));
                                 @endforeach
 
                                 @if($Tax == "N")
-                                  <a href="{{ route('legislation.store', [$SetStr1,$SetStr2]) }}" id="edit" class="btn btn-danger btn-sm" title="ส่งฟ้อง">
+                                  <a href="{{ route('legislation.store', [$SetStr1,$SetStr2,$Realty]) }}" id="edit" class="btn btn-danger btn-sm" title="ส่งฟ้อง">
                                     <span class="glyphicon glyphicon-edit"></span> รอส่งฟ้อง
                                   </a>
                                 @endif
@@ -167,7 +197,7 @@ $date = date('Y-m-d', strtotime('-1 days'));
                               <a target="_blank" href="#" class="btn btn-info btn-sm" title="พิมพ์">
                                 <span class="glyphicon glyphicon-eye-open"></span> พิมพ์
                               </a>
-                              <a href="#" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
+                              <a href="{{ action('LegislationController@edit',[$row->id]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                 <span class="glyphicon glyphicon-pencil"></span> แก้ไข
                               </a>
                               <div class="form-inline form-group">

@@ -139,7 +139,7 @@ $date = date('Y-m-d', strtotime('-1 days'));
                           <th class="text-center">ทะเบียนเดิม</th>
                           <th class="text-center">ปี</th>
                           <th class="text-center">ยอดจัด</th>
-                          <th class="text-center">เอกสาร</th>
+                          <th class="text-center">เอกสาร/แก้ไข</th>
                           <th class="text-center">ตรวจสอบ</th>
                           <th class="text-center">สถานะอนุมัติ</th>
                           <th class="text-center" style="width: 200px">ตัวเลือก</th>
@@ -164,6 +164,15 @@ $date = date('Y-m-d', strtotime('-1 days'));
                             <td class="text-center">
                               <label class="con">
                               @if ( $row->DocComplete_car != Null)
+                                <input type="checkbox" class="checkbox" name="Checkcar" id="" checked="checked" disabled>
+                              @else
+                                <input type="checkbox" class="checkbox" name="Checkcar" id="" disabled>
+                              @endif
+                              <span class="checkmark"></span>
+                              </label>
+                              
+                              <label class="con2">
+                              @if ( $row->tran_Price != 0)
                                 <input type="checkbox" class="checkbox" name="Checkcar" id="" checked="checked" disabled>
                               @else
                                 <input type="checkbox" class="checkbox" name="Checkcar" id="" disabled>
