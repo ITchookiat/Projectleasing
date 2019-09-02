@@ -237,7 +237,7 @@
           <th align="right" width="120px"> แบบ &nbsp;</th>
           <th class="text-center" width="120px" style="background-color: yellow;"> <b>{{$dataReport->status_car}}</b></th>
           <th align="right" width="120px"> เปอร์เซ็นต์จัดไฟแนนซ์ &nbsp;</th>
-          <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataReport->Percent_car}}</b></th>
+          <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataReport->Percent_car}}%</b></th>
         </tr>
         <tr>
           <th class="text-center" width="540px"></th>

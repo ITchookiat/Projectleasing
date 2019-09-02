@@ -1107,7 +1107,7 @@
                                   <div class="col-md-6">
                                    <div class="form-inline" align="right">
                                        <label>เปอร์เซ็นจัดไฟแนนซ์ : </label>
-                                       <input type="text" name="Percentcar" class="form-control" style="width: 250px;" placeholder="เปอร์เซ็นจัดไฟแนนซ์" />
+                                       <input type="text" name="Percentcar" class="form-control int" style="width: 250px;" placeholder="เปอร์เซ็นจัดไฟแนนซ์" />
                                    </div>
                                   </div>
                                 </div>
