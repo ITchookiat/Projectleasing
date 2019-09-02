@@ -1658,12 +1658,12 @@
                              <div class="form-inline" align="right">
                                  <label>เปอร์เซ็นจัดไฟแนนซ์ : </label>
                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                    <input type="text" name="Percentcar" value="{{$data->Percent_car}}" class="form-control" style="width: 250px;" placeholder="เปอร์เซ็นจัดไฟแนนซ์" />
+                                    <input type="text" name="Percentcar" value="{{$data->Percent_car}}" class="form-control int" style="width: 250px;" placeholder="เปอร์เซ็นจัดไฟแนนซ์" />
                                  @else
                                    @if($GetDocComplete != Null)
-                                      <input type="text" name="Percentcar" value="{{$data->Percent_car}}" class="form-control" style="width: 250px;" placeholder="เปอร์เซ็นจัดไฟแนนซ์" readonly/>
+                                      <input type="text" name="Percentcar" value="{{$data->Percent_car}}" class="form-control int" style="width: 250px;" placeholder="เปอร์เซ็นจัดไฟแนนซ์" readonly/>
                                    @else
-                                      <input type="text" name="Percentcar" value="{{$data->Percent_car}}" class="form-control" style="width: 250px;" placeholder="เปอร์เซ็นจัดไฟแนนซ์" />
+                                      <input type="text" name="Percentcar" value="{{$data->Percent_car}}" class="form-control int" style="width: 250px;" placeholder="เปอร์เซ็นจัดไฟแนนซ์" />
                                    @endif
                                  @endif
                              </div>
