@@ -251,7 +251,7 @@
                                    <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                       <label>เลขที่โฉนด : </label>
-                                      <input type="text" name="deednumberbuyer" class="form-control" style="width: 250px;" placeholder="เลขที่โฉนด" />
+                                      <input type="text" name="deednumberbuyer" class="form-control int" style="width: 250px;" placeholder="เลขที่โฉนด" />
                                     </div>
                                   </div>
 
@@ -564,7 +564,7 @@
                                     <div class="col-md-5">
                                       <div class="form-inline" align="right">
                                           <label>เลขที่โฉนด : </label>
-                                          <input type="text" name="deednumberSP" class="form-control" style="width: 250px;" placeholder="เลขที่โฉนด" />
+                                          <input type="text" name="deednumberSP" class="form-control int" style="width: 250px;" placeholder="เลขที่โฉนด" />
                                       </div>
                                     </div>
                                     <div class="col-md-6">
