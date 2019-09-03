@@ -107,7 +107,7 @@
             @$sumtomarketing_Price += str_replace(",","",$value->marketing_Price);
             @$sumtoduty_Price += str_replace(",","",$value->duty_Price);
             @$sumtototalk_Price += str_replace(",","",$value->totalk_Price);
-            <!-- $sumtocompany = $sumtoevaluetion_Price + $sumtomarketing_Price + $sumtoduty_Price; -->
+            $sumtocompany = $sumtoevaluetion_Price + $sumtomarketing_Price + $sumtoduty_Price;
 
             $sumbalanceprice += str_replace(",","",$value->balance_Price);
             $sumcommitprice += str_replace(",","",$value->commit_Price);
