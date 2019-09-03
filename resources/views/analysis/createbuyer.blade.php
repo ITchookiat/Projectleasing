@@ -631,9 +631,9 @@
                                         <label>รายได้ : </label>
                                         <select name="incomeSP" class="form-control" style="width: 250px;">
                                           <option value="" disabled selected>--- รายได้ ---</option>
-                                          <option value="5,000-10,000">5,000-10,000</option>
-                                          <option value="10,000-15,000">10,000-15,000</option>
-                                          <option value="15,000-20,000">15,000-20,000</option>
+                                          <option value="5,000 - 10,000">5,000 - 10,000</option>
+                                          <option value="10,000 - 15,000">10,000 - 15,000</option>
+                                          <option value="15,000 - 20,000">15,000 - 20,000</option>
                                           <option value="มากกว่า 20,000">มากกว่า 20,000</option>
                                         </select>
                                     </div>
