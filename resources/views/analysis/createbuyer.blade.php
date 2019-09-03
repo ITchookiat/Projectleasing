@@ -269,7 +269,7 @@
                                       <label>ประเภทบ้าน : </label>
                                       <select name="HouseStylebuyer" class="form-control" style="width: 250px;">
                                         <option value="" disabled selected>--- ประเภทบ้าน ---</option>
-                                        <option value="บ้านตนเอง">บ้านตนเอง</option>
+                                        <option value="ของตนเอง">ของตนเอง</option>
                                         <option value="อาศัยบิดา-มารดา">อาศัยบิดา-มารดา</option>
                                         <option value="อาศัยผู้อื่น">อาศัยผู้อื่น</option>
                                         <option value="บ้านพักราชการ">บ้านพักราชการ</option>
