@@ -101,12 +101,13 @@
             @$sumtotran_Price += str_replace(",","",$value->tran_Price);
             @$sumtoother_Price += str_replace(",","",$value->other_Price);
             $sumtotransport = $sumtotran_Price +  $sumtoother_Price;
+            @$sumtocloseAccount_Price += str_replace(",","",$value->closeAccount_Price);
 
             @$sumtoevaluetion_Price += str_replace(",","",$value->evaluetion_Price);
             @$sumtomarketing_Price += str_replace(",","",$value->marketing_Price);
             @$sumtoduty_Price += str_replace(",","",$value->duty_Price);
             @$sumtototalk_Price += str_replace(",","",$value->totalk_Price);
-            $sumtocompany = $sumtoevaluetion_Price + $sumtomarketing_Price + $sumtoduty_Price;
+            <!-- $sumtocompany = $sumtoevaluetion_Price + $sumtomarketing_Price + $sumtoduty_Price; -->
 
             $sumbalanceprice += str_replace(",","",$value->balance_Price);
             $sumcommitprice += str_replace(",","",$value->commit_Price);
@@ -227,7 +228,7 @@
           <tr align="center" style="line-height: 200%;">
             <td width="115px" style="background-color: #FFFF00; line-height:250%;">รวมยอดจัดเป็นคัน    {{$countcar}}    คัน</td>
             <td width="100px" style="background-color: #00FFFF; line-height:250%;">รวมยอดจัดเป็นเงิน      {{number_format($sumtopcar)}}</td>
-            <td width="120px" style="background-color: #00FFFF; line-height:250%;">รวมค่าใช้จ่ายขนส่ง     {{number_format($sumtotransport)}}</td>
+            <td width="120px" style="background-color: #00FFFF; line-height:250%;">รวมค่าใช้จ่ายขนส่ง     {{number_format($sumtotransport - $sumtocloseAccount_Price)}}</td>
             <!-- <td width="95px" style="background-color: #00FFFF; line-height:250%;">รวมค่าใช้จ่ายบริษัท     {{number_format($sumtocompany)}}</td> -->
             <td width="95px" style="background-color: #00FFFF; line-height:250%;">รวมค่าใช้จ่ายบริษัท     {{number_format($sumtototalk_Price - $sumtotransport)}}</td>
             <td width="110px" style="background-color: #00FFFF; line-height:250%;">รวมค่ารถ     {{number_format($sumbalanceprice)}}</td>
