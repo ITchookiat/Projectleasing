@@ -173,7 +173,7 @@
                              <div class="col-md-6">
                                 <div class="form-inline" align="right">
                                   <label><font color="red">วันที่ทำสัญญา : </font></label>
-                                  <input type="date" name="DateDue" class="form-control" style="width: 250px;" value="{{ $newDateDue }}" min="{{ $date2 }}">
+                                  <input type="date" name="DateDue" class="form-control" style="width: 250px;" value="{{ $newDateDue }}">
                                 </div>
                              </div>
                           </div>

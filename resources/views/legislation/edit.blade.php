@@ -168,128 +168,175 @@
                 <div class="card">
                   <div class="card-body">
                     <div class="tab-content">
-                      
-                      <div class="col-md-9">
-                        <div class="box box-warning box-solid">
-                          <div class="box-header with-border">
-                            <h3 class="box-title">ข้อมูลผู้เช่าซื้อ</h3>
-                            <div class="box-tools pull-right">
-                              <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                              </button>
-                            </div>
-                          </div>
-                          <div class="box-body">
-                            <div class="row">
-                               <div class="col-md-3">
-                                <div class="form-inline" align="left">
-                                  เลขที่สัญญา
-                                  <input type="text" name="Contract_legis" class="form-control" style="width: 200px;" value="{{ $data->Contract_legis }}" readonly/>
-                                </div>
-                              </div>
-                              <div class="col-md-3">
-                                <div class="form-inline" align="left">
-                                  ชื่อ - นามสกุล
-                                  <input type="text" name="Namelegis" class="form-control" style="width: 200px;" value="{{ $data->Name_legis }}" />
-                                </div>
-                              </div>
-                              <div class="col-md-3">
-                                <div class="form-inline" align="left">
-                                  เลขบัตรประชาชน
-                                  <input type="text" name="Idcardlegis" class="form-control" style="width: 200px;" value="{{ $data->Idcard_legis }}" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask=""/>
-                                </div>
+                      <div class="row">
+                        <div class="col-md-9">
+                          <div class="box box-warning box-solid">
+                            <div class="box-header with-border">
+                              <h3 class="box-title">ข้อมูลผู้เช่าซื้อ</h3>
+                              <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                </button>
                               </div>
                             </div>
-
-                            <div class="row">
-                               <div class="col-md-3">
-                                <div class="form-inline" align="left">
-                                  ป้ายทะเบียน
-                                  <input type="text" name="registerlegis" class="form-control" style="width: 200px;" value="{{ $data->register_legis }}"/>
+                            <div class="box-body">
+                              <div class="row">
+                                 <div class="col-md-3">
+                                  <div class="form-inline" align="left">
+                                    เลขที่สัญญา
+                                    <input type="text" name="Contract_legis" class="form-control" style="width: 200px;" value="{{ $data->Contract_legis }}" readonly/>
+                                  </div>
                                 </div>
-                              </div>
-                              <div class="col-md-3">
-                                <div class="form-inline" align="left">
-                                  ยี่ห้อ
-                                  <input type="text" name="BrandCarlegis" class="form-control" style="width: 200px;" value="{{ $data->BrandCar_legis }}" />
+                                <div class="col-md-3">
+                                  <div class="form-inline" align="left">
+                                    ชื่อ - นามสกุล
+                                    <input type="text" name="Namelegis" class="form-control" style="width: 200px;" value="{{ $data->Name_legis }}" />
+                                  </div>
                                 </div>
-                              </div>
-                              <div class="col-md-3">
-                                <div class="form-inline" align="left">
-                                  ปีรถ
-                                  <input type="text" name="YearCarlegis" class="form-control" style="width: 200px;" value="{{ $data->YearCar_legis }}" />
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                               <div class="col-md-3">
-                                <div class="form-inline" align="left">
-                                  ประเภทรถ
-                                  <input type="text" name="Categorylegis" class="form-control" style="width: 200px;" value="{{ $data->Category_legis }}"/>
-                                </div>
-                              </div>
-                              <div class="col-md-3">
-                                <div class="form-inline" align="left">
-                                  วันที่ทำสัญญา
-                                  <input type="text" name="DateDuelegis" class="form-control" style="width: 200px;" value="{{ DateThai($data->DateDue_legis) }}" />
-                                </div>
-                              </div>
-                              <div class="col-md-3">
-                                <div class="form-inline" align="left">
-                                  วันที่หยุด Vat
-                                  <input type="text" name="DateVATlegis" class="form-control" style="width: 200px;" value="{{ DateThai($data->DateVAT_legis) }}" />
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                              <div class="col-md-3">
-                                <div class="form-inline" align="left">
-                                  ยอดจัด
-                                  <input type="text" name="Paylegis" class="form-control" style="width: 200px;" value="{{ number_format($data->Pay_legis ,2) }}" />
-                                </div>
-                              </div>
-                               <div class="col-md-3">
-                                <div class="form-inline" align="left">
-                                  ยอดรวมทั้งหมด
-                                  <input type="text" name="BalancePricelegis" class="form-control" style="width: 200px;" value="{{ number_format($data->BalancePrice_legis, 2) }}"/>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                              <div class="col-md-3">
-                                <div class="form-inline" align="left">
-                                  ชื่อผู้ค้ำ
-                                  <input type="text" name="NameGTlegis" class="form-control" style="width: 200px;" value="{{ $data->NameGT_legis }}" />
+                                <div class="col-md-3">
+                                  <div class="form-inline" align="left">
+                                    เลขบัตรประชาชน
+                                    <input type="text" name="Idcardlegis" class="form-control" style="width: 200px;" value="{{ $data->Idcard_legis }}" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask=""/>
+                                  </div>
                                 </div>
                               </div>
 
-                               <div class="col-md-3">
-                                <div class="form-inline" align="left">
-                                  เลขบัตรประชาชน
-                                  <input type="text" name="IdcardGTlegis" class="form-control" style="width: 200px;" value="{{ $data->IdcardGT_legis }}" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask=""/>
+                              <div class="row">
+                                 <div class="col-md-3">
+                                  <div class="form-inline" align="left">
+                                    ป้ายทะเบียน
+                                    <input type="text" name="registerlegis" class="form-control" style="width: 200px;" value="{{ $data->register_legis }}"/>
+                                  </div>
+                                </div>
+                                <div class="col-md-3">
+                                  <div class="form-inline" align="left">
+                                    ยี่ห้อ
+                                    <input type="text" name="BrandCarlegis" class="form-control" style="width: 200px;" value="{{ $data->BrandCar_legis }}" />
+                                  </div>
+                                </div>
+                                <div class="col-md-3">
+                                  <div class="form-inline" align="left">
+                                    ปีรถ
+                                    <input type="text" name="YearCarlegis" class="form-control" style="width: 200px;" value="{{ $data->YearCar_legis }}" />
+                                  </div>
                                 </div>
                               </div>
-                            </div>
 
+                              <div class="row">
+                                 <div class="col-md-3">
+                                  <div class="form-inline" align="left">
+                                    ประเภทรถ
+                                    <input type="text" name="Categorylegis" class="form-control" style="width: 200px;" value="{{ $data->Category_legis }}"/>
+                                  </div>
+                                </div>
+                                <div class="col-md-3">
+                                  <div class="form-inline" align="left">
+                                    วันที่ทำสัญญา
+                                    <input type="text" name="DateDuelegis" class="form-control" style="width: 200px;" value="{{ DateThai($data->DateDue_legis) }}" />
+                                  </div>
+                                </div>
+                                <div class="col-md-3">
+                                  <div class="form-inline" align="left">
+                                    วันที่หยุด Vat
+                                    <input type="text" name="DateVATlegis" class="form-control" style="width: 200px;" value="{{ DateThai($data->DateVAT_legis) }}" />
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-md-3">
+                                  <div class="form-inline" align="left">
+                                    ยอดจัด
+                                    <input type="text" name="Paylegis" class="form-control" style="width: 200px;" value="{{ number_format($data->Pay_legis ,2) }}" />
+                                  </div>
+                                </div>
+                                 <div class="col-md-3">
+                                  <div class="form-inline" align="left">
+                                    ยอดรวมทั้งหมด
+                                    <input type="text" name="BalancePricelegis" class="form-control" style="width: 200px;" value="{{ number_format($data->BalancePrice_legis, 2) }}"/>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-md-3">
+                                  <div class="form-inline" align="left">
+                                    ชื่อผู้ค้ำ
+                                    <input type="text" name="NameGTlegis" class="form-control" style="width: 200px;" value="{{ $data->NameGT_legis }}" />
+                                  </div>
+                                </div>
+
+                                 <div class="col-md-3">
+                                  <div class="form-inline" align="left">
+                                    เลขบัตรประชาชน
+                                    <input type="text" name="IdcardGTlegis" class="form-control" style="width: 200px;" value="{{ $data->IdcardGT_legis }}" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask=""/>
+                                  </div>
+                                </div>
+                              </div>
+
+                            </div>
                           </div>
                         </div>
+                        <div class="form-group" align="center">
+                          <button type="submit" class="delete-modal btn btn-success">
+                            <span class="glyphicon glyphicon-floppy-save"></span> อัพเดท
+                          </button>
+                          <a class="delete-modal btn btn-danger" href="#">
+                            <span class="glyphicon glyphicon-remove"></span> ยกเลิก
+                          </a>
+                        </div>
                       </div>
-
-                      <div class="col-md-9">
-                        <div class="box box-warning box-solid">
-                          <div class="box-header with-border">
-                            <h3 class="box-title">Collapsable</h3>
-
-                            <div class="box-tools pull-right">
-                              <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                              </button>
+                      <div class="row">
+                        <div class="col-md-3">
+                          <div class="box box-warning box-solid">
+                            <div class="box-header with-border">
+                              <h3 class="box-title"> วันฟ้อง (45-60 วัน)</h3>
+                              <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                </button>
+                              </div>
+                            </div>
+                            <div class="box-body">
+                              วันที่ฟ้อง
+                              <input type="date" name="Contract_legis" class="form-control" style="width: 250px;" value="{{ date('Y-m-d') }}" />
+                              เลขคดีดำ
+                              <input type="text" name="Contract_legis" class="form-control" style="width: 250px;" value="" />
+                              ทุนทรัพย์
+                              <input type="text" name="Contract_legis" class="form-control" style="width: 250px;" value="" />
                             </div>
                           </div>
-                          <div class="box-body">
-                            The body of the box
-                            <input type="text" name="Contract_legis" class="form-control" style="width: 250px;" value="" />
+                        </div>
+                        <div class="col-md-3">
+                          <div class="box box-warning box-solid">
+                            <div class="box-header with-border">
+                              <h3 class="box-title"> สืบพยาน</h3>
+
+                              <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                </button>
+                              </div>
+                            </div>
+                            <div class="box-body">
+                              เลขคดีแดง
+                              <input type="text" name="Contract_legis" class="form-control" style="width: 250px;" value="" />
+                              วันที่เลือน
+                              <input type="date" name="Contract_legis" class="form-control" style="width: 250px;" value="" />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="box box-warning box-solid">
+                            <div class="box-header with-border">
+                              <h3 class="box-title"> ส่งคำบังคับ</h3>
+
+                              <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                </button>
+                              </div>
+                            </div>
+                            <div class="box-body">
+                              The body of the box
+                              <input type="text" name="Contract_legis" class="form-control" style="width: 250px;" value="" />
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -298,14 +345,6 @@
                 </div>
 
                 <br />
-                <div class="form-group" align="center">
-                  <button type="submit" class="delete-modal btn btn-success">
-                    <span class="glyphicon glyphicon-floppy-save"></span> อัพเดท
-                  </button>
-                  <a class="delete-modal btn btn-danger" href="#">
-                    <span class="glyphicon glyphicon-remove"></span> ยกเลิก
-                  </a>
-                </div>
                 <input type="hidden" name="_method" value="PATCH"/>
               </form>
             </div>
