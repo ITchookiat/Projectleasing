@@ -143,7 +143,7 @@ class LegislationController extends Controller
       $data = DB::table('legislations')
                 ->where('legislations.id',$id)->first();
 
-                dump($data);
+                // dump($data);
       return view('legislation.edit',compact('data'));
     }
 

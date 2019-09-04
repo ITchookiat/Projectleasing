@@ -105,7 +105,7 @@
                                    <div class="col-md-6">
                                       <div class="form-inline" align="right">
                                         <label><font color="red">วันที่ทำสัญญา : </font></label>
-                                        <input type="date" name="DateDue" class="form-control" style="width: 250px;" value="{{ $date }}" min="{{ $date2 }}">
+                                        <input type="date" name="DateDue" class="form-control" style="width: 250px;" value="{{ date('Y-m-d') }}">
                                       </div>
                                    </div>
                                 </div>
@@ -250,7 +250,7 @@
                                       <label>ประเภทบ้าน : </label>
                                       <select name="HouseStylebuyer" class="form-control" style="width: 250px;">
                                         <option value="" disabled selected>--- ประเภทบ้าน ---</option>
-                                        <option value="บ้านตนเอง">บ้านตนเอง</option>
+                                        <option value="ของตนเอง">ของตนเอง</option>
                                         <option value="อาศัยบิดา-มารดา">อาศัยบิดา-มารดา</option>
                                         <option value="อาศัยผู้อื่น">อาศัยผู้อื่น</option>
                                         <option value="บ้านพักราชการ">บ้านพักราชการ</option>
@@ -595,9 +595,9 @@
                                         <label>รายได้ : </label>
                                         <select name="incomeSP" class="form-control" style="width: 250px;">
                                           <option value="" disabled selected>--- รายได้ ---</option>
-                                          <option value="5,000-10,000">5,000-10,000</option>
-                                          <option value="10,000-15,000">10,000-15,000</option>
-                                          <option value="15,000-20,000">15,000-20,000</option>
+                                          <option value="5,000 - 10,000">5,000 - 10,000</option>
+                                          <option value="10,000 - 15,000">10,000 - 15,000</option>
+                                          <option value="15,000 - 20,000">15,000 - 20,000</option>
                                           <option value="มากกว่า 20,000">มากกว่า 20,000</option>
                                         </select>
                                     </div>
