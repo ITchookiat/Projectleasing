@@ -1071,7 +1071,13 @@
                                   <div class="col-md-6">
                                     <div class="form-inline" align="right">
                                       <label>พนักงานขาย : </label>
-                                      <input type="text" name="saleHC" class="form-control" style="width: 250px;" placeholder="พนักงานขาย"/>
+                                      <select name="saleHC" class="form-control" style="width: 250px;">
+                                        <option value="" disabled selected>--- พนักงานขาย ---</option>
+                                        <option value="มารุวัน หะยีเจะแม">มารุวัน หะยีเจะแม</option>
+                                        <option value="แวยูคิมสี อาแว">แวยูคิมสี อาแว</option>
+                                        <option value="อลิสา หิดาวรรณ">อลิสา หิดาวรรณ</option>
+                                        <option value="ธัญญ์วรา สีลาภเกื้อ">ธัญญ์วรา สีลาภเกื้อ</option>
+                                      </select>
                                     </div>
                                   </div>
                                 </div>
