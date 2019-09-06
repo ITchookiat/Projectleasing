@@ -189,13 +189,13 @@
                                 <div class="col-md-3">
                                   <div class="form-inline" align="left">
                                     ชื่อ - นามสกุล
-                                    <input type="text" name="Namelegis" class="form-control" style="width: 200px;" value="{{ $data->Name_legis }}" />
+                                    <input type="text" name="Namelegis" class="form-control" style="width: 200px;" value="{{ $data->Name_legis }}" readonly/>
                                   </div>
                                 </div>
                                 <div class="col-md-3">
                                   <div class="form-inline" align="left">
                                     เลขบัตรประชาชน
-                                    <input type="text" name="Idcardlegis" class="form-control" style="width: 200px;" value="{{ $data->Idcard_legis }}" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask=""/>
+                                    <input type="text" name="Idcardlegis" class="form-control" style="width: 200px;" value="{{ $data->Idcard_legis }}" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask="" readonly/>
                                   </div>
                                 </div>
                               </div>
@@ -204,19 +204,19 @@
                                  <div class="col-md-3">
                                   <div class="form-inline" align="left">
                                     ป้ายทะเบียน
-                                    <input type="text" name="registerlegis" class="form-control" style="width: 200px;" value="{{ $data->register_legis }}"/>
+                                    <input type="text" name="registerlegis" class="form-control" style="width: 200px;" value="{{ $data->register_legis }}" readonly/>
                                   </div>
                                 </div>
                                 <div class="col-md-3">
                                   <div class="form-inline" align="left">
                                     ยี่ห้อ
-                                    <input type="text" name="BrandCarlegis" class="form-control" style="width: 200px;" value="{{ $data->BrandCar_legis }}" />
+                                    <input type="text" name="BrandCarlegis" class="form-control" style="width: 200px;" value="{{ $data->BrandCar_legis }}" readonly/>
                                   </div>
                                 </div>
                                 <div class="col-md-3">
                                   <div class="form-inline" align="left">
                                     ปีรถ
-                                    <input type="text" name="YearCarlegis" class="form-control" style="width: 200px;" value="{{ $data->YearCar_legis }}" />
+                                    <input type="text" name="YearCarlegis" class="form-control" style="width: 200px;" value="{{ $data->YearCar_legis }}" readonly/>
                                   </div>
                                 </div>
                               </div>
@@ -225,19 +225,19 @@
                                  <div class="col-md-3">
                                   <div class="form-inline" align="left">
                                     ประเภทรถ
-                                    <input type="text" name="Categorylegis" class="form-control" style="width: 200px;" value="{{ $data->Category_legis }}"/>
+                                    <input type="text" name="Categorylegis" class="form-control" style="width: 200px;" value="{{ $data->Category_legis }}" readonly/>
                                   </div>
                                 </div>
                                 <div class="col-md-3">
                                   <div class="form-inline" align="left">
                                     วันที่ทำสัญญา
-                                    <input type="text" name="DateDuelegis" class="form-control" style="width: 200px;" value="{{ DateThai($data->DateDue_legis) }}" />
+                                    <input type="text" name="DateDuelegis" class="form-control" style="width: 200px;" value="{{ DateThai($data->DateDue_legis) }}" readonly/>
                                   </div>
                                 </div>
                                 <div class="col-md-3">
                                   <div class="form-inline" align="left">
                                     วันที่หยุด Vat
-                                    <input type="text" name="DateVATlegis" class="form-control" style="width: 200px;" value="{{ DateThai($data->DateVAT_legis) }}" />
+                                    <input type="text" name="DateVATlegis" class="form-control" style="width: 200px;" value="{{ DateThai($data->DateVAT_legis) }}" readonly/>
                                   </div>
                                 </div>
                               </div>
@@ -246,13 +246,13 @@
                                 <div class="col-md-3">
                                   <div class="form-inline" align="left">
                                     ยอดจัด
-                                    <input type="text" name="Paylegis" class="form-control" style="width: 200px;" value="{{ number_format($data->Pay_legis ,2) }}" />
+                                    <input type="text" name="Paylegis" class="form-control" style="width: 200px;" value="{{ number_format($data->Pay_legis ,2) }}" readonly/>
                                   </div>
                                 </div>
                                  <div class="col-md-3">
                                   <div class="form-inline" align="left">
                                     ยอดรวมทั้งหมด
-                                    <input type="text" name="BalancePricelegis" class="form-control" style="width: 200px;" value="{{ number_format($data->BalancePrice_legis, 2) }}"/>
+                                    <input type="text" name="BalancePricelegis" class="form-control" style="width: 200px;" value="{{ number_format($data->BalancePrice_legis, 2) }}" readonly/>
                                   </div>
                                 </div>
                               </div>
@@ -261,14 +261,14 @@
                                 <div class="col-md-3">
                                   <div class="form-inline" align="left">
                                     ชื่อผู้ค้ำ
-                                    <input type="text" name="NameGTlegis" class="form-control" style="width: 200px;" value="{{ $data->NameGT_legis }}" />
+                                    <input type="text" name="NameGTlegis" class="form-control" style="width: 200px;" value="{{ $data->NameGT_legis }}" readonly/>
                                   </div>
                                 </div>
 
                                  <div class="col-md-3">
                                   <div class="form-inline" align="left">
                                     เลขบัตรประชาชน
-                                    <input type="text" name="IdcardGTlegis" class="form-control" style="width: 200px;" value="{{ $data->IdcardGT_legis }}" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask=""/>
+                                    <input type="text" name="IdcardGTlegis" class="form-control" style="width: 200px;" value="{{ $data->IdcardGT_legis }}" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask="" readonly/>
                                   </div>
                                 </div>
                               </div>

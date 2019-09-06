@@ -961,7 +961,12 @@
                             <div class="col-md-6">
                               <div class="form-inline" align="right">
                                 <label>พนักงานขาย : </label>
-                                <input type="text" name="saleHC" value="{{$data->sale_HC}}" class="form-control" style="width: 250px;" placeholder="พนักงานขาย"/>
+                                <select name="saleHC" class="form-control" style="width: 250px;">
+                                  <option value="" disabled selected>--- พนักงานขาย ---</option>
+                                  @foreach ($GetSale as $key => $value)
+                                     <option value="{{$key}}" {{ ($key == $data->sale_HC) ? 'selected' : '' }}>{{$value}}</option>
+                                  @endforeach
+                                </select>
                               </div>
                             </div>
                           </div>

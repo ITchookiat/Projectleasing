@@ -261,11 +261,13 @@
               @endif
             </div>
 
-          <script type="text/javascript">
-            $(function() {
-               $('#table').DataTable();
-            });
-          </script>
+            <script type="text/javascript">
+            $(document).ready(function() {
+              $('#table').DataTable( {
+                "order": [[ 1, "asc" ]]
+              } );
+            } );
+            </script>
 
           <script type="text/javascript">
             $(".alert").fadeTo(3000, 1000).slideUp(1000, function(){

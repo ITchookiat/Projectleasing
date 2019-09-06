@@ -30,10 +30,12 @@ class AnalysController extends Controller
       $d = date('d');
       $date = $Y.'-'.$m.'-'.$d;
 
-      // $dateThai = Helper::formatDateThai( date("Y-m-d"));
-      // dd(date($dateThai));
-
       if ($request->type == 1){
+
+        if(auth()->user()->type != 1 and auth()->user()->type != 2 and auth()->user()->type != 3){
+          dd('You not admin');
+        }
+
         $newfdate = '';
         $newtdate = '';
         $branch = '';
@@ -196,6 +198,8 @@ class AnalysController extends Controller
           ->where('cardetails.Approvers_car','!=',Null)
           ->orderBy('buyers.Contract_buyer', 'ASC')
           ->get();
+
+          // dd($data);
         }else {
           $data = DB::table('buyers')
           ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
@@ -227,7 +231,6 @@ class AnalysController extends Controller
           $newfdate = \Carbon\Carbon::parse($newfdate)->format('Y') ."-". \Carbon\Carbon::parse($newfdate)->format('m')."-". \Carbon\Carbon::parse($newfdate)->format('d');
           $newtdate = \Carbon\Carbon::parse($newtdate)->format('Y') ."-". \Carbon\Carbon::parse($newtdate)->format('m')."-". \Carbon\Carbon::parse($newtdate)->format('d');
         }elseif ($newfdate == '' or $newtdate == '') {
-          // dd('123456');
         }
         $type = $request->type;
         return view('analysis.viewReport', compact('type', 'data','newfdate','newtdate','datadrop','agen','datedue','datayear','yearcar','datastatus','typecar','databranch','branch'));
@@ -679,6 +682,7 @@ class AnalysController extends Controller
      */
     public function edit($id,$type,$fdate,$tdate,$branch,$status,Request $request)
     {
+
       if ($type == 1) {
         $data = DB::table('buyers')
                   ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
@@ -708,7 +712,6 @@ class AnalysController extends Controller
 
       $dataImage = DB::table('uploadfile_images')->where('Buyerfileimage_id',$data->id)->get();
       $countImage = count($dataImage);
-      // dd($dataImage, $countImage);
       $newDateDue = \Carbon\Carbon::parse($data->Date_Due)->format('Y') ."-". \Carbon\Carbon::parse($data->Date_Due)->format('m')."-". \Carbon\Carbon::parse($data->Date_Due)->format('d');
 
       $Statusby = [
@@ -905,6 +908,12 @@ class AnalysController extends Controller
         '1.00' => '1.00',
         '1.20' => '1.20',
       ];
+      $GetSale = [
+        'มารุวัน หะยีเจะแม' => 'มารุวัน หะยีเจะแม',
+        'แวยูคิมสี อาแว' => 'แวยูคิมสี อาแว',
+        'อลิสา หิดาวรรณ' => 'อลิสา หิดาวรรณ',
+        'ธัญญ์วรา สีลาภเกื้อ' => 'ธัญญ์วรา สีลาภเกื้อ',
+      ];
 
       // dd($Gettype);
       if ($type == 1) {
@@ -919,7 +928,7 @@ class AnalysController extends Controller
             compact('data','id','dataImage','Statusby','Addby','Houseby','Driverby','HouseStyleby','Careerby','Incomeby',
             'HisCarby','StatusSPp','relationSPp','addSPp','housestyleSPp','Brandcarr','Interestcarr','Timeslackencarr',
             'Insurancecarr','statuscarr','newDateDue','evaluetionPricee','securitiesSPp','Getinsurance',
-            'Gettransfer','Getinterest','fdate','tdate','branch','status','Gettype'));
+            'Gettransfer','Getinterest','fdate','tdate','branch','status','Gettype','GetSale'));
       }
     }
 
@@ -1226,7 +1235,7 @@ class AnalysController extends Controller
           }else {
             $SetStatusApp = 'รออนุมัติ';
           }
-          
+
           if ($request->get('Checkcar') != Null) {
             $SetCheckcar = $request->get('Checkcar');
           }else {
