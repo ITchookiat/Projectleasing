@@ -1358,7 +1358,7 @@
                               function commission(){
                                  var num11 = document.getElementById('Commissioncar').value;
                                  var num1 = num11.replace(",","");
-                                 if(num1 > 1000){
+                                 if(num1 > 999){
                                      if(num11 == ''){
                                        var num11 = 0;
                                      }
@@ -2039,7 +2039,7 @@
                             <div class="col-md-5">
                               <div class="form-inline" align="right">
                                  <label>หมายเหตุ : </label>
-                                 <input type="text" name="notePrice" value="{{ $data->note_Price }}" class="form-control" style="width: 250px;" placeholder="หมายเหตุ" readonly/>
+                                 <input type="text" name="notePrice" value="{{ $data->note_Price }}" class="form-control" style="width: 250px;" placeholder="หมายเหตุ" />
                                </div>
                              </div>
 

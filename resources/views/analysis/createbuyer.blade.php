@@ -869,7 +869,7 @@
                                     function commission(){
                                        var num11 = document.getElementById('Commissioncar').value;
                                        var num1 = num11.replace(",","");
-                                       if(num1 > 1000){
+                                       if(num1 > 999){
                                            if(num11 == ''){
                                              var num11 = 0;
                                            }
