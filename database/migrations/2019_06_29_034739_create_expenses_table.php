@@ -29,6 +29,7 @@ class CreateExpensesTable extends Migration
             $table->string('marketing_Price')->nullable();
             $table->string('duty_Price')->nullable();
             $table->string('insurance_Price')->nullable();
+            $table->string('note_Price')->nullable();
             $table->timestamps();
 
         });

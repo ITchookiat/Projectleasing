@@ -144,7 +144,7 @@ class LegislationController extends Controller
                 ->where('legislations.id',$id)->first();
 
                 // dump($data);
-      return view('legislation.edit',compact('data'));
+      return view('legislation.edit',compact('data','id'));
     }
 
     /**
@@ -156,7 +156,7 @@ class LegislationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dd($request->list1);
     }
 
     /**
