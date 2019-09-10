@@ -632,6 +632,7 @@ class AnalysController extends Controller
           'marketing_Price' => $request->get('marketingPrice'),
           'duty_Price' => $request->get('dutyPrice'),
           'insurance_Price' => $request->get('insurancePrice'),
+          'note_Price' => $request->get('notePrice'),
         ]);
         $Expensesdb ->save();
 
@@ -1322,6 +1323,7 @@ class AnalysController extends Controller
           $expenses->marketing_Price = $request->get('marketingPrice');
           $expenses->duty_Price = $request->get('dutyPrice');
           $expenses->insurance_Price = $request->get('insurancePrice');
+          $expenses->note_Price = $request->get('notePrice');
         $expenses->update();
       }
 

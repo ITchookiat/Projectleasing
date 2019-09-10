@@ -1406,6 +1406,17 @@
                                       </div>
                                    </div>
                                 </div>
+                                <div class="row">
+                                  <div class="col-md-5">
+                                    <div class="form-inline" align="right">
+                                       <label>หมายเหตุ : </label>
+                                       <input type="text" name="notePrice" class="form-control" style="width: 250px;" placeholder="หมายเหตุ"/>
+                                     </div>
+                                   </div>
+
+                                   <div class="col-md-6">
+                                   </div>
+                                </div>
 
                               </div>
                             </div>

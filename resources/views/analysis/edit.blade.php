@@ -669,13 +669,10 @@
                                   <input id="image-file" type="file" name="file_image[]" accept="image/*" data-min-file-count="1" multiple>
                                 </div>
                                 @if($countImage != 0)
-                                <!-- <br/>
-                                <a href="{{ action('AnalysController@deleteImageAll',$data->id) }}" class="btn btn-danger pull-right" title="ลบรูปทั้งหมด" onclick="return confirm('คุณต้องการลบรูปทั้งหมดหรือไม่?')"> ลบรูปทั้งหมด.. </a>
-                                <br/>-->
-                                <br/>
-                                <a href="{{ action('AnalysController@deleteImageEach',[$data->id,$type,$fdate,$tdate,$branch,$status]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
-                                <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ..
-                                </a>
+                                  <br/>
+                                  <a href="{{ action('AnalysController@deleteImageEach',[$data->id,$type,$fdate,$tdate,$branch,$status]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
+                                  <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ..
+                                  </a>
                                 @endif
                               </div>
                             </div>
@@ -683,15 +680,11 @@
                           <div class="col-md-12">
                             <div class="form-group">
                               @foreach($dataImage as $images)
-                                <!-- <a href="{{ asset('upload-image/'.$images->Name_fileimage) }}" class="MagicZoom" data-options="zoomMode: magnifier">
-                                <img src="{{ asset('upload-image/'.$images->Name_fileimage) }}"></a> -->
-
-                                <!-- <a href="{{ asset('upload-image/'.$images->Name_fileimage) }}" class="MagicZoom" ata-gallery="gallery" data-options="zoomPosition: inner">
-                                <img src="{{ asset('upload-image/'.$images->Name_fileimage) }}"></a> -->
-
+                              <div class="col-sm-3">
                                 <a href="{{ asset('upload-image/'.$images->Name_fileimage) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true" style="width: 300px; height: auto;">
                                   <img src="{{ asset('upload-image/'.$images->Name_fileimage) }}">
                                 </a>
+                              </div>
                               @endforeach
                             </div>
                           </div>
@@ -2042,16 +2035,22 @@
                              </div>
                           </div>
 
+                          <div class="row">
+                            <div class="col-md-5">
+                              <div class="form-inline" align="right">
+                                 <label>หมายเหตุ : </label>
+                                 <input type="text" name="notePrice" value="{{ $data->note_Price }}" class="form-control" style="width: 250px;" placeholder="หมายเหตุ" readonly/>
+                               </div>
+                             </div>
+
+                             <div class="col-md-6">
+                             </div>
+                          </div>
+
                         </div>
                       </div>
                     </div>
                   </div>
-
-                  <input type="hidden" name="fdate" value="{{ $fdate }}" />
-                  <input type="hidden" name="tdate" value="{{ $tdate }}" />
-                  <input type="hidden" name="branch" value="{{ $branch }}" />
-                  <input type="hidden" name="status" value="{{ $status }}" />
-                  <br/>
 
                    @if(auth::user()->type == 1 or auth::user()->type == 2)
                     <table class="table table-bordered" id="table" border="3" align="center" style="width: 50%;" align="center">
@@ -2190,11 +2189,6 @@
       </script>
 
 <!-- เวลาแจ้งเตือน -->
-      <script type="text/javascript">
-        $(".alert").fadeTo(3000, 1000).slideUp(1000, function(){
-        $(".alert").alert('close');
-        });
-      </script>
 
       <script>
       $(function () {
