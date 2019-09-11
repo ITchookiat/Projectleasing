@@ -1358,21 +1358,30 @@
                               function commission(){
                                  var num11 = document.getElementById('Commissioncar').value;
                                  var num1 = num11.replace(",","");
-                                 if(num1 > 999){
-                                     if(num11 == ''){
-                                       var num11 = 0;
-                                     }
-                                     else{
-                                       var sumCom = (num11*0.03);
-                                       var result = num11 - sumCom;
-                                     }
-                                 }else{
+                                 var input = document.getElementById('Agentcar').value;
+                                 var Subtstr = input.split("");
+
+                                 var Setstr = Subtstr[0];
+
+                                 if (Setstr[0] == "*") {
                                    var result = num1;
-                                 }
+                                 }else {
+                                     if(num1 > 999){
+                                         if(num11 == ''){
+                                           var num11 = 0;
+                                         }
+                                         else{
+                                           var sumCom = (num11*0.03);
+                                           var result = num11 - sumCom;
+                                         }
+                                     }else{
+                                       var result = num1;
+                                     }
+                                   }
                                  if(!isNaN(num1)){
                                      document.form1.Commissioncar.value = addCommas(num1);
                                      document.form1.commitPrice.value = addCommas(result);
-                                }
+                                 }
 
                                }
 
@@ -1741,12 +1750,12 @@
                               <div class="form-inline" align="right">
                                  <label>แนะนำ/นายหน้า : </label>
                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                    <input type="text" name="Agentcar" value="{{$data->Agent_car}}" class="form-control" style="width: 250px;" placeholder="แนะนำ/นายหน้า" />
+                                    <input type="text" id="Agentcar" name="Agentcar" value="{{$data->Agent_car}}" class="form-control" style="width: 250px;" placeholder="แนะนำ/นายหน้า" />
                                  @else
                                    @if($GetDocComplete != Null)
-                                      <input type="text" name="Agentcar" value="{{$data->Agent_car}}" class="form-control" style="width: 250px;" placeholder="แนะนำ/นายหน้า" readonly/>
+                                      <input type="text" id="Agentcar" name="Agentcar" value="{{$data->Agent_car}}" class="form-control" style="width: 250px;" placeholder="แนะนำ/นายหน้า" readonly/>
                                    @else
-                                      <input type="text" name="Agentcar" value="{{$data->Agent_car}}" class="form-control" style="width: 250px;" placeholder="แนะนำ/นายหน้า" />
+                                      <input type="text" id="Agentcar" name="Agentcar" value="{{$data->Agent_car}}" class="form-control" style="width: 250px;" placeholder="แนะนำ/นายหน้า" />
                                    @endif
                                  @endif
                                </div>
