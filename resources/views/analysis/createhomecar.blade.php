@@ -1073,7 +1073,7 @@
                                       <label>พนักงานขาย : </label>
                                       <select name="saleHC" class="form-control" style="width: 250px;">
                                         <option value="" disabled selected>--- พนักงานขาย ---</option>
-                                        <option value="มารุวัน หะยีเจะแม">มารุวัน หะยีเจะแม</option>
+                                        <option value="มารุวัน หะยีเจะแม">มารูวัน หะยีเจะแม</option>
                                         <option value="แวยูคิมสี อาแว">แวยูคิมสี อาแว</option>
                                         <option value="อลิสา หิดาวรรณ">อลิสา หิดาวรรณ</option>
                                         <option value="ธัญญ์วรา สีลาภเกื้อ">ธัญญ์วรา สีลาภเกื้อ</option>
