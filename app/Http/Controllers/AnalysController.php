@@ -32,7 +32,7 @@ class AnalysController extends Controller
 
       if ($request->type == 1){
 
-        if(auth()->user()->type != 1 and auth()->user()->type != 2 and auth()->user()->type != 3){
+        if(auth()->user()->type != 1 and auth()->user()->type != 2 and auth()->user()->type != 4){
           dd('You not admin');
         }
 
@@ -910,7 +910,7 @@ class AnalysController extends Controller
         '1.20' => '1.20',
       ];
       $GetSale = [
-        'มารุวัน หะยีเจะแม' => 'มารุวัน หะยีเจะแม',
+        'มารูวัน หะยีเจะแม' => 'มารูวัน หะยีเจะแม',
         'แวยูคิมสี อาแว' => 'แวยูคิมสี อาแว',
         'อลิสา หิดาวรรณ' => 'อลิสา หิดาวรรณ',
         'ธัญญ์วรา สีลาภเกื้อ' => 'ธัญญ์วรา สีลาภเกื้อ',

@@ -869,7 +869,16 @@
                                     function commission(){
                                        var num11 = document.getElementById('Commissioncar').value;
                                        var num1 = num11.replace(",","");
-                                       if(num1 > 999){
+                                       var input = document.getElementById('Agentcar').value;
+                                       var Subtstr = input.split("");
+
+                                       var Setstr = Subtstr[0];
+
+
+                                       if (Setstr[0] == "*") {
+                                         var result = num1;
+                                       }else {
+                                         if(num1 > 999){
                                            if(num11 == ''){
                                              var num11 = 0;
                                            }
@@ -877,9 +886,12 @@
                                              var sumCom = (num11*0.03);
                                              var result = num11 - sumCom;
                                            }
-                                       }else{
-                                         var result = num1;
+                                         }else{
+                                           var result = num1;
+                                         }
                                        }
+
+
                                        if(!isNaN(num1)){
                                            document.form1.Commissioncar.value = addCommas(num1);
                                            document.form1.commitPrice.value = addCommas(result);
@@ -1157,7 +1169,7 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                        <label>แนะนำ/นายหน้า : </label>
-                                       <input type="text" name="Agentcar" class="form-control" style="width: 250px;" placeholder="แนะนำ/นายหน้า" />
+                                       <input type="text" id="Agentcar" name="Agentcar" class="form-control" style="width: 250px;" placeholder="แนะนำ/นายหน้า" oninput="commission()"/>
                                      </div>
                                   </div>
 

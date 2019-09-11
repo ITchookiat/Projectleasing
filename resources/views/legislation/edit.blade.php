@@ -293,30 +293,6 @@
     }
     /* Add Items */
 
-    #add-todo{
-    padding:25px 0 0 0;
-    font-size:14px;
-    font-weight:200;
-    color:#d8d8d8;
-    display:inline-block;
-    cursor:pointer;
-    }
-    #add-todo:hover{
-    color:#6bc569;
-    /*transition*/
-    -webkit-transition:none;
-     -moz-transition:none;
-       -o-transition:none;
-          transition:none;
-    }
-    #add-todo .fa-plus{
-    font-size:14px;
-    /*transition*/
-    -webkit-transition:none;
-     -moz-transition:none;
-       -o-transition:none;
-          transition:none;
-    }
     .input-todo{
     border:none;
     outline:none;
@@ -384,6 +360,14 @@
                   <div class="card">
                     <div class="card-body">
                       <div class="tab-content">
+                        <div class="form-group" align="right">
+                          <button type="submit" class="delete-modal btn btn-success">
+                            <span class="glyphicon glyphicon-floppy-save"></span> อัพเดท
+                          </button>
+                          <a class="delete-modal btn btn-danger" href="{{ route('legislation',2) }}">
+                            <span class="glyphicon glyphicon-remove"></span> ยกเลิก
+                          </a>
+                        </div>
                         <div class="row">
                           <div class="col-md-6">
                             <div class="box box-warning box-solid">
@@ -492,7 +476,7 @@
                               </div>
                             </div>
                           </div>
-
+ 
                           <div class="col-md-6">
                             <div class="box box-warning">
                               <div class="box-header with-border">
@@ -509,50 +493,60 @@
                                       <div class="" id="todo-list">
                                         <div class="form-inline" align="left">
                                           <span class="todo-wrap">
-                                            <input type="checkbox" id="1" name="list1" checked/>
+                                            <input type="checkbox" id="1" name="list1"/>
                                             <label for="1" class="todo">
                                               <i class="fa fa-check"></i>
-                                              Have a good idea
+                                              หนังสือรับรอง
                                             </label>
                                             <span class="delete-item" title="remove">
                                               <i class="fa fa-times-circle"></i>
                                             </span>
                                           </span>
                                           <span class="todo-wrap">
-                                            <input type="checkbox" id="2"/>
+                                            <input type="checkbox" id="2" name="list2"/>
                                             <label for="2" class="todo">
                                               <i class="fa fa-check"></i>
-                                              Plan idea execution
+                                              หนังสือมอบอำนาจ
                                             </label>
                                             <span class="delete-item" title="remove">
                                               <i class="fa fa-times-circle"></i>
                                             </span>
                                           </span>
                                           <span class="todo-wrap">
-                                            <input type="checkbox" id="3"/>
+                                            <input type="checkbox" id="3" name="list3"/>
                                             <label for="3" class="todo">
                                               <i class="fa fa-check"></i>
-                                              Plan idea execution
+                                              หนังสือมอบอำนาจช่วงคดี
                                             </label>
                                             <span class="delete-item" title="remove">
                                               <i class="fa fa-times-circle"></i>
                                             </span>
                                           </span>
                                           <span class="todo-wrap">
-                                            <input type="checkbox" id="4"/>
+                                            <input type="checkbox" id="4" name="list4"/>
                                             <label for="4" class="todo">
                                               <i class="fa fa-check"></i>
-                                              Plan idea execution
+                                              สัญญาเช่าซื้อ
                                             </label>
                                             <span class="delete-item" title="remove">
                                               <i class="fa fa-times-circle"></i>
                                             </span>
                                           </span>
                                           <span class="todo-wrap">
-                                            <input type="checkbox" id="5"/>
+                                            <input type="checkbox" id="5" name="list5"/>
                                             <label for="5" class="todo">
                                               <i class="fa fa-check"></i>
-                                              Plan idea execution
+                                              สัญญาค่ำ
+                                            </label>
+                                            <span class="delete-item" title="remove">
+                                              <i class="fa fa-times-circle"></i>
+                                            </span>
+                                          </span>
+                                          <span class="todo-wrap">
+                                            <input type="checkbox" id="6" name="list6"/>
+                                            <label for="6" class="todo">
+                                              <i class="fa fa-check"></i>
+                                              โฉนดที่ดิน
                                             </label>
                                             <span class="delete-item" title="remove">
                                               <i class="fa fa-times-circle"></i>
@@ -566,50 +560,50 @@
                                       <div class="form-inline" align="left">
                                         <div class="" id="todo-list">
                                           <span class="todo-wrap">
-                                            <input type="checkbox" id="6"/>
-                                            <label for="6" class="todo">
-                                              <i class="fa fa-check"></i>
-                                              Plan idea execution
-                                            </label>
-                                            <span class="delete-item" title="remove">
-                                              <i class="fa fa-times-circle"></i>
-                                            </span>
-                                          </span>
-                                          <span class="todo-wrap">
-                                            <input type="checkbox" id="7"/>
+                                            <input type="checkbox" id="7" name="list7"/>
                                             <label for="7" class="todo">
                                               <i class="fa fa-check"></i>
-                                              Plan idea execution
+                                              สัญญาบอกเลิกผู้ซื้อ
                                             </label>
                                             <span class="delete-item" title="remove">
                                               <i class="fa fa-times-circle"></i>
                                             </span>
                                           </span>
                                           <span class="todo-wrap">
-                                            <input type="checkbox" id="8"/>
+                                            <input type="checkbox" id="8" name="list8"/>
                                             <label for="8" class="todo">
                                               <i class="fa fa-check"></i>
-                                              Plan idea execution
+                                              สัญญาบอกเลิกผู้ค่ำ
                                             </label>
                                             <span class="delete-item" title="remove">
                                               <i class="fa fa-times-circle"></i>
                                             </span>
                                           </span>
                                           <span class="todo-wrap">
-                                            <input type="checkbox" id="9"/>
+                                            <input type="checkbox" id="9" name="list9"/>
                                             <label for="9" class="todo">
                                               <i class="fa fa-check"></i>
-                                              Plan idea execution
+                                              ใบตอบรับผู้ซื้อ - ผู้ค่ำ
                                             </label>
                                             <span class="delete-item" title="remove">
                                               <i class="fa fa-times-circle"></i>
                                             </span>
                                           </span>
                                           <span class="todo-wrap">
-                                            <input type="checkbox" id="10"/>
+                                            <input type="checkbox" id="10" name="list10"/>
                                             <label for="10" class="todo">
                                               <i class="fa fa-check"></i>
-                                              Plan idea execution
+                                              หนังสือ 2 งวด
+                                            </label>
+                                            <span class="delete-item" title="remove">
+                                              <i class="fa fa-times-circle"></i>
+                                            </span>
+                                          </span>
+                                          <span class="todo-wrap">
+                                            <input type="checkbox" id="11" name="list11"/>
+                                            <label for="11" class="todo">
+                                              <i class="fa fa-check"></i>
+                                              ใบตอบรับหนังสือ 2 งวด
                                             </label>
                                             <span class="delete-item" title="remove">
                                               <i class="fa fa-times-circle"></i>
@@ -622,15 +616,6 @@
                                 </div>
                               </div>
                             </div>
-                          </div>
-
-                          <div class="form-group" align="center">
-                            <button type="submit" class="delete-modal btn btn-success">
-                              <span class="glyphicon glyphicon-floppy-save"></span> อัพเดท
-                            </button>
-                            <a class="delete-modal btn btn-danger" href="{{ route('legislation',2) }}">
-                              <span class="glyphicon glyphicon-remove"></span> ยกเลิก
-                            </a>
                           </div>
 
                           <div class="col-md-12">
@@ -694,7 +679,6 @@
                       </div>
                     </div>
 
-                    <br />
                     <input type="hidden" name="_method" value="PATCH"/>
                   </div>
                 </form>
