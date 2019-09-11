@@ -32,9 +32,9 @@ class AnalysController extends Controller
 
       if ($request->type == 1){
 
-        if(auth()->user()->type != 1 and auth()->user()->type != 2 and auth()->user()->type != 4){
-          dd('You not admin');
-        }
+        // if(auth()->user()->type != 1 and auth()->user()->type != 2 and auth()->user()->type != 4){
+        //   dd('You not admin');
+        // }
 
         $newfdate = '';
         $newtdate = '';
