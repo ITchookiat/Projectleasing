@@ -130,7 +130,11 @@
                 บต
               @endif
             </td>
+            @if($value->note_Price == Null)
+            <td width="45px" rowspan="3" style="line-height:550%;">{{$value->License_car}}</td>
+            @else
             <td width="45px" rowspan="2" style="line-height:400%;">{{$value->License_car}}</td>
+            @endif
             <td width="35px" rowspan="3" style="line-height:550%;">{{number_format($value->Top_car)}}</td>
             <td width="55px">
               @if($value->act_Price != 0)
@@ -199,7 +203,10 @@
             </td>
           </tr>
           <tr align="center" style="line-height: 200%;">
-            <td width="45px" style="line-height:200%;background-color: #FFFF00;">{{ $value->note_Price }}</td>
+            @if($value->note_Price == Null)
+            @else
+            <td width="45px" style="background-color: #FFFF00;">{{ $value->note_Price }}</td>          
+            @endif
             <td width="55px">
               @if($value->P2_Price != 0)
                 @if($value->P2_Price > 6700)
