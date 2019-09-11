@@ -883,8 +883,8 @@
                                              var num11 = 0;
                                            }
                                            else{
-                                             var sumCom = (num11*0.03);
-                                             var result = num11 - sumCom;
+                                             var sumCom = (num1*0.03);
+                                             var result = num1 - sumCom;
                                            }
                                          }else{
                                            var result = num1;
@@ -894,7 +894,7 @@
 
                                        if(!isNaN(num1)){
                                            document.form1.Commissioncar.value = addCommas(num1);
-                                           document.form1.commitPrice.value = addCommas(result);
+                                           document.form1.commitPrice.value = addCommas(result.toFixed(0));
                                       }
 
                                      }
