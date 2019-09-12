@@ -1444,24 +1444,24 @@ class AnalysController extends Controller
       return redirect()->back()->with('success','ลบข้อมูลเรียบร้อย');
     }
 
-    // public function deleteImageAll($id)
-    // {
-    //
-    //   // dd($id);
-    //   $item = UploadfileImage::where('Buyerfileimage_id','=',$id)->get();
-    //
-    //   foreach ($item as $key => $value) {
-    //     $itemID = $value->Buyerfileimage_id;
-    //     $itemPath = $value->Name_fileimage;
-    //
-    //     Storage::delete($itemPath);
-    //   }
-    //
-    //     $deleteItem = UploadfileImage::where('Buyerfileimage_id',$itemID);
-    //     $deleteItem->Delete();
-    //
-    //   return redirect()->back()->with('success','ลบรูปทั้งหมดเรียบร้อยแล้ว');
-    // }
+    public function deleteImageAll($id)
+    {
+
+      // dd($id);
+      $item = UploadfileImage::where('Buyerfileimage_id','=',$id)->get();
+
+      foreach ($item as $key => $value) {
+        $itemID = $value->Buyerfileimage_id;
+        $itemPath = $value->Name_fileimage;
+
+        Storage::delete($itemPath);
+      }
+
+        $deleteItem = UploadfileImage::where('Buyerfileimage_id',$itemID);
+        $deleteItem->Delete();
+
+      return redirect()->back()->with('success','ลบรูปทั้งหมดเรียบร้อยแล้ว');
+    }
 
     public function deleteImageEach($id,$type,$fdate,$tdate,$branch,$status,Request $request)
     {
