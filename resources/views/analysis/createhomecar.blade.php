@@ -830,6 +830,7 @@
                                       <label>ค่าประกัน : </label>
                                       <select id="insurancefeeHC" name="insurancefeeHC" class="form-control" style="width: 250px;" oninput="priceHomecar()">
                                         <option value="" disabled selected>--- ค่าประกัน ---</option>
+                                        <option value="0">ลูกค้าโอนเอง</option>
                                         <option value="7700">7,700</option>
                                         <option value="20000">20,000</option>
                                       </select>
@@ -841,6 +842,7 @@
                                       <label>ค่าโอน : </label>
                                       <select id="transferHC" name="transferHC" class="form-control" style="width: 250px;" oninput="priceHomecar()">
                                         <option value="" disabled selected>--- ค่าโอน ---</option>
+                                        <option value="0">ลูกค้าโอนเอง</option>
                                         <option value="3950">3,950</option>
                                         <option value="4950">4,950</option>
                                         <option value="6590">6,590</option>
