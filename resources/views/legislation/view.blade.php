@@ -62,16 +62,6 @@ $date = date('Y-m-d', strtotime('-1 days'));
             <div class="row">
               @if($type == 1)
                 <div class="col-md-12">
-                  {{--
-                  <!-- <form name="form1" action="{{ route('Legislation.store') }}" method="post" id="formimage" enctype="multipart/form-data">
-                      @csrf
-                    <div align="right" class="form-inline">
-                      <a href="#" class="btn btn-primary btn-app">
-                        <span class="glyphicon glyphicon-save"></span> Update
-                      </a>
-                    </div>
-                  </form> -->
-                  --}}
                    <hr>
                    <div class="table-responsive">
                      <table class="table table-bordered" id="table">
@@ -162,16 +152,6 @@ $date = date('Y-m-d', strtotime('-1 days'));
                 </div>
               @elseif($type == 2)
                 <div class="col-md-12">
-                  {{--
-                    <form name="form1" action="{{ route('Legislation.store') }}" method="post" id="formimage" enctype="multipart/form-data">
-                      @csrf
-                      <div align="right" class="form-inline">
-                        <a href="#" class="btn btn-primary btn-app">
-                          <span class="glyphicon glyphicon-save"></span> Update
-                        </a>
-                      </div>
-                    </form>
-                  --}}
                   <hr>
                   <div class="table-responsive">
                     <table class="table table-bordered" id="table">
@@ -197,7 +177,7 @@ $date = date('Y-m-d', strtotime('-1 days'));
                               <a target="_blank" href="#" class="btn btn-info btn-sm" title="พิมพ์">
                                 <span class="glyphicon glyphicon-eye-open"></span> พิมพ์
                               </a>
-                              <a href="{{ action('LegislationController@edit',[$row->id]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
+                              <a href="{{ action('LegislationController@edit',[$row->id,$type]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                 <span class="glyphicon glyphicon-pencil"></span> แก้ไข
                               </a>
                               <div class="form-inline form-group">

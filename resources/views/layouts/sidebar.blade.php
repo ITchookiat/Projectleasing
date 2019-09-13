@@ -89,7 +89,7 @@
         </ul>
       </li>
 
-      <li class="treeview {{ (request()->is('Legislation/Home*')) ? 'active' : '' }}"> <!-- /.DINsidebar -->
+      <li class="treeview {{ (request()->is('Legislation/Home*')) ? 'active' : '' }} {{ (request()->is('Legislation/edit/*')) ? 'active' : '' }}"> <!-- /.DINsidebar -->
         <a href="#">
           <i class="fa fa-book"></i> <span> แผนกกฏหมาย</span>
           <span class="pull-right-container">

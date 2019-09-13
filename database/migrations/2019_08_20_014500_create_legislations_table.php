@@ -30,6 +30,12 @@ class CreateLegislationsTable extends Migration
             $table->string('NameGT_legis')->nullable();
             $table->string('IdcardGT_legis')->nullable();
             $table->string('Realty_legis')->nullable();
+            $table->string('Mile_legis')->nullable();
+            $table->string('Period_legis')->nullable();
+            $table->string('Countperiod_legis')->nullable();
+            $table->string('Beforeperiod_legis')->nullable();
+            $table->string('Afterperiod_legis')->nullable();
+            $table->string('Sumperiod_legis')->nullable();
             $table->string('Note')->nullable();
             $table->string('Flag')->nullable();
             $table->timestamps();

@@ -1751,7 +1751,7 @@
                           <div class="row">
                             <div class="col-md-5">
                               <div class="form-inline" align="right">
-                                 <label>แนะนำ/นายหน้า : </label>
+                                 <font color="red">(* กรณีเป็นพนักงาน) </font><label>แนะนำ/นายหน้า : </label>
                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
                                     <input type="text" id="Agentcar" name="Agentcar" value="{{$data->Agent_car}}" class="form-control" style="width: 250px;" placeholder="แนะนำ/นายหน้า" />
                                  @else
