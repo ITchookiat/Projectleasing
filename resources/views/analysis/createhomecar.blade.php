@@ -743,7 +743,12 @@
                                   <div class="col-md-6">
                                     <div class="form-inline" align="right">
                                       <label>ประเภทรถ : </label>
-                                      <input type="text" name="typeHC" class="form-control" style="width: 250px;" placeholder="ประเภทรถ" />
+                                      <select name="typeHC" class="form-control" style="width: 250px;">
+                                        <option value="" disabled selected>--- ประเภทรถ ---</option>
+                                        <option value="รถเทิร์น">รถเทิร์น</option>
+                                        <option value="รถยึด">รถยึด</option>
+                                        <option value="รถขาย">รถขาย</option>
+                                      </select>
                                     </div>
                                   </div>
                                 </div>
@@ -946,13 +951,9 @@
                                       <label>แบบ : </label>
                                       <select name="baabHC" class="form-control" style="width: 250px;">
                                         <option value="" disabled selected>--- สถานะ ---</option>
-                                        <option value="กส.ค้ำมีหลักทรัพย์">กส.ค้ำมีหลักทรัพย์</option>
-                                        <option value="กส.ค้ำไม่มีหลักทรัพย์">กส.ค้ำไม่มีหลักทรัพย์</option>
-                                        <option value="กส.ไม่ค้ำประกัน">กส.ไม่ค้ำประกัน</option>
                                         <option value="ซข.ค้ำมีหลักทรัพย์">ซข.ค้ำมีหลักทรัพย์</option>
                                         <option value="ซข.ค้ำไม่มีหลักทรัพย์">ซข.ค้ำไม่มีหลักทรัพย์</option>
                                         <option value="ซข.ไม่ค้ำประกัน">ซข.ไม่ค้ำประกัน</option>
-                                        <option value="VIP1">VIP1</option>
                                       </select>
                                     </div>
                                   </div>
@@ -960,7 +961,14 @@
                                   <div class="col-md-6">
                                     <div class="form-inline" align="right">
                                       <label>ค้ำประกัน : </label>
-                                      <input type="text" name="guaranteeHC" class="form-control" style="width: 250px;" placeholder="ค้ำประกัน" />
+                                      <select name="guaranteeHC" class="form-control" style="width: 250px;">
+                                        <option value="" disabled selected>--- ค้ำประกัน ---</option>
+                                        <option value="โฉนด">โฉนด</option>
+                                        <option value="ข้าราชการ">ข้าราชการ</option>
+                                        <option value="เจ้าบ้าน">เจ้าบ้าน</option>
+                                        <option value="บุคคลธรรมดา">บุคคลธรรมดา</option>
+                                        <option value="ไม่ค้ำ">ไม่ค้ำ</option>
+                                      </select>
                                     </div>
                                   </div>
                                 </div>
