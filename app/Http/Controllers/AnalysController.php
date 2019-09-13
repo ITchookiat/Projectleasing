@@ -917,6 +917,24 @@ class AnalysController extends Controller
         'อลิสา หิดาวรรณ' => 'อลิสา หิดาวรรณ',
         'ธัญญ์วรา สีลาภเกื้อ' => 'ธัญญ์วรา สีลาภเกื้อ',
       ];
+      $GetypeHC = [
+      'รถเทิร์น' => 'รถเทิร์น',
+        'รถยึด' => 'รถยึด',
+        'รถขาย' => 'รถขาย',
+      ];
+      $GetbaabHC = [
+        'ซข.ค้ำมีหลักทรัพย์' => 'ซข.ค้ำมีหลักทรัพย์',
+        'ซข.ค้ำไม่มีหลักทรัพย์' => 'ซข.ค้ำไม่มีหลักทรัพย์',
+        'ซข.ไม่ค้ำประกัน' => 'ซข.ไม่ค้ำประกัน',
+      ];
+      $GetguaranteeHC = [
+        'โฉนด' => 'โฉนด',
+        'ข้าราชการ' => 'ข้าราชการ',
+        'เจ้าบ้าน' => 'เจ้าบ้าน',
+        'บุคคลธรรมดา' => 'บุคคลธรรมดา',
+        'ไม่ค้ำ' => 'ไม่ค้ำ',
+      ];
+
 
       // dd($Gettype);
       if ($type == 1) {
@@ -931,7 +949,7 @@ class AnalysController extends Controller
             compact('data','id','dataImage','Statusby','Addby','Houseby','Driverby','HouseStyleby','Careerby','Incomeby',
             'HisCarby','StatusSPp','relationSPp','addSPp','housestyleSPp','Brandcarr','Interestcarr','Timeslackencarr',
             'Insurancecarr','statuscarr','newDateDue','evaluetionPricee','securitiesSPp','Getinsurance',
-            'Gettransfer','Getinterest','fdate','tdate','branch','status','Gettype','GetSale'));
+            'Gettransfer','Getinterest','fdate','tdate','branch','status','Gettype','GetSale','GetypeHC','GetbaabHC','GetguaranteeHC'));
       }
     }
 

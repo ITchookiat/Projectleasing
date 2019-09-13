@@ -684,7 +684,12 @@
                             <div class="col-md-6">
                               <div class="form-inline" align="right">
                                  <label>ประเภทรถ : </label>
-                                 <input type="text" name="typeHC" value="{{$data->type_HC}}" class="form-control" style="width: 250px;" placeholder="ประเภทรถ" />
+                                 <select name="typeHC" class="form-control" style="width: 250px;">
+                                   <option value="" disabled selected>--- ประเภทรถ ---</option>
+                                   @foreach ($GetypeHC as $key => $value)
+                                     <option value="{{$key}}" {{ ($key == $data->type_HC) ? 'selected' : '' }}>{{$value}}</option>
+                                   @endforeach
+                                 </select>
                                </div>
                             </div>
                           </div>
@@ -874,7 +879,7 @@
                                 <label>แบบ : </label>
                                 <select name="baabHC" class="form-control" style="width: 250px;">
                                   <option value="" disabled selected>--- สถานะ ---</option>
-                                  @foreach ($statuscarr as $key => $value)
+                                  @foreach ($GetbaabHC as $key => $value)
                                      <option value="{{$key}}" {{ ($key == $data->baab_HC) ? 'selected' : '' }}>{{$value}}</option>
                                   @endforeach
                                 </select>
@@ -884,7 +889,13 @@
                             <div class="col-md-6">
                               <div class="form-inline" align="right">
                                 <label>ค้ำประกัน : </label>
-                                <input type="text" name="guaranteeHC" value="{{$data->guarantee_HC}}" class="form-control" style="width: 250px;" placeholder="ค้ำประกัน" />
+                                <select name="guaranteeHC" class="form-control" style="width: 250px;">
+                                   <option value="" disabled selected>--- ค้ำประกัน ---</option>
+                                   @foreach ($GetguaranteeHC as $key => $value)
+                                     <option value="{{$key}}" {{ ($key == $data->guarantee_HC) ? 'selected' : '' }}>{{$value}}</option>
+                                   @endforeach
+                                 </select>
+                                <!-- <input type="text" name="guaranteeHC" value="{{$data->guarantee_HC}}" class="form-control" style="width: 250px;" placeholder="ค้ำประกัน" /> -->
                               </div>
                             </div>
                           </div>
