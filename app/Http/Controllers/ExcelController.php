@@ -233,7 +233,7 @@ class ExcelController extends Controller
         // dd($data);
 
         $data_array[] = array('ลำดับ', 'วันที่โอน', 'สถานะ', 'ยี่ห้อ', 'รุ่น', 'ทะเบียนเดิม', 'ทะเบียนใหม่', 'เลขสัญญา', 'ปี', 'ยอดจัด', 'งวดผ่อน(เดือน)',
-                              'ค่าคอมก่อนหัก3%', 'ค่ค่าคอมหลังหัก3%', 'ผู้รับเงิน', 'เบอร์โทรผู้รับเงิน', 'ผู้รับค่าคอม', 'เบอร์โทรผู้แนะนำ', 'แถมประกัน');
+                              'ค่าคอม','นายหน้า', 'เบอร์โทรนายหน้า', 'ประกันภัย','ราคารถ','เงินดาวน์','ค่าโอน','ค่าประกัน');
 
         foreach($data as $key => $row){
           $date = date_create($row->Date_Due);
@@ -250,27 +250,16 @@ class ExcelController extends Controller
            'เลขสัญญา' => $row->Contract_buyer,
            'ปี' => $row->year_HC,
            'ยอดจัด' => $row->topprice_HC,
-           // 'พรบ.' => $row->act_Price,
-           // 'ดอกเบี้ย' => $row->Percent_car,
-           // 'งวดผ่อน(เดือน)' => $row->Timeslacken_car,
-           // 'ค่าใช้จ่ายขนส่ง' => $row->tran_Price,
-           // 'อื่นๆ' => $row->other_Price,
-           // 'ค่าประเมิน' => $row->evaluetion_Price,
-           // 'ค่าการตลาด' => $row->marketing_Price,
-           // 'อากร' => $row->duty_Price,
-           // 'รวม คชจ.' => $row->totalk_Price,
-           // 'คงเหลือ' => $row->balance_Price,
-           // 'ค่าคอมก่อนหัก3%' => $row->Commission_car,
-           // 'ค่าคอมหลังหัก3%' => $row->commit_Price,
-           // 'เอกสารผู้ค้ำ' => $row->deednumber_SP,
-           // 'ผู้รับเงิน' => $row->Payee_car,
-           // 'เลขที่บัญช(ผู้รับเงิน)' => $row->Accountbrance_car,
-           // 'เบอร์โทร(ผู้รับเงิน)' => $row->Tellbrance_car,
-           // 'ผู้รับค่าคอม' => $row->Agent_car,
-           // 'เลขที่บัญชี(รับคอม)' => $row->Accountagent_car,
-           // 'เบอร์โทรผู้แนะนำ' => $row->Tellagent_car,
-           // 'ใบขับขี่' => $row->Driver_buyer,
-           // 'แถมประกัน' => $row->Insurance_car,
+           'งวดผ่อน(เดือน)' => $row->paypor_HC,
+           'ค่าคอม' => $row->commit_HC,
+           'นายหน้า' => $row->agent_HC,
+           'เบอร์โทรนายหน้า' => $row->tel_HC,
+           'ประกันภัย' => $row->insurance_HC,
+           'ราคารถ' => $row->price_HC,
+           'เงินดาวน์' => $row->downpay_HC,
+           'ค่าโอน' => $row->transfer_HC,
+           'ค่าประกัน' => $row->insurancefee_HC,
+
           );
         }
         $data_array = collect($data_array);
