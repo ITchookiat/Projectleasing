@@ -748,6 +748,7 @@
                                         <option value="รถเทิร์น">รถเทิร์น</option>
                                         <option value="รถยึด">รถยึด</option>
                                         <option value="รถขาย">รถขาย</option>
+                                        <option value="รถฝากขาย">รถฝากขาย</option>
                                       </select>
                                     </div>
                                   </div>
