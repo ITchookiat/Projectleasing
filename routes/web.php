@@ -11,8 +11,6 @@
 |
 */
 
-
-
 Route::get('/', function () {
     return redirect('/home');
 });
@@ -57,7 +55,7 @@ Route::group(['middleware' => 'auth'], function()
 
     Route::get('/Legislation/store/{Str1}/{Str2}/{Realty}', 'LegislationController@store')->name('legislation.store');
     Route::get('/Legislation/Home/{type}', 'LegislationController@index')->name('legislation');
-    Route::get('/Legislation/edit/{id}', 'LegislationController@edit')->name('legislation.edit');
+    Route::get('/Legislation/edit/{id}/{type}', 'LegislationController@edit')->name('legislation.edit');
     Route::patch('/Legislation/update/{id}', 'LegislationController@update')->name('legislation.update');
     Route::delete('/Legislation/delete/{id}', 'LegislationController@destroy')->name('legislation.destroy');
 

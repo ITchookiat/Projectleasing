@@ -191,11 +191,11 @@ class ExcelController extends Controller
 
         if ($request->has('Fromdate')) {
           $fdate = $request->get('Fromdate');
-          $newfdate = \Carbon\Carbon::parse($fdate)->format('Y')-543 ."-". \Carbon\Carbon::parse($fdate)->format('m')."-". \Carbon\Carbon::parse($fdate)->format('d');
+          $newfdate = \Carbon\Carbon::parse($fdate)->format('Y') ."-". \Carbon\Carbon::parse($fdate)->format('m')."-". \Carbon\Carbon::parse($fdate)->format('d');
         }
         if ($request->has('Todate')) {
           $tdate = $request->get('Todate');
-          $newtdate = \Carbon\Carbon::parse($tdate)->format('Y')-543 ."-". \Carbon\Carbon::parse($tdate)->format('m')."-". \Carbon\Carbon::parse($tdate)->format('d');
+          $newtdate = \Carbon\Carbon::parse($tdate)->format('Y') ."-". \Carbon\Carbon::parse($tdate)->format('m')."-". \Carbon\Carbon::parse($tdate)->format('d');
         }
         if ($request->has('agen')) {
           $agen = $request->get('agen');
@@ -213,27 +213,27 @@ class ExcelController extends Controller
                     ->get()
                     ->toArray();
         }else {
-        $data = DB::table('buyers')
-                  ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
-                  ->join('homecardetails','buyers.id','=','homecardetails.Buyerhomecar_id')
-                  ->where('homecardetails.approvers_HC','!=',Null)
-                  ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
-                    return $q->whereBetween('buyers.Date_Due',[$newfdate,$newtdate]);
-                  })
-                  ->when(!empty($agen), function($q) use($agen){
-                    return $q->where('homecardetails.agent_HC',$agen);
-                  })
-                  ->when(!empty($yearcar), function($q) use($yearcar){
-                    return $q->where('homecardetails.year_HC',$yearcar);
-                  })
-                  ->orderBy('buyers.Contract_buyer', 'ASC')
-                  ->get()
-                  ->toArray();
+          $data = DB::table('buyers')
+                    ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
+                    ->join('homecardetails','buyers.id','=','homecardetails.Buyerhomecar_id')
+                    ->where('homecardetails.approvers_HC','!=',Null)
+                    ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+                      return $q->whereBetween('buyers.Date_Due',[$newfdate,$newtdate]);
+                    })
+                    ->when(!empty($agen), function($q) use($agen){
+                      return $q->where('homecardetails.agent_HC',$agen);
+                    })
+                    ->when(!empty($yearcar), function($q) use($yearcar){
+                      return $q->where('homecardetails.year_HC',$yearcar);
+                    })
+                    ->orderBy('buyers.Contract_buyer', 'ASC')
+                    ->get()
+                    ->toArray();
         }
         // dd($data);
 
-        $data_array[] = array('ลำดับ', 'วันที่โอน', 'สถานะ', 'ยี่ห้อ', 'รุ่น', 'ทะเบียนเดิม', 'ทะเบียนใหม่', 'เลขสัญญา', 'ปี', 'ยอดจัด', 'พรบ.', '%ยอดจัด', 'งวดผ่อน(เดือน)', 'ค่าใช้จ่ายขนส่ง', 'อื่นๆ', 'ค่าประเมิน', 'ค่าการตลาด', 'อากร',
-                              'รวม คชจ', 'คงเหลือ', 'ค่าคอมก่อนหัก3%', 'ค่ค่าคอมหลังหัก3%', 'เอกสารผู้ค้ำ', 'ผู้รับเงิน', 'เลขที่บัญชี', 'เบอร์โทรผู้รับเงิน', 'ผู้รับค่าคอม', 'เลขที่บัญชี', 'เบอร์โทรผู้แนะนำ', 'ใบขับขี่', 'แถมประกัน');
+        $data_array[] = array('ลำดับ', 'วันที่โอน', 'สถานะ', 'ยี่ห้อ', 'รุ่น', 'ทะเบียนเดิม', 'ทะเบียนใหม่', 'เลขสัญญา', 'ปี', 'ยอดจัด', 'งวดผ่อน(เดือน)',
+                              'ค่าคอมก่อนหัก3%', 'ค่ค่าคอมหลังหัก3%', 'ผู้รับเงิน', 'เบอร์โทรผู้รับเงิน', 'ผู้รับค่าคอม', 'เบอร์โทรผู้แนะนำ', 'แถมประกัน');
 
         foreach($data as $key => $row){
           $date = date_create($row->Date_Due);

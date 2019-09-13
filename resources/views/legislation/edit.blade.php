@@ -123,19 +123,6 @@
   </style>
 
   <style>
-    h1{
-    text-align:center;
-    padding:50px 0;
-    font-size:30px;
-    margin:0;
-    font-weight:200;
-    color:#454545;
-    }
-    h1 .fa-check{
-    font-size:30px;
-    margin-right:10px;
-    color:#0eb0b7;
-    }
     #todo-list{
     width:100%;
     margin:0 auto 50px auto;
@@ -330,6 +317,15 @@
                 <i class="fa fa-times"></i></button>
             </div>
           </div>
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs bg-warning">
+              <li class="nav-item active"><a href="{{ action('LegislationController@edit',[$id, 2]) }}">ข้อมูลผู้เช่าซื้อ</a></li>
+              <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 3]) }}">ชั้นศาล</a></li>
+              <li class="nav-item"><a href="#tab_3" data-toggle="tab" aria-expanded="false">ชั้นบังคับคดี</a></li>
+              <li class="nav-item"><a href="#tab_4" data-toggle="tab" aria-expanded="false">ของกลาง</a></li>
+              <li class="nav-item"><a href="#tab_5" data-toggle="tab" aria-expanded="false">โกงเจ้าหนี้</a></li>
+            </ul>
+          </div>
 
           <div class="box-body" style="background-color:#F1F1F1">
 
@@ -476,7 +472,7 @@
                               </div>
                             </div>
                           </div>
- 
+
                           <div class="col-md-6">
                             <div class="box box-warning">
                               <div class="box-header with-border">
@@ -609,67 +605,29 @@
                                               <i class="fa fa-times-circle"></i>
                                             </span>
                                           </span>
+                                          <span class="todo-wrap">
+                                            <input type="checkbox" id="12" name="list12"/>
+                                            <label for="12" class="todo">
+                                              <i class="fa fa-check"></i>
+                                              หนังสือยืนยันการบอกเลิก
+                                            </label>
+                                            <span class="delete-item" title="remove">
+                                              <i class="fa fa-times-circle"></i>
+                                            </span>
+                                          </span>
+                                          <span class="todo-wrap">
+                                            <input type="checkbox" id="13" name="list13"/>
+                                            <label for="13" class="todo">
+                                              <i class="fa fa-check"></i>
+                                              ใบตอบรับ
+                                            </label>
+                                            <span class="delete-item" title="remove">
+                                              <i class="fa fa-times-circle"></i>
+                                            </span>
+                                          </span>
                                         </div>
                                       </div>
                                     </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="col-md-12">
-                            <div class="row">
-                              <div class="col-md-3">
-                                <div class="box box-warning box-solid">
-                                  <div class="box-header with-border">
-                                    <h3 class="box-title"> วันฟ้อง (45-60 วัน)</h3>
-                                    <div class="box-tools pull-right">
-                                      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                                      </button>
-                                    </div>
-                                  </div>
-                                  <div class="box-body">
-                                    วันที่ฟ้อง
-                                    <input type="date" name="Contract_legis" class="form-control" style="width: 250px;" value="{{ date('Y-m-d') }}" />
-                                    เลขคดีดำ
-                                    <input type="text" name="Contract_legis" class="form-control" style="width: 250px;" value="" />
-                                    ทุนทรัพย์
-                                    <input type="text" name="Contract_legis" class="form-control" style="width: 250px;" value="" />
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-md-3">
-                                <div class="box box-warning box-solid">
-                                  <div class="box-header with-border">
-                                    <h3 class="box-title"> สืบพยาน</h3>
-
-                                    <div class="box-tools pull-right">
-                                      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                                      </button>
-                                    </div>
-                                  </div>
-                                  <div class="box-body">
-                                    เลขคดีแดง
-                                    <input type="text" name="Contract_legis" class="form-control" style="width: 250px;" value="" />
-                                    วันที่เลือน
-                                    <input type="date" name="Contract_legis" class="form-control" style="width: 250px;" value="" />
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-md-3">
-                                <div class="box box-warning box-solid">
-                                  <div class="box-header with-border">
-                                    <h3 class="box-title"> ส่งคำบังคับ</h3>
-
-                                    <div class="box-tools pull-right">
-                                      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                                      </button>
-                                    </div>
-                                  </div>
-                                  <div class="box-body">
-                                    The body of the box
-                                    <input type="text" name="Contract_legis" class="form-control" style="width: 250px;" value="" />
                                   </div>
                                 </div>
                               </div>

@@ -17,7 +17,7 @@ class LegislationController extends Controller
      */
     public function index(Request $request)
     {
-      if ($request->type == 1) {
+      if($request->type == 1) {
         $data = DB::connection('ibmi')
                   ->table('SFHP.ARMAST')
                   ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
@@ -56,7 +56,8 @@ class LegislationController extends Controller
         $type = $request->type;
         return view('legislation.view', compact('type', 'result','data','result2'));
 
-      }elseif ($request->type == 2) {
+      }
+      elseif ($request->type == 2) {
         $data = DB::table('legislations')
                   ->orderBy('Contract_legis', 'ASC')
                   ->get();
@@ -138,13 +139,22 @@ class LegislationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id,$type)
     {
-      $data = DB::table('legislations')
-                ->where('legislations.id',$id)->first();
+      // dump($type);
+      if ($type == 2) {
+        $data = DB::table('legislations')
+        ->where('legislations.id',$id)->first();
 
-                // dump($data);
-      return view('legislation.edit',compact('data','id'));
+        return view('legislation.edit',compact('data','id','type'));
+      }
+      elseif ($type == 3)
+      {
+        $data = DB::table('legislations')
+        ->where('legislations.id',$id)->first();
+
+        return view('legislation.editlegis1',compact('data','id','type'));
+      }
     }
 
     /**
