@@ -439,6 +439,7 @@
                                          <option value="เพื่อน">เพื่อน</option>
                                          <option value="บิดา">บิดา</option>
                                          <option value="มารดา">มารดา</option>
+                                         <option value="บุตร">บุตร</option>
                                        </select>
                                    </div>
                                   </div>

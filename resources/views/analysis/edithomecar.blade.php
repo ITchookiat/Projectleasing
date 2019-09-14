@@ -443,7 +443,7 @@
                                   <label>ความสัมพันธ์ : </label>
                                    <select name="relationSP" class="form-control" style="width: 250px;">
                                      <option value="" disabled selected>--- ความสัมพันธ์ ---</option>
-                                     @foreach ($relationSPp as $key => $value)
+                                     @foreach ($relationSP as $key => $value)
                                      <option value="{{$key}}" {{ ($key == $data->relation_SP) ? 'selected' : '' }}>{{$value}}</option>
                                      @endforeach
                                    </select>
