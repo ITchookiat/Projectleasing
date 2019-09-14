@@ -43,7 +43,7 @@
       <div class="box box-primary">
         <div class="box-header with-border">
           <ul class="nav nav-pills ml-auto p-2">
-            <li class="nav-item"><a class="nav-link" href="{{ route('Analysis',4) }}">หน้าหลัก</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('Analysis',4) }}" onclick="return confirm('คุณต้องการออกไปหน้าหลักหรือไม่ ? \n')">หน้าหลัก</a></li>
             <li class="nav-item active"><a class="nav-link" href="#tab_1" data-toggle="tab">แบบฟอร์มผู้เช่าซื้อ</a></li>
             <li class="nav-item"><a class="nav-link" href="#tab_2" data-toggle="tab">แบบฟอร์มผู้ค้ำ</a></li>
             <li class="nav-item"><a class="nav-link" href="#tab_3" data-toggle="tab">แบบฟอร์มรถยนต์</a></li>
