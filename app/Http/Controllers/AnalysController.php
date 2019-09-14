@@ -920,7 +920,6 @@ class AnalysController extends Controller
       $GetypeHC = [
       'รถเทิร์น' => 'รถเทิร์น',
         'รถยึด' => 'รถยึด',
-        'รถขาย' => 'รถขาย',
         'รถฝากขาย' => 'รถฝากขาย',
       ];
       $GetbaabHC = [
