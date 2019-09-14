@@ -935,6 +935,14 @@ class AnalysController extends Controller
         'บุคคลธรรมดา' => 'บุคคลธรรมดา',
         'ไม่ค้ำ' => 'ไม่ค้ำ',
       ];
+      $relationSP = [
+        'พี่น้อง' => 'พี่น้อง',
+        'ญาติ' => 'ญาติ',
+        'เพื่อน' => 'เพื่อน',
+        'บิดา' => 'บิดา',
+        'มารดา' => 'มารดา',
+        'บุตร' => 'บุตร',
+      ];
 
 
       // dd($Gettype);
@@ -950,7 +958,8 @@ class AnalysController extends Controller
             compact('data','id','dataImage','Statusby','Addby','Houseby','Driverby','HouseStyleby','Careerby','Incomeby',
             'HisCarby','StatusSPp','relationSPp','addSPp','housestyleSPp','Brandcarr','Interestcarr','Timeslackencarr',
             'Insurancecarr','statuscarr','newDateDue','evaluetionPricee','securitiesSPp','Getinsurance',
-            'Gettransfer','Getinterest','fdate','tdate','branch','status','Gettype','GetSale','GetypeHC','GetbaabHC','GetguaranteeHC'));
+            'Gettransfer','Getinterest','fdate','tdate','branch','status','Gettype','GetSale','GetypeHC','GetbaabHC',
+            'GetguaranteeHC','relationSP'));
       }
     }
 
