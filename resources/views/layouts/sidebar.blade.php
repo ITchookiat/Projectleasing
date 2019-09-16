@@ -69,14 +69,15 @@
               <ul class="treeview-menu">
                 @if(auth::user()->branch != 10 and auth::user()->branch != 11 and auth::user()->type != 4)
                   <li><a href="{{ route('Analysis',1) }}"><i class="fa fa-tags"></i>สินเชื่อ</a></li>
+                  <li><a href="{{ route('Analysis',3) }}"><i class="fa fa-tags"></i>รายงาน สินเชื่อ</a></li>
                   @if(auth::user()->type == 1 or auth::user()->type == 2)
                     <li><a href="{{ route('Analysis',4) }}"><i class="fa fa-tags"></i>รถบ้าน</a></li>
+                    <li><a href="{{ route('Analysis',6) }}"><i class="fa fa-tags"></i>รายงาน รถบ้าน</a></li>
                   @endif
                 @else
                     <li><a href="{{ route('Analysis',4) }}"><i class="fa fa-tags"></i>รถบ้าน</a></li>
+                    <li><a href="{{ route('Analysis',6) }}"><i class="fa fa-tags"></i>รายงาน รถบ้าน</a></li>
                 @endif
-                <li><a href="{{ route('Analysis',3) }}"><i class="fa fa-tags"></i>รายงาน สินเชื่อ</a></li>
-                <li><a href="{{ route('Analysis',6) }}"><i class="fa fa-tags"></i>รายงาน รถบ้าน</a></li>
               </ul>
           </li>
 
