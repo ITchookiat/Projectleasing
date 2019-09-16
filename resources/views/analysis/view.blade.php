@@ -305,7 +305,7 @@ $date = date('Y-m-d', strtotime('-1 days'));
                             <td class="text-center"> {{ $row->year_HC}} </td>
                             <td class="text-center">
                               @if($row->price_HC != Null)
-                                {{ $row->price_HC }}
+                                {{ $row->topprice_HC }}
                               @else
                                 0
                               @endif
