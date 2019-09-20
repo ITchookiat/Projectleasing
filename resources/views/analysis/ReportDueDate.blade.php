@@ -79,171 +79,171 @@
         </tr>
       </thead>
       <tbody>
-      @php
-        $countcar = 0;
-        $sumArcsum = 0;
-        $sumbalance = 0;
-        $sumall = 0;
-        $sumtopcar = 0;
-        $sumtotalkprice = 0;
-        $sumbalanceprice = 0;
-        $sumcommitprice = 0;
-
-        $dataCount = count($dataReport);
-      @endphp
-
-      @if($dataCount != 0)
-        @foreach($dataReport as $key => $value)
-          @php
-            $countcar = $key+1;
-            $sumtopcar += $value->Top_car;
-
-            @$sumtotran_Price += str_replace(",","",$value->tran_Price);
-            @$sumtoother_Price += str_replace(",","",$value->other_Price);
-            $sumtotransport = $sumtotran_Price +  $sumtoother_Price;
-            @$sumtocloseAccount_Price += str_replace(",","",$value->closeAccount_Price);
-
-            @$sumtoevaluetion_Price += str_replace(",","",$value->evaluetion_Price);
-            @$sumtomarketing_Price += str_replace(",","",$value->marketing_Price);
-            @$sumtoduty_Price += str_replace(",","",$value->duty_Price);
-            @$sumtototalk_Price += str_replace(",","",$value->totalk_Price);
-            $sumtocompany = $sumtoevaluetion_Price + $sumtomarketing_Price + $sumtoduty_Price;
-
-            $sumbalanceprice += str_replace(",","",$value->balance_Price);
-            $sumcommitprice += str_replace(",","",$value->commit_Price);
-          @endphp
-          <tr align="center" style="line-height: 200%;">
-            <td width="50px" rowspan="3" style="background-color: #33FF00; line-height:550%;">{{$value->Brand_car}}</td>
-            <td width="65px" rowspan="3" style="line-height:550%;">{{$value->status_car}}</td>
-            <td width="20px" rowspan="3" style="line-height:550%;">
-              @if($value->branch_car == 'ปัตตานี')
-                ปน
-              @elseif($value->branch_car == 'ยะลา')
-                ยล
-              @elseif($value->branch_car == 'นราธิวาส')
-                นธ
-              @elseif($value->branch_car == 'สายบุรี')
-                สบ
-              @elseif($value->branch_car == 'โกลก')
-                กล
-              @elseif($value->branch_car == 'เบตง')
-                บต
-              @endif
-            </td>
-            @if($value->note_Price == Null)
-            <td width="45px" rowspan="3" style="line-height:550%;">{{$value->License_car}}</td>
-            @else
-            <td width="45px" rowspan="2" style="line-height:400%;">{{$value->License_car}}</td>
-            @endif
-            <td width="35px" rowspan="3" style="line-height:550%;">{{number_format($value->Top_car)}}</td>
-            <td width="55px">
-              @if($value->act_Price != 0)
-                พรบ. {{number_format($value->act_Price)}}
-              @endif
-            </td>
-            <td width="40px" rowspan="3" style="background-color: #FFFF00; line-height:550%;">{{number_format($value->tran_Price)}}</td>
-            <td width="25px" rowspan="3" style="background-color: #FFFF00; line-height:550%;">{{number_format($value->other_Price)}}</td>
-            <td width="35px" rowspan="3" style="background-color: #FFFF00; line-height:550%;">{{ $value->evaluetion_Price }}</td>
-            <td width="25px" rowspan="3" style="background-color: #FFFF00; line-height:550%;">{{ $value->duty_Price }}</td>
-            <td width="35px" rowspan="3" style="background-color: #FFFF00; line-height:550%;">{{ $value->marketing_Price }}</td>
-            <td width="45px" rowspan="3" style="line-height:550%;">{{number_format($value->totalk_Price - $value->closeAccount_Price)}}</td>
-            <td width="35px" rowspan="3" style="line-height:550%;">{{number_format($value->balance_Price)}}</td>
-            <td width="30px" rowspan="3" style="line-height:550%;">{{number_format($value->commit_Price)}}</td>
-            <td width="110px">{{$value->Payee_car}}</td>
-            <td width="110px">{{$value->Agent_car}}</td>
-            <td width="55px">
-              @if($value->Accountbrance_car == $value->Accountagent_car and $value->Accountbrance_car != Null)
-                @php
-                    $ArcSum = $value->balance_Price + $value->commit_Price;
-                    $sumArcsum = $sumArcsum + $ArcSum;
-                @endphp
-                {{number_format($ArcSum)}}
-              @elseif($value->Accountbrance_car == Null)
-                สด {{number_format($value->balance_Price)}}
-                @php
-                $sumArcsum = $sumArcsum + $value->balance_Price;
-                @endphp
-              @else
-                รถ {{number_format($value->balance_Price)}}
-                @php
-                $sumArcsum = $sumArcsum + $value->balance_Price;
-                @endphp
-              @endif
-            </td>
-          </tr>
-          <tr align="center" style="line-height: 200%;">
-            <td width="55px">
-              @if($value->closeAccount_Price != 0)
-                ปิดบัญชี {{number_format($value->closeAccount_Price)}}
-              @endif
-            </td>
-            <td width="110px">
-              @if($value->Accountbrance_car != Null)
-                บัญชี :{{$value->Accountbrance_car}}/{{$value->branchbrance_car}}
-              @endif
-            </td>
-            <td width="110px">
-              @if($value->Accountagent_car != Null)
-                บัญชี :{{$value->Accountagent_car}}/{{$value->branchAgent_car}}
-              @endif
-            </td>
-            <td width="55px">
-              @if($value->Accountbrance_car != $value->Accountagent_car and $value->Accountagent_car != Null)
-                คอม {{ number_format($value->commit_Price) }}
-                @php
-                  $sumbalance = $sumbalance + $value->commit_Price;
-                @endphp
-              @elseif($value->Accountagent_car == Null and $value->Agent_car != Null)
-                สด {{number_format($value->commit_Price)}}
-                @php
-                  $sumbalance = $sumbalance + $value->commit_Price;
-                @endphp
-              @elseif($value->Accountagent_car == Null)
-              @endif
-            </td>
-          </tr>
-          <tr align="center" style="line-height: 200%;">
-            @if($value->note_Price == Null)
-            @else
-            <td width="45px" style="background-color: #FFFF00;">{{ $value->note_Price }}</td>          
-            @endif
-            <td width="55px">
-              @if($value->P2_Price != 0)
-                @if($value->P2_Price > 6700)
-                  ซื้อป1 {{number_format($value->P2_Price)}}
-                @else
-                  ซื้อป2+ {{number_format($value->P2_Price)}}
-                @endif
-              @endif
-            </td>
-            <td width="110px">
-              @if($value->Tellbrance_car != Null)
-                โทร : {{$value->Tellbrance_car}}
-              @endif
-            </td>
-            <td width="110px">
-              @if($value->Tellagent_car != Null)
-                  โทร : {{$value->Tellagent_car}}
-              @endif
-            </td>
-            <td width="55px"></td>
-          </tr>
-          <br>
-        @endforeach
         @php
-          $sumall = $sumArcsum + $sumbalance;
+          $countcar = 0;
+          $sumArcsum = 0;
+          $sumbalance = 0;
+          $sumall = 0;
+          $sumtopcar = 0;
+          $sumtotalkprice = 0;
+          $sumbalanceprice = 0;
+          $sumcommitprice = 0;
+
+          $dataCount = count($dataReport);
         @endphp
-          <tr align="center" style="line-height: 200%;">
-            <td width="115px" style="background-color: #FFFF00; line-height:250%;">รวมยอดจัดเป็นคัน    {{$countcar}}    คัน</td>
-            <td width="100px" style="background-color: #00FFFF; line-height:250%;">รวมยอดจัดเป็นเงิน      {{number_format($sumtopcar)}}</td>
-            <td width="120px" style="background-color: #00FFFF; line-height:250%;">รวมค่าใช้จ่ายขนส่ง     {{number_format($sumtotransport)}}</td>
-            <!-- <td width="95px" style="background-color: #00FFFF; line-height:250%;">รวมค่าใช้จ่ายบริษัท     {{number_format($sumtocompany)}}</td> -->
-            <td width="95px" style="background-color: #00FFFF; line-height:250%;">รวมค่าใช้จ่ายบริษัท     {{number_format($sumtototalk_Price - $sumtotransport - $sumtocloseAccount_Price)}}</td>
-            <td width="110px" style="background-color: #00FFFF; line-height:250%;">รวมค่ารถ     {{number_format($sumbalanceprice)}}</td>
-            <td width="110px" style="background-color: #00FFFF; line-height:250%;">รวมค่าคอม     {{number_format($sumcommitprice)}}</td>
-            <td width="165px" style="background-color: #FFFF00; line-height:250%;">ยอดรวมอนุมัติ        {{number_format($sumall)}}</td>
-          </tr>
-      @endif
+
+        @if($dataCount != 0)
+          @foreach($dataReport as $key => $value)
+            @php
+              $countcar = $key+1;
+              $sumtopcar += $value->Top_car;
+
+              @$sumtotran_Price += str_replace(",","",$value->tran_Price);
+              @$sumtoother_Price += str_replace(",","",$value->other_Price);
+              $sumtotransport = $sumtotran_Price +  $sumtoother_Price;
+              @$sumtocloseAccount_Price += str_replace(",","",$value->closeAccount_Price);
+
+              @$sumtoevaluetion_Price += str_replace(",","",$value->evaluetion_Price);
+              @$sumtomarketing_Price += str_replace(",","",$value->marketing_Price);
+              @$sumtoduty_Price += str_replace(",","",$value->duty_Price);
+              @$sumtototalk_Price += str_replace(",","",$value->totalk_Price);
+              $sumtocompany = $sumtoevaluetion_Price + $sumtomarketing_Price + $sumtoduty_Price;
+
+              $sumbalanceprice += str_replace(",","",$value->balance_Price);
+              $sumcommitprice += str_replace(",","",$value->commit_Price);
+            @endphp
+            <tr align="center" style="line-height: 200%;">
+              <td width="50px" rowspan="3" style="background-color: #33FF00; line-height:550%;">{{$value->Brand_car}}</td>
+              <td width="65px" rowspan="3" style="line-height:550%;">{{$value->status_car}}</td>
+              <td width="20px" rowspan="3" style="line-height:550%;">
+                @if($value->branch_car == 'ปัตตานี')
+                  ปน
+                @elseif($value->branch_car == 'ยะลา')
+                  ยล
+                @elseif($value->branch_car == 'นราธิวาส')
+                  นธ
+                @elseif($value->branch_car == 'สายบุรี')
+                  สบ
+                @elseif($value->branch_car == 'โกลก')
+                  กล
+                @elseif($value->branch_car == 'เบตง')
+                  บต
+                @endif
+              </td>
+              @if($value->note_Price == Null)
+              <td width="45px" rowspan="3" style="line-height:550%;">{{$value->License_car}}</td>
+              @else
+              <td width="45px" rowspan="2" style="line-height:400%;">{{$value->License_car}}</td>
+              @endif
+              <td width="35px" rowspan="3" style="line-height:550%;">{{number_format($value->Top_car)}}</td>
+              <td width="55px">
+                @if($value->act_Price != 0)
+                  พรบ. {{number_format($value->act_Price)}}
+                @endif
+              </td>
+              <td width="40px" rowspan="3" style="background-color: #FFFF00; line-height:550%;">{{number_format($value->tran_Price)}}</td>
+              <td width="25px" rowspan="3" style="background-color: #FFFF00; line-height:550%;">{{number_format($value->other_Price)}}</td>
+              <td width="35px" rowspan="3" style="background-color: #FFFF00; line-height:550%;">{{ $value->evaluetion_Price }}</td>
+              <td width="25px" rowspan="3" style="background-color: #FFFF00; line-height:550%;">{{ $value->duty_Price }}</td>
+              <td width="35px" rowspan="3" style="background-color: #FFFF00; line-height:550%;">{{ $value->marketing_Price }}</td>
+              <td width="45px" rowspan="3" style="line-height:550%;">{{number_format($value->totalk_Price - $value->closeAccount_Price)}}</td>
+              <td width="35px" rowspan="3" style="line-height:550%;">{{number_format($value->balance_Price)}}</td>
+              <td width="30px" rowspan="3" style="line-height:550%;">{{number_format($value->commit_Price)}}</td>
+              <td width="110px">{{$value->Payee_car}}</td>
+              <td width="110px">{{$value->Agent_car}}</td>
+              <td width="55px">
+                @if($value->Accountbrance_car == $value->Accountagent_car and $value->Accountbrance_car != Null)
+                  @php
+                      $ArcSum = $value->balance_Price + $value->commit_Price;
+                      $sumArcsum = $sumArcsum + $ArcSum;
+                  @endphp
+                  {{number_format($ArcSum)}}
+                @elseif($value->Accountbrance_car == Null)
+                  สด {{number_format($value->balance_Price)}}
+                  @php
+                  $sumArcsum = $sumArcsum + $value->balance_Price;
+                  @endphp
+                @else
+                  รถ {{number_format($value->balance_Price)}}
+                  @php
+                  $sumArcsum = $sumArcsum + $value->balance_Price;
+                  @endphp
+                @endif
+              </td>
+            </tr>
+            <tr align="center" style="line-height: 200%;">
+              <td width="55px">
+                @if($value->closeAccount_Price != 0)
+                  ปิดบัญชี {{number_format($value->closeAccount_Price)}}
+                @endif
+              </td>
+              <td width="110px">
+                @if($value->Accountbrance_car != Null)
+                  บัญชี :{{$value->Accountbrance_car}}/{{$value->branchbrance_car}}
+                @endif
+              </td>
+              <td width="110px">
+                @if($value->Accountagent_car != Null)
+                  บัญชี :{{$value->Accountagent_car}}/{{$value->branchAgent_car}}
+                @endif
+              </td>
+              <td width="55px">
+                @if($value->Accountbrance_car != $value->Accountagent_car and $value->Accountagent_car != Null)
+                  คอม {{ number_format($value->commit_Price) }}
+                  @php
+                    $sumbalance = $sumbalance + $value->commit_Price;
+                  @endphp
+                @elseif($value->Accountagent_car == Null and $value->Agent_car != Null)
+                  สด {{number_format($value->commit_Price)}}
+                  @php
+                    $sumbalance = $sumbalance + $value->commit_Price;
+                  @endphp
+                @elseif($value->Accountagent_car == Null)
+                @endif
+              </td>
+            </tr>
+            <tr align="center" style="line-height: 200%;">
+              @if($value->note_Price == Null)
+              @else
+              <td width="45px" style="background-color: #FFFF00;">{{ $value->note_Price }}</td>
+              @endif
+              <td width="55px">
+                @if($value->P2_Price != 0)
+                  @if($value->P2_Price > 6700)
+                    ซื้อป1 {{number_format($value->P2_Price)}}
+                  @else
+                    ซื้อป2+ {{number_format($value->P2_Price)}}
+                  @endif
+                @endif
+              </td>
+              <td width="110px">
+                @if($value->Tellbrance_car != Null)
+                  โทร : {{$value->Tellbrance_car}}
+                @endif
+              </td>
+              <td width="110px">
+                @if($value->Tellagent_car != Null)
+                    โทร : {{$value->Tellagent_car}}
+                @endif
+              </td>
+              <td width="55px"></td>
+            </tr>
+            <br>
+          @endforeach
+          @php
+            $sumall = $sumArcsum + $sumbalance;
+          @endphp
+            <tr align="center" style="line-height: 200%;">
+              <td width="115px" style="background-color: #FFFF00; line-height:250%;">รวมยอดจัดเป็นคัน    {{$countcar}}    คัน</td>
+              <td width="100px" style="background-color: #00FFFF; line-height:250%;">รวมยอดจัดเป็นเงิน      {{number_format($sumtopcar)}}</td>
+              <td width="120px" style="background-color: #00FFFF; line-height:250%;">รวมค่าใช้จ่ายขนส่ง     {{number_format($sumtotransport)}}</td>
+              <!-- <td width="95px" style="background-color: #00FFFF; line-height:250%;">รวมค่าใช้จ่ายบริษัท     {{number_format($sumtocompany)}}</td> -->
+              <td width="95px" style="background-color: #00FFFF; line-height:250%;">รวมค่าใช้จ่ายบริษัท     {{number_format($sumtototalk_Price - $sumtotransport - $sumtocloseAccount_Price)}}</td>
+              <td width="110px" style="background-color: #00FFFF; line-height:250%;">รวมค่ารถ     {{number_format($sumbalanceprice)}}</td>
+              <td width="110px" style="background-color: #00FFFF; line-height:250%;">รวมค่าคอม     {{number_format($sumcommitprice)}}</td>
+              <td width="165px" style="background-color: #FFFF00; line-height:250%;">ยอดรวมอนุมัติ        {{number_format($sumall)}}</td>
+            </tr>
+        @endif
       </tbody>
     </table>
 
