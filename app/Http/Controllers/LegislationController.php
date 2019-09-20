@@ -93,12 +93,12 @@ class LegislationController extends Controller
                   ->where('SFHP.ARMAST.CONTNO','=', $SetStrConn)
                   ->first();
 
+        // dd($data);
+
         $dataGT = DB::connection('ibmi')
                   ->table('SFHP.VIEW_ARMGAR')
                   ->where('SFHP.VIEW_ARMGAR.CONTNO','=', $SetStrConn)
                   ->first();
-
-        $SetBalancePrice = $data->BALANC - $data->SMPAY;
 
         $LegisDB = new Legislation([
           'Contract_legis' => $data->CONTNO,
@@ -110,11 +110,18 @@ class LegislationController extends Controller
           'Category_legis' => (iconv('Tis-620','utf-8',str_replace(" ","",$data->BAAB))),
           'DateDue_legis' => $data->FDATE,
           'Pay_legis' => $data->NCARCST,
-          'BalancePrice_legis' => $SetBalancePrice,
           'DateVAT_legis' => $data->DTSTOPV,
           'NameGT_legis' => (iconv('Tis-620','utf-8',$dataGT->NAME)),
           'IdcardGT_legis' => (str_replace(" ","",$dataGT->IDNO)),
           'Realty_legis' => $SetRealty,
+
+          'Mile_legis' => $data->MILERT,
+          'Period_legis' => $data->TOT_UPAY,
+          'Countperiod_legis' => $data->T_NOPAY,
+          'Beforeperiod_legis' => $data->EXP_FRM,
+          'Beforemoey_legis' => $data->SMPAY,
+          'Remainperiod_legis' => $data->T_NOPAY - $data->EXP_FRM,
+          'Sumperiod_legis' => $data->BALANC - $data->SMPAY,
           'Flag' => 'Y',
         ]);
         $LegisDB->save();
@@ -166,7 +173,26 @@ class LegislationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($request->list1);
+        $user = Legislation::find($id);
+            $user->Certificate_list = $request->get('Certificatelist');
+            $user->Authorize_list = $request->get('Authorizelist');
+            $user->Authorizecase_list = $request->get('Authorizecaselist');
+            $user->Purchase_list = $request->get('Purchaselist');
+            $user->Promise_list = $request->get('Promiselist');
+            $user->Titledeed_list = $request->get('Titledeedlist');
+            $user->Terminatebuyer_list = $request->get('Terminatebuyerlist');
+            $user->Terminatesupport_list = $request->get('Terminatesupportlist');
+            $user->Acceptbuyerandsup_list = $request->get('Acceptbuyerandsuplist');
+            $user->Twodue_list = $request->get('Twoduelist');
+            $user->AcceptTwodue_list = $request->get('AcceptTwoduelist');
+            $user->Confirm_list = $request->get('Confirmlist');
+            $user->Accept_list = $request->get('Acceptlist');
+        $user->update();
+
+        // dd('sdfgh');
+
+        // return redirect()->Route('legislation.edit',$id,2)->with('success','อัพเดตข้อมูลเรียบร้อย');
+        return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
     }
 
     /**

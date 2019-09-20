@@ -175,7 +175,7 @@
     height:0;
     width:0;
     opacity:0;
-    top:-600px;
+    /* top:-600px; */
     }
     .todo{
     display:inline-block;
@@ -258,46 +258,6 @@
     line-height:35px;
     color:#0eb0b7;
     }
-    /* Delete Items */
-
-    .delete-item{
-    display:block;
-    position:absolute;
-    height:36px;
-    width:36px;
-    line-height:36px;
-    right:0;
-    top:0;
-    text-align:center;
-    color:#d8d8d8;
-    opacity:0;
-    }
-    .todo-wrap:hover .delete-item{
-    opacity:1;
-    }
-    .delete-item:hover{
-    color:#cd4400;
-    }
-    /* Add Items */
-
-    .input-todo{
-    border:none;
-    outline:none;
-    font-weight:200;
-    position:relative;
-    top:-1px;
-    margin:0;
-    padding:0;
-    width:100%;
-    }
-    .editing{
-    height:0;
-    overflow:hidden;
-    }
-
-    .editing.todo-wrap {
-    box-shadow:0 0 400px rgba(0,0,0,.8),inset 0 0px 0 2px #ebebeb;
-    }
   </style>
 
 
@@ -327,7 +287,7 @@
             </ul>
           </div>
 
-          <div class="box-body" style="background-color:#F1F1F1">
+          <div class="box-body">
 
             @if (count($errors) > 0)
               <div class="alert alert-danger">
@@ -367,7 +327,7 @@
                         <div class="row">
                           <div class="col-md-12">
                             <div class="row">
-                              <div class="col-md-3">
+                              <div class="col-md-4">
                                 <div class="box box-warning box-solid">
                                   <div class="box-header with-border">
                                     <h3 class="box-title"> วันฟ้อง (45-60 วัน)</h3>
@@ -378,132 +338,201 @@
                                   </div>
                                   <div class="box-body">
                                     วันที่ฟ้อง
-                                    <input type="date" name="Contract_legis" class="form-control" style="width: 250px;" value="{{ date('Y-m-d') }}" />
-                                    เลขคดีดำ
-                                    <input type="text" name="Contract_legis" class="form-control" style="width: 250px;" value="" />
-                                    ทุนทรัพย์
-                                    <input type="text" name="Contract_legis" class="form-control" style="width: 250px;" value="" />
+                                    <input type="date" name="Datecourt" class="form-control" value="{{ date('Y-m-d') }}" />
+                                    <div class="row">
+                                      <div class="col-md-6">
+                                        ศาล
+                                        <input type="text" name="Contract_legis" class="form-control" value="" />
+                                      </div>
+                                      <div class="col-md-6">
+                                        เลขคดีดำ
+                                        <input type="text" name="Contract_legis" class="form-control" value="" />
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-md-6">
+                                        เลขคดีแดง
+                                        <input type="text" name="Contract_legis" class="form-control" value="" />
+                                      </div>
+                                      <div class="col-md-6">
+                                        ทุนทรัพย์
+                                        <input type="text" name="Contract_legis" class="form-control" value="" />
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-md-6">
+                                        ค่าฟ้อง
+                                        <input type="text" name="Contract_legis" class="form-control" value="" />
+                                      </div>
+                                      <div class="col-md-6">
+                                        ค่าทนาย
+                                        <input type="text" name="Contract_legis" class="form-control" value="" />
+                                      </div>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
-                              <div class="col-md-3">
+                              <div class="col-md-4">
                                 <div class="box box-warning box-solid">
                                   <div class="box-header with-border">
-                                    <h3 class="box-title"> สืบพยาน</h3>
-
+                                    <h3 class="box-title"> สืบพยาน (30 วัน)</h3>
                                     <div class="box-tools pull-right">
                                       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                                       </button>
                                     </div>
                                   </div>
                                   <div class="box-body">
-                                    เลขคดีแดง
-                                    <input type="text" name="Contract_legis" class="form-control" style="width: 250px;" value="" />
+                                    วันที่สืบพยาน
+                                    <input type="date" name="Contract_legis" class="form-control" value="" />
                                     วันที่เลือน
-                                    <input type="date" name="Contract_legis" class="form-control" style="width: 250px;" value="" />
+                                    <input type="date" name="Contract_legis" class="form-control" value="" />
+                                    หมายเหตุ
+                                    <textarea name="Contract_legis" class="form-control" value="" rows="3"></textarea>
                                   </div>
                                 </div>
                               </div>
-                              <div class="col-md-3">
+                              <div class="col-md-4">
                                 <div class="box box-warning box-solid">
                                   <div class="box-header with-border">
-                                    <h3 class="box-title"> ส่งคำบังคับ</h3>
-
+                                    <h3 class="box-title"> ส่งคำบังคับ (45 วัน)</h3>
                                     <div class="box-tools pull-right">
                                       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                                       </button>
                                     </div>
                                   </div>
                                   <div class="box-body">
-                                    The body of the box
-                                    <input type="text" name="Contract_legis" class="form-control" style="width: 250px;" value="" />
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-md-3">
-                                <div class="box box-warning box-solid">
-                                  <div class="box-header with-border">
-                                    <h3 class="box-title"> ตรวจผลหมาย</h3>
-
-                                    <div class="box-tools pull-right">
-                                      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                                      </button>
-                                    </div>
-                                  </div>
-                                  <div class="box-body">
-                                    The body of the box
-                                    <input type="text" name="Contract_legis" class="form-control" style="width: 250px;" value="" />
+                                    วันที่ดึงจากระบบ
+                                    <input type="date" name="Contract_legis" class="form-control" value="" />
+                                    วันที่ส่งจริง
+                                    <input type="date" name="Contract_legis" class="form-control" value="" />
                                   </div>
                                 </div>
                               </div>
                             </div>
+
                             <div class="row">
-                              <div class="col-md-3">
+                              <div class="col-md-12">
                                 <div class="box box-warning box-solid">
                                   <div class="box-header with-border">
-                                    <h3 class="box-title"> วันฟ้อง (45-60 วัน)</h3>
+                                    <h3 class="box-title"> ตรวจผลหมาย</h3>
                                     <div class="box-tools pull-right">
                                       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                                       </button>
                                     </div>
                                   </div>
                                   <div class="box-body">
-                                    วันที่ฟ้อง
-                                    <input type="date" name="Contract_legis" class="form-control" style="width: 250px;" value="{{ date('Y-m-d') }}" />
-                                    เลขคดีดำ
-                                    <input type="text" name="Contract_legis" class="form-control" style="width: 250px;" value="" />
-                                    ทุนทรัพย์
-                                    <input type="text" name="Contract_legis" class="form-control" style="width: 250px;" value="" />
+                                    <div class="row">
+                                      <div class="col-md-3">
+                                        วันที่ตรวจผลหมาย
+                                        <input type="date" name="Contract_legis" class="form-control" value="" />
+                                      </div>
+                                      <div class="col-md-3">
+                                        วันที่ตรวจผลหมายจริง
+                                        <input type="date" name="Contract_legis" class="form-control" value="" />
+                                      </div>
+                                      <div class="col-md-3">
+                                        วันทีผู้เช่าซื้อได้รับ
+                                        <input type="date" name="Contract_legis" class="form-control" value="" />
+                                      </div>
+                                      <div class="col-md-3">
+                                        วันทีผู้ค้ำได้รับ
+                                        <input type="date" name="Contract_legis" class="form-control" value="" />
+                                      </div>
+                                    </div>
+
+                                    <div class="row">
+                                      <div class="col-md-9">
+                                        หมายเหตุ
+                                        <textarea name="Contract_legis" class="form-control" value="" rows="4" ></textarea>
+                                      </div>
+                                      <div class="col-md-3">
+                                        <p></p>
+                                        <span class="todo-wrap">
+                                          <input type="checkbox" id="1" name="Acceptlist" value="on"/>
+                                          <label for="1" class="todo">
+                                            <i class="fa fa-check"></i>
+                                            ประกาศสื่ออิเล็กทรอนิกส์
+                                          </label>
+                                        </span>
+                                      </div>
+                                    </div>
+
                                   </div>
                                 </div>
                               </div>
-                              <div class="col-md-3">
+                            </div>
+
+                            <div class="row">
+                              <div class="col-md-4">
                                 <div class="box box-warning box-solid">
                                   <div class="box-header with-border">
-                                    <h3 class="box-title"> สืบพยาน</h3>
-
+                                    <h3 class="box-title"> ตั้งเจ้าพนักงาน (45 วัน)</h3>
                                     <div class="box-tools pull-right">
                                       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                                       </button>
                                     </div>
                                   </div>
                                   <div class="box-body">
-                                    เลขคดีแดง
-                                    <input type="text" name="Contract_legis" class="form-control" style="width: 250px;" value="" />
-                                    วันที่เลือน
-                                    <input type="date" name="Contract_legis" class="form-control" style="width: 250px;" value="" />
+                                    วันทีตั้งเจ้าพนักงาน
+                                    <input type="date" name="Contract_legis" class="form-control" value="" />
+                                    วันที่ส่งจริง
+                                    <input type="date" name="Contract_legis" class="form-control" value="" />
                                   </div>
                                 </div>
                               </div>
-                              <div class="col-md-3">
+                              <div class="col-md-4">
                                 <div class="box box-warning box-solid">
                                   <div class="box-header with-border">
-                                    <h3 class="box-title"> ส่งคำบังคับ</h3>
-
+                                    <h3 class="box-title"> ตรวจผลหมายตั้ง (45 วัน)</h3>
                                     <div class="box-tools pull-right">
                                       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                                       </button>
                                     </div>
                                   </div>
                                   <div class="box-body">
-                                    The body of the box
-                                    <input type="text" name="Contract_legis" class="form-control" style="width: 250px;" value="" />
+                                    วันที่ตรวจผลหมายตั้ง
+                                    <input type="date" name="Contract_legis" class="form-control" value="" />
+                                    วันที่ส่งจริง
+                                    <input type="date" name="Contract_legis" class="form-control" value="" />
+                                    <div class="row">
+                                      <div class="col-md-4">
+                                        <p></p>
+                                        <span class="todo-wrap">
+                                          <input type="checkbox" id="2" name="Acceptlist" value="on"/>
+                                          <label for="2" class="todo">
+                                            <i class="fa fa-check"></i>
+                                            ได้รับ
+                                          </label>
+                                        </span>
+                                      </div>
+                                      <div class="col-md-6">
+                                        <p></p>
+                                        <span class="todo-wrap">
+                                          <input type="checkbox" id="3" name="Acceptlist" value="on"/>
+                                          <label for="3" class="todo">
+                                            <i class="fa fa-check"></i>
+                                            ไม่ได้รับ
+                                          </label>
+                                        </span>
+                                      </div>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
-                              <div class="col-md-3">
+                              <div class="col-md-4">
                                 <div class="box box-warning box-solid">
                                   <div class="box-header with-border">
-                                    <h3 class="box-title"> ส่งคำบังคับ</h3>
-
+                                    <h3 class="box-title"> ยึดทรัพย์</h3>
                                     <div class="box-tools pull-right">
                                       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                                       </button>
                                     </div>
                                   </div>
                                   <div class="box-body">
-                                    The body of the box
-                                    <input type="text" name="Contract_legis" class="form-control" style="width: 250px;" value="" />
+                                    วันที่ยึดทรัพย์
+                                    <input type="date" name="Contract_legis" class="form-control" value="" />
+                                    วันที่ยึดทรัพย์จริง
+                                    <input type="date" name="Contract_legis" class="form-control" value="" />
                                   </div>
                                 </div>
                               </div>

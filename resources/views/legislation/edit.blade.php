@@ -175,7 +175,7 @@
     height:0;
     width:0;
     opacity:0;
-    top:-600px;
+    /* top:-600px; */
     }
     .todo{
     display:inline-block;
@@ -277,26 +277,6 @@
     }
     .delete-item:hover{
     color:#cd4400;
-    }
-    /* Add Items */
-
-    .input-todo{
-    border:none;
-    outline:none;
-    font-weight:200;
-    position:relative;
-    top:-1px;
-    margin:0;
-    padding:0;
-    width:100%;
-    }
-    .editing{
-    height:0;
-    overflow:hidden;
-    }
-
-    .editing.todo-wrap {
-    box-shadow:0 0 400px rgba(0,0,0,.8),inset 0 0px 0 2px #ebebeb;
     }
   </style>
 
@@ -425,15 +405,15 @@
                                     </div>
                                   </div>
                                   <div class="col-md-4">
-                                    วันที่ทำสัญญา
+                                    เลขไมล์
                                     <div class="form-inline" align="left">
-                                      <input type="text" name="DateDuelegis" class="form-control" style="width: 100%;" value="{{ DateThai($data->DateDue_legis) }}" readonly/>
+                                      <input type="text" name="Milelegis" class="form-control" style="width: 100%;" value="{{ number_format($data->Mile_legis, 2) }}" readonly/>
                                     </div>
                                   </div>
                                   <div class="col-md-4">
-                                    วันที่หยุด Vat
+                                    วันที่ทำสัญญา
                                     <div class="form-inline" align="left">
-                                      <input type="text" name="DateVATlegis" class="form-control" style="width: 100%;" value="{{ DateThai($data->DateVAT_legis) }}" readonly/>
+                                      <input type="text" name="DateDuelegis" class="form-control" style="width: 100%;" value="{{ DateThai($data->DateDue_legis) }}" readonly/>
                                     </div>
                                   </div>
                                 </div>
@@ -445,22 +425,67 @@
                                       <input type="text" name="Paylegis" class="form-control" style="width: 100%;" value="{{ number_format($data->Pay_legis ,2) }}" readonly/>
                                     </div>
                                   </div>
-                                   <div class="col-md-4">
-                                     ยอดรวมทั้งหมด
+                                  <div class="col-md-4">
+                                    ค่าผ่อน
                                     <div class="form-inline" align="left">
-                                      <input type="text" name="BalancePricelegis" class="form-control" style="width: 100%;" value="{{ number_format($data->BalancePrice_legis, 2) }}" readonly/>
+                                      <input type="text" name="Periodlegis" class="form-control" style="width: 100%;" value="{{ number_format($data->Period_legis, 2) }}" readonly/>
+                                    </div>
+                                  </div>
+                                   <div class="col-md-4">
+                                     จำนวนงวดทั้งหมด
+                                    <div class="form-inline" align="left">
+                                      <input type="text" name="Countperiodlegis" class="form-control" style="width: 100%;" value="{{$data->Countperiod_legis }}" readonly/>
                                     </div>
                                   </div>
                                 </div>
 
                                 <div class="row">
                                   <div class="col-md-4">
+                                    ค้างจากงวด
+                                    <div class="form-inline" align="left">
+                                      <input type="text" name="Beforeperiodlegis" class="form-control" style="width: 100%;" value="{{ $data->Beforeperiod_legis }}" readonly/>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-4">
+                                    ชำระแล้ว
+                                    <div class="form-inline" align="left">
+                                      <input type="text" name="Beforemoeylegis" class="form-control" style="width: 100%;" value="{{ number_format($data->Beforemoey_legis, 2) }}" readonly/>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-4">
+                                    จำนวนงวดที่ค้าง
+                                    <div class="form-inline" align="left">
+                                      <input type="text" name="Remainperiodlegis" class="form-control" style="width: 100%;" value="{{ $data->Remainperiod_legis }}" readonly/>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="row">
+                                  <div class="col-md-4">
+                                    ลูกหนี้คงเหลือ
+                                    <div class="form-inline" align="left">
+                                      <input type="text" name="Sumperiodlegis" class="form-control" style="width: 100%;" value="{{ number_format($data->Sumperiod_legis, 2) }}" readonly/>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="row">
+                                  <div class="col-md-4">
+                                    วันที่หยุด Vat
+                                    <div class="form-inline" align="left">
+                                      @if($data->DateVAT_legis == Null)
+                                        <input type="text" name="DateVATlegis" class="form-control" style="width: 100%;" value="{{ $data->DateVAT_legis }}" readonly/>
+                                      @else
+                                        <input type="text" name="DateVATlegis" class="form-control" style="width: 100%;" value="{{ DateThai($data->DateVAT_legis) }}" readonly/>
+                                      @endif
+                                    </div>
+                                  </div>
+                                  <div class="col-md-4">
                                     ชื่อผู้ค้ำ
                                     <div class="form-inline" align="left">
                                       <input type="text" name="NameGTlegis" class="form-control" style="width: 100%;" value="{{ $data->NameGT_legis }}" readonly/>
                                     </div>
                                   </div>
-
                                    <div class="col-md-4">
                                      เลขบัตรประชาชน
                                     <div class="form-inline" align="left">
@@ -468,7 +493,6 @@
                                     </div>
                                   </div>
                                 </div>
-
                               </div>
                             </div>
                           </div>
@@ -489,7 +513,11 @@
                                       <div class="" id="todo-list">
                                         <div class="form-inline" align="left">
                                           <span class="todo-wrap">
-                                            <input type="checkbox" id="1" name="list1"/>
+                                            @if($data->Certificate_list != Null)
+                                              <input type="checkbox" id="1" name="Certificatelist" value="{{ $data->Certificate_list }}" checked="checked"/>
+                                            @else
+                                              <input type="checkbox" id="1" name="Certificatelist" value="on"/>
+                                            @endif
                                             <label for="1" class="todo">
                                               <i class="fa fa-check"></i>
                                               หนังสือรับรอง
@@ -499,7 +527,11 @@
                                             </span>
                                           </span>
                                           <span class="todo-wrap">
-                                            <input type="checkbox" id="2" name="list2"/>
+                                            @if($data->Authorize_list != Null)
+                                              <input type="checkbox" id="2" name="Authorizelist" value="{{ $data->Authorize_list }}" checked="checked"/>
+                                            @else
+                                              <input type="checkbox" id="2" name="Authorizelist" value="on"/>
+                                            @endif
                                             <label for="2" class="todo">
                                               <i class="fa fa-check"></i>
                                               หนังสือมอบอำนาจ
@@ -509,7 +541,11 @@
                                             </span>
                                           </span>
                                           <span class="todo-wrap">
-                                            <input type="checkbox" id="3" name="list3"/>
+                                            @if($data->Authorizecase_list != Null)
+                                              <input type="checkbox" id="3" name="Authorizecaselist" value="{{ $data->Authorizecase_list }}" checked="checked"/>
+                                            @else
+                                              <input type="checkbox" id="3" name="Authorizecaselist" value="on"/>
+                                            @endif
                                             <label for="3" class="todo">
                                               <i class="fa fa-check"></i>
                                               หนังสือมอบอำนาจช่วงคดี
@@ -519,7 +555,11 @@
                                             </span>
                                           </span>
                                           <span class="todo-wrap">
-                                            <input type="checkbox" id="4" name="list4"/>
+                                            @if($data->Purchase_list != Null)
+                                              <input type="checkbox" id="4" name="Purchaselist" value="{{ $data->Purchase_list }}" checked="checked"/>
+                                            @else
+                                              <input type="checkbox" id="4" name="Purchaselist" value="on"/>
+                                            @endif
                                             <label for="4" class="todo">
                                               <i class="fa fa-check"></i>
                                               สัญญาเช่าซื้อ
@@ -529,7 +569,11 @@
                                             </span>
                                           </span>
                                           <span class="todo-wrap">
-                                            <input type="checkbox" id="5" name="list5"/>
+                                            @if($data->Promise_list != Null)
+                                              <input type="checkbox" id="5" name="Promiselist" value="{{ $data->Promise_list }}" checked="checked"/>
+                                            @else
+                                              <input type="checkbox" id="5" name="Promiselist" value="on"/>
+                                            @endif
                                             <label for="5" class="todo">
                                               <i class="fa fa-check"></i>
                                               สัญญาค่ำ
@@ -539,7 +583,11 @@
                                             </span>
                                           </span>
                                           <span class="todo-wrap">
-                                            <input type="checkbox" id="6" name="list6"/>
+                                            @if($data->Titledeed_list != Null)
+                                              <input type="checkbox" id="6" name="Titledeedlist" value="{{ $data->Titledeed_list }}" checked="checked"/>
+                                            @else
+                                              <input type="checkbox" id="6" name="Titledeedlist" value="on"/>
+                                            @endif
                                             <label for="6" class="todo">
                                               <i class="fa fa-check"></i>
                                               โฉนดที่ดิน
@@ -556,7 +604,11 @@
                                       <div class="form-inline" align="left">
                                         <div class="" id="todo-list">
                                           <span class="todo-wrap">
-                                            <input type="checkbox" id="7" name="list7"/>
+                                            @if($data->Terminatebuyer_list != Null)
+                                              <input type="checkbox" id="7" name="Terminatebuyerlist" value="{{ $data->Terminatebuyer_list }}" checked="checked"/>
+                                            @else
+                                              <input type="checkbox" id="7" name="Terminatebuyerlist" value="on"/>
+                                            @endif
                                             <label for="7" class="todo">
                                               <i class="fa fa-check"></i>
                                               สัญญาบอกเลิกผู้ซื้อ
@@ -566,7 +618,11 @@
                                             </span>
                                           </span>
                                           <span class="todo-wrap">
-                                            <input type="checkbox" id="8" name="list8"/>
+                                            @if($data->Terminatesupport_list != Null)
+                                              <input type="checkbox" id="8" name="Terminatesupportlist" value="{{ $data->Terminatesupport_list }}" checked="checked"/>
+                                            @else
+                                              <input type="checkbox" id="8" name="Terminatesupportlist" value="on"/>
+                                            @endif
                                             <label for="8" class="todo">
                                               <i class="fa fa-check"></i>
                                               สัญญาบอกเลิกผู้ค่ำ
@@ -576,7 +632,11 @@
                                             </span>
                                           </span>
                                           <span class="todo-wrap">
-                                            <input type="checkbox" id="9" name="list9"/>
+                                            @if($data->Acceptbuyerandsup_list != Null)
+                                              <input type="checkbox" id="9" name="Acceptbuyerandsuplist" value="{{ $data->Acceptbuyerandsup_list }}" checked="checked"/>
+                                            @else
+                                              <input type="checkbox" id="9" name="Acceptbuyerandsuplist" value="on"/>
+                                            @endif
                                             <label for="9" class="todo">
                                               <i class="fa fa-check"></i>
                                               ใบตอบรับผู้ซื้อ - ผู้ค่ำ
@@ -586,7 +646,11 @@
                                             </span>
                                           </span>
                                           <span class="todo-wrap">
-                                            <input type="checkbox" id="10" name="list10"/>
+                                            @if($data->Twodue_list != Null)
+                                              <input type="checkbox" id="10" name="Twoduelist" value="{{ $data->Twodue_list }}" checked="checked"/>
+                                            @else
+                                              <input type="checkbox" id="10" name="Twoduelist" value="on"/>
+                                            @endif
                                             <label for="10" class="todo">
                                               <i class="fa fa-check"></i>
                                               หนังสือ 2 งวด
@@ -596,7 +660,11 @@
                                             </span>
                                           </span>
                                           <span class="todo-wrap">
-                                            <input type="checkbox" id="11" name="list11"/>
+                                            @if($data->AcceptTwodue_list != Null)
+                                              <input type="checkbox" id="11" name="AcceptTwoduelist" value="{{ $data->AcceptTwodue_list }}" checked="checked"/>
+                                            @else
+                                              <input type="checkbox" id="11" name="AcceptTwoduelist" value="on"/>
+                                            @endif
                                             <label for="11" class="todo">
                                               <i class="fa fa-check"></i>
                                               ใบตอบรับหนังสือ 2 งวด
@@ -606,7 +674,11 @@
                                             </span>
                                           </span>
                                           <span class="todo-wrap">
-                                            <input type="checkbox" id="12" name="list12"/>
+                                            @if($data->Confirm_list != Null)
+                                              <input type="checkbox" id="12" name="Confirmlist" value="{{ $data->Confirm_list }}" checked="checked"/>
+                                            @else
+                                              <input type="checkbox" id="12" name="Confirmlist" value="on"/>
+                                            @endif
                                             <label for="12" class="todo">
                                               <i class="fa fa-check"></i>
                                               หนังสือยืนยันการบอกเลิก
@@ -616,7 +688,11 @@
                                             </span>
                                           </span>
                                           <span class="todo-wrap">
-                                            <input type="checkbox" id="13" name="list13"/>
+                                            @if($data->Accept_list != Null)
+                                              <input type="checkbox" id="13" name="Acceptlist" value="{{ $data->Accept_list }}" checked="checked"/>
+                                            @else
+                                              <input type="checkbox" id="13" name="Acceptlist" value="on"/>
+                                            @endif
                                             <label for="13" class="todo">
                                               <i class="fa fa-check"></i>
                                               ใบตอบรับ
