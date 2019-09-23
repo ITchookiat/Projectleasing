@@ -324,6 +324,47 @@
                             <span class="glyphicon glyphicon-remove"></span> ยกเลิก
                           </a>
                         </div>
+
+                        <script>
+                          function CourtDate(){
+                            var num11 = document.getElementById('Datecourt').value;
+                            console.log(num11);
+
+                            // var Setdate = new Date(num11);
+                            // var result = Setdate.setDate(Setdate.getDate() + 60);
+
+                            var Setdate = new Date(num11);
+                            var newdate = new Date(Setdate);
+                            newdate.setDate(newdate.getDate() + 60);
+
+                            var dd = newdate.getDate();
+                            var mm = newdate.getMonth();
+                            var yyyy = newdate.getFullYear();
+                            console.log(yyyy,mm,dd);
+
+                            if (dd < 10) {
+                              var Newdd = '0' + dd;
+                            }else {
+                              var Newdd = dd;
+                            }
+                            if (mm < 10) {
+                              var Newmm = '0' + mm;
+                            }else {
+                              var Newmm = mm;
+                            }
+
+                            var result = yyyy + '-' + Newmm + '-' + Newdd;
+                            console.log(result);
+
+                            document.getElementById('Examinecourt').value = result;
+
+
+                            //  if(!isNaN(result)){
+                            //     document.form1.Examinecourt.value = result;
+                            // }
+                        }
+                        </script>
+
                         <div class="row">
                           <div class="col-md-12">
                             <div class="row">
@@ -338,7 +379,7 @@
                                   </div>
                                   <div class="box-body">
                                     วันที่ฟ้อง
-                                    <input type="date" name="Datecourt" class="form-control" value="{{ date('Y-m-d') }}" />
+                                    <input type="date" id="Datecourt" name="Datecourt" class="form-control" value="{{ date('Y-m-d') }}" oninput="CourtDate();" />
                                     <div class="row">
                                       <div class="col-md-6">
                                         ศาล
@@ -372,6 +413,7 @@
                                   </div>
                                 </div>
                               </div>
+
                               <div class="col-md-4">
                                 <div class="box box-warning box-solid">
                                   <div class="box-header with-border">
@@ -383,7 +425,7 @@
                                   </div>
                                   <div class="box-body">
                                     วันที่สืบพยาน
-                                    <input type="date" name="Contract_legis" class="form-control" value="" />
+                                    <input type="date" id="Examinecourt" name="Examinecourt" class="form-control" readonly/>
                                     วันที่เลือน
                                     <input type="date" name="Contract_legis" class="form-control" value="" />
                                     หมายเหตุ
@@ -516,6 +558,10 @@
                                         </span>
                                       </div>
                                     </div>
+                                    วันทีโทร
+                                    <input type="date" name="Contract_legis" class="form-control" value="" />
+                                    วันทีไปรับ
+                                    <input type="date" name="Contract_legis" class="form-control" value="" />
                                   </div>
                                 </div>
                               </div>
