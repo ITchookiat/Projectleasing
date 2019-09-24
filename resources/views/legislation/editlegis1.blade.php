@@ -327,20 +327,16 @@
 
                         <script>
                           function CourtDate(){
-                            var num11 = document.getElementById('Datecourt').value;
+                            var num11 = document.getElementById('fillingdatecourt').value;
                             console.log(num11);
-
-                            // var Setdate = new Date(num11);
-                            // var result = Setdate.setDate(Setdate.getDate() + 60);
 
                             var Setdate = new Date(num11);
                             var newdate = new Date(Setdate);
-                            newdate.setDate(newdate.getDate() + 60);
 
+                            newdate.setDate(newdate.getDate() + 60);
                             var dd = newdate.getDate();
-                            var mm = newdate.getMonth();
+                            var mm = newdate.getMonth() + 1;
                             var yyyy = newdate.getFullYear();
-                            console.log(yyyy,mm,dd);
 
                             if (dd < 10) {
                               var Newdd = '0' + dd;
@@ -352,16 +348,44 @@
                             }else {
                               var Newmm = mm;
                             }
-
                             var result = yyyy + '-' + Newmm + '-' + Newdd;
-                            console.log(result);
+                            document.getElementById('Examinedaycourt').value = result;
 
-                            document.getElementById('Examinecourt').value = result;
+                            newdate.setDate(newdate.getDate() + 30);
+                            var dd = newdate.getDate();
+                            var mm = newdate.getMonth() + 1;
+                            var yyyy = newdate.getFullYear();
 
+                            if (dd < 10) {
+                              var Newdd = '0' + dd;
+                            }else {
+                              var Newdd = dd;
+                            }
+                            if (mm < 10) {
+                              var Newmm = '0' + mm;
+                            }else {
+                              var Newmm = mm;
+                            }
+                            var result = yyyy + '-' + Newmm + '-' + Newdd;
+                            document.getElementById('Orderdaycourt').value = result;
 
-                            //  if(!isNaN(result)){
-                            //     document.form1.Examinecourt.value = result;
-                            // }
+                            newdate.setDate(newdate.getDate() + 45);
+                            var dd = newdate.getDate();
+                            var mm = newdate.getMonth() + 1;
+                            var yyyy = newdate.getFullYear();
+
+                            if (dd < 10) {
+                              var Newdd = '0' + dd;
+                            }else {
+                              var Newdd = dd;
+                            }
+                            if (mm < 10) {
+                              var Newmm = '0' + mm;
+                            }else {
+                              var Newmm = mm;
+                            }
+                            var result = yyyy + '-' + Newmm + '-' + Newdd;
+                            document.getElementById('Checkdaycourt').value = result;
                         }
                         </script>
 
@@ -379,7 +403,7 @@
                                   </div>
                                   <div class="box-body">
                                     วันที่ฟ้อง
-                                    <input type="date" id="Datecourt" name="Datecourt" class="form-control" value="{{ date('Y-m-d') }}" oninput="CourtDate();" />
+                                    <input type="date" id="fillingdatecourt" name="fillingdatecourt" class="form-control" value="{{ date('Y-m-d') }}" oninput="CourtDate();" />
                                     <div class="row">
                                       <div class="col-md-6">
                                         ศาล
@@ -425,7 +449,7 @@
                                   </div>
                                   <div class="box-body">
                                     วันที่สืบพยาน
-                                    <input type="date" id="Examinecourt" name="Examinecourt" class="form-control" readonly/>
+                                    <input type="date" id="Examinedaycourt" name="Examinedaycourt" class="form-control" readonly/>
                                     วันที่เลือน
                                     <input type="date" name="Contract_legis" class="form-control" value="" />
                                     หมายเหตุ
@@ -444,7 +468,7 @@
                                   </div>
                                   <div class="box-body">
                                     วันที่ดึงจากระบบ
-                                    <input type="date" name="Contract_legis" class="form-control" value="" />
+                                    <input type="date" id="Orderdaycourt" name="Orderdaycourt" class="form-control" value="" readonly/>
                                     วันที่ส่งจริง
                                     <input type="date" name="Contract_legis" class="form-control" value="" />
                                   </div>
@@ -466,7 +490,7 @@
                                     <div class="row">
                                       <div class="col-md-3">
                                         วันที่ตรวจผลหมาย
-                                        <input type="date" name="Contract_legis" class="form-control" value="" />
+                                        <input type="date" id="Checkdaycourt" name="Checkdaycourt" class="form-control" value="" readonly/>
                                       </div>
                                       <div class="col-md-3">
                                         วันที่ตรวจผลหมายจริง
