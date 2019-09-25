@@ -309,7 +309,7 @@
 
             <div class="row">
               <div class="col-md-12"> <br />
-                <form name="form1" method="post" action="#" enctype="multipart/form-data">
+                <form name="form1" method="post" action="{{ action('LegislationController@update',[$id,$type]) }}" enctype="multipart/form-data">
                   @csrf
                   @method('put')
 
@@ -326,30 +326,22 @@
                         </div>
 
                         <script>
+                          function addCommas(nStr){
+                             nStr += '';
+                             x = nStr.split('.');
+                             x1 = x[0];
+                             x2 = x.length > 1 ? '.' + x[1] : '';
+                             var rgx = /(\d+)(\d{3})/;
+                             while (rgx.test(x1)) {
+                               x1 = x1.replace(rgx, '$1' + ',' + '$2');
+                              }
+                            return x1 + x2;
+                          }
+
                           function CourtDate(){
-                            var num11 = document.getElementById('fillingdatecourt').value;
-                            console.log(num11);
-
-                            var Setdate = new Date(num11);
+                            var date = document.getElementById('examidaycourt').value;
+                            var Setdate = new Date(date);
                             var newdate = new Date(Setdate);
-
-                            newdate.setDate(newdate.getDate() + 60);
-                            var dd = newdate.getDate();
-                            var mm = newdate.getMonth() + 1;
-                            var yyyy = newdate.getFullYear();
-
-                            if (dd < 10) {
-                              var Newdd = '0' + dd;
-                            }else {
-                              var Newdd = dd;
-                            }
-                            if (mm < 10) {
-                              var Newmm = '0' + mm;
-                            }else {
-                              var Newmm = mm;
-                            }
-                            var result = yyyy + '-' + Newmm + '-' + Newdd;
-                            document.getElementById('Examinedaycourt').value = result;
 
                             newdate.setDate(newdate.getDate() + 30);
                             var dd = newdate.getDate();
@@ -367,7 +359,7 @@
                               var Newmm = mm;
                             }
                             var result = yyyy + '-' + Newmm + '-' + Newdd;
-                            document.getElementById('Orderdaycourt').value = result;
+                            document.getElementById('orderdaycourt').value = result;
 
                             newdate.setDate(newdate.getDate() + 45);
                             var dd = newdate.getDate();
@@ -385,7 +377,25 @@
                               var Newmm = mm;
                             }
                             var result = yyyy + '-' + Newmm + '-' + Newdd;
-                            document.getElementById('Checkdaycourt').value = result;
+                            document.getElementById('checkdaycourt').value = result;
+                        }
+
+                          function CalculateCap(){
+                            var cap = document.getElementById('capitalcourt').value;
+                            var Setcap = cap.replace(",","");
+                            var ind = document.getElementById('indictmentcourt').value;
+                            var Setind = ind.replace(",","");
+
+                            var Sumcap = (Setcap * 0.01);
+                            console.log(Setind);
+
+                            if(!isNaN(Setcap)){
+                                document.form1.capitalcourt.value = addCommas(Setcap);
+                                document.form1.pricelawyercourt.value = addCommas(Sumcap.toFixed(2));
+                           }
+                            if(!isNaN(Setind)){
+                                document.form1.indictmentcourt.value = addCommas(Setind);
+                           }
                         }
                         </script>
 
@@ -403,35 +413,35 @@
                                   </div>
                                   <div class="box-body">
                                     วันที่ฟ้อง
-                                    <input type="date" id="fillingdatecourt" name="fillingdatecourt" class="form-control" value="{{ date('Y-m-d') }}" oninput="CourtDate();" />
+                                    <input type="date" id="fillingdatecourt" name="fillingdatecourt" class="form-control" value="{{ ($data->fillingdate_court) }}" />
                                     <div class="row">
                                       <div class="col-md-6">
                                         ศาล
-                                        <input type="text" name="Contract_legis" class="form-control" value="" />
+                                        <input type="text" name="lawcourt" class="form-control" value="{{ ($data->law_court) }}" />
                                       </div>
                                       <div class="col-md-6">
                                         เลขคดีดำ
-                                        <input type="text" name="Contract_legis" class="form-control" value="" />
+                                        <input type="text" name="bnumbercourt" class="form-control" value="{{ ($data->bnumber_court) }}" />
                                       </div>
                                     </div>
                                     <div class="row">
                                       <div class="col-md-6">
                                         เลขคดีแดง
-                                        <input type="text" name="Contract_legis" class="form-control" value="" />
+                                        <input type="text" name="rnumbercourt" class="form-control" value="{{ ($data->rnumber_court) }}"  />
                                       </div>
                                       <div class="col-md-6">
                                         ทุนทรัพย์
-                                        <input type="text" name="Contract_legis" class="form-control" value="" />
+                                        <input type="text" id="capitalcourt" name="capitalcourt" class="form-control" value="{{ ($data->capital_court) }}" oninput="CalculateCap();"/>
                                       </div>
                                     </div>
                                     <div class="row">
                                       <div class="col-md-6">
                                         ค่าฟ้อง
-                                        <input type="text" name="Contract_legis" class="form-control" value="" />
+                                        <input type="text" id="indictmentcourt" name="indictmentcourt" class="form-control" value="{{ ($data->indictment_court) }}" oninput="CalculateCap();"/>
                                       </div>
                                       <div class="col-md-6">
                                         ค่าทนาย
-                                        <input type="text" name="Contract_legis" class="form-control" value="" />
+                                        <input type="text" id="pricelawyercourt" name="pricelawyercourt" class="form-control" value="{{ ($data->pricelawyer_court) }}" readonly/>
                                       </div>
                                     </div>
                                   </div>
@@ -449,11 +459,11 @@
                                   </div>
                                   <div class="box-body">
                                     วันที่สืบพยาน
-                                    <input type="date" id="Examinedaycourt" name="Examinedaycourt" class="form-control" readonly/>
+                                    <input type="date" id="examidaycourt" name="examidaycourt" class="form-control" value="{{ ($data->examiday_court) }}" oninput="CourtDate();" />
                                     วันที่เลือน
-                                    <input type="date" name="Contract_legis" class="form-control" value="" />
+                                    <input type="date" name="fuzzycourt" class="form-control" value="{{ ($data->fuzzy_court) }}" />
                                     หมายเหตุ
-                                    <textarea name="Contract_legis" class="form-control" value="" rows="3"></textarea>
+                                    <textarea name="examinotecourt" class="form-control" rows="3">{{ ($data->examinote_court) }}</textarea>
                                   </div>
                                 </div>
                               </div>
@@ -468,9 +478,9 @@
                                   </div>
                                   <div class="box-body">
                                     วันที่ดึงจากระบบ
-                                    <input type="date" id="Orderdaycourt" name="Orderdaycourt" class="form-control" value="" readonly/>
+                                    <input type="date" id="orderdaycourt" name="orderdaycourt" class="form-control" value="{{ ($data->orderday_court) }}" readonly/>
                                     วันที่ส่งจริง
-                                    <input type="date" name="Contract_legis" class="form-control" value="" />
+                                    <input type="date" name="ordersendcourt" class="form-control" value="{{ ($data->ordersend_court) }}" />
                                   </div>
                                 </div>
                               </div>
@@ -490,31 +500,35 @@
                                     <div class="row">
                                       <div class="col-md-3">
                                         วันที่ตรวจผลหมาย
-                                        <input type="date" id="Checkdaycourt" name="Checkdaycourt" class="form-control" value="" readonly/>
+                                        <input type="date" id="checkdaycourt" name="checkdaycourt" class="form-control" value="{{ ($data->checkday_court) }}" readonly/>
                                       </div>
                                       <div class="col-md-3">
                                         วันที่ตรวจผลหมายจริง
-                                        <input type="date" name="Contract_legis" class="form-control" value="" />
+                                        <input type="date" name="checksendcourt" class="form-control" value="{{ ($data->checksend_court) }}" />
                                       </div>
                                       <div class="col-md-3">
                                         วันทีผู้เช่าซื้อได้รับ
-                                        <input type="date" name="Contract_legis" class="form-control" value="" />
+                                        <input type="date" name="buyercourt" class="form-control" value="{{ ($data->buyer_court) }}" />
                                       </div>
                                       <div class="col-md-3">
                                         วันทีผู้ค้ำได้รับ
-                                        <input type="date" name="Contract_legis" class="form-control" value="" />
+                                        <input type="date" name="supportcourt" class="form-control" value="{{ ($data->support_court) }}" />
                                       </div>
                                     </div>
 
                                     <div class="row">
                                       <div class="col-md-9">
                                         หมายเหตุ
-                                        <textarea name="Contract_legis" class="form-control" value="" rows="4" ></textarea>
+                                        <textarea name="notecourt" class="form-control" value="" rows="4" >{{ ($data->note_court) }}</textarea>
                                       </div>
                                       <div class="col-md-3">
                                         <p></p>
                                         <span class="todo-wrap">
-                                          <input type="checkbox" id="1" name="Acceptlist" value="on"/>
+                                          @if($data->social_flag != Null)
+                                            <input type="checkbox" id="1" name="socialflag" value="{{ $data->social_flag }}" checked="checked"/>
+                                          @else
+                                            <input type="checkbox" id="1" name="socialflag" value="on"/>
+                                          @endif
                                           <label for="1" class="todo">
                                             <i class="fa fa-check"></i>
                                             ประกาศสื่ออิเล็กทรอนิกส์
@@ -540,9 +554,9 @@
                                   </div>
                                   <div class="box-body">
                                     วันทีตั้งเจ้าพนักงาน
-                                    <input type="date" name="Contract_legis" class="form-control" value="" />
+                                    <input type="date" name="setofficecourt" class="form-control" value="{{ $data->setoffice_court }}" />
                                     วันที่ส่งจริง
-                                    <input type="date" name="Contract_legis" class="form-control" value="" />
+                                    <input type="date" name="sendofficecourt" class="form-control" value="{{ $data->sendoffice_court }}" />
                                   </div>
                                 </div>
                               </div>
@@ -557,14 +571,18 @@
                                   </div>
                                   <div class="box-body">
                                     วันที่ตรวจผลหมายตั้ง
-                                    <input type="date" name="Contract_legis" class="form-control" value="" />
+                                    <input type="date" name="checkresultscourt" class="form-control" value="{{ $data->heckresults_court }}" />
                                     วันที่ส่งจริง
-                                    <input type="date" name="Contract_legis" class="form-control" value="" />
+                                    <input type="date" name="sendcheckresultscourt" class="form-control" value="{{ $data->sendcheckresults_court }}" />
                                     <div class="row">
                                       <div class="col-md-4">
                                         <p></p>
                                         <span class="todo-wrap">
-                                          <input type="checkbox" id="2" name="Acceptlist" value="on"/>
+                                          @if($data->received_flag != Null)
+                                            <input type="checkbox" id="2" name="receivedflag" value="{{ $data->received_flag }}" checked="checked"/>
+                                          @else
+                                            <input type="checkbox" id="2" name="receivedflag" value="on"/>
+                                          @endif
                                           <label for="2" class="todo">
                                             <i class="fa fa-check"></i>
                                             ได้รับ
@@ -574,7 +592,11 @@
                                       <div class="col-md-6">
                                         <p></p>
                                         <span class="todo-wrap">
-                                          <input type="checkbox" id="3" name="Acceptlist" value="on"/>
+                                          @if($data->noreceived_flag != Null)
+                                            <input type="checkbox" id="3" name="noreceivedflag" value="{{ $data->noreceived_flag }}" checked="checked"/>
+                                          @else
+                                            <input type="checkbox" id="3" name="noreceivedflag" value="on"/>
+                                          @endif
                                           <label for="3" class="todo">
                                             <i class="fa fa-check"></i>
                                             ไม่ได้รับ
@@ -583,9 +605,9 @@
                                       </div>
                                     </div>
                                     วันทีโทร
-                                    <input type="date" name="Contract_legis" class="form-control" value="" />
+                                    <input type="date" name="telresultscourt" class="form-control" value="{{ $data->telresults_court }}" />
                                     วันทีไปรับ
-                                    <input type="date" name="Contract_legis" class="form-control" value="" />
+                                    <input type="date" name="dayresultscourt" class="form-control" value="{{ $data->dayresults_court }}" />
                                   </div>
                                 </div>
                               </div>
@@ -600,9 +622,9 @@
                                   </div>
                                   <div class="box-body">
                                     วันที่ยึดทรัพย์
-                                    <input type="date" name="Contract_legis" class="form-control" value="" />
+                                    <input type="date" name="sequestercourt" class="form-control" value="{{ $data->sequester_court }}" />
                                     วันที่ยึดทรัพย์จริง
-                                    <input type="date" name="Contract_legis" class="form-control" value="" />
+                                    <input type="date" name="sendsequestercourt" class="form-control" value="{{ $data->sendsequester_court }}" />
                                   </div>
                                 </div>
                               </div>

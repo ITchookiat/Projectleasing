@@ -872,8 +872,10 @@
                                        var input = document.getElementById('Agentcar').value;
                                        var Subtstr = input.split("");
 
-                                       var Setstr = Subtstr[0];
+                                      console.log(num1);
+                                      console.log(Subtstr);
 
+                                       var Setstr = Subtstr[0];
 
                                        if (Setstr[0] == "*") {
                                          var result = num1;
@@ -891,10 +893,9 @@
                                          }
                                        }
 
-
                                        if(!isNaN(num1)){
                                            document.form1.Commissioncar.value = addCommas(num1);
-                                           document.form1.commitPrice.value = addCommas(result.toFixed(0));
+                                           document.form1.commitPrice.value =  addCommas(result);
                                       }
 
                                      }
@@ -1171,7 +1172,7 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                        <font color="red">(* กรณีเป็นพนักงาน) </font><label>แนะนำ/นายหน้า : </label>
-                                       <input type="text" id="Agentcar" name="Agentcar" class="form-control" style="width: 250px;" placeholder="แนะนำ/นายหน้า" oninput="commission()"/>
+                                       <input type="text" id="Agentcar" name="Agentcar" class="form-control" style="width: 250px;" placeholder="แนะนำ/นายหน้า" oninput="commission();"/>
                                      </div>
                                   </div>
 
@@ -1187,7 +1188,7 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                       <label>ค่าคอม : </label>
-                                      <input type="text" id="Commissioncar" name="Commissioncar" class="form-control" style="width: 250px;" placeholder="ค่าคอม" oninput="commission()"/>
+                                      <input type="text" id="Commissioncar" name="Commissioncar" class="form-control" style="width: 250px;" placeholder="ค่าคอม" oninput="commission();"/>
                                     </div>
                                   </div>
 

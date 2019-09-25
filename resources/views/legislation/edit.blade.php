@@ -329,7 +329,7 @@
 
             <div class="row">
               <div class="col-md-12"> <br />
-                <form name="form1" method="post" action="{{ action('LegislationController@update',[$id]) }}" enctype="multipart/form-data">
+                <form name="form1" method="post" action="{{ action('LegislationController@update',[$id,$type]) }}" enctype="multipart/form-data">
                   @csrf
                   @method('put')
 
