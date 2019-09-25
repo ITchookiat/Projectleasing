@@ -14,4 +14,9 @@ class Legislation extends Model
                         'Certificate_list','Authorize_list','Authorizecase_list','Purchase_list','Promise_list','Titledeed_list',
                         'Terminatebuyer_list','Terminatesupport_list','Acceptbuyerandsup_list','Twodue_list','AcceptTwodue_list',
                         'Confirm_list','Accept_list'];
+
+  public function legiscourt()
+  {
+    return $this->hasMany(Legiscourt::class);
+  }
 }

@@ -7,6 +7,7 @@ use DB;
 use Carbon\Carbon;
 
 use App\Legislation;
+use App\Legiscourt;
 
 class LegislationController extends Controller
 {
@@ -93,8 +94,6 @@ class LegislationController extends Controller
                   ->where('SFHP.ARMAST.CONTNO','=', $SetStrConn)
                   ->first();
 
-        // dd($data);
-
         $dataGT = DB::connection('ibmi')
                   ->table('SFHP.VIEW_ARMGAR')
                   ->where('SFHP.VIEW_ARMGAR.CONTNO','=', $SetStrConn)
@@ -125,6 +124,39 @@ class LegislationController extends Controller
           'Flag' => 'Y',
         ]);
         $LegisDB->save();
+
+        $Legiscourt = new Legiscourt([
+          'legislation_id' => $LegisDB->id,
+          'fillingdate_court' => Null,
+          'law_court' =>  Null,
+          'bnumber_court' =>  Null,
+          'rnumber_court' =>  Null,
+          'capital_court' =>  Null,
+          'indictment_court' =>  Null,
+          'pricelawyer_court' =>  Null,
+          'examiday_court' =>  Null,
+          'fuzzy_court' =>  Null,
+          'examinote_court' =>  Null,
+          'orderday_court' =>  Null,
+          'ordersend_court' =>  Null,
+          'checkday_court' =>  Null,
+          'checksend_court' =>  Null,
+          'buyer_court' =>  Null,
+          'support_court' =>  Null,
+          'note_court' =>  Null,
+          'social_flag' =>  Null,
+          'setoffice_court' =>  Null,
+          'sendoffice_court' =>  Null,
+          'checkresults_court' =>  Null,
+          'sendcheckresults_court' =>  Null,
+          'received_flag' =>  Null,
+          'noreceived_flag' =>  Null,
+          'telresults_court' =>  Null,
+          'dayresults_court' =>  Null,
+          'sequester_court' =>  Null,
+          'sendsequester_court' =>  Null,
+        ]);
+        $Legiscourt->save();
 
         return redirect()->Route('legislation',1)->with('success','ส่งฟ้องเรียบร้อย');
     }
@@ -157,8 +189,8 @@ class LegislationController extends Controller
       }
       elseif ($type == 3)
       {
-        $data = DB::table('legislations')
-        ->where('legislations.id',$id)->first();
+        $data = DB::table('legiscourts')
+        ->where('legiscourts.legislation_id',$id)->first();
 
         return view('legislation.editlegis1',compact('data','id','type'));
       }
@@ -171,25 +203,58 @@ class LegislationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, $type)
     {
+      if ($type == 2) {
         $user = Legislation::find($id);
-            $user->Certificate_list = $request->get('Certificatelist');
-            $user->Authorize_list = $request->get('Authorizelist');
-            $user->Authorizecase_list = $request->get('Authorizecaselist');
-            $user->Purchase_list = $request->get('Purchaselist');
-            $user->Promise_list = $request->get('Promiselist');
-            $user->Titledeed_list = $request->get('Titledeedlist');
-            $user->Terminatebuyer_list = $request->get('Terminatebuyerlist');
-            $user->Terminatesupport_list = $request->get('Terminatesupportlist');
-            $user->Acceptbuyerandsup_list = $request->get('Acceptbuyerandsuplist');
-            $user->Twodue_list = $request->get('Twoduelist');
-            $user->AcceptTwodue_list = $request->get('AcceptTwoduelist');
-            $user->Confirm_list = $request->get('Confirmlist');
-            $user->Accept_list = $request->get('Acceptlist');
+          $user->Certificate_list = $request->get('Certificatelist');
+          $user->Authorize_list = $request->get('Authorizelist');
+          $user->Authorizecase_list = $request->get('Authorizecaselist');
+          $user->Purchase_list = $request->get('Purchaselist');
+          $user->Promise_list = $request->get('Promiselist');
+          $user->Titledeed_list = $request->get('Titledeedlist');
+          $user->Terminatebuyer_list = $request->get('Terminatebuyerlist');
+          $user->Terminatesupport_list = $request->get('Terminatesupportlist');
+          $user->Acceptbuyerandsup_list = $request->get('Acceptbuyerandsuplist');
+          $user->Twodue_list = $request->get('Twoduelist');
+          $user->AcceptTwodue_list = $request->get('AcceptTwoduelist');
+          $user->Confirm_list = $request->get('Confirmlist');
+          $user->Accept_list = $request->get('Acceptlist');
         $user->update();
-
-        // dd('sdfgh');
+      }
+      elseif ($type == 3) {
+        $Legiscourt = Legiscourt::where('legislation_id',$id)->first();
+        // dd($request);
+          $Legiscourt->fillingdate_court = $request->get('fillingdatecourt');
+          $Legiscourt->law_court = $request->get('lawcourt');
+          $Legiscourt->bnumber_court = $request->get('bnumbercourt');
+          $Legiscourt->rnumber_court = $request->get('rnumbercourt');
+          $Legiscourt->capital_court = $request->get('capitalcourt');
+          $Legiscourt->indictment_court = $request->get('indictmentcourt');
+          $Legiscourt->pricelawyer_court = $request->get('pricelawyercourt');
+          $Legiscourt->examiday_court = $request->get('examidaycourt');
+          $Legiscourt->fuzzy_court = $request->get('fuzzycourt');
+          $Legiscourt->examinote_court = $request->get('examinotecourt');
+          $Legiscourt->orderday_court = $request->get('orderdaycourt');
+          $Legiscourt->ordersend_court = $request->get('ordersendcourt');
+          $Legiscourt->checkday_court = $request->get('checkdaycourt');
+          $Legiscourt->checksend_court = $request->get('checksendcourt');
+          $Legiscourt->buyer_court = $request->get('buyercourt');
+          $Legiscourt->support_court = $request->get('supportcourt');
+          $Legiscourt->note_court = $request->get('notecourt');
+          $Legiscourt->social_flag = $request->get('socialflag');
+          $Legiscourt->setoffice_court = $request->get('setofficecourt');
+          $Legiscourt->sendoffice_court = $request->get('sendofficecourt');
+          $Legiscourt->checkresults_court = $request->get('checkresultscourt');
+          $Legiscourt->sendcheckresults_court = $request->get('sendcheckresultscourt');
+          $Legiscourt->received_flag = $request->get('receivedflag');
+          $Legiscourt->noreceived_flag = $request->get('noreceivedflag');
+          $Legiscourt->telresults_court = $request->get('telresultscourt');
+          $Legiscourt->dayresults_court = $request->get('dayresultscourt');
+          $Legiscourt->sequester_court = $request->get('sequestercourt');
+          $Legiscourt->sendsequester_court = $request->get('sendsequestercourt');
+        $Legiscourt->update();
+      }
 
         // return redirect()->Route('legislation.edit',$id,2)->with('success','อัพเดตข้อมูลเรียบร้อย');
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');

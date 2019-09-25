@@ -15,7 +15,7 @@ class CreateLegiscourtsTable extends Migration
     {
         Schema::create('legiscourts', function (Blueprint $table) {
             $table->bigIncrements('court_id');
-
+            $table->integer('legislation_id')->nullable();
             $table->string('fillingdate_court')->nullable();
             $table->string('law_court')->nullable();
             $table->string('bnumber_court')->nullable();
@@ -32,6 +32,7 @@ class CreateLegiscourtsTable extends Migration
             $table->string('checksend_court')->nullable();
             $table->string('buyer_court')->nullable();
             $table->string('support_court')->nullable();
+            $table->string('note_court')->nullable();
             $table->string('social_flag')->nullable();
             $table->string('setoffice_court')->nullable();
             $table->string('sendoffice_court')->nullable();
