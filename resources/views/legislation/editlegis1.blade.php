@@ -340,8 +340,19 @@
 
                           function CourtDate(){
                             var date = document.getElementById('examidaycourt').value;
-                            var Setdate = new Date(date);
-                            var newdate = new Date(Setdate);
+                            var fannydate = document.getElementById('fuzzycourt').value;
+
+                            if (date != '') {
+                              var Setdate = new Date(date);
+                              var newdate = new Date(Setdate);
+                              if (fannydate != '') {
+                                var Setdate = new Date(fannydate);
+                                var newdate = new Date(Setdate);
+                              }
+                            }else if (fannydate != '') {
+                              var Setdate = new Date(fannydate);
+                              var newdate = new Date(Setdate);
+                            }
 
                             newdate.setDate(newdate.getDate() + 30);
                             var dd = newdate.getDate();
@@ -361,6 +372,19 @@
                             var result = yyyy + '-' + Newmm + '-' + Newdd;
                             document.getElementById('orderdaycourt').value = result;
 
+                            var date = document.getElementById('orderdaycourt').value;
+                            var fannydate = document.getElementById('ordersendcourt').value;
+
+                            console.log(fannydate);
+
+                            if (date != '') {
+                              var Setdate = new Date(date);
+                              var newdate = new Date(Setdate);
+                              if (fannydate != '') {
+                                var Setdate = new Date(fannydate);
+                                var newdate = new Date(Setdate);
+                              }
+                            }
                             newdate.setDate(newdate.getDate() + 45);
                             var dd = newdate.getDate();
                             var mm = newdate.getMonth() + 1;
@@ -387,7 +411,6 @@
                             var Setind = ind.replace(",","");
 
                             var Sumcap = (Setcap * 0.01);
-                            console.log(Setind);
 
                             if(!isNaN(Setcap)){
                                 document.form1.capitalcourt.value = addCommas(Setcap);
@@ -461,7 +484,7 @@
                                     วันที่สืบพยาน
                                     <input type="date" id="examidaycourt" name="examidaycourt" class="form-control" value="{{ ($data->examiday_court) }}" oninput="CourtDate();" />
                                     วันที่เลือน
-                                    <input type="date" name="fuzzycourt" class="form-control" value="{{ ($data->fuzzy_court) }}" />
+                                    <input type="date" id="fuzzycourt" name="fuzzycourt" class="form-control" value="{{ ($data->fuzzy_court) }}" oninput="CourtDate();" />
                                     หมายเหตุ
                                     <textarea name="examinotecourt" class="form-control" rows="3">{{ ($data->examinote_court) }}</textarea>
                                   </div>
@@ -480,7 +503,7 @@
                                     วันที่ดึงจากระบบ
                                     <input type="date" id="orderdaycourt" name="orderdaycourt" class="form-control" value="{{ ($data->orderday_court) }}" readonly/>
                                     วันที่ส่งจริง
-                                    <input type="date" name="ordersendcourt" class="form-control" value="{{ ($data->ordersend_court) }}" />
+                                    <input type="date" id="ordersendcourt" name="ordersendcourt" class="form-control" value="{{ ($data->ordersend_court) }}" oninput="CourtDate();" />
                                   </div>
                                 </div>
                               </div>
@@ -571,7 +594,7 @@
                                   </div>
                                   <div class="box-body">
                                     วันที่ตรวจผลหมายตั้ง
-                                    <input type="date" name="checkresultscourt" class="form-control" value="{{ $data->heckresults_court }}" />
+                                    <input type="date" name="checkresultscourt" class="form-control" value="{{ $data->checkresults_court }}" />
                                     วันที่ส่งจริง
                                     <input type="date" name="sendcheckresultscourt" class="form-control" value="{{ $data->sendcheckresults_court }}" />
                                     <div class="row">
