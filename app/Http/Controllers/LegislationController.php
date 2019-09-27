@@ -194,6 +194,14 @@ class LegislationController extends Controller
 
         return view('legislation.editlegis1',compact('data','id','type'));
       }
+      elseif ($type == 11)
+      {
+        // dd('jdfhkjvcbjk');
+        $data = DB::table('legiscourts')
+        ->where('legiscourts.legislation_id',$id)->first();
+
+        return view('legislation.info',compact('data','id','type'));
+      }
     }
 
     /**

@@ -304,6 +304,7 @@
               <li class="nav-item"><a href="#tab_3" data-toggle="tab" aria-expanded="false">ชั้นบังคับคดี</a></li>
               <li class="nav-item"><a href="#tab_4" data-toggle="tab" aria-expanded="false">ของกลาง</a></li>
               <li class="nav-item"><a href="#tab_5" data-toggle="tab" aria-expanded="false">โกงเจ้าหนี้</a></li>
+              <li class="nav-item pull-right"><a href="{{ action('LegislationController@edit',[$id, 11]) }}">รูปและแผนที่</a></li>
             </ul>
           </div>
 
