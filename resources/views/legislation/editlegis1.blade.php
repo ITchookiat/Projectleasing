@@ -284,6 +284,7 @@
               <li class="nav-item"><a href="#tab_3">ชั้นบังคับคดี</a></li>
               <li class="nav-item"><a href="#tab_4">ของกลาง</a></li>
               <li class="nav-item"><a href="#tab_5">โกงเจ้าหนี้</a></li>
+              <li class="nav-item pull-right"><a href="{{ action('LegislationController@edit',[$id, 11]) }}">รูปและแผนที่</a></li>
             </ul>
           </div>
 
@@ -618,7 +619,7 @@
                                           @if($data->noreceived_flag != Null)
                                             <input type="checkbox" id="3" name="noreceivedflag" value="{{ $data->noreceived_flag }}" checked="checked"/>
                                           @else
-                                            <input type="checkbox" id="3" name="noreceivedflag" value="on"/>
+                                            <input type="checkbox" id="3" name="noreceivedflag" value="on" onclick="myFunction()"/>
                                           @endif
                                           <label for="3" class="todo">
                                             <i class="fa fa-check"></i>
@@ -627,10 +628,17 @@
                                         </span>
                                       </div>
                                     </div>
-                                    วันทีโทร
-                                    <input type="date" name="telresultscourt" class="form-control" value="{{ $data->telresults_court }}" />
-                                    วันทีไปรับ
-                                    <input type="date" name="dayresultscourt" class="form-control" value="{{ $data->dayresults_court }}" />
+                                     <!-- test -->
+                                     @if($data->noreceived_flag == Null)
+                                       <div id="myDIV" style="display:none;">
+                                     @else
+                                     <div id="myDIV">
+                                     @endif
+                                          วันทีโทร
+                                          <input type="date" name="telresultscourt" class="form-control" value="{{ $data->telresults_court }}" />
+                                          วันทีไปรับ
+                                          <input type="date" name="dayresultscourt" class="form-control" value="{{ $data->dayresults_court }}" />
+                                       </div>
                                   </div>
                                 </div>
                               </div>
@@ -677,6 +685,17 @@
         $(".alert").fadeTo(3000, 1000).slideUp(1000, function(){
         $(".alert").alert('close');
         });
+      </script>
+
+      <script>
+          function myFunction() {
+          var x = document.getElementById("myDIV");
+          if (x.style.display === "none") {
+          x.style.display = "block";
+          } else {
+          x.style.display = "none";
+          }
+          }
       </script>
 
     </section>
