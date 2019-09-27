@@ -537,12 +537,12 @@
                                     <div class="row">
                                       <div class="col-md-12">
                                         <div id="myLat" style="display:none;">
-                                          <div class="form-inline">
+                                          <div class="form-inline" align="center">
                                             <label>ละติจูด : </label> <input type="text" class="form-control" style="width:175px"/>
                                             <label>ลองจิจูด : </label> <input type="text" class="form-control" style="width:175px"/>
-                                            <button type="submit" class="btn btn-warning" style="width:100px">
+                                            <!-- <button type="submit" class="btn btn-warning" style="width:100px">
                                               <span class="glyphicon glyphicon-search"></span> Search
-                                            </button>
+                                            </button> -->
                                           </div>
                                           <br><br>
                                         </div>
