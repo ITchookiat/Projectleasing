@@ -340,6 +340,7 @@
                           }
 
                           function CourtDate(){
+                            //---------- วันสืบพยาน
                             var date = document.getElementById('examidaycourt').value;
                             var fannydate = document.getElementById('fuzzycourt').value;
 
@@ -372,20 +373,23 @@
                             }
                             var result = yyyy + '-' + Newmm + '-' + Newdd;
                             document.getElementById('orderdaycourt').value = result;
-
+                            //---------- end ---------//
+                            //---------- วันส่งคำบังคับ
                             var date = document.getElementById('orderdaycourt').value;
-                            var fannydate = document.getElementById('ordersendcourt').value;
-
-                            console.log(fannydate);
+                            var ordersenddate = document.getElementById('ordersendcourt').value;
 
                             if (date != '') {
                               var Setdate = new Date(date);
                               var newdate = new Date(Setdate);
-                              if (fannydate != '') {
-                                var Setdate = new Date(fannydate);
+                              if (ordersenddate != '') {
+                                var Setdate = new Date(ordersenddate);
                                 var newdate = new Date(Setdate);
                               }
+                            }else if (ordersenddate != '') {
+                              var Setdate = new Date(ordersenddate);
+                              var newdate = new Date(Setdate);
                             }
+
                             newdate.setDate(newdate.getDate() + 45);
                             var dd = newdate.getDate();
                             var mm = newdate.getMonth() + 1;
@@ -403,24 +407,182 @@
                             }
                             var result = yyyy + '-' + Newmm + '-' + Newdd;
                             document.getElementById('checkdaycourt').value = result;
-                        }
+                            //---------- end ---------//
+                          }
+
+                          function CourtDate2(){
+                            var date = document.getElementById('checkdaycourt').value;
+                            var checksenddate = document.getElementById('checksendcourt').value;
+
+                            var buyer = document.getElementById('buyercourt').value;
+                            var Setbuyer = buyer.substring(8);
+                            var support = document.getElementById('supportcourt').value;
+                            var Setsupport = support.substring(8);
+
+                            if (Setbuyer != '' && Setsupport != '') {
+                              if (Setbuyer == Setsupport) {
+                                  var Setdate = new Date(buyer);
+                                  var newdate = new Date(Setdate);
+
+                                  newdate.setDate(newdate.getDate() + 45);
+                                  var dd = newdate.getDate();
+                                  var mm = newdate.getMonth() + 1;
+                                  var yyyy = newdate.getFullYear();
+
+                                  if (dd < 10) {
+                                    var Newdd = '0' + dd;
+                                  }else {
+                                    var Newdd = dd;
+                                  }
+                                  if (mm < 10) {
+                                    var Newmm = '0' + mm;
+                                  }else {
+                                    var Newmm = mm;
+                                  }
+                                  var result = yyyy + '-' + Newmm + '-' + Newdd;
+                                  console.log(result);
+                                  document.getElementById('setofficecourt').value = result;
+
+                              }
+                              else if (Setbuyer > Setsupport) {
+                                var Setdate = new Date(buyer);
+                                var newdate = new Date(Setdate);
+
+                                newdate.setDate(newdate.getDate() + 45);
+                                var dd = newdate.getDate();
+                                var mm = newdate.getMonth() + 1;
+                                var yyyy = newdate.getFullYear();
+
+                                if (dd < 10) {
+                                  var Newdd = '0' + dd;
+                                }else {
+                                  var Newdd = dd;
+                                }
+                                if (mm < 10) {
+                                  var Newmm = '0' + mm;
+                                }else {
+                                  var Newmm = mm;
+                                }
+                                var result = yyyy + '-' + Newmm + '-' + Newdd;
+                                console.log(result);
+                                document.getElementById('setofficecourt').value = result;
+
+                              }
+                              else if (Setbuyer < Setsupport) {
+                                var Setdate = new Date(support);
+                                var newdate = new Date(Setdate);
+
+                                newdate.setDate(newdate.getDate() + 45);
+                                var dd = newdate.getDate();
+                                var mm = newdate.getMonth() + 1;
+                                var yyyy = newdate.getFullYear();
+
+                                if (dd < 10) {
+                                  var Newdd = '0' + dd;
+                                }else {
+                                  var Newdd = dd;
+                                }
+                                if (mm < 10) {
+                                  var Newmm = '0' + mm;
+                                }else {
+                                  var Newmm = mm;
+                                }
+                                var result = yyyy + '-' + Newmm + '-' + Newdd;
+                                console.log(result);
+                                document.getElementById('setofficecourt').value = result;
+                              }
+                            }
+                            else {
+                              if (Setbuyer == '' && Setsupport == '') {
+                                var Setdate = new Date(checksenddate);
+                                var newdate = new Date(Setdate);
+
+                                newdate.setDate(newdate.getDate() + 15);
+                                var dd = newdate.getDate();
+                                var mm = newdate.getMonth() + 1;
+                                var yyyy = newdate.getFullYear();
+
+                                if (dd < 10) {
+                                  var Newdd = '0' + dd;
+                                }else {
+                                  var Newdd = dd;
+                                }
+                                if (mm < 10) {
+                                  var Newmm = '0' + mm;
+                                }else {
+                                  var Newmm = mm;
+                                }
+                                var result = yyyy + '-' + Newmm + '-' + Newdd;
+                                // console.log(result);
+                                document.getElementById('orderdaycourt').value = result;
+                              }
+                              else if (Setbuyer == '') {
+                                var Setdate = new Date(support);
+                                var newdate = new Date(Setdate);
+
+                                newdate.setDate(newdate.getDate() + 15);
+                                var dd = newdate.getDate();
+                                var mm = newdate.getMonth() + 1;
+                                var yyyy = newdate.getFullYear();
+
+                                if (dd < 10) {
+                                  var Newdd = '0' + dd;
+                                }else {
+                                  var Newdd = dd;
+                                }
+                                if (mm < 10) {
+                                  var Newmm = '0' + mm;
+                                }else {
+                                  var Newmm = mm;
+                                }
+                                var result = yyyy + '-' + Newmm + '-' + Newdd;
+                                // console.log(result);
+                                document.getElementById('setofficecourt').value = result;
+
+                              }
+                              else if (Setsupport == '') {
+                                var Setdate = new Date(buyer);
+                                var newdate = new Date(Setdate);
+
+                                newdate.setDate(newdate.getDate() + 15);
+                                var dd = newdate.getDate();
+                                var mm = newdate.getMonth() + 1;
+                                var yyyy = newdate.getFullYear();
+
+                                if (dd < 10) {
+                                  var Newdd = '0' + dd;
+                                }else {
+                                  var Newdd = dd;
+                                }
+                                if (mm < 10) {
+                                  var Newmm = '0' + mm;
+                                }else {
+                                  var Newmm = mm;
+                                }
+                                var result = yyyy + '-' + Newmm + '-' + Newdd;
+                                // console.log(result);
+                                document.getElementById('setofficecourt').value = result;
+                              }
+                            }
+                          }
 
                           function CalculateCap(){
-                            var cap = document.getElementById('capitalcourt').value;
-                            var Setcap = cap.replace(",","");
-                            var ind = document.getElementById('indictmentcourt').value;
-                            var Setind = ind.replace(",","");
+                              var cap = document.getElementById('capitalcourt').value;
+                              var Setcap = cap.replace(",","");
+                              var ind = document.getElementById('indictmentcourt').value;
+                              var Setind = ind.replace(",","");
 
-                            var Sumcap = (Setcap * 0.01);
+                              var Sumcap = (Setcap * 0.01);
 
-                            if(!isNaN(Setcap)){
-                                document.form1.capitalcourt.value = addCommas(Setcap);
-                                document.form1.pricelawyercourt.value = addCommas(Sumcap.toFixed(2));
-                           }
-                            if(!isNaN(Setind)){
-                                document.form1.indictmentcourt.value = addCommas(Setind);
-                           }
-                        }
+                              if(!isNaN(Setcap)){
+                                  document.form1.capitalcourt.value = addCommas(Setcap);
+                                  document.form1.pricelawyercourt.value = addCommas(Sumcap.toFixed(2));
+                             }
+                              if(!isNaN(Setind)){
+                                  document.form1.indictmentcourt.value = addCommas(Setind);
+                             }
+                          }
+
                         </script>
 
                         <div class="row">
@@ -514,7 +676,7 @@
                               <div class="col-md-12">
                                 <div class="box box-warning box-solid">
                                   <div class="box-header with-border">
-                                    <h3 class="box-title"> ตรวจผลหมาย</h3>
+                                    <h3 class="box-title"> ตรวจผลหมาย (45 วัน)</h3>
                                     <div class="box-tools pull-right">
                                       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                                       </button>
@@ -528,15 +690,15 @@
                                       </div>
                                       <div class="col-md-3">
                                         วันที่ตรวจผลหมายจริง
-                                        <input type="date" name="checksendcourt" class="form-control" value="{{ ($data->checksend_court) }}" />
+                                        <input type="date" id="checksendcourt" name="checksendcourt" class="form-control" value="{{ ($data->checksend_court) }}" oninput="CourtDate2();" />
                                       </div>
                                       <div class="col-md-3">
                                         วันทีผู้เช่าซื้อได้รับ
-                                        <input type="date" name="buyercourt" class="form-control" value="{{ ($data->buyer_court) }}" />
+                                        <input type="date" id="buyercourt" name="buyercourt" class="form-control" value="{{ ($data->buyer_court) }}" oninput="CourtDate2();"/>
                                       </div>
                                       <div class="col-md-3">
                                         วันทีผู้ค้ำได้รับ
-                                        <input type="date" name="supportcourt" class="form-control" value="{{ ($data->support_court) }}" />
+                                        <input type="date" id="supportcourt" name="supportcourt" class="form-control" value="{{ ($data->support_court) }}" oninput="CourtDate2();"/>
                                       </div>
                                     </div>
 
@@ -578,7 +740,7 @@
                                   </div>
                                   <div class="box-body">
                                     วันทีตั้งเจ้าพนักงาน
-                                    <input type="date" name="setofficecourt" class="form-control" value="{{ $data->setoffice_court }}" />
+                                    <input type="date" id="setofficecourt" name="setofficecourt" class="form-control" value="{{ $data->setoffice_court }}" />
                                     วันที่ส่งจริง
                                     <input type="date" name="sendofficecourt" class="form-control" value="{{ $data->sendoffice_court }}" />
                                   </div>
