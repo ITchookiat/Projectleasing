@@ -547,7 +547,7 @@
                                           <br><br>
                                         </div>
 
-                                        <div id="map" style="width:100%;height:49vh"></div>
+                                        <div id="map" style="width:100%;height:50vh"></div>
 
                                       </div>
                                     </div>
