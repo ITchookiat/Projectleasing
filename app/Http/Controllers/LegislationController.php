@@ -232,7 +232,6 @@ class LegislationController extends Controller
       }
       elseif ($type == 3) {
         $Legiscourt = Legiscourt::where('legislation_id',$id)->first();
-        // dd($request);
           $Legiscourt->fillingdate_court = $request->get('fillingdatecourt');
           $Legiscourt->law_court = $request->get('lawcourt');
           $Legiscourt->bnumber_court = $request->get('bnumbercourt');

@@ -375,9 +375,7 @@
                                 var Newmm = mm;
                               }
                               var result = yyyy + '-' + Newmm + '-' + Newdd;
-                
-                                document.getElementById('orderdaycourt').value = result;
-
+                              document.getElementById('orderdaycourt').value = result;
                             }
                             //---------- end ---------//
 
@@ -500,28 +498,31 @@
                               }
                             }
                             else {
-                              if (buyer == '' || support == '') {
-                                var Setdate = new Date(checksenddate);
-                                var newdate = new Date(Setdate);
+                                var checkFlag = document.getElementById("1").checked;
+                                if (checkFlag == false) {
+                                  if (buyer == '' || support == '') {
+                                    var Setdate = new Date(checksenddate);
+                                    var newdate = new Date(Setdate);
 
-                                newdate.setDate(newdate.getDate() + 15);
-                                var dd = newdate.getDate();
-                                var mm = newdate.getMonth() + 1;
-                                var yyyy = newdate.getFullYear();
+                                    newdate.setDate(newdate.getDate() + 15);
+                                    var dd = newdate.getDate();
+                                    var mm = newdate.getMonth() + 1;
+                                    var yyyy = newdate.getFullYear();
 
-                                if (dd < 10) {
-                                  var Newdd = '0' + dd;
-                                }else {
-                                  var Newdd = dd;
+                                    if (dd < 10) {
+                                      var Newdd = '0' + dd;
+                                    }else {
+                                      var Newdd = dd;
+                                    }
+                                    if (mm < 10) {
+                                      var Newmm = '0' + mm;
+                                    }else {
+                                      var Newmm = mm;
+                                    }
+                                    var result = yyyy + '-' + Newmm + '-' + Newdd;
+                                    document.getElementById('orderdaycourt').value = result;
+                                  }
                                 }
-                                if (mm < 10) {
-                                  var Newmm = '0' + mm;
-                                }else {
-                                  var Newmm = mm;
-                                }
-                                var result = yyyy + '-' + Newmm + '-' + Newdd;
-                                document.getElementById('orderdaycourt').value = result;
-                              }
                             }
                           }
 
@@ -672,7 +673,7 @@
                                           @if($data->social_flag != Null)
                                             <input type="checkbox" id="1" name="socialflag" value="{{ $data->social_flag }}" checked="checked"/>
                                           @else
-                                            <input type="checkbox" id="1" name="socialflag" value="on"/>
+                                            <input type="checkbox" id="1" name="socialflag" value="on" onclick="CourtDate2()"/>
                                           @endif
                                           <label for="1" class="todo">
                                             <i class="fa fa-check"></i>
