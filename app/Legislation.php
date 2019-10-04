@@ -19,4 +19,9 @@ class Legislation extends Model
   {
     return $this->hasMany(Legiscourt::class);
   }
+
+  public function legisImage()
+  {
+    return $this->hasMany(LegisImage::class);
+  }
 }

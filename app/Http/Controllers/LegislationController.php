@@ -187,16 +187,13 @@ class LegislationController extends Controller
 
         return view('legislation.edit',compact('data','id','type'));
       }
-      elseif ($type == 3)
-      {
+      elseif ($type == 3){
         $data = DB::table('legiscourts')
         ->where('legiscourts.legislation_id',$id)->first();
 
         return view('legislation.editlegis1',compact('data','id','type'));
       }
-      elseif ($type == 11)
-      {
-        // dd('jdfhkjvcbjk');
+      elseif ($type == 11){
         $data = DB::table('legiscourts')
         ->where('legiscourts.legislation_id',$id)->first();
 
@@ -261,6 +258,9 @@ class LegislationController extends Controller
           $Legiscourt->sequester_court = $request->get('sequestercourt');
           $Legiscourt->sendsequester_court = $request->get('sendsequestercourt');
         $Legiscourt->update();
+      }
+      elseif ($type == 11) {
+        // code...
       }
 
         // return redirect()->Route('legislation.edit',$id,2)->with('success','อัพเดตข้อมูลเรียบร้อย');
