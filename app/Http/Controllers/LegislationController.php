@@ -8,6 +8,7 @@ use Carbon\Carbon;
 
 use App\Legislation;
 use App\Legiscourt;
+use App\LegisImage;
 
 class LegislationController extends Controller
 {
@@ -155,8 +156,11 @@ class LegislationController extends Controller
           'dayresults_court' =>  Null,
           'sequester_court' =>  Null,
           'sendsequester_court' =>  Null,
+          'latitude_court' =>  Null,
+          'longitude_court' =>  Null,
         ]);
         $Legiscourt->save();
+
 
         return redirect()->Route('legislation',1)->with('success','ส่งฟ้องเรียบร้อย');
     }
@@ -196,8 +200,25 @@ class LegislationController extends Controller
       elseif ($type == 11){
         $data = DB::table('legiscourts')
         ->where('legiscourts.legislation_id',$id)->first();
+        $dataImages = DB::table('legisimages')
+        ->where('legisimages.legisImage_id',$id)->get();
+        $SumImage = count($dataImages);
+        if($SumImage > 0){
+          $column = 100/$SumImage - 0.8;
+        }else{
+          $column = 0;
+        }
 
-        return view('legislation.info',compact('data','id','type'));
+        $datalatlong = DB::table('legiscourts')->get();
+
+        foreach ($datalatlong as $key => $value) {
+          $lat = $value->latitude_court;
+          $long = $value->longitude_court;
+        }
+
+        // dump($lat,$long);
+
+        return view('legislation.info',compact('data','id','type','dataImages','SumImage','column','lat','long'));
       }
     }
 
@@ -260,9 +281,33 @@ class LegislationController extends Controller
         $Legiscourt->update();
       }
       elseif ($type == 11) {
-        // code...
-      }
+        $Legiscourt = Legiscourt::where('legislation_id',$id)->first();
+        $Legiscourt->latitude_court = $request->get('latitude');
+        $Legiscourt->longitude_court = $request->get('longitude');
+        $Legiscourt->update();
 
+        if ($request->hasFile('file_image')) {
+        $image_array = $request->file('file_image');
+        $array_len = count($image_array);
+        // dd($array_len);
+        for ($i=0; $i < $array_len; $i++) {
+          $image_size = $image_array[$i]->getClientSize();
+          $image_lastname = $image_array[$i]->getClientOriginalExtension();
+          $image_new_name = str_random(10).time(). '.' .$image_array[$i]->getClientOriginalExtension();
+
+          $destination_path = public_path('/upload-image');
+          $image_array[$i]->move($destination_path,$image_new_name);
+
+          $Uploaddb = new LegisImage([
+            'legisImage_id' => $id,
+            'name_image' => $image_new_name,
+            'size_image' => $image_size,
+          ]);
+          // dd($Uploaddb);
+          $Uploaddb ->save();
+        }
+       }
+      }
         // return redirect()->Route('legislation.edit',$id,2)->with('success','อัพเดตข้อมูลเรียบร้อย');
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
     }

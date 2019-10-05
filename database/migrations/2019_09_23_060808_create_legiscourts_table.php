@@ -44,6 +44,8 @@ class CreateLegiscourtsTable extends Migration
             $table->string('dayresults_court')->nullable();
             $table->string('sequester_court')->nullable();
             $table->string('sendsequester_court')->nullable();
+            $table->string('latitude_court')->nullable();
+            $table->string('longitude_court')->nullable();
             $table->timestamps();
         });
     }
