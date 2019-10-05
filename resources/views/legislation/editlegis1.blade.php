@@ -515,7 +515,7 @@
                                     var Setdate = new Date(sendcheckresults);
                                     var newdate = new Date(Setdate);
                                   }
-                                  
+
                                 }else if (sendcheckresults != '') {
                                   var Setdate = new Date(sendcheckresults);
                                   var newdate = new Date(Setdate);
@@ -830,10 +830,10 @@
                                       <div class="col-md-3">
                                         <p></p>
                                         <span class="todo-wrap">
-                                          @if($data->social_flag != Null)
+                                          @if($data->social_flag == "infomation")
                                             <input type="checkbox" id="1" name="socialflag" value="{{ $data->social_flag }}" checked="checked"/>
                                           @else
-                                            <input type="checkbox" id="1" name="socialflag" value="on" onclick="CourtDate2()"/>
+                                            <input type="checkbox" id="1" name="socialflag" value="infomation" onclick="CourtDate2()"/>
                                           @endif
                                           <label for="1" class="todo">
                                             <i class="fa fa-check"></i>
@@ -843,10 +843,10 @@
                                       </div>
                                       <div class="col-md-3">
                                         <span class="todo-wrap">
-                                          @if($data->social_flag != Null)
-                                            <input type="checkbox" id="4" name="messageflag" value="" checked="checked"/>
+                                          @if($data->social_flag == "success")
+                                            <input type="checkbox" id="4" name="socialflag" value="{{ $data->social_flag }}" checked="checked"/>
                                           @else
-                                            <input type="checkbox" id="4" name="messageflag" value="on" onclick="CourtDate2()"/>
+                                            <input type="checkbox" id="4" name="socialflag" value="success" onclick="CourtDate2()"/>
                                           @endif
                                           <label for="4" class="todo">
                                             <i class="fa fa-check"></i>

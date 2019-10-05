@@ -597,9 +597,6 @@
       </script>
 
       <script>
-          document.getElementById("uploadBtn").onchange = function () {
-          document.getElementById("uploadFile").value = this.value.replace("C:\\fakepath\\", "");
-          };
 
           function showMap() {
           var x = document.getElementById("myLat");
