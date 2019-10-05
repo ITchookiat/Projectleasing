@@ -377,7 +377,7 @@
       /* Six columns side by side */
       .column {
         float: left;
-        width: 32.5%;
+        width: {{$column}}%;
       }
 
       /* Add a transparency effect for thumnbail images */
@@ -471,8 +471,11 @@
                                   </div>
                                   <div class="box-body">
 
-                                      <!-- <img class="img-responsive pad" src="https://adminlte.io/themes/AdminLTE/dist/img/photo2.png" alt="Photo"> -->
-                                      <div id="myImg" style="display:none;">
+                                    @if($SumImage == 0)
+                                    <div id="myImg">
+                                    @else
+                                    <div id="myImg" style="display:none;">
+                                    @endif
                                         <div class="form-group">
                                           <div class="file-loading">
                                             <input id="image-file" type="file" name="file_image[]" accept="image/*" data-min-file-count="1" multiple>
@@ -481,42 +484,31 @@
                                         <br><br>
                                       </div>
 
-                                  <div class="container1">
-                                  <div class="mySlides">
-                                      <div class="numbertext">1 / 3</div>
-                                      <img src="https://www.w3schools.com/howto/img_woods_wide.jpg" style="width:100%">
-                                    </div>
+                                  @if($SumImage > 0)
+                                    <div class="container1">
+                                        @foreach($dataImages as $key => $images)
+                                          <div class="mySlides">
+                                            <div class="numbertext">{{$key+1}} / {{$SumImage}}</div>
+                                            <img class="img-responsive" src="{{ asset('upload-image/'.$images->name_image) }}" style="width:675px; height:400px;">
+                                          </div>
+                                        @endforeach
 
-                                    <div class="mySlides">
-                                      <div class="numbertext">2 / 3</div>
-                                      <img src="https://www.w3schools.com/howto/img_5terre_wide.jpg" style="width:100%">
-                                    </div>
+                                          <a class="prev" onclick="plusSlides(-1)">❮</a>
+                                          <a class="next" onclick="plusSlides(1)">❯</a>
 
-                                    <div class="mySlides">
-                                      <div class="numbertext">3 / 3</div>
-                                      <img src="https://www.w3schools.com/howto/img_mountains_wide.jpg" style="width:100%">
-                                    </div>
+                                        <div class="caption-container">
+                                          <p id="caption"></p>
+                                        </div>
 
-                                    <a class="prev" onclick="plusSlides(-1)">❮</a>
-                                    <a class="next" onclick="plusSlides(1)">❯</a>
-
-                                    <div class="caption-container">
-                                      <p id="caption"></p>
+                                        <div class="row" style="margin-left:1px;">
+                                          @foreach($dataImages as $images)
+                                          <div class="column">
+                                            <img class="demo cursor" src="{{ asset('upload-image/'.$images->name_image) }}" style="width:100%;height:100px;" onclick="currentSlide(1)" alt="{{ $images->name_image }}">
+                                          </div>
+                                          @endforeach
+                                        </div>
                                     </div>
-
-                                    <div class="row" style="margin-left:1px;">
-                                      <div class="column">
-                                        <img class="demo cursor" src="https://www.w3schools.com/howto/img_woods.jpg" style="width:100%" onclick="currentSlide(1)" alt="The Woods">
-                                      </div>
-                                      <div class="column">
-                                        <img class="demo cursor" src="https://www.w3schools.com/howto/img_5terre.jpg" style="width:100%" onclick="currentSlide(2)" alt="Cinque Terre">
-                                      </div>
-                                      <div class="column">
-                                        <img class="demo cursor" src="https://www.w3schools.com/howto/img_mountains.jpg" style="width:100%" onclick="currentSlide(3)" alt="Mountains and fjords">
-                                      </div>
-                                    </div>
-                                    </div>
-
+                                    @endif
                                   </div>
                                 </div>
                               </div>
@@ -537,8 +529,8 @@
                                       <div class="col-md-12">
                                         <div id="myLat" style="display:none;">
                                           <div class="form-inline" align="center">
-                                            <label>ละติจูด : </label> <input type="text" class="form-control" style="width:175px"/>
-                                            <label>ลองจิจูด : </label> <input type="text" class="form-control" style="width:175px"/>
+                                            <label>ละติจูด : </label> <input type="text" name="latitude" class="form-control" style="width:175px" value="{{ $lat }}"/>
+                                            <label>ลองจิจูด : </label> <input type="text" name="longitude" class="form-control" style="width:175px" value="{{ $long }}"/>
                                             <!-- <button type="submit" class="btn btn-warning" style="width:100px">
                                               <span class="glyphicon glyphicon-search"></span> Search
                                             </button> -->
@@ -546,7 +538,7 @@
                                           <br><br>
                                         </div>
 
-                                        <div id="map" style="width:100%;height:50vh"></div>
+                                        <div id="map" style="width:100%;height:63vh"></div>
 
                                       </div>
                                     </div>
@@ -597,9 +589,6 @@
       </script>
 
       <script>
-          document.getElementById("uploadBtn").onchange = function () {
-          document.getElementById("uploadFile").value = this.value.replace("C:\\fakepath\\", "");
-          };
 
           function showMap() {
           var x = document.getElementById("myLat");
@@ -619,12 +608,14 @@
           }
       </script>
 
+      @if($lat == null && $long ==null)
       <script>
         function initMap() {
+
           var myLatlng = {lat: 6.855323, lng: 101.220649};
 
           var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 15,
+            zoom: 1,
             center: myLatlng
           });
 
@@ -648,8 +639,40 @@
           });
         }
       </script>
+      @else
+      <script>
+        function initMap() {
+
+          var myLatlng = {lat: {{ $lat }}, lng: {{ $long }}};
+
+          var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 18,
+            center: myLatlng
+          });
+
+          var marker = new google.maps.Marker({
+            position: myLatlng,
+            map: map,
+            title: 'Click to zoom'
+          });
+
+          map.addListener('center_changed', function() {
+            // 3 seconds after the center of the map has changed, pan back to the
+            // marker.
+            window.setTimeout(function() {
+              map.panTo(marker.getPosition());
+            }, 3000);
+          });
+
+          marker.addListener('click', function() {
+            map.setZoom(15);
+            map.setCenter(marker.getPosition());
+          });
+        }
+      </script>
+      @endif
       <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHvHdio8MNE9aqZZmfvd49zHgLbixudMs&callback=initMap&language=th">
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHvHdio8MNE9aqZZmfvd49zHgLbixudMs&callback=initMap&language=th">
       </script>
 
       <script>

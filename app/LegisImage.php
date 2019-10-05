@@ -8,7 +8,7 @@ class LegisImage extends Model
 {
   protected $table = 'legisimages';
   protected $primaryKey = 'legisImage_id';
-  protected $fillable = ['legisImage_id','latitude_image','longitude_image','name_image','size_image'];
+  protected $fillable = ['legisImage_id','name_image','size_image'];
 
   public function legislationImage()
   {

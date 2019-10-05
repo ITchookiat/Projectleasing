@@ -16,8 +16,6 @@ class CreateLegisImagesTable extends Migration
         Schema::create('legisimages', function (Blueprint $table) {
             $table->bigIncrements('image_id');
             $table->integer('legisImage_id')->nullable();
-            $table->string('latitude_image')->nullable();
-            $table->string('longitude_image')->nullable();
             $table->string('name_image')->nullable();
             $table->string('size_image')->nullable();
             $table->timestamps();
