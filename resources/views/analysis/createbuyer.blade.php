@@ -1052,6 +1052,8 @@
                                          <option value="60">60</option>
                                          <option value="66">66</option>
                                          <option value="72">72</option>
+                                         <option value="78">78</option>
+                                         <option value="84">84</option>
                                        </select>
                                      </div>
                                   </div>
