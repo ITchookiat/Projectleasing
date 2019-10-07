@@ -843,6 +843,8 @@ class AnalysController extends Controller
         '60' => '60',
         '66' => '66',
         '72' => '72',
+        '78' => '78',
+        '84' => '84',
       ];
       $Insurancecarr = [
         'แถม ป2+ 1ปี' => 'แถม ป2+ 1ปี',
