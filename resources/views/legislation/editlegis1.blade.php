@@ -413,7 +413,7 @@
                               document.getElementById('checkdaycourt').value = result;
                             //---------- end ---------//
                           }
-
+                          // ฟังชันคำนวณ วันที่จาก การเลือก checkbox
                           function CourtDate2(){
                             var date = document.getElementById('checkdaycourt').value;
                             var checksenddate = document.getElementById('checksendcourt').value;
@@ -501,47 +501,10 @@
                                 }
                                 var result = yyyy + '-' + Newmm + '-' + Newdd;
                                 document.getElementById('checkresultscourt').value = result;
-
-                                var sendcheckresults = document.getElementById('sendcheckresultscourt').value;
-                                var dayresults = document.getElementById('dayresultscourt').value;
-                                var Setdate = new Date(result);
-                                var newdate = new Date(Setdate);
-
-                                if (Setdate != '') {
-                                  var Setdate = new Date(result);
-                                  var newdate = new Date(Setdate);
-
-                                  if (sendcheckresults != '') {
-                                    var Setdate = new Date(sendcheckresults);
-                                    var newdate = new Date(Setdate);
-                                  }
-
-                                }else if (sendcheckresults != '') {
-                                  var Setdate = new Date(sendcheckresults);
-                                  var newdate = new Date(Setdate);
-                                }
-
-                                newdate.setDate(newdate.getDate() + 45);
-                                var dd = newdate.getDate();
-                                var mm = newdate.getMonth() + 1;
-                                var yyyy = newdate.getFullYear();
-
-                                if (dd < 10) {
-                                  var Newdd = '0' + dd;
-                                }else {
-                                  var Newdd = dd;
-                                }
-                                if (mm < 10) {
-                                  var Newmm = '0' + mm;
-                                }else {
-                                  var Newmm = mm;
-                                }
-                                var result = yyyy + '-' + Newmm + '-' + Newdd;
-                                document.getElementById('sequestercourt').value = result;
                               }
                             }
                           }
-
+                          // ฟังชันคำนวณ วันที่จาก ผู้เช่าซื้อกับผู้ค้ำ
                           function CheckMessege(){
                             var buyer = document.getElementById('buyercourt').value;
                             var Setbuyer = buyer.substring(8);
@@ -650,22 +613,38 @@
                               }
                               var resultcheck = yyyy + '-' + Newmm + '-' + Newdd;
                               document.getElementById('checkresultscourt').value = resultcheck;
+                            }
+                          }
 
-                              var sendcheckresults = document.getElementById('sendcheckresultscourt').value;
-                              var sequesters = new Date(resultcheck);
-                              var newdate = new Date(sequesters);
+                          function Datesuccess(){
+                            var sendcheckresult = document.getElementById('sendcheckresultscourt').value;
+                            var dayresults = document.getElementById('dayresultscourt').value;
 
-                              if (sequesters != '') {
-                                var Setdate = new Date(sequesters);
-                                var newdate = new Date(Setdate);
-                                if (sendcheckresults != '') {
-                                  var Setdate = new Date(sendcheckresults);
-                                  var newdate = new Date(Setdate);
-                                }
-                              }else if (sendcheckresults != '') {
-                                var Setdate = new Date(sendcheckresults);
-                                var newdate = new Date(Setdate);
-                              }
+                            var Setdate = new Date(sendcheckresult);
+                            var newdate = new Date(Setdate);
+
+                            newdate.setDate(newdate.getDate() + 45);
+                            var dd = newdate.getDate();
+                            var mm = newdate.getMonth() + 1;
+                            var yyyy = newdate.getFullYear();
+
+                            if (dd < 10) {
+                              var Newdd = '0' + dd;
+                            }else {
+                              var Newdd = dd;
+                            }
+                            if (mm < 10) {
+                              var Newmm = '0' + mm;
+                            }else {
+                              var Newmm = mm;
+                            }
+                            var resultcheck = yyyy + '-' + Newmm + '-' + Newdd;
+                            document.getElementById('sequestercourt').value = resultcheck;
+
+                            console.log(dayresults);
+                            if (dayresults != '') {
+                              var Setdate = new Date(dayresults);
+                              var newdate = new Date(Setdate);
 
                               newdate.setDate(newdate.getDate() + 45);
                               var dd = newdate.getDate();
@@ -685,8 +664,9 @@
                               var result = yyyy + '-' + Newmm + '-' + Newdd;
                               document.getElementById('sequestercourt').value = result;
                             }
-                          }
 
+                          }
+                          // ฟังชันคำนวณ ค่าทนาย
                           function CalculateCap(){
                               var cap = document.getElementById('capitalcourt').value;
                               var Setcap = cap.replace(",","");
@@ -891,8 +871,8 @@
                                   <div class="box-body">
                                     วันที่ตรวจผลหมายตั้ง
                                     <input type="date" id="checkresultscourt" name="checkresultscourt" class="form-control" value="{{ $data->checkresults_court }}" readonly/>
-                                    วันที่ส่งจริง
-                                    <input type="date" id="sendcheckresultscourt" name="sendcheckresultscourt" class="form-control" value="{{ $data->sendcheckresults_court }}" oninput="CheckMessege();CourtDate2();"/>
+                                    วันที่ตรวจจริง
+                                    <input type="date" id="sendcheckresultscourt" name="sendcheckresultscourt" class="form-control" value="{{ $data->sendcheckresults_court }}" oninput="Datesuccess();"/>
                                     <div class="row">
                                       <div class="col-md-4">
                                         <p></p>
@@ -900,7 +880,7 @@
                                           @if($data->received_flag != Null)
                                             <input type="checkbox" id="2" name="receivedflag" value="{{ $data->received_flag }}" checked="checked"/>
                                           @else
-                                            <input type="checkbox" id="2" name="receivedflag" value="on"/>
+                                            <input type="checkbox" id="2" name="receivedflag" value="Yes"/>
                                           @endif
                                           <label for="2" class="todo">
                                             <i class="fa fa-check"></i>
@@ -914,7 +894,7 @@
                                           @if($data->noreceived_flag != Null)
                                             <input type="checkbox" id="3" name="noreceivedflag" value="{{ $data->noreceived_flag }}" checked="checked"/>
                                           @else
-                                            <input type="checkbox" id="3" name="noreceivedflag" value="on" onclick="myFunction()"/>
+                                            <input type="checkbox" id="3" name="noreceivedflag" value="No" onclick="myFunction()"/>
                                           @endif
                                           <label for="3" class="todo">
                                             <i class="fa fa-check"></i>
@@ -932,7 +912,7 @@
                                           วันทีโทร
                                           <input type="date" id="telresultscourt" name="telresultscourt" class="form-control" value="{{ $data->telresults_court }}" />
                                           วันทีไปรับ
-                                          <input type="date" id="dayresultscourt" name="dayresultscourt" class="form-control" value="{{ $data->dayresults_court }}" />
+                                          <input type="date" id="dayresultscourt" name="dayresultscourt" class="form-control" value="{{ $data->dayresults_court }}" oninput="Datesuccess()"/>
                                        </div>
                                   </div>
                                 </div>
