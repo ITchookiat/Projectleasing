@@ -3,8 +3,8 @@
 @section('content')
 
 @php
-date_default_timezone_set('Asia/Bangkok');
-$date = date('Y-m-d', strtotime('-1 days'));
+  date_default_timezone_set('Asia/Bangkok');
+  $date = date('Y-m-d', strtotime('-1 days'));
 @endphp
 
 @php
@@ -82,7 +82,7 @@ $date = date('Y-m-d', strtotime('-1 days'));
                           @foreach($result as $key => $row)
                             <tr>
                               <td class="text-center"> {{$key+1}} </td>
-                              <td class="text-center"> {{$row->CONTNO}} </td>
+                              <td class="text-center">{{$row->CONTNO}}</td>
                               <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->SNAM.$row->NAME1)."   ".str_replace(" ","",$row->NAME2))}} </td>
                               <td class="text-center"> {{str_replace(" ","",$row->IDNO)}} </td>
                               <td class="text-center"> {{$row->FDATE}} </td>
@@ -169,12 +169,15 @@ $date = date('Y-m-d', strtotime('-1 days'));
                         @foreach($data as $key => $row)
                           <tr>
                             <td class="text-center"> {{$key+1}} </td>
-                            <td class="text-center"> {{$row->Contract_legis}} </td>
+                            <td class="text-center">
+                              <span class="fa fa-warning fa-lg text-danger prem" title="มีแจ้งเตือน"></span>
+                              {{$row->Contract_legis}}
+                            </td>
                             <td class="text-center"> {{$row->Name_legis}} </td>
                             <td class="text-center"> {{$row->Idcard_legis}} </td>
                             <td class="text-center"> {{$row->DateDue_legis}} </td>
                             <td class="text-center">
-                              <a target="_blank" href="#" class="btn btn-info btn-sm" title="พิมพ์">
+                              <a href="#" class="btn btn-info btn-sm" title="พิมพ์">
                                 <span class="glyphicon glyphicon-eye-open"></span> พิมพ์
                               </a>
                               <a href="{{ action('LegislationController@edit',[$row->id,$type]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
@@ -227,6 +230,45 @@ $date = date('Y-m-d', strtotime('-1 days'));
             });
           </script>
         </div>
+{{--
+<!-- แจ้งเตือนแบบป็อปอัพ -->
+<!-- <div class="modal fade" id="modal-default">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span></button>
+<h4 class="modal-title">แจ้งเตือน</h4>
+</div>
+<div class="modal-body" align="center">
+<p><font size="5px" color="red">วันนี้ต้องไปส่งคำบังคับคดี</font></p>
+<p><font size="5px">เลขที่สัญญา : 01-2563/0001</font></p>
+<p><font size="5px">คุณประยุทต์   อังคารโอชา</font></p>
+</div>
+<div class="modal-footer">
+<center><button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button></center>
+</div>
+</div>
+</div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+$('#modal-default').modal('show');
+setTimeout(function() {
+$('#modal-default').modal('hide');
+}, 30000);
+});
+</script> -->
+--}}
+
+<script>
+function blinker() {
+$('.prem').fadeOut(1000);
+$('.prem').fadeIn(1000);
+}
+setInterval(blinker, 1000);
+</script>
 
       </div>
     </section>
