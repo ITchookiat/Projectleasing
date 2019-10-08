@@ -60,9 +60,15 @@ class LegislationController extends Controller
 
       }
       elseif ($request->type == 2) {
+        // $data = DB::table('legislations')
+        //           ->orderBy('Contract_legis', 'ASC')
+        //           ->get();
+
         $data = DB::table('legislations')
-                  ->orderBy('Contract_legis', 'ASC')
+                  ->join('legiscourts','legislations.id','=','legiscourts.legislation_id')
+                  ->orderBy('legislations.Contract_legis', 'ASC')
                   ->get();
+        // dd($data);
 
         $type = $request->type;
         return view('legislation.view', compact('type', 'data'));

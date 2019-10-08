@@ -10,10 +10,24 @@
 @php
   date_default_timezone_set('Asia/Bangkok');
   $Y = date('Y') + 543;
+  $Y2 = date('Y');
   $m = date('m');
   $d = date('d');
   $time = date('H:i');
+  $date = $Y2.'-'.$m.'-'.$d;
   $date2 = $Y.'-'.$m.'-'.$d;
+@endphp
+
+@php
+  function DateThai($strDate){
+    $strYear = date("Y",strtotime($strDate))+543;
+    $strMonth= date("n",strtotime($strDate));
+    $strDay= date("d",strtotime($strDate));
+    $strMonthCut = Array("" , "ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค.");
+    $strMonthThai=$strMonthCut[$strMonth];
+    return "$strDay $strMonthThai $strYear";
+    //return "$strDay-$strMonthThai-$strYear";
+  }
 @endphp
 
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -158,6 +172,7 @@
                       <thead class="thead-dark bg-gray-light" >
                         <tr>
                           <th class="text-center">ลำดับ</th>
+                          <th class="text-center">แจ้งเตือน</th>
                           <th class="text-center">เลขที่สัญญา</th>
                           <th class="text-center">ชื่อ-สกุล</th>
                           <th class="text-center">บัตรประชาชน</th>
@@ -170,12 +185,66 @@
                           <tr>
                             <td class="text-center"> {{$key+1}} </td>
                             <td class="text-center">
-                              <span class="fa fa-warning fa-lg text-danger prem" title="มีแจ้งเตือน"></span>
+                              @if($row->examiday_court != Null)
+                                @php
+                                  $examidaydate = date_create($row->examiday_court);
+                                  $Newdate = date_create($date);
+                                  $DateEx = date_diff($Newdate,$examidaydate);
+                                @endphp
+                                @php
+                                  $orderdaydate = date_create($row->orderday_court);
+                                  $DateEx2 = date_diff($Newdate,$orderdaydate);
+                                @endphp
+                                @php
+                                  $checkdaydate = date_create($row->checkday_court);
+                                  $DateEx3 = date_diff($Newdate,$checkdaydate);
+                                @endphp
+                                @php
+                                  $setofficedate = date_create($row->setoffice_court);
+                                  $DateEx4 = date_diff($Newdate,$setofficedate);
+                                @endphp
+                                @php
+                                  $checkresultsdate = date_create($row->checkresults_court);
+                                  $DateEx5 = date_diff($Newdate,$checkresultsdate);
+                                @endphp
+                                @php
+                                  $sequesterdate = date_create($row->sequester_court);
+                                  $DateEx6 = date_diff($Newdate,$sequesterdate);
+                                @endphp
+
+                                @if($Newdate <= $examidaydate)
+                                  @if($DateEx->d <= 7)
+                                    <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> สืบพยาน {{ $DateEx->d }} วัน</span>
+                                  @endif
+                                @elseif($Newdate <= $orderdaydate)
+                                  @if($DateEx2->d <= 7)
+                                    <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> ส่งคำบังคับ {{ $DateEx2->d }} วัน</span>
+                                  @endif
+                                @elseif($Newdate <= $checkdaydate)
+                                  @if($DateEx3->d <= 7)
+                                    <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> ตรวจผลหมาย {{ $DateEx3->d }} วัน</span>
+                                  @endif
+                                @elseif($Newdate <= $setofficedate)
+                                  @if($DateEx4->d <= 7)
+                                    <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> ตั้งเจ้าพนักงาน {{ $DateEx4->d }} วัน</span>
+                                  @endif
+                                @elseif($Newdate <= $checkresultsdate)
+                                  @if($DateEx5->d <= 7)
+                                    <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> ตรวจผลหมายตั้ง {{ $DateEx5->d }} วัน</span>
+                                  @endif
+                                @elseif($Newdate <= $sequesterdate)
+                                  @if($DateEx6->d <= 7)
+                                    <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> ตรวจผลหมายตั้ง {{ $DateEx6->d }} วัน</span>
+                                  @endif
+                                @endif
+                              @endif
+                            </td>
+                            <td class="text-center">
                               {{$row->Contract_legis}}
                             </td>
                             <td class="text-center"> {{$row->Name_legis}} </td>
                             <td class="text-center"> {{$row->Idcard_legis}} </td>
-                            <td class="text-center"> {{$row->DateDue_legis}} </td>
+                            <td class="text-center"> {{ DateThai($row->DateDue_legis) }} </td>
                             <td class="text-center">
                               <a href="#" class="btn btn-info btn-sm" title="พิมพ์">
                                 <span class="glyphicon glyphicon-eye-open"></span> พิมพ์
@@ -201,25 +270,10 @@
                 </div>
               @endif
            </div>
-
-{{--
-           <!-- <script type="text/javascript">
-              $(document).on('click','.edit', function(){
-                $.ajax({
-                    url:"{{ route('legislation.store', [$SetStr1,$SetStr2]) }}",
-                    method:'get',
-                    dataType:'json',
-                    success:function(data){
-                      $('#SetStrConn').val($row->CONTNO);
-                    }
-                })
-              });
-           </script> -->
---}}
            <script type="text/javascript">
            $(document).ready(function() {
              $('#table').DataTable( {
-               "order": [[ 1, "asc" ]]
+               "order": [[ 2, "asc" ]]
              } );
            } );
            </script>
@@ -262,13 +316,13 @@ $('#modal-default').modal('hide');
 </script> -->
 --}}
 
-<script>
-function blinker() {
-$('.prem').fadeOut(1000);
-$('.prem').fadeIn(1000);
-}
-setInterval(blinker, 1000);
-</script>
+        <script>
+        function blinker() {
+        $('.prem').fadeOut(1500);
+        $('.prem').fadeIn(1500);
+        }
+        setInterval(blinker, 1500);
+        </script>
 
       </div>
     </section>

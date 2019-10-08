@@ -615,7 +615,7 @@
                               document.getElementById('checkresultscourt').value = resultcheck;
                             }
                           }
-
+                          // ฟังชันคำนวณ วันที่ได้รับและไมไ่ด้รับ
                           function Datesuccess(){
                             var sendcheckresult = document.getElementById('sendcheckresultscourt').value;
                             var dayresults = document.getElementById('dayresultscourt').value;
