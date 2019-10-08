@@ -80,7 +80,7 @@
       </div>
       <div class="modal-body">
         <div class="row">
-          @if(auth::user()->branch != 10 and auth::user()->branch != 11 and auth::user()->type != 4)
+          @if(auth::user()->branch != 10 and auth::user()->branch != 11 and auth::user()->type != 4 and auth::user()->type != 21)
             <div class="col-md-4 col-sm-6 col-xs-12">
               <div class="info-box bg-red">
                 <span class="info-box-icon bg-red">
@@ -190,7 +190,7 @@
       </div>
       <div class="modal-body">
         <div class="row">
-          @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 11)
+          @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 21)
             <div class="col-md-4 col-sm-6 col-xs-12">
               <div class="info-box bg-yellow">
                 <span class="info-box-icon bg-yellow">
