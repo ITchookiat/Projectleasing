@@ -175,7 +175,10 @@
                             </td>
                             <td class="text-center"> {{$row->Name_legis}} </td>
                             <td class="text-center"> {{$row->Idcard_legis}} </td>
-                            <td class="text-center"> {{$row->DateDue_legis}} </td>
+                            @php
+                            $DateDue_legis = date_create($row->DateDue_legis);
+                            @endphp
+                            <td class="text-center">{{ date_format($DateDue_legis, 'd-m-Y')}} </td>
                             <td class="text-center">
                               <a href="#" class="btn btn-info btn-sm" title="พิมพ์">
                                 <span class="glyphicon glyphicon-eye-open"></span> พิมพ์
