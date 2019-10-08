@@ -86,6 +86,7 @@
                             <option value="2" > ฝ่ายอนุมัติ</option>
                             <option value="3" > จัดไฟแนนท์</option>
                             <option value="4" > ฝ่ายอนุมัติรถบ้าน</option>
+                            <option value="11" > กฏหมาย</option>
                           </select>
                         </div>
 
@@ -105,6 +106,7 @@
                             <option value="07" > เบตง</option>
                             <option value="10" > รถบ้าน</option>
                             <option value="11" > รถยืดขายผ่อน</option>
+                            <option value="21" > กฏหมาย</option>
                           </select>
                         </div>
 
