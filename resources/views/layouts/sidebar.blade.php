@@ -37,7 +37,6 @@
       <li class="header">MAIN NAVIGATION</li>
 
       @if(auth::user()->type == 1)
-
         <li class="treeview {{ (request()->is('maindata/view*')) ? 'active' : '' }}">
           <a href="#">
             <i class="fa fa-dashboard"></i> <span> ข้อมูลหลัก</span>
@@ -90,22 +89,24 @@
         </ul>
       </li>
 
-      <li class="treeview {{ (request()->is('Legislation/Home*')) ? 'active' : '' }} {{ (request()->is('Legislation/edit/*')) ? 'active' : '' }}"> <!-- /.DINsidebar -->
-        <a href="#">
-          <i class="fa fa-book"></i> <span> แผนกกฏหมาย</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu">
-          <li>
-              <a href="{{ route('legislation',1) }}"><i class="fa fa-book text-yellow"></i>รายชื่อส่งฟ้อง</a>
-          </li>
-          <li>
-              <a href="{{ route('legislation',2) }}"><i class="fa fa-book text-yellow"></i>งานฟ้อง</a>
-          </li>
-        </ul>
-      </li>
+        <li class="treeview {{ (request()->is('Legislation/Home*')) ? 'active' : '' }} {{ (request()->is('Legislation/edit/*')) ? 'active' : '' }}"> <!-- /.DINsidebar -->
+          <a href="#">
+            <i class="fa fa-book"></i> <span> แผนกกฏหมาย</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 11)
+            <ul class="treeview-menu">
+              <li>
+                  <a href="{{ route('legislation',1) }}"><i class="fa fa-book text-yellow"></i>รายชื่อส่งฟ้อง</a>
+              </li>
+              <li>
+                  <a href="{{ route('legislation',2) }}"><i class="fa fa-book text-yellow"></i>งานฟ้อง</a>
+              </li>
+            </ul>
+          @endif
+        </li>
 
       <li>
           <a href="{{ route('report',1) }}"><i class="fa fa-newspaper-o text-yellow"></i> รายงาน ใบเบิกเงิน</a>
