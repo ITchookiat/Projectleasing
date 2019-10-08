@@ -471,12 +471,12 @@
                               <div class="form-inline" align="right">
                                 <label>เลขที่โฉนด : </label>
                                       @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                        <input type="text" name="deednumberbuyer" value="{{$data->deednumber_buyer}}" class="form-control int" style="width: 250px;" placeholder="เลขที่โฉนด" />
+                                        <input type="text" name="deednumberbuyer" value="{{$data->deednumber_buyer}}" class="form-control" style="width: 250px;" placeholder="เลขที่โฉนด" />
                                       @else
                                         @if($GetDocComplete != Null)
-                                          <input type="text" name="deednumberbuyer" value="{{$data->deednumber_buyer}}" class="form-control int" style="width: 250px;" placeholder="เลขที่โฉนด" readonly/>
+                                          <input type="text" name="deednumberbuyer" value="{{$data->deednumber_buyer}}" class="form-control" style="width: 250px;" placeholder="เลขที่โฉนด" readonly/>
                                         @else
-                                          <input type="text" name="deednumberbuyer" value="{{$data->deednumber_buyer}}" class="form-control int" style="width: 250px;" placeholder="เลขที่โฉนด" />
+                                          <input type="text" name="deednumberbuyer" value="{{$data->deednumber_buyer}}" class="form-control" style="width: 250px;" placeholder="เลขที่โฉนด" />
                                         @endif
                                       @endif
                               </div>
@@ -973,12 +973,12 @@
                                   <div class="form-inline" align="right">
                                       <label>เลขที่โฉนด : </label>
                                       @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                        <input type="text" name="deednumberSP" value="{{$data->deednumber_SP}}" class="form-control int" style="width: 250px;" placeholder="เลขที่โฉนด" />
+                                        <input type="text" name="deednumberSP" value="{{$data->deednumber_SP}}" class="form-control" style="width: 250px;" placeholder="เลขที่โฉนด" />
                                       @else
                                         @if($GetDocComplete != Null)
-                                          <input type="text" name="deednumberSP" value="{{$data->deednumber_SP}}" class="form-control int" style="width: 250px;" placeholder="เลขที่โฉนด" readonly/>
+                                          <input type="text" name="deednumberSP" value="{{$data->deednumber_SP}}" class="form-control" style="width: 250px;" placeholder="เลขที่โฉนด" readonly/>
                                         @else
-                                          <input type="text" name="deednumberSP" value="{{$data->deednumber_SP}}" class="form-control int" style="width: 250px;" placeholder="เลขที่โฉนด" />
+                                          <input type="text" name="deednumberSP" value="{{$data->deednumber_SP}}" class="form-control" style="width: 250px;" placeholder="เลขที่โฉนด" />
                                         @endif
                                       @endif
                                   </div>

@@ -81,43 +81,74 @@
       <div class="modal-body">
         <div class="row">
           @if(auth::user()->branch != 10 and auth::user()->branch != 11 and auth::user()->type != 4)
-            <div class="col-lg-4 col-md-4">
-              <div class="info-box">
+            <div class="col-md-4 col-sm-6 col-xs-12">
+              <div class="info-box bg-red">
                 <span class="info-box-icon bg-red">
-                  <a href="{{ route('Analysis',1) }}" class="a1"><i class="fa fa-fax"></i></a>
+                  <span class="info-box-icon">
+                    <a href="{{ route('Analysis',1) }}" class="a1"><i class="fa fa-fax"></i></a>
+                  </span>
                 </span>
                 <div class="info-box-content">
                   <span class="info-box-text"><br /></span>
                   <span class="info-box-number">สินเชื่อ</span>
+
+                  <div class="progress">
+                    <div class="progress-bar" style="width: 100%"></div>
+                  </div>
+                    <span class="progress-description">
+                      จำนวนรถที่อนุมัติ {{ $datafinance }} คัน
+                    </span>
                 </div>
               </div>
             </div>
+
+          <!-- Admin -->
             @if(auth::user()->type == 1 or auth::user()->type == 2)
-              <div class="col-lg-4 col-md-4">
-                <div class="info-box">
+            <div class="col-md-4 col-sm-6 col-xs-12">
+              <div class="info-box bg-yellow">
                   <span class="info-box-icon bg-yellow">
-                    <a href="{{ route('Analysis',4) }}" class="a1"><i class="fa fa-automobile "></i></a>
+                    <span class="info-box-icon">
+                      <a href="{{ route('Analysis',4) }}" class="a1"><i class="fa fa-automobile"></i></a>
+                    </span>
                   </span>
                   <div class="info-box-content">
                     <span class="info-box-text"><br /></span>
                     <span class="info-box-number">รถบ้าน</span>
+
+                    <div class="progress">
+                      <div class="progress-bar" style="width: 100%"></div>
+                    </div>
+                      <span class="progress-description">
+                        จำนวนรถที่อนุมัติ {{ $datahomecar }} คัน
+                      </span>
                   </div>
                 </div>
               </div>
             @endif
+          <!-- User standard -->
           @else
-          <div class="col-lg-4 col-md-4">
-            <div class="info-box">
-              <span class="info-box-icon bg-yellow">
-                <a href="{{ route('Analysis',4) }}" class="a1"><i class="fa fa-automobile "></i></a>
-              </span>
-              <div class="info-box-content">
-                <span class="info-box-text"><br /></span>
-                <span class="info-box-number">รถบ้าน</span>
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="info-box bg-yellow">
+                <span class="info-box-icon bg-yellow">
+                  <span class="info-box-icon">
+                    <a href="{{ route('Analysis',4) }}" class="a1"><i class="fa fa-automobile"></i></a>
+                  </span>
+                </span>
+                <div class="info-box-content">
+                  <span class="info-box-text"><br /></span>
+                  <span class="info-box-number">รถบ้าน</span>
+
+                  <div class="progress">
+                    <div class="progress-bar" style="width: 100%"></div>
+                  </div>
+                    <span class="progress-description">
+                      จำนวนรถที่อนุมัติ {{ $datahomecar }} คัน
+                    </span>
+                </div>
               </div>
             </div>
-          </div>
           @endif
+
 
           <!-- <div class="col-lg-4 col-md-4">
             <div class="info-box">
@@ -159,15 +190,24 @@
       </div>
       <div class="modal-body">
         <div class="row">
-          @if(auth::user()->type == 1 or auth::user()->type == 2)
-            <div class="col-lg-4 col-md-4">
-              <div class="info-box">
-                <span class="info-box-icon bg-green">
-                  <a href="{{ route('legislation',2) }}" class="a1"><i class="fa fa-bank"></i></a>
+          @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 11)
+            <div class="col-md-4 col-sm-6 col-xs-12">
+              <div class="info-box bg-yellow">
+                <span class="info-box-icon bg-yellow">
+                  <span class="info-box-icon">
+                    <a href="{{ route('legislation',2) }}" class="a1"><i class="fa fa-bank"></i></a>
+                  </span>
                 </span>
                 <div class="info-box-content">
                   <span class="info-box-text"><br /></span>
                   <span class="info-box-number">งานฟ้อง</span>
+
+                  <div class="progress">
+                    <div class="progress-bar" style="width: 100%"></div>
+                  </div>
+                    <span class="progress-description">
+                      จำนวนที่ส่งฟ้อง {{ $datalegis }} ราย
+                    </span>
                 </div>
               </div>
             </div>

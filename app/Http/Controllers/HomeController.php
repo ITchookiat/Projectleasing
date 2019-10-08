@@ -7,6 +7,12 @@ use App\Connectdb2;
 use App\DataIBM;
 use DB;
 
+use App\Buyer;
+use App\Sponsor;
+use App\Cardetail;
+use App\homecardetail;
+use App\Expenses;
+
 class HomeController extends Controller
 {
     /**
@@ -35,6 +41,22 @@ class HomeController extends Controller
         // $conn = DataIBM::where('RECVNO','=','AOC-03040001')->get();
         // dd($conn);
 
-        return view($name);
+
+        $datafinance = DB::table('buyers')
+                  ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
+                  ->where('cardetails.Approvers_car','<>',Null)
+                  ->count();
+
+        $datahomecar = DB::table('buyers')
+                  ->join('homecardetails','buyers.id','=','homecardetails.Buyerhomecar_id')
+                  ->where('homecardetails.dateapp_HC','<>',Null)
+                  ->count();
+
+        $datalegis = DB::table('legislations')
+                  ->join('legiscourts','legislations.id','=','legiscourts.legislation_id')
+                  ->count();
+
+
+        return view($name, compact('datafinance','datahomecar','datalegis'));
     }
 }
