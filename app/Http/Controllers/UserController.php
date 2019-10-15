@@ -71,6 +71,7 @@ class UserController extends Controller
         2 => 'ฝ่ายอนุมัติ',
         3 => 'จัดไฟแนนท์',
         4 => 'ฝ่ายอนุมัติรถบ้าน',
+        21 => 'กฏหมาย',
       ];
 
       $arrayBranch = [
@@ -83,6 +84,7 @@ class UserController extends Controller
         07 => 'เบตง',
         10 => 'รถบ้าน',
         11 => 'รถยืดขายผ่อน',
+        21 => 'กฏหมาย',
       ];
 
       return view('maindata.edit',compact('user','id','arrayType','arrayBranch'));

@@ -83,7 +83,7 @@
           @if(auth::user()->branch != 10 and auth::user()->branch != 11 and auth::user()->type != 4)
             <!-- ถ้าไม่ใช้สิทธิ กฏหมาย -->
             @if(auth::user()->type != 21)
-              <div class="col-md-4 col-sm-6 col-xs-12">
+              <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="info-box bg-red">
                   <span class="info-box-icon bg-red">
                     <span class="info-box-icon">
@@ -107,7 +107,7 @@
 
           <!-- Admin -->
             @if(auth::user()->type == 1 or auth::user()->type == 2)
-              <div class="col-md-4 col-sm-6 col-xs-12">
+              <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="info-box bg-yellow">
                     <span class="info-box-icon bg-yellow">
                       <span class="info-box-icon">
@@ -130,7 +130,7 @@
             @endif
           <!-- User standard -->
           @else
-          <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="col-md-6 col-sm-6 col-xs-12">
             <div class="info-box bg-yellow">
                 <span class="info-box-icon bg-yellow">
                   <span class="info-box-icon">
@@ -194,7 +194,7 @@
       <div class="modal-body">
         <div class="row">
           @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 21)
-            <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="col-md-6 col-sm-6 col-xs-12">
               <div class="info-box bg-yellow">
                 <span class="info-box-icon bg-yellow">
                   <span class="info-box-icon">

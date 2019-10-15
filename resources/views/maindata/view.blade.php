@@ -80,6 +80,8 @@
                           จัดไฟแนนท์
                         @elseif ($row->type  == 4)
                           ฝ่ายอนุมัติรถบ้าน
+                        @elseif ($row->type  == 21)
+                          กฏหมาย
                         @endif
                       </td>
                       <td class="text-center">
@@ -101,6 +103,8 @@
                           รถบ้าน
                         @elseif ($row->branch  == 11)
                           รถยืดขายผ่อน
+                        @elseif ($row->branch  == 21)
+                          กฏหมาย
                         @endif
                       </td>
                       <td class="text-center">
