@@ -287,7 +287,7 @@
       <!-- Main content -->
       <section class="content">
         <!-- Default box -->
-        <div class="box box-primary box-solid">
+        <div class="box box-danger box-solid">
           <div class="box-header with-border">
             <h4 class="card-title p-3" align="center">แก้ไขข้อมูงานฟ้อง</h4>
             <div class="box-tools pull-right">

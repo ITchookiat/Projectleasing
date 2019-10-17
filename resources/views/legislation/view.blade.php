@@ -47,7 +47,7 @@
     <section class="content">
 
       <!-- Default box -->
-      <div class="box box-warning box-solid">
+      <div class="box box-danger box-solid">
         <div class="box-header with-border">
           @if($type == 1)
             <h4 class="card-title" align="center"><b>รายชื่อส่งฟ้อง</b></h4>
