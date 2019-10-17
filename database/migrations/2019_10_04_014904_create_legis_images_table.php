@@ -29,6 +29,6 @@ class CreateLegisImagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('legis_images');
+        Schema::dropIfExists('legisimages');
     }
 }

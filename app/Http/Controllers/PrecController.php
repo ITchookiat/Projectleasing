@@ -33,7 +33,58 @@ class PrecController extends Controller
                     ->get();
           // dd($data);
           $type = $request->type;
-          return view('precipitate.view', compact('data','type'));
+          return view('precipitate.view', compact('data', 'type'));
+        }
+
+        if ($request->type == 2) {
+          $fdate = $date;
+          $tdate = $date;
+          $follower = '';
+
+          if ($request->has('Fromdate')) {
+            $fdate = $request->get('Fromdate');
+            // $newfdate = \Carbon\Carbon::parse($fdate)->format('Y') ."-". \Carbon\Carbon::parse($fdate)->format('m')."-". \Carbon\Carbon::parse($fdate)->format('d');
+          }
+          // if (session()->has('fdate')){
+          //   $fdate = session('fdate');
+          //   $newfdate = \Carbon\Carbon::parse($fdate)->format('Y') ."-". \Carbon\Carbon::parse($fdate)->format('m')."-". \Carbon\Carbon::parse($fdate)->format('d');
+          // }
+
+          if ($request->has('Todate')) {
+            $tdate = $request->get('Todate');
+            // $newtdate = \Carbon\Carbon::parse($tdate)->format('Y') ."-". \Carbon\Carbon::parse($tdate)->format('m')."-". \Carbon\Carbon::parse($tdate)->format('d');
+          }
+          // if (session()->has('tdate')){
+          //   $tdate = session('tdate');
+          //   $newtdate = \Carbon\Carbon::parse($tdate)->format('Y') ."-". \Carbon\Carbon::parse($tdate)->format('m')."-". \Carbon\Carbon::parse($tdate)->format('d');
+          // }
+
+          if ($request->has('follower')) {
+            $follower = $request->get('follower');
+          }
+          // if (session()->has('branch')){
+          //   $follower = session('branch');
+          // }
+
+          $data = DB::connection('ibmi')
+                    ->table('SFHP.ARMAST')
+                    ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
+                    ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                    ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+                    // ->where('SFHP.ARMAST.BILLCOLL','=',99)
+                    ->whereBetween('SFHP.ARMAST.HLDNO',[2.5,4.99])
+                    ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+                      return $q->whereBetween('SFHP.ARPAY.DDATE',[$fdate,$tdate]);
+                    })
+                    ->when(!empty($follower), function($q) use($follower){
+                      return $q->where('SFHP.ARMAST.BILLCOLL',$follower);
+                    })
+                    // ->whereBetween('SFHP.ARPAY.DDATE',[$date,$date])
+                    ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                    ->get();
+
+          $type = $request->type;
+          return view('precipitate.view', compact('data','fdate','tdate','follower','type'));
         }
     }
 
