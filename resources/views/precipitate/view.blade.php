@@ -44,7 +44,7 @@
                 <strong>สำเร็จ!</strong> {{ session()->get('success') }}
               </div>
             @endif
-            
+
             @if($type == 1)
               <form method="get" action="{{ route('Analysis',1) }}">
                 <div align="right" class="form-inline">
@@ -52,7 +52,7 @@
                     <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
                   </a>
                 </div>
-              </form>    
+              </form>
             @elseif($type == 2)
               <form method="get" action="{{ route('Precipitate', 2) }}">
                 <div align="right" class="form-inline">
@@ -86,11 +86,11 @@
                   </select>
                 </div>
               </form>
-             @endif
+           @endif
 
             <div class="row">
               <div class="col-md-12">
-                 <hr>
+                <hr>
                  <div class="table-responsive">
                    <table class="table table-bordered" id="table">
                       <thead class="thead-dark bg-gray-light" >
@@ -111,58 +111,42 @@
                       <tbody>
                         @foreach($data as $key => $row)
                           <tr>
-                            <th class="text-center">ลำดับ</th>
-                            <th class="text-center">เลขที่สัญญา</th>
-                            <th class="text-center">ชื่อ-สกุล</th>
-                            <th class="text-center">ชำระล่าสุด</th>
-                            <th class="text-center">งวดละ</th>
-                            <th class="text-center">ค้างชำระ</th>
-                            <th class="text-center">งวดจริง</th>
-                            <th class="text-center">คงเหลือ</th>
-                            <th class="text-center">เลขทะเบียน</th>
-                            <th class="text-center">พนง</th>
-                            <th class="text-center">สถานะ</th>
+                            <td class="text-center"> {{$key+1}} </td>
+                            <td class="text-center"> {{$row->CONTNO}}</td>
+                            <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->SNAM.$row->NAME1)."   ".str_replace(" ","",$row->NAME2))}} </td>
+                            <td class="text-center"> {{$row->LPAYD}} </td>
+                            <td class="text-center"> {{$row->DAMT}} </td>
+                            <td class="text-center"> {{$row->EXP_AMT}} </td>
+                            <td class="text-center"> {{$row->HLDNO}} </td>
+                            <td class="text-center"> {{$row->BALANC - $row->SMPAY}} </td>
+                            <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->REGNO)) }} </td>
+                            <td class="text-center"> {{$row->BILLCOLL}} </td>
+                            <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->CONTSTAT)) }} </td>
                           </tr>
-                        </thead>
-                        <tbody>
-                          @foreach($data as $key => $row)
-                            <tr>
-                              <td class="text-center"> {{$key+1}} </td>
-                              <td class="text-center"> {{$row->CONTNO}}</td>
-                              <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->SNAM.$row->NAME1)."   ".str_replace(" ","",$row->NAME2))}} </td>
-                              <td class="text-center"> {{$row->LPAYD}} </td>
-                              <td class="text-center"> {{$row->DAMT}} </td>
-                              <td class="text-center"> {{$row->EXP_AMT}} </td>
-                              <td class="text-center"> {{$row->HLDNO}} </td>
-                              <td class="text-center"> {{$row->BALANC - $row->SMPAY}} </td>
-                              <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->REGNO)) }} </td>
-                              <td class="text-center"> {{$row->BILLCOLL}} </td>
-                              <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->CONTSTAT)) }} </td>
-                            </tr>
-                          @endforeach
-                        </tbody>
+                        @endforeach
+                      </tbody>
                     </table>
-                   </div>
-                </div>
+                  </div>
+              </div>
            </div>
 
            @if($type == 1)
-           <script type="text/javascript">
-           $(document).ready(function() {
-             $('#table').DataTable( {
-               "order": [[ 1, "asc" ]]
-             } );
-           } );
-           </script>
+             <script type="text/javascript">
+               $(document).ready(function() {
+                 $('#table').DataTable( {
+                   "order": [[ 1, "asc" ]]
+                 } );
+               } );
+             </script>
            @elseif($type == 2)
-           <script type="text/javascript">
-           $(document).ready(function() {
-             $('#table').DataTable( {
-               "order": [[ 1, "asc" ]],
-               "pageLength": 50
-             } );
-           } );
-           </script>
+             <script type="text/javascript">
+               $(document).ready(function() {
+                 $('#table').DataTable( {
+                   "order": [[ 1, "asc" ]],
+                   "pageLength": 50
+                 } );
+               } );
+             </script>
            @endif
 
           <script type="text/javascript">
