@@ -32,7 +32,8 @@ class PrecController extends Controller
                     ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
                     ->get();
           // dd($data);
-          return view('precipitate.view', compact('data'));
+          $type = $request->type;
+          return view('precipitate.view', compact('data','type'));
         }
     }
 

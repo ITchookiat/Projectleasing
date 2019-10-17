@@ -41,46 +41,58 @@
               </div>
             @endif
 
-            <div class="row">
-              <div class="col-md-12">
-                 <hr>
-                 <div class="table-responsive">
-                   <table class="table table-bordered" id="table">
-                      <thead class="thead-dark bg-gray-light" >
-                        <tr>
-                          <th class="text-center">ลำดับ</th>
-                          <th class="text-center">เลขที่สัญญา</th>
-                          <th class="text-center">ชื่อ-สกุล</th>
-                          <th class="text-center">ชำระล่าสุด</th>
-                          <th class="text-center">งวดละ</th>
-                          <th class="text-center">ค้างชำระ</th>
-                          <th class="text-center">งวดจริง</th>
-                          <th class="text-center">คงเหลือ</th>
-                          <th class="text-center">เลขทะเบียน</th>
-                          <th class="text-center">พนง</th>
-                          <th class="text-center">สถานะ</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        @foreach($data as $key => $row)
-                          <tr>
-                            <td class="text-center"> {{$key+1}} </td>
-                            <td class="text-center"> {{$row->CONTNO}}</td>
-                            <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->SNAM.$row->NAME1)."   ".str_replace(" ","",$row->NAME2))}} </td>
-                            <td class="text-center"> {{$row->LPAYD}} </td>
-                            <td class="text-center"> {{$row->DAMT}} </td>
-                            <td class="text-center"> {{$row->EXP_AMT}} </td>
-                            <td class="text-center"> {{$row->HLDNO}} </td>
-                            <td class="text-center"> {{$row->BALANC - $row->SMPAY}} </td>
-                            <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->REGNO)) }} </td>
-                            <td class="text-center"> {{$row->BILLCOLL}} </td>
-                            <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->CONTSTAT)) }} </td>
-                          </tr>
-                        @endforeach
-                      </tbody>
-                  </table>
-                 </div>
+            <form method="get" action="{{ route('Analysis',1) }}">
+              <div align="right" class="form-inline">
+                <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate') }}" class="btn btn-primary btn-app">
+                  <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
+                </a>
               </div>
+            </form>
+
+            <div class="row">
+              @if($type == 1)
+                <div class="col-md-12">
+                   <hr>
+                   <div class="table-responsive">
+                     <table class="table table-bordered" id="table">
+                        <thead class="thead-dark bg-gray-light" >
+                          <tr>
+                            <th class="text-center">ลำดับ</th>
+                            <th class="text-center">เลขที่สัญญา</th>
+                            <th class="text-center">ชื่อ-สกุล</th>
+                            <th class="text-center">ชำระล่าสุด</th>
+                            <th class="text-center">งวดละ</th>
+                            <th class="text-center">ค้างชำระ</th>
+                            <th class="text-center">งวดจริง</th>
+                            <th class="text-center">คงเหลือ</th>
+                            <th class="text-center">เลขทะเบียน</th>
+                            <th class="text-center">พนง</th>
+                            <th class="text-center">สถานะ</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @foreach($data as $key => $row)
+                            <tr>
+                              <td class="text-center"> {{$key+1}} </td>
+                              <td class="text-center"> {{$row->CONTNO}}</td>
+                              <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->SNAM.$row->NAME1)."   ".str_replace(" ","",$row->NAME2))}} </td>
+                              <td class="text-center"> {{$row->LPAYD}} </td>
+                              <td class="text-center"> {{$row->DAMT}} </td>
+                              <td class="text-center"> {{$row->EXP_AMT}} </td>
+                              <td class="text-center"> {{$row->HLDNO}} </td>
+                              <td class="text-center"> {{$row->BALANC - $row->SMPAY}} </td>
+                              <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->REGNO)) }} </td>
+                              <td class="text-center"> {{$row->BILLCOLL}} </td>
+                              <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->CONTSTAT)) }} </td>
+                            </tr>
+                          @endforeach
+                        </tbody>
+                    </table>
+                   </div>
+                </div>
+              @elseif($type == 2)
+
+              @endif
            </div>
 
            <script type="text/javascript">
