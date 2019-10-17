@@ -44,45 +44,52 @@
                 <strong>สำเร็จ!</strong> {{ session()->get('success') }}
               </div>
             @endif
+            
+            @if($type == 1)
+              <form method="get" action="{{ route('Analysis',1) }}">
+                <div align="right" class="form-inline">
+                  <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate') }}" class="btn btn-primary btn-app">
+                    <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
+                  </a>
+                </div>
+              </form>    
+            @elseif($type == 2)
+              <form method="get" action="{{ route('Precipitate', 2) }}">
+                <div align="right" class="form-inline">
+                  <a target="_blank" href="" class="btn btn-success btn-app">
+                    <span class="fa fa-file-excel-o"></span> Excel
+                  </a>
+                  <a target="_blank" href="" class="btn btn-danger btn-app">
+                    <span class="fa fa-file-pdf-o"></span> PDF
+                  </a>
+                  <button type="submit" class="btn btn-warning btn-app">
+                    <span class="glyphicon glyphicon-search"></span> Search
+                  </button >
+                  <p></p>
+                  <label>จากวันที่ : </label>
+                  <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($fdate != '') ?$fdate: '' }}" class="form-control" />
+                  <label>ถึงวันที่ : </label>
+                  <input type="date" name="Todate" style="width: 180px;" value="{{ ($tdate != '') ?$tdate: '' }}" class="form-control" />
+                </div>
+                <div align="right" class="form-inline">
+                  <label for="text" class="mr-sm-2">ทีมติดตาม : </label>
+                  <select name="follower" class="form-control mb-2 mr-sm-2" id="text" style="width: 420px">
+                    <option selected disabled value="">---เลือกทีมติดตาม---</option>
+                      <!-- <option value="99" {{ ($follower == '99') ? 'selected' : '' }}>99</otion> -->
+                      <option value="" {{ ($follower == '') ? 'selected' : '' }}>เลือกทั้งหมด</otion>
+                      <option value="102" {{ ($follower == '102') ? 'selected' : '' }}>102 - นายอับดุลเล๊าะ กาซอ</otion>
+                      <option value="104" {{ ($follower == '104') ? 'selected' : '' }}>104 - นายอนุวัฒน์ อับดุลรานี</otion>
+                      <option value="105" {{ ($follower == '105') ? 'selected' : '' }}>105 - นายธีรวัฒน์ เจ๊ะกา</otion>
+                      <option value="112" {{ ($follower == '112') ? 'selected' : '' }}>112 - นายราชัน เจ๊ะกา</otion>
+                      <option value="113" {{ ($follower == '113') ? 'selected' : '' }}>113 - นายฟิฏตรี วิชา</otion>
+                      <option value="114" {{ ($follower == '114') ? 'selected' : '' }}>114 - นายอานันท์ กาซอ</otion>
+                  </select>
+                </div>
+              </form>
+             @endif
 
             <div class="row">
               <div class="col-md-12">
-
-                @if($type == 2)
-                <form method="get" action="{{ route('Precipitate', 2) }}">
-                  <div align="right" class="form-inline">
-                    <a target="_blank" href="" class="btn btn-success btn-app">
-                      <span class="fa fa-file-excel-o"></span> Excel
-                    </a>
-                    <a target="_blank" href="" class="btn btn-danger btn-app">
-                      <span class="fa fa-file-pdf-o"></span> PDF
-                    </a>
-                    <button type="submit" class="btn btn-warning btn-app">
-                      <span class="glyphicon glyphicon-search"></span> Search
-                    </button >
-                    <p></p>
-                    <label>จากวันที่ : </label>
-                    <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($fdate != '') ?$fdate: '' }}" class="form-control" />
-                    <label>ถึงวันที่ : </label>
-                    <input type="date" name="Todate" style="width: 180px;" value="{{ ($tdate != '') ?$tdate: '' }}" class="form-control" />
-                  </div>
-                  <div align="right" class="form-inline">
-                    <label for="text" class="mr-sm-2">ทีมติดตาม : </label>
-                    <select name="follower" class="form-control mb-2 mr-sm-2" id="text" style="width: 420px">
-                      <option selected disabled value="">---เลือกทีมติดตาม---</option>
-                        <!-- <option value="99" {{ ($follower == '99') ? 'selected' : '' }}>99</otion> -->
-                        <option value="" {{ ($follower == '') ? 'selected' : '' }}>เลือกทั้งหมด</otion>
-                        <option value="102" {{ ($follower == '102') ? 'selected' : '' }}>102 - นายอับดุลเล๊าะ กาซอ</otion>
-                        <option value="104" {{ ($follower == '104') ? 'selected' : '' }}>104 - นายอนุวัฒน์ อับดุลรานี</otion>
-                        <option value="105" {{ ($follower == '105') ? 'selected' : '' }}>105 - นายธีรวัฒน์ เจ๊ะกา</otion>
-                        <option value="112" {{ ($follower == '112') ? 'selected' : '' }}>112 - นายราชัน เจ๊ะกา</otion>
-                        <option value="113" {{ ($follower == '113') ? 'selected' : '' }}>113 - นายฟิฏตรี วิชา</otion>
-                        <option value="114" {{ ($follower == '114') ? 'selected' : '' }}>114 - นายอานันท์ กาซอ</otion>
-                    </select>
-                  </div>
-                </form>
-                @endif
-
                  <hr>
                  <div class="table-responsive">
                    <table class="table table-bordered" id="table">
@@ -104,23 +111,39 @@
                       <tbody>
                         @foreach($data as $key => $row)
                           <tr>
-                            <td class="text-center"> {{$key+1}} </td>
-                            <td class="text-center"> {{$row->CONTNO}}</td>
-                            <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->SNAM.$row->NAME1)."   ".str_replace(" ","",$row->NAME2))}} </td>
-                            <td class="text-center"> {{$row->LPAYD}} </td>
-                            <td class="text-center"> {{$row->DAMT}} </td>
-                            <td class="text-center"> {{$row->EXP_AMT}} </td>
-                            <td class="text-center"> {{$row->HLDNO}} </td>
-                            <td class="text-center"> {{$row->BALANC - $row->SMPAY}} </td>
-                            <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->REGNO)) }} </td>
-                            <td class="text-center"> {{$row->BILLCOLL}} </td>
-                            <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->CONTSTAT)) }} </td>
+                            <th class="text-center">ลำดับ</th>
+                            <th class="text-center">เลขที่สัญญา</th>
+                            <th class="text-center">ชื่อ-สกุล</th>
+                            <th class="text-center">ชำระล่าสุด</th>
+                            <th class="text-center">งวดละ</th>
+                            <th class="text-center">ค้างชำระ</th>
+                            <th class="text-center">งวดจริง</th>
+                            <th class="text-center">คงเหลือ</th>
+                            <th class="text-center">เลขทะเบียน</th>
+                            <th class="text-center">พนง</th>
+                            <th class="text-center">สถานะ</th>
                           </tr>
-                        @endforeach
-                      </tbody>
-                  </table>
-                 </div>
-              </div>
+                        </thead>
+                        <tbody>
+                          @foreach($data as $key => $row)
+                            <tr>
+                              <td class="text-center"> {{$key+1}} </td>
+                              <td class="text-center"> {{$row->CONTNO}}</td>
+                              <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->SNAM.$row->NAME1)."   ".str_replace(" ","",$row->NAME2))}} </td>
+                              <td class="text-center"> {{$row->LPAYD}} </td>
+                              <td class="text-center"> {{$row->DAMT}} </td>
+                              <td class="text-center"> {{$row->EXP_AMT}} </td>
+                              <td class="text-center"> {{$row->HLDNO}} </td>
+                              <td class="text-center"> {{$row->BALANC - $row->SMPAY}} </td>
+                              <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->REGNO)) }} </td>
+                              <td class="text-center"> {{$row->BILLCOLL}} </td>
+                              <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->CONTSTAT)) }} </td>
+                            </tr>
+                          @endforeach
+                        </tbody>
+                    </table>
+                   </div>
+                </div>
            </div>
 
            @if($type == 1)

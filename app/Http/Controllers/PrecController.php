@@ -33,7 +33,6 @@ class PrecController extends Controller
                     ->get();
           // dd($data);
           $type = $request->type;
-
           return view('precipitate.view', compact('data', 'type'));
         }
 
@@ -83,12 +82,9 @@ class PrecController extends Controller
                     // ->whereBetween('SFHP.ARPAY.DDATE',[$date,$date])
                     ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
                     ->get();
-          // dd($data);
 
           $type = $request->type;
-
           return view('precipitate.view', compact('data','fdate','tdate','follower','type'));
-
         }
     }
 
