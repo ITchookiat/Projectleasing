@@ -59,6 +59,8 @@ Route::group(['middleware' => 'auth'], function()
     Route::patch('/Legislation/update/{id}/{type}', 'LegislationController@update')->name('legislation.update');
     Route::delete('/Legislation/delete/{id}', 'LegislationController@destroy')->name('legislation.destroy');
 
+    Route::get('/Precipitate/Home/{type}', 'PrecController@index')->name('Precipitate');
+
 //---------------- ยังไม่ใช้งาน --------------------//
     Route::get('/Report/Home/{type}', 'ReportController@index')->name('report');
 

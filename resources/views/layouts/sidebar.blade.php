@@ -110,8 +110,27 @@
           @endif
         </li>
 
+        <li class="#"> <!-- /.DINsidebar -->
+          <a href="#">
+            <i class="fa fa-book"></i> <span> แผนกเร่งรัด</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          @if(auth::user()->type == 1 or auth::user()->type == 2)
+            <ul class="treeview-menu">
+              <li>
+                  <a href="{{ route('Precipitate',1) }}"><i class="fa fa-book text-yellow"></i>ระบบข้อมูลติดตาม</a>
+              </li>
+              <li>
+                  <a href="#"><i class="fa fa-book text-yellow"></i>รายงาน แยกตามทีม</a>
+              </li>
+            </ul>
+          @endif
+        </li>
+
       <li>
-          <a href="{{ route('report',1) }}"><i class="fa fa-newspaper-o text-yellow"></i> รายงาน ใบเบิกเงิน</a>
+          <a href="{{ route('report',1) }}"><i class="fa fa-newspaper-o text-yellow"></i>รายงาน ใบเบิกเงิน</a>
       </li>
 
     </ul>
