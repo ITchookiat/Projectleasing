@@ -110,7 +110,7 @@
           @endif
         </li>
 
-        <li class="#"> <!-- /.DINsidebar -->
+        <li class="treeview {{ (request()->is('Precipitate/*')) ? 'active' : '' }}"> <!-- /.DINsidebar -->
           <a href="#">
             <i class="fa fa-book"></i> <span> แผนกเร่งรัด</span>
             <span class="pull-right-container">
@@ -123,7 +123,7 @@
                   <a href="{{ route('Precipitate',1) }}"><i class="fa fa-book text-yellow"></i>ระบบข้อมูลติดตาม</a>
               </li>
               <li>
-                  <a href="#"><i class="fa fa-book text-yellow"></i>รายงาน แยกตามทีม</a>
+                  <a href="{{ route('Precipitate',2) }}"><i class="fa fa-book text-yellow"></i>รายงาน แยกตามทีม</a>
               </li>
             </ul>
           @endif
