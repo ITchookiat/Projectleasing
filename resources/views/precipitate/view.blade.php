@@ -21,7 +21,11 @@
       <!-- Default box -->
       <div class="box box-warning box-solid">
         <div class="box-header with-border">
+          @if($type == 1)
           <h4 class="card-title" align="center"><b>ระบบข้อมูลติดตาม</b></h4>
+          @elseif($type == 2)
+          <h4 class="card-title" align="center"><b>รายงานแยกทีมติดตาม</b></h4>
+          @endif
 
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -43,6 +47,42 @@
 
             <div class="row">
               <div class="col-md-12">
+
+                @if($type == 2)
+                <form method="get" action="{{ route('Precipitate', 2) }}">
+                  <div align="right" class="form-inline">
+                    <a target="_blank" href="" class="btn btn-success btn-app">
+                      <span class="fa fa-file-excel-o"></span> Excel
+                    </a>
+                    <a target="_blank" href="" class="btn btn-danger btn-app">
+                      <span class="fa fa-file-pdf-o"></span> PDF
+                    </a>
+                    <button type="submit" class="btn btn-warning btn-app">
+                      <span class="glyphicon glyphicon-search"></span> Search
+                    </button >
+                    <p></p>
+                    <label>จากวันที่ : </label>
+                    <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($fdate != '') ?$fdate: '' }}" class="form-control" />
+                    <label>ถึงวันที่ : </label>
+                    <input type="date" name="Todate" style="width: 180px;" value="{{ ($tdate != '') ?$tdate: '' }}" class="form-control" />
+                  </div>
+                  <div align="right" class="form-inline">
+                    <label for="text" class="mr-sm-2">ทีมติดตาม : </label>
+                    <select name="follower" class="form-control mb-2 mr-sm-2" id="text" style="width: 420px">
+                      <option selected disabled value="">---เลือกทีมติดตาม---</option>
+                        <!-- <option value="99" {{ ($follower == '99') ? 'selected' : '' }}>99</otion> -->
+                        <option value="" {{ ($follower == '') ? 'selected' : '' }}>เลือกทั้งหมด</otion>
+                        <option value="102" {{ ($follower == '102') ? 'selected' : '' }}>102 - นายอับดุลเล๊าะ กาซอ</otion>
+                        <option value="104" {{ ($follower == '104') ? 'selected' : '' }}>104 - นายอนุวัฒน์ อับดุลรานี</otion>
+                        <option value="105" {{ ($follower == '105') ? 'selected' : '' }}>105 - นายธีรวัฒน์ เจ๊ะกา</otion>
+                        <option value="112" {{ ($follower == '112') ? 'selected' : '' }}>112 - นายราชัน เจ๊ะกา</otion>
+                        <option value="113" {{ ($follower == '113') ? 'selected' : '' }}>113 - นายฟิฏตรี วิชา</otion>
+                        <option value="114" {{ ($follower == '114') ? 'selected' : '' }}>114 - นายอานันท์ กาซอ</otion>
+                    </select>
+                  </div>
+                </form>
+                @endif
+
                  <hr>
                  <div class="table-responsive">
                    <table class="table table-bordered" id="table">
@@ -83,6 +123,7 @@
               </div>
            </div>
 
+           @if($type == 1)
            <script type="text/javascript">
            $(document).ready(function() {
              $('#table').DataTable( {
@@ -90,6 +131,16 @@
              } );
            } );
            </script>
+           @elseif($type == 2)
+           <script type="text/javascript">
+           $(document).ready(function() {
+             $('#table').DataTable( {
+               "order": [[ 1, "asc" ]],
+               "pageLength": 50
+             } );
+           } );
+           </script>
+           @endif
 
           <script type="text/javascript">
             $(".alert").fadeTo(3000, 1000).slideUp(1000, function(){
