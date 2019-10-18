@@ -46,13 +46,11 @@
             @endif
 
             @if($type == 1)
-              <form method="get" action="{{ route('Analysis',1) }}">
-                <div align="right" class="form-inline">
-                  <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate') }}" class="btn btn-primary btn-app">
-                    <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
-                  </a>
-                </div>
-              </form>
+              <div align="right" class="form-inline">
+                <a target="_blank" href="{{ action('PrecController@ReportPrecDue') }}" class="btn btn-primary btn-app">
+                  <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
+                </a>
+              </div>
             @elseif($type == 2)
               <form method="get" action="{{ route('Precipitate', 2) }}">
                 <div align="right" class="form-inline">

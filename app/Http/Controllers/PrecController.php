@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use PDF;
 
 class PrecController extends Controller
 {
@@ -28,7 +29,7 @@ class PrecController extends Controller
                     ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
                     ->where('SFHP.ARMAST.BILLCOLL','=',99)
                     ->whereBetween('SFHP.ARPAY.DDATE',[$date,$date])
-                    ->whereBetween('SFHP.ARMAST.HLDNO',[2.5,4.99])
+                    ->whereBetween('SFHP.ARMAST.HLDNO',[2.5,4.69])
                     ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
                     ->get();
           $type = $request->type;
@@ -133,5 +134,37 @@ class PrecController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function ReportPrecDue(Request $request)
+    {
+      date_default_timezone_set('Asia/Bangkok');
+      $Y = date('Y');
+      $m = date('m');
+      $d = date('d');
+      $date = $Y.'-'.$m.'-'.$d;
+
+      $data = DB::connection('ibmi')
+                ->table('SFHP.ARMAST')
+                ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
+                ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+                ->where('SFHP.ARMAST.BILLCOLL','=',99)
+                ->whereBetween('SFHP.ARPAY.DDATE',[$date,$date])
+                ->whereBetween('SFHP.ARMAST.HLDNO',[2.5,4.99])
+                ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                ->get();
+
+      $view = \View::make('precipitate.ReportPrecDue' ,compact('data','date'));
+      $html = $view->render();
+      $pdf = new PDF();
+      $pdf::SetTitle('รายงานข้อมูลติดตาม');
+      $pdf::AddPage('L', 'A4');
+      $pdf::SetMargins(5, 5, 5, 0);
+      $pdf::SetFont('freeserif', '', 8, '', true);
+      $pdf::SetAutoPageBreak(TRUE, 25);
+
+      $pdf::WriteHTML($html,true,false,true,false,'');
+      $pdf::Output('ReportPrecDue.pdf');
     }
 }

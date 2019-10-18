@@ -91,6 +91,25 @@
         </ul>
       </li>
 
+      <li class="treeview {{ (request()->is('Precipitate/*')) ? 'active' : '' }}"> <!-- /.DINsidebar -->
+        <a href="#">
+          <i class="fa fa-book"></i> <span> แผนกเร่งรัด</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        @if(auth::user()->type == 1 or auth::user()->type == 2)
+          <ul class="treeview-menu">
+            <li>
+                <a href="{{ route('Precipitate',1) }}"><i class="fa fa-book text-yellow"></i>ระบบข้อมูลติดตาม</a>
+            </li>
+            <li>
+                <a href="{{ route('Precipitate',2) }}"><i class="fa fa-book text-yellow"></i>รายงาน แยกตามทีม</a>
+            </li>
+          </ul>
+        @endif
+      </li>
+
         <li class="treeview {{ (request()->is('Legislation/Home*')) ? 'active' : '' }} {{ (request()->is('Legislation/edit/*')) ? 'active' : '' }}"> <!-- /.DINsidebar -->
           <a href="#">
             <i class="fa fa-book"></i> <span> แผนกกฏหมาย</span>
@@ -105,25 +124,6 @@
               </li>
               <li>
                   <a href="{{ route('legislation',2) }}"><i class="fa fa-book text-yellow"></i>งานฟ้อง</a>
-              </li>
-            </ul>
-          @endif
-        </li>
-
-        <li class="treeview {{ (request()->is('Precipitate/*')) ? 'active' : '' }}"> <!-- /.DINsidebar -->
-          <a href="#">
-            <i class="fa fa-book"></i> <span> แผนกเร่งรัด</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          @if(auth::user()->type == 1 or auth::user()->type == 2)
-            <ul class="treeview-menu">
-              <li>
-                  <a href="{{ route('Precipitate',1) }}"><i class="fa fa-book text-yellow"></i>ระบบข้อมูลติดตาม</a>
-              </li>
-              <li>
-                  <a href="{{ route('Precipitate',2) }}"><i class="fa fa-book text-yellow"></i>รายงาน แยกตามทีม</a>
               </li>
             </ul>
           @endif
