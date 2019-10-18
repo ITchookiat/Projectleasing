@@ -60,6 +60,7 @@ Route::group(['middleware' => 'auth'], function()
     Route::delete('/Legislation/delete/{id}', 'LegislationController@destroy')->name('legislation.destroy');
 
     Route::get('/Precipitate/Home/{type}', 'PrecController@index')->name('Precipitate');
+    Route::get('/Precipitate/ReportPrecDue', 'PrecController@ReportPrecDue');
 
 //---------------- ยังไม่ใช้งาน --------------------//
     Route::get('/Report/Home/{type}', 'ReportController@index')->name('report');
