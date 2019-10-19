@@ -7,7 +7,7 @@
 
     <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
-
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <section class="content-header">
       <h1>
         เร่งรัดหนี้สิน
@@ -77,6 +77,8 @@
                     <option selected disabled value="">---เลือกทีมติดตาม---</option>
                       <!-- <option value="99" {{ ($follower == '99') ? 'selected' : '' }}>99</otion> -->
                       <option value="" {{ ($follower == '') ? 'selected' : '' }}>เลือกทั้งหมด</otion>
+                      <option value="008" {{ ($follower == '008') ? 'selected' : '' }}> 008 - กะดะห์</otion>
+                      <option value="99" {{ ($follower == '99') ? 'selected' : '' }}> 99 - ติดตามรวม</otion>
                       <option value="102" {{ ($follower == '102') ? 'selected' : '' }}>102 - นายอับดุลเล๊าะ กาซอ</otion>
                       <option value="104" {{ ($follower == '104') ? 'selected' : '' }}>104 - นายอนุวัฒน์ อับดุลรานี</otion>
                       <option value="105" {{ ($follower == '105') ? 'selected' : '' }}>105 - นายธีรวัฒน์ เจ๊ะกา</otion>
@@ -113,7 +115,7 @@
                           <tr>
                             <td class="text-center"> {{$key+1}} </td>
                             <td class="text-center"> {{$row->CONTNO}}</td>
-                            <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->SNAM.$row->NAME1)."   ".str_replace(" ","",$row->NAME2))}} </td>
+                            <td class="text-left"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->SNAM.$row->NAME1)."   ".str_replace(" ","",$row->NAME2))}} </td>
                             <td class="text-center"> {{$row->LPAYD}} </td>
                             <td class="text-center"> {{$row->DAMT}} </td>
                             <td class="text-center"> {{$row->EXP_AMT}} </td>
