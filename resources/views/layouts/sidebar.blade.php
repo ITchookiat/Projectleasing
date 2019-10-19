@@ -101,6 +101,9 @@
         @if(auth::user()->type == 1 or auth::user()->type == 2)
           <ul class="treeview-menu">
             <li>
+                <a href="{{ route('Precipitate',3) }}"><i class="fa fa-book text-yellow"></i>ระบบแจ้งเตือนติดตาม</a>
+            </li>
+            <li>
                 <a href="{{ route('Precipitate',1) }}"><i class="fa fa-book text-yellow"></i>ระบบข้อมูลติดตาม</a>
             </li>
             <li>

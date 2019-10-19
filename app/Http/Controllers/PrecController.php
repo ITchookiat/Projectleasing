@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use PDF;
+use Carbon\Carbon;
 
 class PrecController extends Controller
 {
@@ -22,18 +23,32 @@ class PrecController extends Controller
         $date = $Y.'-'.$m.'-'.$d;
 
         if ($request->type == 1) {
+          $fdate = $date;
+          $tdate = $date;
+
+          if ($request->has('Fromdate')) {
+            $fdate = $request->get('Fromdate');
+          }
+          if ($request->has('Todate')) {
+            $tdate = $request->get('Todate');
+          }
+
           $data = DB::connection('ibmi')
                     ->table('SFHP.ARMAST')
                     ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
                     ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
                     ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
                     ->where('SFHP.ARMAST.BILLCOLL','=',99)
-                    ->whereBetween('SFHP.ARPAY.DDATE',[$date,$date])
+                    ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+                      return $q->whereBetween('SFHP.ARPAY.DDATE',[$fdate,$tdate]);
+                    })
                     ->whereBetween('SFHP.ARMAST.HLDNO',[2.5,4.69])
                     ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
                     ->get();
+
+          // dd($data);
           $type = $request->type;
-          return view('precipitate.view', compact('data', 'type'));
+          return view('precipitate.view', compact('data','fdate','tdate','type'));
         }
         elseif ($request->type == 2) {
           $fdate = $date;
@@ -67,6 +82,23 @@ class PrecController extends Controller
 
           $type = $request->type;
           return view('precipitate.view', compact('data','fdate','tdate','follower','type'));
+        }
+        elseif ($request->type == 3) {
+          $newdate = date('Y-m-d', strtotime('+3 days'));
+
+          $data = DB::connection('ibmi')
+                    ->table('SFHP.ARMAST')
+                    ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
+                    ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                    ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+                    ->where('SFHP.ARMAST.BILLCOLL','=',99)
+                    ->whereBetween('SFHP.ARPAY.DDATE',[$newdate,$newdate])
+                    ->whereBetween('SFHP.ARMAST.HLDNO',[1.5,3.69])
+                    ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                    ->get();
+                    
+          $type = $request->type;
+          return view('precipitate.view', compact('data', 'type'));
         }
     }
 
