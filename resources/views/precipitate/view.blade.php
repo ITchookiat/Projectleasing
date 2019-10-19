@@ -22,9 +22,11 @@
       <div class="box box-warning box-solid">
         <div class="box-header with-border">
           @if($type == 1)
-          <h4 class="card-title" align="center"><b>ระบบข้อมูลติดตาม</b></h4>
+            <h4 class="card-title" align="center"><b>ระบบข้อมูลติดตาม</b></h4>
           @elseif($type == 2)
-          <h4 class="card-title" align="center"><b>รายงานแยกทีมติดตาม</b></h4>
+            <h4 class="card-title" align="center"><b>รายงานแยกทีมติดตาม</b></h4>
+          @elseif($type == 3)
+            <h4 class="card-title" align="center"><b>ระบบแจ้งเตือนติดตาม</b></h4>
           @endif
 
           <div class="box-tools pull-right">
@@ -46,11 +48,21 @@
             @endif
 
             @if($type == 1)
-              <div align="right" class="form-inline">
-                <a target="_blank" href="{{ action('PrecController@ReportPrecDue') }}" class="btn btn-primary btn-app">
-                  <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
-                </a>
-              </div>
+              <form method="get" action="{{ route('Precipitate', 1) }}">
+                <div align="right" class="form-inline">
+                  <a target="_blank" href="{{ action('PrecController@ReportPrecDue') }}" class="btn btn-primary btn-app">
+                    <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
+                  </a>
+                  <button type="submit" class="btn btn-warning btn-app">
+                    <span class="glyphicon glyphicon-search"></span> Search
+                  </button >
+                  <p></p>
+                  <label>จากวันที่ : </label>
+                  <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($fdate != '') ?$fdate: '' }}" class="form-control" />
+                  <label>ถึงวันที่ : </label>
+                  <input type="date" name="Todate" style="width: 180px;" value="{{ ($tdate != '') ?$tdate: '' }}" class="form-control" />
+                </div>
+              </form>
             @elseif($type == 2)
               <form method="get" action="{{ route('Precipitate', 2) }}">
                 <div align="right" class="form-inline">
@@ -128,7 +140,7 @@
               </div>
            </div>
 
-           @if($type == 1)
+           @if($type == 1 or $type == 3)
              <script type="text/javascript">
                $(document).ready(function() {
                  $('#table').DataTable( {
