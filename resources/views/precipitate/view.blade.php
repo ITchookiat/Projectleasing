@@ -53,6 +53,9 @@
                   <a target="_blank" href="{{ action('PrecController@ReportPrecDue') }}" class="btn btn-primary btn-app">
                     <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
                   </a>
+                  <a target="_blank" href="{{ action('PrecController@ReportPrecDue') }}?Fromdate={{$fdate}}&Todate={{$tdate}}" class="btn btn-danger btn-app">
+                    <span class="glyphicon glyphicon-print"></span> ใบติดตาม
+                  </a>
                   <button type="submit" class="btn btn-warning btn-app">
                     <span class="glyphicon glyphicon-search"></span> Search
                   </button >
