@@ -61,6 +61,7 @@ Route::group(['middleware' => 'auth'], function()
 
     Route::get('/Precipitate/Home/{type}', 'PrecController@index')->name('Precipitate');
     Route::get('/Precipitate/ReportPrecDue', 'PrecController@ReportPrecDue');
+    Route::get('/PrecipitateExcel/{type}', 'PrecController@excel');
 
 //---------------- ยังไม่ใช้งาน --------------------//
     Route::get('/Report/Home/{type}', 'ReportController@index')->name('report');

@@ -2,11 +2,11 @@
 @section('title','แผนกกฏหมาย')
 @section('content')
 
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css">
 
-  <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
 
     <section class="content-header">
       <h1>
@@ -103,43 +103,78 @@
                   </select>
                 </div>
               </form>
-            @endif
+            @elseif($type == 3)
+              <form method="get" action="{{ route('Precipitate', 3) }}">
+                <div align="right" class="form-inline">
+                  <a href="{{ action('PrecController@excel', $type) }}" class="btn btn-success btn-app">
+                    <span class="fa fa-file-excel-o"></span> Excel
+                  </a>
+                  <button type="submit" class="btn btn-warning btn-app">
+                    <span class="glyphicon glyphicon-search"></span> Search
+                  </button >
+                  <p></p>
+                  <label>จากวันที่ : </label>
+                  <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($fdate != '') ?$fdate: '' }}" class="form-control" />
+                  <label>ถึงวันที่ : </label>
+                  <input type="date" name="Todate" style="width: 180px;" value="{{ ($tdate != '') ?$tdate: '' }}" class="form-control" />
+                </div>
+              </form>
+           @endif
 
             <div class="row">
               <div class="col-md-12">
-                <hr>
-                 <div class="table-responsive">
+                  <hr>
+                  <div class="table-responsive">
                    <table class="table table-bordered" id="table">
                       <thead class="thead-dark bg-gray-light" >
                         <tr>
                           <th class="text-center">ลำดับ</th>
                           <th class="text-center">เลขที่สัญญา</th>
                           <th class="text-center">ชื่อ-สกุล</th>
+                          @if($type == 3)
+                          <th class="text-center">เบอร์โทร</th>
+                          @endif
                           <th class="text-center">ชำระล่าสุด</th>
                           <th class="text-center">งวดละ</th>
                           <th class="text-center">ค้างชำระ</th>
                           <th class="text-center">งวดจริง</th>
                           <th class="text-center">คงเหลือ</th>
+                          @if($type != 3)
                           <th class="text-center">เลขทะเบียน</th>
                           <th class="text-center">พนง</th>
                           <th class="text-center">สถานะ</th>
+                          @endif
                         </tr>
                       </thead>
                       <tbody>
                         @foreach($data as $key => $row)
-                          <tr>
-                            <td class="text-center"> {{$key+1}} </td>
-                            <td class="text-center"> {{$row->CONTNO}}</td>
-                            <td class="text-left"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->SNAM.$row->NAME1)."   ".str_replace(" ","",$row->NAME2))}} </td>
-                            <td class="text-center"> {{$row->LPAYD}} </td>
-                            <td class="text-center"> {{$row->DAMT}} </td>
-                            <td class="text-center"> {{$row->EXP_AMT}} </td>
-                            <td class="text-center"> {{$row->HLDNO}} </td>
-                            <td class="text-center"> {{$row->BALANC - $row->SMPAY}} </td>
-                            <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->REGNO)) }} </td>
-                            <td class="text-center"> {{$row->BILLCOLL}} </td>
-                            <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->CONTSTAT)) }} </td>
-                          </tr>
+                            <tr>
+                              <td class="text-center"> {{$key+1}} </td>
+                              <td class="text-center"> {{$row->CONTNO}}</td>
+                              <td class="text-left"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->SNAM.$row->NAME1)."   ".str_replace(" ","",$row->NAME2))}} </td>
+                              @if($type == 3)
+                              <td class="text-left"> {{iconv('Tis-620','utf-8', $row->TELP)}} </td>
+                              @endif
+                              <td class="text-center">
+                                @php
+                                $LPAYD = date_create($row->LPAYD);
+                                @endphp
+                                {{ date_format($LPAYD, 'd-m-Y')}}
+                              </td>
+                              @if($type == 3)
+                              <td class="text-center"> {{number_format($row->T_LUPAY, 2)}} </td>
+                              @else
+                              <td class="text-center"> {{number_format($row->DAMT, 2)}} </td>
+                              @endif
+                              <td class="text-center"> {{number_format($row->EXP_AMT, 2)}} </td>
+                              <td class="text-center"> {{$row->HLDNO}} </td>
+                              <td class="text-center"> {{number_format($row->BALANC - $row->SMPAY, 2 )}} </td>
+                              @if($type != 3)
+                              <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->REGNO)) }} </td>
+                              <td class="text-center"> {{$row->BILLCOLL}} </td>
+                              <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->CONTSTAT)) }} </td>
+                              @endif
+                            </tr>
                         @endforeach
                       </tbody>
                     </table>
@@ -155,11 +190,11 @@
                  } );
                } );
              </script>
-           @elseif($type == 2)
+           @elseif($type == 2 OR $type == 3)
              <script type="text/javascript">
                $(document).ready(function() {
                  $('#table').DataTable( {
-                   "order": [[ 1, "asc" ]],
+                   "order": [[ 0, "asc" ]],
                    "pageLength": 50
                  } );
                } );
