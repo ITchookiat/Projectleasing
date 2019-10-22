@@ -79,7 +79,7 @@
         </tr>
       </thead>
       <tbody>
-          @foreach($data as $key => $value)  
+          @foreach($data as $key => $value)
           @endforeach
       </tbody>
     </table>
