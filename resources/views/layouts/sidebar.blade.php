@@ -107,6 +107,9 @@
                 <a href="{{ route('Precipitate',1) }}"><i class="fa fa-book text-yellow"></i>ระบบปล่อยงานตาม</a>
             </li>
             <li>
+                <a href="{{ route('Precipitate',4) }}"><i class="fa fa-book text-yellow"></i>ระบบปล่อยงานโนติส</a>
+            </li>
+            <li>
                 <a href="{{ route('Precipitate',2) }}"><i class="fa fa-book text-yellow"></i>รายงาน แยกตามทีม</a>
             </li>
           </ul>

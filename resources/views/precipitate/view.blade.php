@@ -2,12 +2,12 @@
 @section('title','แผนกกฏหมาย')
 @section('content')
 
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css">
 
-    <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+
     <section class="content-header">
       <h1>
         เร่งรัดหนี้สิน
@@ -22,11 +22,13 @@
       <div class="box box-warning box-solid">
         <div class="box-header with-border">
           @if($type == 1)
-            <h4 class="card-title" align="center"><b>ระบบข้อมูลติดตาม</b></h4>
+            <h4 class="card-title" align="center"><b>ระบบปล่อยงานตาม</b></h4>
           @elseif($type == 2)
             <h4 class="card-title" align="center"><b>รายงานแยกทีมติดตาม</b></h4>
           @elseif($type == 3)
             <h4 class="card-title" align="center"><b>ระบบแจ้งเตือนติดตาม</b></h4>
+          @elseif($type == 4)
+            <h4 class="card-title" align="center"><b>ระบบปล่อยงานโนติส</b></h4>
           @endif
 
           <div class="box-tools pull-right">
@@ -50,11 +52,11 @@
             @if($type == 1)
               <form method="get" action="{{ route('Precipitate', 1) }}">
                 <div align="right" class="form-inline">
-                  <a target="_blank" href="{{ action('PrecController@ReportPrecDue') }}" class="btn btn-primary btn-app">
-                    <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
+                  <a target="_blank" href="{{ action('PrecController@ReportPrecDue') }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{2}}" class="btn btn-success btn-app">
+                    <span class="fa fa-id-card-o"></span> ใบแจ้งหนี้
                   </a>
-                  <a target="_blank" href="{{ action('PrecController@ReportPrecDue') }}?Fromdate={{$fdate}}&Todate={{$tdate}}" class="btn btn-danger btn-app">
-                    <span class="glyphicon glyphicon-print"></span> ใบติดตาม
+                  <a target="_blank" href="{{ action('PrecController@ReportPrecDue') }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{1}}" class="btn btn-danger btn-app">
+                    <span class="fa fa-street-view"></span> ใบติดตาม
                   </a>
                   <button type="submit" class="btn btn-warning btn-app">
                     <span class="glyphicon glyphicon-search"></span> Search
@@ -101,7 +103,7 @@
                   </select>
                 </div>
               </form>
-           @endif
+            @endif
 
             <div class="row">
               <div class="col-md-12">
@@ -145,7 +147,7 @@
               </div>
            </div>
 
-           @if($type == 1 or $type == 3)
+           @if($type == 1 or $type == 3 or $type == 4)
              <script type="text/javascript">
                $(document).ready(function() {
                  $('#table').DataTable( {
