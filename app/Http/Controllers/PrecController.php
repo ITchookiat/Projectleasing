@@ -122,6 +122,7 @@ class PrecController extends Controller
                     })
                     ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
                     ->get();
+          
           $count = count($data2);
 
           for ($i=0; $i < $count; $i++) {
@@ -212,18 +213,30 @@ class PrecController extends Controller
       $d = date('d');
       $date = $Y.'-'.$m.'-'.$d;
 
+      $fdate = '';
+      $tdate = '';
+
+      if ($request->has('Fromdate')) {
+        $fdate = $request->get('Fromdate');
+      }
+      if ($request->has('Todate')) {
+        $tdate = $request->get('Todate');
+      }
+
       $data = DB::connection('ibmi')
                 ->table('SFHP.ARMAST')
                 ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
                 ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
                 ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
                 ->where('SFHP.ARMAST.BILLCOLL','=',99)
-                ->whereBetween('SFHP.ARPAY.DDATE',[$date,$date])
-                ->whereBetween('SFHP.ARMAST.HLDNO',[2.5,4.99])
+                ->whereBetween('SFHP.ARPAY.DDATE',[$fdate,$tdate])
+                ->whereBetween('SFHP.ARMAST.HLDNO',[2.5,4.69])
                 ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
                 ->get();
 
-      $view = \View::make('precipitate.ReportPrecDue' ,compact('data','date'));
+                // dd($data);
+
+      $view = \View::make('precipitate.ReportPrecDue' ,compact('data','date','fdate','tdate'));
       $html = $view->render();
       $pdf = new PDF();
       $pdf::SetTitle('รายงานข้อมูลติดตาม');
