@@ -26,7 +26,6 @@ class PrecController extends Controller
         if ($request->type == 1) {
           $fdate = $date;
           $tdate = $date;
-
           if ($request->has('Fromdate')) {
             $fdate = $request->get('Fromdate');
           }
@@ -47,7 +46,6 @@ class PrecController extends Controller
                     ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
                     ->get();
 
-          // dd($data);
           $type = $request->type;
           return view('precipitate.view', compact('data','fdate','tdate','type'));
         }
@@ -55,7 +53,6 @@ class PrecController extends Controller
           $fdate = $date;
           $tdate = $date;
           $follower = '';
-
           if ($request->has('Fromdate')) {
             $fdate = $request->get('Fromdate');
           }
@@ -133,6 +130,32 @@ class PrecController extends Controller
                 $data = $data1;
             }
           }
+
+          $type = $request->type;
+          return view('precipitate.view', compact('data','fdate','tdate','type'));
+        }
+        elseif ($request->type == 4) {
+          $fdate = $date;
+          $tdate = $date;
+          if ($request->has('Fromdate')) {
+            $fdate = $request->get('Fromdate');
+          }
+          if ($request->has('Todate')) {
+            $tdate = $request->get('Todate');
+          }
+
+          $data = DB::connection('ibmi')
+                    ->table('SFHP.ARMAST')
+                    ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
+                    ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                    ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+                    ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+                      return $q->whereBetween('SFHP.ARPAY.DDATE',[$fdate,$tdate]);
+                    })
+                    ->whereBetween('SFHP.ARMAST.HLDNO',[4.7,5.69])
+                    ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                    ->get();
+          // dd($data);
 
           $type = $request->type;
           return view('precipitate.view', compact('data','fdate','tdate','type'));
@@ -215,7 +238,6 @@ class PrecController extends Controller
 
       $fdate = '';
       $tdate = '';
-
       if ($request->has('Fromdate')) {
         $fdate = $request->get('Fromdate');
       }
@@ -223,30 +245,60 @@ class PrecController extends Controller
         $tdate = $request->get('Todate');
       }
 
-      $data = DB::connection('ibmi')
-                ->table('SFHP.ARMAST')
-                ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
-                ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
-                ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
-                ->where('SFHP.ARMAST.BILLCOLL','=',99)
-                ->whereBetween('SFHP.ARPAY.DDATE',[$fdate,$tdate])
-                ->whereBetween('SFHP.ARMAST.HLDNO',[2.5,4.69])
-                ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
-                ->get();
+      if ($request->type == 1) {
+        $data = DB::connection('ibmi')
+                  ->table('SFHP.ARMAST')
+                  ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
+                  ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                  ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+                  ->where('SFHP.ARMAST.BILLCOLL','=',99)
+                  ->whereBetween('SFHP.ARPAY.DDATE',[$fdate,$tdate])
+                  ->whereBetween('SFHP.ARMAST.HLDNO',[2.5,4.69])
+                  ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                  ->get();
 
-                // dd($data);
+        $view = \View::make('precipitate.ReportPrecDue' ,compact('data','date','fdate','tdate'));
+        $html = $view->render();
+        $pdf = new PDF();
+        $pdf::SetTitle('รายงานข้อมูลติดตาม');
+        $pdf::AddPage('L', 'A4');
+        $pdf::SetMargins(5, 5, 5, 0);
+        $pdf::SetFont('freeserif', '', 8, '', true);
+        $pdf::SetAutoPageBreak(TRUE, 25);
+        $pdf::WriteHTML($html,true,false,true,false,'');
+        $pdf::Output('ReportPrecDue.pdf');
+      }     //รายงาน ใบติดตาม
+      elseif ($request->type == 2) {  //รายงาน ใบแจ้งหนี้
+        $data = DB::connection('ibmi')
+                  ->table('SFHP.ARMAST')
+                  ->leftJoin('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                  ->leftJoin('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
+                  ->leftJoin('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+                  ->leftJoin('SFHP.VIEW_ARMGAR','SFHP.ARMAST.CONTNO','=','SFHP.VIEW_ARMGAR.CONTNO')
+                  ->leftJoin('SFHP.ARMGAR','SFHP.ARMAST.CONTNO','=','SFHP.ARMGAR.CONTNO')
+                  ->select('SFHP.ARMAST.*','SFHP.VIEW_CUSTMAIL.*','SFHP.INVTRAN.*','SFHP.VIEW_ARMGAR.NAME','SFHP.VIEW_ARMGAR.NICKNM',
+                           'SFHP.ARMGAR.RELATN','SFHP.VIEW_ARMGAR.ADDRES','SFHP.VIEW_ARMGAR.TUMB','SFHP.VIEW_ARMGAR.AUMPDES',
+                           'SFHP.VIEW_ARMGAR.PROVDES','SFHP.VIEW_ARMGAR.OFFIC','SFHP.VIEW_ARMGAR.TELP')
 
-      $view = \View::make('precipitate.ReportPrecDue' ,compact('data','date','fdate','tdate'));
-      $html = $view->render();
-      $pdf = new PDF();
-      $pdf::SetTitle('รายงานข้อมูลติดตาม');
-      $pdf::AddPage('L', 'A4');
-      $pdf::SetMargins(5, 5, 5, 0);
-      $pdf::SetFont('freeserif', '', 8, '', true);
-      $pdf::SetAutoPageBreak(TRUE, 25);
+                  ->where('SFHP.ARMAST.BILLCOLL','=',99)
+                  ->whereBetween('SFHP.ARPAY.DDATE',[$fdate,$tdate])
+                  ->whereBetween('SFHP.ARMAST.HLDNO',[2.5,4.69])
+                  ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                  ->get();
 
-      $pdf::WriteHTML($html,true,false,true,false,'');
-      $pdf::Output('ReportPrecDue.pdf');
+        dd($data);
+
+        $view = \View::make('precipitate.ReportInvoice' ,compact('data','date','fdate','tdate'));
+        $html = $view->render();
+        $pdf = new PDF();
+        $pdf::SetTitle('รายงานข้อมูลติดตาม');
+        $pdf::AddPage('L', 'A4');
+        $pdf::SetMargins(5, 5, 5, 0);
+        $pdf::SetFont('freeserif', '', 8, '', true);
+        $pdf::SetAutoPageBreak(TRUE, 25);
+        $pdf::WriteHTML($html,true,false,true,false,'');
+        $pdf::Output('ReportInvoice.pdf');
+      }
     }
 
     public function excel(Request $request)
