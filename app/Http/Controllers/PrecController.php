@@ -405,7 +405,7 @@ class PrecController extends Controller
                              'ค้างงวด' => number_format($row->EXP_PRD, 0),
                              'ค้างงวดจริง' => number_format($row->HLDNO, 2),
                              'ผู้ตรวจสอบ' => $row->CHECKER,
-                             'เบอร์โทร' => iconv('Tis-620','utf-8',str_replace("-","",$row->TELP)),
+                             'เบอร์โทร' => iconv('Tis-620','utf-8',str_replace("-","", str_replace("/",",",$row->TELP))),
                             );
                           }
                         $data_array = collect($data_array);

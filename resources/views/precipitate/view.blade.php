@@ -102,7 +102,7 @@
             @elseif($type == 3) {{-- ระบบ แจ้งเตือนติดตาม --}}
               <form method="get" action="{{ route('Precipitate', 3) }}">
                 <div align="right" class="form-inline">
-                  <a href="{{ action('PrecController@excel', $type) }}" class="btn btn-success btn-app">
+                  <a href="{{ action('PrecController@excel') }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{3}}" class="btn btn-success btn-app">
                     <span class="fa fa-file-excel-o"></span> Excel
                   </a>
                   <button type="submit" class="btn btn-warning btn-app">
@@ -185,7 +185,7 @@
               </div>
            </div>
 
-           @if($type == 1 or $type == 3 or $type == 4)
+           @if($type == 1 or $type == 4)
              <script type="text/javascript">
                $(document).ready(function() {
                  $('#table').DataTable( {
