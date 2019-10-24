@@ -295,7 +295,7 @@ class PrecController extends Controller
         $pdf::SetTitle('รายงานข้อมูลติดตาม');
         $pdf::AddPage('P', 'A4');
         $pdf::SetMargins(5, 5, 5, 0);
-        $pdf::SetFont('freeserif', '', 8, '', true);
+        $pdf::SetFont('freeserif', '', 10, '', true);
         $pdf::SetAutoPageBreak(TRUE, 25);
         $pdf::WriteHTML($html,true,false,true,false,'');
         $pdf::Output('ReportInvoice.pdf');
