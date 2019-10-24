@@ -49,13 +49,10 @@
               </div>
             @endif
 
-            @if($type == 1)
+            @if($type == 1) {{-- ระบบ ปล่อยงานตาม --}}
               <form method="get" action="{{ route('Precipitate', 1) }}">
                 <div align="right" class="form-inline">
-                  <a target="_blank" href="{{ action('PrecController@ReportPrecDue') }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{2}}" class="btn btn-success btn-app">
-                    <span class="fa fa-id-card-o"></span> ใบแจ้งหนี้
-                  </a>
-                  <a target="_blank" href="{{ action('PrecController@ReportPrecDue') }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{1}}" class="btn btn-danger btn-app">
+                  <a target="_blank" href="{{ action('PrecController@ReportPrecDue',[00,00]) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{1}}" class="btn btn-danger btn-app">
                     <span class="fa fa-street-view"></span> ใบติดตาม
                   </a>
                   <button type="submit" class="btn btn-warning btn-app">
@@ -68,7 +65,7 @@
                   <input type="date" name="Todate" style="width: 180px;" value="{{ ($tdate != '') ?$tdate: '' }}" class="form-control" />
                 </div>
               </form>
-            @elseif($type == 2)
+            @elseif($type == 2) {{-- รายงาน แยกตามทีม --}}
               <form method="get" action="{{ route('Precipitate', 2) }}">
                 <div align="right" class="form-inline">
                   <a target="_blank" href="" class="btn btn-success btn-app">
@@ -90,7 +87,6 @@
                   <label for="text" class="mr-sm-2">ทีมติดตาม : </label>
                   <select name="follower" class="form-control mb-2 mr-sm-2" id="text" style="width: 420px">
                     <option selected disabled value="">---เลือกทีมติดตาม---</option>
-                      <!-- <option value="99" {{ ($follower == '99') ? 'selected' : '' }}>99</otion> -->
                       <option value="" {{ ($follower == '') ? 'selected' : '' }}>เลือกทั้งหมด</otion>
                       <option value="008" {{ ($follower == '008') ? 'selected' : '' }}> 008 - กะดะห์</otion>
                       <option value="99" {{ ($follower == '99') ? 'selected' : '' }}> 99 - ติดตามรวม</otion>
@@ -103,7 +99,7 @@
                   </select>
                 </div>
               </form>
-            @elseif($type == 3)
+            @elseif($type == 3) {{-- ระบบ แจ้งเตือนติดตาม --}}
               <form method="get" action="{{ route('Precipitate', 3) }}">
                 <div align="right" class="form-inline">
                   <a href="{{ action('PrecController@excel', $type) }}" class="btn btn-success btn-app">
@@ -119,7 +115,7 @@
                   <input type="date" name="Todate" style="width: 180px;" value="{{ ($tdate != '') ?$tdate: '' }}" class="form-control" />
                 </div>
               </form>
-           @endif
+            @endif
 
             <div class="row">
               <div class="col-md-12">
@@ -132,49 +128,56 @@
                           <th class="text-center">เลขที่สัญญา</th>
                           <th class="text-center">ชื่อ-สกุล</th>
                           @if($type == 3)
-                          <th class="text-center">เบอร์โทร</th>
+                            <th class="text-center">เบอร์โทร</th>
                           @endif
                           <th class="text-center">ชำระล่าสุด</th>
                           <th class="text-center">งวดละ</th>
-                          <th class="text-center">ค้างชำระ</th>
                           <th class="text-center">งวดจริง</th>
                           <th class="text-center">คงเหลือ</th>
                           @if($type != 3)
-                          <th class="text-center">เลขทะเบียน</th>
-                          <th class="text-center">พนง</th>
-                          <th class="text-center">สถานะ</th>
+                            <th class="text-center">พนง</th>
+                            <th class="text-center">สถานะ</th>
+                            <th class="text-center">ตัวเลือก</th>
                           @endif
                         </tr>
                       </thead>
                       <tbody>
                         @foreach($data as $key => $row)
-                            <tr>
-                              <td class="text-center"> {{$key+1}} </td>
-                              <td class="text-center"> {{$row->CONTNO}}</td>
-                              <td class="text-left"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->SNAM.$row->NAME1)."   ".str_replace(" ","",$row->NAME2))}} </td>
-                              @if($type == 3)
+                          <tr>
+                            <td class="text-center"> {{$key+1}} </td>
+                            <td class="text-center"> {{$row->CONTNO}}</td>
+                            <td class="text-left"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->SNAM.$row->NAME1)."   ".str_replace(" ","",$row->NAME2))}} </td>
+                            @if($type == 3)
                               <td class="text-left"> {{iconv('Tis-620','utf-8', $row->TELP)}} </td>
-                              @endif
-                              <td class="text-center">
-                                @php
-                                $LPAYD = date_create($row->LPAYD);
-                                @endphp
-                                {{ date_format($LPAYD, 'd-m-Y')}}
-                              </td>
-                              @if($type == 3)
+                            @endif
+                            <td class="text-center">
+                              @php
+                              $LPAYD = date_create($row->LPAYD);
+                              @endphp
+                              {{ date_format($LPAYD, 'd-m-Y')}}
+                            </td>
+                            @if($type == 3)
                               <td class="text-center"> {{number_format($row->T_LUPAY, 2)}} </td>
-                              @else
+                            @else
                               <td class="text-center"> {{number_format($row->DAMT, 2)}} </td>
-                              @endif
-                              <td class="text-center"> {{number_format($row->EXP_AMT, 2)}} </td>
-                              <td class="text-center"> {{$row->HLDNO}} </td>
-                              <td class="text-center"> {{number_format($row->BALANC - $row->SMPAY, 2 )}} </td>
-                              @if($type != 3)
-                              <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->REGNO)) }} </td>
-                              <td class="text-center"> {{$row->BILLCOLL}} </td>
-                              <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->CONTSTAT)) }} </td>
-                              @endif
-                            </tr>
+                            @endif
+                            <td class="text-center"> {{$row->HLDNO}} </td>
+                            <td class="text-center"> {{number_format($row->BALANC - $row->SMPAY, 2 )}} </td>
+                            @if($type != 3)
+                            <td class="text-center"> {{$row->BILLCOLL}} </td>
+                            <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->CONTSTAT)) }} </td>
+                            <td class="text-center">
+                              @php
+                                 $StrCon = explode("/",$row->CONTNO);
+                                 $SetStr1 = $StrCon[0];
+                                 $SetStr2 = $StrCon[1];
+                              @endphp
+                              <a target="_blank" href="{{ action('PrecController@ReportPrecDue',[$SetStr1,$SetStr2]) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{2}}" class="btn btn-sm bg-blue" title="พิมพ์">
+                                <span class="fa fa-id-card-o"></span> ใบแจ้งหนี้
+                              </a>
+                            </td>
+                            @endif
+                          </tr>
                         @endforeach
                       </tbody>
                     </table>
