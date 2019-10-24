@@ -228,7 +228,7 @@ class PrecController extends Controller
         //
     }
 
-    public function ReportPrecDue(Request $request)
+    public function ReportPrecDue(Request $request, $SetStr1, $SetStr2)
     {
       date_default_timezone_set('Asia/Bangkok');
       $Y = date('Y');
@@ -267,8 +267,10 @@ class PrecController extends Controller
         $pdf::SetAutoPageBreak(TRUE, 25);
         $pdf::WriteHTML($html,true,false,true,false,'');
         $pdf::Output('ReportPrecDue.pdf');
-      }     //รายงาน ใบติดตาม
+      }     //รายงาน ใบติดตาม     //รายงาน ใบติดตาม
       elseif ($request->type == 2) {  //รายงาน ใบแจ้งหนี้
+
+        $SetStrConn = $SetStr1."/".$SetStr2;
         $data = DB::connection('ibmi')
                   ->table('SFHP.ARMAST')
                   ->leftJoin('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
@@ -276,23 +278,22 @@ class PrecController extends Controller
                   ->leftJoin('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
                   ->leftJoin('SFHP.VIEW_ARMGAR','SFHP.ARMAST.CONTNO','=','SFHP.VIEW_ARMGAR.CONTNO')
                   ->leftJoin('SFHP.ARMGAR','SFHP.ARMAST.CONTNO','=','SFHP.ARMGAR.CONTNO')
-                  ->select('SFHP.ARMAST.*','SFHP.VIEW_CUSTMAIL.*','SFHP.INVTRAN.*','SFHP.VIEW_ARMGAR.NAME','SFHP.VIEW_ARMGAR.NICKNM',
+                  ->leftJoin('SFHP.TBROKER','SFHP.ARMAST.RECOMCOD','=','SFHP.TBROKER.MEMBERID')
+                  ->select('SFHP.ARMAST.*','SFHP.VIEW_CUSTMAIL.*','SFHP.INVTRAN.*','SFHP.TBROKER.*','SFHP.VIEW_ARMGAR.NAME','SFHP.VIEW_ARMGAR.NICKNM',
                            'SFHP.ARMGAR.RELATN','SFHP.VIEW_ARMGAR.ADDRES','SFHP.VIEW_ARMGAR.TUMB','SFHP.VIEW_ARMGAR.AUMPDES',
                            'SFHP.VIEW_ARMGAR.PROVDES','SFHP.VIEW_ARMGAR.OFFIC','SFHP.VIEW_ARMGAR.TELP')
-
                   ->where('SFHP.ARMAST.BILLCOLL','=',99)
+                  ->where('SFHP.ARMAST.CONTNO','=',$SetStrConn)
                   ->whereBetween('SFHP.ARPAY.DDATE',[$fdate,$tdate])
                   ->whereBetween('SFHP.ARMAST.HLDNO',[2.5,4.69])
                   ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
                   ->get();
 
-        dd($data);
-
         $view = \View::make('precipitate.ReportInvoice' ,compact('data','date','fdate','tdate'));
         $html = $view->render();
         $pdf = new PDF();
         $pdf::SetTitle('รายงานข้อมูลติดตาม');
-        $pdf::AddPage('L', 'A4');
+        $pdf::AddPage('P', 'A4');
         $pdf::SetMargins(5, 5, 5, 0);
         $pdf::SetFont('freeserif', '', 8, '', true);
         $pdf::SetAutoPageBreak(TRUE, 25);
@@ -304,10 +305,8 @@ class PrecController extends Controller
     public function excel(Request $request)
     {
       if($request->type == 1){
-
       }
       elseif($request->type == 2){
-
       }
       elseif($request->type == 3){
           $newdate = date('Y-m-d', strtotime('+3 days'));
