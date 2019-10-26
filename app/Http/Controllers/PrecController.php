@@ -23,7 +23,7 @@ class PrecController extends Controller
         $d = date('d');
         $date = $Y.'-'.$m.'-'.$d;
 
-        if ($request->type == 1) {
+        if ($request->type == 1) {  //ปล่อยงานตาม
           $fdate = $date;
           $tdate = $date;
           if ($request->has('Fromdate')) {
@@ -81,7 +81,7 @@ class PrecController extends Controller
           $type = $request->type;
           return view('precipitate.view', compact('data','fdate','tdate','follower','type'));
         }
-        elseif ($request->type == 3) {
+        elseif ($request->type == 3) {  //แจ้งเตือนติดตาม
           $newdate = date('Y-m-d', strtotime('+3 days'));
           $fdate = $newdate;
           $tdate = $newdate;
@@ -134,7 +134,7 @@ class PrecController extends Controller
           $type = $request->type;
           return view('precipitate.view', compact('data','fdate','tdate','type'));
         }
-        elseif ($request->type == 4) {
+        elseif ($request->type == 4) {  //ปล่อยงานโนติส
           $fdate = $date;
           $tdate = $date;
           if ($request->has('Fromdate')) {
@@ -263,7 +263,7 @@ class PrecController extends Controller
         $pdf::SetTitle('รายงานข้อมูลติดตาม');
         $pdf::AddPage('L', 'A4');
         $pdf::SetMargins(5, 5, 5, 0);
-        $pdf::SetFont('freeserif', '', 8, '', true);
+        $pdf::SetFont('freeserif', '', 10, '', true);
         $pdf::SetAutoPageBreak(TRUE, 25);
         $pdf::WriteHTML($html,true,false,true,false,'');
         $pdf::Output('ReportPrecDue.pdf');
@@ -279,15 +279,19 @@ class PrecController extends Controller
                   ->leftJoin('SFHP.VIEW_ARMGAR','SFHP.ARMAST.CONTNO','=','SFHP.VIEW_ARMGAR.CONTNO')
                   ->leftJoin('SFHP.ARMGAR','SFHP.ARMAST.CONTNO','=','SFHP.ARMGAR.CONTNO')
                   ->leftJoin('SFHP.TBROKER','SFHP.ARMAST.RECOMCOD','=','SFHP.TBROKER.MEMBERID')
-                  ->select('SFHP.ARMAST.*','SFHP.VIEW_CUSTMAIL.*','SFHP.INVTRAN.*','SFHP.TBROKER.*','SFHP.VIEW_ARMGAR.NAME','SFHP.VIEW_ARMGAR.NICKNM',
-                           'SFHP.ARMGAR.RELATN','SFHP.VIEW_ARMGAR.ADDRES','SFHP.VIEW_ARMGAR.TUMB','SFHP.VIEW_ARMGAR.AUMPDES',
-                           'SFHP.VIEW_ARMGAR.PROVDES','SFHP.VIEW_ARMGAR.OFFIC','SFHP.VIEW_ARMGAR.TELP')
+                  ->leftJoin('SFHP.CUSTMAST','SFHP.ARMAST.CUSCOD','=','SFHP.CUSTMAST.CUSCOD')
+                  ->select('SFHP.ARMAST.*','SFHP.VIEW_CUSTMAIL.*','SFHP.INVTRAN.*','SFHP.TBROKER.*','SFHP.VIEW_ARMGAR.NAME','SFHP.VIEW_ARMGAR.NICKNM AS NICKARMGAR',
+                           'SFHP.ARMGAR.RELATN','SFHP.VIEW_ARMGAR.ADDRES as ADDARMGAR','SFHP.VIEW_ARMGAR.TUMB as TUMBARMGAR','SFHP.VIEW_ARMGAR.AUMPDES AS AUMARMGAR',
+                           'SFHP.VIEW_ARMGAR.PROVDES AS PROARMGAR','SFHP.VIEW_ARMGAR.OFFIC AS OFFICARMGAR','SFHP.VIEW_ARMGAR.TELP AS TELPARMGAR',
+                           'SFHP.CUSTMAST.OCCUP','SFHP.CUSTMAST.MEMO1 AS CUSMEMO','SFHP.CUSTMAST.OFFIC AS CUSOFFIC')
                   ->where('SFHP.ARMAST.BILLCOLL','=',99)
                   ->where('SFHP.ARMAST.CONTNO','=',$SetStrConn)
                   ->whereBetween('SFHP.ARPAY.DDATE',[$fdate,$tdate])
                   ->whereBetween('SFHP.ARMAST.HLDNO',[2.5,4.69])
                   ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
                   ->get();
+
+                // dd($data[0]->);
 
         $view = \View::make('precipitate.ReportInvoice' ,compact('data','date','fdate','tdate'));
         $html = $view->render();

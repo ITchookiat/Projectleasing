@@ -84,7 +84,8 @@ class UserController extends Controller
         07 => 'เบตง',
         10 => 'รถบ้าน',
         11 => 'รถยืดขายผ่อน',
-        21 => 'กฏหมาย',
+        21 => 'แผนกกฏหมาย',
+        31 => 'แผนกเร่งรัด',
       ];
 
       return view('maindata.edit',compact('user','id','arrayType','arrayBranch'));
