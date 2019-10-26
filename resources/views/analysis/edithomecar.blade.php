@@ -379,9 +379,19 @@
                                 <div class="file-loading">
                                   <input id="image-file" type="file" name="file_image[]" accept="image/*" data-min-file-count="1" multiple>
                                 </div>
+                                @if($countImage != 0)
+                                <br/>
+                                @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  <a href="{{ action('AnalysController@deleteImageAll',$data->id) }}" class="btn btn-danger pull-left" title="ลบรูปทั้งหมด" onclick="return confirm('คุณต้องการลบรูปทั้งหมดหรือไม่?')"> ลบรูปทั้งหมด..</a>
+                                @endif
+                                  <a href="{{ action('AnalysController@deleteImageEach',[$data->id,$Gettype,$fdate,$tdate,$branch,$status]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
+                                  <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ..
+                                  </a>
+                                @endif
                               </div>
                             </div>
                           </div>
+                          <br/>
                           <div class="col-md-12">
                             <div class="form-group">
                               @foreach($dataImage as $images)

@@ -960,7 +960,7 @@ class AnalysController extends Controller
             'HisCarby','StatusSPp','relationSPp','addSPp','housestyleSPp','Brandcarr','Interestcarr','Timeslackencarr',
             'Insurancecarr','statuscarr','newDateDue','evaluetionPricee','securitiesSPp','Getinsurance',
             'Gettransfer','Getinterest','fdate','tdate','branch','status','Gettype','GetSale','GetypeHC','GetbaabHC',
-            'GetguaranteeHC','relationSP'));
+            'GetguaranteeHC','relationSP','countImage'));
       }
     }
 
