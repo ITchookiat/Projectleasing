@@ -40,26 +40,25 @@
         <tr style="line-height: 200%;">
           <td width="30px"></td>
           <td width="80px"><b>ชือ - สกุล</b></td>
-          <td width="100px">{{$value->CONTNO}}</td>
-          <td width="80px"><b>ชือเล่น</b></td>
-          <td width="100px">{{$value->CONTNO}}</td>
+          <td width="200px">{{ iconv('TIS-620', 'utf-8', $value->NAME1." ".$value->NAME2) }}</td>
+          <td width="50px"><b>ชือเล่น</b></td>
+          <td width="100px">{{ iconv('TIS-620', 'utf-8', $value->NICKNM) }}</td>
         </tr>
         <tr style="line-height: 200%;">
           <td width="30px"></td>
           <td width="80px"><b>ที่อยู่</b></td>
-          <td width="400px">{{$value->CONTNO}}&nbsp;&nbsp;&nbsp;ตำบล {{$value->CONTNO}}&nbsp;&nbsp;&nbsp;อำเภอ {{$value->CONTNO}}&nbsp;&nbsp;&nbsp;จังหวัด {{$value->CONTNO}}</td>
+          <td width="400px">{{ iconv('TIS-620', 'utf-8', $value->ADDRES) }}&nbsp;&nbsp;&nbsp;ตำบล{{ iconv('TIS-620', 'utf-8', $value->TUMB) }}&nbsp;&nbsp;&nbsp;อำเภอ{{ iconv('TIS-620', 'utf-8', $value->AUMPDES) }}&nbsp;&nbsp;&nbsp;จังหวัด{{ iconv('TIS-620', 'utf-8', $value->PROVDES) }}</td>
         </tr>
         <tr style="line-height: 200%;">
           <td width="30px"></td>
-          <td width="80px"><b>เบอร์โทร</b></td>
-          <td width="100px">{{$value->CONTNO}}</td>
           <td width="80px"><b>ทีทำงาน</b></td>
-          <td width="100px">{{$value->CONTNO}}</td>
+          <td width="200px">{{ iconv('TIS-620', 'utf-8', $value->CUSOFFIC) }}</td>
+          <td width="50px"><b>เบอร์โทร</b></td>
+          <td width="100px">{{$value->TELP}}</td>
         </tr>
         <tr style="line-height: 200%;">
-          <td width="30px"></td>
-          <td width="80px"><b>หมายเหตุ</b></td>
-          <td width="400px">{{$value->CONTNO}}</td>
+          <td width="50px"><b>หมายเหตุ</b></td>
+          <td width="400px">{{ iconv('TIS-620', 'utf-8', $value->CUSMEMO) }}</td>
         </tr>
       </table>
 
@@ -69,21 +68,21 @@
         <tr style="line-height: 200%;">
           <td width="30px"></td>
           <td width="80px"><b>ชือ - สกุล</b></td>
-          <td width="100px">{{$value->CONTNO}}</td>
-          <td width="80px"><b>ชือเล่น</b></td>
-          <td width="100px">{{$value->CONTNO}}</td>
+          <td width="200px">{{ iconv('TIS-620', 'utf-8', $value->NAME) }}</td>
+          <td width="50px"><b>ชือเล่น</b></td>
+          <td width="100px">{{ iconv('TIS-620', 'utf-8', $value->NICKARMGAR) }}</td>
         </tr>
         <tr style="line-height: 200%;">
           <td width="30px"></td>
           <td width="80px"><b>ที่อยู่</b></td>
-          <td width="400px">{{$value->CONTNO}}&nbsp;&nbsp;&nbsp;ตำบล {{$value->CONTNO}}&nbsp;&nbsp;&nbsp;อำเภอ {{$value->CONTNO}}&nbsp;&nbsp;&nbsp;จังหวัด {{$value->CONTNO}}</td>
+          <td width="400px">{{ iconv('TIS-620', 'utf-8', $value->ADDARMGAR) }}&nbsp;&nbsp;&nbsp;ตำบล{{ iconv('TIS-620', 'utf-8', $value->TUMBARMGAR) }}&nbsp;&nbsp;&nbsp;อำเภอ{{ iconv('TIS-620', 'utf-8', $value->AUMARMGAR) }}&nbsp;&nbsp;&nbsp;จังหวัด{{ iconv('TIS-620', 'utf-8', $value->PROARMGAR) }}</td>
         </tr>
         <tr style="line-height: 200%;">
           <td width="30px"></td>
-          <td width="80px"><b>เบอร์โทร</b></td>
-          <td width="100px">{{$value->CONTNO}}</td>
           <td width="80px"><b>ทีทำงาน</b></td>
-          <td width="100px">{{$value->CONTNO}}</td>
+          <td width="200px">{{ iconv('TIS-620', 'utf-8', $value->OFFICARMGAR) }}</td>
+          <td width="50px"><b>เบอร์โทร</b></td>
+          <td width="200px">{{ iconv('TIS-620', 'utf-8', $value->TELPARMGAR) }}</td>
         </tr>
       </table>
 
@@ -93,23 +92,23 @@
         <tr style="line-height: 200%;">
           <td width="30px"></td>
           <td width="80px"><b>ยี่ห้อ</b></td>
-          <td width="100px">{{$value->CONTNO}}</td>
+          <td width="100px">{{ iconv('TIS-620', 'utf-8', $value->TYPE) }}</td>
           <td width="80px"><b>แบบ</b></td>
-          <td width="100px">{{$value->CONTNO}}</td>
+          <td width="100px">{{$value->MODEL}}</td>
         </tr>
         <tr style="line-height: 200%;">
           <td width="30px"></td>
           <td width="80px"><b>สี</b></td>
-          <td width="100px">{{$value->CONTNO}}</td>
+          <td width="100px">{{ iconv('TIS-620', 'utf-8', $value->COLOR) }}</td>
           <td width="80px"><b>หมายเลขตัวถัง</b></td>
-          <td width="100px">{{$value->CONTNO}}</td>
+          <td width="200px">{{ iconv('TIS-620', 'utf-8', $value->STRNO) }}</td>
         </tr>
         <tr style="line-height: 200%;">
           <td width="30px"></td>
           <td width="80px"><b>หมายเลขเครื่อง</b></td>
-          <td width="100px">{{$value->CONTNO}}</td>
+          <td width="100px">{{ iconv('TIS-620', 'utf-8', $value->ENGNO) }}</td>
           <td width="80px"><b>หมายเลขทะเบียน</b></td>
-          <td width="100px">{{$value->CONTNO}}</td>
+          <td width="100px">{{ iconv('TIS-620', 'utf-8', $value->REGNO) }}</td>
         </tr>
       </table>
 
@@ -119,7 +118,7 @@
           <tr style="line-height: 220%;">
               <td width="4%"></td>
               <!-- ฝั่งซ้าย -->
-              <td width="31%">
+              <td width="33%">
                 <!-- บน -->
                 <table border="">
                   <tr>
@@ -145,18 +144,18 @@
                 <table style="border-top-style: dashed;border-bottom-style: dashed;border-left-style: dashed;border-right-style: dashed;">
                   <tr style="line-height: 220%;">
                     <td>
-                      <table>
+                      <table border="0">
                         <tr>
                           <td width="100px"><b>วันที่ชำระล่าสุด</b></td>
-                          <td width="140px">{{$value->LPAYD}}</td>
+                          <td width="70px" align="right">{{DateThai($value->LPAYD)}}</td>
                         </tr>
                         <tr>
                           <td width="100px"><b>จำนวนเงินชำระล่าสุด</b></td>
-                          <td width="140px">{{$value->CONTNO}}</td>
+                          <td width="70px" align="right">{{number_format($value->LPAYA, 2)}}</td>
                         </tr>
                         <tr>
                           <td width="100px"><b>ลูกหนี้คงเหลือ</b></td>
-                          <td width="140px">{{number_format($value->BALANC, 2)}}</td>
+                          <td width="70px" align="right">{{number_format($value->BALANC - $value->SMPAY, 2)}}</td>
                         </tr>
                       </table>
                     </td>
@@ -168,60 +167,74 @@
               <!-- ฝั่งขวา -->
               <td width="50%">
                 <table style="border-top-style: dashed;border-bottom-style: dashed;border-left-style: dashed;border-right-style: dashed;">
-                  <tr style="line-height: 180%;">
+                  <tr style="line-height: 200%;">
                     <td>
-                      <table border="">
+                      <table border="0">
                         <tr>
                           <td width="10px"></td>
                           <td width="100px" colspan="2"><b>ผ่อนงวดละ</b></td>
-                          <td width="140px" colspan="2">{{number_format($value->T_LUPAY, 2)}}</td>
+                          <td width="90px" colspan="2" align="right">{{number_format($value->T_LUPAY, 2)}}</td>
                         </tr>
                         <tr>
                           <td width="10px"></td>
                           <td width="100px" colspan="2"><b>ชำระแล้ว</b></td>
-                          <td width="140px" colspan="2">{{$value->CONTNO}}</td>
+                          <td width="90px" colspan="2" align="right">{{number_format($value->SMPAY, 2)}}</td>
                         </tr>
                         <tr>
                           <td width="10px"></td>
                           <td width="100px" colspan="2"><b>คงค้าง งวด</b></td>
-                          <td width="140px" colspan="2">{{$value->HLDNO}}</td>
+                          <td width="90px" colspan="2" align="right">{{number_format($value->HLDNO, 2)}}</td>
                         </tr>
                         <tr>
                           <td width="10px"></td>
                           <td width="30px"><b>งวดที่ :</b></td>
-                          <td width="70px">{{$value->EXP_FRM}}</td>
+                          <td width="70px" align="center">{{$value->EXP_FRM}}</td>
                           <td width="40px"><b>ถึงงวดที่ :</b></td>
-                          <td width="50px">{{$value->EXP_TO}}</td>
+                          <td width="50px" align="right">{{$value->EXP_TO}}</td>
                         </tr>
                         <tr>
                           <td width="10px"></td>
                           <td width="100px" colspan="2"><b>ยอดเงินคงค้าง</b></td>
-                          <td width="140px" colspan="2">{{$value->CONTNO}}</td>
+                          <td width="90px" colspan="2" align="right">{{number_format($value->EXP_AMT, 2)}}</td>
                         </tr>
                         <tr>
                           <td width="10px"></td>
                           <td width="100px" colspan="2"><b>เบี้ยปรับ</b></td>
-                          <td width="140px" colspan="2">{{$value->CONTNO}}</td>
+                          <td width="90px" colspan="2" align="right">{{$value->CONTNO}}</td>
                         </tr>
                         <tr>
                           <td width="10px"></td>
                           <td width="100px" colspan="2"><b>ค่าตาม+ค่าบอกเลิก</b></td>
-                          <td width="140px" colspan="2">{{$value->CONTNO}}</td>
+                          <td width="90px" colspan="2" align="right">
+                            @if($value->HLDNO < 1.99)
+                              @php
+                                $Count = 1200 + 850;
+                              @endphp
+                            @elseif($value->HLDNO < 2.99)
+                              @php
+                                $Count = 2400 + 850;
+                              @endphp
+                            @elseif($value->HLDNO < 3.99)
+                              @php
+                                $Count = 3600 + 850;
+                              @endphp
+                            @elseif($value->HLDNO < 4.69)
+                              @php
+                                $Count = 4800 + 850;
+                              @endphp
+                            @endif
+                            {{number_format($Count, 2)}}
+                          </td>
                         </tr>
                         <tr>
                           <td width="10px"></td>
                           <td width="100px" colspan="2"><b>ค่าโนติส</b></td>
-                          <td width="140px" colspan="2">{{$value->CONTNO}}</td>
-                        </tr>
-                        <tr>
-                          <td width="10px"></td>
-                          <td width="100px" colspan="2"><b>ค่ายึด</b></td>
-                          <td width="140px" colspan="2">{{$value->CONTNO}}</td>
+                          <td width="90px" colspan="2" align="right">0.00</td>
                         </tr>
                         <tr>
                           <td width="10px"></td>
                           <td width="100px" colspan="2"><b>รวมยอด</b></td>
-                          <td width="140px" colspan="2">{{$value->CONTNO}}</td>
+                          <td width="90px" colspan="2" align="right">{{$value->CONTNO}}</td>
                         </tr>
                       </table>
                     </td>
@@ -252,8 +265,10 @@
           <td width="80px">{{$value->CONTNO}}</td>
         </tr>
       </table>
-      <table width="10%"><tr><td></td></tr></table>
       <table border="0">
+        <tr style="line-height:10%;">
+          <td></td>
+        </tr>
         <tr style="line-height: 200%;">
           <td width="30px"></td>
           <td width="40px"><b>ผู้ติดตาม</b></td>
@@ -269,7 +284,7 @@
             ............................................................................
           </td>
         </tr>
-        <tr style="line-height: 140%;">
+        <tr style="line-height: 150%;">
           <td width="30px"></td>
           <td width="50px"></td>
           <td width="460px">

@@ -52,7 +52,7 @@
 
       <li class="treeview {{ (request()->is('Analysis/*')) ? 'active' : '' }} {{ (request()->is('call/*')) ? 'active' : '' }} {{ (request()->is('finance/*')) ? 'active' : '' }}">
         <a href="#">
-          <i class="fa fa-database"></i> <span> แผนกสินเชื่อ</span>
+          <i class="fa fa-sitemap"></i> <span> แผนกสินเชื่อ</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
@@ -60,24 +60,21 @@
         <ul class="treeview-menu">
           <li class="treeview {{ (request()->is('Analysis/Home/*')) ? 'active' : '' }} {{ (request()->is('Analysis/edit/*')) ? 'active' : '' }}">
               <a href="#">
-                <i class="fa fa-folder-open text-primary"></i>สินเชื่อ
+                <i class="fa fa-book text-primary"></i>สินเชื่อ
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
               <ul class="treeview-menu">
-                @if(auth::user()->branch != 10 and auth::user()->branch != 11 and auth::user()->type != 4)
-                  @if(auth::user()->type != 21)
+                @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 3 or auth::user()->type == 4)
+                  @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->branch == 01 or auth::user()->branch == 03 or auth::user()->branch == 04 or auth::user()->branch == 05 or auth::user()->branch == 06 or auth::user()->branch == 07)
                     <li><a href="{{ route('Analysis',1) }}"><i class="fa fa-tags"></i>สินเชื่อ</a></li>
                     <li><a href="{{ route('Analysis',3) }}"><i class="fa fa-tags"></i>รายงาน สินเชื่อ</a></li>
                   @endif
-                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                  @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 4 or auth::user()->branch == 10 or auth::user()->branch == 11)
                     <li><a href="{{ route('Analysis',4) }}"><i class="fa fa-tags"></i>รถบ้าน</a></li>
                     <li><a href="{{ route('Analysis',6) }}"><i class="fa fa-tags"></i>รายงาน รถบ้าน</a></li>
                   @endif
-                @else
-                    <li><a href="{{ route('Analysis',4) }}"><i class="fa fa-tags"></i>รถบ้าน</a></li>
-                    <li><a href="{{ route('Analysis',6) }}"><i class="fa fa-tags"></i>รายงาน รถบ้าน</a></li>
                 @endif
               </ul>
           </li>
@@ -93,12 +90,12 @@
 
       <li class="treeview {{ (request()->is('Precipitate/*')) ? 'active' : '' }}"> <!-- /.DINsidebar -->
         <a href="#">
-          <i class="fa fa-book"></i> <span> แผนกเร่งรัด</span>
+          <i class="fa fa-handshake-o"></i> <span> แผนกเร่งรัด</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
-        @if(auth::user()->type == 1 or auth::user()->type == 2)
+        @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 31)
           <ul class="treeview-menu">
             <li>
                 <a href="{{ route('Precipitate',3) }}"><i class="fa fa-book text-yellow"></i>ระบบแจ้งเตือนติดตาม</a>
@@ -121,7 +118,7 @@
 
         <li class="treeview {{ (request()->is('Legislation/Home*')) ? 'active' : '' }} {{ (request()->is('Legislation/edit/*')) ? 'active' : '' }}"> <!-- /.DINsidebar -->
           <a href="#">
-            <i class="fa fa-book"></i> <span> แผนกกฏหมาย</span>
+            <i class="fa fa-gavel"></i> <span> แผนกกฏหมาย</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -129,17 +126,17 @@
           @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 21)
             <ul class="treeview-menu">
               <li>
-                  <a href="{{ route('legislation',1) }}"><i class="fa fa-book text-yellow"></i>รายชื่อส่งฟ้อง</a>
+                  <a href="{{ route('legislation',1) }}"><i class="fa fa-book text-red"></i>รายชื่อส่งฟ้อง</a>
               </li>
               <li>
-                  <a href="{{ route('legislation',2) }}"><i class="fa fa-book text-yellow"></i>งานฟ้อง</a>
+                  <a href="{{ route('legislation',2) }}"><i class="fa fa-book text-red"></i>งานฟ้อง</a>
               </li>
             </ul>
           @endif
         </li>
 
       <li>
-          <a href="{{ route('report',1) }}"><i class="fa fa-newspaper-o text-yellow"></i>รายงาน ใบเบิกเงิน</a>
+          <a href="{{ route('report',1) }}"><i class="fa fa-newspaper-o text-red"></i>รายงาน ใบเบิกเงิน</a>
       </li>
 
     </ul>

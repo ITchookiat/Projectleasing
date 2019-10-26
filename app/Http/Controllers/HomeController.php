@@ -41,6 +41,13 @@ class HomeController extends Controller
         // $conn = DataIBM::where('RECVNO','=','AOC-03040001')->get();
         // dd($conn);
 
+        date_default_timezone_set('Asia/Bangkok');
+        $Y = date('Y');
+        $m = date('m');
+        $d = date('d');
+        $date = $Y.'-'.$m.'-'.$d;
+        $newdate = date('Y-m-d', strtotime('+3 days'));
+
 
         $datafinance = DB::table('buyers')
                   ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
@@ -56,7 +63,30 @@ class HomeController extends Controller
                   ->join('legiscourts','legislations.id','=','legiscourts.legislation_id')
                   ->count();
 
+        $datamassage = DB::connection('ibmi')
+                  ->table('SFHP.ARMAST')
+                  ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
+                  ->whereBetween('SFHP.ARPAY.DDATE',[$newdate,$newdate])
+                  ->whereBetween('SFHP.ARMAST.HLDNO',[1.5,3.69])
+                  ->where('SFHP.ARMAST.BILLCOLL','=',99)
+                  ->count();
 
-        return view($name, compact('datafinance','datahomecar','datalegis'));
+        $datafollow = DB::connection('ibmi')
+                  ->table('SFHP.ARMAST')
+                  ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
+                  ->where('SFHP.ARMAST.BILLCOLL','=',99)
+                  ->whereBetween('SFHP.ARMAST.HLDNO',[2.5,4.69])
+                  ->whereBetween('SFHP.ARPAY.DDATE',[$date,$date])
+                  ->count();
+
+        $datanotice = DB::connection('ibmi')
+                  ->table('SFHP.ARMAST')
+                  ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
+                  ->whereBetween('SFHP.ARPAY.DDATE',[$date,$date])
+                  ->whereBetween('SFHP.ARMAST.HLDNO',[4.7,5.69])
+                  ->count();
+
+
+        return view($name, compact('datafinance','datahomecar','datalegis','datafollow','datamassage','datanotice'));
     }
 }
