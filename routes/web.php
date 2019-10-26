@@ -59,9 +59,13 @@ Route::group(['middleware' => 'auth'], function()
     Route::patch('/Legislation/update/{id}/{type}', 'LegislationController@update')->name('legislation.update');
     Route::delete('/Legislation/delete/{id}', 'LegislationController@destroy')->name('legislation.destroy');
 
+    route::resource('MasterPrecipitate','PrecController');
     Route::get('/Precipitate/Home/{type}', 'PrecController@index')->name('Precipitate');
     Route::get('/Precipitate/ReportPrecDue/{Str1}/{Str2}', 'PrecController@ReportPrecDue');
     Route::get('/PrecipitateExcel', 'PrecController@excel');
+    Route::get('/Precipitate/edit/{id}/{type}', 'PrecController@edit')->name('Precipitate.edit');
+    Route::patch('/Precipitate/update/{id}/{type}', 'PrecController@update')->name('Precipitate.update');
+    Route::delete('/Precipitate/delete/{id}/{type}', 'PrecController@destroy')->name('Precipitate.destroy');
 
 //---------------- ยังไม่ใช้งาน --------------------//
     Route::get('/Report/Home/{type}', 'ReportController@index')->name('report');

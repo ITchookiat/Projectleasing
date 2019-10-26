@@ -7,6 +7,7 @@ use DB;
 use PDF;
 use Exporter;
 use Carbon\Carbon;
+use App\Holdcar;
 
 class PrecController extends Controller
 {
@@ -160,6 +161,38 @@ class PrecController extends Controller
           $type = $request->type;
           return view('precipitate.view', compact('data','fdate','tdate','type'));
         }
+        elseif ($request->type == 5) {
+          $fdate = '';
+          $tdate = '';
+          $Statuscar = '';
+          if ($request->has('Fromdate')) {
+            $fdate = $request->get('Fromdate');
+          }
+          if ($request->has('Todate')) {
+            $tdate = $request->get('Todate');
+          }
+          if ($request->has('Statuscar')) {
+            $Statuscar = $request->get('Statuscar');
+          }
+          // dd($fdate,$tdate);
+          $data = DB::table('holdcars')
+          ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+            return $q->whereBetween('holdcars.Date_hold',[$fdate,$tdate]);
+          })
+          ->when(!empty($Statuscar), function($q) use ($Statuscar) {
+            return $q->where('holdcars.Statuscar',$Statuscar);
+          })
+          ->orderBy('holdcars.Date_hold', 'ASC')
+          ->get();
+
+          $type = $request->type;
+          return view('precipitate.viewstock', compact('data','type','fdate','tdate','Statuscar'));
+        }
+        elseif ($request->type == 6) {
+          // dd($request->type);
+          $type = $request->type;
+          return view('precipitate.createstock', compact('type'));
+        }
     }
 
     /**
@@ -180,7 +213,44 @@ class PrecController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if($request->type == 6) {
+          $SetPricehold = str_replace (",","",$request->get('Pricehold'));
+          $SetAmounthold = str_replace (",","",$request->get('Amounthold'));
+          $SetPayhold = str_replace (",","",$request->get('Payhold'));
+          $SetCapitalAccount = str_replace (",","",$request->get('CapitalAccount'));
+          $SetCapitalTopprice = str_replace (",","",$request->get('CapitalTopprice'));
+          $Holdcardb = new Holdcar([
+            'Contno_hold' => $request->get('Contno'),
+            'Name_hold' => $request->get('NameCustomer'),
+            'Brandcar_hold' => $request->get('Brandcar'),
+            'Number_Regist' => $request->get('Number_Regist'),
+            'Year_Product' => $request->get('Yearcar'),
+            'Date_hold' => $request->get('Datehold'),
+            'Team_hold' => $request->get('Teamhold'),
+            'Price_hold' => $SetPricehold,
+            'Statuscar' => $request->get('Statuscar'),
+            'Note_hold' => $request->get('Note'),
+            'Date_came' => $request->get('Datecame'),
+            'Amount_hold' => $SetAmounthold,
+            'Pay_hold' => $SetPayhold,
+            'Datecheck_Capital' => $request->get('DatecheckCapital'),
+            'Datesend_Stockhome' => $request->get('DatesendStockhome'),
+            'Datesend_Letter' => $request->get('DatesendLetter'),
+            'Barcode_No' => $request->get('BarcodeNo'),
+            'Capital_Account' => $SetCapitalAccount,
+            'Capital_Topprice' => $SetCapitalTopprice,
+            'Note2_hold' => $request->get('Note2'),
+            'Letter_hold' => $request->get('Letter'),
+            'Date_send' => $request->get('Datesend'),
+            'Barcode2' => $request->get('Barcode2'),
+            'Accept_hold' => $request->get('Accept'),
+            'Soldout_hold' => $request->get('Soldout'),
+          ]);
+          $Holdcardb->save();
+          $type = 5;
+          return redirect()->Route('Precipitate', $type)->with('success','บันทึกข้อมูลเรียบร้อย');
+        }
+
     }
 
     /**
@@ -200,9 +270,47 @@ class PrecController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id,Request $request)
     {
-        //
+        if($request->type == 5) {
+          // dd($id);
+          $data = DB::table('holdcars')
+                    ->where('holdcars.hold_id',$id)
+                    ->first();
+
+          $type = $request->type;
+
+          $Statuscar = [
+            '1' => 'ยึดจากลูกค้าครั้งแรก',
+            '2' => 'ลูกค้ามารับรถคืน',
+            '3' => 'ยึดจากลูกค้าครั้งที่สอง',
+            '4' => 'ส่งรถบ้าน',
+          ];
+
+          $Brandcarr = [
+            'ISUZU' => 'ISUZU',
+            'MITSUBISHI' => 'MITSUBISHI',
+            'TOYOTA' => 'TOYOTA',
+            'MAZDA' => 'MAZDA',
+            'FORD' => 'FORD',
+            'NISSAN' => 'NISSAN',
+            'HONDA' => 'HONDA',
+            'CHEVROLET' => 'CHEVROLET',
+            'MG' => 'MG',
+            'SUZUKI' => 'SUZUKI',
+          ];
+
+          $Teamhold = [
+            '102' => '102 - นายอับดุลเล๊าะ กาซอ',
+            '104' => '104 - นายอนุวัฒน์ อับดุลราน',
+            '105' => '105 - นายธีรวัฒน์ เจ๊ะกา',
+            '112' => '112 - นายราชัน เจ๊ะกา',
+            '113' => '113 - นายฟิฏตรี วิชา',
+            '114' => '114 - นายอานันท์ กาซอ',
+          ];
+
+          return view('Precipitate.editstock', compact('data','type','id','Statuscar','Brandcarr','Teamhold'));
+        }
     }
 
     /**
@@ -212,9 +320,45 @@ class PrecController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, $type)
     {
-        //
+        if($type == 5) {
+          $SetPricehold = str_replace (",","",$request->get('Pricehold'));
+          $SetAmounthold = str_replace (",","",$request->get('Amounthold'));
+          $SetPayhold = str_replace (",","",$request->get('Payhold'));
+          $SetCapitalAccount = str_replace (",","",$request->get('CapitalAccount'));
+          $SetCapitalTopprice = str_replace (",","",$request->get('CapitalTopprice'));
+
+          $hold = Holdcar::where('Hold_id',$id)->first();
+            $hold->Contno_hold = $request->get('Contno');
+            $hold->Name_hold = $request->get('NameCustomer');
+            $hold->Brandcar_hold = $request->get('Brandcar');
+            $hold->Number_Regist = $request->get('Number_Regist');
+            $hold->Year_Product = $request->get('Yearcar');
+            $hold->Date_hold = $request->get('Datehold');
+            $hold->Team_hold = $request->get('Teamhold');
+            $hold->Price_hold = $SetPricehold;
+            $hold->Statuscar = $request->get('Statuscar');
+            $hold->Note_hold = $request->get('Note');
+            // dd($hold->Note_hold);
+            $hold->Date_came = $request->get('Datecame');
+            $hold->Amount_hold = $SetAmounthold;
+            $hold->Pay_hold = $SetPayhold;
+            $hold->Datecheck_Capital = $request->get('DatecheckCapital');
+            $hold->Datesend_Stockhome = $request->get('DatesendStockhome');
+            $hold->Datesend_Letter = $request->get('DatesendLetter');
+            $hold->Barcode_No = $request->get('BarcodeNo');
+            $hold->Capital_Account = $SetCapitalAccount;
+            $hold->Capital_Topprice = $SetCapitalTopprice;
+            $hold->Note2_hold = $request->get('Note2');
+            $hold->Letter_hold = $request->get('Letter');
+            $hold->Date_send = $request->get('Datesend');
+            $hold->Barcode2 = $request->get('Barcode2');
+            $hold->Accept_hold = $request->get('Accept');
+            $hold->Soldout_hold = $request->get('Soldout');
+          $hold->update();
+          return redirect()->Route('Precipitate', $type)->with('success','อัพเดทข้อมูลเรียบร้อย');
+        }
     }
 
     /**
@@ -223,9 +367,13 @@ class PrecController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, $type)
     {
-        //
+      if($type == 5) {
+        $item1 = Holdcar::find($id);
+        $item1->Delete();
+        return redirect()->back()->with('success','ลบข้อมูลเรียบร้อย');
+      }
     }
 
     public function ReportPrecDue(Request $request, $SetStr1, $SetStr2)
