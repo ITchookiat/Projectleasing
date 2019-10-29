@@ -80,7 +80,8 @@
                       <option value="1" {{ ($Statuscar == '1') ? 'selected' : '' }}> ยึดจากลูกค้าครั้งแรก</otion>
                       <option value="2" {{ ($Statuscar == '2') ? 'selected' : '' }}> ลูกค้ามารับรถคืน</otion>
                       <option value="3" {{ ($Statuscar == '3') ? 'selected' : '' }}> ยึดจากลูกค้าครั้งที่สอง</otion>
-                      <option value="4" {{ ($Statuscar == '4') ? 'selected' : '' }}> ส่งรถบ้าน</otion>
+                      <option value="4" {{ ($Statuscar == '4') ? 'selected' : '' }}> รับรถจากของกลาง</otion>
+                      <option value="5" {{ ($Statuscar == '5') ? 'selected' : '' }}> ส่งรถบ้าน</otion>
                   </select>
                 </div>
               </form>
@@ -117,8 +118,14 @@
                             <td class="text-center"> {{ $row->Year_Product }} </td>
                             <td class="text-center"> {{ DateThai($row->Date_hold) }} </td>
                             <td class="text-center"> {{ $row->Team_hold }} </td>
-                            <td class="text-center"> {{ number_format($row->Price_hold,2) }} </td>
-                            <td class="text-center"> {{ $row->Note_hold }} </td>
+                            <td class="text-right">
+                              @if($row->Price_hold == Null)
+                               {{ $row->Price_hold }}
+                               @else
+                               {{ number_format($row->Price_hold, 2) }}
+                               @endif
+                             </td>
+                            <td class="text-left"> {{ $row->Note_hold }} </td>
                             <td class="text-center">
                               @if($row->Statuscar == 1)
                               ยึดจากลูกค้าครั้งแรก
@@ -127,6 +134,8 @@
                               @elseif($row->Statuscar == 3)
                               ยึดจากลูกค้าครั้งที่สอง
                               @elseif($row->Statuscar == 4)
+                              รับรถจากของกลาง
+                              @elseif($row->Statuscar == 5)
                               ส่งรถบ้าน
                               @endif
                             </td>
