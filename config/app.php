@@ -164,6 +164,7 @@ return [
         Yajra\DataTables\DataTablesServiceProvider::class,
         Elibyy\TCPDF\ServiceProvider::class,
         Cyberduck\LaravelExcel\ExcelServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -231,6 +232,7 @@ return [
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'PDF' => Elibyy\TCPDF\Facades\TCPDF::class,
         'Helper' => App\Helpers\Helper::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
     ],
 

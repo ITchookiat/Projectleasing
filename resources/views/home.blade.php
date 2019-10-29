@@ -258,6 +258,27 @@
                 </div>
               </div>
             </div>
+
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <div class="info-box bg-yellow">
+                <span class="info-box-icon bg-yellow">
+                  <span class="info-box-icon">
+                    <a href="{{ route('Precipitate',5) }}" class="a1"><i class="fa fa-car"></i></a>
+                  </span>
+                </span>
+                <div class="info-box-content">
+                  <span class="info-box-text"><br /></span>
+                  <span class="info-box-number">Stock รถเร่งรัด</span>
+
+                  <div class="progress">
+                    <div class="progress-bar" style="width: 100%"></div>
+                  </div>
+                  <span class="progress-description">
+                    จำนวนรถในระบบ {{ $datanotice }} คัน
+                  </span>
+                </div>
+              </div>
+            </div>
             @endif
           </div>
         </div>
