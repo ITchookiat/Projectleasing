@@ -107,14 +107,14 @@
                 <div class="col-md-5">
                   <div class="form-inline" align="right">
                   <label>เลขที่สัญญา : </label>
-                  <input type="text" name="Contno" class="form-control" style="width: 250px;" placeholder="ป้อนเลขที่สัญญา" />
+                  <input type="text" name="Contno" class="form-control" style="width: 250px;" placeholder="ป้อนเลขที่สัญญา" required/>
                   </div>
                 </div>
 
                 <div class="col-md-6">
                   <div class="form-inline" align="right">
                   <label>ชื่อ - สกุล : </label>
-                  <input type="text" name="NameCustomer" class="form-control" style="width: 250px;" placeholder="ป้อนชื่อ - สกุล" >
+                  <input type="text" name="NameCustomer" class="form-control" style="width: 250px;" placeholder="ป้อนชื่อ - สกุล" required>
                   </div>
                 </div>
 
@@ -211,15 +211,16 @@
                       <option value="1">ยึดจากลูกค้าครั้งแรก</otion>
                       <option value="2">ลูกค้ามารับรถคืน</otion>
                       <option value="3">ยึดจากลูกค้าครั้งที่สอง</otion>
-                      <option value="4">ส่งรถบ้าน</otion>
+                      <option value="4">รับรถจากของกลาง</otion>
+                      <option value="5">ส่งรถบ้าน</otion>
                   </select>
                   </div>
                 </div>
 
                 <div class="col-md-6">
                   <div class="form-inline" align="right">
-                  <label>หมายเหตุ : </label>
-                  <textarea name="Note" class="form-control" placeholder="ป้อนหมายเหตุ" rows="2" style="width: 250px;"></textarea>
+                  <label>รายละเอียด : </label>
+                  <textarea name="Note" class="form-control" placeholder="ป้อนรายละเอียด" rows="2" style="width: 250px;"></textarea>
                   </div>
                 </div>
 
@@ -338,7 +339,7 @@
 
                   <div class="col-md-5">
                     <div class="form-inline" align="right">
-                    <label>บาร์โค๊ด : </label>
+                    <label>บาร์โค๊ดผู้ค้ำ : </label>
                     <input type="text" name="Barcode2" class="form-control" style="width: 250px;" placeholder="ป้อนบาร์โค๊ด">
                     </div>
                   </div>

@@ -212,8 +212,8 @@
 
                 <div class="col-md-6">
                   <div class="form-inline" align="right">
-                  <label>หมายเหตุ : </label>
-                  <textarea name="Note" class="form-control" placeholder="ป้อนหมายเหตุ" rows="2" style="width: 250px;">{{ $data->Note_hold }}</textarea>
+                  <label>รายละเอียด : </label>
+                  <textarea name="Note" class="form-control" placeholder="ป้อนรายละเอียด" rows="2" style="width: 250px;">{{ $data->Note_hold }}</textarea>
                   </div>
                 </div>
 
@@ -348,7 +348,7 @@
 
                   <div class="col-md-5">
                     <div class="form-inline" align="right">
-                    <label>บาร์โค๊ด : </label>
+                    <label>บาร์โค๊ดผู้ค้ำ : </label>
                     <input type="text" name="Barcode2" class="form-control" style="width: 250px;" placeholder="ป้อนบาร์โค๊ด" value="{{ $data->Barcode2 }}">
                     </div>
                   </div>

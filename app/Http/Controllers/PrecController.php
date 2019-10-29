@@ -123,15 +123,19 @@ class PrecController extends Controller
 
           $count = count($data2);
 
-          for ($i=0; $i < $count; $i++) {
-            if($data2[$i]->EXP_FRM == $data2[$i]->EXP_TO){
-                $data3[] = $data2[$i];
-                $data = $data1->concat($data3);
-            }else{
-                $data = $data1;
-            }
+          if($count == 0){
+            $data = $data1;
           }
-
+          else
+          {
+              for ($i=0; $i < $count; $i++) {
+                if($data2[$i]->EXP_FRM == $data2[$i]->EXP_TO){
+                  $data3[] = $data2[$i];
+                  $data = $data1->concat($data3);
+                }
+              }
+          }
+          
           $type = $request->type;
           return view('precipitate.view', compact('data','fdate','tdate','type'));
         }
@@ -162,6 +166,37 @@ class PrecController extends Controller
           return view('precipitate.view', compact('data','fdate','tdate','type'));
         }
         elseif ($request->type == 5) {
+
+          $data = DB::connection('ibmi')
+                    // ->table('SFHP.ARMAST')
+                    ->table('SFHP.CHQTRAN')
+                    // ->table('SFHP.ARDEBT')
+                    // ->table('SFHP.ARPAY')
+                    // ->join('SFHP.CHQTRAN','SFHP.ARMAST.CONTNO','=','SFHP.CHQTRAN.CONTNO')
+                    // ->join('SFHP.CHQTRAN','SFHP.CHQTRAN.CONTNO','=','SFHP.ARPAY.CONTNO')
+                    // ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                    // ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+                    // ->where('SFHP.ARMAST.CONTNO','=','03-2561/0347')
+                    // ->where('SFHP.ARDEBT.CONTNO','=','03-2561/0347')
+                    ->where('SFHP.CHQTRAN.CONTNO','=','03-2561/0347')
+                    // ->where('SFHP.ARDEBT.CONTNO','=','03-2561/0347')
+                    // ->where('SFHP.ARPAY.CONTNO','=','03-2561/0347')
+                    // ->orderBy('SFHP.ARPAY.DDATE', 'ASC')
+                    ->get();
+
+                    $data1 = DB::connection('ibmi')
+                              ->table('SFHP.ARDEBT')
+                              ->where('SFHP.ARDEBT.CONTNO','=','03-2561/0347')
+                              ->get();
+
+          $count = count($data);
+          for ($i=0; $i < $count; $i++) {
+            // dump($data[$i]->KANGINT);
+            // dump($data[$i]->INTAMT);
+            // code...
+          }
+          // dd($data);
+
           $fdate = '';
           $tdate = '';
           $Statuscar = '';
@@ -284,7 +319,8 @@ class PrecController extends Controller
             '1' => 'ยึดจากลูกค้าครั้งแรก',
             '2' => 'ลูกค้ามารับรถคืน',
             '3' => 'ยึดจากลูกค้าครั้งที่สอง',
-            '4' => 'ส่งรถบ้าน',
+            '4' => 'รับรถจากของกลาง',
+            '5' => 'ส่งรถบ้าน',
           ];
 
           $Brandcarr = [
