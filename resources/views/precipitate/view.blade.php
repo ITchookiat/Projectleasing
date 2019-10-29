@@ -49,12 +49,21 @@
               </div>
             @endif
 
-            @if($type == 1) {{-- ระบบ ปล่อยงานตาม --}}
+            @if($type == 1 or $type == 4) {{-- ระบบ ปล่อยงานตาม --}}
               <form method="get" action="{{ route('Precipitate', 1) }}">
                 <div align="right" class="form-inline">
-                  <a target="_blank" href="{{ action('PrecController@ReportPrecDue',[00,00]) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{1}}" class="btn btn-danger btn-app">
-                    <span class="fa fa-street-view"></span> ใบติดตาม
-                  </a>
+                  @if($type == 1)
+                    <a target="_blank" href="{{ action('PrecController@ReportPrecDue',[00,00]) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{1}}" class="btn btn-danger btn-app">
+                      <span class="fa fa-street-view"></span> ใบติดตาม
+                    </a>
+                    <a href="{{ action('PrecController@excel') }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{1}}" class="btn btn-success btn-app">
+                      <span class="fa fa-file-excel-o"></span> Excel
+                    </a>
+                  @elseif($type == 4)
+                    <a target="_blank" href="{{ action('PrecController@ReportPrecDue',[00,00]) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{7}}" class="btn btn-danger btn-app">
+                      <span class="fa fa-street-view"></span> ใบติดตาม
+                    </a>
+                  @endif
                   <button type="submit" class="btn btn-warning btn-app">
                     <span class="glyphicon glyphicon-search"></span> Search
                   </button >
@@ -172,9 +181,15 @@
                                  $SetStr1 = $StrCon[0];
                                  $SetStr2 = $StrCon[1];
                               @endphp
-                              <a target="_blank" href="{{ action('PrecController@ReportPrecDue',[$SetStr1,$SetStr2]) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{2}}" class="btn btn-sm bg-blue" title="พิมพ์">
-                                <span class="fa fa-id-card-o"></span> ใบแจ้งหนี้
-                              </a>
+                              @if($type == 1)
+                                <a target="_blank" href="{{ action('PrecController@ReportPrecDue',[$SetStr1,$SetStr2]) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{2}}" class="btn btn-sm bg-blue" title="พิมพ์">
+                                  <span class="fa fa-id-card-o"></span> ใบแจ้งหนี้
+                                </a>
+                              @elseif($type == 4)
+                                <a target="_blank" href="{{ action('PrecController@ReportPrecDue',[$SetStr1,$SetStr2]) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{4}}" class="btn btn-sm bg-blue" title="พิมพ์">
+                                  <span class="fa fa-id-card-o"></span> ใบแจ้งหนี้
+                                </a>
+                              @endif
                             </td>
                             @endif
                           </tr>

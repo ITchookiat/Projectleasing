@@ -54,7 +54,7 @@
           <td width="80px"><b>ทีทำงาน</b></td>
           <td width="200px">{{ iconv('TIS-620', 'utf-8', $value->CUSOFFIC) }}</td>
           <td width="50px"><b>เบอร์โทร</b></td>
-          <td width="100px">{{$value->TELP}}</td>
+          <td width="200px">{{$value->TELP}}</td>
         </tr>
         <tr style="line-height: 200%;">
           <td width="50px"><b>หมายเหตุ</b></td>
@@ -206,30 +206,49 @@
                           <td width="10px"></td>
                           <td width="100px" colspan="2"><b>ค่าตาม+ค่าบอกเลิก</b></td>
                           <td width="90px" colspan="2" align="right">
-                            @if($value->HLDNO < 1.99)
-                              @php
-                                $Count = 1200 + 850;
-                              @endphp
-                            @elseif($value->HLDNO < 2.99)
-                              @php
-                                $Count = 2400 + 850;
-                              @endphp
-                            @elseif($value->HLDNO < 3.99)
-                              @php
-                                $Count = 3600 + 850;
-                              @endphp
-                            @elseif($value->HLDNO < 4.69)
-                              @php
-                                $Count = 4800 + 850;
-                              @endphp
+                            @if($type == 2)
+                              @if($value->HLDNO < 1.99)
+                                @php
+                                  $Count = 1200 + 850;
+                                @endphp
+                              @elseif($value->HLDNO < 2.99)
+                                @php
+                                  $Count = 2400 + 850;
+                                @endphp
+                              @elseif($value->HLDNO < 3.99)
+                                @php
+                                  $Count = 3600 + 850;
+                                @endphp
+                              @elseif($value->HLDNO < 4.69)
+                                @php
+                                  $Count = 4800 + 850;
+                                @endphp
+                              @endif
+                              {{number_format($Count, 2)}}
+                            @elseif($type == 4)
+                              @if($value->HLDNO < 4.99)
+                                @php
+                                  $Count = 8800 + 850;
+                                @endphp
+                              @elseif($value->HLDNO < 5.69)
+                                @php
+                                  $Count = 11000 + 850;
+                                @endphp
+                              @endif
+                              {{number_format($Count, 2)}}
                             @endif
-                            {{number_format($Count, 2)}}
                           </td>
                         </tr>
                         <tr>
                           <td width="10px"></td>
                           <td width="100px" colspan="2"><b>ค่าโนติส</b></td>
-                          <td width="90px" colspan="2" align="right">0.00</td>
+                          <td width="90px" colspan="2" align="right">
+                            @if($type == 2)
+                              0.00
+                            @elseif($type == 4)
+                              1,500.00
+                            @endif
+                          </td>
                         </tr>
                         <tr>
                           <td width="10px"></td>
@@ -250,19 +269,19 @@
         <tr style="line-height: 200%;">
           <td width="30px"></td>
           <td width="80px"><b>ชือ - สกุล</b></td>
-          <td width="80px">{{$value->CONTNO}}</td>
+          <td width="150px">{{ iconv('TIS-620', 'utf-8', $value->FNAME." ".$value->LNAME) }}</td>
           <td width="80px"><b>เลขผู้แนะนำ</b></td>
-          <td width="80px">{{$value->CONTNO}}</td>
+          <td width="80px">{{$value->MEMBERID}}</td>
         </tr>
         <tr style="line-height: 200%;">
           <td width="30px"></td>
           <td width="80px"><b>ที่อยู่</b></td>
-          <td width="400px">{{$value->CONTNO}}&nbsp;&nbsp;&nbsp;ตำบล {{$value->CONTNO}}&nbsp;&nbsp;&nbsp;อำเภอ {{$value->CONTNO}}&nbsp;&nbsp;&nbsp;จังหวัด {{$value->CONTNO}}</td>
+          <td width="400px">{{ iconv('TIS-620', 'utf-8', $value->ADDRESS) }}</td>
         </tr>
         <tr style="line-height: 200%;">
           <td width="30px"></td>
           <td width="80px"><b>เบอร์โทร</b></td>
-          <td width="80px">{{$value->CONTNO}}</td>
+          <td width="80px">{{ iconv('TIS-620', 'utf-8', $value->TELPTBROKER) }}</td>
         </tr>
       </table>
       <table border="0">

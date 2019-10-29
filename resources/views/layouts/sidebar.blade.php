@@ -112,6 +112,9 @@
             <li>
                 <a href="{{ route('Precipitate',2) }}"><i class="fa fa-book text-yellow"></i>รายงาน แยกตามทีม</a>
             </li>
+            <li>
+                <a href="{{ route('Precipitate',7) }}"><i class="fa fa-book text-yellow"></i>รายงาน ตามงานประจำวัน</a>
+            </li>
           </ul>
         @endif
       </li>
