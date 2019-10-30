@@ -87,7 +87,7 @@ class PrecController extends Controller
           $newdate = date('Y-m-d', strtotime('+3 days'));
           $fdate = $newdate;
           $tdate = $newdate;
-          $newDay = date('d')+3;
+          $newDay = substr($newdate, 8, 9);
 
           if ($request->has('Fromdate')) {
             $fdate = $request->get('Fromdate');
@@ -123,19 +123,20 @@ class PrecController extends Controller
                     ->get();
 
           $count = count($data2);
+          $data = $data1;
 
-          if($count == 0){
-            $data = $data1;
-          }
-          else
-          {
+          if($count != 0){
               for ($i=0; $i < $count; $i++) {
                 if($data2[$i]->EXP_FRM == $data2[$i]->EXP_TO){
                   $data3[] = $data2[$i];
                   $data = $data1->concat($data3);
+                  dump($fdate,$tdate,$newDay,$data3);
                 }
               }
+          }else{
+            $data = $data1;
           }
+
 
           $type = $request->type;
           return view('precipitate.view', compact('data','fdate','tdate','type'));
@@ -649,18 +650,17 @@ class PrecController extends Controller
           ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
           ->get();
           $count = count($data2);
+          $data = $data1;
 
-          if($count == 0){
-            $data = $data1;
-          }
-          else
-          {
+          if($count != 0){
               for ($i=0; $i < $count; $i++) {
                 if($data2[$i]->EXP_FRM == $data2[$i]->EXP_TO){
                   $data3[] = $data2[$i];
                   $data = $data1->concat($data3);
                 }
               }
+          }else{
+            $data = $data1;
           }
 
           $type = $request->type;
