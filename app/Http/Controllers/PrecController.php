@@ -130,7 +130,6 @@ class PrecController extends Controller
                 if($data2[$i]->EXP_FRM == $data2[$i]->EXP_TO){
                   $data3[] = $data2[$i];
                   $data = $data1->concat($data3);
-                  dump($fdate,$tdate,$newDay,$data3);
                 }
               }
           }else{
