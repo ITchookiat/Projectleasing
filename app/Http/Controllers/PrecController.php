@@ -88,7 +88,7 @@ class PrecController extends Controller
           $newdate = date('Y-m-d', strtotime('+3 days'));
           $fdate = $newdate;
           $tdate = $newdate;
-          $newDay = date('d')+3;
+          $newDay = substr($newdate, 8, 9);
 
           if ($request->has('Fromdate')) {
             $fdate = $request->get('Fromdate');
@@ -124,18 +124,17 @@ class PrecController extends Controller
                     ->get();
 
           $count = count($data2);
+          $data = $data1;
 
-          if($count == 0){
-            $data = $data1;
-          }
-          else
-          {
+          if($count != 0){
               for ($i=0; $i < $count; $i++) {
                 if($data2[$i]->EXP_FRM == $data2[$i]->EXP_TO){
                   $data3[] = $data2[$i];
                   $data = $data1->concat($data3);
                 }
               }
+          }else{
+            $data = $data1;
           }
 
           $type = $request->type;
@@ -168,36 +167,6 @@ class PrecController extends Controller
           return view('precipitate.view', compact('data','fdate','tdate','type'));
         }
         elseif ($request->type == 5) {
-
-          $data = DB::connection('ibmi')
-                    // ->table('SFHP.ARMAST')
-                    ->table('SFHP.CHQTRAN')
-                    // ->table('SFHP.ARDEBT')
-                    // ->table('SFHP.ARPAY')
-                    // ->join('SFHP.CHQTRAN','SFHP.ARMAST.CONTNO','=','SFHP.CHQTRAN.CONTNO')
-                    // ->join('SFHP.CHQTRAN','SFHP.CHQTRAN.CONTNO','=','SFHP.ARPAY.CONTNO')
-                    // ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
-                    // ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
-                    // ->where('SFHP.ARMAST.CONTNO','=','03-2561/0347')
-                    // ->where('SFHP.ARDEBT.CONTNO','=','03-2561/0347')
-                    ->where('SFHP.CHQTRAN.CONTNO','=','03-2561/0347')
-                    // ->where('SFHP.ARDEBT.CONTNO','=','03-2561/0347')
-                    // ->where('SFHP.ARPAY.CONTNO','=','03-2561/0347')
-                    // ->orderBy('SFHP.ARPAY.DDATE', 'ASC')
-                    ->get();
-
-                    $data1 = DB::connection('ibmi')
-                              ->table('SFHP.ARDEBT')
-                              ->where('SFHP.ARDEBT.CONTNO','=','03-2561/0347')
-                              ->get();
-
-          $count = count($data);
-          for ($i=0; $i < $count; $i++) {
-            // dump($data[$i]->KANGINT);
-            // dump($data[$i]->INTAMT);
-            // code...
-          }
-          // dd($data);
 
           $fdate = '';
           $tdate = '';
@@ -735,14 +704,17 @@ class PrecController extends Controller
           ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
           ->get();
           $count = count($data2);
+          $data = $data1;
 
-          for ($i=0; $i < $count; $i++) {
-            if($data2[$i]->EXP_FRM == $data2[$i]->EXP_TO){
-            $data3[] = $data2[$i];
-            $data = $data1->concat($data3);
-            }else{
+          if($count != 0){
+              for ($i=0; $i < $count; $i++) {
+                if($data2[$i]->EXP_FRM == $data2[$i]->EXP_TO){
+                  $data3[] = $data2[$i];
+                  $data = $data1->concat($data3);
+                }
+              }
+          }else{
             $data = $data1;
-            }
           }
 
           $type = $request->type;
