@@ -42,15 +42,15 @@
           <th align="center" width="40px" style="background-color: #33FF00;"><b>ลำดับ</b></th>
           <th align="center" width="70px" style="background-color: #BEBEBE;"><b>เลขที่สัญญา</b></th>
           <th align="center" width="140px" style="background-color: #BEBEBE;"><b>ชื่อ-สกุล</b></th>
-          <th align="center" width="80px" style="background-color: #BEBEBE;"><b>ชำระล่าสุด</b></th>
-          <th align="center" width="60px" style="background-color: #BEBEBE;"><b>งวดละ</b></th>
-          <th align="center" width="60px" style="background-color: #BEBEBE;"><b>ค้างชำระ</b></th>
-          <th align="center" width="60px" style="background-color: #BEBEBE;"><b>งวดจริง</b></th>
+          <th align="center" width="70px" style="background-color: #BEBEBE;"><b>ชำระล่าสุด</b></th>
+          <th align="center" width="50px" style="background-color: #BEBEBE;"><b>งวดละ</b></th>
+          <th align="center" width="50px" style="background-color: #BEBEBE;"><b>ค้างชำระ</b></th>
+          <th align="center" width="40px" style="background-color: #BEBEBE;"><b>งวดจริง</b></th>
           <th align="center" width="60px" style="background-color: #BEBEBE;"><b>คงเหลือ</b></th>
           <th align="center" width="60px" style="background-color: #BEBEBE;"><b>เลขทะเบียน</b></th>
-          <th align="center" width="50px" style="background-color: #FFFF00;"><b>พนง</b></th>
-          <th align="center" width="50px" style="background-color: #FFFF00;"><b>สถานะ</b></th>
-          <th align="center" width="80px" style="background-color: #FFFF00;"><b>หมายเหตุ</b></th>
+          <th align="center" width="40px" style="background-color: #FFFF00;"><b>พนง</b></th>
+          <th align="center" width="40px" style="background-color: #FFFF00;"><b>สถานะ</b></th>
+          <th align="center" width="150px" style="background-color: #FFFF00;"><b>หมายเหตุ</b></th>
         </tr>
       </thead>
       <tbody>
@@ -59,15 +59,15 @@
               <td style="background-color: #33FF00; line-height:250%;" width="40px">{{$key+1}}</td>
               <td style="line-height:250%;" width="70px">{{$value->CONTNO}}</td>
               <td style="line-height:250%;" width="140px">{{iconv('Tis-620','utf-8',str_replace(" ","",$value->SNAM.$value->NAME1)."   ".str_replace(" ","",$value->NAME2))}}</td>
-              <td style="line-height:250%;" width="80px">{{DateThai($value->LPAYD)}}</td>
-              <td style="line-height:250%;" width="60px">{{$value->DAMT}}</td>
-              <td style="line-height:250%;" width="60px">{{$value->EXP_AMT}}</td>
-              <td style="line-height:250%;" width="60px">{{$value->HLDNO}}</td>
-              <td style="line-height:250%;" width="60px">{{$value->BALANC - $value->SMPAY}}</td>
+              <td style="line-height:250%;" width="70px">{{DateThai($value->LPAYD)}}</td>
+              <td style="line-height:250%;" width="50px">{{number_format($value->DAMT, 2)}}</td>
+              <td style="line-height:250%;" width="50px">{{number_format($value->EXP_AMT, 2)}}</td>
+              <td style="line-height:250%;" width="40px">{{$value->HLDNO}}</td>
+              <td style="line-height:250%;" width="60px">{{number_format($value->BALANC - $value->SMPAY, 2)}}</td>
               <td style="line-height:250%;" width="60px">{{iconv('Tis-620','utf-8',str_replace(" ","",$value->REGNO)) }}</td>
-              <td style="line-height:250%;" width="50px">{{$value->BILLCOLL}}</td>
-              <td style="line-height:250%;" width="50px">{{iconv('Tis-620','utf-8',str_replace(" ","",$value->CONTSTAT)) }}</td>
-              <td style="line-height:250%;" width="80px"></td>
+              <td style="line-height:250%;" width="40px">{{$value->BILLCOLL}}</td>
+              <td style="line-height:250%;" width="40px">{{iconv('Tis-620','utf-8',str_replace(" ","",$value->CONTSTAT)) }}</td>
+              <td style="line-height:250%;" width="150px"></td>
             </tr>
             @if($key == 15 && $key != $CountData)
               <div style="height: 0 !important; page-break-after: always !important;"></div>
