@@ -169,6 +169,7 @@ class ReportAnalysController extends Controller
                       ->get();
 
       // dd($dataReport);
+
       $view = \View::make('analysis.ReportDueDate' ,compact('dataReport','date2'));
       $html = $view->render();
       $pdf = new PDF();

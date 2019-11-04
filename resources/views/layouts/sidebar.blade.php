@@ -110,10 +110,13 @@
                 <a href="{{ route('Precipitate',5) }}"><i class="fa fa-book text-yellow"></i>ระบบสต็อกรถเร่งรัด</a>
             </li>
             <li>
-                <a href="{{ route('Precipitate',2) }}"><i class="fa fa-book text-yellow"></i>รายงาน แยกตามทีม</a>
+                <!-- <a href="{{ route('Precipitate',2) }}"><i class="fa fa-book text-yellow"></i>รายงาน แยกตามทีม</a> -->
             </li>
             <li>
-                <a href="{{ route('Precipitate',7) }}"><i class="fa fa-book text-yellow"></i>รายงาน งานประจำวัน</a>
+                <!-- <a href="{{ route('Precipitate',7) }}"><i class="fa fa-book text-yellow"></i>รายงาน งานประจำวัน</a> -->
+            </li>
+            <li>
+                <!-- <a href="{{ route('Precipitate',8) }}"><i class="fa fa-book text-yellow"></i>รายงาน รับชำระค่าติดตาม</a> -->
             </li>
           </ul>
         @endif

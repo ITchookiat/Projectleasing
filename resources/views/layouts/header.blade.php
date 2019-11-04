@@ -34,7 +34,7 @@
           <ul class="dropdown-menu">
             <!-- User image -->
             <li class="user-header">
-              <img src="{{ asset('dist/img/leasingLogo.png') }}" class="img-circle" alt="User Image">
+              <img src="{{ asset('dist/img/leasingLogo1.png') }}" class="img-circle" alt="User Image">
               <p>
                 {{ Auth::user()->name }}
                 <small>{{ Auth::user()->username }}</small>
