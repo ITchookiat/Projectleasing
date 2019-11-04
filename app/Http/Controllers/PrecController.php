@@ -235,7 +235,32 @@ class PrecController extends Controller
 
             $type = $request->type;
             return view('precipitate.viewReport', compact('dataFollow','dataNotice','fdate','tdate','type'));
+        }
+        elseif ($request->type == 8) {
+          $fdate = $date;
+          $tdate = $date;
+          if ($request->has('Fromdate')) {
+            $fdate = $request->get('Fromdate');
           }
+          if ($request->has('Todate')) {
+            $tdate = $request->get('Todate');
+          }
+
+          $data = DB::connection('ibmi')
+                    ->table('SFHP.ARMAST')
+                    ->join('SFHP.HDPAYMENT','SFHP.ARMAST.CONTNO','=','SFHP.HDPAYMENT.CONTNO')
+                    ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+                      return $q->whereBetween('SFHP.HDPAYMENT.TEMPDATE',[$fdate,$tdate]);
+                    })
+                    ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                    ->get();
+
+            // dd($request->DataOffice);
+
+            $type = $request->type;
+            $Office = $request->DataOffice;
+            return view('precipitate.viewReport', compact('data','fdate','tdate','type','Office'));
+        }
     }
 
     /**
@@ -486,9 +511,20 @@ class PrecController extends Controller
                   ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
                   ->get();
 
+        $dataArpay = DB::connection('ibmi')
+                  ->table('SFHP.ARPAY')
+                  ->where('SFHP.ARPAY.CONTNO','=',$SetStrConn)
+                  ->sum('SFHP.ARPAY.INTAMT');
+
+        $dataInpay = DB::connection('ibmi')
+                  ->table('SFHP.CHQTRAN')
+                  ->where('SFHP.CHQTRAN.CONTNO','=',$SetStrConn)
+                  ->sum('SFHP.CHQTRAN.PAYINT');
+
+        $SumPay = $dataArpay - $dataInpay;
         $type = $request->type;
 
-        $view = \View::make('precipitate.ReportInvoice' ,compact('data','date','fdate','tdate','type'));
+        $view = \View::make('precipitate.ReportInvoice' ,compact('data','date','fdate','tdate','type','SumPay'));
         $html = $view->render();
         $pdf = new PDF();
         $pdf::SetTitle('รายงานข้อมูลติดตาม');
@@ -521,11 +557,20 @@ class PrecController extends Controller
                   ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
                   ->get();
 
-                // dd($data[0]->TELP);
+        $dataArpay = DB::connection('ibmi')
+                  ->table('SFHP.ARPAY')
+                  ->where('SFHP.ARPAY.CONTNO','=',$SetStrConn)
+                  ->sum('SFHP.ARPAY.INTAMT');
 
+        $dataInpay = DB::connection('ibmi')
+                  ->table('SFHP.CHQTRAN')
+                  ->where('SFHP.CHQTRAN.CONTNO','=',$SetStrConn)
+                  ->sum('SFHP.CHQTRAN.PAYINT');
+
+        $SumPay = $dataArpay - $dataInpay;
         $type = $request->type;
 
-        $view = \View::make('precipitate.ReportInvoice' ,compact('data','date','fdate','tdate','type'));
+        $view = \View::make('precipitate.ReportInvoice' ,compact('data','date','fdate','tdate','type','SumPay'));
         $html = $view->render();
         $pdf = new PDF();
         $pdf::SetTitle('รายงานข้อมูลโนติส');
@@ -559,6 +604,64 @@ class PrecController extends Controller
         $pdf::SetAutoPageBreak(TRUE, 25);
         $pdf::WriteHTML($html,true,false,true,false,'');
         $pdf::Output('ReportPrecDue.pdf');
+      }
+      elseif ($request->type == 8) {  //]รายงาน รัรับชำระค่าติดตาม
+        $data = DB::connection('ibmi')
+                  ->table('SFHP.ARMAST')
+                  ->join('SFHP.HDPAYMENT','SFHP.ARMAST.CONTNO','=','SFHP.HDPAYMENT.CONTNO')
+                  ->whereBetween('SFHP.HDPAYMENT.TEMPDATE',[$fdate,$tdate])
+                  ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                  ->get();
+
+        // dd($data);
+        $summary102 = 0;
+        $summary104 = 0;
+        $summary105 = 0;
+        $summary113 = 0;
+        $summary112 = 0;
+        $summary114 = 0;
+        $summaryCKL = 0;
+
+        foreach ($data as $key => $value) {
+          if ($value->BILLCOLL == 102) {
+            $summary102 += $value->TOTAMT;
+          }
+          elseif ($value->BILLCOLL == 104) {
+            $summary104 += $value->TOTAMT;
+          }
+          elseif ($value->BILLCOLL == 105) {
+            $summary105 += $value->TOTAMT;
+          }
+          elseif ($value->BILLCOLL == 113) {
+            $summary113 += $value->TOTAMT;
+          }
+          elseif ($value->BILLCOLL == 112) {
+            $summary112 += $value->TOTAMT;
+          }
+          elseif ($value->BILLCOLL == 114) {
+            $summary114 += $value->TOTAMT;
+          }
+          elseif ($value->BILLCOLL == "CKL   ")
+          {
+            $summaryCKL += $value->TOTAMT;
+          }
+        }
+
+        // dump($summary102,$summary104,$summary105,$summary113,$summary112,$summary114,$summaryCKL);
+        // dd($request);
+        $DataOffice = $request->DataOffice;
+        $type = $request->type;
+
+        $view = \View::make('precipitate.ReportPrecDue' ,compact('data','fdate','tdate','type','DataOffice','summary102','summary104','summary105','summary113','summary112','summary114','summaryCKL'));
+        $html = $view->render();
+        $pdf = new PDF();
+        $pdf::SetTitle('รายงาน รับชำระค่าติดตาม');
+        $pdf::AddPage('L', 'A4');
+        $pdf::SetMargins(5, 5, 5, 0);;
+        $pdf::SetFont('freeserif', '', 12, '', true);
+        $pdf::SetAutoPageBreak(TRUE, 25);
+        $pdf::WriteHTML($html,true,false,true,false,'');
+        $pdf::Output('ReportAddPayment.pdf');
       }
     }
 
@@ -610,7 +713,7 @@ class PrecController extends Controller
 
          Excel::create('ปล่อยงานประจำวัน', function ($excel) use($ConnData,$Datethai,$FDatethai,$TDatethai) {
              $excel->sheet('ปล่อยงานตาม', function ($sheet) use($ConnData,$Datethai,$FDatethai,$TDatethai) {
-                 $sheet->prependRow(1, array("ดิวงานวันที่ ".$FDatethai." ถึงวันที่".$TDatethai." ปล่อยงานตาม".$Datethai));
+                 $sheet->prependRow(1, array("ดิวงานวันที่ ".$FDatethai." ถึงวันที่ ".$TDatethai." ปล่อยงานตาม ".$Datethai));
                  $sheet->cells('A2:M2', function($cells) {
                    $cells->setBackground('#FFCC00');
                  });
