@@ -113,10 +113,10 @@
                 <!-- <a href="{{ route('Precipitate',2) }}"><i class="fa fa-book text-yellow"></i>รายงาน แยกตามทีม</a> -->
             </li>
             <li>
-                <!-- <a href="{{ route('Precipitate',7) }}"><i class="fa fa-book text-yellow"></i>รายงาน งานประจำวัน</a> -->
+                <a href="{{ route('Precipitate',7) }}"><i class="fa fa-book text-yellow"></i>รายงาน งานประจำวัน</a>
             </li>
             <li>
-                <!-- <a href="{{ route('Precipitate',8) }}"><i class="fa fa-book text-yellow"></i>รายงาน รับชำระค่าติดตาม</a> -->
+                <a href="{{ route('Precipitate',8) }}"><i class="fa fa-book text-yellow"></i>รายงาน รับชำระค่าติดตาม</a>
             </li>
           </ul>
         @endif
