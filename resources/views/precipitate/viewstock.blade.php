@@ -58,10 +58,10 @@
                   <a href="{{ route('Precipitate', 6) }}" class="btn btn-primary btn-app">
                     <span class="fa fa-plus"></span> เพิ่มข้อมูล
                   </a>
-                  <a target="_blank" href="" class="btn btn-success btn-app">
+                  <a target="_blank" href="{{ action('PrecController@excel') }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{5}}" class="btn btn-success btn-app">
                     <span class="fa fa-file-excel-o"></span> Excel
                   </a>
-                  <a target="_blank" href="" class="btn btn-danger btn-app">
+                  <a target="_blank" href="{{ action('PrecController@ReportPrecDue',[00,00]) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{5}}&Statuscar={{$Statuscar}}" class="btn btn-danger btn-app">
                     <span class="fa fa-file-pdf-o"></span> PDF
                   </a>
                   <button type="submit" class="btn btn-warning btn-app">
