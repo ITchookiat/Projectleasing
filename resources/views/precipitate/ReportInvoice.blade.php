@@ -200,7 +200,7 @@
                         <tr>
                           <td width="10px"></td>
                           <td width="100px" colspan="2"><b>เบี้ยปรับ</b></td>
-                          <td width="90px" colspan="2" align="right">{{$value->CONTNO}}</td>
+                          <td width="90px" colspan="2" align="right">{{number_format($SumPay, 2)}}</td>
                         </tr>
                         <tr>
                           <td width="10px"></td>
@@ -243,17 +243,30 @@
                           <td width="10px"></td>
                           <td width="100px" colspan="2"><b>ค่าโนติส</b></td>
                           <td width="90px" colspan="2" align="right">
+                            @php
+                              $Notice = 0;
+                            @endphp
                             @if($type == 2)
-                              0.00
+                              @php
+                                $Notice = 0;
+                              @endphp
                             @elseif($type == 4)
-                              1,500.00
+                              @php
+                                $Notice = 1500;
+                              @endphp
                             @endif
+                            {{number_format($Notice, 2)}}
                           </td>
                         </tr>
                         <tr>
                           <td width="10px"></td>
                           <td width="100px" colspan="2"><b>รวมยอด</b></td>
-                          <td width="90px" colspan="2" align="right">{{$value->CONTNO}}</td>
+                          <td width="90px" colspan="2" align="right">
+                            @php
+                              $Sum = $value->EXP_AMT + $SumPay + $Count + $Notice;
+                            @endphp
+                            {{number_format($Sum, 2)}}
+                          </td>
                         </tr>
                       </table>
                     </td>

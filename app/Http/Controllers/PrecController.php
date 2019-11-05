@@ -9,6 +9,7 @@ use Exporter;
 use Excel;
 use Carbon\Carbon;
 use App\Holdcar;
+use Helper;
 
 class PrecController extends Controller
 {
@@ -197,21 +198,68 @@ class PrecController extends Controller
           $type = $request->type;
           return view('precipitate.createstock', compact('type'));
         }
-        elseif ($request->type == 7) {
+        elseif ($request->type == 7) { //รายงาน งานประจำวัน
+          $fdate = $date;
+          $tdate = $date;
+          if ($request->has('Fromdate')) {
+            $fdate = $request->get('Fromdate');
+          }
+          if ($request->has('Todate')) {
+            $tdate = $request->get('Todate');
+          }
+
+          $dataFollow = DB::connection('ibmi')
+                    ->table('SFHP.ARMAST')
+                    ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
+                    ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                    ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+                    ->where('SFHP.ARMAST.BILLCOLL','=',99)
+                    ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+                      return $q->whereBetween('SFHP.ARPAY.DDATE',[$fdate,$tdate]);
+                    })
+                    ->whereBetween('SFHP.ARMAST.HLDNO',[2.5,4.69])
+                    ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                    ->get();
+
+          $dataNotice  = DB::connection('ibmi')
+                    ->table('SFHP.ARMAST')
+                    ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
+                    ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                    ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+                    ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+                      return $q->whereBetween('SFHP.ARPAY.DDATE',[$fdate,$tdate]);
+                    })
+                    ->whereBetween('SFHP.ARMAST.HLDNO',[4.7,5.69])
+                    ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                    ->get();
+
+            $type = $request->type;
+            return view('precipitate.viewReport', compact('dataFollow','dataNotice','fdate','tdate','type'));
+        }
+        elseif ($request->type == 8) {
+          $fdate = $date;
+          $tdate = $date;
+          if ($request->has('Fromdate')) {
+            $fdate = $request->get('Fromdate');
+          }
+          if ($request->has('Todate')) {
+            $tdate = $request->get('Todate');
+          }
+
           $data = DB::connection('ibmi')
-                    ->table('SFHP.ARPAY')
-                    ->where('SFHP.ARPAY.CONTNO','=','03-2561/0404')
-                    ->sum('SFHP.ARPAY.INTAMT');
-          // $data1 = ceil($data/10)*10;
+                    ->table('SFHP.ARMAST')
+                    ->join('SFHP.HDPAYMENT','SFHP.ARMAST.CONTNO','=','SFHP.HDPAYMENT.CONTNO')
+                    ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+                      return $q->whereBetween('SFHP.HDPAYMENT.TEMPDATE',[$fdate,$tdate]);
+                    })
+                    ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                    ->get();
 
-          $data2 = DB::connection('ibmi')
-                    ->table('SFHP.ARDEBT')
-                    ->where('SFHP.ARDEBT.CONTNO','=','03-2561/0404')
-                    ->sum('SFHP.ARDEBT.KANGINT');
+            // dd($request->DataOffice);
 
-          $result = $data - $data2;
-          // $result2 = $data1 - $data2;
-          dd($data,$data2,$result);
+            $type = $request->type;
+            $Office = $request->DataOffice;
+            return view('precipitate.viewReport', compact('data','fdate','tdate','type','Office'));
         }
     }
 
@@ -488,9 +536,20 @@ class PrecController extends Controller
                   ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
                   ->get();
 
+        $dataArpay = DB::connection('ibmi')
+                  ->table('SFHP.ARPAY')
+                  ->where('SFHP.ARPAY.CONTNO','=',$SetStrConn)
+                  ->sum('SFHP.ARPAY.INTAMT');
+
+        $dataInpay = DB::connection('ibmi')
+                  ->table('SFHP.CHQTRAN')
+                  ->where('SFHP.CHQTRAN.CONTNO','=',$SetStrConn)
+                  ->sum('SFHP.CHQTRAN.PAYINT');
+
+        $SumPay = $dataArpay - $dataInpay;
         $type = $request->type;
 
-        $view = \View::make('precipitate.ReportInvoice' ,compact('data','date','fdate','tdate','type'));
+        $view = \View::make('precipitate.ReportInvoice' ,compact('data','date','fdate','tdate','type','SumPay'));
         $html = $view->render();
         $pdf = new PDF();
         $pdf::SetTitle('รายงานข้อมูลติดตาม');
@@ -523,11 +582,20 @@ class PrecController extends Controller
                   ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
                   ->get();
 
-                // dd($data[0]->TELP);
+        $dataArpay = DB::connection('ibmi')
+                  ->table('SFHP.ARPAY')
+                  ->where('SFHP.ARPAY.CONTNO','=',$SetStrConn)
+                  ->sum('SFHP.ARPAY.INTAMT');
 
+        $dataInpay = DB::connection('ibmi')
+                  ->table('SFHP.CHQTRAN')
+                  ->where('SFHP.CHQTRAN.CONTNO','=',$SetStrConn)
+                  ->sum('SFHP.CHQTRAN.PAYINT');
+
+        $SumPay = $dataArpay - $dataInpay;
         $type = $request->type;
 
-        $view = \View::make('precipitate.ReportInvoice' ,compact('data','date','fdate','tdate','type'));
+        $view = \View::make('precipitate.ReportInvoice' ,compact('data','date','fdate','tdate','type','SumPay'));
         $html = $view->render();
         $pdf = new PDF();
         $pdf::SetTitle('รายงานข้อมูลโนติส');
@@ -600,11 +668,69 @@ class PrecController extends Controller
         $pdf::WriteHTML($html,true,false,true,false,'');
         $pdf::Output('ReportPrecDue.pdf');
       }
+      elseif ($request->type == 8) {  //]รายงาน รัรับชำระค่าติดตาม
+        $data = DB::connection('ibmi')
+                  ->table('SFHP.ARMAST')
+                  ->join('SFHP.HDPAYMENT','SFHP.ARMAST.CONTNO','=','SFHP.HDPAYMENT.CONTNO')
+                  ->whereBetween('SFHP.HDPAYMENT.TEMPDATE',[$fdate,$tdate])
+                  ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                  ->get();
+
+        // dd($data);
+        $summary102 = 0;
+        $summary104 = 0;
+        $summary105 = 0;
+        $summary113 = 0;
+        $summary112 = 0;
+        $summary114 = 0;
+        $summaryCKL = 0;
+
+        foreach ($data as $key => $value) {
+          if ($value->BILLCOLL == 102) {
+            $summary102 += $value->TOTAMT;
+          }
+          elseif ($value->BILLCOLL == 104) {
+            $summary104 += $value->TOTAMT;
+          }
+          elseif ($value->BILLCOLL == 105) {
+            $summary105 += $value->TOTAMT;
+          }
+          elseif ($value->BILLCOLL == 113) {
+            $summary113 += $value->TOTAMT;
+          }
+          elseif ($value->BILLCOLL == 112) {
+            $summary112 += $value->TOTAMT;
+          }
+          elseif ($value->BILLCOLL == 114) {
+            $summary114 += $value->TOTAMT;
+          }
+          elseif ($value->BILLCOLL == "CKL   ")
+          {
+            $summaryCKL += $value->TOTAMT;
+          }
+        }
+
+        // dump($summary102,$summary104,$summary105,$summary113,$summary112,$summary114,$summaryCKL);
+        // dd($request);
+        $DataOffice = $request->DataOffice;
+        $type = $request->type;
+
+        $view = \View::make('precipitate.ReportPrecDue' ,compact('data','fdate','tdate','type','DataOffice','summary102','summary104','summary105','summary113','summary112','summary114','summaryCKL'));
+        $html = $view->render();
+        $pdf = new PDF();
+        $pdf::SetTitle('รายงาน รับชำระค่าติดตาม');
+        $pdf::AddPage('L', 'A4');
+        $pdf::SetMargins(5, 5, 5, 0);;
+        $pdf::SetFont('freeserif', '', 12, '', true);
+        $pdf::SetAutoPageBreak(TRUE, 25);
+        $pdf::WriteHTML($html,true,false,true,false,'');
+        $pdf::Output('ReportAddPayment.pdf');
+      }
     }
 
     public function excel(Request $request)
     {
-      if($request->type == 1){
+      if($request->type == 1){  //รายงาน งานประจำวัน
         $newdate = date('Y-m-d');
         $fdate = $newdate;
         $tdate = $newdate;
@@ -615,7 +741,7 @@ class PrecController extends Controller
           $tdate = $request->get('Todate');
         }
 
-        $data = DB::connection('ibmi')
+        $dataFollow = DB::connection('ibmi')
                   ->table('SFHP.ARMAST')
                   ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
                   ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
@@ -628,54 +754,74 @@ class PrecController extends Controller
                   ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
                   ->get();
 
-          $type = $request->type;
+        $dataNotice = DB::connection('ibmi')
+                  ->table('SFHP.ARMAST')
+                  ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
+                  ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                  ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+                  ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+                    return $q->whereBetween('SFHP.ARPAY.DDATE',[$fdate,$tdate]);
+                  })
+                  ->whereBetween('SFHP.ARMAST.HLDNO',[4.7,5.69])
+                  ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                  ->get();
 
-          foreach($data as $key => $row){
-            $data_array[] = array(
-             'เลขที่สัญญา' => $row->CONTNO,
-             'เลขที่' => $row->CONTNO,
-             'เล' => $row->CONTNO,
-             'เลขที่สัญ' => $row->CONTNO,
-             'เ' => $row->CONTNO,
-            );
-          }
+        $ConnData = $dataFollow->concat($dataNotice);
+        $Datethai = Helper::formatDateThai($newdate);
+        $FDatethai = Helper::formatDateThai($fdate);
+        $TDatethai = Helper::formatDateThai($tdate);
+         // dd($TDatethai);
 
-         // Excel::create("Data", function($excel) use($data_array){
-         //    $excel->setTitle('Our new awesome title');
-         //    $excel->sheet('sample data',function($sheet) use($data_array){
-         //      $sheet->fromArray($data_array);
-         //        $sheet->row(1, function($row) {
-         //          $row->setBackground('#FFCC00');
-         //      });
-         //    });
-         //
-         //    $excel->sheet('Second sheet',function($sheet) use($data_array){
-         //      $sheet->fromArray($data_array);
-         //    });
-         //
-         //  })->download('xlsx');
+         $type = $request->type;
 
-         Excel::create('Data', function ($excel) use($data) {
-             $excel->setTitle('Our new awesome title');
-             $excel->sheet('Data PBM', function ($sheet) use($data) {
-                 $sheet->prependRow(1, array('prepended'));
-
+         Excel::create('ปล่อยงานประจำวัน', function ($excel) use($ConnData,$Datethai,$FDatethai,$TDatethai) {
+             $excel->sheet('ปล่อยงานตาม', function ($sheet) use($ConnData,$Datethai,$FDatethai,$TDatethai) {
+                 $sheet->prependRow(1, array("ดิวงานวันที่ ".$FDatethai." ถึงวันที่ ".$TDatethai." ปล่อยงานตาม ".$Datethai));
+                 $sheet->cells('A2:M2', function($cells) {
+                   $cells->setBackground('#FFCC00');
+                 });
                  $row = 2;
-                 $sheet->row($row, array('No', 'Kode Prodi', 'Nama Matakuliah'));
+                 $sheet->row($row, array('ลำดับ','เลขที่สัญญา','ชื่อลูกค้า','วันชำระล่าสุด','ผ่อนงวดละ','งวดค้างชำระ','ค้างงวดจริง','ลูกหนี้คงเหลือ','เลขทะเบียน','ยี่ห้อ','ปีรถ','แบบ','หมายเหตุ'));
                  $no = 1;
-                 foreach ($data as $val) {
-                     $sheet->row(++$row, array($no++, $val->CONTNO));
+                 foreach ($ConnData as $value) {
+                   if ($value->HLDNO < 4.69) {
+                     $sheet->row(++$row, array($no++, $value->CONTNO,
+                     iconv('Tis-620','utf-8',str_replace(" ","",$value->SNAM.$value->NAME1)."   ".str_replace(" ","",$value->NAME2)),
+                     Helper::formatDateThai($value->LPAYD),
+                     number_format($value->DAMT,2),
+                     number_format($value->EXP_AMT, 2),
+                     $value->HLDNO,
+                     number_format($value->BALANC - $value->SMPAY, 2),
+                     iconv('Tis-620','utf-8',str_replace(" ","",$value->REGNO)),
+                     iconv('Tis-620','utf-8',str_replace(" ","",$value->TYPE)),
+                     $value->MANUYR,
+                     iconv('Tis-620','utf-8',str_replace(" ","",$value->BAAB))));
+                   }
                  }
              });
 
-             $excel->sheet('Data', function ($sheet) use($data) {
-                 $sheet->prependRow(1, array('prepended'));
-
+             $excel->sheet('ปล่อยงานโนติส', function ($sheet) use($ConnData,$Datethai,$FDatethai,$TDatethai) {
+                 $sheet->prependRow(1, array("ดิวงานวันที่ ".$FDatethai." ถึงวันที่".$TDatethai." ปล่อยงานโนติส".$Datethai));
+                 $sheet->cells('A2:M2', function($cells) {
+                   $cells->setBackground('#FFCC00');
+                 });
                  $row = 2;
-                 $sheet->row($row, array('No', 'Kode Prodi'));
+                 $sheet->row($row, array('ลำดับ','เลขที่สัญญา','ชื่อลูกค้า','วันชำระล่าสุด','ผ่อนงวดละ','งวดค้างชำระ','ค้างงวดจริง','ลูกหนี้คงเหลือ','เลขทะเบียน','ยี่ห้อ','ปีรถ','แบบ','หมายเหตุ'));
                  $no = 1;
-                 foreach ($data as $val) {
-                     $sheet->row(++$row, array($no++, $val->CONTNO));
+                 foreach ($ConnData as $value) {
+                   if ($value->HLDNO > 4.7) {
+                     $sheet->row(++$row, array($no++, $value->CONTNO,
+                     iconv('Tis-620','utf-8',str_replace(" ","",$value->SNAM.$value->NAME1)."   ".str_replace(" ","",$value->NAME2)),
+                     Helper::formatDateThai($value->LPAYD),
+                     number_format($value->DAMT,2),
+                     number_format($value->EXP_AMT, 2),
+                     $value->HLDNO,
+                     number_format($value->BALANC - $value->SMPAY, 2),
+                     iconv('Tis-620','utf-8',str_replace(" ","",$value->REGNO)),
+                     iconv('Tis-620','utf-8',str_replace(" ","",$value->TYPE)),
+                     $value->MANUYR,
+                     iconv('Tis-620','utf-8',str_replace(" ","",$value->BAAB))));
+                   }
                  }
              });
 

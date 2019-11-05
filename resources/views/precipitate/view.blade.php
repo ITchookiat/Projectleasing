@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title','แผนกกฏหมาย')
+@section('title','แผนกเร่งรัดหนี้สิน')
 @section('content')
 
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -49,21 +49,12 @@
               </div>
             @endif
 
-            @if($type == 1 or $type == 4) {{-- ระบบ ปล่อยงานตาม --}}
+            @if($type == 1) {{-- ระบบ ปล่อยงานตาม --}}
               <form method="get" action="{{ route('Precipitate', 1) }}">
                 <div align="right" class="form-inline">
-                  @if($type == 1)
                     <a target="_blank" href="{{ action('PrecController@ReportPrecDue',[00,00]) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{1}}" class="btn btn-danger btn-app">
                       <span class="fa fa-street-view"></span> ใบติดตาม
                     </a>
-                    <a href="{{ action('PrecController@excel') }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{1}}" class="btn btn-success btn-app">
-                      <span class="fa fa-file-excel-o"></span> Excel
-                    </a>
-                  @elseif($type == 4)
-                    <a target="_blank" href="{{ action('PrecController@ReportPrecDue',[00,00]) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{7}}" class="btn btn-danger btn-app">
-                      <span class="fa fa-street-view"></span> ใบติดตาม
-                    </a>
-                  @endif
                   <button type="submit" class="btn btn-warning btn-app">
                     <span class="glyphicon glyphicon-search"></span> Search
                   </button >
@@ -114,6 +105,22 @@
                   <a href="{{ action('PrecController@excel') }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{3}}" class="btn btn-success btn-app">
                     <span class="fa fa-file-excel-o"></span> Excel
                   </a>
+                  <button type="submit" class="btn btn-warning btn-app">
+                    <span class="glyphicon glyphicon-search"></span> Search
+                  </button >
+                  <p></p>
+                  <label>จากวันที่ : </label>
+                  <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($fdate != '') ?$fdate: '' }}" class="form-control" />
+                  <label>ถึงวันที่ : </label>
+                  <input type="date" name="Todate" style="width: 180px;" value="{{ ($tdate != '') ?$tdate: '' }}" class="form-control" />
+                </div>
+              </form>
+            @elseif($type == 4) {{-- ระบบ ปล่อยงานโนติส --}}
+              <form method="get" action="{{ route('Precipitate', 4) }}">
+                <div align="right" class="form-inline">
+                    <a target="_blank" href="{{ action('PrecController@ReportPrecDue',[00,00]) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{7}}" class="btn btn-danger btn-app">
+                      <span class="fa fa-street-view"></span> ใบติดตาม
+                    </a>
                   <button type="submit" class="btn btn-warning btn-app">
                     <span class="glyphicon glyphicon-search"></span> Search
                   </button >
