@@ -12,6 +12,7 @@ use App\Sponsor;
 use App\Cardetail;
 use App\homecardetail;
 use App\Expenses;
+use App\Holdcar;
 
 class HomeController extends Controller
 {
@@ -86,7 +87,11 @@ class HomeController extends Controller
                   ->whereBetween('SFHP.ARMAST.HLDNO',[4.7,5.69])
                   ->count();
 
+        $datastock = DB::table('holdcars')
+                  // ->whereBetween('holdcars.Date_hold',[$date,$date])
+                  ->count();
 
-        return view($name, compact('datafinance','datahomecar','datalegis','datafollow','datamassage','datanotice'));
+
+        return view($name, compact('datafinance','datahomecar','datalegis','datafollow','datamassage','datanotice','datastock'));
     }
 }

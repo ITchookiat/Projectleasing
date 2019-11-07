@@ -352,6 +352,14 @@
                     <input type="text" name="Barcode2" class="form-control" style="width: 250px;" placeholder="ป้อนบาร์โค๊ด" value="{{ $data->Barcode2 }}">
                     </div>
                   </div>
+                  @if($data->Accept_hold == 'ได้รับ')
+                  <div class="col-md-6">
+                    <div class="form-inline" align="right">
+                    <label>วันที่จะขายได้ : </label>
+                    <input type="date" name="sell" class="form-control" style="width: 250px;" value="{{ $data->Date_accept_hold }}" readonly>
+                    </div>
+                  </div>
+                  @endif
 
                 </div>
 
@@ -359,7 +367,12 @@
                   <div class="col-md-5">
                     <div class="form-inline" align="right">
                     <label>รับ : </label>
-                    <input type="text" name="Accept" class="form-control" style="width: 250px;" placeholder="ป้อนข้อมูล" value="{{ $data->Accept_hold }}">
+                    <select name="Accept" class="form-control" style="width: 250px">
+                      <option selected disabled value="">---เลือกสถานะ---</option>
+                      @foreach ($Accept as $key => $value)
+                        <option value="{{$key}}" {{ ($key == $data->Accept_hold) ? 'selected' : '' }}>{{$value}}</option>
+                      @endforeach
+                    </select>
                     </div>
                   </div>
 

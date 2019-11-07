@@ -39,6 +39,7 @@ class CreateHoldcarsTable extends Migration
             $table->date('Date_send')->nullable();
             $table->string('Barcode2')->nullable();
             $table->string('Accept_hold')->nullable();
+            $table->date('Date_accept_hold')->nullable();
             $table->string('Soldout_hold')->nullable();
             $table->timestamps();
         });
