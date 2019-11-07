@@ -155,7 +155,26 @@
   line-height:35px;
   color:#0eb0b7;
   }
+  /* Delete Items */
 
+  .delete-item{
+  display:block;
+  position:absolute;
+  height:36px;
+  width:36px;
+  line-height:36px;
+  right:0;
+  top:0;
+  text-align:center;
+  color:#d8d8d8;
+  opacity:0;
+  }
+  .todo-wrap:hover .delete-item{
+  opacity:1;
+  }
+  .delete-item:hover{
+  color:#cd4400;
+  }
 </style>
 
     <section class="content-header">
@@ -187,35 +206,49 @@
               </div>
             </form>
           @elseif($type == 8)
-          <form method="get" action="{{ route('Precipitate', 8) }}">
-            <div align="right" class="form-inline">
-              <a target="_blank" href="{{ action('PrecController@ReportPrecDue',[00,00]) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{8}}&DataOffice={{$Office}}" class="btn btn-success btn-app">
-                <span class="fa fa-file-pdf-o"></span> Excel
-              </a>
-              <button type="submit" class="btn btn-warning btn-app">
-                <span class="glyphicon glyphicon-search"></span> Search
-              </button >
-              <p></p>0
-              <label>จากวันที่ : </label>
-              <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($fdate != '') ?$fdate: '' }}" class="form-control" />
-              <label>ถึงวันที่ : </label>
-              <input type="date" name="Todate" style="width: 180px;" value="{{ ($tdate != '') ?$tdate: '' }}" class="form-control" />
+            <form method="get" action="{{ route('Precipitate', 8) }}">
+              <div align="right" class="form-inline">
+                <a target="_blank" id="SendData" href="{{ action('PrecController@ReportPrecDue',[00,00]) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{8}}&DataOffice={{$Office}}" class="btn btn-success btn-app">
+                  <span class="fa fa-file-pdf-o"></span> Excel
+                </a>
+                <button type="submit" class="btn btn-warning btn-app">
+                  <span class="glyphicon glyphicon-search"></span> Search
+                </button >
+                <p></p>
+                <label>จากวันที่ : </label>
+                <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($fdate != '') ?$fdate: '' }}" class="form-control" />
+                <label>ถึงวันที่ : </label>
+                <input type="date" name="Todate" style="width: 180px;" value="{{ ($tdate != '') ?$tdate: '' }}" class="form-control" />
 
-              <div class="" id="todo-list">
-                <span class="todo-wrap">
-                  @if($Office != Null)
-                    <input type="checkbox" id="1" name="DataOffice" value="{{ $Office }}" checked="checked"/ >
-                  @else
-                    <input type="checkbox" id="1" name="DataOffice" value="Y"/ >
-                  @endif
-                  <label for="1" class="todo">
-                    <i class="fa fa-check"></i>
-                      แสดงข้อมูลบริษัท
-                  </label>
-                </span>
+                <div class="row">
+                  <div class="col-md-8"></div>
+                  <div class="col-md-4">
+                    <div class="row">
+                      <div class="col-md-6"></div>
+                      <div class="col-md-6">
+                        <div class="" id="todo-list">
+                          <div class="form-inline" align="left">
+                            <span class="todo-wrap">
+                              @if($Office != Null)
+                                <input type="checkbox" id="1" name="DataOffice" value="{{ $Office }}" checked="checked"/ >
+                              @else
+                                <input type="checkbox" id="1" name="DataOffice" value="Y"/ >
+                              @endif
+                              <label for="1" class="todo">
+                                <i class="fa fa-check"></i>
+                                แสดงข้อมูลบริษัท
+                              </label>
+                              <!-- <span class="delete-item" title="remove">
+                                <i class="fa fa-times-circle"></i>
+                              </span> -->
+                            </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </form>
+            </form>
           @endif
           <hr />
           @if($type == 7)
@@ -319,7 +352,7 @@
               </div>
             </div>
           @elseif($type == 8)
-            <div class="row">
+            <div class="row" align="left">
               <div class="col-md-4">
                 <div class="box box-widget widget-user">
                   <div class="widget-user-header bg-aqua-active">
@@ -450,7 +483,7 @@
                 </div>
               </div>
             </div>
-            <div class="row">
+            <div class="row" align="left">
               <div class="col-md-4">
                 <div class="box box-widget widget-user">
                   <div class="widget-user-header bg-aqua-active">
@@ -581,7 +614,7 @@
                 </div>
               </div>
             </div>
-            <div class="row">
+            <div class="row" align="left">
               <div class="col-md-6">
                 <div class="box box-widget widget-user">
                   <div class="widget-user-header bg-yellow-active">
@@ -669,6 +702,22 @@
         </div>
       </div>
 
-    </section>
+      <script type="text/javascript">
+        $(document).ready(function(){
+          $('#SendData').click(function() {
+              var Getflag = $('#1').val();
+              console.log(Getflag);
+
+            $.ajax({
+              methods:'POST',
+              url:"{{ route('Precipitate', 8) }}",
+              data:Getflag,
+              success:function(data){
+                 alert(data.success);
+              }
+            });
+          });
+        });
+      </script>
 
 @endsection

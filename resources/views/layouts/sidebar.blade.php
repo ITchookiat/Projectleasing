@@ -39,13 +39,13 @@
       @if(auth::user()->type == 1)
         <li class="treeview {{ (request()->is('maindata/view*')) ? 'active' : '' }}">
           <a href="#">
-            <i class="fa fa-dashboard"></i> <span> ข้อมูลหลัก</span>
+            <i class="fa fa-window-restore"></i> <span> ข้อมูลหลัก</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{ route('ViewMaindata') }}"><i class="fa fa-bookmark text-info"></i>  ข้อมูลผู้ใช้งานระบบ</a></li>
+            <li><a href="{{ route('ViewMaindata') }}"><i class="fa fa-id-badge text-red"></i>  ข้อมูลผู้ใช้งานระบบ</a></li>
           </ul>
         </li>
       @endif
@@ -60,7 +60,7 @@
         <ul class="treeview-menu">
           <li class="treeview {{ (request()->is('Analysis/Home/*')) ? 'active' : '' }} {{ (request()->is('Analysis/edit/*')) ? 'active' : '' }}">
               <a href="#">
-                <i class="fa fa-book text-primary"></i>สินเชื่อ
+                <i class="fa fa-folder-open text-red"></i>สินเชื่อ
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
@@ -68,12 +68,12 @@
               <ul class="treeview-menu">
                 @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 3 or auth::user()->type == 4)
                   @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->branch == 01 or auth::user()->branch == 03 or auth::user()->branch == 04 or auth::user()->branch == 05 or auth::user()->branch == 06 or auth::user()->branch == 07)
-                    <li><a href="{{ route('Analysis',1) }}"><i class="fa fa-tags"></i>สินเชื่อ</a></li>
-                    <li><a href="{{ route('Analysis',3) }}"><i class="fa fa-tags"></i>รายงาน สินเชื่อ</a></li>
+                    <li><a href="{{ route('Analysis',1) }}"><i class="fa fa-cube text-primary"></i>สินเชื่อ</a></li>
+                    <li><a href="{{ route('Analysis',3) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน สินเชื่อ</a></li>
                   @endif
                   @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 4 or auth::user()->branch == 10 or auth::user()->branch == 11)
-                    <li><a href="{{ route('Analysis',4) }}"><i class="fa fa-tags"></i>รถบ้าน</a></li>
-                    <li><a href="{{ route('Analysis',6) }}"><i class="fa fa-tags"></i>รายงาน รถบ้าน</a></li>
+                    <li><a href="{{ route('Analysis',4) }}"><i class="fa fa-cube text-primary"></i>รถบ้าน</a></li>
+                    <li><a href="{{ route('Analysis',6) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน รถบ้าน</a></li>
                   @endif
                 @endif
               </ul>
@@ -98,25 +98,25 @@
         @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 31)
           <ul class="treeview-menu">
             <li>
-                <a href="{{ route('Precipitate',3) }}"><i class="fa fa-book text-yellow"></i>ระบบแจ้งเตือนติดตาม</a>
+                <a href="{{ route('Precipitate',3) }}"><i class="fa fa-cube text-primary"></i>ระบบแจ้งเตือนติดตาม</a>
             </li>
             <li>
-                <a href="{{ route('Precipitate',1) }}"><i class="fa fa-book text-yellow"></i>ระบบปล่อยงานตาม</a>
+                <a href="{{ route('Precipitate',1) }}"><i class="fa fa-cube text-primary"></i>ระบบปล่อยงานตาม</a>
             </li>
             <li>
-                <a href="{{ route('Precipitate',4) }}"><i class="fa fa-book text-yellow"></i>ระบบปล่อยงานโนติส</a>
+                <a href="{{ route('Precipitate',4) }}"><i class="fa fa-cube text-primary"></i>ระบบปล่อยงานโนติส</a>
             </li>
             <li>
-                <a href="{{ route('Precipitate',5) }}"><i class="fa fa-book text-yellow"></i>ระบบสต็อกรถเร่งรัด</a>
+                <a href="{{ route('Precipitate',5) }}"><i class="fa fa-cube text-primary"></i>ระบบสต็อกรถเร่งรัด</a>
             </li>
             <li>
-                <!-- <a href="{{ route('Precipitate',2) }}"><i class="fa fa-book text-yellow"></i>รายงาน แยกตามทีม</a> -->
+                <!-- <a href="{{ route('Precipitate',2) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน แยกตามทีม</a> -->
             </li>
             <li>
-                <a href="{{ route('Precipitate',7) }}"><i class="fa fa-book text-yellow"></i>รายงาน งานประจำวัน</a>
+                <a href="{{ route('Precipitate',7) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน งานประจำวัน</a>
             </li>
             <li>
-                <!-- <a href="{{ route('Precipitate',8) }}"><i class="fa fa-book text-yellow"></i>รายงาน รับชำระค่าติดตาม</a> -->
+                <a href="{{ route('Precipitate',8) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน รับชำระค่าติดตาม</a>
             </li>
           </ul>
         @endif
@@ -132,10 +132,10 @@
           @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 21)
             <ul class="treeview-menu">
               <li>
-                  <a href="{{ route('legislation',1) }}"><i class="fa fa-book text-red"></i>รายชื่อส่งฟ้อง</a>
+                  <a href="{{ route('legislation',1) }}"><i class="fa fa-cube text-primary"></i>รายชื่อส่งฟ้อง</a>
               </li>
               <li>
-                  <a href="{{ route('legislation',2) }}"><i class="fa fa-book text-red"></i>งานฟ้อง</a>
+                  <a href="{{ route('legislation',2) }}"><i class="fa fa-cube text-primary"></i>งานฟ้อง</a>
               </li>
             </ul>
           @endif
