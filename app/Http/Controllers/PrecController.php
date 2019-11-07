@@ -203,9 +203,24 @@ class PrecController extends Controller
           $tdate = $date;
           if ($request->has('Fromdate')) {
             $fdate = $request->get('Fromdate');
+
+            $new = Carbon::parse($fdate)->addDays(-1);
+            $newfdate = \Carbon\Carbon::parse($new)->format('Y') ."-". \Carbon\Carbon::parse($new)->format('m')."-". \Carbon\Carbon::parse($new)->format('d');
           }
+          else {
+            $new = Carbon::parse($date)->addDays(-1);
+            $newfdate = \Carbon\Carbon::parse($new)->format('Y') ."-". \Carbon\Carbon::parse($new)->format('m')."-". \Carbon\Carbon::parse($new)->format('d');
+          }
+
           if ($request->has('Todate')) {
             $tdate = $request->get('Todate');
+
+            $new = Carbon::parse($tdate)->addDays(-1);
+            $newtdate = \Carbon\Carbon::parse($new)->format('Y') ."-". \Carbon\Carbon::parse($new)->format('m')."-". \Carbon\Carbon::parse($new)->format('d');
+          }
+          else {
+            $new = Carbon::parse($date)->addDays(-1);
+            $newtdate = \Carbon\Carbon::parse($new)->format('Y') ."-". \Carbon\Carbon::parse($new)->format('m')."-". \Carbon\Carbon::parse($new)->format('d');
           }
 
           $dataFollow = DB::connection('ibmi')
@@ -214,8 +229,8 @@ class PrecController extends Controller
                     ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
                     ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
                     ->where('SFHP.ARMAST.BILLCOLL','=',99)
-                    ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
-                      return $q->whereBetween('SFHP.ARPAY.DDATE',[$fdate,$tdate]);
+                    ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+                      return $q->whereBetween('SFHP.ARPAY.DDATE',[$newfdate,$newtdate]);
                     })
                     ->whereBetween('SFHP.ARMAST.HLDNO',[2.5,4.69])
                     ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
@@ -682,7 +697,7 @@ class PrecController extends Controller
         $pdf::WriteHTML($html,true,false,true,false,'');
         $pdf::Output('ReportPrecDue.pdf');
       }
-      elseif ($request->type == 8) {  //]รายงาน รัรับชำระค่าติดตาม
+      elseif ($request->type == 8) {  //รายงาน รับชำระค่าติดตาม
         $data = DB::connection('ibmi')
                   ->table('SFHP.ARMAST')
                   ->join('SFHP.HDPAYMENT','SFHP.ARMAST.CONTNO','=','SFHP.HDPAYMENT.CONTNO')
@@ -748,11 +763,18 @@ class PrecController extends Controller
         $newdate = date('Y-m-d');
         $fdate = $newdate;
         $tdate = $newdate;
+
         if ($request->has('Fromdate')) {
           $fdate = $request->get('Fromdate');
+
+          $new = Carbon::parse($fdate)->addDays(-1);
+          $newfdate = \Carbon\Carbon::parse($new)->format('Y') ."-". \Carbon\Carbon::parse($new)->format('m')."-". \Carbon\Carbon::parse($new)->format('d');
         }
         if ($request->has('Todate')) {
           $tdate = $request->get('Todate');
+
+          $new = Carbon::parse($tdate)->addDays(-1);
+          $newtdate = \Carbon\Carbon::parse($new)->format('Y') ."-". \Carbon\Carbon::parse($new)->format('m')."-". \Carbon\Carbon::parse($new)->format('d');
         }
 
         $dataFollow = DB::connection('ibmi')
@@ -761,8 +783,8 @@ class PrecController extends Controller
                   ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
                   ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
                   ->where('SFHP.ARMAST.BILLCOLL','=',99)
-                  ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
-                    return $q->whereBetween('SFHP.ARPAY.DDATE',[$fdate,$tdate]);
+                  ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+                    return $q->whereBetween('SFHP.ARPAY.DDATE',[$newfdate,$newtdate]);
                   })
                   ->whereBetween('SFHP.ARMAST.HLDNO',[2.5,4.69])
                   ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
@@ -784,13 +806,15 @@ class PrecController extends Controller
         $Datethai = Helper::formatDateThai($newdate);
         $FDatethai = Helper::formatDateThai($fdate);
         $TDatethai = Helper::formatDateThai($tdate);
+        $FnewDatethai = Helper::formatDateThai($newfdate);
+        $TnewDatethai = Helper::formatDateThai($newtdate);
          // dd($TDatethai);
 
          $type = $request->type;
 
-         Excel::create('ปล่อยงานประจำวัน', function ($excel) use($ConnData,$Datethai,$FDatethai,$TDatethai) {
-             $excel->sheet('ปล่อยงานตาม', function ($sheet) use($ConnData,$Datethai,$FDatethai,$TDatethai) {
-                 $sheet->prependRow(1, array("ดิวงานวันที่ ".$FDatethai." ถึงวันที่ ".$TDatethai." ปล่อยงานตาม ".$Datethai));
+         Excel::create('ปล่อยงานประจำวัน', function ($excel) use($ConnData,$Datethai,$FDatethai,$TDatethai,$FnewDatethai,$TnewDatethai) {
+             $excel->sheet('ปล่อยงานตาม', function ($sheet) use($ConnData,$Datethai,$FnewDatethai,$TnewDatethai) {
+                 $sheet->prependRow(1, array("ดิวงานวันที่ ".$FnewDatethai." ถึงวันที่ ".$TnewDatethai." ปล่อยงานตาม ".$Datethai));
                  $sheet->cells('A2:M2', function($cells) {
                    $cells->setBackground('#FFCC00');
                  });
@@ -815,7 +839,7 @@ class PrecController extends Controller
              });
 
              $excel->sheet('ปล่อยงานโนติส', function ($sheet) use($ConnData,$Datethai,$FDatethai,$TDatethai) {
-                 $sheet->prependRow(1, array("ดิวงานวันที่ ".$FDatethai." ถึงวันที่".$TDatethai." ปล่อยงานโนติส".$Datethai));
+                 $sheet->prependRow(1, array("ดิวงานวันที่ ".$FDatethai." ถึงวันที่  ".$TDatethai." ปล่อยงานโนติส ".$Datethai));
                  $sheet->cells('A2:M2', function($cells) {
                    $cells->setBackground('#FFCC00');
                  });
