@@ -205,7 +205,7 @@
               <div class="row">
                 <div class="col-md-5">
                   <div class="form-inline" align="right">
-                  <label>สถานะรถ : </label>
+                  <label><font color="red">สถานะรถ : </font></label>
                   <select name="Statuscar" class="form-control" style="width: 250px">
                     <option selected disabled value="">---เลือกสถานะ---</option>
                       <option value="1">ยึดจากลูกค้าครั้งแรก</otion>
@@ -350,14 +350,20 @@
                   <div class="col-md-5">
                     <div class="form-inline" align="right">
                     <label>รับ : </label>
-                    <input type="text" name="Accept" class="form-control" style="width: 250px;" placeholder="ป้อนข้อมูล">
+                    <!-- <input type="text" name="Accept" class="form-control" style="width: 250px;" placeholder="ป้อนข้อมูล"> -->
+                    <select name="Accept" class="form-control" style="width: 250px">
+                      <option selected disabled value="">---เลือก---</option>
+                        <option value="ได้รับ">ได้รับ</otion>
+                        <option value="รอส่ง">รอส่ง</otion>
+                        <option value="ส่งใหม่">ส่งใหม่</otion>
+                    </select>
                     </div>
                   </div>
 
                   <div class="col-md-6">
                     <div class="form-inline" align="right">
                     <label>ขายได้ : </label>
-                    <input type="text" name="Soldout" class="form-control" style="width: 250px;" placeholder="ป้อนข้อมูล">
+                    <input type="text" name="Soldout" class="form-control" style="width: 250px;" readonly>
                     </div>
                   </div>
 

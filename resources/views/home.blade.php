@@ -274,7 +274,7 @@
                     <div class="progress-bar" style="width: 100%"></div>
                   </div>
                   <span class="progress-description">
-                    จำนวนรถในระบบ {{ $datanotice }} คัน
+                    จำนวนรถในระบบ {{ $datastock }} คัน
                   </span>
                 </div>
               </div>

@@ -166,7 +166,7 @@ class PrecController extends Controller
           $type = $request->type;
           return view('precipitate.view', compact('data','fdate','tdate','type'));
         }
-        elseif ($request->type == 5) {
+        elseif ($request->type == 5) { //หน้า stock เร่งรัด
 
           $fdate = '';
           $tdate = '';
@@ -403,7 +403,13 @@ class PrecController extends Controller
             '114' => '114 - นายอานันท์ กาซอ',
           ];
 
-          return view('Precipitate.editstock', compact('data','type','id','Statuscar','Brandcarr','Teamhold'));
+          $Accept = [
+            'ได้รับ' => 'ได้รับ',
+            'รอส่ง' => 'รอส่ง',
+            'ส่งใหม่' => 'ส่งใหม่',
+          ];
+
+          return view('Precipitate.editstock', compact('data','type','id','Statuscar','Brandcarr','Teamhold','Accept'));
         }
     }
 
@@ -416,6 +422,9 @@ class PrecController extends Controller
      */
     public function update(Request $request, $id, $type)
     {
+        date_default_timezone_set('Asia/Bangkok');
+        $date = date('Y-m-d', strtotime('+45 days'));
+
         if($type == 5) {
           $SetPricehold = str_replace (",","",$request->get('Pricehold'));
           $SetAmounthold = str_replace (",","",$request->get('Amounthold'));
@@ -449,6 +458,11 @@ class PrecController extends Controller
             $hold->Date_send = $request->get('Datesend');
             $hold->Barcode2 = $request->get('Barcode2');
             $hold->Accept_hold = $request->get('Accept');
+            if($request->get('Accept') == 'ได้รับ'){
+            $hold->Date_accept_hold = $date;
+            }else{
+            $hold->Date_accept_hold = NULL;
+            }
             $hold->Soldout_hold = $request->get('Soldout');
           $hold->update();
           return redirect()->Route('Precipitate', $type)->with('success','อัพเดทข้อมูลเรียบร้อย');
