@@ -166,7 +166,7 @@ class PrecController extends Controller
           $type = $request->type;
           return view('precipitate.view', compact('data','fdate','tdate','type'));
         }
-        elseif ($request->type == 5) { //หน้า stock เร่งรัด
+        elseif ($request->type == 5) {  //หน้า stock เร่งรัด
 
           $fdate = '';
           $tdate = '';
@@ -198,7 +198,7 @@ class PrecController extends Controller
           $type = $request->type;
           return view('precipitate.createstock', compact('type'));
         }
-        elseif ($request->type == 7) { //รายงาน งานประจำวัน
+        elseif ($request->type == 7) {  //รายงาน งานประจำวัน
           $fdate = $date;
           $tdate = $date;
           if ($request->has('Fromdate')) {
@@ -251,7 +251,7 @@ class PrecController extends Controller
             $type = $request->type;
             return view('precipitate.viewReport', compact('dataFollow','dataNotice','fdate','tdate','type'));
         }
-        elseif ($request->type == 8) {
+        elseif ($request->type == 8) {  //รายงาน รับชำระค่าติดตาม
           $fdate = $date;
           $tdate = $date;
           if ($request->has('Fromdate')) {
@@ -275,6 +275,43 @@ class PrecController extends Controller
             $type = $request->type;
             $Office = $request->DataOffice;
             return view('precipitate.viewReport', compact('data','fdate','tdate','type','Office'));
+        }
+        elseif ($request->type == 9) {
+          $newdate = $date;
+
+          if ($request->has('SelectDate')) {
+            $newdate = $request->get('SelectDate');
+            // $new = Carbon::parse($date)->addDays(-1);
+            // $newdate = \Carbon\Carbon::parse($new)->format('Y') ."-". \Carbon\Carbon::parse($new)->format('m')."-". \Carbon\Carbon::parse($new)->format('d');
+          }
+
+          $dataSup = DB::connection('ibmi')
+                    ->table('SFHP.ARMAST')
+                    ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
+                    ->join('SFHP.VIEW_ARMGAR','SFHP.ARMAST.CONTNO','=','SFHP.VIEW_ARMGAR.CONTNO')
+                    ->when(!empty($newdate), function($q) use ($newdate) {
+                      return $q->where('SFHP.ARPAY.DDATE',$newdate);
+                    })
+                    ->whereBetween('SFHP.ARMAST.HLDNO',[2,2.99])
+                    ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                    ->get();
+
+          $dataUseSup = DB::connection('ibmi')
+                    ->table('SFHP.ARMAST')
+                    ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
+                    ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                    ->join('SFHP.VIEW_ARMGAR','SFHP.ARMAST.CONTNO','=','SFHP.VIEW_ARMGAR.CONTNO')
+                    ->when(!empty($newdate), function($q) use ($newdate) {
+                      return $q->where('SFHP.ARPAY.DDATE',$newdate);
+                    })
+                    ->whereBetween('SFHP.ARMAST.HLDNO',[3,4.69])
+                    ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                    ->get();
+
+          // dd($data1);
+
+            $type = $request->type;
+            return view('precipitate.viewReport', compact('dataSup','dataUseSup','newdate','type'));
         }
     }
 
@@ -1088,6 +1125,102 @@ class PrecController extends Controller
 
                       return $excel->stream('StockHoldcar.xlsx');
 
+      }
+      elseif($request->type == 9) {
+        $date = date('Y-m-d');
+        $newdate = $date;
+
+        if ($request->has('Fromdate')) {
+          $newdate = $request->get('Fromdate');
+        }
+
+        $dataSup = DB::connection('ibmi')
+                  ->table('SFHP.ARMAST')
+                  ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
+                  ->join('SFHP.VIEW_ARMGAR','SFHP.ARMAST.CONTNO','=','SFHP.VIEW_ARMGAR.CONTNO')
+                  ->when(!empty($newdate), function($q) use ($newdate) {
+                    return $q->where('SFHP.ARPAY.DDATE',$newdate);
+                  })
+                  ->whereBetween('SFHP.ARMAST.HLDNO',[2,2.99])
+                  ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                  ->get();
+
+        $dataUseSup = DB::connection('ibmi')
+                  ->table('SFHP.ARMAST')
+                  ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
+                  ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                  ->join('SFHP.VIEW_ARMGAR','SFHP.ARMAST.CONTNO','=','SFHP.VIEW_ARMGAR.CONTNO')
+                  ->when(!empty($newdate), function($q) use ($newdate) {
+                    return $q->where('SFHP.ARPAY.DDATE',$newdate);
+                  })
+                  ->whereBetween('SFHP.ARMAST.HLDNO',[3,4.69])
+                  ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                  ->get();
+// dd($dataUseSup);
+
+        $ConnData = $dataSup->concat($dataUseSup);
+        $Datethai = Helper::formatDateThai($date);
+        $NewDatethai = Helper::formatDateThai($newdate);
+
+         $type = $request->type;
+         // dd($ConnData);
+
+         Excel::create('.ใบรับฝากรวม', function ($excel) use($dataSup,$dataUseSup,$ConnData,$Datethai,$NewDatethai) {
+             $excel->sheet('ใบรับฝากผู้ค้ำ 2-2.99', function ($sheet) use($dataSup,$ConnData,$Datethai,$NewDatethai) {
+                 $sheet->prependRow(1, array("บริษัท ชูเกียรติลิสซิ่ง จำกัด"));
+                 $sheet->cells('A3:H3', function($cells) {
+                   $cells->setBackground('#FFCC00');
+                 });
+                 $row = 3;
+                 $sheet->row($row, array('ชื่อ-นามสกุล','รหัส ปณ.','','','ลงท้าย','เลขที่สัญญา',''));
+                 $no = 1;
+                 foreach ($dataSup as $value) {
+                   if ($value->HLDNO >= 2.00 && $value->HLDNO <= 2.99) {
+                     $sheet->row(++$row, array(
+                     iconv('Tis-620','utf-8',str_replace(" ","",$value->NAME)),
+                     $value->ZIP,
+                     " ",
+                     " ",
+                     "TH",
+                     $value->CONTNO,
+                     " "));
+                   }
+                 }
+             });
+
+             $excel->sheet('ใบรับฝากผู้ซื้อและผู้ค้ำ 3-4.69', function ($sheet) use($dataUseSup,$ConnData,$Datethai,$NewDatethai) {
+                 $sheet->prependRow(1, array("บริษัท ชูเกียรติลิสซิ่ง จำกัด"));
+                 $sheet->cells('A3:H3', function($cells) {
+                   $cells->setBackground('#FFCC00');
+                 });
+                 $row = 3;
+                 $sheet->row($row, array('ชื่อ-นามสกุล','รหัส ปณ.','','','ลงท้าย','เลขที่สัญญา',''));
+                 $no = 1;
+                 foreach ($dataUseSup as $value) {
+                   if ($value->HLDNO >= 3.00 && $value->HLDNO <= 4.69) {
+                     $sheet->row(++$row, array(
+                     iconv('Tis-620','utf-8',str_replace(" ","",$value->SNAM.$value->NAME1)."   ".str_replace(" ","",$value->NAME2)),
+                     $value->ZIP,
+                     " ",
+                     " ",
+                     "TH",
+                     $value->CONTNO,
+                     " "));
+                     // if ($value->NAME != "") {
+                     //   $sheet->row(++$row, array(
+                     //   iconv('Tis-620','utf-8',str_replace(" ","",$value->NAME)),
+                     //   $value->ZIP,
+                     //   " ",
+                     //   " ",
+                     //   "TH",
+                     //   $value->CONTNO,
+                     //   " "));
+                     // }
+                   }
+                 }
+             });
+
+         })->export('xlsx');
       }
     }
 

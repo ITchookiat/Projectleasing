@@ -208,8 +208,8 @@
           @elseif($type == 8)
             <form method="get" action="{{ route('Precipitate', 8) }}">
               <div align="right" class="form-inline">
-                <a target="_blank" id="SendData" href="{{ action('PrecController@ReportPrecDue',[00,00]) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{8}}&DataOffice={{$Office}}" class="btn btn-success btn-app">
-                  <span class="fa fa-file-pdf-o"></span> Excel
+                <a target="_blank" id="SendData" href="{{ action('PrecController@ReportPrecDue',[00,00]) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{8}}&DataOffice={{$Office}}" class="btn btn-danger btn-app">
+                  <span class="fa fa-file-pdf-o"></span> PDF
                 </a>
                 <button type="submit" class="btn btn-warning btn-app">
                   <span class="glyphicon glyphicon-search"></span> Search
@@ -247,6 +247,21 @@
                     </div>
                   </div>
                 </div>
+                </div>
+              </div>
+            </form>
+          @elseif($type == 9)
+            <form method="get" action="{{ route('Precipitate', 9) }}">
+              <div align="right" class="form-inline">
+                <a href="{{ action('PrecController@excel') }}?SelectDate={{$newdate}}&type={{9}}" class="btn btn-success btn-app">
+                  <span class="fa fa-file-excel-o"></span> Excel
+                </a>
+                <button type="submit" class="btn btn-warning btn-app">
+                  <span class="glyphicon glyphicon-search"></span> Search
+                </button >
+                <p></p>
+                <label>ดิววันที่ : </label>
+                <input type="date" name="SelectDate" style="width: 180px;" value="{{ ($newdate != '') ?$newdate: '' }}" class="form-control" />
               </div>
             </form>
           @endif
@@ -698,6 +713,98 @@
                 </div>
               </div>
             </div>
+          @elseif($type == 9)
+            <div class="row">
+              <div class="col-md-6">
+                <div class="box box-widget widget-user">
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                      <i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                      <i class="fa fa-times"></i></button>
+                  </div>
+
+                  <div class="widget-user-header bg-yellow">
+                    <div class="widget-user-image">
+                      <p><i class="fa fa-user-circle-o fa-5x"></i></p>
+                    </div>
+                    <h3 class="widget-user-username">รายชื่อผู้ค้ำ</h3>
+                    <h5 class="widget-user-desc">2 - 2.99</h5>
+                  </div>
+                  <div class="box-footer">
+                    <div class="row">
+                      <div class="col-sm-12 border-center">
+                        <div class="table-responsive">
+                         <table class="table table-bordered" id="table">
+                            <thead class="thead-dark bg-gray-light" >
+                              <tr>
+                                <th class="text-center">ลำดับ</th>
+                                <th class="text-center">ชื่อ-สกุล</th>
+                                <th class="text-center">เลขที่สัญญา</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              @foreach($dataSup as $key => $row)
+                                <tr>
+                                  <td class="text-center"> {{$key+1}} </td>
+                                  <td class="text-left"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->NAME))}} </td>
+                                  <td class="text-center"> {{$row->CONTNO}}</td>
+                                </tr>
+                              @endforeach
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="box box-widget widget-user">
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                      <i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                      <i class="fa fa-times"></i></button>
+                  </div>
+
+                  <div class="widget-user-header bg-red">
+                    <div class="widget-user-image">
+                      <p class=""><i class="fa fa-user-times fa-5x"></i></p>
+                    </div>
+                    <h3 class="widget-user-username">รายชื่อผู้ซื้อและผู้ค้ำ</h3>
+                    <h5 class="widget-user-desc">3 - 4.69</h5>
+                  </div>
+
+                  <div class="box-footer">
+                    <div class="row">
+                      <div class="col-sm-12 border-center">
+                        <div class="table-responsive">
+                         <table class="table table-bordered" id="table">
+                            <thead class="thead-dark bg-gray-light" >
+                              <tr>
+                                <th class="text-center">ลำดับ</th>
+                                <th class="text-center">ชื่อ-สกุล</th>
+                                <th class="text-center">เลขที่สัญญา</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              @foreach($dataUseSup as $key => $row)
+                                <tr>
+                                  <td class="text-center"> {{$key+1}} </td>
+                                  <td class="text-left"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->SNAM.$row->NAME1)."   ".str_replace(" ","",$row->NAME2))}} </td>
+                                  <td class="text-center"> {{$row->CONTNO}}</td>
+                                </tr>
+                              @endforeach
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           @endif
         </div>
       </div>
@@ -706,14 +813,14 @@
         $(document).ready(function(){
           $('#SendData').click(function() {
               var Getflag = $('#1').val();
-              console.log(Getflag);
+              // console.log(Getflag);
 
             $.ajax({
               methods:'POST',
               url:"{{ route('Precipitate', 8) }}",
               data:Getflag,
               success:function(data){
-                 alert(data.success);
+                 // alert(data.success);
               }
             });
           });

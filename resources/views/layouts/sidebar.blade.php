@@ -118,6 +118,9 @@
             <li>
                 <a href="{{ route('Precipitate',8) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน รับชำระค่าติดตาม</a>
             </li>
+            <li>
+                <!-- <a href="{{ route('Precipitate',9) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน ใบรับฝาก</a> -->
+            </li>
           </ul>
         @endif
       </li>

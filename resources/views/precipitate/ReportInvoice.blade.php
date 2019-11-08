@@ -226,11 +226,11 @@
                               @endif
                               {{number_format($Count, 2)}}
                             @elseif($type == 4)
-                              @if($value->HLDNO < 4.99)
+                              @if($value->HLDNO <= 4.99)
                                 @php
                                   $Count = 8800 + 850;
                                 @endphp
-                              @elseif($value->HLDNO < 5.69)
+                              @elseif($value->HLDNO >= 5.00)
                                 @php
                                   $Count = 11000 + 850;
                                 @endphp
