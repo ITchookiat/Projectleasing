@@ -27,13 +27,21 @@ $date = date('Y-m-d', strtotime('-1 days'));
         สินเชื่อ
         <small>it all starts here</small>
         @if(auth::user()->type == 1 or auth::user()->type == 2)
-        <p class="pull-right" style="padding:5px; background-color:#FFFE00;border:2px;border-style: solid;border-color: #F6A207;">
-          <font size="+1">ค่าคอมวันนี้ :</font> <font color="red" size="+1">{{ number_format($SumCommitprice) }}</font> <font size="+1">บาท</font>
+        <!-- <p class="pull-right" style="padding:5px; background-color:#FFFE00;border:2px;border-style: solid;border-color: #F6A207;">
+          <font>ค่าคอมวันนี้ :</font> <font color="red">{{ number_format($SumCommitprice) }}</font> <font>บาท</font>
         </p>
         <p class="pull-right" style="padding:5px; background-color:#FFFE00;border:2px;border-style: solid;border-color: #F6A207;">
-          <font size="+1">ยอดจัดวันนี้ :</font> <font color="red" size="+1">{{ number_format($SumTopcar) }}</font> <font size="+1">บาท</font>
-        </p>
+          <font>ยอดจัดวันนี้ :</font> <font color="red">{{ number_format($SumTopcar) }}</font> <font>บาท</font>
+        </p> -->
+        <button class="btn btn-gray pull-right">
+          ค่าคอมวันนี้ : <font color="red">{{ number_format($SumCommitprice) }}</font> บาท
+        </button>
+        <button class="btn btn-danger btn-xs pull-right"></button>
+        <button class="btn btn-gray pull-right">
+          ยอดจัดวันนี้ : <font color="red">{{ number_format($SumTopcar) }}</font> บาท
+        </button>
         @endif
+
 
       </h1>
     </section>

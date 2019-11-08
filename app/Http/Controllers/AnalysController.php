@@ -125,11 +125,13 @@ class AnalysController extends Controller
         $newfdate = \Carbon\Carbon::parse($newfdate)->format('Y') ."-". \Carbon\Carbon::parse($newfdate)->format('m')."-". \Carbon\Carbon::parse($newfdate)->format('d');
         $newtdate = \Carbon\Carbon::parse($newtdate)->format('Y') ."-". \Carbon\Carbon::parse($newtdate)->format('m')."-". \Carbon\Carbon::parse($newtdate)->format('d');
 
+        $datesum = date('Y-m-d');
+
         $topcar = DB::table('buyers')
         ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
         ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
         ->join('expenses','buyers.id','=','expenses.Buyerexpenses_id')
-        ->where('buyers.Date_Due', '=', $newfdate)
+        ->where('buyers.Date_Due', '=', $datesum)
         ->get();
         $count = count($topcar);
 
