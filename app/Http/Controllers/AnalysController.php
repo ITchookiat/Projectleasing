@@ -124,7 +124,7 @@ class AnalysController extends Controller
         $type = $request->type;
         $newfdate = \Carbon\Carbon::parse($newfdate)->format('Y') ."-". \Carbon\Carbon::parse($newfdate)->format('m')."-". \Carbon\Carbon::parse($newfdate)->format('d');
         $newtdate = \Carbon\Carbon::parse($newtdate)->format('Y') ."-". \Carbon\Carbon::parse($newtdate)->format('m')."-". \Carbon\Carbon::parse($newtdate)->format('d');
-        
+
         $topcar = DB::table('buyers')
         ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
         ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
@@ -136,7 +136,7 @@ class AnalysController extends Controller
         for ($i=0; $i < $count; $i++) {
           @$SumTopcar += $topcar[$i]->Top_car; //รวมยอดจัดวันปัจจุบัน
           @$SumCommissioncar += $topcar[$i]->Commission_car; //รวมค่าคอมก่อนหักวันปัจจุบัน
-          @$SumCommitprice += $topcar[$i]->Commission_car; //รวมค่าคอมหลังหักวันปัจจุบัน
+          @$SumCommitprice += $topcar[$i]->commit_Price; //รวมค่าคอมหลังหักวันปัจจุบัน
         }
         // dd($SumTopcar);
         return view('analysis.view', compact('type', 'data','branch','newfdate','newtdate','status','Setdate','SumTopcar','SumCommissioncar','SumCommitprice'));
