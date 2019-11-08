@@ -26,6 +26,15 @@ $date = date('Y-m-d', strtotime('-1 days'));
       <h1>
         สินเชื่อ
         <small>it all starts here</small>
+        @if(auth::user()->type == 1 or auth::user()->type == 2)
+        <p class="pull-right" style="padding:5px; background-color:#FFFE00;border:2px;border-style: solid;border-color: #F6A207;">
+          <font size="+1">ค่าคอมวันนี้ :</font> <font color="red" size="+1">{{ number_format($SumCommissioncar) }}</font> <font size="+1">บาท</font>
+        </p>
+        <p class="pull-right" style="padding:5px; background-color:#FFFE00;border:2px;border-style: solid;border-color: #F6A207;">
+          <font size="+1">ยอดจัดวันนี้ :</font> <font color="red" size="+1">{{ number_format($SumTopcar) }}</font> <font size="+1">บาท</font>
+        </p>
+        @endif
+
       </h1>
     </section>
 
