@@ -401,6 +401,11 @@
                               @php
                                 $summary102 += $value->TOTAMT;
                               @endphp
+                              @if($value->CANDATE != "")
+                                @php
+                                  $summary102 -= $value->TOTAMT;
+                                @endphp
+                              @endif
                             @endif
                           @endforeach
                           <h5 class="description-header">{{number_format($summary102, 2)}}</h5>
@@ -444,6 +449,11 @@
                               @php
                                 $summary104 += $value->TOTAMT;
                               @endphp
+                              @if($value->CANDATE != "")
+                                @php
+                                  $summary104 -= $value->TOTAMT;
+                                @endphp
+                              @endif
                             @endif
                           @endforeach
                           <h5 class="description-header">{{number_format($summary104, 2)}}</h5>
@@ -487,6 +497,11 @@
                               @php
                                 $summary105 += $value->TOTAMT;
                               @endphp
+                              @if($value->CANDATE != "")
+                                @php
+                                  $summary105 -= $value->TOTAMT;
+                                @endphp
+                              @endif
                             @endif
                           @endforeach
                           <h5 class="description-header">{{number_format($summary105, 2)}}</h5>
@@ -532,6 +547,11 @@
                               @php
                                 $summary113 += $value->TOTAMT;
                               @endphp
+                              @if($value->CANDATE != "")
+                                @php
+                                  $summary113 -= $value->TOTAMT;
+                                @endphp
+                              @endif
                             @endif
                           @endforeach
                           <h5 class="description-header">{{number_format($summary113, 2)}}</h5>
@@ -575,6 +595,11 @@
                               @php
                                 $summary112 += $value->TOTAMT;
                               @endphp
+                              @if($value->CANDATE != "")
+                                @php
+                                  $summary112 -= $value->TOTAMT;
+                                @endphp
+                              @endif
                             @endif
                           @endforeach
                           <h5 class="description-header">{{number_format($summary112, 2)}}</h5>
@@ -618,6 +643,11 @@
                               @php
                                 $summary114 += $value->TOTAMT;
                               @endphp
+                              @if($value->CANDATE != "")
+                                @php
+                                  $summary114 -= $value->TOTAMT;
+                                @endphp
+                              @endif
                             @endif
                           @endforeach
                           <h5 class="description-header">{{number_format($summary114, 2)}}</h5>
@@ -663,8 +693,14 @@
                               @php
                                 $summaryCKL += $value->TOTAMT;
                               @endphp
+                              @if($value->CANDATE != "")
+                                @php
+                                  $summaryCKL -= $value->TOTAMT;
+                                @endphp
+                              @endif
                             @endif
                           @endforeach
+
                           <h5 class="description-header">{{number_format($summaryCKL, 2)}}</h5>
                           <span class="description-text">รวม</span>
                         </div>
@@ -716,7 +752,7 @@
           @elseif($type == 9)
             <div class="row">
               <div class="col-md-6">
-                <div class="box box-widget widget-user">
+                <div class="box box-widget widget-user-2">
                   <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                       <i class="fa fa-minus"></i></button>
@@ -726,7 +762,7 @@
 
                   <div class="widget-user-header bg-yellow">
                     <div class="widget-user-image">
-                      <p><i class="fa fa-user-circle-o fa-5x"></i></p>
+                      <img class="img-circle" src="{{ asset('/dist/img/listbook.png') }}" alt="User Avatar">
                     </div>
                     <h3 class="widget-user-username">รายชื่อผู้ค้ำ</h3>
                     <h5 class="widget-user-desc">2 - 2.99</h5>
@@ -760,7 +796,7 @@
                 </div>
               </div>
               <div class="col-md-6">
-                <div class="box box-widget widget-user">
+                <div class="box box-widget widget-user-2">
                   <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                       <i class="fa fa-minus"></i></button>
@@ -770,7 +806,7 @@
 
                   <div class="widget-user-header bg-red">
                     <div class="widget-user-image">
-                      <p class=""><i class="fa fa-user-times fa-5x"></i></p>
+                      <img class="img-circle" src="{{ asset('/dist/img/analy.png') }}" alt="User Avatar">
                     </div>
                     <h3 class="widget-user-username">รายชื่อผู้ซื้อและผู้ค้ำ</h3>
                     <h5 class="widget-user-desc">3 - 4.69</h5>
@@ -804,6 +840,7 @@
                   </div>
                 </div>
               </div>
+
             </div>
           @endif
         </div>
