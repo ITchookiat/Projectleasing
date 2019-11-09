@@ -27,12 +27,14 @@ $date = date('Y-m-d', strtotime('-1 days'));
         สินเชื่อ
         <small>it all starts here</small>
         @if(auth::user()->type == 1 or auth::user()->type == 2)
+        {{--
         <!-- <p class="pull-right" style="padding:5px; background-color:#FFFE00;border:2px;border-style: solid;border-color: #F6A207;">
           <font>ค่าคอมวันนี้ :</font> <font color="red">{{ number_format($SumCommitprice) }}</font> <font>บาท</font>
         </p>
         <p class="pull-right" style="padding:5px; background-color:#FFFE00;border:2px;border-style: solid;border-color: #F6A207;">
           <font>ยอดจัดวันนี้ :</font> <font color="red">{{ number_format($SumTopcar) }}</font> <font>บาท</font>
         </p> -->
+        --}}
         <button class="btn btn-gray pull-right">
           ค่าคอมวันนี้ : <font color="red">0</font> บาท
         </button>
