@@ -135,12 +135,18 @@ class AnalysController extends Controller
         ->get();
         $count = count($topcar);
 
-        for ($i=0; $i < $count; $i++) {
-          @$SumTopcar += $topcar[$i]->Top_car; //รวมยอดจัดวันปัจจุบัน
-          @$SumCommissioncar += $topcar[$i]->Commission_car; //รวมค่าคอมก่อนหักวันปัจจุบัน
-          @$SumCommitprice += $topcar[$i]->commit_Price; //รวมค่าคอมหลังหักวันปัจจุบัน
+        if($count != 0){
+            for ($i=0; $i < $count; $i++) {
+            @$SumTopcar += $topcar[$i]->Top_car; //รวมยอดจัดวันปัจจุบัน
+            @$SumCommissioncar += $topcar[$i]->Commission_car; //รวมค่าคอมก่อนหักวันปัจจุบัน
+            @$SumCommitprice += $topcar[$i]->commit_Price; //รวมค่าคอมหลังหักวันปัจจุบัน
+            }
+        }else{
+            $SumTopcar = 0;
+            $SumCommissioncar = 0;
+            $SumCommitprice = 0;
         }
-        // dd($SumTopcar);
+
         return view('analysis.view', compact('type', 'data','branch','newfdate','newtdate','status','Setdate','SumTopcar','SumCommissioncar','SumCommitprice'));
       }
       elseif ($request->type == 2){
