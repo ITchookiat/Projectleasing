@@ -270,7 +270,7 @@ class PrecController extends Controller
                     ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
                     ->get();
 
-            // dd($request->DataOffice);
+            // dd($data[8]->CANDATE);
 
             $type = $request->type;
             $Office = $request->DataOffice;
@@ -845,7 +845,8 @@ class PrecController extends Controller
         $TDatethai = Helper::formatDateThai($tdate);
         $FnewDatethai = Helper::formatDateThai($newfdate);
         $TnewDatethai = Helper::formatDateThai($newtdate);
-         // dd($TDatethai);
+
+         // dd(iconv('Tis-620','utf-8',str_replace(" ","",$ConnData[1]->BAAB)));
 
          $type = $request->type;
 
@@ -860,6 +861,35 @@ class PrecController extends Controller
                  $no = 1;
                  foreach ($ConnData as $value) {
                    if ($value->HLDNO < 4.69) {
+                     $NewBaab = iconv('Tis-620','utf-8',str_replace(" ","",$value->BAAB));
+                     if ($NewBaab != "") {
+                       if ($NewBaab == "กสค้ำมีหลักทรัพย์") {
+                          $NewBaab = "กส.ค้ำมีหลักทรัพย์";
+                       }elseif ($NewBaab == "กสค้ำไม่มีหลักทรัพย") {
+                          $NewBaab = "กส.ค้ำไม่มีหลักทรัพย";
+                       }elseif ($NewBaab == "กสไม่ค้ำประกัน") {
+                          $NewBaab = "กส.ไม่ค้ำประกัน";
+                       }elseif ($NewBaab == "ซขค้ำมีหลักทรัพย์") {
+                          $NewBaab = "ซข.ค้ำมีหลักทรัพย์";
+                       }elseif ($NewBaab == "ซขค้ำไม่มีหลักทรัพย") {
+                          $NewBaab = "ซข.ค้ำไม่มีหลักทรัพย";
+                       }elseif ($NewBaab == "ซขไม่ค้ำประกัน") {
+                          $NewBaab = "ซข.ไม่ค้ำประกัน";
+                       }elseif ($NewBaab == "ลูกค้าVIP1") {
+                          $NewBaab = "ลูกค้า VIP1";
+                       }else {
+                         if ($value->CLOSAR != "") {
+                           if ($value->CLOSAR == 1) {
+                             $NewBaab = "ซื้อขาย";
+                           }elseif ($value->CLOSAR == 2) {
+                             $NewBaab = "กรรมสิทธิ์";
+                           }elseif ($value->CLOSAR == 3) {
+                             $NewBaab = "รถบริษัท";
+                           }
+                         }
+                       }
+                     }
+
                      $sheet->row(++$row, array($no++, $value->CONTNO,
                      iconv('Tis-620','utf-8',str_replace(" ","",$value->SNAM.$value->NAME1)."   ".str_replace(" ","",$value->NAME2)),
                      Helper::formatDateThai($value->LPAYD),
@@ -870,7 +900,8 @@ class PrecController extends Controller
                      iconv('Tis-620','utf-8',str_replace(" ","",$value->REGNO)),
                      iconv('Tis-620','utf-8',str_replace(" ","",$value->TYPE)),
                      $value->MANUYR,
-                     iconv('Tis-620','utf-8',str_replace(" ","",$value->BAAB))));
+                     $NewBaab,
+                     " "));
                    }
                  }
              });
@@ -885,6 +916,35 @@ class PrecController extends Controller
                  $no = 1;
                  foreach ($ConnData as $value) {
                    if ($value->HLDNO > 4.7) {
+                     $NewBaab = iconv('Tis-620','utf-8',str_replace(" ","",$value->BAAB));
+                     if ($NewBaab != "") {
+                       if ($NewBaab == "กสค้ำมีหลักทรัพย์") {
+                          $NewBaab = "กส.ค้ำมีหลักทรัพย์";
+                       }elseif ($NewBaab == "กสค้ำไม่มีหลักทรัพย") {
+                          $NewBaab = "กส.ค้ำไม่มีหลักทรัพย";
+                       }elseif ($NewBaab == "กสไม่ค้ำประกัน") {
+                          $NewBaab = "กส.ไม่ค้ำประกัน";
+                       }elseif ($NewBaab == "ซขค้ำมีหลักทรัพย์") {
+                          $NewBaab = "ซข.ค้ำมีหลักทรัพย์";
+                       }elseif ($NewBaab == "ซขค้ำไม่มีหลักทรัพย") {
+                          $NewBaab = "ซข.ค้ำไม่มีหลักทรัพย";
+                       }elseif ($NewBaab == "ซขไม่ค้ำประกัน") {
+                          $NewBaab = "ซข.ไม่ค้ำประกัน";
+                       }elseif ($NewBaab == "ลูกค้าVIP1") {
+                          $NewBaab = "ลูกค้า VIP1";
+                       }else {
+                         if ($value->CLOSAR != "") {
+                           if ($value->CLOSAR == 1) {
+                             $NewBaab = "ซื้อขาย";
+                           }elseif ($value->CLOSAR == 2) {
+                             $NewBaab = "กรรมสิทธิ์";
+                           }elseif ($value->CLOSAR == 3) {
+                             $NewBaab = "รถบริษัท";
+                           }
+                         }
+                       }
+                     }
+
                      $sheet->row(++$row, array($no++, $value->CONTNO,
                      iconv('Tis-620','utf-8',str_replace(" ","",$value->SNAM.$value->NAME1)."   ".str_replace(" ","",$value->NAME2)),
                      Helper::formatDateThai($value->LPAYD),
@@ -895,7 +955,8 @@ class PrecController extends Controller
                      iconv('Tis-620','utf-8',str_replace(" ","",$value->REGNO)),
                      iconv('Tis-620','utf-8',str_replace(" ","",$value->TYPE)),
                      $value->MANUYR,
-                     iconv('Tis-620','utf-8',str_replace(" ","",$value->BAAB))));
+                     $NewBaab,
+                     " "));
                    }
                  }
              });
@@ -1130,8 +1191,8 @@ class PrecController extends Controller
         $date = date('Y-m-d');
         $newdate = $date;
 
-        if ($request->has('Fromdate')) {
-          $newdate = $request->get('Fromdate');
+        if ($request->has('SelectDate')) {
+          $newdate = $request->get('SelectDate');
         }
 
         $dataSup = DB::connection('ibmi')
@@ -1156,17 +1217,14 @@ class PrecController extends Controller
                   ->whereBetween('SFHP.ARMAST.HLDNO',[3,4.69])
                   ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
                   ->get();
-// dd($dataUseSup);
 
-        $ConnData = $dataSup->concat($dataUseSup);
         $Datethai = Helper::formatDateThai($date);
         $NewDatethai = Helper::formatDateThai($newdate);
 
          $type = $request->type;
-         // dd($ConnData);
 
-         Excel::create('.ใบรับฝากรวม', function ($excel) use($dataSup,$dataUseSup,$ConnData,$Datethai,$NewDatethai) {
-             $excel->sheet('ใบรับฝากผู้ค้ำ 2-2.99', function ($sheet) use($dataSup,$ConnData,$Datethai,$NewDatethai) {
+         Excel::create('.ใบรับฝากรวม', function ($excel) use($dataSup,$dataUseSup,$Datethai,$NewDatethai) {
+             $excel->sheet('ใบรับฝากผู้ค้ำ 2-2.99', function ($sheet) use($dataSup,$Datethai,$NewDatethai) {
                  $sheet->prependRow(1, array("บริษัท ชูเกียรติลิสซิ่ง จำกัด"));
                  $sheet->cells('A3:H3', function($cells) {
                    $cells->setBackground('#FFCC00');
@@ -1188,7 +1246,7 @@ class PrecController extends Controller
                  }
              });
 
-             $excel->sheet('ใบรับฝากผู้ซื้อและผู้ค้ำ 3-4.69', function ($sheet) use($dataUseSup,$ConnData,$Datethai,$NewDatethai) {
+             $excel->sheet('ใบรับฝากผู้ซื้อและผู้ค้ำ 3-4.69', function ($sheet) use($dataUseSup,$Datethai,$NewDatethai) {
                  $sheet->prependRow(1, array("บริษัท ชูเกียรติลิสซิ่ง จำกัด"));
                  $sheet->cells('A3:H3', function($cells) {
                    $cells->setBackground('#FFCC00');
@@ -1206,16 +1264,16 @@ class PrecController extends Controller
                      "TH",
                      $value->CONTNO,
                      " "));
-                     // if ($value->NAME != "") {
-                     //   $sheet->row(++$row, array(
-                     //   iconv('Tis-620','utf-8',str_replace(" ","",$value->NAME)),
-                     //   $value->ZIP,
-                     //   " ",
-                     //   " ",
-                     //   "TH",
-                     //   $value->CONTNO,
-                     //   " "));
-                     // }
+                     if ($value->NAME != "") {
+                       $sheet->row(++$row, array(
+                       iconv('Tis-620','utf-8',str_replace(" ","",$value->NAME)),
+                       $value->ZIP,
+                       " ",
+                       " ",
+                       "TH",
+                       $value->CONTNO,
+                       " "));
+                     }
                    }
                  }
              });
