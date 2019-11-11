@@ -324,10 +324,14 @@ class AnalysController extends Controller
         }
 
         $type = $request->type;
+        $SumTopcar = 0;
+        $SumCommissioncar = 0;
+        $SumCommitprice = 0;
+
         $newfdate = \Carbon\Carbon::parse($newfdate)->format('Y') ."-". \Carbon\Carbon::parse($newfdate)->format('m')."-". \Carbon\Carbon::parse($newfdate)->format('d');
         $newtdate = \Carbon\Carbon::parse($newtdate)->format('Y') ."-". \Carbon\Carbon::parse($newtdate)->format('m')."-". \Carbon\Carbon::parse($newtdate)->format('d');
 
-        return view('analysis.view', compact('type', 'data','newfdate','newtdate','status'));
+        return view('analysis.view', compact('type', 'data','newfdate','newtdate','status','SumTopcar','SumCommissioncar','SumCommitprice'));
       }
       elseif ($request->type == 5){
         return view('analysis.createhomecar');
