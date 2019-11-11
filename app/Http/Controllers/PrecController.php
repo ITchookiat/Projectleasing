@@ -264,13 +264,15 @@ class PrecController extends Controller
           $data = DB::connection('ibmi')
                     ->table('SFHP.ARMAST')
                     ->join('SFHP.HDPAYMENT','SFHP.ARMAST.CONTNO','=','SFHP.HDPAYMENT.CONTNO')
+                    ->join('SFHP.TRPAYMENT','SFHP.HDPAYMENT.TEMPBILL','=','SFHP.TRPAYMENT.TEMPBILL')
                     ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
                       return $q->whereBetween('SFHP.HDPAYMENT.TEMPDATE',[$fdate,$tdate]);
                     })
+                    ->where('SFHP.TRPAYMENT.PAYCODE','!=','006')
                     ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
                     ->get();
 
-            // dd($data[8]->CANDATE);
+            // dd($data);
 
             $type = $request->type;
             $Office = $request->DataOffice;
