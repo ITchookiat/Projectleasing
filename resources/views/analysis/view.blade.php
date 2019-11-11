@@ -44,6 +44,7 @@ $date = date('Y-m-d', strtotime('-1 days'));
         </button>
         <button class="btn btn-warning btn-xs pull-right"></button>
         <button class="btn btn-gray pull-right">
+          <i class="fa fa-calendar"></i>
           @php
           $dateStart = substr($newfdate, 8, 9);
           $dateEnd = substr($newtdate, 8, 9);
