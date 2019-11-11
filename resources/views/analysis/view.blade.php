@@ -36,11 +36,19 @@ $date = date('Y-m-d', strtotime('-1 days'));
         </p> -->
         --}}
         <button class="btn btn-gray pull-right">
-          ค่าคอมวันนี้ : <font color="red">{{ number_format($SumCommitprice) }}</font> บาท
+          ค่าคอม: <font color="red">{{ number_format($SumCommitprice) }}</font> บาท
         </button>
-        <button class="btn btn-danger btn-xs pull-right"></button>
+        <button class="btn btn-warning btn-xs pull-right"></button>
         <button class="btn btn-gray pull-right">
-          ยอดจัดวันนี้ : <font color="red">{{ number_format($SumTopcar) }}</font> บาท
+          ยอดจัด: <font color="red">{{ number_format($SumTopcar) }}</font> บาท
+        </button>
+        <button class="btn btn-warning btn-xs pull-right"></button>
+        <button class="btn btn-gray pull-right">
+          @php
+          $dateStart = substr($newfdate, 8, 9);
+          $dateEnd = substr($newtdate, 8, 9);
+          @endphp
+          วันที่ {{ $dateStart }} ถึง {{ $dateEnd }}
         </button>
         @endif
 
