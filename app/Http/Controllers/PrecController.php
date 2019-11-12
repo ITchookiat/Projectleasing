@@ -283,8 +283,6 @@ class PrecController extends Controller
 
           if ($request->has('SelectDate')) {
             $newdate = $request->get('SelectDate');
-            // $new = Carbon::parse($date)->addDays(-1);
-            // $newdate = \Carbon\Carbon::parse($new)->format('Y') ."-". \Carbon\Carbon::parse($new)->format('m')."-". \Carbon\Carbon::parse($new)->format('d');
           }
 
           $dataSup = DB::connection('ibmi')
