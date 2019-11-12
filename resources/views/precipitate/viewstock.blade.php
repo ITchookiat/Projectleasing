@@ -130,13 +130,13 @@
                               @if($row->Statuscar == 1)
                               ยึดจากลูกค้าครั้งแรก
                               @elseif($row->Statuscar == 2)
-                              ลูกค้ามารับรถคืน
+                              <font color="#FF33C1">ลูกค้ามารับรถคืน</font>
                               @elseif($row->Statuscar == 3)
-                              ยึดจากลูกค้าครั้งที่สอง
+                              <font color="#FF8B00">ยึดจากลูกค้าครั้งที่สอง</font>
                               @elseif($row->Statuscar == 4)
-                              รับรถจากของกลาง
+                              <font color="#001BFF">รับรถจากของกลาง</font>
                               @elseif($row->Statuscar == 5)
-                              ส่งรถบ้าน
+                              <font color="#42FF00">ส่งรถบ้าน</font>
                               @endif
                             </td>
                             <td class="text-center">

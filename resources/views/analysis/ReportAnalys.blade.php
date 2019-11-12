@@ -213,6 +213,8 @@
           <th align="right" width="120px"> ค่างวด x ระยะเวลาผ่อน &nbsp;</th>
           <th align="right" width="120px"> <b>{{$dataReport->Paymemt_car}} &nbsp;</b></th>
           <th align="right" width="120px"> <b>{{$dataReport->Timepayment_car}} &nbsp;</b></th>
+          <th align="right" width="90px"> ราคากลาง &nbsp;</th>
+          <th width="90px" style="background-color: yellow;"> <b>{{$dataReport->Midprice_car}} &nbsp;</b></th>
         </tr>
         <tr>
           <th align="right" width="120px"> ภาษี x ระยะเวลาผ่อน &nbsp;</th>

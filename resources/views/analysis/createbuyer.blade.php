@@ -777,6 +777,10 @@
                                   </div>
 
                                   <div class="col-md-6">
+                                    <div class="form-inline" align="right">
+                                        <label>ราคากลาง : </label>
+                                        <input type="text" id="Midpricecar" name="Midpricecar" class="form-control" style="width: 250px;" placeholder="ราคากลาง" oninput="mile();percent();" />
+                                    </div>
                                   </div>
                                 </div>
 
@@ -797,7 +801,10 @@
                                     function mile(){
                                       var num11 = document.getElementById('Milecar').value;
                                       var num1 = num11.replace(",","");
+                                      var num22 = document.getElementById('Midpricecar').value;
+                                      var num2 = num22.replace(",","");
                                       document.form1.Milecar.value = addCommas(num1);
+                                      document.form1.Midpricecar.value = addCommas(num2);
                                     }
 
                                     function calculate(){
@@ -968,15 +975,30 @@
                                             document.form1.closeAccountPrice.value = addCommas(num7);
                                             document.form1.balancePrice.value = addCommas(TotalBalance);
                                         }
-
                                       }
+
+                                        function percent(){
+
+                                          var num11 = document.getElementById('Midpricecar').value;
+                                          var num1 = num11.replace(",","");
+                                          var num22 = document.getElementById('Topcar').value;
+                                          var num2 = num22.replace(",","");
+
+                                          var percent = (num2/num1) * 100;
+                                          var result1 = percent;
+
+                                            if(!isNaN(result1)){
+                                                  document.form1.Percentcar.value = result1.toFixed(0);
+                                            }
+                                          }
+
                                 </script>
 
                                 <div class="row">
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                       <label>ยอดจัด : </label>
-                                      <input type="text" id="Topcar" name="Topcar" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" oninput="calculate();balance();" />
+                                      <input type="text" id="Topcar" name="Topcar" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" oninput="calculate();balance();percent();" />
                                       <input type="hidden" id="TopcarOri" name="TopcarOri" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" oninput="balance()" />
                                     </div>
                                   </div>
@@ -1122,7 +1144,7 @@
                                   <div class="col-md-6">
                                    <div class="form-inline" align="right">
                                        <label>เปอร์เซ็นจัดไฟแนนซ์ : </label>
-                                       <input type="text" name="Percentcar" class="form-control int" style="width: 250px;" placeholder="เปอร์เซ็นจัดไฟแนนซ์" />
+                                       <input type="text" id="Percentcar" name="Percentcar" class="form-control int" style="width: 250px;" placeholder="เปอร์เซ็นจัดไฟแนนซ์" />
                                    </div>
                                   </div>
                                 </div>
@@ -1537,7 +1559,7 @@
           });
       </script>
 
-
+      {{csrf_field()}}
     </section>
 
 @endsection
