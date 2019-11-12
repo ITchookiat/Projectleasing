@@ -550,6 +550,8 @@ class AnalysController extends Controller
         $type = 4;
       }else {
 
+        // dd($request->get('Midpricecar'));
+
         $Cardetaildb = new Cardetail([
           'Buyercar_id' => $Buyerdb->id,
           'Brand_car' => $request->get('Brandcar'),
@@ -558,6 +560,7 @@ class AnalysController extends Controller
           'License_car' => $request->get('Licensecar'),
           'Nowlicense_car' => $request->get('Nowlicensecar'),
           'Mile_car' => $request->get('Milecar'),
+          'Midprice_car' => $request->get('Midpricecar'),
           'Model_car' => $request->get('Modelcar'),
           'Top_car' => $SetTopcar,
           'Interest_car' => $request->get('Interestcar'),
@@ -1188,6 +1191,7 @@ class AnalysController extends Controller
           $cardetail->License_car = $request->get('Licensecar');
           $cardetail->Nowlicense_car = $request->get('Nowlicensecar');
           $cardetail->Mile_car = $request->get('Milecar');
+          $cardetail->Midprice_car = $request->get('Midpricecar');
           $cardetail->Model_car = $request->get('Modelcar');
           $cardetail->Top_car = $SetTopcar;
           $cardetail->Interest_car = $request->get('Interestcar');

@@ -670,12 +670,24 @@
                                 </div>
                                 @if($countImage != 0)
                                 <br/>
-                                @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
                                   <a href="{{ action('AnalysController@deleteImageAll',$data->id) }}" class="btn btn-danger pull-left" title="ลบรูปทั้งหมด" onclick="return confirm('คุณต้องการลบรูปทั้งหมดหรือไม่?')"> ลบรูปทั้งหมด..</a>
-                                @endif
                                   <a href="{{ action('AnalysController@deleteImageEach',[$data->id,$type,$fdate,$tdate,$branch,$status]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
                                   <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ..
                                   </a>
+                                  @else
+
+                                  @if($GetDocComplete != Null)
+                                  <a href="{{ action('AnalysController@deleteImageEach',[$data->id,$type,$fdate,$tdate,$branch,$status]) }}" class="btn btn-danger pull-right disabled" title="การจัดการรูป">
+                                  <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ..
+                                  </a>
+                                  @else
+                                  <a href="{{ action('AnalysController@deleteImageEach',[$data->id,$type,$fdate,$tdate,$branch,$status]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
+                                  <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ..
+                                  </a>
+                                  @endif
+
+                                 @endif
                                 @endif
                               </div>
                             </div>
@@ -1268,6 +1280,18 @@
                             </div>
 
                             <div class="col-md-6">
+                              <div class="form-inline" align="right">
+                                 <label>ราคากลาง : </label>
+                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    <input type="text" id="Midpricecar" name="Midpricecar" value="{{$data->Midprice_car}}" class="form-control" style="width: 250px;" placeholder="ราคากลาง" onchange="mile();percent();"/>
+                                 @else
+                                   @if($GetDocComplete != Null)
+                                      <input type="text" id="Midpricecar" name="Midpricecar" value="{{$data->Midprice_car}}" class="form-control" style="width: 250px;" placeholder="ราคากลาง" readonly/>
+                                   @else
+                                      <input type="text" id="Midpricecar" name="Midpricecar" value="{{$data->Midprice_car}}" class="form-control" style="width: 250px;" placeholder="ราคากลาง" onchange="mile();percent();" />
+                                   @endif
+                                 @endif
+                               </div>
                             </div>
                           </div>
 
@@ -1288,7 +1312,10 @@
                               function mile(){
                                 var num11 = document.getElementById('Milecar').value;
                                 var num1 = num11.replace(",","");
+                                var num22 = document.getElementById('Midpricecar').value;
+                                var num2 = num22.replace(",","");
                                 document.form1.Milecar.value = addCommas(num1);
+                                document.form1.Midpricecar.value = addCommas(num2);
                               }
 
                               function calculate(){
@@ -1467,6 +1494,21 @@
                                       document.form1.balancePrice.value = addCommas(TotalBalance);
                                   }
                                 }
+
+                                function percent(){
+
+                                  var num11 = document.getElementById('Midpricecar').value;
+                                  var num1 = num11.replace(",","");
+                                  var num22 = document.getElementById('Topcar').value;
+                                  var num2 = num22.replace(",","");
+
+                                  var percent = (num2/num1) * 100;
+                                  var result1 = percent;
+
+                                    if(!isNaN(result1)){
+                                          document.form1.Percentcar.value = result1.toFixed(0);
+                                    }
+                                  }
                           </script>
 
                           <div class="row">
@@ -1474,12 +1516,12 @@
                               <div class="form-inline" align="right">
                                 <label>ยอดจัด : </label>
                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                    <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" onchange="calculate();balance();" />
+                                    <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" onchange="calculate();balance();percent();" />
                                 @else
                                   @if($GetDocComplete != Null)
-                                      <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" onchange="calculate();balance();" readonly/>
+                                      <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" onchange="calculate();balance();percent();" readonly/>
                                   @else
-                                      <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" onchange="calculate();balance();" />
+                                      <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" onchange="calculate();balance();percent();" />
                                   @endif
                                 @endif
                                 <input type="hidden" id="TopcarOri" name="TopcarOri" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" />
