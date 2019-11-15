@@ -1213,6 +1213,7 @@ class PrecController extends Controller
                   ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
                   ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
                   ->join('SFHP.VIEW_ARMGAR','SFHP.ARMAST.CONTNO','=','SFHP.VIEW_ARMGAR.CONTNO')
+                  ->select('SFHP.ARMAST.*','SFHP.VIEW_CUSTMAIL.*','SFHP.VIEW_ARMGAR.NAME AS NAMEARMGAR','SFHP.VIEW_ARMGAR.ZIP AS ZIPARMGAR')
                   ->when(!empty($newdate), function($q) use ($newdate) {
                     return $q->where('SFHP.ARPAY.DDATE',$newdate);
                   })
@@ -1222,6 +1223,8 @@ class PrecController extends Controller
 
         $Datethai = Helper::formatDateThai($date);
         $NewDatethai = Helper::formatDateThai($newdate);
+
+        // dd($dataUseSup);
 
          $type = $request->type;
 
@@ -1256,24 +1259,24 @@ class PrecController extends Controller
                  $row = 3;
                  $sheet->row($row, array('ชื่อ-นามสกุล','รหัส ปณ.','','','ลงท้าย','เลขที่สัญญา',''));
                  $no = 1;
-                 foreach ($dataUseSup as $value) {
-                   if ($value->HLDNO >= 3.00 && $value->HLDNO <= 4.69) {
+                 foreach ($dataUseSup as $val) {
+                   if ($val->HLDNO >= 3.00 && $val->HLDNO <= 4.69) {
                      $sheet->row(++$row, array(
-                     iconv('Tis-620','utf-8',str_replace(" ","",$value->SNAM.$value->NAME1)."   ".str_replace(" ","",$value->NAME2)),
-                     $value->ZIP,
+                     iconv('Tis-620','utf-8',str_replace(" ","",$val->SNAM.$val->NAME1)."   ".str_replace(" ","",$val->NAME2)),
+                     $val->ZIP,
                      " ",
                      " ",
                      "TH",
-                     $value->CONTNO,
+                     $val->CONTNO,
                      " "));
-                     if ($value->NAME != "") {
+                     if ($val->NAMEARMGAR != "") {
                        $sheet->row(++$row, array(
-                       iconv('Tis-620','utf-8',str_replace(" ","",$value->NAME)),
-                       $value->ZIP,
+                       iconv('Tis-620','utf-8',str_replace(" ","",$val->NAMEARMGAR)),
+                       $val->ZIPARMGAR,
                        " ",
                        " ",
                        "TH",
-                       $value->CONTNO,
+                       $val->CONTNO,
                        " "));
                      }
                    }

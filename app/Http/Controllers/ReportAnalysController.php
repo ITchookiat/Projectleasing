@@ -94,9 +94,10 @@ class ReportAnalysController extends Controller
     public function ReportPDFIndex(Request $request, $id, $type)
     {
       $dataReport = DB::table('buyers')
-                      ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
-                      ->join('cardetails','Buyers.id','=','cardetails.Buyercar_id')
-                      ->join('Expenses','Buyers.id','=','Expenses.Buyerexpenses_id')
+                      ->leftJoin('sponsors','buyers.id','=','sponsors.Buyer_id')
+                      ->leftJoin('sponsor2s','buyers.id','=','sponsor2s.Buyer_id2')
+                      ->leftJoin('cardetails','Buyers.id','=','cardetails.Buyercar_id')
+                      ->leftJoin('Expenses','Buyers.id','=','Expenses.Buyerexpenses_id')
                       ->where('buyers.id',$id)->first();
 
       // $newDateDue = \Carbon\Carbon::parse($dataReport->Date_Due)->format('Y')+543 ."-". \Carbon\Carbon::parse($dataReport->Date_Due)->format('m')."-". \Carbon\Carbon::parse($dataReport->Date_Due)->format('d');
