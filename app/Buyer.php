@@ -16,6 +16,10 @@ class Buyer extends Model
   {
     return $this->hasMany(Sponsor::class);
   }
+  public function Sponsor2()
+  {
+    return $this->hasMany(Sponsor2::class);
+  }
 
   public function Cardetail()
   {

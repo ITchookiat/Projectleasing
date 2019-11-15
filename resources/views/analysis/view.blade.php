@@ -107,130 +107,119 @@ $date = date('Y-m-d', strtotime('-1 days'));
 
             <div class="row">
               @if($type == 1)
-              <div class="col-md-12">
-                <form method="get" action="{{ route('Analysis',1) }}">
-                    <div align="right" class="form-inline">
-                      @if(auth::user()->type == 1 or auth::user()->type == 2)
-                        <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate') }}" class="btn btn-primary btn-app">
-                          <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
-                        </a>
-                      @endif
+                <div class="col-md-12">
+                  <form method="get" action="{{ route('Analysis',1) }}">
+                      <div align="right" class="form-inline">
+                        @if(auth::user()->type == 1 or auth::user()->type == 2)
+                          <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate') }}" class="btn btn-primary btn-app">
+                            <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
+                          </a>
+                        @endif
 
-                      <button type="submit" class="btn btn-warning btn-app">
-                        <span class="glyphicon glyphicon-search"></span> Search
-                      </button>
-                      <p></p>
-                      <label>จากวันที่ : </label>
-                      <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control" />
+                        <button type="submit" class="btn btn-warning btn-app">
+                          <span class="glyphicon glyphicon-search"></span> Search
+                        </button>
+                        <p></p>
+                        <label>จากวันที่ : </label>
+                        <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control" />
 
-                      <label>ถึงวันที่ : </label>
-                      <input type="date" name="Todate" style="width: 180px;" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control" />
+                        <label>ถึงวันที่ : </label>
+                        <input type="date" name="Todate" style="width: 180px;" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control" />
 
-                    </div>
-                    <div align="right" class="form-inline">
-                      <label for="text" class="mr-sm-2">สาขา : </label>
-                        <select name="branch" class="form-control mb-2 mr-sm-2" id="text" style="width: 182px">
-                          <option selected disabled value="">---เลือกสาขา---</option>
-                          <option value="ปัตตานี" {{ ($branch == 'ปัตตานี') ? 'selected' : '' }}>ปัตตานี</otion>
-                          <option value="ยะลา" {{ ($branch == 'ยะลา') ? 'selected' : '' }}>ยะลา</otion>
-                          <option value="นราธิวาส" {{ ($branch == 'นราธิวาส') ? 'selected' : '' }}>นราธิวาส</otion>
-                          <option value="สายบุรี" {{ ($branch == 'สายบุรี') ? 'selected' : '' }}>สายบุรี</otion>
-                          <option value="โกลก" {{ ($branch == 'โกลก') ? 'selected' : '' }}>โกลก</otion>
-                          <option value="เบตง" {{ ($branch == 'เบตง') ? 'selected' : '' }}>เบตง</otion>
+                      </div>
+                      <div align="right" class="form-inline">
+                        <label for="text" class="mr-sm-2">สาขา : </label>
+                          <select name="branch" class="form-control mb-2 mr-sm-2" id="text" style="width: 182px">
+                            <option selected disabled value="">---เลือกสาขา---</option>
+                            <option value="ปัตตานี" {{ ($branch == 'ปัตตานี') ? 'selected' : '' }}>ปัตตานี</otion>
+                            <option value="ยะลา" {{ ($branch == 'ยะลา') ? 'selected' : '' }}>ยะลา</otion>
+                            <option value="นราธิวาส" {{ ($branch == 'นราธิวาส') ? 'selected' : '' }}>นราธิวาส</otion>
+                            <option value="สายบุรี" {{ ($branch == 'สายบุรี') ? 'selected' : '' }}>สายบุรี</otion>
+                            <option value="โกลก" {{ ($branch == 'โกลก') ? 'selected' : '' }}>โกลก</otion>
+                            <option value="เบตง" {{ ($branch == 'เบตง') ? 'selected' : '' }}>เบตง</otion>
+                          </select>
+
+                      <label for="text" class="mr-sm-2">สถานะ : </label>
+                        <select name="status" class="form-control mb-2 mr-sm-2" id="text" style="width: 180px">
+                          <option selected disabled value="">---สถานะ---</option>
+                          <option value="อนุมัติ"{{ ($status == 'อนุมัติ') ? 'selected' : '' }}>อนุมัติ</otion>
+                          <option value="รออนุมัติ"{{ ($status == 'รออนุมัติ') ? 'selected' : '' }}>รออนุมัติ</otion>
                         </select>
-
-                    <label for="text" class="mr-sm-2">สถานะ : </label>
-                      <select name="status" class="form-control mb-2 mr-sm-2" id="text" style="width: 180px">
-                        <option selected disabled value="">---สถานะ---</option>
-                        <option value="อนุมัติ"{{ ($status == 'อนุมัติ') ? 'selected' : '' }}>อนุมัติ</otion>
-                        <option value="รออนุมัติ"{{ ($status == 'รออนุมัติ') ? 'selected' : '' }}>รออนุมัติ</otion>
-                      </select>
-                    </div>
-                  </form>
-                <hr>
-                 <div class="table-responsive">
-                   <table class="table table-bordered" id="table">
-                      <thead class="thead-dark bg-gray-light" >
-                        <tr>
-                          <th class="text-center">สาขา</th>
-                          <th class="text-center">เลขที่สัญญา</th>
-                          <th class="text-center">แบบ</th>
-                          <th class="text-center">ยีห้อ</th>
-                          <th class="text-center">ทะเบียนเดิม</th>
-                          <th class="text-center">ปี</th>
-                          <th class="text-center">ยอดจัด</th>
-                          <th class="text-center">เอกสาร/แก้ไข</th>
-                          <th class="text-center">ตรวจสอบ</th>
-                          <th class="text-center">สถานะอนุมัติ</th>
-                          <th class="text-center" style="width: 200px">ตัวเลือก</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        @foreach($data as $row)
+                      </div>
+                    </form>
+                  <hr>
+                   <div class="table-responsive">
+                     <table class="table table-bordered" id="table">
+                        <thead class="thead-dark bg-gray-light" >
                           <tr>
-                            <td class="text-center"> {{ $row->branch_car}} </td>
-                            <td class="text-center"> {{ $row->Contract_buyer}} </td>
-                            <td class="text-center"> {{ $row->status_car}} </td>
-                            <td class="text-center"> {{ $row->Brand_car}} </td>
-                            <td class="text-center"> {{ $row->License_car}} </td>
-                            <td class="text-center"> {{ $row->Year_car}} </td>
-                            <td class="text-center">
-                              @if($row->Top_car != Null)
-                                {{ number_format($row->Top_car)}}
-                              @else
-                                0
-                              @endif
-                            </td>
-                            <td class="text-center">
-                              <label class="con">
-                              @if ( $row->DocComplete_car != Null)
-                                <input type="checkbox" class="checkbox" name="Checkcar" id="" checked="checked" disabled>
-                              @else
-                                <input type="checkbox" class="checkbox" name="Checkcar" id="" disabled>
-                              @endif
-                              <span class="checkmark"></span>
-                              </label>
-
-                              <label class="con2">
-                              @if ( $row->tran_Price != 0)
-                                <input type="checkbox" class="checkbox" name="Checkcar" id="" checked="checked" disabled>
-                              @else
-                                <input type="checkbox" class="checkbox" name="Checkcar" id="" disabled>
-                              @endif
-                              <span class="checkmark"></span>
-                              </label>
-                            </td>
-                            <td class="text-center">
-                              @if ( $row->Check_car != Null)
-                                  {{ $row->Check_car }}
-                              @else
-                                  <font color="red">รอตรวจสอบ</font>
-                              @endif
-                            </td>
-                            <td class="text-center">
-                              @if ( $row->Approvers_car != Null)
-                                  {{ $row->Approvers_car }}
-                              @else
-                                  <font color="red">รออนุมัติ</font>
-                              @endif
-                            </td>
-                            <td class="text-center">
-                              <a target="_blank" href="{{ action('ReportAnalysController@ReportPDFIndex',[$row->id,$type]) }}" class="btn btn-info btn-sm" title="พิมพ์">
-                                <span class="glyphicon glyphicon-eye-open"></span> พิมพ์
-                              </a>
-
-                              @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                @if($branch == "")
-                                  @php $branch = 'Null'; @endphp
+                            <th class="text-center">สาขา</th>
+                            <th class="text-center">เลขที่สัญญา</th>
+                            <th class="text-center">แบบ</th>
+                            <th class="text-center">ยีห้อ</th>
+                            <th class="text-center">ทะเบียนเดิม</th>
+                            <th class="text-center">ปี</th>
+                            <th class="text-center">ยอดจัด</th>
+                            <th class="text-center">เอกสาร/แก้ไข</th>
+                            <th class="text-center">ตรวจสอบ</th>
+                            <th class="text-center">สถานะอนุมัติ</th>
+                            <th class="text-center" style="width: 200px">ตัวเลือก</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @foreach($data as $row)
+                            <tr>
+                              <td class="text-center"> {{ $row->branch_car}} </td>
+                              <td class="text-center"> {{ $row->Contract_buyer}} </td>
+                              <td class="text-center"> {{ $row->status_car}} </td>
+                              <td class="text-center"> {{ $row->Brand_car}} </td>
+                              <td class="text-center"> {{ $row->License_car}} </td>
+                              <td class="text-center"> {{ $row->Year_car}} </td>
+                              <td class="text-center">
+                                @if($row->Top_car != Null)
+                                  {{ number_format($row->Top_car)}}
+                                @else
+                                  0
                                 @endif
-                                @if($status == "")
-                                  @php $status = 'Null'; @endphp
+                              </td>
+                              <td class="text-center">
+                                <label class="con">
+                                @if ( $row->DocComplete_car != Null)
+                                  <input type="checkbox" class="checkbox" name="Checkcar" id="" checked="checked" disabled>
+                                @else
+                                  <input type="checkbox" class="checkbox" name="Checkcar" id="" disabled>
                                 @endif
-                                <a href="{{ action('AnalysController@edit',[$row->id,$type,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
-                                  <span class="glyphicon glyphicon-pencil"></span> แก้ไข
+                                <span class="checkmark"></span>
+                                </label>
+
+                                <label class="con2">
+                                @if ( $row->tran_Price != 0)
+                                  <input type="checkbox" class="checkbox" name="Checkcar" id="" checked="checked" disabled>
+                                @else
+                                  <input type="checkbox" class="checkbox" name="Checkcar" id="" disabled>
+                                @endif
+                                <span class="checkmark"></span>
+                                </label>
+                              </td>
+                              <td class="text-center">
+                                @if ( $row->Check_car != Null)
+                                    {{ $row->Check_car }}
+                                @else
+                                    <font color="red">รอตรวจสอบ</font>
+                                @endif
+                              </td>
+                              <td class="text-center">
+                                @if ( $row->Approvers_car != Null)
+                                    {{ $row->Approvers_car }}
+                                @else
+                                    <font color="red">รออนุมัติ</font>
+                                @endif
+                              </td>
+                              <td class="text-center">
+                                <a target="_blank" href="{{ action('ReportAnalysController@ReportPDFIndex',[$row->id,$type]) }}" class="btn btn-info btn-sm" title="พิมพ์">
+                                  <span class="glyphicon glyphicon-eye-open"></span> พิมพ์
                                 </a>
-                              @else
-                                @if($row->Approvers_car == Null)
+
+                                @if(auth::user()->type == 1 or auth::user()->type == 2)
                                   @if($branch == "")
                                     @php $branch = 'Null'; @endphp
                                   @endif
@@ -240,39 +229,50 @@ $date = date('Y-m-d', strtotime('-1 days'));
                                   <a href="{{ action('AnalysController@edit',[$row->id,$type,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                     <span class="glyphicon glyphicon-pencil"></span> แก้ไข
                                   </a>
+                                @else
+                                  @if($row->Approvers_car == Null)
+                                    @if($branch == "")
+                                      @php $branch = 'Null'; @endphp
+                                    @endif
+                                    @if($status == "")
+                                      @php $status = 'Null'; @endphp
+                                    @endif
+                                    <a href="{{ action('AnalysController@edit',[$row->id,$type,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
+                                      <span class="glyphicon glyphicon-pencil"></span> แก้ไข
+                                    </a>
+                                  @endif
+                                @endif
+
+                              @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                <div class="form-inline form-group">
+                                  <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',$row->id) }}">
+                                  {{csrf_field()}}
+                                    <input type="hidden" name="_method" value="DELETE" />
+                                    <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
+                                      <span class="glyphicon glyphicon-trash"></span> ลบ
+                                    </button>
+                                  </form>
+                                </div>
+                              @else
+                                @if($row->DocComplete_car == Null)
+                                <div class="form-inline form-group">
+                                  <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',$row->id) }}">
+                                  {{csrf_field()}}
+                                    <input type="hidden" name="_method" value="DELETE" />
+                                    <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
+                                      <span class="glyphicon glyphicon-trash"></span> ลบ
+                                    </button>
+                                  </form>
+                                </div>
                                 @endif
                               @endif
-
-                            @if(auth::user()->type == 1 or auth::user()->type == 2)
-                              <div class="form-inline form-group">
-                                <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',$row->id) }}">
-                                {{csrf_field()}}
-                                  <input type="hidden" name="_method" value="DELETE" />
-                                  <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
-                                    <span class="glyphicon glyphicon-trash"></span> ลบ
-                                  </button>
-                                </form>
-                              </div>
-                            @else
-                              @if($row->DocComplete_car == Null)
-                              <div class="form-inline form-group">
-                                <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',$row->id) }}">
-                                {{csrf_field()}}
-                                  <input type="hidden" name="_method" value="DELETE" />
-                                  <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
-                                    <span class="glyphicon glyphicon-trash"></span> ลบ
-                                  </button>
-                                </form>
-                              </div>
-                              @endif
-                            @endif
-                            </td>
-                          </tr>
-                        @endforeach
-                      </tbody>
-                  </table>
+                              </td>
+                            </tr>
+                          @endforeach
+                        </tbody>
+                    </table>
+                  </div>
                 </div>
-              </div>
               @elseif($type == 4)
                 <div class="col-md-12">
                   <form method="get" action="{{ route('Analysis',4) }}">

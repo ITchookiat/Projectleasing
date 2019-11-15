@@ -289,8 +289,9 @@ class PrecController extends Controller
                     ->table('SFHP.ARMAST')
                     ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
                     ->join('SFHP.VIEW_ARMGAR','SFHP.ARMAST.CONTNO','=','SFHP.VIEW_ARMGAR.CONTNO')
+                    ->select('SFHP.ARMAST.*','SFHP.VIEW_ARMGAR.NAME')
                     ->when(!empty($newdate), function($q) use ($newdate) {
-                      return $q->where('SFHP.ARPAY.DDATE',$newdate);
+                     return $q->where('SFHP.ARPAY.DDATE',$newdate);
                     })
                     ->whereBetween('SFHP.ARMAST.HLDNO',[2,2.99])
                     ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
@@ -301,6 +302,7 @@ class PrecController extends Controller
                     ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
                     ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
                     ->join('SFHP.VIEW_ARMGAR','SFHP.ARMAST.CONTNO','=','SFHP.VIEW_ARMGAR.CONTNO')
+                    ->select('SFHP.ARMAST.*','SFHP.VIEW_CUSTMAIL.SNAM','SFHP.VIEW_CUSTMAIL.NAME1','SFHP.VIEW_CUSTMAIL.NAME2')
                     ->when(!empty($newdate), function($q) use ($newdate) {
                       return $q->where('SFHP.ARPAY.DDATE',$newdate);
                     })

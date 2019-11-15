@@ -8,6 +8,7 @@ use Storage;
 
 use App\Buyer;
 use App\Sponsor;
+use App\Sponsor2;
 use App\Cardetail;
 use App\homecardetail;
 use App\UploadfileImage;
@@ -30,7 +31,7 @@ class AnalysController extends Controller
       $d = date('d');
       $date = $Y.'-'.$m.'-'.$d;
 
-      if ($request->type == 1){
+      if ($request->type == 1){ //สินเชื่อ
 
         // if(auth()->user()->type != 1 and auth()->user()->type != 2 and auth()->user()->type != 4){
         //   dd('You not admin');
@@ -256,7 +257,7 @@ class AnalysController extends Controller
         $type = $request->type;
         return view('analysis.viewReport', compact('type', 'data','newfdate','newtdate','datadrop','agen','datedue','datayear','yearcar','datastatus','typecar','databranch','branch'));
       }
-      elseif ($request->type == 4){
+      elseif ($request->type == 4){ //รถบ้าน
         $newfdate = '';
         $newtdate = '';
         $status = '';
@@ -336,7 +337,7 @@ class AnalysController extends Controller
       elseif ($request->type == 5){
         return view('analysis.createhomecar');
       }
-      elseif ($request->type == 6){
+      elseif ($request->type == 6){ //รายงาน รถบ้าน
 
         $datadrop = DB::table('buyers')
                   ->join('homecardetails','buyers.id','=','homecardetails.Buyerhomecar_id')
@@ -491,6 +492,33 @@ class AnalysController extends Controller
         'securities_SP' => $request->get('securitiesSP'),
       ]);
       $Sponsordb->save();
+
+      $SettelSP2 = str_replace ("_","",$request->get('telSP2'));
+      $Sponsor2db = new Sponsor2([
+        'Buyer_id2' => $Buyerdb->id,
+        'name_SP2' => $request->get('nameSP2'),
+        'lname_SP2' => $request->get('lnameSP2'),
+        'nikname_SP2' => $request->get('niknameSP2'),
+        'status_SP2' => $request->get('statusSP2'),
+        'tel_SP2' => $SettelSP2,
+        'relation_SP2' => $request->get('relationSP2'),
+        'mate_SP2' => $request->get('mateSP2'),
+        'idcard_SP2' => $request->get('idcardSP2'),
+        'add_SP2' => $request->get('addSP2'),
+        'addnow_SP2' => $request->get('addnowSP2'),
+        'statusadd_SP2' => $request->get('statusaddSP2'),
+        'workplace_SP2' => $request->get('workplaceSP2'),
+        'house_SP2' => $request->get('houseSP2'),
+        'deednumber_SP2' => $request->get('deednumberSP2'),
+        'area_SP2' => $request->get('areaSP2'),
+        'housestyle_SP2' => $request->get('housestyleSP2'),
+        'career_SP2' => $request->get('careerSP2'),
+        'income_SP2' => $request->get('incomeSP2'),
+        'puchase_SP2' => $request->get('puchaseSP2'),
+        'support_SP2' => $request->get('supportSP2'),
+        'securities_SP2' => $request->get('securitiesSP2'),
+      ]);
+      $Sponsor2db->save();
 
       if ($request->get('Topcar') != Null) {
         $SetTopcar = str_replace (",","",$request->get('Topcar'));
@@ -714,9 +742,10 @@ class AnalysController extends Controller
 
       if ($type == 1) {
         $data = DB::table('buyers')
-                  ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
-                  ->join('cardetails','Buyers.id','=','cardetails.Buyercar_id')
-                  ->join('expenses','Buyers.id','=','expenses.Buyerexpenses_id')
+                  ->leftJoin('sponsors','buyers.id','=','sponsors.Buyer_id')
+                  ->leftJoin('sponsor2s','buyers.id','=','sponsor2s.Buyer_id2')
+                  ->leftJoin('cardetails','Buyers.id','=','cardetails.Buyercar_id')
+                  ->leftJoin('expenses','Buyers.id','=','expenses.Buyerexpenses_id')
                   ->where('buyers.id',$id)->first();
 
         $GetDocComplete = $data->DocComplete_car;
@@ -732,8 +761,9 @@ class AnalysController extends Controller
       }
       elseif ($type == 4) {
         $data = DB::table('buyers')
-                  ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
-                  ->join('homecardetails','buyers.id','=','homecardetails.Buyerhomecar_id')
+                  ->leftJoin('sponsors','buyers.id','=','sponsors.Buyer_id')
+                  ->leftJoin('sponsor2s','buyers.id','=','sponsor2s.Buyer_id2')
+                  ->leftJoin('homecardetails','buyers.id','=','homecardetails.Buyerhomecar_id')
                   ->where('buyers.id',$id)->first();
 
         $Gettype = $type;
@@ -1081,6 +1111,61 @@ class AnalysController extends Controller
           $sponsor->support_SP = $request->get('supportSP');
           $sponsor->securities_SP = $request->get('securitiesSP');
         $sponsor->update();
+
+        $SettelSP2 = str_replace ("_","",$request->get('telSP2'));
+
+        $sponsor2 = Sponsor2::where('Buyer_id2',$id)->first();
+          if ($sponsor2 != Null) {
+            $sponsor2->name_SP2 = $request->get('nameSP2');
+            $sponsor2->lname_SP2 = $request->get('lnameSP2');
+            $sponsor2->nikname_SP2 = $request->get('niknameSP2');
+            $sponsor2->status_SP2 = $request->get('statusSP2');
+            $sponsor2->tel_SP2 = $SettelSP2;
+            $sponsor2->relation_SP2 = $request->get('relationSP2');
+            $sponsor2->mate_SP2 = $request->get('mateSP2');
+            $sponsor2->idcard_SP2 = $request->get('idcardSP2');
+            $sponsor2->add_SP2 = $request->get('addSP2');
+            $sponsor2->addnow_SP2 = $request->get('addnowSP2');
+            $sponsor2->statusadd_SP2 = $request->get('statusaddSP2');
+            $sponsor2->workplace_SP2 = $request->get('workplaceSP2');
+            $sponsor2->house_SP2 = $request->get('houseSP2');
+            $sponsor2->deednumber_SP2 = $request->get('deednumberSP2');
+            $sponsor2->area_SP2 = $request->get('areaSP2');
+            $sponsor2->housestyle_SP2 = $request->get('housestyleSP2');
+            $sponsor2->career_SP2 = $request->get('careerSP2');
+            $sponsor2->income_SP2 = $request->get('incomeSP2');
+            $sponsor2->puchase_SP2 = $request->get('puchaseSP2');
+            $sponsor2->support_SP2 = $request->get('supportSP2');
+            $sponsor2->securities_SP2 = $request->get('securitiesSP2');
+          $sponsor2->update();
+        }else {
+          $SettelSP2 = str_replace ("_","",$request->get('telSP2'));
+          $Sponsor2db = new Sponsor2([
+            'Buyer_id2' => $id,
+            'name_SP2' => $request->get('nameSP2'),
+            'lname_SP2' => $request->get('lnameSP2'),
+            'nikname_SP2' => $request->get('niknameSP2'),
+            'status_SP2' => $request->get('statusSP2'),
+            'tel_SP2' => $SettelSP2,
+            'relation_SP2' => $request->get('relationSP2'),
+            'mate_SP2' => $request->get('mateSP2'),
+            'idcard_SP2' => $request->get('idcardSP2'),
+            'add_SP2' => $request->get('addSP2'),
+            'addnow_SP2' => $request->get('addnowSP2'),
+            'statusadd_SP2' => $request->get('statusaddSP2'),
+            'workplace_SP2' => $request->get('workplaceSP2'),
+            'house_SP2' => $request->get('houseSP2'),
+            'deednumber_SP2' => $request->get('deednumberSP2'),
+            'area_SP2' => $request->get('areaSP2'),
+            'housestyle_SP2' => $request->get('housestyleSP2'),
+            'career_SP2' => $request->get('careerSP2'),
+            'income_SP2' => $request->get('incomeSP2'),
+            'puchase_SP2' => $request->get('puchaseSP2'),
+            'support_SP2' => $request->get('supportSP2'),
+            'securities_SP2' => $request->get('securitiesSP2'),
+          ]);
+          $Sponsor2db->save();
+        }
 
       if (auth()->user()->branch == 10 or auth()->user()->branch == 11 or auth()->user()->type == 4) {
 
@@ -1441,6 +1526,7 @@ class AnalysController extends Controller
       $item3 = Cardetail::where('Buyercar_id',$id);
       $item4 = Expenses::where('Buyerexpenses_id',$id);
       $item6 = homecardetail::where('Buyerhomecar_id',$id);
+      $item7 = Sponsor2::where('Buyer_id2',$id);
 
       $item5 = UploadfileImage::where('Buyerfileimage_id','=',$id)->get();
 
@@ -1498,6 +1584,7 @@ class AnalysController extends Controller
         $item3->Delete();
         $item4->Delete();
         $item6->Delete();
+        $item7->Delete();
 
       return redirect()->back()->with('success','ลบข้อมูลเรียบร้อย');
     }
