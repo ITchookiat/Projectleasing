@@ -32,6 +32,7 @@
     -moz-user-select: 10px;
     -ms-user-select: 10px;
     user-select: 10px;
+    border-radius: 25px;
   }
 
   /* Hide the browser's default checkbox */
@@ -41,6 +42,7 @@
     cursor: pointer;
     height: 0;
     width: 0;
+
   }
 
   /* Create a custom checkbox */
@@ -51,11 +53,13 @@
     height: 20px;
     width: 20px;
     background-color: #999;
+    border-radius: 25px;
   }
 
   /* On mouse-over, add a grey background color */
   .con:hover input ~ .checkmark {
     background-color: #ccc;
+    border-radius: 25px;
   }
 
   /* When the checkbox is checked, add a blue background */
@@ -68,6 +72,7 @@
     content: "";
     position: absolute;
     display: none;
+    border-radius: 25px;
   }
 
   /* Show the checkmark when checked */

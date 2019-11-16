@@ -111,7 +111,7 @@ $date = date('Y-m-d', strtotime('-1 days'));
                   <form method="get" action="{{ route('Analysis',1) }}">
                       <div align="right" class="form-inline">
                         @if(auth::user()->type == 1 or auth::user()->type == 2)
-                          <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate') }}" class="btn btn-primary btn-app">
+                          <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', $type) }}" class="btn btn-primary btn-app">
                             <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
                           </a>
                         @endif

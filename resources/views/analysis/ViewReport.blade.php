@@ -60,6 +60,8 @@
             <h4 class="card-title p-3" align="center">รายงานสินเชื่อ</h4>
           @elseif($type == 6)
             <h4 class="card-title p-3" align="center">รายงานรถบ้าน</h4>
+          @elseif($type == 7)
+            <h4 class="card-title p-3" align="center">รายงานส่งผู้บริหาร</h4>
           @endif
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -258,6 +260,70 @@
                        </table>
                   </div>
                 </div>
+              @elseif($type == 7)
+              <div class="col-md-12">
+               <form target="_blank" method="get" action="{{ action('ReportAnalysController@ReportDueDate', $type) }}">
+                <div align="right" class="form-inline">
+                  <button type="submit" class="btn btn-primary btn-app">
+                    <span class="glyphicon glyphicon-print"></span> Print
+                  </button >
+                </div>
+
+              <hr>
+              <div class="col-md-12">
+                <div class="table-responsive">
+                  <table class="table table-bordered" id="table">
+                       <thead class="thead-dark bg-gray-light" >
+                         <tr>
+                           <th class="text-center">#</th>
+                           <th class="text-center">สาขา</th>
+                           <th class="text-center">เลขที่สัญญา</th>
+                           <th class="text-center">วันที่</th>
+                           <th class="text-center">สถานะ</th>
+                           <th class="text-center">ยีห้อ</th>
+                           <th class="text-center">ทะเบียนเดิม</th>
+                           <th class="text-center">ปี</th>
+                           <th class="text-center">ยอดจัด</th>
+                           <th class="text-center">สถานะอนุมัติ</th>
+                         </tr>
+                       </thead>
+                       <tbody>
+                         @foreach($dataReport as $row)
+                           <tr>
+                             <td class="text-center">
+                             <label class="con">
+                               <input type="checkbox" name="choose[]" value="{{$row->id}}" />
+                             <span class="checkmark"></span>
+                             </label>
+                             </td>
+                             <td class="text-center"> {{ $row->branch_car}} </td>
+                             <td class="text-center"> {{ $row->Contract_buyer}} </td>
+                             <td class="text-center">{{ DateThai($row->Date_Due)}}</td>
+                             <td class="text-center"> {{ $row->status_car}} </td>
+                             <td class="text-center"> {{ $row->Brand_car}} </td>
+                             <td class="text-center"> {{ $row->License_car}} </td>
+                             <td class="text-center"> {{ $row->Year_car}} </td>
+                             <td class="text-center">
+                               @if($row->Top_car != Null)
+                                 {{ number_format($row->Top_car)}}
+                               @else
+                                 0
+                               @endif
+                             </td>
+                             <td class="text-center">
+                               @if ( $row->Approvers_car != Null)
+                                   {{ $row->Approvers_car }}
+                               @else
+                                   <font color="red">รออนุมัติ</font>
+                               @endif
+                             </td>
+                           </tr>
+                           @endforeach
+                       </tbody>
+                     </table>
+                </div>
+                </form>
+              </div>
               @endif
             </div>
 
