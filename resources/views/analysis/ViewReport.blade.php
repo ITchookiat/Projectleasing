@@ -291,9 +291,9 @@
                          @foreach($dataReport as $row)
                            <tr>
                              <td class="text-center">
-                             <label class="con">
+                             <label class="con3">
                                <input type="checkbox" name="choose[]" value="{{$row->id}}" />
-                             <span class="checkmark"></span>
+                             <span class="checkmark3"></span>
                              </label>
                              </td>
                              <td class="text-center"> {{ $row->branch_car}} </td>

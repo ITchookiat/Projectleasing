@@ -32,7 +32,6 @@
     -moz-user-select: 10px;
     -ms-user-select: 10px;
     user-select: 10px;
-    border-radius: 25px;
   }
 
   /* Hide the browser's default checkbox */
@@ -53,13 +52,11 @@
     height: 20px;
     width: 20px;
     background-color: #999;
-    border-radius: 25px;
   }
 
   /* On mouse-over, add a grey background color */
   .con:hover input ~ .checkmark {
     background-color: #ccc;
-    border-radius: 25px;
   }
 
   /* When the checkbox is checked, add a blue background */
@@ -72,7 +69,6 @@
     content: "";
     position: absolute;
     display: none;
-    border-radius: 25px;
   }
 
   /* Show the checkmark when checked */
@@ -143,6 +139,70 @@
   }
 
   .con2 .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+</style>
+<style>
+  .con3 {
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 25px;
+    -webkit-user-select: 10px;
+    -moz-user-select: 10px;
+    -ms-user-select: 10px;
+    user-select: 10px;
+    border-radius: 25px;
+  }
+
+  .con3 input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+    border-radius: 25px;
+  }
+
+  .checkmark3 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #999;
+    border-radius: 25px;
+  }
+
+  .con3:hover input ~ .checkmark3 {
+    background-color: #ccc;
+  }
+
+  .con3 input:checked ~ .checkmark3 {
+    background-color: blue;
+  }
+
+  .checkmark3:after {
+    content: "";
+    position: absolute;
+    display: none;
+    border-radius: 25px;
+  }
+
+  .con3 input:checked ~ .checkmark3:after {
+    display: block;
+  }
+
+  .con3 .checkmark3:after {
     left: 9px;
     top: 5px;
     width: 5px;
