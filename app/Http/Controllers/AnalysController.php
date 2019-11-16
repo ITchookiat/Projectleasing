@@ -409,6 +409,19 @@ class AnalysController extends Controller
         $type = $request->type;
         return view('analysis.viewReport', compact('type', 'data','newfdate','newtdate','datadrop','agen','datedue','datayear','yearcar'));
       }
+      elseif($request->type == 7){
+        $dataReport = DB::table('buyers')
+                        ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
+                        ->join('cardetails','Buyers.id','=','cardetails.Buyercar_id')
+                        ->join('Expenses','Buyers.id','=','Expenses.Buyerexpenses_id')
+                        ->where('cardetails.Date_Appcar',$date)
+                        ->where('cardetails.Approvers_car','<>','')
+                        ->orderBy('buyers.Contract_buyer', 'ASC')
+                        ->get();
+        // dd($dataReport);
+        $type = $request->type;
+        return view('analysis.viewReport', compact('type', 'dataReport'));
+      }
     }
 
     /**

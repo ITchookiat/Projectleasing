@@ -160,27 +160,40 @@ class ReportAnalysController extends Controller
       $date = $Y.'-'.$m.'-'.$d;
       $date2 = $d.'-'.$m.'-'.$Y2;
 
-      $dataReport = DB::table('buyers')
-                      ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
-                      ->join('cardetails','Buyers.id','=','cardetails.Buyercar_id')
-                      ->join('Expenses','Buyers.id','=','Expenses.Buyerexpenses_id')
-                      ->where('cardetails.Date_Appcar',$date)
-                      ->where('cardetails.Approvers_car','<>','')
-                      ->orderBy('buyers.Contract_buyer', 'ASC')
-                      ->get();
+      if($request->type == 1){
 
-      // dd($dataReport);
+        $dataReport = DB::table('buyers')
+                        ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
+                        ->join('cardetails','Buyers.id','=','cardetails.Buyercar_id')
+                        ->join('Expenses','Buyers.id','=','Expenses.Buyerexpenses_id')
+                        ->where('cardetails.Date_Appcar',$date)
+                        ->where('cardetails.Approvers_car','<>','')
+                        ->orderBy('buyers.Contract_buyer', 'ASC')
+                        ->get();
+      }
+      elseif($request->type == 7){
+        $ids = $request->choose;
+        $dataReport = DB::table('buyers')
+                        ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
+                        ->join('cardetails','Buyers.id','=','cardetails.Buyercar_id')
+                        ->join('Expenses','Buyers.id','=','Expenses.Buyerexpenses_id')
+                        ->whereIn('buyers.id', $ids)
+                        ->where('cardetails.Date_Appcar',$date)
+                        ->where('cardetails.Approvers_car','<>','')
+                        ->orderBy('buyers.Contract_buyer', 'ASC')
+                        ->get();
+      }
 
-      $view = \View::make('analysis.ReportDueDate' ,compact('dataReport','date2'));
-      $html = $view->render();
-      $pdf = new PDF();
-      $pdf::SetTitle('รายงานนำเสนอ');
-      $pdf::AddPage('L', 'A4');
-      $pdf::SetMargins(5, 5, 5, 0);
-      $pdf::SetFont('freeserif', '', 8, '', true);
-      $pdf::SetAutoPageBreak(TRUE, 25);
+        $view = \View::make('analysis.ReportDueDate' ,compact('dataReport','date2'));
+        $html = $view->render();
+        $pdf = new PDF();
+        $pdf::SetTitle('รายงานนำเสนอ');
+        $pdf::AddPage('L', 'A4');
+        $pdf::SetMargins(5, 5, 5, 0);
+        $pdf::SetFont('freeserif', '', 8, '', true);
+        $pdf::SetAutoPageBreak(TRUE, 25);
 
-      $pdf::WriteHTML($html,true,false,true,false,'');
-      $pdf::Output('report.pdf');
+        $pdf::WriteHTML($html,true,false,true,false,'');
+        $pdf::Output('report.pdf');
     }
 }

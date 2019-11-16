@@ -85,6 +85,9 @@
           <li>
               <a href="{{ route('finance',1) }}"><i class="fa fa-steam text-primary"></i> ประเภทจัดไฟแนนซ์</a>
           </li> -->
+          <!-- <li>
+              <a href="{{ route('Analysis',7) }}"><i class="fa fa-folder-open text-success"></i>รายงานส่งผู้บริหาร</a>
+          </li> -->
         </ul>
       </li>
 
@@ -121,9 +124,9 @@
             <li>
                 <a href="{{ route('Precipitate',9) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน ใบรับฝาก</a>
             </li>
-            <li>
+            <!-- <li>
                 <a href="{{ route('Precipitate',10) }}"><i class="fa fa-clipboard text-yellow"></i>หนังสือบอกเลิกสัญญา</a>
-            </li>
+            </li> -->
           </ul>
         @endif
       </li>
