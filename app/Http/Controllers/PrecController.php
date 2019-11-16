@@ -315,6 +315,25 @@ class PrecController extends Controller
             $type = $request->type;
             return view('precipitate.viewReport', compact('dataSup','dataUseSup','newdate','type'));
         }
+        elseif ($request->type == 10) {
+          // dd($request->type);
+          $dataCan = DB::connection('ibmi')
+                    ->table('SFHP.ARMAST')
+                    ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                    ->whereBetween('SFHP.ARMAST.HLDNO',[5.7,7.69])
+                    ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                    ->get();
+                    $count = count($dataCan);
+                    for($i=0; $i<$count; $i++){
+                      $str[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$dataCan[$i]->CONTSTAT)));
+                      if ($str[$i] == "ฟ" OR $str[$i] == "P") {
+                        $data[] = $dataCan[$i];
+                      }
+                    }
+
+          $type = $request->type;
+          return view('precipitate.viewReport', compact('data','type'));
+        }
     }
 
     /**
@@ -396,6 +415,229 @@ class PrecController extends Controller
           $Holdcardb->save();
           $type = 5;
           return redirect()->Route('Precipitate', $type)->with('success','บันทึกข้อมูลเรียบร้อย');
+        }
+        elseif($request->type == 10){
+          $AcceptDate = $request->AcceptDate;
+          $PayAmount = str_replace(",","",$request->PayAmount);
+          $BalanceAmount = str_replace(",","",$request->BalanceAmount);
+          $Contno = $request->contno;
+          // dd($AcceptDate,$PayAmount,$BalanceAmount,$Contno);
+
+          $data = DB::connection('ibmi')
+                    ->table('SFHP.ARMAST')
+                    ->leftJoin('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                    ->leftJoin('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
+                    ->leftJoin('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+                    ->leftJoin('SFHP.VIEW_ARMGAR','SFHP.ARMAST.CONTNO','=','SFHP.VIEW_ARMGAR.CONTNO')
+                    ->leftJoin('SFHP.ARMGAR','SFHP.ARMAST.CONTNO','=','SFHP.ARMGAR.CONTNO')
+                    ->leftJoin('SFHP.TBROKER','SFHP.ARMAST.RECOMCOD','=','SFHP.TBROKER.MEMBERID')
+                    ->leftJoin('SFHP.CUSTMAST','SFHP.ARMAST.CUSCOD','=','SFHP.CUSTMAST.CUSCOD')
+                    ->select('SFHP.ARMAST.*','SFHP.VIEW_CUSTMAIL.*','SFHP.INVTRAN.*','SFHP.VIEW_ARMGAR.NAME','SFHP.VIEW_ARMGAR.NICKNM AS NICKARMGAR',
+                             'SFHP.ARMGAR.RELATN','SFHP.VIEW_ARMGAR.ADDRES as ADDARMGAR','SFHP.VIEW_ARMGAR.TUMB as TUMBARMGAR','SFHP.VIEW_ARMGAR.AUMPDES AS AUMARMGAR',
+                             'SFHP.VIEW_ARMGAR.PROVDES AS PROARMGAR','SFHP.VIEW_ARMGAR.OFFIC AS OFFICARMGAR','SFHP.VIEW_ARMGAR.TELP AS TELPARMGAR',
+                             'SFHP.CUSTMAST.OCCUP','SFHP.CUSTMAST.MEMO1 AS CUSMEMO','SFHP.CUSTMAST.OFFIC AS CUSOFFIC',
+                             'SFHP.TBROKER.FNAME','SFHP.TBROKER.LNAME','SFHP.TBROKER.MEMBERID','SFHP.TBROKER.ADDRESS','SFHP.TBROKER.TELP AS TELPTBROKER')
+                    ->where('SFHP.ARMAST.CONTNO','=',$Contno)
+                    ->first();
+
+            $data2 = DB::connection('ibmi')
+                      ->table('SFHP.ARPAY')
+                      ->where('SFHP.ARPAY.CONTNO','=',$Contno)
+                      ->get();
+            $count2 = count($data2);
+            for ($i=0; $i < $count2; $i++) {
+              if($data2[$i]->DAMT != $data2[$i]->PAYMENT){
+                $SetDate[] = $data2[$i]->DDATE;
+                $Datehold = $SetDate[0];
+              }
+            }
+            // dd($Datehold);
+            $data3 = DB::connection('ibmi')
+                      ->table('SFHP.AROTHR')
+                      ->where('SFHP.AROTHR.CONTNO','=',$Contno)
+                      ->where('SFHP.AROTHR.PAYFOR','=',600)
+                      ->orderBy('SFHP.AROTHR.ARDATE', 'DESC')
+                      ->first();
+            $DatecancleContract = $data3->ARDATE;
+
+            $word = str_replace(" ", "",$data->STRNO);
+            $word2 = str_replace(" ", "",$data->ENGNO);
+            $test = strlen($word);
+            $test2 = strlen($word2);
+
+            for ($i=0; $i < $test; $i++) {
+              $string[] = substr($word, $i, 1);
+              if($string[$i] == 'A'){
+                $Newword[] = 'เอ';
+              }elseif($string[$i] == 'B'){
+                $Newword[] = 'บี';
+              }elseif($string[$i] == 'C'){
+                $Newword[] = 'ซี';
+              }elseif($string[$i] == 'D'){
+                $Newword[] = 'ดี';
+              }elseif($string[$i] == 'E'){
+                $Newword[] = 'อี';
+              }elseif($string[$i] == 'F'){
+                $Newword[] = 'เอฟ';
+              }elseif($string[$i] == 'G'){
+                $Newword[] = 'จี';
+              }elseif($string[$i] == 'H'){
+                $Newword[] = 'เฮช';
+              }elseif($string[$i] == 'I'){
+                $Newword[] = 'ไอ';
+              }elseif($string[$i] == 'J'){
+                $Newword[] = 'เจ';
+              }elseif($string[$i] == 'K'){
+                $Newword[] = 'เค';
+              }elseif($string[$i] == 'L'){
+                $Newword[] = 'แอล';
+              }elseif($string[$i] == 'M'){
+                $Newword[] = 'เอ็ม';
+              }elseif($string[$i] == 'N'){
+                $Newword[] = 'เอ็น';
+              }elseif($string[$i] == 'O'){
+                $Newword[] = 'โอ';
+              }elseif($string[$i] == 'P'){
+                $Newword[] = 'พี';
+              }elseif($string[$i] == 'Q'){
+                $Newword[] = 'คิว';
+              }elseif($string[$i] == 'R'){
+                $Newword[] = 'อาร์';
+              }elseif($string[$i] == 'S'){
+                $Newword[] = 'เอส';
+              }elseif($string[$i] == 'T'){
+                $Newword[] = 'ที';
+              }elseif($string[$i] == 'U'){
+                $Newword[] = 'ยู';
+              }elseif($string[$i] == 'V'){
+                $Newword[] = 'วี';
+              }elseif($string[$i] == 'W'){
+                $Newword[] = 'ดับเบิลยู';
+              }elseif($string[$i] == 'X'){
+                $Newword[] = 'เอ็กซ์';
+              }elseif($string[$i] == 'Y'){
+                $Newword[] = 'วาย';
+              }elseif($string[$i] == 'Z'){
+                $Newword[] = 'แซก์';
+              }
+
+              elseif($string[$i] == '1'){
+                $Newword[] = '1';
+              }elseif($string[$i] == '2'){
+                $Newword[] = '2';
+              }elseif($string[$i] == '3'){
+                $Newword[] = '3';
+              }elseif($string[$i] == '4'){
+                $Newword[] = '4';
+              }elseif($string[$i] == '5'){
+                $Newword[] = '5';
+              }elseif($string[$i] == '6'){
+                $Newword[] = '6';
+              }elseif($string[$i] == '7'){
+                $Newword[] = '7';
+              }elseif($string[$i] == '8'){
+                $Newword[] = '8';
+              }elseif($string[$i] == '9'){
+                $Newword[] = '9';
+              }elseif($string[$i] == '0'){
+                $Newword[] = '0';
+              }
+            }
+
+            for ($j=0; $j < $test2; $j++) {
+              $string2[] = substr($word2, $j, 1);
+              if($string2[$j] == 'A'){
+                $Newword2[] = 'เอ';
+              }elseif($string2[$j] == 'B'){
+                $Newword2[] = 'บี';
+              }elseif($string2[$j] == 'C'){
+                $Newword2[] = 'ซี';
+              }elseif($string2[$j] == 'D'){
+                $Newword2[] = 'ดี';
+              }elseif($string2[$j] == 'E'){
+                $Newword2[] = 'อี';
+              }elseif($string2[$j] == 'F'){
+                $Newword2[] = 'เอฟ';
+              }elseif($string2[$j] == 'G'){
+                $Newword2[] = 'จี';
+              }elseif($string2[$j] == 'H'){
+                $Newword2[] = 'เฮช';
+              }elseif($string2[$j] == 'I'){
+                $Newword2[] = 'ไอ';
+              }elseif($string2[$j] == 'J'){
+                $Newword2[] = 'เจ';
+              }elseif($string2[$j] == 'K'){
+                $Newword2[] = 'เค';
+              }elseif($string2[$j] == 'L'){
+                $Newword2[] = 'แอล';
+              }elseif($string2[$j] == 'M'){
+                $Newword2[] = 'เอ็ม';
+              }elseif($string2[$j] == 'N'){
+                $Newword2[] = 'เอ็น';
+              }elseif($string2[$j] == 'O'){
+                $Newword2[] = 'โอ';
+              }elseif($string2[$j] == 'P'){
+                $Newword2[] = 'พี';
+              }elseif($string2[$j] == 'Q'){
+                $Newword2[] = 'คิว';
+              }elseif($string2[$j] == 'R'){
+                $Newword2[] = 'อาร์';
+              }elseif($string2[$j] == 'S'){
+                $Newword2[] = 'เอส';
+              }elseif($string2[$j] == 'T'){
+                $Newword2[] = 'ที';
+              }elseif($string2[$j] == 'U'){
+                $Newword2[] = 'ยู';
+              }elseif($string2[$j] == 'V'){
+                $Newword2[] = 'วี';
+              }elseif($string2[$j] == 'W'){
+                $Newword2[] = 'ดับเบิลยู';
+              }elseif($string2[$j] == 'X'){
+                $Newword2[] = 'เอ็กซ์';
+              }elseif($string2[$j] == 'Y'){
+                $Newword2[] = 'วาย';
+              }elseif($string2[$j] == 'Z'){
+                $Newword2[] = 'แซก์';
+              }
+
+              elseif($string2[$j] == '1'){
+                $Newword2[] = '1';
+              }elseif($string2[$j] == '2'){
+                $Newword2[] = '2';
+              }elseif($string2[$j] == '3'){
+                $Newword2[] = '3';
+              }elseif($string2[$j] == '4'){
+                $Newword2[] = '4';
+              }elseif($string2[$j] == '5'){
+                $Newword2[] = '5';
+              }elseif($string2[$j] == '6'){
+                $Newword2[] = '6';
+              }elseif($string2[$j] == '7'){
+                $Newword2[] = '7';
+              }elseif($string2[$j] == '8'){
+                $Newword2[] = '8';
+              }elseif($string2[$j] == '9'){
+                $Newword2[] = '9';
+              }elseif($string2[$j] == '0'){
+                $Newword2[] = '0';
+              }
+            }
+
+            $New_STRNO = implode($Newword);
+            $New_ENGNO = implode($Newword2);
+
+          $type = $request->type;
+
+          $view = \View::make('precipitate.ReportInvoice' ,compact('data','AcceptDate','PayAmount','BalanceAmount','Contno','type','Datehold','DatecancleContract','New_STRNO','New_ENGNO'));
+          $html = $view->render();
+          $pdf = new PDF();
+          $pdf::SetTitle('หนังสือบอกเลิกสัญญา');
+          $pdf::AddPage('P', 'A4');
+          $pdf::SetMargins(20, 5, 15);
+          $pdf::SetFont('thsarabunpsk', '', 16, '', true);
+          $pdf::SetAutoPageBreak(TRUE, 25);
+          $pdf::WriteHTML($html,true,false,true,false,'');
+          $pdf::Output('CancelContractPaper.pdf');
         }
 
     }
