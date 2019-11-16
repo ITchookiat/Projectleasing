@@ -121,6 +121,9 @@
             <li>
                 <a href="{{ route('Precipitate',9) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน ใบรับฝาก</a>
             </li>
+            <li>
+                <a href="{{ route('Precipitate',10) }}"><i class="fa fa-clipboard text-yellow"></i>หนังสือบอกเลิกสัญญา</a>
+            </li>
           </ul>
         @endif
       </li>

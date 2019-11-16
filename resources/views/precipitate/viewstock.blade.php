@@ -96,9 +96,9 @@
                           <th class="text-center">ลำดับ</th>
                           <th class="text-center">เลขที่สัญญา</th>
                           <th class="text-center">ชื่อ-สกุล</th>
-                          <th class="text-center">ยี่ห้อ</th>
+                          <!-- <th class="text-center">ยี่ห้อ</th> -->
                           <th class="text-center">ทะเบียน</th>
-                          <th class="text-center">ปีรถ</th>
+                          <!-- <th class="text-center">ปีรถ</th> -->
                           <th class="text-center">วันที่ยึด</th>
                           <th class="text-center">ทีมยึด</th>
                           <th class="text-center">ค่ายึด</th>
@@ -113,9 +113,9 @@
                             <td class="text-center"> {{ $key+1 }} </td>
                             <td class="text-center"> {{ $row->Contno_hold }} </td>
                             <td class="text-left"> {{ $row->Name_hold }} </td>
-                            <td class="text-center"> {{ $row->Brandcar_hold }} </td>
+                            <!-- <td class="text-center"> {{ $row->Brandcar_hold }} </td> -->
                             <td class="text-center"> {{ $row->Number_Regist }} </td>
-                            <td class="text-center"> {{ $row->Year_Product }} </td>
+                            <!-- <td class="text-center"> {{ $row->Year_Product }} </td> -->
                             <td class="text-center"> {{ DateThai($row->Date_hold) }} </td>
                             <td class="text-center"> {{ $row->Team_hold }} </td>
                             <td class="text-right">

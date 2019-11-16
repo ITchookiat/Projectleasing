@@ -187,8 +187,21 @@
     <!-- Main content -->
     <section class="content">
 
-      <div class="box box-warning box-solid" style="Background-color:#F5F5DC;">
-        <div class="box-body">
+      @if($type == 10)
+          <div class="box box-warning box-solid">
+            <div class="box-header with-border">
+            <h4 class="card-title" align="center"><b>หนังสือบอกเลิกสัญญา</b></h4>
+              <div class="box-tools pull-right">
+              <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+              <i class="fa fa-minus"></i></button>
+              <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+              <i class="fa fa-times"></i></button>
+              </div>
+            </div>
+             @else
+            <div class="box box-warning box-solid" style="Background-color:#F5F5DC;">
+              <div class="box-body">
+      @endif
           @if($type == 7)
             <form method="get" action="{{ route('Precipitate', 7) }}">
               <div align="right" class="form-inline">
@@ -264,9 +277,10 @@
                 <input type="date" name="SelectDate" style="width: 180px;" value="{{ ($newdate != '') ?$newdate: '' }}" class="form-control" />
               </div>
             </form>
+          @elseif($type == 10)
           @endif
-          <hr />
           @if($type == 7)
+            <hr />
             <div class="row">
               <div class="col-md-6">
                 <div class="box box-widget widget-user">
@@ -367,6 +381,7 @@
               </div>
             </div>
           @elseif($type == 8)
+            <hr />
             <div class="row" align="left">
               <div class="col-md-4">
                 <div class="box box-widget widget-user">
@@ -750,6 +765,7 @@
               </div>
             </div>
           @elseif($type == 9)
+            <hr />
             <div class="row">
               <div class="col-md-6">
                 <div class="box box-widget widget-user-2">
@@ -842,9 +858,88 @@
               </div>
 
             </div>
+          @elseif($type == 10)
+          <div class="box-body">
+            <div class="row">
+              <br />
+              <div class="col-md-12">
+                <div class="table-responsive">
+                 <table class="table table-bordered" id="table">
+                    <thead class="thead-dark bg-gray-light" >
+                      <tr>
+                        <th class="text-center">ลำดับ</th>
+                        <th class="text-center">เลขที่สัญญา</th>
+                        <th class="text-center">ชื่อ-สกุล</th>
+                        <th class="text-center">วันทำสัญญา</th>
+                        <th class="text-center">สถานะ</th>
+                        <th class="text-center" style="width: 150px">ตัวเลือก</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @foreach($data as $key => $row)
+                        <tr>
+                          <td class="text-center"> {{$key+1}} </td>
+                          <td class="text-center"> {{$row->CONTNO}}</td>
+                          <td class="text-left"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->SNAM.$row->NAME1)."   ".str_replace(" ","",$row->NAME2))}} </td>
+                          <td class="text-center">
+                            @php
+                             $StrCon = explode("/",$row->CONTNO);
+                             $SetStr1 = $StrCon[0];
+                             $SetStr2 = $StrCon[1];
+
+                             $ISSUDT= date_create($row->ISSUDT);
+                            @endphp
+                            {{ date_format($ISSUDT, 'd-m-Y')}}
+                          </td>
+                          <td class="text-center"> {{iconv('Tis-620','utf-8', $row->CONTSTAT)}} </td>
+                          <td class="text-center">
+                            <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal-addinfo" data-str1="{{$SetStr1}}" data-str2="{{ $SetStr2 }}" title="{{$SetStr1.'/'.$SetStr2}}">
+                              <i class="fa fa-edit"></i> Add
+                            </button>
+                          </td>
+                        </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+                </div>
+            </div>
+          </div>
           @endif
         </div>
       </div>
+
+      <div class="modal fade" id="modal-addinfo">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+              <form name="form1" method="post" action="{{ route('MasterPrecipitate.store') }}" target="_blank" enctype="multipart/form-data">
+                @csrf
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span></button>
+                    <h5 class="modal-title" id="title" align="center"></h5>
+                  </div>
+                  <div class="modal-body">
+                    <input type="date" name="AcceptDate" class="form-control" />
+                    <br>
+                    <input type="text" id="PayAmount" name="PayAmount" class="form-control" placeholder="ป้อนยอดชำระ" oninput="addcomma();" />
+                    <br>
+                    <input type="text" id="BalanceAmount" name="BalanceAmount" class="form-control" placeholder="ป้อนยอดคงขาด" oninput="addcomma();" />
+                    <input type="hidden" name="type" class="form-control" value="10" />
+                    <input type="hidden" id="contno" name="contno" class="form-control" />
+                    <!-- <input type="hidden" id="SetStr1" name="SetStr1" class="form-control" />
+                    <input type="hidden" id="SetStr2" name="SetStr2" class="form-control" /> -->
+                  </div>
+                  <div align="center">
+                    <!-- <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><span class="fa fa-times"></span> ปิด</button> -->
+                    <button id="submit" type="submit" class="btn btn-primary"><span class="fa fa-id-card-o"></span> พิมพ์</button>
+                  </div>
+                  <br/>
+            </form>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
 
       <script type="text/javascript">
         $(document).ready(function(){
@@ -862,6 +957,55 @@
             });
           });
         });
+      </script>
+
+      <script type="text/javascript">
+        $(document).ready(function() {
+          $('#table').DataTable( {
+            "order": [[ 1, "asc" ]],
+            "pageLength": 25
+          } );
+        } );
+      </script>
+
+      <script type="text/javascript">
+        $('#modal-addinfo').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget)
+        var SetStr1 = button.data('str1')
+        var SetStr2 = button.data('str2')
+        var Contno = SetStr1 + '/' +SetStr2
+        var title = 'เลขที่สัญญา : '+ SetStr1 + '/' + SetStr2
+        var modal = $(this);
+        modal.find('.modal-body #SetStr1').val(SetStr1);
+        modal.find('.modal-body #SetStr2').val(SetStr2);
+        modal.find('.modal-body #contno').val(Contno);
+        modal.find('.modal-header #title').text(title);
+        });
+      </script>
+
+      <script type="text/javascript">
+        $("#submit").click(function () {
+        $("#modal-addinfo").modal('toggle');
+        });
+        function addCommas(nStr){
+           nStr += '';
+           x = nStr.split('.');
+           x1 = x[0];
+           x2 = x.length > 1 ? '.' + x[1] : '';
+           var rgx = /(\d+)(\d{3})/;
+           while (rgx.test(x1)) {
+             x1 = x1.replace(rgx, '$1' + ',' + '$2');
+            }
+          return x1 + x2;
+        }
+        function addcomma(){
+          var num11 = document.getElementById('PayAmount').value;
+          var num1 = num11.replace(",","");
+          var num22 = document.getElementById('BalanceAmount').value;
+          var num2 = num22.replace(",","");
+          document.form1.PayAmount.value = addCommas(num1);
+          document.form1.BalanceAmount.value = addCommas(num2);
+        }
       </script>
 
 @endsection
