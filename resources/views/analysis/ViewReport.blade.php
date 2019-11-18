@@ -262,11 +262,22 @@
                 </div>
               @elseif($type == 7)
               <div class="col-md-12">
-               <form target="_blank" method="get" action="{{ action('ReportAnalysController@ReportDueDate', $type) }}">
-                <div align="right" class="form-inline">
-                  <button type="submit" class="btn btn-primary btn-app">
-                    <span class="glyphicon glyphicon-print"></span> Print
+              <form method="get" action="{{ route('Analysis', 7) }}">
+                <div align="left" class="form-inline pull-right">
+                  <label>เลือกวันที่อนุมัติ : </label>
+                  <input type="date" name="Approvedate" style="width: 180px;" value="{{ ($approvedate != '') ?$approvedate: date('Y-m-d') }}" class="form-control" />
+                  <button type="submit" class="btn btn-warning btn-app">
+                    <span class="glyphicon glyphicon-search"></span> Search
                   </button >
+                </div>
+              </form>
+
+               <form target="_blank" method="get" action="{{ action('ReportAnalysController@ReportDueDate', $type) }}">
+                <div align="left">
+                  <button type="submit" class="btn btn-primary btn-app">
+                    <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
+                  </button >
+                    <input type="hidden" name="Approvedate" style="width: 180px;" value="{{ ($approvedate != '') ?$approvedate: date('Y-m-d') }}" class="form-control" />
                 </div>
 
               <hr>
@@ -327,6 +338,16 @@
               @endif
             </div>
 
+            @if($type == 7)
+            <script type="text/javascript">
+              $(document).ready(function() {
+                $('#table').DataTable( {
+                  "order": [[ 0, "asc" ]],
+                  "pageLength": 25
+                } );
+              } );
+            </script>
+            @else
             <script type="text/javascript">
             $(document).ready(function() {
               $('#table').DataTable( {
@@ -334,6 +355,7 @@
               } );
             } );
             </script>
+            @endif
 
           <script type="text/javascript">
             $(".alert").fadeTo(3000, 1000).slideUp(1000, function(){

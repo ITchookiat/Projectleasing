@@ -409,18 +409,24 @@ class AnalysController extends Controller
         $type = $request->type;
         return view('analysis.viewReport', compact('type', 'data','newfdate','newtdate','datadrop','agen','datedue','datayear','yearcar'));
       }
-      elseif($request->type == 7){
+      elseif($request->type == 7){ //รายงานส่งผู้บริหาร
+        $approvedate = date('Y-m-d');
+        if ($request->has('Approvedate')) {
+          $approvedate = $request->get('Approvedate');
+          $approvedate = \Carbon\Carbon::parse($approvedate)->format('Y') ."-". \Carbon\Carbon::parse($approvedate)->format('m')."-". \Carbon\Carbon::parse($approvedate)->format('d');
+        }
         $dataReport = DB::table('buyers')
                         ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
                         ->join('cardetails','Buyers.id','=','cardetails.Buyercar_id')
                         ->join('Expenses','Buyers.id','=','Expenses.Buyerexpenses_id')
-                        ->where('cardetails.Date_Appcar',$date)
+                        ->when(!empty($approvedate), function($q) use($approvedate){
+                          return $q->where('cardetails.Date_Appcar',$approvedate);
+                        })
                         ->where('cardetails.Approvers_car','<>','')
                         ->orderBy('buyers.Contract_buyer', 'ASC')
                         ->get();
-        // dd($dataReport);
         $type = $request->type;
-        return view('analysis.viewReport', compact('type', 'dataReport'));
+        return view('analysis.viewReport', compact('type', 'dataReport','approvedate'));
       }
     }
 
