@@ -861,6 +861,7 @@ class PrecController extends Controller
         $SumPay = $dataArpay - $dataInpay;
         $type = $request->type;
 
+
         $view = \View::make('precipitate.ReportInvoice' ,compact('data','date','fdate','tdate','type','SumPay'));
         $html = $view->render();
         $pdf = new PDF();

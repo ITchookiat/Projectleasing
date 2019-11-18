@@ -21,60 +21,62 @@
         return "$strDay $strMonthThai $strYear";
       }
     @endphp
-    @php
-      function num2thai($thb) {
-        list($thb, $ths) = explode('.', $thb);
-        $ths = substr($ths.'00', 0, 0);
-        $thaiNum = array('','หนึ่ง','สอง','สาม','สี่','ห้า','หก','เจ็ด','แปด','เก้า');
-        $unitBaht = array('บาทถ้วน','สิบ','ร้อย','พัน','หมื่น','แสน','ล้าน','สิบ','ร้อย','พัน','หมื่น','แสน','ล้าน');
-        $unitSatang = array('สตางค์','สิบ');
-        $THB = '';
-        $j = 0;
-        for($i=strlen($thb)-1; $i>=0; $i--,$j++) {
-        $num = $thb[$i];
-        $tnum = $thaiNum[$num];
-        $unit = $unitBaht[$j];
-        switch(true) {
-        case $j==0 && $num==1 && strlen($thb)>1: $tnum = 'เอ็ด'; break;
-        case $j==1 && $num==1: $tnum = ''; break;
-        case $j==1 && $num==2: $tnum = 'ยี่'; break;
-        case $j==6 && $num==1 && strlen($thb)>7: $tnum = 'เอ็ด'; break;
-        case $j==7 && $num==1: $tnum = ''; break;
-        case $j==7 && $num==2: $tnum = 'ยี่'; break;
-        case $j!=0 && $j!=6 && $num==0: $unit = ''; break;
+    @if($type == 10)
+      @php
+        function num2thai($thb) {
+          list($thb, $ths) = explode('.', $thb);
+          $ths = substr($ths.'00', 0, 0);
+          $thaiNum = array('','หนึ่ง','สอง','สาม','สี่','ห้า','หก','เจ็ด','แปด','เก้า');
+          $unitBaht = array('บาทถ้วน','สิบ','ร้อย','พัน','หมื่น','แสน','ล้าน','สิบ','ร้อย','พัน','หมื่น','แสน','ล้าน');
+          $unitSatang = array('สตางค์','สิบ');
+          $THB = '';
+          $j = 0;
+          for($i=strlen($thb)-1; $i>=0; $i--,$j++) {
+          $num = $thb[$i];
+          $tnum = $thaiNum[$num];
+          $unit = $unitBaht[$j];
+          switch(true) {
+          case $j==0 && $num==1 && strlen($thb)>1: $tnum = 'เอ็ด'; break;
+          case $j==1 && $num==1: $tnum = ''; break;
+          case $j==1 && $num==2: $tnum = 'ยี่'; break;
+          case $j==6 && $num==1 && strlen($thb)>7: $tnum = 'เอ็ด'; break;
+          case $j==7 && $num==1: $tnum = ''; break;
+          case $j==7 && $num==2: $tnum = 'ยี่'; break;
+          case $j!=0 && $j!=6 && $num==0: $unit = ''; break;
+          }
+          $S = $tnum . $unit;
+          $THB = $S . $THB;
+          }
+          if($ths=='00') {
+          $THS = 'ถ้วน';
+          } else {
+          $j=0;
+          $THS = '';
+          for($i=strlen($ths)-1; $i>=0; $i--,$j++) {
+          $num = $ths[$i];
+          $tnum = $thaiNum[$num];
+          $unit = $unitSatang[$j];
+          switch(true) {
+          case $j==0 && $num==1 && strlen($ths)>1: $tnum = 'เอ็ด'; break;
+          case $j==1 && $num==1: $tnum = ''; break;
+          case $j==1 && $num==2: $tnum = 'ยี่'; break;
+          case $j!=0 && $j!=6 && $num==0: $unit = ''; break;
+          }
+          $S = $tnum . $unit;
+          $THS = $S . $THS;
+          }
+          }
+          return $THB.$THS;
         }
-        $S = $tnum . $unit;
-        $THB = $S . $THB;
-        }
-        if($ths=='00') {
-        $THS = 'ถ้วน';
-        } else {
-        $j=0;
-        $THS = '';
-        for($i=strlen($ths)-1; $i>=0; $i--,$j++) {
-        $num = $ths[$i];
-        $tnum = $thaiNum[$num];
-        $unit = $unitSatang[$j];
-        switch(true) {
-        case $j==0 && $num==1 && strlen($ths)>1: $tnum = 'เอ็ด'; break;
-        case $j==1 && $num==1: $tnum = ''; break;
-        case $j==1 && $num==2: $tnum = 'ยี่'; break;
-        case $j!=0 && $j!=6 && $num==0: $unit = ''; break;
-        }
-        $S = $tnum . $unit;
-        $THS = $S . $THS;
-        }
-        }
-        return $THB.$THS;
-      }
 
-      $thb = ($data->EXP_AMT*100+1)/100;
-      $thb1 = ($PayAmount*100+1)/100;
-      $thb2 = ($BalanceAmount*100+1)/100;
-      $EXP_AMT = num2thai($thb);
-      $Pay_Amount = num2thai($thb1);
-      $Balance_Amount = num2thai($thb2);
-    @endphp
+        $thb = ($data->EXP_AMT*100+1)/100;
+        $thb1 = ($PayAmount*100+1)/100;
+        $thb2 = ($BalanceAmount*100+1)/100;
+        $EXP_AMT = num2thai($thb);
+        $Pay_Amount = num2thai($thb1);
+        $Balance_Amount = num2thai($thb2);
+      @endphp
+    @endif
     <style>
       td.container > div {
           width: 100%;
@@ -86,110 +88,109 @@
       }
     </style>
   </head>
+
   @if($type == 10)
-  <br/>
-  <h1 class="card-title p-3" align="center"><b>บริษัท ชูเกียรติลิสซิ่ง จำกัด</b></h1>
-  <h3 class="card-title p-3" align="center" style="letter-spacing: 0.3px;"><b>17/8 ม.4 ต.รูสะมิแล อ.เมือง จ.ปัตตานี   โทร. 073-450700-4 </b></h3>
-  <div style="background-color: #000000;line-height: 15%;">
-  </div>
-  @else
+    <br/>
+      <h1 class="card-title p-3" align="center"><b>บริษัท ชูเกียรติลิสซิ่ง จำกัด</b></h1>
+      <h3 class="card-title p-3" align="center" style="letter-spacing: 0.3px;"><b>17/8 ม.4 ต.รูสะมิแล อ.เมือง จ.ปัตตานี   โทร. 073-450700-4 </b></h3>
+    <div style="background-color: #000000;line-height: 15%;"></div>
+  @elseif($type == 2)
     <label align="right">วันที่ : <u>{{DateThai($date)}}</u></label>
     <h2 class="card-title p-3" align="center">รายงาน ใบแจ้งหนี้ (บริษัท ชูเกียรติลิสซิ่ง จำกัด)</h2>
   @endif
   <body>
 
     @if($type == 10)
-    <br>
-      <table border="0">
-        @php
-        $Date = date('Y-m-d');
-        @endphp
-        <tr style="line-height: 150%;">
-          <td width="250px"> {{-- $data->CONTNO --}}</td>
-          <td width="250px"> วันที่ {{DateThai2($Date)}} </td>
-        </tr>
-        <tr style="line-height: 20%;">
-          <td width="500px"> </td>
-        </tr>
-        <tr style="letter-spacing: 0.2px;">
-          <td width="30px">เรื่อง </td>
-          <td width="200px">ขอยืนยันหนังสือบอกเลิกสัญญาฉบับเดิม</td>
-          <td width="270px"></td>
-        </tr>
-        <tr style="line-height: 150%;">
-          <td width="30px">เรียน </td>
-          <td width="150px">1. คุณ{{ str_replace('นางสาว','',str_replace('นาง','', str_replace('นาย','', iconv('TIS-620', 'utf-8', $data->NAME1." ".$data->NAME2)))) }}</td>
-          <td width="320px">ผู้เช่าซื้อ</td>
-        </tr>
-        <tr style="line-height: 150%;">
-          <td width="30px"> </td>
-          <td width="150px">2. คุณ{{ str_replace('นางสาว','',str_replace('นาง','', str_replace('นาย','', iconv('TIS-620', 'utf-8', $data->NAME)))) }}</td>
-          <td width="320px">ผู้ค้ำประกัน</td>
-        </tr>
-        <tr>
-          <td width="500px"> </td>
-        </tr>
-        <tr style="line-height: 150%;letter-spacing: 0.15px;">
-          <!-- <td width="30px"> </td> -->
-          <td width="500px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            ตามที่คุณ{{ str_replace('นางสาว','',str_replace('นาง','', str_replace('นาย','', iconv('TIS-620', 'utf-8', $data->NAME1." ".$data->NAME2)))) }}
-            ได้ตกลงทำสัญญาเช่าซื้อรถยนต์ยี่ห้อ {{ iconv('TIS-620', 'utf-8', $data->TYPE) }} หมายเลขทะเบียน {{ iconv('TIS-620', 'utf-8', $data->REGNO) }}
-            หมายเลขตัวถัง {{-- $data->STRNO --}} {{$New_STRNO}} หมายเลขเครื่อง {{-- $data->ENGNO --}} {{$New_ENGNO}}
-            สี{{ iconv('TIS-620', 'utf-8', $data->COLOR) }} จากบริษัท ชูเกียรติลิสซิ่ง จำกัด ผู้ให้เช่าซื้อโดยการเช่าซื้อดังกล่าวได้มี
-            คุณ{{ str_replace('นางสาว','',str_replace('นาง','', str_replace('นาย','', iconv('TIS-620', 'utf-8', $data->NAME)))) }}
-            เข้าค้ำประกัน ในกรณีที่ผู้เช่าซื้อละเมิดข้อสัญญา รายละเอียดท่านทั้งสองทราบดีอยู่แล้วนั้น
-          </td>
-        </tr>
-        <tr style="line-height: 20%;">
-          <td width="500px"></td>
-        </tr>
-        <tr style="line-height: 150%;letter-spacing: 0.15px;">
-          <td width="500px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            ปรากฏว่า คุณ{{ str_replace('นางสาว','',str_replace('นาง','', str_replace('นาย','', iconv('TIS-620', 'utf-8', $data->NAME1." ".$data->NAME2)))) }}
-            ผู้เช่าซื้อ ได้ผิดนัดไม่ชำระค่าเช่าซื้อตั้งแต่ งวดที่ {{$data->EXP_FRM}} ประจำวันที่ {{DateThai2($Datehold)}} เป็นต้นมา และยังคงค้างชำระรวมเป็นเงินทั้งสิ้น {{number_format($data->EXP_AMT, 0)}} บาท ({{$EXP_AMT}})
-          </td>
-        </tr>
-        <tr style="line-height: 20%;">
-          <td width="500px"> </td>
-        </tr>
-        <tr style="line-height: 150%;letter-spacing: 0.15px;">
-          <td width="500px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            ต่อมาเมื่อวันที่ {{DateThai2($DatecancleContract)}} บริษัทฯ ได้ทำการบอกเลิกสัญญากับคุณ{{ str_replace('นางสาว','',str_replace('นาง','', str_replace('นาย','', iconv('TIS-620', 'utf-8', $data->NAME1." ".$data->NAME2)))) }}
-            ผู้เช่าซื้อแล้ว และมี ผลให้สัญญาเลิกกันแล้ว คุณ{{ str_replace('นางสาว','',str_replace('นาง','', str_replace('นาย','', iconv('TIS-620', 'utf-8', $data->NAME1." ".$data->NAME2)))) }} จึงมีหน้าที่
-            ต้องส่งมอบรถยนต์คืนในสภาพเรียบร้อยใช้การได้ดี ต่อมา เมื่อวันที่ {{DateThai2($AcceptDate)}} คุณ{{ str_replace('นางสาว','',str_replace('นาง','', str_replace('นาย','', iconv('TIS-620', 'utf-8', $data->NAME1." ".$data->NAME2)))) }}
-            ก็ได้ชำระเงินจำนวน {{number_format($PayAmount)}} บาท ซึ่งปัจจุบันยังคงขาด อยู่อีกจำนวน {{number_format($BalanceAmount)}} บาท ({{$Balance_Amount}})
-          </td>
-        </tr>
-        <tr style="line-height: 20%;">
-          <td width="500px"> </td>
-        </tr>
-        <tr style="line-height: 150%;letter-spacing: 0.15px;">
-          <td width="500px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            ฉะนั้น บริษัทฯยังคงถือเอาหนังสือบอกเลิกสัญญาฉบับลงวันที่ {{DateThai2($DatecancleContract)}} และท่านยังมีหน้าที่ต้องส่ง มอบรถยนต์คืนในสภาพเรียบร้อยใช้การได้ดี หากท่านทั้งสองยังเพิกเฉยไม่ส่งมอบรถยนต์หรือชำระหนี้ดังกล่าวอีก
-            บริษัทฯ จำเป็นต้องดำเนินคดีกับท่านทั้งสองตามกฏหมายต่อไป
-          </td>
-        </tr>
-        <tr>
-          <td width="500px"> </td>
-        </tr>
-        <tr style="line-height: 150%;">
-          <td width="250px"> {{-- $data->CONTNO --}}</td>
-          <td width="250px"> ขอแสดงความนับถือ </td>
-        </tr>
-        <tr>
-          <td width="500px"> </td>
-        </tr>
-        <tr style="line-height: 150%;letter-spacing: 0.2px;">
-          <td width="220px"> {{-- $data->CONTNO --}}</td>
-          <td width="280px"> ( นางสาวขวัญตา   เหมือนพยอม ) </td>
-        </tr>
-        <tr style="line-height: 150%;">
-          <td width="260px"> {{-- $data->CONTNO --}}</td>
-          <td width="240px"> ผู้รับมอบอำนาจ </td>
-        </tr>
-      </table>
-
-    @else
+      <br>
+        <table border="0">
+          @php
+          $Date = date('Y-m-d');
+          @endphp
+          <tr style="line-height: 150%;">
+            <td width="250px"> {{-- $data->CONTNO --}}</td>
+            <td width="250px"> วันที่ {{DateThai2($Date)}} </td>
+          </tr>
+          <tr style="line-height: 20%;">
+            <td width="500px"> </td>
+          </tr>
+          <tr style="letter-spacing: 0.2px;">
+            <td width="30px">เรื่อง </td>
+            <td width="200px">ขอยืนยันหนังสือบอกเลิกสัญญาฉบับเดิม</td>
+            <td width="270px"></td>
+          </tr>
+          <tr style="line-height: 150%;">
+            <td width="30px">เรียน </td>
+            <td width="150px">1. คุณ{{ str_replace('นางสาว','',str_replace('นาง','', str_replace('นาย','', iconv('TIS-620', 'utf-8', $data->NAME1." ".$data->NAME2)))) }}</td>
+            <td width="320px">ผู้เช่าซื้อ</td>
+          </tr>
+          <tr style="line-height: 150%;">
+            <td width="30px"> </td>
+            <td width="150px">2. คุณ{{ str_replace('นางสาว','',str_replace('นาง','', str_replace('นาย','', iconv('TIS-620', 'utf-8', $data->NAME)))) }}</td>
+            <td width="320px">ผู้ค้ำประกัน</td>
+          </tr>
+          <tr>
+            <td width="500px"> </td>
+          </tr>
+          <tr style="line-height: 150%;letter-spacing: 0.15px;">
+            <!-- <td width="30px"> </td> -->
+            <td width="500px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              ตามที่คุณ{{ str_replace('นางสาว','',str_replace('นาง','', str_replace('นาย','', iconv('TIS-620', 'utf-8', $data->NAME1." ".$data->NAME2)))) }}
+              ได้ตกลงทำสัญญาเช่าซื้อรถยนต์ยี่ห้อ {{ iconv('TIS-620', 'utf-8', $data->TYPE) }} หมายเลขทะเบียน {{ iconv('TIS-620', 'utf-8', $data->REGNO) }}
+              หมายเลขตัวถัง {{-- $data->STRNO --}} {{$New_STRNO}} หมายเลขเครื่อง {{-- $data->ENGNO --}} {{$New_ENGNO}}
+              สี{{ iconv('TIS-620', 'utf-8', $data->COLOR) }} จากบริษัท ชูเกียรติลิสซิ่ง จำกัด ผู้ให้เช่าซื้อโดยการเช่าซื้อดังกล่าวได้มี
+              คุณ{{ str_replace('นางสาว','',str_replace('นาง','', str_replace('นาย','', iconv('TIS-620', 'utf-8', $data->NAME)))) }}
+              เข้าค้ำประกัน ในกรณีที่ผู้เช่าซื้อละเมิดข้อสัญญา รายละเอียดท่านทั้งสองทราบดีอยู่แล้วนั้น
+            </td>
+          </tr>
+          <tr style="line-height: 20%;">
+            <td width="500px"></td>
+          </tr>
+          <tr style="line-height: 150%;letter-spacing: 0.15px;">
+            <td width="500px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              ปรากฏว่า คุณ{{ str_replace('นางสาว','',str_replace('นาง','', str_replace('นาย','', iconv('TIS-620', 'utf-8', $data->NAME1." ".$data->NAME2)))) }}
+              ผู้เช่าซื้อ ได้ผิดนัดไม่ชำระค่าเช่าซื้อตั้งแต่ งวดที่ {{$data->EXP_FRM}} ประจำวันที่ {{DateThai2($Datehold)}} เป็นต้นมา และยังคงค้างชำระรวมเป็นเงินทั้งสิ้น {{number_format($data->EXP_AMT, 0)}} บาท ({{$EXP_AMT}})
+            </td>
+          </tr>
+          <tr style="line-height: 20%;">
+            <td width="500px"> </td>
+          </tr>
+          <tr style="line-height: 150%;letter-spacing: 0.15px;">
+            <td width="500px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              ต่อมาเมื่อวันที่ {{DateThai2($DatecancleContract)}} บริษัทฯ ได้ทำการบอกเลิกสัญญากับคุณ{{ str_replace('นางสาว','',str_replace('นาง','', str_replace('นาย','', iconv('TIS-620', 'utf-8', $data->NAME1." ".$data->NAME2)))) }}
+              ผู้เช่าซื้อแล้ว และมี ผลให้สัญญาเลิกกันแล้ว คุณ{{ str_replace('นางสาว','',str_replace('นาง','', str_replace('นาย','', iconv('TIS-620', 'utf-8', $data->NAME1." ".$data->NAME2)))) }} จึงมีหน้าที่
+              ต้องส่งมอบรถยนต์คืนในสภาพเรียบร้อยใช้การได้ดี ต่อมา เมื่อวันที่ {{DateThai2($AcceptDate)}} คุณ{{ str_replace('นางสาว','',str_replace('นาง','', str_replace('นาย','', iconv('TIS-620', 'utf-8', $data->NAME1." ".$data->NAME2)))) }}
+              ก็ได้ชำระเงินจำนวน {{number_format($PayAmount)}} บาท ซึ่งปัจจุบันยังคงขาด อยู่อีกจำนวน {{number_format($BalanceAmount)}} บาท ({{$Balance_Amount}})
+            </td>
+          </tr>
+          <tr style="line-height: 20%;">
+            <td width="500px"> </td>
+          </tr>
+          <tr style="line-height: 150%;letter-spacing: 0.15px;">
+            <td width="500px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              ฉะนั้น บริษัทฯยังคงถือเอาหนังสือบอกเลิกสัญญาฉบับลงวันที่ {{DateThai2($DatecancleContract)}} และท่านยังมีหน้าที่ต้องส่ง มอบรถยนต์คืนในสภาพเรียบร้อยใช้การได้ดี หากท่านทั้งสองยังเพิกเฉยไม่ส่งมอบรถยนต์หรือชำระหนี้ดังกล่าวอีก
+              บริษัทฯ จำเป็นต้องดำเนินคดีกับท่านทั้งสองตามกฏหมายต่อไป
+            </td>
+          </tr>
+          <tr>
+            <td width="500px"> </td>
+          </tr>
+          <tr style="line-height: 150%;">
+            <td width="250px"> {{-- $data->CONTNO --}}</td>
+            <td width="250px"> ขอแสดงความนับถือ </td>
+          </tr>
+          <tr>
+            <td width="500px"> </td>
+          </tr>
+          <tr style="line-height: 150%;letter-spacing: 0.2px;">
+            <td width="220px"> {{-- $data->CONTNO --}}</td>
+            <td width="280px"> ( นางสาวขวัญตา   เหมือนพยอม ) </td>
+          </tr>
+          <tr style="line-height: 150%;">
+            <td width="260px"> {{-- $data->CONTNO --}}</td>
+            <td width="240px"> ผู้รับมอบอำนาจ </td>
+          </tr>
+        </table>
+    @elseif($type == 2)
       @foreach($data as $key => $value)
         <h3 align="left"><u>ประวัติผู้เช่าซื้อ/กู้</u></h3>
         <br />
