@@ -604,6 +604,8 @@ class PrecController extends Controller
                   ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
                   ->get();
 
+                  // dd($data);
+
         $dataArpay = DB::connection('ibmi')
                   ->table('SFHP.ARPAY')
                   ->where('SFHP.ARPAY.CONTNO','=',$SetStrConn)
