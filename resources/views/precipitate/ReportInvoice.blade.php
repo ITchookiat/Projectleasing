@@ -93,7 +93,7 @@
     <br/>
       <h1 class="card-title p-3" align="center"><b>บริษัท ชูเกียรติลิสซิ่ง จำกัด</b></h1>
       <h3 class="card-title p-3" align="center" style="letter-spacing: 0.3px;"><b>17/8 ม.4 ต.รูสะมิแล อ.เมือง จ.ปัตตานี   โทร. 073-450700-4 </b></h3>
-    <div style="background-color: #000000;line-height: 15%;"></div>
+    <hr>
   @elseif($type == 2)
     <label align="right">วันที่ : <u>{{DateThai($date)}}</u></label>
     <h2 class="card-title p-3" align="center">รายงาน ใบแจ้งหนี้ (บริษัท ชูเกียรติลิสซิ่ง จำกัด)</h2>
