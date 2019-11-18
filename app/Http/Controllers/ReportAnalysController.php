@@ -173,15 +173,25 @@ class ReportAnalysController extends Controller
       }
       elseif($request->type == 7){
         $ids = $request->choose;
+        if ($request->has('Approvedate')) {
+          $approvedate = $request->get('Approvedate');
+          $approvedate = \Carbon\Carbon::parse($approvedate)->format('Y') ."-". \Carbon\Carbon::parse($approvedate)->format('m')."-". \Carbon\Carbon::parse($approvedate)->format('d');
+        }
         $dataReport = DB::table('buyers')
                         ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
                         ->join('cardetails','Buyers.id','=','cardetails.Buyercar_id')
                         ->join('Expenses','Buyers.id','=','Expenses.Buyerexpenses_id')
-                        ->whereIn('buyers.id', $ids)
-                        ->where('cardetails.Date_Appcar',$date)
+                        // ->whereIn('buyers.id', $ids)
+                        ->when(!empty($ids), function($q) use($ids){
+                          return $q->whereIn('buyers.id', $ids);
+                          })
+                        ->when(!empty($approvedate), function($q) use($approvedate){
+                            return $q->where('cardetails.Date_Appcar',$approvedate);
+                          })
                         ->where('cardetails.Approvers_car','<>','')
                         ->orderBy('buyers.Contract_buyer', 'ASC')
                         ->get();
+        // dd($dataReport);
       }
 
         $view = \View::make('analysis.ReportDueDate' ,compact('dataReport','date2'));

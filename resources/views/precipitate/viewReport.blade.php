@@ -198,10 +198,11 @@
               <i class="fa fa-times"></i></button>
               </div>
             </div>
-             @else
+      @else
             <div class="box box-warning box-solid" style="Background-color:#F5F5DC;">
               <div class="box-body">
       @endif
+
           @if($type == 7)
             <form method="get" action="{{ route('Precipitate', 7) }}">
               <div align="right" class="form-inline">
@@ -279,6 +280,7 @@
             </form>
           @elseif($type == 10)
           @endif
+          
           @if($type == 7)
             <hr />
             <div class="row">
