@@ -1058,8 +1058,6 @@ class AnalysController extends Controller
         $Getcardetail = Cardetail::where('Buyercar_id',$id)->first();
         $Gethomecardetail = homecardetail::where('Buyerhomecar_id',$id)->first();
 
-        // dd('sdfghj');
-
         if ($request->get('Approverscar') != Null) {
           if ($Getcardetail->Date_Appcar == Null) {
             $Y = date('Y');
@@ -1401,15 +1399,17 @@ class AnalysController extends Controller
             $SetStatusApp = 'รออนุมัติ';
           }
 
-          if ($request->get('Checkcar') != Null) {
-            $SetCheckcar = $request->get('Checkcar');
-          }else {
-            if ($cardetail->Check_car != Null) {
-              $SetCheckcar = $cardetail->Check_car;
-            }else {
-              $SetCheckcar = Null;
-            }
-          }
+          // dd($request->Checkcar);
+
+          // if ($request->get('Checkcar') != Null) {
+          //   $SetCheckcar = $request->get('Checkcar');
+          // }else {
+          //   if ($cardetail->Check_car != Null) {
+          //     $SetCheckcar = $cardetail->Check_car;
+          //   }else {
+          //     $SetCheckcar = Null;
+          //   }
+          // }
 
           $cardetail->Insurance_car = $request->get('Insurancecar');
           $cardetail->status_car = $request->get('statuscar');
@@ -1424,7 +1424,7 @@ class AnalysController extends Controller
           $cardetail->Purchasehistory_car = $request->get('Purchasehistorycar');
           $cardetail->Supporthistory_car = $request->get('Supporthistorycar');
           $cardetail->Approvers_car = $request->get('Approverscar');
-          $cardetail->Check_car = $SetCheckcar;
+          $cardetail->Check_car = $request->get('Checkcar');
           $cardetail->StatusApp_car = $SetStatusApp;
           $cardetail->DocComplete_car = $request->get('doccomplete');
           $cardetail->branchbrance_car = $request->get('branchbrancecar');
