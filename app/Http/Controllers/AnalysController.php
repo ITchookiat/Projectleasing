@@ -1278,217 +1278,284 @@ class AnalysController extends Controller
         $Homecardetail->update();
       }
       else {
-        if ($request->get('Topcar') != Null) {
-          $SetTopcar = str_replace (",","",$request->get('Topcar'));
-        }else {
-          $SetTopcar = 0;
-        }
-
-        if ($request->get('Commissioncar') != Null) {
-          $SetCommissioncar = str_replace (",","",$request->get('Commissioncar'));
-        }else {
-          $SetCommissioncar = 0;
-        }
-
-        $cardetail = Cardetail::where('Buyercar_id',$id)->first();
-          $cardetail->Brand_car = $request->get('Brandcar');
-          $cardetail->Year_car = $request->get('Yearcar');
-          $cardetail->Colour_car = $request->get('Colourcar');
-          $cardetail->License_car = $request->get('Licensecar');
-          $cardetail->Nowlicense_car = $request->get('Nowlicensecar');
-          $cardetail->Mile_car = $request->get('Milecar');
-          $cardetail->Midprice_car = $request->get('Midpricecar');
-          $cardetail->Model_car = $request->get('Modelcar');
-          $cardetail->Top_car = $SetTopcar;
-          $cardetail->Interest_car = $request->get('Interestcar');
-          $cardetail->Vat_car = $request->get('Vatcar');
-          $cardetail->Timeslacken_car = $request->get('Timeslackencar');
-          $cardetail->Pay_car = $request->get('Paycar');
-          $cardetail->Paymemt_car = $request->get('Paymemtcar');
-          $cardetail->Timepayment_car = $request->get('Timepaymentcar');
-          $cardetail->Tax_car = $request->get('Taxcar');
-          $cardetail->Taxpay_car = $request->get('Taxpaycar');
-          $cardetail->Totalpay1_car = $request->get('Totalpay1car');
-          $cardetail->Totalpay2_car = $request->get('Totalpay2car');
-          $cardetail->Insurance_key = $request->get('Insurancekey');
-
-          if ($request->get('Approverscar') != Null) {
-            $SetStatusApp = 'อนุมัติ';
-
-            if ($cardetail->Date_Appcar == Null) {
-              $Y = date('Y') +543;
-              $Y2 = date('Y');
-              $m = date('m', strtotime('+1 month'));
-              $m2 = date('m');
-              $d = date('d');
-              $datefirst = $d.'-'.$m.'-'.$Y;
-              $dateApp = $Y2.'-'.$m2.'-'.$d;
-
-              $cardetail->Dateduefirst_car = $datefirst;
-              $cardetail->Date_Appcar = $dateApp;
-              $SetStatusApp = 'อนุมัติ';
-
-              $branchType = Null;
-              if ($cardetail->branch_car == "ปัตตานี") {
-                  $branchType = 01;
-              }elseif ($cardetail->branch_car == "ยะลา") {
-                  $branchType = 03;
-              }elseif ($cardetail->branch_car == "นราธิวาส") {
-                  $branchType = 04;
-              }elseif ($cardetail->branch_car == "สายบุรี") {
-                  $branchType = 05;
-              }elseif ($cardetail->branch_car == "โกลก") {
-                  $branchType = 06;
-              }elseif ($cardetail->branch_car == "เบตง") {
-                  $branchType = 07;
-              }elseif ($cardetail->branch_car == "รถบ้าน") {
-                  $branchType = 10;
-              }elseif ($cardetail->branch_car == "รถยืดขายผ่อน") {
-                  $branchType = 11;
-              }
-
-              if ($branchType != Null) {
-                if ($branchType == 01) { //สาขาปัตตานี
-                  $connect = Buyer::where('Contract_buyer', 'like', '01%' )
-                                    ->orderBy('Contract_buyer', 'desc')->limit(1)
-                                    ->get();
-                }elseif ($branchType == 03) { //สาขายะลา
-                  $connect = Buyer::where('Contract_buyer', 'like', '03%' )
-                                    ->orderBy('Contract_buyer', 'desc')->limit(1)
-                                    ->get();
-                }elseif ($branchType == 04) { //สาขานรา
-                  $connect = Buyer::where('Contract_buyer', 'like', '04%' )
-                                    ->orderBy('Contract_buyer', 'desc')->limit(1)
-                                    ->get();
-                }elseif ($branchType == 05) { //สาขาสายบรุี
-                  $connect = Buyer::where('Contract_buyer', 'like', '05%' )
-                                    ->orderBy('Contract_buyer', 'desc')->limit(1)
-                                    ->get();
-                }elseif ($branchType == 06) { //สาขาโกลก
-                  $connect = Buyer::where('Contract_buyer', 'like', '06%' )
-                                    ->orderBy('Contract_buyer', 'desc')->limit(1)
-                                    ->get();
-                }elseif ($branchType == 07) { //สาขาเบตง
-                  $connect = Buyer::where('Contract_buyer', 'like', '07%' )
-                                    ->orderBy('Contract_buyer', 'desc')->limit(1)
-                                    ->get();
-                }elseif ($branchType == 10) { //สาขารถบ้าน
-                  $connect = Buyer::where('Contract_buyer', 'like', '10%' )
-                                    ->orderBy('Contract_buyer', 'desc')->limit(1)
-                                    ->get();
-                }elseif ($branchType == 11) { //สาขารถยืดขายผ่อน
-                  $connect = Buyer::where('Contract_buyer', 'like', '11%' )
-                                    ->orderBy('Contract_buyer', 'desc')->limit(1)
-                                    ->get();
-                }
-
-                $contract = $connect[0]->Contract_buyer;
-                $SetStr = explode("/",$contract);
-                $StrNum = $SetStr[1] + 1;
-
-                $num = "1000";
-                $SubStr = substr($num.$StrNum, -4);
-                $StrConn = $SetStr[0]."/".$SubStr;
-
-                $GetIdConn = Buyer::where('id',$id)->first();
-                  $GetIdConn->Contract_buyer = $StrConn;
-                $GetIdConn->update();
-              }
-            }
+          if ($request->get('Topcar') != Null) {
+            $SetTopcar = str_replace (",","",$request->get('Topcar'));
           }else {
-            $SetStatusApp = 'รออนุมัติ';
+            $SetTopcar = 0;
           }
 
-          // dd($request->Checkcar);
+          if ($request->get('Commissioncar') != Null) {
+            $SetCommissioncar = str_replace (",","",$request->get('Commissioncar'));
+          }else {
+            $SetCommissioncar = 0;
+          }
 
-          // if ($request->get('Checkcar') != Null) {
-          //   $SetCheckcar = $request->get('Checkcar');
-          // }else {
-          //   if ($cardetail->Check_car != Null) {
-          //     $SetCheckcar = $cardetail->Check_car;
-          //   }else {
-          //     $SetCheckcar = Null;
-          //   }
-          // }
+          $cardetail = Cardetail::where('Buyercar_id',$id)->first();
+            $cardetail->Brand_car = $request->get('Brandcar');
+            $cardetail->Year_car = $request->get('Yearcar');
+            $cardetail->Colour_car = $request->get('Colourcar');
+            $cardetail->License_car = $request->get('Licensecar');
+            $cardetail->Nowlicense_car = $request->get('Nowlicensecar');
+            $cardetail->Mile_car = $request->get('Milecar');
+            $cardetail->Midprice_car = $request->get('Midpricecar');
+            $cardetail->Model_car = $request->get('Modelcar');
+            $cardetail->Top_car = $SetTopcar;
+            $cardetail->Interest_car = $request->get('Interestcar');
+            $cardetail->Vat_car = $request->get('Vatcar');
+            $cardetail->Timeslacken_car = $request->get('Timeslackencar');
+            $cardetail->Pay_car = $request->get('Paycar');
+            $cardetail->Paymemt_car = $request->get('Paymemtcar');
+            $cardetail->Timepayment_car = $request->get('Timepaymentcar');
+            $cardetail->Tax_car = $request->get('Taxcar');
+            $cardetail->Taxpay_car = $request->get('Taxpaycar');
+            $cardetail->Totalpay1_car = $request->get('Totalpay1car');
+            $cardetail->Totalpay2_car = $request->get('Totalpay2car');
+            $cardetail->Insurance_key = $request->get('Insurancekey');
 
-          $cardetail->Insurance_car = $request->get('Insurancecar');
-          $cardetail->status_car = $request->get('statuscar');
-          $cardetail->Percent_car = $request->get('Percentcar');
-          $cardetail->Payee_car = $request->get('Payeecar');
-          $cardetail->Accountbrance_car = $request->get('Accountbrancecar');
-          $cardetail->Tellbrance_car = $request->get('Tellbrancecar');
-          $cardetail->Agent_car = $request->get('Agentcar');
-          $cardetail->Accountagent_car = $request->get('Accountagentcar');
-          $cardetail->Commission_car = $SetCommissioncar;
-          $cardetail->Tellagent_car = $request->get('Tellagentcar');
-          $cardetail->Purchasehistory_car = $request->get('Purchasehistorycar');
-          $cardetail->Supporthistory_car = $request->get('Supporthistorycar');
-          $cardetail->Approvers_car = $request->get('Approverscar');
-          $cardetail->Check_car = $request->get('Checkcar');
-          $cardetail->StatusApp_car = $SetStatusApp;
-          $cardetail->DocComplete_car = $request->get('doccomplete');
-          $cardetail->branchbrance_car = $request->get('branchbrancecar');
-          $cardetail->branchAgent_car = $request->get('branchAgentcar');
-          $cardetail->Note_car = $request->get('Notecar');
-        $cardetail->update();
+            if ($request->get('Approverscar') != Null) { //กรณี อนุมัติ
+                $SetStatusApp = 'อนุมัติ';
 
-        if ($request->get('tranPrice') != Null) {
-          $SettranPrice = str_replace (",","",$request->get('tranPrice'));
-        }else {
-          $SettranPrice = 0;
-        }
-        if ($request->get('otherPrice') != Null) {
-          $SetotherPrice = str_replace (",","",$request->get('otherPrice'));
-        }else {
-          $SetotherPrice = 0;
-        }
-        if ($request->get('totalkPrice') != Null) {
-          $SettotalkPrice = str_replace (",","",$request->get('totalkPrice'));
-        }else {
-          $SettotalkPrice = 0;
-        }
-        if ($request->get('balancePrice') != Null) {
-          $SetbalancePrice = str_replace (",","",$request->get('balancePrice'));
-        }else {
-          $SetbalancePrice = 0;
-        }
-        if ($request->get('commitPrice') != Null) {
-          $SetcommitPrice = str_replace (",","",$request->get('commitPrice'));
-        }else {
-          $SetcommitPrice = 0;
-        }
-        if ($request->get('actPrice') != Null) {
-          $SetactPrice = str_replace (",","",$request->get('actPrice'));
-        }else {
-          $SetactPrice = 0;
-        }
-        if ($request->get('closeAccountPrice') != Null) {
-          $SetcloseAccountPrice = str_replace (",","",$request->get('closeAccountPrice'));
-        }else {
-          $SetcloseAccountPrice = 0;
-        }
-        if ($request->get('P2Price') != Null) {
-          $SetP2Price = str_replace (",","",$request->get('P2Price'));
-        }else {
-          $SetP2Price = 0;
-        }
+              if ($cardetail->Approvers_car == Null) {
+                $Y = date('Y') +543;
+                $Y2 = date('Y');
+                $m = date('m', strtotime('+1 month'));
+                $m2 = date('m');
+                $d = date('d');
+                $datefirst = $d.'-'.$m.'-'.$Y;
+                $dateApp = $Y2.'-'.$m2.'-'.$d;
 
-        $expenses = Expenses::where('Buyerexpenses_id',$id)->first();
-          $expenses->act_Price = $SetactPrice;
-          $expenses->closeAccount_Price = $SetcloseAccountPrice;
-          $expenses->P2_Price = $SetP2Price;
-          $expenses->vat_Price = $request->get('vatPrice');
-          $expenses->tran_Price = $SettranPrice;
-          $expenses->other_Price = $SetotherPrice;
-          $expenses->evaluetion_Price = $request->get('evaluetionPrice');
-          $expenses->totalk_Price = $SettotalkPrice;
-          $expenses->balance_Price = $SetbalancePrice;
-          $expenses->commit_Price = $SetcommitPrice;
-          $expenses->marketing_Price = $request->get('marketingPrice');
-          $expenses->duty_Price = $request->get('dutyPrice');
-          $expenses->insurance_Price = $request->get('insurancePrice');
-          $expenses->note_Price = $request->get('notePrice');
-        $expenses->update();
+                $cardetail->Dateduefirst_car = $datefirst;
+                $cardetail->Date_Appcar = $dateApp;
+                $SetStatusApp = 'อนุมัติ';
+
+                $branchType = Null;
+                if ($cardetail->branch_car == "ปัตตานี") {
+                    $branchType = 01;
+                }elseif ($cardetail->branch_car == "ยะลา") {
+                    $branchType = 03;
+                }elseif ($cardetail->branch_car == "นราธิวาส") {
+                    $branchType = 04;
+                }elseif ($cardetail->branch_car == "สายบุรี") {
+                    $branchType = 05;
+                }elseif ($cardetail->branch_car == "โกลก") {
+                    $branchType = 06;
+                }elseif ($cardetail->branch_car == "เบตง") {
+                    $branchType = 07;
+                }elseif ($cardetail->branch_car == "รถบ้าน") {
+                    $branchType = 10;
+                }elseif ($cardetail->branch_car == "รถยืดขายผ่อน") {
+                    $branchType = 11;
+                }
+                if ($branchType != Null) {
+                  if ($branchType == 01) { //สาขาปัตตานี
+                    $connect = Buyer::where('Contract_buyer', 'like', '01%' )
+                                      ->orderBy('Contract_buyer', 'desc')->limit(1)
+                                      ->get();
+                  }elseif ($branchType == 03) { //สาขายะลา
+                    $connect = Buyer::where('Contract_buyer', 'like', '03%' )
+                                      ->orderBy('Contract_buyer', 'desc')->limit(1)
+                                      ->get();
+                  }elseif ($branchType == 04) { //สาขานรา
+                    $connect = Buyer::where('Contract_buyer', 'like', '04%' )
+                                      ->orderBy('Contract_buyer', 'desc')->limit(1)
+                                      ->get();
+                  }elseif ($branchType == 05) { //สาขาสายบรุี
+                    $connect = Buyer::where('Contract_buyer', 'like', '05%' )
+                                      ->orderBy('Contract_buyer', 'desc')->limit(1)
+                                      ->get();
+                  }elseif ($branchType == 06) { //สาขาโกลก
+                    $connect = Buyer::where('Contract_buyer', 'like', '06%' )
+                                      ->orderBy('Contract_buyer', 'desc')->limit(1)
+                                      ->get();
+                  }elseif ($branchType == 07) { //สาขาเบตง
+                    $connect = Buyer::where('Contract_buyer', 'like', '07%' )
+                                      ->orderBy('Contract_buyer', 'desc')->limit(1)
+                                      ->get();
+                  }elseif ($branchType == 10) { //สาขารถบ้าน
+                    $connect = Buyer::where('Contract_buyer', 'like', '10%' )
+                                      ->orderBy('Contract_buyer', 'desc')->limit(1)
+                                      ->get();
+                  }elseif ($branchType == 11) { //สาขารถยืดขายผ่อน
+                    $connect = Buyer::where('Contract_buyer', 'like', '11%' )
+                                      ->orderBy('Contract_buyer', 'desc')->limit(1)
+                                      ->get();
+                  }
+
+                  // dd($connect);
+                  $contract = $connect[0]->Contract_buyer;
+                  $SetStr = explode("/",$contract);
+                  $StrNum = $SetStr[1] + 1;
+
+                  $num = "1000";
+                  $SubStr = substr($num.$StrNum, -4);
+                  $StrConn = $SetStr[0]."/".$SubStr;
+
+                  $GetIdConn = Buyer::where('id',$id)->first();
+                    $GetIdConn->Contract_buyer = $StrConn;
+                  $GetIdConn->update();
+                }
+              }
+            }
+            else {                                       //ยกเลิก หรือ ไม่อนุมัติ
+              if (auth()->user()->type == 1 or auth()->user()->type == 2) {
+                $SetStatusApp = 'รออนุมัติ';
+                $cardetail->Dateduefirst_car = Null;
+                $cardetail->Date_Appcar = Null;
+
+                $branchType = Null;
+                if ($cardetail->branch_car == "ปัตตานี") {
+                    $branchType = 01;
+                }elseif ($cardetail->branch_car == "ยะลา") {
+                    $branchType = 03;
+                }elseif ($cardetail->branch_car == "นราธิวาส") {
+                    $branchType = 04;
+                }elseif ($cardetail->branch_car == "สายบุรี") {
+                    $branchType = 05;
+                }elseif ($cardetail->branch_car == "โกลก") {
+                    $branchType = 06;
+                }elseif ($cardetail->branch_car == "เบตง") {
+                    $branchType = 07;
+                }elseif ($cardetail->branch_car == "รถบ้าน") {
+                    $branchType = 10;
+                }elseif ($cardetail->branch_car == "รถยืดขายผ่อน") {
+                    $branchType = 11;
+                }
+                if ($branchType != Null) {
+                  if ($branchType == 01) { //สาขาปัตตานี
+                    $connect = Buyer::where('Contract_buyer', 'like', '01%' )
+                                      ->orderBy('Contract_buyer', 'desc')->limit(1)
+                                      ->get();
+                  }elseif ($branchType == 03) { //สาขายะลา
+                    $connect = Buyer::where('Contract_buyer', 'like', '03%' )
+                                      ->orderBy('Contract_buyer', 'desc')->limit(1)
+                                      ->get();
+                  }elseif ($branchType == 04) { //สาขานรา
+                    $connect = Buyer::where('Contract_buyer', 'like', '04%' )
+                                      ->orderBy('Contract_buyer', 'desc')->limit(1)
+                                      ->get();
+                  }elseif ($branchType == 05) { //สาขาสายบรุี
+                    $connect = Buyer::where('Contract_buyer', 'like', '05%' )
+                                      ->orderBy('Contract_buyer', 'desc')->limit(1)
+                                      ->get();
+                  }elseif ($branchType == 06) { //สาขาโกลก
+                    $connect = Buyer::where('Contract_buyer', 'like', '06%' )
+                                      ->orderBy('Contract_buyer', 'desc')->limit(1)
+                                      ->get();
+                  }elseif ($branchType == 07) { //สาขาเบตง
+                    $connect = Buyer::where('Contract_buyer', 'like', '07%' )
+                                      ->orderBy('Contract_buyer', 'desc')->limit(1)
+                                      ->get();
+                  }elseif ($branchType == 10) { //สาขารถบ้าน
+                    $connect = Buyer::where('Contract_buyer', 'like', '10%' )
+                                      ->orderBy('Contract_buyer', 'desc')->limit(1)
+                                      ->get();
+                  }elseif ($branchType == 11) { //สาขารถยืดขายผ่อน
+                    $connect = Buyer::where('Contract_buyer', 'like', '11%' )
+                                      ->orderBy('Contract_buyer', 'desc')->limit(1)
+                                      ->get();
+                  }
+
+                  $contract = $connect[0]->Contract_buyer;
+                  $SetStr = explode("/",$contract);
+                  $StrNum = $SetStr[0];
+
+                  $GetIdConn = Buyer::where('id',$id)->first();
+                    $GetIdConn->Contract_buyer = $StrNum;
+                  $GetIdConn->update();
+                }
+              }
+              else {
+                $SetStatusApp = 'รออนุมัติ';
+              }
+            }
+            // if ($request->get('Checkcar') != Null) {
+            //   $SetCheckcar = $request->get('Checkcar');
+            // }else {
+            //   if ($cardetail->Check_car != Null) {
+            //     $SetCheckcar = $cardetail->Check_car;
+            //   }else {
+            //     $SetCheckcar = Null;
+            //   }
+            // }
+
+            $cardetail->Insurance_car = $request->get('Insurancecar');
+            $cardetail->status_car = $request->get('statuscar');
+            $cardetail->Percent_car = $request->get('Percentcar');
+            $cardetail->Payee_car = $request->get('Payeecar');
+            $cardetail->Accountbrance_car = $request->get('Accountbrancecar');
+            $cardetail->Tellbrance_car = $request->get('Tellbrancecar');
+            $cardetail->Agent_car = $request->get('Agentcar');
+            $cardetail->Accountagent_car = $request->get('Accountagentcar');
+            $cardetail->Commission_car = $SetCommissioncar;
+            $cardetail->Tellagent_car = $request->get('Tellagentcar');
+            $cardetail->Purchasehistory_car = $request->get('Purchasehistorycar');
+            $cardetail->Supporthistory_car = $request->get('Supporthistorycar');
+            $cardetail->Approvers_car = $request->get('Approverscar');
+            $cardetail->Check_car = $request->get('Checkcar');
+            $cardetail->StatusApp_car = $SetStatusApp;
+            $cardetail->DocComplete_car = $request->get('doccomplete');
+            $cardetail->branchbrance_car = $request->get('branchbrancecar');
+            $cardetail->branchAgent_car = $request->get('branchAgentcar');
+            $cardetail->Note_car = $request->get('Notecar');
+          $cardetail->update();
+
+          if ($request->get('tranPrice') != Null) {
+            $SettranPrice = str_replace (",","",$request->get('tranPrice'));
+          }else {
+            $SettranPrice = 0;
+          }
+          if ($request->get('otherPrice') != Null) {
+            $SetotherPrice = str_replace (",","",$request->get('otherPrice'));
+          }else {
+            $SetotherPrice = 0;
+          }
+          if ($request->get('totalkPrice') != Null) {
+            $SettotalkPrice = str_replace (",","",$request->get('totalkPrice'));
+          }else {
+            $SettotalkPrice = 0;
+          }
+          if ($request->get('balancePrice') != Null) {
+            $SetbalancePrice = str_replace (",","",$request->get('balancePrice'));
+          }else {
+            $SetbalancePrice = 0;
+          }
+          if ($request->get('commitPrice') != Null) {
+            $SetcommitPrice = str_replace (",","",$request->get('commitPrice'));
+          }else {
+            $SetcommitPrice = 0;
+          }
+          if ($request->get('actPrice') != Null) {
+            $SetactPrice = str_replace (",","",$request->get('actPrice'));
+          }else {
+            $SetactPrice = 0;
+          }
+          if ($request->get('closeAccountPrice') != Null) {
+            $SetcloseAccountPrice = str_replace (",","",$request->get('closeAccountPrice'));
+          }else {
+            $SetcloseAccountPrice = 0;
+          }
+          if ($request->get('P2Price') != Null) {
+            $SetP2Price = str_replace (",","",$request->get('P2Price'));
+          }else {
+            $SetP2Price = 0;
+          }
+
+          $expenses = Expenses::where('Buyerexpenses_id',$id)->first();
+            $expenses->act_Price = $SetactPrice;
+            $expenses->closeAccount_Price = $SetcloseAccountPrice;
+            $expenses->P2_Price = $SetP2Price;
+            $expenses->vat_Price = $request->get('vatPrice');
+            $expenses->tran_Price = $SettranPrice;
+            $expenses->other_Price = $SetotherPrice;
+            $expenses->evaluetion_Price = $request->get('evaluetionPrice');
+            $expenses->totalk_Price = $SettotalkPrice;
+            $expenses->balance_Price = $SetbalancePrice;
+            $expenses->commit_Price = $SetcommitPrice;
+            $expenses->marketing_Price = $request->get('marketingPrice');
+            $expenses->duty_Price = $request->get('dutyPrice');
+            $expenses->insurance_Price = $request->get('insurancePrice');
+            $expenses->note_Price = $request->get('notePrice');
+          $expenses->update();
       }
 
 

@@ -24,7 +24,7 @@ class LegislationController extends Controller
                   ->table('SFHP.ARMAST')
                   ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
                   ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
-                  ->whereBetween('SFHP.ARMAST.HLDNO',[6.7,7.69])
+                  ->whereBetween('SFHP.ARMAST.HLDNO',[6.7,8.69])
                   ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
                   ->get();
 
@@ -39,7 +39,7 @@ class LegislationController extends Controller
         $dataAro = DB::connection('ibmi')
                   ->table('SFHP.ARMAST')
                   ->join('SFHP.AROTHGAR','SFHP.ARMAST.CONTNO','=','SFHP.AROTHGAR.CONTNO')
-                  ->whereBetween('SFHP.ARMAST.HLDNO',[6.7,7.69])
+                  ->whereBetween('SFHP.ARMAST.HLDNO',[6.7,8.69])
                   ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
                   ->get();
 
