@@ -262,15 +262,15 @@ class PrecController extends Controller
           }
 
           $data = DB::connection('ibmi')
-                    ->table('SFHP.ARMAST')
-                    ->join('SFHP.HDPAYMENT','SFHP.ARMAST.CONTNO','=','SFHP.HDPAYMENT.CONTNO')
-                    ->join('SFHP.TRPAYMENT','SFHP.HDPAYMENT.TEMPBILL','=','SFHP.TRPAYMENT.TEMPBILL')
+                    ->table('SFHP.HDPAYMENT')
+                    ->leftJoin('SFHP.TRPAYMENT','SFHP.HDPAYMENT.TEMPBILL','=','SFHP.TRPAYMENT.TEMPBILL')
                     ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
                       return $q->whereBetween('SFHP.HDPAYMENT.TEMPDATE',[$fdate,$tdate]);
                     })
                     ->where('SFHP.TRPAYMENT.PAYCODE','!=','006')
-                    ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                    ->orderBy('SFHP.HDPAYMENT.CONTNO', 'ASC')
                     ->get();
+
 
             // dd($data);
 
@@ -983,10 +983,11 @@ class PrecController extends Controller
       }
       elseif ($request->type == 8) {  //รายงาน รับชำระค่าติดตาม
         $data = DB::connection('ibmi')
-                  ->table('SFHP.ARMAST')
-                  ->join('SFHP.HDPAYMENT','SFHP.ARMAST.CONTNO','=','SFHP.HDPAYMENT.CONTNO')
+                  ->table('SFHP.HDPAYMENT')
+                  ->leftJoin('SFHP.TRPAYMENT','SFHP.HDPAYMENT.TEMPBILL','=','SFHP.TRPAYMENT.TEMPBILL')
                   ->whereBetween('SFHP.HDPAYMENT.TEMPDATE',[$fdate,$tdate])
-                  ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                  ->where('SFHP.TRPAYMENT.PAYCODE','!=','006')
+                  ->orderBy('SFHP.HDPAYMENT.CONTNO', 'ASC')
                   ->get();
 
         // dd($data);
@@ -1001,25 +1002,45 @@ class PrecController extends Controller
         foreach ($data as $key => $value) {
           if ($value->BILLCOLL == 102) {
             $summary102 += $value->TOTAMT;
+            if ($value->CANDATE != "") {
+              $summary102 -= $value->TOTAMT;
+            }
           }
           elseif ($value->BILLCOLL == 104) {
             $summary104 += $value->TOTAMT;
+            if ($value->CANDATE != "") {
+              $summary104 -= $value->TOTAMT;
+            }
           }
           elseif ($value->BILLCOLL == 105) {
             $summary105 += $value->TOTAMT;
+            if ($value->CANDATE != "") {
+              $summary105 -= $value->TOTAMT;
+            }
           }
           elseif ($value->BILLCOLL == 113) {
             $summary113 += $value->TOTAMT;
+            if ($value->CANDATE != "") {
+              $summary113 -= $value->TOTAMT;
+            }
           }
           elseif ($value->BILLCOLL == 112) {
             $summary112 += $value->TOTAMT;
+            if ($value->CANDATE != "") {
+              $summary112 -= $value->TOTAMT;
+            }
           }
           elseif ($value->BILLCOLL == 114) {
             $summary114 += $value->TOTAMT;
+            if ($value->CANDATE != "") {
+              $summary114 -= $value->TOTAMT;
+            }
           }
-          elseif ($value->BILLCOLL == "CKL   ")
-          {
+          elseif ($value->BILLCOLL == "CKL   "){
             $summaryCKL += $value->TOTAMT;
+            if ($value->CANDATE != "") {
+              $summaryCKL -= $value->TOTAMT;
+            }
           }
         }
 
