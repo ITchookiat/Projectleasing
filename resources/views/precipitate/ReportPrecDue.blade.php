@@ -107,32 +107,89 @@
           @php
             @$total += $value->Price_hold;
           @endphp
-        <tr align="center" style="line-height: 200%;">
-          <td style="background-color: #33FF00; line-height:250%;" width="30px"> {{$key+1}} </td>
-          <td style="line-height:250%;" width="65px"> {{$value->Contno_hold}} </td>
-          <td align="left" style="line-height:250%;" width="150px"> {{$value->Name_hold}} </td>
-          <td style="line-height:250%;" width="80px"> {{$value->Brandcar_hold}} </td>
-          <td style="line-height:250%;" width="70px"> {{$value->Number_Regist}} </td>
-          <td style="line-height:250%;" width="35px"> {{$value->Year_Product}} </td>
-          <td style="line-height:250%;" width="60px"> {{DateThai($value->Date_hold)}} </td>
-          <td style="line-height:250%;" width="35px"> {{$value->Team_hold}} </td>
-          <td style="line-height:250%;" width="45px"> {{number_format($value->Price_hold,0)}}&nbsp;</td>
-          <td style="line-height:250%;" width="150px" align="left"> {{$value->Note_hold}} </td>
-          <td style="line-height:250%;" width="90px">
-            @if($value->Statuscar == 1)
-            ยึดจากลูกค้าครั้งแรก
-            @elseif($value->Statuscar == 2)
-            ลูกค้ามารับรถคืน
-            @elseif($value->Statuscar == 3)
-            ยึดจากลูกค้าครั้งที่สอง
-            @elseif($value->Statuscar == 4)
-            รับรถจากของกลาง
-            @elseif($value->Statuscar == 5)
-            ส่งรถบ้าน
-            @endif
-            &nbsp;
-          </td>
-        </tr>
+
+        @if($value->Statuscar == 1)
+          <tr align="center" style="line-height: 200%;">
+            <td style="background-color: #33FF00; line-height:250%;" width="30px"> {{$key+1}} </td>
+            <td style="line-height:250%;" width="65px"> {{$value->Contno_hold}} </td>
+            <td align="left" style="line-height:250%;" width="150px"> {{$value->Name_hold}} </td>
+            <td style="line-height:250%;" width="80px"> {{$value->Brandcar_hold}} </td>
+            <td style="line-height:250%;" width="70px"> {{$value->Number_Regist}} </td>
+            <td style="line-height:250%;" width="35px"> {{$value->Year_Product}} </td>
+            <td style="line-height:250%;" width="60px"> {{DateThai($value->Date_hold)}} </td>
+            <td style="line-height:250%;" width="35px"> {{$value->Team_hold}} </td>
+            <td style="line-height:250%;" width="45px"> {{number_format($value->Price_hold,0)}}&nbsp;</td>
+            <td style="line-height:250%;" width="150px" align="left"> {{$value->Note_hold}} </td>
+            <td style="line-height:250%;" width="90px">
+              @if($value->Statuscar == 1)
+              ยึดจากลูกค้าครั้งแรก
+              @elseif($value->Statuscar == 2)
+              ลูกค้ามารับรถคืน
+              @elseif($value->Statuscar == 3)
+              ยึดจากลูกค้าครั้งที่สอง
+              @elseif($value->Statuscar == 4)
+              รับรถจากของกลาง
+              @elseif($value->Statuscar == 5)
+              ส่งรถบ้าน
+              @endif
+              &nbsp;
+            </td>
+          </tr>
+        @elseif($value->Statuscar == 2)
+          <tr align="center" style="line-height: 200%;background-color: #FECBDA;">
+            <td style="line-height:250%;background-color: #33FF00;" width="30px"> {{$key+1}} </td>
+            <td style="line-height:250%;" width="65px"> {{$value->Contno_hold}} </td>
+            <td align="left" style="line-height:250%;" width="150px"> {{$value->Name_hold}} </td>
+            <td style="line-height:250%;" width="80px"> {{$value->Brandcar_hold}} </td>
+            <td style="line-height:250%;" width="70px"> {{$value->Number_Regist}} </td>
+            <td style="line-height:250%;" width="35px"> {{$value->Year_Product}} </td>
+            <td style="line-height:250%;" width="60px"> {{DateThai($value->Date_hold)}} </td>
+            <td style="line-height:250%;" width="35px"> {{$value->Team_hold}} </td>
+            <td style="line-height:250%;" width="45px"> {{number_format($value->Price_hold,0)}}&nbsp;</td>
+            <td style="line-height:250%;" width="150px" align="left"> {{$value->Note_hold}} </td>
+            <td style="line-height:250%;" width="90px">
+              @if($value->Statuscar == 1)
+              ยึดจากลูกค้าครั้งแรก
+              @elseif($value->Statuscar == 2)
+              ลูกค้ามารับรถคืน
+              @elseif($value->Statuscar == 3)
+              ยึดจากลูกค้าครั้งที่สอง
+              @elseif($value->Statuscar == 4)
+              รับรถจากของกลาง
+              @elseif($value->Statuscar == 5)
+              ส่งรถบ้าน
+              @endif
+              &nbsp;
+            </td>
+          </tr>
+        @else
+          <tr align="center" style="line-height: 200%;background-color: #F9B196;">
+            <td style="line-height:250%;background-color: #33FF00;" width="30px"> {{$key+1}} </td>
+            <td style="line-height:250%;" width="65px"> {{$value->Contno_hold}} </td>
+            <td align="left" style="line-height:250%;" width="150px"> {{$value->Name_hold}} </td>
+            <td style="line-height:250%;" width="80px"> {{$value->Brandcar_hold}} </td>
+            <td style="line-height:250%;" width="70px"> {{$value->Number_Regist}} </td>
+            <td style="line-height:250%;" width="35px"> {{$value->Year_Product}} </td>
+            <td style="line-height:250%;" width="60px"> {{DateThai($value->Date_hold)}} </td>
+            <td style="line-height:250%;" width="35px"> {{$value->Team_hold}} </td>
+            <td style="line-height:250%;" width="45px"> {{number_format($value->Price_hold,0)}}&nbsp;</td>
+            <td style="line-height:250%;" width="150px" align="left"> {{$value->Note_hold}} </td>
+            <td style="line-height:250%;" width="90px">
+              @if($value->Statuscar == 1)
+              ยึดจากลูกค้าครั้งแรก
+              @elseif($value->Statuscar == 2)
+              ลูกค้ามารับรถคืน
+              @elseif($value->Statuscar == 3)
+              ยึดจากลูกค้าครั้งที่สอง
+              @elseif($value->Statuscar == 4)
+              รับรถจากของกลาง
+              @elseif($value->Statuscar == 5)
+              ส่งรถบ้าน
+              @endif
+              &nbsp;
+            </td>
+          </tr>
+        @endif
         @endforeach
         <tr style="line-height: 200%;">
           <td width="525px" align="right"><b>รวมยอดค่ายึด &nbsp;</b></td>

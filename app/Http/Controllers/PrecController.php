@@ -1485,7 +1485,7 @@ class PrecController extends Controller
                  foreach ($dataSup as $value) {
                    if ($value->HLDNO >= 2.00 && $value->HLDNO <= 2.99) {
                      $sheet->row(++$row, array(
-                     iconv('Tis-620','utf-8',str_replace(" ","",$value->NAME)),
+                     iconv('Tis-620','utf-8',$value->NAME),
                      $value->ZIP,
                      " ",
                      " ",
@@ -1516,7 +1516,7 @@ class PrecController extends Controller
                      " "));
                      if ($val->NAMEARMGAR != "") {
                        $sheet->row(++$row, array(
-                       iconv('Tis-620','utf-8',str_replace(" ","",$val->NAMEARMGAR)),
+                       iconv('Tis-620','utf-8',$val->NAMEARMGAR),
                        $val->ZIPARMGAR,
                        " ",
                        " ",
