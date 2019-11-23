@@ -280,7 +280,7 @@
             </form>
           @elseif($type == 10)
           @endif
-          
+
           @if($type == 7)
             <hr />
             <div class="row">
@@ -861,51 +861,51 @@
 
             </div>
           @elseif($type == 10)
-          <div class="box-body">
-            <div class="row">
-              <br />
-              <div class="col-md-12">
-                <div class="table-responsive">
-                 <table class="table table-bordered" id="table">
-                    <thead class="thead-dark bg-gray-light" >
-                      <tr>
-                        <th class="text-center">ลำดับ</th>
-                        <th class="text-center">เลขที่สัญญา</th>
-                        <th class="text-center">ชื่อ-สกุล</th>
-                        <th class="text-center">วันทำสัญญา</th>
-                        <th class="text-center">สถานะ</th>
-                        <th class="text-center" style="width: 150px">ตัวเลือก</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      @foreach($data as $key => $row)
+            <div class="box-body">
+              <div class="row">
+                <br />
+                <div class="col-md-12">
+                  <div class="table-responsive">
+                   <table class="table table-bordered" id="table">
+                      <thead class="thead-dark bg-gray-light" >
                         <tr>
-                          <td class="text-center"> {{$key+1}} </td>
-                          <td class="text-center"> {{$row->CONTNO}}</td>
-                          <td class="text-left"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->SNAM.$row->NAME1)."   ".str_replace(" ","",$row->NAME2))}} </td>
-                          <td class="text-center">
-                            @php
-                             $StrCon = explode("/",$row->CONTNO);
-                             $SetStr1 = $StrCon[0];
-                             $SetStr2 = $StrCon[1];
-
-                             $ISSUDT= date_create($row->ISSUDT);
-                            @endphp
-                            {{ date_format($ISSUDT, 'd-m-Y')}}
-                          </td>
-                          <td class="text-center"> {{iconv('Tis-620','utf-8', $row->CONTSTAT)}} </td>
-                          <td class="text-center">
-                            <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal-addinfo" data-str1="{{$SetStr1}}" data-str2="{{ $SetStr2 }}" title="{{$SetStr1.'/'.$SetStr2}}">
-                              <i class="fa fa-edit"></i> Add
-                            </button>
-                          </td>
+                          <th class="text-center">ลำดับ</th>
+                          <th class="text-center">เลขที่สัญญา</th>
+                          <th class="text-center">ชื่อ-สกุล</th>
+                          <th class="text-center">วันทำสัญญา</th>
+                          <th class="text-center">สถานะ</th>
+                          <th class="text-center" style="width: 150px">ตัวเลือก</th>
                         </tr>
-                      @endforeach
-                    </tbody>
-                  </table>
-                </div>
+                      </thead>
+                      <tbody>
+                        @foreach($data as $key => $row)
+                          <tr>
+                            <td class="text-center"> {{$key+1}} </td>
+                            <td class="text-center"> {{$row->CONTNO}}</td>
+                            <td class="text-left"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->SNAM.$row->NAME1)."   ".str_replace(" ","",$row->NAME2))}} </td>
+                            <td class="text-center">
+                              @php
+                               $StrCon = explode("/",$row->CONTNO);
+                               $SetStr1 = $StrCon[0];
+                               $SetStr2 = $StrCon[1];
+
+                               $ISSUDT= date_create($row->ISSUDT);
+                              @endphp
+                              {{ date_format($ISSUDT, 'd-m-Y')}}
+                            </td>
+                            <td class="text-center"> {{iconv('Tis-620','utf-8', $row->CONTSTAT)}} </td>
+                            <td class="text-center">
+                              <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal-addinfo" data-str1="{{$SetStr1}}" data-str2="{{ $SetStr2 }}" title="{{$SetStr1.'/'.$SetStr2}}">
+                                <i class="fa fa-edit"></i> Add
+                              </button>
+                            </td>
+                          </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
             </div>
-          </div>
           @endif
         </div>
       </div>
