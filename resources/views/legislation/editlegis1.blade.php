@@ -673,7 +673,7 @@
                               var ind = document.getElementById('indictmentcourt').value;
                               var Setind = ind.replace(",","");
 
-                              var Sumcap = (Setcap * 0.01);
+                              var Sumcap = (Setcap * 0.1);
 
                               if(!isNaN(Setcap)){
                                   document.form1.capitalcourt.value = addCommas(Setcap);
