@@ -1321,7 +1321,11 @@ class AnalysController extends Controller
                 $m = date('m', strtotime('+1 month'));
                 $m2 = date('m');
                 $d = date('d');
-                $datefirst = $d.'-'.$m.'-'.$Y;
+                $test = date('d-m-Y', strtotime('+1 month'));
+                $dateduebefore = \Carbon\Carbon::parse($test)->format('Y')+543 ."-". \Carbon\Carbon::parse($test)->format('m')."-". \Carbon\Carbon::parse($test)->format('d');
+                $dateduechange = date_create($dateduebefore);
+                $datefirst = date_format($dateduechange, 'd-m-Y');
+
                 $dateApp = $Y2.'-'.$m2.'-'.$d;
 
                 $cardetail->Dateduefirst_car = $datefirst;
