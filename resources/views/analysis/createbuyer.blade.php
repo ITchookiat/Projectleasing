@@ -318,16 +318,16 @@
 
                                 <div class="row">
                                    <div class="col-md-5">
-                                     <div class="form-inline" align="right">
-                                       <label>รายได้ : </label>
-                                       <select name="Incomebuyer" class="form-control" style="width: 250px;">
-                                         <option value="" selected>--- รายได้ ---</option>
-                                         <option value="5,000 - 10,000">5,000 - 10,000</option>
-                                         <option value="10,000 - 15,000">10,000 - 15,000</option>
-                                         <option value="15,000 - 20,000">15,000 - 20,000</option>
-                                         <option value="มากกว่า 20,000">มากกว่า 20,000</option>
-                                       </select>
-                                     </div>
+                                       <div class="form-inline" align="right">
+                                         <label>รายได้ : </label>
+                                         <select name="Incomebuyer" class="form-control" style="width: 250px;">
+                                           <option value="" selected>--- รายได้ ---</option>
+                                           <option value="5,000 - 10,000">5,000 - 10,000</option>
+                                           <option value="10,000 - 15,000">10,000 - 15,000</option>
+                                           <option value="15,000 - 20,000">15,000 - 20,000</option>
+                                           <option value="มากกว่า 20,000">มากกว่า 20,000</option>
+                                         </select>
+                                       </div>
                                   </div>
 
                                   <div class="col-md-6">
@@ -343,67 +343,92 @@
                                 </div>
 
                                 <div class="row">
-                                   <div class="col-md-5">
-                                     <div class="form-inline" align="right">
-                                       <label>ประวัติการซื้อ/ค้ำ : </label>
-                                       <select name="Purchasebuyer" class="form-control" style="width: 108px;">
-                                         <option value="" selected>--- ซื้อ ---</option>
-                                         <option value="0 คัน">0 คัน</option>
-                                         <option value="1 คัน">1 คัน</option>
-                                         <option value="2 คัน">2 คัน</option>
-                                         <option value="3 คัน">3 คัน</option>
-                                         <option value="4 คัน">4 คัน</option>
-                                         <option value="5 คัน">5 คัน</option>
-                                         <option value="6 คัน">6 คัน</option>
-                                         <option value="7 คัน">7 คัน</option>
-                                         <option value="8 คัน">8 คัน</option>
-                                         <option value="9 คัน">9 คัน</option>
-                                         <option value="10 คัน">10 คัน</option>
-                                         <option value="11 คัน">11 คัน</option>
-                                         <option value="12 คัน">12 คัน</option>
-                                         <option value="13 คัน">13 คัน</option>
-                                         <option value="14 คัน">14 คัน</option>
-                                         <option value="15 คัน">15 คัน</option>
-                                         <option value="16 คัน">16 คัน</option>
-                                         <option value="17 คัน">17 คัน</option>
-                                         <option value="18 คัน">18 คัน</option>
-                                         <option value="19 คัน">19 คัน</option>
-                                         <option value="20 คัน">20 คัน</option>
-                                       </select>
-                                       <label>ค้ำ : </label>
-                                       <select name="Supportbuyer" class="form-control" style="width: 108px;">
-                                         <option value="" selected>--- ค้ำ ---</option>
-                                         <option value="0 คัน">0 คัน</option>
-                                         <option value="1 คัน">1 คัน</option>
-                                         <option value="2 คัน">2 คัน</option>
-                                         <option value="3 คัน">3 คัน</option>
-                                         <option value="4 คัน">4 คัน</option>
-                                         <option value="5 คัน">5 คัน</option>
-                                         <option value="6 คัน">6 คัน</option>
-                                         <option value="7 คัน">7 คัน</option>
-                                         <option value="8 คัน">8 คัน</option>
-                                         <option value="9 คัน">9 คัน</option>
-                                         <option value="10 คัน">10 คัน</option>
-                                         <option value="11 คัน">11 คัน</option>
-                                         <option value="12 คัน">12 คัน</option>
-                                         <option value="13 คัน">13 คัน</option>
-                                         <option value="14 คัน">14 คัน</option>
-                                         <option value="15 คัน">15 คัน</option>
-                                         <option value="16 คัน">16 คัน</option>
-                                         <option value="17 คัน">17 คัน</option>
-                                         <option value="18 คัน">18 คัน</option>
-                                         <option value="19 คัน">19 คัน</option>
-                                         <option value="20 คัน">20 คัน</option>
-                                       </select>
-                                     </div>
+                                  <div class="col-md-5">
+                                    <div class="form-inline" align="right">
+                                      <label>หักค่าใช้จ่าย : </label>
+                                      <input type="text" id="Beforeincome" name="Beforeincome" class="form-control" style="width: 250px;" placeholder="ก่อนหักค่าใช้จ่าย" oninput="income();" />
+                                    </div>
                                   </div>
 
                                   <div class="col-md-6">
-
+                                    <div class="form-inline" align="right">
+                                      <label>ประวัติการซื้อ/ค้ำ : </label>
+                                      <select name="Purchasebuyer" class="form-control" style="width: 108px;">
+                                        <option value="" selected>--- ซื้อ ---</option>
+                                        <option value="0 คัน">0 คัน</option>
+                                        <option value="1 คัน">1 คัน</option>
+                                        <option value="2 คัน">2 คัน</option>
+                                        <option value="3 คัน">3 คัน</option>
+                                        <option value="4 คัน">4 คัน</option>
+                                        <option value="5 คัน">5 คัน</option>
+                                        <option value="6 คัน">6 คัน</option>
+                                        <option value="7 คัน">7 คัน</option>
+                                        <option value="8 คัน">8 คัน</option>
+                                        <option value="9 คัน">9 คัน</option>
+                                        <option value="10 คัน">10 คัน</option>
+                                        <option value="11 คัน">11 คัน</option>
+                                        <option value="12 คัน">12 คัน</option>
+                                        <option value="13 คัน">13 คัน</option>
+                                        <option value="14 คัน">14 คัน</option>
+                                        <option value="15 คัน">15 คัน</option>
+                                        <option value="16 คัน">16 คัน</option>
+                                        <option value="17 คัน">17 คัน</option>
+                                        <option value="18 คัน">18 คัน</option>
+                                        <option value="19 คัน">19 คัน</option>
+                                        <option value="20 คัน">20 คัน</option>
+                                      </select>
+                                      <label>ค้ำ : </label>
+                                      <select name="Supportbuyer" class="form-control" style="width: 108px;">
+                                        <option value="" selected>--- ค้ำ ---</option>
+                                        <option value="0 คัน">0 คัน</option>
+                                        <option value="1 คัน">1 คัน</option>
+                                        <option value="2 คัน">2 คัน</option>
+                                        <option value="3 คัน">3 คัน</option>
+                                        <option value="4 คัน">4 คัน</option>
+                                        <option value="5 คัน">5 คัน</option>
+                                        <option value="6 คัน">6 คัน</option>
+                                        <option value="7 คัน">7 คัน</option>
+                                        <option value="8 คัน">8 คัน</option>
+                                        <option value="9 คัน">9 คัน</option>
+                                        <option value="10 คัน">10 คัน</option>
+                                        <option value="11 คัน">11 คัน</option>
+                                        <option value="12 คัน">12 คัน</option>
+                                        <option value="13 คัน">13 คัน</option>
+                                        <option value="14 คัน">14 คัน</option>
+                                        <option value="15 คัน">15 คัน</option>
+                                        <option value="16 คัน">16 คัน</option>
+                                        <option value="17 คัน">17 คัน</option>
+                                        <option value="18 คัน">18 คัน</option>
+                                        <option value="19 คัน">19 คัน</option>
+                                        <option value="20 คัน">20 คัน</option>
+                                      </select>
+                                   </div>
                                   </div>
                                 </div>
 
-                                <br>
+                                <div class="row">
+                                  <div class="col-md-5">
+                                    <div class="form-inline" align="right">
+                                      <label>รายได้หลังหักค่าใช้จ่าย : </label>
+                                      <input type="text" id="Afterincome" name="Afterincome" class="form-control" style="width: 250px;" placeholder="หลังหักค่าใช้จ่าย" oninput="income();" />
+                                    </div>
+                                  </div>
+
+                                  <div class="col-md-6">
+                                    <div class="form-inline" align="right">
+                                      <label>สถานะผู้เช่าซื้อ : </label>
+                                      <select name="Gradebuyer" class="form-control" style="width: 250px;">
+                                        <option value="" selected>--- สถานะผู้เช่าซื้อ ---</option>
+                                        <option value="ลูกค้าเก่าผ่อนดี">ลูกค้าเก่าผ่อนดี</option>
+                                        <option value="ลูกค้ามีงานตาม">ลูกค้ามีงานตาม</option>
+                                        <option value="ลูกค้าใหม่">ลูกค้าใหม่</option>
+                                        <option value="ปิดจัดใหม่">ปิดจัดใหม่</option>
+                                      </select>
+                                   </div>
+                                  </div>
+                                </div>
+
+                                <hr>
                                 <div class="row">
                                   <div class="col-md-12">
                                     <h3 class="text-center">รูปภาพประกอบ</h3>
@@ -799,6 +824,14 @@
                                          x1 = x1.replace(rgx, '$1' + ',' + '$2');
                                         }
                                       return x1 + x2;
+                                    }
+                                    function income(){
+                                      var num11 = document.getElementById('Beforeincome').value;
+                                      var num1 = num11.replace(",","");
+                                      var num22 = document.getElementById('Afterincome').value;
+                                      var num2 = num22.replace(",","");
+                                      document.form1.Beforeincome.value = addCommas(num1);
+                                      document.form1.Afterincome.value = addCommas(num2);
                                     }
                                     function mile(){
                                       var num11 = document.getElementById('Milecar').value;

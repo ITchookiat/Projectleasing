@@ -371,7 +371,43 @@
                             </div>
                           </div>
 
-                          <br>
+                          <div class="row">
+                             <div class="col-md-5">
+                              <div class="form-inline" align="right">
+                                <label>หักค่าใช้จ่าย : </label>
+                                <input type="text" id="Beforeincome" name="Beforeincome" class="form-control" style="width: 250px;" value="{{number_format($data->BeforeIncome_buyer,0)}}" placeholder="ก่อนหักค่าใช้จ่าย" onchange="income();" />
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <div class="form-inline" align="right">
+                                <label>สถานะผู้เช่าซื้อ : </label>
+                                <select name="Gradebuyer" class="form-control" style="width: 250px;">
+                                  <option value="" selected>--- สถานะผู้เช่าซื้อ ---</option>
+                                  @foreach ($GradeBuyer as $key => $value)
+                                    <option value="{{$key}}" {{ ($key == $data->Gradebuyer_car) ? 'selected' : '' }}>{{$value}}</option>
+                                  @endforeach
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                             <div class="col-md-5">
+                              <div class="form-inline" align="right">
+                                <label>รายได้หลังหักค่าใช้จ่าย : </label>
+                                <input type="text" id="Afterincome" name="Afterincome" class="form-control" style="width: 250px;" value="{{number_format($data->AfterIncome_buyer,0)}}" placeholder="หลังหักค่าใช้จ่าย" onchange="income();" />
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <div class="form-inline" align="right">
+
+                              </div>
+                            </div>
+                          </div>
+
+                          <hr>
                           <div class="row">
                             <div class="col-md-12">
                               <h3 class="text-center">รูปภาพประกอบ</h3>
@@ -719,6 +755,14 @@
                                 x1 = x1.replace(rgx, '$1' + ',' + '$2');
                               }
                               return x1 + x2;
+                            }
+                            function income(){
+                              var num11 = document.getElementById('Beforeincome').value;
+                              var num1 = num11.replace(",","");
+                              var num22 = document.getElementById('Afterincome').value;
+                              var num2 = num22.replace(",","");
+                              document.form1.Beforeincome.value = addCommas(num1);
+                              document.form1.Afterincome.value = addCommas(num2);
                             }
 
                             function priceHomecar(){

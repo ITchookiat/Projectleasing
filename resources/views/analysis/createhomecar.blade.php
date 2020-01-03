@@ -367,7 +367,44 @@
                                   </div>
                                 </div>
 
-                                <br>
+                                <div class="row">
+                                   <div class="col-md-5">
+                                    <div class="form-inline" align="right">
+                                      <label>หักค่าใช้จ่าย : </label>
+                                      <input type="text" id="Beforeincome" name="Beforeincome" class="form-control" style="width: 250px;" placeholder="ก่อนหักค่าใช้จ่าย" oninput="income();" />
+                                    </div>
+                                  </div>
+
+                                  <div class="col-md-6">
+                                    <div class="form-inline" align="right">
+                                      <label>สถานะผู้เช่าซื้อ : </label>
+                                      <select name="Gradebuyer" class="form-control" style="width: 250px;">
+                                        <option value="" selected>--- สถานะผู้เช่าซื้อ ---</option>
+                                        <option value="ลูกค้าเก่าผ่อนดี">ลูกค้าเก่าผ่อนดี</option>
+                                        <option value="ลูกค้ามีงานตาม">ลูกค้ามีงานตาม</option>
+                                        <option value="ลูกค้าใหม่">ลูกค้าใหม่</option>
+                                        <option value="ปิดจัดใหม่">ปิดจัดใหม่</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="row">
+                                   <div class="col-md-5">
+                                    <div class="form-inline" align="right">
+                                      <label>รายได้หลังหักค่าใช้จ่าย : </label>
+                                      <input type="text" id="Afterincome" name="Afterincome" class="form-control" style="width: 250px;" placeholder="หลังหักค่าใช้จ่าย" oninput="income();" />
+                                    </div>
+                                  </div>
+
+                                  <div class="col-md-6">
+                                    <div class="form-inline" align="right">
+
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <hr>
                                 <div class="row">
                                   <div class="col-md-12">
                                     <h3 class="text-center">รูปภาพประกอบ</h3>
@@ -769,6 +806,14 @@
                                       x1 = x1.replace(rgx, '$1' + ',' + '$2');
                                     }
                                     return x1 + x2;
+                                  }
+                                  function income(){
+                                    var num11 = document.getElementById('Beforeincome').value;
+                                    var num1 = num11.replace(",","");
+                                    var num22 = document.getElementById('Afterincome').value;
+                                    var num2 = num22.replace(",","");
+                                    document.form1.Beforeincome.value = addCommas(num1);
+                                    document.form1.Afterincome.value = addCommas(num2);
                                   }
 
                                   function priceHomecar(){

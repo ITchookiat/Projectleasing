@@ -573,7 +573,6 @@
                                    @endif
                                  @endif
                                </div>
-
                             </div>
 
                             <div class="col-md-6">
@@ -605,45 +604,14 @@
                           <div class="row">
                              <div class="col-md-5">
                                <div class="form-inline" align="right">
-                                 <label>ประวัติการซื้อ/ค้ำ : </label>
+                                 <label>หักค่าใช้จ่าย : </label>
                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                   <select name="Purchasebuyer" class="form-control" style="width: 108px;">
-                                     <option value="" selected>--- ซื้อ ---</option>
-                                     @foreach ($HisCarby as $key => $value)
-                                       <option value="{{$key}}" {{ ($key == $data->Purchase_buyer) ? 'selected' : '' }}>{{$value}}</option>
-                                     @endforeach
-                                   </select>
+                                   <input type="text" id="Beforeincome" name="Beforeincome" value="{{ number_format($data->BeforeIncome_buyer,0) }}" class="form-control" style="width: 250px;" placeholder="ก่อนหักค่าใช้จ่าย" onchange="income();" />
                                  @else
                                    @if($GetDocComplete != Null)
-                                     <input type="text" name="Purchasebuyer" value="{{ $data->Purchase_buyer }}" class="form-control" style="width: 108px;" placeholder="ซื้อ" readonly/>
+                                   <input type="text" id="Beforeincome" name="Beforeincome" value="{{ number_format($data->BeforeIncome_buyer,0) }}" class="form-control" style="width: 250px;" placeholder="ก่อนหักค่าใช้จ่าย" readonly />
                                    @else
-                                     <select name="Purchasebuyer" class="form-control" style="width: 108px;">
-                                       <option value="" selected>--- ซื้อ ---</option>
-                                       @foreach ($HisCarby as $key => $value)
-                                         <option value="{{$key}}" {{ ($key == $data->Purchase_buyer) ? 'selected' : '' }}>{{$value}}</option>
-                                       @endforeach
-                                     </select>
-                                   @endif
-                                 @endif
-
-                                 <label>ค้ำ : </label>
-                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                   <select name="Supportbuyer" class="form-control" style="width: 108px;">
-                                     <option value="" selected>--- ค้ำ ---</option>
-                                     @foreach ($HisCarby as $key => $value)
-                                       <option value="{{$key}}" {{ ($key == $data->Support_buyer) ? 'selected' : '' }}>{{$value}}</option>
-                                     @endforeach
-                                   </select>
-                                 @else
-                                   @if($GetDocComplete != Null)
-                                     <input type="text" name="Supportbuyer" value="{{ $data->Support_buyer }}" class="form-control" style="width: 108px;" placeholder="ค้ำ" readonly/>
-                                   @else
-                                     <select name="Supportbuyer" class="form-control" style="width: 108px;">
-                                       <option value="" selected>--- ค้ำ ---</option>
-                                       @foreach ($HisCarby as $key => $value)
-                                         <option value="{{$key}}" {{ ($key == $data->Support_buyer) ? 'selected' : '' }}>{{$value}}</option>
-                                       @endforeach
-                                     </select>
+                                     <input type="text" id="Beforeincome" name="Beforeincome" value="{{ number_format($data->BeforeIncome_buyer,0) }}" class="form-control" style="width: 250px;" placeholder="ก่อนหักค่าใช้จ่าย" onchange="income();" />
                                    @endif
                                  @endif
                                </div>
@@ -651,11 +619,96 @@
                             </div>
 
                             <div class="col-md-6">
+                              <div class="form-inline" align="right">
+                                <label>ประวัติการซื้อ/ค้ำ : </label>
+                                @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  <select name="Purchasebuyer" class="form-control" style="width: 108px;">
+                                    <option value="" selected>--- ซื้อ ---</option>
+                                    @foreach ($HisCarby as $key => $value)
+                                      <option value="{{$key}}" {{ ($key == $data->Purchase_buyer) ? 'selected' : '' }}>{{$value}}</option>
+                                    @endforeach
+                                  </select>
+                                @else
+                                  @if($GetDocComplete != Null)
+                                    <input type="text" name="Purchasebuyer" value="{{ $data->Purchase_buyer }}" class="form-control" style="width: 108px;" placeholder="ซื้อ" readonly/>
+                                  @else
+                                    <select name="Purchasebuyer" class="form-control" style="width: 108px;">
+                                      <option value="" selected>--- ซื้อ ---</option>
+                                      @foreach ($HisCarby as $key => $value)
+                                        <option value="{{$key}}" {{ ($key == $data->Purchase_buyer) ? 'selected' : '' }}>{{$value}}</option>
+                                      @endforeach
+                                    </select>
+                                  @endif
+                                @endif
 
+                                <label>ค้ำ : </label>
+                                @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  <select name="Supportbuyer" class="form-control" style="width: 108px;">
+                                    <option value="" selected>--- ค้ำ ---</option>
+                                    @foreach ($HisCarby as $key => $value)
+                                      <option value="{{$key}}" {{ ($key == $data->Support_buyer) ? 'selected' : '' }}>{{$value}}</option>
+                                    @endforeach
+                                  </select>
+                                @else
+                                  @if($GetDocComplete != Null)
+                                    <input type="text" name="Supportbuyer" value="{{ $data->Support_buyer }}" class="form-control" style="width: 108px;" placeholder="ค้ำ" readonly/>
+                                  @else
+                                    <select name="Supportbuyer" class="form-control" style="width: 108px;">
+                                      <option value="" selected>--- ค้ำ ---</option>
+                                      @foreach ($HisCarby as $key => $value)
+                                        <option value="{{$key}}" {{ ($key == $data->Support_buyer) ? 'selected' : '' }}>{{$value}}</option>
+                                      @endforeach
+                                    </select>
+                                  @endif
+                                @endif
+                              </div>
                             </div>
                           </div>
 
-                          <br>
+                          <div class="row">
+                            <div class="col-md-5">
+                              <div class="form-inline" align="right">
+                                <label>รายได้หลังหักค่าใช้จ่าย : </label>
+                                @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  <input type="text" id="Afterincome" name="Afterincome" value="{{ number_format($data->AfterIncome_buyer,0) }}" class="form-control" style="width: 250px;" placeholder="ก่อนหักค่าใช้จ่าย" onchange="income();" />
+                                @else
+                                  @if($GetDocComplete != Null)
+                                  <input type="text" id="Afterincome" name="Afterincome" value="{{ number_format($data->AfterIncome_buyer,0) }}" class="form-control" style="width: 250px;" placeholder="ก่อนหักค่าใช้จ่าย" readonly />
+                                  @else
+                                    <input type="text" id="Afterincome" name="Afterincome" value="{{ number_format($data->AfterIncome_buyer,0) }}" class="form-control" style="width: 250px;" placeholder="ก่อนหักค่าใช้จ่าย" onchange="income();" />
+                                  @endif
+                                @endif
+                              </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+                              <div class="form-inline" align="right">
+                                <label>สถานะผู้เช่าซื้อ : </label>
+                                @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  <select name="Gradebuyer" class="form-control" style="width: 250px;">
+                                    <option value="" selected>--- สถานะผู้เช่าซื้อ ---</option>
+                                    @foreach ($GradeBuyer as $key => $value)
+                                      <option value="{{$key}}" {{ ($key == $data->Gradebuyer_car) ? 'selected' : '' }}>{{$value}}</option>
+                                    @endforeach
+                                  </select>
+                                @else
+                                  @if($GetDocComplete != Null)
+                                    <input type="text" name="Gradebuyer" value="{{ $data->Gradebuyer_car }}" class="form-control" style="width: 250px;" placeholder="เลือกสถานะผู้เช่าซื้อ" readonly/>
+                                  @else
+                                    <select name="Gradebuyer" class="form-control" style="width: 250px;">
+                                      <option value="" selected>--- สถานะผู้เช่าซื้อ ---</option>
+                                      @foreach ($GradeBuyer as $key => $value)
+                                      <option value="{{$key}}" {{ ($key == $data->Gradebuyer_car) ? 'selected' : '' }}>{{$value}}</option>
+                                      @endforeach
+                                    </select>
+                                  @endif
+                                @endif
+                              </div>
+                            </div>
+                          </div>
+
+                          <hr>
                           <input type="hidden" name="fdate" value="{{ $fdate }}" />
                           <input type="hidden" name="tdate" value="{{ $tdate }}" />
                           <input type="hidden" name="branch" value="{{ $branch }}" />
@@ -1310,6 +1363,15 @@
                                    x1 = x1.replace(rgx, '$1' + ',' + '$2');
                                   }
                                 return x1 + x2;
+                              }
+
+                              function income(){
+                                var num11 = document.getElementById('Beforeincome').value;
+                                var num1 = num11.replace(",","");
+                                var num22 = document.getElementById('Afterincome').value;
+                                var num2 = num22.replace(",","");
+                                document.form1.Beforeincome.value = addCommas(num1);
+                                document.form1.Afterincome.value = addCommas(num2);
                               }
 
                               function mile(){
