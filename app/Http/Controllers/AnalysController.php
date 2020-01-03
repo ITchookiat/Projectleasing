@@ -1350,11 +1350,13 @@ class AnalysController extends Controller
                 }elseif ($cardetail->branch_car == "รถยืดขายผ่อน") {
                     $branchType = 11;
                 }
+
                 if ($branchType != Null) {
                   if ($branchType == 01) { //สาขาปัตตานี
                     $connect = Buyer::where('Contract_buyer', 'like', '01%' )
                                       ->orderBy('Contract_buyer', 'desc')->limit(1)
                                       ->get();
+                  // dd($connect);
                   }elseif ($branchType == 03) { //สาขายะลา
                     $connect = Buyer::where('Contract_buyer', 'like', '03%' )
                                       ->orderBy('Contract_buyer', 'desc')->limit(1)
@@ -1386,6 +1388,7 @@ class AnalysController extends Controller
                   }
 
                   // dd($connect);
+
                   $contract = $connect[0]->Contract_buyer;
                   $SetStr = explode("/",$contract);
                   $StrNum = $SetStr[1] + 1;
