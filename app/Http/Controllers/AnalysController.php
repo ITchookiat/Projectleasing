@@ -451,7 +451,8 @@ class AnalysController extends Controller
       $SetDateDue = str_replace ("/","-",$request->get('DateDue'));
       $dateConvert0 = date_create($SetDateDue);
       $DateDue = date_format($dateConvert0, 'Y-m-d');
-
+      $BeforeIncome = str_replace (",","",$request->get('Beforeincome'));
+      $AfterIncome = str_replace (",","",$request->get('Afterincome'));
 
       $newDateDue = \Carbon\Carbon::parse($request->DateDue)->format('Y') ."-". \Carbon\Carbon::parse($request->DateDue)->format('m')."-". \Carbon\Carbon::parse($request->DateDue)->format('d');
       $SetPhonebuyer = str_replace ( "_","",$request->get('Phonebuyer'));
@@ -482,6 +483,9 @@ class AnalysController extends Controller
         'securities_buyer' => $request->get('securitiesbuyer'),
         'deednumber_buyer' => $request->get('deednumberbuyer'),
         'area_buyer' => $request->get('areabuyer'),
+        'BeforeIncome_buyer' => $BeforeIncome,
+        'AfterIncome_buyer' => $AfterIncome,
+        'Gradebuyer_car' => $request->get('Gradebuyer'),
       ]);
       $Buyerdb->save();
 
@@ -1021,6 +1025,12 @@ class AnalysController extends Controller
         'มารดา' => 'มารดา',
         'บุตร' => 'บุตร',
       ];
+      $GradeBuyer = [
+        'ลูกค้าเก่าผ่อนดี' => 'ลูกค้าเก่าผ่อนดี',
+        'ลูกค้ามีงานตาม' => 'ลูกค้ามีงานตาม',
+        'ลูกค้าใหม่' => 'ลูกค้าใหม่',
+        'ปิดจัดใหม่' => 'ปิดจัดใหม่',
+      ];
 
 
       // dd($Gettype);
@@ -1029,7 +1039,7 @@ class AnalysController extends Controller
             compact('data','id','dataImage','Statusby','Addby','Houseby','Driverby','HouseStyleby','Careerby','Incomeby',
             'HisCarby','StatusSPp','relationSPp','addSPp','housestyleSPp','Brandcarr','Interestcarr','Timeslackencarr',
             'Insurancecarr','statuscarr','newDateDue','evaluetionPricee','securitiesSPp','GetDocComplete','Getinsurance',
-            'Gettransfer','Getinterest','fdate','tdate','branch','status','type','Gettype','countImage'));
+            'Gettransfer','Getinterest','fdate','tdate','branch','status','type','Gettype','countImage','GradeBuyer'));
       }
       elseif ($type == 4) {
         return view('analysis.edithomecar',
@@ -1037,7 +1047,7 @@ class AnalysController extends Controller
             'HisCarby','StatusSPp','relationSPp','addSPp','housestyleSPp','Brandcarr','Interestcarr','Timeslackencarr',
             'Insurancecarr','statuscarr','newDateDue','evaluetionPricee','securitiesSPp','Getinsurance',
             'Gettransfer','Getinterest','fdate','tdate','branch','status','Gettype','GetSale','GetypeHC','GetbaabHC',
-            'GetguaranteeHC','relationSP','countImage'));
+            'GetguaranteeHC','relationSP','countImage','GradeBuyer'));
       }
     }
 
@@ -1100,7 +1110,9 @@ class AnalysController extends Controller
           $user->Support_buyer = $request->get('Supportbuyer');
           $user->securities_buyer = $request->get('securitiesbuyer');
           $user->deednumber_buyer = $request->get('deednumberbuyer');
-          $user->area_buyer = $request->get('areabuyer');
+          $user->BeforeIncome_buyer = str_replace(",","",$request->get('Beforeincome'));
+          $user->AfterIncome_buyer = str_replace(",","",$request->get('Afterincome'));
+          $user->Gradebuyer_car = $request->get('Gradebuyer');
         $user->update();
 
         $SettelSP = str_replace ("_","",$request->get('telSP'));
