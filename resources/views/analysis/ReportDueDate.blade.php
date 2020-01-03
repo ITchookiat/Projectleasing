@@ -131,11 +131,11 @@
                 @endif
               </td>
               @if($value->note_Price == Null)
-              <td width="50px" rowspan="3" style="line-height:550%;">{{$value->License_car}}</td>
+              <td width="45px" rowspan="3" style="line-height:550%;">{{$value->License_car}}</td>
               @else
-              <td width="50px" rowspan="2" style="line-height:400%;">{{$value->License_car}}</td>
+              <td width="45px" rowspan="2" style="line-height:400%;">{{$value->License_car}}</td>
               @endif
-              <td width="30px" rowspan="3" style="line-height:550%;">{{number_format($value->Top_car)}}</td>
+              <td width="35px" rowspan="3" style="line-height:550%;">{{number_format($value->Top_car)}}</td>
               <td width="55px">
                 @if($value->act_Price != 0)
                   พรบ. {{number_format($value->act_Price)}}
