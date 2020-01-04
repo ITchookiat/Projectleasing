@@ -96,7 +96,7 @@
           <th class="text-center" width="120px" style="background-color: yellow;"> <b>{{$dataReport->Income_buyer}}</b></th>
           <th align="right" width="60"> หักค่าใช้จ่าย &nbsp;</th>
           <th class="text-center" width="60" style="background-color: yellow;"> <b>{{number_format($dataReport->BeforeIncome_buyer)}}</b></th>
-          <th align="right" width="90"> รายได้หลังหัก คสช. &nbsp;</th>
+          <th align="right" width="90"> รายได้หลังหัก คชจ. &nbsp;</th>
           <th class="text-center" width="90" style="background-color: yellow;"> <b>{{number_format($dataReport->AfterIncome_buyer)}}</b></th>
         </tr>
     </table>
