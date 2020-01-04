@@ -453,6 +453,13 @@ class AnalysController extends Controller
       $DateDue = date_format($dateConvert0, 'Y-m-d');
       $BeforeIncome = str_replace (",","",$request->get('Beforeincome'));
       $AfterIncome = str_replace (",","",$request->get('Afterincome'));
+      if($BeforeIncome == ''){
+        $BeforeIncome = '0';
+      }
+      if($AfterIncome == ''){
+        $AfterIncome = '0';
+      }
+      dd($BeforeIncome,$AfterIncome);
 
       $newDateDue = \Carbon\Carbon::parse($request->DateDue)->format('Y') ."-". \Carbon\Carbon::parse($request->DateDue)->format('m')."-". \Carbon\Carbon::parse($request->DateDue)->format('d');
       $SetPhonebuyer = str_replace ( "_","",$request->get('Phonebuyer'));
