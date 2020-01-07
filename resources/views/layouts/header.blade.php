@@ -18,7 +18,7 @@
       <span class="icon-bar"></span>
     </a>
 
-    @if(auth::user()->type == 1 or auth::user()->type == 4 or auth::user()->branch == 10 or auth::user()->branch == 11)
+    @if(auth::user()->type == 1)
     <ul class="nav navbar-nav">
       <li>
         <a href="#" class="dropdown-toggle" data-toggle="dropdown"> ระบบรถบ้าน </a>
