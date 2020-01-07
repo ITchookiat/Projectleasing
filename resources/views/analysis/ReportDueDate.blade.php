@@ -62,8 +62,8 @@
           <th align="center" width="50px" style="background-color: #33FF00;"><b>ยี่ห้อ</b></th>
           <th align="center" width="65px" style="background-color: #BEBEBE;"><b>แบบ</b></th>
           <th align="center" width="20px" style="background-color: #BEBEBE;"><b>สาขา</b></th>
-          <th align="center" width="50px" style="background-color: #BEBEBE;"><b>ทะเบียน</b></th>
-          <th align="center" width="30px" style="background-color: #BEBEBE;"><b>ยอดจัด</b></th>
+          <th align="center" width="45px" style="background-color: #BEBEBE;"><b>ทะเบียน</b></th>
+          <th align="center" width="35px" style="background-color: #BEBEBE;"><b>ยอดจัด</b></th>
           <th align="center" width="55px" style="background-color: #BEBEBE;"><b>เพิ่มเติม</b></th>
           <th align="center" width="40px" style="background-color: #FFFF00;"><b>คจช.ขนส่ง</b></th>
           <th align="center" width="25px" style="background-color: #FFFF00;"><b>อื่นๆ</b></th>
@@ -131,11 +131,11 @@
                 @endif
               </td>
               @if($value->note_Price == Null)
-              <td width="50px" rowspan="3" style="line-height:550%;">{{$value->License_car}}</td>
+              <td width="45px" rowspan="3" style="line-height:550%;">{{$value->License_car}}</td>
               @else
-              <td width="50px" rowspan="2" style="line-height:400%;">{{$value->License_car}}</td>
+              <td width="45px" rowspan="2" style="line-height:400%;">{{$value->License_car}}</td>
               @endif
-              <td width="30px" rowspan="3" style="line-height:550%;">{{number_format($value->Top_car)}}</td>
+              <td width="35px" rowspan="3" style="line-height:550%;">{{number_format($value->Top_car)}}</td>
               <td width="55px">
                 @if($value->act_Price != 0)
                   พรบ. {{number_format($value->act_Price)}}
