@@ -451,6 +451,7 @@ class AnalysController extends Controller
       $SetDateDue = str_replace ("/","-",$request->get('DateDue'));
       $dateConvert0 = date_create($SetDateDue);
       $DateDue = date_format($dateConvert0, 'Y-m-d');
+
       $BeforeIncome = str_replace (",","",$request->get('Beforeincome'));
       $AfterIncome = str_replace (",","",$request->get('Afterincome'));
       if($BeforeIncome == ''){
@@ -609,10 +610,8 @@ class AnalysController extends Controller
         $Homecardetaildb ->save();
 
         $type = 4;
-      }else {
-
-        // dd($request->get('Midpricecar'));
-
+      }
+      else {
         $Cardetaildb = new Cardetail([
           'Buyercar_id' => $Buyerdb->id,
           'Brand_car' => $request->get('Brandcar'),

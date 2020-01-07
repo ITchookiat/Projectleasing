@@ -156,10 +156,10 @@ class LegislationController extends Controller
           'sendoffice_court' =>  Null,
           'checkresults_court' =>  Null,
           'sendcheckresults_court' =>  Null,
-          'received_flag' =>  Null,
-          'noreceived_flag' =>  Null,
+          'received_court' =>  Null,
           'telresults_court' =>  Null,
           'dayresults_court' =>  Null,
+          'propertied_court' =>  Null,
           'sequester_court' =>  Null,
           'sendsequester_court' =>  Null,
           'latitude_court' =>  Null,
@@ -237,6 +237,8 @@ class LegislationController extends Controller
      */
     public function update(Request $request, $id, $type)
     {
+      // dd($request);
+
       if ($type == 2) {
         $user = Legislation::find($id);
           $user->Certificate_list = $request->get('Certificatelist');
@@ -278,10 +280,10 @@ class LegislationController extends Controller
           $Legiscourt->sendoffice_court = $request->get('sendofficecourt');
           $Legiscourt->checkresults_court = $request->get('checkresultscourt');
           $Legiscourt->sendcheckresults_court = $request->get('sendcheckresultscourt');
-          $Legiscourt->received_flag = $request->get('receivedflag');
-          $Legiscourt->noreceived_flag = $request->get('noreceivedflag');
+          $Legiscourt->received_court = $request->get('radio-receivedflag');
           $Legiscourt->telresults_court = $request->get('telresultscourt');
           $Legiscourt->dayresults_court = $request->get('dayresultscourt');
+          $Legiscourt->propertied_court = $request->get('radio-propertied');
           $Legiscourt->sequester_court = $request->get('sequestercourt');
           $Legiscourt->sendsequester_court = $request->get('sendsequestercourt');
         $Legiscourt->update();
