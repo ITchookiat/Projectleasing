@@ -13,6 +13,8 @@ use App\Cardetail;
 use App\homecardetail;
 use App\Expenses;
 use App\Holdcar;
+use App\data_car;
+use App\checkDocument;
 
 class HomeController extends Controller
 {
