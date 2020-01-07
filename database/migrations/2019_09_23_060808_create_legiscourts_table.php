@@ -38,10 +38,10 @@ class CreateLegiscourtsTable extends Migration
             $table->string('sendoffice_court')->nullable();
             $table->string('checkresults_court')->nullable();
             $table->string('sendcheckresults_court')->nullable();
-            $table->string('received_flag')->nullable();
-            $table->string('noreceived_flag')->nullable();
+            $table->string('received_court')->nullable();
             $table->string('telresults_court')->nullable();
             $table->string('dayresults_court')->nullable();
+            $table->string('propertied_court')->nullable();
             $table->string('sequester_court')->nullable();
             $table->string('sendsequester_court')->nullable();
             $table->string('latitude_court')->nullable();

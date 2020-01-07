@@ -452,7 +452,6 @@ class AnalysController extends Controller
       $dateConvert0 = date_create($SetDateDue);
       $DateDue = date_format($dateConvert0, 'Y-m-d');
 
-
       $newDateDue = \Carbon\Carbon::parse($request->DateDue)->format('Y') ."-". \Carbon\Carbon::parse($request->DateDue)->format('m')."-". \Carbon\Carbon::parse($request->DateDue)->format('d');
       $SetPhonebuyer = str_replace ( "_","",$request->get('Phonebuyer'));
       // dd($newDateDue);
@@ -599,10 +598,8 @@ class AnalysController extends Controller
         $Homecardetaildb ->save();
 
         $type = 4;
-      }else {
-
-        // dd($request->get('Midpricecar'));
-
+      }
+      else {
         $Cardetaildb = new Cardetail([
           'Buyercar_id' => $Buyerdb->id,
           'Brand_car' => $request->get('Brandcar'),

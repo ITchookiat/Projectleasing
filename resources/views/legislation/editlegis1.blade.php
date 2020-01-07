@@ -260,6 +260,59 @@
     }
   </style>
 
+  <style>
+    [type="radio"]:checked,
+    [type="radio"]:not(:checked) {
+        position: absolute;
+        left: -9999px;
+    }
+    [type="radio"]:checked + label,
+    [type="radio"]:not(:checked) + label
+    {
+        position: relative;
+        padding-left: 28px;
+        cursor: pointer;
+        line-height: 20px;
+        display: inline-block;
+        color: #666;
+    }
+    [type="radio"]:checked + label:before,
+    [type="radio"]:not(:checked) + label:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 20px;
+        height: 20px;
+        border: 1px solid #ddd;
+        border-radius: 100%;
+        background: #fff;
+    }
+    [type="radio"]:checked + label:after,
+    [type="radio"]:not(:checked) + label:after {
+        content: '';
+        width: 12px;
+        height: 12px;
+        background: #F87DA9;
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        border-radius: 100%;
+        -webkit-transition: all 0.2s ease;
+        transition: all 0.2s ease;
+    }
+    [type="radio"]:not(:checked) + label:after {
+        opacity: 0;
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    }
+    [type="radio"]:checked + label:after {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+  </style>
+
 
       <section class="content-header">
       </section>
@@ -874,37 +927,38 @@
                                     วันที่ตรวจจริง
                                     <input type="date" id="sendcheckresultscourt" name="sendcheckresultscourt" class="form-control" value="{{ $data->sendcheckresults_court }}" oninput="Datesuccess();"/>
                                     <div class="row">
-                                      <div class="col-md-4">
-                                        <p></p>
-                                        <span class="todo-wrap">
-                                          @if($data->received_flag != Null)
-                                            <input type="checkbox" id="2" name="receivedflag" value="{{ $data->received_flag }}" checked="checked"/>
-                                          @else
-                                            <input type="checkbox" id="2" name="receivedflag" value="Yes"/>
-                                          @endif
-                                          <label for="2" class="todo">
-                                            <i class="fa fa-check"></i>
-                                            ได้รับ
-                                          </label>
-                                        </span>
-                                      </div>
-                                      <div class="col-md-6">
-                                        <p></p>
-                                        <span class="todo-wrap">
-                                          @if($data->noreceived_flag != Null)
-                                            <input type="checkbox" id="3" name="noreceivedflag" value="{{ $data->noreceived_flag }}" checked="checked"/>
-                                          @else
-                                            <input type="checkbox" id="3" name="noreceivedflag" value="No" onclick="myFunction()"/>
-                                          @endif
-                                          <label for="3" class="todo">
-                                            <i class="fa fa-check"></i>
-                                            ไม่ได้รับ
-                                          </label>
-                                        </span>
-                                      </div>
+                                      <br>
+                                      @if($data->received_court == "Y")
+                                        <div class="col-md-6" align="center">
+                                          <input type="radio" id="test3" name="radio-receivedflag" value="Y" onclick="Functionhidden2()" checked/>
+                                          <label for="test3">ได้รับ</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                          <input type="radio" id="test4" name="radio-receivedflag" value="N" onclick="FunctionRadio2()"/>
+                                          <label for="test4">ไม่ได้รับ</label>
+                                        </div>
+                                      @elseif($data->received_court == "N")
+                                        <div class="col-md-6" align="center">
+                                          <input type="radio" id="test3" name="radio-receivedflag" value="Y" onclick="Functionhidden2()"/>
+                                          <label for="test3">ได้รับ</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                          <input type="radio" id="test4" name="radio-receivedflag" value="N" onclick="FunctionRadio2()" checked/>
+                                          <label for="test4">ไม่ได้รับ</label>
+                                        </div>
+                                      @else
+                                        <div class="col-md-6" align="center">
+                                          <input type="radio" id="test3" name="radio-receivedflag" value="Y" onclick="Functionhidden2()"/>
+                                          <label for="test3">ได้รับ</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                          <input type="radio" id="test4" name="radio-receivedflag" value="N" onclick="FunctionRadio2()"/>
+                                          <label for="test4">ไม่ได้รับ</label>
+                                        </div>
+                                      @endif
                                     </div>
-                                     <!-- test -->
-                                     @if($data->noreceived_flag == Null)
+
+                                     @if($data->received_court == Null)
                                        <div id="myDIV" style="display:none;">
                                      @else
                                       <div id="myDIV">
@@ -927,14 +981,54 @@
                                     </div>
                                   </div>
                                   <div class="box-body">
-                                    วันที่ยึดทรัพย์
-                                    <input type="date" id="sequestercourt" name="sequestercourt" class="form-control" value="{{ $data->sequester_court }}" readonly/>
-                                    วันที่ยึดทรัพย์จริง
-                                    <input type="date" id="sendsequestercourt" name="sendsequestercourt" class="form-control" value="{{ $data->sendsequester_court }}" />
+                                    <div class="row">
+                                      @if($data->propertied_court == "Y")
+                                        <div class="col-md-6" align="center">
+                                          <input type="radio" id="test1" name="radio-propertied" value="Y" onclick="FunctionRadio()" checked/>
+                                          <label for="test1">มีทรัพย์</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                          <input type="radio" id="test2" name="radio-propertied" value="N" onclick="Functionhidden()"/>
+                                          <label for="test2">ไม่มีทรัพย์</label>
+                                        </div>
+                                      @elseif($data->propertied_court == "N")
+                                        <div class="col-md-6" align="center">
+                                          <input type="radio" id="test1" name="radio-propertied" value="Y" onclick="FunctionRadio()"/>
+                                          <label for="test1">มีทรัพย์</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                          <input type="radio" id="test2" name="radio-propertied" value="N" onclick="Functionhidden()" checked/>
+                                          <label for="test2">ไม่มีทรัพย์</label>
+                                        </div>
+                                      @else
+                                        <div class="col-md-6" align="center">
+                                          <input type="radio" id="test1" name="radio-propertied" value="Y" onclick="FunctionRadio()"/>
+                                          <label for="test1">มีทรัพย์</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                          <input type="radio" id="test2" name="radio-propertied" value="N" onclick="Functionhidden()"/>
+                                          <label for="test2">ไม่มีทรัพย์</label>
+                                        </div>
+                                      @endif
+                                    </div>
+
+                                    @if($data->propertied_court == "N")
+                                      <div id="ShowMe" style="display:none;">
+                                    @else
+                                     <div id="ShowMe">
+                                    @endif
+                                        วันที่ยึดทรัพย์
+                                        <input type="date" id="sequestercourt" name="sequestercourt" class="form-control" value="{{ $data->sequester_court }}" readonly/>
+                                        วันที่ยึดทรัพย์จริง
+                                        <input type="date" id="sendsequestercourt" name="sendsequestercourt" class="form-control" value="{{ $data->sendsequester_court }}" />
+                                      </div>
+                                    </div>
+
                                   </div>
                                 </div>
                               </div>
                             </div>
+
                           </div>
                         </div>
                       </div>
@@ -948,7 +1042,6 @@
           </div>
         </div>
 
-<!-- เวลาแจ้งเตือน -->
 
       <script>
       $(function () {
@@ -956,6 +1049,7 @@
       })
       </script>
 
+      <!-- เวลาแจ้งเตือน -->
       <script type="text/javascript">
         $(".alert").fadeTo(3000, 1000).slideUp(1000, function(){
         $(".alert").alert('close');
@@ -963,14 +1057,35 @@
       </script>
 
       <script>
-          function myFunction() {
+        function FunctionRadio2() {
           var x = document.getElementById("myDIV");
           if (x.style.display === "none") {
           x.style.display = "block";
           } else {
           x.style.display = "none";
           }
+        }
+
+        function Functionhidden2() {
+          var x = document.getElementById("myDIV");
+          x.style.display = "none";
+        }
+      </script>
+
+      <script>
+        function FunctionRadio() {
+          var x = document.getElementById("ShowMe");
+          if (x.style.display === "none") {
+          x.style.display = "block";
+          } else {
+          x.style.display = "none";
           }
+        }
+
+        function Functionhidden() {
+          var x = document.getElementById("ShowMe");
+          x.style.display = "none";
+        }
       </script>
 
     </section>

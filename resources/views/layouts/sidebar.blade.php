@@ -113,6 +113,9 @@
                 <a href="{{ route('Precipitate',5) }}"><i class="fa fa-cube text-primary"></i>ระบบสต็อกรถเร่งรัด</a>
             </li>
             <li>
+                <a href="{{ route('Precipitate',11) }}"><i class="fa fa-cube text-primary"></i>ระบบปรับโครงสร้างหนี้</a>
+            </li>
+            <li>
                 <!-- <a href="{{ route('Precipitate',2) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน แยกตามทีม</a> -->
             </li>
             <li>
