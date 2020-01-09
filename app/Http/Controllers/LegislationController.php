@@ -203,6 +203,12 @@ class LegislationController extends Controller
 
         return view('legislation.editlegis1',compact('data','id','type'));
       }
+      elseif ($type == 4){
+        $data = DB::table('legiscourts')
+        ->where('legiscourts.legislation_id',$id)->first();
+
+        return view('legislation.editlegis2',compact('data','id','type'));
+      }
       elseif ($type == 11){
         $data = DB::table('legiscourts')
         ->where('legiscourts.legislation_id',$id)->first();

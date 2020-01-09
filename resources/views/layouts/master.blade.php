@@ -2,6 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>ชูเกียรติลิสซิ่ง</title>
   <link rel="icon" href="{{ asset('dist/img/leasingLogo.png') }}" type="image/ico" />
@@ -12,6 +13,7 @@
   <link rel="stylesheet" href="{{ asset('dist/css/AdminLTE.min.css') }}">
   <link rel="stylesheet" href="{{ asset('dist/css/skins/_all-skins.min.css') }}">
   <link rel="stylesheet" href="{{ asset('bower_components/Ionicons/css/ionicons.min.css')}}">
+
 
   <style>
     .a1 {color: #E6E6FA;}
@@ -263,6 +265,7 @@
     }
   </style>
 
+  <script src="{{ asset('js/function.js') }}"></script>
   <script src="{{ asset('plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
   <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
   <script src="{{ asset('plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>

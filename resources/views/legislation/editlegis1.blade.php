@@ -2,126 +2,7 @@
 @section('title','แผนกวิเคราะห์')
 @section('content')
 
-@php
-  date_default_timezone_set('Asia/Bangkok');
-  $Y = date('Y') + 543;
-  $Y2 = date('Y') + 531;
-  $m = date('m');
-  $d = date('d');
-  //$date = date('Y-m-d');
-  $time = date('H:i');
-  $date = $Y.'-'.$m.'-'.$d;
-  $date2 = $Y2.'-'.'01'.'-'.'01';
-@endphp
-
-@php
-  function DateThai($strDate){
-    $strYear = date("Y",strtotime($strDate))+543;
-    $strMonth= date("n",strtotime($strDate));
-    $strDay= date("d",strtotime($strDate));
-    $strMonthCut = Array("" , "ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค.");
-    $strMonthThai=$strMonthCut[$strMonth];
-    return "$strDay $strMonthThai $strYear";
-    //return "$strDay-$strMonthThai-$strYear";
-  }
-@endphp
-
-  <link type="text/css" rel="stylesheet" href="{{ asset('css/magiczoomplus.css') }}"/>
-  <script type="text/javascript" src="{{ asset('js/magiczoomplus.js') }}"></script>
-
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css">
-
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css"/>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/js/fileinput.js" type="text/javascript"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/themes/fa/theme.js" type="text/javascript"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" type="text/javascript"></script>
-
-  <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
-
-  <style>
-   readonly{
-     background-color: #FFFFFF;
-   }
-  </style>
-
-  <style>
-    body {
-      font-family: Arial;
-      margin: 0;
-    }
-    * {
-      box-sizing: border-box;
-    }
-    img {
-      vertical-align: middle;
-    }
-    .container {
-      position: relative;
-    }
-    .mySlides {
-      display: none;
-    }
-    .cursor {
-      cursor: pointer;
-    }
-    .prev,
-    .next {
-      cursor: pointer;
-      position: absolute;
-      top: 40%;
-      width: auto;
-      padding: 16px;
-      margin-top: -50px;
-      color: white;
-      font-weight: bold;
-      font-size: 20px;
-      border-radius: 0 3px 3px 0;
-      user-select: none;
-      -webkit-user-select: none;
-    }
-    .next {
-      right: 0;
-      border-radius: 3px 0 0 3px;
-    }
-    .prev:hover,
-    .next:hover {
-      background-color: rgba(0, 0, 0, 0.8);
-    }
-    .numbertext {
-      color: #f2f2f2;
-      font-size: 12px;
-      padding: 8px 12px;
-      position: absolute;
-      top: 0;
-    }
-    .caption-container {
-      text-align: center;
-      background-color: #222;
-      padding: 2px 16px;
-      color: white;
-    }
-    .row:after {
-      content: "";
-      display: table;
-      clear: both;
-    }
-    .column {
-      float: left;
-      width: 16.66%;
-    }
-    .demo {
-      opacity: 0.6;
-    }
-    .active,
-    .demo:hover {
-      opacity: 1;
-    }
-  </style>
-
   <style>
     #todo-list{
     width:100%;
@@ -313,7 +194,6 @@
     }
   </style>
 
-
       <section class="content-header">
       </section>
 
@@ -334,7 +214,7 @@
             <ul class="nav nav-tabs bg-warning">
               <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 2]) }}">ข้อมูลผู้เช่าซื้อ</a></li>
               <li class="nav-item active"><a href="{{ action('LegislationController@edit',[$id, 3]) }}">ชั้นศาล</a></li>
-              <li class="nav-item"><a href="#tab_3">ชั้นบังคับคดี</a></li>
+              <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 4]) }}">ชั้นบังคับคดี</a></li>
               <li class="nav-item"><a href="#tab_4">ของกลาง</a></li>
               <li class="nav-item"><a href="#tab_5">โกงเจ้าหนี้</a></li>
               <li class="nav-item pull-right"><a href="{{ action('LegislationController@edit',[$id, 11]) }}">รูปและแผนที่</a></li>
@@ -342,16 +222,6 @@
           </div>
 
           <div class="box-body">
-
-            @if (count($errors) > 0)
-              <div class="alert alert-danger">
-                <ul>
-                  @foreach($errors->all() as $error)
-                  <li>กรุณาลงชื่อ ผู้อนุมัติ {{$error}}</li>
-                  @endforeach
-                </ul>
-              </div>
-            @endif
 
             @if(session()->has('success'))
               <div class="alert alert-success alert-dismissible" role="alert">
@@ -370,15 +240,21 @@
                   <div class="card">
                     <div class="card-body">
                       <div class="tab-content">
-                        <div class="form-group" align="right">
+                        <div class="form-inline" align="right">
+                          <a class="btn btn-primary" title="ประนอมหนี้" data-toggle="modal" data-target="#modal-default" data-backdrop="static" data-keyboard="false">
+                          <span class="badge bg-yellow fa fa-check">1 </span>
+                            <i class="fa fa-bullhorn"></i> ประนอมหนี้
+                          </a>
                           <button type="submit" class="delete-modal btn btn-success">
                             <span class="glyphicon glyphicon-floppy-save"></span> อัพเดท
                           </button>
                           <a class="delete-modal btn btn-danger" href="{{ route('legislation',2) }}">
                             <span class="glyphicon glyphicon-remove"></span> ยกเลิก
                           </a>
+                          <p></p>
                         </div>
 
+                        <p></p>
                         <script>
                           function addCommas(nStr){
                              nStr += '';
@@ -958,7 +834,7 @@
                                       @endif
                                     </div>
 
-                                     @if($data->received_court == Null)
+                                     @if($data->received_court == "Y" or $data->received_court == Null)
                                        <div id="myDIV" style="display:none;">
                                      @else
                                       <div id="myDIV">
@@ -1012,7 +888,7 @@
                                       @endif
                                     </div>
 
-                                    @if($data->propertied_court == "N")
+                                    @if($data->propertied_court == "N" or $data->propertied_court == Null)
                                       <div id="ShowMe" style="display:none;">
                                     @else
                                      <div id="ShowMe">
@@ -1023,6 +899,7 @@
                                         <input type="date" id="sendsequestercourt" name="sendsequestercourt" class="form-control" value="{{ $data->sendsequester_court }}" />
                                       </div>
                                     </div>
+                                  </div>
 
                                   </div>
                                 </div>
@@ -1034,20 +911,126 @@
                       </div>
                     </div>
 
+                    <!-- แบบฟอร์มผู้ค้ำ 2 -->
+                    <div class="modal fade" id="modal-default">
+                        <div class="modal-dialog modal-lg">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span></button>
+                              <h4 class="modal-title" align="center">ข้อมูลประนอมหนี้</h4>
+                            </div>
+                            <div class="modal-body">
+                              <div class="row">
+                                <div class="col-md-5">
+                                  <div class="form-inline" align="right">
+                                    <label>ยอดประนอมหนี้ : </label>
+                                    <input type="text" name="nameSP2" class="form-control" style="width: 200px;" placeholder="ชื่อ" />
+                                  </div>
+                                </div>
+                                <div class="col-md-5">
+                                  <div class="form-inline" align="right">
+                                    <label>ประเภทประนอมหนี้ : </label>
+                                    <input type="text" name="nameSP2" class="form-control" style="width: 200px;" placeholder="ชื่อ" />
+                                  </div>
+                                </div>
+                              </div>
+
+                              <p></p>
+                              <div class="row">
+                                <div class="col-md-7">
+                                  <div class="form-inline" align="right">
+                                    <label>ยอดที่ต้องชำระ : </label>
+                                    <input type="text" name="nameSP2" class="form-control" style="width: 200px;" placeholder="ชื่อ" />
+                                    <p></p>
+                                    <label>1. : </label>
+                                    <input type="text" name="nameSP2" class="form-control" style="width: 150px;" placeholder="ชื่อ" />
+                                    <p></p>
+                                    <label>2. : </label>
+                                    <input type="text" name="nameSP2" class="form-control" style="width: 150px;" placeholder="ชื่อ" />
+                                    <p></p>
+                                    <label>3. : </label>
+                                    <input type="text" name="nameSP2" class="form-control" style="width: 150px;" placeholder="ชื่อ" />
+                                  </div>
+                                </div>
+                                <div class="col-md-4">
+                                </div>
+                              </div>
+
+                              <p></p>
+                              <div class="row">
+                                <div class="col-md-7">
+                                  <div class="form-inline" align="right">
+                                    <label>ยอดประนอมหนี้คงเหลือ : </label>
+                                    <input type="text" name="nameSP2" class="form-control" style="width: 200px;" placeholder="ชื่อ" />
+                                  </div>
+                                </div>
+                                <div class="col-md-4">
+                                </div>
+                              </div>
+
+                              <p></p>
+                              <div class="row">
+                                <div class="col-md-5">
+                                  <div class="form-inline" align="right">
+                                    <label>จำนวนงวด : </label>
+                                    <input type="text" name="nameSP2" class="form-control" style="width: 200px;" placeholder="ชื่อ" />
+                                  </div>
+                                </div>
+                                <div class="col-md-5">
+                                  <div class="form-inline" align="right">
+                                    <label>งวดละ : </label>
+                                    <input type="text" name="nameSP2" class="form-control" style="width: 200px;" placeholder="ชื่อ" />
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-md-5">
+                                  <div class="form-inline" align="right">
+                                    <label>วันที่ชำระล่าสุด : </label>
+                                    <input type="date" name="nameSP2" class="form-control" style="width: 200px;" placeholder="ชื่อ" />
+                                  </div>
+                                </div>
+                                <div class="col-md-5">
+                                  <div class="form-inline" align="right">
+                                    <label>ยอดคงเหลือ : </label>
+                                    <input type="text" name="nameSP2" class="form-control" style="width: 200px;" placeholder="ชื่อ" />
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-10">
+                                  <div class="form-inline" align="left">
+                                    <label>หมายเหตุ : </label>
+                                    <textarea name="name" rows="5" cols="80" class="form-control"></textarea>
+                                </div>
+                              </div>
+                            </div>
+
+                            </div>
+                            <hr>
+                            <div class="footer" align="center">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">เสร็จ</button>
+                            </div>
+                          </div>
+                          <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                      </div>
+                    <!-- แบบฟอร์มผู้ค้ำ 2 -->
+
                     <input type="hidden" name="_method" value="PATCH"/>
                   </div>
                 </form>
               </div>
             </div>
+
           </div>
         </div>
 
-
-      <script>
-      $(function () {
-        $('[data-mask]').inputmask()
-      })
-      </script>
 
       <!-- เวลาแจ้งเตือน -->
       <script type="text/javascript">
