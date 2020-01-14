@@ -918,6 +918,7 @@
                                       <label>ดอกเบี้ย : </label>
                                       <select id="interestHC" name="interestHC" class="form-control" style="width: 250px;" oninput="priceHomecar()">
                                         <option value="" selected>--- ดอกเบี้ย ---</option>
+                                        <option value="0.45">0.45</option>
                                         <option value="0.55">0.55</option>
                                         <option value="0.65">0.65</option>
                                         <option value="0.70">0.70</option>
