@@ -236,7 +236,7 @@ class ReportController extends Controller
 
       $ReportType = $request->id;
 
-      $view = \View::make('report.export' ,compact(['dataReport','ReportType','fdate','tdate']));
+      $view = \View::make('homecar.reportcar' ,compact(['dataReport','ReportType','fdate','tdate']));
       $html = $view->render();
 
       $pdf = new PDF();

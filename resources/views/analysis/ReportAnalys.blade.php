@@ -204,14 +204,42 @@
         <tr>
           <th align="right" width="120px"> ยอดจัด &nbsp;</th>
           <th align="right" width="120px" style="background-color: yellow;"> <b>{{number_format($dataReport->Top_car)}} &nbsp;</b></th>
-          <th align="right" width="120px"> ดอกเบี้ย &nbsp;</th>
+          <th align="right" width="120px"> ดอกเบี้ย/ปี &nbsp;</th>
           <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataReport->Interest_car}} &nbsp;</b></th>
         </tr>
         <tr>
           <th align="right" width="120px"> VAT &nbsp;</th>
           <th align="right" width="120px"> <b>{{$dataReport->Vat_car}}</b></th>
           <th align="right" width="120px"> ระยะเวลาผ่อน &nbsp;</th>
-          <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataReport->Timeslacken_car}}</b> งวด</th>
+          <th class="text-center" width="180px" style="background-color: yellow;">
+            @if($dataReport->Timeslacken_car == '1')
+             <b>12</b> งวด
+             @elseif($dataReport->Timeslacken_car == '1.5')
+             <b>18</b> งวด
+             @elseif($dataReport->Timeslacken_car == '2')
+             <b>24</b> งวด
+             @elseif($dataReport->Timeslacken_car == '2.5')
+             <b>30</b> งวด
+             @elseif($dataReport->Timeslacken_car == '3')
+             <b>36</b> งวด
+             @elseif($dataReport->Timeslacken_car == '3.5')
+             <b>42</b> งวด
+             @elseif($dataReport->Timeslacken_car == '4')
+             <b>48</b> งวด
+             @elseif($dataReport->Timeslacken_car == '4.5')
+             <b>54</b> งวด
+             @elseif($dataReport->Timeslacken_car == '5')
+             <b>60</b> งวด
+             @elseif($dataReport->Timeslacken_car == '5.5')
+             <b>66</b> งวด
+             @elseif($dataReport->Timeslacken_car == '6')
+             <b>72</b> งวด
+             @elseif($dataReport->Timeslacken_car == '6.5')
+             <b>78</b> งวด
+             @elseif($dataReport->Timeslacken_car == '7')
+             <b>84</b> งวด
+            @endif
+           </th>
         </tr>
         <tr>
           <th align="right" width="120px"> ชำระต่องวด &nbsp;</th>
@@ -221,18 +249,22 @@
           <th align="right" width="120px"> ค่างวด x ระยะเวลาผ่อน &nbsp;</th>
           <th align="right" width="120px"> <b>{{$dataReport->Paymemt_car}} &nbsp;</b></th>
           <th align="right" width="120px"> <b>{{$dataReport->Timepayment_car}} &nbsp;</b></th>
-          <th align="right" width="90px"> ราคากลาง &nbsp;</th>
-          <th width="90px" style="background-color: yellow;"> <b>{{$dataReport->Midprice_car}} &nbsp;</b></th>
+          <th align="right" width="90px"> ประเภทรถ &nbsp;</th>
+          <th width="90px" style="background-color: yellow;"> <b>{{$dataReport->Typecardetails}} &nbsp;</b></th>
         </tr>
         <tr>
           <th align="right" width="120px"> ภาษี x ระยะเวลาผ่อน &nbsp;</th>
           <th align="right" width="120px"> <b>{{$dataReport->Tax_car}} &nbsp;</b> </th>
           <th align="right" width="120px"> <b>{{$dataReport->Taxpay_car}} &nbsp;</b></th>
+          <th align="right" width="90px"> กลุ่มปีรถยนต์ &nbsp;</th>
+          <th width="90px" style="background-color: yellow;"> <b>{{$dataReport->Groupyear_car}} &nbsp;</b></th>
         </tr>
         <tr>
           <th align="right" width="120px"> ยอดผ่อนชำระทั้งหมด &nbsp;</th>
           <th align="right" width="120px"> <b>{{$dataReport->Totalpay1_car}} &nbsp;</b></th>
           <th align="right" width="120px"> <b>{{$dataReport->Totalpay2_car}} &nbsp;</b></th>
+          <th align="right" width="90px"> ราคากลาง &nbsp;</th>
+          <th width="90px" style="background-color: yellow;"> <b>{{$dataReport->Midprice_car}} &nbsp;</b></th>
         </tr>
         <tr>
           <th align="right" width="120px"> วันที่ชำระงวดแรก &nbsp;</th>
@@ -250,19 +282,26 @@
           <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataReport->Percent_car}}%</b></th>
         </tr>
         <tr>
+          @if($dataReport->Salemethod_car != Null)
+          <th align="right" width="120px">* &nbsp;</th>
+          <th class="text-center" width="120px" style="background-color: yellow;">
+             @if($dataReport->Salemethod_car == 'on')
+             กรรมสิทธิ์ในแบบซื้อขาย
+             @endif
+          </th>
+          @else
           <th class="text-center" width="540px"></th>
+          @endif
         </tr>
         <tr>
           <th align="right" width="120px"> ผู้รับเงิน &nbsp;</th>
           <th class="text-center" width="120px" style="background-color: yellow;"> <b>{{$dataReport->Payee_car}}</b></th>
           <th align="right" width="120px"> เลขที่บัญชี/สาขา &nbsp;</th>
-          <th class="text-center" width="180px" style="background-color: yellow;">
-            <b>
-              @if($dataReport->Accountbrance_car != Null)
+          <th class="text-center" width="180px" style="background-color: yellow;"><b>
+            @if($dataReport->Accountbrance_car != Null)
               {{$dataReport->Accountbrance_car}} / {{$dataReport->branchbrance_car}}
-              @else
-
-              @endif
+            @else
+            @endif
             </b>
           </th>
         </tr>

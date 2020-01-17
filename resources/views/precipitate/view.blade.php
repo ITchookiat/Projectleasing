@@ -109,11 +109,17 @@
                     <span class="glyphicon glyphicon-search"></span> Search
                   </button >
                   <p></p>
-                  <label>จากวันที่ : </label>
-                  <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($fdate != '') ?$fdate: '' }}" class="form-control" />
-                  <label>ถึงวันที่ : </label>
-                  <input type="date" name="Todate" style="width: 180px;" value="{{ ($tdate != '') ?$tdate: '' }}" class="form-control" />
+                  <label>จากงวดที่ : </label>
+                  <input type="text" name="Fromstart" style="width: 180px;" value="{{ ($fstart != '') ?$fstart: '' }}" class="form-control" />
+                  <label>ถึงงวดที่ : </label>
+                  <input type="text" name="Toend" style="width: 180px;" value="{{ ($tend != '') ?$tend: '' }}" class="form-control" />
                 </div>
+                <div align="right" class="form-inline">
+                <label>จากวันที่ : </label>
+                <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($fdate != '') ?$fdate: '' }}" class="form-control" />
+                <label>&nbsp;&nbsp;ถึงวันที่ : </label>
+                <input type="date" name="Todate" style="width: 180px;" value="{{ ($tdate != '') ?$tdate: '' }}" class="form-control" />
+              </div>
               </form>
             @elseif($type == 4) {{-- ระบบ ปล่อยงานโนติส --}}
               <form method="get" action="{{ route('Precipitate', 4) }}">

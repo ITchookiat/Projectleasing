@@ -611,12 +611,14 @@ class AnalysController extends Controller
         $type = 4;
       }else {
 
-        // dd($request->get('Midpricecar'));
+        // dd($request->get('Salemethod'));
 
         $Cardetaildb = new Cardetail([
           'Buyercar_id' => $Buyerdb->id,
           'Brand_car' => $request->get('Brandcar'),
           'Year_car' => $request->get('Yearcar'),
+          'Typecardetails' => $request->get('Typecardetail'),
+          'Groupyear_car' => $request->get('Groupyearcar'),
           'Colour_car' => $request->get('Colourcar'),
           'License_car' => $request->get('Licensecar'),
           'Nowlicense_car' => $request->get('Nowlicensecar'),
@@ -658,6 +660,7 @@ class AnalysController extends Controller
           'branchAgent_car' => $request->get('branchAgentcar'),
           'Note_car' => $request->get('Notecar'),
           'Insurance_key' => $request->get('Insurancekey'),
+          'Salemethod_car' => $request->get('Salemethod'),
         ]);
         $Cardetaildb ->save();
 
@@ -919,23 +922,25 @@ class AnalysController extends Controller
         '1.70' => '1.70',
       ];
       $Timeslackencarr = [
-        '12' => '12',
-        '18' => '18',
-        '24' => '24',
-        '30' => '30',
-        '36' => '36',
-        '42' => '42',
-        '48' => '48',
-        '54' => '54',
-        '60' => '60',
-        '66' => '66',
-        '72' => '72',
-        '78' => '78',
-        '84' => '84',
+        '1' => '12',
+        '1.5' => '18',
+        '2' => '24',
+        '2.5' => '30',
+        '3' => '36',
+        '3.5' => '42',
+        '4' => '48',
+        '4.5' => '54',
+        '5' => '60',
+        '5.5' => '66',
+        '6' => '72',
+        '6.5' => '78',
+        '7' => '84',
       ];
       $Insurancecarr = [
-        'แถม ป2+ 1ปี' => 'แถม ป2+ 1ปี',
-        'ไม่แถม' => 'ไม่แถม',
+        // 'แถม ป2+ 1ปี' => 'แถม ป2+ 1ปี',
+        'มี ป2+ อยู่แล้ว' => 'มี ป2+ อยู่แล้ว',
+        // 'ไม่แถม' => 'ไม่แถม',
+        'ไม่ซื้อ' => 'ไม่ซื้อ',
         'ซื้อ ป2+ 1ป' => 'ซื้อ ป2+ 1ป',
         'ซื้อ ป1 1ปี' => 'ซื้อ ป1 1ปี',
         'มี ป1 อยู่แล้ว' => 'มี ป1 อยู่แล้ว',
@@ -1037,6 +1042,11 @@ class AnalysController extends Controller
         'ลูกค้าใหม่' => 'ลูกค้าใหม่',
         'ปิดจัดใหม่' => 'ปิดจัดใหม่',
       ];
+      $Typecardetail = [
+        'รถกระบะ' => 'รถกระบะ',
+        'รถตอนเดียว' => 'รถตอนเดียว',
+        'รถเก๋ง/7ที่นั่ง' => 'รถเก๋ง/7ที่นั่ง',
+      ];
 
 
       // dd($Gettype);
@@ -1045,7 +1055,7 @@ class AnalysController extends Controller
             compact('data','id','dataImage','Statusby','Addby','Houseby','Driverby','HouseStyleby','Careerby','Incomeby',
             'HisCarby','StatusSPp','relationSPp','addSPp','housestyleSPp','Brandcarr','Interestcarr','Timeslackencarr',
             'Insurancecarr','statuscarr','newDateDue','evaluetionPricee','securitiesSPp','GetDocComplete','Getinsurance',
-            'Gettransfer','Getinterest','fdate','tdate','branch','status','type','Gettype','countImage','GradeBuyer'));
+            'Gettransfer','Getinterest','fdate','tdate','branch','status','type','Gettype','countImage','GradeBuyer','Typecardetail'));
       }
       elseif ($type == 4) {
         return view('analysis.edithomecar',
@@ -1053,7 +1063,7 @@ class AnalysController extends Controller
             'HisCarby','StatusSPp','relationSPp','addSPp','housestyleSPp','Brandcarr','Interestcarr','Timeslackencarr',
             'Insurancecarr','statuscarr','newDateDue','evaluetionPricee','securitiesSPp','Getinsurance',
             'Gettransfer','Getinterest','fdate','tdate','branch','status','Gettype','GetSale','GetypeHC','GetbaabHC',
-            'GetguaranteeHC','relationSP','countImage','GradeBuyer'));
+            'GetguaranteeHC','relationSP','countImage','GradeBuyer','Typecardetail'));
       }
     }
 
@@ -1311,6 +1321,8 @@ class AnalysController extends Controller
           $cardetail = Cardetail::where('Buyercar_id',$id)->first();
             $cardetail->Brand_car = $request->get('Brandcar');
             $cardetail->Year_car = $request->get('Yearcar');
+            $cardetail->Typecardetails = $request->get('Typecardetail');
+            $cardetail->Groupyear_car = $request->get('Groupyearcar');
             $cardetail->Colour_car = $request->get('Colourcar');
             $cardetail->License_car = $request->get('Licensecar');
             $cardetail->Nowlicense_car = $request->get('Nowlicensecar');
@@ -1329,6 +1341,7 @@ class AnalysController extends Controller
             $cardetail->Totalpay1_car = $request->get('Totalpay1car');
             $cardetail->Totalpay2_car = $request->get('Totalpay2car');
             $cardetail->Insurance_key = $request->get('Insurancekey');
+            $cardetail->Salemethod_car = $request->get('Salemethod');
 
             if ($request->get('Approverscar') != Null) { //กรณี อนุมัติ
                 $SetStatusApp = 'อนุมัติ';
