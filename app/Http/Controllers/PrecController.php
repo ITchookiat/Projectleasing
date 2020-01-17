@@ -182,7 +182,6 @@ class PrecController extends Controller
           return view('precipitate.view', compact('data','fdate','tdate','type'));
         }
         elseif ($request->type == 5) {  //หน้า stock เร่งรัด
-
           $fdate = '';
           $tdate = '';
           $Statuscar = '';
@@ -349,6 +348,38 @@ class PrecController extends Controller
           $type = $request->type;
           return view('precipitate.viewReport', compact('data','type'));
         }
+        elseif ($request->type == 11) {
+          // dd($request->type);
+          $fdate = '';
+          $tdate = '';
+          $Statuscar = '';
+          if ($request->has('Fromdate')) {
+            $fdate = $request->get('Fromdate');
+          }
+          if ($request->has('Todate')) {
+            $tdate = $request->get('Todate');
+          }
+          if ($request->has('Statuscar')) {
+            $Statuscar = $request->get('Statuscar');
+          }
+          // dd($fdate,$tdate);
+          $data = DB::table('holdcars')
+          ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+            return $q->whereBetween('holdcars.Date_hold',[$fdate,$tdate]);
+          })
+          ->when(!empty($Statuscar), function($q) use ($Statuscar) {
+            return $q->where('holdcars.Statuscar',$Statuscar);
+          })
+          ->orderBy('holdcars.Date_hold', 'ASC')
+          ->get();
+
+          $type = $request->type;
+          return view('precipitate.viewstock', compact('data','type','fdate','tdate','Statuscar'));
+        }
+        elseif ($request->type == 12) {  //หน้า เพิ่มปรับโครงสร้างหนี้
+          $type = $request->type;
+          return view('precipitate.createstock', compact('type'));
+        }
     }
 
     /**
@@ -369,6 +400,8 @@ class PrecController extends Controller
      */
     public function store(Request $request)
     {
+      dd($request->type);
+      
         if($request->type == 6) {
           if($request->get('Pricehold') == ''){
             $SetPricehold = 0;

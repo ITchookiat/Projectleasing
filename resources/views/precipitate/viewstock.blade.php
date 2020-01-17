@@ -20,21 +20,28 @@
 <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
 
     <section class="content-header">
-      <h1>
-        เร่งรัดหนี้สิน
-        <small>ระบบสต็อกรถเร่งรัด</small>
-      </h1>
+      @if($type == 5)
+        <h1>
+          เร่งรัดหนี้สิน
+          <small>ระบบสต็อกรถเร่งรัด</small>
+        </h1>
+      @elseif($type == 11)
+        <h1>
+          เร่งรัดหนี้สิน
+          <small>ระบบปรับโครงสร้างหนี้</small>
+        </h1>
+      @endif
     </section>
 
     <!-- Main content -->
     <section class="content">
-
-      <!-- Default box -->
       <div class="box box-warning box-solid">
         <div class="box-header with-border">
+          @if($type == 5)
             <h4 class="card-title" align="center"><b>ระบบสต็อกรถเร่งรัด</b></h4>
-
-
+          @elseif($type == 11)
+            <h4 class="card-title" align="center"><b>ระบบปรับโครงสร้างหนี้</b></h4>
+          @endif
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
               <i class="fa fa-minus"></i></button>
@@ -53,6 +60,7 @@
               </div>
             @endif
 
+            @if($type == 5)
               <form method="get" action="{{ route('Precipitate', 5) }}">
                 <div align="right" class="form-inline">
                   <a href="{{ route('Precipitate', 6) }}" class="btn btn-primary btn-app">
@@ -86,83 +94,106 @@
                 </div>
               </form>
 
-            <div class="row">
-              <div class="col-md-12">
-                  <hr>
-                  <div class="table-responsive">
-                   <table class="table table-bordered" id="table">
-                      <thead class="thead-dark bg-gray-light" >
-                        <tr>
-                          <th class="text-center">ลำดับ</th>
-                          <th class="text-center">เลขที่สัญญา</th>
-                          <th class="text-center">ชื่อ-สกุล</th>
-                          <!-- <th class="text-center">ยี่ห้อ</th> -->
-                          <th class="text-center">ทะเบียน</th>
-                          <!-- <th class="text-center">ปีรถ</th> -->
-                          <th class="text-center">วันที่ยึด</th>
-                          <th class="text-center">ทีมยึด</th>
-                          <th class="text-center">ค่ายึด</th>
-                          <th class="text-center">รายละเอียด</th>
-                          <th class="text-center">สถานะ</th>
-                          <th class="text-center">ตัวเลือก</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        @foreach($data as $key => $row)
+              <div class="row">
+                <div class="col-md-12">
+                    <hr>
+                    <div class="table-responsive">
+                     <table class="table table-bordered" id="table">
+                        <thead class="thead-dark bg-gray-light" >
                           <tr>
-                            <td class="text-center"> {{ $key+1 }} </td>
-                            <td class="text-center"> {{ $row->Contno_hold }} </td>
-                            <td class="text-left"> {{ $row->Name_hold }} </td>
-                            <!-- <td class="text-center"> {{ $row->Brandcar_hold }} </td> -->
-                            <td class="text-center"> {{ $row->Number_Regist }} </td>
-                            <!-- <td class="text-center"> {{ $row->Year_Product }} </td> -->
-                            <td class="text-center"> {{ DateThai($row->Date_hold) }} </td>
-                            <td class="text-center"> {{ $row->Team_hold }} </td>
-                            <td class="text-right">
-                              @if($row->Price_hold == Null)
-                               {{ $row->Price_hold }}
-                               @else
-                               {{ number_format($row->Price_hold, 2) }}
-                               @endif
-                             </td>
-                            <td class="text-left"> {{ $row->Note_hold }} </td>
-                            <td class="text-center">
-                              @if($row->Statuscar == 1)
-                              ยึดจากลูกค้าครั้งแรก
-                              @elseif($row->Statuscar == 2)
-                              <font color="#FF33C1">ลูกค้ามารับรถคืน</font>
-                              @elseif($row->Statuscar == 3)
-                              <font color="#FF8B00">ยึดจากลูกค้าครั้งที่สอง</font>
-                              @elseif($row->Statuscar == 4)
-                              <font color="#001BFF">รับรถจากของกลาง</font>
-                              @elseif($row->Statuscar == 5)
-                              <font color="#046817">ส่งรถบ้าน</font>
-                              @endif
-                            </td>
-                            <td class="text-center">
-                              <!-- <a target="_blank" href="#" class="btn btn-info btn-sm" title="พิมพ์">
-                                <span class="glyphicon glyphicon-eye-open"></span> พิมพ์
-                              </a> -->
-                              <a href="{{ action('PrecController@edit',[$row->Hold_id,$type]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
-                                <span class="glyphicon glyphicon-pencil"></span> แก้ไข
-                              </a>
-                              <div class="form-inline form-group">
-                                <form method="post" class="delete_form" action="{{ action('PrecController@destroy',[$row->Hold_id,$type]) }}">
-                                {{csrf_field()}}
-                                  <input type="hidden" name="_method" value="DELETE" />
-                                  <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
-                                    <span class="glyphicon glyphicon-trash"></span> ลบ
-                                  </button>
-                                </form>
-                              </div>
-                            </td>
+                            <th class="text-center">ลำดับ</th>
+                            <th class="text-center">เลขที่สัญญา</th>
+                            <th class="text-center">ชื่อ-สกุล</th>
+                            <!-- <th class="text-center">ยี่ห้อ</th> -->
+                            <th class="text-center">ทะเบียน</th>
+                            <!-- <th class="text-center">ปีรถ</th> -->
+                            <th class="text-center">วันที่ยึด</th>
+                            <th class="text-center">ทีมยึด</th>
+                            <th class="text-center">ค่ายึด</th>
+                            <th class="text-center">รายละเอียด</th>
+                            <th class="text-center">สถานะ</th>
+                            <th class="text-center">ตัวเลือก</th>
                           </tr>
-                          @endforeach
-                      </tbody>
-                    </table>
-                  </div>
-              </div>
-           </div>
+                        </thead>
+                        <tbody>
+                          @foreach($data as $key => $row)
+                            <tr>
+                              <td class="text-center"> {{ $key+1 }} </td>
+                              <td class="text-center"> {{ $row->Contno_hold }} </td>
+                              <td class="text-left"> {{ $row->Name_hold }} </td>
+                              <!-- <td class="text-center"> {{ $row->Brandcar_hold }} </td> -->
+                              <td class="text-center"> {{ $row->Number_Regist }} </td>
+                              <!-- <td class="text-center"> {{ $row->Year_Product }} </td> -->
+                              <td class="text-center"> {{ DateThai($row->Date_hold) }} </td>
+                              <td class="text-center"> {{ $row->Team_hold }} </td>
+                              <td class="text-right">
+                                @if($row->Price_hold == Null)
+                                 {{ $row->Price_hold }}
+                                 @else
+                                 {{ number_format($row->Price_hold, 2) }}
+                                 @endif
+                               </td>
+                              <td class="text-left"> {{ $row->Note_hold }} </td>
+                              <td class="text-center">
+                                @if($row->Statuscar == 1)
+                                ยึดจากลูกค้าครั้งแรก
+                                @elseif($row->Statuscar == 2)
+                                <font color="#FF33C1">ลูกค้ามารับรถคืน</font>
+                                @elseif($row->Statuscar == 3)
+                                <font color="#FF8B00">ยึดจากลูกค้าครั้งที่สอง</font>
+                                @elseif($row->Statuscar == 4)
+                                <font color="#001BFF">รับรถจากของกลาง</font>
+                                @elseif($row->Statuscar == 5)
+                                <font color="#046817">ส่งรถบ้าน</font>
+                                @endif
+                              </td>
+                              <td class="text-center">
+                                <!-- <a target="_blank" href="#" class="btn btn-info btn-sm" title="พิมพ์">
+                                  <span class="glyphicon glyphicon-eye-open"></span> พิมพ์
+                                </a> -->
+                                <a href="{{ action('PrecController@edit',[$row->Hold_id,$type]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
+                                  <span class="glyphicon glyphicon-pencil"></span> แก้ไข
+                                </a>
+                                <div class="form-inline form-group">
+                                  <form method="post" class="delete_form" action="{{ action('PrecController@destroy',[$row->Hold_id,$type]) }}">
+                                  {{csrf_field()}}
+                                    <input type="hidden" name="_method" value="DELETE" />
+                                    <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
+                                      <span class="glyphicon glyphicon-trash"></span> ลบ
+                                    </button>
+                                  </form>
+                                </div>
+                              </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                      </table>
+                    </div>
+                </div>
+             </div>
+            @elseif($type == 11)
+              <form method="get" action="{{ route('Precipitate', 11) }}">
+                <div align="right" class="form-inline">
+                  <a href="{{ route('Precipitate', 12) }}" class="btn btn-primary btn-app">
+                    <span class="fa fa-plus"></span> เพิ่มข้อมูล
+                  </a>
+                  <!-- <a target="_blank" href="{{ action('PrecController@excel') }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{5}}" class="btn btn-success btn-app">
+                    <span class="fa fa-file-excel-o"></span> Excel
+                  </a>
+                  <a target="_blank" href="{{ action('PrecController@ReportPrecDue',[00,00]) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{5}}&Statuscar={{$Statuscar}}" class="btn btn-danger btn-app">
+                    <span class="fa fa-file-pdf-o"></span> PDF
+                  </a> -->
+                  <button type="submit" class="btn btn-warning btn-app">
+                    <span class="glyphicon glyphicon-search"></span> Search
+                  </button >
+                  <p></p>
+                  <label>จากวันที่ : </label>
+                  <input type="date" name="Fromdate" style="width: 150px;" value="{{ ($fdate != '') ?$fdate: '' }}" class="form-control" />
+                  <label>ถึงวันที่ : </label>
+                  <input type="date" name="Todate" style="width: 150px;" value="{{ ($tdate != '') ?$tdate: '' }}" class="form-control" />
+                </div>
+              </form>
+            @endif
 
              <script type="text/javascript">
                $(document).ready(function() {

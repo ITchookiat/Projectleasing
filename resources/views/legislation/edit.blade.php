@@ -3,18 +3,6 @@
 @section('content')
 
 @php
-  date_default_timezone_set('Asia/Bangkok');
-  $Y = date('Y') + 543;
-  $Y2 = date('Y') + 531;
-  $m = date('m');
-  $d = date('d');
-  //$date = date('Y-m-d');
-  $time = date('H:i');
-  $date = $Y.'-'.$m.'-'.$d;
-  $date2 = $Y2.'-'.'01'.'-'.'01';
-@endphp
-
-@php
   function DateThai($strDate){
     $strYear = date("Y",strtotime($strDate))+543;
     $strMonth= date("n",strtotime($strDate));
@@ -26,101 +14,7 @@
   }
 @endphp
 
-  <link type="text/css" rel="stylesheet" href="{{ asset('css/magiczoomplus.css') }}"/>
-  <script type="text/javascript" src="{{ asset('js/magiczoomplus.js') }}"></script>
-
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css">
-
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css"/>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/js/fileinput.js" type="text/javascript"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/themes/fa/theme.js" type="text/javascript"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" type="text/javascript"></script>
-
-  <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
-
-  <style>
-   readonly{
-     background-color: #FFFFFF;
-   }
-  </style>
-
-  <style>
-    body {
-      font-family: Arial;
-      margin: 0;
-    }
-    * {
-      box-sizing: border-box;
-    }
-    img {
-      vertical-align: middle;
-    }
-    .container {
-      position: relative;
-    }
-    .mySlides {
-      display: none;
-    }
-    .cursor {
-      cursor: pointer;
-    }
-    .prev,
-    .next {
-      cursor: pointer;
-      position: absolute;
-      top: 40%;
-      width: auto;
-      padding: 16px;
-      margin-top: -50px;
-      color: white;
-      font-weight: bold;
-      font-size: 20px;
-      border-radius: 0 3px 3px 0;
-      user-select: none;
-      -webkit-user-select: none;
-    }
-    .next {
-      right: 0;
-      border-radius: 3px 0 0 3px;
-    }
-    .prev:hover,
-    .next:hover {
-      background-color: rgba(0, 0, 0, 0.8);
-    }
-    .numbertext {
-      color: #f2f2f2;
-      font-size: 12px;
-      padding: 8px 12px;
-      position: absolute;
-      top: 0;
-    }
-    .caption-container {
-      text-align: center;
-      background-color: #222;
-      padding: 2px 16px;
-      color: white;
-    }
-    .row:after {
-      content: "";
-      display: table;
-      clear: both;
-    }
-    .column {
-      float: left;
-      width: 16.66%;
-    }
-    .demo {
-      opacity: 0.6;
-    }
-    .active,
-    .demo:hover {
-      opacity: 1;
-    }
-  </style>
 
   <style>
     #todo-list{
@@ -280,7 +174,6 @@
     }
   </style>
 
-
       <section class="content-header">
       </section>
 
@@ -301,7 +194,7 @@
             <ul class="nav nav-tabs bg-warning">
               <li class="nav-item active"><a href="{{ action('LegislationController@edit',[$id, 2]) }}">ข้อมูลผู้เช่าซื้อ</a></li>
               <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 3]) }}">ชั้นศาล</a></li>
-              <li class="nav-item"><a href="#tab_3" data-toggle="tab" aria-expanded="false">ชั้นบังคับคดี</a></li>
+              <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 4]) }}">ชั้นบังคับคดี</a></li>
               <li class="nav-item"><a href="#tab_4" data-toggle="tab" aria-expanded="false">ของกลาง</a></li>
               <li class="nav-item"><a href="#tab_5" data-toggle="tab" aria-expanded="false">โกงเจ้าหนี้</a></li>
               <li class="nav-item pull-right"><a href="{{ action('LegislationController@edit',[$id, 11]) }}">รูปและแผนที่</a></li>
@@ -309,16 +202,6 @@
           </div>
 
           <div class="box-body" style="background-color:#F1F1F1">
-
-            @if (count($errors) > 0)
-              <div class="alert alert-danger">
-                <ul>
-                  @foreach($errors->all() as $error)
-                  <li>กรุณาลงชื่อ ผู้อนุมัติ {{$error}}</li>
-                  @endforeach
-                </ul>
-              </div>
-            @endif
 
             @if(session()->has('success'))
               <div class="alert alert-success alert-dismissible" role="alert">

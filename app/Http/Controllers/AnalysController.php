@@ -451,6 +451,7 @@ class AnalysController extends Controller
       $SetDateDue = str_replace ("/","-",$request->get('DateDue'));
       $dateConvert0 = date_create($SetDateDue);
       $DateDue = date_format($dateConvert0, 'Y-m-d');
+
       $BeforeIncome = str_replace (",","",$request->get('Beforeincome'));
       $AfterIncome = str_replace (",","",$request->get('Afterincome'));
       if($BeforeIncome == ''){
@@ -609,9 +610,8 @@ class AnalysController extends Controller
         $Homecardetaildb ->save();
 
         $type = 4;
-      }else {
-
-        // dd($request->get('Salemethod'));
+      }
+      else {
 
         $Cardetaildb = new Cardetail([
           'Buyercar_id' => $Buyerdb->id,
@@ -997,6 +997,7 @@ class AnalysController extends Controller
         '6950' => '6950',
       ];
       $Getinterest = [
+        '0.45' => '0.45',
         '0.55' => '0.55',
         '0.65' => '0.65',
         '0.70' => '0.70',
@@ -1126,6 +1127,7 @@ class AnalysController extends Controller
           $user->Support_buyer = $request->get('Supportbuyer');
           $user->securities_buyer = $request->get('securitiesbuyer');
           $user->deednumber_buyer = $request->get('deednumberbuyer');
+          $user->area_buyer = $request->get('areabuyer');
           $user->BeforeIncome_buyer = str_replace(",","",$request->get('Beforeincome'));
           $user->AfterIncome_buyer = str_replace(",","",$request->get('Afterincome'));
           $user->Gradebuyer_car = $request->get('Gradebuyer');

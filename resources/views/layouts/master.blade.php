@@ -2,6 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>ชูเกียรติลิสซิ่ง</title>
   <link rel="icon" href="{{ asset('dist/img/leasingLogo.png') }}" type="image/ico" />
@@ -18,6 +19,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" type="text/javascript"></script>
+
 
   <style>
     .a1 {color: #E6E6FA;}
@@ -269,6 +271,7 @@
     }
   </style>
 
+  <script src="{{ asset('js/function.js') }}"></script>
   <script src="{{ asset('plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
   <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
   <script src="{{ asset('plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
