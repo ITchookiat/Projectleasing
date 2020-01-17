@@ -17,6 +17,8 @@ class CreateCardetailsTable extends Migration
             $table->bigIncrements('cardetails_id');
             $table->integer('Buyercar_id')->nullable();
             $table->string('Brand_car')->nullable();
+            $table->string('Typecardetails')->nullable();
+            $table->string('Groupyear_car')->nullable();
             $table->string('Year_car')->nullable();
             $table->string('Colour_car')->nullable();
             $table->string('License_car')->nullable();
@@ -59,6 +61,7 @@ class CreateCardetailsTable extends Migration
             $table->string('branchAgent_car')->nullable();
             $table->string('Note_car')->nullable();
             $table->string('Insurance_key')->nullable();
+            $table->string('Salemethod_car')->nullable();
             $table->timestamps();
         });
     }

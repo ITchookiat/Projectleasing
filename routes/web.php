@@ -68,11 +68,6 @@ Route::group(['middleware' => 'auth'], function()
     Route::delete('/Precipitate/delete/{id}/{type}', 'PrecController@destroy')->name('Precipitate.destroy');
 
     Route::get('/homes/get-json', 'HomeController@get_json')->name('get-json');
-
-    //---------------- ยังไม่ใช้งาน --------------------//
-    Route::get('/Report/Home/{type}', 'ReportController@index')->name('report');
-
-    Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
     Route::get('/{name}', 'HomeController@index')->name('index');
 
     //--------------ชูเกียรติรถบ้าน-----------------------//
@@ -94,5 +89,11 @@ Route::group(['middleware' => 'auth'], function()
     //------------------งานทะเบียน------------------------//
     Route::get('/regcar/view/{type}', 'RegcarController@index')->name('regcar');
     Route::get('/regcar/create/{type}', 'RegcarController@create')->name('regcar.create');
+
+    //---------------- ยังไม่ใช้งาน --------------------//
+    Route::get('/Report/Home/{type}', 'ReportController@index')->name('report');
+
+    Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+    Route::get('/{name}', 'HomeController@index')->name('index');
 
   });

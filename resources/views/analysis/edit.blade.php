@@ -16,10 +16,8 @@
 
   <link type="text/css" rel="stylesheet" href="{{ asset('css/magiczoomplus.css') }}"/>
   <script type="text/javascript" src="{{ asset('js/magiczoomplus.js') }}"></script>
-
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css">
-
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css"/>
 
@@ -108,6 +106,144 @@
     .demo:hover {
       opacity: 1;
     }
+  </style>
+
+  <style>
+    #todo-list{
+    width:100%;
+    margin:0 auto 50px auto;
+    padding:5px;
+    background:white;
+    position:relative;
+    /*box-shadow*/
+    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
+     -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
+          box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
+    /*border-radius*/
+    -webkit-border-radius:5px;
+     -moz-border-radius:5px;
+          border-radius:5px;
+    }
+    #todo-list:before{
+    content:"";
+    position:absolute;
+    z-index:-1;
+    /*box-shadow*/
+    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.4);
+     -moz-box-shadow:0 0 20px rgba(0,0,0,0.4);
+          box-shadow:0 0 20px rgba(0,0,0,0.4);
+    top:50%;
+    bottom:0;
+    left:10px;
+    right:10px;
+    /*border-radius*/
+    -webkit-border-radius:100px / 10px;
+     -moz-border-radius:100px / 10px;
+          border-radius:100px / 10px;
+    }
+    .todo-wrap{
+    display:block;
+    position:relative;
+    padding-left:35px;
+    /*box-shadow*/
+    -webkit-box-shadow:0 2px 0 -1px #ebebeb;
+     -moz-box-shadow:0 2px 0 -1px #ebebeb;
+          box-shadow:0 2px 0 -1px #ebebeb;
+    }
+    .todo-wrap:last-of-type{
+    /*box-shadow*/
+    -webkit-box-shadow:none;
+     -moz-box-shadow:none;
+          box-shadow:none;
+    }
+    input[type="checkbox"]{
+    position:absolute;
+    height:0;
+    width:0;
+    opacity:0;
+    /* top:-600px; */
+    }
+    .todo{
+    display:inline-block;
+    font-weight:200;
+    padding:10px 5px;
+    height:37px;
+    position:relative;
+    }
+    .todo:before{
+    content:'';
+    display:block;
+    position:absolute;
+    top:calc(50% + 2px);
+    left:0;
+    width:0%;
+    height:1px;
+    /*transition*/
+    -webkit-transition:.25s ease-in-out;
+     -moz-transition:.25s ease-in-out;
+       -o-transition:.25s ease-in-out;
+          transition:.25s ease-in-out;
+    }
+    .todo:after{
+    content:'';
+    display:block;
+    position:absolute;
+    z-index:0;
+    height:18px;
+    width:18px;
+    top:9px;
+    left:-25px;
+    /*box-shadow*/
+    -webkit-box-shadow:inset 0 0 0 2px #d8d8d8;
+     -moz-box-shadow:inset 0 0 0 2px #d8d8d8;
+          box-shadow:inset 0 0 0 2px #d8d8d8;
+    /*transition*/
+    -webkit-transition:.25s ease-in-out;
+     -moz-transition:.25s ease-in-out;
+       -o-transition:.25s ease-in-out;
+          transition:.25s ease-in-out;
+    /*border-radius*/
+    -webkit-border-radius:4px;
+     -moz-border-radius:4px;
+          border-radius:4px;
+    }
+    .todo:hover:after{
+    /*box-shadow*/
+    -webkit-box-shadow:inset 0 0 0 2px #949494;
+     -moz-box-shadow:inset 0 0 0 2px #949494;
+          box-shadow:inset 0 0 0 2px #949494;
+    }
+    .todo .fa-check{
+    position:absolute;
+    z-index:1;
+    left:-31px;
+    top:0;
+    font-size:1px;
+    line-height:36px;
+    width:36px;
+    height:36px;
+    text-align:center;
+    color:transparent;
+    text-shadow:1px 1px 0 white, -1px -1px 0 white;
+    }
+    :checked + .todo{
+    color:#717171;
+    }
+    :checked + .todo:before{
+    width:100%;
+    }
+    :checked + .todo:after{
+    /*box-shadow*/
+    -webkit-box-shadow:inset 0 0 0 2px #0eb0b7;
+     -moz-box-shadow:inset 0 0 0 2px #0eb0b7;
+          box-shadow:inset 0 0 0 2px #0eb0b7;
+    }
+    :checked + .todo .fa-check{
+    font-size:20px;
+    line-height:35px;
+    color:#0eb0b7;
+    }
+
   </style>
 
     <section class="content-header">
@@ -1225,26 +1361,51 @@
 
                               <div class="col-md-6">
                                  <div class="form-inline" align="right">
-                                     <label>ปี : </label>
+                                     <label>ประเภทรถ : </label>
                                      @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                       <select name="Yearcar" class="form-control" style="width: 250px;">
-                                         <option value="{{$data->Year_car}}" selected>{{$data->Year_car}}</option>
-                                         <option value="">--------------------</option>
-                                          @php
-                                              $Year = date('Y');
-                                          @endphp
-                                          @for ($i = 0; $i < 20; $i++)
-                                              <option value="{{ $Year }}">{{ $Year }}</option>
-                                              @php
-                                                  $Year -= 1;
-                                              @endphp
-                                          @endfor
-                                       </select>
+                                     <select id="Typecardetail" name="Typecardetail" class="form-control" style="width: 250px;" onchange="calculate();">
+                                       <option value="" selected>--- ประเภทรถ ---</option>
+                                       @foreach ($Typecardetail as $key => $value)
+                                         <option value="{{$key}}" {{ ($key == $data->Typecardetails) ? 'selected' : '' }}>{{$value}}</option>
+                                       @endforeach
+                                     </select>
                                      @else
                                        @if($GetDocComplete != Null)
-                                          <input type="text" name="Yearcar" value="{{$data->Year_car}}" class="form-control" style="width: 250px;" placeholder="ปี" readonly/>
+                                          <input type="text" id="Typecardetail" name="Typecardetail" value="{{$data->Typecardetails}}" class="form-control" style="width: 250px;" placeholder="ปี" readonly/>
                                        @else
-                                         <select name="Yearcar" class="form-control" style="width: 250px;">
+                                       <select id="Typecardetail" name="Typecardetail" class="form-control" style="width: 250px;" onchange="calculate();">
+                                         <option value="" selected>--- ประเภทรถ ---</option>
+                                         @foreach ($Typecardetail as $key => $value)
+                                           <option value="{{$key}}" {{ ($key == $data->Typecardetails) ? 'selected' : '' }}>{{$value}}</option>
+                                         @endforeach
+                                       </select>
+                                       @endif
+                                     @endif
+                                 </div>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-5">
+                                  <div class="form-inline" align="right">
+                                    <label>สี : </label>
+                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                       <input type="text" name="Colourcar" value="{{ $data->Colour_car }}" class="form-control" style="width: 250px;" placeholder="สี" />
+                                    @else
+                                      @if($GetDocComplete != Null)
+                                         <input type="text" name="Colourcar" value="{{ $data->Colour_car }}" class="form-control" style="width: 250px;" placeholder="สี" readonly/>
+                                      @else
+                                         <input type="text" name="Colourcar" value="{{ $data->Colour_car }}" class="form-control" style="width: 250px;" placeholder="สี" />
+                                      @endif
+                                    @endif
+                                   </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                   <div class="form-inline" align="right">
+                                       <label>ปี : </label>
+                                       @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                         <select id="Yearcar" name="Yearcar" class="form-control" style="width: 250px;" onchange="calculate();">
                                            <option value="{{$data->Year_car}}" selected>{{$data->Year_car}}</option>
                                            <option value="">--------------------</option>
                                             @php
@@ -1257,40 +1418,49 @@
                                                 @endphp
                                             @endfor
                                          </select>
+                                       @else
+                                         @if($GetDocComplete != Null)
+                                            <input type="text" name="Yearcar" value="{{$data->Year_car}}" class="form-control" style="width: 250px;" placeholder="ปี" readonly/>
+                                         @else
+                                           <select id="Yearcar" name="Yearcar" class="form-control" style="width: 250px;" onchange="calculate();">
+                                             <option value="{{$data->Year_car}}" selected>{{$data->Year_car}}</option>
+                                             <option value="">--------------------</option>
+                                              @php
+                                                  $Year = date('Y');
+                                              @endphp
+                                              @for ($i = 0; $i < 20; $i++)
+                                                  <option value="{{ $Year }}">{{ $Year }}</option>
+                                                  @php
+                                                      $Year -= 1;
+                                                  @endphp
+                                              @endfor
+                                           </select>
+                                         @endif
                                        @endif
-                                     @endif
-                                 </div>
+                                   </div>
+                                </div>
                               </div>
-                            </div>
 
                           <div class="row">
                             <div class="col-md-5">
                               <div class="form-inline" align="right">
-                                 <label>สี : </label>
-                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                    <input type="text" name="Colourcar" value="{{ $data->Colour_car }}" class="form-control" style="width: 250px;" placeholder="สี" />
-                                 @else
-                                   @if($GetDocComplete != Null)
-                                      <input type="text" name="Colourcar" value="{{ $data->Colour_car }}" class="form-control" style="width: 250px;" placeholder="สี" readonly/>
-                                   @else
-                                      <input type="text" name="Colourcar" value="{{ $data->Colour_car }}" class="form-control" style="width: 250px;" placeholder="สี" />
-                                   @endif
-                                 @endif
+                                <label>ป้ายเดิม : </label>
+                                @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                   <input type="text" name="Licensecar"  value="{{ $data->License_car}}" class="form-control" style="width: 250px;" placeholder="ป้ายเดิม" />
+                                @else
+                                  @if($GetDocComplete != Null)
+                                     <input type="text" name="Licensecar"  value="{{ $data->License_car}}" class="form-control" style="width: 250px;" placeholder="ป้ายเดิม" readonly/>
+                                  @else
+                                     <input type="text" name="Licensecar"  value="{{ $data->License_car}}" class="form-control" style="width: 250px;" placeholder="ป้ายเดิม" />
+                                  @endif
+                                @endif
                                </div>
                             </div>
 
                             <div class="col-md-6">
                                <div class="form-inline" align="right">
-                                 <label>ป้ายเดิม : </label>
-                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                    <input type="text" name="Licensecar"  value="{{ $data->License_car}}" class="form-control" style="width: 250px;" placeholder="ป้ายเดิม" />
-                                 @else
-                                   @if($GetDocComplete != Null)
-                                      <input type="text" name="Licensecar"  value="{{ $data->License_car}}" class="form-control" style="width: 250px;" placeholder="ป้ายเดิม" readonly/>
-                                   @else
-                                      <input type="text" name="Licensecar"  value="{{ $data->License_car}}" class="form-control" style="width: 250px;" placeholder="ป้ายเดิม" />
-                                   @endif
-                                 @endif
+                                 <label>กลุ่มปีรถยนต์ : </label>
+                                 <input type="text" id="Groupyearcar" name="Groupyearcar" class="form-control" style="width: 250px;" value="{{ $data->Groupyear_car}}" readonly onchange="newformula();"/>
                                </div>
                             </div>
                           </div>
@@ -1339,12 +1509,12 @@
                               <div class="form-inline" align="right">
                                  <label>ราคากลาง : </label>
                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                    <input type="text" id="Midpricecar" name="Midpricecar" value="{{$data->Midprice_car}}" class="form-control" style="width: 250px;" placeholder="ราคากลาง" onchange="mile();percent();"/>
+                                    <input type="text" id="Midpricecar" name="Midpricecar" value="{{$data->Midprice_car}}" class="form-control" style="width: 250px;" placeholder="ราคากลาง" oninput="mile();percent();"/>
                                  @else
                                    @if($GetDocComplete != Null)
                                       <input type="text" id="Midpricecar" name="Midpricecar" value="{{$data->Midprice_car}}" class="form-control" style="width: 250px;" placeholder="ราคากลาง" readonly/>
                                    @else
-                                      <input type="text" id="Midpricecar" name="Midpricecar" value="{{$data->Midprice_car}}" class="form-control" style="width: 250px;" placeholder="ราคากลาง" onchange="mile();percent();" />
+                                      <input type="text" id="Midpricecar" name="Midpricecar" value="{{$data->Midprice_car}}" class="form-control" style="width: 250px;" placeholder="ราคากลาง" oninput="mile();percent();" />
                                    @endif
                                  @endif
                                </div>
@@ -1352,241 +1522,19 @@
                           </div>
 
                           <hr />
-                          <script>
-                              function addCommas(nStr){
-                                 nStr += '';
-                                 x = nStr.split('.');
-                                 x1 = x[0];
-                                 x2 = x.length > 1 ? '.' + x[1] : '';
-                                 var rgx = /(\d+)(\d{3})/;
-                                 while (rgx.test(x1)) {
-                                   x1 = x1.replace(rgx, '$1' + ',' + '$2');
-                                  }
-                                return x1 + x2;
-                              }
-
-                              function income(){
-                                var num11 = document.getElementById('Beforeincome').value;
-                                var num1 = num11.replace(",","");
-                                var num22 = document.getElementById('Afterincome').value;
-                                var num2 = num22.replace(",","");
-                                document.form1.Beforeincome.value = addCommas(num1);
-                                document.form1.Afterincome.value = addCommas(num2);
-                              }
-
-                              function mile(){
-                                var num11 = document.getElementById('Milecar').value;
-                                var num1 = num11.replace(",","");
-                                var num22 = document.getElementById('Midpricecar').value;
-                                var num2 = num22.replace(",","");
-                                document.form1.Milecar.value = addCommas(num1);
-                                document.form1.Midpricecar.value = addCommas(num2);
-                              }
-
-                              function calculate(){
-
-                                var num11 = document.getElementById('Topcar').value;
-                                var num1 = num11.replace(",","");
-                                var num22 = document.getElementById('Interestcar').value;
-                                var num2 = num22.replace("%","");
-                                var num3 = document.getElementById('Vatcar').value;
-                                var num4 = document.getElementById('Timeslackencar').value;
-
-                                var num55 = document.getElementById('P2Price').value;
-                                var num5 = num55.replace(",","");
-
-                                var num66 = document.getElementById('P2PriceOri').value;
-                                var num6 = num66.replace(",","");
-
-                                    if(num55 == ''){
-                                      var num5 = 0;
-                                    }else if (num5 == 0) {
-                                      if(num6 == 6700){
-                                        var num1 = parseFloat(num1) - parseFloat(num6);
-                                      }
-                                    }else if(num5 > 6700){
-                                      if(num6 != 6700){
-                                        var num1 = parseFloat(num1);
-                                      }
-                                    }
-
-                              console.log(num6);
-
-
-                                     if (num5 == 0) {
-                                       var totaltopcar = parseFloat(num1);
-                                     }else if(num5 == 6700){
-                                       var totaltopcar = parseFloat(num1)+parseFloat(num5);
-                                     }else{
-                                       var totaltopcar = parseFloat(num1);
-                                     }
-
-
-                                var a = (num2*num4)+100;
-                                var b = (((totaltopcar*a)/100)*1.07)/num4;
-                                var result = Math.ceil(b/10)*10;
-
-                                var durate = result/1.07;
-                                var durate2 = durate.toFixed(2)*num4;
-
-                                var tax = result-durate;
-                                var tax2 = tax.toFixed(2)*num4;
-
-                                var total = result*num4;
-                                var total2 = durate2+tax2;
-
-                                  if(!isNaN(result)){
-                                      document.form1.Paycar.value = addCommas(result.toFixed(2));
-                                      document.form1.Topcar.value = addCommas(totaltopcar);
-                                      document.form1.TopcarOri.value = addCommas(num1);
-                                      document.form1.Paymemtcar.value = addCommas(durate.toFixed(2));
-                                      document.form1.Timepaymentcar.value = addCommas(durate2.toFixed(2));
-                                      document.form1.Taxcar.value = addCommas(tax.toFixed(2));
-                                      document.form1.Taxpaycar.value = addCommas(tax2.toFixed(2));
-                                      document.form1.Totalpay1car.value = addCommas(total.toFixed(2));
-                                      document.form1.Totalpay2car.value = addCommas(total2.toFixed(2));
-                                      document.form1.P2Price.value = addCommas(num5);
-                                      document.form1.tempTopcar.value = addCommas(totaltopcar);
-                                      document.form1.P2PriceOri.value = addCommas(num5);
-                                  }
-                              }
-
-                              function commission(){
-                                 var num11 = document.getElementById('Commissioncar').value;
-                                 var num1 = num11.replace(",","");
-                                 var input = document.getElementById('Agentcar').value;
-                                 var Subtstr = input.split("");
-
-                                 var Setstr = Subtstr[0];
-
-                                 if (Setstr[0] == "*") {
-                                   var result = num1;
-                                 }else {
-                                     if(num1 > 999){
-                                         if(num11 == ''){
-                                           var num11 = 0;
-                                         }
-                                         else{
-                                           var sumCom = (num11*0.03);
-                                           var result = num11 - sumCom;
-                                         }
-                                     }else{
-                                       var result = num1;
-                                     }
-                                   }
-                                 if(!isNaN(num1)){
-                                     document.form1.Commissioncar.value = addCommas(num1);
-                                     document.form1.commitPrice.value = addCommas(result);
-                                 }
-
-                               }
-
-                               function balance(){
-                                  var num11 = document.getElementById('tranPrice').value;
-                                  var num1 = num11.replace(",","");
-
-                                  var num22 = document.getElementById('otherPrice').value;
-                                  var num2 = num22.replace(",","");
-
-                                  var num33 = document.getElementById('evaluetionPrice').value;
-                                  var num3 = num33.replace(",","");
-                                  if(num33 == ''){
-                                    var num3 = 0;
-                                  }
-
-                                  var num44 = document.getElementById('dutyPrice').value;
-                                  var num4 = num44.replace(",","");
-
-                                  var num55 = document.getElementById('marketingPrice').value;
-                                  var num5 = num55.replace(",","");
-
-
-                                  var num66 = document.getElementById('actPrice').value;
-                                  var num6 = num66.replace(",","");
-
-                                  var num77 = document.getElementById('closeAccountPrice').value;
-                                  var num7 = num77.replace(",","");
-
-                                  var num88 = document.getElementById('P2Price').value;
-                                  var num8 = num88.replace(",","");
-
-                                  var temp = document.getElementById('tempTopcar').value;
-                                  var toptemp = temp.replace(",","");
-
-                                  // var ori = document.getElementById('TopcarOri').value;
-                                  // var Topori = ori.replace(",","");
-
-                                  if(num8 > 6700){
-                                  var result = parseFloat(num1)+parseFloat(num2)+parseFloat(num3)+parseFloat(num4)+parseFloat(num5)+parseFloat(num6)+parseFloat(num7)+parseFloat(num8);
-                                  }else {
-                                  var result = parseFloat(num1)+parseFloat(num2)+parseFloat(num3)+parseFloat(num4)+parseFloat(num5)+parseFloat(num6)+parseFloat(num7)+parseFloat(num8);
-                                  }
-
-                                  if(num88 == 0){
-                                    var TotalBalance = parseFloat(toptemp) - result + parseFloat(num8);
-                                  }
-                                  else if(num8 >= 6700){
-                                    var TotalBalance = parseFloat(toptemp) - result;
-                                  }
-                                  else{
-                                    var TotalBalance = parseFloat(toptemp) - result;
-                                  }
-
-                                  console.log(num6);
-                                  console.log(num7);
-                                  console.log(num8);
-
-                                  console.log(toptemp);
-
-                                  console.log(num1);
-                                  console.log(num2);
-                                  console.log(num3);
-                                  console.log(num4);
-                                  console.log(num5);
-
-                                  console.log(result);
-
-                                  console.log(TotalBalance);
-
-                                  if(!isNaN(result)){
-                                      document.form1.totalkPrice.value = addCommas(result);
-                                      document.form1.tranPrice.value = addCommas(num1);
-                                      document.form1.otherPrice.value = addCommas(num2);
-                                      document.form1.dutyPrice.value = addCommas(num4);
-                                      document.form1.marketingPrice.value = addCommas(num5);
-                                      document.form1.actPrice.value = addCommas(num6);
-                                      document.form1.closeAccountPrice.value = addCommas(num7);
-                                      document.form1.balancePrice.value = addCommas(TotalBalance);
-                                  }
-                                }
-
-                                function percent(){
-
-                                  var num11 = document.getElementById('Midpricecar').value;
-                                  var num1 = num11.replace(",","");
-                                  var num22 = document.getElementById('Topcar').value;
-                                  var num2 = num22.replace(",","");
-
-                                  var percent = (num2/num1) * 100;
-                                  var result1 = percent;
-
-                                    if(!isNaN(result1)){
-                                          document.form1.Percentcar.value = result1.toFixed(0);
-                                    }
-                                  }
-                          </script>
+                          @include('analysis.script')
 
                           <div class="row">
                             <div class="col-md-5">
                               <div class="form-inline" align="right">
                                 <label>ยอดจัด : </label>
                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                    <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" onchange="calculate();balance();percent();" />
+                                    <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" oninput="calculate();balance();percent();" />
                                 @else
                                   @if($GetDocComplete != Null)
-                                      <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" onchange="calculate();balance();percent();" readonly/>
+                                      <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" oninput="calculate();balance();percent();" readonly/>
                                   @else
-                                      <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" onchange="calculate();balance();percent();" />
+                                      <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" oninput="calculate();balance();percent();" />
                                   @endif
                                 @endif
                                 <input type="hidden" id="TopcarOri" name="TopcarOri" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" />
@@ -1604,8 +1552,26 @@
                           <div class="row">
                             <div class="col-md-5">
                              <div class="form-inline" align="right">
-                               <label>VAT : </label>
-                               <input type="text" id="Vatcar" name="Vatcar" value="{{$data->Vat_car}}" class="form-control" style="width: 250px;" placeholder="7 %" value="7 %" readonly onchange="calculate()"/>
+                               <label>ระยะเวลาผ่อน : </label>
+                               @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                 <select id="Timeslackencar" name="Timeslackencar" class="form-control" style="width: 250px;" onchange="calculate();">
+                                   <option value="" selected>--- ระยะเวลาผ่อน ---</option>
+                                   @foreach ($Timeslackencarr as $key => $value)
+                                      <option value="{{$key}}" {{ ($key == $data->Timeslacken_car) ? 'selected' : '' }}>{{$value}}</option>
+                                   @endforeach
+                                 </select>
+                               @else
+                                 @if($GetDocComplete != Null)
+                                   <input type="text" id="Timeslackencar" name="Timeslackencar" value="{{$data->Timeslacken_car}}" class="form-control" style="width: 250px;" placeholder="ระยะเวลาผ่อน" readonly />
+                                 @else
+                                   <select id="Timeslackencar" name="Timeslackencar" class="form-control" style="width: 250px;" onchange="calculate();">
+                                     <option value="" selected>--- ระยะเวลาผ่อน ---</option>
+                                     @foreach ($Timeslackencarr as $key => $value)
+                                     <option value="{{$key}}" {{ ($key == $data->Timeslacken_car) ? 'selected' : '' }}>{{$value}}</option>
+                                     @endforeach
+                                   </select>
+                                 @endif
+                               @endif
                              </div>
                             </div>
 
@@ -1622,25 +1588,7 @@
                             <div class="col-md-5">
                               <div class="form-inline" align="right">
                                  <label>ดอกเบี้ย : </label>
-                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                   <select id="Interestcar" name="Interestcar" class="form-control" style="width: 250px;">
-                                     <option value="" selected>--- ดอกเบี้ย ---</option>
-                                     @foreach ($Interestcarr as $key => $value)
-                                        <option value="{{$key}}" {{ ($key == $data->Interest_car) ? 'selected' : '' }}>{{$value}}</option>
-                                     @endforeach
-                                   </select>
-                                 @else
-                                   @if($GetDocComplete != Null)
-                                      <input type="text" id="Interestcar" name="Interestcar" value="{{$data->Interest_car}}" class="form-control" style="width: 250px;" placeholder="ดอกเบี้ย" readonly />
-                                   @else
-                                     <select id="Interestcar" name="Interestcar" class="form-control" style="width: 250px;">
-                                       <option value="" selected>--- ดอกเบี้ย ---</option>
-                                       @foreach ($Interestcarr as $key => $value)
-                                       <option value="{{$key}}" {{ ($key == $data->Interest_car) ? 'selected' : '' }}>{{$value}}</option>
-                                       @endforeach
-                                     </select>
-                                   @endif
-                                 @endif
+                                 <input type="text" id="Interestcar" name="Interestcar" class="form-control" style="width: 250px;" value="{{$data->Interest_car}}" placeholder="ดอกเบี้ย" readonly onchange="calculate();"/>
                                </div>
                             </div>
 
@@ -1656,26 +1604,8 @@
                           <div class="row">
                             <div class="col-md-5">
                               <div class="form-inline" align="right">
-                                 <label>ระยะเวลาผ่อน : </label>
-                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                   <select id="Timeslackencar" name="Timeslackencar" class="form-control" style="width: 250px;" onchange="calculate()">
-                                     <option value="" selected>--- ระยะเวลาผ่อน ---</option>
-                                     @foreach ($Timeslackencarr as $key => $value)
-                                        <option value="{{$key}}" {{ ($key == $data->Timeslacken_car) ? 'selected' : '' }}>{{$value}}</option>
-                                     @endforeach
-                                   </select>
-                                 @else
-                                   @if($GetDocComplete != Null)
-                                     <input type="text" id="Timeslackencar" name="Timeslackencar" value="{{$data->Timeslacken_car}}" class="form-control" style="width: 250px;" placeholder="ระยะเวลาผ่อน" readonly />
-                                   @else
-                                     <select id="Timeslackencar" name="Timeslackencar" class="form-control" style="width: 250px;" onchange="calculate()">
-                                       <option value="" selected>--- ระยะเวลาผ่อน ---</option>
-                                       @foreach ($Timeslackencarr as $key => $value)
-                                       <option value="{{$key}}" {{ ($key == $data->Timeslacken_car) ? 'selected' : '' }}>{{$value}}</option>
-                                       @endforeach
-                                     </select>
-                                   @endif
-                                 @endif
+                                <label>VAT : </label>
+                                <input type="text" id="Vatcar" name="Vatcar" value="{{$data->Vat_car}}" class="form-control" style="width: 250px;" placeholder="7 %" value="7 %" readonly onchange="calculate()"/>
                                </div>
                             </div>
 
@@ -1691,31 +1621,39 @@
                           <div class="row">
                             <div class="col-md-5">
                               <div class="form-inline" align="right">
-                                 <label>วันที่ชำระงวดแรก : </label>
-                                 <input type="text" name="Dateduefirstcar" value="{{$data->Dateduefirst_car}}" class="form-control" style="width: 250px;" readonly placeholder="วันที่ชำระงวดแรก" />
+                                <label>ประกันภัย : </label>
+                                @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  <select name="Insurancecar" class="form-control" style="width: 250px;">
+                                    <option value="" selected>--- ประกันภัย ---</option>
+                                    @foreach ($Insurancecarr as $key => $value)
+                                       <option value="{{$key}}" {{ ($key == $data->Insurance_car) ? 'selected' : '' }}>{{$value}}</option>
+                                    @endforeach
+                                  </select>
+                                @else
+                                  @if($GetDocComplete != Null)
+                                    <input type="text" id="Insurancecar" name="Insurancecar" value="{{$data->Insurance_car}}" class="form-control" style="width: 250px;" placeholder="ประกันภัย" readonly />
+                                  @else
+                                    <select name="Insurancecar" class="form-control" style="width: 250px;">
+                                      <option value="" selected>--- ประกันภัย ---</option>
+                                      @foreach ($Insurancecarr as $key => $value)
+                                         <option value="{{$key}}" {{ ($key == $data->Insurance_car) ? 'selected' : '' }}>{{$value}}</option>
+                                      @endforeach
+                                    </select>
+                                  @endif
+                                @endif
                                </div>
                             </div>
 
                             <div class="col-md-6">
                                <div class="form-inline" align="right">
-                                 <label>ประกันภัย : </label>
+                                 <label>เปอร์เซ็นจัดไฟแนนซ์ : </label>
                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                   <select name="Insurancecar" class="form-control" style="width: 250px;">
-                                     <option value="" selected>--- ประกันภัย ---</option>
-                                     @foreach ($Insurancecarr as $key => $value)
-                                        <option value="{{$key}}" {{ ($key == $data->Insurance_car) ? 'selected' : '' }}>{{$value}}</option>
-                                     @endforeach
-                                   </select>
+                                    <input type="text" name="Percentcar" value="{{$data->Percent_car}}" class="form-control int" style="width: 250px;" placeholder="เปอร์เซ็นจัดไฟแนนซ์" readonly/>
                                  @else
                                    @if($GetDocComplete != Null)
-                                     <input type="text" id="Insurancecar" name="Insurancecar" value="{{$data->Insurance_car}}" class="form-control" style="width: 250px;" placeholder="ประกันภัย" readonly />
+                                      <input type="text" name="Percentcar" value="{{$data->Percent_car}}" class="form-control int" style="width: 250px;" placeholder="เปอร์เซ็นจัดไฟแนนซ์" readonly/>
                                    @else
-                                     <select name="Insurancecar" class="form-control" style="width: 250px;">
-                                       <option value="" selected>--- ประกันภัย ---</option>
-                                       @foreach ($Insurancecarr as $key => $value)
-                                          <option value="{{$key}}" {{ ($key == $data->Insurance_car) ? 'selected' : '' }}>{{$value}}</option>
-                                       @endforeach
-                                     </select>
+                                      <input type="text" name="Percentcar" value="{{$data->Percent_car}}" class="form-control int" style="width: 250px;" placeholder="เปอร์เซ็นจัดไฟแนนซ์" readonly/>
                                    @endif
                                  @endif
                                </div>
@@ -1769,16 +1707,33 @@
 
                             <div class="col-md-6">
                              <div class="form-inline" align="right">
-                                 <label>เปอร์เซ็นจัดไฟแนนซ์ : </label>
-                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                    <input type="text" name="Percentcar" value="{{$data->Percent_car}}" class="form-control int" style="width: 250px;" placeholder="เปอร์เซ็นจัดไฟแนนซ์" />
-                                 @else
-                                   @if($GetDocComplete != Null)
-                                      <input type="text" name="Percentcar" value="{{$data->Percent_car}}" class="form-control int" style="width: 250px;" placeholder="เปอร์เซ็นจัดไฟแนนซ์" readonly/>
-                                   @else
-                                      <input type="text" name="Percentcar" value="{{$data->Percent_car}}" class="form-control int" style="width: 250px;" placeholder="เปอร์เซ็นจัดไฟแนนซ์" />
-                                   @endif
-                                 @endif
+                               <label>วันที่ชำระงวดแรก : </label>
+                               <input type="text" name="Dateduefirstcar" value="{{$data->Dateduefirst_car}}" class="form-control" style="width: 250px;" readonly placeholder="วันที่ชำระงวดแรก" />
+                             </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-md-5">
+                              <div class="form-inline" align="right">
+                                <span class="todo-wrap">
+                                  @if($data->Salemethod_car != Null)
+                                    <input type="checkbox" id="1" name="Salemethod" value="{{ $data->Salemethod_car }}" checked="checked"/>
+                                  @else
+                                    <input type="checkbox" id="1" name="Salemethod" value="on"/>
+                                  @endif
+                                    <label for="1" class="todo">
+                                      <i class="fa fa-check"></i>
+                                      กรรมสิทธิ์ในแบบซื้อขาย
+                                    </label>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </span>
+                               </div>
+                            </div>
+
+                            <div class="col-md-6">
+                             <div class="form-inline" align="right">
+
                              </div>
                             </div>
                           </div>
@@ -2065,7 +2020,7 @@
                                     <input type="text" id="P2Price" name="P2Price" value="{{number_format($data->P2_Price)}}" class="form-control" style="width: 250px;" placeholder="ซื้อ ป2+" onchange="calculate();balance();"/>
                                  @endif
                                @endif
-                               <input type="hidden" id="P2PriceOri" name="P2PriceOri" class="form-control" value="{{number_format($data->P2_Price)}}" style="width: 250px;" placeholder="ซื้อ ป2+" onchange="calculate()" readonly/>
+                               <input type="hidden" id="P2PriceOri" name="P2PriceOri" class="form-control" value="{{number_format($data->P2_Price)}}" style="width: 250px;" placeholder="ซื้อ ป2+" onchange="calculate();" readonly/>
                              </div>
                             </div>
                           </div>

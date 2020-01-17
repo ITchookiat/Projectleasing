@@ -89,6 +89,8 @@ class PrecController extends Controller
           $fdate = $newdate;
           $tdate = $newdate;
           $newDay = substr($newdate, 8, 9);
+          $fstart = '1.5';
+          $tend = '2.99';
 
           if ($request->has('Fromdate')) {
             $fdate = $request->get('Fromdate');
@@ -97,16 +99,25 @@ class PrecController extends Controller
           if ($request->has('Todate')) {
             $tdate = $request->get('Todate');
           }
+          if ($request->has('Fromstart')) {
+            $fstart = $request->get('Fromstart');
+          }
+          if ($request->has('Toend')) {
+            $tend = $request->get('Toend');
+          }
 
           $data1 = DB::connection('ibmi')
                     ->table('SFHP.ARMAST')
                     ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
                     ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
                     ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+                    ->when(!empty($fstart)  && !empty($tend), function($q) use ($fstart, $tend) {
+                      return $q->whereBetween('SFHP.ARMAST.HLDNO',[$fstart,$tend]);
+                    })
                     ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
                       return $q->whereBetween('SFHP.ARPAY.DDATE',[$fdate,$tdate]);
                     })
-                    ->whereBetween('SFHP.ARMAST.HLDNO',[1.5,3.69])
+                    // ->whereBetween('SFHP.ARMAST.HLDNO',[1.5,2.99])
                     ->where('SFHP.ARMAST.BILLCOLL','=',99)
                     ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
                     ->get();
@@ -115,7 +126,10 @@ class PrecController extends Controller
           $data2 = DB::connection('ibmi')
                     ->table('SFHP.ARMAST')
                     ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
-                    ->whereBetween('SFHP.ARMAST.HLDNO',[1.5,3.69])
+                    ->when(!empty($fstart)  && !empty($tend), function($q) use ($fstart, $tend) {
+                      return $q->whereBetween('SFHP.ARMAST.HLDNO',[$fstart,$tend]);
+                    })
+                    // ->whereBetween('SFHP.ARMAST.HLDNO',[1.5,2.99])
                     ->where('SFHP.ARMAST.BILLCOLL','=',99)
                     ->when(!empty($newDay), function($q) use ($newDay) {
                       return $q->whereDay('SFHP.ARMAST.FDATE',$newDay);
@@ -136,9 +150,10 @@ class PrecController extends Controller
           }else{
             $data = $data1;
           }
+          // dd($data);
 
           $type = $request->type;
-          return view('precipitate.view', compact('data','fdate','tdate','type'));
+          return view('precipitate.view', compact('data','fdate','tdate','fstart','tend','type'));
         }
         elseif ($request->type == 4) {  //ปล่อยงานโนติส
           $fdate = $date;

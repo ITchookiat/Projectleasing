@@ -567,6 +567,7 @@ class DatacarController extends Controller
     }
     public function ReportPDFIndex(Request $request)
     {
+      // dd($request);
       date_default_timezone_set('Asia/Bangkok');
       $Y = date('Y')+543;
       $m = date('m');
