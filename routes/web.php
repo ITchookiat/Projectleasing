@@ -67,9 +67,6 @@ Route::group(['middleware' => 'auth'], function()
     Route::patch('/Precipitate/update/{id}/{type}', 'PrecController@update')->name('Precipitate.update');
     Route::delete('/Precipitate/delete/{id}/{type}', 'PrecController@destroy')->name('Precipitate.destroy');
 
-    Route::get('/homes/get-json', 'HomeController@get_json')->name('get-json');
-    Route::get('/{name}', 'HomeController@index')->name('index');
-
     //--------------ชูเกียรติรถบ้าน-----------------------//
     Route::get('/ExportPDF', 'DatacarController@ReportPDF');
     Route::get('/ExportPDFIndex', 'DatacarController@ReportPDFIndex');
