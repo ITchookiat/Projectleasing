@@ -22,7 +22,6 @@ class CreateCheckDocumentsTable extends Migration
           $table->string('Insurance_Car')->nullable();  //ประกัน
           $table->string('Key_Reserve')->nullable();  //กุญแจ
           $table->string('Expire_Tax')->nullable(); //ป้ายภาษี
-
           $table->date('Date_NumberUser')->nullable();
           $table->date('Date_Expire')->nullable();
           $table->string('Check_Note')->nullable();
