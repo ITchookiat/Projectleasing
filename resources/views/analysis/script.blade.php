@@ -367,6 +367,7 @@
           }
         }
 
+
         var num11 = document.getElementById('Topcar').value;
         var num1 = num11.replace(",","");
         var num4 = document.getElementById('Timeslackencar').value;
@@ -538,29 +539,12 @@
                  $("#Timeslackencar option[value='6']").hide();
                  $("#Timeslackencar option[value='6.5']").hide();
                  $("#Timeslackencar option[value='7']").hide();
-               }else{
-                 $("#Timeslackencar option[value='1']").show();
-                 $("#Timeslackencar option[value='1.5']").show();
-                 $("#Timeslackencar option[value='2']").show();
-                 $("#Timeslackencar option[value='2.5']").show();
-                 $("#Timeslackencar option[value='3']").show();
-                 $("#Timeslackencar option[value='3.5']").show();
-                 $("#Timeslackencar option[value='4']").show();
-                 $("#Timeslackencar option[value='4.5']").hide();
-                 $("#Timeslackencar option[value='5']").hide();
-                 $("#Timeslackencar option[value='5.5']").hide();
-                 $("#Timeslackencar option[value='6']").hide();
-                 $("#Timeslackencar option[value='6.5']").hide();
-                 $("#Timeslackencar option[value='7']").hide();
-               }
-              }
-            else if(year > 2003 && year <= 2005 ){
-               if(typedetail == 'รถตอนเดียว'){
-                 $("#Timeslackencar option[value='1']").show();
-                 $("#Timeslackencar option[value='1.5']").show();
-                 $("#Timeslackencar option[value='2']").show();
-                 $("#Timeslackencar option[value='2.5']").show();
-                 $("#Timeslackencar option[value='3']").show();
+               }else if(typedetail == 'รถเก๋ง/7ที่นั่ง' && year == 2004){
+                 $("#Timeslackencar option[value='1']").hide();
+                 $("#Timeslackencar option[value='1.5']").hide();
+                 $("#Timeslackencar option[value='2']").hide();
+                 $("#Timeslackencar option[value='2.5']").hide();
+                 $("#Timeslackencar option[value='3']").hide();
                  $("#Timeslackencar option[value='3.5']").hide();
                  $("#Timeslackencar option[value='4']").hide();
                  $("#Timeslackencar option[value='4.5']").hide();
