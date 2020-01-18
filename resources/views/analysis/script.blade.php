@@ -205,25 +205,7 @@
             document.form1.Interestcar.value = '';
           }
         }
-        else if(typedetail == 'รถกระบะ' && groupyear == '2005'){
-          if(timelack == ''){
-            document.form1.Interestcar.value = '';
-          }else if(timelack <= 4){
-            document.form1.Interestcar.value = '18.65';
-          }else{
-            document.form1.Interestcar.value = '';
-          }
-        }
-        else if(typedetail == 'รถกระบะ' && groupyear == '2004'){
-          if(timelack == ''){
-            document.form1.Interestcar.value = '';
-          }else if(timelack <= 4){
-            document.form1.Interestcar.value = '18.65';
-          }else{
-            document.form1.Interestcar.value = '';
-          }
-        }
-        else if(typedetail == 'รถกระบะ' && groupyear == '2003'){
+        else if(typedetail == 'รถกระบะ' && groupyear == '2003 - 2005'){
           if(timelack == ''){
             document.form1.Interestcar.value = '';
           }else if(timelack <= 4){
