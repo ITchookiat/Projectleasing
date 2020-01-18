@@ -114,7 +114,7 @@
         else{
               groupyear = '-';
         }
-        
+
       document.form1.Groupyearcar.value = groupyear;
       var timelack = document.getElementById('Timeslackencar').value;
         if(typedetail == 'รถกระบะ' && groupyear == '2015 - 2020'){
