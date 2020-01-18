@@ -15,6 +15,8 @@ class CreateLegislationsTable extends Migration
     {
         Schema::create('legislations', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('KeyCourts_id')->nullable();  //  Key ของตาราง ชั้นศาล
+            $table->integer('KeyCompro_id')->nullable();  //  Key ของตาราง ประนอมหนี้
             $table->string('Contract_legis')->nullable();
             $table->string('Name_legis')->nullable();
             $table->string('Idcard_legis')->nullable();
