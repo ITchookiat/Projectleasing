@@ -1149,7 +1149,7 @@
                                   <div class="col-md-6">
                                    <div class="form-inline" align="right">
                                        <label>เลขที่บัญชี : </label>
-                                       <input type="text" name="Accountbrancecar" class="form-control" style="width: 250px;" placeholder="เลขที่บัญชีผู้รับเงิน" data-inputmask="&quot;mask&quot;:&quot;999-9-99999-9&quot;" data-mask="" />
+                                       <input type="text" name="Accountbrancecar" class="form-control" style="width: 250px;" placeholder="เลขที่บัญชีผู้รับเงิน" maxlength="15" />
                                    </div>
                                   </div>
                                 </div>
@@ -1191,7 +1191,7 @@
                                   <div class="col-md-6">
                                    <div class="form-inline" align="right">
                                        <label>เลขที่บัญชี : </label>
-                                       <input type="text" name="Accountagentcar" class="form-control" style="width: 250px;" placeholder="เลขที่บัญชีนายหน้า" data-inputmask="&quot;mask&quot;:&quot;999-9-99999-9&quot;" data-mask="" />
+                                       <input type="text" name="Accountagentcar" class="form-control" style="width: 250px;" placeholder="เลขที่บัญชีนายหน้า" maxlength="15" />
                                    </div>
                                   </div>
                                 </div>
