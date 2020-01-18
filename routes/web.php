@@ -53,11 +53,13 @@ Route::group(['middleware' => 'auth'], function()
 
     Route::get('/ExportExcel/{type}', 'ExcelController@excel');
 
-    Route::get('/Legislation/store/{Str1}/{Str2}/{Realty}', 'LegislationController@store')->name('legislation.store');
+    Route::post('/Legislation/store/{id}/{type}', 'LegislationController@store')->name('legislation.store');
+    Route::get('/Legislation/Savestore/{Str1}/{Str2}/{Realty}/{type}', 'LegislationController@Savestore')->name('legislation.Savestore');
     Route::get('/Legislation/Home/{type}', 'LegislationController@index')->name('legislation');
     Route::get('/Legislation/edit/{id}/{type}', 'LegislationController@edit')->name('legislation.edit');
     Route::patch('/Legislation/update/{id}/{type}', 'LegislationController@update')->name('legislation.update');
-    Route::delete('/Legislation/delete/{id}', 'LegislationController@destroy')->name('legislation.destroy');
+    // Route::post('/Legislation/update/{id}/{type}', 'LegislationController@update')->name('legislation.update');
+    Route::delete('/Legislation/delete/{id}/{type}', 'LegislationController@destroy')->name('legislation.destroy');
 
     route::resource('MasterPrecipitate','PrecController');
     Route::get('/Precipitate/Home/{type}', 'PrecController@index')->name('Precipitate');

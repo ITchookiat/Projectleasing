@@ -153,7 +153,7 @@
                                 @endforeach
 
                                 @if($Tax == "N")
-                                  <a href="{{ route('legislation.store', [$SetStr1,$SetStr2,$Realty]) }}" id="edit" class="btn btn-danger btn-sm" title="ส่งฟ้อง">
+                                  <a href="{{ route('legislation.Savestore', [$SetStr1,$SetStr2,$Realty,1]) }}" id="edit" class="btn btn-danger btn-sm" title="ส่งฟ้อง">
                                     <span class="glyphicon glyphicon-edit"></span> รอส่งฟ้อง
                                   </a>
                                 @endif
@@ -239,13 +239,14 @@
                                 @endif
                               @endif
                             </td>
-                            <td class="text-center">
-                              {{$row->Contract_legis}}
-                            </td>
+                            <!-- <td class="text-center"><a href="#" data-toggle="modal" data-target="#modal_default" data-backdrop="static" data-keyboard="false">{{$row->Contract_legis}}</a></td> -->
+                            <td class="text-center"> {{$row->Contract_legis}}</a></td>
                             <td class="text-center"> {{$row->Name_legis}} </td>
                             <td class="text-center"> {{$row->Idcard_legis}} </td>
                             <td class="text-center"> {{ DateThai($row->DateDue_legis) }} </td>
                             <td class="text-center">
+                              <!-- <input type="button" name="edit_botton" id="edit_botton" value="{{ $row->id }}" class="btn btn-success btn-sm edit_botton"> -->
+
                               <a href="#" class="btn btn-info btn-sm" title="พิมพ์">
                                 <span class="glyphicon glyphicon-eye-open"></span> พิมพ์
                               </a>
@@ -253,7 +254,7 @@
                                 <span class="glyphicon glyphicon-pencil"></span> แก้ไข
                               </a>
                               <div class="form-inline form-group">
-                                <form method="post" class="delete_form" action="{{ action('LegislationController@destroy',$row->id) }}">
+                                <form method="post" class="delete_form" action="{{ action('LegislationController@destroy',[$row->id ,1]) }}">
                                 {{csrf_field()}}
                                   <input type="hidden" name="_method" value="DELETE" />
                                   <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
@@ -263,6 +264,226 @@
                               </div>
                             </td>
                           </tr>
+
+                          <!-- Popup -->
+                          <!-- <div class="modal fade" id="modal_default" style="display: none;">
+                            <div class="modal-dialog modal-lg">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true" >×</span></button>
+                                  <h4 class="modal-title" align="center">Default Modal</h4>
+                                </div>
+                                <div class="nav-tabs-custom">
+                                  <ul class="nav nav-tabs bg-success">
+                                    <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">รายละเอียด</a></li>
+                                    <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">ตารางผ่อนชำระ</a></li>
+                                  </ul>
+                                  <div class="modal-body">
+                                    <div class="tab-content">
+                                      <div class="tab-pane active" id="tab_1">
+
+                                        <form name="form1" id="sample_tab1" enctype="multipart/form-data">
+                                          @csrf
+                                          <div class="tab-content">
+                                            <div class="form-inline" align="right">
+                                              <div class="row">
+                                                 <div class="col-md-12">
+                                                   <div class="row">
+                                                      <div class="col-md-5">
+                                                        <div class="form-inline" align="right">
+                                                           <label>เลขที่สัญญา : </label>
+                                                           <input type="text" name="ContractPromise" class="form-control" value="{{ $row->Contract_legis }}" style="width: 150px;" readonly/>
+                                                         </div>
+                                                      </div>
+                                                      <div class="col-md-5">
+                                                        <div class="form-inline" align="right">
+                                                           <label>ชื่อ - นามสกุล :</label>
+                                                           <input type="text" name="NamePromise" class="form-control" value="{{ $row->Name_legis }}" style="width: 200px;" readonly/>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+
+                                                   <div class="row">
+                                                     <div class="col-md-5">
+                                                       <div class="form-inline" align="right">
+                                                          <label>ป้ายทะเบียน : </label>
+                                                          <input type="text" name="RigisPromise" class="form-control" value="{{ $row->register_legis }}" style="width: 150px;" readonly/>
+                                                        </div>
+                                                     </div>
+                                                      <div class="col-md-5">
+                                                        <div class="form-inline" align="right">
+                                                           <label>ยี่ห้อ :</label>
+                                                           <input type="text" name="BrandPromise" class="form-control" value="{{ $row->BrandCar_legis }}" style="width: 150px;" readonly/>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+
+                                                   <div class="row">
+                                                     <div class="col-md-5">
+                                                       <div class="form-inline" align="right">
+                                                        <label>ปีรถ :</label>
+                                                        <input type="text" name="YearcarPromise" class="form-control" value="{{ $row->YearCar_legis }}" style="width: 150px;" readonly/>
+                                                      </div>
+                                                    </div>
+                                                   </div>
+                                                 </div>
+                                              </div>
+                                            </div>
+                                            <script>
+                                                function addCommas(nStr){
+                                                   nStr += '';
+                                                   x = nStr.split('.');
+                                                   x1 = x[0];
+                                                   x2 = x.length > 1 ? '.' + x[1] : '';
+                                                   var rgx = /(\d+)(\d{3})/;
+                                                   while (rgx.test(x1)) {
+                                                     x1 = x1.replace(rgx, '$1' + ',' + '$2');
+                                                    }
+                                                  return x1 + x2;
+                                                }
+                                                function Comma(){
+                                                  var num11 = document.getElementById('TotalPromise').value;
+                                                  var num1 = num11.replace(",","");
+                                                  var num22 = document.getElementById('PayallPromise').value;
+                                                  var num2 = num22.replace(",","");
+                                                  var num33 = document.getElementById('Pay1Promise').value;
+                                                  var num3 = num33.replace(",","");
+                                                  var num44 = document.getElementById('Pay2Promise').value;
+                                                  var num4 = num44.replace(",","");
+                                                  var num55 = document.getElementById('Pay3Promise').value;
+                                                  var num5 = num55.replace(",","");
+                                                  var num66 = document.getElementById('SumPromise').value;
+                                                  var num6 = num66.replace(",","");
+                                                  var num77 = document.getElementById('DuePayPromise').value;
+                                                  var num7 = num77.replace(",","");
+                                                  var num88 = document.getElementById('SumAllPromise').value;
+                                                  var num8 = num88.replace(",","");
+                                                  document.form1.TotalPromise.value = addCommas(num1);
+                                                  document.form1.PayallPromise.value = addCommas(num2);
+                                                  document.form1.Pay1Promise.value = addCommas(num3);
+                                                  document.form1.Pay2Promise.value = addCommas(num4);
+                                                  document.form1.Pay3Promise.value = addCommas(num5);
+                                                  document.form1.SumPromise.value = addCommas(num6);
+                                                  document.form1.DuePayPromise.value = addCommas(num7);
+                                                  document.form1.SumAllPromise.value = addCommas(num8);
+                                                }
+                                            </script>
+
+                                            <hr>
+                                            <h4 class="card-title p-3" align="left"><b>รายละเอียดประนอมหนี้</b></h4>
+                                            <div class="row">
+                                              <div class="col-md-12">
+                                                <div class="row">
+                                                  <div class="col-md-5">
+                                                    <div class="form-inline" align="right">
+                                                       <label>ยอดประนอมหนี้ : </label>
+                                                       @if($row->Total_Promise == Null)
+                                                          <input type="text" name="TotalPromise" id="TotalPromise" class="form-control" style="width: 150px;" oninput="Comma();"/>
+                                                       @else
+                                                          <input type="text" name="TotalPromise" id="TotalPromise" value="{{ $row->Total_Promise }}" class="form-control" style="width: 150px;" oninput="Comma();"/>
+                                                       @endif
+                                                     </div>
+                                                  </div>
+                                                  <div class="col-md-5">
+                                                    <div class="form-inline" align="right">
+                                                       <label>ประเภทประนอมหนี้ :</label>
+                                                         <select name="TypePromise" class="form-control" style="width: 150px;">
+                                                           <option value="" selected>--- เลือกประนอม ---</option>
+                                                           <option value="ประนอมที่ศาล">ประนอมที่ศาล</option>
+                                                           <option value="ประนอมที่บริษัท">ประนอมที่บริษัท</option>
+                                                           <option value="หลังยึดทรัพย์">หลังยึดทรัพย์</option>
+                                                         </select>
+                                                     </div>
+                                                  </div>
+                                                </div>
+
+                                                <div class="row">
+                                                  <div class="col-md-5">
+                                                    <div class="form-inline" align="right">
+                                                       <label>ยอดที่ต้องชำระ :</label>
+                                                       <input type="text" name="PayallPromise" id="PayallPromise" class="form-control" style="width: 150px;" oninput="Comma();"/>
+                                                     </div>
+                                                  </div>
+                                                  <div class="col-md-5">
+                                                    <div class="form-inline" align="right">
+                                                       <label>1 :</label>
+                                                       <input type="text" name="Pay1Promise" id="Pay1Promise" class="form-control" style="width: 150px;" oninput="Comma();"/>
+                                                       <br>
+                                                       <label>2 :</label>
+                                                       <input type="text" name="Pay2Promise" id="Pay2Promise" class="form-control" style="width: 150px;" oninput="Comma();"/>
+                                                       <br>
+                                                       <label>3 :</label>
+                                                       <input type="text" name="Pay3Promise" id="Pay3Promise" class="form-control" style="width: 150px;" oninput="Comma();"/>
+                                                     </div>
+                                                  </div>
+                                                </div>
+
+                                                <br>
+                                                <div class="row">
+                                                  <div class="col-md-5">
+                                                    <div class="form-inline" align="right">
+                                                       <label>ยอดคงเหลือ : </label>
+                                                       <input type="text" name="SumPromise" id="SumPromise" class="form-control" style="width: 150px;" oninput="Comma();"/>
+                                                     </div>
+                                                  </div>
+                                                  <div class="col-md-5">
+                                                    <div class="form-inline" align="right">
+                                                       <label>จำนวนงวด :</label>
+                                                       <input type="text" name="DuePromise" class="form-control" style="width: 150px;"/>
+                                                     </div>
+                                                  </div>
+                                                </div>
+
+                                                <div class="row">
+                                                  <div class="col-md-5">
+                                                    <div class="form-inline" align="right">
+                                                      <label>งวดละ :</label>
+                                                      <input type="text" name="DuePayPromise" id="DuePayPromise" class="form-control" style="width: 150px;" oninput="Comma();"/>
+                                                     </div>
+                                                  </div>
+                                                </div>
+
+                                                <div class="row">
+                                                  <div class="col-md-5">
+                                                    <div class="form-inline" align="right">
+                                                       <label>วันที่วันที่ชำระล่าสุด : </label>
+                                                       <input type="date" name="DatelastPromise" class="form-control" style="width: 150px;"/>
+                                                    </div>
+                                                  </div>
+                                                  <div class="col-md-5">
+                                                    <div class="form-inline" align="right">
+                                                       <label>ยอดคงเหลือล่าสุด : </label>
+                                                       <input type="text" name="SumAllPromise" id="SumAllPromise" class="form-control" style="width: 150px;" oninput="Comma();"/>
+                                                    </div>
+                                                  </div>
+                                                </div>
+
+                                              </div>
+                                            </div>
+                                          </div>
+
+                                          <div class="form-inline" align="right">
+                                              <input type="hidden" name="Getid" class="form-control" value="{{ $row->id }}" style="width: 150px;" readonly/>
+                                              <button class="btn btn-success btn-submit">Submit</button>
+                                          </div>
+                                        </form>
+                                      </div>
+
+                                      <div class="tab-pane" id="tab_2">
+
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                  </div>
+                                </div>
+
+                              </div>
+                            </div>
+                          </div> -->
                         @endforeach
                       </tbody>
                     </table>
@@ -270,12 +491,58 @@
                 </div>
               @endif
            </div>
-           <script type="text/javascript">
-           $(document).ready(function() {
-             $('#table').DataTable( {
-               "order": [[ 2, "asc" ]]
-             } );
-           } );
+
+          <!-- Popup -->
+          <!-- <script type="text/javascript">
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $(".btn-submit").click(function(e){
+                e.preventDefault();
+                // var name = $("input[name=name]").val();
+                // var password = $("input[name=password]").val();
+                // var Getid = $("input[Getid=Getid]").val();
+
+                $.ajax({
+                   type:'POST',
+                   url:"{{ route('legislation.update',[00, 4]) }}",
+                   data: $("form#sample_tab1").serialize(),
+                   // data:{name:name, password:password, email:email},
+                   success:function(data){
+                      $('#TotalPromise').val(data.Total_Promise);
+                      $('#PayallPromise').val(data.Payall_Promise);
+                      console.log(data.success);
+                   }
+                });
+      	     });
+          </script> -->
+
+          <script type="text/javascript">
+             $(document).ready(function() {
+               $('#table').DataTable( {
+                 "order": [[ 2, "asc" ]]
+               });
+             });
+
+            // $(".edit_botton").click(function(e){
+            //    var edit_botton = $("input[edit_botton=edit_botton]").val()
+            //    $.ajax({
+            //     url:"{{ route('legislation.update',[00, 5]) }}",
+            //     method:'POST',
+            //     data:{edit_botton:edit_botton},
+            //     dataType:"json",
+            //     success:function(data){
+            //       console.log(data.success);
+            //         $('#TotalPromise').val(data.Total_Promise);
+            //         $('#PayallPromise').val(data.Payall_Promise);
+            //         $('#PayallPromise').val(data.Payall_Promise);
+            //         $('#modal_default').modal('show');
+            //       }
+            //     });
+            //   });
+
            </script>
 
           <script type="text/javascript">
@@ -284,44 +551,13 @@
             });
           </script>
         </div>
-{{--
-<!-- แจ้งเตือนแบบป็อปอัพ -->
-<!-- <div class="modal fade" id="modal-default">
-<div class="modal-dialog">
-<div class="modal-content">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span></button>
-<h4 class="modal-title">แจ้งเตือน</h4>
-</div>
-<div class="modal-body" align="center">
-<p><font size="5px" color="red">วันนี้ต้องไปส่งคำบังคับคดี</font></p>
-<p><font size="5px">เลขที่สัญญา : 01-2563/0001</font></p>
-<p><font size="5px">คุณประยุทต์   อังคารโอชา</font></p>
-</div>
-<div class="modal-footer">
-<center><button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button></center>
-</div>
-</div>
-</div>
-</div>
-
-<script type="text/javascript">
-$(document).ready(function() {
-$('#modal-default').modal('show');
-setTimeout(function() {
-$('#modal-default').modal('hide');
-}, 30000);
-});
-</script> -->
---}}
 
         <script>
-        function blinker() {
-        $('.prem').fadeOut(1500);
-        $('.prem').fadeIn(1500);
-        }
-        setInterval(blinker, 1500);
+          function blinker() {
+          $('.prem').fadeOut(1500);
+          $('.prem').fadeIn(1500);
+          }
+          setInterval(blinker, 1500);
         </script>
 
       </div>
