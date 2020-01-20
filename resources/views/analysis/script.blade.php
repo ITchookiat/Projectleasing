@@ -121,11 +121,11 @@
           // $("#Timeslackencar").append("<option value='1'>12</option><option value='1.5'>18</option><option value='2'>24</option><option value='2.5'>30</option><option value='3'>36</option><option value='3.5'>42</option><option value='4'>48</option><option value='4.5'>54</option><option value='5'>60</option><option value='5.5'>66</option><option value='6'>72</option><option value='6.5'>78</option><option value='7'>84</option>");
           if(timelack == ''){
             document.form1.Interestcar.value = '';
-          }else if(timelack <= 4){
+          }else if(timelack <= 48){
             document.form1.Interestcar.value = '5.55';
-          }else if(timelack > 4 && timelack <= 5){
+          }else if(timelack > 48 && timelack <= 60){
             document.form1.Interestcar.value = '6.00';
-          }else if(timelack > 5 && timelack <= 6){
+          }else if(timelack > 60 && timelack <= 72){
             document.form1.Interestcar.value = '6.45';
           }else{
             document.form1.Interestcar.value = '7.15';
@@ -134,11 +134,11 @@
         else if(typedetail == 'รถกระบะ' && groupyear == '2012 - 2014'){
           if(timelack == ''){
             document.form1.Interestcar.value = '';
-          }else if(timelack <= 4){
+          }else if(timelack <= 48){
             document.form1.Interestcar.value = '9.45';
-          }else if(timelack > 4 && timelack <= 5){
+          }else if(timelack > 48 && timelack <= 60){
             document.form1.Interestcar.value = '9.55';
-          }else if(timelack > 5 && timelack <= 6){
+          }else if(timelack > 60 && timelack <= 72){
             document.form1.Interestcar.value = '9.65';
           }else{
             document.form1.Interestcar.value = '';
@@ -147,11 +147,11 @@
         else if(typedetail == 'รถกระบะ' && groupyear == '2010 - 2011'){
           if(timelack == ''){
             document.form1.Interestcar.value = '';
-          }else if(timelack <= 4){
+          }else if(timelack <= 48){
             document.form1.Interestcar.value = '10.80';
-          }else if(timelack > 4 && timelack <= 5){
+          }else if(timelack > 48 && timelack <= 60){
             document.form1.Interestcar.value = '10.90';
-          }else if(timelack > 5 && timelack <= 6){
+          }else if(timelack > 60 && timelack <= 72){
             document.form1.Interestcar.value = '11';
           }else{
             document.form1.Interestcar.value = '';
@@ -160,11 +160,11 @@
         else if(typedetail == 'รถกระบะ' && groupyear == '2009'){
           if(timelack == ''){
             document.form1.Interestcar.value = '';
-          }else if(timelack <= 4){
+          }else if(timelack <= 48){
             document.form1.Interestcar.value = '12.45';
-          }else if(timelack > 4 && timelack <= 5){
+          }else if(timelack > 48 && timelack <= 60){
             document.form1.Interestcar.value = '12.55';
-          }else if(timelack > 5 && timelack <= 6){
+          }else if(timelack > 60 && timelack <= 72){
             document.form1.Interestcar.value = '12.65';
           }else{
             document.form1.Interestcar.value = '';
@@ -173,11 +173,11 @@
         else if(typedetail == 'รถกระบะ' && groupyear == '2008'){
           if(timelack == ''){
             document.form1.Interestcar.value = '';
-          }else if(timelack <= 4){
+          }else if(timelack <= 48){
             document.form1.Interestcar.value = '14.35';
-          }else if(timelack > 4 && timelack <= 5){
+          }else if(timelack > 48 && timelack <= 60){
             document.form1.Interestcar.value = '14.45';
-          }else if(timelack > 5 && timelack <= 6){
+          }else if(timelack > 60 && timelack <= 72){
             document.form1.Interestcar.value = '14.55';
           }else{
             document.form1.Interestcar.value = '';
@@ -186,9 +186,9 @@
         else if(typedetail == 'รถกระบะ' && groupyear == '2007'){
           if(timelack == ''){
             document.form1.Interestcar.value = '';
-          }else if(timelack <= 4){
+          }else if(timelack <= 48){
             document.form1.Interestcar.value = '14.45';
-          }else if(timelack > 4 && timelack <= 5){
+          }else if(timelack > 48 && timelack <= 60){
             document.form1.Interestcar.value = '14.55';
           }else{
             document.form1.Interestcar.value = '';
@@ -197,9 +197,9 @@
         else if(typedetail == 'รถกระบะ' && groupyear == '2006'){
           if(timelack == ''){
             document.form1.Interestcar.value = '';
-          }else if(timelack <= 4){
+          }else if(timelack <= 48){
             document.form1.Interestcar.value = '14.55';
-          }else if(timelack > 4 && timelack <= 5){
+          }else if(timelack > 48 && timelack <= 60){
             document.form1.Interestcar.value = '14.75';
           }else{
             document.form1.Interestcar.value = '';
@@ -208,7 +208,7 @@
         else if(typedetail == 'รถกระบะ' && groupyear == '2003 - 2005'){
           if(timelack == ''){
             document.form1.Interestcar.value = '';
-          }else if(timelack <= 4){
+          }else if(timelack <= 48){
             document.form1.Interestcar.value = '18.65';
           }else{
             document.form1.Interestcar.value = '';
@@ -218,7 +218,7 @@
         if(typedetail == 'รถตอนเดียว' && year > 2014 && year <= 2020){
           if(timelack == ''){
             document.form1.Interestcar.value = '';
-          }else if(timelack <= 5){
+          }else if(timelack <= 60){
             document.form1.Interestcar.value = '10.80';
           }else{
             document.form1.Interestcar.value = '';
@@ -227,7 +227,7 @@
         else if(typedetail == 'รถตอนเดียว' && year > 2012 && year <= 2014){
           if(timelack == ''){
             document.form1.Interestcar.value = '';
-          }else if(timelack <= 5){
+          }else if(timelack <= 60){
             document.form1.Interestcar.value = '12.60';
           }else{
             document.form1.Interestcar.value = '';
@@ -236,7 +236,7 @@
         else if(typedetail == 'รถตอนเดียว' && year > 2009 && year <= 2012){
           if(timelack == ''){
             document.form1.Interestcar.value = '';
-          }else if(timelack <= 5){
+          }else if(timelack <= 60){
             document.form1.Interestcar.value = '14.40';
           }else{
             document.form1.Interestcar.value = '';
@@ -245,7 +245,7 @@
         else if(typedetail == 'รถตอนเดียว' && year > 2007 && year <= 2009){
           if(timelack == ''){
             document.form1.Interestcar.value = '';
-          }else if(timelack <= 4){
+          }else if(timelack <= 48){
             document.form1.Interestcar.value = '16.80';
           }else{
             document.form1.Interestcar.value = '';
@@ -254,7 +254,7 @@
         else if(typedetail == 'รถตอนเดียว' && year > 2005 && year <= 2007){
           if(timelack == ''){
             document.form1.Interestcar.value = '';
-          }else if(timelack <= 4){
+          }else if(timelack <= 48){
             document.form1.Interestcar.value = '18.60';
           }else{
             document.form1.Interestcar.value = '';
@@ -263,7 +263,7 @@
         else if(typedetail == 'รถตอนเดียว' && year > 2003 && year <= 2005){
           if(timelack == ''){
             document.form1.Interestcar.value = '';
-          }else if(timelack <= 3){
+          }else if(timelack <= 36){
             document.form1.Interestcar.value = '20.40';
           }else{
             document.form1.Interestcar.value = '';
@@ -273,11 +273,11 @@
         if(typedetail == 'รถเก๋ง/7ที่นั่ง' && groupyear == '2015 - 2020'){
           if(timelack == ''){
             document.form1.Interestcar.value = '';
-          }else if(timelack <= 4){
+          }else if(timelack <= 48){
             document.form1.Interestcar.value = '6.05';
-          }else if(timelack > 4 && timelack <= 5){
+          }else if(timelack > 48 && timelack <= 60){
             document.form1.Interestcar.value = '6.50';
-          }else if(timelack > 5 && timelack <= 6){
+          }else if(timelack > 60 && timelack <= 72){
             document.form1.Interestcar.value = '6.95';
           }else{
             document.form1.Interestcar.value = '7.65';
@@ -286,11 +286,11 @@
         else if(typedetail == 'รถเก๋ง/7ที่นั่ง' && groupyear == '2012 - 2014'){
           if(timelack == ''){
             document.form1.Interestcar.value = '';
-          }else if(timelack <= 4){
+          }else if(timelack <= 48){
             document.form1.Interestcar.value = '9.60';
-          }else if(timelack > 4 && timelack <= 5){
+          }else if(timelack > 48 && timelack <= 60){
             document.form1.Interestcar.value = '9.70';
-          }else if(timelack > 5 && timelack <= 6){
+          }else if(timelack > 60 && timelack <= 72){
             document.form1.Interestcar.value = '9.80';
           }else{
             document.form1.Interestcar.value = '';
@@ -299,11 +299,11 @@
         else if(typedetail == 'รถเก๋ง/7ที่นั่ง' && groupyear == '2010 - 2011'){
           if(timelack == ''){
             document.form1.Interestcar.value = '';
-          }else if(timelack <= 4){
+          }else if(timelack <= 48){
             document.form1.Interestcar.value = '10.95';
-          }else if(timelack > 4 && timelack <= 5){
+          }else if(timelack > 48 && timelack <= 60){
             document.form1.Interestcar.value = '11.05';
-          }else if(timelack > 5 && timelack <= 6){
+          }else if(timelack > 60 && timelack <= 72){
             document.form1.Interestcar.value = '11.15';
           }else{
             document.form1.Interestcar.value = '';
@@ -312,11 +312,11 @@
         else if(typedetail == 'รถเก๋ง/7ที่นั่ง' && groupyear == '2009'){
           if(timelack == ''){
             document.form1.Interestcar.value = '';
-          }else if(timelack <= 4){
+          }else if(timelack <= 48){
             document.form1.Interestcar.value = '12.60';
-          }else if(timelack > 4 && timelack <= 5){
+          }else if(timelack > 48 && timelack <= 60){
             document.form1.Interestcar.value = '12.70';
-          }else if(timelack > 5 && timelack <= 6){
+          }else if(timelack > 60 && timelack <= 72){
             document.form1.Interestcar.value = '12.80';
           }else{
             document.form1.Interestcar.value = '';
@@ -325,11 +325,11 @@
         else if(typedetail == 'รถเก๋ง/7ที่นั่ง' && groupyear == '2008'){
           if(timelack == ''){
             document.form1.Interestcar.value = '';
-          }else if(timelack <= 4){
+          }else if(timelack <= 48){
             document.form1.Interestcar.value = '14.50';
-          }else if(timelack > 4 && timelack <= 5){
+          }else if(timelack > 48 && timelack <= 60){
             document.form1.Interestcar.value = '14.60';
-          }else if(timelack > 5 && timelack <= 6){
+          }else if(timelack > 60 && timelack <= 72){
             document.form1.Interestcar.value = '14.70';
           }else{
             document.form1.Interestcar.value = '';
@@ -338,9 +338,9 @@
         else if(typedetail == 'รถเก๋ง/7ที่นั่ง' && groupyear == '2007'){
           if(timelack == ''){
             document.form1.Interestcar.value = '';
-          }else if(timelack <= 4){
+          }else if(timelack <= 48){
             document.form1.Interestcar.value = '14.60';
-          }else if(timelack > 4 && timelack <= 5){
+          }else if(timelack > 48 && timelack <= 60){
             document.form1.Interestcar.value = '14.70';
           }else{
             document.form1.Interestcar.value = '';
@@ -349,9 +349,9 @@
         else if(typedetail == 'รถเก๋ง/7ที่นั่ง' && groupyear == '2006'){
           if(timelack == ''){
             document.form1.Interestcar.value = '';
-          }else if(timelack <= 4){
+          }else if(timelack <= 48){
             document.form1.Interestcar.value = '14.70';
-          }else if(timelack > 4 && timelack <= 5){
+          }else if(timelack > 48 && timelack <= 60){
             document.form1.Interestcar.value = '14.90';
           }else{
             document.form1.Interestcar.value = '';
@@ -360,7 +360,7 @@
         else if(typedetail == 'รถเก๋ง/7ที่นั่ง' && groupyear == '2005'){
           if(timelack == ''){
             document.form1.Interestcar.value = '';
-          }else if(timelack <= 4){
+          }else if(timelack <= 48){
             document.form1.Interestcar.value = '19.00';
           }else{
             document.form1.Interestcar.value = '';
@@ -636,43 +636,43 @@
             }
           });
 
-          if(num4 == '1'){
-             var period = '12';
-           }else if(num4 == '1.5'){
-             var period = '18';
-           }else if(num4 == '2'){
-             var period = '24';
-           }else if(num4 == '2.5'){
-             var period = '30';
-           }else if(num4 == '3'){
-             var period = '36';
-           }else if(num4 == '3.5'){
-             var period = '42';
-           }else if(num4 == '4'){
-             var period = '48';
-           }else if(num4 == '4.5'){
-             var period = '54';
-           }else if(num4 == '5'){
-             var period = '60';
-           }else if(num4 == '5.5'){
-             var period = '66';
-           }else if(num4 == '6'){
-             var period = '72';
-           }else if(num4 == '6.5'){
-             var period = '78';
-           }else if(num4 == '7'){
-             var period = '84';
+          if(num4 == '12'){
+             var period = '1';
+           }else if(num4 == '18'){
+             var period = '1.5';
+           }else if(num4 == '24'){
+             var period = '2';
+           }else if(num4 == '30'){
+             var period = '2.5';
+           }else if(num4 == '36'){
+             var period = '3';
+           }else if(num4 == '42'){
+             var period = '3.5';
+           }else if(num4 == '48'){
+             var period = '4';
+           }else if(num4 == '54'){
+             var period = '4.5';
+           }else if(num4 == '60'){
+             var period = '5';
+           }else if(num4 == '66'){
+             var period = '5.5';
+           }else if(num4 == '72'){
+             var period = '6';
+           }else if(num4 == '78'){
+             var period = '6.5';
+           }else if(num4 == '84'){
+             var period = '7';
           }
 
           var totaltopcar = parseFloat(num1);
-          var a = (num2*num4)+100;
-          var b = (((totaltopcar*a)/100)*1.07)/period;
+          var a = (num2*period)+100;
+          var b = (((totaltopcar*a)/100)*1.07)/num4;
           var result = Math.ceil(b/10)*10;
           var durate = result/1.07;
-          var durate2 = durate.toFixed(2)*period;
+          var durate2 = durate.toFixed(2)*num4;
           var tax = result-durate;
-          var tax2 = tax.toFixed(2)*period;
-          var total = result*period;
+          var tax2 = tax.toFixed(2)*num4;
+          var total = result*num4;
           var total2 = durate2+tax2;
           document.form1.P2Price.value = addCommas(num5);
         if(!isNaN(result)){
