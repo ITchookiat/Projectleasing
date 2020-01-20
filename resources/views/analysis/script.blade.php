@@ -539,12 +539,29 @@
                  $("#Timeslackencar option[value='6']").hide();
                  $("#Timeslackencar option[value='6.5']").hide();
                  $("#Timeslackencar option[value='7']").hide();
-               }else if(typedetail == 'รถเก๋ง/7ที่นั่ง' && year == 2004){
-                 $("#Timeslackencar option[value='1']").hide();
-                 $("#Timeslackencar option[value='1.5']").hide();
-                 $("#Timeslackencar option[value='2']").hide();
-                 $("#Timeslackencar option[value='2.5']").hide();
-                 $("#Timeslackencar option[value='3']").hide();
+               }else{
+                 $("#Timeslackencar option[value='1']").show();
+                 $("#Timeslackencar option[value='1.5']").show();
+                 $("#Timeslackencar option[value='2']").show();
+                 $("#Timeslackencar option[value='2.5']").show();
+                 $("#Timeslackencar option[value='3']").show();
+                 $("#Timeslackencar option[value='3.5']").show();
+                 $("#Timeslackencar option[value='4']").show();
+                 $("#Timeslackencar option[value='4.5']").hide();
+                 $("#Timeslackencar option[value='5']").hide();
+                 $("#Timeslackencar option[value='5.5']").hide();
+                 $("#Timeslackencar option[value='6']").hide();
+                 $("#Timeslackencar option[value='6.5']").hide();
+                 $("#Timeslackencar option[value='7']").hide();
+               }
+              }
+            else if(year > 2003 && year <= 2005 ){
+               if(typedetail == 'รถตอนเดียว'){
+                 $("#Timeslackencar option[value='1']").show();
+                 $("#Timeslackencar option[value='1.5']").show();
+                 $("#Timeslackencar option[value='2']").show();
+                 $("#Timeslackencar option[value='2.5']").show();
+                 $("#Timeslackencar option[value='3']").show();
                  $("#Timeslackencar option[value='3.5']").hide();
                  $("#Timeslackencar option[value='4']").hide();
                  $("#Timeslackencar option[value='4.5']").hide();
@@ -553,6 +570,8 @@
                  $("#Timeslackencar option[value='6']").hide();
                  $("#Timeslackencar option[value='6.5']").hide();
                  $("#Timeslackencar option[value='7']").hide();
+               }else if(typedetail == 'รถตอนเดียว' && year <= 2005){
+
                }else{
                  $("#Timeslackencar option[value='1']").show();
                  $("#Timeslackencar option[value='1.5']").show();
@@ -723,12 +742,12 @@
           var toptemp = temp.replace(",","");
           var ori = document.getElementById('Topcar').value;
           var Topori = ori.replace(",","");
-          if(num8 > 6700){
+          if(num8 > 6900){
           var tempresult = parseFloat(num1)+parseFloat(num2)+parseFloat(num3)+parseFloat(num4)+parseFloat(num5)+parseFloat(num6)+parseFloat(num8);
           }else{
           var tempresult = parseFloat(num1)+parseFloat(num2)+parseFloat(num3)+parseFloat(num4)+parseFloat(num5)+parseFloat(num6)+parseFloat(num8);
           }
-          if(num8 > 6700){
+          if(num8 > 6900){
           var result = parseFloat(num1)+parseFloat(num2)+parseFloat(num3)+parseFloat(num4)+parseFloat(num5)+parseFloat(num6)+parseFloat(num7)+parseFloat(num8);
           }else {
           var result = parseFloat(num1)+parseFloat(num2)+parseFloat(num3)+parseFloat(num4)+parseFloat(num5)+parseFloat(num6)+parseFloat(num7)+parseFloat(num8);
@@ -736,7 +755,7 @@
           if(num88 == 0){
           var TotalBalance = parseFloat(toptemp)-result;
           }
-          else if(num8 > 6700){
+          else if(num8 > 6900){
           var TotalBalance = parseFloat(toptemp)-result;
           }
           else{

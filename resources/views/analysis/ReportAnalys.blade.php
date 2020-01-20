@@ -238,6 +238,8 @@
              <b>78</b> งวด
              @elseif($dataReport->Timeslacken_car == '7')
              <b>84</b> งวด
+             @else
+             <b>{{$dataReport->Timeslacken_car}}</b> งวด
             @endif
            </th>
         </tr>
