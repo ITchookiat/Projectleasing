@@ -995,19 +995,19 @@
                                      <input type="text" id="Year" class="form-control" style="width: 250px;" readonly />
                                      <select id="Timeslackencar" name="Timeslackencar" class="form-control" style="width: 250px;display:none;" onchange="calculate();">
                                        <option value="" selected>--- ระยะเวลาผ่อน ---</option>
-                                       <option value="1">12</option>
-                                       <option value="1.5">18</option>
-                                       <option value="2">24</option>
-                                       <option value="2.5">30</option>
-                                       <option value="3">36</option>
-                                       <option value="3.5">42</option>
-                                       <option value="4">48</option>
-                                       <option value="4.5">54</option>
-                                       <option value="5">60</option>
-                                       <option value="5.5">66</option>
-                                       <option value="6">72</option>
-                                       <option value="6.5">78</option>
-                                       <option value="7">84</option>
+                                       <option value="12">12</option>
+                                       <option value="18">18</option>
+                                       <option value="24">24</option>
+                                       <option value="30">30</option>
+                                       <option value="36">36</option>
+                                       <option value="42">42</option>
+                                       <option value="48">48</option>
+                                       <option value="54">54</option>
+                                       <option value="60">60</option>
+                                       <option value="66">66</option>
+                                       <option value="72">72</option>
+                                       <option value="78">78</option>
+                                       <option value="84">84</option>
                                      </select>
                                    </div>
 

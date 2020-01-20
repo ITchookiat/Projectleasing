@@ -212,35 +212,7 @@
           <th align="right" width="120px"> <b>{{$dataReport->Vat_car}}</b></th>
           <th align="right" width="120px"> ระยะเวลาผ่อน &nbsp;</th>
           <th class="text-center" width="180px" style="background-color: yellow;">
-            @if($dataReport->Timeslacken_car == '1')
-             <b>12</b> งวด
-             @elseif($dataReport->Timeslacken_car == '1.5')
-             <b>18</b> งวด
-             @elseif($dataReport->Timeslacken_car == '2')
-             <b>24</b> งวด
-             @elseif($dataReport->Timeslacken_car == '2.5')
-             <b>30</b> งวด
-             @elseif($dataReport->Timeslacken_car == '3')
-             <b>36</b> งวด
-             @elseif($dataReport->Timeslacken_car == '3.5')
-             <b>42</b> งวด
-             @elseif($dataReport->Timeslacken_car == '4')
-             <b>48</b> งวด
-             @elseif($dataReport->Timeslacken_car == '4.5')
-             <b>54</b> งวด
-             @elseif($dataReport->Timeslacken_car == '5')
-             <b>60</b> งวด
-             @elseif($dataReport->Timeslacken_car == '5.5')
-             <b>66</b> งวด
-             @elseif($dataReport->Timeslacken_car == '6')
-             <b>72</b> งวด
-             @elseif($dataReport->Timeslacken_car == '6.5')
-             <b>78</b> งวด
-             @elseif($dataReport->Timeslacken_car == '7')
-             <b>84</b> งวด
-             @else
-             <b>{{$dataReport->Timeslacken_car}}</b> งวด
-            @endif
+            <b>{{$dataReport->Timeslacken_car}}</b> งวด
            </th>
         </tr>
         <tr>
