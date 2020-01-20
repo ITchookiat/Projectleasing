@@ -85,7 +85,7 @@ class PrecController extends Controller
           return view('precipitate.view', compact('data','fdate','tdate','follower','type'));
         }
         elseif ($request->type == 3) {  //แจ้งเตือนติดตาม
-          $newdate = date('Y-m-d', strtotime('+3 days'));
+          $newdate = date('Y-m-d', strtotime('-1 days'));
           $fdate = $newdate;
           $tdate = $newdate;
           $newDay = substr($newdate, 8, 9);
@@ -118,9 +118,17 @@ class PrecController extends Controller
                       return $q->whereBetween('SFHP.ARPAY.DDATE',[$fdate,$tdate]);
                     })
                     // ->whereBetween('SFHP.ARMAST.HLDNO',[1.5,2.99])
-                    ->where('SFHP.ARMAST.BILLCOLL','=',99)
+                    // ->where('SFHP.ARMAST.BILLCOLL','=',99)
                     ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
                     ->get();
+                    $count = count($data1);
+                    for($i=0; $i<$count; $i++){
+                      $str[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$data1[$i]->CONTSTAT)));
+                      if ($str[$i] == "ท") {
+                        $data[] = $data1[$i];
+                        // dd($data);
+                      }
+                    }
 
 
           $data2 = DB::connection('ibmi')
@@ -130,7 +138,7 @@ class PrecController extends Controller
                       return $q->whereBetween('SFHP.ARMAST.HLDNO',[$fstart,$tend]);
                     })
                     // ->whereBetween('SFHP.ARMAST.HLDNO',[1.5,2.99])
-                    ->where('SFHP.ARMAST.BILLCOLL','=',99)
+                    // ->where('SFHP.ARMAST.BILLCOLL','=',99)
                     ->when(!empty($newDay), function($q) use ($newDay) {
                       return $q->whereDay('SFHP.ARMAST.FDATE',$newDay);
                     })
@@ -400,8 +408,8 @@ class PrecController extends Controller
      */
     public function store(Request $request)
     {
-      dd($request->type);
-      
+      // dd($request->type);
+
         if($request->type == 6) {
           if($request->get('Pricehold') == ''){
             $SetPricehold = 0;
@@ -1282,58 +1290,80 @@ class PrecController extends Controller
       }
       elseif($request->type == 2){
       }
-      elseif($request->type == 3){
-          $newdate = date('Y-m-d', strtotime('+3 days'));
-          $fdate = $newdate;
-          $tdate = $newdate;
-          $newDay = date('d')+3;
+      elseif($request->type == 3){ //excel งานแจ้งเตือนติดตาม
+        $newdate = date('Y-m-d', strtotime('-1 days'));
+        $fdate = $newdate;
+        $tdate = $newdate;
+        $newDay = substr($newdate, 8, 9);
+        $fstart = '1.5';
+        $tend = '2.99';
 
-          if ($request->has('Fromdate')) {
-            $fdate = $request->get('Fromdate');
-            $newDay = substr($fdate, 8, 9);
-          }
-          if ($request->has('Todate')) {
-            $tdate = $request->get('Todate');
-          }
+        if ($request->has('Fromdate')) {
+          $fdate = $request->get('Fromdate');
+          $newDay = substr($fdate, 8, 9);
+        }
+        if ($request->has('Todate')) {
+          $tdate = $request->get('Todate');
+        }
+        if ($request->has('Fromstart')) {
+          $fstart = $request->get('Fromstart');
+        }
+        if ($request->has('Toend')) {
+          $tend = $request->get('Toend');
+        }
 
-          $data1 = DB::connection('ibmi')
-          ->table('SFHP.ARMAST')
-          ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
-          ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
-          ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
-          ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
-          return $q->whereBetween('SFHP.ARPAY.DDATE',[$fdate,$tdate]);
-          })
-          ->whereBetween('SFHP.ARMAST.HLDNO',[1.5,3.69])
-          ->where('SFHP.ARMAST.BILLCOLL','=',99)
-          ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
-          ->get();
+        $data1 = DB::connection('ibmi')
+                  ->table('SFHP.ARMAST')
+                  ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
+                  ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                  ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+                  ->when(!empty($fstart)  && !empty($tend), function($q) use ($fstart, $tend) {
+                    return $q->whereBetween('SFHP.ARMAST.HLDNO',[$fstart,$tend]);
+                  })
+                  ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+                    return $q->whereBetween('SFHP.ARPAY.DDATE',[$fdate,$tdate]);
+                  })
+                  // ->whereBetween('SFHP.ARMAST.HLDNO',[1.5,2.99])
+                  // ->where('SFHP.ARMAST.BILLCOLL','=',99)
+                  ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                  ->get();
+                  $count = count($data1);
+                  for($i=0; $i<$count; $i++){
+                    $str[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$data1[$i]->CONTSTAT)));
+                    if ($str[$i] == "ท") {
+                      $data[] = $data1[$i];
+                      // dd($data);
+                    }
+                  }
 
 
-          $data2 = DB::connection('ibmi')
-          ->table('SFHP.ARMAST')
-          ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
-          ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
-          ->whereBetween('SFHP.ARMAST.HLDNO',[1.5,3.69])
-          ->where('SFHP.ARMAST.BILLCOLL','=',99)
-          ->when(!empty($newDay), function($q) use ($newDay) {
-          return $q->whereDay('SFHP.ARMAST.FDATE',$newDay);
-          })
-          ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
-          ->get();
-          $count = count($data2);
-          $data = $data1;
+        $data2 = DB::connection('ibmi')
+                  ->table('SFHP.ARMAST')
+                  ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                  ->when(!empty($fstart)  && !empty($tend), function($q) use ($fstart, $tend) {
+                    return $q->whereBetween('SFHP.ARMAST.HLDNO',[$fstart,$tend]);
+                  })
+                  // ->whereBetween('SFHP.ARMAST.HLDNO',[1.5,2.99])
+                  // ->where('SFHP.ARMAST.BILLCOLL','=',99)
+                  ->when(!empty($newDay), function($q) use ($newDay) {
+                    return $q->whereDay('SFHP.ARMAST.FDATE',$newDay);
+                  })
+                  ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                  ->get();
 
-          if($count != 0){
-              for ($i=0; $i < $count; $i++) {
-                if($data2[$i]->EXP_FRM == $data2[$i]->EXP_TO){
-                  $data3[] = $data2[$i];
-                  $data = $data1->concat($data3);
-                }
+        $count = count($data2);
+        $data = $data1;
+
+        if($count != 0){
+            for ($i=0; $i < $count; $i++) {
+              if($data2[$i]->EXP_FRM == $data2[$i]->EXP_TO){
+                $data3[] = $data2[$i];
+                $data = $data1->concat($data3);
               }
-          }else{
-            $data = $data1;
-          }
+            }
+        }else{
+          $data = $data1;
+        }
 
           $query = DB::connection('ibmi')
                     ->table('SFHP.ARPAY')
