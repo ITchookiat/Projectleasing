@@ -209,7 +209,7 @@
               @endif
               <td width="55px">
                 @if($value->P2_Price != 0)
-                  @if($value->P2_Price > 6700)
+                  @if($value->P2_Price > 6900)
                     ซื้อป1 {{number_format($value->P2_Price)}}
                   @else
                     ซื้อป2+ {{number_format($value->P2_Price)}}
