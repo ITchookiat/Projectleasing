@@ -134,6 +134,7 @@ class PrecController extends Controller
           $data2 = DB::connection('ibmi')
                     ->table('SFHP.ARMAST')
                     ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                    ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
                     ->when(!empty($fstart)  && !empty($tend), function($q) use ($fstart, $tend) {
                       return $q->whereBetween('SFHP.ARMAST.HLDNO',[$fstart,$tend]);
                     })
@@ -1340,6 +1341,7 @@ class PrecController extends Controller
         $data2 = DB::connection('ibmi')
                   ->table('SFHP.ARMAST')
                   ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                  ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
                   ->when(!empty($fstart)  && !empty($tend), function($q) use ($fstart, $tend) {
                     return $q->whereBetween('SFHP.ARMAST.HLDNO',[$fstart,$tend]);
                   })
@@ -1365,16 +1367,7 @@ class PrecController extends Controller
           $data = $data1;
         }
 
-          $query = DB::connection('ibmi')
-                    ->table('SFHP.ARPAY')
-                    ->where('SFHP.ARPAY.CONTNO','=','03-2561/0404')
-                    ->sum('SFHP.ARPAY.INTAMT');
-          // $data1 = ceil($data/10)*10;
-
-          $query2 = DB::connection('ibmi')
-                    ->table('SFHP.ARDEBT')
-                    ->where('SFHP.ARDEBT.CONTNO','=','03-2561/0404')
-                    ->sum('SFHP.ARDEBT.KANGINT');
+        // dd($data);
 
           $type = $request->type;
 
@@ -1411,7 +1404,7 @@ class PrecController extends Controller
                              'ค้างถึงงวด' => $row->EXP_TO,
                              'ชำระล่าสุด' => number_format($row->LPAYA, 2),
                              'ชำระดาวน์' => number_format($row->PAYDWN, 2),
-                             'พนักงานเก็บเงิน' => $row->BILLCOLL,
+                             'พนักงานเก็บเงิน' => iconv('TIS-620', 'utf-8', $row->BILLCOLL),
                              'รุ่นรถ' => iconv('TIS-620', 'utf-8', $row->MODEL),
                              'สีรถ' => iconv('TIS-620', 'utf-8', $row->COLOR),
                              'เลขทะเบียน' => iconv('TIS-620', 'utf-8', $row->REGNO),
