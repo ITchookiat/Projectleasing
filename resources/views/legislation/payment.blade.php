@@ -104,6 +104,7 @@
                                     <option value="" selected>--- ประเภทชำระ ---</option>
                                     <option value="ชำระเงินสด">ชำระเงินสด</option>
                                     <option value="ชำระผ่านโอน">ชำระผ่านโอน</option>
+                                    <option value="เงินก้อนแรก">เงินก้อนแรก</option>
                                   </select>
                                 </div>
                              </div>

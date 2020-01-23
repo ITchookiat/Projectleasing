@@ -846,7 +846,7 @@
                           <div class="col-md-4">
                             <div class="box box-warning box-solid">
                               <div class="box-header with-border">
-                                <h3 class="box-title"> ยึดทรัพย์</h3>
+                                <h3 class="box-title"> สถานะยึดทรัพย์</h3>
                                 <div class="box-tools pull-right">
                                   <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                                   </button>
@@ -856,43 +856,62 @@
                                 <div class="row">
                                   @if($data->propertied_court == "Y")
                                     <div class="col-md-6" align="center">
-                                      <input type="radio" id="test1" name="radio-propertied" value="Y" onclick="FunctionRadio()" checked/>
+                                      <input type="radio" id="test1" name="radio-propertied" value="Y" onclick="Functionhidden()" checked/>
                                       <label for="test1">มีทรัพย์</label>
                                     </div>
                                     <div class="col-md-6">
-                                      <input type="radio" id="test2" name="radio-propertied" value="N" onclick="Functionhidden()"/>
+                                      <input type="radio" id="test2" name="radio-propertied" value="N" onclick="FunctionRadio()"/>
                                       <label for="test2">ไม่มีทรัพย์</label>
                                     </div>
                                   @elseif($data->propertied_court == "N")
                                     <div class="col-md-6" align="center">
-                                      <input type="radio" id="test1" name="radio-propertied" value="Y" onclick="FunctionRadio()"/>
+                                      <input type="radio" id="test1" name="radio-propertied" value="Y" onclick="Functionhidden()"/>
                                       <label for="test1">มีทรัพย์</label>
                                     </div>
                                     <div class="col-md-6">
-                                      <input type="radio" id="test2" name="radio-propertied" value="N" onclick="Functionhidden()" checked/>
+                                      <input type="radio" id="test2" name="radio-propertied" value="N" onclick="FunctionRadio()" checked/>
                                       <label for="test2">ไม่มีทรัพย์</label>
                                     </div>
                                   @else
                                     <div class="col-md-6" align="center">
-                                      <input type="radio" id="test1" name="radio-propertied" value="Y" onclick="FunctionRadio()"/>
+                                      <input type="radio" id="test1" name="radio-propertied" value="Y" onclick="Functionhidden()"/>
                                       <label for="test1">มีทรัพย์</label>
                                     </div>
                                     <div class="col-md-6">
-                                      <input type="radio" id="test2" name="radio-propertied" value="N" onclick="Functionhidden()"/>
+                                      <input type="radio" id="test2" name="radio-propertied" value="N" onclick="FunctionRadio()"/>
                                       <label for="test2">ไม่มีทรัพย์</label>
                                     </div>
                                   @endif
                                 </div>
 
-                                @if($data->propertied_court == "N" or $data->propertied_court == Null)
+                                @if($data->propertied_court == "Y" or $data->propertied_court == Null)
                                   <div id="ShowMe" style="display:none;">
                                 @else
                                  <div id="ShowMe">
                                 @endif
-                                    วันที่ยึดทรัพย์
+                                    วันสืบทรัพย์
                                     <input type="date" id="sequestercourt" name="sequestercourt" class="form-control" value="{{ $data->sequester_court }}" readonly/>
-                                    วันที่ยึดทรัพย์จริง
-                                    <input type="date" id="sendsequestercourt" name="sendsequestercourt" class="form-control" value="{{ $data->sendsequester_court }}" />
+                                    <!-- วันที่ยึดทรัพย์จริง
+                                    <input type="date" id="sendsequestercourt" name="sendsequestercourt" class="form-control" value="{{ $data->sendsequester_court }}" /> -->
+                                    @if($data->sendsequester_court == Null)
+                                      ผลสืบ :
+                                      <select name="sendsequestercourt" class="form-control">
+                                        <option value="" selected>--- เลือกผล ---</option>
+                                        <option value="เจอ">เจอ</option>
+                                        <option value="ไม่เจอ">ไม่เจอ</option>
+                                      </select>
+                                     @else
+                                      <select id="sendsequestercourt" name="sendsequestercourt" class="form-control">
+                                        <option value="" disabled selected>--- เลือกผล ---</option>
+                                        @foreach ($Sendsequester as $key => $value)
+                                          <option value="{{$key}}" {{ ($key == $data->sendsequester_court) ? 'selected' : '' }}>{{$value}}</option>
+                                        @endforeach
+                                      </select>
+                                     @endif
+
+                                    วันที่สืบทรัพย์ใหม่
+                                    <input type="date" id="" name="" class="form-control" value=""/>
+                                    </div>
                                   </div>
                                 </div>
                               </div>

@@ -182,7 +182,7 @@
         <!-- Default box -->
         <div class="box box-danger box-solid">
           <div class="box-header with-border">
-            <h4 class="card-title p-3" align="center">ข้อมูงานฟ้อง</h4>
+            <h4 class="card-title p-3" align="center">ข้อมูเตรียมฟ้อง</h4>
             <div class="box-tools pull-right">
               <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                 <i class="fa fa-minus"></i></button>
@@ -190,7 +190,7 @@
                 <i class="fa fa-times"></i></button>
             </div>
           </div>
-          <div class="nav-tabs-custom">
+          <!-- <div class="nav-tabs-custom">
             <ul class="nav nav-tabs bg-warning">
               <li class="nav-item active"><a href="{{ action('LegislationController@edit',[$id, 2]) }}">ข้อมูลผู้เช่าซื้อ</a></li>
               <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 3]) }}">ชั้นศาล</a></li>
@@ -210,7 +210,7 @@
                 </ul>
               </li>
             </ul>
-          </div>
+          </div> -->
 
           <div class="box-body" style="background-color:#F1F1F1">
 
@@ -334,13 +334,13 @@
 
                             <div class="row">
                               <div class="col-md-4">
-                                ค้างจากงวด
+                                ค้างจากงวดที่
                                 <div class="form-inline" align="left">
                                   <input type="text" name="Beforeperiodlegis" class="form-control" style="width: 100%;" value="{{ $data->Beforeperiod_legis }}" readonly/>
                                 </div>
                               </div>
                               <div class="col-md-4">
-                                ถึงงวด
+                                ถึงงวดที่
                                 <div class="form-inline" align="left">
                                   <input type="text" name="Remainperiodlegis" class="form-control" style="width: 100%;" value="{{ $data->Remainperiod_legis }}" readonly/>
                                 </div>
@@ -402,7 +402,7 @@
                           <div class="box-body">
                             <div class="col-md-12">
                               <div class="row">
-                                <div class="col-md-6">
+                                <!-- <div class="col-md-6">
                                   <div class="" id="todo-list">
                                     <div class="form-inline" align="left">
                                       <span class="todo-wrap">
@@ -491,7 +491,7 @@
                                       </span>
                                     </div>
                                   </div>
-                                </div>
+                                </div> -->
 
                                 <div class="col-md-6">
                                   <div class="form-inline" align="left">
@@ -611,241 +611,6 @@
             </form>
           </div>
         </div>
-
-        <!-- <div class="modal fade" id="modal_default" style="display: none;">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true" >×</span></button>
-                <h4 class="modal-title" align="center">Default Modal</h4>
-              </div>
-              <div class="nav-tabs-custom">
-                <ul class="nav nav-tabs bg-success">
-                  <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">รายละเอียด</a></li>
-                  <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">ตารางผ่อนชำระ</a></li>
-                  <li class=""><a href="{{ action('LegislationController@edit',[$id, 5]) }}">เพิ่มข้อมูลชำระ</a></li>
-                </ul>
-                <div class="modal-body">
-                  <div class="tab-content">
-                    <div class="tab-pane active" id="tab_1">
-                      <form name="form1" id="sample_tab1" enctype="multipart/form-data">
-                        @csrf
-                        <div class="tab-content">
-                          <div class="form-inline" align="right">
-                            <div class="row">
-                               <div class="col-md-12">
-                                 <div class="row">
-                                    <div class="col-md-5">
-                                      <div class="form-inline" align="right">
-                                         <label>เลขที่สัญญา : </label>
-                                         <input type="text" name="ContractPromise" class="form-control" value="" style="width: 150px;" readonly/>
-                                       </div>
-                                    </div>
-                                    <div class="col-md-5">
-                                      <div class="form-inline" align="right">
-                                         <label>ชื่อ - นามสกุล :</label>
-                                         <input type="text" name="NamePromise" class="form-control" value="" style="width: 200px;" readonly/>
-                                       </div>
-                                    </div>
-                                 </div>
-
-                                 <div class="row">
-                                   <div class="col-md-5">
-                                     <div class="form-inline" align="right">
-                                        <label>ป้ายทะเบียน : </label>
-                                        <input type="text" name="RigisPromise" class="form-control" value="" style="width: 150px;" readonly/>
-                                      </div>
-                                   </div>
-                                    <div class="col-md-5">
-                                      <div class="form-inline" align="right">
-                                         <label>ยี่ห้อ :</label>
-                                         <input type="text" name="BrandPromise" class="form-control" value="" style="width: 150px;" readonly/>
-                                       </div>
-                                    </div>
-                                 </div>
-
-                                 <div class="row">
-                                   <div class="col-md-5">
-                                     <div class="form-inline" align="right">
-                                      <label>ปีรถ :</label>
-                                      <input type="text" name="YearcarPromise" class="form-control" value="" style="width: 150px;" readonly/>
-                                    </div>
-                                  </div>
-                                 </div>
-                               </div>
-                            </div>
-                          </div>
-                          <script>
-                              function addCommas(nStr){
-                                 nStr += '';
-                                 x = nStr.split('.');
-                                 x1 = x[0];
-                                 x2 = x.length > 1 ? '.' + x[1] : '';
-                                 var rgx = /(\d+)(\d{3})/;
-                                 while (rgx.test(x1)) {
-                                   x1 = x1.replace(rgx, '$1' + ',' + '$2');
-                                  }
-                                return x1 + x2;
-                              }
-                              function Comma(){
-                                var num11 = document.getElementById('TotalPromise').value;
-                                var num1 = num11.replace(",","");
-                                var num22 = document.getElementById('PayallPromise').value;
-                                var num2 = num22.replace(",","");
-                                var num33 = document.getElementById('Pay1Promise').value;
-                                var num3 = num33.replace(",","");
-                                var num44 = document.getElementById('Pay2Promise').value;
-                                var num4 = num44.replace(",","");
-                                var num55 = document.getElementById('Pay3Promise').value;
-                                var num5 = num55.replace(",","");
-                                var num66 = document.getElementById('SumPromise').value;
-                                var num6 = num66.replace(",","");
-                                var num77 = document.getElementById('DuePayPromise').value;
-                                var num7 = num77.replace(",","");
-                                var num88 = document.getElementById('SumAllPromise').value;
-                                var num8 = num88.replace(",","");
-                                document.form1.TotalPromise.value = addCommas(num1);
-                                document.form1.PayallPromise.value = addCommas(num2);
-                                document.form1.Pay1Promise.value = addCommas(num3);
-                                document.form1.Pay2Promise.value = addCommas(num4);
-                                document.form1.Pay3Promise.value = addCommas(num5);
-                                document.form1.SumPromise.value = addCommas(num6);
-                                document.form1.DuePayPromise.value = addCommas(num7);
-                                document.form1.SumAllPromise.value = addCommas(num8);
-                              }
-                          </script>
-
-                          <hr>
-                          <h4 class="card-title p-3" align="left"><b>รายละเอียดประนอมหนี้</b></h4>
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="row">
-                                <div class="col-md-5">
-                                  <div class="form-inline" align="right">
-                                     <label>ยอดประนอมหนี้ : </label>
-
-                                        <input type="text" name="TotalPromise" id="TotalPromise" class="form-control" style="width: 150px;" oninput="Comma();"/>
-
-                                        <input type="text" name="TotalPromise" id="TotalPromise" value=" " class="form-control" style="width: 150px;" oninput="Comma();"/>
-
-                                   </div>
-                                </div>
-                                <div class="col-md-5">
-                                  <div class="form-inline" align="right">
-                                     <label>ประเภทประนอมหนี้ :</label>
-                                       <select name="TypePromise" class="form-control" style="width: 150px;">
-                                         <option value="" selected>--- เลือกประนอม ---</option>
-                                         <option value="ประนอมที่ศาล">ประนอมที่ศาล</option>
-                                         <option value="ประนอมที่บริษัท">ประนอมที่บริษัท</option>
-                                         <option value="หลังยึดทรัพย์">หลังยึดทรัพย์</option>
-                                       </select>
-                                   </div>
-                                </div>
-                              </div>
-
-                              <div class="row">
-                                <div class="col-md-5">
-                                  <div class="form-inline" align="right">
-                                     <label>ยอดที่ต้องชำระ :</label>
-                                     <input type="text" name="PayallPromise" id="PayallPromise" class="form-control" style="width: 150px;" oninput="Comma();"/>
-                                   </div>
-                                </div>
-                                <div class="col-md-5">
-                                  <div class="form-inline" align="right">
-                                     <label>1 :</label>
-                                     <input type="text" name="Pay1Promise" id="Pay1Promise" class="form-control" style="width: 150px;" oninput="Comma();"/>
-                                     <br>
-                                     <label>2 :</label>
-                                     <input type="text" name="Pay2Promise" id="Pay2Promise" class="form-control" style="width: 150px;" oninput="Comma();"/>
-                                     <br>
-                                     <label>3 :</label>
-                                     <input type="text" name="Pay3Promise" id="Pay3Promise" class="form-control" style="width: 150px;" oninput="Comma();"/>
-                                   </div>
-                                </div>
-                              </div>
-
-                              <br>
-                              <div class="row">
-                                <div class="col-md-5">
-                                  <div class="form-inline" align="right">
-                                     <label>ยอดคงเหลือ : </label>
-                                     <input type="text" name="SumPromise" id="SumPromise" class="form-control" style="width: 150px;" oninput="Comma();"/>
-                                   </div>
-                                </div>
-                                <div class="col-md-5">
-                                  <div class="form-inline" align="right">
-                                     <label>จำนวนงวด :</label>
-                                     <input type="text" name="DuePromise" class="form-control" style="width: 150px;"/>
-                                   </div>
-                                </div>
-                              </div>
-
-                              <div class="row">
-                                <div class="col-md-5">
-                                  <div class="form-inline" align="right">
-                                    <label>งวดละ :</label>
-                                    <input type="text" name="DuePayPromise" id="DuePayPromise" class="form-control" style="width: 150px;" oninput="Comma();"/>
-                                   </div>
-                                </div>
-                              </div>
-
-                              <div class="row">
-                                <div class="col-md-5">
-                                  <div class="form-inline" align="right">
-                                     <label>วันที่วันที่ชำระล่าสุด : </label>
-                                     <input type="date" name="DatelastPromise" class="form-control" style="width: 150px;"/>
-                                  </div>
-                                </div>
-                                <div class="col-md-5">
-                                  <div class="form-inline" align="right">
-                                     <label>ยอดคงเหลือล่าสุด : </label>
-                                     <input type="text" name="SumAllPromise" id="SumAllPromise" class="form-control" style="width: 150px;" oninput="Comma();"/>
-                                  </div>
-                                </div>
-                              </div>
-
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="form-inline" align="right">
-                            <input type="hidden" name="Getid" class="form-control" value="" style="width: 150px;" readonly/>
-                            <button class="btn btn-success btn-submit">Submit</button>
-                        </div>
-                      </form>
-                    </div>
-
-                    <div class="tab-pane" id="tab_2">
-                      <div class="table-responsive">
-                       <table class="table table-bordered" id="table1">
-                         <thead class="thead-dark bg-gray-light" >
-                           <tr>
-                             <th class="text-center" style="width:100px">ลำดับ</th>
-                             <th class="text-center">วันที่</th>
-                             <th class="text-center">จำนวนเงิน</th>
-                             <th class="text-center">ประเภท</th>
-                             <th class="text-center" style="width:200px">หมายเหตุ</th>
-                           </tr>
-                         </thead>
-
-                         <tbody>
-
-                         </tbody>
-                       </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div> -->
 
       <script>
       $(function () {
