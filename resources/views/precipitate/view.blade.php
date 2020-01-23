@@ -102,7 +102,7 @@
             @elseif($type == 3) {{-- ระบบ แจ้งเตือนติดตาม --}}
               <form method="get" action="{{ route('Precipitate', 3) }}">
                 <div align="right" class="form-inline">
-                  <a href="{{ action('PrecController@excel') }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{3}}" class="btn btn-success btn-app">
+                  <a href="{{ action('PrecController@excel') }}?Fromstart={{$fstart}}&Toend={{$tend}}&Fromdate={{$fdate}}&Todate={{$tdate}}&type={{3}}" class="btn btn-success btn-app">
                     <span class="fa fa-file-excel-o"></span> Excel
                   </a>
                   <button type="submit" class="btn btn-warning btn-app">
@@ -151,6 +151,7 @@
                           <th class="text-center">ชื่อ-สกุล</th>
                           @if($type == 3)
                             <th class="text-center">เบอร์โทร</th>
+                            <th class="text-center">งานติดตาม</th>
                           @endif
                           <th class="text-center">ชำระล่าสุด</th>
                           <th class="text-center">งวดละ</th>
@@ -171,6 +172,7 @@
                             <td class="text-left"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->SNAM.$row->NAME1)."   ".str_replace(" ","",$row->NAME2))}} </td>
                             @if($type == 3)
                               <td class="text-left"> {{iconv('Tis-620','utf-8', $row->TELP)}} </td>
+                              <td class="text-center"> {{iconv('Tis-620','utf-8', $row->CONTSTAT)}} </td>
                             @endif
                             <td class="text-center">
                               @php

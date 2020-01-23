@@ -1623,7 +1623,7 @@
                               <div class="form-inline" align="right">
                                 <label>ประกันภัย : </label>
                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                  <select name="Insurancecar" class="form-control" style="width: 250px;">
+                                  <select id="Insurancecar" name="Insurancecar" class="form-control" style="width: 250px;" onchange="insurance();">
                                     <option value="" selected>--- ประกันภัย ---</option>
                                     @foreach ($Insurancecarr as $key => $value)
                                        <option value="{{$key}}" {{ ($key == $data->Insurance_car) ? 'selected' : '' }}>{{$value}}</option>
@@ -1633,7 +1633,7 @@
                                   @if($GetDocComplete != Null)
                                     <input type="text" id="Insurancecar" name="Insurancecar" value="{{$data->Insurance_car}}" class="form-control" style="width: 250px;" placeholder="ประกันภัย" readonly />
                                   @else
-                                    <select name="Insurancecar" class="form-control" style="width: 250px;">
+                                    <select id="Insurancecar" name="Insurancecar" class="form-control" style="width: 250px;" onchange="insurance();">
                                       <option value="" selected>--- ประกันภัย ---</option>
                                       @foreach ($Insurancecarr as $key => $value)
                                          <option value="{{$key}}" {{ ($key == $data->Insurance_car) ? 'selected' : '' }}>{{$value}}</option>
