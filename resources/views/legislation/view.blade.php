@@ -53,6 +53,8 @@
             <h4 class="card-title" align="center"><b>รายชื่อส่งฟ้อง</b></h4>
           @elseif($type == 2)
             <h4 class="card-title" align="center"><b>งานฟ้อง</b></h4>
+          @elseif($type == 6)
+            <h4 class="card-title" align="center"><b>งานเตรียมส่งฟ้อง</b></h4>
           @endif
 
           <div class="box-tools pull-right">
@@ -81,7 +83,7 @@
                      <table class="table table-bordered" id="table">
                         <thead class="thead-dark bg-gray-light" >
                           <tr>
-                            <th class="text-center">ลำดับ</th>
+                            <th class="text-center" style="width: 10px">ลำดับ</th>
                             <th class="text-center">เลขที่สัญญา</th>
                             <th class="text-center">ชื่อ-สกุล</th>
                             <th class="text-center">บัตรประชาชน</th>
@@ -89,6 +91,7 @@
                             <th class="text-center">ยี่ห้อ</th>
                             <th class="text-center">ปีรถ</th>
                             <th class="text-center">สถานะ</th>
+                            <th class="text-center">งวด</th>
                             <th class="text-center" style="width: 100px">ตัวเลือก</th>
                           </tr>
                         </thead>
@@ -132,6 +135,7 @@
                                   @endif
                                 @endif
                               </td>
+                              <td class="text-center"> {{$row->HLDNO}} </td>
                               <td class="text-center">
                                 @php
                                    $StrCon = explode("/",$row->CONTNO);
@@ -143,8 +147,8 @@
 
                                 @foreach($data as $key => $row1)
                                   @if($row->CONTNO == $row1->Contract_legis)
-                                    <button class="btn btn-success btn-sm" title="ส่งฟ้องแล้ว">
-                                      <span class="glyphicon glyphicon-lock"></span> ส่งฟ้องแล้ว
+                                    <button class="btn btn-success btn-sm" title="เตรียมเรียบร้อย">
+                                      <span class="glyphicon glyphicon-lock"></span> เตรียมเรียบร้อย
                                     </button>
                                     @php
                                       $Tax = "Y";
@@ -153,8 +157,8 @@
                                 @endforeach
 
                                 @if($Tax == "N")
-                                  <a href="{{ route('legislation.Savestore', [$SetStr1,$SetStr2,$Realty,1]) }}" id="edit" class="btn btn-danger btn-sm" title="ส่งฟ้อง">
-                                    <span class="glyphicon glyphicon-edit"></span> รอส่งฟ้อง
+                                  <a href="{{ route('legislation.Savestore', [$SetStr1,$SetStr2,$Realty,1]) }}" id="edit" class="btn btn-danger btn-sm" title="เตรียมเอกสาร">
+                                    <span class="glyphicon glyphicon-edit"></span> เตรียมเอกสาร
                                   </a>
                                 @endif
                               </td>
@@ -245,11 +249,14 @@
                             <td class="text-center"> {{$row->Idcard_legis}} </td>
                             <td class="text-center"> {{ DateThai($row->DateDue_legis) }} </td>
                             <td class="text-center">
-                              <!-- <input type="button" name="edit_botton" id="edit_botton" value="{{ $row->id }}" class="btn btn-success btn-sm edit_botton"> -->
 
-                              <a href="#" class="btn btn-info btn-sm" title="พิมพ์">
+                              <!-- <a href="#" class="btn btn-info btn-sm" title="ดูรายการ" data-toggle="modal" data-target="#modal-default">
+                              <span class="glyphicon glyphicon-eye-open"></span> ดู
+                              </a> -->
+
+                              <!-- <a href="#" class="btn btn-info btn-sm" title="พิมพ์">
                                 <span class="glyphicon glyphicon-eye-open"></span> พิมพ์
-                              </a>
+                              </a> -->
                               <a href="{{ action('LegislationController@edit',[$row->id,$type]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                 <span class="glyphicon glyphicon-pencil"></span> แก้ไข
                               </a>
@@ -489,8 +496,122 @@
                     </table>
                   </div>
                 </div>
+              @elseif($type == 6)
+                <div class="col-md-12">
+                  <hr>
+                  <div class="table-responsive">
+                    <table class="table table-bordered" id="table">
+                      <thead class="thead-dark bg-gray-light" >
+                        <tr>
+                          <th class="text-center">ลำดับ</th>
+                          <th class="text-center">แจ้งเตือน</th>
+                          <th class="text-center">เลขที่สัญญา</th>
+                          <th class="text-center">ชื่อ-สกุล</th>
+                          <th class="text-center">บัตรประชาชน</th>
+                          <th class="text-center">วันที่ทำสัญญา</th>
+                          <th class="text-center" style="width: 200px">ตัวเลือก</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach($data as $key => $row)
+                          <tr>
+                            <td class="text-center"> {{$key+1}} </td>
+                            <td class="text-center">
+                              @if($row->examiday_court != Null)
+                                @php
+                                  $examidaydate = date_create($row->examiday_court);
+                                  $Newdate = date_create($date);
+                                  $DateEx = date_diff($Newdate,$examidaydate);
+                                @endphp
+                                @php
+                                  $orderdaydate = date_create($row->orderday_court);
+                                  $DateEx2 = date_diff($Newdate,$orderdaydate);
+                                @endphp
+                                @php
+                                  $checkdaydate = date_create($row->checkday_court);
+                                  $DateEx3 = date_diff($Newdate,$checkdaydate);
+                                @endphp
+                                @php
+                                  $setofficedate = date_create($row->setoffice_court);
+                                  $DateEx4 = date_diff($Newdate,$setofficedate);
+                                @endphp
+                                @php
+                                  $checkresultsdate = date_create($row->checkresults_court);
+                                  $DateEx5 = date_diff($Newdate,$checkresultsdate);
+                                @endphp
+                                @php
+                                  $sequesterdate = date_create($row->sequester_court);
+                                  $DateEx6 = date_diff($Newdate,$sequesterdate);
+                                @endphp
+
+                                @if($Newdate <= $examidaydate)
+                                  @if($DateEx->d <= 7)
+                                    <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> สืบพยาน {{ $DateEx->d }} วัน</span>
+                                  @endif
+                                @elseif($Newdate <= $orderdaydate)
+                                  @if($DateEx2->d <= 7)
+                                    <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> ส่งคำบังคับ {{ $DateEx2->d }} วัน</span>
+                                  @endif
+                                @elseif($Newdate <= $checkdaydate)
+                                  @if($DateEx3->d <= 7)
+                                    <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> ตรวจผลหมาย {{ $DateEx3->d }} วัน</span>
+                                  @endif
+                                @elseif($Newdate <= $setofficedate)
+                                  @if($DateEx4->d <= 7)
+                                    <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> ตั้งเจ้าพนักงาน {{ $DateEx4->d }} วัน</span>
+                                  @endif
+                                @elseif($Newdate <= $checkresultsdate)
+                                  @if($DateEx5->d <= 7)
+                                    <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> ตรวจผลหมายตั้ง {{ $DateEx5->d }} วัน</span>
+                                  @endif
+                                @elseif($Newdate <= $sequesterdate)
+                                  @if($DateEx6->d <= 7)
+                                    <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> ตรวจผลหมายตั้ง {{ $DateEx6->d }} วัน</span>
+                                  @endif
+                                @endif
+                              @endif
+                            </td>
+                            <td class="text-center"> {{$row->Contract_legis}}</a></td>
+                            <td class="text-center"> {{$row->Name_legis}} </td>
+                            <td class="text-center"> {{$row->Idcard_legis}} </td>
+                            <td class="text-center"> {{ DateThai($row->DateDue_legis) }} </td>
+                            <td class="text-center">
+                              <a href="{{ action('LegislationController@edit',[$row->id,$type]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
+                                <span class="glyphicon glyphicon-pencil"></span> แก้ไข
+                              </a>
+                              <div class="form-inline form-group">
+                                <form method="post" class="delete_form" action="{{ action('LegislationController@destroy',[$row->id ,1]) }}">
+                                {{csrf_field()}}
+                                  <input type="hidden" name="_method" value="DELETE" />
+                                  <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
+                                    <span class="glyphicon glyphicon-trash"></span> ลบ
+                                  </button>
+                                </form>
+                              </div>
+                            </td>
+                          </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               @endif
            </div>
+
+           <div class="modal fade" id="modal-default">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title">ข้อมูลรายละเอียด...</h4>
+                </div>
+                <div class="modal-body">
+                  <div class="modal-footer"></div>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <!-- Popup -->
           <!-- <script type="text/javascript">
@@ -519,14 +640,25 @@
       	     });
           </script> -->
 
-          <script type="text/javascript">
-             $(document).ready(function() {
-               $('#table').DataTable( {
-                 "order": [[ 2, "asc" ]]
+          @if($type == 1 or $type == 6)
+            <script type="text/javascript">
+               $(document).ready(function() {
+                 $('#table').DataTable( {
+                   "order": [[ 1, "asc" ]]
+                 });
                });
-             });
+            </script>
+          @elseif($type == 2)
+            <script type="text/javascript">
+            $(document).ready(function() {
+              $('#table').DataTable( {
+                "order": [[ 1, "asc" ]]
+              });
+            });
+            </script>
+          @endif
 
-            // $(".edit_botton").click(function(e){
+            <!-- // $(".edit_botton").click(function(e){
             //    var edit_botton = $("input[edit_botton=edit_botton]").val()
             //    $.ajax({
             //     url:"{{ route('legislation.update',[00, 5]) }}",
@@ -541,9 +673,7 @@
             //         $('#modal_default').modal('show');
             //       }
             //     });
-            //   });
-
-           </script>
+            //   }); -->
 
           <script type="text/javascript">
             $(".alert").fadeTo(3000, 1000).slideUp(1000, function(){

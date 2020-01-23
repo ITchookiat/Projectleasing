@@ -26,9 +26,10 @@ class LegislationController extends Controller
                   ->table('SFHP.ARMAST')
                   ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
                   ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
-                  ->whereBetween('SFHP.ARMAST.HLDNO',[6.7,8.69])
+                  ->whereBetween('SFHP.ARMAST.HLDNO',[6.7,99.99])
                   ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
                   ->get();
+                  // dd($data);
 
                   $count = count($data);
                   for($i=0; $i<$count; $i++){
@@ -41,7 +42,7 @@ class LegislationController extends Controller
         $dataAro = DB::connection('ibmi')
                   ->table('SFHP.ARMAST')
                   ->join('SFHP.AROTHGAR','SFHP.ARMAST.CONTNO','=','SFHP.AROTHGAR.CONTNO')
-                  ->whereBetween('SFHP.ARMAST.HLDNO',[6.7,8.69])
+                  ->whereBetween('SFHP.ARMAST.HLDNO',[6.7,199.99])
                   ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
                   ->get();
 
@@ -68,7 +69,16 @@ class LegislationController extends Controller
                   ->orderBy('legislations.Contract_legis', 'ASC')
                   ->get();
 
-        // dd($data);
+        $type = $request->type;
+        return view('legislation.view', compact('type', 'data'));
+      }
+      elseif ($request->type == 6) {
+        $data = DB::table('legislations')
+                  ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+                  ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+                  ->orderBy('legislations.Contract_legis', 'ASC')
+                  ->get();
+
         $type = $request->type;
         return view('legislation.view', compact('type', 'data'));
       }
@@ -94,13 +104,14 @@ class LegislationController extends Controller
     {
       $SetDate = ($request->get('DatePayment'));
       $DateDue = \Carbon\Carbon::parse($SetDate)->format('Y')-543 ."-". \Carbon\Carbon::parse($SetDate)->format('m')."-". \Carbon\Carbon::parse($SetDate)->format('d');
+      $SetGoldPay = str_replace (",","",$request->get('GoldPayment'));
       // dd($DateDue);
 
       if ($type == 5) { //เพิ่มข้อมูลชำระ
         $LegisPay = new legispayment([
           'legis_Com_Payment_id' => $id,
           'Date_Payment' => $DateDue,
-          'Gold_Payment' =>  $request->get('GoldPayment'),
+          'Gold_Payment' =>  $SetGoldPay,
           'Type_Payment' =>  $request->get('TypePayment'),
           'Adduser_Payment' =>  $request->get('AdduserPayment'),
           'Note_Payment' =>  $request->get('NotePayment'),
@@ -118,6 +129,12 @@ class LegislationController extends Controller
 
     public function Savestore(Request $request, $SetStr1, $SetStr2, $SetRealty, $type)
     {
+      date_default_timezone_set('Asia/Bangkok');
+      $Y = date('Y');
+      $m = date('m');
+      $d = date('d');
+      $date = $Y.'-'.$m.'-'.$d;
+
       if ($type == 1) {
         $SetStrConn = $SetStr1."/".$SetStr2;
         $data = DB::connection('ibmi')
@@ -133,6 +150,7 @@ class LegislationController extends Controller
                   ->first();
 
         $LegisDB = new Legislation([
+          'Date_legis' => $date,
           'KeyCourts_id' => Null,
           'KeyCompro_id' => Null,
           'Contract_legis' => $data->CONTNO,
@@ -154,7 +172,7 @@ class LegislationController extends Controller
           'Countperiod_legis' => $data->T_NOPAY,
           'Beforeperiod_legis' => $data->EXP_FRM,
           'Beforemoey_legis' => $data->SMPAY,
-          'Remainperiod_legis' => $data->T_NOPAY - $data->EXP_FRM,
+          'Remainperiod_legis' => $data->HLDNO,
           'Sumperiod_legis' => $data->BALANC - $data->SMPAY,
           'Flag' => 'Y',
         ]);
@@ -228,7 +246,12 @@ class LegislationController extends Controller
         $data = DB::table('legiscourts')
         ->where('legiscourts.legislation_id',$id)->first();
 
-        return view('legislation.court',compact('data','id','type'));
+        $Sendsequester = [
+          'เจอ' => 'เจอ',
+          'ไม่เจอ' => 'ไม่เจอ',
+        ];
+
+        return view('legislation.court',compact('data','id','type','Sendsequester'));
       }
       elseif ($type == 4) { //ประนอมหนี้-รายละเอียด
         $data = DB::table('legislations')
@@ -237,35 +260,57 @@ class LegislationController extends Controller
                   ->where('legislations.id', $id)
                   ->orderBy('legispayments.Payment_id', 'DESC')
                   ->first();
-// dd($data);
+
         $dataPay = DB::table('legispayments')
                   ->where('legispayments.legis_Com_Payment_id', $id)
                   ->get();
 
-        // dd($dataPay);
-        $SumCount = 0;
-        $SumPay = 0;
+        // dd($data);
+        $SumCount = 0;  //ค่าผ่อนชำระทั้งหมด
+        $SumPay = 0;    //ค่าชำระ
+        $SumPayDue = 0; //ค่าเงินก้อนแรก
+
         foreach ($dataPay as $key => $value) {
           $GetPay = str_replace (",","",$value->Gold_Payment);
+          if ($value->Type_Payment == "เงินก้อนแรก") {
+            $SumPayDue = $SumPayDue + $GetPay;
+          }
           $SumCount = $SumCount + $GetPay;
         }
+
+        // dd($SumPayDue);
 
         if ($data->Total_Promise != Null) {
           $Getdata = str_replace (",","",$data->Total_Promise);
           $SumPay = $Getdata - $SumCount;
-        }
-        // dd($SumPay);
+          $SumAllPAy = $Getdata - $SumPayDue;
 
+          if ($data->Discount_Promise != Null) {
+            $GetDiscount = str_replace (",","",$data->Discount_Promise);
+            $SumPay = $SumPay - $GetDiscount;
+          }
+        }else {
+          $SumAllPAy = 0;
+          $Getdata = 0;
+        }
+
+        // dd($SumAllPAy);
         $Typecom = [
           'ประนอมที่ศาล' => 'ประนอมที่ศาล',
           'ประนอมที่บริษัท' => 'ประนอมที่บริษัท',
           'ประนอมหลังยึดทรัพย์' => 'ประนอมหลังยึดทรัพย์',
         ];
 
-        return view('legislation.compromise',compact('data','id','type','Typecom','dataPay','SumPay'));
+        return view('legislation.compromise',compact('data','id','type','Typecom','dataPay','SumPay','SumAllPAy','Getdata','SumCount'));
       }
       elseif ($type == 5) { //เพิ่มข้อมูลชำระ
         return view('legislation.payment',compact('data','id','type'));
+      }
+      elseif ($type == 6) { //เพิ่มข้อมูลงาน วิเคราะห์
+        $data = DB::table('legislations')
+        ->where('legislations.id',$id)->first();
+
+        return view('legislation.editAnalyze',compact('data','id','type'));
       }
       elseif ($type == 11){ //รูปและแผนที
         $data = DB::table('legiscourts')
@@ -301,6 +346,11 @@ class LegislationController extends Controller
      */
     public function update(Request $request, $id, $type)
     {
+      date_default_timezone_set('Asia/Bangkok');
+      $Y = date('Y');
+      $m = date('m');
+      $d = date('d');
+      $date = $Y.'-'.$m.'-'.$d;
       // dd($request);
       if ($type == 2) {     //ข้อมูลผู้เช่าซื้อ
         $user = Legislation::find($id);
@@ -363,20 +413,24 @@ class LegislationController extends Controller
         $data = DB::table('Legiscompromises')
                   ->where('Legiscompromises.legisPromise_id', $id)->first();
 
+        $SetSumPromise = str_replace (",","",$request->get('SumPromise'));
+        $SetDuePay = str_replace (",","",$request->get('DuePayPromise'));
+        $SetDiscount = str_replace (",","",$request->get('DiscountPromise'));
+
         if ($data == Null) {
+          // dd($request->get('FlagPromise'));
             $LegisPromise = new Legiscompromise([
+              'Date_Promise' => $date,
               'legisPromise_id' => $id,
               'KeyPay_id' => Null,
+              'Flag_Promise' => $request->get('FlagPromise'),
               'Total_Promise' => $request->get('TotalPromise'),
               'Type_Promise' =>  $request->get('TypePromise'),
               'DateNsale_Promise' =>  $request->get('DateNsalePromise'),
               'Dateset_Promise' =>  $request->get('DatesetPromise'),
               'Payall_Promise' =>  $request->get('PayallPromise'),
-              'Pay1_Promise' =>  $request->get('Pay1Promise'),
-              'Pay2_Promise' =>  $request->get('Pay2Promise'),
-              'Pay3_Promise' =>  $request->get('Pay3Promise'),
-              'Sum_Promise' =>  $request->get('SumPromise'),
-              'Discount_Promise' =>  $request->get('DiscountPromise'),
+              'Sum_Promise' =>  $SetSumPromise,
+              'Discount_Promise' =>  $SetDiscount,
               'Due_Promise' =>  $request->get('DuePromise'),
               'DuePay_Promise' =>  $request->get('DuePayPromise'),
               'Datelast_Promise' =>  $request->get('DatelastPromise'),
@@ -390,19 +444,18 @@ class LegislationController extends Controller
             $Legislation->update();
 
         }else {
+          // dd($request->get('FlagPromise'));
           $LegisPromise = Legiscompromise::where('legisPromise_id',$id)->first();
+            $LegisPromise->Flag_Promise = $request->get('FlagPromise');
             $LegisPromise->Total_Promise = $request->get('TotalPromise');
             $LegisPromise->Type_Promise = $request->get('TypePromise');
             $LegisPromise->DateNsale_Promise = $request->get('DateNsalePromise');
             $LegisPromise->Dateset_Promise = $request->get('DatesetPromise');
             $LegisPromise->Payall_Promise = $request->get('PayallPromise');
-            $LegisPromise->Pay1_Promise = $request->get('Pay1Promise');
-            $LegisPromise->Pay2_Promise = $request->get('Pay2Promise');
-            $LegisPromise->Pay3_Promise = $request->get('Pay3Promise');
-            $LegisPromise->Sum_Promise = $request->get('SumPromise');
-            $LegisPromise->Discount_Promise = $request->get('DiscountPromise');
+            $LegisPromise->Sum_Promise = $SetSumPromise;
+            $LegisPromise->Discount_Promise = $SetDiscount;
             $LegisPromise->Due_Promise = $request->get('DuePromise');
-            $LegisPromise->DuePay_Promise = $request->get('DuePayPromise');
+            $LegisPromise->DuePay_Promise = $SetDuePay;
             $LegisPromise->Datelast_Promise = $request->get('DatelastPromise');
             $LegisPromise->SumAll_Promise = $request->get('SumAllPromise');
             $LegisPromise->Note_Promise = $request->get('NotePromise');
@@ -468,9 +521,6 @@ class LegislationController extends Controller
               'Total_Promise' => Null,
               'Type_Promise' =>  Null,
               'Payall_Promise' =>  Null,
-              'Pay1_Promise' =>  Null,
-              'Pay2_Promise' =>  Null,
-              'Pay3_Promise' =>  Null,
               'Sum_Promise' =>  Null,
               'Due_Promise' =>  Null,
               'DuePay_Promise' =>  Null,

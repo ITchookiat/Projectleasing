@@ -147,6 +147,9 @@
                   <a href="{{ route('legislation',1) }}"><i class="fa fa-cube text-primary"></i>รายชื่อส่งฟ้อง</a>
               </li>
               <li>
+                  <a href="{{ route('legislation',6) }}"><i class="fa fa-cube text-primary"></i>ทีมวิเคราะห์</a>
+              </li>
+              <li>
                   <a href="{{ route('legislation',2) }}"><i class="fa fa-cube text-primary"></i>งานฟ้อง</a>
               </li>
             </ul>

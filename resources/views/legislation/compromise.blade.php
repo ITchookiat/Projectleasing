@@ -20,6 +20,14 @@
     <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
 
+    <style>
+      input[type="checkbox"] { position: absolute; opacity: 0; z-index: -1; }
+      input[type="checkbox"]+span { font: 16pt sans-serif; color: #000; }
+      input[type="checkbox"]+span:before { font: 16pt FontAwesome; content: '\00f096'; display: inline-block; width: 16pt; padding: 2px 0 0 3px; margin-right: 0.5em; }
+      input[type="checkbox"]:checked+span:before { content: '\00f046'; }
+      input[type="checkbox"]:focus+span:before { outline: 1px dotted #aaa; }
+    </style>
+
       <section class="content-header">
         <h1>
           ชั้นศาล
@@ -68,6 +76,15 @@
                            <div class="col-md-9">
                              <div class="row">
                                 <div class="col-md-4">
+                                    <label>
+                                      @if($data->Flag_Promise == "Y")
+                                        <input type="checkbox" name="FlagPromise" value="Y" checked/>
+                                      @else
+                                        <input type="checkbox" name="FlagPromise" value="Y"/>
+                                      @endif
+                                      <span>ลูกค้าจ่ายจบ</span>
+                                    </label>
+
                                   <div class="form-inline" align="right">
                                      <label>เลขที่สัญญา : </label>
                                      <input type="text" name="ContractPromise" class="form-control" value="{{ $data->Contract_legis }}" style="width: 150px;" readonly/>
@@ -130,52 +147,64 @@
                             var num1 = num11.replace(",","");
                             var num22 = document.getElementById('PayallPromise').value;
                             var num2 = num22.replace(",","");
-                            var num33 = document.getElementById('Pay1Promise').value;
-                            var num3 = num33.replace(",","");
-                            var num44 = document.getElementById('Pay2Promise').value;
-                            var num4 = num44.replace(",","");
-                            var num55 = document.getElementById('Pay3Promise').value;
-                            var num5 = num55.replace(",","");
                             var num66 = document.getElementById('SumPromise').value;
                             var num6 = num66.replace(",","");
-                            var num77 = document.getElementById('DuePayPromise').value;
-                            var num7 = num77.replace(",","");
                             var num88 = document.getElementById('SumAllPromise').value;
                             var num8 = num88.replace(",","");
+
                             document.form1.TotalPromise.value = addCommas(num1);
                             document.form1.PayallPromise.value = addCommas(num2);
-                            document.form1.Pay1Promise.value = addCommas(num3);
-                            document.form1.Pay2Promise.value = addCommas(num4);
-                            document.form1.Pay3Promise.value = addCommas(num5);
                             document.form1.SumPromise.value = addCommas(num6);
-                            document.form1.DuePayPromise.value = addCommas(num7);
                             document.form1.SumAllPromise.value = addCommas(num8);
                           }
 
-                          function Discount(){
-                            var num11 = document.getElementById('DiscountPromise').value;
-                            var num1 = num11.replace(",","");
-                            var num22 = document.getElementById('SumPromise').value;
-                            var num2 = num22.replace(",","");
-                            var num33 = document.getElementById('SumPromise2').value;
-                            var num3 = num33.replace(",","");
+                          function Discount() {
+                              var txtSum = document.getElementById('SumPromise').value;
+                              var txtDis = document.getElementById('DiscountPromise').value;
+                              var txtComma = txtDis.replace(",","");
+                              var txtSumhide = document.getElementById('Sumhide').value;
+                              var txtDishide = document.getElementById('Discounthide').value;
 
+                              // if (txtSetPay1 != 0 || txtSetPay2 != 0 || txtSetPay3 != 0) {
+                              //   var result = parseFloat(txtSumhide) - parseFloat(txtSetPay1) - parseFloat(txtSetPay2) - parseFloat(txtSetPay3);
+                              //   console.log(result);
 
-                            if (num2 != num3) {
-                              console.log(num2);
-                              console.log(num3);
-                              var SumCount = parseFloat(num3);
-                            }else {
-                              var SumCount = parseFloat(num2) - parseFloat(num1);
-                            }
+                              if (txtDis != txtDishide) {
+                                var SetDiscount = parseFloat(txtDis) - parseFloat(txtDishide);
+                                // var result = parseFloat(result) - parseFloat(SetDiscount);
+                                var result = parseFloat(txtSumhide) - parseFloat(SetDiscount);
+                              }else if (txtDis == 0) {
+                                console.log(txtDis);
+                                var result = parseFloat(txtSumhide);
+                              }
 
-                            if (!isNaN(SumCount)) {
-                              document.form1.SumPromise.value = addCommas(SumCount);
-                              document.form1.DiscountPromise.value = addCommas(num1);
-                            }
+                              if (!isNaN(result)) {
+                                document.form1.SumPromise.value = addCommas(result);
+                              }
                           }
 
+                          function DuePay() {
+                              var SumPayAll = document.getElementById('SumPayAll').value;
+                              var txtSumPayAll = SumPayAll.replace(",","");
+                              var txtDuepay = document.getElementById('DuePayPromise').value;
+                              var txtSetDue = txtDuepay.replace(",","");
 
+                              var Sum = (parseFloat(txtSumPayAll) / parseFloat(txtSetDue));
+                              var result = Math.floor(Sum);
+
+                              if (txtSetDue == 0) {
+                                console.log(txtSetDue);
+                                var result = 0;
+                              }
+
+                              if (!isNaN(result)) {
+                                document.form1.DuePromise.value = result;
+                                document.form1.DuePayPromise.value = numberWithCommas(txtSetDue);
+                              }
+                          }
+                          function numberWithCommas(x) {
+                              return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                          }
                       </script>
 
                       <hr>
@@ -198,7 +227,6 @@
                                       </div>
                                    </div>
                                    <div class="col-md-6">
-
                                      <script>
                                        function income(){
                                          console.log(document.getElementById("TypePromise").value);
@@ -229,93 +257,91 @@
                                           </select>
                                          @endif
                                       </div>
+                                      <hr>
                                    </div>
+
 
                                    @if($data->Type_Promise != "ประนอมหลังยึดทรัพย์")
                                       <div id="DateShow" style="display:none">
                                   @else
                                       <div id="DateShow">
                                   @endif
-                                     <div class="col-md-6">
-                                       <div class="form-inline" align="right">
-                                         <label>วันงดขายเข้าตลาด :</label>
-                                         <input type="date" name="DateNsalePromise" value="{{ $data->DateNsale_Promise }}" class="form-control" style="width: 200px;"/>
+                                         <div class="col-md-6">
+                                           <div class="form-inline" align="right">
+                                             <label>วันงดขายเข้าตลาด :</label>
+                                             <input type="date" name="DateNsalePromise" value="{{ $data->DateNsale_Promise }}" class="form-control" style="width: 200px;"/>
+                                           </div>
+                                         </div>
+                                         <div class="col-md-6">
+                                           <div class="form-inline" align="right">
+                                             <label>วันครบกำหนด :</label>
+                                             <input type="date" name="DatesetPromise" value="{{ $data->Dateset_Promise }}" class="form-control" style="width: 200px;"/>
+                                           </div>
+                                         </div>
                                        </div>
-                                     </div>
-                                     <div class="col-md-6">
-                                       <div class="form-inline" align="right">
-                                         <label>วันครบกำหนด :</label>
-                                         <input type="date" name="DatesetPromise" value="{{ $data->Dateset_Promise }}" class="form-control" style="width: 200px;"/>
-                                       </div>
-                                     </div>
-                                   </div>
 
-                                   <div class="col-md-6">
-                                     <div class="form-inline" align="right">
-                                        <label>ยอดที่ต้องชำระ :</label>
-                                        <input type="text" name="PayallPromise" id="PayallPromise" value="{{ $data->Payall_Promise }}" class="form-control" style="width: 200px;" oninput="Comma();"/>
-                                      </div>
-                                   </div>
-                                   <div class="col-md-6">
-                                     <div class="form-inline" align="right">
-                                        <label>งวดที่ 1 :</label>
-                                        <input type="text" name="Pay1Promise" id="Pay1Promise" value="{{ $data->Pay1_Promise }}" class="form-control" style="width: 200px;" oninput="Comma();"/>
-                                        <br>
-                                        <label>งวดที่ 2 :</label>
-                                        <input type="text" name="Pay2Promise" id="Pay2Promise" value="{{ $data->Pay2_Promise }}" class="form-control" style="width: 200px;" oninput="Comma();"/>
-                                        <br>
-                                        <label>งวดที่ 3 :</label>
-                                        <input type="text" name="Pay3Promise" id="Pay3Promise" value="{{ $data->Pay3_Promise }}" class="form-control" style="width: 200px;" oninput="Comma();"/>
-                                      </div>
-                                      <br>
-                                   </div>
-                                   <div class="col-md-6">
-                                     <div class="form-inline" align="right">
-                                        <label>ยอดคงเหลือ : </label>
-                                        <input type="text" id="SumPromise" name="SumPromise" value="{{ number_format($SumPay, 2) }}" class="form-control" style="width: 200px;" oninput="Comma();"/>
-                                        <input type="hidden" id="SumPromise2" name="SumPromise2" value="{{ number_format($SumPay, 2) }}" class="form-control" style="width: 200px;" oninput="Comma();"/>
-                                      </div>
-                                   </div>
-                                   <div class="col-md-6">
-                                     <div class="form-inline" align="right">
-                                        <label>ส่วนลด :</label>
-                                        <input type="text" id="DiscountPromise" name="DiscountPromise" value="{{ $data->Discount_Promise }}" class="form-control" style="width: 200px;" oninput="Discount();"/>
-                                      </div>
-                                   </div>
-                                   <div class="col-md-6">
-                                     <div class="form-inline" align="right">
-                                        <label>จำนวนงวด :</label>
-                                        <input type="text" name="DuePromise" value="{{ $data->Due_Promise }}" class="form-control" style="width: 200px;"/>
-                                      </div>
-                                   </div>
-                                   <div class="col-md-6">
-                                     <div class="form-inline" align="right">
-                                       <label>งวดละ :</label>
-                                       <input type="text" name="DuePayPromise" id="DuePayPromise" value="{{ $data->DuePay_Promise }}" class="form-control" style="width: 200px;" oninput="Comma();"/>
-                                      </div>
-                                   </div>
-                                   <div class="col-md-6">
-                                     <div class="form-inline" align="right">
-                                        <label><font color="red">วันที่ชำระล่าสุด : </font></label>
-                                        @if($data->Date_Payment != Null)
-                                          <input type="text" name="DatelastPromise" value="{{ DateThai($data->Date_Payment) }}" class="form-control" style="width: 200px;" readonly/>
-                                        @else
-                                          <input type="text" name="DatelastPromise" class="form-control" style="width: 200px;" readonly/>
-                                        @endif
-                                     </div>
-                                   </div>
-                                   <div class="col-md-6">
-                                     <div class="form-inline" align="right">
-                                        <label><font color="red">ยอดชำระล่าสุด : </font></label>
-                                        <input type="text" name="SumAllPromise" id="SumAllPromise" value="{{ $data->Gold_Payment }}" class="form-control" style="width: 200px;" oninput="Comma();" readonly/>
-                                     </div>
-                                   </div>
+                                  <div class="col-md-6">
+                                    <div class="form-inline" align="right">
+                                      <label>ยอดที่ต้องชำระ :</label>
+                                      <input type="text" name="PayallPromise" id="PayallPromise" value="{{ $data->Payall_Promise }}" class="form-control" style="width: 200px;" oninput="Comma();"/>
+                                    </div>
+                                    <br>
+                                  </div>
+
+                                  <div class="col-md-6">
+                                    <div class="form-inline" align="right">
+                                      <label>ยอดคงเหลือ : </label>
+                                      <input type="text" id="SumPromise" name="SumPromise" value="{{ number_format($SumPay, 0) }}" class="form-control" style="width: 200px;" readonly/>
+                                      <input type="hidden" id="Sumhide" name="Sumhide" value="{{ $SumPay }}" class="form-control" style="width: 200px;"/>
+                                      <input type="hidden" id="SumPayAll" name="SumPayAll" value="{{ $SumAllPAy }}" class="form-control" style="width: 200px;"/>
+                                    </div>
+                                  </div>
+
+                                  <div class="col-md-6">
+                                    <div class="form-inline" align="right">
+                                      <label>ส่วนลด :</label>
+                                      <input type="text" id="DiscountPromise" name="DiscountPromise" value="{{ number_format(($data->Discount_Promise != '') ?$data->Discount_Promise: 0) }}" class="form-control" style="width: 200px;" onkeyup="Discount();" />
+                                      <input type="hidden" id="Discounthide" name="Discounthide" value="{{ $data->Discount_Promise }}" class="form-control" style="width: 200px;" />
+                                    </div>
+                                  </div>
+
+                                  <div class="col-md-6">
+                                    <div class="form-inline" align="right">
+                                      <label>จำนวนงวด :</label>
+                                      <input type="text" name="DuePromise" id="DuePromise" value="{{ $data->Due_Promise }}" class="form-control" style="width: 200px;" readonly/>
+                                    </div>
+                                  </div>
+
+                                  <div class="col-md-6">
+                                    <div class="form-inline" align="right">
+                                      <label>งวดละ :</label>
+                                      <input type="text" name="DuePayPromise" id="DuePayPromise" value="{{ number_format(($data->DuePay_Promise != '') ?$data->DuePay_Promise: 0) }}" class="form-control" style="width: 200px;" oninput="DuePay();"/>
+                                    </div>
+                                  </div>
+
+                                  <div class="col-md-6">
+                                    <div class="form-inline" align="right">
+                                      <label><font color="red">วันที่ชำระล่าสุด : </font></label>
+                                      @if($data->Date_Payment != Null)
+                                        <input type="text" name="DatelastPromise" value="{{ DateThai($data->Date_Payment) }}" class="form-control" style="width: 200px;" readonly/>
+                                      @else
+                                        <input type="text" name="DatelastPromise" class="form-control" style="width: 200px;" readonly/>
+                                      @endif
+                                    </div>
+                                  </div>
+
+                                  <div class="col-md-6">
+                                    <div class="form-inline" align="right">
+                                      <label><font color="red">ยอดชำระล่าสุด : </font></label>
+                                      <input type="text" name="SumAllPromise" id="SumAllPromise" value="{{ number_format($data->Gold_Payment, 2) }}" class="form-control" style="width: 200px;" oninput="Comma();" readonly/>
+                                    </div>
+                                  </div>
                                  </div>
 
                                  <div class="col-md-4">
                                     <div class="form-inline" align="right">
                                       <label style="vertical-align: top">หมายเหตุ : </label>
-                                      <textarea name="NotePromise" rows="12" cols="40"></textarea>
+                                      <textarea name="NotePromise" rows="12" class="form-control" style="width: 80%"></textarea>
                                     </div>
                                  </div>
                               </div>
@@ -341,8 +367,8 @@
                                       @foreach($dataPay as $key => $row)
                                       <tr>
                                         <td class="text-center"> {{$key+1}} </td>
-                                        <td class="text-center"> {{$row->Date_Payment}}</td>
-                                        <td class="text-center"> {{$row->Gold_Payment}} </td>
+                                        <td class="text-center"> {{ DateThai($row->Date_Payment) }}</td>
+                                        <td class="text-center"> {{ number_format($row->Gold_Payment, 2) }} </td>
                                         <td class="text-center"> {{$row->Type_Payment}} </td>
                                         <td class="text-center"> {{$row->Adduser_Payment}} </td>
                                         <td class="text-center">
@@ -359,7 +385,15 @@
                                       @endforeach
                                     </tbody>
                                 </table>
-                               </div>
+                                <div class="form-inline" align="left">
+                                  <label><font color="red">ค่างวดทั้งหมด : </font></label>
+                                  <input type="text" value="{{ number_format($Getdata, 2) }}" class="form-control" style="width: 150px;" readonly/>
+
+                                  <label><font color="red">ยอดชำระ : </font></label>
+                                  <input type="text" value="{{ number_format($SumCount, 2) }}" class="form-control" style="width: 150px;" readonly/>
+                                </div>
+
+                              </div>
                             </div>
                           </div>
                         </div>

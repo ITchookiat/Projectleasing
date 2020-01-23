@@ -15,16 +15,15 @@ class CreateLegiscompromisesTable extends Migration
     {
         Schema::create('legiscompromises', function (Blueprint $table) {
             $table->bigIncrements('Promise_id');
+            $table->string('Date_Promise')->nullable();
             $table->integer('legisPromise_id')->nullable();
             $table->integer('KeyPay_id')->nullable();       //Key ตารางผ่อนชำระ
+            $table->string('Flag_Promise')->nullable();
             $table->string('Total_Promise')->nullable();
             $table->string('Type_Promise')->nullable();
             $table->string('DateNsale_Promise')->nullable();
             $table->string('Dateset_Promise')->nullable();
             $table->string('Payall_Promise')->nullable();
-            $table->string('Pay1_Promise')->nullable();
-            $table->string('Pay2_Promise')->nullable();
-            $table->string('Pay3_Promise')->nullable();
             $table->string('Sum_Promise')->nullable();
             $table->string('Discount_Promise')->nullable();
             $table->string('Due_Promise')->nullable();
