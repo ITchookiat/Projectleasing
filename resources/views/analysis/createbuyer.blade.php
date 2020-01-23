@@ -1059,7 +1059,7 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                       <label>ประกันภัย : </label>
-                                      <select name="Insurancecar" class="form-control" style="width: 250px;">
+                                      <select id="Insurancecar" name="Insurancecar" class="form-control" style="width: 250px;" onchange="insurance();">
                                         <option value="" selected>--- ประกันภัย ---</option>
                                         <option value="มี ป2+ อยู่แล้ว">มี ป2+ อยู่แล้ว</option>
                                         <option value="ไม่ซื้อ">ไม่ซื้อ</option>
