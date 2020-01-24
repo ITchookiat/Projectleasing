@@ -55,6 +55,8 @@
             <h4 class="card-title" align="center"><b>งานฟ้อง</b></h4>
           @elseif($type == 6)
             <h4 class="card-title" align="center"><b>งานเตรียมส่งฟ้อง</b></h4>
+          @elseif($type == 7)
+            <h4 class="card-title" align="center"><b>งานเประนอมหนี้</b></h4>
           @endif
 
           <div class="box-tools pull-right">
@@ -595,6 +597,105 @@
                     </table>
                   </div>
                 </div>
+              @elseif($type == 7)
+                <div class="col-md-12">
+                  <hr>
+                  <div class="table-responsive">
+                    <table class="table table-bordered" id="table">
+                      <thead class="thead-dark bg-gray-light" >
+                        <tr>
+                          <th class="text-center">ลำดับ</th>
+                          <th class="text-center">แจ้งเตือน</th>
+                          <th class="text-center">เลขที่สัญญา</th>
+                          <th class="text-center">ชื่อ-สกุล</th>
+                          <th class="text-center">บัตรประชาชน</th>
+                          <th class="text-center">วันที่ทำสัญญา</th>
+                          <th class="text-center" style="width: 200px">ตัวเลือก</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach($data as $key => $row)
+                          <tr>
+                            <td class="text-center"> {{$key+1}} </td>
+                            <td class="text-center">
+                              @if($row->examiday_court != Null)
+                                @php
+                                  $examidaydate = date_create($row->examiday_court);
+                                  $Newdate = date_create($date);
+                                  $DateEx = date_diff($Newdate,$examidaydate);
+                                @endphp
+                                @php
+                                  $orderdaydate = date_create($row->orderday_court);
+                                  $DateEx2 = date_diff($Newdate,$orderdaydate);
+                                @endphp
+                                @php
+                                  $checkdaydate = date_create($row->checkday_court);
+                                  $DateEx3 = date_diff($Newdate,$checkdaydate);
+                                @endphp
+                                @php
+                                  $setofficedate = date_create($row->setoffice_court);
+                                  $DateEx4 = date_diff($Newdate,$setofficedate);
+                                @endphp
+                                @php
+                                  $checkresultsdate = date_create($row->checkresults_court);
+                                  $DateEx5 = date_diff($Newdate,$checkresultsdate);
+                                @endphp
+                                @php
+                                  $sequesterdate = date_create($row->sequester_court);
+                                  $DateEx6 = date_diff($Newdate,$sequesterdate);
+                                @endphp
+
+                                @if($Newdate <= $examidaydate)
+                                  @if($DateEx->d <= 7)
+                                    <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> สืบพยาน {{ $DateEx->d }} วัน</span>
+                                  @endif
+                                @elseif($Newdate <= $orderdaydate)
+                                  @if($DateEx2->d <= 7)
+                                    <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> ส่งคำบังคับ {{ $DateEx2->d }} วัน</span>
+                                  @endif
+                                @elseif($Newdate <= $checkdaydate)
+                                  @if($DateEx3->d <= 7)
+                                    <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> ตรวจผลหมาย {{ $DateEx3->d }} วัน</span>
+                                  @endif
+                                @elseif($Newdate <= $setofficedate)
+                                  @if($DateEx4->d <= 7)
+                                    <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> ตั้งเจ้าพนักงาน {{ $DateEx4->d }} วัน</span>
+                                  @endif
+                                @elseif($Newdate <= $checkresultsdate)
+                                  @if($DateEx5->d <= 7)
+                                    <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> ตรวจผลหมายตั้ง {{ $DateEx5->d }} วัน</span>
+                                  @endif
+                                @elseif($Newdate <= $sequesterdate)
+                                  @if($DateEx6->d <= 7)
+                                    <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> ตรวจผลหมายตั้ง {{ $DateEx6->d }} วัน</span>
+                                  @endif
+                                @endif
+                              @endif
+                            </td>
+                            <td class="text-center"> {{$row->Contract_legis}}</a></td>
+                            <td class="text-center"> {{$row->Name_legis}} </td>
+                            <td class="text-center"> {{$row->Idcard_legis}} </td>
+                            <td class="text-center"> {{ DateThai($row->DateDue_legis) }} </td>
+                            <td class="text-center">
+                              <a href="{{ action('LegislationController@edit',[$row->id,$type]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
+                                <span class="glyphicon glyphicon-pencil"></span> แก้ไข
+                              </a>
+                              <div class="form-inline form-group">
+                                <form method="post" class="delete_form" action="{{ action('LegislationController@destroy',[$row->id ,1]) }}">
+                                {{csrf_field()}}
+                                  <input type="hidden" name="_method" value="DELETE" />
+                                  <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
+                                    <span class="glyphicon glyphicon-trash"></span> ลบ
+                                  </button>
+                                </form>
+                              </div>
+                            </td>
+                          </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               @endif
            </div>
 
@@ -640,7 +741,7 @@
       	     });
           </script> -->
 
-          @if($type == 1 or $type == 6)
+          @if($type == 1 or $type == 6 or $type == 7)
             <script type="text/javascript">
                $(document).ready(function() {
                  $('#table').DataTable( {

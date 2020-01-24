@@ -152,6 +152,9 @@
               <li>
                   <a href="{{ route('legislation',2) }}"><i class="fa fa-cube text-primary"></i>งานฟ้อง</a>
               </li>
+              <li>
+                  <a href="{{ route('legislation',7) }}"><i class="fa fa-cube text-primary"></i>งานประนอมหนี</a>
+              </li>
             </ul>
           @endif
         </li>
