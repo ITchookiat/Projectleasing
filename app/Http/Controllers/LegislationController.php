@@ -510,6 +510,7 @@ class LegislationController extends Controller
           $user->AcceptTwodue_list = $request->get('AcceptTwoduelist');
           $user->Confirm_list = $request->get('Confirmlist');
           $user->Accept_list = $request->get('Acceptlist');
+          $user->Noteby_legis = $request->get('NotebyAnalysis');
         $user->update();
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
       }
@@ -611,7 +612,7 @@ class LegislationController extends Controller
            $user->Datesend_Flag = $nowday;
          $user->update();
 
-         return redirect()->back()->with('success','ส่งเรียบร้อย');
+         return redirect()->Route('legislation',$type)->with('success','ส่งเรียบร้อย');
        }
      }
 

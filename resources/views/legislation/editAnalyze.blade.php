@@ -209,7 +209,7 @@
                 <div class="card-body">
                   <div class="tab-content">
                     <div class="form-group" align="right">
-                      <a class="btn btn-app" href="{{ action('LegislationController@updateLegislation',[$id,$type]) }}?&Flag={{2}}" style="background-color:#666666; color:#FFFFFF;">
+                      <a class="btn btn-app" href="{{ action('LegislationController@updateLegislation',[$id,$type]) }}?&Flag={{2}}" style="background-color:#BB8FCE; color:#FFFFFF;">
                         <span class="glyphicon glyphicon-log-out"></span> ส่งทนาย
                       </a>
                       <button type="submit" class="btn btn-app" style="background-color:#189100; color:#FFFFFF;">
@@ -220,7 +220,7 @@
                       </a>
                     </div>
                     <div class="row">
-                      <div class="col-md-9">
+                      <div class="col-md-6">
                         <div class="box box-warning box-solid">
                           <div class="box-header with-border">
                             <h3 class="box-title">ข้อมูลผู้เช่าซื้อ</h3>
@@ -393,7 +393,6 @@
                               </button>
                             </div>
                           </div>
-                          <div class="box-body">
                             <div class="col-md-12">
                               <div class="row">
 
@@ -501,9 +500,28 @@
                                   </div>
                               </div>
                             </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-3">
+                        <div class="box box-warning">
+                          <div class="box-header with-border bg-yellow">
+                            <h3 class="box-title">หมายเหตุ</h3>
+                            <div class="box-tools pull-right">
+                              <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                              </button>
+                            </div>
+                          </div>
+                          <div class="box-body">
+                            <div class="col-md-12">
+                              <div class="row">
+                                    <textarea name="NotebyAnalysis" class="form-control" rows="14">{{ $data->Noteby_legis }}</textarea>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
+
                     </div>
                   </div>
                 </div>
