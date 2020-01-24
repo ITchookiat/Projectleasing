@@ -511,8 +511,9 @@
                           <th class="text-center">ชื่อ-สกุล</th>
                           <th class="text-center">บัตรประชาชน</th>
                           <th class="text-center">วันที่ทำสัญญา</th>
+                          <th class="text-center">หมายเหตุ</th>
                           <th class="text-center">สถานะ</th>
-                          <th class="text-center" style="width: 200px">ตัวเลือก</th>
+                          <th class="text-center">ตัวเลือก</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -528,7 +529,7 @@
                                     $ClDateDiff = date_diff($Cldate,$nowCldate);
                                     $duration = $ClDateDiff->format("%a วัน")
                                   @endphp
-                                  <font color="red">{{$duration}}</font>
+                                  <font color="blue">{{$duration}}</font>
                               @else
                                   @php
                                     $Cldate = date_create($row->Date_legis);
@@ -536,13 +537,14 @@
                                     $ClDateDiff = date_diff($Cldate,$nowCldate);
                                     $duration = $ClDateDiff->format("%a วัน")
                                   @endphp
-                                  <font color="blue">{{$duration}}</font>
+                                  <font color="green">{{$duration}}</font>
                                 @endif
                             </td>
                             <td class="text-center"> {{$row->Contract_legis}}</a></td>
                             <td class="text-center"> {{$row->Name_legis}} </td>
                             <td class="text-center"> {{$row->Idcard_legis}} </td>
                             <td class="text-center"> {{ DateThai($row->DateDue_legis) }} </td>
+                            <td class="text-center"> {{ $row->Noteby_legis }} </td>
                             <td class="text-center">
                               @if($row->Flag == '1')
                               <button type="button" class="btn btn-info btn-sm" title="เตรียมเอกสาร">
