@@ -82,7 +82,7 @@
                                       @else
                                         <input type="checkbox" name="FlagPromise" value="Y"/>
                                       @endif
-                                      <span>ลูกค้าจ่ายจบ</span>
+                                      <span>ปิดบัญชี</span>
                                     </label>
 
                                   <div class="form-inline" align="right">

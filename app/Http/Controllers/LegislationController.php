@@ -84,6 +84,16 @@ class LegislationController extends Controller
         $type = $request->type;
         return view('legislation.view', compact('type', 'data'));
       }
+      elseif ($request->type == 7) {
+        $data = DB::table('legislations')
+                  ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+                  ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+                  ->orderBy('legislations.Contract_legis', 'ASC')
+                  ->get();
+
+        $type = $request->type;
+        return view('legislation.view', compact('type', 'data'));
+      }
     }
 
     /**
@@ -358,12 +368,14 @@ class LegislationController extends Controller
       // dd($request);
       if ($type == 2) {     //ข้อมูลผู้เช่าซื้อ
         $user = Legislation::find($id);
+          //หน้าทีมทนาย
           $user->Certificate_list = $request->get('Certificatelist');
           $user->Authorize_list = $request->get('Authorizelist');
           $user->Authorizecase_list = $request->get('Authorizecaselist');
           $user->Purchase_list = $request->get('Purchaselist');
           $user->Promise_list = $request->get('Promiselist');
           $user->Titledeed_list = $request->get('Titledeedlist');
+          //หน้าทีมวิเคราะห์
           $user->Terminatebuyer_list = $request->get('Terminatebuyerlist');
           $user->Terminatesupport_list = $request->get('Terminatesupportlist');
           $user->Acceptbuyerandsup_list = $request->get('Acceptbuyerandsuplist');
