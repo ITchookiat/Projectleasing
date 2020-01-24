@@ -66,6 +66,7 @@ class LegislationController extends Controller
         $data = DB::table('legislations')
                   ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
                   ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+                  ->where('legislations.Flag','=', '2')
                   ->orderBy('legislations.Contract_legis', 'ASC')
                   ->get();
 
@@ -76,6 +77,7 @@ class LegislationController extends Controller
         $data = DB::table('legislations')
                   ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
                   ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+                  // ->where('legislations.Flag','=', '1')
                   ->orderBy('legislations.Contract_legis', 'ASC')
                   ->get();
 
@@ -182,48 +184,50 @@ class LegislationController extends Controller
           'Countperiod_legis' => $data->T_NOPAY,
           'Beforeperiod_legis' => $data->EXP_FRM,
           'Beforemoey_legis' => $data->SMPAY,
-          'Remainperiod_legis' => $data->HLDNO,
+          'Remainperiod_legis' => $data->EXP_TO,
+          'Staleperiod_legis' => $data->EXP_PRD, //ค้าง
+          'Realperiod_legis' => $data->HLDNO, //ค้างงวดจริง
           'Sumperiod_legis' => $data->BALANC - $data->SMPAY,
-          'Flag' => 'Y',
+          'Flag' => '1',
         ]);
         $LegisDB->save();
 
-        $Legiscourt = new Legiscourt([
-          'legislation_id' => $LegisDB->id,
-          'fillingdate_court' => Null,
-          'law_court' =>  Null,
-          'bnumber_court' =>  Null,
-          'rnumber_court' =>  Null,
-          'capital_court' =>  Null,
-          'indictment_court' =>  Null,
-          'pricelawyer_court' =>  Null,
-          'examiday_court' =>  Null,
-          'fuzzy_court' =>  Null,
-          'examinote_court' =>  Null,
-          'orderday_court' =>  Null,
-          'ordersend_court' =>  Null,
-          'checkday_court' =>  Null,
-          'checksend_court' =>  Null,
-          'buyer_court' =>  Null,
-          'support_court' =>  Null,
-          'note_court' =>  Null,
-          'social_flag' =>  Null,
-          'setoffice_court' =>  Null,
-          'sendoffice_court' =>  Null,
-          'checkresults_court' =>  Null,
-          'sendcheckresults_court' =>  Null,
-          'received_court' =>  Null,
-          'telresults_court' =>  Null,
-          'dayresults_court' =>  Null,
-          'propertied_court' =>  Null,
-          'sequester_court' =>  Null,
-          'sendsequester_court' =>  Null,
-          'latitude_court' =>  Null,
-          'longitude_court' =>  Null,
-        ]);
-        $Legiscourt->save();
+        // $Legiscourt = new Legiscourt([
+        //   'legislation_id' => $LegisDB->id,
+        //   'fillingdate_court' => Null,
+        //   'law_court' =>  Null,
+        //   'bnumber_court' =>  Null,
+        //   'rnumber_court' =>  Null,
+        //   'capital_court' =>  Null,
+        //   'indictment_court' =>  Null,
+        //   'pricelawyer_court' =>  Null,
+        //   'examiday_court' =>  Null,
+        //   'fuzzy_court' =>  Null,
+        //   'examinote_court' =>  Null,
+        //   'orderday_court' =>  Null,
+        //   'ordersend_court' =>  Null,
+        //   'checkday_court' =>  Null,
+        //   'checksend_court' =>  Null,
+        //   'buyer_court' =>  Null,
+        //   'support_court' =>  Null,
+        //   'note_court' =>  Null,
+        //   'social_flag' =>  Null,
+        //   'setoffice_court' =>  Null,
+        //   'sendoffice_court' =>  Null,
+        //   'checkresults_court' =>  Null,
+        //   'sendcheckresults_court' =>  Null,
+        //   'received_court' =>  Null,
+        //   'telresults_court' =>  Null,
+        //   'dayresults_court' =>  Null,
+        //   'propertied_court' =>  Null,
+        //   'sequester_court' =>  Null,
+        //   'sendsequester_court' =>  Null,
+        //   'latitude_court' =>  Null,
+        //   'longitude_court' =>  Null,
+        // ]);
+        // $Legiscourt->save();
 
-        return redirect()->Route('legislation', $type)->with('success','ส่งฟ้องเรียบร้อย');
+        return redirect()->Route('legislation', $type)->with('success','รับเรื่องเรียบร้อย');
       }
     }
 
@@ -490,6 +494,25 @@ class LegislationController extends Controller
 
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อย');
       }
+      elseif($type == 6){ //เตรียมเอกสารฝ่ายวิเคราะห์
+        // dd($request);
+        $user = Legislation::find($id);
+          // $user->Certificate_list = $request->get('Certificatelist');
+          // $user->Authorize_list = $request->get('Authorizelist');
+          // $user->Authorizecase_list = $request->get('Authorizecaselist');
+          // $user->Purchase_list = $request->get('Purchaselist');
+          // $user->Promise_list = $request->get('Promiselist');
+          // $user->Titledeed_list = $request->get('Titledeedlist');
+          $user->Terminatebuyer_list = $request->get('Terminatebuyerlist');
+          $user->Terminatesupport_list = $request->get('Terminatesupportlist');
+          $user->Acceptbuyerandsup_list = $request->get('Acceptbuyerandsuplist');
+          $user->Twodue_list = $request->get('Twoduelist');
+          $user->AcceptTwodue_list = $request->get('AcceptTwoduelist');
+          $user->Confirm_list = $request->get('Confirmlist');
+          $user->Accept_list = $request->get('Acceptlist');
+        $user->update();
+        return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
+      }
       elseif ($type == 11) {
         $Legiscourt = Legiscourt::where('legislation_id',$id)->first();
           $Legiscourt->latitude_court = $request->get('latitude');
@@ -577,6 +600,21 @@ class LegislationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+     public function updateLegislation(Request $request, $id, $type)
+     {
+       // dd( $id, $type,$request->get('Flag'));
+       if ($type == 6) {     //ข้อมูลผู้เช่าซื้อจากฝ่ายวิเคราะห์
+         $nowday = date('Y-m-d');
+         $user = Legislation::find($id);
+           $user->Flag = $request->get('Flag');
+           $user->Datesend_Flag = $nowday;
+         $user->update();
+
+         return redirect()->back()->with('success','ส่งเรียบร้อย');
+       }
+     }
+
     public function destroy($id ,$type)
     {
       if ($type == 1) { //ลบทั้งหมด

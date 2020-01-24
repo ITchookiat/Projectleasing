@@ -54,7 +54,7 @@
           @elseif($type == 2)
             <h4 class="card-title" align="center"><b>งานฟ้อง</b></h4>
           @elseif($type == 6)
-            <h4 class="card-title" align="center"><b>งานเตรียมส่งฟ้อง</b></h4>
+            <h4 class="card-title" align="center"><b>งานเตรียมเอกสาร</b></h4>
           @elseif($type == 7)
             <h4 class="card-title" align="center"><b>งานเประนอมหนี้</b></h4>
           @endif
@@ -70,9 +70,9 @@
 
           <div class="box-body">
             @if(session()->has('success'))
-              <div class="alert alert-success alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span></button>
+              <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-check"></i> Alert!</h4>
                 <strong>สำเร็จ!</strong> {{ session()->get('success') }}
               </div>
             @endif
@@ -93,7 +93,7 @@
                             <th class="text-center">ยี่ห้อ</th>
                             <th class="text-center">ปีรถ</th>
                             <th class="text-center">สถานะ</th>
-                            <th class="text-center">งวด</th>
+                            <th class="text-center">ค้างงวดจริง</th>
                             <th class="text-center" style="width: 100px">ตัวเลือก</th>
                           </tr>
                         </thead>
@@ -506,11 +506,12 @@
                       <thead class="thead-dark bg-gray-light" >
                         <tr>
                           <th class="text-center">ลำดับ</th>
-                          <th class="text-center">แจ้งเตือน</th>
+                          <th class="text-center">ระยะเวลา</th>
                           <th class="text-center">เลขที่สัญญา</th>
                           <th class="text-center">ชื่อ-สกุล</th>
                           <th class="text-center">บัตรประชาชน</th>
                           <th class="text-center">วันที่ทำสัญญา</th>
+                          <th class="text-center">สถานะ</th>
                           <th class="text-center" style="width: 200px">ตัวเลือก</th>
                         </tr>
                       </thead>
@@ -519,64 +520,40 @@
                           <tr>
                             <td class="text-center"> {{$key+1}} </td>
                             <td class="text-center">
-                              @if($row->examiday_court != Null)
-                                @php
-                                  $examidaydate = date_create($row->examiday_court);
-                                  $Newdate = date_create($date);
-                                  $DateEx = date_diff($Newdate,$examidaydate);
-                                @endphp
-                                @php
-                                  $orderdaydate = date_create($row->orderday_court);
-                                  $DateEx2 = date_diff($Newdate,$orderdaydate);
-                                @endphp
-                                @php
-                                  $checkdaydate = date_create($row->checkday_court);
-                                  $DateEx3 = date_diff($Newdate,$checkdaydate);
-                                @endphp
-                                @php
-                                  $setofficedate = date_create($row->setoffice_court);
-                                  $DateEx4 = date_diff($Newdate,$setofficedate);
-                                @endphp
-                                @php
-                                  $checkresultsdate = date_create($row->checkresults_court);
-                                  $DateEx5 = date_diff($Newdate,$checkresultsdate);
-                                @endphp
-                                @php
-                                  $sequesterdate = date_create($row->sequester_court);
-                                  $DateEx6 = date_diff($Newdate,$sequesterdate);
-                                @endphp
-
-                                @if($Newdate <= $examidaydate)
-                                  @if($DateEx->d <= 7)
-                                    <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> สืบพยาน {{ $DateEx->d }} วัน</span>
-                                  @endif
-                                @elseif($Newdate <= $orderdaydate)
-                                  @if($DateEx2->d <= 7)
-                                    <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> ส่งคำบังคับ {{ $DateEx2->d }} วัน</span>
-                                  @endif
-                                @elseif($Newdate <= $checkdaydate)
-                                  @if($DateEx3->d <= 7)
-                                    <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> ตรวจผลหมาย {{ $DateEx3->d }} วัน</span>
-                                  @endif
-                                @elseif($Newdate <= $setofficedate)
-                                  @if($DateEx4->d <= 7)
-                                    <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> ตั้งเจ้าพนักงาน {{ $DateEx4->d }} วัน</span>
-                                  @endif
-                                @elseif($Newdate <= $checkresultsdate)
-                                  @if($DateEx5->d <= 7)
-                                    <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> ตรวจผลหมายตั้ง {{ $DateEx5->d }} วัน</span>
-                                  @endif
-                                @elseif($Newdate <= $sequesterdate)
-                                  @if($DateEx6->d <= 7)
-                                    <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> ตรวจผลหมายตั้ง {{ $DateEx6->d }} วัน</span>
-                                  @endif
+                              @if($row->Datesend_Flag == null)
+                                  @php
+                                    $nowday = date('Y-m-d');
+                                    $Cldate = date_create($row->Date_legis);
+                                    $nowCldate = date_create($nowday);
+                                    $ClDateDiff = date_diff($Cldate,$nowCldate);
+                                    $duration = $ClDateDiff->format("%a วัน")
+                                  @endphp
+                                  <font color="red">{{$duration}}</font>
+                              @else
+                                  @php
+                                    $Cldate = date_create($row->Date_legis);
+                                    $nowCldate = date_create($row->Datesend_Flag);
+                                    $ClDateDiff = date_diff($Cldate,$nowCldate);
+                                    $duration = $ClDateDiff->format("%a วัน")
+                                  @endphp
+                                  <font color="blue">{{$duration}}</font>
                                 @endif
-                              @endif
                             </td>
                             <td class="text-center"> {{$row->Contract_legis}}</a></td>
                             <td class="text-center"> {{$row->Name_legis}} </td>
                             <td class="text-center"> {{$row->Idcard_legis}} </td>
                             <td class="text-center"> {{ DateThai($row->DateDue_legis) }} </td>
+                            <td class="text-center">
+                              @if($row->Flag == '1')
+                              <button type="button" class="btn btn-info btn-sm" title="เตรียมเอกสาร">
+                                <span class="glyphicon glyphicon-copy"></span> เตรียมเอกสาร
+                              </button>
+                              @else
+                              <button type="button" class="btn btn-success btn-sm" title="ส่งเอกสารแล้ว">
+                                <span class="glyphicon glyphicon-paste"></span> ส่งเอกสารแล้ว
+                              </button>
+                              @endif
+                            </td>
                             <td class="text-center">
                               <a href="{{ action('LegislationController@edit',[$row->id,$type]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                 <span class="glyphicon glyphicon-pencil"></span> แก้ไข
@@ -745,7 +722,7 @@
             <script type="text/javascript">
                $(document).ready(function() {
                  $('#table').DataTable( {
-                   "order": [[ 1, "asc" ]]
+                   "order": [[ 0, "asc" ]]
                  });
                });
             </script>
@@ -758,23 +735,6 @@
             });
             </script>
           @endif
-
-            <!-- // $(".edit_botton").click(function(e){
-            //    var edit_botton = $("input[edit_botton=edit_botton]").val()
-            //    $.ajax({
-            //     url:"{{ route('legislation.update',[00, 5]) }}",
-            //     method:'POST',
-            //     data:{edit_botton:edit_botton},
-            //     dataType:"json",
-            //     success:function(data){
-            //       console.log(data.success);
-            //         $('#TotalPromise').val(data.Total_Promise);
-            //         $('#PayallPromise').val(data.Payall_Promise);
-            //         $('#PayallPromise').val(data.Payall_Promise);
-            //         $('#modal_default').modal('show');
-            //       }
-            //     });
-            //   }); -->
 
           <script type="text/javascript">
             $(".alert").fadeTo(3000, 1000).slideUp(1000, function(){
