@@ -38,9 +38,12 @@ class CreateLegislationsTable extends Migration
             $table->string('Beforeperiod_legis')->nullable(); //ผ่อนมาแล้ว กี่งวด
             $table->string('Beforemoey_legis')->nullable();   //เป็นจำนวนเงิน กี่งวด
             $table->string('Remainperiod_legis')->nullable(); //จำนวนงวดที่ค้าง
+            $table->string('Staleperiod_legis')->nullable(); //จำนวนงวดค้าง
+            $table->string('Realperiod_legis')->nullable(); //จำนวนงวดที่ค้างจริง
             $table->string('Sumperiod_legis')->nullable();    //เหลือเป็นจำนวนเงิน เท่าไร
             $table->string('Note')->nullable();
             $table->string('Flag')->nullable();
+            $table->string('Datesend_Flag')->nullable();
 
             $table->string('Certificate_list')->nullable();
             $table->string('Authorize_list')->nullable();
