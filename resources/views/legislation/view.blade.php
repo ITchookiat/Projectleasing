@@ -172,7 +172,6 @@
                 </div>
               @elseif($type == 2)
                 <div class="col-md-12">
-                  <hr>
                   <div class="table-responsive">
                     <table class="table table-bordered" id="table">
                       <thead class="thead-dark bg-gray-light" >
@@ -512,7 +511,7 @@
                           <th class="text-center">บัตรประชาชน</th>
                           <th class="text-center">วันที่ทำสัญญา</th>
                           <th class="text-center">สถานะ</th>
-                          <th class="text-center" style="width: 200px">ตัวเลือก</th>
+                          <th class="text-center" style="width: 150px">ตัวเลือก</th>
                         </tr>
                       </thead>
                       <tbody>

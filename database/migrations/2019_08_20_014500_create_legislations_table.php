@@ -16,8 +16,8 @@ class CreateLegislationsTable extends Migration
         Schema::create('legislations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('Date_legis')->nullable();
-            $table->integer('KeyCourts_id')->nullable();  //  Key ของตาราง ชั้นศาล
-            $table->integer('KeyCompro_id')->nullable();  //  Key ของตาราง ประนอมหนี้
+            $table->integer('KeyCourts_id')->nullable();    //  Key ของตาราง ชั้นศาล
+            $table->integer('KeyCompro_id')->nullable();    //  Key ของตาราง ประนอมหนี้
             $table->string('Contract_legis')->nullable();
             $table->string('Name_legis')->nullable();
             $table->string('Idcard_legis')->nullable();
@@ -38,12 +38,17 @@ class CreateLegislationsTable extends Migration
             $table->string('Beforeperiod_legis')->nullable(); //ผ่อนมาแล้ว กี่งวด
             $table->string('Beforemoey_legis')->nullable();   //เป็นจำนวนเงิน กี่งวด
             $table->string('Remainperiod_legis')->nullable(); //จำนวนงวดที่ค้าง
-            $table->string('Staleperiod_legis')->nullable(); //จำนวนงวดค้าง
-            $table->string('Realperiod_legis')->nullable(); //จำนวนงวดที่ค้างจริง
+            $table->string('Staleperiod_legis')->nullable();  //จำนวนงวดค้าง
+            $table->string('Realperiod_legis')->nullable();   //จำนวนงวดที่ค้างจริง
             $table->string('Sumperiod_legis')->nullable();    //เหลือเป็นจำนวนเงิน เท่าไร
             $table->string('Note')->nullable();
             $table->string('Flag')->nullable();
             $table->string('Datesend_Flag')->nullable();
+            $table->string('CAccount_legis')->nullable();
+            $table->string('txtCAccount_legis')->nullable();
+            $table->string('OverDue_legis')->nullable();
+            $table->string('txtOverDue_legis')->nullable();
+            $table->string('Holder_legis')->nullable();
 
             $table->string('Certificate_list')->nullable();
             $table->string('Authorize_list')->nullable();
