@@ -21,11 +21,11 @@
     <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
 
     <style>
-      input[type="checkbox"] { position: absolute; opacity: 0; z-index: -1; }
-      input[type="checkbox"]+span { font: 16pt sans-serif; color: #000; }
-      input[type="checkbox"]+span:before { font: 16pt FontAwesome; content: '\00f096'; display: inline-block; width: 16pt; padding: 2px 0 0 3px; margin-right: 0.5em; }
+      input[type="checkbox"] { position: absolute; opacity: 5; z-index: -5; }
+      input[type="checkbox"]+span { font: 14pt sans-serif; color: #000; }
+      input[type="checkbox"]+span:before { font: 14pt FontAwesome; content: '\00f096'; display: inline-block; width: 14pt; padding: 5px 5 5 5px; margin-right: 0.3em; }
       input[type="checkbox"]:checked+span:before { content: '\00f046'; }
-      input[type="checkbox"]:focus+span:before { outline: 1px dotted #aaa; }
+      input[type="checkbox"]:focus+span:before { outline: 2px dotted #aaa; }
     </style>
 
       <section class="content-header">
@@ -50,7 +50,7 @@
           </div>
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs bg-warning">
-              <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 2]) }}">หน้าหลัก</a></li>
+              <!-- <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 2]) }}">หน้าหลัก</a></li> -->
               <li class="nav-item active"><a href="{{ action('LegislationController@edit',[$id, 4]) }}">รายละเอียด</a></li>
               <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 5]) }}">เพิ่มข้อมูลชำระ</a></li>
             </ul>
@@ -73,58 +73,71 @@
                       @method('put')
                       <div class="form-inline" align="right">
                         <div class="row">
-                           <div class="col-md-9">
+                           <div class="col-md-8">
                              <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-6">
+                                  <div class="form-inline" align="right">
+                                     <label>เลขที่สัญญา : </label>
+                                     <input type="text" name="ContractPromise" class="form-control" value="{{ $data->Contract_legis }}" style="width: 200px;" readonly/>
+                                   </div>
+                                </div>
+                                <div class="col-md-6">
+                                  <div class="form-inline" align="right">
+                                     <label>ชื่อ - นามสกุล :</label>
+                                     <input type="text" name="NamePromise" class="form-control" value="{{ $data->Name_legis }}" style="width: 220px;" readonly/>
+                                   </div>
+                                </div>
+                                <!-- <div class="col-md-4">
+                                  <div class="form-inline" align="right">
+                                     <label>ป้ายทะเบียน : </label>
+                                     <input type="text" name="RigisPromise" class="form-control" value="{{ $data->register_legis }}" style="width: 200px;" readonly/>
+                                   </div>
+                                </div> -->
+                             </div>
+
+                             <div class="row">
+                                <div class="col-md-6">
+                                  <div class="form-inline" align="right">
+                                     <label>ยี่ห้อ :</label>
+                                     <input type="text" name="BrandPromise" class="form-control" value="{{ $data->BrandCar_legis }}" style="width: 200px;" readonly/>
+                                   </div>
+                                </div>
+                                <div class="col-md-6">
+                                  <div class="form-inline" align="right">
+                                     <label>ปีรถ :</label>
+                                     <input type="text" name="YearcarPromise" class="form-control" value="{{ $data->YearCar_legis }}" style="width: 220px;" readonly/>
+                                   </div>
+                                </div>
+                             </div>
+
+                             <div class="row">
+                               <div class="col-md-6">
+                                 <div class="form-inline" align="right">
+                                    <label>ป้ายทะเบียน : </label>
+                                    <input type="text" name="RigisPromise" class="form-control" value="{{ $data->register_legis }}" style="width: 200px;" readonly/>
+                                  </div>
+                               </div>
+                                <div class="col-md-6">
+                                  <div class="form-inline" align="right">
                                     <label>
                                       @if($data->Flag_Promise == "Y")
                                         <input type="checkbox" name="FlagPromise" value="Y" checked/>
                                       @else
-                                        <input type="checkbox" name="FlagPromise" value="Y"/>
+                                        <input type="checkbox" class="form-control" name="FlagPromise" value="Y"/>
                                       @endif
-                                      <span>ปิดบัญชี</span>
+                                      <span>ปิดบัญชี:</span>
+                                      <input type="text" class="form-control" value="" style="width: 220px;"/>
                                     </label>
-
-                                  <div class="form-inline" align="right">
-                                     <label>เลขที่สัญญา : </label>
-                                     <input type="text" name="ContractPromise" class="form-control" value="{{ $data->Contract_legis }}" style="width: 150px;" readonly/>
-                                   </div>
-                                </div>
-                                <div class="col-md-8">
-                                  <div class="form-inline" align="right">
-                                     <label>ชื่อ - นามสกุล :</label>
-                                     <input type="text" name="NamePromise" class="form-control" value="{{ $data->Name_legis }}" style="width: 77%;" readonly/>
-                                   </div>
-                                </div>
-                             </div>
-
-                             <div class="row">
-                               <div class="col-md-4">
-                                 <div class="form-inline" align="right">
-                                    <label>ป้ายทะเบียน : </label>
-                                    <input type="text" name="RigisPromise" class="form-control" value="{{ $data->register_legis }}" style="width: 150px;" readonly/>
                                   </div>
-                               </div>
-                                <div class="col-md-4">
-                                  <div class="form-inline" align="right">
-                                     <label>ยี่ห้อ :</label>
-                                     <input type="text" name="BrandPromise" class="form-control" value="{{ $data->BrandCar_legis }}" style="width: 150px;" readonly/>
-                                   </div>
-                                </div>
-                                <div class="col-md-4">
-                                  <div class="form-inline" align="right">
-                                     <label>ปีรถ :</label>
-                                     <input type="text" name="YearcarPromise" class="form-control" value="{{ $data->YearCar_legis }}" style="width: 150px;" readonly/>
-                                   </div>
                                 </div>
                              </div>
                            </div>
 
-                           <div class="col-md-3">
+                           <div class="col-md-4" align="center">
                             <button type="submit" class="btn btn-app" style="background-color:#189100; color:#FFFFFF;">
                               <span class="glyphicon glyphicon-floppy-save"></span> อัพเดท
                             </button>
-                            <a class="btn btn-app" href="{{ action('LegislationController@edit',[$id, 2]) }}" style="background-color:#DB0000; color:#FFFFFF;">
+                            <a class="btn btn-app" href="{{ route('legislation',7) }}" style="background-color:#DB0000; color:#FFFFFF;">
                               <span class="glyphicon glyphicon-remove"></span> ยกเลิก
                             </a>
                           </div>
@@ -223,7 +236,7 @@
                                    <div class="col-md-6">
                                      <div class="form-inline" align="right">
                                         <label>ยอดประนอมหนี้ : </label>
-                                        <input type="text" name="TotalPromise" id="TotalPromise" value="{{ $data->Total_Promise }}" class="form-control" style="width: 200px;" oninput="Comma();"/>
+                                        <input type="text" name="TotalPromise" id="TotalPromise" value="{{ number_format($data->Total_Promise,0) }}" class="form-control" style="width: 200px;" oninput="Comma();"/>
                                       </div>
                                    </div>
                                    <div class="col-md-6">
@@ -341,7 +354,7 @@
                                  <div class="col-md-4">
                                     <div class="form-inline" align="right">
                                       <label style="vertical-align: top">หมายเหตุ : </label>
-                                      <textarea name="NotePromise" rows="12" class="form-control" style="width: 80%"></textarea>
+                                      <textarea name="NotePromise" rows="12" class="form-control" style="width: 80%">{{$data->Note_Promise}}</textarea>
                                     </div>
                                  </div>
                               </div>
