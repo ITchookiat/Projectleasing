@@ -56,7 +56,7 @@
           @elseif($type == 6)
             <h4 class="card-title" align="center"><b>งานเตรียมเอกสาร</b></h4>
           @elseif($type == 7)
-            <h4 class="card-title" align="center"><b>งานเประนอมหนี้</b></h4>
+            <h4 class="card-title" align="center"><b>งานประนอมหนี้</b></h4>
           @endif
 
           <div class="box-tools pull-right">
@@ -149,9 +149,15 @@
 
                                 @foreach($data as $key => $row1)
                                   @if($row->CONTNO == $row1->Contract_legis)
-                                    <button class="btn btn-success btn-sm" title="เตรียมเรียบร้อย">
-                                      <span class="glyphicon glyphicon-lock"></span> เตรียมเรียบร้อย
-                                    </button>
+                                      @if($row1->Flag_status == 1)
+                                      <button class="btn btn-warning btn-sm" title="กำลังจัดเตรียม">
+                                        <span class="glyphicon glyphicon-time"></span> กำลังจัดเตรียม
+                                      </button>
+                                      @else
+                                      <button class="btn btn-success btn-sm" title="เตรียมเรียบร้อย">
+                                        <span class="glyphicon glyphicon-lock"></span> เตรียมเรียบร้อย
+                                      </button>
+                                      @endif
                                     @php
                                       $Tax = "Y";
                                     @endphp
@@ -176,19 +182,30 @@
                     <table class="table table-bordered" id="table">
                       <thead class="thead-dark bg-gray-light" >
                         <tr>
-                          <th class="text-center">ลำดับ</th>
+                          <th class="text-center" style="width: 40px">ลำดับ</th>
+                          <th class="text-center" style="width: 70px">เริ่มรับงาน</th>
                           <th class="text-center">แจ้งเตือน</th>
                           <th class="text-center">เลขที่สัญญา</th>
                           <th class="text-center">ชื่อ-สกุล</th>
                           <th class="text-center">บัตรประชาชน</th>
                           <th class="text-center">วันที่ทำสัญญา</th>
-                          <th class="text-center" style="width: 200px">ตัวเลือก</th>
+                          <th class="text-center">ค้างงวดจริง</th>
+                          <th class="text-center" style="width: 100px">ตัวเลือก</th>
                         </tr>
                       </thead>
                       <tbody>
                         @foreach($data as $key => $row)
                           <tr>
                             <td class="text-center"> {{$key+1}} </td>
+                            <td class="text-center">
+                              @php
+                              $Cldate = date_create($row->Date_legis);
+                              $nowCldate = date_create($row->Datesend_Flag);
+                              $ClDateDiff = date_diff($Cldate,$nowCldate);
+                              $duration = $ClDateDiff->format("%a วัน")
+                              @endphp
+                              <font color="red">{{$duration}}</font>
+                            </td>
                             <td class="text-center">
                               @if($row->examiday_court != Null)
                                 @php
@@ -249,6 +266,23 @@
                             <td class="text-center"> {{$row->Name_legis}} </td>
                             <td class="text-center"> {{$row->Idcard_legis}} </td>
                             <td class="text-center"> {{ DateThai($row->DateDue_legis) }} </td>
+                              <td class="text-center">
+                                @php
+                                   $StrCon = explode("/",$row->Contract_legis);
+                                   $SetStr1 = $StrCon[0];
+                                   $SetStr2 = $StrCon[1];
+                                @endphp
+
+                                @foreach($result as $key => $row1)
+                                  @if($row->Contract_legis == $row1->CONTNO)
+                                      @if($row->Realperiod_legis < $row1->HLDNO)
+                                      {{$row1->HLDNO}}
+                                      @else
+                                      {{$row->Realperiod_legis}}
+                                      @endif
+                                  @endif
+                                @endforeach
+                              </td>
                             <td class="text-center">
 
                               <!-- <a href="#" class="btn btn-info btn-sm" title="ดูรายการ" data-toggle="modal" data-target="#modal-default">
@@ -505,11 +539,13 @@
                       <thead class="thead-dark bg-gray-light" >
                         <tr>
                           <th class="text-center">ลำดับ</th>
-                          <th class="text-center">ระยะเวลา</th>
                           <th class="text-center">เลขที่สัญญา</th>
                           <th class="text-center">ชื่อ-สกุล</th>
                           <th class="text-center">บัตรประชาชน</th>
                           <th class="text-center">วันที่ทำสัญญา</th>
+                          <th class="text-center">ค้างงวดจริง</th>
+                          <th class="text-center">ระยะเวลา</th>
+                          <th class="text-center">หมายเหตุ</th>
                           <th class="text-center">สถานะ</th>
                           <th class="text-center" style="width: 150px">ตัวเลือก</th>
                         </tr>
@@ -518,32 +554,50 @@
                         @foreach($data as $key => $row)
                           <tr>
                             <td class="text-center"> {{$key+1}} </td>
-                            <td class="text-center">
-                              @if($row->Datesend_Flag == null)
-                                  @php
-                                    $nowday = date('Y-m-d');
-                                    $Cldate = date_create($row->Date_legis);
-                                    $nowCldate = date_create($nowday);
-                                    $ClDateDiff = date_diff($Cldate,$nowCldate);
-                                    $duration = $ClDateDiff->format("%a วัน")
-                                  @endphp
-                                  <font color="red">{{$duration}}</font>
-                              @else
-                                  @php
-                                    $Cldate = date_create($row->Date_legis);
-                                    $nowCldate = date_create($row->Datesend_Flag);
-                                    $ClDateDiff = date_diff($Cldate,$nowCldate);
-                                    $duration = $ClDateDiff->format("%a วัน")
-                                  @endphp
-                                  <font color="blue">{{$duration}}</font>
-                                @endif
-                            </td>
                             <td class="text-center"> {{$row->Contract_legis}}</a></td>
                             <td class="text-center"> {{$row->Name_legis}} </td>
                             <td class="text-center"> {{$row->Idcard_legis}} </td>
                             <td class="text-center"> {{ DateThai($row->DateDue_legis) }} </td>
                             <td class="text-center">
-                              @if($row->Flag == '1')
+                              @php
+                                 $StrCon = explode("/",$row->Contract_legis);
+                                 $SetStr1 = $StrCon[0];
+                                 $SetStr2 = $StrCon[1];
+                              @endphp
+
+                              @foreach($result as $key => $row1)
+                                @if($row->Contract_legis == $row1->CONTNO)
+                                    @if($row->Realperiod_legis < $row1->HLDNO)
+                                    {{$row1->HLDNO}}
+                                    @else
+                                    {{$row->Realperiod_legis}}
+                                    @endif
+                                @endif
+                              @endforeach
+                            </td>
+                            <td class="text-center">
+                              @if($row->Datesend_Flag == null)
+                              @php
+                              $nowday = date('Y-m-d');
+                              $Cldate = date_create($row->Date_legis);
+                              $nowCldate = date_create($nowday);
+                              $ClDateDiff = date_diff($Cldate,$nowCldate);
+                              $duration = $ClDateDiff->format("%a วัน")
+                              @endphp
+                              <font color="blue">{{$duration}}</font>
+                              @else
+                              @php
+                              $Cldate = date_create($row->Date_legis);
+                              $nowCldate = date_create($row->Datesend_Flag);
+                              $ClDateDiff = date_diff($Cldate,$nowCldate);
+                              $duration = $ClDateDiff->format("%a วัน")
+                              @endphp
+                              <font color="green">{{$duration}}</font>
+                              @endif
+                            </td>
+                            <td class="text-left" style="width:200px;"> {{ $row->Noteby_legis }} </td>
+                            <td class="text-center">
+                              @if($row->Flag_status == '1')
                               <button type="button" class="btn btn-info btn-sm" title="เตรียมเอกสาร">
                                 <span class="glyphicon glyphicon-copy"></span> เตรียมเอกสาร
                               </button>
@@ -581,11 +635,15 @@
                       <thead class="thead-dark bg-gray-light" >
                         <tr>
                           <th class="text-center">ลำดับ</th>
-                          <th class="text-center">แจ้งเตือน</th>
                           <th class="text-center">เลขที่สัญญา</th>
                           <th class="text-center">ชื่อ-สกุล</th>
                           <th class="text-center">บัตรประชาชน</th>
-                          <th class="text-center">วันที่ทำสัญญา</th>
+                          <th class="text-center">ค้างงวดจริง</th>
+                          <th class="text-center">วันเริ่มประนอม</th>
+                          <th class="text-center">ระยะเวลา</th>
+                          <th class="text-center">ยอดประนอมหนี้</th>
+                          <th class="text-center">ยอดคงเหลือ</th>
+                          <!-- <th class="text-center">วันที่ทำสัญญา</th> -->
                           <th class="text-center" style="width: 200px">ตัวเลือก</th>
                         </tr>
                       </thead>
@@ -593,74 +651,51 @@
                         @foreach($data as $key => $row)
                           <tr>
                             <td class="text-center"> {{$key+1}} </td>
-                            <td class="text-center">
-                              @if($row->examiday_court != Null)
-                                @php
-                                  $examidaydate = date_create($row->examiday_court);
-                                  $Newdate = date_create($date);
-                                  $DateEx = date_diff($Newdate,$examidaydate);
-                                @endphp
-                                @php
-                                  $orderdaydate = date_create($row->orderday_court);
-                                  $DateEx2 = date_diff($Newdate,$orderdaydate);
-                                @endphp
-                                @php
-                                  $checkdaydate = date_create($row->checkday_court);
-                                  $DateEx3 = date_diff($Newdate,$checkdaydate);
-                                @endphp
-                                @php
-                                  $setofficedate = date_create($row->setoffice_court);
-                                  $DateEx4 = date_diff($Newdate,$setofficedate);
-                                @endphp
-                                @php
-                                  $checkresultsdate = date_create($row->checkresults_court);
-                                  $DateEx5 = date_diff($Newdate,$checkresultsdate);
-                                @endphp
-                                @php
-                                  $sequesterdate = date_create($row->sequester_court);
-                                  $DateEx6 = date_diff($Newdate,$sequesterdate);
-                                @endphp
-
-                                @if($Newdate <= $examidaydate)
-                                  @if($DateEx->d <= 7)
-                                    <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> สืบพยาน {{ $DateEx->d }} วัน</span>
-                                  @endif
-                                @elseif($Newdate <= $orderdaydate)
-                                  @if($DateEx2->d <= 7)
-                                    <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> ส่งคำบังคับ {{ $DateEx2->d }} วัน</span>
-                                  @endif
-                                @elseif($Newdate <= $checkdaydate)
-                                  @if($DateEx3->d <= 7)
-                                    <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> ตรวจผลหมาย {{ $DateEx3->d }} วัน</span>
-                                  @endif
-                                @elseif($Newdate <= $setofficedate)
-                                  @if($DateEx4->d <= 7)
-                                    <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> ตั้งเจ้าพนักงาน {{ $DateEx4->d }} วัน</span>
-                                  @endif
-                                @elseif($Newdate <= $checkresultsdate)
-                                  @if($DateEx5->d <= 7)
-                                    <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> ตรวจผลหมายตั้ง {{ $DateEx5->d }} วัน</span>
-                                  @endif
-                                @elseif($Newdate <= $sequesterdate)
-                                  @if($DateEx6->d <= 7)
-                                    <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> ตรวจผลหมายตั้ง {{ $DateEx6->d }} วัน</span>
-                                  @endif
-                                @endif
-                              @endif
-                            </td>
                             <td class="text-center"> {{$row->Contract_legis}}</a></td>
                             <td class="text-center"> {{$row->Name_legis}} </td>
                             <td class="text-center"> {{$row->Idcard_legis}} </td>
-                            <td class="text-center"> {{ DateThai($row->DateDue_legis) }} </td>
                             <td class="text-center">
-                              <a href="{{ action('LegislationController@edit',[$row->id,$type]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
+                              @php
+                                 $StrCon = explode("/",$row->Contract_legis);
+                                 $SetStr1 = $StrCon[0];
+                                 $SetStr2 = $StrCon[1];
+                              @endphp
+
+                              @foreach($result as $key => $row1)
+                                @if($row->Contract_legis == $row1->CONTNO)
+                                    @if($row->Realperiod_legis < $row1->HLDNO)
+                                    {{$row1->HLDNO}}
+                                    @else
+                                    {{$row->Realperiod_legis}}
+                                    @endif
+                                @endif
+                              @endforeach
+                            </td>
+                            <td class="text-center">
+                              {{DateThai($row->Date_Promise)}}
+                            </td>
+                            <td class="text-center">
+                              @php
+                                $nowday = date('Y-m-d');
+                                $Cldate = date_create($row->Date_Promise);
+                                $nowCldate = date_create($nowday);
+                                $ClDateDiff = date_diff($Cldate,$nowCldate);
+                                $duration = $ClDateDiff->format("%a วัน")
+                              @endphp
+                              <font>{{$duration}}</font>
+                            </td>
+                            <td class="text-center"> {{number_format($row->Total_Promise,2)}}</a></td>
+                            <td class="text-center"> {{number_format($row->Sum_Promise,2)}}</a></td>
+                            <!-- <td class="text-center"> {{ DateThai($row->DateDue_legis) }} </td> -->
+                            <td class="text-center">
+                              <a href="{{ action('LegislationController@edit',[$row->id, 4]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                 <span class="glyphicon glyphicon-pencil"></span> แก้ไข
                               </a>
                               <div class="form-inline form-group">
                                 <form method="post" class="delete_form" action="{{ action('LegislationController@destroy',[$row->id ,1]) }}">
                                 {{csrf_field()}}
                                   <input type="hidden" name="_method" value="DELETE" />
-                                  <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
+                                  <button disabled type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
                                     <span class="glyphicon glyphicon-trash"></span> ลบ
                                   </button>
                                 </form>
@@ -729,7 +764,7 @@
             <script type="text/javascript">
             $(document).ready(function() {
               $('#table').DataTable( {
-                "order": [[ 1, "asc" ]]
+                "order": [[ 0, "asc" ]]
               });
             });
             </script>

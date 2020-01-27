@@ -209,7 +209,7 @@
                 <div class="card-body">
                   <div class="tab-content">
                     <div class="form-group" align="right">
-                      <a class="btn btn-app" href="{{ action('LegislationController@updateLegislation',[$id,$type]) }}?&Flag={{2}}" style="background-color:#666666; color:#FFFFFF;">
+                      <a class="btn btn-app" href="{{ action('LegislationController@updateLegislation',[$id,$type]) }}?&Flag={{2}}" style="background-color:#BB8FCE; color:#FFFFFF;">
                         <span class="glyphicon glyphicon-log-out"></span> ส่งทนาย
                       </a>
                       <button type="submit" class="btn btn-app" style="background-color:#189100; color:#FFFFFF;">
@@ -220,7 +220,7 @@
                       </a>
                     </div>
                     <div class="row">
-                      <div class="col-md-9">
+                      <div class="col-md-6">
                         <div class="box box-warning box-solid">
                           <div class="box-header with-border">
                             <h3 class="box-title">ข้อมูลผู้เช่าซื้อ</h3>
@@ -292,24 +292,24 @@
                                 </div>
                               </div>
                             </div>
-
+                            <hr>
                             <div class="row">
                               <div class="col-md-4">
                                 ยอดจัด
                                 <div class="form-inline" align="left">
-                                  <input type="text" class="form-control" style="width: 100%;" value="{{ number_format($data->Pay_legis ,2) }}" readonly/>
+                                  <input type="text" name="Paylegis" class="form-control" style="width: 100%;" value="{{ number_format($data1->NCARCST ,2) }}" readonly/>
                                 </div>
                               </div>
                               <div class="col-md-4">
                                 ค่าผ่อน
                                 <div class="form-inline" align="left">
-                                  <input type="text" class="form-control" style="width: 100%;" value="{{ number_format($data->Period_legis, 2) }}" readonly/>
+                                  <input type="text" name="Periodlegis" class="form-control" style="width: 100%;" value="{{ number_format($data1->TOT_UPAY, 2) }}" readonly/>
                                 </div>
                               </div>
                                <div class="col-md-4">
                                  จำนวนงวดทั้งหมด
                                 <div class="form-inline" align="left">
-                                  <input type="text" class="form-control" style="width: 100%;" value="{{$data->Countperiod_legis }}" readonly/>
+                                  <input type="text" name="Countperiodlegis" class="form-control" style="width: 100%;" value="{{$data1->T_NOPAY }}" readonly/>
                                 </div>
                               </div>
                             </div>
@@ -318,19 +318,19 @@
                               <div class="col-md-4">
                                 ค้างจากงวดที่
                                 <div class="form-inline" align="left">
-                                  <input type="text" class="form-control" style="width: 100%;" value="{{ $data->Beforeperiod_legis }}" readonly/>
+                                  <input type="text" name="Beforeperiodlegis" class="form-control" style="width: 100%;" value="{{ $data1->EXP_FRM }}" readonly/>
                                 </div>
                               </div>
                               <div class="col-md-4">
                                 ถึงงวดที่
                                 <div class="form-inline" align="left">
-                                  <input type="text" class="form-control" style="width: 100%;" value="{{ $data->Remainperiod_legis }}" readonly/>
+                                  <input type="text" name="Remainperiodlegis" class="form-control" style="width: 100%;" value="{{ $data1->EXP_TO }}" readonly/>
                                 </div>
                               </div>
                               <div class="col-md-4">
                                 ชำระแล้ว
                                 <div class="form-inline" align="left">
-                                  <input type="text" class="form-control" style="width: 100%;" value="{{ number_format($data->Beforemoey_legis, 2) }}" readonly/>
+                                  <input type="text" name="Beforemoeylegis" class="form-control" style="width: 100%;" value="{{ number_format($data1->SMPAY, 2) }}" readonly/>
                                 </div>
                               </div>
                             </div>
@@ -339,19 +339,19 @@
                               <div class="col-md-4">
                                 ค้าง
                                 <div class="form-inline" align="left">
-                                  <input type="text" class="form-control" style="width: 100%;" value="{{ number_format($data->Staleperiod_legis, 0) }}" readonly/>
+                                  <input type="text" name="Staleperiodlegis" class="form-control" style="width: 100%;" value="{{ number_format($data1->EXP_PRD, 0) }}" readonly/>
                                 </div>
                               </div>
                               <div class="col-md-4">
                                 ค้างงวดจริง
                                 <div class="form-inline" align="left">
-                                  <input type="text" class="form-control" style="width: 100%;" value="{{ number_format($data->Realperiod_legis, 2) }}" readonly/>
+                                  <input type="text" name="Realperiod_legis" class="form-control" style="width: 100%;" value="{{ number_format($data1->HLDNO, 2) }}" readonly/>
                                 </div>
                               </div>
                               <div class="col-md-4">
                                 ลูกหนี้คงเหลือ
                                 <div class="form-inline" align="left">
-                                  <input type="text" class="form-control" style="width: 100%;" value="{{ number_format($data->Sumperiod_legis, 2) }}" readonly/>
+                                  <input type="text" name="Sumperiodlegis" class="form-control" style="width: 100%;" value="{{ number_format($data1->BALANC - $data1->SMPAY, 2) }}" readonly/>
                                 </div>
                               </div>
                             </div>
@@ -361,9 +361,9 @@
                                 วันที่หยุด Vat
                                 <div class="form-inline" align="left">
                                   @if($data->DateVAT_legis == Null)
-                                    <input type="text" class="form-control" style="width: 100%;" value="{{ $data->DateVAT_legis }}" readonly/>
+                                    <input type="text" name="DateVATlegis" class="form-control" style="width: 100%;" value="{{ $data1->DTSTOPV }}" readonly/>
                                   @else
-                                    <input type="text" class="form-control" style="width: 100%;" value="{{ DateThai($data->DateVAT_legis) }}" readonly/>
+                                    <input type="text" name="DateVATlegis" class="form-control" style="width: 100%;" value="{{ DateThai($data1->DTSTOPV) }}" readonly/>
                                   @endif
                                 </div>
                               </div>
@@ -393,7 +393,6 @@
                               </button>
                             </div>
                           </div>
-                          <div class="box-body">
                             <div class="col-md-12">
                               <div class="row">
 
@@ -501,9 +500,28 @@
                                   </div>
                               </div>
                             </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-3">
+                        <div class="box box-warning">
+                          <div class="box-header with-border bg-yellow">
+                            <h3 class="box-title">หมายเหตุ</h3>
+                            <div class="box-tools pull-right">
+                              <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                              </button>
+                            </div>
+                          </div>
+                          <div class="box-body">
+                            <div class="col-md-12">
+                              <div class="row">
+                                    <textarea name="NotebyAnalysis" class="form-control" rows="14">{{ $data->Noteby_legis }}</textarea>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
+
                     </div>
                   </div>
                 </div>

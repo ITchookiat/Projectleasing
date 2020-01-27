@@ -38,7 +38,7 @@
           </div>
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs bg-warning">
-              <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 2]) }}">หน้าหลัก</a></li>
+              <!-- <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 2]) }}">หน้าหลัก</a></li> -->
               <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 4]) }}">รายละเอียด</a></li>
               <li class="nav-item active"><a href="{{ action('LegislationController@edit',[$id, 5]) }}">เพิ่มข้อมูลชำระ</a></li>
             </ul>

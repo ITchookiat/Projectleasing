@@ -21,38 +21,37 @@ class LegislationController extends Controller
      */
     public function index(Request $request)
     {
+      $data = DB::connection('ibmi')
+      ->table('SFHP.ARMAST')
+      ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+      ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+      ->whereBetween('SFHP.ARMAST.HLDNO',[6.7,99.99])
+      ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+      ->get();
+      // dd($data);
+
+      $count = count($data);
+      for($i=0; $i<$count; $i++){
+        $str[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$data[$i]->CONTSTAT)));
+        if ($str[$i] == "ฟ") {
+          $result[] = $data[$i];
+        }
+      }
       if($request->type == 1) {
-        $data = DB::connection('ibmi')
-                  ->table('SFHP.ARMAST')
-                  ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
-                  ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
-                  ->whereBetween('SFHP.ARMAST.HLDNO',[6.7,99.99])
-                  ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
-                  ->get();
-                  // dd($data);
-
-                  $count = count($data);
-                  for($i=0; $i<$count; $i++){
-                    $str[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$data[$i]->CONTSTAT)));
-                    if ($str[$i] == "ฟ") {
-                      $result[] = $data[$i];
-                    }
-                  }
-
         $dataAro = DB::connection('ibmi')
-                  ->table('SFHP.ARMAST')
-                  ->join('SFHP.AROTHGAR','SFHP.ARMAST.CONTNO','=','SFHP.AROTHGAR.CONTNO')
-                  ->whereBetween('SFHP.ARMAST.HLDNO',[6.7,199.99])
-                  ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
-                  ->get();
+        ->table('SFHP.ARMAST')
+        ->join('SFHP.AROTHGAR','SFHP.ARMAST.CONTNO','=','SFHP.AROTHGAR.CONTNO')
+        ->whereBetween('SFHP.ARMAST.HLDNO',[6.7,199.99])
+        ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+        ->get();
 
-                  $count2 = count($dataAro);
-                  for($j=0; $j<$count2; $j++){
-                    $str2[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$dataAro[$j]->CONTSTAT)));
-                    if ($str2[$j] == "ฟ") {
-                      $result2[] = $dataAro[$j];
-                    }
-                  }
+        $count2 = count($dataAro);
+        for($j=0; $j<$count2; $j++){
+          $str2[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$dataAro[$j]->CONTSTAT)));
+          if ($str2[$j] == "ฟ") {
+            $result2[] = $dataAro[$j];
+          }
+        }
 
         $data = DB::table('legislations')
                   ->orderBy('Contract_legis', 'ASC')
@@ -66,33 +65,34 @@ class LegislationController extends Controller
         $data = DB::table('legislations')
                   ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
                   ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
-                  ->where('legislations.Flag','=', '2')
+                  ->where('legislations.Flag_status','=', '2')
                   ->orderBy('legislations.Contract_legis', 'ASC')
                   ->get();
 
         $type = $request->type;
-        return view('legislation.view', compact('type', 'data'));
+        return view('legislation.view', compact('type', 'data','result'));
       }
       elseif ($request->type == 6) {
         $data = DB::table('legislations')
                   ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
                   ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
-                  // ->where('legislations.Flag','=', '1')
+                  // ->where('legislations.Flag_status','=', '1')
                   ->orderBy('legislations.Contract_legis', 'ASC')
                   ->get();
 
         $type = $request->type;
-        return view('legislation.view', compact('type', 'data'));
+        return view('legislation.view', compact('type', 'data','result'));
       }
       elseif ($request->type == 7) {
         $data = DB::table('legislations')
                   ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
                   ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+                  ->where('legislations.Flag_status','=', '2')
                   ->orderBy('legislations.Contract_legis', 'ASC')
                   ->get();
 
         $type = $request->type;
-        return view('legislation.view', compact('type', 'data'));
+        return view('legislation.view', compact('type', 'data','result'));
       }
     }
 
@@ -188,7 +188,8 @@ class LegislationController extends Controller
           'Staleperiod_legis' => $data->EXP_PRD, //ค้าง
           'Realperiod_legis' => $data->HLDNO, //ค้างงวดจริง
           'Sumperiod_legis' => $data->BALANC - $data->SMPAY,
-          'Flag' => '1',
+          'Flag' => 'Y',
+          'Flag_status' => '1',
         ]);
         $LegisDB->save();
 
@@ -218,8 +219,19 @@ class LegislationController extends Controller
       if ($type == 2) {     //ข้อมูลผู้เช่าซื้อ
         $data = DB::table('legislations')
         ->where('legislations.id',$id)->first();
+        $StrCon = explode("/",$data->Contract_legis);
+        $SetStr1 = $StrCon[0];
+        $SetStr2 = $StrCon[1];
+        $SetStrConn = $SetStr1."/".$SetStr2;
 
-        return view('legislation.edit',compact('data','id','type'));
+        $data1 = DB::connection('ibmi')
+                  ->table('SFHP.ARMAST')
+                  ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+                  ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                  ->where('SFHP.ARMAST.CONTNO','=', $SetStrConn)
+                  ->first();
+
+        return view('legislation.edit',compact('data','data1','id','type'));
       }
       elseif ($type == 3){  //ชั้นศาล
         $data = DB::table('legiscourts')
@@ -288,8 +300,20 @@ class LegislationController extends Controller
       elseif ($type == 6) { //เพิ่มข้อมูลงาน วิเคราะห์
         $data = DB::table('legislations')
         ->where('legislations.id',$id)->first();
+        $StrCon = explode("/",$data->Contract_legis);
+        $SetStr1 = $StrCon[0];
+        $SetStr2 = $StrCon[1];
+        $SetStrConn = $SetStr1."/".$SetStr2;
 
-        return view('legislation.editAnalyze',compact('data','id','type'));
+        $data1 = DB::connection('ibmi')
+                  ->table('SFHP.ARMAST')
+                  ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+                  ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                  ->where('SFHP.ARMAST.CONTNO','=', $SetStrConn)
+                  ->first();
+
+        // dd($data1);
+        return view('legislation.editAnalyze',compact('data','data1','id','type'));
       }
       elseif ($type == 11){ //รูปและแผนที
         $data = DB::table('legiscourts')
@@ -341,6 +365,17 @@ class LegislationController extends Controller
           $user->OverDue_legis = $request->get('txtOverDuelegis');
           $user->Holder_legis = $request->get('Holderlegis');
 
+          $user->Pay_legis = str_replace(",","",$request->get('Paylegis'));
+          $user->Period_legis = str_replace(",","",$request->get('Periodlegis'));
+          $user->Countperiod_legis = $request->get('Countperiodlegis');
+          $user->Beforeperiod_legis = $request->get('Beforeperiodlegis');
+          $user->Remainperiod_legis = $request->get('Remainperiodlegis');
+          $user->Beforemoey_legis = str_replace(",","",$request->get('Beforemoeylegis'));
+          $user->Staleperiod_legis = str_replace(",","",$request->get('Staleperiodlegis'));
+          $user->Realperiod_legis = str_replace(",","",$request->get('Realperiod_legis'));
+          $user->Sumperiod_legis = str_replace(",","",$request->get('Sumperiodlegis'));
+          $user->DateVAT_legis = $request->get('DateVATlegis');
+          $user->Certificate_list = $request->get('Certificatelist');
           $user->Authorize_list = $request->get('Authorizelist');
           $user->Authorizecase_list = $request->get('Authorizecaselist');
           $user->Purchase_list = $request->get('Purchaselist');
@@ -400,6 +435,8 @@ class LegislationController extends Controller
         $data = DB::table('Legiscompromises')
                   ->where('Legiscompromises.legisPromise_id', $id)->first();
 
+        $SetTotalPromise = str_replace (",","",$request->get('TotalPromise'));
+        // dd($SetTotalPromise);
         $SetSumPromise = str_replace (",","",$request->get('SumPromise'));
         $SetDuePay = str_replace (",","",$request->get('DuePayPromise'));
         $SetDiscount = str_replace (",","",$request->get('DiscountPromise'));
@@ -411,7 +448,7 @@ class LegislationController extends Controller
               'legisPromise_id' => $id,
               'KeyPay_id' => Null,
               'Flag_Promise' => $request->get('FlagPromise'),
-              'Total_Promise' => $request->get('TotalPromise'),
+              'Total_Promise' => $SetTotalPromise,
               'Type_Promise' =>  $request->get('TypePromise'),
               'DateNsale_Promise' =>  $request->get('DateNsalePromise'),
               'Dateset_Promise' =>  $request->get('DatesetPromise'),
@@ -434,7 +471,7 @@ class LegislationController extends Controller
           // dd($request->get('FlagPromise'));
           $LegisPromise = Legiscompromise::where('legisPromise_id',$id)->first();
             $LegisPromise->Flag_Promise = $request->get('FlagPromise');
-            $LegisPromise->Total_Promise = $request->get('TotalPromise');
+            $LegisPromise->Total_Promise = $SetTotalPromise;
             $LegisPromise->Type_Promise = $request->get('TypePromise');
             $LegisPromise->DateNsale_Promise = $request->get('DateNsalePromise');
             $LegisPromise->Dateset_Promise = $request->get('DatesetPromise');
@@ -467,6 +504,16 @@ class LegislationController extends Controller
       }
       elseif ($type == 6) { //เตรียมเอกสารฝ่ายวิเคราะห์
         $user = Legislation::find($id);
+          $user->Pay_legis = str_replace(",","",$request->get('Paylegis'));
+          $user->Period_legis = str_replace(",","",$request->get('Periodlegis'));
+          $user->Countperiod_legis = $request->get('Countperiodlegis');
+          $user->Beforeperiod_legis = $request->get('Beforeperiodlegis');
+          $user->Remainperiod_legis = $request->get('Remainperiodlegis');
+          $user->Beforemoey_legis = str_replace(",","",$request->get('Beforemoeylegis'));
+          $user->Staleperiod_legis = str_replace(",","",$request->get('Staleperiodlegis'));
+          $user->Realperiod_legis = str_replace(",","",$request->get('Realperiod_legis'));
+          $user->Sumperiod_legis = str_replace(",","",$request->get('Sumperiodlegis'));
+          $user->DateVAT_legis = $request->get('DateVATlegis');
           $user->Terminatebuyer_list = $request->get('Terminatebuyerlist');
           $user->Terminatesupport_list = $request->get('Terminatesupportlist');
           $user->Acceptbuyerandsup_list = $request->get('Acceptbuyerandsuplist');
@@ -474,6 +521,7 @@ class LegislationController extends Controller
           $user->AcceptTwodue_list = $request->get('AcceptTwoduelist');
           $user->Confirm_list = $request->get('Confirmlist');
           $user->Accept_list = $request->get('Acceptlist');
+          $user->Noteby_legis = $request->get('NotebyAnalysis');
         $user->update();
 
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
@@ -572,7 +620,7 @@ class LegislationController extends Controller
        if ($type == 6) {     //ข้อมูลผู้เช่าซื้อจากฝ่ายวิเคราะห์
          $nowday = date('Y-m-d');
          $user = Legislation::find($id);
-           $user->Flag = $request->get('Flag');
+           $user->Flag_status = $request->get('Flag');
            $user->Datesend_Flag = $nowday;
          $user->update();
 
@@ -610,8 +658,8 @@ class LegislationController extends Controller
            'longitude_court' =>  Null,
          ]);
          $Legiscourt->save();
-
-         return redirect()->back()->with('success','ส่งเรียบร้อย');
+         
+         return redirect()->Route('legislation',$type)->with('success','ส่งเรียบร้อย');
        }
      }
 

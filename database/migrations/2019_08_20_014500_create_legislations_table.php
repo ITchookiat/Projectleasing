@@ -43,12 +43,14 @@ class CreateLegislationsTable extends Migration
             $table->string('Sumperiod_legis')->nullable();    //เหลือเป็นจำนวนเงิน เท่าไร
             $table->string('Note')->nullable();
             $table->string('Flag')->nullable();
-            $table->string('Datesend_Flag')->nullable();
             $table->string('CAccount_legis')->nullable();
             $table->string('txtCAccount_legis')->nullable();
             $table->string('OverDue_legis')->nullable();
             $table->string('txtOverDue_legis')->nullable();
             $table->string('Holder_legis')->nullable();
+            $table->string('Flag_status')->nullable();
+            $table->string('Datesend_Flag')->nullable(); //วันที่ส่งงานให้ทีมทนาย
+            $table->string('Noteby_legis')->nullable(); //หมายเหตุจากทีมวิวิเคราะห์
 
             $table->string('Certificate_list')->nullable();
             $table->string('Authorize_list')->nullable();
