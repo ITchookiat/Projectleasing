@@ -358,6 +358,13 @@ class LegislationController extends Controller
       if ($type == 2) {     //ข้อมูลผู้เช่าซื้อ
         $user = Legislation::find($id);
           //หน้าทีมทนาย
+          // dd($request);
+          $user->CAccount_legis = $request->get('CAccountlegis');
+          $user->CAccount_legis = $request->get('txtCAccountlegis');
+          $user->OverDue_legis = $request->get('OverDuelegis');
+          $user->OverDue_legis = $request->get('txtOverDuelegis');
+          $user->Holder_legis = $request->get('Holderlegis');
+
           $user->Pay_legis = str_replace(",","",$request->get('Paylegis'));
           $user->Period_legis = str_replace(",","",$request->get('Periodlegis'));
           $user->Countperiod_legis = $request->get('Countperiodlegis');
@@ -368,7 +375,6 @@ class LegislationController extends Controller
           $user->Realperiod_legis = str_replace(",","",$request->get('Realperiod_legis'));
           $user->Sumperiod_legis = str_replace(",","",$request->get('Sumperiodlegis'));
           $user->DateVAT_legis = $request->get('DateVATlegis');
-
           $user->Certificate_list = $request->get('Certificatelist');
           $user->Authorize_list = $request->get('Authorizelist');
           $user->Authorizecase_list = $request->get('Authorizecaselist');
@@ -496,15 +502,8 @@ class LegislationController extends Controller
 
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อย');
       }
-      elseif($type == 6){ //เตรียมเอกสารฝ่ายวิเคราะห์
-        // dd($request);
+      elseif ($type == 6) { //เตรียมเอกสารฝ่ายวิเคราะห์
         $user = Legislation::find($id);
-          // $user->Certificate_list = $request->get('Certificatelist');
-          // $user->Authorize_list = $request->get('Authorizelist');
-          // $user->Authorizecase_list = $request->get('Authorizecaselist');
-          // $user->Purchase_list = $request->get('Purchaselist');
-          // $user->Promise_list = $request->get('Promiselist');
-          // $user->Titledeed_list = $request->get('Titledeedlist');
           $user->Pay_legis = str_replace(",","",$request->get('Paylegis'));
           $user->Period_legis = str_replace(",","",$request->get('Periodlegis'));
           $user->Countperiod_legis = $request->get('Countperiodlegis');
@@ -524,6 +523,7 @@ class LegislationController extends Controller
           $user->Accept_list = $request->get('Acceptlist');
           $user->Noteby_legis = $request->get('NotebyAnalysis');
         $user->update();
+
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
       }
       elseif ($type == 11) {
@@ -658,7 +658,7 @@ class LegislationController extends Controller
            'longitude_court' =>  Null,
          ]);
          $Legiscourt->save();
-
+         
          return redirect()->Route('legislation',$type)->with('success','ส่งเรียบร้อย');
        }
      }
