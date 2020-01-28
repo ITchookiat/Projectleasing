@@ -624,41 +624,46 @@ class LegislationController extends Controller
            $user->Datesend_Flag = $nowday;
          $user->update();
 
-         $Legiscourt = new Legiscourt([
-           'legislation_id' => $id,
-           'fillingdate_court' => Null,
-           'law_court' =>  Null,
-           'bnumber_court' =>  Null,
-           'rnumber_court' =>  Null,
-           'capital_court' =>  Null,
-           'indictment_court' =>  Null,
-           'pricelawyer_court' =>  Null,
-           'examiday_court' =>  Null,
-           'fuzzy_court' =>  Null,
-           'examinote_court' =>  Null,
-           'orderday_court' =>  Null,
-           'ordersend_court' =>  Null,
-           'checkday_court' =>  Null,
-           'checksend_court' =>  Null,
-           'buyer_court' =>  Null,
-           'support_court' =>  Null,
-           'note_court' =>  Null,
-           'social_flag' =>  Null,
-           'setoffice_court' =>  Null,
-           'sendoffice_court' =>  Null,
-           'checkresults_court' =>  Null,
-           'sendcheckresults_court' =>  Null,
-           'received_court' =>  Null,
-           'telresults_court' =>  Null,
-           'dayresults_court' =>  Null,
-           'propertied_court' =>  Null,
-           'sequester_court' =>  Null,
-           'sendsequester_court' =>  Null,
-           'latitude_court' =>  Null,
-           'longitude_court' =>  Null,
-         ]);
-         $Legiscourt->save();
-         
+         $data = DB::table('legiscourts')
+                   ->where('legislation_id', '=', $id)
+                   ->count();
+
+         if($data == 0){
+             $Legiscourt = new Legiscourt([
+               'legislation_id' => $id,
+               'fillingdate_court' => Null,
+               'law_court' =>  Null,
+               'bnumber_court' =>  Null,
+               'rnumber_court' =>  Null,
+               'capital_court' =>  Null,
+               'indictment_court' =>  Null,
+               'pricelawyer_court' =>  Null,
+               'examiday_court' =>  Null,
+               'fuzzy_court' =>  Null,
+               'examinote_court' =>  Null,
+               'orderday_court' =>  Null,
+               'ordersend_court' =>  Null,
+               'checkday_court' =>  Null,
+               'checksend_court' =>  Null,
+               'buyer_court' =>  Null,
+               'support_court' =>  Null,
+               'note_court' =>  Null,
+               'social_flag' =>  Null,
+               'setoffice_court' =>  Null,
+               'sendoffice_court' =>  Null,
+               'checkresults_court' =>  Null,
+               'sendcheckresults_court' =>  Null,
+               'received_court' =>  Null,
+               'telresults_court' =>  Null,
+               'dayresults_court' =>  Null,
+               'propertied_court' =>  Null,
+               'sequester_court' =>  Null,
+               'sendsequester_court' =>  Null,
+               'latitude_court' =>  Null,
+               'longitude_court' =>  Null,
+             ]);
+             $Legiscourt->save();
+           }
          return redirect()->Route('legislation',$type)->with('success','ส่งเรียบร้อย');
        }
      }
