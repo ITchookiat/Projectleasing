@@ -541,56 +541,57 @@
                         }
                       }
                       // ฟังชันคำนวณ วันที่ได้รับและไมไ่ด้รับ
-                      function Datesuccess(){
-                        var sendcheckresult = document.getElementById('sendcheckresultscourt').value;
-                        var dayresults = document.getElementById('dayresultscourt').value;
+                      // function Datesuccess(){
+                      //   var sendcheckresult = document.getElementById('sendcheckresultscourt').value;
+                      //   var dayresults = document.getElementById('dayresultscourt').value;
+                      //
+                      //   var Setdate = new Date(sendcheckresult);
+                      //   var newdate = new Date(Setdate);
+                      //
+                      //   newdate.setDate(newdate.getDate() + 45);
+                      //   var dd = newdate.getDate();
+                      //   var mm = newdate.getMonth() + 1;
+                      //   var yyyy = newdate.getFullYear();
+                      //
+                      //   if (dd < 10) {
+                      //     var Newdd = '0' + dd;
+                      //   }else {
+                      //     var Newdd = dd;
+                      //   }
+                      //   if (mm < 10) {
+                      //     var Newmm = '0' + mm;
+                      //   }else {
+                      //     var Newmm = mm;
+                      //   }
+                      //   var resultcheck = yyyy + '-' + Newmm + '-' + Newdd;
+                      //   document.getElementById('sequestercourt').value = resultcheck;
+                      //
+                      //   console.log(dayresults);
+                      //   if (dayresults != '') {
+                      //     var Setdate = new Date(dayresults);
+                      //     var newdate = new Date(Setdate);
+                      //
+                      //     newdate.setDate(newdate.getDate() + 45);
+                      //     var dd = newdate.getDate();
+                      //     var mm = newdate.getMonth() + 1;
+                      //     var yyyy = newdate.getFullYear();
+                      //
+                      //     if (dd < 10) {
+                      //       var Newdd = '0' + dd;
+                      //     }else {
+                      //       var Newdd = dd;
+                      //     }
+                      //     if (mm < 10) {
+                      //       var Newmm = '0' + mm;
+                      //     }else {
+                      //       var Newmm = mm;
+                      //     }
+                      //     var result = yyyy + '-' + Newmm + '-' + Newdd;
+                      //     document.getElementById('sequestercourt').value = result;
+                      //   }
+                      //
+                      // }
 
-                        var Setdate = new Date(sendcheckresult);
-                        var newdate = new Date(Setdate);
-
-                        newdate.setDate(newdate.getDate() + 45);
-                        var dd = newdate.getDate();
-                        var mm = newdate.getMonth() + 1;
-                        var yyyy = newdate.getFullYear();
-
-                        if (dd < 10) {
-                          var Newdd = '0' + dd;
-                        }else {
-                          var Newdd = dd;
-                        }
-                        if (mm < 10) {
-                          var Newmm = '0' + mm;
-                        }else {
-                          var Newmm = mm;
-                        }
-                        var resultcheck = yyyy + '-' + Newmm + '-' + Newdd;
-                        document.getElementById('sequestercourt').value = resultcheck;
-
-                        console.log(dayresults);
-                        if (dayresults != '') {
-                          var Setdate = new Date(dayresults);
-                          var newdate = new Date(Setdate);
-
-                          newdate.setDate(newdate.getDate() + 45);
-                          var dd = newdate.getDate();
-                          var mm = newdate.getMonth() + 1;
-                          var yyyy = newdate.getFullYear();
-
-                          if (dd < 10) {
-                            var Newdd = '0' + dd;
-                          }else {
-                            var Newdd = dd;
-                          }
-                          if (mm < 10) {
-                            var Newmm = '0' + mm;
-                          }else {
-                            var Newmm = mm;
-                          }
-                          var result = yyyy + '-' + Newmm + '-' + Newdd;
-                          document.getElementById('sequestercourt').value = result;
-                        }
-
-                      }
                       // ฟังชันคำนวณ ค่าทนาย
                       function CalculateCap(){
                           var cap = document.getElementById('capitalcourt').value;
@@ -846,7 +847,7 @@
                           <div class="col-md-4">
                             <div class="box box-warning box-solid">
                               <div class="box-header with-border">
-                                <h3 class="box-title"> สถานะยึดทรัพย์</h3>
+                                <h3 class="box-title"> สถานะทรัพย์</h3>
                                 <div class="box-tools pull-right">
                                   <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                                   </button>
@@ -890,7 +891,7 @@
                                  <div id="ShowMe">
                                 @endif
                                     วันสืบทรัพย์
-                                    <input type="date" id="sequestercourt" name="sequestercourt" class="form-control" value="{{ $data->sequester_court }}" readonly/>
+                                    <input type="date" id="sequestercourt" name="sequestercourt" class="form-control" value="{{ $data->sequester_court }}"/>
                                     <!-- วันที่ยึดทรัพย์จริง
                                     <input type="date" id="sendsequestercourt" name="sendsequestercourt" class="form-control" value="{{ $data->sendsequester_court }}" /> -->
                                     @if($data->sendsequester_court == Null)
