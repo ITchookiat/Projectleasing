@@ -255,6 +255,9 @@ class LegislationController extends Controller
                   ->where('legispayments.legis_Com_Payment_id', $id)
                   ->get();
 
+        $dataPranom = DB::table('Legiscompromises')
+                  ->where('legisPromise_id', $id)
+                  ->count();
         // dd($data);
         $SumCount = 0;  //ค่าผ่อนชำระทั้งหมด
         $SumPay = 0;    //ค่าชำระ
@@ -291,7 +294,7 @@ class LegislationController extends Controller
           'ประนอมหลังยึดทรัพย์' => 'ประนอมหลังยึดทรัพย์',
         ];
 
-        return view('legislation.compromise',compact('data','id','type','Typecom','dataPay','SumPay','SumAllPAy','Getdata','SumCount'));
+        return view('legislation.compromise',compact('data','id','type','Typecom','dataPay','SumPay','SumAllPAy','Getdata','SumCount','dataPranom'));
       }
       elseif ($type == 5) { //เพิ่มข้อมูลชำระ
         return view('legislation.payment',compact('data','id','type'));

@@ -123,9 +123,15 @@
                            </div>
 
                           <div class="col-md-3" align="center">
+                            @if($dataPranom != 0)
                              <a class="btn btn-app" href="{{ action('LegislationController@edit',[$id, 5]) }}" style="background-color:blue; color:#FFFFFF;" data-toggle="modal" data-target="#modal-default" data-backdrop="static" data-keyboard="false">
                                <span class="glyphicon glyphicon-plus"></span> เพิ่มชำระ
                              </a>
+                            @else
+                            <a disabled class="btn btn-app" href="#" style="background-color:grey; color:#FFFFFF;">
+                              <span class="glyphicon glyphicon-plus"></span> เพิ่มชำระ
+                            </a>
+                            @endif
                             <button type="submit" class="btn btn-app" style="background-color:#189100; color:#FFFFFF;">
                               <span class="glyphicon glyphicon-floppy-save"></span> อัพเดท
                             </button>
@@ -248,7 +254,7 @@
                                      <div class="form-inline" align="right">
                                         <label>ประเภทประนอมหนี้ :</label>
                                         @if($data->Type_Promise == Null)
-                                          <select id="TypePromise" name="TypePromise" class="form-control" style="width: 200px;" onchange="income();">
+                                          <select id="TypePromise" name="TypePromise" class="form-control" style="width: 200px;" onchange="income();" required>
                                             <option value="" selected>--- เลือกประนอม ---</option>
                                             <option value="ประนอมที่ศาล">ประนอมที่ศาล</option>
                                             <option value="ประนอมที่บริษัท">ประนอมที่บริษัท</option>
