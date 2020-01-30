@@ -130,7 +130,6 @@ class LegislationController extends Controller
         ]);
         $LegisPay->save();
 
-        // dd($LegisPay);
         $Legiscom = Legiscompromise ::find($id);
           $Legiscom->KeyPay_id = $id;
         $Legiscom->update();
