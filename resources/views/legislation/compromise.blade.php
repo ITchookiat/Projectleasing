@@ -28,12 +28,12 @@
       input[type="checkbox"]:focus+span:before { outline: 2px dotted #aaa; }
     </style>
 
-      <section class="content-header">
+      <!-- <section class="content-header">
         <h1>
           ชั้นศาล
           <small>ประนอมหนี้</small>
         </h1>
-      </section>
+      </section> -->
 
       <!-- Main content -->
       <section class="content">
@@ -49,11 +49,11 @@
             </div>
           </div>
           <div class="nav-tabs-custom">
-            <ul class="nav nav-tabs bg-warning">
-              <!-- <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 2]) }}">หน้าหลัก</a></li> -->
+            <!-- <ul class="nav nav-tabs bg-warning">
+              <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 2]) }}">หน้าหลัก</a></li>
               <li class="nav-item active"><a href="{{ action('LegislationController@edit',[$id, 4]) }}">รายละเอียด</a></li>
               <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 5]) }}">เพิ่มข้อมูลชำระ</a></li>
-            </ul>
+            </ul> -->
           </div>
 
           <div class="box-body">
@@ -73,76 +73,75 @@
                       @method('put')
                       <div class="form-inline" align="right">
                         <div class="row">
-                           <div class="col-md-8">
-                             <div class="row">
-                                <div class="col-md-6">
-                                  <div class="form-inline" align="right">
-                                     <label>เลขที่สัญญา : </label>
-                                     <input type="text" name="ContractPromise" class="form-control" value="{{ $data->Contract_legis }}" style="width: 200px;" readonly/>
-                                   </div>
-                                </div>
-                                <div class="col-md-6">
-                                  <div class="form-inline" align="right">
-                                     <label>ชื่อ - นามสกุล :</label>
-                                     <input type="text" name="NamePromise" class="form-control" value="{{ $data->Name_legis }}" style="width: 220px;" readonly/>
-                                   </div>
-                                </div>
-                                <!-- <div class="col-md-4">
-                                  <div class="form-inline" align="right">
-                                     <label>ป้ายทะเบียน : </label>
-                                     <input type="text" name="RigisPromise" class="form-control" value="{{ $data->register_legis }}" style="width: 200px;" readonly/>
-                                   </div>
+
+                          <div class="col-md-3">
+                            <div class="info-box">
+                              <span class="info-box-icon" style="height: 95px;background-color:red;color:#FFF;"><i class="fa fa-user"></i></span>
+
+                              <div class="info-box-content">
+                                <span class="info-box-number text-left">
+                                  <font style="font-size:28px;">{{ $data->Contract_legis }}</font>
+                                </span>
+
+                                <!-- <div class="progress">
+                                  <div class="progress-bar" style="width: 100%;background-color:grey;"></div>
                                 </div> -->
-                             </div>
+                                <span class="progress-description text-left">
+                                  <font style="font-size:24px;">{{ $data->Name_legis }}</font>
+                                </span>
 
-                             <div class="row">
-                                <div class="col-md-6">
-                                  <div class="form-inline" align="right">
-                                     <label>ยี่ห้อ :</label>
-                                     <input type="text" name="BrandPromise" class="form-control" value="{{ $data->BrandCar_legis }}" style="width: 200px;" readonly/>
-                                   </div>
-                                </div>
-                                <div class="col-md-6">
-                                  <div class="form-inline" align="right">
-                                     <label>ปีรถ :</label>
-                                     <input type="text" name="YearcarPromise" class="form-control" value="{{ $data->YearCar_legis }}" style="width: 220px;" readonly/>
-                                   </div>
-                                </div>
-                             </div>
+                              </div>
+                              <!-- /.info-box-content -->
+                            </div>
+                          </div>
 
-                             <div class="row">
-                               <div class="col-md-6">
-                                 <div class="form-inline" align="right">
-                                    <label>ป้ายทะเบียน : </label>
-                                    <input type="text" name="RigisPromise" class="form-control" value="{{ $data->register_legis }}" style="width: 200px;" readonly/>
-                                  </div>
-                               </div>
-                                <div class="col-md-6">
-                                  <div class="form-inline" align="right">
-                                    <label>
-                                      @if($data->Flag_Promise == "Y")
-                                        <input type="checkbox" name="FlagPromise" value="Y" checked/>
-                                      @else
-                                        <input type="checkbox" class="form-control" name="FlagPromise" value="Y"/>
-                                      @endif
-                                      <span>ปิดบัญชี:</span>
-                                      <input type="text" class="form-control" value="" style="width: 220px;"/>
-                                    </label>
-                                  </div>
-                                </div>
-                             </div>
+                           <div class="col-md-6" align="center">
+
+                             <label>
+                               @if($data->CAccount_legis != Null)
+                               <input type="checkbox" name="CAccountlegis" value="{{ $data->CAccount_legis }}" checked="checked"/>
+                               @else
+                               <input type="checkbox" name="CAccountlegis" value="Y"/>
+                               @endif
+                               <span><font color="red">ปิดบัญชี :</font></span>
+                               <input type="text" name="txtCAccountlegis" class="form-control" style="width: 120px;">
+                             </label>
+                             <label>
+                               @if($data->OverDue_legis != Null)
+                               <input type="checkbox" name="OverDuelegis" value="{{ $data->OverDue_legis }}" checked="checked"/>
+                               @else
+                               <input type="checkbox" name="OverDuelegis" value="BF"/>
+                               @endif
+                               <span><font color="red">จ่ายตามจำนวนงวด :</font></span>
+                               <input type="text" name="txtOverDuelegis" class="form-control" style="width: 120px;">
+                             </label>
+                             <!-- <label>
+                               <input type="checkbox" name="Holderlegis" value="BK"/>
+                               <span><font color="red">ยึดรถ</font></span>
+                             </label> -->
+
                            </div>
 
-                           <div class="col-md-4" align="center">
+                          <div class="col-md-3" align="center">
+                            @if($dataPranom != 0)
+                             <a class="btn btn-app" href="{{ action('LegislationController@edit',[$id, 5]) }}" style="background-color:blue; color:#FFFFFF;" data-toggle="modal" data-target="#modal-default" data-backdrop="static" data-keyboard="false">
+                               <span class="glyphicon glyphicon-plus"></span> เพิ่มชำระ
+                             </a>
+                            @else
+                            <a disabled class="btn btn-app" href="#" style="background-color:grey; color:#FFFFFF;">
+                              <span class="glyphicon glyphicon-plus"></span> เพิ่มชำระ
+                            </a>
+                            @endif
                             <button type="submit" class="btn btn-app" style="background-color:#189100; color:#FFFFFF;">
                               <span class="glyphicon glyphicon-floppy-save"></span> อัพเดท
                             </button>
                             <a class="btn btn-app" href="{{ route('legislation',7) }}" style="background-color:#DB0000; color:#FFFFFF;">
                               <span class="glyphicon glyphicon-remove"></span> ยกเลิก
                             </a>
-                          </div>
+
                         </div>
                       </div>
+
                       <script>
                           function addCommas(nStr){
                              nStr += '';
@@ -255,7 +254,7 @@
                                      <div class="form-inline" align="right">
                                         <label>ประเภทประนอมหนี้ :</label>
                                         @if($data->Type_Promise == Null)
-                                          <select id="TypePromise" name="TypePromise" class="form-control" style="width: 200px;" onchange="income();">
+                                          <select id="TypePromise" name="TypePromise" class="form-control" style="width: 200px;" onchange="income();" required>
                                             <option value="" selected>--- เลือกประนอม ---</option>
                                             <option value="ประนอมที่ศาล">ประนอมที่ศาล</option>
                                             <option value="ประนอมที่บริษัท">ประนอมที่บริษัท</option>
@@ -385,7 +384,6 @@
                                         <td class="text-center"> {{$row->Type_Payment}} </td>
                                         <td class="text-center"> {{$row->Adduser_Payment}} </td>
                                         <td class="text-center">
-                                          <!-- <span class="label label-success">Approved</span> -->
                                           <form method="post" class="delete_form" action="{{ action('LegislationController@destroy',[$row->Payment_id, 2]) }}">
                                           {{csrf_field()}}
                                             <input type="hidden" name="_method" value="DELETE" />
@@ -398,6 +396,7 @@
                                       @endforeach
                                     </tbody>
                                 </table>
+
                                 <div class="form-inline" align="left">
                                   <label><font color="red">ค่างวดทั้งหมด : </font></label>
                                   <input type="text" value="{{ number_format($Getdata, 2) }}" class="form-control" style="width: 150px;" readonly/>
@@ -408,6 +407,7 @@
 
                               </div>
                             </div>
+
                           </div>
                         </div>
                       </div>
@@ -416,11 +416,35 @@
               </div>
         </div>
 
+        <div class="modal fade" id="modal-default">
+
+          <div class="modal-dialog">
+
+            <div class="modal-content">
+
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title">ข้อมูลรายละเอียด...</h4>
+                </div>
+                <div class="modal-body">
+
+                  <div class="modal-footer"></div>
+                </div>
+
+              </div>
+              <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+          </div>
+          <!-- /.modal -->
+
         <script type="text/javascript">
           $(document).ready(function() {
             $('#table').DataTable( {
               "searching" : false,
               "lengthChange" : false,
+              "info" : false,
               "pageLength": 5,
             } );
           } );
@@ -434,4 +458,6 @@
       </script>
 
     </section>
+
+
 @endsection

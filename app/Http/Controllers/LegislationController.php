@@ -130,7 +130,6 @@ class LegislationController extends Controller
         ]);
         $LegisPay->save();
 
-        // dd($LegisPay);
         $Legiscom = Legiscompromise ::find($id);
           $Legiscom->KeyPay_id = $id;
         $Legiscom->update();
@@ -257,6 +256,9 @@ class LegislationController extends Controller
                   ->where('legispayments.legis_Com_Payment_id', $id)
                   ->get();
 
+        $dataPranom = DB::table('Legiscompromises')
+                  ->where('legisPromise_id', $id)
+                  ->count();
         // dd($data);
         $SumCount = 0;  //ค่าผ่อนชำระทั้งหมด
         $SumPay = 0;    //ค่าชำระ
@@ -293,7 +295,7 @@ class LegislationController extends Controller
           'ประนอมหลังยึดทรัพย์' => 'ประนอมหลังยึดทรัพย์',
         ];
 
-        return view('legislation.compromise',compact('data','id','type','Typecom','dataPay','SumPay','SumAllPAy','Getdata','SumCount'));
+        return view('legislation.compromise',compact('data','id','type','Typecom','dataPay','SumPay','SumAllPAy','Getdata','SumCount','dataPranom'));
       }
       elseif ($type == 5) { //เพิ่มข้อมูลชำระ
         return view('legislation.payment',compact('data','id','type'));
@@ -622,9 +624,13 @@ class LegislationController extends Controller
        if ($type == 6) {     //ข้อมูลผู้เช่าซื้อจากฝ่ายวิเคราะห์
          $nowday = date('Y-m-d');
          $user = Legislation::find($id);
-           $user->Flag_status = $request->get('Flag');
-           $user->Datesend_Flag = $nowday;
+               $user->Flag_status = $request->get('Flag');
+               $user->Datesend_Flag = $nowday;
          $user->update();
+         
+         $data = DB::table('legiscourts')
+                  ->where('legislation_id', '=', $id)
+                  ->count();
 
          $Legiscourt = new Legiscourt([
            'legislation_id' => $id,
@@ -662,7 +668,7 @@ class LegislationController extends Controller
            'longitude_court' =>  Null,
          ]);
          $Legiscourt->save();
-
+         
          return redirect()->Route('legislation',$type)->with('success','ส่งเรียบร้อย');
        }
      }

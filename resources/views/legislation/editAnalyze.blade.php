@@ -209,7 +209,7 @@
                 <div class="card-body">
                   <div class="tab-content">
                     <div class="form-group" align="right">
-                      <a class="btn btn-app" href="{{ action('LegislationController@updateLegislation',[$id,$type]) }}?&Flag={{2}}" style="background-color:#BB8FCE; color:#FFFFFF;">
+                      <a class="btn btn-app" href="{{ action('LegislationController@updateLegislation',[$id,$type]) }}?&Flag={{2}}" style="background-color:#031261; color:#FFFFFF;">
                         <span class="glyphicon glyphicon-log-out"></span> ส่งทนาย
                       </a>
                       <button type="submit" class="btn btn-app" style="background-color:#189100; color:#FFFFFF;">

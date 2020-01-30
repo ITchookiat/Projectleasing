@@ -1,7 +1,3 @@
-@extends('layouts.master')
-@section('title','แผนกวิเคราะห์')
-@section('content')
-
 @php
   date_default_timezone_set('Asia/Bangkok');
   $Y = date('Y') + 543;
@@ -14,14 +10,9 @@
   $date2 = $Y2.'-'.'01'.'-'.'01';
 @endphp
 
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css">
 
-      <section class="content-header">
-        <h1>
-          ชั้นศาล
-          <small>ประนอมหนี้ / เพิ่มข้อมูลชำระ</small>
-        </h1>
-      </section>
 
       <!-- Main content -->
       <section class="content">
@@ -30,18 +21,11 @@
           <div class="box-header with-border">
             <h4 class="card-title p-3" align="center">เพิ่มข้อมูลชำระ</h4>
             <div class="box-tools pull-right">
-              <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+              <!-- <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                 <i class="fa fa-minus"></i></button>
               <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-                <i class="fa fa-times"></i></button>
+                <i class="fa fa-times"></i></button> -->
             </div>
-          </div>
-          <div class="nav-tabs-custom">
-            <ul class="nav nav-tabs bg-warning">
-              <!-- <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 2]) }}">หน้าหลัก</a></li> -->
-              <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 4]) }}">รายละเอียด</a></li>
-              <li class="nav-item active"><a href="{{ action('LegislationController@edit',[$id, 5]) }}">เพิ่มข้อมูลชำระ</a></li>
-            </ul>
           </div>
 
           <div class="box-body">
@@ -53,15 +37,16 @@
               </div>
             @endif
 
-            <form name="form1" action="{{ route('legislation.store',[$id, $type]) }}" method="post" id="formimage" enctype="multipart/form-data">
+            <form name="form2" action="{{ route('legislation.store',[$id, $type]) }}" method="post" id="formimage" enctype="multipart/form-data">
               @csrf
 
               <div class="card">
                 <div class="card-body">
                   <div class="tab-content">
                     <div class="form-inline" align="right">
+
                       <script>
-                          function addCommas(nStr){
+                          function adds(nStr){
                              nStr += '';
                              x = nStr.split('.');
                              x1 = x[0];
@@ -72,57 +57,52 @@
                               }
                             return x1 + x2;
                           }
-                          function Comma(){
+                          function sperate(){
                             var num11 = document.getElementById('GoldPayment').value;
                             var num1 = num11.replace(",","");
-                            document.form1.GoldPayment.value = addCommas(num1);
+                            console.log(num1);
+                            document.form2.GoldPayment.value = adds(num1);
                           }
                       </script>
 
                       <div class="row">
-                         <div class="col-md-9">
+                         <div class="col-md-8">
                            <div class="row">
-                              <div class="col-md-5">
+
                                 <div class="form-inline" align="right">
                                    <label>วันที่ : </label>
                                    <input type="date" name="DatePayment" class="form-control" value="{{ $date }}" min="{{ $date2 }}" style="width: 200px;"/>
-                                 </div>
-                              </div>
-                              <div class="col-md-6">
+                                </div>
+                                <br>
                                 <div class="form-inline" align="right">
                                    <label>ยอดชำระ :</label>
-                                   <input type="text" name="GoldPayment" id="GoldPayment" class="form-control" value="" style="width: 200px;"  oninput="Comma();"/>
+                                   <input type="text" name="GoldPayment" id="GoldPayment" class="form-control" value="" style="width: 200px;"  oninput="sperate();" maxlength="7"/>
                                  </div>
-                              </div>
-                           </div>
-
-                           <div class="row">
-                             <div class="col-md-5">
-                               <div class="form-inline" align="right">
+                                <br>
+                                <div class="form-inline" align="right">
                                   <label>ประเภทชำระ : </label>
-                                  <select name="TypePayment" class="form-control" style="width: 200px;">
-                                    <option value="" selected>--- ประเภทชำระ ---</option>
-                                    <option value="ชำระเงินสด">ชำระเงินสด</option>
-                                    <option value="ชำระผ่านโอน">ชำระผ่านโอน</option>
-                                    <option value="เงินก้อนแรก">เงินก้อนแรก</option>
+                                  <select name="TypePayment" class="form-control" style="width: 200px;" required>
+                                  <option value="" selected>--- ประเภทชำระ ---</option>
+                                  <option value="ชำระเงินสด">ชำระเงินสด</option>
+                                  <option value="ชำระผ่านโอน">ชำระผ่านโอน</option>
+                                  <option value="เงินก้อนแรก">เงินก้อนแรก</option>
                                   </select>
                                 </div>
-                             </div>
-                              <div class="col-md-6">
+                                <br>
                                 <div class="form-inline" align="right">
                                    <label>หมายเหตุ :</label>
                                    <input type="text" name="NotePayment" class="form-control" value="" style="width: 200px;"/>
                                    <input type="hidden" name="AdduserPayment" class="form-control" style="width: 200px;" value="{{ Auth::user()->name }}"/>
-                                 </div>
-                              </div>
-                           </div>
-                         </div>
+                                </div>
 
-                         <div class="col-md-3">
+                            </div>
+                          </div>
+
+                         <div class="col-md-4" align="center">
                           <button type="submit" class="btn btn-app" style="background-color:#189100; color:#FFFFFF;">
                             <span class="glyphicon glyphicon-floppy-save"></span> บันทึก
                           </button>
-                          <a class="btn btn-app" href="{{ action('LegislationController@edit',[$id, 2]) }}" style="background-color:#DB0000; color:#FFFFFF;">
+                          <a class="btn btn-app" href="{{ action('LegislationController@edit',[$id, 4]) }}" style="background-color:#DB0000; color:#FFFFFF;">
                             <span class="glyphicon glyphicon-remove"></span> ยกเลิก
                           </a>
                         </div>
@@ -139,12 +119,4 @@
           </div>
 
 
-      <!-- เวลาแจ้งเตือน -->
-      <script type="text/javascript">
-        $(".alert").fadeTo(3000, 1000).slideUp(1000, function(){
-        $(".alert").alert('close');
-        });
-      </script>
-
     </section>
-@endsection
