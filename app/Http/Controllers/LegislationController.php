@@ -234,8 +234,9 @@ class LegislationController extends Controller
         return view('legislation.edit',compact('data','data1','id','type'));
       }
       elseif ($type == 3){  //ชั้นศาล
-        $data = DB::table('legiscourts')
-        ->where('legiscourts.legislation_id',$id)->first();
+        $data = DB::table('legislations')
+                  ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+                  ->where('legiscourts.legislation_id',$id)->first();
 
         $Sendsequester = [
           'เจอ' => 'เจอ',
@@ -358,11 +359,10 @@ class LegislationController extends Controller
       if ($type == 2) {     //ข้อมูลผู้เช่าซื้อ
         $user = Legislation::find($id);
           //หน้าทีมทนาย
-          // dd($request);
           $user->CAccount_legis = $request->get('CAccountlegis');
-          $user->CAccount_legis = $request->get('txtCAccountlegis');
+          $user->txtCAccount_legis = $request->get('txtCAccountlegis');
           $user->OverDue_legis = $request->get('OverDuelegis');
-          $user->OverDue_legis = $request->get('txtOverDuelegis');
+          $user->txtOverDue_legis = $request->get('txtOverDuelegis');
           $user->Holder_legis = $request->get('Holderlegis');
 
           $user->Pay_legis = str_replace(",","",$request->get('Paylegis'));
@@ -423,6 +423,8 @@ class LegislationController extends Controller
           $Legiscourt->propertied_court = $request->get('radio-propertied');
           $Legiscourt->sequester_court = $request->get('sequestercourt');
           $Legiscourt->sendsequester_court = $request->get('sendsequestercourt');
+          $Legiscourt->NewpursueDate_court = $request->get('NewpursueDatecourt');
+          $Legiscourt->Notepursue_court = $request->get('Notepursuecourt');
         $Legiscourt->update();
 
         $Legislation = Legislation::find($id);
@@ -654,11 +656,13 @@ class LegislationController extends Controller
            'propertied_court' =>  Null,
            'sequester_court' =>  Null,
            'sendsequester_court' =>  Null,
+           'NewpursueDate_court' =>  Null,
+           'Notepursue_court' =>  Null,
            'latitude_court' =>  Null,
            'longitude_court' =>  Null,
          ]);
          $Legiscourt->save();
-         
+
          return redirect()->Route('legislation',$type)->with('success','ส่งเรียบร้อย');
        }
      }

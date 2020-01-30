@@ -18,8 +18,8 @@
 
   <style>
     input[type="checkbox"] { position: absolute; opacity: 0; z-index: -1; }
-    input[type="checkbox"]+span { font: 16pt sans-serif; color: #000; }
-    input[type="checkbox"]+span:before { font: 16pt FontAwesome; content: '\00f096'; display: inline-block; width: 16pt; padding: 2px 0 0 3px; margin-right: 0.5em; }
+    input[type="checkbox"]+span { font: 14pt sans-serif; color: #000; }
+    input[type="checkbox"]+span:before { font: 14pt FontAwesome; content: '\00f096'; display: inline-block; width: 14pt; padding: 2px 0 0 3px; margin-right: 0.5em; }
     input[type="checkbox"]:checked+span:before { content: '\00f046'; }
     input[type="checkbox"]:focus+span:before { outline: 1px dotted #aaa; }
   </style>
@@ -239,44 +239,32 @@
                   <div class="tab-content">
                     <div class="info-box">
                       <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-9">
                           <span class="info-box-icon  bg-red"><i class="fa fa-user"></i></span>
                           <div class="info-box-content">
-                            <span class="info-box-number"><font style="font-size: 30px;">{{ $data->Contract_legis }}</font></span>
-                            <span class="info-box-text"><font style="font-size: 20px;">{{ $data->Name_legis }}</font></span>
-                          </div>
-                        </div>
-
-                        <div class="col-md-5">
-                          <div class="form-inline" align="left">
-                            <div class="col-md-8">
-                              <label>
-                                @if($data->CAccount_legis != Null)
-                                <input type="checkbox" name="CAccountlegis" value="{{ $data->CAccount_legis }}" checked="checked"/>
-                                @else
-                                <input type="checkbox" name="CAccountlegis" value="Y"/>
-                                @endif
-                                <span><font color="red">ปิดบัญชี</font></span>
-                                <input type="text" name="txtCAccountlegis" class="form-control" style="width: 190px;">
-                              </label>
-                            </div>
-                            <div class="col-md-4">
-                              <label>
-                                <input type="checkbox" name="Holderlegis" value="BK"/>
-                                <span><font color="red">ยึดรถ</font></span>
-                              </label>
-                            </div>
-                            <div class="col-md-8">
-                              <label>
-                                @if($data->OverDue_legis != Null)
-                                <input type="checkbox" name="OverDuelegis" value="{{ $data->OverDue_legis }}" checked="checked"/>
-                                @else
-                                <input type="checkbox" name="OverDuelegis" value="BF"/>
-                                @endif
-                                <span><font color="red">ชำระยอดค้าง</font></span>
-                                <input type="text" name="txtOverDuelegis" class="form-control" style="width: 150px;">
-                              </label>
-                            </div>
+                              <div class="col-md-4">
+                                <span class="info-box-number"><font style="font-size: 30px;">{{ $data->Contract_legis }}</font></span>
+                                <span class="info-box-text"><font style="font-size: 20px;">{{ $data->Name_legis }}</font></span>
+                              </div>
+                              <div class="col-md-8">
+                                <br>
+                                <div class="form-inline" align="center">
+                                  <label>
+                                    <input type="checkbox" name="CAccountlegis" value="BC"/>
+                                    <span><font color="red">ปิดบัญชี</font></span>
+                                    <input type="text" name="txtCAccountlegis" class="form-control" style="width: 100px;">
+                                  </label>
+                                  <label>
+                                    <input type="checkbox" name="OverDuelegis" value="BM"/>
+                                    <span><font color="red">ชำระยอดค้าง</font></span>
+                                    <input type="text" name="txtOverDuelegis" class="form-control" style="width: 100px;">
+                                  </label>
+                                  <label>
+                                    <input type="checkbox" name="Holderlegis" value="BF"/>
+                                    <span><font color="red">ยึดรถ</font></span>
+                                  </label>
+                                </div>
+                              </div>
                           </div>
                         </div>
 
@@ -298,9 +286,9 @@
                           <div class="progress-bar" style="width: 0%"></div>
                         </div>
                         <span class="progress-description">
-                          <!-- 70% Increase in 30 Days -->
                         </span>
                       </div>
+
                       <div class="row">
                         <div class="col-md-6">
                           <div class="box box-warning box-solid">

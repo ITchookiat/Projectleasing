@@ -150,12 +150,12 @@
                                 @foreach($data as $key => $row1)
                                   @if($row->CONTNO == $row1->Contract_legis)
                                       @if($row1->Flag_status == 1)
-                                      <button class="btn btn-warning btn-sm" title="กำลังจัดเตรียม">
-                                        <span class="glyphicon glyphicon-time"></span> กำลังจัดเตรียม
+                                      <button class="btn btn-warning btn-sm" title="ขั้นตอนจัดเตรียม">
+                                        <span class="glyphicon glyphicon-time"></span> ขั้นตอนจัดเตรียม
                                       </button>
                                       @else
-                                      <button class="btn btn-success btn-sm" title="เตรียมเรียบร้อย">
-                                        <span class="glyphicon glyphicon-lock"></span> เตรียมเรียบร้อย
+                                      <button class="btn btn-success btn-sm" title="ขั้นตอนการฟ้อง">
+                                        <span class="glyphicon glyphicon-lock"></span> ขั้นตอนการฟ้อง
                                       </button>
                                       @endif
                                     @php
@@ -187,10 +187,9 @@
                           <th class="text-center">แจ้งเตือน</th>
                           <th class="text-center">เลขที่สัญญา</th>
                           <th class="text-center">ชื่อ-สกุล</th>
-                          <th class="text-center">บัตรประชาชน</th>
                           <th class="text-center">วันที่ทำสัญญา</th>
                           <th class="text-center">ค้างงวดจริง</th>
-                          <th class="text-center" style="width: 100px">ตัวเลือก</th>
+                          <th class="text-center" style="width: 120px">ตัวเลือก</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -199,20 +198,20 @@
                             <td class="text-center"> {{$key+1}} </td>
                             <td class="text-center">
                               @php
-                              $Cldate = date_create($row->Date_legis);
-                              $nowCldate = date_create($row->Datesend_Flag);
-                              $ClDateDiff = date_diff($Cldate,$nowCldate);
-                              $duration = $ClDateDiff->format("%a วัน")
+                                $Cldate = date_create($row->Datesend_Flag);
+                                $nowCldate = date_create($date);
+                                $ClDateDiff = date_diff($Cldate,$nowCldate);
+                                $duration = $ClDateDiff->format("%a วัน")
                               @endphp
                               <font color="red">{{$duration}}</font>
                             </td>
                             <td class="text-center">
+                              @php
+                                $examidaydate = date_create($row->examiday_court);
+                                $Newdate = date_create($date);
+                                $DateEx = date_diff($Newdate,$examidaydate);
+                              @endphp
                               @if($row->examiday_court != Null)
-                                @php
-                                  $examidaydate = date_create($row->examiday_court);
-                                  $Newdate = date_create($date);
-                                  $DateEx = date_diff($Newdate,$examidaydate);
-                                @endphp
                                 @php
                                   $orderdaydate = date_create($row->orderday_court);
                                   $DateEx2 = date_diff($Newdate,$orderdaydate);
@@ -229,34 +228,55 @@
                                   $checkresultsdate = date_create($row->checkresults_court);
                                   $DateEx5 = date_diff($Newdate,$checkresultsdate);
                                 @endphp
-                                @php
-                                  $sequesterdate = date_create($row->sequester_court);
-                                  $DateEx6 = date_diff($Newdate,$sequesterdate);
-                                @endphp
 
                                 @if($Newdate <= $examidaydate)
                                   @if($DateEx->d <= 7)
                                     <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> สืบพยาน {{ $DateEx->d }} วัน</span>
+                                  @else
+                                    <font color="green">สืบพยาน</font>
                                   @endif
                                 @elseif($Newdate <= $orderdaydate)
                                   @if($DateEx2->d <= 7)
                                     <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> ส่งคำบังคับ {{ $DateEx2->d }} วัน</span>
+                                  @else
+                                    <font color="green">ส่งคำบังคับ</font>
                                   @endif
                                 @elseif($Newdate <= $checkdaydate)
                                   @if($DateEx3->d <= 7)
                                     <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> ตรวจผลหมาย {{ $DateEx3->d }} วัน</span>
+                                  @else
+                                    <font color="green">ตรวจผลหมาย</font>
                                   @endif
                                 @elseif($Newdate <= $setofficedate)
                                   @if($DateEx4->d <= 7)
                                     <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> ตั้งเจ้าพนักงาน {{ $DateEx4->d }} วัน</span>
+                                  @else
+                                    <font color="green">ตั้งเจ้าพนักงาน</font>
                                   @endif
                                 @elseif($Newdate <= $checkresultsdate)
                                   @if($DateEx5->d <= 7)
                                     <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> ตรวจผลหมายตั้ง {{ $DateEx5->d }} วัน</span>
+                                  @else
+                                    <font color="green">ตรวจผลหมายตั้ง</font>
                                   @endif
-                                @elseif($Newdate <= $sequesterdate)
+                                @endif
+
+                              @elseif($row->sequester_court != Null)
+                                @if($row->NewpursueDate_court != Null)
+                                  @php
+                                    $NewpursueDate = date_create($row->NewpursueDate_court);
+                                    $DateEx6 = date_diff($Newdate,$NewpursueDate);
+                                  @endphp
+                                @else
+                                  @php
+                                    $NewpursueDate = date_create($row->sequester_court);
+                                    $DateEx6 = date_diff($Newdate,$NewpursueDate);
+                                  @endphp
+                                @endif
+
+                                @if($Newdate <= $NewpursueDate)
                                   @if($DateEx6->d <= 7)
-                                    <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> ตรวจผลหมายตั้ง {{ $DateEx6->d }} วัน</span>
+                                    <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> สืบทรัพย์ {{ $DateEx6->d }} วัน</span>
                                   @endif
                                 @endif
                               @endif
@@ -264,7 +284,6 @@
                             <!-- <td class="text-center"><a href="#" data-toggle="modal" data-target="#modal_default" data-backdrop="static" data-keyboard="false">{{$row->Contract_legis}}</a></td> -->
                             <td class="text-center"> {{$row->Contract_legis}}</a></td>
                             <td class="text-center"> {{$row->Name_legis}} </td>
-                            <td class="text-center"> {{$row->Idcard_legis}} </td>
                             <td class="text-center"> {{ DateThai($row->DateDue_legis) }} </td>
                               <td class="text-center">
                                 @php
@@ -541,7 +560,6 @@
                           <th class="text-center">ลำดับ</th>
                           <th class="text-center">เลขที่สัญญา</th>
                           <th class="text-center">ชื่อ-สกุล</th>
-                          <th class="text-center">บัตรประชาชน</th>
                           <th class="text-center">วันที่ทำสัญญา</th>
                           <th class="text-center">ค้างงวดจริง</th>
                           <th class="text-center">ระยะเวลา</th>
@@ -556,7 +574,6 @@
                             <td class="text-center"> {{$key+1}} </td>
                             <td class="text-center"> {{$row->Contract_legis}}</a></td>
                             <td class="text-center"> {{$row->Name_legis}} </td>
-                            <td class="text-center"> {{$row->Idcard_legis}} </td>
                             <td class="text-center"> {{ DateThai($row->DateDue_legis) }} </td>
                             <td class="text-center">
                               @php
@@ -577,22 +594,22 @@
                             </td>
                             <td class="text-center">
                               @if($row->Datesend_Flag == null)
-                              @php
-                              $nowday = date('Y-m-d');
-                              $Cldate = date_create($row->Date_legis);
-                              $nowCldate = date_create($nowday);
-                              $ClDateDiff = date_diff($Cldate,$nowCldate);
-                              $duration = $ClDateDiff->format("%a วัน")
-                              @endphp
-                              <font color="blue">{{$duration}}</font>
+                                @php
+                                  $nowday = date('Y-m-d');
+                                  $Cldate = date_create($row->Date_legis);
+                                  $nowCldate = date_create($nowday);
+                                  $ClDateDiff = date_diff($Cldate,$nowCldate);
+                                  $duration = $ClDateDiff->format("%a วัน")
+                                @endphp
+                                <font color="blue">{{$duration}}</font>
                               @else
-                              @php
-                              $Cldate = date_create($row->Date_legis);
-                              $nowCldate = date_create($row->Datesend_Flag);
-                              $ClDateDiff = date_diff($Cldate,$nowCldate);
-                              $duration = $ClDateDiff->format("%a วัน")
-                              @endphp
-                              <font color="green">{{$duration}}</font>
+                                @php
+                                  $Cldate = date_create($row->Date_legis);
+                                  $nowCldate = date_create($row->Datesend_Flag);
+                                  $ClDateDiff = date_diff($Cldate,$nowCldate);
+                                  $duration = $ClDateDiff->format("%a วัน")
+                                @endphp
+                                <font color="green">{{$duration}}</font>
                               @endif
                             </td>
                             <td class="text-left" style="width:200px;"> {{ $row->Noteby_legis }} </td>

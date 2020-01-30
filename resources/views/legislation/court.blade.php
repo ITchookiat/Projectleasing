@@ -4,6 +4,14 @@
 
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <style>
+    input[type="checkbox"] { position: absolute; opacity: 0; z-index: -1; }
+    input[type="checkbox"]+span { font: 14pt sans-serif; color: #000; }
+    input[type="checkbox"]+span:before { font: 14pt FontAwesome; content: '\00f096'; display: inline-block; width: 14pt; padding: 2px 0 0 3px; margin-right: 0.5em; }
+    input[type="checkbox"]:checked+span:before { content: '\00f046'; }
+    input[type="checkbox"]:focus+span:before { outline: 1px dotted #aaa; }
+  </style>
+
+  <style>
     #todo-list{
     width:100%;
     margin:0 auto 50px auto;
@@ -234,489 +242,511 @@
               @csrf
               @method('put')
 
+              <script>
+                function addCommas(nStr){
+                   nStr += '';
+                   x = nStr.split('.');
+                   x1 = x[0];
+                   x2 = x.length > 1 ? '.' + x[1] : '';
+                   var rgx = /(\d+)(\d{3})/;
+                   while (rgx.test(x1)) {
+                     x1 = x1.replace(rgx, '$1' + ',' + '$2');
+                    }
+                  return x1 + x2;
+                }
+
+                function CourtDate(){
+                  //---------- วันสืบพยาน
+                  var date1 = document.getElementById('examidaycourt').value;
+                  var fannydate = document.getElementById('fuzzycourt').value;
+                  var orderdaycourt = document.getElementById('orderdaycourt').value;
+                  var ordersenddate = document.getElementById('ordersendcourt').value;
+
+                  if (ordersenddate == '') { // แสดงผลลัพธิ์ วันทีดึงจากระบบ
+                    if (date1 != '') {
+                      var Setdate = new Date(date1);
+                      var newdate = new Date(Setdate);
+                      if (fannydate != '') {
+                        var Setdate = new Date(fannydate);
+                        var newdate = new Date(Setdate);
+                      }
+                    }else if (fannydate != '') {
+                      var Setdate = new Date(fannydate);
+                      var newdate = new Date(Setdate);
+                    }
+
+                    newdate.setDate(newdate.getDate() + 30);
+                    var dd = newdate.getDate();
+                    var mm = newdate.getMonth() + 1;
+                    var yyyy = newdate.getFullYear();
+
+                    if (dd < 10) {
+                      var Newdd = '0' + dd;
+                    }else {
+                      var Newdd = dd;
+                    }
+                    if (mm < 10) {
+                      var Newmm = '0' + mm;
+                    }else {
+                      var Newmm = mm;
+                    }
+                    var result = yyyy + '-' + Newmm + '-' + Newdd;
+                    document.getElementById('orderdaycourt').value = result;
+                  }
+                  //---------- end ---------//
+
+                  //---------- วันส่งคำบังคับ
+                  var date2 = document.getElementById('orderdaycourt').value;
+                  var ordersenddate = document.getElementById('ordersendcourt').value;
+                    if (date2 != '') {
+                      var Setdate = new Date(date2);
+                      var newdate = new Date(Setdate);
+                      if (ordersenddate != '') {
+                        var Setdate = new Date(ordersenddate);
+                        var newdate = new Date(Setdate);
+                      }
+                    }else if (ordersenddate != '') {
+                      var Setdate = new Date(ordersenddate);
+                      var newdate = new Date(Setdate);
+                    }
+
+                    newdate.setDate(newdate.getDate() + 45);
+                    var dd = newdate.getDate();
+                    var mm = newdate.getMonth() + 1;
+                    var yyyy = newdate.getFullYear();
+
+                    if (dd < 10) {
+                      var Newdd = '0' + dd;
+                    }else {
+                      var Newdd = dd;
+                    }
+                    if (mm < 10) {
+                      var Newmm = '0' + mm;
+                    }else {
+                      var Newmm = mm;
+                    }
+                    var result = yyyy + '-' + Newmm + '-' + Newdd;
+                    document.getElementById('checkdaycourt').value = result;
+                  //---------- end ---------//
+                }
+                // ฟังชันคำนวณ วันที่จาก การเลือก checkbox
+                function CourtDate2(){
+                  var date = document.getElementById('checkdaycourt').value;
+                  var checksenddate = document.getElementById('checksendcourt').value;
+
+                  var checkFlag = document.getElementById("1").checked;
+                  var messageFlag = document.getElementById("4").checked;
+                  // console.log(checkFlag);
+                  // console.log(messageFlag);
+
+                  if (messageFlag == false) {
+                    if (checkFlag == false) {
+                      var Setdate = new Date(checksenddate);
+                      var newdate = new Date(Setdate);
+
+                      newdate.setDate(newdate.getDate() + 15);
+                      var dd = newdate.getDate();
+                      var mm = newdate.getMonth() + 1;
+                      var yyyy = newdate.getFullYear();
+
+                      if (dd < 10) {
+                        var Newdd = '0' + dd;
+                      }else {
+                        var Newdd = dd;
+                      }
+                      if (mm < 10) {
+                        var Newmm = '0' + mm;
+                      }else {
+                        var Newmm = mm;
+                      }
+                      var result = yyyy + '-' + Newmm + '-' + Newdd;
+                      document.getElementById('orderdaycourt').value = result;
+                    }
+                    else {
+                      var Setdate = new Date(checksenddate);
+                      var newdate = new Date(Setdate);
+
+                      newdate.setDate(newdate.getDate() + 45);
+                      var dd = newdate.getDate();
+                      var mm = newdate.getMonth() + 1;
+                      var yyyy = newdate.getFullYear();
+
+                      if (dd < 10) {
+                        var Newdd = '0' + dd;
+                      }else {
+                        var Newdd = dd;
+                      }
+                      if (mm < 10) {
+                        var Newmm = '0' + mm;
+                      }else {
+                        var Newmm = mm;
+                      }
+                      var resultcheck = yyyy + '-' + Newmm + '-' + Newdd;
+                      document.getElementById('setofficecourt').value = resultcheck;
+
+                      var sendoffice = document.getElementById('sendofficecourt').value;
+                      var Setdate = new Date(resultcheck);
+                      var newdate = new Date(Setdate);
+
+                      if (Setdate != '') {
+                        var Setdate = new Date(resultcheck);
+                        var newdate = new Date(Setdate);
+                        if (sendoffice != '') {
+                          var Setdate = new Date(sendoffice);
+                          var newdate = new Date(Setdate);
+                        }
+                      }else if (sendoffice != '') {
+                        var Setdate = new Date(sendoffice);
+                        var newdate = new Date(Setdate);
+                      }
+
+                      newdate.setDate(newdate.getDate() + 45);
+                      var dd = newdate.getDate();
+                      var mm = newdate.getMonth() + 1;
+                      var yyyy = newdate.getFullYear();
+
+                      if (dd < 10) {
+                        var Newdd = '0' + dd;
+                      }else {
+                        var Newdd = dd;
+                      }
+                      if (mm < 10) {
+                        var Newmm = '0' + mm;
+                      }else {
+                        var Newmm = mm;
+                      }
+                      var result = yyyy + '-' + Newmm + '-' + Newdd;
+                      document.getElementById('checkresultscourt').value = result;
+                    }
+                  }
+                }
+                // ฟังชันคำนวณ วันที่จาก ผู้เช่าซื้อกับผู้ค้ำ
+                function CheckMessege(){
+                  var buyer = document.getElementById('buyercourt').value;
+                  var Setbuyer = buyer.substring(8);
+                  var support = document.getElementById('supportcourt').value;
+                  var Setsupport = support.substring(8);
+
+                  if (Setbuyer != '' && Setsupport != '') {
+                    if (Setbuyer == Setsupport) {
+                        var Setdate = new Date(buyer);
+                        var newdate = new Date(Setdate);
+
+                        newdate.setDate(newdate.getDate() + 45);
+                        var dd = newdate.getDate();
+                        var mm = newdate.getMonth() + 1;
+                        var yyyy = newdate.getFullYear();
+
+                        if (dd < 10) {
+                          var Newdd = '0' + dd;
+                        }else {
+                          var Newdd = dd;
+                        }
+                        if (mm < 10) {
+                          var Newmm = '0' + mm;
+                        }else {
+                          var Newmm = mm;
+                        }
+                        var result = yyyy + '-' + Newmm + '-' + Newdd;
+                        document.getElementById('setofficecourt').value = result;
+                    }
+                    else if (Setbuyer > Setsupport) {
+                      var Setdate = new Date(buyer);
+                      var newdate = new Date(Setdate);
+
+                      newdate.setDate(newdate.getDate() + 45);
+                      var dd = newdate.getDate();
+                      var mm = newdate.getMonth() + 1;
+                      var yyyy = newdate.getFullYear();
+
+                      if (dd < 10) {
+                        var Newdd = '0' + dd;
+                      }else {
+                        var Newdd = dd;
+                      }
+                      if (mm < 10) {
+                        var Newmm = '0' + mm;
+                      }else {
+                        var Newmm = mm;
+                      }
+                      var result = yyyy + '-' + Newmm + '-' + Newdd;
+                      document.getElementById('setofficecourt').value = result;
+
+                    }
+                    else if (Setbuyer < Setsupport) {
+                      var Setdate = new Date(support);
+                      var newdate = new Date(Setdate);
+
+                      newdate.setDate(newdate.getDate() + 45);
+                      var dd = newdate.getDate();
+                      var mm = newdate.getMonth() + 1;
+                      var yyyy = newdate.getFullYear();
+
+                      if (dd < 10) {
+                        var Newdd = '0' + dd;
+                      }else {
+                        var Newdd = dd;
+                      }
+                      if (mm < 10) {
+                        var Newmm = '0' + mm;
+                      }else {
+                        var Newmm = mm;
+                      }
+                      var result = yyyy + '-' + Newmm + '-' + Newdd;
+                      document.getElementById('setofficecourt').value = result;
+                    }
+
+                    var sendoffice = document.getElementById('sendofficecourt').value;
+                    var checkresults = new Date(result);
+                    var newdate = new Date(checkresults);
+
+                    if (checkresults != '') {
+                      var Setdate = new Date(checkresults);
+                      var newdate = new Date(Setdate);
+                      if (sendoffice != '') {
+                        var Setdate = new Date(sendoffice);
+                        var newdate = new Date(Setdate);
+                      }
+                    }else if (sendoffice != '') {
+                      var Setdate = new Date(sendoffice);
+                      var newdate = new Date(Setdate);
+                    }
+
+                    newdate.setDate(newdate.getDate() + 45);
+                    var dd = newdate.getDate();
+                    var mm = newdate.getMonth() + 1;
+                    var yyyy = newdate.getFullYear();
+
+                    if (dd < 10) {
+                      var Newdd = '0' + dd;
+                    }else {
+                      var Newdd = dd;
+                    }
+                    if (mm < 10) {
+                      var Newmm = '0' + mm;
+                    }else {
+                      var Newmm = mm;
+                    }
+                    var resultcheck = yyyy + '-' + Newmm + '-' + Newdd;
+                    document.getElementById('checkresultscourt').value = resultcheck;
+                  }
+                }
+                // ฟังชันคำนวณ วันที่ได้รับและไมไ่ด้รับ
+                // function Datesuccess(){
+                //   var sendcheckresult = document.getElementById('sendcheckresultscourt').value;
+                //   var dayresults = document.getElementById('dayresultscourt').value;
+                //
+                //   var Setdate = new Date(sendcheckresult);
+                //   var newdate = new Date(Setdate);
+                //
+                //   newdate.setDate(newdate.getDate() + 45);
+                //   var dd = newdate.getDate();
+                //   var mm = newdate.getMonth() + 1;
+                //   var yyyy = newdate.getFullYear();
+                //
+                //   if (dd < 10) {
+                //     var Newdd = '0' + dd;
+                //   }else {
+                //     var Newdd = dd;
+                //   }
+                //   if (mm < 10) {
+                //     var Newmm = '0' + mm;
+                //   }else {
+                //     var Newmm = mm;
+                //   }
+                //   var resultcheck = yyyy + '-' + Newmm + '-' + Newdd;
+                //   document.getElementById('sequestercourt').value = resultcheck;
+                //
+                //   console.log(dayresults);
+                //   if (dayresults != '') {
+                //     var Setdate = new Date(dayresults);
+                //     var newdate = new Date(Setdate);
+                //
+                //     newdate.setDate(newdate.getDate() + 45);
+                //     var dd = newdate.getDate();
+                //     var mm = newdate.getMonth() + 1;
+                //     var yyyy = newdate.getFullYear();
+                //
+                //     if (dd < 10) {
+                //       var Newdd = '0' + dd;
+                //     }else {
+                //       var Newdd = dd;
+                //     }
+                //     if (mm < 10) {
+                //       var Newmm = '0' + mm;
+                //     }else {
+                //       var Newmm = mm;
+                //     }
+                //     var result = yyyy + '-' + Newmm + '-' + Newdd;
+                //     document.getElementById('sequestercourt').value = result;
+                //   }
+                //
+                // }
+
+                // ฟังชันคำนวณ ค่าทนาย
+                function CalculateCap(){
+                    var cap = document.getElementById('capitalcourt').value;
+                    var Setcap = cap.replace(",","");
+                    var ind = document.getElementById('indictmentcourt').value;
+                    var Setind = ind.replace(",","");
+
+                    var Sumcap = (Setcap * 0.1);
+
+                    if(!isNaN(Setcap)){
+                        document.form1.capitalcourt.value = addCommas(Setcap);
+                        document.form1.pricelawyercourt.value = addCommas(Sumcap.toFixed(2));
+                   }
+                    if(!isNaN(Setind)){
+                        document.form1.indictmentcourt.value = addCommas(Setind);
+                   }
+                }
+
+              </script>
+
               <div class="card">
                 <div class="card-body">
                   <div class="tab-content">
-                    <div class="form-inline" align="right">
-                      <!-- <a class="btn btn-app" href="{{ action('LegislationController@edit',[$id, 4]) }}" style="background-color:#F78800; color:#FFFFFF;">
-                        <i class="fa fa-bullhorn"></i> ประนอมหนี้
-                      </a> -->
-                      <button type="submit" class="btn btn-app" style="background-color:#189100; color:#FFFFFF;">
-                        <span class="glyphicon glyphicon-floppy-save"></span> อัพเดท
-                      </button>
-                      <a class="btn btn-app" href="{{ route('legislation',2) }}" style="background-color:#DB0000; color:#FFFFFF;">
-                        <span class="glyphicon glyphicon-remove"></span> ยกเลิก
-                      </a>
-                      <p></p>
-                    </div>
-
-                    <p></p>
-                    <script>
-                      function addCommas(nStr){
-                         nStr += '';
-                         x = nStr.split('.');
-                         x1 = x[0];
-                         x2 = x.length > 1 ? '.' + x[1] : '';
-                         var rgx = /(\d+)(\d{3})/;
-                         while (rgx.test(x1)) {
-                           x1 = x1.replace(rgx, '$1' + ',' + '$2');
-                          }
-                        return x1 + x2;
-                      }
-
-                      function CourtDate(){
-                        //---------- วันสืบพยาน
-                        var date1 = document.getElementById('examidaycourt').value;
-                        var fannydate = document.getElementById('fuzzycourt').value;
-                        var orderdaycourt = document.getElementById('orderdaycourt').value;
-                        var ordersenddate = document.getElementById('ordersendcourt').value;
-
-                        if (ordersenddate == '') { // แสดงผลลัพธิ์ วันทีดึงจากระบบ
-                          if (date1 != '') {
-                            var Setdate = new Date(date1);
-                            var newdate = new Date(Setdate);
-                            if (fannydate != '') {
-                              var Setdate = new Date(fannydate);
-                              var newdate = new Date(Setdate);
-                            }
-                          }else if (fannydate != '') {
-                            var Setdate = new Date(fannydate);
-                            var newdate = new Date(Setdate);
-                          }
-
-                          newdate.setDate(newdate.getDate() + 30);
-                          var dd = newdate.getDate();
-                          var mm = newdate.getMonth() + 1;
-                          var yyyy = newdate.getFullYear();
-
-                          if (dd < 10) {
-                            var Newdd = '0' + dd;
-                          }else {
-                            var Newdd = dd;
-                          }
-                          if (mm < 10) {
-                            var Newmm = '0' + mm;
-                          }else {
-                            var Newmm = mm;
-                          }
-                          var result = yyyy + '-' + Newmm + '-' + Newdd;
-                          document.getElementById('orderdaycourt').value = result;
-                        }
-                        //---------- end ---------//
-
-                        //---------- วันส่งคำบังคับ
-                        var date2 = document.getElementById('orderdaycourt').value;
-                        var ordersenddate = document.getElementById('ordersendcourt').value;
-                          if (date2 != '') {
-                            var Setdate = new Date(date2);
-                            var newdate = new Date(Setdate);
-                            if (ordersenddate != '') {
-                              var Setdate = new Date(ordersenddate);
-                              var newdate = new Date(Setdate);
-                            }
-                          }else if (ordersenddate != '') {
-                            var Setdate = new Date(ordersenddate);
-                            var newdate = new Date(Setdate);
-                          }
-
-                          newdate.setDate(newdate.getDate() + 45);
-                          var dd = newdate.getDate();
-                          var mm = newdate.getMonth() + 1;
-                          var yyyy = newdate.getFullYear();
-
-                          if (dd < 10) {
-                            var Newdd = '0' + dd;
-                          }else {
-                            var Newdd = dd;
-                          }
-                          if (mm < 10) {
-                            var Newmm = '0' + mm;
-                          }else {
-                            var Newmm = mm;
-                          }
-                          var result = yyyy + '-' + Newmm + '-' + Newdd;
-                          document.getElementById('checkdaycourt').value = result;
-                        //---------- end ---------//
-                      }
-                      // ฟังชันคำนวณ วันที่จาก การเลือก checkbox
-                      function CourtDate2(){
-                        var date = document.getElementById('checkdaycourt').value;
-                        var checksenddate = document.getElementById('checksendcourt').value;
-
-                        var checkFlag = document.getElementById("1").checked;
-                        var messageFlag = document.getElementById("4").checked;
-                        // console.log(checkFlag);
-                        // console.log(messageFlag);
-
-                        if (messageFlag == false) {
-                          if (checkFlag == false) {
-                            var Setdate = new Date(checksenddate);
-                            var newdate = new Date(Setdate);
-
-                            newdate.setDate(newdate.getDate() + 15);
-                            var dd = newdate.getDate();
-                            var mm = newdate.getMonth() + 1;
-                            var yyyy = newdate.getFullYear();
-
-                            if (dd < 10) {
-                              var Newdd = '0' + dd;
-                            }else {
-                              var Newdd = dd;
-                            }
-                            if (mm < 10) {
-                              var Newmm = '0' + mm;
-                            }else {
-                              var Newmm = mm;
-                            }
-                            var result = yyyy + '-' + Newmm + '-' + Newdd;
-                            document.getElementById('orderdaycourt').value = result;
-                          }
-                          else {
-                            var Setdate = new Date(checksenddate);
-                            var newdate = new Date(Setdate);
-
-                            newdate.setDate(newdate.getDate() + 45);
-                            var dd = newdate.getDate();
-                            var mm = newdate.getMonth() + 1;
-                            var yyyy = newdate.getFullYear();
-
-                            if (dd < 10) {
-                              var Newdd = '0' + dd;
-                            }else {
-                              var Newdd = dd;
-                            }
-                            if (mm < 10) {
-                              var Newmm = '0' + mm;
-                            }else {
-                              var Newmm = mm;
-                            }
-                            var resultcheck = yyyy + '-' + Newmm + '-' + Newdd;
-                            document.getElementById('setofficecourt').value = resultcheck;
-
-                            var sendoffice = document.getElementById('sendofficecourt').value;
-                            var Setdate = new Date(resultcheck);
-                            var newdate = new Date(Setdate);
-
-                            if (Setdate != '') {
-                              var Setdate = new Date(resultcheck);
-                              var newdate = new Date(Setdate);
-                              if (sendoffice != '') {
-                                var Setdate = new Date(sendoffice);
-                                var newdate = new Date(Setdate);
-                              }
-                            }else if (sendoffice != '') {
-                              var Setdate = new Date(sendoffice);
-                              var newdate = new Date(Setdate);
-                            }
-
-                            newdate.setDate(newdate.getDate() + 45);
-                            var dd = newdate.getDate();
-                            var mm = newdate.getMonth() + 1;
-                            var yyyy = newdate.getFullYear();
-
-                            if (dd < 10) {
-                              var Newdd = '0' + dd;
-                            }else {
-                              var Newdd = dd;
-                            }
-                            if (mm < 10) {
-                              var Newmm = '0' + mm;
-                            }else {
-                              var Newmm = mm;
-                            }
-                            var result = yyyy + '-' + Newmm + '-' + Newdd;
-                            document.getElementById('checkresultscourt').value = result;
-                          }
-                        }
-                      }
-                      // ฟังชันคำนวณ วันที่จาก ผู้เช่าซื้อกับผู้ค้ำ
-                      function CheckMessege(){
-                        var buyer = document.getElementById('buyercourt').value;
-                        var Setbuyer = buyer.substring(8);
-                        var support = document.getElementById('supportcourt').value;
-                        var Setsupport = support.substring(8);
-
-                        if (Setbuyer != '' && Setsupport != '') {
-                          if (Setbuyer == Setsupport) {
-                              var Setdate = new Date(buyer);
-                              var newdate = new Date(Setdate);
-
-                              newdate.setDate(newdate.getDate() + 45);
-                              var dd = newdate.getDate();
-                              var mm = newdate.getMonth() + 1;
-                              var yyyy = newdate.getFullYear();
-
-                              if (dd < 10) {
-                                var Newdd = '0' + dd;
-                              }else {
-                                var Newdd = dd;
-                              }
-                              if (mm < 10) {
-                                var Newmm = '0' + mm;
-                              }else {
-                                var Newmm = mm;
-                              }
-                              var result = yyyy + '-' + Newmm + '-' + Newdd;
-                              document.getElementById('setofficecourt').value = result;
-                          }
-                          else if (Setbuyer > Setsupport) {
-                            var Setdate = new Date(buyer);
-                            var newdate = new Date(Setdate);
-
-                            newdate.setDate(newdate.getDate() + 45);
-                            var dd = newdate.getDate();
-                            var mm = newdate.getMonth() + 1;
-                            var yyyy = newdate.getFullYear();
-
-                            if (dd < 10) {
-                              var Newdd = '0' + dd;
-                            }else {
-                              var Newdd = dd;
-                            }
-                            if (mm < 10) {
-                              var Newmm = '0' + mm;
-                            }else {
-                              var Newmm = mm;
-                            }
-                            var result = yyyy + '-' + Newmm + '-' + Newdd;
-                            document.getElementById('setofficecourt').value = result;
-
-                          }
-                          else if (Setbuyer < Setsupport) {
-                            var Setdate = new Date(support);
-                            var newdate = new Date(Setdate);
-
-                            newdate.setDate(newdate.getDate() + 45);
-                            var dd = newdate.getDate();
-                            var mm = newdate.getMonth() + 1;
-                            var yyyy = newdate.getFullYear();
-
-                            if (dd < 10) {
-                              var Newdd = '0' + dd;
-                            }else {
-                              var Newdd = dd;
-                            }
-                            if (mm < 10) {
-                              var Newmm = '0' + mm;
-                            }else {
-                              var Newmm = mm;
-                            }
-                            var result = yyyy + '-' + Newmm + '-' + Newdd;
-                            document.getElementById('setofficecourt').value = result;
-                          }
-
-                          var sendoffice = document.getElementById('sendofficecourt').value;
-                          var checkresults = new Date(result);
-                          var newdate = new Date(checkresults);
-
-                          if (checkresults != '') {
-                            var Setdate = new Date(checkresults);
-                            var newdate = new Date(Setdate);
-                            if (sendoffice != '') {
-                              var Setdate = new Date(sendoffice);
-                              var newdate = new Date(Setdate);
-                            }
-                          }else if (sendoffice != '') {
-                            var Setdate = new Date(sendoffice);
-                            var newdate = new Date(Setdate);
-                          }
-
-                          newdate.setDate(newdate.getDate() + 45);
-                          var dd = newdate.getDate();
-                          var mm = newdate.getMonth() + 1;
-                          var yyyy = newdate.getFullYear();
-
-                          if (dd < 10) {
-                            var Newdd = '0' + dd;
-                          }else {
-                            var Newdd = dd;
-                          }
-                          if (mm < 10) {
-                            var Newmm = '0' + mm;
-                          }else {
-                            var Newmm = mm;
-                          }
-                          var resultcheck = yyyy + '-' + Newmm + '-' + Newdd;
-                          document.getElementById('checkresultscourt').value = resultcheck;
-                        }
-                      }
-                      // ฟังชันคำนวณ วันที่ได้รับและไมไ่ด้รับ
-                      // function Datesuccess(){
-                      //   var sendcheckresult = document.getElementById('sendcheckresultscourt').value;
-                      //   var dayresults = document.getElementById('dayresultscourt').value;
-                      //
-                      //   var Setdate = new Date(sendcheckresult);
-                      //   var newdate = new Date(Setdate);
-                      //
-                      //   newdate.setDate(newdate.getDate() + 45);
-                      //   var dd = newdate.getDate();
-                      //   var mm = newdate.getMonth() + 1;
-                      //   var yyyy = newdate.getFullYear();
-                      //
-                      //   if (dd < 10) {
-                      //     var Newdd = '0' + dd;
-                      //   }else {
-                      //     var Newdd = dd;
-                      //   }
-                      //   if (mm < 10) {
-                      //     var Newmm = '0' + mm;
-                      //   }else {
-                      //     var Newmm = mm;
-                      //   }
-                      //   var resultcheck = yyyy + '-' + Newmm + '-' + Newdd;
-                      //   document.getElementById('sequestercourt').value = resultcheck;
-                      //
-                      //   console.log(dayresults);
-                      //   if (dayresults != '') {
-                      //     var Setdate = new Date(dayresults);
-                      //     var newdate = new Date(Setdate);
-                      //
-                      //     newdate.setDate(newdate.getDate() + 45);
-                      //     var dd = newdate.getDate();
-                      //     var mm = newdate.getMonth() + 1;
-                      //     var yyyy = newdate.getFullYear();
-                      //
-                      //     if (dd < 10) {
-                      //       var Newdd = '0' + dd;
-                      //     }else {
-                      //       var Newdd = dd;
-                      //     }
-                      //     if (mm < 10) {
-                      //       var Newmm = '0' + mm;
-                      //     }else {
-                      //       var Newmm = mm;
-                      //     }
-                      //     var result = yyyy + '-' + Newmm + '-' + Newdd;
-                      //     document.getElementById('sequestercourt').value = result;
-                      //   }
-                      //
-                      // }
-
-                      // ฟังชันคำนวณ ค่าทนาย
-                      function CalculateCap(){
-                          var cap = document.getElementById('capitalcourt').value;
-                          var Setcap = cap.replace(",","");
-                          var ind = document.getElementById('indictmentcourt').value;
-                          var Setind = ind.replace(",","");
-
-                          var Sumcap = (Setcap * 0.1);
-
-                          if(!isNaN(Setcap)){
-                              document.form1.capitalcourt.value = addCommas(Setcap);
-                              document.form1.pricelawyercourt.value = addCommas(Sumcap.toFixed(2));
-                         }
-                          if(!isNaN(Setind)){
-                              document.form1.indictmentcourt.value = addCommas(Setind);
-                         }
-                      }
-
-                    </script>
-
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="row">
-                          <div class="col-md-4">
-                            <div class="box box-warning box-solid">
-                              <div class="box-header with-border">
-                                <h3 class="box-title"> วันฟ้อง (45-60 วัน)</h3>
-                                <div class="box-tools pull-right">
-                                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                                  </button>
+                    <div class="info-box">
+                      <div class="row">
+                        <div class="col-md-9">
+                          <span class="info-box-icon  bg-red"><i class="fa fa-user"></i></span>
+                          <div class="info-box-content">
+                              <div class="col-md-4">
+                                <span class="info-box-number"><font style="font-size: 30px;">{{ $data->Contract_legis }}</font></span>
+                                <span class="info-box-text"><font style="font-size: 20px;">{{ $data->Name_legis }}</font></span>
+                              </div>
+                              <div class="col-md-8">
+                                <br>
+                                <div class="form-inline" align="center">
+                                  <label>
+                                    <input type="checkbox" name="CAccountlegis" value="BC"/>
+                                    <span><font color="red">ปิดบัญชี</font></span>
+                                    <input type="text" name="txtCAccountlegis" class="form-control" style="width: 100px;">
+                                  </label>
+                                  <label>
+                                    <input type="checkbox" name="OverDuelegis" value="BM"/>
+                                    <span><font color="red">ชำระยอดค้าง</font></span>
+                                    <input type="text" name="txtOverDuelegis" class="form-control" style="width: 100px;">
+                                  </label>
+                                  <label>
+                                    <input type="checkbox" name="Holderlegis" value="BF"/>
+                                    <span><font color="red">ยึดรถ</font></span>
+                                  </label>
                                 </div>
                               </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-3">
+                          <br>
+                          <div class="form-inline" align="right">
+                            <button type="submit" class="btn btn-app" style="background-color:#189100; color:#FFFFFF;">
+                              <span class="glyphicon glyphicon-floppy-save"></span> อัพเดท
+                            </button>
+                            <a class="btn btn-app" href="{{ route('legislation',2) }}" style="background-color:#DB0000; color:#FFFFFF;">
+                              <span class="glyphicon glyphicon-remove"></span> ยกเลิก
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="info-box-content">
+                        <div class="progress">
+                          <div class="progress-bar" style="width: 0%"></div>
+                        </div>
+                        <span class="progress-description">
+                        </span>
+                      </div>
+
+                      <h4 class="card-title p-3" align="left"><b>ขั้นตอนชั้นศาล</b></h4>
+
+                      <div class="box box-warning box-solid">
+                        <div class="nav-tabs-custom" style="background-color : #f39c12;">
+                          <ul class="nav nav-tabs">
+                            <li class="nav-item active"><a href="#tab_1" data-toggle="tab">วันฟ้อง(45-60 วัน)</a></li>
+                            <li class="nav-item"><a href="#tab_2" data-toggle="tab">สืบพยาน(30 วัน)</a></li>
+                            <li class="nav-item"><a href="#tab_3" data-toggle="tab">ส่งคำบังคับ(45 วัน)</a></li>
+                            <li class="nav-item"><a href="#tab_4" data-toggle="tab">ตรวจผลหมาย(45 วัน)</a></li>
+                            <li class="nav-item"><a href="#tab_5" data-toggle="tab">ตั้งเจ้าพนักงาน(45 วัน)</a></li>
+                            <li class="nav-item"><a href="#tab_6" data-toggle="tab">ตรวจผลหมายตั้ง(45 วัน)</a></li>
+                          </ul>
+                          <div class="tab-content">
+                            <div class="tab-pane active" id="tab_1">
                               <div class="box-body">
-                                วันที่ฟ้อง
-                                <input type="date" id="fillingdatecourt" name="fillingdatecourt" class="form-control" value="{{ ($data->fillingdate_court) }}" />
                                 <div class="row">
-                                  <div class="col-md-6">
+                                  <div class="col-md-3">
+                                    วันที่ฟ้อง
+                                    <input type="date" id="fillingdatecourt" name="fillingdatecourt" class="form-control" value="{{ ($data->fillingdate_court) }}" />
+                                  </div>
+                                  <div class="col-md-3">
                                     ศาล
                                     <input type="text" name="lawcourt" class="form-control" value="{{ ($data->law_court) }}" />
                                   </div>
-                                  <div class="col-md-6">
+                                  <div class="col-md-3">
                                     เลขคดีดำ
                                     <input type="text" name="bnumbercourt" class="form-control" value="{{ ($data->bnumber_court) }}" />
                                   </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col-md-6">
+                                  <div class="col-md-3">
                                     เลขคดีแดง
                                     <input type="text" name="rnumbercourt" class="form-control" value="{{ ($data->rnumber_court) }}"  />
                                   </div>
-                                  <div class="col-md-6">
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-3">
                                     ทุนทรัพย์
                                     <input type="text" id="capitalcourt" name="capitalcourt" class="form-control" value="{{ ($data->capital_court) }}" oninput="CalculateCap();"/>
                                   </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col-md-6">
+                                  <div class="col-md-3">
                                     ค่าฟ้อง
                                     <input type="text" id="indictmentcourt" name="indictmentcourt" class="form-control" value="{{ ($data->indictment_court) }}" oninput="CalculateCap();"/>
                                   </div>
-                                  <div class="col-md-6">
+                                  <div class="col-md-3">
                                     ค่าทนาย
                                     <input type="text" id="pricelawyercourt" name="pricelawyercourt" class="form-control" value="{{ ($data->pricelawyer_court) }}" readonly/>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                          <div class="col-md-4">
-                            <div class="box box-warning box-solid">
-                              <div class="box-header with-border">
-                                <h3 class="box-title"> สืบพยาน (30 วัน)</h3>
-                                <div class="box-tools pull-right">
-                                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="box-body">
-                                วันที่สืบพยาน
-                                <input type="date" id="examidaycourt" name="examidaycourt" class="form-control" value="{{ ($data->examiday_court) }}" oninput="CourtDate();" />
-                                วันที่เลือน
-                                <input type="date" id="fuzzycourt" name="fuzzycourt" class="form-control" value="{{ ($data->fuzzy_court) }}" oninput="CourtDate();" />
-                                หมายเหตุ
-                                <textarea name="examinotecourt" class="form-control" rows="3">{{ ($data->examinote_court) }}</textarea>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-md-4">
-                            <div class="box box-warning box-solid">
-                              <div class="box-header with-border">
-                                <h3 class="box-title"> ส่งคำบังคับ (45 วัน)</h3>
-                                <div class="box-tools pull-right">
-                                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="box-body">
-                                วันที่ดึงจากระบบ
-                                <input type="date" id="orderdaycourt" name="orderdaycourt" class="form-control" value="{{ ($data->orderday_court) }}" readonly/>
-                                วันที่ส่งจริง
-                                <input type="date" id="ordersendcourt" name="ordersendcourt" class="form-control" value="{{ ($data->ordersend_court) }}" oninput="CourtDate();" />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
 
-                        <div class="row">
-                          <div class="col-md-12">
-                            <div class="box box-warning box-solid">
-                              <div class="box-header with-border">
-                                <h3 class="box-title"> ตรวจผลหมาย (45 วัน)</h3>
-                                <div class="box-tools pull-right">
-                                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                                  </button>
+                            <div class="tab-pane" id="tab_2">
+                              <div class="box-body">
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    วันที่สืบพยาน
+                                    <input type="date" id="examidaycourt" name="examidaycourt" class="form-control" value="{{ ($data->examiday_court) }}" oninput="CourtDate();" />
+                                  </div>
+                                  <div class="col-md-6">
+                                    วันที่เลือน
+                                    <input type="date" id="fuzzycourt" name="fuzzycourt" class="form-control" value="{{ ($data->fuzzy_court) }}" oninput="CourtDate();" />
+                                  </div>
                                 </div>
+                                หมายเหตุ
+                                <textarea name="examinotecourt" class="form-control" rows="5">{{ ($data->examinote_court) }}</textarea>
                               </div>
+                            </div>
+
+                            <div class="tab-pane" id="tab_3">
+                              <div class="box-body">
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    วันที่ดึงจากระบบ
+                                    <input type="date" id="orderdaycourt" name="orderdaycourt" class="form-control" value="{{ ($data->orderday_court) }}" readonly/>
+                                  </div>
+                                  <div class="col-md-6">
+                                    วันที่ส่งจริง
+                                    <input type="date" id="ordersendcourt" name="ordersendcourt" class="form-control" value="{{ ($data->ordersend_court) }}" oninput="CourtDate();" />
+                                  </div>
+                                </div>
+                                <!-- <br><br><br><br><br><br> -->
+                              </div>
+                            </div>
+
+                            <div class="tab-pane" id="tab_4">
                               <div class="box-body">
                                 <div class="row">
                                   <div class="col-md-3">
                                     วันที่ตรวจผลหมาย
                                     <input type="date" id="checkdaycourt" name="checkdaycourt" class="form-control" value="{{ ($data->checkday_court) }}" oninput="CourtDate2();" readonly/>
-                                  </div>
-                                  <div class="col-md-3">
-                                    วันที่ตรวจผลหมายจริง
-                                    <input type="date" id="checksendcourt" name="checksendcourt" class="form-control" value="{{ ($data->checksend_court) }}" onchange="CourtDate2();" />
                                   </div>
                                   <div class="col-md-3">
                                     วันทีผู้เช่าซื้อได้รับ
@@ -725,6 +755,10 @@
                                   <div class="col-md-3">
                                     วันทีผู้ค้ำได้รับ
                                     <input type="date" id="supportcourt" name="supportcourt" class="form-control" value="{{ ($data->support_court) }}" oninput="CheckMessege();"/>
+                                  </div>
+                                  <div class="col-md-3">
+                                    วันที่ตรวจผลหมายจริง
+                                    <input type="date" id="checksendcourt" name="checksendcourt" class="form-control" value="{{ ($data->checksend_court) }}" onchange="CourtDate2();" />
                                   </div>
                                 </div>
 
@@ -764,95 +798,99 @@
 
                               </div>
                             </div>
-                          </div>
-                        </div>
 
-                        <div class="row">
-                          <div class="col-md-4">
-                            <div class="box box-warning box-solid">
-                              <div class="box-header with-border">
-                                <h3 class="box-title"> ตั้งเจ้าพนักงาน (45 วัน)</h3>
-                                <div class="box-tools pull-right">
-                                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                                  </button>
-                                </div>
-                              </div>
+                            <div class="tab-pane" id="tab_5">
                               <div class="box-body">
-                                วันทีตั้งเจ้าพนักงาน
-                                <input type="date" id="setofficecourt" name="setofficecourt" class="form-control" value="{{ $data->setoffice_court }}" readonly/>
-                                วันที่ส่งจริง
-                                <input type="date" id="sendofficecourt" name="sendofficecourt" class="form-control" value="{{ $data->sendoffice_court }}" oninput="CheckMessege();CourtDate2();"/>
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    วันทีตั้งเจ้าพนักงาน
+                                    <input type="date" id="setofficecourt" name="setofficecourt" class="form-control" value="{{ $data->setoffice_court }}" readonly/>
+                                  </div>
+                                  <div class="col-md-6">
+                                    วันที่ส่งจริง
+                                    <input type="date" id="sendofficecourt" name="sendofficecourt" class="form-control" value="{{ $data->sendoffice_court }}" oninput="CheckMessege();CourtDate2();"/>
+                                  </div>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                          <div class="col-md-4">
-                            <div class="box box-warning box-solid">
-                              <div class="box-header with-border">
-                                <h3 class="box-title"> ตรวจผลหมายตั้ง (45 วัน)</h3>
-                                <div class="box-tools pull-right">
-                                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="box-body">
-                                วันที่ตรวจผลหมายตั้ง
-                                <input type="date" id="checkresultscourt" name="checkresultscourt" class="form-control" value="{{ $data->checkresults_court }}" readonly/>
-                                วันที่ตรวจจริง
-                                <input type="date" id="sendcheckresultscourt" name="sendcheckresultscourt" class="form-control" value="{{ $data->sendcheckresults_court }}" oninput="Datesuccess();"/>
-                                <div class="row">
-                                  <br>
-                                  @if($data->received_court == "Y")
-                                    <div class="col-md-6" align="center">
-                                      <input type="radio" id="test3" name="radio-receivedflag" value="Y" onclick="Functionhidden2()" checked/>
-                                      <label for="test3">ได้รับ</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                      <input type="radio" id="test4" name="radio-receivedflag" value="N" onclick="FunctionRadio2()"/>
-                                      <label for="test4">ไม่ได้รับ</label>
-                                    </div>
-                                  @elseif($data->received_court == "N")
-                                    <div class="col-md-6" align="center">
-                                      <input type="radio" id="test3" name="radio-receivedflag" value="Y" onclick="Functionhidden2()"/>
-                                      <label for="test3">ได้รับ</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                      <input type="radio" id="test4" name="radio-receivedflag" value="N" onclick="FunctionRadio2()" checked/>
-                                      <label for="test4">ไม่ได้รับ</label>
-                                    </div>
-                                  @else
-                                    <div class="col-md-6" align="center">
-                                      <input type="radio" id="test3" name="radio-receivedflag" value="Y" onclick="Functionhidden2()"/>
-                                      <label for="test3">ได้รับ</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                      <input type="radio" id="test4" name="radio-receivedflag" value="N" onclick="FunctionRadio2()"/>
-                                      <label for="test4">ไม่ได้รับ</label>
-                                    </div>
-                                  @endif
-                                </div>
 
-                                 @if($data->received_court == "Y" or $data->received_court == Null)
-                                   <div id="myDIV" style="display:none;">
-                                 @else
-                                  <div id="myDIV">
-                                 @endif
+                            <div class="tab-pane" id="tab_6">
+                              <div class="box-body">
+                                <div class="row">
+                                  <div class="col-md-3">
+                                    วันที่ตรวจผลหมายตั้ง
+                                    <input type="date" id="checkresultscourt" name="checkresultscourt" class="form-control" value="{{ $data->checkresults_court }}" readonly/>
+                                  </div>
+                                  <div class="col-md-3">
+                                    วันที่ตรวจจริง
+                                    <input type="date" id="sendcheckresultscourt" name="sendcheckresultscourt" class="form-control" value="{{ $data->sendcheckresults_court }}" oninput="Datesuccess();"/>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class="row">
+                                      <br>
+                                      @if($data->received_court == "Y")
+                                      <div class="col-md-6" align="center">
+                                        <input type="radio" id="test3" name="radio-receivedflag" value="Y" onclick="Functionhidden2()" checked/>
+                                        <label for="test3">ได้รับ</label>
+                                      </div>
+                                      <div class="col-md-6">
+                                        <input type="radio" id="test4" name="radio-receivedflag" value="N" onclick="FunctionRadio2()"/>
+                                        <label for="test4">ไม่ได้รับ</label>
+                                      </div>
+                                      @elseif($data->received_court == "N")
+                                      <div class="col-md-6" align="center">
+                                        <input type="radio" id="test3" name="radio-receivedflag" value="Y" onclick="Functionhidden2()"/>
+                                        <label for="test3">ได้รับ</label>
+                                      </div>
+                                      <div class="col-md-6">
+                                        <input type="radio" id="test4" name="radio-receivedflag" value="N" onclick="FunctionRadio2()" checked/>
+                                        <label for="test4">ไม่ได้รับ</label>
+                                      </div>
+                                      @else
+                                      <div class="col-md-6" align="center">
+                                        <input type="radio" id="test3" name="radio-receivedflag" value="Y" onclick="Functionhidden2()"/>
+                                        <label for="test3">ได้รับ</label>
+                                      </div>
+                                      <div class="col-md-6">
+                                        <input type="radio" id="test4" name="radio-receivedflag" value="N" onclick="FunctionRadio2()"/>
+                                        <label for="test4">ไม่ได้รับ</label>
+                                      </div>
+                                      @endif
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                   @if($data->received_court == "Y" or $data->received_court == Null)
+                                     <div id="myDIV" style="display:none;">
+                                   @else
+                                    <div id="myDIV">
+                                   @endif
+                                     <div class="col-md-3">
                                       วันทีโทร
                                       <input type="date" id="telresultscourt" name="telresultscourt" class="form-control" value="{{ $data->telresults_court }}" />
-                                      วันทีไปรับ
-                                      <input type="date" id="dayresultscourt" name="dayresultscourt" class="form-control" value="{{ $data->dayresults_court }}" oninput="Datesuccess()"/>
+                                     </div>
+                                     <div class="col-md-3">
+                                          วันทีไปรับ
+                                          <input type="date" id="dayresultscourt" name="dayresultscourt" class="form-control" value="{{ $data->dayresults_court }}" oninput="Datesuccess()"/>
+                                     </div>
                                    </div>
+                                 </div>
+
                               </div>
                             </div>
                           </div>
-                          <div class="col-md-4">
-                            <div class="box box-warning box-solid">
-                              <div class="box-header with-border">
-                                <h3 class="box-title"> สถานะทรัพย์</h3>
-                                <div class="box-tools pull-right">
-                                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                                  </button>
-                                </div>
-                              </div>
+                        </div>
+                      </div>
+
+
+                      <h4 class="card-title p-3" align="left"><b>ขั้นตอนสืบทรัพย์</b></h4>
+                      <div class="box box-primary box-solid">
+                        <div class="nav-tabs-custom" style="background-color : #1E90FF;">
+                          <ul class="nav nav-tabs">
+                            <li class="nav-item active"><a href="#tab_1" data-toggle="tab">สถานะทรัพย์</a></li>
+                          </ul>
+                          <div class="tab-content">
+                            <div class="tab-pane active" id="tab_1">
                               <div class="box-body">
                                 <div class="row">
                                   @if($data->propertied_court == "Y")
@@ -890,50 +928,57 @@
                                 @else
                                  <div id="ShowMe">
                                 @endif
-                                    วันสืบทรัพย์
-                                    <input type="date" id="sequestercourt" name="sequestercourt" class="form-control" value="{{ $data->sequester_court }}"/>
-                                    <!-- วันที่ยึดทรัพย์จริง
-                                    <input type="date" id="sendsequestercourt" name="sendsequestercourt" class="form-control" value="{{ $data->sendsequester_court }}" /> -->
-                                    @if($data->sendsequester_court == Null)
-                                      ผลสืบ :
-                                      <select name="sendsequestercourt" class="form-control">
-                                        <option value="" selected>--- เลือกผล ---</option>
-                                        <option value="เจอ">เจอ</option>
-                                        <option value="ไม่เจอ">ไม่เจอ</option>
-                                      </select>
-                                     @else
-                                      <select id="sendsequestercourt" name="sendsequestercourt" class="form-control">
-                                        <option value="" disabled selected>--- เลือกผล ---</option>
-                                        @foreach ($Sendsequester as $key => $value)
-                                          <option value="{{$key}}" {{ ($key == $data->sendsequester_court) ? 'selected' : '' }}>{{$value}}</option>
-                                        @endforeach
-                                      </select>
-                                     @endif
+                                    <div class="row">
+                                      <div class="col-md-6">
 
-                                    วันที่สืบทรัพย์ใหม่
-                                    <input type="date" id="" name="" class="form-control" value=""/>
+                                        วันสืบทรัพย์
+                                        <input type="date" id="sequestercourt" name="sequestercourt" class="form-control" value="{{ $data->sequester_court }}"/>
+                                        @if($data->sendsequester_court == Null)
+                                          ผลสืบ :
+                                          <select name="sendsequestercourt" class="form-control">
+                                            <option value="" selected>--- เลือกผล ---</option>
+                                            <option value="เจอ">เจอ</option>
+                                            <option value="ไม่เจอ">ไม่เจอ</option>
+                                          </select>
+                                         @else
+                                          <select id="sendsequestercourt" name="sendsequestercourt" class="form-control">
+                                            <option value="" disabled selected>--- เลือกผล ---</option>
+                                            @foreach ($Sendsequester as $key => $value)
+                                              <option value="{{$key}}" {{ ($key == $data->sendsequester_court) ? 'selected' : '' }}>{{$value}}</option>
+                                            @endforeach
+                                          </select>
+                                         @endif
+
+                                        วันที่สืบทรัพย์ใหม่
+                                        <input type="date" id="" name="NewpursueDatecourt" class="form-control" value="{{ $data->NewpursueDate_court }}"/>
+                                        </div>
+                                      <div class="col-md-6">
+                                        หมายเหตุ
+                                        <textarea name="Notepursuecourt" class="form-control" rows="10">{{ $data->Notepursue_court }}</textarea>
+                                      </div>
+                                    </div>
+
                                     </div>
                                   </div>
                                 </div>
                               </div>
-
-                              </div>
                             </div>
                           </div>
                         </div>
-
                       </div>
                     </div>
                   </div>
                 </div>
-
-                <input type="hidden" name="_method" value="PATCH"/>
               </div>
-            </form>
+            </div>
 
 
+            <input type="hidden" name="_method" value="PATCH"/>
           </div>
-        </div>
+        </form>
+
+      </div>
+    </div>
 
 
       <!-- เวลาแจ้งเตือน -->
