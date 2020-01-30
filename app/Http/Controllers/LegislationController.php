@@ -233,8 +233,9 @@ class LegislationController extends Controller
         return view('legislation.edit',compact('data','data1','id','type'));
       }
       elseif ($type == 3){  //ชั้นศาล
-        $data = DB::table('legiscourts')
-        ->where('legiscourts.legislation_id',$id)->first();
+        $data = DB::table('legislations')
+                  ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+                  ->where('legiscourts.legislation_id',$id)->first();
 
         $Sendsequester = [
           'เจอ' => 'เจอ',
@@ -360,11 +361,10 @@ class LegislationController extends Controller
       if ($type == 2) {     //ข้อมูลผู้เช่าซื้อ
         $user = Legislation::find($id);
           //หน้าทีมทนาย
-          // dd($request);
           $user->CAccount_legis = $request->get('CAccountlegis');
-          $user->CAccount_legis = $request->get('txtCAccountlegis');
+          $user->txtCAccount_legis = $request->get('txtCAccountlegis');
           $user->OverDue_legis = $request->get('OverDuelegis');
-          $user->OverDue_legis = $request->get('txtOverDuelegis');
+          $user->txtOverDue_legis = $request->get('txtOverDuelegis');
           $user->Holder_legis = $request->get('Holderlegis');
 
           $user->Pay_legis = str_replace(",","",$request->get('Paylegis'));
@@ -425,6 +425,8 @@ class LegislationController extends Controller
           $Legiscourt->propertied_court = $request->get('radio-propertied');
           $Legiscourt->sequester_court = $request->get('sequestercourt');
           $Legiscourt->sendsequester_court = $request->get('sendsequestercourt');
+          $Legiscourt->NewpursueDate_court = $request->get('NewpursueDatecourt');
+          $Legiscourt->Notepursue_court = $request->get('Notepursuecourt');
         $Legiscourt->update();
 
         $Legislation = Legislation::find($id);
@@ -622,50 +624,51 @@ class LegislationController extends Controller
        if ($type == 6) {     //ข้อมูลผู้เช่าซื้อจากฝ่ายวิเคราะห์
          $nowday = date('Y-m-d');
          $user = Legislation::find($id);
-           $user->Flag_status = $request->get('Flag');
-           $user->Datesend_Flag = $nowday;
+               $user->Flag_status = $request->get('Flag');
+               $user->Datesend_Flag = $nowday;
          $user->update();
-
+         
          $data = DB::table('legiscourts')
-                   ->where('legislation_id', '=', $id)
-                   ->count();
+                  ->where('legislation_id', '=', $id)
+                  ->count();
 
-         if($data == 0){
-             $Legiscourt = new Legiscourt([
-               'legislation_id' => $id,
-               'fillingdate_court' => Null,
-               'law_court' =>  Null,
-               'bnumber_court' =>  Null,
-               'rnumber_court' =>  Null,
-               'capital_court' =>  Null,
-               'indictment_court' =>  Null,
-               'pricelawyer_court' =>  Null,
-               'examiday_court' =>  Null,
-               'fuzzy_court' =>  Null,
-               'examinote_court' =>  Null,
-               'orderday_court' =>  Null,
-               'ordersend_court' =>  Null,
-               'checkday_court' =>  Null,
-               'checksend_court' =>  Null,
-               'buyer_court' =>  Null,
-               'support_court' =>  Null,
-               'note_court' =>  Null,
-               'social_flag' =>  Null,
-               'setoffice_court' =>  Null,
-               'sendoffice_court' =>  Null,
-               'checkresults_court' =>  Null,
-               'sendcheckresults_court' =>  Null,
-               'received_court' =>  Null,
-               'telresults_court' =>  Null,
-               'dayresults_court' =>  Null,
-               'propertied_court' =>  Null,
-               'sequester_court' =>  Null,
-               'sendsequester_court' =>  Null,
-               'latitude_court' =>  Null,
-               'longitude_court' =>  Null,
-             ]);
-             $Legiscourt->save();
-           }
+         $Legiscourt = new Legiscourt([
+           'legislation_id' => $id,
+           'fillingdate_court' => Null,
+           'law_court' =>  Null,
+           'bnumber_court' =>  Null,
+           'rnumber_court' =>  Null,
+           'capital_court' =>  Null,
+           'indictment_court' =>  Null,
+           'pricelawyer_court' =>  Null,
+           'examiday_court' =>  Null,
+           'fuzzy_court' =>  Null,
+           'examinote_court' =>  Null,
+           'orderday_court' =>  Null,
+           'ordersend_court' =>  Null,
+           'checkday_court' =>  Null,
+           'checksend_court' =>  Null,
+           'buyer_court' =>  Null,
+           'support_court' =>  Null,
+           'note_court' =>  Null,
+           'social_flag' =>  Null,
+           'setoffice_court' =>  Null,
+           'sendoffice_court' =>  Null,
+           'checkresults_court' =>  Null,
+           'sendcheckresults_court' =>  Null,
+           'received_court' =>  Null,
+           'telresults_court' =>  Null,
+           'dayresults_court' =>  Null,
+           'propertied_court' =>  Null,
+           'sequester_court' =>  Null,
+           'sendsequester_court' =>  Null,
+           'NewpursueDate_court' =>  Null,
+           'Notepursue_court' =>  Null,
+           'latitude_court' =>  Null,
+           'longitude_court' =>  Null,
+         ]);
+         $Legiscourt->save();
+         
          return redirect()->Route('legislation',$type)->with('success','ส่งเรียบร้อย');
        }
      }

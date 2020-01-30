@@ -44,8 +44,11 @@ class CreateLegiscourtsTable extends Migration
             $table->string('propertied_court')->nullable();
             $table->string('sequester_court')->nullable();
             $table->string('sendsequester_court')->nullable();
-            $table->string('latitude_court')->nullable();
-            $table->string('longitude_court')->nullable();
+            $table->string('NewpursueDate_court')->nullable();
+            $table->string('Notepursue_court')->nullable();
+
+            $table->string('latitude_court')->nullable();   //ค่า ละติจุต แผนที
+            $table->string('longitude_court')->nullable();  //ค่า ลองติจุต แผนที
             $table->timestamps();
         });
     }
