@@ -202,8 +202,8 @@
     }
   </style>
 
-      <section class="content-header">
-      </section>
+      <!-- <section class="content-header">
+      </section> -->
 
       <!-- Main content -->
       <section class="content">
@@ -619,17 +619,17 @@
                                 <br>
                                 <div class="form-inline" align="center">
                                   <label>
-                                    <input type="checkbox" name="CAccountlegis" value="BC"/>
+                                    <input type="checkbox" name="CAccountlegis" value="court_BC" {{ ($data->CAccount_legis === 'court_BC') ? 'checked' : '' }}/>
                                     <span><font color="red">ปิดบัญชี</font></span>
                                     <input type="text" name="txtCAccountlegis" class="form-control" style="width: 100px;">
                                   </label>
                                   <label>
-                                    <input type="checkbox" name="OverDuelegis" value="BM"/>
+                                    <input type="checkbox" name="OverDuelegis" value="court_BM" {{ ($data->OverDue_legis === 'court_BM') ? 'checked' : '' }}/>
                                     <span><font color="red">ชำระยอดค้าง</font></span>
                                     <input type="text" name="txtOverDuelegis" class="form-control" style="width: 100px;">
                                   </label>
                                   <label>
-                                    <input type="checkbox" name="Holderlegis" value="BF"/>
+                                    <input type="checkbox" name="Holderlegis" value="court_BF" {{ ($data->Holder_legis === 'court_BF') ? 'checked' : '' }}/>
                                     <span><font color="red">ยึดรถ</font></span>
                                   </label>
                                 </div>

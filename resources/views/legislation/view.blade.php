@@ -210,7 +210,29 @@
                                 $examidaydate = date_create($row->examiday_court);
                                 $Newdate = date_create($date);
                                 $DateEx = date_diff($Newdate,$examidaydate);
-                              @endphp
+                               @endphp
+
+                               <!-- สืบทรัพย์ -->
+                               @if($row->sequester_court != Null)
+                                 @if($row->NewpursueDate_court != Null)
+                                   @php
+                                     $NewpursueDate = date_create($row->NewpursueDate_court);
+                                     $DateEx6 = date_diff($Newdate,$NewpursueDate);
+                                     @endphp
+                                     @else
+                                     @php
+                                     $NewpursueDate = date_create($row->sequester_court);
+                                     $DateEx6 = date_diff($Newdate,$NewpursueDate);
+                                   @endphp
+                                 @endif
+
+                                 @if($Newdate <= $NewpursueDate)
+                                   @if($DateEx6->d <= 7)
+                                   <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> สืบทรัพย์ {{ $DateEx6->d }} วัน</span>
+                                   @endif
+                                 @endif
+                               @endif
+
                               @if($row->examiday_court != Null)
                                 @php
                                   $orderdaydate = date_create($row->orderday_court);
@@ -233,25 +255,25 @@
                                   @if($DateEx->d <= 7)
                                     <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> สืบพยาน {{ $DateEx->d }} วัน</span>
                                   @else
-                                    <font color="green">สืบพยาน</font>
+                                    <font color="#FF9900">สืบพยาน</font>
                                   @endif
                                 @elseif($Newdate <= $orderdaydate)
                                   @if($DateEx2->d <= 7)
                                     <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> ส่งคำบังคับ {{ $DateEx2->d }} วัน</span>
                                   @else
-                                    <font color="green">ส่งคำบังคับ</font>
+                                    <font color="#FF9900">ส่งคำบังคับ</font>
                                   @endif
                                 @elseif($Newdate <= $checkdaydate)
                                   @if($DateEx3->d <= 7)
                                     <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> ตรวจผลหมาย {{ $DateEx3->d }} วัน</span>
                                   @else
-                                    <font color="green">ตรวจผลหมาย</font>
+                                    <font color="#FF9900">ตรวจผลหมาย</font>
                                   @endif
                                 @elseif($Newdate <= $setofficedate)
                                   @if($DateEx4->d <= 7)
                                     <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> ตั้งเจ้าพนักงาน {{ $DateEx4->d }} วัน</span>
                                   @else
-                                    <font color="green">ตั้งเจ้าพนักงาน</font>
+                                    <font color="#FF9900">ตั้งเจ้าพนักงาน</font>
                                   @endif
                                 @elseif($Newdate <= $checkresultsdate)
                                   @if($DateEx5->d <= 7)
@@ -260,26 +282,12 @@
                                     <font color="green">ตรวจผลหมายตั้ง</font>
                                   @endif
                                 @endif
-
-                              @elseif($row->sequester_court != Null)
-                                @if($row->NewpursueDate_court != Null)
-                                  @php
-                                    $NewpursueDate = date_create($row->NewpursueDate_court);
-                                    $DateEx6 = date_diff($Newdate,$NewpursueDate);
-                                  @endphp
-                                @else
-                                  @php
-                                    $NewpursueDate = date_create($row->sequester_court);
-                                    $DateEx6 = date_diff($Newdate,$NewpursueDate);
-                                  @endphp
-                                @endif
-
-                                @if($Newdate <= $NewpursueDate)
-                                  @if($DateEx6->d <= 7)
-                                    <span class="fa fa-warning text-danger prem" title="มีแจ้งเตือน"> สืบทรัพย์ {{ $DateEx6->d }} วัน</span>
-                                  @endif
-                                @endif
+                              @elseif($row->fillingdate_court != Null)
+                                <font color="#FF9900">สถานะฟ้อง</font>
+                              @else
+                                <font color="red">รอฟ้อง</font>
                               @endif
+
                             </td>
                             <!-- <td class="text-center"><a href="#" data-toggle="modal" data-target="#modal_default" data-backdrop="static" data-keyboard="false">{{$row->Contract_legis}}</a></td> -->
                             <td class="text-center"> {{$row->Contract_legis}}</a></td>

@@ -247,20 +247,26 @@
                                 <span class="info-box-text"><font style="font-size: 20px;">{{ $data->Name_legis }}</font></span>
                               </div>
                               <div class="col-md-8">
-                                <br>
+                                <div class="" align="center">
+                                  <button type="button" class="btn btn-primary btn-lg">
+                                  @if($data->CAccount_legis != Null)
+                                    สถานะ : ปิดบัญชีก่อนฟ้อง
+                                  @endif
+                                  </button>
+                                </div>
                                 <div class="form-inline" align="center">
                                   <label>
-                                    <input type="checkbox" name="CAccountlegis" value="BC"/>
+                                    <input type="checkbox" name="CAccountlegis" value="purchase_BC" {{ ($data->CAccount_legis === 'purchase_BC') ? 'checked' : '' }}/>
                                     <span><font color="red">ปิดบัญชี</font></span>
                                     <input type="text" name="txtCAccountlegis" class="form-control" style="width: 100px;">
                                   </label>
                                   <label>
-                                    <input type="checkbox" name="OverDuelegis" value="BM"/>
+                                    <input type="checkbox" name="OverDuelegis" value="purchase_BM" {{ ($data->OverDue_legis === 'purchase_BM') ? 'checked' : '' }}/>
                                     <span><font color="red">ชำระยอดค้าง</font></span>
                                     <input type="text" name="txtOverDuelegis" class="form-control" style="width: 100px;">
                                   </label>
                                   <label>
-                                    <input type="checkbox" name="Holderlegis" value="BF"/>
+                                    <input type="checkbox" name="Holderlegis" value="purchase_BF" {{ ($data->Holder_legis === 'purchase_BF') ? 'checked' : '' }}/>
                                     <span><font color="red">ยึดรถ</font></span>
                                   </label>
                                 </div>

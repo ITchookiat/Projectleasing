@@ -361,6 +361,7 @@ class LegislationController extends Controller
       if ($type == 2) {     //ข้อมูลผู้เช่าซื้อ
         $user = Legislation::find($id);
           //หน้าทีมทนาย
+          // dd($request);
           $user->CAccount_legis = $request->get('CAccountlegis');
           $user->txtCAccount_legis = $request->get('txtCAccountlegis');
           $user->OverDue_legis = $request->get('OverDuelegis');
@@ -396,6 +397,14 @@ class LegislationController extends Controller
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
       }
       elseif ($type == 3) { //ชั้นศาล
+        $user = Legislation::find($id);
+          $user->CAccount_legis = $request->get('CAccountlegis');
+          $user->txtCAccount_legis = $request->get('txtCAccountlegis');
+          $user->OverDue_legis = $request->get('OverDuelegis');
+          $user->txtOverDue_legis = $request->get('txtOverDuelegis');
+          $user->Holder_legis = $request->get('Holderlegis');
+        $user->update();
+
         $Legiscourt = Legiscourt::where('legislation_id',$id)->first();
           $Legiscourt->fillingdate_court = $request->get('fillingdatecourt');
           $Legiscourt->law_court = $request->get('lawcourt');
@@ -627,7 +636,7 @@ class LegislationController extends Controller
                $user->Flag_status = $request->get('Flag');
                $user->Datesend_Flag = $nowday;
          $user->update();
-         
+
          $data = DB::table('legiscourts')
                   ->where('legislation_id', '=', $id)
                   ->count();
@@ -668,7 +677,7 @@ class LegislationController extends Controller
            'longitude_court' =>  Null,
          ]);
          $Legiscourt->save();
-         
+
          return redirect()->Route('legislation',$type)->with('success','ส่งเรียบร้อย');
        }
      }

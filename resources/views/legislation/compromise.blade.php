@@ -71,56 +71,33 @@
                     <form name="form1" method="post" action="{{ action('LegislationController@update',[$id,$type]) }}" enctype="multipart/form-data">
                       @csrf
                       @method('put')
-                      <div class="form-inline" align="right">
+                      <div class="form-inline">
                         <div class="row">
 
-                          <div class="col-md-3">
-                            <div class="info-box">
-                              <span class="info-box-icon" style="height: 95px;background-color:red;color:#FFF;"><i class="fa fa-user"></i></span>
-
-                              <div class="info-box-content">
-                                <span class="info-box-number text-left">
-                                  <font style="font-size:28px;">{{ $data->Contract_legis }}</font>
-                                </span>
-
-                                <!-- <div class="progress">
-                                  <div class="progress-bar" style="width: 100%;background-color:grey;"></div>
-                                </div> -->
-                                <span class="progress-description text-left">
-                                  <font style="font-size:24px;">{{ $data->Name_legis }}</font>
-                                </span>
-
-                              </div>
-                              <!-- /.info-box-content -->
+                          <div class="col-md-9">
+                            <span class="info-box-icon  bg-red"><i class="fa fa-user"></i></span>
+                            <div class="info-box-content">
+                                <div class="col-md-4">
+                                  <span class="info-box-number"><font style="font-size: 30px;">{{ $data->Contract_legis }}</font></span>
+                                  <span class="info-box-text"><font style="font-size: 20px;">{{ $data->Name_legis }}</font></span>
+                                </div>
+                                <div class="col-md-8">
+                                  <br>
+                                  <div class="form-inline" align="center">
+                                    <label>
+                                      <input type="checkbox" name="CAccountlegis" value="Y"/>
+                                      <span><font color="red">ปิดบัญชี</font></span>
+                                      <input type="text" name="txtCAccountlegis" class="form-control" style="width: 100px;">
+                                    </label>
+                                    <label>
+                                      <input type="checkbox" name="OverDuelegis" value="BM"/>
+                                      <span><font color="red">จ่ายตามจำนวนงวด</font></span>
+                                      <input type="text" name="txtOverDuelegis" class="form-control" style="width: 100px;">
+                                    </label>
+                                  </div>
+                                </div>
                             </div>
                           </div>
-
-                           <div class="col-md-6" align="center">
-
-                             <label>
-                               @if($data->CAccount_legis != Null)
-                               <input type="checkbox" name="CAccountlegis" value="{{ $data->CAccount_legis }}" checked="checked"/>
-                               @else
-                               <input type="checkbox" name="CAccountlegis" value="Y"/>
-                               @endif
-                               <span><font color="red">ปิดบัญชี :</font></span>
-                               <input type="text" name="txtCAccountlegis" class="form-control" style="width: 120px;">
-                             </label>
-                             <label>
-                               @if($data->OverDue_legis != Null)
-                               <input type="checkbox" name="OverDuelegis" value="{{ $data->OverDue_legis }}" checked="checked"/>
-                               @else
-                               <input type="checkbox" name="OverDuelegis" value="BF"/>
-                               @endif
-                               <span><font color="red">จ่ายตามจำนวนงวด :</font></span>
-                               <input type="text" name="txtOverDuelegis" class="form-control" style="width: 120px;">
-                             </label>
-                             <!-- <label>
-                               <input type="checkbox" name="Holderlegis" value="BK"/>
-                               <span><font color="red">ยึดรถ</font></span>
-                             </label> -->
-
-                           </div>
 
                           <div class="col-md-3" align="center">
                             @if($dataPranom != 0)
