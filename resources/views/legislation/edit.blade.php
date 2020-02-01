@@ -15,14 +15,14 @@
 @endphp
 
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-
-  <style>
+  <!-- checkbox -->
+  <!-- <style>
     input[type="checkbox"] { position: absolute; opacity: 0; z-index: -1; }
     input[type="checkbox"]+span { font: 14pt sans-serif; color: #000; }
     input[type="checkbox"]+span:before { font: 14pt FontAwesome; content: '\00f096'; display: inline-block; width: 14pt; padding: 2px 0 0 3px; margin-right: 0.5em; }
     input[type="checkbox"]:checked+span:before { content: '\00f046'; }
     input[type="checkbox"]:focus+span:before { outline: 1px dotted #aaa; }
-  </style>
+  </style> -->
 
   <style>
     #todo-list{
@@ -247,28 +247,23 @@
                                 <span class="info-box-text"><font style="font-size: 20px;">{{ $data->Name_legis }}</font></span>
                               </div>
                               <div class="col-md-8">
-                                <div class="" align="center">
-                                  <button type="button" class="btn btn-primary btn-lg">
-                                  @if($data->CAccount_legis != Null)
-                                    สถานะ : ปิดบัญชีก่อนฟ้อง
-                                  @endif
-                                  </button>
-                                </div>
                                 <div class="form-inline" align="center">
-                                  <label>
-                                    <input type="checkbox" name="CAccountlegis" value="purchase_BC" {{ ($data->CAccount_legis === 'purchase_BC') ? 'checked' : '' }}/>
-                                    <span><font color="red">ปิดบัญชี</font></span>
-                                    <input type="text" name="txtCAccountlegis" class="form-control" style="width: 100px;">
-                                  </label>
-                                  <label>
-                                    <input type="checkbox" name="OverDuelegis" value="purchase_BM" {{ ($data->OverDue_legis === 'purchase_BM') ? 'checked' : '' }}/>
-                                    <span><font color="red">ชำระยอดค้าง</font></span>
-                                    <input type="text" name="txtOverDuelegis" class="form-control" style="width: 100px;">
-                                  </label>
-                                  <label>
-                                    <input type="checkbox" name="Holderlegis" value="purchase_BF" {{ ($data->Holder_legis === 'purchase_BF') ? 'checked' : '' }}/>
-                                    <span><font color="red">ยึดรถ</font></span>
-                                  </label>
+                                  <button type="button" class="btn btn-success active btn-lg">
+                                    @if($data->Status_legis == "ปิดบัญชีก่อนฟ้อง")
+                                      สถานะ : ปิดบัญชีก่อนฟ้อง
+                                    @elseif($data->Status_legis == "ชำระก่อนฟ้อง")
+                                      สถานะ : ชำระก่อนฟ้อง
+                                    @endif
+                                  </button>
+                                  <p></p>
+                                  <label>สถานะ : </label>
+                                  <select name="Statuslegis" class="form-control" style="width: 150px;">
+                                    <option value="" selected>--- status ---</option>
+                                    <option value="ปิดบัญชีก่อนฟ้อง" {{ ($data->Status_legis === 'ปิดบัญชีก่อนฟ้อง') ? 'selected' : '' }}>ปิดบัญชีก่อนฟ้อง</option>
+                                    <option value="ชำระก่อนฟ้อง" {{ ($data->Status_legis === 'ชำระก่อนฟ้อง') ? 'selected' : '' }}>ชำระก่อนฟ้อง</option>
+                                    <option value="ยึดรถ">ยึดรถ</option>
+                                  </select>
+                                  <input type="text" name="txtStatuslegis" class="form-control" style="width: 150px;">
                                 </div>
                               </div>
                           </div>

@@ -361,12 +361,8 @@ class LegislationController extends Controller
       if ($type == 2) {     //ข้อมูลผู้เช่าซื้อ
         $user = Legislation::find($id);
           //หน้าทีมทนาย
-          // dd($request);
-          $user->CAccount_legis = $request->get('CAccountlegis');
-          $user->txtCAccount_legis = $request->get('txtCAccountlegis');
-          $user->OverDue_legis = $request->get('OverDuelegis');
-          $user->txtOverDue_legis = $request->get('txtOverDuelegis');
-          $user->Holder_legis = $request->get('Holderlegis');
+          $user->Status_legis = $request->get('Statuslegis');
+          $user->txtStatus_legis = $request->get('txtStatuslegis');
 
           $user->Pay_legis = str_replace(",","",$request->get('Paylegis'));
           $user->Period_legis = str_replace(",","",$request->get('Periodlegis'));
@@ -398,11 +394,8 @@ class LegislationController extends Controller
       }
       elseif ($type == 3) { //ชั้นศาล
         $user = Legislation::find($id);
-          $user->CAccount_legis = $request->get('CAccountlegis');
-          $user->txtCAccount_legis = $request->get('txtCAccountlegis');
-          $user->OverDue_legis = $request->get('OverDuelegis');
-          $user->txtOverDue_legis = $request->get('txtOverDuelegis');
-          $user->Holder_legis = $request->get('Holderlegis');
+          $user->Status_legis = $request->get('Statuslegis');
+          $user->txtStatus_legis = $request->get('txtStatuslegis');
         $user->update();
 
         $Legiscourt = Legiscourt::where('legislation_id',$id)->first();
