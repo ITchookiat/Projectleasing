@@ -183,8 +183,8 @@
                       <thead class="thead-dark bg-gray-light" >
                         <tr>
                           <th class="text-center" style="width: 40px">ลำดับ</th>
-                          <th class="text-center" style="width: 70px">เริ่มรับงาน</th>
-                          <th class="text-center">แจ้งเตือน</th>
+                          <th class="text-center" style="width: 70px">ระยะเวลา</th>
+                          <th class="text-center">สถานะ</th>
                           <th class="text-center">เลขที่สัญญา</th>
                           <th class="text-center">ชื่อ-สกุล</th>
                           <th class="text-center">วันที่ทำสัญญา</th>
@@ -233,6 +233,7 @@
                                  @endif
                                @endif
 
+                               <!-- วันที่สืบพยานและวันฟ้อง-->
                               @if($row->examiday_court != Null)
                                 @php
                                   $orderdaydate = date_create($row->orderday_court);
@@ -285,7 +286,8 @@
                               @elseif($row->fillingdate_court != Null)
                                 <font color="#FF9900">สถานะฟ้อง</font>
                               @else
-                                <font color="red">รอฟ้อง</font>
+                                <span class="label label-success" >รอฟ้อง</span>
+                                <!-- <font color="red">รอฟ้อง</font> -->
                               @endif
 
                             </td>

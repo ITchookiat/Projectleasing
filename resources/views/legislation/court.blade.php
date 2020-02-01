@@ -229,7 +229,7 @@
             </ul>
           </div>
 
-          <div class="box-body">
+          <div class="box-body" style="background-color:#F1F1F1">
             @if(session()->has('success'))
               <div class="alert alert-success alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -609,29 +609,32 @@
                     <div class="info-box">
                       <div class="row">
                         <div class="col-md-9">
-                          <span class="info-box-icon  bg-red"><i class="fa fa-user"></i></span>
+                          <span class="info-box-icon bg-red"><i class="fa fa-id-badge fa-lg"></i></span>
                           <div class="info-box-content">
                               <div class="col-md-4">
                                 <span class="info-box-number"><font style="font-size: 30px;">{{ $data->Contract_legis }}</font></span>
                                 <span class="info-box-text"><font style="font-size: 20px;">{{ $data->Name_legis }}</font></span>
                               </div>
                               <div class="col-md-8">
-                                <br>
                                 <div class="form-inline" align="center">
-                                  <label>
-                                    <input type="checkbox" name="CAccountlegis" value="court_BC" {{ ($data->CAccount_legis === 'court_BC') ? 'checked' : '' }}/>
-                                    <span><font color="red">ปิดบัญชี</font></span>
-                                    <input type="text" name="txtCAccountlegis" class="form-control" style="width: 100px;">
-                                  </label>
-                                  <label>
-                                    <input type="checkbox" name="OverDuelegis" value="court_BM" {{ ($data->OverDue_legis === 'court_BM') ? 'checked' : '' }}/>
-                                    <span><font color="red">ชำระยอดค้าง</font></span>
-                                    <input type="text" name="txtOverDuelegis" class="form-control" style="width: 100px;">
-                                  </label>
-                                  <label>
-                                    <input type="checkbox" name="Holderlegis" value="court_BF" {{ ($data->Holder_legis === 'court_BF') ? 'checked' : '' }}/>
-                                    <span><font color="red">ยึดรถ</font></span>
-                                  </label>
+                                  <p></p>
+                                  <small class="label label-success" style="font-size: 25px;">
+                                    <i class="fa fa-expeditedssl"></i>
+                                    @if($data->Status_legis == "ปิดบัญชีก่อนฟ้อง")
+                                      : ปิดบัญชีก่อนฟ้อง
+                                    @elseif($data->Status_legis == "ชำระก่อนฟ้อง")
+                                      : ชำระก่อนฟ้อง
+                                    @endif
+                                  </small>
+                                  <p></p>
+                                  <label>สถานะ : </label>
+                                  <select name="Statuslegis" class="form-control" style="width: 150px;">
+                                    <option value="" selected>--- status ---</option>
+                                    <option value="ปิดบัญชีก่อนฟ้อง" {{ ($data->Status_legis === 'ปิดบัญชีก่อนฟ้อง') ? 'selected' : '' }}>ปิดบัญชีก่อนฟ้อง</option>
+                                    <option value="ชำระก่อนฟ้อง" {{ ($data->Status_legis === 'ชำระก่อนฟ้อง') ? 'selected' : '' }}>ชำระก่อนฟ้อง</option>
+                                    <option value="ยึดรถ">ยึดรถ</option>
+                                  </select>
+                                  <input type="text" name="txtStatuslegis" class="form-control" style="width: 150px;">
                                 </div>
                               </div>
                           </div>
