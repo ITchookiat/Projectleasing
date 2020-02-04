@@ -105,7 +105,7 @@
                                <span class="glyphicon glyphicon-plus"></span> เพิ่มชำระ
                              </a>
                             @else
-                            <a disabled class="btn btn-app" href="#" style="background-color:grey; color:#FFFFFF;">
+                            <a class="btn btn-app" style="background-color:#CCCCCC; color:#FFFFFF;">
                               <span class="glyphicon glyphicon-plus"></span> เพิ่มชำระ
                             </a>
                             @endif
