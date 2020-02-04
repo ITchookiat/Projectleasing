@@ -146,7 +146,7 @@
               <td width="35px" rowspan="3" style="background-color: #FFFF00; line-height:550%;">{{ $value->evaluetion_Price }}</td>
               <td width="25px" rowspan="3" style="background-color: #FFFF00; line-height:550%;">{{ $value->duty_Price }}</td>
               <td width="35px" rowspan="3" style="background-color: #FFFF00; line-height:550%;">{{ $value->marketing_Price }}</td>
-              <td width="45px" rowspan="3" style="line-height:550%;">{{number_format($value->totalk_Price - $value->closeAccount_Price)}}</td>
+              <td width="45px" rowspan="3" style="line-height:550%;">{{number_format($value->totalk_Price)}}</td>
               <td width="35px" rowspan="3" style="line-height:550%;">{{number_format($value->balance_Price)}}</td>
               <td width="30px" rowspan="3" style="line-height:550%;">{{number_format($value->commit_Price)}}</td>
               <td width="110px">{{$value->Payee_car}}</td>
