@@ -174,8 +174,8 @@
     }
   </style>
 
-      <section class="content-header">
-      </section>
+      <!-- <section class="content-header">
+      </section> -->
 
       <!-- Main content -->
       <section class="content">
@@ -209,9 +209,15 @@
                 <div class="card-body">
                   <div class="tab-content">
                     <div class="form-group" align="right">
+                      @if($data->Flag_status == 1)
                       <a class="btn btn-app" href="{{ action('LegislationController@updateLegislation',[$id,$type]) }}?&Flag={{2}}" style="background-color:#031261; color:#FFFFFF;">
                         <span class="glyphicon glyphicon-log-out"></span> ส่งทนาย
                       </a>
+                      @else
+                      <a class="btn btn-app" style="background-color:#CCCCCC; color:#FFFFFF;">
+                        <span class="glyphicon glyphicon-log-out"></span> ส่งทนาย
+                      </a>
+                      @endif
                       <button type="submit" class="btn btn-app" style="background-color:#189100; color:#FFFFFF;">
                         <span class="glyphicon glyphicon-floppy-save"></span> บันทึก
                       </button>

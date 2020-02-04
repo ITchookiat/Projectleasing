@@ -1,0 +1,289 @@
+@extends('layouts.master')
+@section('title','แผนกวิเคราะห์')
+@section('content')
+
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <style>
+    input[type="checkbox"] { position: absolute; opacity: 0; z-index: -1; }
+    input[type="checkbox"]+span { font: 14pt sans-serif; color: #000; }
+    input[type="checkbox"]+span:before { font: 14pt FontAwesome; content: '\00f096'; display: inline-block; width: 14pt; padding: 2px 0 0 3px; margin-right: 0.5em; }
+    input[type="checkbox"]:checked+span:before { content: '\00f046'; }
+    input[type="checkbox"]:focus+span:before { outline: 1px dotted #aaa; }
+  </style>
+
+      <!-- <section class="content-header">
+      </section> -->
+
+      <!-- Main content -->
+      <section class="content">
+        <!-- Default box -->
+        <div class="box box-danger box-solid">
+          <div class="box-header with-border">
+            <h4 class="card-title p-3" align="center">ข้อมูลงานฟ้อง</h4>
+            <div class="box-tools pull-right">
+              <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                <i class="fa fa-minus"></i></button>
+              <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                <i class="fa fa-times"></i></button>
+            </div>
+          </div>
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs bg-warning">
+              <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 2]) }}">ข้อมูลผู้เช่าซื้อ</a></li>
+              <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 3]) }}">ชั้นศาล</a></li>
+              <li class="nav-item active"><a href="{{ action('LegislationController@edit',[$id, 7]) }}">ชั้นบังคับคดี</a></li>
+              <li class="nav-item"><a href="#tab_4">ของกลาง</a></li>
+              <li class="nav-item"><a href="#tab_5">โกงเจ้าหนี้</a></li>
+            </ul>
+          </div>
+
+          <div class="box-body">
+            @if(session()->has('success'))
+              <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-check"></i> Alert!</h4>
+                <strong>สำเร็จ!</strong> {{ session()->get('success') }}
+              </div>
+            @endif
+
+            <form name="form1" method="post" action="{{ action('LegislationController@update',[$id,$type]) }}" enctype="multipart/form-data">
+              @csrf
+              @method('put')
+
+              <script>
+                function addCommas(nStr){
+                   nStr += '';
+                   x = nStr.split('.');
+                   x1 = x[0];
+                   x2 = x.length > 1 ? '.' + x[1] : '';
+                   var rgx = /(\d+)(\d{3})/;
+                   while (rgx.test(x1)) {
+                     x1 = x1.replace(rgx, '$1' + ',' + '$2');
+                    }
+                  return x1 + x2;
+                }
+
+              </script>
+
+              <div class="card">
+                <div class="card-body">
+                  <div class="tab-content">
+                    <div class="info-box">
+                      <div class="row">
+                        <div class="col-md-9">
+                          <span class="info-box-icon  bg-red"><i class="fa fa-user"></i></span>
+                          <div class="info-box-content">
+                              <div class="col-md-4">
+                                <span class="info-box-number"><font style="font-size: 30px;">{{ $data->Contract_legis }}</font></span>
+                                <span class="info-box-text"><font style="font-size: 20px;">{{ $data->Name_legis }}</font></span>
+                              </div>
+                              <div class="col-md-8">
+                                <br>
+                                <div class="form-inline" align="center">
+                                  <label>
+                                    <input type="checkbox" name="CAccountlegis" value="BC"/>
+                                    <span><font color="red">ปิดบัญชี</font></span>
+                                    <input type="text" name="txtCAccountlegis" class="form-control" style="width: 100px;">
+                                  </label>
+                                  <label>
+                                    <input type="checkbox" name="OverDuelegis" value="BM"/>
+                                    <span><font color="red">ชำระยอดค้าง</font></span>
+                                    <input type="text" name="txtOverDuelegis" class="form-control" style="width: 100px;">
+                                  </label>
+                                  <label>
+                                    <input type="checkbox" name="Holderlegis" value="BF"/>
+                                    <span><font color="red">ยึดรถ</font></span>
+                                  </label>
+                                </div>
+                              </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-3">
+                          <br>
+                          <div class="form-inline" align="right">
+                            <button type="submit" class="btn btn-app" style="background-color:#189100; color:#FFFFFF;">
+                              <span class="glyphicon glyphicon-floppy-save"></span> อัพเดท
+                            </button>
+                            <a class="btn btn-app" href="{{ route('legislation',2) }}" style="background-color:#DB0000; color:#FFFFFF;">
+                              <span class="glyphicon glyphicon-remove"></span> ยกเลิก
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="info-box-content">
+                        <div class="progress">
+                          <div class="progress-bar" style="width: 0%"></div>
+                        </div>
+                        <span class="progress-description">
+                        </span>
+                      </div>
+
+                      <h4 class="card-title p-3" align="left"><b>ขั้นตอนชั้นบังคับคดี</b></h4>
+
+                      <div class="box box-warning box-solid">
+                        <div class="nav-tabs-custom" style="background-color : #f39c12;">
+                          <ul class="nav nav-tabs">
+                            <li class="nav-item active"><a href="#tab_1" data-toggle="tab">เตรียมเอกสาร(30 วัน)</a></li>
+                            <li class="nav-item"><a href="#tab_2" data-toggle="tab">ตั้งเรื่องยึดทรัพย์(180 วัน)</a></li>
+                          </ul>
+                          <div class="tab-content">
+                            <div class="tab-pane active" id="tab_1">
+                              <div class="box-body">
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    วันทีเตรียมเอกสาร
+                                    <input type="date" id="datepreparedoc" name="datepreparedoc" class="form-control" value="{{$data->datepreparedoc_case}}" />
+                                  </div>
+                                  <div class="col-md-6">
+                                    หมายเหตุ
+                                    <textarea name="noteprepare" class="form-control" rows="3">{{$data->noteprepare_case}}</textarea>
+                                  </div>
+                                </div>
+
+                              </div>
+                            </div>
+
+                            <div class="tab-pane" id="tab_2">
+                              <div class="box-body">
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    วันที่ตั้งเรื่องยึดทรัพย์แรกเริ่ม
+                                    <input type="date" id="DatesetSequester" name="DatesetSequester" class="form-control" value="{{ $data->datesetsequester_case }}" />
+                                  </div>
+                                  <div class="col-md-6">
+                                    ประกาศขาย
+                                    <select id="ResultSequester" name="ResultSequester" class="form-control">
+                                      <option value="" selected>--- เลือกผลการประกาศขาย ---</option>
+                                      <option value="ขายได้" {{ ($data->resultsequester_case === 'ขายได้') ? 'selected' : '' }}>ขายได้</option>
+                                      <option value="ขายไม่ได้" {{ ($data->resultsequester_case === 'ขายไม่ได้') ? 'selected' : '' }}>ขายไม่ได้</option>
+                                    </select>
+                                  </div>
+                                </div>
+
+                                <script>
+                                    $('#ResultSequester').change(function(){
+                                      var value = document.getElementById('ResultSequester').value;
+                                        if(value == 'ขายไม่ได้'){
+                                          $('#ShowDetail1').show();
+                                          $('#ShowDetail2').hide();
+                                          $('#ShowSellDetail1').hide();
+                                          $('#ShowSellDetail2').hide();
+                                        }
+                                        else if(value == 'ขายได้'){
+                                          $('#ShowDetail2').show();
+                                          $('#ShowDetail1').hide();
+                                          $('#ShowSellDetail1').hide();
+                                          $('#ShowSellDetail2').hide();
+                                        }
+                                        else{
+                                          $('#ShowDetail1').hide();
+                                          $('#ShowDetail2').hide();
+                                          $('#ShowSellDetail1').hide();
+                                          $('#ShowSellDetail2').hide();
+                                        }
+                                    });
+                                </script>
+
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    หมายเหตุ
+                                    <textarea name="Notesequester" class="form-control" rows="3">{{$data->notesequester_case}}</textarea>
+                                  </div>
+
+                                  @if($data->resultsequester_case == 'ขายไม่ได้')
+                                  <div id="ShowDetail1">
+                                  @else
+                                  <div id="ShowDetail1" style="display:none;">
+                                  @endif
+                                    <div class="col-md-6">
+                                      เงินค่าใช้จ่าย
+                                      <input type="text" id="Paidseguester" name="Paidseguester" class="form-control" value="{{number_format($data->paidsequester_case,0)}}" />
+                                      วันที่ตั้งเรื่องยึดทรัพย์ครั้งต่อไป
+                                      <input type="date" id="DatenextSequester" name="DatenextSequester" class="form-control" value="{{$data->datenextsequester_case}}" />
+                                    </div>
+                                  </div>
+                                  @if($data->resultsequester_case == 'ขายได้')
+                                  <div id="ShowDetail2">
+                                  @else
+                                  <div id="ShowDetail2" style="display:none;">
+                                  @endif
+                                    <div class="col-md-6">
+                                      <!-- <font color="#FFFFFF">ขายได้</font> -->
+                                      ผลจากการขาย
+                                      <select id="ResultSell" name="ResultSell" class="form-control">
+                                        <option value="" selected>--- เลือกผลจากการขาย ---</option>
+                                        <option value="เต็มจำนวน" {{ ($data->resultsell_case === 'เต็มจำนวน') ? 'selected' : '' }}>เต็มจำนวน</option>
+                                        <option value="ไม่เต็มจำนวน" {{ ($data->resultsell_case === 'ไม่เต็มจำนวน') ? 'selected' : '' }}>ไม่เต็มจำนวน</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <script>
+                                      $('#ResultSell').change(function(){
+                                        var value = document.getElementById('ResultSell').value;
+                                          if(value == 'เต็มจำนวน'){
+                                            $('#ShowSellDetail1').show();
+                                            $('#ShowSellDetail2').hide();
+                                          }
+                                          else if(value == 'ไม่เต็มจำนวน'){
+                                            $('#ShowSellDetail1').hide();
+                                            $('#ShowSellDetail2').show();
+                                          }
+                                          else{
+                                            $('#ShowSellDetail1').hide();
+                                            $('#ShowSellDetail2').hide();
+                                          }
+                                      });
+                                  </script>
+                                  @if($data->resultsell_case == 'เต็มจำนวน')
+                                  <div id="ShowSellDetail1">
+                                  @else
+                                  <div id="ShowSellDetail1" style="display:none;">
+                                  @endif
+                                    <div class="col-md-6">
+                                      วันที่ขายได้
+                                      <input type="date" id="Datesoldout" name="Datesoldout" class="form-control" value="{{$data->datesoldout_case}}" />
+                                    </div>
+                                  </div>
+                                  @if($data->resultsell_case == 'ไม่เต็มจำนวน')
+                                  <div id="ShowSellDetail2">
+                                  @else
+                                  <div id="ShowSellDetail2" style="display:none;">
+                                  @endif
+                                    <div class="col-md-6">
+                                      จำนวนเงิน
+                                      <input type="text" id="Amountsequester" name="Amountsequester" class="form-control" value="{{number_format($data->amountsequester_case,0)}}" />
+                                    </div>
+                                  </div>
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <input type="hidden" name="_method" value="PATCH"/>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+
+      <!-- เวลาแจ้งเตือน -->
+      <script type="text/javascript">
+        $(".alert").fadeTo(3000, 1000).slideUp(1000, function(){
+        $(".alert").alert('close');
+        });
+      </script>
+
+
+    </section>
+@endsection

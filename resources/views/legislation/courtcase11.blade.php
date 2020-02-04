@@ -202,8 +202,8 @@
     }
   </style>
 
-      <section class="content-header">
-      </section>
+      <!-- <section class="content-header">
+      </section> -->
 
       <!-- Main content -->
       <section class="content">
@@ -221,8 +221,8 @@
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs bg-warning">
               <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 2]) }}">ข้อมูลผู้เช่าซื้อ</a></li>
-              <li class="nav-item active"><a href="{{ action('LegislationController@edit',[$id, 3]) }}">ชั้นศาล</a></li>
-              <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 7]) }}">ชั้นบังคับคดี</a></li>
+              <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 3]) }}">ชั้นศาล</a></li>
+              <li class="nav-item active"><a href="{{ action('LegislationController@edit',[$id, 7]) }}">ชั้นบังคับคดี</a></li>
               <li class="nav-item"><a href="#tab_4">ของกลาง</a></li>
               <li class="nav-item"><a href="#tab_5">โกงเจ้าหนี้</a></li>
               <li class="nav-item pull-right"><a href="{{ action('LegislationController@edit',[$id, 11]) }}">รูปและแผนที่</a></li>
@@ -658,53 +658,28 @@
                         </span>
                       </div>
 
-                      <h4 class="card-title p-3" align="left"><b>ขั้นตอนชั้นศาล</b></h4>
+                      <h4 class="card-title p-3" align="left"><b>ขั้นตอนชั้นบังคับคดี</b></h4>
 
                       <div class="box box-warning box-solid">
                         <div class="nav-tabs-custom" style="background-color : #f39c12;">
                           <ul class="nav nav-tabs">
-                            <li class="nav-item active"><a href="#tab_1" data-toggle="tab">วันฟ้อง(45-60 วัน)</a></li>
-                            <li class="nav-item"><a href="#tab_2" data-toggle="tab">สืบพยาน(30 วัน)</a></li>
-                            <li class="nav-item"><a href="#tab_3" data-toggle="tab">ส่งคำบังคับ(45 วัน)</a></li>
-                            <li class="nav-item"><a href="#tab_4" data-toggle="tab">ตรวจผลหมาย(45 วัน)</a></li>
-                            <li class="nav-item"><a href="#tab_5" data-toggle="tab">ตั้งเจ้าพนักงาน(45 วัน)</a></li>
-                            <li class="nav-item"><a href="#tab_6" data-toggle="tab">ตรวจผลหมายตั้ง(45 วัน)</a></li>
+                            <li class="nav-item active"><a href="#tab_1" data-toggle="tab">เตรียมเอกสาร(30 วัน)</a></li>
+                            <li class="nav-item"><a href="#tab_2" data-toggle="tab">ตั้งเรื่องยึดทรัพย์(180 วัน)</a></li>
                           </ul>
                           <div class="tab-content">
                             <div class="tab-pane active" id="tab_1">
                               <div class="box-body">
                                 <div class="row">
-                                  <div class="col-md-3">
-                                    วันที่ฟ้อง
-                                    <input type="date" id="fillingdatecourt" name="fillingdatecourt" class="form-control" value="{{ ($data->fillingdate_court) }}" />
+                                  <div class="col-md-6">
+                                    วันทีเตรียมเอกสาร
+                                    <input type="date" id="datepreparedoc" name="datepreparedoc" class="form-control" value="" />
                                   </div>
-                                  <div class="col-md-3">
-                                    ศาล
-                                    <input type="text" name="lawcourt" class="form-control" value="{{ ($data->law_court) }}" />
-                                  </div>
-                                  <div class="col-md-3">
-                                    เลขคดีดำ
-                                    <input type="text" name="bnumbercourt" class="form-control" value="{{ ($data->bnumber_court) }}" />
-                                  </div>
-                                  <div class="col-md-3">
-                                    เลขคดีแดง
-                                    <input type="text" name="rnumbercourt" class="form-control" value="{{ ($data->rnumber_court) }}"  />
+                                  <div class="col-md-6">
+                                    หมายเหตุ
+                                    <textarea name="noteprepare" class="form-control" rows="2"></textarea>
                                   </div>
                                 </div>
-                                <div class="row">
-                                  <div class="col-md-3">
-                                    ทุนทรัพย์
-                                    <input type="text" id="capitalcourt" name="capitalcourt" class="form-control" value="{{ ($data->capital_court) }}" oninput="CalculateCap();"/>
-                                  </div>
-                                  <div class="col-md-3">
-                                    ค่าฟ้อง
-                                    <input type="text" id="indictmentcourt" name="indictmentcourt" class="form-control" value="{{ ($data->indictment_court) }}" oninput="CalculateCap();"/>
-                                  </div>
-                                  <div class="col-md-3">
-                                    ค่าทนาย
-                                    <input type="text" id="pricelawyercourt" name="pricelawyercourt" class="form-control" value="{{ ($data->pricelawyer_court) }}" readonly/>
-                                  </div>
-                                </div>
+
                               </div>
                             </div>
 
@@ -712,172 +687,73 @@
                               <div class="box-body">
                                 <div class="row">
                                   <div class="col-md-6">
-                                    วันที่สืบพยาน
-                                    <input type="date" id="examidaycourt" name="examidaycourt" class="form-control" value="{{ ($data->examiday_court) }}" oninput="CourtDate();" />
-                                  </div>
-                                  <div class="col-md-6">
-                                    วันที่เลือน
-                                    <input type="date" id="fuzzycourt" name="fuzzycourt" class="form-control" value="{{ ($data->fuzzy_court) }}" oninput="CourtDate();" />
-                                  </div>
-                                </div>
-                                หมายเหตุ
-                                <textarea name="examinotecourt" class="form-control" rows="5">{{ ($data->examinote_court) }}</textarea>
-                              </div>
-                            </div>
-
-                            <div class="tab-pane" id="tab_3">
-                              <div class="box-body">
-                                <div class="row">
-                                  <div class="col-md-6">
-                                    วันที่ดึงจากระบบ
-                                    <input type="date" id="orderdaycourt" name="orderdaycourt" class="form-control" value="{{ ($data->orderday_court) }}" readonly/>
-                                  </div>
-                                  <div class="col-md-6">
-                                    วันที่ส่งจริง
-                                    <input type="date" id="ordersendcourt" name="ordersendcourt" class="form-control" value="{{ ($data->ordersend_court) }}" oninput="CourtDate();" />
-                                  </div>
-                                </div>
-                                <!-- <br><br><br><br><br><br> -->
-                              </div>
-                            </div>
-
-                            <div class="tab-pane" id="tab_4">
-                              <div class="box-body">
-                                <div class="row">
-                                  <div class="col-md-3">
-                                    วันที่ตรวจผลหมาย
-                                    <input type="date" id="checkdaycourt" name="checkdaycourt" class="form-control" value="{{ ($data->checkday_court) }}" oninput="CourtDate2();" readonly/>
-                                  </div>
-                                  <div class="col-md-3">
-                                    วันทีผู้เช่าซื้อได้รับ
-                                    <input type="date" id="buyercourt" name="buyercourt" class="form-control" value="{{ ($data->buyer_court) }}" oninput="CheckMessege();"/>
-                                  </div>
-                                  <div class="col-md-3">
-                                    วันทีผู้ค้ำได้รับ
-                                    <input type="date" id="supportcourt" name="supportcourt" class="form-control" value="{{ ($data->support_court) }}" oninput="CheckMessege();"/>
-                                  </div>
-                                  <div class="col-md-3">
-                                    วันที่ตรวจผลหมายจริง
-                                    <input type="date" id="checksendcourt" name="checksendcourt" class="form-control" value="{{ ($data->checksend_court) }}" onchange="CourtDate2();" />
-                                  </div>
-                                </div>
-
-                                <div class="row">
-                                  <div class="col-md-9">
-                                    หมายเหตุ
-                                    <textarea name="notecourt" class="form-control" value="" rows="4" >{{ ($data->note_court) }}</textarea>
-                                  </div>
-                                  <div class="col-md-3">
-                                    <p></p>
-                                    <span class="todo-wrap">
-                                      @if($data->social_flag == "infomation")
-                                        <input type="checkbox" id="1" name="socialflag" value="{{ $data->social_flag }}" checked="checked"/>
-                                      @else
-                                        <input type="checkbox" id="1" name="socialflag" value="infomation" onclick="CourtDate2()"/>
-                                      @endif
-                                      <label for="1" class="todo">
-                                        <i class="fa fa-check"></i>
-                                        ประกาศสื่ออิเล็กทรอนิกส์
-                                      </label>
-                                    </span>
-                                  </div>
-                                  <div class="col-md-3">
-                                    <span class="todo-wrap">
-                                      @if($data->social_flag == "success")
-                                        <input type="checkbox" id="4" name="socialflag" value="{{ $data->social_flag }}" checked="checked"/>
-                                      @else
-                                        <input type="checkbox" id="4" name="socialflag" value="success" onclick="CourtDate2()"/>
-                                      @endif
-                                      <label for="4" class="todo">
-                                        <i class="fa fa-check"></i>
-                                        ได้รับผลหมายทั้งคู่
-                                      </label>
-                                    </span>
-                                  </div>
-                                </div>
-
-                              </div>
-                            </div>
-
-                            <div class="tab-pane" id="tab_5">
-                              <div class="box-body">
-                                <div class="row">
-                                  <div class="col-md-6">
-                                    วันทีตั้งเจ้าพนักงาน
-                                    <input type="date" id="setofficecourt" name="setofficecourt" class="form-control" value="{{ $data->setoffice_court }}" readonly/>
-                                  </div>
-                                  <div class="col-md-6">
-                                    วันที่ส่งจริง
-                                    <input type="date" id="sendofficecourt" name="sendofficecourt" class="form-control" value="{{ $data->sendoffice_court }}" oninput="CheckMessege();CourtDate2();"/>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="tab-pane" id="tab_6">
-                              <div class="box-body">
-                                <div class="row">
-                                  <div class="col-md-3">
-                                    วันที่ตรวจผลหมายตั้ง
-                                    <input type="date" id="checkresultscourt" name="checkresultscourt" class="form-control" value="{{ $data->checkresults_court }}" readonly/>
-                                  </div>
-                                  <div class="col-md-3">
-                                    วันที่ตรวจจริง
-                                    <input type="date" id="sendcheckresultscourt" name="sendcheckresultscourt" class="form-control" value="{{ $data->sendcheckresults_court }}" oninput="Datesuccess();"/>
+                                    วันที่ตั้งเรื่องยึดทรัพย์แรกเริ่ม
+                                    <input type="date" id="DatesetSequester" name="DatesetSequester" class="form-control" value="{{ ($data->examiday_court) }}" />
                                   </div>
                                   <div class="col-md-6">
                                     <div class="row">
                                       <br>
-                                      @if($data->received_court == "Y")
                                       <div class="col-md-6" align="center">
-                                        <input type="radio" id="test3" name="radio-receivedflag" value="Y" onclick="Functionhidden2()" checked/>
-                                        <label for="test3">ได้รับ</label>
+                                        <input type="radio" id="test3" name="radio-receivedflag" value="Y" onclick="Functionhidden2()"/>
+                                        <label for="test3">ขายได้</label>
                                       </div>
                                       <div class="col-md-6">
                                         <input type="radio" id="test4" name="radio-receivedflag" value="N" onclick="FunctionRadio2()"/>
-                                        <label for="test4">ไม่ได้รับ</label>
+                                        <label for="test4">ขายไม่ได้</label>
                                       </div>
-                                      @elseif($data->received_court == "N")
-                                      <div class="col-md-6" align="center">
-                                        <input type="radio" id="test3" name="radio-receivedflag" value="Y" onclick="Functionhidden2()"/>
-                                        <label for="test3">ได้รับ</label>
-                                      </div>
-                                      <div class="col-md-6">
-                                        <input type="radio" id="test4" name="radio-receivedflag" value="N" onclick="FunctionRadio2()" checked/>
-                                        <label for="test4">ไม่ได้รับ</label>
-                                      </div>
-                                      @else
-                                      <div class="col-md-6" align="center">
-                                        <input type="radio" id="test3" name="radio-receivedflag" value="Y" onclick="Functionhidden2()"/>
-                                        <label for="test3">ได้รับ</label>
-                                      </div>
-                                      <div class="col-md-6">
-                                        <input type="radio" id="test4" name="radio-receivedflag" value="N" onclick="FunctionRadio2()"/>
-                                        <label for="test4">ไม่ได้รับ</label>
-                                      </div>
-                                      @endif
                                     </div>
                                   </div>
                                 </div>
+
+                                <script>
+                                    $('#ResultSequester').change(function(){
+                                      var value = document.getElementById('ResultSequester').value;
+                                        if(value == 'ขายไม่ได้'){
+                                          $('#ShowDetail1').show();
+                                          $('#ShowDetail2').hide();
+                                        }
+                                        else if(value == 'ขายได้'){
+                                          $('#ShowDetail2').show();
+                                          $('#ShowDetail1').hide();
+                                          $('#ShowSellDetail').hide();
+                                        }
+                                        else{
+                                          $('#ShowDetail1').hide();
+                                          $('#ShowDetail2').hide();
+                                          $('#ShowSellDetail').hide();
+                                        }
+                                    });
+                                </script>
+
                                 <div class="row">
-                                  <div class="col-md-9"></div>
-                                  <div class="col-md-3">
-                                     @if($data->received_court == "Y" or $data->received_court == Null)
-                                       <div id="myDIV" style="display:none;">
-                                     @else
-                                      <div id="myDIV">
-                                     @endif
+                                  <div class="col-md-6">
+                                    หมายเหตุ
+                                    <textarea name="noteprepare" class="form-control" rows="3"></textarea>
+                                  </div>
 
-                                        วันทีโทร
-                                        <input type="date" id="telresultscourt" name="telresultscourt" class="form-control" value="{{ $data->telresults_court }}" />
+                                    <div class="col-md-6">
+                                      <div class="row">
+                                        <br>
+                                        <div class="col-md-6" align="center">
+                                          <input type="radio" id="test3" name="radio-receivedflag" value="Y" onclick="Functionhidden2()"/>
+                                          <label for="test3">เต็มจำนวน</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                          <input type="radio" id="test4" name="radio-receivedflag" value="N" onclick="FunctionRadio2()"/>
+                                          <label for="test4">ไม่เต็มจำนวน</label>
+                                        </div>
+                                      </div>
 
+                                        <div class="form-inline" align="right">
+                                            <label>จำนวนเงิน : </label>
+                                            <input type="text" name="Accountbrancecar" class="form-control" placeholder="เลขที่บัญชีผู้รับเงิน" maxlength="15" />
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        </div>
 
-                                            วันทีไปรับ
-                                            <input type="date" id="dayresultscourt" name="dayresultscourt" class="form-control" value="{{ $data->dayresults_court }}" oninput="Datesuccess()"/>
+                                    </div>
+                                  </div>
 
-                                     </div>
-                                   </div>
-                                 </div>
+                                </div>
 
                               </div>
                             </div>
@@ -886,7 +762,7 @@
                       </div>
 
 
-                      <h4 class="card-title p-3" align="left"><b>ขั้นตอนสืบทรัพย์</b></h4>
+                      <h4 class="card-title p-3" align="left"><b>ขั้นตอนสืบทรัพย์ชั้นบังคับคดี</b></h4>
                       <div class="box box-primary box-solid">
                         <div class="nav-tabs-custom" style="background-color : #1E90FF;">
                           <ul class="nav nav-tabs">
