@@ -8,6 +8,7 @@ use Carbon\Carbon;
 
 use App\Legislation;
 use App\Legiscourt;
+use App\Legiscourtcase;
 use App\LegisImage;
 use App\Legiscompromise;
 use App\legispayment;
@@ -325,6 +326,13 @@ class LegislationController extends Controller
         // dd($data1);
         return view('legislation.editAnalyze',compact('data','data1','id','type'));
       }
+      elseif ($type == 7) { //ชั้นบังคับคดี
+        $data = DB::table('legislations')
+                  ->leftJoin('legiscourtcases','legislations.id','=','legiscourtcases.legislation_id')
+                  ->where('legiscourtcases.legislation_id',$id)->first();
+        
+        return view('legislation.courtcase',compact('data','id','type'));
+      }
       elseif ($type == 8) { //สืบทรัพย์
         $data = DB::table('legislations')
                   ->leftJoin('legisassets','legislations.id','=','legisassets.legisAsset_id')
@@ -333,7 +341,6 @@ class LegislationController extends Controller
         // dd($data);
 
         return view('legislation.asset',compact('data','id','type'));
-      }
       elseif ($type == 11){ //รูปและแผนที
         $data = DB::table('legiscourts')
         ->where('legiscourts.legislation_id',$id)->first();
@@ -547,6 +554,33 @@ class LegislationController extends Controller
 
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
       }
+      elseif ($type == 7) { //ชั้นบังคับคดี
+        if($request->get('Paidseguester') != ''){
+          $Paidseguester = str_replace(",","",$request->get('Paidseguester'));
+        }else{
+          $Paidseguester = 0;
+        }
+        if($request->get('Amountsequester') != ''){
+          $Amountsequester = str_replace(",","",$request->get('Amountsequester'));
+        }else{
+          $Amountsequester = 0;
+        }
+        $Legiscourtcase = Legiscourtcase::where('legislation_id',$id)->first();
+          $Legiscourtcase->datepreparedoc_case = $request->get('datepreparedoc');
+          $Legiscourtcase->noteprepare_case = $request->get('noteprepare');
+          $Legiscourtcase->datesetsequester_case = $request->get('DatesetSequester');
+          $Legiscourtcase->resultsequester_case = $request->get('ResultSequester');
+          $Legiscourtcase->notesequester_case = $request->get('Notesequester');
+          $Legiscourtcase->paidsequester_case = $Paidseguester;
+          $Legiscourtcase->datenextsequester_case = $request->get('DatenextSequester');
+          $Legiscourtcase->resultsell_case = $request->get('ResultSell');
+          $Legiscourtcase->datesoldout_case = $request->get('Datesoldout');
+          $Legiscourtcase->amountsequester_case = $Amountsequester;
+          $Legiscourtcase->statussequester_case = NULL;
+        $Legiscourtcase->update();
+
+        return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
+      }
       elseif ($type == 8) {
         $data = DB::table('legisassets')
                   ->where('legisassets.legisAsset_id', $id)->first();
@@ -588,7 +622,7 @@ class LegislationController extends Controller
         }
 
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อย');
-      }
+
       elseif ($type == 11) {
         $Legiscourt = Legiscourt::where('legislation_id',$id)->first();
           $Legiscourt->latitude_court = $request->get('latitude');
@@ -722,6 +756,23 @@ class LegislationController extends Controller
            'longitude_court' =>  Null,
          ]);
          $Legiscourt->save();
+
+
+         $Legiscourtcase = new Legiscourtcase([
+           'legislation_id' => $id,
+           'datepreparedoc_case' => Null,
+           'noteprepare_case' =>  Null,
+           'datesetsequester_case' =>  Null,
+           'resultsequester_case' =>  Null,
+           'notesequester_case' =>  Null,
+           'paidsequester_case' =>  Null,
+           'datenextsequester_case' =>  Null,
+           'resultsell_case' =>  Null,
+           'datesoldout_case' =>  Null,
+           'amountsequester_case' =>  Null,
+           'statussequester_case' =>  Null,
+         ]);
+         $Legiscourtcase->save();
 
          return redirect()->Route('legislation',$type)->with('success','ส่งเรียบร้อย');
        }
