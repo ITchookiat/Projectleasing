@@ -147,13 +147,16 @@
                   <a href="{{ route('legislation',1) }}"><i class="fa fa-cube text-primary"></i>รายชื่อส่งฟ้อง</a>
               </li>
               <li>
-                  <a href="{{ route('legislation',6) }}"><i class="fa fa-cube text-primary"></i>ทีมวิเคราะห์</a>
+                  <a href="{{ route('legislation',6) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้เตรียมฟ้อง</a>
               </li>
               <li>
-                  <a href="{{ route('legislation',2) }}"><i class="fa fa-cube text-primary"></i>งานฟ้อง</a>
+                  <a href="{{ route('legislation',2) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้ฟ้อง</a>
               </li>
               <li>
-                  <a href="{{ route('legislation',7) }}"><i class="fa fa-cube text-primary"></i>งานประนอมหนี้</a>
+                  <a href="{{ route('legislation',8) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้สืบทรัพย์</a>
+              </li>
+              <li>
+                  <a href="{{ route('legislation',7) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้ประนอมหนี้</a>
               </li>
             </ul>
           @endif

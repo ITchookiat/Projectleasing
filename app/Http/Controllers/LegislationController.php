@@ -12,6 +12,7 @@ use App\Legiscourtcase;
 use App\LegisImage;
 use App\Legiscompromise;
 use App\legispayment;
+use App\legisasset;
 
 class LegislationController extends Controller
 {
@@ -62,10 +63,11 @@ class LegislationController extends Controller
         return view('legislation.view', compact('type', 'result','data','result2'));
 
       }
-      elseif ($request->type == 2) {
+      elseif ($request->type == 2) {   //งานฟ้อง
         $data = DB::table('legislations')
                   ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
                   ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+                  ->leftJoin('legisassets','legislations.id','=','legisassets.legisAsset_id')
                   ->where('legislations.Flag_status','=', '2')
                   ->orderBy('legislations.Contract_legis', 'ASC')
                   ->get();
@@ -84,14 +86,25 @@ class LegislationController extends Controller
         $type = $request->type;
         return view('legislation.view', compact('type', 'data','result'));
       }
-      elseif ($request->type == 7) {
+      elseif ($request->type == 7) {    //งานประนอมหนี้
         $data = DB::table('legislations')
-                  ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
-                  ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+                  ->join('legiscourts','legislations.id','=','legiscourts.legislation_id')
+                  ->join('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
                   ->where('legislations.Flag_status','=', '2')
                   ->orderBy('legislations.Contract_legis', 'ASC')
                   ->get();
 
+                  // dd($data);
+        $type = $request->type;
+        return view('legislation.view', compact('type', 'data','result'));
+      }
+      elseif ($request->type == 8) {
+        $data = DB::table('legislations')
+                  ->join('legisassets','legislations.id','=','legisassets.legisAsset_id')
+                  ->orderBy('legisassets.legisAsset_id', 'ASC')
+                  ->get();
+
+                  // dd($data);
         $type = $request->type;
         return view('legislation.view', compact('type', 'data','result'));
       }
@@ -236,14 +249,10 @@ class LegislationController extends Controller
       elseif ($type == 3){  //ชั้นศาล
         $data = DB::table('legislations')
                   ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+                  ->leftJoin('legisassets','legislations.id','=','legisassets.legisAsset_id')
                   ->where('legiscourts.legislation_id',$id)->first();
 
-        $Sendsequester = [
-          'เจอ' => 'เจอ',
-          'ไม่เจอ' => 'ไม่เจอ',
-        ];
-
-        return view('legislation.court',compact('data','id','type','Sendsequester'));
+        return view('legislation.court',compact('data','id','type'));
       }
       elseif ($type == 4) { //ประนอมหนี้-รายละเอียด
         $data = DB::table('legislations')
@@ -272,8 +281,6 @@ class LegislationController extends Controller
           }
           $SumCount = $SumCount + $GetPay;
         }
-
-        // dd($SumPayDue);
 
         if ($data->Total_Promise != Null) {
           $Getdata = str_replace (",","",$data->Total_Promise);
@@ -323,8 +330,17 @@ class LegislationController extends Controller
         $data = DB::table('legislations')
                   ->leftJoin('legiscourtcases','legislations.id','=','legiscourtcases.legislation_id')
                   ->where('legiscourtcases.legislation_id',$id)->first();
+        
         return view('legislation.courtcase',compact('data','id','type'));
       }
+      elseif ($type == 8) { //สืบทรัพย์
+        $data = DB::table('legislations')
+                  ->leftJoin('legisassets','legislations.id','=','legisassets.legisAsset_id')
+                  ->where('legislations.id', $id)
+                  ->first();
+        // dd($data);
+
+        return view('legislation.asset',compact('data','id','type'));
       elseif ($type == 11){ //รูปและแผนที
         $data = DB::table('legiscourts')
         ->where('legiscourts.legislation_id',$id)->first();
@@ -368,8 +384,12 @@ class LegislationController extends Controller
       if ($type == 2) {     //ข้อมูลผู้เช่าซื้อ
         $user = Legislation::find($id);
           //หน้าทีมทนาย
-          $user->Status_legis = $request->get('Statuslegis');
-          $user->txtStatus_legis = $request->get('txtStatuslegis');
+          if ($request->get('Statuslegis') != Null) {
+            $user->Status_legis = $request->get('Statuslegis');
+            $user->txtStatus_legis = $request->get('txtStatuslegis');
+            $user->DateStatus_legis = $request->get('DateStatuslegis');
+            $user->DateUpState_legis = date('Y-m-d');
+          }
 
           $user->Pay_legis = str_replace(",","",$request->get('Paylegis'));
           $user->Period_legis = str_replace(",","",$request->get('Periodlegis'));
@@ -400,9 +420,10 @@ class LegislationController extends Controller
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
       }
       elseif ($type == 3) { //ชั้นศาล
-        $user = Legislation::find($id);
+        $user = Legislation::find($id); //update status
           $user->Status_legis = $request->get('Statuslegis');
           $user->txtStatus_legis = $request->get('txtStatuslegis');
+          $user->DateStatus_legis = $request->get('DateStatuslegis');
         $user->update();
 
         $Legiscourt = Legiscourt::where('legislation_id',$id)->first();
@@ -431,11 +452,6 @@ class LegislationController extends Controller
           $Legiscourt->received_court = $request->get('radio-receivedflag');
           $Legiscourt->telresults_court = $request->get('telresultscourt');
           $Legiscourt->dayresults_court = $request->get('dayresultscourt');
-          $Legiscourt->propertied_court = $request->get('radio-propertied');
-          $Legiscourt->sequester_court = $request->get('sequestercourt');
-          $Legiscourt->sendsequester_court = $request->get('sendsequestercourt');
-          $Legiscourt->NewpursueDate_court = $request->get('NewpursueDatecourt');
-          $Legiscourt->Notepursue_court = $request->get('Notepursuecourt');
         $Legiscourt->update();
 
         $Legislation = Legislation::find($id);
@@ -455,7 +471,6 @@ class LegislationController extends Controller
         $SetDiscount = str_replace (",","",$request->get('DiscountPromise'));
 
         if ($data == Null) {
-          // dd($request->get('FlagPromise'));
             $LegisPromise = new Legiscompromise([
               'Date_Promise' => $date,
               'legisPromise_id' => $id,
@@ -566,6 +581,48 @@ class LegislationController extends Controller
 
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
       }
+      elseif ($type == 8) {
+        $data = DB::table('legisassets')
+                  ->where('legisassets.legisAsset_id', $id)->first();
+
+        if ($data == Null) {
+            $LegisAsset = new legisasset([
+              'legisAsset_id' => $id,
+              'Status_asset' => $request->get('statusasset'),
+              'Price_asset' => Null,
+              'propertied_asset' => $request->get('radio_propertied'),
+              'sequester_asset' =>  $request->get('sequesterasset'),
+              'sendsequester_asset' => $request->get('sendsequesterasset'),
+              'Dateresult_asset' => Null,
+              'NewpursueDate_asset' => $request->get('NewpursueDateasset'),
+              'Notepursue_asset' =>  $request->get('Notepursueasset'),
+            ]);
+            $LegisAsset->save();
+
+        }else {
+          // dd($data->Dateresult_asset == Null);
+          if ($data->Dateresult_asset == Null or $data->Dateresult_asset == "ไม่เจอ") {
+            if ($request->get('sendsequesterasset') == "เจอ" or $request->get('sendsequesterasset') == "หมดอายุความ") {
+              $Dateresult = date('Y-m-d');
+            }else {
+              $Dateresult = Null;
+            }
+          }
+
+          $LegisAsset = legisasset::where('legisAsset_id',$id)->first();
+            $LegisAsset->Status_asset = $request->get('statusasset');
+            $LegisAsset->Price_asset = Null;
+            $LegisAsset->propertied_asset = $request->get('radio_propertied');
+            $LegisAsset->sequester_asset = $request->get('sequesterasset');
+            $LegisAsset->sendsequester_asset = $request->get('sendsequesterasset');
+            $LegisAsset->Dateresult_asset = $Dateresult;
+            $LegisAsset->NewpursueDate_asset = $request->get('NewpursueDateasset');
+            $LegisAsset->Notepursue_asset =  $request->get('Notepursueasset');
+          $LegisAsset->update();
+        }
+
+        return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อย');
+
       elseif ($type == 11) {
         $Legiscourt = Legiscourt::where('legislation_id',$id)->first();
           $Legiscourt->latitude_court = $request->get('latitude');
@@ -695,11 +752,6 @@ class LegislationController extends Controller
            'received_court' =>  Null,
            'telresults_court' =>  Null,
            'dayresults_court' =>  Null,
-           'propertied_court' =>  Null,
-           'sequester_court' =>  Null,
-           'sendsequester_court' =>  Null,
-           'NewpursueDate_court' =>  Null,
-           'Notepursue_court' =>  Null,
            'latitude_court' =>  Null,
            'longitude_court' =>  Null,
          ]);
