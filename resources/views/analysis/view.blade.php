@@ -111,6 +111,9 @@ $date = date('Y-m-d', strtotime('-1 days'));
                   <form method="get" action="{{ route('Analysis',1) }}">
                       <div align="right" class="form-inline">
                         @if(auth::user()->type == 1 or auth::user()->type == 2)
+                          <label>เลขที่สัญญา : </label>
+                          <input type="type" name="Contno" value="{{$contno}}" style="padding:5px;width:180px;border-radius: 5px 0 5px 5px; font-size:24px;"/>
+                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                           <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', $type) }}" class="btn btn-primary btn-app">
                             <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
                           </a>
@@ -130,7 +133,7 @@ $date = date('Y-m-d', strtotime('-1 days'));
                       <div align="right" class="form-inline">
                         <label for="text" class="mr-sm-2">สาขา : </label>
                           <select name="branch" class="form-control mb-2 mr-sm-2" id="text" style="width: 182px">
-                            <option selected disabled value="">---เลือกสาขา---</option>
+                            <option selected value="">---เลือกสาขา---</option>
                             <option value="ปัตตานี" {{ ($branch == 'ปัตตานี') ? 'selected' : '' }}>ปัตตานี</otion>
                             <option value="ยะลา" {{ ($branch == 'ยะลา') ? 'selected' : '' }}>ยะลา</otion>
                             <option value="นราธิวาส" {{ ($branch == 'นราธิวาส') ? 'selected' : '' }}>นราธิวาส</otion>
@@ -141,7 +144,7 @@ $date = date('Y-m-d', strtotime('-1 days'));
 
                       <label for="text" class="mr-sm-2">สถานะ : </label>
                         <select name="status" class="form-control mb-2 mr-sm-2" id="text" style="width: 180px">
-                          <option selected disabled value="">---สถานะ---</option>
+                          <option selected value="">---สถานะ---</option>
                           <option value="อนุมัติ"{{ ($status == 'อนุมัติ') ? 'selected' : '' }}>อนุมัติ</otion>
                           <option value="รออนุมัติ"{{ ($status == 'รออนุมัติ') ? 'selected' : '' }}>รออนุมัติ</otion>
                         </select>
