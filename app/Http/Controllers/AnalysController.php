@@ -36,7 +36,7 @@ class AnalysController extends Controller
         // if(auth()->user()->type != 1 and auth()->user()->type != 2 and auth()->user()->type != 4){
         //   dd('You not admin');
         // }
-
+        $contno = '';
         $newfdate = '';
         $newtdate = '';
         $branch = '';
@@ -74,8 +74,16 @@ class AnalysController extends Controller
           $status = session('status');
         }
 
+        if ($request->has('Contno')) {
+          $contno = $request->get('Contno');
+        }
+        if (session()->has('Contno')){
+          $contno = session('Contno');
+        }
+
         if ($request->has('Fromdate') == false and $request->has('Todate') == false) {
           if (session()->has('fdate') != false or $request->has('tdate') != false) {
+
             $data = DB::table('buyers')
             ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
             ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
@@ -89,10 +97,14 @@ class AnalysController extends Controller
             ->when(!empty($status), function($q) use($status){
               return $q->where('cardetails.StatusApp_car','=',$status);
             })
+            ->when(!empty($contno), function($q) use($contno){
+              return $q->where('buyers.Contract_buyer','=',$contno);
+            })
             ->orderBy('buyers.Contract_buyer', 'ASC')
             ->get();
 
-          }else {
+          }
+          else { //แสดงแรกเริ่มหน้า
             $data = DB::table('buyers')
             ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
             ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
@@ -103,7 +115,13 @@ class AnalysController extends Controller
           }
 
         }else {
-          // dd($branch);
+            if($contno != ''){
+              $newfdate = '';
+              $newtdate = '';
+              $branch = '';
+              $status = '';
+            }
+
             $data = DB::table('buyers')
             ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
             ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
@@ -117,8 +135,12 @@ class AnalysController extends Controller
             ->when(!empty($status), function($q) use($status){
               return $q->where('cardetails.StatusApp_car','=',$status);
             })
+            ->when(!empty($contno), function($q) use($contno){
+              return $q->where('buyers.Contract_buyer','=',$contno);
+            })
             ->orderBy('buyers.Contract_buyer', 'ASC')
             ->get();
+
         }
 
         // dd($data);
@@ -149,7 +171,7 @@ class AnalysController extends Controller
             $SumCommitprice = 0;
         }
 
-        return view('analysis.view', compact('type', 'data','branch','newfdate','newtdate','status','Setdate','SumTopcar','SumCommissioncar','SumCommitprice'));
+        return view('analysis.view', compact('type', 'data','branch','newfdate','newtdate','status','Setdate','SumTopcar','SumCommissioncar','SumCommitprice','contno','SetStrConn','SetStr1','SetStr2'));
       }
       elseif ($request->type == 2){
         return view('analysis.createbuyer');
