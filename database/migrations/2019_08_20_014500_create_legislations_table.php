@@ -45,6 +45,8 @@ class CreateLegislationsTable extends Migration
             $table->string('Flag')->nullable();
             $table->string('Status_legis')->nullable();       //สถานะ
             $table->string('txtStatus_legis')->nullable();    //ยอดสถานะ
+            $table->string('DateStatus_legis')->nullable();   //วันที่สถานะ
+            $table->string('DateUpState_legis')->nullable();   
             $table->string('Flag_status')->nullable();
             $table->string('Datesend_Flag')->nullable(); //วันที่ส่งงานให้ทีมทนาย
             $table->string('Noteby_legis')->nullable(); //หมายเหตุจากทีมวิวิเคราะห์
