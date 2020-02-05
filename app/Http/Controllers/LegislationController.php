@@ -86,7 +86,7 @@ class LegislationController extends Controller
         $type = $request->type;
         return view('legislation.view', compact('type', 'data','result'));
       }
-      elseif ($request->type == 7) {    //งานประนอมหนี้
+      elseif ($request->type == 7) {   //งานประนอมหนี้
         $data = DB::table('legislations')
                   ->join('legiscourts','legislations.id','=','legiscourts.legislation_id')
                   ->join('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
@@ -98,7 +98,7 @@ class LegislationController extends Controller
         $type = $request->type;
         return view('legislation.view', compact('type', 'data','result'));
       }
-      elseif ($request->type == 8) {
+      elseif ($request->type == 8) {   //สืบทรัพย์
         $data = DB::table('legislations')
                   ->join('legisassets','legislations.id','=','legisassets.legisAsset_id')
                   ->orderBy('legisassets.legisAsset_id', 'ASC')
@@ -330,7 +330,7 @@ class LegislationController extends Controller
         $data = DB::table('legislations')
                   ->leftJoin('legiscourtcases','legislations.id','=','legiscourtcases.legislation_id')
                   ->where('legiscourtcases.legislation_id',$id)->first();
-        
+
         return view('legislation.courtcase',compact('data','id','type'));
       }
       elseif ($type == 8) { //สืบทรัพย์
@@ -341,6 +341,7 @@ class LegislationController extends Controller
         // dd($data);
 
         return view('legislation.asset',compact('data','id','type'));
+      }
       elseif ($type == 11){ //รูปและแผนที
         $data = DB::table('legiscourts')
         ->where('legiscourts.legislation_id',$id)->first();
@@ -560,11 +561,13 @@ class LegislationController extends Controller
         }else{
           $Paidseguester = 0;
         }
+
         if($request->get('Amountsequester') != ''){
           $Amountsequester = str_replace(",","",$request->get('Amountsequester'));
         }else{
           $Amountsequester = 0;
         }
+
         $Legiscourtcase = Legiscourtcase::where('legislation_id',$id)->first();
           $Legiscourtcase->datepreparedoc_case = $request->get('datepreparedoc');
           $Legiscourtcase->noteprepare_case = $request->get('noteprepare');
@@ -600,7 +603,6 @@ class LegislationController extends Controller
             $LegisAsset->save();
 
         }else {
-          // dd($data->Dateresult_asset == Null);
           if ($data->Dateresult_asset == Null or $data->Dateresult_asset == "ไม่เจอ") {
             if ($request->get('sendsequesterasset') == "เจอ" or $request->get('sendsequesterasset') == "หมดอายุความ") {
               $Dateresult = date('Y-m-d');
@@ -622,7 +624,7 @@ class LegislationController extends Controller
         }
 
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อย');
-
+      }
       elseif ($type == 11) {
         $Legiscourt = Legiscourt::where('legislation_id',$id)->first();
           $Legiscourt->latitude_court = $request->get('latitude');
@@ -650,7 +652,6 @@ class LegislationController extends Controller
             $Uploaddb ->save();
           }
         }
-        // return redirect()->Route('legislation.edit',$id,2)->with('success','อัพเดตข้อมูลเรียบร้อย');
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
       }
       elseif ($type == 100) { //Json ประนอมหนี้
