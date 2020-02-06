@@ -729,20 +729,6 @@
                                 $lastday = date('Y-m-d', strtotime("-90 days"));
                               @endphp
                               
-                              @foreach($ResultPay as $key => $value)
-                                @if($row->legisPromise_id == $value->legis_Com_Payment_id)
-                                    <!-- {{$value->Date_Payment}} -->
-                                     @if($value->Date_Payment < $lastday)
-                                     <button type="button" class="btn btn-danger" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
-                                       <span class="glyphicon glyphicon-thumbs-down"></span> ขาดชำระ
-                                     </button>
-                                     @else
-                                     <button type="button" class="btn btn-success" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
-                                       <span class="glyphicon glyphicon-thumbs-up"></span> ชำระปกติ
-                                     </button>
-                                     @endif
-                                @endif
-                              @endforeach
 {{--
   @foreach($SetArray as $key => $row1)
     @if($row->legisPromise_id == $row1['id'])
@@ -757,7 +743,22 @@
        @endif
     @endif
   @endforeach
-  --}}
+ --}}
+                              
+                              @foreach($ResultPay as $key => $value)
+                                @if($row->legisPromise_id == $value->legis_Com_Payment_id)
+                                     @if($value->Date_Payment < $lastday)
+                                     <button type="button" class="btn btn-danger" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
+                                       <span class="glyphicon glyphicon-thumbs-down"></span> ขาดชำระ
+                                     </button>
+                                     @else
+                                     <button type="button" class="btn btn-success" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
+                                       <span class="glyphicon glyphicon-thumbs-up"></span> ชำระปกติ
+                                     </button>
+                                     @endif    
+                                 @endif
+                               @endforeach
+
                             </td>
                             <!-- <td class="text-center"> {{ DateThai($row->DateDue_legis) }} </td> -->
                             <td class="text-center">
