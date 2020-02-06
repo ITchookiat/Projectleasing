@@ -731,20 +731,21 @@
 
                               @foreach($ResultPay as $key => $value)
 
-                              @if($row->legisPromise_id == $value->legis_Com_Payment_id)
-                                  <!-- {{$value->Date_Payment}} -->
-                                   @if($value->Date_Payment < $lastday)
-                                   <button type="button" class="btn btn-danger" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
-                                     <span class="glyphicon glyphicon-thumbs-down"></span> ขาดชำระ
-                                   </button>
-                                   @else
-                                   <button type="button" class="btn btn-success" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
-                                     <span class="glyphicon glyphicon-thumbs-up"></span> ชำระปกติ
-                                   </button>
-                                   @endif
-                              @endif
+                                  @if($row->legisPromise_id == $value->legis_Com_Payment_id)
 
-                              @endforeach
+                                       @if($value->Date_Payment < $lastday)
+                                       <button type="button" class="btn btn-danger" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
+                                         <span class="glyphicon glyphicon-thumbs-down"></span> ขาดชำระ
+                                       </button>
+                                       @else
+                                       <button type="button" class="btn btn-success" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
+                                         <span class="glyphicon glyphicon-thumbs-up"></span> ชำระปกติ
+                                       </button>
+                                       @endif
+                                       
+                                   @endif
+
+                               @endforeach
 
 
 

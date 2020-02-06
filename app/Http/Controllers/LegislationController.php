@@ -92,6 +92,7 @@ class LegislationController extends Controller
                   ->leftjoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
                   ->leftjoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
                   ->where('legislations.Flag_status','=', '2')
+                  ->where('Legiscompromises.Date_Promise','!=', null)
                   ->orderBy('legislations.Contract_legis', 'ASC')
                   ->get();
         $count1 = count($data);
@@ -99,17 +100,28 @@ class LegislationController extends Controller
         $dataPay = DB::table('legislations')
                   ->join('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
                   ->get();
+        $count2 = count($dataPay);
 
+
+        if($count1 != 0 && $count2 != 0){
+                  $Pay = [];
                   for ($i=0; $i < $count1; $i++) {
-                    if($data[$i]->legislation_id == $dataPay[$i]->legis_Com_Payment_id){
-                      $Pay = DB::table('legispayments')
-                                ->where('legis_Com_Payment_id', '=', $data[$i]->legislation_id)
-                                ->orderBy('Payment_id', 'DESC')
-                                ->first();
-                    }
+                    for ($j=0; $j < $count2; $j++) {
+                        if($data[$i]->legislation_id == $dataPay[$j]->legis_Com_Payment_id){
+                          $Pay = DB::table('legispayments')
+                                    ->where('legis_Com_Payment_id', '=', $data[$i]->legislation_id)
+                                    ->orderBy('Payment_id', 'DESC')
+                                    ->first();
+                        }
+                      }
                     $ResultPay[] = $Pay;
                   }
+         }
+         else{
+           $ResultPay = [];
+         }
 
+        // dump($data,$dataPay,$ResultPay);
         $type = $request->type;
         return view('legislation.view', compact('type', 'data','result','ResultPay'));
       }
@@ -529,6 +541,7 @@ class LegislationController extends Controller
             $LegisPromise->Note_Promise = $request->get('NotePromise');
           $LegisPromise->update();
 
+          // dd($LegisPromise);
         }
         // dd($LegisPromise);
         $data = DB::table('legislations')
