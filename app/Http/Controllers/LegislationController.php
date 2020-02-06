@@ -39,6 +39,7 @@ class LegislationController extends Controller
           $result[] = $data[$i];
         }
       }
+
       if($request->type == 1) {
         $dataAro = DB::connection('ibmi')
         ->table('SFHP.ARMAST')
@@ -94,7 +95,6 @@ class LegislationController extends Controller
                   ->orderBy('legislations.Contract_legis', 'ASC')
                   ->get();
 
-                  // dd($data);
         $type = $request->type;
         return view('legislation.view', compact('type', 'data','result'));
       }

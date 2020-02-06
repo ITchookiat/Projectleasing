@@ -71,29 +71,49 @@
                     <div class="info-box">
                       <div class="row">
                         <div class="col-md-9">
-                          <span class="info-box-icon  bg-red"><i class="fa fa-user"></i></span>
+                          <span class="info-box-icon bg-red"><i class="fa fa-id-badge fa-lg"></i></span>
                           <div class="info-box-content">
                               <div class="col-md-4">
                                 <span class="info-box-number"><font style="font-size: 30px;">{{ $data->Contract_legis }}</font></span>
                                 <span class="info-box-text"><font style="font-size: 20px;">{{ $data->Name_legis }}</font></span>
                               </div>
                               <div class="col-md-8">
-                                <br>
-                                <div class="form-inline" align="center">
-                                  <label>
-                                    <input type="checkbox" name="CAccountlegis" value="BC"/>
-                                    <span><font color="red">ปิดบัญชี</font></span>
-                                    <input type="text" name="txtCAccountlegis" class="form-control" style="width: 100px;">
-                                  </label>
-                                  <label>
-                                    <input type="checkbox" name="OverDuelegis" value="BM"/>
-                                    <span><font color="red">ชำระยอดค้าง</font></span>
-                                    <input type="text" name="txtOverDuelegis" class="form-control" style="width: 100px;">
-                                  </label>
-                                  <label>
-                                    <input type="checkbox" name="Holderlegis" value="BF"/>
-                                    <span><font color="red">ยึดรถ</font></span>
-                                  </label>
+                                <div class="form-inline">
+                                  <p></p>
+                                  <div class=""  align="center">
+                                    <small class="label label-success" style="font-size: 25px;">
+                                      <i class="fa fa-expeditedssl"></i>
+                                      @if($data->Status_legis == "ปิดบัญชีก่อนฟ้อง")
+                                        ปิดบัญชีก่อนฟ้อง
+                                      @elseif($data->Status_legis == "ชำระยอดค้างก่อนฟ้อง")
+                                        ชำระยอดค้างก่อนฟ้อง
+                                      @elseif($data->Status_legis == "ยึดรถก่อนฟ้อง")
+                                        ยึดรถก่อนฟ้อง
+                                      @elseif($data->Status_legis == "ปิดบัญชีหลังฟ้อง")
+                                        ปิดบัญชีหลังฟ้อง
+                                      @elseif($data->Status_legis == "ยึดรถหลังฟ้อง")
+                                        ยึดรถหลังฟ้อง
+                                      @endif
+                                    </small>
+                                  </div>
+                                  <p></p>
+                                  <label>สถานะ : </label>
+                                  <select name="Statuslegis" class="form-control" style="width: 110px;">
+                                    <option value="" selected>--- status ---</option>
+                                    <option value="ปิดบัญชีก่อนฟ้อง" {{ ($data->Status_legis === 'ปิดบัญชีก่อนฟ้อง') ? 'selected' : '' }}>ปิดบัญชีก่อนฟ้อง</option>
+                                    <option value="ชำระยอดค้างก่อนฟ้อง" {{ ($data->Status_legis === 'ชำระยอดค้างก่อนฟ้อง') ? 'selected' : '' }}>ชำระยอดค้างก่อนฟ้อง</option>
+                                    <option value="ยึดรถก่อนฟ้อง" {{ ($data->Status_legis === 'ยึดรถก่อนฟ้อง') ? 'selected' : '' }}>ยึดรถก่อนฟ้อง</option>
+                                    <option value="ปิดบัญชีหลังฟ้อง" {{ ($data->Status_legis === 'ปิดบัญชีหลังฟ้อง') ? 'selected' : '' }}>ปิดบัญชีหลังฟ้อง</option>
+                                    <option value="ยึดรถหลังฟ้อง" {{ ($data->Status_legis === 'ยึดรถหลังฟ้อง') ? 'selected' : '' }}>ยึดรถหลังฟ้อง</option>
+                                    <option value="ปิดบัญชีประนอมหลังฟ้อง" {{ ($data->Status_legis === 'ปิดบัญชีประนอมหลังฟ้อง') ? 'selected' : '' }}>ปิดบัญชีประนอมหลังฟ้อง</option>
+                                    <option value="จ่ายตามจำนวนหลังฟ้อง" {{ ($data->Status_legis === 'จ่ายตามจำนวนหลังฟ้อง') ? 'selected' : '' }}>จ่ายตามจำนวนหลังฟ้อง</option>
+                                    <option value="ปิดบัญชีประนอมหลังยึดทรัพย์" {{ ($data->Status_legis === 'ปิดบัญชีประนอมหลังยึดทรัพย์') ? 'selected' : '' }}>ปิดบัญชีประนอมหลังยึดทรัพย์</option>
+                                    <option value="จ่ายตามจำนวนหลังยึดทรัพย์" {{ ($data->Status_legis === 'จ่ายตามจำนวนหลังยึดทรัพย์') ? 'selected' : '' }}>จ่ายตามจำนวนหลังยึดทรัพย์</option>
+                                    <option value="ปิดบัญชีหลังยึดทรัพย์" {{ ($data->Status_legis === 'ปิดบัญชีหลังยึดทรัพย์') ? 'selected' : '' }}>ปิดบัญชีหลังยึดทรัพย์</option>
+                                    <option value="ยึดรถหลังยึดทรัพย์" {{ ($data->Status_legis === 'ยึดรถหลังยึดทรัพย์') ? 'selected' : '' }}>ยึดรถหลังยึดทรัพย์</option>
+                                  </select>
+                                  <input type="text" id="txtStatuslegis" name="txtStatuslegis" class="form-control" style="width: 100px;" oninput="AddComma();">
+                                  <input type="date" name="DateStatuslegis" class="form-control" style="width: 152px;" value="{{ $data->DateStatus_legis }}">
                                 </div>
                               </div>
                           </div>
