@@ -651,12 +651,11 @@
                           <th class="text-center">ลำดับ</th>
                           <th class="text-center">เลขที่สัญญา</th>
                           <th class="text-center">ชื่อ-สกุล</th>
-                          <th class="text-center">บัตรประชาชน</th>
-                          <th class="text-center">ค้างงวดจริง</th>
                           <th class="text-center">วันเริ่มประนอม</th>
                           <th class="text-center">ระยะเวลา</th>
                           <th class="text-center">ยอดประนอมหนี้</th>
                           <th class="text-center">ยอดคงเหลือ</th>
+                          <th class="text-center">แจ้งเตือน</th>
                           <!-- <th class="text-center">วันที่ทำสัญญา</th> -->
                           <th class="text-center" style="width: 200px">ตัวเลือก</th>
                         </tr>
@@ -667,24 +666,6 @@
                             <td class="text-center"> {{$key+1}} </td>
                             <td class="text-center"> {{$row->Contract_legis}}</a></td>
                             <td class="text-center"> {{$row->Name_legis}} </td>
-                            <td class="text-center"> {{$row->Idcard_legis}} </td>
-                            <td class="text-center">
-                              @php
-                                 $StrCon = explode("/",$row->Contract_legis);
-                                 $SetStr1 = $StrCon[0];
-                                 $SetStr2 = $StrCon[1];
-                              @endphp
-
-                              @foreach($result as $key => $row1)
-                                @if($row->Contract_legis == $row1->CONTNO)
-                                    @if($row->Realperiod_legis < $row1->HLDNO)
-                                    {{$row1->HLDNO}}
-                                    @else
-                                    {{$row->Realperiod_legis}}
-                                    @endif
-                                @endif
-                              @endforeach
-                            </td>
                             <td class="text-center">
                               {{DateThai($row->Date_Promise)}}
                             </td>
@@ -700,6 +681,31 @@
                             </td>
                             <td class="text-center"> {{number_format($row->Total_Promise,2)}}</a></td>
                             <td class="text-center"> {{number_format($row->Sum_Promise,2)}}</a></td>
+                            <td class="text-center">
+                              @php
+                              $lastday = date('Y-m-d', strtotime("-90 days"));
+                              @endphp
+
+                              @foreach($ResultPay as $key => $value)
+
+                              @if($row->legisPromise_id == $value->legis_Com_Payment_id)
+                                  <!-- {{$value->Date_Payment}} -->
+                                   @if($value->Date_Payment < $lastday)
+                                   <button type="button" class="btn btn-danger" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
+                                     <span class="glyphicon glyphicon-thumbs-down"></span> ขาดชำระ
+                                   </button>
+                                   @else
+                                   <button type="button" class="btn btn-success" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
+                                     <span class="glyphicon glyphicon-thumbs-up"></span> ชำระปกติ
+                                   </button>
+                                   @endif
+                              @endif
+
+                              @endforeach
+
+
+
+                            </td>
                             <!-- <td class="text-center"> {{ DateThai($row->DateDue_legis) }} </td> -->
                             <td class="text-center">
                               <a href="{{ action('LegislationController@edit',[$row->id, 4]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
