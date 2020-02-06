@@ -88,15 +88,29 @@ class LegislationController extends Controller
       }
       elseif ($request->type == 7) {   //งานประนอมหนี้
         $data = DB::table('legislations')
-                  ->join('legiscourts','legislations.id','=','legiscourts.legislation_id')
-                  ->join('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+                  ->leftjoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+                  ->leftjoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
                   ->where('legislations.Flag_status','=', '2')
                   ->orderBy('legislations.Contract_legis', 'ASC')
                   ->get();
+        $count1 = count($data);
 
-                  // dd($data);
+        $dataPay = DB::table('legislations')
+                  ->join('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
+                  ->get();
+
+                  for ($i=0; $i < $count1; $i++) {
+                    if($data[$i]->legislation_id == $dataPay[$i]->legis_Com_Payment_id){
+                      $Pay = DB::table('legispayments')
+                                ->where('legis_Com_Payment_id', '=', $data[$i]->legislation_id)
+                                ->orderBy('Payment_id', 'DESC')
+                                ->first();
+                    }
+                    $ResultPay[] = $Pay;
+                  }
+
         $type = $request->type;
-        return view('legislation.view', compact('type', 'data','result'));
+        return view('legislation.view', compact('type', 'data','result','ResultPay'));
       }
       elseif ($request->type == 8) {   //สืบทรัพย์
         $data = DB::table('legislations')
