@@ -39,6 +39,7 @@ class LegislationController extends Controller
           $result[] = $data[$i];
         }
       }
+
       if($request->type == 1) {
         $dataAro = DB::connection('ibmi')
         ->table('SFHP.ARMAST')

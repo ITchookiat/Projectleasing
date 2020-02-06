@@ -182,13 +182,15 @@
                     <table class="table table-bordered" id="table">
                       <thead class="thead-dark bg-gray-light" >
                         <tr>
-                          <th class="text-center" style="width: 40px">ลำดับ</th>
+                          <th class="text-center">ลำดับ</th>
                           <th class="text-center">เลขที่สัญญา</th>
                           <th class="text-center">ชื่อ-สกุล</th>
                           <th class="text-center">วันที่ส่งฟ้อง</th>
                           <th class="text-center" style="width: 70px">ระยะเวลา</th>
-                          <th class="text-center" style="width: 150px">สถานะ</th>
-                          <th class="text-center" style="width: 120px">ตัวเลือก</th>
+                          <th class="text-center" style="width: 80px">สถานะประนอม</th>
+                          <th class="text-center" style="width: 80px">สถานะทรัพย์</th>
+                          <th class="text-center" style="width: 80px">สถานะลูกหนี้</th>
+                          <th class="text-center" style="width: 130px">ตัวเลือก</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -219,6 +221,24 @@
                               @endif
                             </td>
                             <td class="text-center">
+
+                            </td>
+                            <td class="text-center">
+                              @if($row->propertied_asset == "Y")
+                                <button type="button" class="btn btn-success btn-sm" title="มีทรัพย์">
+                                  <i class="fa fa-map"></i> มีทรัพย์
+                                </button>
+                              @elseif($row->propertied_asset == "N")
+                                <button type="button" class="btn btn-danger btn-sm" title="ไม่มีทรัพย์">
+                                  <i class="fa fa-map"></i> ไม่มีทรัพย์
+                                </button>
+                              @else
+                                <button type="button" class="btn btn-gray btn-sm" title="ไม่มีข้อมูล">
+                                  <i class="fa fa-map"></i> ไม่มีข้อมูล
+                                </button>
+                              @endif
+                            </td>
+                            <td class="text-center">
                               @php
                                $examidaydate = date_create($row->examiday_court);
                                $Newdate = date_create($date);
@@ -226,19 +246,43 @@
                               @endphp
 
                                @if($row->examiday_court != Null)
-                                 @php
-                                   $orderdaydate = date_create($row->orderday_court);
-                                   $DateEx2 = date_diff($Newdate,$orderdaydate);
-                                 @endphp
+                                 @if($row->fuzzy_court != Null)
+                                   @php
+                                     $examidaydate = date_create($row->fuzzy_court);
+                                     $DateEx = date_diff($Newdate,$examidaydate);
+                                   @endphp
+                                 @endif
+
+                                 @if($row->ordersend_court != Null)
+                                   @php
+                                     $orderdaydate = date_create($row->ordersend_court);
+                                     $DateEx2 = date_diff($Newdate,$orderdaydate);
+                                   @endphp
+                                 @elseif($row->ordersend_court == Null)
+                                   @php
+                                     $orderdaydate = date_create($row->orderday_court);
+                                     $DateEx2 = date_diff($Newdate,$orderdaydate);
+                                   @endphp
+                                 @endif
+
                                  @php
                                    $checkdaydate = date_create($row->checkday_court);
                                    $DateEx3 = date_diff($Newdate,$checkdaydate);
                                  @endphp
-                                 @php
-                                   $setofficedate = date_create($row->setoffice_court);
-                                   $DateEx4 = date_diff($Newdate,$setofficedate);
 
-                                 @endphp
+                                 @if($row->sendoffice_court != Null)
+                                   @php
+                                     $setofficedate = date_create($row->sendoffice_court);
+                                     $DateEx4 = date_diff($Newdate,$setofficedate);
+                                   @endphp
+                                 @elseif($row->sendoffice_court == Null)
+                                   @php
+                                     $setofficedate = date_create($row->setoffice_court);
+                                     $DateEx4 = date_diff($Newdate,$setofficedate);
+                                   @endphp
+                                 @endif
+
+
                                  @php
                                    $checkresultsdate = date_create($row->checkresults_court);
                                    $DateEx5 = date_diff($Newdate,$checkresultsdate);
@@ -251,7 +295,7 @@
                                      </button>
                                    @else
                                      <button type="button" class="btn btn-warning btn-sm" title="สถานะสืบพยาน">
-                                       <i class="fa fa-clock-o"></i> สถานะสืบพยาน
+                                       <i class="fa fa-clock-o"></i> สืบพยาน
                                      </button>
                                    @endif
                                  @elseif($Newdate <= $orderdaydate)
@@ -261,7 +305,7 @@
                                      </button>
                                    @else
                                      <button type="button" class="btn btn-warning btn-sm" title="สถานะส่งคำบังคับ">
-                                       <i class="fa fa-clock-o"></i> สถานะส่งคำบังคับ
+                                       <i class="fa fa-clock-o"></i> ส่งคำบังคับ
                                      </button>
                                    @endif
                                  @elseif($Newdate <= $checkdaydate)
@@ -271,7 +315,7 @@
                                      </button>
                                    @else
                                      <button type="button" class="btn btn-warning btn-sm" title="สถานะตรวจผลหมาย">
-                                       <i class="fa fa-clock-o"></i> สถานะตรวจผลหมาย
+                                       <i class="fa fa-clock-o"></i> ตรวจผลหมาย
                                      </button>
                                    @endif
                                  @elseif($Newdate <= $setofficedate)
@@ -281,7 +325,7 @@
                                      </button>
                                    @else
                                      <button type="button" class="btn btn-warning btn-sm" title="สถานะตั้งเจ้าพนักงาน">
-                                       <i class="fa fa-clock-o"></i> สถานะตั้งเจ้าพนักงาน
+                                       <i class="fa fa-clock-o"></i> ตั้งเจ้าพนักงาน
                                      </button>
                                    @endif
                                  @elseif($Newdate <= $checkresultsdate)
@@ -291,7 +335,7 @@
                                      </button>
                                    @else
                                      <button type="button" class="btn btn-warning btn-sm" title="สถานะตรวจผลหมายตั้ง">
-                                       <i class="fa fa-clock-o"></i> สถานะตรวจผลหมายตั้ง
+                                       <i class="fa fa-clock-o"></i> ตรวจผลหมายตั้ง
                                      </button>
                                    @endif
                                  @endif
@@ -302,7 +346,7 @@
                                    </button>
                                  @elseif($row->fillingdate_court != Null)
                                  <button type="button" class="btn btn-warning btn-sm" title="สถานะฟ้อง">
-                                   <i class="fa fa-clock-o"></i> สถานะฟ้อง
+                                   <i class="fa fa-clock-o"></i> ฟ้อง
                                  </button>
                                  @endif
                                @endif
@@ -549,7 +593,6 @@
                 </div>
               @elseif($type == 6)
                 <div class="col-md-12">
-                  <hr>
                   <div class="table-responsive">
                     <table class="table table-bordered" id="table">
                       <thead class="thead-dark bg-gray-light" >
@@ -558,7 +601,7 @@
                           <th class="text-center">เลขที่สัญญา</th>
                           <th class="text-center">ชื่อ-สกุล</th>
                           <th class="text-center">วันที่ทำสัญญา</th>
-                          <th class="text-center">ค้างงวดจริง</th>
+                          <th class="text-center">ค้างงวด</th>
                           <th class="text-center">ระยะเวลา</th>
                           <th class="text-center">หมายเหตุ</th>
                           <th class="text-center">สถานะ</th>

@@ -258,13 +258,15 @@
                   var orderdaycourt = document.getElementById('orderdaycourt').value;
                   var ordersenddate = document.getElementById('ordersendcourt').value;
 
-                  if (ordersenddate == '') { // แสดงผลลัพธิ์ วันทีดึงจากระบบ
+                  // if (ordersenddate == '') { // แสดงผลลัพธิ์ วันทีดึงจากระบบ
+                    console.log(fannydate);
                     if (date1 != '') {
                       var Setdate = new Date(date1);
                       var newdate = new Date(Setdate);
                       if (fannydate != '') {
                         var Setdate = new Date(fannydate);
                         var newdate = new Date(Setdate);
+
                       }
                     }else if (fannydate != '') {
                       var Setdate = new Date(fannydate);
@@ -288,7 +290,7 @@
                     }
                     var result = yyyy + '-' + Newmm + '-' + Newdd;
                     document.getElementById('orderdaycourt').value = result;
-                  }
+                  // }
                   //---------- end ---------//
 
                   //---------- วันส่งคำบังคับ
@@ -855,8 +857,8 @@
                                   </div>
                                 </div>
                                 <div class="row">
-                                  <div class="col-md-9"></div>
-                                  <div class="col-md-3">
+                                  <div class="col-md-7"></div>
+                                  <div class="col-md-5">
                                      @if($data->received_court == "Y" or $data->received_court == Null)
                                        <div id="myDIV" style="display:none;">
                                      @else
@@ -865,10 +867,8 @@
 
                                         วันทีโทร
                                         <input type="date" id="telresultscourt" name="telresultscourt" class="form-control" value="{{ $data->telresults_court }}" />
-
-
-                                            วันทีไปรับ
-                                            <input type="date" id="dayresultscourt" name="dayresultscourt" class="form-control" value="{{ $data->dayresults_court }}" oninput="Datesuccess()"/>
+                                        วันทีไปรับ
+                                        <input type="date" id="dayresultscourt" name="dayresultscourt" class="form-control" value="{{ $data->dayresults_court }}" oninput="Datesuccess()"/>
 
                                      </div>
                                    </div>
