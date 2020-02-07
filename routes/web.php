@@ -60,6 +60,7 @@ Route::group(['middleware' => 'auth'], function()
     // Route::post('/Legislation/update/{id}/{type}', 'LegislationController@update')->name('legislation.update');
     Route::delete('/Legislation/delete/{id}/{type}', 'LegislationController@destroy')->name('legislation.destroy');
     Route::get('/Updateanalysis/{id}/{type}', 'LegislationController@updateLegislation');
+    Route::get('/Legislation/deleteImageAll/{id}', 'LegislationController@deleteImageAll');
 
     route::resource('MasterPrecipitate','PrecController');
     Route::get('/Precipitate/Home/{type}', 'PrecController@index')->name('Precipitate');

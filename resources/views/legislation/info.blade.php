@@ -462,11 +462,20 @@
                               <div class="col-md-6">
                                 <div class="box box-warning box-solid">
                                   <div class="box-header with-border">
-                                    <h3 class="box-title"> รูปภาพ </h3>
+                                    <h3 class="box-title">
+                                      รูปภาพ
+                                      @if($SumImage != 0)
+                                      ({{$SumImage}})
+                                      @endif
+                                    </h3>
                                     <div class="box-tools pull-right">
-                                      <button type="button" class="btn btn-box-tool" onclick="showImg()"><i class="fa fa-eye"></i></button>
-                                      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                                      </button>
+                                      @if($SumImage != 0)
+                                      <a href="{{ action('LegislationController@deleteImageAll',$id) }}" title="ลบรูปทั้งหมด" onclick="return confirm('คุณต้องการลบรูปทั้งหมดหรือไม่?')" class="btn btn-box-tool">
+                                        <i class="fa fa-trash"></i>
+                                      </a>
+                                      @endif
+                                      <button type="button" class="btn btn-box-tool" onclick="showImg()" title="แสดงที่เพิ่มรูป"><i class="fa fa-eye"></i></button>
+                                      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                                     </div>
                                   </div>
                                   <div class="box-body">
@@ -481,7 +490,7 @@
                                             <input id="image-file" type="file" name="file_image[]" accept="image/*" data-min-file-count="1" multiple>
                                           </div>
                                         </div>
-                                        <br><br>
+                                        <br><hr>
                                       </div>
 
                                   @if($SumImage > 0)
@@ -518,7 +527,7 @@
                                   <div class="box-header with-border">
                                     <h3 class="box-title"> แผนที่ </h3>
                                     <div class="box-tools pull-right">
-                                      <button type="button" class="btn btn-box-tool" onclick="showMap()"><i class="fa fa-eye"></i></button>
+                                      <button type="button" class="btn btn-box-tool" onclick="showMap()" title="แสดงละติจูดและลองจิจูด"><i class="fa fa-eye"></i></button>
                                       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                                       </button>
                                     </div>
