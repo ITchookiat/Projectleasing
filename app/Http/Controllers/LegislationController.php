@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use Storage;
 use Carbon\Carbon;
 
 use App\Legislation;
@@ -411,14 +412,15 @@ class LegislationController extends Controller
           $column = 0;
         }
 
-        $datalatlong = DB::table('legiscourts')->get();
+        $lat = $data->latitude_court;
+        $long = $data->longitude_court;
+        // dd($datalatlong);
 
-        foreach ($datalatlong as $key => $value) {
-          $lat = $value->latitude_court;
-          $long = $value->longitude_court;
-        }
+        // foreach ($datalatlong as $key => $value) {
+        //   $lat = $value->latitude_court;
+        //   $long = $value->longitude_court;
+        // }
 
-        // dump($lat,$long);
 
         return view('legislation.info',compact('data','id','type','dataImages','SumImage','column','lat','long'));
       }
@@ -683,7 +685,7 @@ class LegislationController extends Controller
 
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อย');
       }
-      elseif ($type == 11) {
+      elseif ($type == 11) { //รูปและแผนที่
         $Legiscourt = Legiscourt::where('legislation_id',$id)->first();
           $Legiscourt->latitude_court = $request->get('latitude');
           $Legiscourt->longitude_court = $request->get('longitude');
@@ -856,5 +858,23 @@ class LegislationController extends Controller
         $item->Delete();
       }
       return redirect()->back()->with('success','ลบข้อมูลเรียบร้อย');
+    }
+
+    public function deleteImageAll($id)
+    {
+
+      $item = LegisImage::where('legisImage_id','=',$id)->get();
+
+      foreach ($item as $key => $value) {
+        $itemID = $value->legisImage_id;
+        $itemPath = $value->name_image;
+
+        Storage::delete($itemPath);
+      }
+
+        $deleteItem = LegisImage::where('legisImage_id',$itemID);
+        $deleteItem->Delete();
+
+      return redirect()->back()->with('success','ลบรูปทั้งหมดเรียบร้อยแล้ว');
     }
 }
