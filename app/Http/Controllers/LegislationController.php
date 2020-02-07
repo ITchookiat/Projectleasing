@@ -644,7 +644,7 @@ class LegislationController extends Controller
 
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
       }
-      elseif ($type == 8) {
+      elseif ($type == 8) { //สืบทรัพย์
         $data = DB::table('legisassets')
                   ->where('legisassets.legisAsset_id', $id)->first();
 
@@ -663,12 +663,10 @@ class LegislationController extends Controller
             $LegisAsset->save();
 
         }else {
-          if ($data->Dateresult_asset == Null or $data->Dateresult_asset == "ไม่เจอ") {
-            if ($request->get('sendsequesterasset') == "เจอ" or $request->get('sendsequesterasset') == "หมดอายุความ") {
-              $Dateresult = date('Y-m-d');
-            }else {
-              $Dateresult = Null;
-            }
+          if ($request->get('sendsequesterasset') == "เจอ" or $request->get('sendsequesterasset') == "หมดอายุความ") {
+            $Dateresult = date('Y-m-d');
+          }else {
+            $Dateresult = Null;
           }
 
           $LegisAsset = legisasset::where('legisAsset_id',$id)->first();
