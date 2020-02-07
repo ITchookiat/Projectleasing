@@ -72,6 +72,7 @@ class LegislationController extends Controller
                   ->where('legislations.Flag_status','=', '2')
                   ->orderBy('legislations.Contract_legis', 'ASC')
                   ->get();
+        // dd($data);
 
         $type = $request->type;
         return view('legislation.view', compact('type', 'data','result'));
@@ -91,41 +92,20 @@ class LegislationController extends Controller
         $data = DB::table('legislations')
                   ->leftjoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
                   ->leftjoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+                  // ->leftjoin('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
                   ->where('legislations.Flag_status','=', '2')
                   ->where('Legiscompromises.Date_Promise','!=', null)
+                  ->where('Legiscompromises.KeyPay_id','!=', null)
                   ->orderBy('legislations.Contract_legis', 'ASC')
                   ->get();
+        $count1 = count($data);
+        // dd($data);
 
-        // $dataPay = DB::table('legispayments')
-        //           ->get();
-        // $dataCount = count($dataPay);
-        //
-        // if ($dataCount != 0) {
-        //   dd('asd');
-        //   foreach ($data as $key => $value) {
-        //     $SetDate = '';
-        //     foreach ($dataPay as $key => $row) {
-        //       if ($value->legisPromise_id == $row->legis_Com_Payment_id) {
-        //         if ($SetDate == '') {
-        //           $SetDate = $row->Date_Payment;
-        //         }else {
-        //           if ($SetDate < $row->Date_Payment) {
-        //             $SetDate = $row->Date_Payment;
-        //             $SetArray[] = ['id'=>$row->legis_Com_Payment_id,'Date'=>$SetDate];
-        //             $SetDate = '';
-        //           }
-        //         }
-        //       }
-        //     }
-        //   }
-        // }else {
-        //   $SetArray[] = ['id'=>'','Date'=>''];
-        // }
-        
         $dataPay = DB::table('legislations')
                   ->join('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
                   ->get();
         $count2 = count($dataPay);
+        // dd($dataPay);
 
         if($count1 != 0 && $count2 != 0){
             $Pay = [];
@@ -133,9 +113,9 @@ class LegislationController extends Controller
               for ($j=0; $j < $count2; $j++) {
                   if($data[$i]->legislation_id == $dataPay[$j]->legis_Com_Payment_id){
                     $Pay = DB::table('legispayments')
-                              ->where('legis_Com_Payment_id', '=', $data[$i]->legislation_id)
-                              ->orderBy('Payment_id', 'DESC')
-                              ->first();
+                          ->where('legis_Com_Payment_id', '=', $data[$i]->legislation_id)
+                          ->orderBy('Payment_id', 'DESC')
+                          ->first();
                   }
                 }
               $ResultPay[] = $Pay;
@@ -144,8 +124,34 @@ class LegislationController extends Controller
          else{
            $ResultPay = [];
          }
+         // dd($ResultPay);
 
-        // dump($data,$dataPay,$ResultPay);
+         // $dataPay = DB::table('legispayments')
+         //           ->get();
+         // $dataCount = count($dataPay);
+         //
+         // if ($dataCount != 0) {
+         //   dd('asd');
+         //   foreach ($data as $key => $value) {
+         //     $SetDate = '';
+         //     foreach ($dataPay as $key => $row) {
+         //       if ($value->legisPromise_id == $row->legis_Com_Payment_id) {
+         //         if ($SetDate == '') {
+         //           $SetDate = $row->Date_Payment;
+         //         }else {
+         //           if ($SetDate < $row->Date_Payment) {
+         //             $SetDate = $row->Date_Payment;
+         //             $SetArray[] = ['id'=>$row->legis_Com_Payment_id,'Date'=>$SetDate];
+         //             $SetDate = '';
+         //           }
+         //         }
+         //       }
+         //     }
+         //   }
+         // }else {
+         //   $SetArray[] = ['id'=>'','Date'=>''];
+         // }
+
         $type = $request->type;
         return view('legislation.view', compact('type', 'data','ResultPay','result'));
       }

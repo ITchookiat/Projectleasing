@@ -38,9 +38,9 @@
       <!-- Main content -->
       <section class="content">
         <!-- Default box -->
-        <div class="box box-warning box-solid">
+        <div class="box box-danger box-solid">
           <div class="box-header with-border">
-            <h4 class="card-title p-3" align="center">ประนอมหนี้</h4>
+            <h4 class="card-title p-3" align="center">ลูกหนี้ประนอมหนี้</h4>
             <div class="box-tools pull-right">
               <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                 <i class="fa fa-minus"></i></button>
@@ -49,11 +49,10 @@
             </div>
           </div>
           <div class="nav-tabs-custom">
-            <!-- <ul class="nav nav-tabs bg-warning">
+            <ul class="nav nav-tabs bg-warning">
               <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 2]) }}">หน้าหลัก</a></li>
-              <li class="nav-item active"><a href="{{ action('LegislationController@edit',[$id, 4]) }}">รายละเอียด</a></li>
-              <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 5]) }}">เพิ่มข้อมูลชำระ</a></li>
-            </ul> -->
+              <li class="nav-item active"><a href="{{ action('LegislationController@edit',[$id, 4]) }}">ประนอมหนี้</a></li>
+            </ul>
           </div>
 
           <div class="box-body">
@@ -73,49 +72,75 @@
                       @method('put')
                       <div class="form-inline">
                         <div class="row">
-
                           <div class="col-md-9">
-                            <span class="info-box-icon  bg-red"><i class="fa fa-user"></i></span>
+                            <span class="info-box-icon bg-red"><i class="fa fa-id-badge fa-lg"></i></span>
                             <div class="info-box-content">
                                 <div class="col-md-4">
                                   <span class="info-box-number"><font style="font-size: 30px;">{{ $data->Contract_legis }}</font></span>
                                   <span class="info-box-text"><font style="font-size: 20px;">{{ $data->Name_legis }}</font></span>
                                 </div>
                                 <div class="col-md-8">
-                                  <br>
-                                  <div class="form-inline" align="center">
-                                    <label>
-                                      <input type="checkbox" name="CAccountlegis" value="Y"/>
-                                      <span><font color="red">ปิดบัญชี</font></span>
-                                      <input type="text" name="txtCAccountlegis" class="form-control" style="width: 100px;">
-                                    </label>
-                                    <label>
-                                      <input type="checkbox" name="OverDuelegis" value="BM"/>
-                                      <span><font color="red">จ่ายตามจำนวนงวด</font></span>
-                                      <input type="text" name="txtOverDuelegis" class="form-control" style="width: 100px;">
-                                    </label>
+                                  <div class="form-inline">
+                                    <p></p>
+                                    <div class=""  align="center">
+                                      <small class="label label-success" style="font-size: 25px;">
+                                        <i class="fa fa-expeditedssl"></i>
+                                        @if($data->Status_legis == "ปิดบัญชีก่อนฟ้อง")
+                                          ปิดบัญชีก่อนฟ้อง
+                                        @elseif($data->Status_legis == "ชำระยอดค้างก่อนฟ้อง")
+                                          ชำระยอดค้างก่อนฟ้อง
+                                        @elseif($data->Status_legis == "ยึดรถก่อนฟ้อง")
+                                          ยึดรถก่อนฟ้อง
+                                        @elseif($data->Status_legis == "ปิดบัญชีหลังฟ้อง")
+                                          ปิดบัญชีหลังฟ้อง
+                                        @elseif($data->Status_legis == "ยึดรถหลังฟ้อง")
+                                          ยึดรถหลังฟ้อง
+                                        @endif
+                                      </small>
+                                    </div>
+                                    <p></p>
+                                    <label>สถานะ : </label>
+                                    <select name="Statuslegis" class="form-control" style="width: 110px;">
+                                      <option value="" selected>--- status ---</option>
+                                      <option value="ปิดบัญชีก่อนฟ้อง" {{ ($data->Status_legis === 'ปิดบัญชีก่อนฟ้อง') ? 'selected' : '' }}>ปิดบัญชีก่อนฟ้อง</option>
+                                      <option value="ชำระยอดค้างก่อนฟ้อง" {{ ($data->Status_legis === 'ชำระยอดค้างก่อนฟ้อง') ? 'selected' : '' }}>ชำระยอดค้างก่อนฟ้อง</option>
+                                      <option value="ยึดรถก่อนฟ้อง" {{ ($data->Status_legis === 'ยึดรถก่อนฟ้อง') ? 'selected' : '' }}>ยึดรถก่อนฟ้อง</option>
+                                      <option value="ปิดบัญชีหลังฟ้อง" {{ ($data->Status_legis === 'ปิดบัญชีหลังฟ้อง') ? 'selected' : '' }}>ปิดบัญชีหลังฟ้อง</option>
+                                      <option value="ยึดรถหลังฟ้อง" {{ ($data->Status_legis === 'ยึดรถหลังฟ้อง') ? 'selected' : '' }}>ยึดรถหลังฟ้อง</option>
+                                      <option value="ปิดบัญชีประนอมหลังฟ้อง" {{ ($data->Status_legis === 'ปิดบัญชีประนอมหลังฟ้อง') ? 'selected' : '' }}>ปิดบัญชีประนอมหลังฟ้อง</option>
+                                      <option value="จ่ายตามจำนวนหลังฟ้อง" {{ ($data->Status_legis === 'จ่ายตามจำนวนหลังฟ้อง') ? 'selected' : '' }}>จ่ายตามจำนวนหลังฟ้อง</option>
+                                      <option value="ปิดบัญชีประนอมหลังยึดทรัพย์" {{ ($data->Status_legis === 'ปิดบัญชีประนอมหลังยึดทรัพย์') ? 'selected' : '' }}>ปิดบัญชีประนอมหลังยึดทรัพย์</option>
+                                      <option value="จ่ายตามจำนวนหลังยึดทรัพย์" {{ ($data->Status_legis === 'จ่ายตามจำนวนหลังยึดทรัพย์') ? 'selected' : '' }}>จ่ายตามจำนวนหลังยึดทรัพย์</option>
+                                      <option value="ปิดบัญชีหลังยึดทรัพย์" {{ ($data->Status_legis === 'ปิดบัญชีหลังยึดทรัพย์') ? 'selected' : '' }}>ปิดบัญชีหลังยึดทรัพย์</option>
+                                      <option value="ยึดรถหลังยึดทรัพย์" {{ ($data->Status_legis === 'ยึดรถหลังยึดทรัพย์') ? 'selected' : '' }}>ยึดรถหลังยึดทรัพย์</option>
+                                    </select>
+                                    <input type="text" id="txtStatuslegis" name="txtStatuslegis" class="form-control" style="width: 100px;" oninput="AddComma();">
+                                    <input type="date" name="DateStatuslegis" class="form-control" style="width: 152px;" value="{{ $data->DateStatus_legis }}">
                                   </div>
                                 </div>
                             </div>
                           </div>
 
-                          <div class="col-md-3" align="center">
-                            @if($dataPranom != 0)
-                             <a class="btn btn-app" href="{{ action('LegislationController@edit',[$id, 5]) }}" style="background-color:blue; color:#FFFFFF;" data-toggle="modal" data-target="#modal-default" data-backdrop="static" data-keyboard="false">
-                               <span class="glyphicon glyphicon-plus"></span> เพิ่มชำระ
-                             </a>
-                            @else
-                            <a class="btn btn-app" style="background-color:#CCCCCC; color:#FFFFFF;">
-                              <span class="glyphicon glyphicon-plus"></span> เพิ่มชำระ
-                            </a>
-                            @endif
-                            <button type="submit" class="btn btn-app" style="background-color:#189100; color:#FFFFFF;">
-                              <span class="glyphicon glyphicon-floppy-save"></span> อัพเดท
-                            </button>
-                            <a class="btn btn-app" href="{{ route('legislation',7) }}" style="background-color:#DB0000; color:#FFFFFF;">
-                              <span class="glyphicon glyphicon-remove"></span> ยกเลิก
-                            </a>
-
+                          <div class="col-md-3">
+                            <br>
+                            <div class="form-inline" align="right">
+                              @if($dataPranom != 0)
+                               <a class="btn btn-app" href="{{ action('LegislationController@edit',[$id, 5]) }}" style="background-color:blue; color:#FFFFFF;" data-toggle="modal" data-target="#modal-default" data-backdrop="static" data-keyboard="false">
+                                 <span class="glyphicon glyphicon-plus"></span> เพิ่มชำระ
+                               </a>
+                              @else
+                              <a class="btn btn-app" style="background-color:#CCCCCC; color:#FFFFFF;">
+                                <span class="glyphicon glyphicon-plus"></span> เพิ่มชำระ
+                              </a>
+                              @endif
+                              <button type="submit" class="btn btn-app" style="background-color:#189100; color:#FFFFFF;">
+                                <span class="glyphicon glyphicon-floppy-save"></span> อัพเดท
+                              </button>
+                              <a class="btn btn-app" href="{{ URL::previous() }}" style="background-color:#DB0000; color:#FFFFFF;">
+                                <span class="glyphicon glyphicon-remove"></span> ยกเลิก
+                              </a>
+                            </div>
+                          </div>
                         </div>
                       </div>
 
@@ -212,7 +237,7 @@
                                    <div class="col-md-6">
                                      <div class="form-inline" align="right">
                                         <label>ยอดประนอมหนี้ : </label>
-                                        <input type="text" name="TotalPromise" id="TotalPromise" value="{{ number_format($data->Total_Promise,0) }}" class="form-control" style="width: 200px;" oninput="Comma();"/>
+                                        <input type="text" name="TotalPromise" id="TotalPromise" value="{{ number_format($data->Total_Promise,0) }}" class="form-control" style="width: 200px;" oninput="Comma();" required/>
                                       </div>
                                    </div>
                                    <div class="col-md-6">

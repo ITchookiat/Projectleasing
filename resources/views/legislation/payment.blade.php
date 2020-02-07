@@ -68,18 +68,17 @@
                       <div class="row">
                          <div class="col-md-8">
                            <div class="row">
-
-                                <div class="form-inline" align="right">
+                                <div class="" align="right">
                                    <label>วันที่ : </label>
                                    <input type="date" name="DatePayment" class="form-control" value="{{ $date }}" min="{{ $date2 }}" style="width: 200px;"/>
                                 </div>
                                 <br>
-                                <div class="form-inline" align="right">
+                                <div class="" align="right">
                                    <label>ยอดชำระ :</label>
                                    <input type="text" name="GoldPayment" id="GoldPayment" class="form-control" value="" style="width: 200px;"  oninput="sperate();" maxlength="7"/>
                                  </div>
                                 <br>
-                                <div class="form-inline" align="right">
+                                <div class="" align="right">
                                   <label>ประเภทชำระ : </label>
                                   <select name="TypePayment" class="form-control" style="width: 200px;" required>
                                   <option value="" selected>--- ประเภทชำระ ---</option>
@@ -89,7 +88,7 @@
                                   </select>
                                 </div>
                                 <br>
-                                <div class="form-inline" align="right">
+                                <div class="" align="right">
                                    <label>หมายเหตุ :</label>
                                    <input type="text" name="NotePayment" class="form-control" value="" style="width: 200px;"/>
                                    <input type="hidden" name="AdduserPayment" class="form-control" style="width: 200px;" value="{{ Auth::user()->name }}"/>
@@ -98,13 +97,16 @@
                             </div>
                           </div>
 
-                         <div class="col-md-4" align="center">
-                          <button type="submit" class="btn btn-app" style="background-color:#189100; color:#FFFFFF;">
-                            <span class="glyphicon glyphicon-floppy-save"></span> บันทึก
-                          </button>
-                          <a class="btn btn-app" href="{{ action('LegislationController@edit',[$id, 4]) }}" style="background-color:#DB0000; color:#FFFFFF;">
-                            <span class="glyphicon glyphicon-remove"></span> ยกเลิก
-                          </a>
+                         <div class="col-md-4">
+                           <div class="form-inline" align="center">
+                            <button type="submit" class="btn btn-app" style="background-color:#189100; color:#FFFFFF;">
+                              <span class="glyphicon glyphicon-floppy-save"></span> บันทึก
+                            </button>
+                              <p></p>
+                            <a class="btn btn-app" href="{{ action('LegislationController@edit',[$id, 4]) }}" style="background-color:#DB0000; color:#FFFFFF;">
+                              <span class="glyphicon glyphicon-remove"></span> ยกเลิก
+                            </a>
+                          </div>
                         </div>
                       </div>
                     </div>
