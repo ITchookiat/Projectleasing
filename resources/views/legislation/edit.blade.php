@@ -15,14 +15,6 @@
 @endphp
 
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <!-- checkbox -->
-  <!-- <style>
-    input[type="checkbox"] { position: absolute; opacity: 0; z-index: -1; }
-    input[type="checkbox"]+span { font: 14pt sans-serif; color: #000; }
-    input[type="checkbox"]+span:before { font: 14pt FontAwesome; content: '\00f096'; display: inline-block; width: 14pt; padding: 2px 0 0 3px; margin-right: 0.5em; }
-    input[type="checkbox"]:checked+span:before { content: '\00f046'; }
-    input[type="checkbox"]:focus+span:before { outline: 1px dotted #aaa; }
-  </style> -->
 
   <style>
     #todo-list{
@@ -190,7 +182,7 @@
         <!-- Default box -->
         <div class="box box-danger box-solid">
           <div class="box-header with-border">
-            <h4 class="card-title p-3" align="center">ข้อมูลงานฟ้อง</h4>
+            <h4 class="card-title p-3" align="center">ลูกหนี้งานฟ้อง</h4>
             <div class="box-tools pull-right">
               <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                 <i class="fa fa-minus"></i></button>

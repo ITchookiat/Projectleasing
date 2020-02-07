@@ -11,15 +11,12 @@
     input[type="checkbox"]:focus+span:before { outline: 1px dotted #aaa; }
   </style>
 
-      <!-- <section class="content-header">
-      </section> -->
-
       <!-- Main content -->
       <section class="content">
         <!-- Default box -->
         <div class="box box-danger box-solid">
           <div class="box-header with-border">
-            <h4 class="card-title p-3" align="center">ข้อมูลงานฟ้อง</h4>
+            <h4 class="card-title p-3" align="center">ลูกหนี้งานฟ้อง</h4>
             <div class="box-tools pull-right">
               <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                 <i class="fa fa-minus"></i></button>

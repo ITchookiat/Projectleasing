@@ -202,23 +202,13 @@
                             <td class="text-center"> {{$row->Name_legis}} </td>
                             <td class="text-center"> {{ DateThai($row->Datesend_Flag) }} </td>
                             <td class="text-center">
-                              @if($row->Status_legis == Null )
-                                @php
-                                  $Cldate = date_create($row->Datesend_Flag);
-                                  $nowCldate = date_create($date);
-                                  $ClDateDiff = date_diff($Cldate,$nowCldate);
-                                  $duration = $ClDateDiff->format("%a วัน")
-                                @endphp
-                                <font color="red">{{$duration}}</font>
-                              @else
-                                @php
-                                  $Cldate = date_create($row->Datesend_Flag);
-                                  $nowCldate = date_create($date);
-                                  $ClDateDiff = date_diff($Cldate,$nowCldate);
-                                  $duration = $ClDateDiff->format("%a วัน")
-                                @endphp
-                                <font color="red">{{$duration}}</font>
-                              @endif
+                              @php
+                                $Cldate = date_create($row->Datesend_Flag);
+                                $nowCldate = date_create($date);
+                                $ClDateDiff = date_diff($Cldate,$nowCldate);
+                                $duration = $ClDateDiff->format("%a วัน")
+                              @endphp
+                              <font color="red">{{$duration}}</font>
                             </td>
                             <td class="text-center">
 
@@ -229,7 +219,7 @@
                                   <i class="fa fa-map"></i> มีทรัพย์
                                 </button>
                               @elseif($row->propertied_asset == "N")
-                                <button type="button" class="btn btn-danger btn-sm" title="ไม่มีทรัพย์">
+                                <button type="button" class="btn btn-danger btn-sm" title="วันสืบทรัพย์ {{DateThai($row->sequester_asset)}}">
                                   <i class="fa fa-map"></i> ไม่มีทรัพย์
                                 </button>
                               @else
@@ -641,7 +631,7 @@
                                   $ClDateDiff = date_diff($Cldate,$nowCldate);
                                   $duration = $ClDateDiff->format("%a วัน")
                                 @endphp
-                                <font color="blue">{{$duration}}</font>
+                                <font color="red">{{$duration}}</font>
                               @else
                                 @php
                                   $Cldate = date_create($row->Date_legis);
@@ -655,7 +645,7 @@
                             <td class="text-left" style="width:200px;"> {{ $row->Noteby_legis }} </td>
                             <td class="text-center">
                               @if($row->Flag_status == '1')
-                              <button type="button" class="btn btn-info btn-sm" title="เตรียมเอกสาร">
+                              <button type="button" class="btn btn-danger btn-sm" title="เตรียมเอกสาร">
                                 <span class="glyphicon glyphicon-copy"></span> เตรียมเอกสาร
                               </button>
                               @else
@@ -686,7 +676,6 @@
                 </div>
               @elseif($type == 7)
                 <div class="col-md-12">
-                  <hr>
                   <div class="table-responsive">
                     <table class="table table-bordered" id="table">
                       <thead class="thead-dark bg-gray-light" >
@@ -698,9 +687,8 @@
                           <th class="text-center">ระยะเวลา</th>
                           <th class="text-center">ยอดประนอมหนี้</th>
                           <th class="text-center">ยอดคงเหลือ</th>
-                          <th class="text-center">แจ้งเตือน</th>
-                          <!-- <th class="text-center">วันที่ทำสัญญา</th> -->
-                          <th class="text-center" style="width: 200px">ตัวเลือก</th>
+                          <th class="text-center" style="width: 100px">สถานะ</th>
+                          <th class="text-center" style="width: 150px">ตัวเลือก</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -720,7 +708,7 @@
                                 $ClDateDiff = date_diff($Cldate,$nowCldate);
                                 $duration = $ClDateDiff->format("%a วัน")
                               @endphp
-                              <font>{{$duration}}</font>
+                              <font color="">{{$duration}}</font>
                             </td>
                             <td class="text-center"> {{number_format($row->Total_Promise,2)}}</a></td>
                             <td class="text-center"> {{number_format($row->Sum_Promise,2)}}</a></td>
@@ -728,39 +716,38 @@
                               @php
                                 $lastday = date('Y-m-d', strtotime("-90 days"));
                               @endphp
-                              
-{{--
-  @foreach($SetArray as $key => $row1)
-    @if($row->legisPromise_id == $row1['id'])
-       @if($row1['Date'] < $lastday)
-       <button type="button" class="btn btn-danger" title="วันชำระล่าสุด {{DateThai($row1['Date'])}}">
-         <span class="glyphicon glyphicon-thumbs-down"></span> ขาดชำระ
-       </button>
-       @else
-       <button type="button" class="btn btn-success" title="วันชำระล่าสุด {{DateThai($row1['Date'])}}">
-         <span class="glyphicon glyphicon-thumbs-up"></span> ชำระปกติ
-       </button>
-       @endif
-    @endif
-  @endforeach
- --}}
-                              
-                              @foreach($ResultPay as $key => $value)
-                                @if($row->legisPromise_id == $value->legis_Com_Payment_id)
-                                     @if($value->Date_Payment < $lastday)
-                                     <button type="button" class="btn btn-danger" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
+
+                              {{--
+                                @foreach($SetArray as $key => $row1)
+                                  @if($row->legisPromise_id == $row1['id'])
+                                     @if($row1['Date'] < $lastday)
+                                     <button type="button" class="btn btn-danger" title="วันชำระล่าสุด {{DateThai($row1['Date'])}}">
                                        <span class="glyphicon glyphicon-thumbs-down"></span> ขาดชำระ
                                      </button>
                                      @else
-                                     <button type="button" class="btn btn-success" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
+                                     <button type="button" class="btn btn-success" title="วันชำระล่าสุด {{DateThai($row1['Date'])}}">
                                        <span class="glyphicon glyphicon-thumbs-up"></span> ชำระปกติ
                                      </button>
-                                     @endif    
+                                     @endif
+                                  @endif
+                                @endforeach
+                               --}}
+
+                              @foreach($ResultPay as $key => $value)
+                                @if($row->legisPromise_id == $value->legis_Com_Payment_id)
+                                     @if($value->Date_Payment < $lastday)
+                                     <button type="button" class="btn btn-danger btn-sm" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
+                                       <span class="glyphicon glyphicon-thumbs-down prem"></span> ขาดชำระ
+                                     </button>
+                                     @else
+                                     <button type="button" class="btn btn-success btn-sm" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
+                                       <span class="glyphicon glyphicon-thumbs-up prem"></span> ชำระปกติ
+                                     </button>
+                                     @endif
                                  @endif
                                @endforeach
 
                             </td>
-                            <!-- <td class="text-center"> {{ DateThai($row->DateDue_legis) }} </td> -->
                             <td class="text-center">
                               <a href="{{ action('LegislationController@edit',[$row->id, 4]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                 <span class="glyphicon glyphicon-pencil"></span> แก้ไข
@@ -792,8 +779,10 @@
                           <th class="text-center">ชื่อ-สกุล</th>
                           <th class="text-center">วันที่สืบทรัพย์</th>
                           <th class="text-center">ระยะเวลา</th>
-                          <th class="text-center">สถานะ</th>
-                          <th class="text-center" style="width: 120px">ตัวเลือก</th>
+                          <th class="text-center">สถานะทรัพย์</th>
+                          <th class="text-center">ผลสืบ</th>
+                          <th class="text-center">แจ้งเตือน</th>
+                          <th class="text-center" style="width: 150px">ตัวเลือก</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -803,7 +792,7 @@
                             <!-- <td class="text-center"><a href="#" data-toggle="modal" data-target="#modal_default" data-backdrop="static" data-keyboard="false">{{$row->Contract_legis}}</a></td> -->
                             <td class="text-center"> {{$row->Contract_legis}}</a></td>
                             <td class="text-center"> {{$row->Name_legis}} </td>
-                            <td class="text-center"> {{ DateThai($row->sequester_asset) }} </td>
+                            <td class="text-center"> {{ DateThai($row->sequester_asset) }}</td>
                             <td class="text-center">
                               @if($row->sequester_asset != Null)
                                 @php
@@ -824,7 +813,16 @@
                               @endif
                             </td>
                             <td class="text-center">
-                              {{--
+                              @if($row->propertied_asset == "Y")
+                                <button type="button" class="btn btn-success btn-sm" title="วันสืบทรัพย์ {{DateThai($row->sequester_asset)}}">
+                                  <i class="fa fa-map"></i> มีทรัพย์
+                                </button>
+                              @elseif($row->propertied_asset == "N")
+                                <button type="button" class="btn btn-danger btn-sm" title="วันสืบทรัพย์ {{DateThai($row->sequester_asset)}}">
+                                  <i class="fa fa-map"></i> ไม่มีทรัพย์
+                                </button>
+                              @endif
+{{--
                               @php
                                $examidaydate = date_create($row->examiday_court);
                                $Newdate = date_create($date);
@@ -856,7 +854,13 @@
                                    @endif
                                  @endif
                                @endif
-                               --}}
+  --}}
+                            </td>
+                            <td class="text-center">
+
+                            </td>
+                            <td class="text-center">
+
                             </td>
                             <td class="text-center">
                               <a href="{{ action('LegislationController@edit',[$row->id,$type]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
@@ -866,7 +870,7 @@
                                 <form method="post" class="delete_form" action="{{ action('LegislationController@destroy',[$row->id ,1]) }}">
                                 {{csrf_field()}}
                                   <input type="hidden" name="_method" value="DELETE" />
-                                  <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
+                                  <button disabled type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
                                     <span class="glyphicon glyphicon-trash"></span> ลบ
                                   </button>
                                 </form>
