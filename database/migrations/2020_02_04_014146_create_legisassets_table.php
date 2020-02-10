@@ -16,6 +16,7 @@ class CreateLegisassetsTable extends Migration
         Schema::create('legisassets', function (Blueprint $table) {
             $table->bigIncrements('asset_id');
             $table->integer('legisAsset_id')->nullable();
+            $table->string('Date_asset')->nullable();
             $table->string('Status_asset')->nullable();
             $table->string('Price_asset')->nullable();
             $table->string('propertied_asset')->nullable();
