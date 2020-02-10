@@ -187,9 +187,9 @@
                           <th class="text-center">ชื่อ-สกุล</th>
                           <th class="text-center">วันที่ส่งฟ้อง</th>
                           <th class="text-center" style="width: 70px">ระยะเวลา</th>
-                          <th class="text-center" style="width: 80px">สถานะประนอม</th>
-                          <th class="text-center" style="width: 80px">สถานะทรัพย์</th>
                           <th class="text-center" style="width: 80px">สถานะลูกหนี้</th>
+                          <th class="text-center" style="width: 80px">สถานะทรัพย์</th>
+                          <th class="text-center" style="width: 80px">สถานะประนอม</th>
                           <th class="text-center" style="width: 130px">ตัวเลือก</th>
                         </tr>
                       </thead>
@@ -202,30 +202,30 @@
                             <td class="text-center"> {{$row->Name_legis}} </td>
                             <td class="text-center"> {{ DateThai($row->Datesend_Flag) }} </td>
                             <td class="text-center">
-                              @php
-                                $Cldate = date_create($row->Datesend_Flag);
-                                $nowCldate = date_create($date);
-                                $ClDateDiff = date_diff($Cldate,$nowCldate);
-                                $duration = $ClDateDiff->format("%a วัน")
-                              @endphp
-                              <font color="red">{{$duration}}</font>
-                            </td>
-                            <td class="text-center">
-
-                            </td>
-                            <td class="text-center">
-                              @if($row->propertied_asset == "Y")
-                                <button type="button" class="btn btn-success btn-sm" title="มีทรัพย์">
-                                  <i class="fa fa-map"></i> มีทรัพย์
-                                </button>
-                              @elseif($row->propertied_asset == "N")
-                                <button type="button" class="btn btn-danger btn-sm" title="วันสืบทรัพย์ {{DateThai($row->sequester_asset)}}">
-                                  <i class="fa fa-map"></i> ไม่มีทรัพย์
-                                </button>
+                              @if($row->Status_legis == "จ่ายจบก่อนฟ้อง" or $row->Status_legis == "ยึดรถก่อนฟ้อง" or $row->Status_legis == "ปิดบัญชีประนอมหนี้" or $row->Status_legis == "ยึดรถหลังฟ้อง")
+                                @php
+                                  $Cldate = date_create($row->Datesend_Flag);
+                                  $nowCldate = date_create($row->DateUpState_legis);
+                                  $ClDateDiff = date_diff($Cldate,$nowCldate);
+                                  $duration = $ClDateDiff->format("%a วัน")
+                                @endphp
+                                <font color="green">{{$duration}}</font>
+                              @elseif($row->sendsequester_asset == "หมดอายุความ")
+                                @php
+                                  $Cldate = date_create($row->Datesend_Flag);
+                                  $nowCldate = date_create($row->Dateresult_asset);
+                                  $ClDateDiff = date_diff($Cldate,$nowCldate);
+                                  $duration = $ClDateDiff->format("%a วัน")
+                                @endphp
+                                <font color="green">{{$duration}}</font>
                               @else
-                                <button type="button" class="btn btn-gray btn-sm" title="ไม่มีข้อมูล">
-                                  <i class="fa fa-map"></i> ไม่มีข้อมูล
-                                </button>
+                                @php
+                                  $Cldate = date_create($row->Datesend_Flag);
+                                  $nowCldate = date_create($date);
+                                  $ClDateDiff = date_diff($Cldate,$nowCldate);
+                                  $duration = $ClDateDiff->format("%a วัน")
+                                @endphp
+                                <font color="red">{{$duration}}</font>
                               @endif
                             </td>
                             <td class="text-center">
@@ -271,7 +271,6 @@
                                      $DateEx4 = date_diff($Newdate,$setofficedate);
                                    @endphp
                                  @endif
-
 
                                  @php
                                    $checkresultsdate = date_create($row->checkresults_court);
@@ -338,6 +337,78 @@
                                  <button type="button" class="btn btn-warning btn-sm" title="สถานะฟ้อง">
                                    <i class="fa fa-clock-o"></i> ฟ้อง
                                  </button>
+                                 @endif
+                               @endif
+                            </td>
+                            <td class="text-center">
+                              @if($row->propertied_asset == "Y")
+                                  <button type="button" class="btn btn-success btn-sm" title="มีทรัพย์">
+                                    <i class="fa fa-check-square-o prem"></i> มีทรัพย์
+                                  </button>
+                              @elseif($row->propertied_asset == "N")
+                                  @if($row->sendsequester_asset == "เจอ")
+                                    <button type="button" class="btn btn-success btn-sm" title="สืบทรัพย์เจอ">
+                                      <i class="fa fa-check-square-o prem"></i> สืบทรัพย์เจอ
+                                    </button>
+                                  @elseif($row->sendsequester_asset == "ไม่เจอ")
+                                    @php
+                                      $Getdate = date_create($row->NewpursueDate_asset);
+                                      $Newdate = date_create($date);
+                                      $DateEx = date_diff($Newdate,$Getdate);
+                                    @endphp
+
+                                    @if($Newdate <= $Getdate)
+                                      @if($DateEx->d <= 7)
+                                        <button type="button" class="btn btn-danger btn-sm" title="วันสืบทรัพย์ {{DateThai($row->NewpursueDate_asset)}}">
+                                          <span class="fa fa-bell text-white prem"> สืบทรัพย์ใหม่ {{ $DateEx->d }} วัน</span>
+                                        </button>
+                                      @else
+                                        <button type="button" class="btn btn-warning btn-sm" title="รอสืบทรัพย์ {{DateThai($row->NewpursueDate_asset)}}">
+                                          <i class="fa fa-clock-o prem"></i> รอสืบทรัพย์
+                                        </button>
+                                      @endif
+                                    @endif
+                                  @elseif($row->sendsequester_asset == "หมดอายุความ")
+                                    <button type="button" class="btn btn-primary btn-sm" title="หมดอายุความ {{DateThai($row->NewpursueDate_asset)}}">
+                                      <i class="fa fa-gavel prem"></i> หมดอายุความ
+                                    </button>
+                                  @else
+                                    <button type="button" class="btn btn-danger btn-sm" title="ไม่มีทรัพย์">
+                                      <i class="fa fa-times prem"></i> ไม่มีทรัพย์
+                                    </button>
+                                  @endif
+                              @else
+                                <button type="button" class="btn btn-gray btn-sm" title="ไม่มีข้อมูล">
+                                  <i class="fa fa-question-circle prem"></i> ไม่มีข้อมูล
+                                </button>
+                              @endif
+                            </td>
+                            <td class="text-center">
+                              @php
+                                $lastday = date('Y-m-d', strtotime("-90 days"));
+                              @endphp
+
+                              @if($row->Status_legis == "ปิดบัญชีประนอมหนี้" or $row->Status_legis == "ยึดรถหลังฟ้อง")
+                                <button type="button" class="btn btn-success btn-sm" title="ปิดบัญชี">
+                                  <span class="glyphicon glyphicon-ok prem"></span> ปิดบัญชี
+                                </button>
+                              @else
+                                @if($row->KeyCompro_id != Null)
+                                  @foreach($ResultPay as $key => $value)
+                                     @if($value->Date_Payment < $lastday)
+                                       <button type="button" class="btn btn-danger btn-sm" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
+                                         <span class="glyphicon glyphicon-thumbs-down prem"></span> ขาดชำระ
+                                       </button>
+                                     @else
+                                       <button type="button" class="btn btn-success btn-sm" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
+                                         <span class="glyphicon glyphicon-thumbs-up prem"></span> ชำระปกติ
+                                       </button>
+                                     @endif
+                                   @endforeach
+                                 @else
+                                   <button type="button" class="btn btn-gray btn-sm" title="ไม่มีข้อมูล">
+                                     <i class="fa fa-question-circle prem"></i> ไม่มีข้อมูล
+                                   </button>
                                  @endif
                                @endif
                             </td>
@@ -697,18 +768,26 @@
                             <td class="text-center"> {{$key+1}} </td>
                             <td class="text-center"> {{$row->Contract_legis}}</a></td>
                             <td class="text-center"> {{$row->Name_legis}} </td>
+                            <td class="text-center"> {{DateThai($row->Date_Promise)}}</td>
                             <td class="text-center">
-                              {{DateThai($row->Date_Promise)}}
-                            </td>
-                            <td class="text-center">
-                              @php
-                                $nowday = date('Y-m-d');
-                                $Cldate = date_create($row->Date_Promise);
-                                $nowCldate = date_create($nowday);
-                                $ClDateDiff = date_diff($Cldate,$nowCldate);
-                                $duration = $ClDateDiff->format("%a วัน")
-                              @endphp
-                              <font color="">{{$duration}}</font>
+                              @if($row->Status_legis == "ปิดบัญชีประนอมหนี้" or $row->Status_legis == "ยึดรถหลังฟ้อง")
+                                @php
+                                  $Cldate = date_create($row->Date_Promise);
+                                  $nowCldate = date_create($row->DateUpState_legis);
+                                  $ClDateDiff = date_diff($Cldate,$nowCldate);
+                                  $duration = $ClDateDiff->format("%a วัน")
+                                @endphp
+                                <font color="green">{{$duration}}</font>
+                              @else
+                                @php
+                                  $nowday = date('Y-m-d');
+                                  $Cldate = date_create($row->Date_Promise);
+                                  $nowCldate = date_create($nowday);
+                                  $ClDateDiff = date_diff($Cldate,$nowCldate);
+                                  $duration = $ClDateDiff->format("%a วัน")
+                                @endphp
+                                <font color="red">{{$duration}}</font>
+                              @endif
                             </td>
                             <td class="text-center"> {{number_format($row->Total_Promise,2)}}</a></td>
                             <td class="text-center"> {{number_format($row->Sum_Promise,2)}}</a></td>
@@ -717,36 +796,25 @@
                                 $lastday = date('Y-m-d', strtotime("-90 days"));
                               @endphp
 
-                              {{--
-                                @foreach($SetArray as $key => $row1)
-                                  @if($row->legisPromise_id == $row1['id'])
-                                     @if($row1['Date'] < $lastday)
-                                     <button type="button" class="btn btn-danger" title="วันชำระล่าสุด {{DateThai($row1['Date'])}}">
-                                       <span class="glyphicon glyphicon-thumbs-down"></span> ขาดชำระ
-                                     </button>
-                                     @else
-                                     <button type="button" class="btn btn-success" title="วันชำระล่าสุด {{DateThai($row1['Date'])}}">
-                                       <span class="glyphicon glyphicon-thumbs-up"></span> ชำระปกติ
-                                     </button>
-                                     @endif
-                                  @endif
-                                @endforeach
-                               --}}
-
-                              @foreach($ResultPay as $key => $value)
-                                @if($row->legisPromise_id == $value->legis_Com_Payment_id)
-                                     @if($value->Date_Payment < $lastday)
-                                     <button type="button" class="btn btn-danger btn-sm" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
-                                       <span class="glyphicon glyphicon-thumbs-down prem"></span> ขาดชำระ
-                                     </button>
-                                     @else
-                                     <button type="button" class="btn btn-success btn-sm" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
-                                       <span class="glyphicon glyphicon-thumbs-up prem"></span> ชำระปกติ
-                                     </button>
-                                     @endif
-                                 @endif
-                               @endforeach
-
+                              @if($row->Status_legis == "ปิดบัญชีประนอมหนี้" or $row->Status_legis == "ยึดรถหลังฟ้อง")
+                                <button type="button" class="btn btn-success btn-sm" title="ปิดบัญชี">
+                                  <span class="glyphicon glyphicon-ok prem"></span> ปิดบัญชี
+                                </button>
+                              @else
+                                @foreach($ResultPay as $key => $value)
+                                  @if($row->legisPromise_id == $value->legis_Com_Payment_id)
+                                       @if($value->Date_Payment < $lastday)
+                                       <button type="button" class="btn btn-danger btn-sm" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
+                                         <span class="glyphicon glyphicon-thumbs-down prem"></span> ขาดชำระ
+                                       </button>
+                                       @else
+                                       <button type="button" class="btn btn-success btn-sm" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
+                                         <span class="glyphicon glyphicon-thumbs-up prem"></span> ชำระปกติ
+                                       </button>
+                                       @endif
+                                   @endif
+                                 @endforeach
+                               @endif
                             </td>
                             <td class="text-center">
                               <a href="{{ action('LegislationController@edit',[$row->id, 4]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
@@ -791,11 +859,11 @@
                             <!-- <td class="text-center"><a href="#" data-toggle="modal" data-target="#modal_default" data-backdrop="static" data-keyboard="false">{{$row->Contract_legis}}</a></td> -->
                             <td class="text-center"> {{$row->Contract_legis}}</a></td>
                             <td class="text-center"> {{$row->Name_legis}} </td>
-                            <td class="text-center"> {{ DateThai($row->sequester_asset) }}</td>
+                            <td class="text-center"> {{ DateThai($row->Date_asset) }}</td>
                             <td class="text-center">
                               @if($row->Dateresult_asset != Null)
                                 @php
-                                  $Cldate = date_create($row->sequester_asset);
+                                  $Cldate = date_create($row->Date_asset);
                                   $nowCldate = date_create($row->Dateresult_asset);
                                   $ClDateDiff = date_diff($Cldate,$nowCldate);
                                   $duration = $ClDateDiff->format("%a วัน")
@@ -804,8 +872,8 @@
                               @else
                                 @if($row->propertied_asset == "Y")
                                   @php
-                                    $Cldate = date_create($date);
-                                    $nowCldate = date_create($row->sequester_asset);
+                                    $Cldate = date_create($row->Date_asset);
+                                    $nowCldate = date_create($row->Dateresult_asset);
                                     $ClDateDiff = date_diff($Cldate,$nowCldate);
                                     $duration = $ClDateDiff->format("%a วัน")
                                   @endphp
@@ -813,7 +881,7 @@
                                 @elseif($row->propertied_asset == "N")
                                   @php
                                     $Cldate = date_create($date);
-                                    $nowCldate = date_create($row->sequester_asset);
+                                    $nowCldate = date_create($row->Date_asset);
                                     $ClDateDiff = date_diff($Cldate,$nowCldate);
                                     $duration = $ClDateDiff->format("%a วัน")
                                   @endphp
@@ -823,11 +891,11 @@
                             </td>
                             <td class="text-center">
                               @if($row->propertied_asset == "Y")
-                                <button type="button" class="btn btn-success btn-sm" title="วันสืบทรัพย์ {{DateThai($row->sequester_asset)}}">
+                                <button type="button" class="btn btn-success btn-sm" title="มีทรัพย์">
                                   <i class="fa fa-map prem"></i> มีทรัพย์
                                 </button>
                               @elseif($row->propertied_asset == "N")
-                                <button type="button" class="btn btn-danger btn-sm" title="วันสืบทรัพย์ {{DateThai($row->sequester_asset)}}">
+                                <button type="button" class="btn btn-danger btn-sm" title="ไม่มีทรัพย์">
                                   <i class="fa fa-map prem"></i> ไม่มีทรัพย์
                                 </button>
                               @endif
@@ -845,26 +913,25 @@
                                      $Getdate = date_create($row->NewpursueDate_asset);
                                      $DateEx = date_diff($Newdate,$Getdate);
                                    @endphp
-
                                    @if($row->sendsequester_asset == "ไม่เจอ")
                                      @if($Newdate <= $Getdate)
                                        @if($DateEx->d <= 7)
                                          <button type="button" class="btn btn-danger btn-sm" title="วันสืบทรัพย์ {{DateThai($row->NewpursueDate_asset)}}">
-                                           <span class="fa fa-clock-o text-white prem"> สืบทรัพย์ใหม่ {{ $DateEx->d }} วัน</span>
+                                           <span class="fa fa-bell prem"> สืบทรัพย์ใหม่ {{ $DateEx->d }} วัน</span>
                                          </button>
                                        @else
-                                         <button type="button" class="btn btn-warning btn-sm" title="วันสืบทรัพย์ {{DateThai($row->NewpursueDate_asset)}}">
+                                         <button type="button" class="btn btn-warning btn-sm" title="รอสืบทรัพย์ {{DateThai($row->NewpursueDate_asset)}}">
                                            <i class="fa fa-clock-o prem"></i> รอสืบทรัพย์
                                          </button>
                                        @endif
                                      @endif
                                    @elseif($row->sendsequester_asset == "เจอ")
-                                     <button type="button" class="btn btn-success btn-sm" title="เจอทรัพย์">
-                                       <i class="fa fa-check-square-o prem"></i> เจอทรัพย์
+                                     <button type="button" class="btn btn-success btn-sm" title="สืบทรัพย์เจอ">
+                                       <i class="fa fa-check-square-o prem"></i> สืบทรัพย์เจอ
                                      </button>
                                    @elseif($row->sendsequester_asset == "หมดอายุความ")
                                      <button type="button" class="btn btn-primary btn-sm" title="หมดอายุความ">
-                                       <i class="fa fa-minus-square-o prem"></i> หมดอายุความ
+                                       <i class="fa fa-gavel prem"></i> หมดอายุความ
                                      </button>
                                    @endif
                                  @else
@@ -873,9 +940,17 @@
                                        <i class="fa fa-check-square-o prem"></i> มีทรัพย์
                                      </button>
                                     @elseif($row->propertied_asset == "N")
-                                      <button type="button" class="btn btn-gray btn-sm" title="ไม่มีข้อมูล">
-                                        <i class="fa fa-times prem"></i> ไม่มีข้อมูล
-                                      </button>
+                                      @if($Newdate <= $Getdate)
+                                        @if($DateEx->d <= 7)
+                                          <button type="button" class="btn btn-danger btn-sm" title="สืบทรัพย์ {{DateThai($row->sequester_asset)}}">
+                                            <span class="fa fa-bell text-white prem"> สืบทรัพย์ {{ $DateEx->d }} วัน</span>
+                                          </button>
+                                        @else
+                                          <button type="button" class="btn btn-warning btn-sm" title="รอสืบทรัพย์ {{DateThai($row->sequester_asset)}}">
+                                            <i class="fa fa-clock-o text-white prem"></i> รอสืบทรัพย์
+                                          </button>
+                                        @endif
+                                      @endif
                                     @endif
                                  @endif
                                @endif

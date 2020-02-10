@@ -71,19 +71,44 @@ class LegislationController extends Controller
                   ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
                   ->leftJoin('legisassets','legislations.id','=','legisassets.legisAsset_id')
                   ->where('legislations.Flag_status','=', '2')
-                  ->orderBy('legislations.Contract_legis', 'ASC')
+                  ->orderBy('legislations.id', 'ASC')
                   ->get();
-        // dd($data);
+        $count1 = count($data);
+
+        $dataPay = DB::table('legislations')
+                  ->join('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
+                  ->get();
+        $count2 = count($dataPay);
+
+        if($count1 != 0 && $count2 != 0){
+            $Pay = [];
+            for ($i=0; $i < $count1; $i++) {
+              if ($data[$i]->KeyCompro_id != Null) {
+                for ($j=0; $j < $count2; $j++) {
+                    if($data[$i]->legislation_id == $dataPay[$j]->legis_Com_Payment_id){
+                      $Pay = DB::table('legispayments')
+                            ->where('legis_Com_Payment_id', '=', $data[$i]->legislation_id)
+                            ->orderBy('Payment_id', 'DESC')
+                            ->first();
+                    }
+                  }
+                $ResultPay[] = $Pay;
+              }
+            }
+         }
+         else{
+           $ResultPay = [];
+         }
+         // dd($ResultPay);
 
         $type = $request->type;
-        return view('legislation.view', compact('type', 'data','result'));
+        return view('legislation.view', compact('type', 'data','result','ResultPay'));
       }
-      elseif ($request->type == 6) {
+      elseif ($request->type == 6) {   //ลูกหนี้เตรียมฟ้อง
         $data = DB::table('legislations')
                   ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
                   ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
-                  // ->where('legislations.Flag_status','=', '1')
-                  ->orderBy('legislations.Contract_legis', 'ASC')
+                  ->orderBy('legislations.id', 'ASC')
                   ->get();
 
         $type = $request->type;
@@ -93,20 +118,17 @@ class LegislationController extends Controller
         $data = DB::table('legislations')
                   ->leftjoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
                   ->leftjoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
-                  // ->leftjoin('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
                   ->where('legislations.Flag_status','=', '2')
                   ->where('Legiscompromises.Date_Promise','!=', null)
                   ->where('Legiscompromises.KeyPay_id','!=', null)
-                  ->orderBy('legislations.Contract_legis', 'ASC')
+                  ->orderBy('legislations.id', 'ASC')
                   ->get();
         $count1 = count($data);
-        // dd($data);
 
         $dataPay = DB::table('legislations')
                   ->join('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
                   ->get();
         $count2 = count($dataPay);
-        // dd($dataPay);
 
         if($count1 != 0 && $count2 != 0){
             $Pay = [];
@@ -125,33 +147,6 @@ class LegislationController extends Controller
          else{
            $ResultPay = [];
          }
-         // dd($ResultPay);
-
-         // $dataPay = DB::table('legispayments')
-         //           ->get();
-         // $dataCount = count($dataPay);
-         //
-         // if ($dataCount != 0) {
-         //   dd('asd');
-         //   foreach ($data as $key => $value) {
-         //     $SetDate = '';
-         //     foreach ($dataPay as $key => $row) {
-         //       if ($value->legisPromise_id == $row->legis_Com_Payment_id) {
-         //         if ($SetDate == '') {
-         //           $SetDate = $row->Date_Payment;
-         //         }else {
-         //           if ($SetDate < $row->Date_Payment) {
-         //             $SetDate = $row->Date_Payment;
-         //             $SetArray[] = ['id'=>$row->legis_Com_Payment_id,'Date'=>$SetDate];
-         //             $SetDate = '';
-         //           }
-         //         }
-         //       }
-         //     }
-         //   }
-         // }else {
-         //   $SetArray[] = ['id'=>'','Date'=>''];
-         // }
 
         $type = $request->type;
         return view('legislation.view', compact('type', 'data','ResultPay','result'));
@@ -397,7 +392,6 @@ class LegislationController extends Controller
                   ->where('legislations.id', $id)
                   ->first();
         // dd($data);
-
         return view('legislation.asset',compact('data','id','type'));
       }
       elseif ($type == 11){ //รูปและแผนที
@@ -440,7 +434,7 @@ class LegislationController extends Controller
       $m = date('m');
       $d = date('d');
       $date = $Y.'-'.$m.'-'.$d;
-      // dd($request);
+
       if ($type == 2) {     //ข้อมูลผู้เช่าซื้อ
         $user = Legislation::find($id);
           //หน้าทีมทนาย
@@ -524,8 +518,8 @@ class LegislationController extends Controller
         $data = DB::table('Legiscompromises')
                   ->where('Legiscompromises.legisPromise_id', $id)->first();
 
+        // dd('$SetTotalPromise');
         $SetTotalPromise = str_replace (",","",$request->get('TotalPromise'));
-        // dd($SetTotalPromise);
         $SetSumPromise = str_replace (",","",$request->get('SumPromise'));
         $SetDuePay = str_replace (",","",$request->get('DuePayPromise'));
         $SetDiscount = str_replace (",","",$request->get('DiscountPromise'));
@@ -573,7 +567,20 @@ class LegislationController extends Controller
             $LegisPromise->Note_Promise = $request->get('NotePromise');
           $LegisPromise->update();
 
-          // dd($LegisPromise);
+          // เพิ่มสถานะจบงาน
+          $Legislation = Legislation::find($id);
+            if ($request->get('Statuslegis') != Null) {
+              $SettxtStatus = str_replace (",","",$request->get('txtStatuslegis'));
+
+              $Legislation->Status_legis = $request->get('Statuslegis');
+              $Legislation->txtStatus_legis = $SettxtStatus;
+              $Legislation->DateStatus_legis = $request->get('DateStatuslegis');
+              $Legislation->DateUpState_legis = date('Y-m-d');
+            }elseif ($request->get('Statuslegis') == Null) {
+              $Legislation->Status_legis = Null;
+              $Legislation->DateUpState_legis = Null;
+            }
+          $Legislation->update();
         }
         // dd($LegisPromise);
         $data = DB::table('legislations')
@@ -651,6 +658,7 @@ class LegislationController extends Controller
         if ($data == Null) {
             $LegisAsset = new legisasset([
               'legisAsset_id' => $id,
+              'Date_asset' => $request->get('Dateasset'),
               'Status_asset' => $request->get('statusasset'),
               'Price_asset' => Null,
               'propertied_asset' => $request->get('radio_propertied'),
@@ -667,9 +675,15 @@ class LegislationController extends Controller
             $Dateresult = date('Y-m-d');
           }else {
             $Dateresult = Null;
+            if ($request->get('radio_propertied') == "Y") {
+              $Dateresult = date('Y-m-d');
+            }else {
+              $Dateresult = Null;
+            }
           }
 
           $LegisAsset = legisasset::where('legisAsset_id',$id)->first();
+            $LegisAsset->Date_asset = $request->get('Dateasset');
             $LegisAsset->Status_asset = $request->get('statusasset');
             $LegisAsset->Price_asset = Null;
             $LegisAsset->propertied_asset = $request->get('radio_propertied');
@@ -680,6 +694,20 @@ class LegislationController extends Controller
             $LegisAsset->Notepursue_asset =  $request->get('Notepursueasset');
           $LegisAsset->update();
         }
+        // เพิ่มสถานะจบงาน
+        $Legislation = Legislation::find($id);
+          if ($request->get('Statuslegis') != Null) {
+            $SettxtStatus = str_replace (",","",$request->get('txtStatuslegis'));
+
+            $Legislation->Status_legis = $request->get('Statuslegis');
+            $Legislation->txtStatus_legis = $SettxtStatus;
+            $Legislation->DateStatus_legis = $request->get('DateStatuslegis');
+            $Legislation->DateUpState_legis = date('Y-m-d');
+          }elseif ($request->get('Statuslegis') == Null) {
+            $Legislation->Status_legis = Null;
+            $Legislation->DateUpState_legis = Null;
+          }
+        $Legislation->update();
 
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อย');
       }
@@ -844,11 +872,13 @@ class LegislationController extends Controller
         $item2 = Legiscourt::where('legislation_id',$id);
         $item3 = Legiscompromise::where('legisPromise_id',$id);
         $item4 = legispayment::where('legis_Com_Payment_id',$id);
+        $item5 = legisasset::where('legisAsset_id',$id);
 
         $item->Delete();
         $item2->Delete();
         $item3->Delete();
         $item4->Delete();
+        $item5->Delete();
       }
       elseif ($type == 2) { //ลบตาราง Payment
         $item = legispayment::where('Payment_id',$id);
