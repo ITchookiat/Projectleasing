@@ -59,6 +59,41 @@
                     }
                   return x1 + x2;
                 }
+                function CourtcaseDate(){
+                  //---------- วันเตรียมเอกสาร
+                  var date1 = document.getElementById('datepreparedoc').value;
+                  var dateset = document.getElementById('DatesetSequester').value;
+
+                    if (date1 != '') {
+                      var Setdate = new Date(date1);
+                      var newdate = new Date(Setdate);
+                    }
+                    else if (dateset != '') {
+                      var Setdate = new Date(dateset);
+                      var newdate = new Date(Setdate);
+                    }
+
+                    newdate.setDate(newdate.getDate() + 30);
+                    var dd = newdate.getDate();
+                    var mm = newdate.getMonth() + 1;
+                    var yyyy = newdate.getFullYear();
+
+                    if (dd < 10) {
+                      var Newdd = '0' + dd;
+                    }
+                    else {
+                      var Newdd = dd;
+                    }
+                    if (mm < 10) {
+                      var Newmm = '0' + mm;
+                    }
+                    else {
+                      var Newmm = mm;
+                    }
+                    var result = yyyy + '-' + Newmm + '-' + Newdd;
+                    //วันตั้งเรื่องยึดทรัพย์
+                    document.getElementById('DatesetSequester').value = result;
+                  }
 
               </script>
 
@@ -151,7 +186,7 @@
                                 <div class="row">
                                   <div class="col-md-6">
                                     วันทีเตรียมเอกสาร
-                                    <input type="date" id="datepreparedoc" name="datepreparedoc" class="form-control" value="{{$data->datepreparedoc_case}}" />
+                                    <input type="date" id="datepreparedoc" name="datepreparedoc" class="form-control" value="{{$data->datepreparedoc_case}}" onchange="CourtcaseDate();" />
                                   </div>
                                   <div class="col-md-6">
                                     หมายเหตุ
