@@ -747,6 +747,40 @@
                 </div>
               @elseif($type == 7)
                 <div class="col-md-12">
+                  <form method="get" >
+                      <div align="right" class="form-inline">
+                          <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', $type) }}" class="btn btn-primary btn-app">
+                            <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
+                          </a>
+                        <button type="submit" class="btn btn-warning btn-app">
+                          <span class="glyphicon glyphicon-search"></span> Search
+                        </button>
+                        <p></p>
+                        <label>จากวันที่ : </label>
+                        <input type="date" name="Fromdate" style="width: 151px;" value="" class="form-control" />
+
+                        <label>ถึงวันที่ : </label>
+                        <input type="date" name="Todate" style="width: 151px;" value="" class="form-control" />
+
+                        <label for="text" class="mr-sm-2">สถานะ : </label>
+                        <select name="status" class="form-control mb-2 mr-sm-2" id="text" style="width: 130px">
+                          <option selected value="">--- สถานะ ---</option>
+                          <option value="ชำระปกติ">ชำระปกติ</otion>
+                          <option value="ขาดชำระ">ขาดชำระ</otion>
+                          <option value="ปิดบัญชี">ปิดบัญชี</otion>
+                        </select>
+
+                      </div>
+                      <!-- <div align="right" class="form-inline">
+                      <label for="text" class="mr-sm-2">สถานะ : </label>
+                        <select name="status" class="form-control mb-2 mr-sm-2" id="text" style="width: 370px">
+                          <option selected value="">เลือกสถานะ</option>
+                          <option value="อนุมัติ">อนุมัติ</otion>
+                          <option value="รออนุมัติ">รออนุมัติ</otion>
+                        </select>
+                      </div> -->
+                    </form>
+                  <hr>
                   <div class="table-responsive">
                     <table class="table table-bordered" id="table">
                       <thead class="thead-dark bg-gray-light" >
