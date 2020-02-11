@@ -765,9 +765,9 @@
                         <input type="date" name="Todate" value="{{$newtdate}}" style="width: 151px;" value="" class="form-control" />
                       </div>
                     </div>
-                    
+
                   <div class="col-md-2">
-                    <div class="form-inline" align=left>
+                    <div class="form-inline" align="left">
                       <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', $type) }}" class="btn btn-primary btn-app">
                         <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
                       </a>
