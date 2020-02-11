@@ -302,6 +302,7 @@ class LegislationController extends Controller
                     })
                   ->get();
           }
+        }
           $count2 = count($dataPay);
 
           if($count1 != 0 && $count2 != 0){
