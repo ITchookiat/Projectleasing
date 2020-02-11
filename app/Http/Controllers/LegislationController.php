@@ -68,36 +68,53 @@ class LegislationController extends Controller
       elseif ($request->type == 2) {   //งานฟ้อง
         $newfdate = '';
         $newtdate = '';
-        $Newstatus = '';
+        $StateCourt = '';
         $Newstat2 = '';
         $SetSelect = '';
 
         if ($request->has('Fromdate')){
           $newfdate = $request->get('Fromdate');
         }
-        if ($request->has('Todate')) {
+        if ($request->has('Todate')){
           $newtdate = $request->get('Todate');
         }
-        if ($request->get('status') == "หมดอายุความ"){
-          $Newstat2 = $request->get('status');
-        }
-        else {
-          $Newstatus = $request->get('status');
+
+        if ($request->get('StateCourt')){
+          $StateCourt = $request->get('StateCourt');
         }
 
-        $data = DB::table('legislations')
-                  ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
-                  ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
-                  ->leftJoin('legisassets','legislations.id','=','legisassets.legisAsset_id')
-                  ->where('legislations.Flag_status','=', '2')
-                  ->orderBy('legislations.id', 'ASC')
-                  ->get();
+        if ($request->has('Fromdate') == false and $request->has('Todate') == false) {
+          $data = DB::table('legislations')
+                    ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+                    ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+                    ->leftJoin('legisassets','legislations.id','=','legisassets.legisAsset_id')
+                    ->where('legislations.Flag_status','=', '2')
+                    ->orderBy('legislations.id', 'ASC')
+                    ->get();
+
+        }else {
+          $data = DB::table('legislations')
+                    ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+                    ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+                    ->leftJoin('legisassets','legislations.id','=','legisassets.legisAsset_id')
+                    ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+                      return $q->whereBetween('legislations.Datesend_Flag',[$newfdate,$newtdate]);
+                    })
+                    // ->when(!empty($Newstatus), function($q) use($Newstatus){
+                    //   return $q->where('legisassets.propertied_asset',$Newstatus);
+                    // })
+                    // ->when(!empty($Newstat2), function($q) use($Newstat2){
+                    //   return $q->where('legisassets.sendsequester_asset',$Newstat2);
+                    // })
+                    ->orderBy('legislations.id', 'ASC')
+                    ->get();
+
+        }
+
 
         $dataPay = DB::table('legislations')
                   ->join('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
                   ->get();
-
-
 
         $count1 = count($data);
         $count2 = count($dataPay);
@@ -137,22 +154,35 @@ class LegislationController extends Controller
         return view('legislation.view', compact('type', 'data','result'));
       }
       elseif ($request->type == 7) {   //งานประนอมหนี้
-          $lastday = date('Y-m-d', strtotime("-90 days"));
-          $newfdate = '';
-          $newtdate = '';
-          $status = '';
 
-          if ($request->has('Fromdate')) {
-            $newfdate = $request->get('Fromdate');
-          }
-          if ($request->has('Todate')) {
-            $newtdate = $request->get('Todate');
-          }
-          if ($request->has('status')) {
-            $status = $request->get('status');
-          }
+        $lastday = date('Y-m-d', strtotime("-90 days"));
+        $newfdate = '';
+        $newtdate = '';
+        $status = '';
 
-          if ($request->has('Fromdate') == false and $request->has('Todate') == false) {
+        if ($request->has('Fromdate')) {
+          $newfdate = $request->get('Fromdate');
+        }
+        if ($request->has('Todate')) {
+          $newtdate = $request->get('Todate');
+        }
+        if ($request->has('status')) {
+          $status = $request->get('status');
+        }
+
+        if ($request->has('Fromdate') == false and $request->has('Todate') == false) {
+          $data = DB::table('legislations')
+                    ->leftjoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+                    ->leftjoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+                    ->where('legislations.Flag_status','=', '2')
+                    ->where('Legiscompromises.Date_Promise','!=', null)
+                    ->where('Legiscompromises.KeyPay_id','!=', null)
+                    ->orderBy('legislations.Contract_legis', 'ASC')
+                    ->get();
+        }
+        else{
+          if($status == ''){
+
             $data = DB::table('legislations')
                       ->join('legiscourts','legislations.id','=','legiscourts.legislation_id')
                       ->join('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
@@ -1124,12 +1154,14 @@ class LegislationController extends Controller
         $item3 = Legiscompromise::where('legisPromise_id',$id);
         $item4 = legispayment::where('legis_Com_Payment_id',$id);
         $item5 = legisasset::where('legisAsset_id',$id);
+        $item6 = Legiscourtcase::where('legislation_id',$id);
 
         $item->Delete();
         $item2->Delete();
         $item3->Delete();
         $item4->Delete();
         $item5->Delete();
+        $item6->Delete();
       }
       elseif ($type == 2) { //ลบตาราง Payment
         $item = legispayment::where('Payment_id',$id);

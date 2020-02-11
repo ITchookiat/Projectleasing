@@ -178,7 +178,7 @@
                 </div>
               @elseif($type == 2)
                 <div class="col-md-12">
-                  <form method="get" action="{{ route('legislation', 8) }}">
+                  <form method="get" action="{{ route('legislation', 2) }}">
                       <div align="right" class="form-inline">
                           <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', $type) }}" class="btn btn-primary btn-app">
                             <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
@@ -189,14 +189,17 @@
 
                         <p></p>
                         <label for="text" class="mr-sm-2">สถานะ : </label>
-                        <select name="status" class="form-control mb-2 mr-sm-2" id="text" style="width: 150px">
+                        <select name="StateCourt" class="form-control mb-2 mr-sm-2" id="text" style="width: 150px">
                           <option selected value="">--- สถานะ ---</option>
-                          <option value="Y" {{ ($SetSelect == 'Y') ? 'selected' : '' }}>สถานะฟ้อง</otion>
-                          <option value="สืบพยาน">สืบพยาน</otion>
-                          <option value="ส่งคำบังคับ">ส่งคำบังคับ</otion>
-                          <option value="ตรวจผลหมาย">ตรวจผลหมาย</otion>
-                          <option value="ตั้งเจ้าพนักงาน">ตั้งเจ้าพนักงาน</otion>
-                          <option value="ตรวจผลหมายตั้ง">ตรวจผลหมายตั้ง</otion>
+                          <option value="ชั้นศาล" {{ ($SetSelect == 'ชั้นศาล') ? 'selected' : '' }}>ชั้นศาล</otion>
+                          <option value="ชั้นบังคับคดี">ชั้นบังคับคดี</otion>
+                        </select>
+                        
+                        <label for="text" class="mr-sm-2">สถานะ : </label>
+                        <select name="StateCourt" class="form-control mb-2 mr-sm-2" id="text" style="width: 150px">
+                          <option selected value="">--- สถานะ ---</option>
+                          <option value="ชั้นศาล" {{ ($SetSelect == 'ชั้นศาล') ? 'selected' : '' }}>ชั้นศาล</otion>
+                          <option value="ชั้นบังคับคดี">ชั้นบังคับคดี</otion>
                         </select>
 
                         <p></p>
@@ -261,12 +264,6 @@
                               @endif
                             </td>
                             <td class="text-center">
-                              @php
-                               $examidaydate = date_create($row->examiday_court);
-                               $Newdate = date_create($date);
-                               $DateEx = date_diff($Newdate,$examidaydate);
-                              @endphp
-
                               @if($row->Status_legis == "จ่ายจบก่อนฟ้อง")
                                 <button type="button" class="btn btn-success btn-sm" title="จ่ายจบก่อนฟ้อง">
                                   <i class="fa fa-check prem"></i> จ่ายจบก่อนฟ้อง
@@ -288,96 +285,116 @@
                                   <i class="fa fa-gavel prem"></i> หมดอายุความคดี
                                 </button>
                               @else
+                                <!-- ชั้นศาล -->
+
+                                @php
+                                  $SetText = 'รอฟ้อง';
+                                  $Newdate = date_create($date);
+                                @endphp
+
                                 @if($row->examiday_court != Null)
+                                  @php
+                                    $Tab1 = date_create($row->examiday_court);
+                                    $DateEx = date_diff($Newdate,$Tab1);
+                                  @endphp
                                   @if($row->fuzzy_court != Null)
                                     @php
-                                      $examidaydate = date_create($row->fuzzy_court);
-                                      $DateEx = date_diff($Newdate,$examidaydate);
+                                      $Tab1 = date_create($row->fuzzy_court);
+                                      $DateEx = date_diff($Newdate,$Tab1);
                                     @endphp
                                   @endif
 
                                   @if($row->ordersend_court != Null)
                                     @php
-                                      $orderdaydate = date_create($row->ordersend_court);
-                                      $DateEx2 = date_diff($Newdate,$orderdaydate);
+                                      $Tab2 = date_create($row->ordersend_court);
+                                      $DateEx2 = date_diff($Newdate,$Tab2);
                                     @endphp
                                   @elseif($row->ordersend_court == Null)
                                     @php
-                                      $orderdaydate = date_create($row->orderday_court);
-                                      $DateEx2 = date_diff($Newdate,$orderdaydate);
+                                      $Tab2 = date_create($row->orderday_court);
+                                      $DateEx2 = date_diff($Newdate,$Tab2);
                                     @endphp
                                   @endif
 
-                                  @php
-                                    $checkdaydate = date_create($row->checkday_court);
-                                    $DateEx3 = date_diff($Newdate,$checkdaydate);
-                                  @endphp
+                                  @if($row->checkday_court != Null)
+                                    @php
+                                      $Tab3 = date_create($row->checkday_court);
+                                      $DateEx3 = date_diff($Newdate,$Tab3);
+                                    @endphp
+                                  @endif
 
                                   @if($row->sendoffice_court != Null)
                                     @php
-                                      $setofficedate = date_create($row->sendoffice_court);
-                                      $DateEx4 = date_diff($Newdate,$setofficedate);
+                                      $Tab4 = date_create($row->sendoffice_court);
+                                      $DateEx4 = date_diff($Newdate,$Tab4);
                                     @endphp
                                   @elseif($row->sendoffice_court == Null)
                                     @php
-                                      $setofficedate = date_create($row->setoffice_court);
-                                      $DateEx4 = date_diff($Newdate,$setofficedate);
+                                      $Tab4 = date_create($row->setoffice_court);
+                                      $DateEx4 = date_diff($Newdate,$Tab4);
                                     @endphp
                                   @endif
 
-                                  @php
-                                    $checkresultsdate = date_create($row->checkresults_court);
-                                    $DateEx5 = date_diff($Newdate,$checkresultsdate);
-                                  @endphp
+                                  @if($row->sendcheckresults_court != Null)
+                                    @php
+                                      $Tab5 = date_create($row->sendcheckresults_court);
+                                      $DateEx5 = date_diff($Newdate,$Tab5);
+                                    @endphp
+                                  @elseif($row->sendcheckresults_court == Null)
+                                    @php
+                                      $Tab5 = date_create($row->checkresults_court);
+                                      $DateEx5 = date_diff($Newdate,$Tab5);
+                                    @endphp
+                                  @endif
 
-                                  @if($Newdate <= $examidaydate)
-                                    @if($DateEx->d <= 7)
-                                      <button type="button" class="btn btn-danger btn-sm" title="มีแจ้งเตือน">
-                                        <span class="fa fa-clock-o text-white prem"> สืบพยาน {{ $DateEx->d }} วัน</span>
+                                  @if($Newdate <= $Tab1)
+                                    @if($DateEx->days <= 7)
+                                      <button type="button" class="btn btn-danger btn-sm" title="วันสืบพยาน {{ DateThai($Tab1->format('Y-m-d')) }}">
+                                        <span class="fa fa-bell text-white prem"> สืบพยาน {{ $DateEx->days }} วัน</span>
                                       </button>
                                     @else
-                                      <button type="button" class="btn btn-warning btn-sm" title="สถานะสืบพยาน">
-                                        <i class="fa fa-clock-o"></i> สืบพยาน
+                                      <button type="button" class="btn btn-warning btn-sm" title="วันสืบพยาน {{ DateThai($Tab1->format('Y-m-d')) }}">
+                                        <i class="fa fa-clock-o prem"></i> รอสืบพยาน
                                       </button>
                                     @endif
-                                  @elseif($Newdate <= $orderdaydate)
-                                    @if($DateEx2->d <= 7)
-                                      <button type="button" class="btn btn-danger btn-sm" title="มีแจ้งเตือน">
-                                        <span class="fa fa-clock-o text-white prem"> ส่งคำบังคับ {{ $DateEx2->d }} วัน</span>
+                                  @elseif($Newdate <= $Tab2)
+                                    @if($DateEx2->days <= 7)
+                                      <button type="button" class="btn btn-danger btn-sm" title="วันส่งคำบังคับ {{ DateThai($Tab2->format('Y-m-d')) }}">
+                                        <span class="fa fa-bell text-white prem"> ส่งคำบังคับ {{ $DateEx2->days }} วัน</span>
                                       </button>
                                     @else
-                                      <button type="button" class="btn btn-warning btn-sm" title="สถานะส่งคำบังคับ">
-                                        <i class="fa fa-clock-o"></i> ส่งคำบังคับ
+                                      <button type="button" class="btn btn-warning btn-sm" title="วันส่งคำบังคับ {{ DateThai($Tab2->format('Y-m-d')) }}">
+                                        <i class="fa fa-clock-o prem"></i> รอส่งคำบังคับ
                                       </button>
                                     @endif
-                                  @elseif($Newdate <= $checkdaydate)
-                                    @if($DateEx3->d <= 7)
-                                      <button type="button" class="btn btn-danger btn-sm" title="มีแจ้งเตือน">
-                                        <span class="fa fa-clock-o text-white prem"> ตรวจผลหมาย {{ $DateEx3->d }} วัน</span>
+                                  @elseif($Newdate <= $Tab3)
+                                    @if($DateEx3->days <= 7)
+                                      <button type="button" class="btn btn-danger btn-sm" title="วันตรวจผลหมาย {{ DateThai($Tab3->format('Y-m-d')) }}">
+                                        <span class="fa fa-bell text-white prem"> ตรวจผลหมาย {{ $DateEx3->days }} วัน</span>
                                       </button>
                                     @else
-                                      <button type="button" class="btn btn-warning btn-sm" title="สถานะตรวจผลหมาย">
-                                        <i class="fa fa-clock-o"></i> ตรวจผลหมาย
+                                      <button type="button" class="btn btn-warning btn-sm" title="วันตรวจผลหมาย {{ DateThai($Tab3->format('Y-m-d')) }}">
+                                        <i class="fa fa-clock-o prem"></i> รอตรวจผลหมาย
                                       </button>
                                     @endif
-                                  @elseif($Newdate <= $setofficedate)
-                                    @if($DateEx4->d <= 7)
-                                      <button type="button" class="btn btn-danger btn-sm" title="มีแจ้งเตือน">
-                                        <span class="fa fa-clock-o text-white prem"> ตั้งเจ้าพนักงาน {{ $DateEx4->d }} วัน</span>
+                                  @elseif($Newdate <= $Tab4)
+                                    @if($DateEx4->days <= 7)
+                                      <button type="button" class="btn btn-danger btn-sm" title="วันตั้งเจ้าพนักงาน {{ DateThai($Tab4->format('Y-m-d')) }}">
+                                        <span class="fa fa-bello text-white prem"> ตั้งเจ้าพนักงาน {{ $DateEx4->days }} วัน</span>
                                       </button>
                                     @else
-                                      <button type="button" class="btn btn-warning btn-sm" title="สถานะตั้งเจ้าพนักงาน">
-                                        <i class="fa fa-clock-o"></i> ตั้งเจ้าพนักงาน
+                                      <button type="button" class="btn btn-warning btn-sm" title="วันตั้งเจ้าพนักงาน {{ DateThai($Tab4->format('Y-m-d')) }}">
+                                        <i class="fa fa-clock-o prem"></i> รอตั้งเจ้าพนักงาน
                                       </button>
                                     @endif
-                                  @elseif($Newdate <= $checkresultsdate)
-                                    @if($DateEx5->d <= 7)
-                                      <button type="button" class="btn btn-danger btn-sm" title="มีแจ้งเตือน">
-                                        <span class="fa fa-clock-o text-white prem"> ตรวจผลหมายตั้ง {{ $DateEx5->d }} วัน</span>
+                                  @elseif($Newdate <= $Tab5)
+                                    @if($DateEx5->days <= 7)
+                                      <button type="button" class="btn btn-danger btn-sm" title="วันตรวจผลหมายตั้ง {{ DateThai($Tab5->format('Y-m-d')) }}">
+                                        <span class="fa fa-bell text-white prem"> ตรวจผลหมายตั้ง {{ $DateEx5->days }} วัน</span>
                                       </button>
                                     @else
-                                      <button type="button" class="btn btn-warning btn-sm" title="สถานะตรวจผลหมายตั้ง">
-                                        <i class="fa fa-clock-o"></i> ตรวจผลหมายตั้ง
+                                      <button type="button" class="btn btn-warning btn-sm" title="วันตรวจผลหมายตั้ง {{ DateThai($Tab5->format('Y-m-d')) }}">
+                                        <i class="fa fa-clock-o prem"></i> รอตรวจผลหมายตั้ง
                                       </button>
                                     @endif
                                   @endif
@@ -449,14 +466,16 @@
                               @else
                                 @if($row->KeyCompro_id != Null)
                                   @foreach($ResultPay as $key => $value)
-                                     @if($value->Date_Payment < $lastday)
-                                       <button type="button" class="btn btn-danger btn-sm" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
-                                         <span class="glyphicon glyphicon-thumbs-down prem"></span> ขาดชำระ
-                                       </button>
-                                     @else
-                                       <button type="button" class="btn btn-success btn-sm" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
-                                         <span class="glyphicon glyphicon-thumbs-up prem"></span> ชำระปกติ
-                                       </button>
+                                    @if($row->legisPromise_id == $value->legis_Com_Payment_id)
+                                       @if($value->Date_Payment < $lastday)
+                                         <button type="button" class="btn btn-danger btn-sm" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
+                                           <span class="glyphicon glyphicon-thumbs-down prem"></span> ขาดชำระ
+                                         </button>
+                                       @else
+                                         <button type="button" class="btn btn-success btn-sm" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
+                                           <span class="glyphicon glyphicon-thumbs-up prem"></span> ชำระปกติ
+                                         </button>
+                                       @endif
                                      @endif
                                    @endforeach
                                  @else
@@ -1029,9 +1048,9 @@
                                    @endphp
                                    @if($row->sendsequester_asset == "ไม่เจอ")
                                      @if($Newdate <= $Getdate)
-                                       @if($DateEx->d <= 7)
+                                       @if($DateEx->days <= 7)
                                          <button type="button" class="btn btn-danger btn-sm" title="วันสืบทรัพย์ {{DateThai($row->NewpursueDate_asset)}}">
-                                           <span class="fa fa-bell prem"> สืบทรัพย์ใหม่ {{ $DateEx->d }} วัน</span>
+                                           <span class="fa fa-bell prem"> สืบทรัพย์ใหม่ {{ $DateEx->days }} วัน</span>
                                          </button>
                                        @else
                                          <button type="button" class="btn btn-warning btn-sm" title="รอสืบทรัพย์ {{DateThai($row->NewpursueDate_asset)}}">
@@ -1055,9 +1074,9 @@
                                      </button>
                                     @elseif($row->propertied_asset == "N")
                                       @if($Newdate <= $Getdate)
-                                        @if($DateEx->d <= 7)
+                                        @if($DateEx->days <= 7)
                                           <button type="button" class="btn btn-danger btn-sm" title="สืบทรัพย์ {{DateThai($row->sequester_asset)}}">
-                                            <span class="fa fa-bell text-white prem"> สืบทรัพย์ {{ $DateEx->d }} วัน</span>
+                                            <span class="fa fa-bell text-white prem"> สืบทรัพย์ {{ $DateEx->days }} วัน</span>
                                           </button>
                                         @else
                                           <button type="button" class="btn btn-warning btn-sm" title="รอสืบทรัพย์ {{DateThai($row->sequester_asset)}}">
