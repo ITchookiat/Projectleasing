@@ -200,18 +200,6 @@
               <li class="nav-item pull-right"><a href="{{ action('LegislationController@edit',[$id, 11]) }}">รูปและแผนที่</a></li>
               <li class="nav-item pull-right"><a href="{{ action('LegislationController@edit',[$id, 4]) }}">ประนอมหนี้</a></li>
               <li class="nav-item pull-right"><a href="{{ action('LegislationController@edit',[$id, 8]) }}">สืบทรัพย์</a></li>
-
-              <!-- ประนอมหนี้ -->
-              <!-- <li class="dropdown pull-right">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false" >
-                  ประนอมหนี้ <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                  <li role="presentation"><a role="menuitem" tabindex="-1"><a href="{{ action('LegislationController@edit',[$id, 4]) }}" >รายละเอียด</a></li>
-                  <li role="presentation" class="divider"></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1"><a href="{{ action('LegislationController@edit',[$id, 5]) }}" >เพิ่มข้อมูลชำระ</a></li>
-                </ul>
-              </li> -->
             </ul>
           </div>
 
@@ -244,17 +232,15 @@
                               <div class="col-md-8">
                                 <div class="form-inline">
                                   <p></p>
-                                  <div class=""  align="center">
+                                  <div class="" align="center">
                                     <small class="label label-success" style="font-size: 25px;">
                                       <i class="fa fa-expeditedssl"></i>
-                                      @if($data->Status_legis == "ปิดบัญชีก่อนฟ้อง")
-                                        ปิดบัญชีก่อนฟ้อง
-                                      @elseif($data->Status_legis == "ชำระยอดค้างก่อนฟ้อง")
-                                        ชำระยอดค้างก่อนฟ้อง
+                                      @if($data->Status_legis == "จ่ายจบก่อนฟ้อง")
+                                        จ่ายจบก่อนฟ้อง
                                       @elseif($data->Status_legis == "ยึดรถก่อนฟ้อง")
                                         ยึดรถก่อนฟ้อง
-                                      @elseif($data->Status_legis == "ปิดบัญชีหลังฟ้อง")
-                                        ปิดบัญชีหลังฟ้อง
+                                      @elseif($data->Status_legis == "ปิดบัญชีประนอมหนี้")
+                                        ปิดบัญชีประนอมหนี้
                                       @elseif($data->Status_legis == "ยึดรถหลังฟ้อง")
                                         ยึดรถหลังฟ้อง
                                       @endif
@@ -262,22 +248,16 @@
                                   </div>
                                   <p></p>
                                   <label>สถานะ : </label>
-                                  <select name="Statuslegis" class="form-control" style="width: 110px;">
+                                  <select name="Statuslegis" class="form-control" style="width: 170px;">
                                     <option value="" selected>--- status ---</option>
-                                    <option value="ปิดบัญชีก่อนฟ้อง" {{ ($data->Status_legis === 'ปิดบัญชีก่อนฟ้อง') ? 'selected' : '' }}>ปิดบัญชีก่อนฟ้อง</option>
-                                    <option value="ชำระยอดค้างก่อนฟ้อง" {{ ($data->Status_legis === 'ชำระยอดค้างก่อนฟ้อง') ? 'selected' : '' }}>ชำระยอดค้างก่อนฟ้อง</option>
+                                    <option value="จ่ายจบก่อนฟ้อง" {{ ($data->Status_legis === 'จ่ายจบก่อนฟ้อง') ? 'selected' : '' }}>จ่ายจบก่อนฟ้อง</option>
                                     <option value="ยึดรถก่อนฟ้อง" {{ ($data->Status_legis === 'ยึดรถก่อนฟ้อง') ? 'selected' : '' }}>ยึดรถก่อนฟ้อง</option>
-                                    <option value="ปิดบัญชีหลังฟ้อง" {{ ($data->Status_legis === 'ปิดบัญชีหลังฟ้อง') ? 'selected' : '' }}>ปิดบัญชีหลังฟ้อง</option>
+                                    <option value="ปิดบัญชีประนอมหนี้" {{ ($data->Status_legis === 'ปิดบัญชีประนอมหนี้') ? 'selected' : '' }}>ปิดบัญชีประนอมหนี้</option>
                                     <option value="ยึดรถหลังฟ้อง" {{ ($data->Status_legis === 'ยึดรถหลังฟ้อง') ? 'selected' : '' }}>ยึดรถหลังฟ้อง</option>
-                                    <option value="ปิดบัญชีประนอมหลังฟ้อง" {{ ($data->Status_legis === 'ปิดบัญชีประนอมหลังฟ้อง') ? 'selected' : '' }}>ปิดบัญชีประนอมหลังฟ้อง</option>
-                                    <option value="จ่ายตามจำนวนหลังฟ้อง" {{ ($data->Status_legis === 'จ่ายตามจำนวนหลังฟ้อง') ? 'selected' : '' }}>จ่ายตามจำนวนหลังฟ้อง</option>
-                                    <option value="ปิดบัญชีประนอมหลังยึดทรัพย์" {{ ($data->Status_legis === 'ปิดบัญชีประนอมหลังยึดทรัพย์') ? 'selected' : '' }}>ปิดบัญชีประนอมหลังยึดทรัพย์</option>
-                                    <option value="จ่ายตามจำนวนหลังยึดทรัพย์" {{ ($data->Status_legis === 'จ่ายตามจำนวนหลังยึดทรัพย์') ? 'selected' : '' }}>จ่ายตามจำนวนหลังยึดทรัพย์</option>
-                                    <option value="ปิดบัญชีหลังยึดทรัพย์" {{ ($data->Status_legis === 'ปิดบัญชีหลังยึดทรัพย์') ? 'selected' : '' }}>ปิดบัญชีหลังยึดทรัพย์</option>
-                                    <option value="ยึดรถหลังยึดทรัพย์" {{ ($data->Status_legis === 'ยึดรถหลังยึดทรัพย์') ? 'selected' : '' }}>ยึดรถหลังยึดทรัพย์</option>
                                   </select>
-                                  <input type="text" id="txtStatuslegis" name="txtStatuslegis" class="form-control" style="width: 100px;" oninput="AddComma();">
-                                  <input type="date" name="DateStatuslegis" class="form-control" style="width: 152px;" value="{{ $data->DateStatus_legis }}">
+
+                                  <!-- <input type="text" id="txtStatuslegis" name="txtStatuslegis" class="form-control" style="width: 100px;" oninput="AddComma();"> -->
+                                  <input type="date" name="DateStatuslegis" class="form-control" style="width: 170px;" value="{{ $data->DateStatus_legis }}">
                                 </div>
                               </div>
                           </div>
