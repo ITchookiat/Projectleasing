@@ -173,10 +173,7 @@
     color:#cd4400;
     }
   </style>
-
-      <!-- <section class="content-header">
-      </section> -->
-
+  
       <!-- Main content -->
       <section class="content">
         <!-- Default box -->
