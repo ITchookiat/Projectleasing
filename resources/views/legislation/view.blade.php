@@ -748,38 +748,38 @@
               @elseif($type == 7)
                 <div class="col-md-12">
                   <form method="get" >
-                      <div align="right" class="form-inline">
-                          <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', $type) }}" class="btn btn-primary btn-app">
-                            <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
-                          </a>
-                        <button type="submit" class="btn btn-warning btn-app">
-                          <span class="glyphicon glyphicon-search"></span> Search
-                        </button>
-                        <p></p>
+                    <div class="col-md-10">
+                     <div class="form-inline" align=right>
+                        <label for="text" class="mr-sm-2">สถานะ : </label>
+                        <select name="status" class="form-control mb-2 mr-sm-2" id="text" style="width: 151px">
+                          <option selected value="">--- สถานะ ---</option>
+                          <option value="ชำระปกติ" {{($status == 'ชำระปกติ') ? 'selected' : '' }}>ชำระปกติ</otion>
+                          <option value="ขาดชำระ" {{($status == 'ขาดชำระ') ? 'selected' : '' }}>ขาดชำระ</otion>
+                          <option value="ปิดบัญชี" {{($status == 'ปิดบัญชี') ? 'selected' : '' }}>ปิดบัญชี</otion>
+                        </select>
+                        <br>
                         <label>จากวันที่ : </label>
-                        <input type="date" name="Fromdate" style="width: 151px;" value="" class="form-control" />
+                        <input type="date" name="Fromdate" value="{{$newfdate}}" style="width: 151px;" value="" class="form-control" />
 
                         <label>ถึงวันที่ : </label>
-                        <input type="date" name="Todate" style="width: 151px;" value="" class="form-control" />
-
-                        <label for="text" class="mr-sm-2">สถานะ : </label>
-                        <select name="status" class="form-control mb-2 mr-sm-2" id="text" style="width: 130px">
-                          <option selected value="">--- สถานะ ---</option>
-                          <option value="ชำระปกติ">ชำระปกติ</otion>
-                          <option value="ขาดชำระ">ขาดชำระ</otion>
-                          <option value="ปิดบัญชี">ปิดบัญชี</otion>
-                        </select>
-
+                        <input type="date" name="Todate" value="{{$newtdate}}" style="width: 151px;" value="" class="form-control" />
                       </div>
-                      <!-- <div align="right" class="form-inline">
-                      <label for="text" class="mr-sm-2">สถานะ : </label>
-                        <select name="status" class="form-control mb-2 mr-sm-2" id="text" style="width: 370px">
-                          <option selected value="">เลือกสถานะ</option>
-                          <option value="อนุมัติ">อนุมัติ</otion>
-                          <option value="รออนุมัติ">รออนุมัติ</otion>
-                        </select>
-                      </div> -->
-                    </form>
+                    </div>
+                    
+                  <div class="col-md-2">
+                    <div class="form-inline" align=left>
+                      <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', $type) }}" class="btn btn-primary btn-app">
+                        <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
+                      </a>
+                      <button type="submit" class="btn btn-warning btn-app">
+                        <span class="glyphicon glyphicon-search"></span> Search
+                      </button>
+                    </div>
+                   </div>
+
+                 </form>
+                </div>
+                <div class="col-md-12">
                   <hr>
                   <div class="table-responsive">
                     <table class="table table-bordered" id="table">
@@ -830,6 +830,23 @@
                                 $lastday = date('Y-m-d', strtotime("-90 days"));
                               @endphp
 
+
+                              {{--
+                                @foreach($SetArray as $key => $row1)
+                                  @if($row->legisPromise_id == $row1['id'])
+                                     @if($row1['Date'] < $lastday)
+                                     <button type="button" class="btn btn-danger" title="วันชำระล่าสุด {{DateThai($row1['Date'])}}">
+                                       <span class="glyphicon glyphicon-thumbs-down"></span> ขาดชำระ
+                                     </button>
+                                     @else
+                                     <button type="button" class="btn btn-success" title="วันชำระล่าสุด {{DateThai($row1['Date'])}}">
+                                       <span class="glyphicon glyphicon-thumbs-up"></span> ชำระปกติ
+                                     </button>
+                                     @endif
+                                  @endif
+                                @endforeach
+                               --}}
+
                               @if($row->Status_legis == "ปิดบัญชีประนอมหนี้" or $row->Status_legis == "ยึดรถหลังฟ้อง")
                                 <button type="button" class="btn btn-success btn-sm" title="ปิดบัญชี">
                                   <span class="glyphicon glyphicon-ok prem"></span> ปิดบัญชี
@@ -849,6 +866,7 @@
                                    @endif
                                  @endforeach
                                @endif
+
                             </td>
                             <td class="text-center">
                               <a href="{{ action('LegislationController@edit',[$row->id, 4]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
