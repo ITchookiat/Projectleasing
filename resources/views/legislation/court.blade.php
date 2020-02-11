@@ -688,7 +688,7 @@
                                 <div class="row">
                                   <div class="col-md-3">
                                     วันที่ฟ้อง
-                                    <input type="date" id="fillingdatecourt" name="fillingdatecourt" class="form-control" value="{{ ($data->fillingdate_court) }}" />
+                                    <input type="date" id="fillingdatecourt" name="fillingdatecourt" class="form-control" value="{{ ($data->fillingdate_court) }}" required/>
                                   </div>
                                   <div class="col-md-3">
                                     ศาล
