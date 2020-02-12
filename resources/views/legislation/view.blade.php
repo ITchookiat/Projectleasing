@@ -188,18 +188,21 @@
                         </button>
 
                         <p></p>
-                        <label for="text" class="mr-sm-2">สถานะ : </label>
-                        <select name="StateCourt" class="form-control mb-2 mr-sm-2" id="text" style="width: 150px">
+                        <label for="text" class="mr-sm-2">สถานะปิดงาน : </label>
+                        <select name="StateLegis" class="form-control mb-2 mr-sm-2" id="text" style="width: 150px">
                           <option selected value="">--- สถานะ ---</option>
-                          <option value="ชั้นศาล" {{ ($SetSelect == 'ชั้นศาล') ? 'selected' : '' }}>ชั้นศาล</otion>
-                          <option value="ชั้นบังคับคดี">ชั้นบังคับคดี</otion>
+                          <option value="จ่ายจบก่อนฟ้อง" {{ ($StateLegis == 'จ่ายจบก่อนฟ้อง') ? 'selected' : '' }}>จ่ายจบก่อนฟ้อง</otion>
+                          <option value="ยึดรถก่อนฟ้อง" {{ ($StateLegis == 'ยึดรถก่อนฟ้อง') ? 'selected' : '' }}>ยึดรถก่อนฟ้อง</otion>
+                          <option value="ปิดบัญชีประนอมหนี้" {{ ($StateLegis == 'ปิดบัญชีประนอมหนี้') ? 'selected' : '' }}>ปิดบัญชีประนอมหนี้</otion>
+                          <option value="ยึดรถหลังฟ้อง" {{ ($StateLegis == 'ยึดรถหลังฟ้อง') ? 'selected' : '' }}>ยึดรถหลังฟ้อง</otion>
+                          <option value="หมดอายุความคดี" {{ ($StateLegis == 'หมดอายุความคดี') ? 'selected' : '' }}>หมดอายุความคดี</otion>
                         </select>
-                        
+
                         <label for="text" class="mr-sm-2">สถานะ : </label>
                         <select name="StateCourt" class="form-control mb-2 mr-sm-2" id="text" style="width: 150px">
                           <option selected value="">--- สถานะ ---</option>
-                          <option value="ชั้นศาล" {{ ($SetSelect == 'ชั้นศาล') ? 'selected' : '' }}>ชั้นศาล</otion>
-                          <option value="ชั้นบังคับคดี">ชั้นบังคับคดี</otion>
+                          <option value="ชั้นศาล" {{ ($StateCourt == 'ชั้นศาล') ? 'selected' : '' }}>ชั้นศาล</otion>
+                          <option value="ชั้นบังคับคดี" {{ ($StateCourt == 'ชั้นบังคับคดี') ? 'selected' : '' }}>ชั้นบังคับคดี</otion>
                         </select>
 
                         <p></p>
@@ -840,10 +843,10 @@
                         </select>
                         <br>
                         <label>จากวันที่ : </label>
-                        <input type="date" name="Fromdate" value="{{$newfdate}}" style="width: 180px;" value="" class="form-control" />
+                        <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" style="width: 180px;" value="" class="form-control" />
 
                         <label>ถึงวันที่ : </label>
-                        <input type="date" name="Todate" value="{{$newtdate}}" style="width: 180px;" value="" class="form-control" />
+                        <input type="date" name="Todate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" style="width: 180px;" value="" class="form-control" />
                       </div>
 
                  </form>
