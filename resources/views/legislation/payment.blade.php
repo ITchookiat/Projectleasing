@@ -92,6 +92,7 @@
                                    <label>หมายเหตุ :</label>
                                    <input type="text" name="NotePayment" class="form-control" value="" style="width: 200px;"/>
                                    <input type="hidden" name="AdduserPayment" class="form-control" style="width: 200px;" value="{{ Auth::user()->name }}"/>
+                                   <input type="hidden" name="FlagPayment" class="form-control" value="Y"/>
                                 </div>
 
                             </div>
