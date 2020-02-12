@@ -154,7 +154,6 @@ class LegislationController extends Controller
         return view('legislation.view', compact('type', 'data','result'));
       }
       elseif ($request->type == 7) {   //งานประนอมหนี้
-
         $lastday = date('Y-m-d', strtotime("-90 days"));
         $newfdate = '';
         $newtdate = '';
@@ -181,18 +180,6 @@ class LegislationController extends Controller
                     ->get();
         }
         else{
-          if($status == ''){
-
-            $data = DB::table('legislations')
-                      ->join('legiscourts','legislations.id','=','legiscourts.legislation_id')
-                      ->join('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
-                      ->where('legislations.Flag_status','=', '2')
-                      ->where('Legiscompromises.Date_Promise','!=', null)
-                      ->where('Legiscompromises.KeyPay_id','!=', null)
-                      ->orderBy('legislations.Contract_legis', 'ASC')
-                      ->get();
-          }
-          else{
             if($status == ''){
               $data = DB::table('legislations')
                         ->join('legiscourts','legislations.id','=','legiscourts.legislation_id')
@@ -264,6 +251,7 @@ class LegislationController extends Controller
                      ->join('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
                      ->join('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
                      ->get();
+                     // dd($status);
           }
           elseif($status == 'ชำระปกติ'){
               $dataPay = DB::table('legislations')
@@ -302,7 +290,6 @@ class LegislationController extends Controller
                     })
                   ->get();
           }
-        }
           $count2 = count($dataPay);
 
           if($count1 != 0 && $count2 != 0){
@@ -318,10 +305,10 @@ class LegislationController extends Controller
                   }
                 $ResultPay[] = $Pay;
               }
-           }
-           else{
+          }
+          else{
              $ResultPay = [];
-           }
+          }
 
            // dd($data,$dataPay,$ResultPay);
 
