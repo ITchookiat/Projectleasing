@@ -415,47 +415,63 @@
                               @endif
                             </td>
                             <td class="text-center">
-                              @if($row->propertied_asset == "Y")
-                                  <button type="button" class="btn btn-success btn-sm" title="มีทรัพย์">
-                                    <i class="fa fa-check-square-o prem"></i> มีทรัพย์
-                                  </button>
-                              @elseif($row->propertied_asset == "N")
-                                  @if($row->sendsequester_asset == "เจอ")
-                                    <button type="button" class="btn btn-success btn-sm" title="สืบทรัพย์เจอ">
-                                      <i class="fa fa-check-square-o prem"></i> สืบทรัพย์เจอ
-                                    </button>
-                                  @elseif($row->sendsequester_asset == "ไม่เจอ")
-                                    @php
-                                      $Getdate = date_create($row->NewpursueDate_asset);
-                                      $Newdate = date_create($date);
-                                      $DateEx = date_diff($Newdate,$Getdate);
-                                    @endphp
+                               @if($row->Date_asset != Null)
+                                 @php
+                                   $Getdate = date_create($row->sequester_asset);
+                                   $Newdate = date_create($date);
+                                   $DateEx = date_diff($Newdate,$Getdate);
+                                 @endphp
 
-                                    @if($Newdate <= $Getdate)
-                                      @if($DateEx->d <= 7)
-                                        <button type="button" class="btn btn-danger btn-sm" title="วันสืบทรัพย์ {{DateThai($row->NewpursueDate_asset)}}">
-                                          <span class="fa fa-bell text-white prem"> สืบทรัพย์ใหม่ {{ $DateEx->d }} วัน</span>
-                                        </button>
-                                      @else
-                                        <button type="button" class="btn btn-warning btn-sm" title="รอสืบทรัพย์ {{DateThai($row->NewpursueDate_asset)}}">
-                                          <i class="fa fa-clock-o prem"></i> รอสืบทรัพย์
-                                        </button>
+                                 @if($row->NewpursueDate_asset != Null)
+                                   @php
+                                     $Getdate = date_create($row->NewpursueDate_asset);
+                                     $DateEx = date_diff($Newdate,$Getdate);
+                                   @endphp
+                                   @if($row->sendsequester_asset == "ไม่เจอ")
+                                     @if($Newdate <= $Getdate)
+                                       @if($DateEx->days <= 7)
+                                         <button type="button" class="btn btn-danger btn-sm" title="วันสืบทรัพย์ {{DateThai($row->NewpursueDate_asset)}}">
+                                           <span class="fa fa-bell prem"> สืบทรัพย์ใหม่ {{ $DateEx->days }} วัน</span>
+                                         </button>
+                                       @else
+                                         <button type="button" class="btn btn-warning btn-sm" title="รอสืบทรัพย์ {{DateThai($row->NewpursueDate_asset)}}">
+                                           <i class="fa fa-clock-o prem"></i> รอสืบทรัพย์
+                                         </button>
+                                       @endif
+                                     @endif
+                                   @elseif($row->sendsequester_asset == "เจอ")
+                                     <button type="button" class="btn btn-success btn-sm" title="สืบทรัพย์เจอ">
+                                       <i class="fa fa-check-square-o prem"></i> สืบทรัพย์เจอ
+                                     </button>
+                                   @elseif($row->sendsequester_asset == "หมดอายุความ")
+                                     <button type="button" class="btn btn-primary btn-sm" title="หมดอายุความ">
+                                       <i class="fa fa-gavel prem"></i> หมดอายุความ
+                                     </button>
+                                   @endif
+                                 @else
+                                    @if($row->propertied_asset == "Y")
+                                     <button type="button" class="btn btn-success btn-sm" title="มีทรัพย์">
+                                       <i class="fa fa-check-square-o prem"></i> มีทรัพย์
+                                     </button>
+                                    @elseif($row->propertied_asset == "N")
+                                      @if($Newdate <= $Getdate)
+                                        @if($DateEx->days <= 7)
+                                          <button type="button" class="btn btn-danger btn-sm" title="สืบทรัพย์ {{DateThai($row->sequester_asset)}}">
+                                            <span class="fa fa-bell text-white prem"> สืบทรัพย์ {{ $DateEx->days }} วัน</span>
+                                          </button>
+                                        @else
+                                          <button type="button" class="btn btn-warning btn-sm" title="รอสืบทรัพย์ {{DateThai($row->sequester_asset)}}">
+                                            <i class="fa fa-clock-o text-white prem"></i> รอสืบทรัพย์
+                                          </button>
+                                        @endif
                                       @endif
                                     @endif
-                                  @elseif($row->sendsequester_asset == "หมดอายุความ")
-                                    <button type="button" class="btn btn-primary btn-sm" title="หมดอายุความ {{DateThai($row->NewpursueDate_asset)}}">
-                                      <i class="fa fa-gavel prem"></i> หมดอายุความ
-                                    </button>
-                                  @else
-                                    <button type="button" class="btn btn-danger btn-sm" title="ไม่มีทรัพย์">
-                                      <i class="fa fa-times prem"></i> ไม่มีทรัพย์
-                                    </button>
-                                  @endif
-                              @else
-                                <button type="button" class="btn btn-gray btn-sm" title="ไม่มีข้อมูล">
-                                  <i class="fa fa-question-circle prem"></i> ไม่มีข้อมูล
-                                </button>
-                              @endif
+                                 @endif
+                               @else
+                                 <button type="button" class="btn btn-gray btn-sm" title="ไม่มีข้อมูล">
+                                   <i class="fa fa-question-circle prem"></i> ไม่มีข้อมูล
+                                 </button>
+                               @endif
                             </td>
                             <td class="text-center">
                               @php
