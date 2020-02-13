@@ -475,7 +475,7 @@
                                            <span class="glyphicon glyphicon-thumbs-down prem"></span> ขาดชำระ
                                          </button>
                                        @else
-                                         <button type="button" class="btn btn-success btn-sm" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
+                                         <button type="button" class="btn btn-info btn-sm" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
                                            <span class="glyphicon glyphicon-thumbs-up prem"></span> ชำระปกติ
                                          </button>
                                        @endif

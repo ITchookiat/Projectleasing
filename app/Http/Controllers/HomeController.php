@@ -62,10 +62,6 @@ class HomeController extends Controller
                   ->where('homecardetails.dateapp_HC','<>',Null)
                   ->count();
 
-        $datalegis = DB::table('legislations')
-                  ->join('legiscourts','legislations.id','=','legiscourts.legislation_id')
-                  ->count();
-
         $datamassage = DB::connection('ibmi')
                   ->table('SFHP.ARMAST')
                   ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
@@ -93,8 +89,23 @@ class HomeController extends Controller
                   // ->whereBetween('holdcars.Date_hold',[$date,$date])
                   ->count();
 
+        $legisCourt = DB::table('legislations')
+                    // ->where('legislations.Flag_status','=',1)
+                    ->count();
 
-        return view($name, compact('datafinance','datahomecar','datalegis','datafollow','datamassage','datanotice','datastock'));
+        $legisCourt2 = DB::table('legislations')
+                    ->where('legislations.Flag_status','=',2)
+                    ->count();
+
+        $LegisAsset = DB::table('legisassets')
+                    ->count();
+
+        $LegisCompro = DB::table('Legiscompromises')
+                    ->count();
+
+
+        return view($name, compact('datafinance','datahomecar','datafollow','datamassage','datanotice','datastock',
+                                   'legisCourt','legisCourt2','LegisAsset','LegisCompro'));
     }
 
 // 2015:{12:[ดอกเบี้ย],18:[ดอกเบี้ย]}

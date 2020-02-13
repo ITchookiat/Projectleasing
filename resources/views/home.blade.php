@@ -301,18 +301,78 @@
               <div class="info-box bg-red">
                 <span class="info-box-icon bg-red">
                   <span class="info-box-icon">
-                    <a href="{{ route('legislation',2) }}" class="a1"><i class="fa fa-bank"></i></a>
+                    <a href="{{ route('legislation',6) }}" class="a1"><i class="fa fa-address-book-o"></i></a>
                   </span>
                 </span>
                 <div class="info-box-content">
                   <span class="info-box-text"><br /></span>
-                  <span class="info-box-number">งานฟ้อง</span>
+                  <span class="info-box-number">ลูกหนี้เตรียมฟ้อง</span>
 
                   <div class="progress">
                     <div class="progress-bar" style="width: 100%"></div>
                   </div>
                     <span class="progress-description">
-                      จำนวนที่ส่งฟ้อง {{ $datalegis }} ราย
+                      จำนวนที่ส่งฟ้อง {{ $legisCourt }} ราย
+                    </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <div class="info-box bg-red">
+                <span class="info-box-icon bg-red">
+                  <span class="info-box-icon">
+                    <a href="{{ route('legislation',2) }}" class="a1"><i class="fa fa-bank"></i></a>
+                  </span>
+                </span>
+                <div class="info-box-content">
+                  <span class="info-box-text"><br /></span>
+                  <span class="info-box-number">ลูกหนี้ฟ้อง</span>
+
+                  <div class="progress">
+                    <div class="progress-bar" style="width: 100%"></div>
+                  </div>
+                    <span class="progress-description">
+                      จำนวนที่ส่งฟ้อง {{ $legisCourt2 }} ราย
+                    </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <div class="info-box bg-red">
+                <span class="info-box-icon bg-red">
+                  <span class="info-box-icon">
+                    <a href="{{ route('legislation',8) }}" class="a1"><i class="fa fa-map"></i></a>
+                  </span>
+                </span>
+                <div class="info-box-content">
+                  <span class="info-box-text"><br /></span>
+                  <span class="info-box-number">ลูกหนี้สืบทรัพย์</span>
+
+                  <div class="progress">
+                    <div class="progress-bar" style="width: 100%"></div>
+                  </div>
+                    <span class="progress-description">
+                      จำนวนที่ส่งฟ้อง {{ $LegisAsset }} ราย
+                    </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <div class="info-box bg-red">
+                <span class="info-box-icon bg-red">
+                  <span class="info-box-icon">
+                    <a href="{{ route('legislation',7) }}" class="a1"><i class="fa fa-balance-scale"></i></a>
+                  </span>
+                </span>
+                <div class="info-box-content">
+                  <span class="info-box-text"><br /></span>
+                  <span class="info-box-number">ลูกหนี้ประนอมหนี้</span>
+
+                  <div class="progress">
+                    <div class="progress-bar" style="width: 100%"></div>
+                  </div>
+                    <span class="progress-description">
+                      จำนวนที่ส่งฟ้อง {{ $LegisCompro }} ราย
                     </span>
                 </div>
               </div>
