@@ -438,6 +438,10 @@
                                            <i class="fa fa-clock-o prem"></i> รอสืบทรัพย์
                                          </button>
                                        @endif
+                                     @else
+                                     <button type="button" class="btn btn-gray btn-sm" title="ไม่มีการอัพเดต">
+                                       <i class="fa fa-hourglass-half prem"></i> ไม่มีการอัพเดต
+                                     </button>
                                      @endif
                                    @elseif($row->sendsequester_asset == "เจอ")
                                      <button type="button" class="btn btn-success btn-sm" title="สืบทรัพย์เจอ">
@@ -453,18 +457,22 @@
                                      <button type="button" class="btn btn-success btn-sm" title="มีทรัพย์">
                                        <i class="fa fa-check-square-o prem"></i> มีทรัพย์
                                      </button>
-                                    @elseif($row->propertied_asset == "N")
-                                      @if($Newdate <= $Getdate)
-                                        @if($DateEx->days <= 7)
-                                          <button type="button" class="btn btn-danger btn-sm" title="สืบทรัพย์ {{DateThai($row->sequester_asset)}}">
-                                            <span class="fa fa-bell text-white prem"> สืบทรัพย์ {{ $DateEx->days }} วัน</span>
-                                          </button>
-                                        @else
-                                          <button type="button" class="btn btn-warning btn-sm" title="รอสืบทรัพย์ {{DateThai($row->sequester_asset)}}">
-                                            <i class="fa fa-clock-o text-white prem"></i> รอสืบทรัพย์
-                                          </button>
-                                        @endif
-                                      @endif
+                                     @elseif($row->propertied_asset == "N")
+                                       @if($Newdate <= $Getdate)
+                                         @if($DateEx->days <= 7)
+                                           <button type="button" class="btn btn-danger btn-sm" title="สืบทรัพย์ {{DateThai($row->sequester_asset)}}">
+                                             <span class="fa fa-bell text-white prem"> สืบทรัพย์ {{ $DateEx->days }} วัน</span>
+                                           </button>
+                                         @else
+                                           <button type="button" class="btn btn-warning btn-sm" title="รอสืบทรัพย์ {{DateThai($row->sequester_asset)}}">
+                                             <i class="fa fa-clock-o text-white prem"></i> รอสืบทรัพย์
+                                           </button>
+                                         @endif
+                                       @else
+                                         <button type="button" class="btn btn-gray btn-sm prem" title="ไม่มีวันที่สืบทรัพย์">
+                                           <span class="fa fa-hourglass-half active"> ไม่มีการอัพเดต </span>
+                                         </button>
+                                       @endif
                                     @endif
                                  @endif
                                @else
@@ -753,7 +761,7 @@
                           <th class="text-center">ลำดับ</th>
                           <th class="text-center">เลขที่สัญญา</th>
                           <th class="text-center">ชื่อ-สกุล</th>
-                          <th class="text-center">วันที่ทำสัญญา</th>
+                          <th class="text-center">วันทีส่งทนาย</th>
                           <th class="text-center">ค้างงวด</th>
                           <th class="text-center">ระยะเวลา</th>
                           <th class="text-center">หมายเหตุ</th>
@@ -767,7 +775,11 @@
                             <td class="text-center"> {{$key+1}} </td>
                             <td class="text-center"> {{$row->Contract_legis}}</a></td>
                             <td class="text-center"> {{$row->Name_legis}} </td>
-                            <td class="text-center"> {{ DateThai($row->DateDue_legis) }} </td>
+                            <td class="text-center">
+                              @if($row->Datesend_Flag != Null)
+                                {{ DateThai($row->Datesend_Flag) }}
+                              @endif
+                            </td>
                             <td class="text-center">
                               @php
                                  $StrCon = explode("/",$row->Contract_legis);
@@ -1076,6 +1088,10 @@
                                            <i class="fa fa-clock-o prem"></i> รอสืบทรัพย์
                                          </button>
                                        @endif
+                                     @else
+                                     <button type="button" class="btn btn-gray btn-sm prem" title="ไม่มีการอัพเดต">
+                                       <span class="fa fa-hourglass-half active"> ไม่มีการอัพเดต </span>
+                                     </button>
                                      @endif
                                    @elseif($row->sendsequester_asset == "เจอ")
                                      <button type="button" class="btn btn-success btn-sm" title="สืบทรัพย์เจอ">
@@ -1102,6 +1118,10 @@
                                             <i class="fa fa-clock-o text-white prem"></i> รอสืบทรัพย์
                                           </button>
                                         @endif
+                                      @else
+                                        <button type="button" class="btn btn-gray btn-sm prem" title="ไม่มีวันที่สืบทรัพย์">
+                                          <span class="fa fa-hourglass-half active"> ไม่มีการอัพเดต </span>
+                                        </button>
                                       @endif
                                     @endif
                                  @endif

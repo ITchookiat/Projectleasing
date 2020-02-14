@@ -124,7 +124,7 @@
                               <button type="submit" class="btn btn-app" style="background-color:#189100; color:#FFFFFF;">
                                 <span class="glyphicon glyphicon-floppy-save"></span> อัพเดท
                               </button>
-                              <a class="btn btn-app" href="{{ URL::previous() }}" style="background-color:#DB0000; color:#FFFFFF;">
+                              <a class="btn btn-app" href="{{ route('legislation',7) }}" style="background-color:#DB0000; color:#FFFFFF;">
                                 <span class="glyphicon glyphicon-remove"></span> ยกเลิก
                               </a>
                             </div>

@@ -145,7 +145,7 @@
                             <button type="submit" class="btn btn-app" style="background-color:#189100; color:#FFFFFF;">
                               <span class="glyphicon glyphicon-floppy-save"></span> อัพเดท
                             </button>
-                            <a class="btn btn-app" href="javascript:window.history.go(-1)" style="background-color:#DB0000; color:#FFFFFF;">
+                            <a class="btn btn-app" href="{{ route('legislation',8) }}" style="background-color:#DB0000; color:#FFFFFF;">
                               <span class="glyphicon glyphicon-remove"></span> ยกเลิก
                             </a>
                           </div>
@@ -159,6 +159,26 @@
                         <span class="progress-description">
                         </span>
                       </div>
+
+                      <script>
+                          function adds(nStr){
+                             nStr += '';
+                             x = nStr.split('.');
+                             x1 = x[0];
+                             x2 = x.length > 1 ? '.' + x[1] : '';
+                             var rgx = /(\d+)(\d{3})/;
+                             while (rgx.test(x1)) {
+                               x1 = x1.replace(rgx, '$1' + ',' + '$2');
+                              }
+                            return x1 + x2;
+                          }
+                          function Comma(){
+                            var num11 = document.getElementById('Priceasset').value;
+                            var num1 = num11.replace(",","");
+
+                            document.form1.Priceasset.value = adds(num1);
+                          }
+                      </script>
 
                       <h4 class="card-title p-3" align="left"><b>ขั้นตอนสืบทรัพย์</b></h4>
                       <div class="box box-primary box-solid">
@@ -203,6 +223,8 @@
                                       <option value="ไม่เจอ" {{ ($data->sendsequester_asset === 'ไม่เจอ') ? 'selected' : '' }}>ไม่เจอ</option>
                                       <option value="หมดอายุความ" {{ ($data->sendsequester_asset === 'หมดอายุความ') ? 'selected' : '' }}>หมดอายุความ</option>
                                     </select>
+                                    ค่าใช้จ่าย
+                                    <input type="text" id="Priceasset" name="Priceasset" class="form-control" value="{{ number_format($data->Price_asset) }}" oninput="Comma();"/>
                                     วันที่สืบทรัพย์ใหม่
                                     <input type="date" id="NewpursueDateasset" name="NewpursueDateasset" class="form-control" value="{{ $data->NewpursueDate_asset }}"/>
                                   </div>

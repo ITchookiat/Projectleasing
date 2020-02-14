@@ -175,7 +175,7 @@ class LegislationController extends Controller
         $data = DB::table('legislations')
                   ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
                   ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
-                  ->orderBy('legislations.id', 'ASC')
+                  ->orderBy('legislations.id', 'DESC')
                   ->get();
 
         $type = $request->type;
@@ -512,6 +512,14 @@ class LegislationController extends Controller
                   ->where('SFHP.VIEW_ARMGAR.CONTNO','=', $SetStrConn)
                   ->first();
 
+        if ($dataGT == Null) {
+          $SetGTName = Null;
+          $SetGTIDNO = Null;
+        }else {
+          $SetGTName = (iconv('Tis-620','utf-8',$dataGT->NAME));
+          $SetGTIDNO = (str_replace(" ","",$dataGT->IDNO));
+        }
+
         $LegisDB = new Legislation([
           'Date_legis' => $date,
           'KeyCourts_id' => Null,
@@ -526,8 +534,8 @@ class LegislationController extends Controller
           'DateDue_legis' => $data->FDATE,
           'Pay_legis' => $data->NCARCST,
           'DateVAT_legis' => $data->DTSTOPV,
-          'NameGT_legis' => (iconv('Tis-620','utf-8',$dataGT->NAME)),
-          'IdcardGT_legis' => (str_replace(" ","",$dataGT->IDNO)),
+          'NameGT_legis' => $SetGTName,
+          'IdcardGT_legis' => $SetGTIDNO,
           'Realty_legis' => $SetRealty,
 
           'Mile_legis' => $data->MILERT,
@@ -980,12 +988,14 @@ class LegislationController extends Controller
         $data = DB::table('legisassets')
                   ->where('legisassets.legisAsset_id', $id)->first();
 
+        $SetPriceasset = str_replace (",","",$request->get('Priceasset'));
+
         if ($data == Null) {
             $LegisAsset = new legisasset([
               'legisAsset_id' => $id,
               'Date_asset' => $request->get('Dateasset'),
               'Status_asset' => $request->get('statusasset'),
-              'Price_asset' => Null,
+              'Price_asset' => $SetPriceasset,
               'propertied_asset' => $request->get('radio_propertied'),
               'sequester_asset' =>  $request->get('sequesterasset'),
               'sendsequester_asset' => $request->get('sendsequesterasset'),
@@ -1010,7 +1020,7 @@ class LegislationController extends Controller
           $LegisAsset = legisasset::where('legisAsset_id',$id)->first();
             $LegisAsset->Date_asset = $request->get('Dateasset');
             $LegisAsset->Status_asset = $request->get('statusasset');
-            $LegisAsset->Price_asset = Null;
+            $LegisAsset->Price_asset = $SetPriceasset;
             $LegisAsset->propertied_asset = $request->get('radio_propertied');
             $LegisAsset->sequester_asset = $request->get('sequesterasset');
             $LegisAsset->sendsequester_asset = $request->get('sendsequesterasset');
@@ -1127,15 +1137,10 @@ class LegislationController extends Controller
      {
        // dd( $id, $type,$request->get('Flag'));
        if ($type == 6) {     //ข้อมูลผู้เช่าซื้อจากฝ่ายวิเคราะห์
-         $nowday = date('Y-m-d');
          $user = Legislation::find($id);
                $user->Flag_status = $request->get('Flag');
-               $user->Datesend_Flag = $nowday;
+               $user->Datesend_Flag = date('Y-m-d');
          $user->update();
-
-         $data = DB::table('legiscourts')
-                  ->where('legislation_id', '=', $id)
-                  ->count();
 
          $Legiscourt = new Legiscourt([
            'legislation_id' => $id,
@@ -1168,7 +1173,6 @@ class LegislationController extends Controller
            'longitude_court' =>  Null,
          ]);
          $Legiscourt->save();
-
 
          $Legiscourtcase = new Legiscourtcase([
            'legislation_id' => $id,
