@@ -25,7 +25,7 @@ $date = date('Y-m-d', strtotime('-1 days'));
     <section class="content-header">
       <h1>
         สินเชื่อ
-        <small>it all starts here</small>
+        <!-- <small>it all starts here</small> -->
         @if(auth::user()->type == 1 or auth::user()->type == 2)
           <button class="btn btn-gray pull-right">
             ค่าคอม: <font color="red">{{ number_format($SumCommitprice) }}</font> บาท
@@ -219,8 +219,17 @@ $date = date('Y-m-d', strtotime('-1 days'));
                               </td>
                               <td class="text-center">
                                 <a target="_blank" href="{{ action('ReportAnalysController@ReportPDFIndex',[$row->id,$type]) }}" class="btn btn-info btn-sm" title="พิมพ์">
-                                  <span class="glyphicon glyphicon-eye-open"></span> พิมพ์
+                                  <span class="glyphicon glyphicon-print"></span> พิมพ์
                                 </a>
+                                @if(auth::user()->type == 3 and $row->StatusApp_car == 'อนุมัติ')
+                                  @if($status != "")
+                                    @php $branch = 'Null'; @endphp
+                                    @php $status = 'Null'; @endphp
+                                  @endif
+                                <a href="{{ action('AnalysController@edit',[$row->id,$type,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
+                                  <span class="glyphicon glyphicon-eye-open"></span> ดู
+                                </a>
+                                @endif
 
                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
                                   @if($branch == "")

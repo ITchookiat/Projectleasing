@@ -77,13 +77,13 @@
                   </button >
                   <p></p>
                   <label>จากวันที่ : </label>
-                  <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($fdate != '') ?$fdate: '' }}" class="form-control" />
+                  <input type="date" name="Fromdate" style="width: 150px;" value="{{ ($fdate != '') ?$fdate: '' }}" class="form-control" />
                   <label>ถึงวันที่ : </label>
-                  <input type="date" name="Todate" style="width: 180px;" value="{{ ($tdate != '') ?$tdate: '' }}" class="form-control" />
+                  <input type="date" name="Todate" style="width: 150px;" value="{{ ($tdate != '') ?$tdate: '' }}" class="form-control" />
                 </div>
                 <div align="right" class="form-inline">
                   <label for="text" class="mr-sm-2">สถานะรถ : </label>
-                  <select name="Statuscar" class="form-control mb-2 mr-sm-2" id="text" style="width: 420px">
+                  <select name="Statuscar" class="form-control mb-2 mr-sm-2" id="text" style="width: 360px">
                     <option selected disabled value="">---เลือกสถานะ---</option>
                       <option value="1" {{ ($Statuscar == '1') ? 'selected' : '' }}> ยึดจากลูกค้าครั้งแรก</otion>
                       <option value="2" {{ ($Statuscar == '2') ? 'selected' : '' }}> ลูกค้ามารับรถคืน</otion>

@@ -258,7 +258,11 @@
       <!-- Default box -->
       <div class="box box-primary box-solid">
         <div class="box-header with-border">
+          @if($data->StatusApp_car != 'อนุมัติ')
           <h4 class="card-title p-3" align="center">แก้ไขข้อมูลสัญญา</h4>
+          @else
+          <h4 class="card-title p-3" align="center">รายละเอียดข้อมูลสัญญา</h4>
+          @endif
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
               <i class="fa fa-minus"></i></button>
@@ -853,32 +857,28 @@
                           <div class="row">
                             <div class="col-md-12">
                               <h3 class="text-center">รูปภาพประกอบ</h3>
+                              @if($data->StatusApp_car != 'อนุมัติ')
                               <div class="form-group">
-                                <div class="file-loading">
-                                  <input id="image-file" type="file" name="file_image[]" accept="image/*" data-min-file-count="1" multiple>
-                                </div>
-                                @if($countImage != 0)
-                                <br/>
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                  <a href="{{ action('AnalysController@deleteImageAll',$data->id) }}" class="btn btn-danger pull-left" title="ลบรูปทั้งหมด" onclick="return confirm('คุณต้องการลบรูปทั้งหมดหรือไม่?')"> ลบรูปทั้งหมด..</a>
-                                  <a href="{{ action('AnalysController@deleteImageEach',[$data->id,$type,$fdate,$tdate,$branch,$status]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
-                                  <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ..
-                                  </a>
-                                  @else
-
-                                  @if($GetDocComplete != Null)
-                                  <a href="{{ action('AnalysController@deleteImageEach',[$data->id,$type,$fdate,$tdate,$branch,$status]) }}" class="btn btn-danger pull-right disabled" title="การจัดการรูป">
-                                  <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ..
-                                  </a>
-                                  @else
-                                  <a href="{{ action('AnalysController@deleteImageEach',[$data->id,$type,$fdate,$tdate,$branch,$status]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
-                                  <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ..
-                                  </a>
-                                  @endif
-
-                                 @endif
-                                @endif
+                                  <div class="file-loading">
+                                    <input id="image-file" type="file" name="file_image[]" accept="image/*" data-min-file-count="1" multiple>
+                                  </div>
+                                        @if($countImage != 0)
+                                          <br/>
+                                          @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                          <a href="{{ action('AnalysController@deleteImageAll',$data->id) }}" class="btn btn-danger pull-left" title="ลบรูปทั้งหมด" onclick="return confirm('คุณต้องการลบรูปทั้งหมดหรือไม่?')"> ลบรูปทั้งหมด..</a>
+                                          <a href="{{ action('AnalysController@deleteImageEach',[$data->id,$type,$fdate,$tdate,$branch,$status]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
+                                          <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ..
+                                          </a>
+                                          @else
+                                            @if($GetDocComplete == Null)
+                                            <a href="{{ action('AnalysController@deleteImageEach',[$data->id,$type,$fdate,$tdate,$branch,$status]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
+                                            <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ..
+                                            </a>
+                                            @endif
+                                          @endif
+                                        @endif
                               </div>
+                              @endif
                             </div>
                           </div>
                           <br/>
@@ -2128,7 +2128,8 @@
                   </div>
 
                   <br>
-                   @if(auth::user()->type == 1 or auth::user()->type == 2)
+                  @if($data->StatusApp_car != 'อนุมัติ')
+                    @if(auth::user()->type == 1 or auth::user()->type == 2)
                     <table class="table table-bordered" id="table" border="3" align="center" style="width: 50%;" align="center">
                       <thead class="thead-dark">
                         <tr>
@@ -2182,41 +2183,47 @@
                         </tr>
                       </tbody>
                     </table>
-                  @else
-                    <table class="table table-bordered" id="table" border="3" align="center" style="width: 30%;" align="center">
-                      <thead class="thead-dark">
-                        <tr>
-                          <th class="text-center"><font color="red"><h3>เอกสารครบ</h3></font></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th class="text-center">
-                            <p></p>
-                            <label class="con">
-                              @if ( $data->DocComplete_car != Null)
-                                <input type="checkbox" class="checkbox" checked="checked" disabled> <!-- checked="checked"  -->
-                                <input type="hidden" class="checkbox" name="doccomplete" id="" value="{{ $data->DocComplete_car }}"> <!-- checked="checked"  -->
-                              @else
-                                <input type="checkbox" class="checkbox" name="doccomplete" id="" value="{{ auth::user()->name }}">
-                              @endif
-                            <span class="checkmark"></span>
-                            <p></p>
-                            </label>
-                          </th>
-                        </tr>
-                      </tbody>
-                    </table>
+                    @else
+                      <table class="table table-bordered" id="table" border="3" align="center" style="width: 30%;" align="center">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th class="text-center"><font color="red"><h3>เอกสารครบ</h3></font></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th class="text-center">
+                              <p></p>
+                              <label class="con">
+                                @if ( $data->DocComplete_car != Null)
+                                  <input type="checkbox" class="checkbox" checked="checked" disabled> <!-- checked="checked"  -->
+                                  <input type="hidden" class="checkbox" name="doccomplete" id="" value="{{ $data->DocComplete_car }}"> <!-- checked="checked"  -->
+                                @else
+                                  <input type="checkbox" class="checkbox" name="doccomplete" id="" value="{{ auth::user()->name }}">
+                                @endif
+                              <span class="checkmark"></span>
+                              <p></p>
+                              </label>
+                            </th>
+                          </tr>
+                        </tbody>
+                      </table>
+                    @endif
                   @endif
                   <br>
                   <div class="form-group" align="center">
+                    @if($data->StatusApp_car != 'อนุมัติ')
                     <button type="submit" class="delete-modal btn btn-success">
                       <span class="glyphicon glyphicon-floppy-save"></span> อัพเดท
                     </button>
-                    <!-- <a class="delete-modal btn btn-danger" href="{{ URL::previous() }}"> -->
                     <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}">
                       <span class="glyphicon glyphicon-remove"></span> ยกเลิก
                     </a>
+                    @else
+                    <a class="delete-modal btn btn-danger" href="{{ URL::previous() }}">
+                      <span class="glyphicon glyphicon-arrow-left"></span> ย้อนกลับ
+                    </a>
+                    @endif
                   </div>
                   <input type="hidden" name="_method" value="PATCH"/>
 
