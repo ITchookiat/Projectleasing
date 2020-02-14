@@ -34,7 +34,7 @@
   <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
 
-    <section class="content-header">
+    <!-- <section class="content-header">
       @if($type == 3)
       <h1>
         สินเชื่อ
@@ -47,7 +47,7 @@
         <small>it all starts here</small>
       </h1>
     </section>
-      @endif
+      @endif -->
 
     <!-- Main content -->
     <section class="content">

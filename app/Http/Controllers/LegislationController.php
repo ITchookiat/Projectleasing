@@ -1208,9 +1208,18 @@ class LegislationController extends Controller
         $item6->Delete();
       }
       elseif ($type == 2) { //ลบตาราง Payment
-        $item = legispayment::where('Payment_id',$id);
 
+        $item1 = legispayment::where('Payment_id',$id)->first();
+        $dataFind = DB::table('legiscompromises')
+        ->where('Promise_id','=', $item1->legis_Com_Payment_id)->first();
+        $total = $dataFind->Sum_Promise + $item1->Gold_Payment;
+        $Legiscom = Legiscompromise ::find($item1->legis_Com_Payment_id);
+        $Legiscom->Sum_Promise = $total;
+        $Legiscom->update();
+
+        $item = legispayment::where('Payment_id',$id);
         $item->Delete();
+
       }
       return redirect()->back()->with('success','ลบข้อมูลเรียบร้อย');
     }

@@ -110,15 +110,15 @@
                   </button >
                   <p></p>
                   <label>จากงวดที่ : </label>
-                  <input type="text" name="Fromstart" style="width: 180px;" value="{{ ($fstart != '') ?$fstart: '' }}" class="form-control" />
+                  <input type="text" name="Fromstart" style="width: 165px;" value="{{ ($fstart != '') ?$fstart: '' }}" class="form-control" />
                   <label>ถึงงวดที่ : </label>
-                  <input type="text" name="Toend" style="width: 180px;" value="{{ ($tend != '') ?$tend: '' }}" class="form-control" />
+                  <input type="text" name="Toend" style="width: 165px;" value="{{ ($tend != '') ?$tend: '' }}" class="form-control" />
                 </div>
                 <div align="right" class="form-inline">
                 <label>จากวันที่ : </label>
-                <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($fdate != '') ?$fdate: '' }}" class="form-control" />
+                <input type="date" name="Fromdate" style="width: 165px;" value="{{ ($fdate != '') ?$fdate: '' }}" class="form-control" />
                 <label>&nbsp;&nbsp;ถึงวันที่ : </label>
-                <input type="date" name="Todate" style="width: 180px;" value="{{ ($tdate != '') ?$tdate: '' }}" class="form-control" />
+                <input type="date" name="Todate" style="width: 165px;" value="{{ ($tdate != '') ?$tdate: '' }}" class="form-control" />
               </div>
               </form>
             @elseif($type == 4) {{-- ระบบ ปล่อยงานโนติส --}}
