@@ -110,8 +110,8 @@
                             <th class="text-center" width="70px">วันที่ยึด</th>
                             <th class="text-center">ทีมยึด</th>
                             <th class="text-center">ค่ายึด</th>
-                            <th class="text-center">รายละเอียด</th>
-                            <th class="text-center" width="120px">สถานะ</th>
+                            <th class="text-center" width="120px">รายละเอียด</th>
+                            <th class="text-center" width="90px">สถานะ</th>
                             <th class="text-center" width="100px">ตัวเลือก</th>
                           </tr>
                         </thead>
