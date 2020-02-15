@@ -221,7 +221,7 @@ $date = date('Y-m-d', strtotime('-1 days'));
                                 <a target="_blank" href="{{ action('ReportAnalysController@ReportPDFIndex',[$row->id,$type]) }}" class="btn btn-info btn-sm" title="พิมพ์">
                                   <span class="glyphicon glyphicon-print"></span> พิมพ์
                                 </a>
-                                @if(auth::user()->type == 3 and $row->StatusApp_car == 'อนุมัติ')
+                                @if(auth::user()->type == 3 or $row->StatusApp_car == 'อนุมัติ')
                                   @if($status != "")
                                     @php $branch = 'Null'; @endphp
                                     @php $status = 'Null'; @endphp

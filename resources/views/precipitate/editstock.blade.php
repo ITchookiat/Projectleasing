@@ -261,14 +261,14 @@
                   <div class="col-md-5">
                     <div class="form-inline" align="right">
                     <label>วันที่เช็คต้นทุน : </label>
-                    <input type="date" name="DatecheckCapital" class="form-control" style="width: 250px;">
+                    <input type="date" name="DatecheckCapital" class="form-control" style="width: 250px;" value="{{ $data->Datecheck_Capital }}">
                     </div>
                   </div>
 
                   <div class="col-md-6">
                     <div class="form-inline" align="right">
                     <label>วันที่ส่งรถบ้าน : </label>
-                    <input type="date" name="DatesendStockhome" class="form-control" style="width: 250px;">
+                    <input type="date" name="DatesendStockhome" class="form-control" style="width: 250px;" value="{{ $data->Datesend_Stockhome }}">
                     </div>
                   </div>
 
@@ -278,14 +278,14 @@
                   <div class="col-md-5">
                     <div class="form-inline" align="right">
                     <label>วันที่ส่งจดหมาย : </label>
-                    <input type="date" name="DatesendLetter" class="form-control" style="width: 250px;">
+                    <input type="date" name="DatesendLetter" class="form-control" style="width: 250px;" value="{{ $data->Datesend_Letter }}">
                     </div>
                   </div>
 
                   <div class="col-md-6">
                     <div class="form-inline" align="right">
                     <label>เลขบาร์โค๊ด : </label>
-                    <input type="text" name="BarcodeNo" class="form-control" style="width: 250px;" placeholder="ป้อนเลขบาร์โค๊ด">
+                    <input type="text" name="BarcodeNo" class="form-control" style="width: 250px;" placeholder="ป้อนเลขบาร์โค๊ด" value="{{ $data->Barcode_No }}">
                     </div>
                   </div>
 
