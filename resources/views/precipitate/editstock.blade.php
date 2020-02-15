@@ -298,7 +298,7 @@
                     @if($data->Capital_Account == Null)
                     <input type="text" id="CapitalAccount" name="CapitalAccount" class="form-control" style="width: 250px;" placeholder="ป้อนต้นทุนบัญชี" oninput="comma();">
                     @else
-                    <input type="text" id="CapitalAccount" name="CapitalAccount" class="form-control" style="width: 250px;" oninput="comma();" value="{{ $data->Capital_Account }}">
+                    <input type="text" id="CapitalAccount" name="CapitalAccount" class="form-control" style="width: 250px;" oninput="comma();" value="{{ number_format($data->Capital_Account,2) }}">
                     @endif
                     </div>
                   </div>
@@ -309,7 +309,7 @@
                     @if($data->Capital_Topprice == Null)
                     <input type="text" id="CapitalTopprice" name="CapitalTopprice" class="form-control" style="width: 250px;" placeholder="ป้อนต้นทุนยอดจัด" oninput="comma();">
                     @else
-                    <input type="text" id="CapitalTopprice" name="CapitalTopprice" class="form-control" style="width: 250px;" oninput="comma();" value="{{ $data->Capital_Topprice }}">
+                    <input type="text" id="CapitalTopprice" name="CapitalTopprice" class="form-control" style="width: 250px;" oninput="comma();" value="{{ number_format($data->Capital_Topprice,2) }}">
                     @endif
                     </div>
                   </div>
