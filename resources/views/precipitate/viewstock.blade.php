@@ -105,14 +105,14 @@
                             <th class="text-center">เลขที่สัญญา</th>
                             <th class="text-center">ชื่อ-สกุล</th>
                             <!-- <th class="text-center">ยี่ห้อ</th> -->
-                            <th class="text-center">ทะเบียน</th>
+                            <th class="text-center" width="70px">ทะเบียน</th>
                             <!-- <th class="text-center">ปีรถ</th> -->
-                            <th class="text-center">วันที่ยึด</th>
+                            <th class="text-center" width="70px">วันที่ยึด</th>
                             <th class="text-center">ทีมยึด</th>
                             <th class="text-center">ค่ายึด</th>
-                            <th class="text-center">รายละเอียด</th>
-                            <th class="text-center">สถานะ</th>
-                            <th class="text-center">ตัวเลือก</th>
+                            <th class="text-center" width="150px">รายละเอียด</th>
+                            <th class="text-center" width="110px">สถานะ</th>
+                            <th class="text-center" width="100px">ตัวเลือก</th>
                           </tr>
                         </thead>
                         <tbody>

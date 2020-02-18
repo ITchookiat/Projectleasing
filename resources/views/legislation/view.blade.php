@@ -1412,32 +1412,6 @@
             </div>
           </div>
 
-          <!-- Popup -->
-          <!-- <script type="text/javascript">
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $(".btn-submit").click(function(e){
-                e.preventDefault();
-                // var name = $("input[name=name]").val();
-                // var password = $("input[name=password]").val();
-                // var Getid = $("input[Getid=Getid]").val();
-
-                $.ajax({
-                   type:'POST',
-                   url:"{{ route('legislation.update',[00, 4]) }}",
-                   data: $("form#sample_tab1").serialize(),
-                   // data:{name:name, password:password, email:email},
-                   success:function(data){
-                      $('#TotalPromise').val(data.Total_Promise);
-                      $('#PayallPromise').val(data.Payall_Promise);
-                      console.log(data.success);
-                   }
-                });
-      	     });
-          </script> -->
 
           @if($type == 1 or $type == 6 or $type == 7 or $type == 8)
             <script type="text/javascript">
