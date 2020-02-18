@@ -2128,7 +2128,6 @@
                   </div>
 
                   <br>
-                  @if($data->StatusApp_car != 'อนุมัติ')
                     @if(auth::user()->type == 1 or auth::user()->type == 2)
                     <table class="table table-bordered" id="table" border="3" align="center" style="width: 50%;" align="center">
                       <thead class="thead-dark">
@@ -2209,21 +2208,16 @@
                         </tbody>
                       </table>
                     @endif
-                  @endif
                   <br>
                   <div class="form-group" align="center">
-                    @if($data->StatusApp_car != 'อนุมัติ')
+
                     <button type="submit" class="delete-modal btn btn-success">
                       <span class="glyphicon glyphicon-floppy-save"></span> อัพเดท
                     </button>
                     <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}">
                       <span class="glyphicon glyphicon-remove"></span> ยกเลิก
                     </a>
-                    @else
-                    <a class="delete-modal btn btn-danger" href="{{ URL::previous() }}">
-                      <span class="glyphicon glyphicon-arrow-left"></span> ย้อนกลับ
-                    </a>
-                    @endif
+
                   </div>
                   <input type="hidden" name="_method" value="PATCH"/>
 

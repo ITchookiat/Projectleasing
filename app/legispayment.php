@@ -8,7 +8,7 @@ class legispayment extends Model
 {
   protected $table = 'legispayments';
   protected $primaryKey = 'legis_Com_Payment_id';
-  protected $fillable = ['legis_Com_Payment_id','Date_Payment','Gold_Payment','Type_Payment','Adduser_Payment','Note_Payment','Flag_Payment'];
+  protected $fillable = ['legis_Com_Payment_id','Date_Payment','Gold_Payment','Type_Payment','Adduser_Payment','Note_Payment','Flag_Payment','Jobnumber_Payment'];
 
   public function legislationPayment()
   {
