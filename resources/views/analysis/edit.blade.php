@@ -317,9 +317,13 @@
                                     <input type="text" name="Contract_buyer" class="form-control" maxlength="12"  style="width: 250px;" value="{{ $data->Contract_buyer }}" />
                                   @else
                                     @if($GetDocComplete != Null)
-                                      <input type="text" name="Contract_buyer" maxlength="8" class="form-control" data-inputmask="&quot;mask&quot;:&quot;99-9999/&quot;" data-mask="" style="width: 250px;" value="{{ $data->Contract_buyer }}" readonly/>
+                                      <input type="text" name="Contract_buyer" class="form-control" style="width: 250px;" value="{{ $data->Contract_buyer }}" readonly/>
                                     @else
-                                      <input type="text" name="Contract_buyer" maxlength="8" class="form-control" data-inputmask="&quot;mask&quot;:&quot;99-9999/&quot;" data-mask="" style="width: 250px;" value="{{ $data->Contract_buyer }}"/>
+                                        @if($data->StatusApp_car == 'อนุมัติ')
+                                          <input type="text" name="Contract_buyer" class="form-control" style="width: 250px;" value="{{ $data->Contract_buyer }}"/>
+                                        @else
+                                          <input type="text" name="Contract_buyer" maxlength="8" class="form-control" data-inputmask="&quot;mask&quot;:&quot;99-9999/&quot;" data-mask="" style="width: 250px;" value="{{ $data->Contract_buyer }}"/>
+                                        @endif
                                     @endif
                                   @endif
                                 </div>
@@ -857,45 +861,39 @@
                           <div class="row">
                             <div class="col-md-12">
                               <h3 class="text-center">รูปภาพประกอบ</h3>
-                                @if($data->StatusApp_car != 'อนุมัติ')
+
                                 <div class="form-group">
-                                  <div class="file-loading">
-                                    <input id="image-file" type="file" name="file_image[]" accept="image/*" data-min-file-count="1" multiple>
-                                  </div>
-                                        @if($countImage != 0)
-                                          <br/>
-                                          @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                          <a href="{{ action('AnalysController@deleteImageAll',$data->id) }}" class="btn btn-danger pull-left" title="ลบรูปทั้งหมด" onclick="return confirm('คุณต้องการลบรูปทั้งหมดหรือไม่?')"> ลบรูปทั้งหมด..</a>
-                                          <a href="{{ action('AnalysController@deleteImageEach',[$data->id,$type,$fdate,$tdate,$branch,$status]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
-                                          <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ..
-                                          </a>
-                                          @else
-                                            @if($GetDocComplete == Null)
-                                            <a href="{{ action('AnalysController@deleteImageEach',[$data->id,$type,$fdate,$tdate,$branch,$status]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
-                                            <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ..
-                                            </a>
-                                            @endif
-                                          @endif
-                                        @endif
-                                </div>
-                                @else
                                   @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                  <div class="file-loading">
-                                    <input id="image-file" type="file" name="file_image[]" accept="image/*" data-min-file-count="1" multiple>
-                                  </div>
-                                  <br/>
-                                  <a href="{{ action('AnalysController@deleteImageAll',$data->id) }}" class="btn btn-danger pull-left" title="ลบรูปทั้งหมด" onclick="return confirm('คุณต้องการลบรูปทั้งหมดหรือไม่?')"> ลบรูปทั้งหมด..</a>
-                                  <a href="{{ action('AnalysController@deleteImageEach',[$data->id,$type,$fdate,$tdate,$branch,$status]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
-                                  <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ..
-                                  </a>
+                                    <div class="file-loading">
+                                      <input id="image-file" type="file" name="file_image[]" accept="image/*" data-min-file-count="1" multiple>
+                                    </div>
                                   @else
-                                    @if($GetDocComplete == Null)
-                                    <a href="{{ action('AnalysController@deleteImageEach',[$data->id,$type,$fdate,$tdate,$branch,$status]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
-                                    <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ..
-                                    </a>
+                                    @if($data->Approvers_car == Null)
+                                      <div class="file-loading">
+                                        <input id="image-file" type="file" name="file_image[]" accept="image/*" data-min-file-count="1" multiple>
+                                      </div>
                                     @endif
                                   @endif
-                                @endif
+
+                                    @if($countImage != 0)
+                                      <br/>
+                                      @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                        <a href="{{ action('AnalysController@deleteImageAll',$data->id) }}" class="btn btn-danger pull-left" title="ลบรูปทั้งหมด" onclick="return confirm('คุณต้องการลบรูปทั้งหมดหรือไม่?')"> ลบรูปทั้งหมด..</a>
+                                        <a href="{{ action('AnalysController@deleteImageEach',[$data->id,$type,$fdate,$tdate,$branch,$status]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
+                                          <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ..
+                                        </a>
+                                      @else
+                                        @if($data->Approvers_car == Null)
+                                          @if($GetDocComplete == Null)
+                                          <a href="{{ action('AnalysController@deleteImageEach',[$data->id,$type,$fdate,$tdate,$branch,$status]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
+                                            <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ..
+                                          </a>
+                                          @endif
+                                        @endif
+                                      @endif
+                                    @endif
+                                </div>
+
                             </div>
                           </div>
                           <br/>
