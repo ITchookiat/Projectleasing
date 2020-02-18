@@ -22,6 +22,7 @@ class CreateLegispaymentsTable extends Migration
             $table->string('Adduser_Payment')->nullable();
             $table->string('Note_Payment')->nullable();
             $table->string('Flag_Payment')->nullable();
+            $table->string('Jobnumber_Payment')->nullable();
             $table->timestamps();
         });
     }

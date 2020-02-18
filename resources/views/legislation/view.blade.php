@@ -90,21 +90,27 @@
                             <th class="text-center" style="width: 10px">ลำดับ</th>
                             <th class="text-center">เลขที่สัญญา</th>
                             <th class="text-center">ชื่อ-สกุล</th>
-                            <th class="text-center">บัตรประชาชน</th>
                             <th class="text-center">วันที่ทำสัญญา</th>
                             <th class="text-center">ยอดคงเหลือ</th>
                             <th class="text-center">สถานะ</th>
                             <th class="text-center">ค้างงวดจริง</th>
-                            <th class="text-center" style="width: 100px">ตัวเลือก</th>
+                            <th class="text-center" style="width: 130px">ตัวเลือก</th>
                           </tr>
                         </thead>
                         <tbody>
-                          @foreach($result as $key => $row)
+                          @foreach($arrayMerge as $key => $row)
                             <tr>
                               <td class="text-center"> {{$key+1}} </td>
-                              <td class="text-center"> {{$row->CONTNO}}</td>
-                              <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->SNAM.$row->NAME1)."   ".str_replace(" ","",$row->NAME2))}} </td>
-                              <td class="text-center"> {{str_replace(" ","",$row->IDNO)}} </td>
+                              <td class="text-center">
+                                {{$row->CONTNO}}
+                                @php
+                                  $StatusCheck = (iconv('TIS-620', 'utf-8', str_replace(" ","",$row->CONTSTAT)));
+                                @endphp
+                                @if($StatusCheck == "ป")
+                                  <span class="label label-warning">ประนอม</span>
+                                @endif
+                              </td>
+                              <td class="text-left">{{iconv('Tis-620','utf-8',str_replace(" ","",$row->SNAM.$row->NAME1)."   ".str_replace(" ","",$row->NAME2))}}</td>
                               <td class="text-center"> {{ DateThai($row->FDATE) }} </td>
                               <td class="text-center"> {{ number_format($row->BALANC - $row->SMPAY, 2) }} </td>
                               <td class="text-center">
@@ -145,29 +151,43 @@
                                    $SetStr2 = $StrCon[1];
 
                                    $Tax = "N";
+                                   $TaxStat = "N";
                                 @endphp
 
-                                @foreach($data as $key => $row1)
+                                @foreach($dataDB as $key => $row1)
                                   @if($row->CONTNO == $row1->Contract_legis)
                                       @if($row1->Flag_status == 1)
-                                      <button class="btn btn-warning btn-sm" title="ขั้นตอนจัดเตรียม">
-                                        <span class="glyphicon glyphicon-time"></span> ขั้นตอนจัดเตรียม
-                                      </button>
+                                        <button class="btn btn-warning btn-sm" title="จัดเตรียมฟ้อง">
+                                          <span class="glyphicon glyphicon-time"></span> เตรียมฟ้อง
+                                        </button>
+                                      @elseif($row1->Flag_status == 3)
+                                        <button class="btn btn-success btn-sm" title="ลูกหนี้ประนอมหนี้">
+                                          <span class="glyphicon glyphicon-lock"></span> ประนอมหนี้
+                                        </button>
                                       @else
-                                      <button class="btn btn-success btn-sm" title="ขั้นตอนการฟ้อง">
-                                        <span class="glyphicon glyphicon-lock"></span> ขั้นตอนการฟ้อง
-                                      </button>
+                                        <button class="btn btn-success btn-sm" title="ขั้นตอนการฟ้อง">
+                                          <span class="glyphicon glyphicon-lock"></span> ลูกหนี้ฟ้อง
+                                        </button>
                                       @endif
                                     @php
                                       $Tax = "Y";
+                                      $TaxStat = "Y";
                                     @endphp
                                   @endif
                                 @endforeach
 
-                                @if($Tax == "N")
-                                  <a href="{{ route('legislation.Savestore', [$SetStr1,$SetStr2,$Realty,1]) }}" id="edit" class="btn btn-danger btn-sm" title="เตรียมเอกสาร">
-                                    <span class="glyphicon glyphicon-edit"></span> เตรียมเอกสาร
-                                  </a>
+                                @if($StatusCheck != "ป")
+                                  @if($Tax == "N")
+                                    <a href="{{ route('legislation.Savestore', [$SetStr1,$SetStr2,$Realty,1]) }}" id="edit" class="btn btn-danger btn-sm" title="จัดเตรียมเอกสาร">
+                                      <span class="glyphicon glyphicon-edit"></span> ส่งเอกสาร
+                                    </a>
+                                  @endif
+                                @else
+                                  @if($TaxStat == "N")
+                                    <a href="{{ route('legislation.Savestore', [$SetStr1,$SetStr2,$Realty,2]) }}" id="edit" class="btn btn-info btn-sm" title="ประนอมหนี้">
+                                      <span class="glyphicon glyphicon-edit"></span> ส่งประนอม
+                                    </a>
+                                  @endif
                                 @endif
                               </td>
                             </tr>
@@ -238,7 +258,11 @@
                             <!-- <td class="text-center"><a href="#" data-toggle="modal" data-target="#modal_default" data-backdrop="static" data-keyboard="false">{{$row->Contract_legis}}</a></td> -->
                             <td class="text-center"> {{$row->Contract_legis}}</a></td>
                             <td class="text-center"> {{$row->Name_legis}} </td>
-                            <td class="text-center"> {{ DateThai($row->Datesend_Flag) }} </td>
+                            <td class="text-center">
+                              @if($row->fillingdate_court != NUll)
+                                {{ DateThai($row->fillingdate_court) }}
+                              @endif
+                            </td>
                             <td class="text-center">
                               @if($row->Status_legis == "จ่ายจบก่อนฟ้อง" or $row->Status_legis == "ยึดรถก่อนฟ้อง" or $row->Status_legis == "ปิดบัญชีประนอมหนี้" or $row->Status_legis == "ยึดรถหลังฟ้อง" or $row->Status_legis == "หมดอายุความคดี")
                                 @php
@@ -439,7 +463,7 @@
                                          </button>
                                        @endif
                                      @else
-                                     <button type="button" class="btn btn-gray btn-sm" title="ไม่มีการอัพเดต">
+                                     <button type="button" class="btn btn-gray btn-sm" title="วันสืบทรัพย์ล่าสุด {{DateThai($row->NewpursueDate_asset)}}">
                                        <i class="fa fa-hourglass-half prem"></i> ไม่มีการอัพเดต
                                      </button>
                                      @endif
@@ -492,19 +516,19 @@
                                 </button>
                               @else
                                 @if($row->KeyCompro_id != Null)
-                                  @foreach($ResultPay as $key => $value)
+                                  @foreach($dataPay as $key => $value)
                                     @if($row->legisPromise_id == $value->legis_Com_Payment_id)
-                                       @if($value->Date_Payment < $lastday)
-                                         <button type="button" class="btn btn-danger btn-sm" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
-                                           <span class="glyphicon glyphicon-thumbs-down prem"></span> ขาดชำระ
-                                         </button>
-                                       @else
-                                         <button type="button" class="btn btn-info btn-sm" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
-                                           <span class="glyphicon glyphicon-thumbs-up prem"></span> ชำระปกติ
-                                         </button>
+                                         @if($value->Date_Payment < $lastday)
+                                           <button type="button" class="btn btn-danger btn-sm" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
+                                             <span class="glyphicon glyphicon-thumbs-down prem"></span> ขาดชำระ
+                                           </button>
+                                         @else
+                                           <button type="button" class="btn btn-info btn-sm" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
+                                             <span class="glyphicon glyphicon-thumbs-up prem"></span> ชำระปกติ
+                                           </button>
+                                         @endif
                                        @endif
-                                     @endif
-                                   @endforeach
+                                  @endforeach
                                  @else
                                    <button type="button" class="btn btn-gray btn-sm" title="ไม่มีข้อมูล">
                                      <i class="fa fa-question-circle prem"></i> ไม่มีข้อมูล
@@ -789,11 +813,11 @@
 
                               @foreach($result as $key => $row1)
                                 @if($row->Contract_legis == $row1->CONTNO)
-                                    @if($row->Realperiod_legis < $row1->HLDNO)
+                                  @if($row->Realperiod_legis < $row1->HLDNO)
                                     {{$row1->HLDNO}}
-                                    @else
+                                  @else
                                     {{$row->Realperiod_legis}}
-                                    @endif
+                                  @endif
                                 @endif
                               @endforeach
                             </td>
@@ -871,10 +895,10 @@
                         </select>
                         <br>
                         <label>จากวันที่ : </label>
-                        <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" style="width: 180px;" value="" class="form-control" />
+                        <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" style="width: 180px;" class="form-control" />
 
                         <label>ถึงวันที่ : </label>
-                        <input type="date" name="Todate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" style="width: 180px;" value="" class="form-control" />
+                        <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" style="width: 180px;" class="form-control" />
                       </div>
 
                  </form>
@@ -935,19 +959,19 @@
                                   <span class="glyphicon glyphicon-ok prem"></span> ปิดบัญชี
                                 </button>
                               @else
-                                @foreach($ResultPay as $key => $value)
-                                  @if($row->legisPromise_id == $value->legis_Com_Payment_id)
-                                       @if($value->Date_Payment < $lastday)
-                                       <button type="button" class="btn btn-danger btn-sm" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
-                                         <span class="glyphicon glyphicon-thumbs-down prem"></span> ขาดชำระ
-                                       </button>
-                                       @else
-                                       <button type="button" class="btn btn-info btn-sm" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
-                                         <span class="glyphicon glyphicon-thumbs-up prem"></span> ชำระปกติ
-                                       </button>
+                                  @foreach($dataPay as $key => $value)
+                                    @if($row->legisPromise_id == $value->legis_Com_Payment_id)
+                                         @if($value->Date_Payment < $lastday)
+                                           <button type="button" class="btn btn-danger btn-sm" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
+                                             <span class="glyphicon glyphicon-thumbs-down prem"></span> ขาดชำระ
+                                           </button>
+                                         @else
+                                           <button type="button" class="btn btn-info btn-sm" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
+                                             <span class="glyphicon glyphicon-thumbs-up prem"></span> ชำระปกติ
+                                           </button>
+                                         @endif
                                        @endif
-                                   @endif
-                                 @endforeach
+                                  @endforeach
                                @endif
 
                             </td>
@@ -1089,7 +1113,7 @@
                                          </button>
                                        @endif
                                      @else
-                                     <button type="button" class="btn btn-gray btn-sm prem" title="ไม่มีการอัพเดต">
+                                     <button type="button" class="btn btn-gray btn-sm prem" title="วันสืบทรัพย์ล่าสุด {{DateThai($row->NewpursueDate_asset)}}">
                                        <span class="fa fa-hourglass-half active"> ไม่มีการอัพเดต </span>
                                      </button>
                                      @endif
