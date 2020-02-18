@@ -221,7 +221,7 @@ $date = date('Y-m-d', strtotime('-1 days'));
                                 <a target="_blank" href="{{ action('ReportAnalysController@ReportPDFIndex',[$row->id,$type]) }}" class="btn btn-info btn-sm" title="พิมพ์">
                                   <span class="glyphicon glyphicon-print"></span> พิมพ์
                                 </a>
-                                @if(auth::user()->type == 3 or $row->StatusApp_car == 'อนุมัติ')
+                                @if(auth::user()->type == 3 and $row->StatusApp_car == 'อนุมัติ')
                                   @if($status != "")
                                     @php $branch = 'Null'; @endphp
                                     @php $status = 'Null'; @endphp
@@ -267,15 +267,17 @@ $date = date('Y-m-d', strtotime('-1 days'));
                                 </div>
                               @else
                                 @if($row->DocComplete_car == Null)
-                                <div class="form-inline form-group">
-                                  <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',$row->id) }}">
-                                  {{csrf_field()}}
-                                    <input type="hidden" name="_method" value="DELETE" />
-                                    <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
-                                      <span class="glyphicon glyphicon-trash"></span> ลบ
-                                    </button>
-                                  </form>
-                                </div>
+                                 @if($row->StatusApp_car != 'อนุมัติ')
+                                  <div class="form-inline form-group">
+                                    <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',$row->id) }}">
+                                    {{csrf_field()}}
+                                      <input type="hidden" name="_method" value="DELETE" />
+                                      <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
+                                        <span class="glyphicon glyphicon-trash"></span> ลบ
+                                      </button>
+                                    </form>
+                                  </div>
+                                  @endif
                                 @endif
                               @endif
                               </td>

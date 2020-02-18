@@ -24,6 +24,7 @@ class LegislationController extends Controller
      */
     public function index(Request $request)
     {
+      // ข้อมูลฟ้องจาก ตารางปกติ
       $data = DB::connection('ibmi')
       ->table('SFHP.ARMAST')
       ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
@@ -31,15 +32,15 @@ class LegislationController extends Controller
       ->whereBetween('SFHP.ARMAST.HLDNO',[6.7,99.99])
       ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
       ->get();
-      // dd($data);
-
       $count = count($data);
+
       for($i=0; $i<$count; $i++){
         $str[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$data[$i]->CONTSTAT)));
         if ($str[$i] == "ฟ") {
           $result[] = $data[$i];
         }
       }
+      $countresult = count($result);
 
       if($request->type == 1) {
         $dataAro = DB::connection('ibmi')
@@ -422,6 +423,54 @@ class LegislationController extends Controller
         $type = $request->type;
         return view('legislation.view', compact('type', 'data','result','newfdate','newtdate','SetSelect'));
       }
+      elseif ($request->type == 9){
+        // ข้อมูลฟ้องจาก ตารางปกติ
+        $dataNew = DB::connection('ibmi')
+        ->table('SFHP.ARMAST')
+        ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+        ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+        ->whereBetween('SFHP.ARMAST.HLDNO',[6.7,99.99])
+        ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+        ->get();
+        $count = count($dataNew);
+
+        for($i=0; $i<$count; $i++){
+          $str[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$dataNew[$i]->CONTSTAT)));
+          if ($str[$i] == "ฟ") {
+            $resultNew[] = $dataNew[$i];
+          }
+        }
+        $countresult = count($resultNew);
+
+        // ข้อมูลประนอมจาก ตารางเอ
+        $dataA = DB::connection('ibmi')
+        ->table('ASFHP.ARMAST')
+        ->join('ASFHP.INVTRAN','ASFHP.ARMAST.CONTNO','=','ASFHP.INVTRAN.CONTNO')
+        ->join('ASFHP.VIEW_CUSTMAIL','ASFHP.ARMAST.CUSCOD','=','ASFHP.VIEW_CUSTMAIL.CUSCOD')
+        ->orderBy('ASFHP.ARMAST.CONTNO', 'ASC')
+        ->get();
+        $count2 = count($dataA);
+        for($j=0; $j<$count2; $j++){
+          $strA[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$dataA[$j]->CONTSTAT)));
+          if ($strA[$j] == "ป") {
+            $resultA[] = $dataA[$j];
+          }
+        }
+        $countresultA = count($resultA);
+
+        // ข้อมูลที่เลขสัญญซ้ำกันระหว่าง ตารางปกติกับตารางประนอม
+        for ($k=0; $k < $countresult; $k++) {
+          for ($y=0; $y < $countresultA; $y++) {
+            $strpranom[] = str_replace(" ","",$resultA[$y]->CONTNO);
+            if($result[$k]->CONTNO == $strpranom[$y]){
+              $resultPranomsame[] = $result[$k];
+            }
+          }
+        }
+        $resultPranomsamecount = count($resultPranomsame);
+      }
+      $type = $request->type;
+      return view('legislation.view', compact('type','resultNew','resultA','resultPranomsame'));
     }
 
     /**

@@ -857,8 +857,8 @@
                           <div class="row">
                             <div class="col-md-12">
                               <h3 class="text-center">รูปภาพประกอบ</h3>
-                              @if($data->StatusApp_car != 'อนุมัติ')
-                              <div class="form-group">
+                                @if($data->StatusApp_car != 'อนุมัติ')
+                                <div class="form-group">
                                   <div class="file-loading">
                                     <input id="image-file" type="file" name="file_image[]" accept="image/*" data-min-file-count="1" multiple>
                                   </div>
@@ -877,8 +877,25 @@
                                             @endif
                                           @endif
                                         @endif
-                              </div>
-                              @endif
+                                </div>
+                                @else
+                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  <div class="file-loading">
+                                    <input id="image-file" type="file" name="file_image[]" accept="image/*" data-min-file-count="1" multiple>
+                                  </div>
+                                  <br/>
+                                  <a href="{{ action('AnalysController@deleteImageAll',$data->id) }}" class="btn btn-danger pull-left" title="ลบรูปทั้งหมด" onclick="return confirm('คุณต้องการลบรูปทั้งหมดหรือไม่?')"> ลบรูปทั้งหมด..</a>
+                                  <a href="{{ action('AnalysController@deleteImageEach',[$data->id,$type,$fdate,$tdate,$branch,$status]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
+                                  <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ..
+                                  </a>
+                                  @else
+                                    @if($GetDocComplete == Null)
+                                    <a href="{{ action('AnalysController@deleteImageEach',[$data->id,$type,$fdate,$tdate,$branch,$status]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
+                                    <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ..
+                                    </a>
+                                    @endif
+                                  @endif
+                                @endif
                             </div>
                           </div>
                           <br/>
@@ -2212,7 +2229,7 @@
                   @endif
                   <br>
                   <div class="form-group" align="center">
-                    @if($data->StatusApp_car != 'อนุมัติ')
+                    @if(auth::user()->type == 1 or auth::user()->type == 2)
                     <button type="submit" class="delete-modal btn btn-success">
                       <span class="glyphicon glyphicon-floppy-save"></span> อัพเดท
                     </button>
@@ -2220,9 +2237,18 @@
                       <span class="glyphicon glyphicon-remove"></span> ยกเลิก
                     </a>
                     @else
-                    <a class="delete-modal btn btn-danger" href="{{ URL::previous() }}">
-                      <span class="glyphicon glyphicon-arrow-left"></span> ย้อนกลับ
-                    </a>
+                      @if($data->StatusApp_car != 'อนุมัติ')
+                      <button type="submit" class="delete-modal btn btn-success">
+                        <span class="glyphicon glyphicon-floppy-save"></span> อัพเดท
+                      </button>
+                      <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}">
+                        <span class="glyphicon glyphicon-remove"></span> ยกเลิก
+                      </a>
+                      @else
+                      <a class="delete-modal btn btn-danger" href="{{ URL::previous() }}">
+                        <span class="glyphicon glyphicon-arrow-left"></span> ย้อนกลับ
+                      </a>
+                      @endif
                     @endif
                   </div>
                   <input type="hidden" name="_method" value="PATCH"/>
