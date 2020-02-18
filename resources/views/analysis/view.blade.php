@@ -222,10 +222,8 @@ $date = date('Y-m-d', strtotime('-1 days'));
                                   <span class="glyphicon glyphicon-print"></span> พิมพ์
                                 </a>
                                 @if(auth::user()->type == 3 and $row->StatusApp_car == 'อนุมัติ')
-                                  @if($status != "")
                                     @php $branch = 'Null'; @endphp
-                                    @php $status = 'Null'; @endphp
-                                  @endif
+                                    @php $status = 'Null'; @endphp                            
                                 <a href="{{ action('AnalysController@edit',[$row->id,$type,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
                                   <span class="glyphicon glyphicon-eye-open"></span> ดู
                                 </a>
