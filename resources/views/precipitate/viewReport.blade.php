@@ -177,32 +177,34 @@
   }
 </style>
 
-    <section class="content-header">
+    <!-- <section class="content-header">
       <h1>
         เร่งรัดหนี้สิน
         <small>it all starts here</small>
       </h1>
-    </section>
+    </section> -->
 
     <!-- Main content -->
     <section class="content">
-
-      @if($type == 10)
-          <div class="box box-warning box-solid">
-            <div class="box-header with-border">
-            <h4 class="card-title" align="center"><b>หนังสือบอกเลิกสัญญา</b></h4>
-              <div class="box-tools pull-right">
-              <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-              <i class="fa fa-minus"></i></button>
-              <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-              <i class="fa fa-times"></i></button>
-              </div>
-            </div>
-      @else
-            <div class="box box-warning box-solid" style="Background-color:#F5F5DC;">
+          <!-- ส่วนหัวข้อ -->
+          @if($type == 10) {{-- ระบบ หนังสือบอกเลิก --}}
+            <div class="box box-warning box-solid">
+              <div class="box-header with-border">
+                <h4 class="card-title" align="center"><b>หนังสือบอกเลิกสัญญา</b></h4>
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                    <i class="fa fa-times"></i></button>
+                  </div>
+               </div>
               <div class="box-body">
-      @endif
+          @else
+              <div class="box box-warning box-solid" style="Background-color:#F5F5DC;">
+                <div class="box-body">
+          @endif
 
+          <!-- ส่วนพื้นที่ค้นหา -->
           @if($type == 7)
             <form method="get" action="{{ route('Precipitate', 7) }}">
               <div align="right" class="form-inline">
@@ -278,9 +280,30 @@
                 <input type="date" name="SelectDate" style="width: 180px;" value="{{ ($newdate != '') ?$newdate: '' }}" class="form-control" />
               </div>
             </form>
-          @elseif($type == 10)
+          @elseif($type == 10) {{-- ระบบ หนังสือบอกเลิก --}}
+              <form method="get" action="{{ route('Precipitate', 10) }}">
+                <div align="right" class="form-inline">
+                  <label>เลขที่สัญญา : </label>
+                  <input type="type" name="Contno" value="{{$contno}}" style="padding:5px;width:180px;border-radius: 5px 0 5px 5px; font-size:20px;"/>
+                  <button type="submit" class="btn btn-warning btn-app">
+                    <span class="glyphicon glyphicon-search"></span> Search
+                  </button >
+                  <!-- <p></p>
+                  <label>จากงวดที่ : </label>
+                  <input type="text" name="Fromstart" style="width: 80px;" value="{{ ($fstart != '') ?$fstart: '' }}" class="form-control" />
+                  <label>ถึงงวดที่ : </label>
+                  <input type="text" name="Toend" style="width: 80px;" value="{{ ($tend != '') ?$tend: '' }}" class="form-control" /> -->
+                </div>
+                <!-- <div align="right" class="form-inline">
+                  <label>จากวันที่ : </label>
+                  <input type="date" name="Fromdate" style="width: 165px;" value="{{ ($fdate != '') ?$fdate: '' }}" class="form-control" />
+                  <label>&nbsp;&nbsp;ถึงวันที่ : </label>
+                  <input type="date" name="Todate" style="width: 165px;" value="{{ ($tdate != '') ?$tdate: '' }}" class="form-control" />
+                </div> -->
+              </form>
           @endif
 
+          <!-- ส่วนพื้นที่แสดงผล -->
           @if($type == 7)
             <hr />
             <div class="row">
@@ -801,7 +824,7 @@
                               @foreach($dataSup as $key => $row)
                                 <tr>
                                   <td class="text-center"> {{$key+1}} </td>
-                                  <td class="text-left"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->NAME))}} </td>
+                                  <td class="text-left"> {{iconv('Tis-620','utf-8',$row->NAME)}} </td>
                                   <td class="text-center"> {{$row->CONTNO}}</td>
                                 </tr>
                               @endforeach
@@ -860,10 +883,9 @@
               </div>
 
             </div>
-          @elseif($type == 10)
-            <div class="box-body">
+          @elseif($type == 10) {{-- ระบบ หนังสือบอกเลิก --}}
+              <hr>
               <div class="row">
-                <br />
                 <div class="col-md-12">
                   <div class="table-responsive">
                    <table class="table table-bordered" id="table">
@@ -873,8 +895,11 @@
                           <th class="text-center">เลขที่สัญญา</th>
                           <th class="text-center">ชื่อ-สกุล</th>
                           <th class="text-center">วันทำสัญญา</th>
+                          <th class="text-center">ลูกหนี้คงเหลือ</th>
+                          <th class="text-center">ยอดค้างชำระ</th>
+                          <th class="text-center">ค้างงวดจริง</th>
                           <th class="text-center">สถานะ</th>
-                          <th class="text-center" style="width: 150px">ตัวเลือก</th>
+                          <th class="text-center" style="width: 100px">ตัวเลือก</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -893,10 +918,13 @@
                               @endphp
                               {{ date_format($ISSUDT, 'd-m-Y')}}
                             </td>
+                            <td class="text-center text-danger"> {{number_format($row->BALANC - $row->SMPAY,2)}} </td>
+                            <td class="text-center text-danger"> {{number_format($row->EXP_AMT,2)}} </td>
+                            <td class="text-center text-danger"> {{number_format($row->HLDNO,2)}} </td>
                             <td class="text-center"> {{iconv('Tis-620','utf-8', $row->CONTSTAT)}} </td>
                             <td class="text-center">
-                              <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal-addinfo" data-str1="{{$SetStr1}}" data-str2="{{ $SetStr2 }}" title="{{$SetStr1.'/'.$SetStr2}}">
-                                <i class="fa fa-edit"></i> Add
+                              <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal-addinfo" data-str1="{{$SetStr1}}" data-str2="{{ $SetStr2 }}" title="{{$SetStr1.'/'.$SetStr2}}" data-backdrop="static" data-keyboard="false">
+                                <i class="fa fa-edit"></i> เพิ่มข้อมูล
                               </button>
                             </td>
                           </tr>
@@ -916,12 +944,12 @@
               <form name="form1" method="post" action="{{ route('MasterPrecipitate.store') }}" target="_blank" enctype="multipart/form-data">
                 @csrf
                   <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button id="btnclose" type="button" class="close">
                       <span aria-hidden="true">×</span></button>
                     <h5 class="modal-title" id="title" align="center"></h5>
                   </div>
                   <div class="modal-body">
-                    <input type="date" name="AcceptDate" class="form-control" />
+                    <input type="date" id="Datepay" name="AcceptDate" class="form-control" />
                     <br>
                     <input type="text" id="PayAmount" name="PayAmount" class="form-control" placeholder="ป้อนยอดชำระ" oninput="addcomma();" />
                     <br>
@@ -965,30 +993,42 @@
         $(document).ready(function() {
           $('#table').DataTable( {
             "order": [[ 1, "asc" ]],
-            "pageLength": 25
+            "pageLength": 10,
+            "searching": true,
           } );
         } );
       </script>
 
       <script type="text/javascript">
+        $("#submit").click(function () {
+          $("#modal-addinfo").modal('toggle');
+          location.reload();
+        });
         $('#modal-addinfo').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget)
-        var SetStr1 = button.data('str1')
-        var SetStr2 = button.data('str2')
-        var Contno = SetStr1 + '/' +SetStr2
-        var title = 'เลขที่สัญญา : '+ SetStr1 + '/' + SetStr2
-        var modal = $(this);
-        modal.find('.modal-body #SetStr1').val(SetStr1);
-        modal.find('.modal-body #SetStr2').val(SetStr2);
-        modal.find('.modal-body #contno').val(Contno);
-        modal.find('.modal-header #title').text(title);
+          var button = $(event.relatedTarget)
+          var SetStr1 = button.data('str1')
+          var SetStr2 = button.data('str2')
+          var Contno = SetStr1 + '/' +SetStr2
+          var title = 'เลขที่สัญญา : '+ SetStr1 + '/' + SetStr2
+          var modal = $(this);
+          modal.find('.modal-body #SetStr1').val(SetStr1);
+          modal.find('.modal-body #SetStr2').val(SetStr2);
+          modal.find('.modal-body #contno').val(Contno);
+          modal.find('.modal-header #title').text(title);
+        });
+
+        $("#btnclose").click(function () {
+          $("#modal-addinfo").modal('hide');
+          var Datepay = ''
+          var PayAmount = ''
+          var BalanceAmount = ''
+          $('#Datepay').val(Datepay);
+          $('#PayAmount').val(PayAmount);
+          $('#BalanceAmount').val(BalanceAmount);
         });
       </script>
 
       <script type="text/javascript">
-        $("#submit").click(function () {
-        $("#modal-addinfo").modal('toggle');
-        });
         function addCommas(nStr){
            nStr += '';
            x = nStr.split('.');

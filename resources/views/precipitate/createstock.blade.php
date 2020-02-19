@@ -189,7 +189,8 @@
                       <div class="form-inline" align="right">
                       <label>ทีมยึด : </label>
                       <select name="Teamhold" class="form-control" style="width: 250px">
-                        <option selected disabled value="">---เลือกทีมยึด---</option>
+                        <option selected value="">---เลือกทีมยึด---</option>
+                          <option value="008">008 - เจ๊ะฟารีด๊ะห์ เจ๊ะกาเดร์</otion>
                           <option value="102">102 - นายอับดุลเล๊าะ กาซอ</otion>
                           <option value="104">104 - นายอนุวัฒน์ อับดุลรานี</otion>
                           <option value="105">105 - นายธีรวัฒน์ เจ๊ะกา</otion>
@@ -212,12 +213,13 @@
                       <div class="form-inline" align="right">
                       <label><font color="red">สถานะรถ : </font></label>
                       <select name="Statuscar" class="form-control" style="width: 250px">
-                        <option selected disabled value="">---เลือกสถานะ---</option>
+                        <option selected value="">---เลือกสถานะ---</option>
                           <option value="1">ยึดจากลูกค้าครั้งแรก</otion>
                           <option value="2">ลูกค้ามารับรถคืน</otion>
                           <option value="3">ยึดจากลูกค้าครั้งที่สอง</otion>
                           <option value="4">รับรถจากของกลาง</otion>
                           <option value="5">ส่งรถบ้าน</otion>
+                          <option value="6">ลูกค้าส่งรถคืน</otion>
                       </select>
                       </div>
                     </div>

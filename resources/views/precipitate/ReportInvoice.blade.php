@@ -138,8 +138,8 @@
               ได้ตกลงทำสัญญาเช่าซื้อรถยนต์ยี่ห้อ {{ iconv('TIS-620', 'utf-8', $data->TYPE) }} หมายเลขทะเบียน {{ iconv('TIS-620', 'utf-8', $data->REGNO) }}
               หมายเลขตัวถัง {{-- $data->STRNO --}} {{$New_STRNO}} หมายเลขเครื่อง {{-- $data->ENGNO --}} {{$New_ENGNO}}
               สี{{ iconv('TIS-620', 'utf-8', $data->COLOR) }} จากบริษัท ชูเกียรติลิสซิ่ง จำกัด ผู้ให้เช่าซื้อโดยการเช่าซื้อดังกล่าวได้มี
-              คุณ{{ str_replace('นางสาว','',str_replace('นาง','', str_replace('นาย','', iconv('TIS-620', 'utf-8', $data->NAME)))) }}
-              เข้าค้ำประกัน ในกรณีที่ผู้เช่าซื้อละเมิดข้อสัญญา รายละเอียดท่านทั้งสองทราบดีอยู่แล้วนั้น
+              คุณ{{ str_replace('นางสาว','',str_replace('นาง','', str_replace('นาย','', iconv('TIS-620', 'utf-8', $data->NAME)))) }}   เข้าค้ำประกัน
+              ในกรณีที่ผู้เช่าซื้อละเมิดข้อสัญญา รายละเอียดท่านทั้งสองทราบดีอยู่แล้วนั้น
             </td>
           </tr>
           <tr style="line-height: 20%;">
@@ -178,9 +178,9 @@
             <td width="250px"> {{-- $data->CONTNO --}}</td>
             <td width="250px"> ขอแสดงความนับถือ </td>
           </tr>
-          <tr>
+          <!-- <tr>
             <td width="500px"> </td>
-          </tr>
+          </tr> -->
           <tr style="line-height: 150%;letter-spacing: 0.2px;">
             <td width="220px"> {{-- $data->CONTNO --}}</td>
             <td width="280px"> ( นางสาวขวัญตา   เหมือนพยอม ) </td>

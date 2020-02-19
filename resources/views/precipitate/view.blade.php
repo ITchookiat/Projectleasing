@@ -8,12 +8,12 @@
 <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
 
-    <section class="content-header">
+    <!-- <section class="content-header">
       <h1>
         เร่งรัดหนี้สิน
         <small>it all starts here</small>
       </h1>
-    </section>
+    </section> -->
 
     <!-- Main content -->
     <section class="content">
