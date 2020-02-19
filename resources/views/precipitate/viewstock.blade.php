@@ -19,7 +19,7 @@
 <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
 
-    <section class="content-header">
+    <!-- <section class="content-header">
       @if($type == 5)
         <h1>
           เร่งรัดหนี้สิน
@@ -31,7 +31,7 @@
           <small>ระบบปรับโครงสร้างหนี้</small>
         </h1>
       @endif
-    </section>
+    </section> -->
 
     <!-- Main content -->
     <section class="content">
@@ -90,6 +90,7 @@
                       <option value="3" {{ ($Statuscar == '3') ? 'selected' : '' }}> ยึดจากลูกค้าครั้งที่สอง</otion>
                       <option value="4" {{ ($Statuscar == '4') ? 'selected' : '' }}> รับรถจากของกลาง</otion>
                       <option value="5" {{ ($Statuscar == '5') ? 'selected' : '' }}> ส่งรถบ้าน</otion>
+                      <option value="6" {{ ($Statuscar == '6') ? 'selected' : '' }}> ลูกค้าส่งรถคืน</otion>
                   </select>
                 </div>
               </form>
@@ -145,6 +146,8 @@
                                 <font color="#001BFF">รับรถจากของกลาง</font>
                                 @elseif($row->Statuscar == 5)
                                 <font color="#046817">ส่งรถบ้าน</font>
+                                @elseif($row->Statuscar == 6)
+                                <font color="#068998">ลูกค้าส่งรถคืน</font>
                                 @endif
                               </td>
                               <td class="text-center">

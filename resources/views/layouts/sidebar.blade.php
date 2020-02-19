@@ -103,12 +103,12 @@
             <li>
                 <a href="{{ route('Precipitate',3) }}"><i class="fa fa-cube text-primary"></i>ระบบแจ้งเตือนติดตาม</a>
             </li>
-            <li>
+            <!-- <li>
                 <a href="{{ route('Precipitate',1) }}"><i class="fa fa-cube text-primary"></i>ระบบปล่อยงานตาม</a>
             </li>
             <li>
                 <a href="{{ route('Precipitate',4) }}"><i class="fa fa-cube text-primary"></i>ระบบปล่อยงานโนติส</a>
-            </li>
+            </li> -->
             <li>
                 <a href="{{ route('Precipitate',5) }}"><i class="fa fa-cube text-primary"></i>ระบบสต็อกรถเร่งรัด</a>
             </li>
@@ -118,18 +118,18 @@
             <li>
                 <!-- <a href="{{ route('Precipitate',2) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน แยกตามทีม</a> -->
             </li>
-            <li>
+            <!-- <li>
                 <a href="{{ route('Precipitate',7) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน งานประจำวัน</a>
-            </li>
+            </li> -->
             <li>
                 <a href="{{ route('Precipitate',8) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน รับชำระค่าติดตาม</a>
             </li>
             <li>
                 <a href="{{ route('Precipitate',9) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน ใบรับฝาก</a>
             </li>
-            <!-- <li>
-                <a href="{{ route('Precipitate',10) }}"><i class="fa fa-clipboard text-yellow"></i>หนังสือบอกเลิกสัญญา</a>
-            </li> -->
+            <li>
+                <a href="{{ route('Precipitate',10) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน หนังสือบอกเลิก</a>
+            </li>
           </ul>
         @endif
       </li>

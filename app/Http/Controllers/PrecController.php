@@ -339,23 +339,60 @@ class PrecController extends Controller
             return view('precipitate.viewReport', compact('dataSup','dataUseSup','newdate','type'));
         }
         elseif ($request->type == 10) {
-          // dd($request->type);
-          $dataCan = DB::connection('ibmi')
-                    ->table('SFHP.ARMAST')
-                    ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
-                    ->whereBetween('SFHP.ARMAST.HLDNO',[5.7,7.69])
-                    ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
-                    ->get();
-                    $count = count($dataCan);
-                    for($i=0; $i<$count; $i++){
-                      $str[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$dataCan[$i]->CONTSTAT)));
-                      if ($str[$i] == "ฟ" OR $str[$i] == "P") {
-                        $data[] = $dataCan[$i];
-                      }
-                    }
+          $contno = '';
+          $fdate = '';
+          $tdate = '';
+          $fstart = '3';
+          $tend = '4.99';
 
+          if ($request->has('Contno')) {
+            $contno = $request->get('Contno');
+          }
+          if ($request->has('Fromdate')) {
+            $fdate = $request->get('Fromdate');
+          }
+          if ($request->has('Todate')) {
+            $tdate = $request->get('Todate');
+          }
+          if ($request->has('Fromstart')) {
+            $fstart = $request->get('Fromstart');
+          }
+          if ($request->has('Toend')) {
+            $tend = $request->get('Toend');
+          }
+
+          if($contno == ''){
+            $data = DB::connection('ibmi')
+            ->table('SFHP.ARMAST')
+            ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+            // ->whereBetween('SFHP.ARMAST.HLDNO',[3, 4.9])
+            ->when(!empty($fstart)  && !empty($tend), function($q) use ($fstart, $tend) {
+              return $q->whereBetween('SFHP.ARMAST.HLDNO',[$fstart,$tend]);
+            })
+            ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+              return $q->whereBetween('SFHP.ARPAY.DDATE',[$fdate,$tdate]);
+            })
+            ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+            ->get();
+            // $count = count($dataCan);
+            // for($i=0; $i<$count; $i++){
+            //   $str[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$dataCan[$i]->CONTSTAT)));
+            //   if ($str[$i] == "ฟ" OR $str[$i] == "P") {
+            //     $data[] = $dataCan[$i];
+            //   }
+            // }
+          }else{
+            $data = DB::connection('ibmi')
+            ->table('SFHP.ARMAST')
+            ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+            ->when(!empty($contno), function($q) use($contno){
+              return $q->where('SFHP.ARMAST.CONTNO','=',$contno);
+            })
+            ->get();
+          }
+          // dd($data);
           $type = $request->type;
-          return view('precipitate.viewReport', compact('data','type'));
+          return view('precipitate.viewReport', compact('data','fdate','tdate','fstart','tend','type','contno'));
         }
         elseif ($request->type == 11) {
           // dd($request->type);
@@ -692,6 +729,8 @@ class PrecController extends Controller
           $pdf::AddPage('P', 'A4');
           $pdf::SetMargins(20, 5, 15);
           $pdf::SetFont('thsarabunpsk', '', 16, '', true);
+          // $pdf::SetFont('angsananew', '', 16, '', true);
+          // $pdf::SetFont('mazdatypeth', '', 12, '', true);
           $pdf::SetAutoPageBreak(TRUE, 25);
           $pdf::WriteHTML($html,true,false,true,false,'');
           $pdf::Output('CancelContractPaper.pdf');
@@ -732,6 +771,7 @@ class PrecController extends Controller
             '3' => 'ยึดจากลูกค้าครั้งที่สอง',
             '4' => 'รับรถจากของกลาง',
             '5' => 'ส่งรถบ้าน',
+            '6' => 'ลูกค้าส่งรถคืน',
           ];
 
           $Brandcarr = [
@@ -748,6 +788,7 @@ class PrecController extends Controller
           ];
 
           $Teamhold = [
+            '008' => '008 - เจ๊ะฟารีด๊ะห์ เจ๊ะกาเดร์',
             '102' => '102 - นายอับดุลเล๊าะ กาซอ',
             '104' => '104 - นายอนุวัฒน์ อับดุลราน',
             '105' => '105 - นายธีรวัฒน์ เจ๊ะกา',
