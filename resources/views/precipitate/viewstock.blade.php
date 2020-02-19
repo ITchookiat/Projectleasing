@@ -111,8 +111,8 @@
                             <th class="text-center" width="70px">วันที่ยึด</th>
                             <th class="text-center">ทีมยึด</th>
                             <th class="text-center">ค่ายึด</th>
-                            <th class="text-center" width="150px">รายละเอียด</th>
-                            <th class="text-center" width="110px">สถานะ</th>
+                            <!-- <th class="text-center" width="120px">รายละเอียด</th> -->
+                            <th class="text-center" width="100px">สถานะ</th>
                             <th class="text-center" width="100px">ตัวเลือก</th>
                           </tr>
                         </thead>
@@ -134,7 +134,7 @@
                                  {{ number_format($row->Price_hold, 2) }}
                                  @endif
                                </td>
-                              <td class="text-left"> {{ $row->Note_hold }} </td>
+                              <!-- <td class="text-left"> {{ $row->Note_hold }} </td> -->
                               <td class="text-center">
                                 @if($row->Statuscar == 1)
                                 ยึดจากลูกค้าครั้งแรก
