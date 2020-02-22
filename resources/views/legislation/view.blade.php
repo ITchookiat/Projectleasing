@@ -1406,7 +1406,7 @@
                 <div class="col-md-12">
                   <form method="get" action="{{ route('legislation', 9) }}">
                       <div align="right" class="form-inline">
-                          <a href="{{ route('legislation', 10) }}" class="btn btn-success btn-app">
+                          <a href="{{ route('legislation', 11) }}" class="btn btn-success btn-app">
                             <span class="glyphicon glyphicon-plus"></span> เพิ่มข้อมูล
                           </a>
                           <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', $type) }}" class="btn btn-primary btn-app">

@@ -38,7 +38,7 @@
     <section class="content">
       <div class="box box-danger box-solid">
         <div class="box-header with-border">
-          @if($type == 10)
+          @if($type == 11)
             <h4 align="center"><b>เพิ่มข้อมูลของกลาง</b></h3>
           @endif
           <div class="box-tools pull-right">
@@ -61,7 +61,7 @@
             </div>
           @endif
 
-            @if($type == 10)
+            @if($type == 11)
             <form name="form1" action="{{ route('legislation.store',[00, $type]) }}" method="post" id="formimage" enctype="multipart/form-data">
                <div class="row">
                   <div class="col-md-12">
