@@ -28,7 +28,7 @@
 <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
 
-    <section class="content-header">
+    <!-- <section class="content-header">
       @if($type == 6)
         <h1>
           เร่งรัดหนี้สิน
@@ -40,13 +40,13 @@
           <small>ระบบปรับโครงสร้างหนี้</small>
         </h1>
       @endif
-    </section>
+    </section> -->
 
     <section class="content">
-      <div class="box">
+      <div class="box box-warning box-solid">
         <div class="box-header with-border">
           @if($type == 6)
-            <h3 align="center"><b>เพิ่มข้อมูลรถยึด</b></h3>
+            <h4 align="center"><b>เพิ่มข้อมูลรถยึด</b></h3>
           @elseif($type == 12)
             <ul class="nav nav-pills ml-auto p-2">
               <li class="nav-item"><a class="nav-link" href="{{ route('Precipitate',11) }}" onclick="return confirm('คุณต้องการออกไปหน้าหลักหรือไม่ ? \n')">หน้าหลัก</a></li>

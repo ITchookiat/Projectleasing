@@ -91,6 +91,50 @@
         </ul>
       </li>
 
+      <li class="treeview {{ (request()->is('Precipitate/*')) ? 'active' : '' }}">
+        <a href="#">
+          <i class="fa fa-handshake-o"></i> <span> แผนกเร่งรัด</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 31)
+        <ul class="treeview-menu">
+          <li class="treeview {{(request()->is('Precipitate/Home/3'))?'active':''}} {{(request()->is('Precipitate/Home/1'))?'active':''}} {{(request()->is('Precipitate/Home/4'))?'active':''}} {{(request()->is('Precipitate/Home/5'))?'active':''}} {{(request()->is('Precipitate/Home/11'))?'active':''}}">
+              <a href="#">
+                <i class="fa fa-folder-open text-red"></i>ระบบ
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{{ route('Precipitate',3) }}"><i class="fa fa-cube text-primary"></i>ระบบแจ้งเตือนติดตาม</a></li>
+                <li><a href="{{ route('Precipitate',1) }}"><i class="fa fa-cube text-primary"></i>ระบบปล่อยงานตาม</a></li>
+                <li><a href="{{ route('Precipitate',4) }}"><i class="fa fa-cube text-primary"></i>ระบบปล่อยงานโนติส</a></li>
+                <li><a href="{{ route('Precipitate',5) }}"><i class="fa fa-cube text-primary"></i>ระบบสต็อกรถเร่งรัด</a></li>
+                <li><a href="{{ route('Precipitate',11) }}"><i class="fa fa-cube text-primary"></i>ระบบปรับโครงสร้างหนี้</a></li>
+              </ul>
+          </li>
+          <li class="treeview {{(request()->is('Precipitate/Home/2'))?'active':''}} {{(request()->is('Precipitate/Home/7'))?'active':''}} {{(request()->is('Precipitate/Home/8'))?'active':''}} {{(request()->is('Precipitate/Home/9'))?'active':''}} {{(request()->is('Precipitate/Home/10'))?'active':''}}">
+              <a href="#">
+                <i class="fa fa-folder-open text-red"></i>รายงาน
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{{ route('Precipitate',2) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน แยกตามทีม</a></li>
+                <li><a href="{{ route('Precipitate',7) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน งานประจำวัน</a></li>
+                <li><a href="{{ route('Precipitate',8) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน รับชำระค่าติดตาม</a></li>
+                <li><a href="{{ route('Precipitate',9) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน ใบรับฝาก</a></li>
+                <li><a href="{{ route('Precipitate',10) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน หนังสือขอยืนยัน</a></li>
+              </ul>
+          </li>
+        </ul>
+        @endif
+      </li>
+
+      {{--
       <li class="treeview {{ (request()->is('Precipitate/*')) ? 'active' : '' }}"> <!-- /.DINsidebar -->
         <a href="#">
           <i class="fa fa-handshake-o"></i> <span> แผนกเร่งรัด</span>
@@ -100,41 +144,22 @@
         </a>
         @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 31)
           <ul class="treeview-menu">
-            <li>
-                <a href="{{ route('Precipitate',3) }}"><i class="fa fa-cube text-primary"></i>ระบบแจ้งเตือนติดตาม</a>
-            </li>
-            <!-- <li>
-                <a href="{{ route('Precipitate',1) }}"><i class="fa fa-cube text-primary"></i>ระบบปล่อยงานตาม</a>
-            </li>
-            <li>
-                <a href="{{ route('Precipitate',4) }}"><i class="fa fa-cube text-primary"></i>ระบบปล่อยงานโนติส</a>
-            </li> -->
-            <li>
-                <a href="{{ route('Precipitate',5) }}"><i class="fa fa-cube text-primary"></i>ระบบสต็อกรถเร่งรัด</a>
-            </li>
-            <li>
-                <a href="{{ route('Precipitate',11) }}"><i class="fa fa-cube text-primary"></i>ระบบปรับโครงสร้างหนี้</a>
-            </li>
-            <li>
-                <!-- <a href="{{ route('Precipitate',2) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน แยกตามทีม</a> -->
-            </li>
-            <!-- <li>
-                <a href="{{ route('Precipitate',7) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน งานประจำวัน</a>
-            </li> -->
-            <li>
-                <a href="{{ route('Precipitate',8) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน รับชำระค่าติดตาม</a>
-            </li>
-            <li>
-                <a href="{{ route('Precipitate',9) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน ใบรับฝาก</a>
-            </li>
-            <li>
-                <a href="{{ route('Precipitate',10) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน หนังสือบอกเลิก</a>
-            </li>
+            <li><a href="{{ route('Precipitate',3) }}"><i class="fa fa-cube text-primary"></i>ระบบแจ้งเตือนติดตาม</a></li>
+            <li><a href="{{ route('Precipitate',1) }}"><i class="fa fa-cube text-primary"></i>ระบบปล่อยงานตาม</a></li>
+            <li><a href="{{ route('Precipitate',4) }}"><i class="fa fa-cube text-primary"></i>ระบบปล่อยงานโนติส</a></li>
+            <li><a href="{{ route('Precipitate',5) }}"><i class="fa fa-cube text-primary"></i>ระบบสต็อกรถเร่งรัด</a></li>
+            <li><a href="{{ route('Precipitate',11) }}"><i class="fa fa-cube text-primary"></i>ระบบปรับโครงสร้างหนี้</a></li>
+            <li><a href="{{ route('Precipitate',2) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน แยกตามทีม</a></li>
+            <li><a href="{{ route('Precipitate',7) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน งานประจำวัน</a></li>
+            <li><a href="{{ route('Precipitate',8) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน รับชำระค่าติดตาม</a></li>
+            <li><a href="{{ route('Precipitate',9) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน ใบรับฝาก</a></li>
+            <li><a href="{{ route('Precipitate',10) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน หนังสือขอยืนยัน</a></li>
           </ul>
         @endif
       </li>
+      --}}
 
-        <li class="treeview {{ (request()->is('Legislation/Home*')) ? 'active' : '' }} {{ (request()->is('Legislation/edit/*')) ? 'active' : '' }}"> <!-- /.DINsidebar -->
+      <li class="treeview {{ (request()->is('Legislation/Home*')) ? 'active' : '' }} {{ (request()->is('Legislation/edit/*')) ? 'active' : '' }}"> <!-- /.DINsidebar -->
           <a href="#">
             <i class="fa fa-gavel"></i> <span> แผนกกฏหมาย</span>
             <span class="pull-right-container">
@@ -143,21 +168,13 @@
           </a>
           @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 21)
             <ul class="treeview-menu">
-              <li>
-                  <a href="{{ route('legislation',1) }}"><i class="fa fa-cube text-primary"></i>รายชื่อส่งฟ้อง</a>
-              </li>
-              <li>
-                  <a href="{{ route('legislation',6) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้เตรียมฟ้อง</a>
-              </li>
-              <li>
-                  <a href="{{ route('legislation',2) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้ฟ้อง</a>
-              </li>
-              <li>
-                  <a href="{{ route('legislation',8) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้สืบทรัพย์</a>
-              </li>
-              <li>
-                  <a href="{{ route('legislation',7) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้ประนอมหนี้</a>
-              </li>
+              <li><a href="{{ route('legislation',1) }}"><i class="fa fa-cube text-primary"></i>รายชื่อส่งฟ้อง</a></li>
+              <li><a href="{{ route('legislation',6) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้เตรียมฟ้อง</a></li>
+              <li><a href="{{ route('legislation',2) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้ฟ้อง</a></li>
+              <li><a href="{{ route('legislation',8) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้สืบทรัพย์</a></li>
+              <li><a href="{{ route('legislation',7) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้ประนอมหนี้</a></li>
+              <li><a href="{{ route('legislation',9) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้ของกลาง</a></li>
+              <li><a href="{{ route('legislation',11) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้ขายฝาก</a></li>
             </ul>
           @endif
         </li>

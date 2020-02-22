@@ -59,6 +59,10 @@
             <h4 class="card-title" align="center"><b>ลูกหนี้ประนอมหนี้</b></h4>
           @elseif($type == 8)
             <h4 class="card-title" align="center"><b>ลูกหนี้สืบทรัพย์</b></h4>
+          @elseif($type == 9)
+            <h4 class="card-title" align="center"><b>ลูกหนี้ของกลาง</b></h4>
+          @elseif($type == 11)
+            <h4 class="card-title" align="center"><b>ลูกหนี้ขายฝาก</b></h4>
           @endif
 
           <div class="box-tools pull-right">
@@ -1394,6 +1398,96 @@
                     </table>
                   </div>
                 </div>
+              @elseif($type == 9)
+                <div class="col-md-12">
+                  <form method="get" action="{{ route('legislation', 9) }}">
+                      <div align="right" class="form-inline">
+                          <a href="{{ route('legislation', 10) }}" class="btn btn-success btn-app">
+                            <span class="glyphicon glyphicon-plus"></span> เพิ่มข้อมูล
+                          </a>
+                          <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', $type) }}" class="btn btn-primary btn-app">
+                            <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
+                          </a>
+                        <button type="submit" class="btn btn-warning btn-app">
+                          <span class="glyphicon glyphicon-search"></span> Search
+                        </button>
+                        <p></p>
+                        <label for="text" class="mr-sm-2">บอกเลิกสัญญา : </label>
+                        <select name="status" class="form-control mb-2 mr-sm-2" id="text" style="width: 150px">
+                          <option selected value="">--- เลือกสถานะ ---</option>
+                          <option value="เร่งรัด">1.เร่งรัด</otion>
+                          <option value="ทนาย">2.ทนาย</otion>
+                        </select>
+                        <label for="text" class="mr-sm-2">ประเภทของกลาง : </label>
+                        <select name="status" class="form-control mb-2 mr-sm-2" id="text" style="width: 150px">
+                          <option selected value="">--- เลือกสถานะ ---</option>
+                          <option value="Y">มีทรัพย์</otion>
+                          <option value="N">ไม่มีทรัพย์</otion>
+                          <option value="หมดอายุความ">หมดอายุความ</otion>
+                        </select>
+                        <div class="form-inline">
+                          <label>จากวันที่ : </label>
+                          <input type="date" name="Fromdate" style="width: 150px;" value="" class="form-control" />
+                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                          <label>ถึงวันที่ : </label>
+                          <input type="date" name="Todate" style="width: 150px;" value="" class="form-control" />
+                        </div>
+                      </div>
+                    </form>
+                  <hr>
+                </div>
+                <div class="col-md-12">
+                  <div class="table-responsive">
+                    <table class="table table-bordered" id="table">
+                      <thead class="thead-dark bg-gray-light" >
+                        <tr>
+                          <th class="text-center" style="width: 40px">ลำดับ</th>
+                          <th class="text-center">เลขที่สัญญา</th>
+                          <th class="text-center">ชื่อ-สกุลผู้เช่าซื้อ</th>
+                          <th class="text-center">ชื่อผู้ต้องหา</th>
+                          <th class="text-center">ข้อหา</th>
+                          <th class="text-center">บอกเลิก</th>
+                          <th class="text-center">ประเภท</th>
+                          <th class="text-center">สถานะแจ้งเตือน</th>
+                          <th class="text-center" style="width: 150px">ตัวเลือก</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach($data as $key => $row)
+                        <tr>
+                          <td class="text-center">{{$key+1}}</td>
+                          <td class="text-center">{{$row->Contract_legis}}</td>
+                          <td class="text-left"> {{$row->Name_legis}}</td>
+                          <td class="text-left"> {{$row->Suspect_legis}}</td>
+                          <td class="text-left"> {{$row->Plaint_legis}}</td>
+                          <td class="text-left"> {{$row->Terminate_legis}}</td>
+                          <td class="text-left"> {{$row->Typeexhibit_legis}}</td>
+                          <td class="text-center">
+                            <button type="button" class="btn btn-gray btn-sm" title="ไม่มีข้อมูล">
+                             <i class="fa fa-question-circle prem"></i> ยังไม่มีแจ้งเตือน
+                            </button>
+                          </td>
+                          <td class="text-center">
+                            <a href="{{ action('LegislationController@edit',[$row->Legisexhibit_id, 4]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
+                              <span class="glyphicon glyphicon-pencil"></span> แก้ไข
+                            </a>
+                            <div class="form-inline form-group">
+                              <form method="post" class="delete_form" action="{{ action('LegislationController@destroy',[$row->Legisexhibit_id ,3]) }}">
+                              {{csrf_field()}}
+                                <input type="hidden" name="_method" value="DELETE" />
+                                <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
+                                  <span class="glyphicon glyphicon-trash"></span> ลบ
+                                </button>
+                              </form>
+                            </div>
+                          </td>
+                        </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              @elseif($type == 11)
               @endif
            </div>
 
@@ -1412,24 +1506,14 @@
             </div>
           </div>
 
-
-          @if($type == 1 or $type == 6 or $type == 7 or $type == 8)
-            <script type="text/javascript">
-               $(document).ready(function() {
-                 $('#table').DataTable( {
-                   "order": [[ 0, "asc" ]]
-                 });
+          <script type="text/javascript">
+             $(document).ready(function() {
+               $('#table').DataTable( {
+                 "order": [[ 0, "asc" ]]
                });
-            </script>
-          @elseif($type == 2)
-            <script type="text/javascript">
-            $(document).ready(function() {
-              $('#table').DataTable( {
-                "order": [[ 0, "asc" ]]
-              });
-            });
-            </script>
-          @endif
+             });
+          </script>
+
 
           <script type="text/javascript">
             $(".alert").fadeTo(3000, 1000).slideUp(1000, function(){

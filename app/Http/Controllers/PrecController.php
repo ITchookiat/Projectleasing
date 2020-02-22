@@ -27,6 +27,8 @@ class PrecController extends Controller
         $date = $Y.'-'.$m.'-'.$d;
 
         if ($request->type == 1) {  //ปล่อยงานตาม
+          $fstart = '3.00';
+          $tend = '4.69';
           $fdate = $date;
           $tdate = $date;
           if ($request->has('Fromdate')) {
@@ -35,6 +37,12 @@ class PrecController extends Controller
           if ($request->has('Todate')) {
             $tdate = $request->get('Todate');
           }
+          if ($request->has('Fromstart')) {
+            $fstart = $request->get('Fromstart');
+          }
+          if ($request->has('Toend')) {
+            $tend = $request->get('Toend');
+          }
 
           $data = DB::connection('ibmi')
                     ->table('SFHP.ARMAST')
@@ -42,15 +50,18 @@ class PrecController extends Controller
                     ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
                     ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
                     ->where('SFHP.ARMAST.BILLCOLL','=',99)
+                    ->when(!empty($fstart)  && !empty($tend), function($q) use ($fstart, $tend) {
+                      return $q->whereBetween('SFHP.ARMAST.HLDNO',[$fstart,$tend]);
+                    })
                     ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
                       return $q->whereBetween('SFHP.ARPAY.DDATE',[$fdate,$tdate]);
                     })
-                    ->whereBetween('SFHP.ARMAST.HLDNO',[2.5,4.69])
+                    // ->whereBetween('SFHP.ARMAST.HLDNO',[3.00,4.69])
                     ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
                     ->get();
 
           $type = $request->type;
-          return view('precipitate.view', compact('data','fdate','tdate','type'));
+          return view('precipitate.view', compact('data','fstart','tend','fdate','tdate','type'));
         }
         elseif ($request->type == 2) {
           $fdate = $date;
@@ -338,12 +349,12 @@ class PrecController extends Controller
             $type = $request->type;
             return view('precipitate.viewReport', compact('dataSup','dataUseSup','newdate','type'));
         }
-        elseif ($request->type == 10) {
+        elseif ($request->type == 10) { //รายงาน หนังสือยืนยัน
           $contno = '';
           $fdate = '';
           $tdate = '';
-          $fstart = '3';
-          $tend = '4.99';
+          $fstart = '6';
+          $tend = '8.99';
 
           if ($request->has('Contno')) {
             $contno = $request->get('Contno');
@@ -894,6 +905,12 @@ class PrecController extends Controller
       if ($request->has('Todate')) {
         $tdate = $request->get('Todate');
       }
+      if ($request->has('Fromstart')) {
+        $fstart = $request->get('Fromstart');
+      }
+      if ($request->has('Toend')) {
+        $tend = $request->get('Toend');
+      }
 
       if ($request->type == 1) {  //รายงาน ใบติดตาม
         $data = DB::connection('ibmi')
@@ -903,7 +920,7 @@ class PrecController extends Controller
                   ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
                   ->where('SFHP.ARMAST.BILLCOLL','=',99)
                   ->whereBetween('SFHP.ARPAY.DDATE',[$fdate,$tdate])
-                  ->whereBetween('SFHP.ARMAST.HLDNO',[2.5,4.69])
+                  ->whereBetween('SFHP.ARMAST.HLDNO',[$fstart,$tend])
                   ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
                   ->get();
 

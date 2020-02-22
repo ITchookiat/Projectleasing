@@ -135,8 +135,8 @@
 
                 <div class="col-md-6">
                   <div class="form-inline" align="right">
-                  <label>ทะเบียน : </label>
-                  <input type="text" name="Number_Regist" class="form-control" style="width: 250px;" value="{{ $data->Number_Regist }}" >
+                    <label>ทะเบียน : </label>
+                    <input type="text" name="Number_Regist" class="form-control" style="width: 250px;" value="{{ $data->Number_Regist }}" >
                   </div>
                 </div>
 
