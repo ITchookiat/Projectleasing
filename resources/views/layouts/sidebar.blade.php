@@ -173,8 +173,8 @@
               <li><a href="{{ route('legislation',2) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้ฟ้อง</a></li>
               <li><a href="{{ route('legislation',8) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้สืบทรัพย์</a></li>
               <li><a href="{{ route('legislation',7) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้ประนอมหนี้</a></li>
-              <li><a href="{{ route('legislation',9) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้ของกลาง</a></li>
-              <li><a href="{{ route('legislation',11) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้ขายฝาก</a></li>
+              <li><a href="{{ route('legislation',10) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้ของกลาง</a></li>
+              <li><a href="{{ route('legislation',12) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้ขายฝาก</a></li>
             </ul>
           @endif
         </li>

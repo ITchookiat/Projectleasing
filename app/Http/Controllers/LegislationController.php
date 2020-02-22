@@ -312,17 +312,17 @@ class LegislationController extends Controller
         $type = $request->type;
         return view('legislation.view', compact('type', 'data','result','newfdate','newtdate','SetSelect'));
       }
-      elseif ($request->type == 9) {   //ของกลาง
+      elseif ($request->type == 10) {   //ของกลาง
         $data = DB::table('legisexhibits')
                   ->get();
         $type = $request->type;
         return view('legislation.view', compact('type','data'));
       }
-      elseif($request->type == 10) {   //หน้าเพิ่มข้อมูลใหม่ของกลาง
+      elseif($request->type == 11) {   //หน้าเพิ่มข้อมูลใหม่ของกลาง
         $type = $request->type;
         return view('legislation.create',compact('type'));
       }
-      elseif ($request->type == 11) {   //ขายฝาก
+      elseif ($request->type == 12) {   //ขายฝาก
         $data = DB::table('legisexhibits')
                   ->get();
         $type = $request->type;
@@ -412,7 +412,7 @@ class LegislationController extends Controller
 
         return redirect()->back()->with(['id' => $id,'type' => $type,'success' => 'บันทึกข้อมูลเรียบร้อย']);
       }
-      if ($type == 10){
+      if ($type == 11){ //เพิ่มข้อของกลาง
         $LegisExhibit = new Legisexhibit([
           'Contract_legis' => $request->get('ContractNo'),
           'Dateaccept_legis' => $request->get('DateExhibit'),
