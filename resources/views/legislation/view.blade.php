@@ -1492,6 +1492,8 @@
                   </div>
                 </div>
               @elseif($type == 12) {{--ลูกหนี้ขขายฝาก--}
+               <div class="col-md-12">
+               </div>
               @endif
            </div>
 
