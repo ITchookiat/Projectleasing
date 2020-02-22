@@ -361,6 +361,7 @@
                                        <th class="text-center">วันที่</th>
                                        <th class="text-center">ยอดชำระ</th>
                                        <th class="text-center">ประเภท</th>
+                                       <th class="text-center">เลขที่ใบเสร็จ</th>
                                        <th class="text-center">ลงชื่อ</th>
                                        <th class="text-center" style="width:150px">action</th>
                                      </tr>
@@ -372,15 +373,21 @@
                                         <td class="text-center"> {{ DateThai($row->Date_Payment) }}</td>
                                         <td class="text-center"> {{ number_format($row->Gold_Payment, 2) }} </td>
                                         <td class="text-center"> {{$row->Type_Payment}} </td>
+                                        <td class="text-center"> {{$row->Jobnumber_Payment}} </td>
                                         <td class="text-center"> {{$row->Adduser_Payment}} </td>
                                         <td class="text-center">
-                                          <form method="post" class="delete_form" action="{{ action('LegislationController@destroy',[$row->Payment_id, 2]) }}">
-                                          {{csrf_field()}}
-                                            <input type="hidden" name="_method" value="DELETE" />
-                                            <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
-                                              <span class="glyphicon glyphicon-trash"></span> ลบ
-                                            </button>
-                                          </form>
+                                          <a target="_blank" href="{{ route('legislation.report' ,[$row->Payment_id, 2]) }}" class="btn btn-warning btn-sm" title="ปริ้นใบเสร็จ">
+                                            <span class="glyphicon glyphicon-file"></span> ปริ้น
+                                          </a>
+                                          <div class="form-inline form-group">
+                                            <form method="post" class="delete_form" action="{{ action('LegislationController@destroy',[$row->Payment_id, 2]) }}">
+                                            {{csrf_field()}}
+                                              <input type="hidden" name="_method" value="DELETE" />
+                                              <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
+                                                <span class="glyphicon glyphicon-trash"></span> ลบ
+                                              </button>
+                                            </form>
+                                          </div>
                                         </td>
                                       </tr>
                                       @endforeach

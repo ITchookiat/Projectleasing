@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use PDF;
 use Storage;
 use Carbon\Carbon;
 
@@ -311,54 +312,10 @@ class LegislationController extends Controller
         $type = $request->type;
         return view('legislation.view', compact('type', 'data','result','newfdate','newtdate','SetSelect'));
       }
-      elseif ($request->type == 9){
-        // ข้อมูลฟ้องจาก ตารางปกติ
-        $dataNew = DB::connection('ibmi')
-        ->table('SFHP.ARMAST')
-        ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
-        ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
-        ->whereBetween('SFHP.ARMAST.HLDNO',[6.7,99.99])
-        ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
-        ->get();
-        $count = count($dataNew);
-
-        for($i=0; $i<$count; $i++){
-          $str[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$dataNew[$i]->CONTSTAT)));
-          if ($str[$i] == "ฟ") {
-            $resultNew[] = $dataNew[$i];
-          }
-        }
-        $countresult = count($resultNew);
-
-        // ข้อมูลประนอมจาก ตารางเอ
-        $dataA = DB::connection('ibmi')
-        ->table('ASFHP.ARMAST')
-        ->join('ASFHP.INVTRAN','ASFHP.ARMAST.CONTNO','=','ASFHP.INVTRAN.CONTNO')
-        ->join('ASFHP.VIEW_CUSTMAIL','ASFHP.ARMAST.CUSCOD','=','ASFHP.VIEW_CUSTMAIL.CUSCOD')
-        ->orderBy('ASFHP.ARMAST.CONTNO', 'ASC')
-        ->get();
-        $count2 = count($dataA);
-        for($j=0; $j<$count2; $j++){
-          $strA[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$dataA[$j]->CONTSTAT)));
-          if ($strA[$j] == "ป") {
-            $resultA[] = $dataA[$j];
-          }
-        }
-        $countresultA = count($resultA);
-
-        // ข้อมูลที่เลขสัญญซ้ำกันระหว่าง ตารางปกติกับตารางประนอม
-        for ($k=0; $k < $countresult; $k++) {
-          for ($y=0; $y < $countresultA; $y++) {
-            $strpranom[] = str_replace(" ","",$resultA[$y]->CONTNO);
-            if($result[$k]->CONTNO == $strpranom[$y]){
-              $resultPranomsame[] = $result[$k];
-            }
-          }
-        }
-        $resultPranomsamecount = count($resultPranomsame);
+      elseif ($request->type == 9) {   //ปริ้นใบเสร็จ (ประนอมหนี้)
+        $type = $request->type;
+        return view('legislation.viewReport',compact('type'));
       }
-      $type = $request->type;
-      return view('legislation.view', compact('type','resultNew','resultA','resultPranomsame'));
     }
 
     /**
@@ -393,21 +350,44 @@ class LegislationController extends Controller
                   'Flag_Payment' => 'N'
               ]);
           }
+          
+        $GetNumPeriod = DB::table('legispayments')
+                ->where('legis_Com_Payment_id', $id)
+                ->orderBy('Period_Payment', 'desc')->limit(1)
+                ->first();
 
         $connect = DB::table('legispayments')
-                    ->orderBy('Jobnumber_Payment', 'desc')->limit(1)
-                    ->get();
+                ->orderBy('Jobnumber_Payment', 'desc')->limit(1)
+                ->get();
         $connectCon = count($connect);
-        // dd($connectCon);
 
         if ($connectCon != 0) {
           $GetJob = $connect[0]->Jobnumber_Payment;
           $SetStr = explode("-",$GetJob);
           $SetJobNumber = $SetStr[1] + 1;
+          
+          // ดึงปีและเดือนปัจจุบัน
+          $SetNumDate = substr($SetStr[1],0,2);
+          $Day = date('Y');
+          $SubDay = substr($Day,2);
+          $month = date('m');
 
-          $num = "10000000";
-          $SubStr = substr($num.$SetJobNumber, -8);
-          $StrConn = $SetStr[0]."-".$SubStr;
+          $num = "1000";
+          $SubStr = substr($num.$SetJobNumber, -4);
+          if ($SetNumDate == $SubDay) {
+            $StrConn = $SetStr[0]."-".$SubDay."".$month."".$SubStr;
+          }else {
+            $StrConn = $SetStr[0]."-".$SubDay."".$month."0001";
+          }
+          
+          // จำนวนงวด
+          if ($GetNumPeriod != Null) {
+            $Period = $GetNumPeriod->Period_Payment;
+            $SetPeriod = $Period + 1;
+          }else {
+            $SetPeriod = 1;
+          }
+
         }else {
           $StrConn = "ABL-00000001";
         }
@@ -421,6 +401,7 @@ class LegislationController extends Controller
           'Note_Payment' =>  $request->get('NotePayment'),
           'Flag_Payment' =>  $request->get('FlagPayment'),
           'Jobnumber_Payment' => $StrConn,
+          'Period_Payment' => $SetPeriod,
         ]);
         $LegisPay->save();
 
@@ -588,6 +569,7 @@ class LegislationController extends Controller
           $Legislation->KeyCompro_id = $LegisPromise->legisPromise_id;
         $Legislation->update();
 
+        $type = 1;
         return redirect()->Route('legislation', $type)->with('success','รับเรื่องเรียบร้อย');
       }
     }
@@ -1293,5 +1275,63 @@ class LegislationController extends Controller
         $deleteItem->Delete();
 
       return redirect()->back()->with('success','ลบรูปทั้งหมดเรียบร้อยแล้ว');
+    }
+
+    public function ReportReceipt(Request $request, $id, $type)
+    {
+      if ($type == 1) {   //เมนูค้นหา หน้า View
+        $NumberBill = $request->NumberBill;
+        $Fromdate = $request->Fdate;
+        $Todate = $request->Tdate;
+
+        $data = DB::connection('ibmi')
+              ->table('SFHP.ARMAST')
+              ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+              ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+              ->where('SFHP.ARMAST.CONTNO','=', $request->Contract)
+              ->first();
+
+        $dataDB = DB::table('legislations')
+              ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+              ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+              ->leftJoin('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
+              ->where('legislations.Contract_legis','=', $request->Contract)
+              ->when(!empty($NumberBill), function($q) use($NumberBill){
+                return $q->where('legispayments.Jobnumber_Payment',$NumberBill);
+              })
+              ->when(!empty($Fromdate)  && !empty($Todate), function($q) use ($Fromdate, $Todate) {
+                return $q->whereBetween('legispayments.Date_Payment',[$Fromdate,$Todate]);
+              })
+              ->orderBy('legislations.id', 'ASC')
+              ->first();
+
+      }elseif ($type == 2) {
+        $dataDB = DB::table('legislations')
+              ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+              ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+              ->leftJoin('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
+              ->where('legispayments.Payment_id','=', $id)
+              ->orderBy('legispayments.Payment_id', 'ASC')
+              ->first();
+
+        $data = DB::connection('ibmi')
+        ->table('SFHP.ARMAST')
+        ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+        ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+        ->where('SFHP.ARMAST.CONTNO','=', $dataDB->Contract_legis)
+        ->first();
+      }
+
+      $view = \View::make('legislation.report' ,compact('data','dataDB','type'));
+      $html = $view->render();
+
+      $pdf = new PDF();
+      $pdf::SetTitle('ใบเสร็จรับชำระค่างวด');
+      $pdf::AddPage('L', 'A5');
+      $pdf::SetMargins(16, 5, 5, 5);
+      $pdf::SetFont('freeserif', '', 11, '', true);
+      $pdf::SetAutoPageBreak(TRUE, 5);
+      $pdf::WriteHTML($html,true,false,true,false,'');
+      $pdf::Output('report.pdf');
     }
 }

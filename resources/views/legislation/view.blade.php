@@ -257,7 +257,7 @@
                             <td class="text-center"> {{$key+1}} </td>
                             <!-- <td class="text-center"><a href="#" data-toggle="modal" data-target="#modal_default" data-backdrop="static" data-keyboard="false">{{$row->Contract_legis}}</a></td> -->
                             <td class="text-center"> {{$row->Contract_legis}}</a></td>
-                            <td class="text-center"> {{$row->Name_legis}} </td>
+                            <td class="text-left"> {{$row->Name_legis}} </td>
                             <td class="text-center">
                               @if($row->fillingdate_court != NUll)
                                 {{ DateThai($row->fillingdate_court) }}
@@ -876,11 +876,9 @@
               @elseif($type == 7)
                 <div class="col-md-12">
                   <form method="get" >
-
                      <div class="form-inline" align=right>
-
-                       <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', $type) }}" class="btn btn-primary btn-app">
-                         <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
+                       <a target="_blank" href="{{ route('legislation', 9) }}" class="btn btn-primary btn-app" data-toggle="modal" data-target="#modal-default" data-backdrop="static" data-keyboard="false">
+                         <span class="glyphicon glyphicon-print"></span> ปริ้นใบเสร็จ
                        </a>
                        <button type="submit" class="btn btn-warning btn-app">
                          <span class="glyphicon glyphicon-search"></span> Search
@@ -900,7 +898,6 @@
                         <label>ถึงวันที่ : </label>
                         <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" style="width: 180px;" class="form-control" />
                       </div>
-
                  </form>
                 </div>
                 <div class="col-md-12">
@@ -917,15 +914,20 @@
                           <th class="text-center">ยอดประนอมหนี้</th>
                           <th class="text-center">ยอดคงเหลือ</th>
                           <th class="text-center" style="width: 100px">สถานะ</th>
-                          <th class="text-center" style="width: 150px">ตัวเลือก</th>
+                          <th class="text-center">ตัวเลือก</th>
                         </tr>
                       </thead>
                       <tbody>
                         @foreach($data as $key => $row)
                           <tr>
                             <td class="text-center"> {{$key+1}} </td>
-                            <td class="text-center"> {{$row->Contract_legis}}</a></td>
-                            <td class="text-center"> {{$row->Name_legis}} </td>
+                            <td class="text-center">
+                              {{$row->Contract_legis}}
+                              @if($row->Flag == "C")
+                                <span class="label label-warning">ประนอม</span>
+                              @endif
+                            </td>
+                            <td class="text-left"> {{$row->Name_legis}} </td>
                             <td class="text-center"> {{DateThai($row->Date_Promise)}}</td>
                             <td class="text-center">
                               @if($row->Status_legis == "ปิดบัญชีประนอมหนี้" or $row->Status_legis == "ยึดรถหลังฟ้อง")
@@ -980,13 +982,15 @@
                                 <span class="glyphicon glyphicon-pencil"></span> แก้ไข
                               </a>
                               <div class="form-inline form-group">
-                                <form method="post" class="delete_form" action="{{ action('LegislationController@destroy',[$row->id ,1]) }}">
-                                {{csrf_field()}}
-                                  <input type="hidden" name="_method" value="DELETE" />
-                                  <button disabled type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
-                                    <span class="glyphicon glyphicon-trash"></span> ลบ
-                                  </button>
-                                </form>
+                                @if($row->Flag == "C")
+                                  <form method="post" class="delete_form" action="{{ action('LegislationController@destroy',[$row->id ,1]) }}">
+                                  {{csrf_field()}}
+                                    <input type="hidden" name="_method" value="DELETE" />
+                                    <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
+                                      <span class="glyphicon glyphicon-trash"></span> ลบ
+                                    </button>
+                                  </form>
+                                @endif
                               </div>
                             </td>
                           </tr>
@@ -1398,7 +1402,7 @@
            </div>
 
            <div class="modal fade" id="modal-default">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
