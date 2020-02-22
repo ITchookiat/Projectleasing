@@ -59,9 +59,9 @@
             <h4 class="card-title" align="center"><b>ลูกหนี้ประนอมหนี้</b></h4>
           @elseif($type == 8)
             <h4 class="card-title" align="center"><b>ลูกหนี้สืบทรัพย์</b></h4>
-          @elseif($type == 9)
+          @elseif($type == 10)
             <h4 class="card-title" align="center"><b>ลูกหนี้ของกลาง</b></h4>
-          @elseif($type == 11)
+          @elseif($type == 12)
             <h4 class="card-title" align="center"><b>ลูกหนี้ขายฝาก</b></h4>
           @endif
 
@@ -1402,7 +1402,7 @@
                     </table>
                   </div>
                 </div>
-              @elseif($type == 9)
+              @elseif($type == 10) {{--ลูกหนี้ของกลาง--}}
                 <div class="col-md-12">
                   <form method="get" action="{{ route('legislation', 9) }}">
                       <div align="right" class="form-inline">
@@ -1491,7 +1491,7 @@
                     </table>
                   </div>
                 </div>
-              @elseif($type == 11)
+              @elseif($type == 12) {{--ลูกหนี้ขขายฝาก--}
               @endif
            </div>
 
