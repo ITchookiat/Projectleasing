@@ -68,7 +68,7 @@
               <tr align="center" style="line-height: 200%;">
                 <td style="background-color: #33FF00; line-height:250%;" width="40px">{{$key+1}}</td>
                 <td style="line-height:250%;" width="70px">{{$value->CONTNO}}</td>
-                <td style="line-height:250%;" width="140px">{{iconv('Tis-620','utf-8',str_replace(" ","",$value->SNAM.$value->NAME1)."   ".str_replace(" ","",$value->NAME2))}}</td>
+                <td style="line-height:250%;" width="140px" align="left">&nbsp;{{iconv('Tis-620','utf-8',str_replace(" ","",$value->SNAM.$value->NAME1)."   ".str_replace(" ","",$value->NAME2))}}</td>
                 <td style="line-height:250%;" width="70px">{{DateThai($value->LPAYD)}}</td>
                 <td style="line-height:250%;" width="50px">{{number_format($value->DAMT, 2)}}</td>
                 <td style="line-height:250%;" width="50px">{{number_format($value->EXP_AMT, 2)}}</td>

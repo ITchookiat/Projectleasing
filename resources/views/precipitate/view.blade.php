@@ -52,51 +52,57 @@
             @if($type == 1) {{-- ระบบ ปล่อยงานตาม --}}
               <form method="get" action="{{ route('Precipitate', 1) }}">
                 <div align="right" class="form-inline">
-                    <a target="_blank" href="{{ action('PrecController@ReportPrecDue',[00,00]) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{1}}" class="btn btn-danger btn-app">
+                    <a target="_blank" href="{{ action('PrecController@ReportPrecDue',[00,00]) }}?Fromstart={{$fstart}}&Toend={{$tend}}&Fromdate={{$fdate}}&Todate={{$tdate}}&type={{1}}" class="btn btn-danger btn-app">
                       <span class="fa fa-street-view"></span> ใบติดตาม
                     </a>
                   <button type="submit" class="btn btn-warning btn-app">
                     <span class="glyphicon glyphicon-search"></span> Search
                   </button >
                   <p></p>
+                  <label>จากงวดที่ : </label>
+                  <input type="text" name="Fromstart" style="width: 155px;" value="{{ ($fstart != '') ?$fstart: '' }}" class="form-control" />
+                  <label>ถึงงวดที่ : </label>
+                  <input type="text" name="Toend" style="width: 155px;" value="{{ ($tend != '') ?$tend: '' }}" class="form-control" />
+                  <p></p>
                   <label>จากวันที่ : </label>
-                  <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($fdate != '') ?$fdate: '' }}" class="form-control" />
+                  <input type="date" name="Fromdate" style="width: 155px;" value="{{ ($fdate != '') ?$fdate: '' }}" class="form-control" />
+                  &nbsp;
                   <label>ถึงวันที่ : </label>
-                  <input type="date" name="Todate" style="width: 180px;" value="{{ ($tdate != '') ?$tdate: '' }}" class="form-control" />
+                  <input type="date" name="Todate" style="width: 155px;" value="{{ ($tdate != '') ?$tdate: '' }}" class="form-control" />
                 </div>
               </form>
             @elseif($type == 2) {{-- รายงาน แยกตามทีม --}}
               <form method="get" action="{{ route('Precipitate', 2) }}">
                 <div align="right" class="form-inline">
-                  <a target="_blank" href="" class="btn btn-success btn-app">
+                  <a target="_blank" class="btn btn-success btn-app">
                     <span class="fa fa-file-excel-o"></span> Excel
                   </a>
-                  <a target="_blank" href="" class="btn btn-danger btn-app">
+                  <a target="_blank" class="btn btn-danger btn-app">
                     <span class="fa fa-file-pdf-o"></span> PDF
                   </a>
                   <button type="submit" class="btn btn-warning btn-app">
                     <span class="glyphicon glyphicon-search"></span> Search
                   </button >
                   <p></p>
-                  <label>จากวันที่ : </label>
-                  <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($fdate != '') ?$fdate: '' }}" class="form-control" />
-                  <label>ถึงวันที่ : </label>
-                  <input type="date" name="Todate" style="width: 180px;" value="{{ ($tdate != '') ?$tdate: '' }}" class="form-control" />
-                </div>
-                <div align="right" class="form-inline">
-                  <label for="text" class="mr-sm-2">ทีมติดตาม : </label>
-                  <select name="follower" class="form-control mb-2 mr-sm-2" id="text" style="width: 420px">
-                    <option selected disabled value="">---เลือกทีมติดตาม---</option>
-                      <option value="" {{ ($follower == '') ? 'selected' : '' }}>เลือกทั้งหมด</otion>
-                      <option value="008" {{ ($follower == '008') ? 'selected' : '' }}> 008 - กะดะห์</otion>
-                      <option value="99" {{ ($follower == '99') ? 'selected' : '' }}> 99 - ติดตามรวม</otion>
-                      <option value="102" {{ ($follower == '102') ? 'selected' : '' }}>102 - นายอับดุลเล๊าะ กาซอ</otion>
-                      <option value="104" {{ ($follower == '104') ? 'selected' : '' }}>104 - นายอนุวัฒน์ อับดุลรานี</otion>
-                      <option value="105" {{ ($follower == '105') ? 'selected' : '' }}>105 - นายธีรวัฒน์ เจ๊ะกา</otion>
-                      <option value="112" {{ ($follower == '112') ? 'selected' : '' }}>112 - นายราชัน เจ๊ะกา</otion>
-                      <option value="113" {{ ($follower == '113') ? 'selected' : '' }}>113 - นายฟิฏตรี วิชา</otion>
-                      <option value="114" {{ ($follower == '114') ? 'selected' : '' }}>114 - นายอานันท์ กาซอ</otion>
-                  </select>
+
+                    <label for="text" class="mr-sm-2">ทีมติดตาม : </label>
+                    <select name="follower" class="form-control mb-2 mr-sm-2" id="text" style="width: 195px">
+                        <option value="" {{ ($follower == '') ? 'selected' : '' }}>-- เลือกทั้งหมด --</otion>
+                        <option value="008" {{ ($follower == '008') ? 'selected' : '' }}> 008 - เจ๊ะฟารีด๊ะห์ เจ๊ะกาเดร์</otion>
+                        <option value="99" {{ ($follower == '99') ? 'selected' : '' }}> 99 - ติดตามรวม</otion>
+                        <option value="102" {{ ($follower == '102') ? 'selected' : '' }}>102 - นายอับดุลเล๊าะ กาซอ</otion>
+                        <option value="104" {{ ($follower == '104') ? 'selected' : '' }}>104 - นายอนุวัฒน์ อับดุลรานี</otion>
+                        <option value="105" {{ ($follower == '105') ? 'selected' : '' }}>105 - นายธีรวัฒน์ เจ๊ะกา</otion>
+                        <option value="112" {{ ($follower == '112') ? 'selected' : '' }}>112 - นายราชัน เจ๊ะกา</otion>
+                        <option value="113" {{ ($follower == '113') ? 'selected' : '' }}>113 - นายฟิฏตรี วิชา</otion>
+                        <option value="114" {{ ($follower == '114') ? 'selected' : '' }}>114 - นายอานันท์ กาซอ</otion>
+                    </select>
+                  <div align="right" class="form-inline">
+                    <label>จากวันที่ : </label>
+                    <input type="date" name="Fromdate" style="width: 195px;" value="{{ ($fdate != '') ?$fdate: '' }}" class="form-control" />
+                    <label>ถึงวันที่ : </label>
+                    <input type="date" name="Todate" style="width: 195px;" value="{{ ($tdate != '') ?$tdate: '' }}" class="form-control" />
+                  </div>
                 </div>
               </form>
             @elseif($type == 3) {{-- ระบบ แจ้งเตือนติดตาม --}}
@@ -160,7 +166,9 @@
                           @if($type != 3)
                             <th class="text-center">พนง</th>
                             <th class="text-center">สถานะ</th>
+                            @if($type != 2)
                             <th class="text-center">ตัวเลือก</th>
+                            @endif
                           @endif
                         </tr>
                       </thead>
@@ -190,22 +198,24 @@
                             @if($type != 3)
                             <td class="text-center"> {{$row->BILLCOLL}} </td>
                             <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->CONTSTAT)) }} </td>
-                            <td class="text-center">
-                              @php
-                                 $StrCon = explode("/",$row->CONTNO);
-                                 $SetStr1 = $StrCon[0];
-                                 $SetStr2 = $StrCon[1];
-                              @endphp
-                              @if($type == 1)
-                                <a target="_blank" href="{{ action('PrecController@ReportPrecDue',[$SetStr1,$SetStr2]) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{2}}" class="btn btn-sm bg-blue" title="พิมพ์">
-                                  <span class="fa fa-id-card-o"></span> ใบแจ้งหนี้
-                                </a>
-                              @elseif($type == 4)
-                                <a target="_blank" href="{{ action('PrecController@ReportPrecDue',[$SetStr1,$SetStr2]) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{4}}" class="btn btn-sm bg-blue" title="พิมพ์">
-                                  <span class="fa fa-id-card-o"></span> ใบแจ้งหนี้
-                                </a>
+                              @if($type != 2)
+                                <td class="text-center">
+                                  @php
+                                     $StrCon = explode("/",$row->CONTNO);
+                                     $SetStr1 = $StrCon[0];
+                                     $SetStr2 = $StrCon[1];
+                                  @endphp
+                                  @if($type == 1)
+                                    <a target="_blank" href="{{ action('PrecController@ReportPrecDue',[$SetStr1,$SetStr2]) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{2}}" class="btn btn-sm bg-blue" title="พิมพ์">
+                                      <span class="fa fa-id-card-o"></span> ใบแจ้งหนี้
+                                    </a>
+                                  @elseif($type == 4)
+                                    <a target="_blank" href="{{ action('PrecController@ReportPrecDue',[$SetStr1,$SetStr2]) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{4}}" class="btn btn-sm bg-blue" title="พิมพ์">
+                                      <span class="fa fa-id-card-o"></span> ใบแจ้งหนี้
+                                    </a>
+                                  @endif
+                                </td>
                               @endif
-                            </td>
                             @endif
                           </tr>
                         @endforeach

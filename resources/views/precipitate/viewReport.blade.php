@@ -190,7 +190,7 @@
           @if($type == 10) {{-- ระบบ หนังสือบอกเลิก --}}
             <div class="box box-warning box-solid">
               <div class="box-header with-border">
-                <h4 class="card-title" align="center"><b>หนังสือบอกเลิกสัญญา</b></h4>
+                <h4 class="card-title" align="center"><b>หนังสือขอยืนยันบอกเลิกสัญญา</b></h4>
                   <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                     <i class="fa fa-minus"></i></button>
