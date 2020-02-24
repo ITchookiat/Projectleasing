@@ -20,13 +20,6 @@
     <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
 
-    <style>
-      input[type="checkbox"] { position: absolute; opacity: 5; z-index: -5; }
-      input[type="checkbox"]+span { font: 14pt sans-serif; color: #000; }
-      input[type="checkbox"]+span:before { font: 14pt FontAwesome; content: '\00f096'; display: inline-block; width: 14pt; padding: 5px 5 5 5px; margin-right: 0.3em; }
-      input[type="checkbox"]:checked+span:before { content: '\00f046'; }
-      input[type="checkbox"]:focus+span:before { outline: 2px dotted #aaa; }
-    </style>
 
       <!-- Main content -->
       <section class="content">
@@ -376,7 +369,7 @@
                                         <td class="text-center"> {{$row->Jobnumber_Payment}} </td>
                                         <td class="text-center"> {{$row->Adduser_Payment}} </td>
                                         <td class="text-center">
-                                          <a target="_blank" href="{{ route('legislation.report' ,[$row->Payment_id, 2]) }}" class="btn btn-warning btn-sm" title="ปริ้นใบเสร็จ">
+                                          <a target="_blank" href="{{ route('legislation.report' ,[$row->legis_Com_Payment_id, 2]) }}" class="btn btn-warning btn-sm" title="ปริ้นใบเสร็จ">
                                             <span class="glyphicon glyphicon-file"></span> ปริ้น
                                           </a>
                                           <div class="form-inline form-group">

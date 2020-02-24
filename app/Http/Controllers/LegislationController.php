@@ -500,6 +500,8 @@ class LegislationController extends Controller
                   ->where('ASFHP.ARMAST.CONTNO','=', $SetStrConn)
                   ->first();
 
+                  // dd($data);
+
         $dataGT = DB::connection('ibmi')
                   ->table('ASFHP.VIEW_ARMGAR')
                   ->where('ASFHP.VIEW_ARMGAR.CONTNO','=', $SetStrConn)
@@ -984,6 +986,8 @@ class LegislationController extends Controller
           $Legiscourtcase->datesoldout_case = $request->get('Datesoldout');
           $Legiscourtcase->amountsequester_case = $Amountsequester;
           $Legiscourtcase->statussequester_case = NULL;
+          $Legiscourtcase->Flag_case = $request->get('Flagcase');
+
         $Legiscourtcase->update();
 
         $user = Legislation::find($id); //update status
@@ -1153,7 +1157,6 @@ class LegislationController extends Controller
 
      public function updateLegislation(Request $request, $id, $type)
      {
-       // dd( $id, $type,$request->get('Flag'));
        if ($type == 6) {     //ข้อมูลผู้เช่าซื้อจากฝ่ายวิเคราะห์
          $user = Legislation::find($id);
                $user->Flag_status = $request->get('Flag');
@@ -1205,6 +1208,8 @@ class LegislationController extends Controller
            'datesoldout_case' =>  Null,
            'amountsequester_case' =>  Null,
            'statussequester_case' =>  Null,
+           'Flag_case' =>  Null,
+
          ]);
          $Legiscourtcase->save();
 
@@ -1291,6 +1296,16 @@ class LegislationController extends Controller
               ->where('SFHP.ARMAST.CONTNO','=', $request->Contract)
               ->first();
 
+        if ($data == Null) {
+          $data = DB::connection('ibmi')
+                ->table('ASFHP.ARMAST')
+                ->join('ASFHP.INVTRAN','ASFHP.ARMAST.CONTNO','=','ASFHP.INVTRAN.CONTNO')
+                ->join('ASFHP.VIEW_CUSTMAIL','ASFHP.ARMAST.CUSCOD','=','ASFHP.VIEW_CUSTMAIL.CUSCOD')
+                ->where('ASFHP.ARMAST.CONTNO','=', $request->Contract)
+                ->first();
+        }
+        // dd($data);
+
         $dataDB = DB::table('legislations')
               ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
               ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
@@ -1307,31 +1322,40 @@ class LegislationController extends Controller
 
       }elseif ($type == 2) {
         $dataDB = DB::table('legislations')
-              ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
-              ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
-              ->leftJoin('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
-              ->where('legispayments.Payment_id','=', $id)
-              ->orderBy('legispayments.Payment_id', 'ASC')
-              ->first();
+                ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+                ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+                ->leftJoin('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
+                ->where('legispayments.legis_Com_Payment_id','=', $id)
+                ->orderBy('legispayments.Payment_id', 'ASC')
+                ->first();
 
-        $data = DB::connection('ibmi')
-        ->table('SFHP.ARMAST')
-        ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
-        ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
-        ->where('SFHP.ARMAST.CONTNO','=', $dataDB->Contract_legis)
-        ->first();
+        if ($dataDB != "C") {
+          $data = DB::connection('ibmi')
+                ->table('ASFHP.ARMAST')
+                ->join('ASFHP.INVTRAN','ASFHP.ARMAST.CONTNO','=','ASFHP.INVTRAN.CONTNO')
+                ->join('ASFHP.VIEW_CUSTMAIL','ASFHP.ARMAST.CUSCOD','=','ASFHP.VIEW_CUSTMAIL.CUSCOD')
+                ->where('ASFHP.ARMAST.CONTNO','=', $dataDB->Contract_legis)
+                ->first();
+        }else {
+          $data = DB::connection('ibmi')
+                ->table('SFHP.ARMAST')
+                ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+                ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                ->where('SFHP.ARMAST.CONTNO','=', $dataDB->Contract_legis)
+                ->first();
+        }
       }
 
-      $view = \View::make('legislation.report' ,compact('data','dataDB','type'));
-      $html = $view->render();
+        $view = \View::make('legislation.report' ,compact('data','dataDB','type'));
+        $html = $view->render();
 
-      $pdf = new PDF();
-      $pdf::SetTitle('ใบเสร็จรับชำระค่างวด');
-      $pdf::AddPage('L', 'A5');
-      $pdf::SetMargins(16, 5, 5, 5);
-      $pdf::SetFont('freeserif', '', 11, '', true);
-      $pdf::SetAutoPageBreak(TRUE, 5);
-      $pdf::WriteHTML($html,true,false,true,false,'');
-      $pdf::Output('report.pdf');
+        $pdf = new PDF();
+        $pdf::SetTitle('ใบเสร็จรับชำระค่างวด');
+        $pdf::AddPage('L', 'A5');
+        $pdf::SetMargins(16, 5, 5, 5);
+        $pdf::SetFont('freeserif', '', 11, '', true);
+        $pdf::SetAutoPageBreak(TRUE, 5);
+        $pdf::WriteHTML($html,true,false,true,false,'');
+        $pdf::Output('report.pdf');
     }
 }

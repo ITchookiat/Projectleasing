@@ -180,8 +180,13 @@
                               <div class="box-body">
                                 <div class="row">
                                   <div class="col-md-6">
-                                    วันทีเตรียมเอกสาร
+                                    วันที่คัดฉโหนด
                                     <input type="date" id="datepreparedoc" name="datepreparedoc" class="form-control" value="{{$data->datepreparedoc_case}}" onchange="CourtcaseDate();" />
+                                    <br>
+                                    <label>
+                                      <input type="checkbox" name="Flagcase" value="Y" {{ ($data->Flag_case === 'Y') ? 'checked' : '' }}/>
+                                      <span><font color="red">โกงเจ้าหนี้</font></span>
+                                    </label>
                                   </div>
                                   <div class="col-md-6">
                                     หมายเหตุ
