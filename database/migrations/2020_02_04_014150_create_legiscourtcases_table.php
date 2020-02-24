@@ -27,6 +27,8 @@ class CreateLegiscourtcasesTable extends Migration
             $table->string('datesoldout_case')->nullable();
             $table->string('amountsequester_case')->nullable();
             $table->string('statussequester_case')->nullable();
+            $table->string('Flag_case')->nullable();
+
             $table->timestamps();
         });
     }
