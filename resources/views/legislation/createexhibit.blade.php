@@ -139,27 +139,40 @@
 
                                          <div class="col-md-6">
                                            <div class="form-inline" align="right">
-                                              <label><font>บอกเลิกสัญญา : </font></label>
-                                              <select name="TerminateExhibit" class="form-control" style="width: 250px">
-                                                <option selected value="">---เลือกบอกเลิกสัญญา---</option>
-                                                  <option value="เร่งรัด">เร่งรัด</otion>
-                                                  <option value="ทนาย">ทนาย</otion>
-                                              </select>
+                                              <label><font>เบอร์โทรศัพท์ : </font></label>
+                                              <input type="text" name="InquiryOfficialtel" class="form-control" style="width: 250px;" placeholder="ป้อนพนักงานสอบสวน"/>
                                             </div>
                                          </div>
                                       </div>
                                       <div class="row">
+                                        <div class="col-md-6">
+                                          <div class="form-inline" align="right">
+                                             <label><font>บอกเลิกสัญญา : </font></label>
+                                             <select id="TerminateExhibit" name="TerminateExhibit" class="form-control" style="width: 250px">
+                                               <option selected value="">---เลือกบอกเลิกสัญญา---</option>
+                                                 <option value="เร่งรัด">เร่งรัด</otion>
+                                                 <option value="ทนาย">ทนาย</otion>
+                                             </select>
+                                           </div>
+                                        </div>
                                          <div class="col-md-6">
                                            <div class="form-inline" align="right">
                                              <label><font>ประเภทของกลาง : </font></label>
                                              <select id="TypeExhibit" name="TypeExhibit" class="form-control" style="width: 250px">
                                                <option selected value="">---เลือกประเภท---</option>
-                                                 <option value="ของกลาง">ของกลาง</otion>
-                                                 <option value="ยึดตามมาตราการ(ปปส.)">ยึดตามมาตราการ(ปปส.)</otion>
+                                               <option value="ของกลาง">ของกลาง</otion>
+                                               <option value="ยึดตามมาตราการ(ปปส.)">ยึดตามมาตราการ(ปปส.)</otion>
                                              </select>
                                            </div>
-                                         </div>
-
+                                          </div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-md-6" id="ShowTerminate" style="display:none;">
+                                          <div class="form-inline" align="right">
+                                            <label><font>วันที่ทนายส่งเรื่อง : </font></label>
+                                            <input type="date" name="DateLawyersend" class="form-control" style="width: 250px;"/>
+                                          </div>
+                                        </div>
                                       </div>
                                       <br>
                                       {{--
@@ -249,6 +262,15 @@
                                         $('#ShowType2').hide();
                                       }
                                   });
+                                  $('#TerminateExhibit').change(function(){
+                                    var value = document.getElementById('TerminateExhibit').value;
+                                      if(value == 'ทนาย'){
+                                        $('#ShowTerminate').show();
+                                      }
+                                      else{
+                                        $('#ShowTerminate').hide();
+                                      }
+                                  });
                               </script>
                               <div class="row">
                                 <div id="ShowType1" style="display:none;">
@@ -269,45 +291,69 @@
                                         <div class="row">
                                            <div class="col-md-4">
                                              <div class="form-inline" align="right">
-                                                <label><font>วันที่ให้ปากคำ : </font></label>
+                                                <label><font>วันที่สอบคำให้การ : </font></label>
                                                 <input type="date" name="DateGiveword" class="form-control" style="width: 250px"/>
                                              </div>
                                            </div>
                                            <div class="col-md-4">
                                              <div class="form-inline" align="right">
-                                                <label><font>วันที่เตรียมเอกสาร : </font></label>
-                                                <input type="date" name="DatePreparedoc1" class="form-control" style="width: 250px"/>
+                                               <label><font>คำให้การ : </font></label>
+                                               <select name="TypeGiveword" class="form-control" style="width: 250px">
+                                                 <option selected value="">---เลือกคำให้การ---</option>
+                                                 <option value="พนักงานสอบสวน">พนักงานสอบสวน</otion>
+                                                 <option value="พนักงานอัยการ">พนักงานอัยการ</otion>
+                                                 <option value="ชั้นศาล">ชั้นศาล</otion>
+                                               </select>
                                              </div>
                                            </div>
                                            <div class="col-md-4">
                                              <div class="form-inline" align="right">
-                                                <label><font>วันทีไต่สวน : </font></label>
-                                                <input type="date" name="DateInvestigate" class="form-control" style="width: 250px"/>
+                                               <label><font>ผล : </font></label>
+                                               <select name="ResultExhibit1" class="form-control" style="width: 250px">
+                                                 <option selected value="">---เลือกผล---</option>
+                                                   <option value="คืน">คืน</otion>
+                                                   <option value="ไม่คืน">ไม่คืน</otion>
+                                               </select>
                                              </div>
                                            </div>
                                         </div>
                                         <div class="row">
                                            <div class="col-md-4">
                                              <div class="form-inline" align="right">
-                                                <label><font>วันที่เช็คสำนวน : </font></label>
-                                                <input type="date" name="DateCheckexhibit" class="form-control" style="width: 250px"/>
+                                               <label><font>วันที่เช็คสำนวน : </font></label>
+                                               <input type="date" name="DateCheckexhibit" class="form-control" style="width: 250px"/>
                                              </div>
                                            </div>
                                            <div class="col-md-4">
                                              <div class="form-inline" align="right">
-                                                <label><font>วันที่ยื่นเอกสาร : </font></label>
-                                                <input type="date" name="DateSenddoc" class="form-control" style="width: 250px"/>
+                                               <label><font>วันที่เตรียมเอกสาร : </font></label>
+                                               <input type="date" name="DatePreparedoc" class="form-control" style="width: 250px"/>
                                              </div>
                                            </div>
                                            <div class="col-md-4">
                                              <div class="form-inline" align="right">
-                                                <label><font>ผล : </font></label>
-                                                <select name="ResultExhibit1" class="form-control" style="width: 250px">
-                                                  <option selected value="">---เลือกผล---</option>
-                                                    <option value="คืน">คืน</otion>
-                                                    <option value="ไม่คืน">ไม่คืน</otion>
-                                                </select>
+                                               <label><font>วันที่ทราบผล : </font></label>
+                                               <input type="date" name="DategetResult1" class="form-control" style="width: 250px"/>
                                               </div>
+                                           </div>
+                                        </div>
+                                        <div class="row">
+                                           <div class="col-md-4">
+                                             <div class="form-inline" align="right">
+                                               <label><font>วันที่ยื่นคำร้อง : </font></label>
+                                               <input type="date" name="DateSendword" class="form-control" style="width: 250px"/>
+                                             </div>
+                                           </div>
+                                           <div class="col-md-4">
+                                             <div class="form-inline" align="right">
+                                               <label><font>วันทีไต่สวน : </font></label>
+                                               <input type="date" name="DateInvestigate" class="form-control" style="width: 250px"/>
+                                             </div>
+                                           </div>
+                                           <div class="col-md-4">
+                                             <div class="form-inline" align="right">
+
+                                             </div>
                                            </div>
                                         </div>
 
@@ -338,8 +384,8 @@
                                       <div class="row">
                                            <div class="col-md-4">
                                              <div class="form-inline" align="right">
-                                                <label><font>วันที่เตรียมเอกสาร : </font></label>
-                                                <input type="date" name="DatePreparedoc2" class="form-control" style="width: 250px"/>
+                                                <label><font>วันทีส่งรายละเอียด : </font></label>
+                                                <input type="date" name="DateSenddetail" class="form-control" style="width: 250px"/>
                                               </div>
                                            </div>
                                            <div class="col-md-4">
@@ -351,6 +397,12 @@
                                                    <option value="รับรถ">รับรถ</otion>
                                                </select>
                                               </div>
+                                           </div>
+                                           <div class="col-md-4">
+                                             <div class="form-inline" align="right">
+                                               <label><font>วันที่ทราบผล : </font></label>
+                                               <input type="date" name="DategetResult2" class="form-control" style="width: 250px"/>
+                                             </div>
                                            </div>
                                         </div>
 
@@ -375,7 +427,7 @@
                     <button type="submit" class="delete-modal btn btn-success">
                       <span class="glyphicon glyphicon-floppy-save"></span> บันทึก
                     </button>
-                    <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}">
+                    <a class="delete-modal btn btn-danger" href="{{ route('legislation', 10) }}">
                       <span class="glyphicon glyphicon-remove"></span> ยกเลิก
                     </a>
                   </div>
