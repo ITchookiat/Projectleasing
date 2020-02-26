@@ -1211,6 +1211,7 @@ class LegislationController extends Controller
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อย');
       }
       elseif ($type == 10){ //ของกลาง
+          $Dateresult = '';
           if($request->get('DategetResult1') != Null){
             $Dateresult = $request->get('DategetResult1');
           }
