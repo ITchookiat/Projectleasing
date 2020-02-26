@@ -679,15 +679,14 @@ class LegislationController extends Controller
           'NameGT_legis' => $SetGTName,
           'IdcardGT_legis' => $SetGTIDNO,
           'Realty_legis' => $SetRealty,
-          'Mile_legis' => $data->MILERT,
           'Period_legis' => $data->TOT_UPAY,
           'Countperiod_legis' => $data->T_NOPAY,
           'Beforeperiod_legis' => $data->EXP_FRM,
-          'Beforemoey_legis' => $data->SMPAY,
+          'Beforemoney_legis' => $data->SMPAY,
+          'Sumperiod_legis' => $data->BALANC - $data->SMPAY,
           'Remainperiod_legis' => $data->EXP_TO,
           'Staleperiod_legis' => $data->EXP_PRD, //ค้าง
           'Realperiod_legis' => $data->HLDNO, //ค้างงวดจริง
-          'Sumperiod_legis' => $data->BALANC - $data->SMPAY,
           'StatusContract_legis' => (iconv('Tis-620','utf-8',$data->CONTSTAT)),
           'Flag' => 'Y',
         ]);
@@ -1276,7 +1275,26 @@ class LegislationController extends Controller
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
       }
       elseif ($type == 12){ //ขายฝาก
-        dd($request);
+        $LegisLand = Legisland::where('Legisland_id',$id)->first();
+          $LegisLand->Beforemoney_legis = str_replace(",","",$request->get('Beforemoneylegis'));
+          $LegisLand->Sumperiod_legis = str_replace(",","",$request->get('Sumperiodlegis'));
+          $LegisLand->Realperiod_legis =  $request->get('Realperiodlegis');
+          $LegisLand->Datenotice_legis =  $request->get('DateNotice');
+          $LegisLand->Dategetnotice_legis =  $request->get('DateGetNotice');
+          $LegisLand->Datepetition_legis =  $request->get('DatePetition');
+          $LegisLand->Dateinvestigate_legis =  $request->get('DateInvestigate');
+          $LegisLand->Dateadjudicate_legis =  $request->get('DateAdjudicate');
+          $LegisLand->Dateeviction_legis =  $request->get('DateEviction');
+          $LegisLand->Datepost_legis =  $request->get('DatePost');
+          $LegisLand->Datecheckasset_legis =  $request->get('DateCheckAsset');
+          $LegisLand->Resultcheck_legis =  $request->get('ResultCheck');
+          $LegisLand->Datearrest_legis =  $request->get('DateArrest');
+          $LegisLand->Datestaffarrest_legis =  $request->get('DateStaffArrest');
+          $LegisLand->Noteland_legis =  $request->get('NoteLand');
+          $LegisLand->Statusland_legis =  $request->get('Statuslandlegis');
+          $LegisLand->Datestatusland_legis =  $request->get('DateStatuslandlegis');
+        $LegisLand->update();
+        return redirect()->back()->with('success','อัพเดทข้อมูลเรียบร้อย');
       }
       elseif ($type == 100) { //Json ประนอมหนี้
 
