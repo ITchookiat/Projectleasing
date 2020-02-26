@@ -16,6 +16,7 @@ use App\Legiscompromise;
 use App\legispayment;
 use App\legisasset;
 use App\Legisexhibit;
+use App\Legisland;
 
 class LegislationController extends Controller
 {
@@ -75,16 +76,28 @@ class LegislationController extends Controller
             $result3[] = $dataSMT[$j];
           }
         }
-        $Countresult3 = count($result3);
-
         $arrayMerge = array_merge($result, $result3);
 
         $dataDB = DB::table('legislations')
                   ->orderBy('Contract_legis', 'ASC')
                   ->get();
 
+        $dataLand = DB::connection('ibmi')
+                  ->table('LSFHP.ARMAST')
+                  ->join('LSFHP.INVTRAN','LSFHP.ARMAST.CONTNO','=','LSFHP.INVTRAN.CONTNO')
+                  ->join('LSFHP.VIEW_CUSTMAIL','LSFHP.ARMAST.CUSCOD','=','LSFHP.VIEW_CUSTMAIL.CUSCOD')
+                  ->orderBy('LSFHP.ARMAST.CONTNO', 'ASC')
+                  ->get();
+
+        $dataLandDB = DB::table('legislands')
+                  ->orderBy('ContractNo_legis', 'ASC')
+                  ->get();
+        // foreach ($dataLand as $key => $value) {
+        //   @$SumRemain +=  $value->BALANC - $value->SMPAY;
+        // }
+
         $type = $request->type;
-        return view('legislation.view', compact('type','data','result','dataDB','result2','arrayMerge'));
+        return view('legislation.view', compact('type','data','result','dataDB','result2','arrayMerge','dataLandDB','dataLand','SumRemain'));
 
       }
       elseif ($request->type == 2) {   //งานฟ้อง
@@ -325,13 +338,14 @@ class LegislationController extends Controller
       }
       elseif($request->type == 11) {   //หน้าเพิ่มข้อมูลใหม่ของกลาง
         $type = $request->type;
-        return view('legislation.create',compact('type'));
+        return view('legislation.createexhibit',compact('type'));
       }
       elseif ($request->type == 12) {   //ขายฝาก
-        $data = DB::table('legisexhibits')
+        $dataLand = DB::table('legislands')
+                  ->orderBy('ContractNo_legis', 'ASC')
                   ->get();
         $type = $request->type;
-        return view('legislation.view', compact('type','data'));
+        return view('legislation.view', compact('type','dataLand'));
       }
     }
 
@@ -366,7 +380,7 @@ class LegislationController extends Controller
                   'Flag_Payment' => 'N'
               ]);
           }
-          
+
         $GetNumPeriod = DB::table('legispayments')
                 ->where('legis_Com_Payment_id', $id)
                 ->orderBy('Period_Payment', 'desc')->limit(1)
@@ -381,7 +395,7 @@ class LegislationController extends Controller
           $GetJob = $connect[0]->Jobnumber_Payment;
           $SetStr = explode("-",$GetJob);
           $SetJobNumber = $SetStr[1] + 1;
-          
+
           // ดึงปีและเดือนปัจจุบัน
           $SetNumDate = substr($SetStr[1],0,2);
           $Day = date('Y');
@@ -395,7 +409,7 @@ class LegislationController extends Controller
           }else {
             $StrConn = $SetStr[0]."-".$SubDay."".$month."0001";
           }
-          
+
           // จำนวนงวด
           if ($GetNumPeriod != Null) {
             $Period = $GetNumPeriod->Period_Payment;
@@ -442,6 +456,13 @@ class LegislationController extends Controller
         return redirect()->back()->with(['id' => $id,'type' => $type,'success' => 'บันทึกข้อมูลเรียบร้อย']);
       }
       if ($type == 11){ //เพิ่มข้อของกลาง
+        $Dateresult = '';
+        if($request->get('DategetResult1') != Null){
+          $Dateresult = $request->get('DategetResult1');
+        }
+        if($request->get('DategetResult2') != Null){
+          $Dateresult = $request->get('DategetResult2');
+        }
         $LegisExhibit = new Legisexhibit([
           'Contract_legis' => $request->get('ContractNo'),
           'Dateaccept_legis' => $request->get('DateExhibit'),
@@ -450,23 +471,27 @@ class LegislationController extends Controller
           'Suspect_legis' =>  $request->get('NameSuspect'),
           'Plaint_legis' =>  $request->get('PlaintExhibit'),
           'Inquiryofficial_legis' =>  $request->get('InquiryOfficial'),
+          'Inquiryofficialtel_legis' =>  $request->get('InquiryOfficialtel'),
           'Terminate_legis' =>  $request->get('TerminateExhibit'),
+          'DateLawyersend_legis' =>  $request->get('DateLawyersend'),
           'Typeexhibit_legis' =>  $request->get('TypeExhibit'),
           'Currentstatus_legis' =>  $request->get('Currentstatus'),
           'Nextstatus_legis' =>  $request->get('Nextstatus'),
           'Noteexhibit_legis' =>  $request->get('NoteExhibit'),
           'Dategiveword_legis' =>  $request->get('DateGiveword'),
-          'Datepreparedoc1_legis' =>  $request->get('DatePreparedoc1'),
+          'Typegiveword_legis' =>  $request->get('TypeGiveword'),
+          'Datepreparedoc_legis' =>  $request->get('DatePreparedoc'),
           'Dateinvestigate_legis' =>  $request->get('DateInvestigate'),
           'Datecheckexhibit_legis' =>  $request->get('DateCheckexhibit'),
-          'Datesenddoc_legis' =>  $request->get('DateSenddoc'),
+          'Datesendword_legis' =>  $request->get('DateSendword'),
           'Resultexhibit1_legis' =>  $request->get('ResultExhibit1'),
-          'Datepreparedoc2_legis' =>  $request->get('DatePreparedoc2'),
+          'Datesenddetail_legis' =>  $request->get('DateSenddetail'),
           'Resultexhibit2_legis' =>  $request->get('ResultExhibit2'),
+          'Dategetresult_legis' =>  $Dateresult,
         ]);
         // dd($LegisExhibit);
         $LegisExhibit->save();
-        $type = 9;
+        $type = 10;
         return redirect()->Route('legislation',$type)->with('success','บันทึกข้อมูลเรียบร้อย');
       }
     }
@@ -618,6 +643,58 @@ class LegislationController extends Controller
         $type = 1;
         return redirect()->Route('legislation', $type)->with('success','รับเรื่องเรียบร้อย');
       }
+      elseif ($type == 3) {  //ลูกหนี้ขายฝาก
+        $SetStrConn = $SetStr1."/".$SetStr2;
+        $data = DB::connection('ibmi')
+                  ->table('LSFHP.ARMAST')
+                  ->join('LSFHP.INVTRAN','LSFHP.ARMAST.CONTNO','=','LSFHP.INVTRAN.CONTNO')
+                  ->join('LSFHP.VIEW_CUSTMAIL','LSFHP.ARMAST.CUSCOD','=','LSFHP.VIEW_CUSTMAIL.CUSCOD')
+                  ->where('LSFHP.ARMAST.CONTNO','=', $SetStrConn)
+                  ->first();
+        $dataGT = DB::connection('ibmi')
+                  ->table('LSFHP.VIEW_ARMGAR')
+                  ->where('LSFHP.VIEW_ARMGAR.CONTNO','=', $SetStrConn)
+                  ->first();
+
+        if ($dataGT == Null) {
+          $SetGTName = Null;
+          $SetGTIDNO = Null;
+        }else {
+          $SetGTName = (iconv('Tis-620','utf-8',$dataGT->NAME));
+          $SetGTIDNO = (str_replace(" ","",$dataGT->IDNO));
+        }
+
+        $LegisLand = new Legisland([
+          'Date_legis' => $date,
+          'ContractNo_legis' => $data->CONTNO,
+          'Name_legis' => (iconv('TIS-620', 'utf-8', str_replace(" ","",$data->SNAM).str_replace(" ","",$data->NAME1)."  ".str_replace(" ","",$data->NAME2))),
+          'Idcard_legis' => (str_replace(" ","",$data->IDNO)),
+          'BrandCar_legis' => (iconv('Tis-620','utf-8',str_replace(" ","",$data->TYPE))),
+          'register_legis' => (iconv('Tis-620','utf-8',str_replace(" ","",$data->REGNO))),
+          'YearCar_legis' => $data->MANUYR,
+          'Category_legis' => (iconv('Tis-620','utf-8',str_replace(" ","",$data->BAAB))),
+          'DateDue_legis' => $data->SDATE,
+          'Pay_legis' => $data->NCARCST,
+          'DateVAT_legis' => $data->DTSTOPV,
+          'NameGT_legis' => $SetGTName,
+          'IdcardGT_legis' => $SetGTIDNO,
+          'Realty_legis' => $SetRealty,
+          'Mile_legis' => $data->MILERT,
+          'Period_legis' => $data->TOT_UPAY,
+          'Countperiod_legis' => $data->T_NOPAY,
+          'Beforeperiod_legis' => $data->EXP_FRM,
+          'Beforemoey_legis' => $data->SMPAY,
+          'Remainperiod_legis' => $data->EXP_TO,
+          'Staleperiod_legis' => $data->EXP_PRD, //ค้าง
+          'Realperiod_legis' => $data->HLDNO, //ค้างงวดจริง
+          'Sumperiod_legis' => $data->BALANC - $data->SMPAY,
+          'StatusContract_legis' => (iconv('Tis-620','utf-8',$data->CONTSTAT)),
+          'Flag' => 'Y',
+        ]);
+        $LegisLand->save();
+        $type = 1;
+        return redirect()->Route('legislation', $type)->with('success','รับเรื่องเรียบร้อย');
+      }
     }
 
     /**
@@ -751,6 +828,12 @@ class LegislationController extends Controller
         // dd($data);
         return view('legislation.asset',compact('data','id','type'));
       }
+      elseif ($type == 10){ //ของกลาง
+        $data = DB::table('legisexhibits')
+                  ->where('Legisexhibit_id', $id)
+                  ->first();
+        return view('legislation.editmore',compact('data','id','type'));
+      }
       elseif ($type == 11){ //รูปและแผนที
         $data = DB::table('legiscourts')
         ->where('legiscourts.legislation_id',$id)->first();
@@ -774,6 +857,22 @@ class LegislationController extends Controller
 
 
         return view('legislation.info',compact('data','id','type','dataImages','SumImage','column','lat','long'));
+      }
+      elseif ($type == 12){ //ขายฝาก
+        $data = DB::table('legislands')
+                  ->where('Legisland_id', $id)
+                  ->first();
+        $StrCon = explode("/",$data->ContractNo_legis);
+        $SetStr1 = $StrCon[0];
+        $SetStr2 = $StrCon[1];
+        $SetStrConn = $SetStr1."/".$SetStr2;
+        $data1 = DB::connection('ibmi')
+                  ->table('LSFHP.ARMAST')
+                  ->join('LSFHP.INVTRAN','LSFHP.ARMAST.CONTNO','=','LSFHP.INVTRAN.CONTNO')
+                  ->join('LSFHP.VIEW_CUSTMAIL','LSFHP.ARMAST.CUSCOD','=','LSFHP.VIEW_CUSTMAIL.CUSCOD')
+                  ->where('LSFHP.ARMAST.CONTNO','=', $SetStrConn)
+                  ->first();
+        return view('legislation.editmore',compact('data','data1','id','type'));
       }
     }
 
@@ -1112,7 +1211,42 @@ class LegislationController extends Controller
 
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อย');
       }
-      elseif ($type == 11) { //รูปและแผนที่
+      elseif ($type == 10){ //ของกลาง
+          if($request->get('DategetResult1') != Null){
+            $Dateresult = $request->get('DategetResult1');
+          }
+          if($request->get('DategetResult2') != Null){
+            $Dateresult = $request->get('DategetResult2');
+          }
+          $LegisExhibit = Legisexhibit::where('Legisexhibit_id',$id)->first();
+            $LegisExhibit->Contract_legis = $request->get('ContractNo');
+            $LegisExhibit->Dateaccept_legis = $request->get('DateExhibit');
+            $LegisExhibit->Name_legis =  $request->get('NameContract');
+            $LegisExhibit->Policestation_legis =  $request->get('PoliceStation');
+            $LegisExhibit->Suspect_legis =  $request->get('NameSuspect');
+            $LegisExhibit->Plaint_legis =  $request->get('PlaintExhibit');
+            $LegisExhibit->Inquiryofficial_legis =  $request->get('InquiryOfficial');
+            $LegisExhibit->Inquiryofficialtel_legis =  $request->get('InquiryOfficialtel');
+            $LegisExhibit->Terminate_legis =  $request->get('TerminateExhibit');
+            $LegisExhibit->DateLawyersend_legis =  $request->get('DateLawyersend');
+            $LegisExhibit->Typeexhibit_legis =  $request->get('TypeExhibit');
+            $LegisExhibit->Currentstatus_legis =  $request->get('Currentstatus');
+            $LegisExhibit->Nextstatus_legis =  $request->get('Nextstatus');
+            $LegisExhibit->Noteexhibit_legis =  $request->get('NoteExhibit');
+            $LegisExhibit->Dategiveword_legis =  $request->get('DateGiveword');
+            $LegisExhibit->Typegiveword_legis =  $request->get('TypeGiveword');
+            $LegisExhibit->Datepreparedoc_legis =  $request->get('DatePreparedoc');
+            $LegisExhibit->Dateinvestigate_legis =  $request->get('DateInvestigate');
+            $LegisExhibit->Datecheckexhibit_legis =  $request->get('DateCheckexhibit');
+            $LegisExhibit->Datesendword_legis =  $request->get('DateSendword');
+            $LegisExhibit->Resultexhibit1_legis =  $request->get('ResultExhibit1');
+            $LegisExhibit->Datesenddetail_legis =  $request->get('DateSenddetail');
+            $LegisExhibit->Resultexhibit2_legis =  $request->get('ResultExhibit2');
+            $LegisExhibit->Dategetresult_legis =  $Dateresult;
+          $LegisExhibit->update();
+          return redirect()->back()->with('success','อัพเดทข้อมูลเรียบร้อย');
+      }
+      elseif ($type == 11){ //รูปและแผนที่
         $Legiscourt = Legiscourt::where('legislation_id',$id)->first();
           $Legiscourt->latitude_court = $request->get('latitude');
           $Legiscourt->longitude_court = $request->get('longitude');
@@ -1140,6 +1274,9 @@ class LegislationController extends Controller
           }
         }
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
+      }
+      elseif ($type == 12){ //ขายฝาก
+        dd($request);
       }
       elseif ($type == 100) { //Json ประนอมหนี้
 
@@ -1305,8 +1442,12 @@ class LegislationController extends Controller
           ]);
 
       }
-      elseif ($type == 3) { //ลบตาราง Exhibit
+      elseif ($type == 3) { //ลบตาราง ของกลาง Exhibit
         $item = Legisexhibit::where('Legisexhibit_id',$id);
+        $item->Delete();
+      }
+      elseif ($type == 4) { //ลบตาราง ขายฝาก Legisland
+        $item = Legisland::where('legisland_id',$id);
         $item->Delete();
       }
       return redirect()->back()->with('success','ลบข้อมูลเรียบร้อย');

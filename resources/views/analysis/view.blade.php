@@ -110,13 +110,18 @@ $date = date('Y-m-d', strtotime('-1 days'));
                 <div class="col-md-12">
                   <form method="get" action="{{ route('Analysis',1) }}">
                       <div align="right" class="form-inline">
+
+
                         @if(auth::user()->type == 1 or auth::user()->type == 2)
-                          <label>เลขที่สัญญา : </label>
-                          <input type="type" name="Contno" value="{{$contno}}" style="padding:5px;width:180px;border-radius: 5px 0 5px 5px; font-size:24px;"/>
-                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <label>เลขที่สัญญา : </label>
+                        <input type="type" name="Contno" value="{{$contno}}" maxlength="12" style="padding:5px;width:180px;border-radius: 5px 0 5px 5px; font-size:24px;"/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                           <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', $type) }}" class="btn btn-primary btn-app">
                             <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
                           </a>
+                        @else
+                        <label>เลขที่สัญญา : </label>
+                        <input type="type" name="Contno" value="{{$contno}}" maxlength="12" style="padding:5px;width:330px;border-radius: 5px 0 5px 5px; font-size:24px;"/>
                         @endif
 
                         <button type="submit" class="btn btn-warning btn-app">
@@ -223,7 +228,7 @@ $date = date('Y-m-d', strtotime('-1 days'));
                                 </a>
                                 @if(auth::user()->type == 3 and $row->StatusApp_car == 'อนุมัติ')
                                     @php $branch = 'Null'; @endphp
-                                    @php $status = 'Null'; @endphp                            
+                                    @php $status = 'Null'; @endphp
                                 <a href="{{ action('AnalysController@edit',[$row->id,$type,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
                                   <span class="glyphicon glyphicon-eye-open"></span> ดู
                                 </a>
