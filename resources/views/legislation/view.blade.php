@@ -86,119 +86,187 @@
             <div class="row">
               @if($type == 1)
                 <div class="col-md-12">
-                   <hr>
-                   <div class="table-responsive">
-                     <table class="table table-bordered" id="table">
-                        <thead class="thead-dark bg-gray-light" >
-                          <tr>
-                            <th class="text-center" style="width: 10px">ลำดับ</th>
-                            <th class="text-center">เลขที่สัญญา</th>
-                            <th class="text-center">ชื่อ-สกุล</th>
-                            <th class="text-center">วันที่ทำสัญญา</th>
-                            <th class="text-center">ยอดคงเหลือ</th>
-                            <th class="text-center">สถานะ</th>
-                            <th class="text-center">ค้างงวดจริง</th>
-                            <th class="text-center" style="width: 130px">ตัวเลือก</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          @foreach($arrayMerge as $key => $row)
-                            <tr>
-                              <td class="text-center"> {{$key+1}} </td>
-                              <td class="text-center">
-                                {{$row->CONTNO}}
-                                @php
-                                  $StatusCheck = (iconv('TIS-620', 'utf-8', str_replace(" ","",$row->CONTSTAT)));
-                                @endphp
-                                @if($StatusCheck == "ป")
-                                  <span class="label label-warning">ประนอม</span>
-                                @endif
-                              </td>
-                              <td class="text-left">{{iconv('Tis-620','utf-8',str_replace(" ","",$row->SNAM.$row->NAME1)."   ".str_replace(" ","",$row->NAME2))}}</td>
-                              <td class="text-center"> {{ DateThai($row->FDATE) }} </td>
-                              <td class="text-center"> {{ number_format($row->BALANC - $row->SMPAY, 2) }} </td>
-                              <td class="text-center">
-                                @php
-                                  $Flag = "N";
-                                  $SetBaab = iconv('Tis-620','utf-8',str_replace(" ","",$row->BAAB));
-                                @endphp
+                   <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                      <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">ฟ้องทั่วไป</a></li>
+                      <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">ฟ้องขายฝาก</a></li>
+                    </ul>
+                    <div class="tab-content">
+                      <!-- รายชื่อส่งฟ้องทั่วไป -->
+                      <div class="tab-pane active" id="tab_1">
+                        <br>
+                        <div class="table-responsive">
+                          <table class="table table-bordered" id="table">
+                             <thead class="thead-dark bg-gray-light" >
+                               <tr>
+                                 <th class="text-center" style="width: 10px">ลำดับ</th>
+                                 <th class="text-center">เลขที่สัญญา</th>
+                                 <th class="text-center">ชื่อ-สกุล</th>
+                                 <th class="text-center">วันที่ทำสัญญา</th>
+                                 <th class="text-center">ยอดคงเหลือ</th>
+                                 <th class="text-center">สถานะ</th>
+                                 <th class="text-center">ค้างงวดจริง</th>
+                                 <th class="text-center" style="width: 130px">ตัวเลือก</th>
+                               </tr>
+                             </thead>
+                             <tbody>
+                               @foreach($arrayMerge as $key => $row)
+                                 <tr>
+                                   <td class="text-center"> {{$key+1}} </td>
+                                   <td class="text-center">
+                                     {{$row->CONTNO}}
+                                     @php
+                                       $StatusCheck = (iconv('TIS-620', 'utf-8', str_replace(" ","",$row->CONTSTAT)));
+                                     @endphp
+                                     @if($StatusCheck == "ป")
+                                       <span class="label label-warning">ประนอม</span>
+                                     @endif
+                                   </td>
+                                   <td class="text-left">{{iconv('Tis-620','utf-8',str_replace(" ","",$row->SNAM.$row->NAME1)."   ".str_replace(" ","",$row->NAME2))}}</td>
+                                   <td class="text-center"> {{ DateThai($row->FDATE) }} </td>
+                                   <td class="text-center"> {{ number_format($row->BALANC - $row->SMPAY, 2) }} </td>
+                                   <td class="text-center">
+                                     @php
+                                       $Flag = "N";
+                                       $SetBaab = iconv('Tis-620','utf-8',str_replace(" ","",$row->BAAB));
+                                     @endphp
 
-                                @foreach($result2 as $key => $value)
-                                  @if($row->CONTNO == $value->CONTNO)
-                                    มีหลักพรัทย์
-                                    @php
-                                      $Flag = "Y";
-                                      $Realty = "มีหลักพรัทย์";
-                                    @endphp
-                                  @endif
-                                @endforeach
+                                     @foreach($result2 as $key => $value)
+                                       @if($row->CONTNO == $value->CONTNO)
+                                         มีหลักพรัทย์
+                                         @php
+                                           $Flag = "Y";
+                                           $Realty = "มีหลักพรัทย์";
+                                         @endphp
+                                       @endif
+                                     @endforeach
 
-                                @if($Flag == "N")
-                                  @if($SetBaab == "มีหลักพรัทย์")
-                                    มีหลักพรัทย์
-                                    @php
-                                      $Realty = "มีหลักพรัทย์";
-                                    @endphp
-                                  @else
-                                    ไม่มีหลักพรัทย์
-                                    @php
-                                      $Realty = "ไม่มีหลักพรัทย์";
-                                    @endphp
-                                  @endif
-                                @endif
-                              </td>
-                              <td class="text-center"> {{$row->HLDNO}} </td>
-                              <td class="text-center">
-                                @php
-                                   $StrCon = explode("/",$row->CONTNO);
-                                   $SetStr1 = $StrCon[0];
-                                   $SetStr2 = $StrCon[1];
+                                     @if($Flag == "N")
+                                       @if($SetBaab == "มีหลักพรัทย์")
+                                         มีหลักพรัทย์
+                                         @php
+                                           $Realty = "มีหลักพรัทย์";
+                                         @endphp
+                                       @else
+                                         ไม่มีหลักพรัทย์
+                                         @php
+                                           $Realty = "ไม่มีหลักพรัทย์";
+                                         @endphp
+                                       @endif
+                                     @endif
+                                   </td>
+                                   <td class="text-center"> {{$row->HLDNO}} </td>
+                                   <td class="text-center">
+                                     @php
+                                        $StrCon = explode("/",$row->CONTNO);
+                                        $SetStr1 = $StrCon[0];
+                                        $SetStr2 = $StrCon[1];
 
-                                   $Tax = "N";
-                                   $TaxStat = "N";
-                                @endphp
+                                        $Tax = "N";
+                                        $TaxStat = "N";
+                                     @endphp
 
-                                @foreach($dataDB as $key => $row1)
-                                  @if($row->CONTNO == $row1->Contract_legis)
-                                      @if($row1->Flag_status == 1)
-                                        <button class="btn btn-warning btn-sm" title="จัดเตรียมฟ้อง">
-                                          <span class="glyphicon glyphicon-time"></span> เตรียมฟ้อง
-                                        </button>
-                                      @elseif($row1->Flag_status == 3)
-                                        <button class="btn btn-success btn-sm" title="ลูกหนี้ประนอมหนี้">
-                                          <span class="glyphicon glyphicon-lock"></span> ประนอมหนี้
-                                        </button>
-                                      @else
-                                        <button class="btn btn-success btn-sm" title="ขั้นตอนการฟ้อง">
-                                          <span class="glyphicon glyphicon-lock"></span> ลูกหนี้ฟ้อง
-                                        </button>
+                                     @foreach($dataDB as $key => $row1)
+                                       @if($row->CONTNO == $row1->Contract_legis)
+                                           @if($row1->Flag_status == 1)
+                                             <button class="btn btn-warning btn-sm" title="จัดเตรียมฟ้อง">
+                                               <span class="glyphicon glyphicon-time"></span> เตรียมฟ้อง
+                                             </button>
+                                           @elseif($row1->Flag_status == 3)
+                                             <button class="btn btn-success btn-sm" title="ลูกหนี้ประนอมหนี้">
+                                               <span class="glyphicon glyphicon-lock"></span> ประนอมหนี้
+                                             </button>
+                                           @else
+                                             <button class="btn btn-success btn-sm" title="ขั้นตอนการฟ้อง">
+                                               <span class="glyphicon glyphicon-lock"></span> ลูกหนี้ฟ้อง
+                                             </button>
+                                           @endif
+                                         @php
+                                           $Tax = "Y";
+                                           $TaxStat = "Y";
+                                         @endphp
+                                       @endif
+                                     @endforeach
+
+                                     @if($StatusCheck != "ป")
+                                       @if($Tax == "N")
+                                         <a href="{{ route('legislation.Savestore', [$SetStr1,$SetStr2,$Realty,1]) }}" id="edit" class="btn btn-danger btn-sm" title="จัดเตรียมเอกสาร">
+                                           <span class="glyphicon glyphicon-edit"></span> ส่งเอกสาร
+                                         </a>
+                                       @endif
+                                     @else
+                                       @if($TaxStat == "N")
+                                         <a href="{{ route('legislation.Savestore', [$SetStr1,$SetStr2,$Realty,2]) }}" id="edit" class="btn btn-info btn-sm" title="ประนอมหนี้">
+                                           <span class="glyphicon glyphicon-edit"></span> ส่งประนอม
+                                         </a>
+                                       @endif
+                                     @endif
+                                   </td>
+                                 </tr>
+                               @endforeach
+                             </tbody>
+                         </table>
+                        </div>
+                      </div>
+                      <!-- รายชื่อส่งฟ้องขายฝาก-->
+                      <div class="tab-pane" id="tab_2">
+                        <br>
+                         <div class="table-responsive">
+                           <table class="table table-bordered" id="table1">
+                              <thead class="thead-dark bg-gray-light" >
+                                <tr>
+                                  <th class="text-center" style="width: 10px">ลำดับ</th>
+                                  <th class="text-center">เลขที่สัญญา</th>
+                                  <th class="text-center">ชื่อ-สกุล</th>
+                                  <th class="text-center">วันที่ทำสัญญา</th>
+                                  <th class="text-center">ยอดคงเหลือ</th>
+                                  <th class="text-center">สถานะ</th>
+                                  <th class="text-center">ค้างงวดจริง</th>
+                                  <th class="text-center" style="width: 130px">ตัวเลือก</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                @foreach($dataLand as $key => $data)
+                                  @php
+                                     $StrCon = explode("/",$data->CONTNO);
+                                     $SetStr1 = $StrCon[0];
+                                     $SetStr2 = str_replace(" ", "",$StrCon[1]);
+                                     $Realty = 'ขายฝาก';
+                                     $Flag = "N";
+                                  @endphp
+                                  <tr>
+                                    <td class="text-center" style="widtd: 10px">{{$key+1}}</td>
+                                    <td class="text-center">{{$data->CONTNO}}</td>
+                                    <td class="text-left">{{iconv('Tis-620','utf-8',str_replace(" ","",$data->SNAM.$data->NAME1)."   ".str_replace(" ","",$data->NAME2))}}</td>
+                                    <td class="text-center"> {{ DateThai($data->FDATE) }} </td>
+                                    <td class="text-center"> {{ number_format($data->BALANC - $data->SMPAY, 2) }} </td>
+                                    <td class="text-center">{{iconv('Tis-620','utf-8',str_replace(" ","",$data->CONTSTAT))}}</td>
+                                    <td class="text-center"> {{$data->HLDNO}} </td>
+                                    <td class="text-center" style="widtd: 120px">
+                                      @foreach($dataLandDB as $key => $row2)
+                                        @if($data->CONTNO == $row2->ContractNo_legis)
+                                        <a id="edit" class="btn btn-success btn-sm" title="ส่งแล้ว">
+                                          <span class="glyphicon glyphicon-lock"></span> ส่งแล้ว
+                                        </a>
+                                        @php
+                                        $Flag = "Y";
+                                        @endphp
+                                        @endif
+                                      @endforeach
+                                      @if($Flag == 'N')
+                                        <a href="{{ route('legislation.Savestore', [$SetStr1,$SetStr2,$Realty,3]) }}" id="edit" class="btn btn-danger btn-sm" title="ส่งฟ้อง">
+                                          <span class="glyphicon glyphicon-edit"></span> ส่งฟ้อง
+                                        </a>
                                       @endif
-                                    @php
-                                      $Tax = "Y";
-                                      $TaxStat = "Y";
-                                    @endphp
-                                  @endif
+                                    </td>
+                                  </tr>
                                 @endforeach
-
-                                @if($StatusCheck != "ป")
-                                  @if($Tax == "N")
-                                    <a href="{{ route('legislation.Savestore', [$SetStr1,$SetStr2,$Realty,1]) }}" id="edit" class="btn btn-danger btn-sm" title="จัดเตรียมเอกสาร">
-                                      <span class="glyphicon glyphicon-edit"></span> ส่งเอกสาร
-                                    </a>
-                                  @endif
-                                @else
-                                  @if($TaxStat == "N")
-                                    <a href="{{ route('legislation.Savestore', [$SetStr1,$SetStr2,$Realty,2]) }}" id="edit" class="btn btn-info btn-sm" title="ประนอมหนี้">
-                                      <span class="glyphicon glyphicon-edit"></span> ส่งประนอม
-                                    </a>
-                                  @endif
-                                @endif
-                              </td>
-                            </tr>
-                          @endforeach
-                        </tbody>
-                    </table>
-                   </div>
+                              </tbody>
+                          </table>
+                         </div>
+                        </div>
+                      </div>
+                  </div>
                 </div>
               @elseif($type == 2)
                 <div class="col-md-12">
@@ -1472,7 +1540,7 @@
                             </button>
                           </td>
                           <td class="text-center">
-                            <a href="{{ action('LegislationController@edit',[$row->Legisexhibit_id, 4]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
+                            <a href="{{ action('LegislationController@edit',[$row->Legisexhibit_id, 10]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                               <span class="glyphicon glyphicon-pencil"></span> แก้ไข
                             </a>
                             <div class="form-inline form-group">
@@ -1491,9 +1559,57 @@
                     </table>
                   </div>
                 </div>
-              @elseif($type == 12) {{--ลูกหนี้ขขายฝาก--}}
-               <div class="col-md-12">
-               </div>
+              @elseif($type == 12) {{--ลูกหนี้ขายฝาก--}}
+                <div class="col-md-12">
+                 <hr>
+                 <div class="table-responsive">
+                   <table class="table table-bordered" id="table">
+                      <thead class="thead-dark bg-gray-light" >
+                        <tr>
+                          <th class="text-center" style="width: 10px">ลำดับ</th>
+                          <th class="text-center">เลขที่สัญญา</th>
+                          <th class="text-center">ชื่อ-สกุล</th>
+                          <th class="text-center">วันที่ทำสัญญา</th>
+                          <th class="text-center">ยอดคงเหลือ</th>
+                          <th class="text-center">สถานะ</th>
+                          <th class="text-center">ค้างงวดจริง</th>
+                          <th class="text-center" style="width: 130px">ตัวเลือก</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach($dataLand as $key => $row)
+                        <tr>
+                          <td class="text-center" style="widtd: 10px">{{$key+1}}</td>
+                          <td class="text-center">{{$row->ContractNo_legis}}</td>
+                          <td class="text-left">{{$row->Name_legis}}</td>
+                          <td class="text-center">{{ DateThai($row->DateDue_legis) }} </td>
+                          <td class="text-center">{{ number_format($row->Sumperiod_legis, 2) }} </td>
+                          <td class="text-center">
+                            <button type="button" class="btn btn-gray btn-sm" title="ไม่มีข้อมูล">
+                             <i class="fa fa-question-circle prem"></i> ยังไม่มีแจ้งเตือน
+                            </button>
+                          </td>
+                          <td class="text-center">{{$row->Realperiod_legis}}</td>
+                          <td class="text-center" style="widtd: 130px">
+                            <a href="{{ action('LegislationController@edit',[$row->Legisland_id, 12]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
+                              <span class="glyphicon glyphicon-pencil"></span> แก้ไข
+                            </a>
+                            <div class="form-inline form-group">
+                              <form method="post" class="delete_form" action="{{ action('LegislationController@destroy',[$row->Legisland_id ,4]) }}">
+                              {{csrf_field()}}
+                                <input type="hidden" name="_method" value="DELETE" />
+                                <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
+                                  <span class="glyphicon glyphicon-trash"></span> ลบ
+                                </button>
+                              </form>
+                            </div>
+                          </td>
+                        </tr>
+                        @endforeach
+                      </tbody>
+                  </table>
+                 </div>
+              </div>
               @endif
            </div>
 
@@ -1514,7 +1630,7 @@
 
           <script type="text/javascript">
              $(document).ready(function() {
-               $('#table').DataTable( {
+               $('#table,#table1').DataTable( {
                  "order": [[ 0, "asc" ]]
                });
              });
