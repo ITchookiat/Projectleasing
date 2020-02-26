@@ -1477,7 +1477,7 @@
                           <a href="{{ route('legislation', 11) }}" class="btn btn-success btn-app">
                             <span class="glyphicon glyphicon-plus"></span> เพิ่มข้อมูล
                           </a>
-                          <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', $type) }}" class="btn btn-primary btn-app">
+                          <a target="_blank" class="btn btn-primary btn-app">
                             <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
                           </a>
                         <button type="submit" class="btn btn-warning btn-app">
