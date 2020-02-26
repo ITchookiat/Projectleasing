@@ -40,7 +40,6 @@
             @if($type == 9)
               <form name="form1" action="{{ route('legislation.report' ,[00, 1]) }}" method="get" id="formimage" enctype="multipart/form-data">
                 @csrf
-
                 <div class="card">
                   <div class="card-body">
                     <div class="tab-content">

@@ -226,7 +226,7 @@
                       <div class="col-md-6">
                         <div class="box box-warning box-solid">
                           <div class="box-header with-border">
-                            <h3 class="box-title">ข้อมูลผู้เช่าซื้อ</h3>
+                            <h3 class="box-title"><i class="fa fa-street-view"></i> ข้อมูลผู้เช่าซื้อ</h3>
                             <div class="box-tools pull-center">
                               <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                               </button>
@@ -390,7 +390,7 @@
                       <div class="col-md-3">
                         <div class="box box-warning">
                           <div class="box-header with-border bg-yellow">
-                            <h3 class="box-title">เอกสาร</h3>
+                            <h3 class="box-title"><i class="fa fa-check-square-o"></i> เอกสาร</h3>
                             <div class="box-tools pull-right">
                               <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                               </button>
@@ -509,7 +509,7 @@
                       <div class="col-md-3">
                         <div class="box box-warning">
                           <div class="box-header with-border bg-yellow">
-                            <h3 class="box-title">หมายเหตุ</h3>
+                            <h3 class="box-title"><i class="fa fa-edit"></i> หมายเหตุ</h3>
                             <div class="box-tools pull-right">
                               <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                               </button>

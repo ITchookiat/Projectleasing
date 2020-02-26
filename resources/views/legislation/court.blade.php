@@ -220,8 +220,7 @@
               <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 2]) }}">ข้อมูลผู้เช่าซื้อ</a></li>
               <li class="nav-item active"><a href="{{ action('LegislationController@edit',[$id, 3]) }}">ชั้นศาล</a></li>
               <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 7]) }}">ชั้นบังคับคดี</a></li>
-              <li class="nav-item"><a href="#tab_4">ของกลาง</a></li>
-              <li class="nav-item"><a href="#tab_5">โกงเจ้าหนี้</a></li>
+              <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 13]) }}">โกงเจ้าหนี้</a></li>
             </ul>
           </div>
 
@@ -675,12 +674,12 @@
                       <div class="box box-warning box-solid">
                         <div class="nav-tabs-custom" style="background-color : #f39c12;">
                           <ul class="nav nav-tabs">
-                            <li class="nav-item active"><a href="#tab_1" data-toggle="tab">วันฟ้อง(45-60 วัน)</a></li>
-                            <li class="nav-item"><a href="#tab_2" data-toggle="tab">สืบพยาน(30 วัน)</a></li>
-                            <li class="nav-item"><a href="#tab_3" data-toggle="tab">ส่งคำบังคับ(45 วัน)</a></li>
-                            <li class="nav-item"><a href="#tab_4" data-toggle="tab">ตรวจผลหมาย(45 วัน)</a></li>
-                            <li class="nav-item"><a href="#tab_5" data-toggle="tab">ตั้งเจ้าพนักงาน(45 วัน)</a></li>
-                            <li class="nav-item"><a href="#tab_6" data-toggle="tab">ตรวจผลหมายตั้ง(45 วัน)</a></li>
+                            <li class="nav-item active"><a href="#tab_1" data-toggle="tab"><i class="fa fa-unsorted"></i> วันฟ้อง(45-60 วัน)</a></li>
+                            <li class="nav-item"><a href="#tab_2" data-toggle="tab"><i class="fa fa-unsorted"></i> สืบพยาน(30 วัน)</a></li>
+                            <li class="nav-item"><a href="#tab_3" data-toggle="tab"><i class="fa fa-unsorted"></i> ส่งคำบังคับ(45 วัน)</a></li>
+                            <li class="nav-item"><a href="#tab_4" data-toggle="tab"><i class="fa fa-unsorted"></i> ตรวจผลหมาย(45 วัน)</a></li>
+                            <li class="nav-item"><a href="#tab_5" data-toggle="tab"><i class="fa fa-unsorted"></i> ตั้งเจ้าพนักงาน(45 วัน)</a></li>
+                            <li class="nav-item"><a href="#tab_6" data-toggle="tab"><i class="fa fa-unsorted"></i> ตรวจผลหมายตั้ง(45 วัน)</a></li>
                           </ul>
                           <div class="tab-content">
                             <div class="tab-pane active" id="tab_1">
