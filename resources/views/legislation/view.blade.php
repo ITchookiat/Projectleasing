@@ -1571,6 +1571,7 @@
                           <th class="text-center">ชื่อ-สกุล</th>
                           <th class="text-center">วันที่ทำสัญญา</th>
                           <th class="text-center">ยอดคงเหลือ</th>
+                          <th class="text-center">ยอดชำระล่าสุด</th>
                           <th class="text-center">สถานะ</th>
                           <th class="text-center">ค้างงวดจริง</th>
                           <th class="text-center" style="width: 130px">ตัวเลือก</th>
@@ -1584,6 +1585,7 @@
                           <td class="text-left">{{$row->Name_legis}}</td>
                           <td class="text-center">{{ DateThai($row->DateDue_legis) }} </td>
                           <td class="text-center">{{ number_format($row->Sumperiod_legis, 2) }} </td>
+                          <td class="text-center">{{ number_format($row->Beforemoney_legis, 2) }} </td>
                           <td class="text-center">
                             <button type="button" class="btn btn-gray btn-sm" title="ไม่มีข้อมูล">
                              <i class="fa fa-question-circle prem"></i> ยังไม่มีแจ้งเตือน

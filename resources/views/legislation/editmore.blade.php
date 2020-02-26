@@ -478,33 +478,37 @@
                                 <div class="" align="center">
                                   <small class="label label-success" style="font-size: 25px;">
                                     <i class="fa fa-expeditedssl"></i>
-
+                                      @if($data->Statusland_legis == "ไม่จบงาน")
+                                        ไม่จบงาน
+                                      @elseif($data->Statusland_legis == "จบงาน")
+                                        จบงาน
+                                      @elseif($data->Statusland_legis == "ปิดบัญชี")
+                                        ปิดบัญชี
+                                      @endif
                                   </small>
                                 </div>
                                 <p></p>
                                 <label>สถานะ : </label>
-                                <select id="Statuslegis" name="Statuslegis" class="form-control" style="width: 170px;">
+                                <select id="Statuslandlegis" name="Statuslandlegis" class="form-control" style="width: 170px;">
                                   <option selected value="">---เลือกสถานะ---</option>
-                                  <option value="ไม่จบงาน">ไม่จบงาน</otion>
-                                  <option value="จบงาน">จบงาน</otion>
-                                  <option value="ปิดบัญชี">ปิดบัญชี</otion>
+                                  <option value="ไม่จบงาน" {{($data->Statusland_legis === 'ไม่จบงาน') ? 'selected' : '' }}>ไม่จบงาน</otion>
+                                  <option value="จบงาน" {{($data->Statusland_legis === 'จบงาน') ? 'selected' : '' }}>จบงาน</otion>
+                                  <option value="ปิดบัญชี" {{($data->Statusland_legis === 'ปิดบัญชี') ? 'selected' : '' }}>ปิดบัญชี</otion>
                                 </select>
                                 <script>
-                                    $('#Statuslegis').change(function(){
+                                    $('#Statuslandlegis').change(function(){
                                       var today = new Date();
                                       var date = today.getFullYear()+'-'+(today.getMonth()+1).toString().padStart(2, "0")+'-'+today.getDate().toString().padStart(2, "0");
-                                      var value = document.getElementById('Statuslegis').value;
+                                      var value = document.getElementById('Statuslandlegis').value;
                                         if(value != ''){
-                                          $('#DateStatuslegis').val(date);
+                                          $('#DateStatuslandlegis').val(date);
                                         }
                                         else{
-                                          $('#DateStatuslegis').val('');
+                                          $('#DateStatuslandlegis').val('');
                                         }
                                     });
                                 </script>
-
-                                <!-- <input type="text" id="txtStatuslegis" name="txtStatuslegis" class="form-control" style="width: 100px;" oninput="AddComma();"> -->
-                                <input type="date" id="DateStatuslegis" name="DateStatuslegis" class="form-control" style="width: 170px;">
+                                <input type="date" id="DateStatuslandlegis" name="DateStatuslandlegis" value="{{$data->Datestatusland_legis}}" class="form-control" style="width: 170px;">
                               </div>
                             </div>
                         </div>
@@ -549,7 +553,7 @@
 
                     <div class="row">
                       <div class="col-md-6">
-                        <div class="box box-default box-solid">
+                        <div class="box box-warning box-solid">
                           <div class="box-header with-border">
                             <h3 class="box-title"><i class="fa fa-user"></i> ข้อมูลผู้เช่าซื้อ</h3>
                             <div class="box-tools pull-center">
@@ -589,7 +593,7 @@
                               <div class="col-md-4">
                                 ชำระแล้ว
                                 <div class="form-inline" align="left">
-                                  <input type="text" name="Beforemoeylegis" class="form-control" style="width: 100%;" value="{{ number_format($data1->SMPAY, 2) }}" readonly/>
+                                  <input type="text" name="Beforemoneylegis" class="form-control" style="width: 100%;" value="{{ number_format($data1->SMPAY, 2) }}" readonly/>
                                 </div>
                               </div>
                               <div class="col-md-4">
@@ -616,7 +620,7 @@
                               <div class="col-md-4">
                                 ค้างงวดจริง
                                 <div class="form-inline" align="left">
-                                  <input type="text" class="form-control" style="width: 100%;" value="{{ number_format($data1->HLDNO, 2) }}" readonly/>
+                                  <input type="text" name="Realperiodlegis" class="form-control" style="width: 100%;" value="{{ number_format($data1->HLDNO, 2) }}" readonly/>
                                 </div>
                               </div>
                             </div>
@@ -681,7 +685,7 @@
                       </div>
 
                       <div class="col-md-6">
-                        <div class="box box-default box-solid">
+                        <div class="box box-warning box-solid">
                           <div class="box-header with-border">
                             <h3 class="box-title"><i class="fa fa-random"></i> ขั้นตอนดำเนินงาน</h3>
                             <div class="box-tools pull-center">
@@ -697,13 +701,13 @@
                                   <div class="col-md-6">
                                     (1)วันที่ส่งโนติส
                                     <div class="form-inline" align="left">
-                                      <input type="date" name="DateNotis" class="form-control" style="width: 100%;" value="" />
+                                      <input type="date" name="DateNotice" class="form-control" style="width: 100%;" value="{{$data->Datenotice_legis}}" />
                                     </div>
                                   </div>
                                   <div class="col-md-6">
                                     (1.1)วันที่ได้รับใบตอบรับ
                                     <div class="form-inline" align="left">
-                                      <input type="date" name="DateGetNotis" class="form-control" style="width: 100%;" value="" />
+                                      <input type="date" name="DateGetNotice" class="form-control" style="width: 100%;" value="{{$data->Dategetnotice_legis}}" />
                                     </div>
                                   </div>
                                 </div>
@@ -712,13 +716,13 @@
                                   <div class="col-md-6">
                                     (2)วันที่ยื่นคำร้อง
                                     <div class="form-inline" align="left">
-                                      <input type="date" name="DateGiveword" class="form-control" style="width: 100%;" value="" />
+                                      <input type="date" name="DatePetition" class="form-control" style="width: 100%;" value="{{$data->Datepetition_legis}}" />
                                     </div>
                                   </div>
                                   <div class="col-md-6">
                                     (3)วันที่สืบ
                                     <div class="form-inline" align="left">
-                                      <input type="date" name="DateInvestigate" class="form-control" style="width: 100%;" value="" />
+                                      <input type="date" name="DateInvestigate" class="form-control" style="width: 100%;" value="{{$data->Dateinvestigate_legis}}" />
                                     </div>
                                   </div>
                                 </div>
@@ -727,13 +731,13 @@
                                   <div class="col-md-6">
                                     (4)วันที่พิพากษา
                                     <div class="form-inline" align="left">
-                                      <input type="date" name="DateAdjudicate" class="form-control" style="width: 100%;" value="" />
+                                      <input type="date" name="DateAdjudicate" class="form-control" style="width: 100%;" value="{{$data->Dateadjudicate_legis}}" />
                                     </div>
                                   </div>
                                   <div class="col-md-6">
                                     (5)วันที่ทำเรื่องขับไล่
                                     <div class="form-inline" align="left">
-                                      <input type="date" name="DateEviction" class="form-control" style="width: 100%;" value="" />
+                                      <input type="date" name="DateEviction" class="form-control" style="width: 100%;" value="{{$data->Dateeviction_legis}}" />
                                     </div>
                                   </div>
                                 </div>
@@ -742,13 +746,13 @@
                                   <div class="col-md-6">
                                     (5.1)วันทีติดประกาศ
                                     <div class="form-inline" align="left">
-                                      <input type="date" name="DatePost" class="form-control" style="width: 100%;" value="" />
+                                      <input type="date" name="DatePost" class="form-control" style="width: 100%;" value="{{$data->Datepost_legis}}" />
                                     </div>
                                   </div>
                                   <div class="col-md-6">
                                     (5.2)วันที่ไปตรวจทรัพย์
                                     <div class="form-inline" align="left">
-                                      <input type="date" name="DateCheckAsset" class="form-control" style="width: 100%;" value="" />
+                                      <input type="date" name="DateCheckAsset" class="form-control" style="width: 100%;" value="{{$data->Datecheckasset_legis}}" />
                                     </div>
                                   </div>
                                 </div>
@@ -759,8 +763,8 @@
                                     <div class="form-inline" align="left">
                                       <select id="ResultCheck" name="ResultCheck" class="form-control" style="width: 100%">
                                         <option selected value="">---เลือกผลตรวจ---</option>
-                                          <option value="อยู่">อยู่</otion>
-                                          <option value="ไม่อยู่">ไม่อยู่</otion>
+                                          <option value="ลูกหนี้อยู่" {{($data->Resultcheck_legis === 'ลูกหนี้อยู่') ? 'selected' : '' }}>ลูกหนี้อยู่</otion>
+                                          <option value="ลูกหนี้ไม่อยู่" {{($data->Resultcheck_legis === 'ลูกหนี้ไม่อยู่') ? 'selected' : '' }}>ลูกหนี้ไม่อยู่</otion>
                                       </select>
                                     </div>
                                   </div>
@@ -769,7 +773,7 @@
                                 <script>
                                     $('#ResultCheck').change(function(){
                                       var value = document.getElementById('ResultCheck').value;
-                                        if(value == 'อยู่'){
+                                        if(value == 'ลูกหนี้อยู่'){
                                           $('#Showlive').show();
                                         }
                                         else{
@@ -777,17 +781,21 @@
                                         }
                                     });
                                 </script>
+                                @if($data->Resultcheck_legis == 'ลูกหนี้อยู่')
+                                <div class="row" id="Showlive">
+                                @else
                                 <div class="row" id="Showlive" style="display:none;">
+                                @endif
                                   <div class="col-md-6">
                                     (5.3.1)วันที่นำหมายจับ
                                     <div class="form-inline" align="left">
-                                      <input type="date" name="DateArrest" class="form-control" style="width: 100%;" value="" />
+                                      <input type="date" name="DateArrest" class="form-control" style="width: 100%;" value="{{$data->Datearrest_legis}}" />
                                     </div>
                                   </div>
                                   <div class="col-md-6">
                                     (5.3.2)วันที่ พนง. นำจับ
                                     <div class="form-inline" align="left">
-                                      <input type="date" name="DateStaffArrest" class="form-control" style="width: 100%;" value="" />
+                                      <input type="date" name="DateStaffArrest" class="form-control" style="width: 100%;" value="{{$data->Datestaffarrest_legis}}" />
                                     </div>
                                   </div>
                                 </div>
@@ -795,7 +803,7 @@
                               <div class="col-md-4">
                                 หมายเหตุ
                                 <div class="form-inline" align="left">
-                                  <textarea class="form-control" name="NoteExhibit" placeholder="ป้อนหมายเหตุ" style="width:100%;" rows="15"></textarea>
+                                  <textarea class="form-control" name="NoteLand" placeholder="ป้อนหมายเหตุ" style="width:100%;" rows="15">{{$data->Noteland_legis}}</textarea>
                                 </div>
                               </div>
                             </div>
