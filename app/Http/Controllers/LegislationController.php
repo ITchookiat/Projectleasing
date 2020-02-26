@@ -168,6 +168,7 @@ class LegislationController extends Controller
                 ->get();
         }
 
+        // dd($data);
         $type = $request->type;
         return view('legislation.view', compact('type', 'data','result','dataPay','newfdate','newtdate','StateCourt','StateLegis'));
       }
@@ -323,7 +324,7 @@ class LegislationController extends Controller
         $type = $request->type;
         return view('legislation.view', compact('type','data'));
       }
-      elseif($request->type == 11) {   //หน้าเพิ่มข้อมูลใหม่ของกลาง
+      elseif ($request->type == 11) {   //หน้าเพิ่มข้อมูลใหม่ของกลาง
         $type = $request->type;
         return view('legislation.create',compact('type'));
       }
@@ -679,7 +680,8 @@ class LegislationController extends Controller
         $dataPranom = DB::table('Legiscompromises')
                   ->where('legisPromise_id', $id)
                   ->count();
-        // dd($data);
+        // dd($dataPay);
+
         $SumCount = 0;  //ค่าผ่อนชำระทั้งหมด
         $SumPay = 0;    //ค่าชำระ
         $SumPayDue = 0; //ค่าเงินก้อนแรก
@@ -707,6 +709,7 @@ class LegislationController extends Controller
         }
 
         // dd($SumAllPAy);
+
         $Typecom = [
           'ประนอมที่ศาล' => 'ประนอมที่ศาล',
           'ประนอมที่บริษัท' => 'ประนอมที่บริษัท',
@@ -774,6 +777,20 @@ class LegislationController extends Controller
 
 
         return view('legislation.info',compact('data','id','type','dataImages','SumImage','column','lat','long'));
+      }
+      elseif ($type == 13) { //โกงเจ้าหนี้
+        $data = DB::table('legislations')
+              ->leftJoin('legiscourtcases','legislations.id','=','legiscourtcases.legislation_id')
+              ->where('legiscourtcases.legislation_id',$id)->first();
+
+        // if ($data->Flag_case != Null) {
+        //   $SetDateCourt = $data->datepreparedoc_case;
+        //   $DateNew = date ("Y-m-d", strtotime("+60 days", strtotime($SetDateCourt))); 
+        // }else {
+        //   $DateNew = Null;
+        // }
+
+        return view('legislation.cheat',compact('data','id','type'));
       }
     }
 
@@ -1031,8 +1048,16 @@ class LegislationController extends Controller
           $Legiscourtcase->amountsequester_case = $Amountsequester;
           $Legiscourtcase->statussequester_case = NULL;
           $Legiscourtcase->Flag_case = $request->get('Flagcase');
-
         $Legiscourtcase->update();
+        
+        $courtcase = Legiscourtcase::find($id); //update DateNotice_cheat
+          if ($request->get('Flagcase') == Null) {
+            $courtcase->DateNotice_cheat = Null;
+          }else {
+            $SetDateCourt = $request->get('datepreparedoc');
+            $courtcase->DateNotice_cheat = date ("Y-m-d", strtotime("+60 days", strtotime($SetDateCourt))); 
+          }
+        $courtcase->update();
 
         $user = Legislation::find($id); //update status
           if ($request->get('Statuslegis') != Null) {
@@ -1140,6 +1165,35 @@ class LegislationController extends Controller
           }
         }
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
+      }
+      elseif ($type == 13) { //โกงเจ้าหนี้
+        // dd($request);
+        $Legiscourtcase = Legiscourtcase::where('legislation_id',$id)->first();
+          $Legiscourtcase->DateNotice_cheat = $request->get('DateNoticeCheat');
+          $Legiscourtcase->Dateindictment_cheat = $request->get('DateindictmentCheat');
+          $Legiscourtcase->DateExamine_cheat = $request->get('DateExamineCheat');
+          $Legiscourtcase->Datedeposition_cheat = $request->get('DatedepositionCheat');
+          $Legiscourtcase->Dateplantiff_cheat = $request->get('DateplantiffCheat');
+          $Legiscourtcase->Status_cheat = $request->get('StatusCheat');
+          $Legiscourtcase->note_cheat = $request->get('noteCheat');
+        $Legiscourtcase->update();
+
+        $user = Legislation::find($id); //update status
+          if ($request->get('Statuslegis') != Null) {
+            $SettxtStatus = str_replace (",","",$request->get('txtStatuslegis'));
+
+            $user->Status_legis = $request->get('Statuslegis');
+            $user->txtStatus_legis = $SettxtStatus;
+            $user->DateStatus_legis = $request->get('DateStatuslegis');
+            $user->DateUpState_legis = date('Y-m-d');
+          }elseif ($request->get('Statuslegis') == Null) {
+            $user->Status_legis = Null;
+            $user->DateUpState_legis = Null;
+          }
+        $user->update();
+
+        return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
+
       }
       elseif ($type == 100) { //Json ประนอมหนี้
 
@@ -1254,6 +1308,13 @@ class LegislationController extends Controller
            'statussequester_case' =>  Null,
            'Flag_case' =>  Null,
 
+           'DateNotice_cheat' => Null,
+           'Dateindictment_cheat' => Null,
+           'DateExamine_cheat' => Null,
+           'Datedeposition_cheat' => Null,
+           'Dateplantiff_cheat' => Null,
+           'Status_cheat' => Null,
+           'note_cheat' => Null,
          ]);
          $Legiscourtcase->save();
 
@@ -1332,7 +1393,7 @@ class LegislationController extends Controller
 
     public function ReportReceipt(Request $request, $id, $type)
     {
-      if ($type == 1) {   //เมนูค้นหา หน้า View
+      if ($type == 1) {   //เมนูค้นหาหน้า View
         $NumberBill = $request->NumberBill;
         $Fromdate = $request->Fdate;
         $Todate = $request->Tdate;
@@ -1369,13 +1430,16 @@ class LegislationController extends Controller
               ->first();
 
       }elseif ($type == 2) {
+
         $dataDB = DB::table('legislations')
                 ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
                 ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
                 ->leftJoin('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
-                ->where('legispayments.legis_Com_Payment_id','=', $id)
+                ->where('legispayments.Payment_id','=', $id)
                 ->orderBy('legispayments.Payment_id', 'ASC')
                 ->first();
+
+                // dd($dataDB);
 
         if ($dataDB != "C") {
           $data = DB::connection('ibmi')

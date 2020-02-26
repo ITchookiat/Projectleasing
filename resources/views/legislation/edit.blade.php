@@ -195,8 +195,7 @@
               <li class="nav-item active"><a href="{{ action('LegislationController@edit',[$id, 2]) }}">ข้อมูลผู้เช่าซื้อ</a></li>
               <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 3]) }}">ชั้นศาล</a></li>
               <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 7]) }}">ชั้นบังคับคดี</a></li>
-              <li class="nav-item"><a href="#tab_4" data-toggle="tab" aria-expanded="false">ของกลาง</a></li>
-              <li class="nav-item"><a href="#tab_5" data-toggle="tab" aria-expanded="false">โกงเจ้าหนี้</a></li>
+              <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 13]) }}">โกงเจ้าหนี้</a></li>
               <li class="nav-item pull-right"><a href="{{ action('LegislationController@edit',[$id, 11]) }}">รูปและแผนที่</a></li>
               <li class="nav-item pull-right"><a href="{{ action('LegislationController@edit',[$id, 4]) }}">ประนอมหนี้</a></li>
               <li class="nav-item pull-right"><a href="{{ action('LegislationController@edit',[$id, 8]) }}">สืบทรัพย์</a></li>
@@ -307,7 +306,7 @@
                         <div class="col-md-6">
                           <div class="box box-warning box-solid">
                             <div class="box-header with-border">
-                              <h3 class="box-title">ข้อมูลผู้เช่าซื้อ</h3>
+                              <h3 class="box-title"><i class="fa fa-user"></i> ข้อมูลผู้เช่าซื้อ</h3>
                               <div class="box-tools pull-center">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                                 </button>
@@ -459,7 +458,7 @@
                         <div class="col-md-6">
                           <div class="box box-warning">
                             <div class="box-header with-border">
-                              <h3 class="box-title">เอกสาร</h3>
+                              <h3 class="box-title"><i class="fa fa-check-square-o"></i> เอกสาร</h3>
                               <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                                 </button>

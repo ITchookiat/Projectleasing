@@ -208,8 +208,8 @@
                       <div class="box box-success box-solid">
                         <div class="nav-tabs-custom" style="background-color : #66FF66;">
                           <ul class="nav nav-tabs">
-                            <li class="nav-item active"><a href="#tab_1" data-toggle="tab">ข้อมูลประนอมหนี้</a></li>
-                            <li class="nav-item"><a href="#tab_2" data-toggle="tab">ตารางผ่อนชำระ</a></li>
+                            <li class="nav-item active"><a href="#tab_1" data-toggle="tab"><i class="fa fa-unsorted"></i> ข้อมูลประนอมหนี้</a></li>
+                            <li class="nav-item"><a href="#tab_2" data-toggle="tab"><i class="fa fa-unsorted"></i> ตารางผ่อนชำระ</a></li>
                           </ul>
                           <div class="tab-content">
                             <div class="tab-pane active" id="tab_1">
@@ -369,7 +369,7 @@
                                         <td class="text-center"> {{$row->Jobnumber_Payment}} </td>
                                         <td class="text-center"> {{$row->Adduser_Payment}} </td>
                                         <td class="text-center">
-                                          <a target="_blank" href="{{ route('legislation.report' ,[$row->legis_Com_Payment_id, 2]) }}" class="btn btn-warning btn-sm" title="ปริ้นใบเสร็จ">
+                                          <a target="_blank" href="{{ route('legislation.report' ,[$row->Payment_id, 2]) }}" class="btn btn-warning btn-sm" title="ปริ้นใบเสร็จ">
                                             <span class="glyphicon glyphicon-file"></span> ปริ้น
                                           </a>
                                           <div class="form-inline form-group">
