@@ -2,30 +2,6 @@
 @section('title','แผนกวิเคราะห์')
 @section('content')
 
-@php
-  date_default_timezone_set('Asia/Bangkok');
-  $Y = date('Y') + 543;
-  $Y2 = date('Y') + 531;
-  $m = date('m');
-  $d = date('d');
-  //$date = date('Y-m-d');
-  $time = date('H:i');
-  $date = $Y.'-'.$m.'-'.$d;
-  $date2 = $Y2.'-'.'01'.'-'.'01';
-@endphp
-
-@php
-  function DateThai($strDate){
-    $strYear = date("Y",strtotime($strDate))+543;
-    $strMonth= date("n",strtotime($strDate));
-    $strDay= date("d",strtotime($strDate));
-    $strMonthCut = Array("" , "ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค.");
-    $strMonthThai=$strMonthCut[$strMonth];
-    return "$strDay $strMonthThai $strYear";
-    //return "$strDay-$strMonthThai-$strYear";
-  }
-@endphp
-
   <link type="text/css" rel="stylesheet" href="{{ asset('css/magiczoomplus.css') }}"/>
   <script type="text/javascript" src="{{ asset('js/magiczoomplus.js') }}"></script>
 
@@ -46,218 +22,6 @@
    readonly{
      background-color: #FFFFFF;
    }
-  </style>
-
-  <style>
-    body {
-      font-family: Arial;
-      margin: 0;
-    }
-    * {
-      box-sizing: border-box;
-    }
-    img {
-      vertical-align: middle;
-    }
-    .container {
-      position: relative;
-    }
-    .mySlides {
-      display: none;
-    }
-    .cursor {
-      cursor: pointer;
-    }
-    .prev,
-    .next {
-      cursor: pointer;
-      position: absolute;
-      top: 40%;
-      width: auto;
-      padding: 16px;
-      margin-top: -50px;
-      color: white;
-      font-weight: bold;
-      font-size: 20px;
-      border-radius: 0 3px 3px 0;
-      user-select: none;
-      -webkit-user-select: none;
-    }
-    .next {
-      right: 0;
-      border-radius: 3px 0 0 3px;
-    }
-    .prev:hover,
-    .next:hover {
-      background-color: rgba(0, 0, 0, 0.8);
-    }
-    .numbertext {
-      color: #f2f2f2;
-      font-size: 12px;
-      padding: 8px 12px;
-      position: absolute;
-      top: 0;
-    }
-    .caption-container {
-      text-align: center;
-      background-color: #222;
-      padding: 2px 16px;
-      color: white;
-    }
-    .row:after {
-      content: "";
-      display: table;
-      clear: both;
-    }
-    .column {
-      float: left;
-      width: 16.66%;
-    }
-    .demo {
-      opacity: 0.6;
-    }
-    .active,
-    .demo:hover {
-      opacity: 1;
-    }
-  </style>
-
-  <style>
-    #todo-list{
-    width:100%;
-    margin:0 auto 50px auto;
-    padding:5px;
-    background:white;
-    position:relative;
-    /*box-shadow*/
-    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
-     -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
-          box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
-    /*border-radius*/
-    -webkit-border-radius:5px;
-     -moz-border-radius:5px;
-          border-radius:5px;
-    }
-    #todo-list:before{
-    content:"";
-    position:absolute;
-    z-index:-1;
-    /*box-shadow*/
-    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.4);
-     -moz-box-shadow:0 0 20px rgba(0,0,0,0.4);
-          box-shadow:0 0 20px rgba(0,0,0,0.4);
-    top:50%;
-    bottom:0;
-    left:10px;
-    right:10px;
-    /*border-radius*/
-    -webkit-border-radius:100px / 10px;
-     -moz-border-radius:100px / 10px;
-          border-radius:100px / 10px;
-    }
-    .todo-wrap{
-    display:block;
-    position:relative;
-    padding-left:35px;
-    /*box-shadow*/
-    -webkit-box-shadow:0 2px 0 -1px #ebebeb;
-     -moz-box-shadow:0 2px 0 -1px #ebebeb;
-          box-shadow:0 2px 0 -1px #ebebeb;
-    }
-    .todo-wrap:last-of-type{
-    /*box-shadow*/
-    -webkit-box-shadow:none;
-     -moz-box-shadow:none;
-          box-shadow:none;
-    }
-    input[type="checkbox"]{
-    position:absolute;
-    height:0;
-    width:0;
-    opacity:0;
-    /* top:-600px; */
-    }
-    .todo{
-    display:inline-block;
-    font-weight:200;
-    padding:10px 5px;
-    height:37px;
-    position:relative;
-    }
-    .todo:before{
-    content:'';
-    display:block;
-    position:absolute;
-    top:calc(50% + 2px);
-    left:0;
-    width:0%;
-    height:1px;
-    background:#cd4400;
-    /*transition*/
-    -webkit-transition:.25s ease-in-out;
-     -moz-transition:.25s ease-in-out;
-       -o-transition:.25s ease-in-out;
-          transition:.25s ease-in-out;
-    }
-    .todo:after{
-    content:'';
-    display:block;
-    position:absolute;
-    z-index:0;
-    height:18px;
-    width:18px;
-    top:9px;
-    left:-25px;
-    /*box-shadow*/
-    -webkit-box-shadow:inset 0 0 0 2px #d8d8d8;
-     -moz-box-shadow:inset 0 0 0 2px #d8d8d8;
-          box-shadow:inset 0 0 0 2px #d8d8d8;
-    /*transition*/
-    -webkit-transition:.25s ease-in-out;
-     -moz-transition:.25s ease-in-out;
-       -o-transition:.25s ease-in-out;
-          transition:.25s ease-in-out;
-    /*border-radius*/
-    -webkit-border-radius:4px;
-     -moz-border-radius:4px;
-          border-radius:4px;
-    }
-    .todo:hover:after{
-    /*box-shadow*/
-    -webkit-box-shadow:inset 0 0 0 2px #949494;
-     -moz-box-shadow:inset 0 0 0 2px #949494;
-          box-shadow:inset 0 0 0 2px #949494;
-    }
-    .todo .fa-check{
-    position:absolute;
-    z-index:1;
-    left:-31px;
-    top:0;
-    font-size:1px;
-    line-height:36px;
-    width:36px;
-    height:36px;
-    text-align:center;
-    color:transparent;
-    text-shadow:1px 1px 0 white, -1px -1px 0 white;
-    }
-    :checked + .todo{
-    color:#717171;
-    }
-    :checked + .todo:before{
-    width:100%;
-    }
-    :checked + .todo:after{
-    /*box-shadow*/
-    -webkit-box-shadow:inset 0 0 0 2px #0eb0b7;
-     -moz-box-shadow:inset 0 0 0 2px #0eb0b7;
-          box-shadow:inset 0 0 0 2px #0eb0b7;
-    }
-    :checked + .todo .fa-check{
-    font-size:20px;
-    line-height:35px;
-    color:#0eb0b7;
-    }
   </style>
 
   <style>
@@ -391,8 +155,8 @@
       }
   </style>
 
-      <section class="content-header">
-      </section>
+      <!-- <section class="content-header">
+      </section> -->
 
       <!-- Main content -->
       <section class="content">
@@ -409,11 +173,10 @@
           </div>
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs bg-warning">
-              <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 2]) }}">ข้อมูลผู้เช่าซื้อ</a></li>
+            <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 2]) }}">ข้อมูลผู้เช่าซื้อ</a></li>
               <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 3]) }}">ชั้นศาล</a></li>
-              <li class="nav-item"><a href="#tab_3">ชั้นบังคับคดี</a></li>
-              <li class="nav-item"><a href="#tab_4">ของกลาง</a></li>
-              <li class="nav-item"><a href="#tab_5">โกงเจ้าหนี้</a></li>
+              <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 7]) }}">ชั้นบังคับคดี</a></li>
+              <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 13]) }}">โกงเจ้าหนี้</a></li>
               <li class="nav-item pull-right active"><a href="{{ action('LegislationController@edit',[$id, 11]) }}">รูปและแผนที่</a></li>
             </ul>
           </div>
@@ -585,12 +348,6 @@
           })
       </script>
 
-      <script>
-        $(function () {
-          $('[data-mask]').inputmask()
-        })
-      </script>
-
       <script type="text/javascript">
         $(".alert").fadeTo(3000, 1000).slideUp(1000, function(){
         $(".alert").alert('close');
@@ -598,7 +355,6 @@
       </script>
 
       <script>
-
           function showMap() {
           var x = document.getElementById("myLat");
           if (x.style.display === "none") {
@@ -620,7 +376,6 @@
       @if($lat == null && $long ==null)
       <script>
         function initMap() {
-
           var myLatlng = {lat: 6.855323, lng: 101.220649};
 
           var map = new google.maps.Map(document.getElementById('map'), {
@@ -651,7 +406,6 @@
       @else
       <script>
         function initMap() {
-
           var myLatlng = {lat: {{ $lat }}, lng: {{ $long }}};
 
           var map = new google.maps.Map(document.getElementById('map'), {
@@ -680,6 +434,7 @@
         }
       </script>
       @endif
+      
       <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHvHdio8MNE9aqZZmfvd49zHgLbixudMs&callback=initMap&language=th">
       </script>

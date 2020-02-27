@@ -236,21 +236,13 @@
 
                                      <div class="form-inline" align="right">
                                         <label>ประเภทประนอมหนี้ :</label>
-                                        @if($data->Type_Promise == Null)
                                           <select id="TypePromise" name="TypePromise" class="form-control" style="width: 200px;" onchange="income();" required>
                                             <option value="" selected>--- เลือกประนอม ---</option>
-                                            <option value="ประนอมที่ศาล">ประนอมที่ศาล</option>
-                                            <option value="ประนอมที่บริษัท">ประนอมที่บริษัท</option>
-                                            <option value="ประนอมหลังยึดทรัพย์">ประนอมหลังยึดทรัพย์</option>
+                                            <option value="ประนอมที่ศาล" {{ ($data->Type_Promise === 'ประนอมที่ศาล') ? 'selected' : '' }}>ประนอมที่ศาล</option>
+                                            <option value="ประนอมที่บริษัท" {{ ($data->Type_Promise === 'ประนอมที่บริษัท') ? 'selected' : '' }}>ประนอมที่บริษัท</option>
+                                            <option value="ประนอมหลังยึดทรัพย์" {{ ($data->Type_Promise === 'ประนอมหลังยึดทรัพย์') ? 'selected' : '' }}>ประนอมหลังยึดทรัพย์</option>
+                                            <option value="ประนอมโกงเจ้าหนี้" {{ ($data->Type_Promise === 'ประนอมโกงเจ้าหนี้') ? 'selected' : '' }}>ประนอมโกงเจ้าหนี้</option>
                                           </select>
-                                         @else
-                                          <select id="TypePromise" name="TypePromise" class="form-control" style="width: 200px;" onchange="income();">
-                                            <option value="" disabled selected>--- เลือกประนอม ---</option>
-                                            @foreach ($Typecom as $key => $value)
-                                              <option value="{{$key}}" {{ ($key == $data->Type_Promise) ? 'selected' : '' }}>{{$value}}</option>
-                                            @endforeach
-                                          </select>
-                                         @endif
                                       </div>
                                       <hr>
                                    </div>

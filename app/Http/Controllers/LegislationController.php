@@ -420,7 +420,12 @@ class LegislationController extends Controller
           }
 
         }else {
-          $StrConn = "ABL-00000001";
+          $Day = date('Y');
+          $SubDay = substr($Day,2);
+          $month = date('m');
+
+          $StrConn = "ABL"."-".$SubDay."".$month."0001";
+          $SetPeriod = 1;
         }
 
         $LegisPay = new legispayment([
@@ -717,20 +722,32 @@ class LegislationController extends Controller
     public function edit($id, $type)
     {
       if ($type == 2) {     //ข้อมูลผู้เช่าซื้อ
+        
         $data = DB::table('legislations')
-        ->where('legislations.id',$id)->first();
+              ->where('legislations.id',$id)->first();
+
         $StrCon = explode("/",$data->Contract_legis);
         $SetStr1 = $StrCon[0];
         $SetStr2 = $StrCon[1];
         $SetStrConn = $SetStr1."/".$SetStr2;
 
-        $data1 = DB::connection('ibmi')
-                  ->table('SFHP.ARMAST')
-                  ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
-                  ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
-                  ->where('SFHP.ARMAST.CONTNO','=', $SetStrConn)
-                  ->first();
+        if ($data->Flag == "C") {
+          $data1 = DB::connection('ibmi')
+                ->table('ASFHP.ARMAST')
+                ->join('ASFHP.INVTRAN','ASFHP.ARMAST.CONTNO','=','ASFHP.INVTRAN.CONTNO')
+                ->join('ASFHP.VIEW_CUSTMAIL','ASFHP.ARMAST.CUSCOD','=','ASFHP.VIEW_CUSTMAIL.CUSCOD')
+                ->where('ASFHP.ARMAST.CONTNO','=', $SetStrConn)
+                ->first();
+        }else {
+          $data1 = DB::connection('ibmi')
+                ->table('SFHP.ARMAST')
+                ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+                ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                ->where('SFHP.ARMAST.CONTNO','=', $SetStrConn)
+                ->first();
+        }
 
+        // dd($data1);
         return view('legislation.edit',compact('data','data1','id','type'));
       }
       elseif ($type == 3){  //ชั้นศาล
@@ -783,16 +800,8 @@ class LegislationController extends Controller
           $SumAllPAy = 0;
           $Getdata = 0;
         }
-
-        // dd($SumAllPAy);
-
-        $Typecom = [
-          'ประนอมที่ศาล' => 'ประนอมที่ศาล',
-          'ประนอมที่บริษัท' => 'ประนอมที่บริษัท',
-          'ประนอมหลังยึดทรัพย์' => 'ประนอมหลังยึดทรัพย์',
-        ];
-
-        return view('legislation.compromise',compact('data','id','type','Typecom','dataPay','SumPay','SumAllPAy','Getdata','SumCount','dataPranom'));
+        
+        return view('legislation.compromise',compact('data','id','type','dataPay','SumPay','SumAllPAy','Getdata','SumCount','dataPranom'));
       }
       elseif ($type == 5) { //เพิ่มข้อมูลชำระ
         return view('legislation.payment',compact('data','id','type'));
@@ -1499,6 +1508,8 @@ class LegislationController extends Controller
 
         $item1 = legispayment::where('Payment_id',$id)->first();
 
+        // dd($item1);
+
         $dataFind = DB::table('legiscompromises')
                       ->where('legisPromise_id','=', $item1->legis_Com_Payment_id)->first();
 
@@ -1513,13 +1524,14 @@ class LegislationController extends Controller
 
 
         $LegisPay = legispayment::where('legis_Com_Payment_id',$item1->legis_Com_Payment_id)->latest()->first();
-        // dd($LegisPay);
 
-        DB::table('legispayments')
-          ->where('Payment_id', $LegisPay->Payment_id)
-          ->update([
-              'Flag_Payment' => 'Y'
-          ]);
+        if ($LegisPay != Null) {
+          DB::table('legispayments')
+            ->where('Payment_id', $LegisPay->Payment_id)
+            ->update([
+                'Flag_Payment' => 'Y'
+            ]);
+        }
 
       }
       elseif ($type == 3) { //ลบตาราง ของกลาง Exhibit
