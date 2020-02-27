@@ -491,7 +491,7 @@
                                 <label>สถานะ : </label>
                                 <select id="Statuslandlegis" name="Statuslandlegis" class="form-control" style="width: 170px;">
                                   <option selected value="">---เลือกสถานะ---</option>
-                                  <option value="ไม่จบงาน" {{($data->Statusland_legis === 'ไม่จบงาน') ? 'selected' : '' }}>ไม่จบงาน</otion>
+                                  <!-- <option value="ไม่จบงาน" {{($data->Statusland_legis === 'ไม่จบงาน') ? 'selected' : '' }}>ไม่จบงาน</otion> -->
                                   <option value="จบงาน" {{($data->Statusland_legis === 'จบงาน') ? 'selected' : '' }}>จบงาน</otion>
                                   <option value="ปิดบัญชี" {{($data->Statusland_legis === 'ปิดบัญชี') ? 'selected' : '' }}>ปิดบัญชี</otion>
                                 </select>
@@ -578,11 +578,10 @@
                               <div class="col-md-4">
                                 ดอกเบี้ย
                                 <div class="form-inline" align="left">
-                                  <input type="text" name="InterestRate" class="form-control" style="width: 100%;" value="{{ $data1->DSCPRC }}" readonly/>
+                                  <input type="text" name="InterestRate" class="form-control" style="width: 100%;" value="{{ $data1->EFRATE }}%" readonly/> {{--({{number_format($data1->NPROFIT,2)}})--}}
                                 </div>
                               </div>
                             </div>
-
                             <div class="row">
                               <div class="col-md-4">
                                 ยอดที่ต้องชำระ
@@ -599,16 +598,15 @@
                               <div class="col-md-4">
                                 ลูกหนี้คงเหลือ
                                 <div class="form-inline" align="left">
-                                  <input type="text" name="Sumperiodlegis" class="form-control" style="width: 100%;" value="{{ number_format($data1->BALANC - $data1->SMPAY, 2) }}" readonly/>
+                                  <input type="text" name="Sumperiodlegis" class="form-control" style="width: 100%;" value="{{ number_format($data1->NPRICE - $data1->SMPAY, 2) }}" readonly/>
                                 </div>
                               </div>
                             </div>
-
                             <div class="row">
                               <div class="col-md-4">
                                 ผ่อนงวดละ
                                 <div class="form-inline" align="left">
-                                  <input type="text" name="PayAmount" class="form-control" style="width: 100%;" value="{{number_format($data1->TOT_UPAY,2) }}" readonly/>
+                                  <input type="text" name="PayAmount" class="form-control" style="width: 100%;" value="{{number_format($data1->KEYINFUPAY,2) }}" readonly/>
                                 </div>
                               </div>
                               <div class="col-md-4">
@@ -676,6 +674,53 @@
                                 เบอร์ติดต่อ
                                 <div class="form-inline" align="left">
                                   <input type="text" name="Remainperiodlegis" class="form-control" style="width: 100%;" value="{{ iconv('Tis-620','utf-8',str_replace(" ","",$data1->TELP)) }}" readonly/>
+                                </div>
+                              </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                              <div class="col-md-4">
+                                เนื้อที่
+                                <div class="form-inline" align="left">
+                                  <input type="text" name="Beforeperiodlegis" class="form-control" style="width: 100%;" value="{{$data1->MANUYR}}" readonly/>
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                ไร่
+                                <div class="form-inline" align="left">
+                                  <input type="text" name="Remainperiodlegis" class="form-control" style="width: 100%;" value="{{$data1->REGNO}}" readonly/>
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                งาน
+                                <div class="form-inline" align="left">
+                                  <input type="text" name="Remainperiodlegis" class="form-control" style="width: 100%;" value="{{str_replace(" ","",$data1->DORECV)}} ตารางวา" readonly/>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-2">
+                                ทรัพย์สิน
+                                <div class="form-inline" align="left">
+                                  <input type="text" name="Beforeperiodlegis" class="form-control" style="width: 100%;" value="{{ iconv('Tis-620','utf-8', $data1->COLOR) }}" readonly/>
+                                </div>
+                              </div>
+                              <div class="col-md-2">
+                                กลุ่ม
+                                <div class="form-inline" align="left">
+                                  <input type="text" name="Beforeperiodlegis" class="form-control" style="width: 100%;" value="{{ iconv('Tis-620','utf-8', $data1->GCODE) }}" readonly/>
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                เลขที่โฉนด
+                                <div class="form-inline" align="left">
+                                  <input type="text" name="Remainperiodlegis" class="form-control" style="width: 100%;" value="{{$data1->STRNO}}" readonly/>
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                เล่ม/หน้า
+                                <div class="form-inline" align="left">
+                                  <input type="text" name="Remainperiodlegis" class="form-control" style="width: 100%;" value="{{$data1->ENGNO}}" readonly/>
                                 </div>
                               </div>
                             </div>
