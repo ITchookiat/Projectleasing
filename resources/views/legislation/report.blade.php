@@ -87,17 +87,17 @@
     <br>
     <table border="0">
       <tbody>
-        <tr style="line-height:200%;">
+        <tr style="line-height:180%;">
           <th width="80px" align="right"><b>ชื่อ - นามสกุล : </b></th>
           <th width="10px"></th>
           <th width="150px" align="left">{{ iconv('Tis-620','utf-8',str_replace(" ","",$data->SNAM.$data->NAME1)."   ".str_replace(" ","",$data->NAME2)) }}</th>
         </tr>
-        <tr style="line-height:200%;">
+        <tr style="line-height:180%;">
           <th width="80px" align="right"><b>เลขที่สัญญา :</b></th>
           <th width="10px"></th>
           <th width="150px" align="left">{{ $dataDB->Contract_legis }}</th>
         </tr>
-        <tr style="line-height:200%;">
+        <tr style="line-height:180%;">
           <th width="80px" align="right"><b>ที่อยู่ :</b></th>
           <th width="10px"></th>
           <th width="300px" align="left">
@@ -106,9 +106,6 @@
               ." จ.".iconv('Tis-620','utf-8',str_replace(" ","",$data->PROVDES))."  ". $data->ZIP
             }}
           </th>
-        </tr>
-        <tr>
-          <th></th>
         </tr>
         <tr style="line-height:200%;">
           <th width="80px" align="right"><b>ยี่ห้อ :</b></th>
@@ -133,7 +130,7 @@
 
     <table border="0">
       <tbody>
-      <tr style="line-height:200%;">
+      <tr style="line-height:150%;">
           <th width="80px" align="right"><b>งวดที่ : </b></th>
           <th width="150px" align="center"> 
             {{ $dataDB->Period_Payment }} - {{ $dataDB->Period_Payment }}
@@ -143,12 +140,12 @@
           </th>
           <th width="150px" align="right"></th>
         </tr>
-        <tr style="line-height:180%;">
+        <tr style="line-height:150%;">
           <th width="80px" align="right"><b>ประเภทชำระ : </b></th>
           <th width="150px" align="center"> {{ $dataDB->Type_Payment }}</th>
           <th width="150px" align="right"></th>
         </tr>
-        <tr style="line-height:180%;">
+        <tr style="line-height:150%;">
           <th width="80px" align="right"></th>
           <th width="300px" align="right">
             @php
@@ -157,11 +154,11 @@
             {{number_format($SetPrice, 2)}}
           </th>
         </tr>
-        <tr style="line-height:180%;">
+        <tr style="line-height:150%;">
           <th width="80px" align="right"></th>
           <th width="300px" align="right">7%</th>
         </tr>
-        <tr style="line-height:180%;">
+        <tr style="line-height:150%;">
           <th width="80px" align="right"></th>
           <th width="300px" align="right">
             @php
@@ -173,14 +170,30 @@
         <tr style="line-height:10%;">
           <th></th>
         </tr>
-        <tr style="line-height:200%;">
+        <tr style="line-height:150%;">
           <th width="80px" align="right"><b>ยอดชำระ : </b></th>
           <th width="150px" align="center"><b> ( {{  $Pay_Amount  }} )</b></th>
           <th width="150px" align="right">{{number_format($dataDB->Gold_Payment, 2)}} บาท</th>
         </tr>
-        <tr style="line-height:200%;">
+        <tr style="line-height:150%;">
           <th width="80px" align="right"><b>ยอดคงเหลือ : </b></th>
           <th width="300px" align="right">{{number_format($dataDB->Sum_Promise, 2)}} บาท</th>
+        </tr>
+      </tbody>
+    </table>
+
+    <table border="0">
+      <tbody>
+      <tr style="line-height:170%;">
+          <th></th>
+        </tr>
+        <tr style="line-height:150%;">
+          <th width="200px" align="center">(..............................................)</th>
+          <th width="200px" align="center">(..............................................)</th>
+        </tr>
+        <tr style="line-height:150%;">
+          <th width="200px" align="center">ผู้รับเงิน</th>
+          <th width="200px" align="center">ผู้จ่ายเงิน</th>
         </tr>
       </tbody>
     </table>
