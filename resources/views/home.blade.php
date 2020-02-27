@@ -296,7 +296,7 @@
       </div>
       <div class="modal-body">
         <div class="row">
-          @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 21)
+          @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 21 or auth::user()->type == 31)
             <div class="col-md-6 col-sm-6 col-xs-12">
               <div class="info-box bg-red">
                 <span class="info-box-icon bg-red">
@@ -312,7 +312,7 @@
                     <div class="progress-bar" style="width: 100%"></div>
                   </div>
                     <span class="progress-description">
-                      จำนวนที่ส่งฟ้อง {{ $legisCourt }} ราย
+                      จำนวนลูกหนี้เตรียมฟ้อง {{ $legisCourt }} ราย
                     </span>
                 </div>
               </div>
@@ -332,7 +332,7 @@
                     <div class="progress-bar" style="width: 100%"></div>
                   </div>
                     <span class="progress-description">
-                      จำนวนที่ส่งฟ้อง {{ $legisCourt2 }} ราย
+                      จำนวนลูกหนี้ฟ้อง {{ $legisCourt2 }} ราย
                     </span>
                 </div>
               </div>
@@ -352,7 +352,7 @@
                     <div class="progress-bar" style="width: 100%"></div>
                   </div>
                     <span class="progress-description">
-                      จำนวนที่ส่งฟ้อง {{ $LegisAsset }} ราย
+                      จำนวนลูกหนี้สืบทรัพย์ {{ $LegisAsset }} ราย
                     </span>
                 </div>
               </div>
@@ -372,7 +372,7 @@
                     <div class="progress-bar" style="width: 100%"></div>
                   </div>
                     <span class="progress-description">
-                      จำนวนที่ส่งฟ้อง {{ $LegisCompro }} ราย
+                      จำนวนลูกหนี้ประนอมหนี้ {{ $LegisCompro }} ราย
                     </span>
                 </div>
               </div>

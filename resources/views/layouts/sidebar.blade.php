@@ -166,7 +166,7 @@
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-          @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 21)
+          @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 21 or auth::user()->type == 31)
             <ul class="treeview-menu">
               <li><a href="{{ route('legislation',1) }}"><i class="fa fa-cube text-primary"></i>รายชื่อส่งฟ้อง</a></li>
               <li><a href="{{ route('legislation',6) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้เตรียมฟ้อง</a></li>
