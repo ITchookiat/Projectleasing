@@ -180,11 +180,11 @@
                           }
                       </script>
 
-                      <h4 class="card-title p-3" align="left"><b>ขั้นตอนสืบทรัพย์</b></h4>
+                      <h4 class="card-title p-3" align="left"><b> ขั้นตอนสืบทรัพย์</b></h4>
                       <div class="box box-primary box-solid">
                         <div class="nav-tabs-custom" style="background-color : #1E90FF;">
                           <ul class="nav nav-tabs">
-                            <li class="nav-item active"><a href="#tab_1" data-toggle="tab">สถานะทรัพย์</a></li>
+                            <li class="nav-item active"><a href="#tab_1" data-toggle="tab"><i class="fa fa-unsorted"></i> สถานะทรัพย์</a></li>
                           </ul>
                           <div class="tab-content">
                             <div class="tab-pane active" id="tab_1">
