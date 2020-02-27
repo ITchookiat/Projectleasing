@@ -1106,7 +1106,7 @@
                 </div>
               @elseif($type == 10) {{--ลูกหนี้ของกลาง--}}
                 <div class="col-md-12">
-                  <form method="get" action="{{ route('legislation', 9) }}">
+                  <form method="get" action="{{ route('legislation', 10) }}">
                       <div align="right" class="form-inline">
                           <a href="{{ route('legislation', 11) }}" class="btn btn-success btn-app">
                             <span class="glyphicon glyphicon-plus"></span> เพิ่มข้อมูล
@@ -1119,24 +1119,23 @@
                         </button>
                         <p></p>
                         <label for="text" class="mr-sm-2">บอกเลิกสัญญา : </label>
-                        <select name="status" class="form-control mb-2 mr-sm-2" id="text" style="width: 150px">
+                        <select name="TerminateExhibit" class="form-control mb-2 mr-sm-2" id="text" style="width: 150px">
                           <option selected value="">--- เลือกสถานะ ---</option>
-                          <option value="เร่งรัด">1.เร่งรัด</otion>
-                          <option value="ทนาย">2.ทนาย</otion>
+                          <option value="เร่งรัด" {{ ($terminateexhibit == 'เร่งรัด') ? 'selected' : '' }}>เร่งรัด</otion>
+                          <option value="ทนาย" {{ ($terminateexhibit == 'ทนาย') ? 'selected' : '' }}>ทนาย</otion>
                         </select>
                         <label for="text" class="mr-sm-2">ประเภทของกลาง : </label>
-                        <select name="status" class="form-control mb-2 mr-sm-2" id="text" style="width: 150px">
-                          <option selected value="">--- เลือกสถานะ ---</option>
-                          <option value="Y">มีทรัพย์</otion>
-                          <option value="N">ไม่มีทรัพย์</otion>
-                          <option value="หมดอายุความ">หมดอายุความ</otion>
+                        <select name="Typeexhibit" class="form-control mb-2 mr-sm-2" id="text" style="width: 150px">
+                          <option selected value="">---เลือกประเภท---</option>
+                          <option value="ของกลาง" {{ ($typeexhibit == 'ของกลาง') ? 'selected' : '' }}>ของกลาง</otion>
+                          <option value="ยึดตามมาตราการ(ปปส.)" {{ ($typeexhibit == 'ยึดตามมาตราการ(ปปส.)') ? 'selected' : '' }}>ยึดตามมาตราการ(ปปส.)</otion>
                         </select>
                         <div class="form-inline">
                           <label>จากวันที่ : </label>
-                          <input type="date" name="Fromdate" style="width: 150px;" value="" class="form-control" />
+                          <input type="date" name="Fromdate" style="width: 150px;" value="{{ ($fdate != '') ?$fdate: '' }}" class="form-control" />
                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                           <label>ถึงวันที่ : </label>
-                          <input type="date" name="Todate" style="width: 150px;" value="" class="form-control" />
+                          <input type="date" name="Todate" style="width: 150px;" value="{{ ($tdate != '') ?$tdate: '' }}" class="form-control" />
                         </div>
                       </div>
                     </form>
@@ -1169,9 +1168,52 @@
                           <td class="text-left"> {{$row->Terminate_legis}}</td>
                           <td class="text-left"> {{$row->Typeexhibit_legis}}</td>
                           <td class="text-center">
-                            <button type="button" class="btn btn-gray btn-sm" title="ไม่มีข้อมูล">
-                             <i class="fa fa-question-circle prem"></i> ยังไม่มีแจ้งเตือน
-                            </button>
+                            @if($row->Typeexhibit_legis == 'ของกลาง')
+                              @if($row->Dategetresult_legis != null)
+                              <button type="button" class="btn btn-success btn-sm" title="{{DateThai($row->Dategetresult_legis)}}">
+                                <i class="fa fa-check-circle prem"></i> จบงาน
+                              </button>
+                              @elseif($row->Dateinvestigate_legis != null)
+                                <button type="button" class="btn btn-danger btn-sm" title="{{DateThai($row->Dateinvestigate_legis)}}">
+                                 <i class="fa fa-question-circle prem"></i> ไต่สวน
+                                </button>
+                              @elseif($row->Datesendword_legis != null)
+                                  <button type="button" class="btn btn-danger btn-sm" title="{{DateThai($row->Datesendword_legis)}}">
+                                   <i class="fa fa-question-circle prem"></i> ยื่นคำร้อง
+                                  </button>
+                              @elseif($row->Datepreparedoc_legis != null)
+                                  <button type="button" class="btn btn-danger btn-sm" title="{{DateThai($row->Datepreparedoc_legis)}}">
+                                   <i class="fa fa-question-circle prem"></i> เตรียมเอกสาร
+                                  </button>
+                              @elseif($row->Datecheckexhibit_legis != null)
+                                  <button type="button" class="btn btn-danger btn-sm" title="{{DateThai($row->Datecheckexhibit_legis)}}">
+                                   <i class="fa fa-question-circle prem"></i> เช็คสำนวน
+                                  </button>
+                              @elseif($row->Dategiveword_legis != null)
+                                  <button type="button" class="btn btn-danger btn-sm" title="{{DateThai($row->Dategiveword_legis)}}">
+                                   <i class="fa fa-question-circle prem"></i> สอบคำให้การ
+                                  </button>
+                              @else
+                                <button type="button" class="btn btn-gray btn-sm" title="ยังไม่มีแจ้งเตือน">
+                                 <i class="fa fa-question-circle prem"></i> ยังไม่มีแจ้งเตือน
+                                </button>
+                              @endif
+                            @endif
+                            @if($row->Typeexhibit_legis == 'ยึดตามมาตราการ(ปปส.)')
+                              @if($row->Dategetresult_legis != null)
+                              <button type="button" class="btn btn-success btn-sm" title="{{DateThai($row->Dategetresult_legis)}}">
+                                <i class="fa fa-check-circle prem"></i> จบงาน
+                              </button>
+                              @elseif($row->Datesenddetail_legis != null)
+                                <button type="button" class="btn btn-danger btn-sm" title="{{DateThai($row->Datesenddetail_legis)}}">
+                                 <i class="fa fa-question-circle prem"></i> ส่งรายละเอียด
+                                </button>
+                              @else
+                                  <button type="button" class="btn btn-gray btn-sm" title="ยังไม่มีแจ้งเตือน">
+                                   <i class="fa fa-question-circle prem"></i> ยังไม่มีแจ้งเตือน
+                                  </button>
+                                @endif
+                            @endif
                           </td>
                           <td class="text-center">
                             <a href="{{ action('LegislationController@edit',[$row->Legisexhibit_id, 10]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
@@ -1206,9 +1248,10 @@
                           <th class="text-center">วันที่ทำสัญญา</th>
                           <th class="text-center">ยอดคงเหลือ</th>
                           <th class="text-center">ยอดชำระล่าสุด</th>
-                          <th class="text-center">สถานะ</th>
                           <th class="text-center">ค้างงวดจริง</th>
-                          <th class="text-center" style="width: 130px">ตัวเลือก</th>
+                          <th class="text-center">ระยะเวลา</th>
+                          <th class="text-center">แจ้งเตือนสถานะ</th>
+                          <th class="text-center">ตัวเลือก</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -1220,13 +1263,75 @@
                           <td class="text-center">{{ DateThai($row->DateDue_legis) }} </td>
                           <td class="text-center">{{ number_format($row->Sumperiod_legis, 2) }} </td>
                           <td class="text-center">{{ number_format($row->Beforemoney_legis, 2) }} </td>
-                          <td class="text-center">
-                            <button type="button" class="btn btn-gray btn-sm" title="ไม่มีข้อมูล">
-                             <i class="fa fa-question-circle prem"></i> ยังไม่มีแจ้งเตือน
-                            </button>
-                          </td>
                           <td class="text-center">{{$row->Realperiod_legis}}</td>
-                          <td class="text-center" style="widtd: 130px">
+                          <td class="text-center">
+                            @if($row->Datestatusland_legis == null or $row->Statusland_legis == 'ไม่จบงาน')
+                              @php
+                                $nowday = date('Y-m-d');
+                                $Cldate = date_create($row->Date_legis);
+                                $nowCldate = date_create($nowday);
+                                $ClDateDiff = date_diff($Cldate,$nowCldate);
+                                $duration = $ClDateDiff->format("%a วัน")
+                              @endphp
+                              <font color="red">{{$duration}}</font>
+                            @else
+                              @php
+                                $Cldate = date_create($row->Date_legis);
+                                $nowCldate = date_create($row->Datestatusland_legis);
+                                $ClDateDiff = date_diff($Cldate,$nowCldate);
+                                $duration = $ClDateDiff->format("%a วัน")
+                              @endphp
+                              <font color="green">{{$duration}}</font>
+                            @endif
+                          </td>
+                          <td class="text-center">
+                            @if($row->Datestatusland_legis != null)
+                            <button type="button" class="btn btn-success btn-sm" title="{{DateThai($row->Datestatusland_legis)}}">
+                              @if($row->Statusland_legis == "จบงาน")
+                              <i class="fa fa-check-circle prem"></i> จบงาน
+                              @elseif($row->Statusland_legis == "ปิดบัญชี")
+                              <i class="fa fa-check-circle prem"></i> ปิดบัญชี
+                              @endif
+                            </button>
+                            @elseif($row->Datecheckasset_legis != null)
+                              <button type="button" class="btn btn-danger btn-sm" title="{{DateThai($row->Datecheckasset_legis)}}">
+                               <i class="fa fa-question-circle prem"></i> ไปตรวจทรัพย์{{$row->Resultcheck_legis}}
+                              </button>
+                            @elseif($row->Datepost_legis != null)
+                                <button type="button" class="btn btn-danger btn-sm" title="{{DateThai($row->Datepost_legis)}}">
+                                 <i class="fa fa-question-circle prem"></i> ติดประกาศ
+                                </button>
+                            @elseif($row->Dateeviction_legis != null)
+                                <button type="button" class="btn btn-danger btn-sm" title="{{DateThai($row->Dateeviction_legis)}}">
+                                 <i class="fa fa-question-circle prem"></i> ทำเรื่องขับไล่
+                                </button>
+                            @elseif($row->Dateadjudicate_legis != null)
+                                <button type="button" class="btn btn-danger btn-sm" title="{{DateThai($row->Dateadjudicate_legis)}}">
+                                 <i class="fa fa-question-circle prem"></i> พิพากษา
+                                </button>
+                            @elseif($row->Dateinvestigate_legis != null)
+                                <button type="button" class="btn btn-danger btn-sm" title="{{DateThai($row->Dateinvestigate_legis)}}">
+                                 <i class="fa fa-question-circle prem"></i> สืบสวน
+                                </button>
+                            @elseif($row->Datepetition_legis != null)
+                                <button type="button" class="btn btn-danger btn-sm" title="{{DateThai($row->Datepetition_legis)}}">
+                                 <i class="fa fa-question-circle prem"></i> ยื่นคำร้อง
+                                </button>
+                            @elseif($row->Dategetnotice_legis != null)
+                                <button type="button" class="btn btn-danger btn-sm" title="{{DateThai($row->Dategetnotice_legis)}}">
+                                 <i class="fa fa-question-circle prem"></i> รับใบตอบรับ
+                                </button>
+                            @elseif($row->Datenotice_legis != null)
+                                <button type="button" class="btn btn-danger btn-sm" title="{{DateThai($row->Datenotice_legis)}}">
+                                 <i class="fa fa-question-circle prem"></i> ส่งโนติส
+                                </button>
+                            @else
+                              <button type="button" class="btn btn-gray btn-sm" title="ยังไม่มีแจ้งเตือน">
+                               <i class="fa fa-question-circle prem"></i> ยังไม่มีแจ้งเตือน
+                              </button>
+                            @endif
+                          </td>
+                          <td class="text-center">
                             <a href="{{ action('LegislationController@edit',[$row->Legisland_id, 12]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                               <span class="glyphicon glyphicon-pencil"></span> แก้ไข
                             </a>
@@ -1274,7 +1379,7 @@
 
 
           <script type="text/javascript">
-            $(".alert").fadeTo(3000, 1000).slideUp(1000, function(){
+            $(".alert").fadeTo(500, 500).slideUp(500, function(){
             $(".alert").alert('close');
             });
           </script>

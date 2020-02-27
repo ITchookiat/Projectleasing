@@ -95,9 +95,9 @@ class LegislationController extends Controller
         // foreach ($dataLand as $key => $value) {
         //   @$SumRemain +=  $value->BALANC - $value->SMPAY;
         // }
-
+        $tab = '';
         $type = $request->type;
-        return view('legislation.view', compact('type','data','result','dataDB','result2','arrayMerge','dataLandDB','dataLand','SumRemain'));
+        return view('legislation.view', compact('type','data','result','dataDB','result2','arrayMerge','dataLandDB','dataLand','SumRemain','tab'));
 
       }
       elseif ($request->type == 2) {   //งานฟ้อง
@@ -332,10 +332,35 @@ class LegislationController extends Controller
         return view('legislation.viewReport',compact('type'));
       }
       elseif ($request->type == 10) {   //ของกลาง
+        $fdate = '';
+        $tdate = '';
+        $terminateexhibit = '';
+        $typeexhibit = '';
+        if ($request->has('Fromdate')){
+          $fdate = $request->get('Fromdate');
+        }
+        if ($request->has('Todate')) {
+          $tdate = $request->get('Todate');
+        }
+        if ($request->has('TerminateExhibit')){
+          $terminateexhibit = $request->get('TerminateExhibit');
+        }
+        if ($request->has('Typeexhibit')) {
+          $typeexhibit = $request->get('Typeexhibit');
+        }
         $data = DB::table('legisexhibits')
+                  ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+                    return $q->whereBetween('Dateaccept_legis',[$fdate,$tdate]);
+                  })
+                  ->when(!empty($terminateexhibit), function($q) use($terminateexhibit){
+                    return $q->where('Terminate_legis',$terminateexhibit);
+                  })
+                  ->when(!empty($typeexhibit), function($q) use($typeexhibit){
+                    return $q->where('Typeexhibit_legis',$typeexhibit);
+                  })
                   ->get();
         $type = $request->type;
-        return view('legislation.view', compact('type','data'));
+        return view('legislation.view', compact('type','data','fdate','tdate','terminateexhibit','typeexhibit'));
       }
       elseif ($request->type == 11) {   //หน้าเพิ่มข้อมูลใหม่ของกลาง
         $type = $request->type;
@@ -563,8 +588,8 @@ class LegislationController extends Controller
           'Flag_status' => '1',
         ]);
         $LegisDB->save();
-
-        return redirect()->Route('legislation', $type)->with('success','รับเรื่องเรียบร้อย');
+        $tab = 1;
+        return redirect()->Route('legislation', $type)->with(['tab'=>$tab,'success'=>'รับเรื่องเรียบร้อย']);
       }
       elseif ($type == 2) {   //ลูกหนี้ประนอม
         $SetStrConn = $SetStr1."/".$SetStr2;
@@ -697,8 +722,9 @@ class LegislationController extends Controller
           'Flag' => 'Y',
         ]);
         $LegisLand->save();
+        $tab = 2;
         $type = 1;
-        return redirect()->Route('legislation', $type)->with('success','รับเรื่องเรียบร้อย');
+        return redirect()->Route('legislation', $type)->with(['tab' => $tab , 'success' => 'รับเรื่องเรียบร้อย']);
       }
     }
 
