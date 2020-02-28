@@ -209,7 +209,7 @@
                 <input type="date" name="DateCloseAccount" value="{{ date('Y-m-d') }}" class="form-control" />
                 <br>
                 <label>ยอดปิดบัญชี</label>
-                <input type="text" id="TopCloseAccount" name="TopCloseAccount" class="form-control" placeholder="ป้อนยอดชำระ" value="{{number_format($data->txtStatus_legis,0)}}" oninput="addcomma();" maxlength="8" />
+                <input type="text" id="TopCloseAccount" name="TopCloseAccount" class="form-control" placeholder="ป้อนยอดชำระ" value="{{ number_format(($data->txtStatus_legis !== Null) ?$data->txtStatus_legis: 0) }}" oninput="addcomma();" maxlength="8" />
                 <input type="hidden" name="ContractNo" class="form-control" value="{{$data->Contract_legis}}"/>
               </div>
               <div align="center">
