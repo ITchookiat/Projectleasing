@@ -114,7 +114,7 @@
 
                                          <div class="col-md-6">
                                             <div class="form-inline" align="right">
-                                              <label><font>สถานีภูธร : </font></label>
+                                              <label><font>สถานีตำรวจภูธร : </font></label>
                                               <input type="text" name="PoliceStation" class="form-control" value="{{$data->Policestation_legis}}" style="width: 250px;" placeholder="ป้อนสถานีภูธร">
                                             </div>
                                          </div>
@@ -867,7 +867,7 @@
 
           </form>
           @endif
-      </div>
+        </div>
 
       <script type="text/javascript">
           $("#image-file").fileinput({

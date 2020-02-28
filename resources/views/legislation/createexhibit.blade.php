@@ -103,7 +103,7 @@
 
                                          <div class="col-md-6">
                                             <div class="form-inline" align="right">
-                                              <label><font>สถานีภูธร : </font></label>
+                                              <label><font>สถานีตำรวจภูธร : </font></label>
                                               <input type="text" name="PoliceStation" class="form-control" style="width: 250px;" placeholder="ป้อนสถานีภูธร">
                                             </div>
                                          </div>
