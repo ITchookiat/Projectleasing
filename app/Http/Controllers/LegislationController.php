@@ -293,6 +293,8 @@ class LegislationController extends Controller
         }
         if ($request->get('status') == "หมดอายุความ"){
           $Newstat2 = $request->get('status');
+        }elseif ($request->get('status') == "จบงานสืบทรัพย์"){
+          $Newstat2 = $request->get('status');
         }else {
           $Newstatus = $request->get('status');
         }
@@ -1204,7 +1206,7 @@ class LegislationController extends Controller
             $LegisAsset->save();
 
         }else {
-          if ($request->get('sendsequesterasset') == "เจอ" or $request->get('sendsequesterasset') == "หมดอายุความ") {
+          if ($request->get('sendsequesterasset') == "เจอ" or $request->get('sendsequesterasset') == "หมดอายุความ" or $request->get('sendsequesterasset') == "จบงานสืบทรัพย์") {
             $Dateresult = date('Y-m-d');
           }else {
             $Dateresult = Null;
