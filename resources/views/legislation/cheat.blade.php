@@ -94,6 +94,9 @@
                         <div class="col-md-3">
                           <br>
                           <div class="form-inline" align="right">
+                            <a class="btn btn-app" data-toggle="modal" data-target="#modal-printinfo" data-backdrop="static" data-keyboard="false" style="background-color:blue; color:#FFFFFF;">
+                              <span class="glyphicon glyphicon-print"></span> ใบเสร็จ
+                            </a>
                             <button type="submit" class="btn btn-app" style="background-color:#189100; color:#FFFFFF;">
                               <span class="glyphicon glyphicon-floppy-save"></span> อัพเดท
                             </button>
@@ -172,6 +175,54 @@
       </div>
     </div>
 
+    <div class="modal fade" id="modal-printinfo">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <form name="form2" method="post" action="{{ route('legislation.store',[$id, $type]) }}" target="_blank" id="formimage" enctype="multipart/form-data">
+            @csrf
+              <div class="modal-header">
+                <button type="button" data-dismiss="modal" class="close" >
+                  <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" align="center"> ป้อนข้อมูลปิดบัญชี </h4>
+              </div>
+              <script type="text/javascript">
+                function addCommas(nStr){
+                   nStr += '';
+                   x = nStr.split('.');
+                   x1 = x[0];
+                   x2 = x.length > 1 ? '.' + x[1] : '';
+                   var rgx = /(\d+)(\d{3})/;
+                   while (rgx.test(x1)) {
+                     x1 = x1.replace(rgx, '$1' + ',' + '$2');
+                    }
+                  return x1 + x2;
+                }
+                function addcomma(){
+                  var num11 = document.getElementById('TopCloseAccount').value;
+                  var num1 = num11.replace(",","");
+                  document.form2.TopCloseAccount.value = addCommas(num1);
+                }
+              </script>
+              <div class="modal-body">
+                <label>วันที่ปิดบัญชี</label>
+                <input type="date" name="DateCloseAccount" value="{{ date('Y-m-d') }}" class="form-control" />
+                <br>
+                <label>ยอดปิดบัญชี</label>
+                <input type="text" id="TopCloseAccount" name="TopCloseAccount" class="form-control" placeholder="ป้อนยอดชำระ" value="{{number_format($data->txtStatus_legis,0)}}" oninput="addcomma();" maxlength="8" />
+                <input type="hidden" name="ContractNo" class="form-control" value="{{$data->Contract_legis}}"/>
+              </div>
+              <div align="center">
+                <!-- <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><span class="fa fa-times"></span> ปิด</button> -->
+                <button id="submit" type="submit" class="btn btn-primary"><span class="fa fa-id-card-o"></span> พิมพ์</button>
+              </div>
+              <br/>
+        </form>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
 
       <!-- เวลาแจ้งเตือน -->
       <script type="text/javascript">
