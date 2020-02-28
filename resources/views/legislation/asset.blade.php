@@ -114,6 +114,8 @@
                                         ยึดรถก่อนฟ้อง
                                       @elseif($data->Status_legis == "ปิดบัญชีประนอมหนี้")
                                         ปิดบัญชีประนอมหนี้
+                                      @elseif($data->Status_legis == "ปิดบัญชีหลังฟ้อง")
+                                        ปิดบัญชีหลังฟ้อง
                                       @elseif($data->Status_legis == "ยึดรถหลังฟ้อง")
                                         ยึดรถหลังฟ้อง
                                       @elseif($data->Status_legis == "หมดอายุความคดี")
@@ -128,6 +130,7 @@
                                     <option value="จ่ายจบก่อนฟ้อง" {{ ($data->Status_legis === 'จ่ายจบก่อนฟ้อง') ? 'selected' : '' }}>จ่ายจบก่อนฟ้อง</option>
                                     <option value="ยึดรถก่อนฟ้อง" {{ ($data->Status_legis === 'ยึดรถก่อนฟ้อง') ? 'selected' : '' }}>ยึดรถก่อนฟ้อง</option>
                                     <option value="ปิดบัญชีประนอมหนี้" {{ ($data->Status_legis === 'ปิดบัญชีประนอมหนี้') ? 'selected' : '' }}>ปิดบัญชีประนอมหนี้</option>
+                                    <option value="ปิดบัญชีหลังฟ้อง" {{ ($data->Status_legis === 'ปิดบัญชีหลังฟ้อง') ? 'selected' : '' }}>ปิดบัญชีหลังฟ้อง</option>
                                     <option value="ยึดรถหลังฟ้อง" {{ ($data->Status_legis === 'ยึดรถหลังฟ้อง') ? 'selected' : '' }}>ยึดรถหลังฟ้อง</option>
                                     <option value="หมดอายุความคดี" {{ ($data->Status_legis === 'หมดอายุความคดี') ? 'selected' : '' }}>หมดอายุความคดี</option>
                                   </select>
@@ -222,6 +225,7 @@
                                       <option value="เจอ" {{ ($data->sendsequester_asset === 'เจอ') ? 'selected' : '' }}>เจอ</option>
                                       <option value="ไม่เจอ" {{ ($data->sendsequester_asset === 'ไม่เจอ') ? 'selected' : '' }}>ไม่เจอ</option>
                                       <option value="หมดอายุความ" {{ ($data->sendsequester_asset === 'หมดอายุความ') ? 'selected' : '' }}>หมดอายุความ</option>
+                                      <option value="จบงานสืบทรัพย์" {{ ($data->sendsequester_asset === 'จบงานสืบทรัพย์') ? 'selected' : '' }}>จบงานสืบทรัพย์</option>
                                     </select>
                                     ค่าใช้จ่าย
                                     <input type="text" id="Priceasset" name="Priceasset" class="form-control" value="{{ number_format($data->Price_asset) }}" oninput="Comma();"/>
