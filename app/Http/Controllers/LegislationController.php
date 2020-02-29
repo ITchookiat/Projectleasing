@@ -395,8 +395,8 @@ class LegislationController extends Controller
      */
     public function store(Request $request, $id, $type)
     {
-      $SetDate = ($request->get('DatePayment'));
-      $DateDue = \Carbon\Carbon::parse($SetDate)->format('Y')-543 ."-". \Carbon\Carbon::parse($SetDate)->format('m')."-". \Carbon\Carbon::parse($SetDate)->format('d');
+      // $SetDate = ($request->get('DatePayment'));
+      // $DateDue = \Carbon\Carbon::parse($SetDate)->format('Y')-543 ."-". \Carbon\Carbon::parse($SetDate)->format('m')."-". \Carbon\Carbon::parse($SetDate)->format('d');
       $SetGoldPay = str_replace (",","",$request->get('GoldPayment'));
 
       if ($type == 2) { //ฟ้อง (กรณีปิดบัญชี)
@@ -487,7 +487,7 @@ class LegislationController extends Controller
 
         $LegisPay = new legispayment([
           'legis_Com_Payment_id' => $id,
-          'Date_Payment' => $DateDue,
+          'Date_Payment' => $request->get('DatePayment'),
           'Gold_Payment' =>  $SetGoldPay,
           'Type_Payment' =>  $request->get('TypePayment'),
           'Adduser_Payment' =>  $request->get('AdduserPayment'),
