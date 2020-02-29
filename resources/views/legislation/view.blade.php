@@ -312,8 +312,8 @@
                     <table class="table table-bordered" id="table">
                       <thead class="thead-dark bg-gray-light" >
                         <tr>
-                          <th class="text-center">ลำดับ</th>
-                          <th class="text-center">เลขที่สัญญา</th>
+                          <th class="text-center">No.</th>
+                          <th class="text-center">Job.</th>
                           <th class="text-center">ชื่อ-สกุล</th>
                           <th class="text-center">วันที่ส่งฟ้อง</th>
                           <th class="text-center" style="width: 70px">ระยะเวลา</th>
@@ -335,8 +335,8 @@
                                 {{ DateThai($row->fillingdate_court) }}
                               @endif
                             </td>
-                            <td class="text-center">
-                              @if($row->Status_legis == "จ่ายจบก่อนฟ้อง" or $row->Status_legis == "ยึดรถก่อนฟ้อง" or $row->Status_legis == "ปิดบัญชีประนอมหนี้" or $row->Status_legis == "ปิดบัญชีหลังฟ้อง" or $row->Status_legis == "ยึดรถหลังฟ้อง" or $row->Status_legis == "หมดอายุความคดี")
+                            <td class="text-center">  <!-- ระยะเวลา -->
+                              @if($row->Status_legis == "จ่ายจบก่อนฟ้อง" or $row->Status_legis == "ยึดรถก่อนฟ้อง" or $row->Status_legis == "ปิดบัญชีประนอมหนี้" or $row->Status_legis == "ปิดบัญชีหลังฟ้อง" or $row->Status_legis == "ยึดรถหลังฟ้อง" or $row->Status_legis == "หมดอายุความคดี" or $row->resultsell_case == "เต็มจำนวน")
                                 @php
                                   $Cldate = date_create($row->Datesend_Flag);
                                   $nowCldate = date_create($row->DateUpState_legis);
@@ -362,7 +362,7 @@
                                 <font color="red">{{$duration}}</font>
                               @endif
                             </td>
-                            <td class="text-center">
+                            <td class="text-center">  <!-- สถานะลูกหนี้ -->
                               @if($row->Status_legis == "จ่ายจบก่อนฟ้อง")
                                 <button type="button" class="btn btn-success btn-sm" title="จ่ายจบก่อนฟ้อง">
                                   <i class="fa fa-check prem"></i> จ่ายจบก่อนฟ้อง
@@ -461,12 +461,7 @@
                                     @endphp
                                   @endif
 
-                                  @if($row->datenextsequester_case != Null) <!-- ยึดทรัพย์/ชั้นบังคับคดี -->
-                                    @php
-                                      $Tab7 = date_create($row->datenextsequester_case);
-                                      $DateEx7 = date_diff($Newdate,$Tab7);
-                                    @endphp
-                                  @elseif($row->datesetsequester_case != Null)
+                                  @if($row->datesetsequester_case != Null)  <!-- ยึดทรัพย์/ชั้นบังคับคดี -->
                                     @php
                                       $Tab7 = date_create($row->datesetsequester_case);
                                       $DateEx7 = date_diff($Newdate,$Tab7);
@@ -561,6 +556,26 @@
                                           <i class="fa fa-clock-o prem"></i> ตั้งเรื่องยึดทรัพย์
                                         </button>
                                       @endif
+                                    @elseif($row->resultsequester_case != Null) <!-- ประกาศขาย/ชั้นบังคับคดี -->
+                                      @if($row->resultsequester_case == "ขายไม่ได้")
+                                        <button type="button" class="btn btn-danger btn-sm" title="บังคับคดี/ขายไม่ได้">
+                                          <span class="fa fa-bell text-white prem"> บังคับคดี/ขายไม่ได้</span>
+                                        </button>
+                                      @else
+                                        @if($row->resultsell_case == "เต็มจำนวน")
+                                          <button type="button" class="btn btn-success btn-sm" title="ขายได้/เต็มจำนวน">
+                                            <i class="fa fa-check-square-o prem"></i> ขายได้/เต็มจำนวน
+                                          </button>
+                                        @elseif($row->resultsell_case == "ไม่เต็มจำนวน")
+                                          <button type="button" class="btn btn-danger btn-sm" title="ขายได้/เต็มจำนวน">
+                                            <span class="fa fa-bell text-white prem"> ขายได้/ไม่เต็มจำนวน</span>
+                                          </button>
+                                        @else
+                                        <button type="button" class="btn btn-warning btn-sm" title="รอผลจากการขาย">
+                                          <i class="fa fa-clock-o prem"></i> รอผลจากการขาย
+                                        </button>
+                                        @endif
+                                      @endif
                                     @elseif($Newdate <= $Tab8)  <!-- โกงเจ้าหนี้ -->
                                       @if($DateEx8->days <= 8)
                                         <button type="button" class="btn btn-danger btn-sm" title="วันที่แจ้งความ {{ DateThai($Tab8->format('Y-m-d')) }}">
@@ -591,7 +606,7 @@
                                 @endif
                               @endif
                             </td>
-                            <td class="text-center">
+                            <td class="text-center">  <!-- สถานะทรัพย์ -->
                               @if($row->sequester_asset != Null)
                                 @php
                                   $Getdate = date_create($row->sequester_asset);
@@ -664,7 +679,7 @@
                                 @endif
                               @endif
                             </td>
-                            <td class="text-center">
+                            <td class="text-center">  <!-- ประนอมหนี้ -->
                               @php
                                 $lastday = date('Y-m-d', strtotime("-90 days"));
                               @endphp

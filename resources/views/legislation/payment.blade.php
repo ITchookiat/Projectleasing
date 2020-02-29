@@ -70,7 +70,7 @@
                            <div class="row">
                                 <div class="" align="right">
                                    <label>วันที่ : </label>
-                                   <input type="date" name="DatePayment" class="form-control" value="{{ $date }}" min="{{ $date2 }}" style="width: 200px;"/>
+                                   <input type="date" name="DatePayment" class="form-control" value="{{ date('Y-m-d') }}" style="width: 200px;"/>
                                 </div>
                                 <br>
                                 <div class="" align="right">

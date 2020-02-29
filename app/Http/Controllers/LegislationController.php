@@ -986,6 +986,7 @@ class LegislationController extends Controller
           }elseif ($request->get('Statuslegis') == Null) {
             $user->Status_legis = Null;
             $user->DateUpState_legis = Null;
+            $user->DateStatus_legis = Null;
           }
 
           $user->Pay_legis = str_replace(",","",$request->get('Paylegis'));

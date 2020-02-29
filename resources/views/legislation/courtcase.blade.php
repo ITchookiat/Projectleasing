@@ -255,10 +255,10 @@
                                   <div id="ShowDetail1" style="display:none;">
                                   @endif
                                     <div class="col-md-6">
+                                      วันที่จ่ายเงิน
+                                      <input type="date" id="DatenextSequester" name="DatenextSequester" class="form-control" value="{{$data->datenextsequester_case}}" />
                                       เงินค่าใช้จ่าย
                                       <input type="text" id="Paidseguester" name="Paidseguester" class="form-control" value="{{number_format($data->paidsequester_case,0)}}" />
-                                      วันที่ตั้งเรื่องยึดทรัพย์ครั้งต่อไป
-                                      <input type="date" id="DatenextSequester" name="DatenextSequester" class="form-control" value="{{$data->datenextsequester_case}}" />
                                     </div>
                                   </div>
                                   @if($data->resultsequester_case == 'ขายได้')
@@ -336,7 +336,7 @@
     <div class="modal fade" id="modal-printinfo">
       <div class="modal-dialog modal-sm">
         <div class="modal-content">
-          <form name="form2" method="post" action="{{ route('legislation.store',[$id, $type]) }}" target="_blank" id="formimage" enctype="multipart/form-data">
+          <form name="form2" method="post" action="{{ route('legislation.store',[$id, 2]) }}" target="_blank" id="formimage" enctype="multipart/form-data">
             @csrf
               <div class="modal-header">
                 <button type="button" data-dismiss="modal" class="close" >
@@ -364,7 +364,7 @@
               </script>
               <div class="modal-body">
                 <label>วันที่ปิดบัญชี</label>
-                <input type="date" name="DateCloseAccount" value="{{ date('Y-m-d') }}" class="form-control" />
+                <input type="date" name="DateCloseAccount" value="{{ (($data->DateStatus_legis !== Null) ?$data->DateStatus_legis: date('Y-m-d')) }}" class="form-control" />
                 <br>
                 <label>ยอดปิดบัญชี</label>
                 <input type="text" id="TopCloseAccount" name="TopCloseAccount" class="form-control" placeholder="ป้อนยอดชำระ" value="{{ number_format(($data->txtStatus_legis !== Null) ?$data->txtStatus_legis: 0) }}" oninput="addcomma();" maxlength="8" />
