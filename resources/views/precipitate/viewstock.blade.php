@@ -84,10 +84,10 @@
                 <div align="right" class="form-inline">
                   <label for="text" class="mr-sm-2">สถานะรถ : </label>
                   <select name="Statuscar" class="form-control mb-2 mr-sm-2" id="text" style="width: 360px">
-                    <option selected disabled value="">---เลือกสถานะ---</option>
+                    <option selected value="">---เลือกสถานะ---</option>
                       <option value="1" {{ ($Statuscar == '1') ? 'selected' : '' }}> ยึดจากลูกค้าครั้งแรก</otion>
                       <option value="2" {{ ($Statuscar == '2') ? 'selected' : '' }}> ลูกค้ามารับรถคืน</otion>
-                      <option value="3" {{ ($Statuscar == '3') ? 'selected' : '' }}> ยึดจากลูกค้าครั้งที่สอง</otion>
+                      <option value="3" {{ ($Statuscar == '3') ? 'selected' : '' }}> ยึดจากลูกค้าครั้งที่ 2</otion>
                       <option value="4" {{ ($Statuscar == '4') ? 'selected' : '' }}> รับรถจากของกลาง</otion>
                       <option value="5" {{ ($Statuscar == '5') ? 'selected' : '' }}> ส่งรถบ้าน</otion>
                       <option value="6" {{ ($Statuscar == '6') ? 'selected' : '' }}> ลูกค้าส่งรถคืน</otion>
@@ -112,7 +112,7 @@
                             <th class="text-center">ทีมยึด</th>
                             <th class="text-center">ค่ายึด</th>
                             <!-- <th class="text-center" width="120px">รายละเอียด</th> -->
-                            <th class="text-center" width="100px">สถานะ</th>
+                            <th class="text-center" width="120px">สถานะ</th>
                             <th class="text-center" width="100px">ตัวเลือก</th>
                           </tr>
                         </thead>
@@ -141,7 +141,7 @@
                                 @elseif($row->Statuscar == 2)
                                 <font color="#FF33C1">ลูกค้ามารับรถคืน</font>
                                 @elseif($row->Statuscar == 3)
-                                <font color="#FF8B00">ยึดจากลูกค้าครั้งที่สอง</font>
+                                <font color="#FF8B00">ยึดจากลูกค้าครั้งที่ 2</font>
                                 @elseif($row->Statuscar == 4)
                                 <font color="#001BFF">รับรถจากของกลาง</font>
                                 @elseif($row->Statuscar == 5)

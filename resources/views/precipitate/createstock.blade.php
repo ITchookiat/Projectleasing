@@ -216,7 +216,7 @@
                         <option selected value="">---เลือกสถานะ---</option>
                           <option value="1">ยึดจากลูกค้าครั้งแรก</otion>
                           <option value="2">ลูกค้ามารับรถคืน</otion>
-                          <option value="3">ยึดจากลูกค้าครั้งที่สอง</otion>
+                          <option value="3">ยึดจากลูกค้าครั้งที่ 2</otion>
                           <option value="4">รับรถจากของกลาง</otion>
                           <option value="5">ส่งรถบ้าน</otion>
                           <option value="6">ลูกค้าส่งรถคืน</otion>
