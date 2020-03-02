@@ -202,7 +202,7 @@
                   <div class="form-inline" align="right">
                   <label>สถานะรถ : </label>
                   <select name="Statuscar" class="form-control" style="width: 250px">
-                    <option selected disabled value="">---เลือกสถานะ---</option>
+                    <option selected value="">---เลือกสถานะ---</option>
                     @foreach ($Statuscar as $key => $value)
                       <option value="{{$key}}" {{ ($key == $data->Statuscar) ? 'selected' : '' }}>{{$value}}</option>
                     @endforeach

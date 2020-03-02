@@ -99,13 +99,13 @@ class PrecController extends Controller
           $newdate = date('Y-m-d', strtotime('-1 days'));
           $fdate = $newdate;
           $tdate = $newdate;
-          // $newDay = substr($newdate, 8, 9);
+          $newDay = substr($newdate, 8, 9);
           $fstart = '1.5';
           $tend = '2.99';
 
           if ($request->has('Fromdate')) {
             $fdate = $request->get('Fromdate');
-            // $newDay = substr($fdate, 8, 9);
+            $newDay = substr($fdate, 8, 9);
           }
           if ($request->has('Todate')) {
             $tdate = $request->get('Todate');
@@ -137,31 +137,36 @@ class PrecController extends Controller
                         $data[] = $data1[$i];
                       }
                     }
-          //
-          //
-          // $data2 = DB::connection('ibmi')
-          //           ->table('SFHP.ARMAST')
-          //           ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
-          //           ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
-          //           ->when(!empty($fstart)  && !empty($tend), function($q) use ($fstart, $tend) {
-          //             return $q->whereBetween('SFHP.ARMAST.HLDNO',[$fstart,$tend]);
-          //           })
-          //           ->when(!empty($newDay), function($q) use ($newDay) {
-          //             return $q->whereDay('SFHP.ARMAST.FDATE',$newDay);
-          //           })
-          //           ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
-          //           ->get();
-          // $count2 = count($data2);
-          // //
-          // if($count2 != 0){
-          //     for ($i=0; $i < $count2; $i++) {
-          //       if($data2[$i]->EXP_FRM == $data2[$i]->EXP_TO){
-          //         $data3[] = $data2[$i];
-          //       }
-          //     }
-          // }
-          // $data = array_merge($data1,$data3);
-          // dd($data);
+
+          $data2 = DB::connection('ibmi')
+                    ->table('SFHP.ARMAST')
+                    ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                    ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+                    ->when(!empty($fstart)  && !empty($tend), function($q) use ($fstart, $tend) {
+                      return $q->whereBetween('SFHP.ARMAST.HLDNO',[$fstart,$tend]);
+                    })
+                    // ->whereBetween('SFHP.ARMAST.HLDNO',[1.5,2.99])
+                    // ->where('SFHP.ARMAST.BILLCOLL','=',99)
+                    ->when(!empty($newDay), function($q) use ($newDay) {
+                      return $q->whereDay('SFHP.ARMAST.FDATE',$newDay);
+                    })
+                    ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                    ->get();
+
+          $count = count($data2);
+          $data = $data1;
+
+          if($count != 0){
+              for ($i=0; $i < $count; $i++) {
+                if($data2[$i]->EXP_FRM == $data2[$i]->EXP_TO){
+                  $data3[] = $data2[$i];
+                  $data = $data1->concat($data3);
+                }
+              }
+          }else{
+            $data = $data1;
+          }
+
 
           $type = $request->type;
           return view('precipitate.view', compact('data','fdate','tdate','fstart','tend','type'));
@@ -770,7 +775,7 @@ class PrecController extends Controller
           $Statuscar = [
             '1' => 'ยึดจากลูกค้าครั้งแรก',
             '2' => 'ลูกค้ามารับรถคืน',
-            '3' => 'ยึดจากลูกค้าครั้งที่สอง',
+            '3' => 'ยึดจากลูกค้าครั้งที่ 2',
             '4' => 'รับรถจากของกลาง',
             '5' => 'ส่งรถบ้าน',
             '6' => 'ลูกค้าส่งรถคืน',
@@ -1386,34 +1391,34 @@ class PrecController extends Controller
                   }
 
 
-        // $data2 = DB::connection('ibmi')
-        //           ->table('SFHP.ARMAST')
-        //           ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
-        //           ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
-        //           ->when(!empty($fstart)  && !empty($tend), function($q) use ($fstart, $tend) {
-        //             return $q->whereBetween('SFHP.ARMAST.HLDNO',[$fstart,$tend]);
-        //           })
-        //           // ->whereBetween('SFHP.ARMAST.HLDNO',[1.5,2.99])
-        //           // ->where('SFHP.ARMAST.BILLCOLL','=',99)
-        //           ->when(!empty($newDay), function($q) use ($newDay) {
-        //             return $q->whereDay('SFHP.ARMAST.FDATE',$newDay);
-        //           })
-        //           ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
-        //           ->get();
-        //
-        // $count = count($data2);
-        // $data = $data1;
-        //
-        // if($count != 0){
-        //     for ($i=0; $i < $count; $i++) {
-        //       if($data2[$i]->EXP_FRM == $data2[$i]->EXP_TO){
-        //         $data3[] = $data2[$i];
-        //         $data = $data1->concat($data3);
-        //       }
-        //     }
-        // }else{
-        //   $data = $data1;
-        // }
+        $data2 = DB::connection('ibmi')
+                  ->table('SFHP.ARMAST')
+                  ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                  ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+                  ->when(!empty($fstart)  && !empty($tend), function($q) use ($fstart, $tend) {
+                    return $q->whereBetween('SFHP.ARMAST.HLDNO',[$fstart,$tend]);
+                  })
+                  // ->whereBetween('SFHP.ARMAST.HLDNO',[1.5,2.99])
+                  // ->where('SFHP.ARMAST.BILLCOLL','=',99)
+                  ->when(!empty($newDay), function($q) use ($newDay) {
+                    return $q->whereDay('SFHP.ARMAST.FDATE',$newDay);
+                  })
+                  ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                  ->get();
+
+        $count = count($data2);
+        $data = $data1;
+
+        if($count != 0){
+            for ($i=0; $i < $count; $i++) {
+              if($data2[$i]->EXP_FRM == $data2[$i]->EXP_TO){
+                $data3[] = $data2[$i];
+                $data = $data1->concat($data3);
+              }
+            }
+        }else{
+          $data = $data1;
+        }
 
         // dd($data);
 
@@ -1530,7 +1535,7 @@ class PrecController extends Controller
                           }elseif($row->Statuscar == 2){
                             $Statuscar = 'ลูกค้ามารับรถคืน';
                           }elseif($row->Statuscar == 3){
-                            $Statuscar = 'ยึดจากลูกค้าครั้งที่สอง';
+                            $Statuscar = 'ยึดจากลูกค้าครั้งที่ 2';
                           }elseif($row->Statuscar == 4){
                             $Statuscar = 'รับรถจากของกลาง';
                           }elseif($row->Statuscar == 5){
