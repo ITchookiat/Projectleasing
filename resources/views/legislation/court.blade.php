@@ -895,93 +895,123 @@
     </div>
 
     <div class="modal fade" id="modal-printinfo">
-      <div class="modal-dialog modal-sm">
+      <div class="modal-dialog">
         <div class="modal-content">
           <form name="form2" method="post" action="{{ route('legislation.store',[$id, 2]) }}" target="_blank" id="formimage" enctype="multipart/form-data">
             @csrf
-              <div class="modal-header">
-                <button type="button" data-dismiss="modal" class="close" >
-                  <span aria-hidden="true">×</span>
-                </button>
-                <h4 class="modal-title" align="center"> ป้อนข้อมูลปิดบัญชี </h4>
+            <div class="box box-warning box-solid ">
+              <div class="box-header with-border">
+                <h4 class="card-title p-3" align="center">ป้อนข้อมูลปิดบัญชี</h4>
+                <div class="box-tools pull-right">
+                  <button type="button" data-dismiss="modal" class="close" >
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </div>
               </div>
+
               <script type="text/javascript">
                 function addCommas(nStr){
-                   nStr += '';
-                   x = nStr.split('.');
-                   x1 = x[0];
-                   x2 = x.length > 1 ? '.' + x[1] : '';
-                   var rgx = /(\d+)(\d{3})/;
-                   while (rgx.test(x1)) {
-                     x1 = x1.replace(rgx, '$1' + ',' + '$2');
+                    nStr += '';
+                    x = nStr.split('.');
+                    x1 = x[0];
+                    x2 = x.length > 1 ? '.' + x[1] : '';
+                    var rgx = /(\d+)(\d{3})/;
+                    while (rgx.test(x1)) {
+                      x1 = x1.replace(rgx, '$1' + ',' + '$2');
                     }
                   return x1 + x2;
                 }
                 function addcomma(){
                   var num11 = document.getElementById('TopCloseAccount').value;
                   var num1 = num11.replace(",","");
+                  var num22 = document.getElementById('PriceAccount').value;
+                  var num2 = num22.replace(",","");
+                  var num33 = document.getElementById('DiscountAccount').value;
+                  var num3 = num33.replace(",","");
+
                   document.form2.TopCloseAccount.value = addCommas(num1);
+                  document.form2.PriceAccount.value = addCommas(num2);
+                  document.form2.DiscountAccount.value = addCommas(num3);
                 }
               </script>
+
               <div class="modal-body">
-                <label>วันที่ปิดบัญชี</label>
-                <input type="date" name="DateCloseAccount" value="{{ (($data->DateStatus_legis !== Null) ?$data->DateStatus_legis: date('Y-m-d')) }}" class="form-control" />
-                <br>
-                <label>ยอดปิดบัญชี</label>
-                <input type="text" id="TopCloseAccount" name="TopCloseAccount" class="form-control" placeholder="ป้อนยอดชำระ" value="{{ number_format(($data->txtStatus_legis !== Null) ?$data->txtStatus_legis: 0) }}" oninput="addcomma();" maxlength="8" />
-                <input type="hidden" name="ContractNo" class="form-control" value="{{$data->Contract_legis}}"/>
+                <div class="form-inline" align="right">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>วันที่ปิดบัญชี</label>
+                      <input type="date" name="DateCloseAccount" class="form-control" style="width: 150px;" value="{{ (($data->DateStatus_legis !== Null) ?$data->DateStatus_legis: date('Y-m-d')) }}" />
+                    </div>
+                    <div class="col-md-6">
+                      <label>ยอดปิดบัญชี</label>
+                        <input type="text" id="PriceAccount" name="PriceAccount" class="form-control" style="width: 150px;" placeholder="ป้อนยอดตั้งต้น" value="{{ number_format(($data->PriceStatus_legis !== Null) ?$data->PriceStatus_legis: 0) }}" oninput="addcomma();" maxlength="8" />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-inline" align="right">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>ยอดชำระ</label>
+                      <input type="text" id="TopCloseAccount" name="TopCloseAccount" class="form-control" style="width: 150px;" placeholder="ป้อนยอดชำระ" value="{{ number_format(($data->txtStatus_legis !== Null) ?$data->txtStatus_legis: 0) }}" oninput="addcomma();" maxlength="8" />
+                      <input type="hidden" name="ContractNo" class="form-control" value="{{$data->Contract_legis}}"/>
+                    </div>
+                    <div class="col-md-6">
+                      <label>ยอดส่วนลด</label>
+                      <input type="text" id="DiscountAccount" name="DiscountAccount" class="form-control" style="width: 150px;" placeholder="ป้อนยอดส่วนลด" value="{{ number_format(($data->Discount_legis !== Null) ?$data->Discount_legis: 0) }}" oninput="addcomma();" maxlength="8" />
+                    </div>
+                  </div>
+                </div>
               </div>
               <div align="center">
-                <!-- <button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><span class="fa fa-times"></span> ปิด</button> -->
                 <button id="submit" type="submit" class="btn btn-primary"><span class="fa fa-id-card-o"></span> พิมพ์</button>
               </div>
-              <br/>
+              <br>
+            </div>
+
         </form>
         </div>
-        <!-- /.modal-content -->
       </div>
-      <!-- /.modal-dialog -->
     </div>
 
+    <!-- เวลาแจ้งเตือน -->
+    <script type="text/javascript">
+      $(".alert").fadeTo(3000, 1000).slideUp(1000, function(){
+      $(".alert").alert('close');
+      });
+    </script>
 
-      <!-- เวลาแจ้งเตือน -->
-      <script type="text/javascript">
-        $(".alert").fadeTo(3000, 1000).slideUp(1000, function(){
-        $(".alert").alert('close');
-        });
-      </script>
-
-      <script>
-        function FunctionRadio2() {
-          var x = document.getElementById("myDIV");
-          if (x.style.display === "none") {
-          x.style.display = "block";
-          } else {
-          x.style.display = "none";
-          }
+    <script>
+      function FunctionRadio2() {
+        var x = document.getElementById("myDIV");
+        if (x.style.display === "none") {
+        x.style.display = "block";
+        } else {
+        x.style.display = "none";
         }
+      }
 
-        function Functionhidden2() {
-          var x = document.getElementById("myDIV");
-          x.style.display = "none";
-        }
-      </script>
+      function Functionhidden2() {
+        var x = document.getElementById("myDIV");
+        x.style.display = "none";
+      }
+    </script>
 
-      <script>
-        function FunctionRadio() {
-          var x = document.getElementById("ShowMe");
-          if (x.style.display === "none") {
-          x.style.display = "block";
-          } else {
-          x.style.display = "none";
-          }
+    <script>
+      function FunctionRadio() {
+        var x = document.getElementById("ShowMe");
+        if (x.style.display === "none") {
+        x.style.display = "block";
+        } else {
+        x.style.display = "none";
         }
+      }
 
-        function Functionhidden() {
-          var x = document.getElementById("ShowMe");
-          x.style.display = "none";
-        }
-      </script>
+      function Functionhidden() {
+        var x = document.getElementById("ShowMe");
+        x.style.display = "none";
+      }
+    </script>
 
     </section>
 @endsection
