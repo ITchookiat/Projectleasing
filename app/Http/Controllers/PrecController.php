@@ -1030,7 +1030,7 @@ class PrecController extends Controller
         $pdf::WriteHTML($html,true,false,true,false,'');
         $pdf::Output('ReportInvoice.pdf');
       }
-      elseif ($request->type == 5) {  //รายงาน สต็อกรถยึด
+      elseif ($request->type == 5) {  //รายงาน สต็อกรถเร่งรัด
 
         $fdate = '';
         $tdate = '';
@@ -1480,7 +1480,7 @@ class PrecController extends Controller
       }
       elseif($request->type == 4){
       }
-      elseif($request->type == 5){
+      elseif($request->type == 5){ //excel สต๊อกรถเร่งรัด
         $fdate = '';
         $tdate = '';
         $Statuscar = '';

@@ -82,6 +82,7 @@ Route::group(['middleware' => 'auth'], function()
     Route::patch('/datacar/update/{id}', 'DatacarController@update')->name('datacar.update');
     Route::patch('/datacar/updateinfo/{id}', 'DatacarController@updateinfo')->name('datacar.updateinfo');
     Route::delete('/datacar/delete/{id}', 'DatacarController@destroy')->name('datacar.destroy');
+    Route::get('/datacar/Savestore/{Str1}/{Str2}/{type}', 'DatacarController@Savestore')->name('datacar.Savestore');
 
     route::resource('reportBetween','ReportController');
     Route::get('/datacar/viewreport/{type}', 'ReportController@index')->name('datacarreport');

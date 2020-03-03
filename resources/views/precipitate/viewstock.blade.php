@@ -66,7 +66,7 @@
                   <a href="{{ route('Precipitate', 6) }}" class="btn btn-primary btn-app">
                     <span class="fa fa-plus"></span> เพิ่มข้อมูล
                   </a>
-                  <a target="_blank" href="{{ action('PrecController@excel') }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{5}}" class="btn btn-success btn-app">
+                  <a target="_blank" href="{{ action('PrecController@excel') }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{5}}&Statuscar={{$Statuscar}}" class="btn btn-success btn-app">
                     <span class="fa fa-file-excel-o"></span> Excel
                   </a>
                   <a target="_blank" href="{{ action('PrecController@ReportPrecDue',[00,00]) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{5}}&Statuscar={{$Statuscar}}" class="btn btn-danger btn-app">
@@ -113,7 +113,7 @@
                             <th class="text-center">ค่ายึด</th>
                             <!-- <th class="text-center" width="120px">รายละเอียด</th> -->
                             <th class="text-center" width="120px">สถานะ</th>
-                            <th class="text-center" width="100px">ตัวเลือก</th>
+                            <th class="text-center">ตัวเลือก</th>
                           </tr>
                         </thead>
                         <tbody>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use App\data_car;
 use App\checkDocument;
+use App\Holdcar;
 use Carbon\Carbon;
 use PDF;
 
@@ -32,7 +33,6 @@ class DatacarController extends Controller
         $carType = $request->get('carType');
       }
 
-      // dd($fdate);
       if ($request->type == 1) {
           if ($request->has('carType') != Null) {
             $data = DB::table('data_cars')
@@ -123,7 +123,7 @@ class DatacarController extends Controller
                       ->get();
         $title = 'รถยืมใช้';
       }
-      elseif ($request->type == 11) {
+      elseif ($request->type == 11){         //หน้าข้อมูลยอด
         $data1 = data_car::count(); //รถในสต็อกทั้งหมด
         $data2 = data_car::where('car_type', '=', 2 )->count(); //ระหว่างทำสี
         $data3 = data_car::where('car_type', '=', 3 )->count(); //รอซ่อม
@@ -135,8 +135,21 @@ class DatacarController extends Controller
         return view('homecar.home', compact('data1', 'data2', 'data3', 'data4', 'data5', 'data6','type'));
 
       }
+      elseif ($request->type == 12){
+        $data = DB::table('holdcars')
+              ->where('holdcars.Statuscar', '=', 5)
+              ->orderBy('holdcars.Date_hold', 'ASC')
+              ->get();
+
+        $dataDB = DB::table('data_cars')
+                ->get();
+
+        $title = 'รถยึดจากเร่งรัด';
+        $type = $request->type;
+        return view('homecar.view', compact('data','dataDB','title','type'));
+      }
+
       $type = $request->type;
-      // dd($type);
       return view('homecar.view', compact('data','title','type','fdate','tdate','carType'));
     }
     /**
@@ -245,6 +258,65 @@ class DatacarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+     public function Savestore(Request $request, $SetStr1, $SetStr2, $type)
+     {
+      if($type == 1){
+        $SetStrConn = $SetStr1."/".$SetStr2;
+        $data = DB::table('holdcars')
+        ->where('holdcars.Contno_hold', '=', $SetStrConn)
+        ->orderBy('holdcars.Date_hold', 'ASC')
+        ->first();
+
+        $datacardb = new data_car([
+          'create_date' => date('Y-m-d'),
+          'Fisrt_Price' => Null,
+          'Offer_Price' => Null,
+          'Brand_Car' => $data->Brandcar_hold,
+          'Number_Tank' => Null,
+          'Version_Car' => Null,
+          'Number_Machine' => Null,
+          'Model_Car' => Null,
+          'Number_Miles' => Null,
+          'Color_Car' => Null,
+          'Gearcar' => Null,
+          'Year_Product' => $data->Year_Product,
+          'Size_Car' => Null,
+          'Number_Regist' => $data->Number_Regist,
+          'Job_Number' => Null,
+          'Name_Sale' => Null,
+          'Origin_Car' => 3, //ประเภทรถยึด
+          'Car_type' => 1, //สถานะนำเข้าใหม่
+          'Date_Status' => date('Y-m-d'),
+          'Accounting_Cost' => Null,
+        ]);
+        $datacardb->save();
+
+        $checkDoc = new checkDocument([
+          'Datacar_id' => $datacardb->id,
+          'Contracts_Car' => Null,
+          'Manual_Car' => Null,
+          'Act_Car' => Null,
+          'Insurance_Car' => Null,
+          'Key_Reserve' => Null,
+          'Expire_Tax' => Null,
+          'Date_NumberUser' => Null,
+          'Date_Expire' => Null,
+          'Check_Note' => Null,
+        ]);
+        $checkDoc->save();
+
+        // $title = 'รถยึดจากเร่งรัด';
+        // $type = 12;
+        // return view('homecar.view', compact('data','title','type'));
+        return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
+      }
+     }
+     /**
+      * Display the specified resource.
+      *
+      * @param  int  $id
+      * @return \Illuminate\Http\Response
+      */
     public function show($id)
     {
         //
@@ -292,6 +364,7 @@ class DatacarController extends Controller
         'MG' => 'MG',
       ];
       $arrayModel = [
+        ' ' => ' ',
         'เก๋ง' => 'เก๋ง',
         'cab' => 'cab',
         'Hi 4Dr' => 'Hi 4Dr',
