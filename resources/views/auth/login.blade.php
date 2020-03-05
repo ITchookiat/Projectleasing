@@ -4,6 +4,10 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+          <br>
+          <div align="right">
+            <img class="img-responsive" src="{{ asset('dist/img/test2.gif') }}" alt="User Image" style = "width: 100%">
+          </div>
             <div class="card">
                 <div class="card-header">{{ __('กรุณากรอกชื่อและรหัส เพื่อเข้าใช้งาน') }}</div>
 

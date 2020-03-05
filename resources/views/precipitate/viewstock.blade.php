@@ -91,6 +91,7 @@
                       <option value="4" {{ ($Statuscar == '4') ? 'selected' : '' }}> รับรถจากของกลาง</otion>
                       <option value="5" {{ ($Statuscar == '5') ? 'selected' : '' }}> ส่งรถบ้าน</otion>
                       <option value="6" {{ ($Statuscar == '6') ? 'selected' : '' }}> ลูกค้าส่งรถคืน</otion>
+                      <option value="7" {{ ($Statuscar == '7') ? 'selected' : '' }}> รถยึดที่ถือครอง</otion>
                   </select>
                 </div>
               </form>
