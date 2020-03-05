@@ -29,8 +29,8 @@
           <th class="text-center" width="120px">สกุล</th>
           <th class="text-center" width="60px">ชื่อเล่น</th>
           <th class="text-center" width="60px">สถานะ</th>
-          <th class="text-center" width="90px">เบอร์โทรศัพท์</th>
-          <th class="text-center" width="90px">เบอร์โทรอื่นๆ</th>
+          <th class="text-center" width="85px">เบอร์โทรศัพท์</th>
+          <th class="text-center" width="95px">เบอร์โทรอื่นๆ</th>
         </tr>
       </thead>
       <tbody>
@@ -39,8 +39,8 @@
           <td width="120px"> <b>{{$dataReport->last_buyer}}</b></td>
           <td width="60px"> <b>{{$dataReport->Nick_buyer}}</b></td>
           <td width="60px"> <b>{{$dataReport->Status_buyer}}</b></td>
-          <td width="90px"> <b>{{str_replace(",", ",     ", $dataReport->Phone_buyer)}}</b></td>
-          <td width="90px"> <b>{{$dataReport->Phone2_buyer}}</b></td>
+          <td width="85px"> <b>{{str_replace(",", ",     ", $dataReport->Phone_buyer)}}</b></td>
+          <td width="95px"> <b>{{$dataReport->Phone2_buyer}}</b></td>
         </tr>
       </tbody>
     </table>
@@ -48,12 +48,14 @@
         <tr>
           <th align="right" width="120px"> คู่สมรส &nbsp;</th>
           <th class="text-center" width="120px" style="background-color: yellow;"> <b>{{$dataReport->Mate_buyer}}</b></th>
-          <th class="text-center" width="210px"> เลขบัตรประชาชน :  <b>{{$dataReport->Idcard_buyer}}</b></th>
-          <th class="text-center" width="90px"> ใบขับขี่ :  <b>{{$dataReport->Driver_buyer}}</b></th>
+          <th class="text-center" width="205px"> เลขบัตรประชาชน :  <b>{{$dataReport->Idcard_buyer}}</b></th>
+          <th class="text-center" width="95px"> ใบขับขี่ :  <b>{{$dataReport->Driver_buyer}}</b></th>
         </tr>
         <tr>
           <th align="right" width="120px"> ที่อยู่ &nbsp;</th>
-          <th class="text-center" width="420px" style="background-color: yellow;"> <b>{{$dataReport->Address_buyer}}</b></th>
+          <th class="text-center" width="240px" style="background-color: yellow;"> <b>{{$dataReport->Address_buyer}}</b></th>
+          <td align="right" width="85px"> วัตถุประสงค์สินเชื่อ</td>
+          <td width="95px"style="background-color: yellow;"> <b>{{$dataReport->Objective_car}}</b></td>
         </tr>
         <tr>
           <th align="right" width="120px"> ที่อยู่ปัจจุบัน/ส่งเอกสาร &nbsp;</th>
@@ -72,32 +74,32 @@
           <th class="text-center" width="120px" style="background-color: yellow;"> <b>{{$dataReport->House_buyer}}</b></th>
           <th align="right" width="60px"> เลขที่โฉนด &nbsp;</th>
           <th class="text-center" width="60px" style="background-color: yellow;"> <b>{{$dataReport->deednumber_buyer}}</b></th>
-          <th align="right" width="90px"> ประเภทหลักทรัพย์ &nbsp;</th>
-          <th class="text-center" width="90px" style="background-color: yellow;"> <b>{{$dataReport->securities_buyer}}</b></th>
+          <th align="right" width="85px"> ประเภทหลักทรัพย์ &nbsp;</th>
+          <th class="text-center" width="95px" style="background-color: yellow;"> <b>{{$dataReport->securities_buyer}}</b></th>
         </tr>
         <tr>
           <th align="right" width="120px"> อาชีพ &nbsp;</th>
           <th class="text-center" width="120px" style="background-color: yellow;"> <b>{{$dataReport->Career_buyer}}</b></th>
           <th align="right" width="60"> เนื้อที่ &nbsp;</th>
           <th class="text-center" width="60" style="background-color: yellow;"> <b>{{$dataReport->area_buyer}}</b></th>
-          <th align="right" width="90"> ประเภทบ้าน &nbsp;</th>
-          <th class="text-center" width="90" style="background-color: yellow;"> <b>{{$dataReport->HouseStyle_buyer}}</b></th>
+          <th align="right" width="85"> ประเภทบ้าน &nbsp;</th>
+          <th class="text-center" width="95" style="background-color: yellow;"> <b>{{$dataReport->HouseStyle_buyer}}</b></th>
         </tr>
         <tr>
           <th align="right" width="120px"> สถานะผู้เช่าซื้อ &nbsp;</th>
           <th class="text-center" width="120px" style="background-color: yellow;"> <b>{{$dataReport->Gradebuyer_car}}</b></th>
           <th align="right" width="60"> ประวัติซื้อ &nbsp;</th>
           <th class="text-center" width="60" style="background-color: yellow;"> <b>{{$dataReport->Purchase_buyer}}</b></th>
-          <th align="right" width="90"> ประวัติค้ำ &nbsp;</th>
-          <th class="text-center" width="90" style="background-color: yellow;"> <b>{{$dataReport->Support_buyer}}</b></th>
+          <th align="right" width="85"> ประวัติค้ำ &nbsp;</th>
+          <th class="text-center" width="95" style="background-color: yellow;"> <b>{{$dataReport->Support_buyer}}</b></th>
         </tr>
         <tr>
           <th align="right" width="120px"> รายได้ &nbsp;</th>
           <th class="text-center" width="120px" style="background-color: yellow;"> <b>{{$dataReport->Income_buyer}}</b></th>
           <th align="right" width="60"> หักค่าใช้จ่าย &nbsp;</th>
           <th class="text-center" width="60" style="background-color: yellow;"> <b>{{number_format($dataReport->BeforeIncome_buyer)}}</b></th>
-          <th align="right" width="90"> รายได้หลังหัก คชจ. &nbsp;</th>
-          <th class="text-center" width="90" style="background-color: yellow;"> <b>{{number_format($dataReport->AfterIncome_buyer)}}</b></th>
+          <th align="right" width="85"> รายได้หลังหัก คชจ. &nbsp;</th>
+          <th class="text-center" width="95" style="background-color: yellow;"> <b>{{number_format($dataReport->AfterIncome_buyer)}}</b></th>
         </tr>
     </table>
 
@@ -109,8 +111,8 @@
           <th class="text-center" width="120px">สกุล</th>
           <th class="text-center" width="60px">ชื่อเล่น</th>
           <th class="text-center" width="60px">สถานะ</th>
-          <th class="text-center" width="90px">เบอร์โทรศัพท์</th>
-          <th class="text-center" width="90px">ความสัมพันธ์</th>
+          <th class="text-center" width="85px">เบอร์โทรศัพท์</th>
+          <th class="text-center" width="95px">ความสัมพันธ์</th>
         </tr>
       </thead>
       <tbody>
@@ -119,8 +121,8 @@
           <td width="120px"> <b>{{$dataReport->lname_SP}}</b></td>
           <td width="60px"> <b>{{$dataReport->nikname_SP}}</b></td>
           <td width="60px"> <b>{{$dataReport->status_SP}}</b></td>
-          <td width="90px"> <b>{{str_replace(",", ",     ", $dataReport->tel_SP)}}</b></td>
-          <td width="90px"> <b>{{$dataReport->relation_SP}}</b></td>
+          <td width="85px"> <b>{{str_replace(",", ",     ", $dataReport->tel_SP)}}</b></td>
+          <td width="95px"> <b>{{$dataReport->relation_SP}}</b></td>
         </tr>
       </tbody>
     </table>
@@ -151,24 +153,24 @@
           <th class="text-center" width="120px" style="background-color: yellow;"> <b>{{$dataReport->house_SP}}</b></th>
           <th align="right" width="60px"> เลขที่โฉนด &nbsp;</th>
           <th class="text-center" width="60px" style="background-color: yellow;"> <b>{{$dataReport->deednumber_SP}}</b></th>
-          <th align="right" width="90px"> ประเภทหลักทรัพย์ &nbsp;</th>
-          <th class="text-center" width="90px" style="background-color: yellow;"> <b>{{$dataReport->securities_SP}}</b></th>
+          <th align="right" width="85px"> ประเภทหลักทรัพย์ &nbsp;</th>
+          <th class="text-center" width="95px" style="background-color: yellow;"> <b>{{$dataReport->securities_SP}}</b></th>
         </tr>
         <tr>
           <th align="right" width="120px"> อาชีพ &nbsp;</th>
           <th class="text-center" width="120px" style="background-color: yellow;"> <b>{{$dataReport->career_SP}}</b></th>
           <th align="right" width="60px"> เนื้อที่ &nbsp;</th>
           <th class="text-center" width="60px" style="background-color: yellow;"> <b>{{$dataReport->area_SP}}</b></th>
-          <th align="right" width="90px"> ประเภทบ้าน &nbsp;</th>
-          <th class="text-center" width="90px" style="background-color: yellow;"> <b>{{$dataReport->housestyle_SP}}</b></th>
+          <th align="right" width="85px"> ประเภทบ้าน &nbsp;</th>
+          <th class="text-center" width="95px" style="background-color: yellow;"> <b>{{$dataReport->housestyle_SP}}</b></th>
         </tr>
         <tr>
           <th align="right" width="120px"> รายได้ &nbsp;</th>
           <th class="text-center" width="120px" style="background-color: yellow;"> <b>{{$dataReport->income_SP}}</b></th>
           <th align="right" width="60px"> ประวัติซื้อ &nbsp;</th>
           <th class="text-center" width="60" style="background-color: yellow;"> <b>{{$dataReport->puchase_SP}}</b></th>
-          <th align="right" width="90px"> ประวัติค้ำ &nbsp;</th>
-          <th class="text-center" width="90" style="background-color: yellow;"> <b>{{$dataReport->support_SP}}</b></th>
+          <th align="right" width="85px"> ประวัติค้ำ &nbsp;</th>
+          <th class="text-center" width="95" style="background-color: yellow;"> <b>{{$dataReport->support_SP}}</b></th>
         </tr>
     </table>
 
@@ -181,8 +183,8 @@
             <th class="text-center" width="60px">ปี</th>
             <th class="text-center" width="60px">สี</th>
             <th class="text-center" width="120px">ป้ายเดิม</th>
-            <th class="text-center" width="90px">ป้ายใหม่</th>
-            <th class="text-center" width="90px">เลขไมล์</th>
+            <th class="text-center" width="85px">ป้ายใหม่</th>
+            <th class="text-center" width="95px">เลขไมล์</th>
           </tr>
         </thead>
         <tbody>
@@ -191,8 +193,8 @@
             <td width="60px"> <b>{{$dataReport->Year_car}}</b></td>
             <td width="60px"> <b>{{$dataReport->Colour_car}}</b></td>
             <td width="120px"> <b>{{$dataReport->License_car}}</b></td>
-            <td width="90px"> <b>{{$dataReport->Nowlicense_car}}</b></td>
-            <td width="90px"> <b>{{$dataReport->Mile_car}}</b></td>
+            <td width="85px"> <b>{{$dataReport->Nowlicense_car}}</b></td>
+            <td width="95px"> <b>{{$dataReport->Mile_car}}</b></td>
           </tr>
         </tbody>
       </table>
@@ -223,22 +225,22 @@
           <th align="right" width="120px"> ค่างวด x ระยะเวลาผ่อน &nbsp;</th>
           <th align="right" width="120px"> <b>{{$dataReport->Paymemt_car}} &nbsp;</b></th>
           <th align="right" width="120px"> <b>{{$dataReport->Timepayment_car}} &nbsp;</b></th>
-          <th align="right" width="90px"> ประเภทรถ &nbsp;</th>
-          <th width="90px" style="background-color: yellow;"> <b>{{$dataReport->Typecardetails}} &nbsp;</b></th>
+          <th align="right" width="85px"> ประเภทรถ &nbsp;</th>
+          <th width="95px" style="background-color: yellow;"> <b>{{$dataReport->Typecardetails}} &nbsp;</b></th>
         </tr>
         <tr>
           <th align="right" width="120px"> ภาษี x ระยะเวลาผ่อน &nbsp;</th>
           <th align="right" width="120px"> <b>{{$dataReport->Tax_car}} &nbsp;</b> </th>
           <th align="right" width="120px"> <b>{{$dataReport->Taxpay_car}} &nbsp;</b></th>
-          <th align="right" width="90px"> กลุ่มปีรถยนต์ &nbsp;</th>
-          <th width="90px" style="background-color: yellow;"> <b>{{$dataReport->Groupyear_car}} &nbsp;</b></th>
+          <th align="right" width="85px"> กลุ่มปีรถยนต์ &nbsp;</th>
+          <th width="95px" style="background-color: yellow;"> <b>{{$dataReport->Groupyear_car}} &nbsp;</b></th>
         </tr>
         <tr>
           <th align="right" width="120px"> ยอดผ่อนชำระทั้งหมด &nbsp;</th>
           <th align="right" width="120px"> <b>{{$dataReport->Totalpay1_car}} &nbsp;</b></th>
           <th align="right" width="120px"> <b>{{$dataReport->Totalpay2_car}} &nbsp;</b></th>
-          <th align="right" width="90px"> ราคากลาง &nbsp;</th>
-          <th width="90px" style="background-color: yellow;"> <b>{{$dataReport->Midprice_car}} &nbsp;</b></th>
+          <th align="right" width="85px"> ราคากลาง &nbsp;</th>
+          <th width="95px" style="background-color: yellow;"> <b>{{$dataReport->Midprice_car}} &nbsp;</b></th>
         </tr>
         <tr>
           <th align="right" width="120px"> วันที่ชำระงวดแรก &nbsp;</th>
