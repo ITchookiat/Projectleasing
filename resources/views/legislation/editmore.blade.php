@@ -86,6 +86,9 @@
                                   <div class="box box-default box-solid">
                                     <div class="box-header with-border">
                                       <h4 class="box-title"><i class="fa fa-user"></i> ข้อมูลผู้เช่าซื้อ</h4>
+                                      <a href="#" data-toggle="modal" data-target="#modal-default" title="ข้อมูลรถยนต์" data-backdrop="static" data-keyboard="false">
+                                        <i class="fa fa-car pull-right"></i>
+                                      </a>
                                     </div>
                                     <div class="box-body">
 
@@ -867,6 +870,96 @@
 
           </form>
           @endif
+        </div>
+
+        <div class="modal fade" id="modal-default">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" align="center">ทะเบียน {{iconv('Tis-620','utf-8',$data1->REGNO)}}</h4>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-md-5">
+                    <div class="form-inline" align="right">
+                       <label>ยี่ห้อรถ : </label>
+                       <input type="text" name="ContractNo" class="form-control" value="{{iconv('Tis-620','utf-8',$data1->TYPE)}}" style="width: 200px;"/>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-inline" align="right">
+                       <label>แบบรถ : </label>
+                       <input type="text" name="ContractNo" class="form-control" value="{{iconv('Tis-620','utf-8',$data1->BAAB)}}" style="width: 200px;"/>
+                     </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-5">
+                    <div class="form-inline" align="right">
+                       <label>รุ่นรถ : </label>
+                       <input type="text" name="ContractNo" class="form-control" value="{{iconv('Tis-620','utf-8',$data1->MODEL)}}" style="width: 200px;"/>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-inline" align="right">
+                       <label>สีรถ : </label>
+                       <input type="text" name="ContractNo" class="form-control" value="{{iconv('Tis-620','utf-8',$data1->COLOR)}}" style="width: 200px;"/>
+                     </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-5">
+                    <div class="form-inline" align="right">
+                       <label>ขนาด : </label>
+                       <input type="text" name="ContractNo" class="form-control" value="{{iconv('Tis-620','utf-8',$data1->CC)}}" style="width: 200px;"/>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-inline" align="right">
+                       <label>ปีผลิต : </label>
+                       <input type="text" name="ContractNo" class="form-control" value="{{iconv('Tis-620','utf-8',$data1->MANUYR)}}" style="width: 200px;"/>
+                     </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-5">
+                    <div class="form-inline" align="right">
+                       <label>เลขตัวถัง : </label>
+                       <input type="text" name="ContractNo" class="form-control" value="{{iconv('Tis-620','utf-8',$data1->STRNO)}}" style="width: 200px;"/>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-inline" align="right">
+                       <label>เลขเครื่อง : </label>
+                       <input type="text" name="ContractNo" class="form-control" value="{{iconv('Tis-620','utf-8',$data1->ENGNO)}}" style="width: 200px;"/>
+                     </div>
+                  </div>
+                </div>
+                <!-- <div class="row">
+                  <div class="col-md-5">
+                    <div class="form-inline" align="right">
+                       <label>จดทะเบียน : </label>
+                       <input type="text" name="ContractNo" class="form-control" value="" style="width: 200px;"/>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-inline" align="right">
+                       <label>หมดทะเบียน : </label>
+                       <input type="text" name="ContractNo" class="form-control" value="" style="width: 200px;"/>
+                     </div>
+                  </div>
+                </div> -->
+              </div>
+              <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button> -->
+                <center><button type="button" class="btn btn-danger" data-dismiss="modal">ปิดเมนู</button></center>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
         </div>
 
       <script type="text/javascript">

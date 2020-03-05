@@ -329,7 +329,7 @@
                            <div class="col-md-5">
                               <div class="form-inline" align="right">
                                   <label>วันที่ยืมรถ :</label>
-                                  <input type="date" id="DateBorrowcar" name="DateBorrowcar" class="form-control" style="width: 250px;" value="{{$datacar->Date_Borrowcar}}" min="{{ $date3 }}" />
+                                  <input type="date" id="DateBorrowcar" name="DateBorrowcar" class="form-control" style="width: 250px;" value="{{$datacar->Date_Borrowcar}}" />
                               </div>
                           </div>
 
@@ -358,7 +358,7 @@
 
                           <div class="col-md-5">
                               <div class="form-inline" align="right">
-                                  <label>เหตุผลการยืม :</label>
+                                  <label style="vertical-align: top;">เหตุผลการยืม :</label>
                                   <textarea type="text" name="NoteBorrow" class="form-control" rows="4" style="width: 250px;"  placeholder="ป้อนหมายเหตุ">{{ $datacar->Note_Borrow }}</textarea>
                               </div>
                          </div>
@@ -426,7 +426,7 @@
                   <div class="row">
                     <div class="col-md-5">
                      <div class="form-inline" align="right">
-                       <label>หมายเหตุ :</label>
+                       <label style="vertical-align: top;">หมายเหตุ :</label>
                        <textarea type="text" name="CheckNote" class="form-control" rows="4" style="width: 250px;"  placeholder="ป้อนหมายเหตุ">{{ $datacar->Check_Note }}</textarea>
                      </div>
                    </div>

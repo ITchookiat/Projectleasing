@@ -908,7 +908,13 @@ class LegislationController extends Controller
         $data = DB::table('legisexhibits')
                   ->where('Legisexhibit_id', $id)
                   ->first();
-        return view('legislation.editmore',compact('data','id','type'));
+        $data1 = DB::connection('ibmi')
+              ->table('SFHP.ARMAST')
+              ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+              ->where('SFHP.ARMAST.CONTNO','=', $data->Contract_legis)
+              ->first();
+
+        return view('legislation.editmore',compact('data','data1','id','type'));
       }
       elseif ($type == 11){ //รูปและแผนที
         $data = DB::table('legiscourts')

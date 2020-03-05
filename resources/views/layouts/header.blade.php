@@ -40,7 +40,7 @@
               <li class="divider"></li>
               <li><a href="{{ route('datacar',6) }}">รถยนต์ที่ขายแล้ว</a></li>
               <li class="divider"></li>
-              <li><a href="{{ route('datacar',8) }}">รถยนต์ทยืมใช้</a></li>
+              <li><a href="{{ route('datacar',8) }}">รถยนต์ยืมใช้</a></li>
               <!--
                 <li class="dropdown-submenu">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown</a>

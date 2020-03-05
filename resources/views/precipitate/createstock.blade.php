@@ -225,7 +225,7 @@
                     </div>
                     <div class="col-md-5">
                       <div class="form-inline" align="right">
-                      <label>รายละเอียด : </label>
+                      <label style="vertical-align: top;">รายละเอียด : </label>
                       <textarea name="Note" class="form-control" placeholder="ป้อนรายละเอียด" rows="2" style="width: 250px;"></textarea>
                       </div>
                     </div>
@@ -307,7 +307,7 @@
                   <div class="row">
                     <div class="col-md-5">
                       <div class="form-inline" align="right">
-                      <label>หมายเหตุ : </label>
+                      <label style="vertical-align: top;">หมายเหตุ : </label>
                       <textarea name="Note2" class="form-control" placeholder="ป้อนหมายเหตุ" rows="2" style="width: 250px;"></textarea>
                       </div>
                     </div>
