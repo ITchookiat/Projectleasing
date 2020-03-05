@@ -395,18 +395,19 @@ class LegislationController extends Controller
      */
     public function store(Request $request, $id, $type)
     {
-      // $SetDate = ($request->get('DatePayment'));
-      // $DateDue = \Carbon\Carbon::parse($SetDate)->format('Y')-543 ."-". \Carbon\Carbon::parse($SetDate)->format('m')."-". \Carbon\Carbon::parse($SetDate)->format('d');
       $SetGoldPay = str_replace (",","",$request->get('GoldPayment'));
 
       if ($type == 2) { //ฟ้อง (กรณีปิดบัญชี)
         $SetContract = $request->ContractNo;
-        $SetDateCloseAcc = $request->DateCloseAccount;
+        $SetPriceAcc = str_replace(",","", $request->PriceAccount);
         $SetTopCloseAcc = str_replace(",","", $request->TopCloseAccount);
+        $SetTDiscountAcc = str_replace(",","", $request->DiscountAccount);
 
         $user = Legislation::find($id);
+          $user->DateStatus_legis = $request->DateCloseAccount;
+          $user->PriceStatus_legis = $SetPriceAcc;
           $user->txtStatus_legis = $SetTopCloseAcc;
-          $user->DateStatus_legis = $SetDateCloseAcc;
+          $user->Discount_legis = $SetTDiscountAcc;
         $user->update();
 
         $data = DB::connection('ibmi')
@@ -416,8 +417,14 @@ class LegislationController extends Controller
               ->where('SFHP.ARMAST.CONTNO','=', $request->ContractNo)
               ->first();
 
+        $dataDB = DB::table('legislations')
+              ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+              ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+              ->where('legislations.id','=', $id)
+              ->first();
+
         $type = 3; //เปลี่ยนเป็นเบอร์ 3 เพื่อสงไปยังหน้าพิมพ์ใบเสร็จ เพราะมี เบอร์ 1,2 อยู่แล้ว
-        $view = \View::make('legislation.report' ,compact('data','user','type'));
+        $view = \View::make('legislation.report' ,compact('data','user','type','dataDB'));
         $html = $view->render();
 
         $pdf = new PDF();

@@ -556,7 +556,34 @@
                                         <option value="ลูกค้าเก่าผ่อนดี">ลูกค้าเก่าผ่อนดี</option>
                                         <option value="ลูกค้ามีงานตาม">ลูกค้ามีงานตาม</option>
                                         <option value="ลูกค้าใหม่">ลูกค้าใหม่</option>
-                                        <option value="ปิดจัดใหม่">ปิดจัดใหม่</option>
+                                        <option value="ลูกค้าใหม่(ปิดธนาคาร)">ลูกค้าใหม่(ปิดธนาคาร)</option>
+                                        <option value="ปิดจัดใหม่(งานตาม)">ปิดจัดใหม่(งานตาม)</option>
+                                        <option value="ปิดจัดใหม่(ผ่อนดี)">ปิดจัดใหม่(ผ่อนดี)</option>
+                                      </select>
+                                   </div>
+                                  </div>
+                                </div>
+
+                                <div class="row">
+                                  <div class="col-md-5">
+                                    <div class="form-inline" align="right">
+                                       </div>
+                                  </div>
+
+                                  <div class="col-md-6">
+                                    <div class="form-inline" align="right">
+                                      <label>วัตถุประสงค์ของสินเชื่อ : </label>
+                                      <select name="objectivecar" class="form-control" style="width: 250px;">
+                                        <option value="" selected>--- วัตถุประสงค์ของสินเชื่อ ---</option>
+                                        <option value="ลงทุนในธุรกิจ">ลงทุนในธุรกิจ</option>
+                                        <option value="ขยายกิจการ">ขยายกิจการ</option>
+                                        <option value="ซื้อรถยนต์">ซื้อรถยนต์</option>
+                                        <option value="ใช้หนี้นอกระบบ">ใช้หนี้นอกระบบ</option>
+                                        <option value="จ่ายค่าเทอม">จ่ายค่าเทอม</option>
+                                        <option value="ซื้อของใช้ภายในบ้าน">ซื้อของใช้ภายในบ้าน</option>
+                                        <option value="ซื้อวัว">ซื้อวัว</option>
+                                        <option value="ซื้อที่ดิน">ซื้อที่ดิน</option>
+                                        <option value="ซ่อมบ้าน">ซ่อมบ้าน</option>
                                       </select>
                                    </div>
                                   </div>
@@ -637,6 +664,8 @@
                                          <option value="เพื่อน">เพื่อน</option>
                                          <option value="บิดา">บิดา</option>
                                          <option value="มารดา">มารดา</option>
+                                         <option value="ตำบลเดี่ยวกัน">ตำบลเดี่ยวกัน</option>
+                                         <option value="จ้างค้ำ(ไม่รู้จักกัน)">จ้างค้ำ(ไม่รู้จักกัน)</option>
                                        </select>
                                    </div>
                                   </div>
@@ -1544,6 +1573,8 @@
                                          <option value="เพื่อน">เพื่อน</option>
                                          <option value="บิดา">บิดา</option>
                                          <option value="มารดา">มารดา</option>
+                                         <option value="ตำบลเดี่ยวกัน">ตำบลเดี่ยวกัน</option>
+                                         <option value="จ้างค้ำ(ไม่รู้จักกัน)">จ้างค้ำ(ไม่รู้จักกัน)</option>
                                        </select>
                                    </div>
                                   </div>

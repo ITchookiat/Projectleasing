@@ -677,6 +677,10 @@
                                     @endif
                                   @endif
                                 @endif
+                              @else
+                                <button type="button" class="btn btn-gray btn-sm" title="ไม่มีข้อมูล">
+                                  <i class="fa fa-question-circle prem"></i> ไม่มีข้อมูล
+                                </button>
                               @endif
                             </td>
                             <td class="text-center">  <!-- ประนอมหนี้ -->
