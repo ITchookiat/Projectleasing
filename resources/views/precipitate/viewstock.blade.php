@@ -104,12 +104,13 @@
                         <thead class="thead-dark bg-gray-light" >
                           <tr>
                             <th class="text-center">ลำดับ</th>
+                            <th class="text-center" width="70px">วันที่ยึด</th>
+                            <th class="text-center" width="70px">ระยะเวลา</th>
                             <th class="text-center">เลขที่สัญญา</th>
                             <th class="text-center">ชื่อ-สกุล</th>
                             <!-- <th class="text-center">ยี่ห้อ</th> -->
                             <th class="text-center" width="70px">ทะเบียน</th>
                             <!-- <th class="text-center">ปีรถ</th> -->
-                            <th class="text-center" width="70px">วันที่ยึด</th>
                             <th class="text-center">ทีมยึด</th>
                             <th class="text-center">ค่ายึด</th>
                             <!-- <th class="text-center" width="120px">รายละเอียด</th> -->
@@ -121,12 +122,50 @@
                           @foreach($data as $key => $row)
                             <tr>
                               <td class="text-center"> {{ $key+1 }} </td>
+                              <td class="text-center"> {{ DateThai($row->Date_hold) }} </td>
+                              <td class="text-center">
+                                @if($row->Statuscar == 1 or $row->Statuscar == 3 or $row->Statuscar == 7)
+                                    @php
+                                      $nowday = date('Y-m-d');
+                                      $Cldate = date_create($row->Date_hold);
+                                      $nowCldate = date_create($nowday);
+                                      $ClDateDiff = date_diff($Cldate,$nowCldate);
+                                      $duration = $ClDateDiff->format("%a วัน")
+                                    @endphp
+                                    <font color="red">{{$duration}}</font>
+                                @else
+                                    @if($row->Datesend_Stockhome != null)
+                                        @php
+                                          $Cldate = date_create($row->Date_hold);
+                                          $nowCldate = date_create($row->Datesend_Stockhome);
+                                          $ClDateDiff = date_diff($Cldate,$nowCldate);
+                                          $duration = $ClDateDiff->format("%a วัน")
+                                        @endphp
+                                        <font color="green" title="วันที่ส่งรถบ้าน {{DateThai($row->Datesend_Stockhome)}}">{{$duration}}</font>
+                                    @elseif($row->Date_came != null)
+                                       @php
+                                         $Cldate = date_create($row->Date_hold);
+                                         $nowCldate = date_create($row->Date_came);
+                                         $ClDateDiff = date_diff($Cldate,$nowCldate);
+                                         $duration = $ClDateDiff->format("%a วัน")
+                                       @endphp
+                                       <font color="blue" title="วันที่มารับคืน {{DateThai($row->Date_came)}}">{{$duration}}</font>
+                                    @else
+                                      @php
+                                        $Cldate = date_create($row->Date_hold);
+                                        $nowCldate = date_create($row->Dateupdate_hold);
+                                        $ClDateDiff = date_diff($Cldate,$nowCldate);
+                                        $duration = $ClDateDiff->format("%a วัน")
+                                      @endphp
+                                      <font color="blue">{{$duration}}</font>
+                                    @endif
+                                @endif
+                              </td>
                               <td class="text-center"> {{ $row->Contno_hold }} </td>
                               <td class="text-left"> {{ $row->Name_hold }} </td>
                               <!-- <td class="text-center"> {{ $row->Brandcar_hold }} </td> -->
                               <td class="text-center"> {{ $row->Number_Regist }} </td>
                               <!-- <td class="text-center"> {{ $row->Year_Product }} </td> -->
-                              <td class="text-center"> {{ DateThai($row->Date_hold) }} </td>
                               <td class="text-center"> {{ $row->Team_hold }} </td>
                               <td class="text-right">
                                 @if($row->Price_hold == Null)
