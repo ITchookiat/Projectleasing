@@ -503,6 +503,7 @@ class PrecController extends Controller
             'Number_Regist' => $request->get('Number_Regist'),
             'Year_Product' => $request->get('Yearcar'),
             'Date_hold' => $request->get('Datehold'),
+            'Dateupdate_hold' => date('Y-m-d'),
             'Team_hold' => $request->get('Teamhold'),
             'Price_hold' => $SetPricehold,
             'Statuscar' => $request->get('Statuscar'),
@@ -850,6 +851,9 @@ class PrecController extends Controller
             $hold->Number_Regist = $request->get('Number_Regist');
             $hold->Year_Product = $request->get('Yearcar');
             $hold->Date_hold = $request->get('Datehold');
+            if($request->get('Datehold') != Null && $request->get('Datehold') != $hold->Dateupdate_hold){
+              $hold->Dateupdate_hold = date('Y-m-d');
+            }
             $hold->Team_hold = $request->get('Teamhold');
             $hold->Price_hold = $SetPricehold;
             $hold->Statuscar = $request->get('Statuscar');
@@ -1062,7 +1066,6 @@ class PrecController extends Controller
           ->whereIn('holdcars.Statuscar', [1, 3])
           ->orderBy('holdcars.Date_hold', 'ASC')
           ->get();
-          dd($data);
         }
         else{
           $data = DB::table('holdcars')
@@ -1515,15 +1518,26 @@ class PrecController extends Controller
           $Statuscar = $request->get('Statuscar');
         }
         // dd($fdate,$tdate,$Statuscar);
-        $data = DB::table('holdcars')
-        ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
-          return $q->whereBetween('holdcars.Date_hold',[$fdate,$tdate]);
-        })
-        ->when(!empty($Statuscar), function($q) use ($Statuscar) {
-          return $q->where('holdcars.Statuscar',$Statuscar);
-        })
-        ->orderBy('holdcars.Date_hold', 'ASC')
-        ->get();
+        if($Statuscar == 7){
+          $data = DB::table('holdcars')
+          ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+            return $q->whereBetween('holdcars.Date_hold',[$fdate,$tdate]);
+          })
+          ->whereIn('holdcars.Statuscar', [1, 3])
+          ->orderBy('holdcars.Date_hold', 'ASC')
+          ->get();
+        }
+        else{
+          $data = DB::table('holdcars')
+          ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+            return $q->whereBetween('holdcars.Date_hold',[$fdate,$tdate]);
+          })
+          ->when(!empty($Statuscar), function($q) use ($Statuscar) {
+            return $q->where('holdcars.Statuscar',$Statuscar);
+          })
+          ->orderBy('holdcars.Date_hold', 'ASC')
+          ->get();
+        }
 
         $type = $request->type;
 
