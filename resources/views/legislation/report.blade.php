@@ -99,9 +99,9 @@
       </tbody>
     </table> -->
     <h3 class="card-title p-3" align="center">ใบเสร็จปิดบัญชี</h3>
-    <hr> 
+    <hr>
   @endif
-  
+
 <!-- ส่วนข้อมูล -->
   @if($type == 1 or $type == 2)
     <body style="margin-top: 0 0 0px;">
@@ -151,12 +151,15 @@
       <table border="0">
         <tbody>
           <tr style="line-height:150%;">
-            <th width="80px" align="right"><b>งวดที่ : </b></th>
+            <th width="80px" align="right"><b>งวดละ : </b></th>
             <th width="150px" align="center">
+              {{number_format($dataDB->DuePay_Promise,2)}} บาท
+              {{--
               {{ $dataDB->Period_Payment }} - {{ $dataDB->Period_Payment }}
               @if($dataDB->Gold_Payment < $dataDB->DuePay_Promise)
                 *
               @endif
+              --}}
             </th>
             <th width="150px" align="right"></th>
           </tr>
