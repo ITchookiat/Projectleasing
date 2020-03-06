@@ -375,6 +375,10 @@ class LegislationController extends Controller
         $type = $request->type;
         return view('legislation.view', compact('type','dataLand'));
       }
+      elseif ($request->type == 15) {   //รายงานบันทึกชำะค่างวด
+        $type = $request->type;
+        return view('legislation.viewReport',compact('type'));
+      }
     }
 
     /**
@@ -424,7 +428,7 @@ class LegislationController extends Controller
               ->first();
 
         $type = 3; //เปลี่ยนเป็นเบอร์ 3 เพื่อสงไปยังหน้าพิมพ์ใบเสร็จ เพราะมี เบอร์ 1,2 อยู่แล้ว
-        $view = \View::make('legislation.report' ,compact('data','user','type','dataDB'));
+        $view = \View::make('legislation.reportCompro' ,compact('data','user','type','dataDB'));
         $html = $view->render();
 
         $pdf = new PDF();
@@ -1647,7 +1651,6 @@ class LegislationController extends Controller
                 ->first();
         }
         // dd($data);
-
         $dataDB = DB::table('legislations')
               ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
               ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
@@ -1662,9 +1665,14 @@ class LegislationController extends Controller
               ->orderBy('legislations.id', 'ASC')
               ->first();
 
+        $pdf = new PDF();
+        $pdf::SetTitle('ใบเสร็จรับชำระค่างวด');
+        $pdf::AddPage('L', 'A5');
+        $pdf::SetMargins(16, 5, 5, 5);
+        $pdf::SetFont('freeserif', '', 11, '', true);
+
       }
       elseif ($type == 2) {
-
         $dataDB = DB::table('legislations')
                 ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
                 ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
@@ -1674,7 +1682,6 @@ class LegislationController extends Controller
                 ->first();
 
                 // dd($dataDB);
-
         if ($dataDB != "C") {
           $data = DB::connection('ibmi')
                 ->table('ASFHP.ARMAST')
@@ -1690,16 +1697,51 @@ class LegislationController extends Controller
                 ->where('SFHP.ARMAST.CONTNO','=', $dataDB->Contract_legis)
                 ->first();
         }
-      }
-
-        $view = \View::make('legislation.report' ,compact('data','dataDB','type'));
-        $html = $view->render();
 
         $pdf = new PDF();
         $pdf::SetTitle('ใบเสร็จรับชำระค่างวด');
         $pdf::AddPage('L', 'A5');
         $pdf::SetMargins(16, 5, 5, 5);
         $pdf::SetFont('freeserif', '', 11, '', true);
+      }
+      elseif ($type == 15) {
+        $dataDB = DB::table('legislations')
+                ->join('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+                ->join('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
+                ->where('legislations.Contract_legis', '=', $request->Contract)
+                ->get();
+
+                $dataCount = count($dataDB);
+
+        if ($dataCount != 0) {
+          if ($dataDB[0]->Flag != "C") {
+            $data = DB::connection('ibmi')
+                  ->table('ASFHP.ARMAST')
+                  ->join('ASFHP.INVTRAN','ASFHP.ARMAST.CONTNO','=','ASFHP.INVTRAN.CONTNO')
+                  ->join('ASFHP.VIEW_CUSTMAIL','ASFHP.ARMAST.CUSCOD','=','ASFHP.VIEW_CUSTMAIL.CUSCOD')
+                  ->where('ASFHP.ARMAST.CONTNO','=', $dataDB[0]->Contract_legis)
+                  ->first();
+          }else {
+            $data = DB::connection('ibmi')
+                  ->table('SFHP.ARMAST')
+                  ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+                  ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                  ->where('SFHP.ARMAST.CONTNO','=', $dataDB[0]->Contract_legis)
+                  ->first();
+          }
+        }
+
+        // dd($dataDB);
+
+        $pdf = new PDF();
+        $pdf::SetTitle('รายงานบันทึกชำะค่างวด');
+        $pdf::AddPage('P', 'A4');
+        $pdf::SetMargins(5, 5, 5, 5);
+        $pdf::SetFont('freeserif', '', 8, '', true);
+
+      }
+        $view = \View::make('legislation.reportCompro' ,compact('data','dataDB','type'));
+        $html = $view->render();
         $pdf::SetAutoPageBreak(TRUE, 5);
         $pdf::WriteHTML($html,true,false,true,false,'');
         $pdf::Output('report.pdf');

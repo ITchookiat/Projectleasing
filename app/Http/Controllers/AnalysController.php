@@ -1032,6 +1032,7 @@ class AnalysController extends Controller
         '6950' => '6950',
       ];
       $Getinterest = [
+        '0.40' => '0.40',
         '0.45' => '0.45',
         '0.55' => '0.55',
         '0.65' => '0.65',

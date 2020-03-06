@@ -36,13 +36,6 @@
     <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
 
-    <!-- <section class="content-header">
-      <h1>
-        กฏหมาย
-        <small>it all starts here</small>
-      </h1>
-    </section> -->
-
     <!-- Main content -->
     <section class="content">
 
@@ -72,7 +65,6 @@
               <i class="fa fa-times"></i></button>
           </div>
         </div>
-
 
           <div class="box-body">
             @if(session()->has('success'))
@@ -835,9 +827,19 @@
                 <div class="col-md-12">
                   <form method="get" >
                      <div class="form-inline" align=right>
-                       <a target="_blank" href="{{ route('legislation', 9) }}" class="btn btn-primary btn-app" data-toggle="modal" data-target="#modal-default" data-backdrop="static" data-keyboard="false">
-                         <span class="glyphicon glyphicon-print"></span> ปริ้นใบเสร็จ
-                       </a>
+                       <div class="btn-group">
+                        <button type="button" class="btn btn-primary btn-app dropdown-toggle" data-toggle="dropdown">
+                          <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a target="_blank" href="{{ route('legislation', 9) }}" data-toggle="modal" data-target="#modal-1" data-backdrop="static" data-keyboard="false"> ใบเสร็จรับชำระ</a></li>
+                          <li class="divider"></li>
+                          <li><a target="_blank" href="{{ route('legislation', 15) }}" data-toggle="modal" data-target="#modal-2" data-backdrop="static" data-keyboard="false">รายงานบันทึกชำะค่างวด</a></li>
+                          <li class="divider"></li>
+                          <li><a target="_blank" href="#">รายงานลูกหนี้ประนอม</a></li>
+                        </ul>
+                      </div>
+
                        <button type="submit" class="btn btn-warning btn-app">
                          <span class="glyphicon glyphicon-search"></span> Search
                        </button>
@@ -858,6 +860,7 @@
                       </div>
                  </form>
                 </div>
+
                 <div class="col-md-12">
                   <hr>
                   <div class="table-responsive">
@@ -1390,40 +1393,45 @@
                       </tbody>
                   </table>
                  </div>
-              </div>
-              @endif
-           </div>
-
-           <div class="modal fade" id="modal-default">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title">ข้อมูลรายละเอียด...</h4>
                 </div>
-                <div class="modal-body">
-                  <div class="modal-footer"></div>
+              @endif
+            </div>
+
+            <!-- Pop up ปริ้นใบเสร็จ -->
+            <div class="modal fade" id="modal-1">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">ข้อมูลรายละเอียด</h4>
+                  </div>
                 </div>
               </div>
             </div>
+
+            <!-- Pop up รายงานบันทึกชำะค่างวด -->
+            <div class="modal fade" id="modal-2">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">ข้อมูลรายละเอียด</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
 
-          <script type="text/javascript">
-             $(document).ready(function() {
-               $('#table,#table1').DataTable( {
-                 "order": [[ 0, "asc" ]]
-               });
-             });
-          </script>
-
-
-          <script type="text/javascript">
-            $(".alert").fadeTo(500, 500).slideUp(500, function(){
-            $(".alert").alert('close');
+        <script type="text/javascript">
+            $(document).ready(function() {
+              $('#table,#table1').DataTable( {
+                "order": [[ 0, "asc" ]]
+              });
             });
-          </script>
-        </div>
+        </script>
 
         <script>
           function blinker() {
