@@ -28,7 +28,7 @@
                     <span class="glyphicon glyphicon-plus"></span> เพิ่มข้อมูล
                     </a> -->
                     <div align="center">
-                      <img class="img-responsive" src="{{ asset('dist/img/homecar.png') }}" alt="User Image" style = "width: 500px">
+                      <img class="img-responsive" src="{{ asset('dist/img/homecar.png') }}" alt="User Image" style = "width: 35%">
                     </div>
                     <div class="row">
                     <div class="col-lg-1 col-md-6"></div>

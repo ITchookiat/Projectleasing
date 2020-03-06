@@ -210,16 +210,26 @@ class PrecController extends Controller
           if ($request->has('Statuscar')) {
             $Statuscar = $request->get('Statuscar');
           }
-          // dd($fdate,$tdate);
-          $data = DB::table('holdcars')
-          ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
-            return $q->whereBetween('holdcars.Date_hold',[$fdate,$tdate]);
-          })
-          ->when(!empty($Statuscar), function($q) use ($Statuscar) {
-            return $q->where('holdcars.Statuscar',$Statuscar);
-          })
-          ->orderBy('holdcars.Date_hold', 'ASC')
-          ->get();
+          if($Statuscar == 7){
+            $data = DB::table('holdcars')
+            ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+              return $q->whereBetween('holdcars.Date_hold',[$fdate,$tdate]);
+            })
+            ->whereIn('holdcars.Statuscar', [1, 3])
+            ->orderBy('holdcars.Date_hold', 'ASC')
+            ->get();
+          }
+          else{
+            $data = DB::table('holdcars')
+            ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+              return $q->whereBetween('holdcars.Date_hold',[$fdate,$tdate]);
+            })
+            ->when(!empty($Statuscar), function($q) use ($Statuscar) {
+              return $q->where('holdcars.Statuscar',$Statuscar);
+            })
+            ->orderBy('holdcars.Date_hold', 'ASC')
+            ->get();
+          }
 
           $type = $request->type;
           return view('precipitate.viewstock', compact('data','type','fdate','tdate','Statuscar'));
@@ -1031,7 +1041,6 @@ class PrecController extends Controller
         $pdf::Output('ReportInvoice.pdf');
       }
       elseif ($request->type == 5) {  //รายงาน สต็อกรถเร่งรัด
-
         $fdate = '';
         $tdate = '';
         $Statuscar = '';
@@ -1045,15 +1054,27 @@ class PrecController extends Controller
           $Statuscar = $request->get('Statuscar');
         }
         // dd($fdate,$tdate,$Statuscar);
-        $data = DB::table('holdcars')
-        ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
-          return $q->whereBetween('holdcars.Date_hold',[$fdate,$tdate]);
-        })
-        ->when(!empty($Statuscar), function($q) use ($Statuscar) {
-          return $q->where('holdcars.Statuscar',$Statuscar);
-        })
-        ->orderBy('holdcars.Date_hold', 'ASC')
-        ->get();
+        if($Statuscar == 7){
+          $data = DB::table('holdcars')
+          ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+            return $q->whereBetween('holdcars.Date_hold',[$fdate,$tdate]);
+          })
+          ->whereIn('holdcars.Statuscar', [1, 3])
+          ->orderBy('holdcars.Date_hold', 'ASC')
+          ->get();
+          dd($data);
+        }
+        else{
+          $data = DB::table('holdcars')
+          ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+            return $q->whereBetween('holdcars.Date_hold',[$fdate,$tdate]);
+          })
+          ->when(!empty($Statuscar), function($q) use ($Statuscar) {
+            return $q->where('holdcars.Statuscar',$Statuscar);
+          })
+          ->orderBy('holdcars.Date_hold', 'ASC')
+          ->get();
+        }
 
         $type = $request->type;
 

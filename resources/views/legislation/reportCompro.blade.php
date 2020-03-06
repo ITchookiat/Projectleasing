@@ -92,12 +92,15 @@
   @elseif($type == 3)
     <h3 class="card-title p-3" align="center">ใบเสร็จปิดบัญชี</h3>
     <hr>
+<<<<<<< HEAD:resources/views/legislation/reportCompro.blade.php
   @elseif($type == 15)
     <label align="right">วันที่ : <u>{{ date('d-m-Y') }}</u></label>
     <h3 class="card-title p-3" align="center">รายงานบันทึกชำะค่างวด</h3>
     <!-- <hr> -->
+=======
+>>>>>>> e202cf5e21773ffb94857a8df98b5d6932dc6b69:resources/views/legislation/report.blade.php
   @endif
-  
+
 <!-- ส่วนข้อมูล -->
   @if($type == 1 or $type == 2)
     <body style="margin-top: 0 0 0px;">
@@ -147,12 +150,15 @@
       <table border="0">
         <tbody>
           <tr style="line-height:150%;">
-            <th width="80px" align="right"><b>งวดที่ : </b></th>
+            <th width="80px" align="right"><b>งวดละ : </b></th>
             <th width="150px" align="center">
+              {{number_format($dataDB->DuePay_Promise,2)}} บาท
+              {{--
               {{ $dataDB->Period_Payment }} - {{ $dataDB->Period_Payment }}
               @if($dataDB->Gold_Payment < $dataDB->DuePay_Promise)
                 *
               @endif
+              --}}
             </th>
             <th width="150px" align="right"></th>
           </tr>

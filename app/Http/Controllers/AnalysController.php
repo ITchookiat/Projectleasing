@@ -515,6 +515,7 @@ class AnalysController extends Controller
         'BeforeIncome_buyer' => $BeforeIncome,
         'AfterIncome_buyer' => $AfterIncome,
         'Gradebuyer_car' => $request->get('Gradebuyer'),
+        'Objective_car' => $request->get('objectivecar'),
       ]);
       $Buyerdb->save();
 
@@ -919,7 +920,22 @@ class AnalysController extends Controller
         'เพื่อน' => 'เพื่อน',
         'บิดา' => 'บิดา',
         'มารดา' => 'มารดา',
+        'ตำบลเดี่ยวกัน' => 'ตำบลเดี่ยวกัน',
+        'จ้างค้ำ(ไม่รู้จักกัน)' => 'จ้างค้ำ(ไม่รู้จักกัน)',
       ];
+
+      $objectivecar = [
+        'ลงทุนในธุรกิจ' => 'ลงทุนในธุรกิจ',
+        'ขยายกิจการ' => 'ขยายกิจการ',
+        'ซื้อรถยนต์' => 'ซื้อรถยนต์',
+        'ใช้หนี้นอกระบบ' => 'ใช้หนี้นอกระบบ',
+        'จ่ายค่าเทอม' => 'จ่ายค่าเทอม',
+        'ซื้อของใช้ภายในบ้าน' => 'ซื้อของใช้ภายในบ้าน',
+        'ซื้อวัว' => 'ซื้อวัว',
+        'ซื้อที่ดิน' => 'ซื้อที่ดิน',
+        'ซ่อมบ้าน' => 'ซ่อมบ้าน',
+      ];
+
       $Brandcarr = [
         'ISUZU' => 'ISUZU',
         'MITSUBISHI' => 'MITSUBISHI',
@@ -1072,12 +1088,16 @@ class AnalysController extends Controller
         'บิดา' => 'บิดา',
         'มารดา' => 'มารดา',
         'บุตร' => 'บุตร',
+        'ตำบลเดี่ยวกัน' => 'ตำบลเดี่ยวกัน',
+        'จ้างค้ำ(ไม่รู้จักกัน)' => 'จ้างค้ำ(ไม่รู้จักกัน)',
       ];
       $GradeBuyer = [
         'ลูกค้าเก่าผ่อนดี' => 'ลูกค้าเก่าผ่อนดี',
         'ลูกค้ามีงานตาม' => 'ลูกค้ามีงานตาม',
         'ลูกค้าใหม่' => 'ลูกค้าใหม่',
-        'ปิดจัดใหม่' => 'ปิดจัดใหม่',
+        'ลูกค้าใหม่(ปิดธนาคาร)' => 'ลูกค้าใหม่(ปิดธนาคาร)',
+        'ปิดจัดใหม่(งานตาม)' => 'ปิดจัดใหม่(งานตาม)',
+        'ปิดจัดใหม่(ผ่อนดี)' => 'ปิดจัดใหม่(ผ่อนดี)',
       ];
       $Typecardetail = [
         'รถกระบะ' => 'รถกระบะ',
@@ -1092,7 +1112,7 @@ class AnalysController extends Controller
             compact('data','id','dataImage','Statusby','Addby','Houseby','Driverby','HouseStyleby','Careerby','Incomeby',
             'HisCarby','StatusSPp','relationSPp','addSPp','housestyleSPp','Brandcarr','Interestcarr','Timeslackencarr',
             'Insurancecarr','statuscarr','newDateDue','evaluetionPricee','securitiesSPp','GetDocComplete','Getinsurance',
-            'Gettransfer','Getinterest','fdate','tdate','branch','status','type','Gettype','countImage','GradeBuyer','Typecardetail'));
+            'Gettransfer','Getinterest','fdate','tdate','branch','status','type','Gettype','countImage','GradeBuyer','Typecardetail','objectivecar'));
       }
       elseif ($type == 4) {
         return view('analysis.edithomecar',
@@ -1100,7 +1120,7 @@ class AnalysController extends Controller
             'HisCarby','StatusSPp','relationSPp','addSPp','housestyleSPp','Brandcarr','Interestcarr','Timeslackencarr',
             'Insurancecarr','statuscarr','newDateDue','evaluetionPricee','securitiesSPp','Getinsurance',
             'Gettransfer','Getinterest','fdate','tdate','branch','status','Gettype','GetSale','GetypeHC','GetbaabHC',
-            'GetguaranteeHC','relationSP','countImage','GradeBuyer','Typecardetail'));
+            'GetguaranteeHC','relationSP','countImage','GradeBuyer','Typecardetail','objectivecar'));
       }
     }
 
@@ -1167,6 +1187,7 @@ class AnalysController extends Controller
           $user->BeforeIncome_buyer = str_replace(",","",$request->get('Beforeincome'));
           $user->AfterIncome_buyer = str_replace(",","",$request->get('Afterincome'));
           $user->Gradebuyer_car = $request->get('Gradebuyer');
+          $user->Objective_car = $request->get('objectivecar');
         $user->update();
 
         $SettelSP = str_replace ("_","",$request->get('telSP'));

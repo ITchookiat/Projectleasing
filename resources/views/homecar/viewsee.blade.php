@@ -656,7 +656,7 @@
 
                      <div class="form-inline" align="right">
                            <label>สถานะการยืม : </label>
-                           <select name="BorrowStatus" class="form-control" style="width: 200px;" readonly>
+                           <select name="BorrowStatus" class="form-control" style="width: 200px;" disabled>
                              @foreach ($arrayBorrowStatus as $key => $value)
                                <option value="{{$key}}" {{ ($key == $datacar->BorrowStatus) ? 'selected' : '' }}>{{$value}}</option>
                              @endforeach
@@ -666,7 +666,7 @@
 
                  <div class="col-md-6">
                      <div class="form-inline" align="right">
-                         <label>เหตุผลการยืม : &nbsp;</label>
+                         <label style="vertical-align: top;">เหตุผลการยืม : &nbsp;</label>
                          <textarea type="text" name="NoteBorrow" class="form-control" rows="2" style="width: 200px;" readonly placeholder="ป้อนหมายเหตุ">{{ $datacar->Note_Borrow }}</textarea>
                      </div>
                      <div class="form-inline" align="right">
@@ -688,7 +688,7 @@
                                @endphp
 
                                <label>ระยะเวลายืม : &nbsp;</label>
-                               <input type="text" class="form-control" style="width: 200px;" value="{{ $duration }}" readonly />
+                               <input type="text" class="form-control" style="width: 200px;color:red;" value="{{ $duration }}" readonly />
                              @elseif($datacar->Date_Returncar != Null)
                                @php
                                  $Cldate = date_create($datacar->Date_Borrowcar);
@@ -698,7 +698,7 @@
                                @endphp
 
                                <label>ระยะเวลายืม : &nbsp;</label>
-                               <input type="text" class="form-control" style="width: 200px;color:red;" value="{{ $duration }}" readonly />
+                               <input type="text" class="form-control" style="width: 200px;color:green;" value="{{ $duration }}" readonly />
                              <!-- @elseif($datacar->create_date == $ifdate)
                                <font color="red">0 ปี 0 เดือน 0 วัน</font> -->
                              @endif
@@ -772,7 +772,7 @@
               <div class="row">
                    <div class="col-md-5">
                      <div class="form-inline" align="right">
-                       <label>หมายเหตุ :</label>
+                       <label style="vertical-align: top;">หมายเหตุ :</label>
                        <textarea type="text" name="CheckNote" class="form-control" rows="3" style="width: 200px;"  readonly>{{ $datacar->Check_Note }}</textarea>
                      </div>
                    </div>

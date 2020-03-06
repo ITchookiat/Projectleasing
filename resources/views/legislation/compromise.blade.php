@@ -388,6 +388,9 @@
 
                                   <label><font color="red">ยอดชำระ : </font></label>
                                   <input type="text" value="{{ number_format($SumCount, 2) }}" class="form-control" style="width: 150px;" readonly/>
+
+                                  <label><font color="red">ยอดคงเหลือ : </font></label>
+                                  <input type="text" value="{{ number_format($Getdata - $SumCount, 2) }}" class="form-control" style="width: 150px;" readonly/>
                                 </div>
 
                               </div>

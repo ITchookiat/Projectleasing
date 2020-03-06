@@ -74,6 +74,7 @@
                   @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 4 or auth::user()->branch == 10 or auth::user()->branch == 11)
                     <li><a href="{{ route('Analysis',4) }}"><i class="fa fa-cube text-primary"></i>รถบ้าน</a></li>
                     <li><a href="{{ route('Analysis',6) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน รถบ้าน</a></li>
+                    <li><a href="{{ route('Analysis',7) }}"><i class="fa fa-folder-open text-success"></i>รายงานส่งผู้บริหาร</a></li>
                   @endif
                 @endif
               </ul>
@@ -85,9 +86,7 @@
           <li>
               <a href="{{ route('finance',1) }}"><i class="fa fa-steam text-primary"></i> ประเภทจัดไฟแนนซ์</a>
           </li> -->
-          <!-- <li>
-              <a href="{{ route('Analysis',7) }}"><i class="fa fa-folder-open text-success"></i>รายงานส่งผู้บริหาร</a>
-          </li> -->
+
         </ul>
       </li>
 

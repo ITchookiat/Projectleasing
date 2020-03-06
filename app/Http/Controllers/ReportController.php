@@ -204,10 +204,11 @@ class ReportController extends Controller
                         ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
                                return $q->whereBetween('check_documents.Date_NumberUser',[$fdate,$tdate]);
                                })
-                        ->where('check_documents.Date_NumberUser','!=','Null')
+                        ->where('check_documents.Date_NumberUser','!=', NULL)
                         ->where('data_cars.car_type','<>',6)
                         ->orderBy('check_documents.Date_NumberUser', 'ASC')
                         ->get();
+          // dd($dataReport);
 
       }
       elseif ($request->id == 5) {
@@ -242,26 +243,21 @@ class ReportController extends Controller
       $pdf = new PDF();
       if ($request->id == 3) {
         $pdf::SetTitle('รายงาน สต๊อกบัญชี');
-        $pdf::AddPage('L', 'A4');
-        $pdf::SetFont('freeserif');
+        $pdf::SetFont('freeserif','',13,'false');
       }elseif ($request->id == 4) {
         $pdf::SetTitle('รายงาน วันหมดอายุบัตร');
-        $pdf::AddPage('L', 'A4');
-        $pdf::SetFont('freeserif');
+        $pdf::SetFont('freeserif','',13,'false');
       }elseif ($request->id == 5) {
         $pdf::SetTitle('รายงาน รถยึด');
-        $pdf::AddPage('L', 'A4');
         $pdf::SetFont('freeserif','',10,'false');
       }elseif ($request->id == 6) {
         $pdf::SetTitle('รายงาน สรุปกำไรรถยนต์ต่อคัน');
-        $pdf::AddPage('L', 'A4');
         $pdf::SetFont('freeserif','',10,'false');
       }
-      // $pdf::SetMargins(5, 5, 6);
 
-      // $pdf::AddPage('L', 'A4');
-      // $pdf::SetFont('freeserif');
-
+      $pdf::AddPage('L', 'A4');
+      $pdf::SetMargins(10, 5, 5, 0);
+      $pdf::SetAutoPageBreak(TRUE, 16);
       $pdf::WriteHTML($html,true,false,true,false,'');
       $pdf::Output('report.pdf');
 

@@ -159,6 +159,7 @@
                       <div class="form-inline " align="right">
                         <label>เกียร์รถ :</label>
                         <select name="Gearcar" class="form-control" style="width: 90px;">
+                          <option value="">-เลือก-</option>
                           <option value="MT">MT</option>
                           <option value="AT">AT</option>
                         </select>
@@ -311,8 +312,8 @@
                   <div class="row">
 
                        <div class="col-md-5">
-                         <div class="form-inline " align="right">
-                           <label>หมายเหตุ :</label>
+                         <div class="form-inline" align="right">
+                           <label style="vertical-align: top;">หมายเหตุ :</label>
                            <textarea name="CheckNote" class="form-control" placeholder="ป้อนหมายเหตุ" rows="4" style="width: 250px;"></textarea>
                          </div>
                       </div>

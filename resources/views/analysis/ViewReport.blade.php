@@ -303,7 +303,7 @@
                            <tr>
                              <td class="text-center">
                              <label class="con3">
-                               <input type="checkbox" name="choose[]" value="{{$row->id}}" />
+                               <input type="checkbox" name="choose[]" value="{{$row->id}}" checked />
                              <span class="checkmark3"></span>
                              </label>
                              </td>

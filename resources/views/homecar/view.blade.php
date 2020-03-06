@@ -32,11 +32,36 @@
 
     <!-- Main content -->
     <section class="content">
-
       <!-- Default box -->
       <div class="box">
         <div class="box-header with-border">
-          <h3 align="center"><b>รายการ{{ $title }}</b></h3>
+         @if($type != 12)
+          <ul class="nav nav-pills ml-auto p-2">
+              <li class="nav-item {{ (request()->is('datacar/view/1')) ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('datacar',1) }}">รถยนต์ทั้งหมด</a>
+              </li>
+              <li class="nav-item {{ (request()->is('datacar/view/2')) ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('datacar',2) }}">รถยนต์ระหว่างทำสี</a>
+              </li>
+              <li class="nav-item {{ (request()->is('datacar/view/3')) ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('datacar',3) }}">รถยนต์รอซ่อม</a>
+              </li>
+              <li class="nav-item {{ (request()->is('datacar/view/4')) ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('datacar',4) }}">รถยนต์ระหว่างซ่อม</a>
+              </li>
+              <li class="nav-item {{ (request()->is('datacar/view/5')) ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('datacar',5) }}">รถยนต์ที่พร้อมขาย</a>
+              </li>
+              <li class="nav-item {{ (request()->is('datacar/view/6')) ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('datacar',6) }}">รถยนต์ที่ขายแล้ว</a>
+              </li>
+              <li class="nav-item {{ (request()->is('datacar/view/8')) ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('datacar',8) }}">รถยนต์ยืมใช้</a>
+              </li>
+          </ul>
+          @else
+            <h3 align="center"><b>รายการ{{ $title }}</b></h3>
+          @endif
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
               <i class="fa fa-minus"></i></button>
@@ -44,7 +69,6 @@
               <i class="fa fa-times"></i></button>
           </div>
         </div>
-
 
           <div class="box-body">
 
@@ -161,6 +185,7 @@
                       @endif
                   </div>
                   </form>
+                  <hr>
                 @endif
 
                 @if($type == 5)
@@ -169,6 +194,7 @@
                     <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
                     </a>
                   </div>
+                  <hr>
                 @endif
               <div class="table-responsive">
                 <table class="table table-bordered" id="table">

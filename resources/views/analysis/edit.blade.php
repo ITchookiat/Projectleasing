@@ -851,6 +851,39 @@
                               </div>
                             </div>
                           </div>
+                          <div class="row">
+                            <div class="col-md-5">
+                              <div class="form-inline" align="right">
+                               
+                              </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+                              <div class="form-inline" align="right">
+                                <label>วัตถุประสงค์ของสินเชื่อ : </label>
+                                @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  <select name="objectivecar" class="form-control" style="width: 250px;">
+                                    <option value="" selected>--- วัตถุประสงค์ของสินเชื่อ ---</option>
+                                    @foreach ($objectivecar as $key => $value)
+                                      <option value="{{$key}}" {{ ($key == $data->Objective_car) ? 'selected' : '' }}>{{$value}}</option>
+                                    @endforeach
+                                  </select>
+                                @else
+                                  @if($GetDocComplete != Null)
+                                    <input type="text" name="objectivecar" value="{{ $data->Objective_car }}" class="form-control" style="width: 250px;" placeholder="เลือกวัตถุประสงค์ของสินเชื่อ" readonly/>
+                                  @else
+                                    <select name="objectivecar" class="form-control" style="width: 250px;">
+                                      <option value="" selected>--- วัตถุประสงค์ของสินเชื่อ ---</option>
+                                      @foreach ($objectivecar as $key => $value)
+                                      <option value="{{$key}}" {{ ($key == $data->Objective_car) ? 'selected' : '' }}>{{$value}}</option>
+                                      @endforeach
+                                    </select>
+                                  @endif
+                                @endif
+                              </div>
+                            </div>
+                          </div>
 
                           <hr>
                           <input type="hidden" name="fdate" value="{{ $fdate }}" />
