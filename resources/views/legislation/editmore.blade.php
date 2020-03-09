@@ -319,11 +319,11 @@
                                            </div>
                                            <div class="col-md-4">
                                              <div class="form-inline" align="right">
-                                               <label><font>คำให้การ : </font></label>
+                                               <label><font>ชั้นสำนวน : </font></label>
                                                <select name="TypeGiveword" class="form-control" style="width: 250px">
                                                  <option selected value="">---เลือกคำให้การ---</option>
-                                                 <option value="พนักงานสอบสวน" {{($data->Typegiveword_legis === 'พนักงานสอบสวน') ? 'selected' : '' }}>พนักงานสอบสวน</otion>
-                                                 <option value="พนักงานอัยการ" {{($data->Typegiveword_legis === 'พนักงานอัยการ') ? 'selected' : '' }}>พนักงานอัยการ</otion>
+                                                 <option value="ชั้นพนักงานสอบสวน" {{($data->Typegiveword_legis === 'ชั้นพนักงานสอบสวน') ? 'selected' : '' }}>ชั้นพนักงานสอบสวน</otion>
+                                                 <option value="ชั้นพนักงานอัยการ" {{($data->Typegiveword_legis === 'ชั้นพนักงานอัยการ') ? 'selected' : '' }}>ชั้นพนักงานอัยการ</otion>
                                                  <option value="ชั้นศาล" {{($data->Typegiveword_legis === 'ชั้นศาล') ? 'selected' : '' }}>ชั้นศาล</otion>
                                                </select>
                                              </div>
@@ -354,11 +354,28 @@
                                            </div>
                                            <div class="col-md-4">
                                              <div class="form-inline" align="right">
-                                               <label><font>วันที่ทราบผล : </font></label>
-                                               <input type="date" name="DategetResult1" class="form-control" value="{{$data->Dategetresult_legis}}" style="width: 250px"/>
+                                               <label><font>วิธีดำเนินการ : </font></label>
+                                               <select id="ProcessExhibit1" name="ProcessExhibit1" class="form-control" style="width: 250px">
+                                                 <option selected value="">---เลือกผล---</option>
+                                                   <option value="รับคืน" {{($data->Processexhibit1_legis === 'รับคืน') ? 'selected' : '' }}>รับคืน</otion>
+                                                   <option value="ไม่รับคืน" {{($data->Processexhibit1_legis === 'ไม่รับคืน') ? 'selected' : '' }}>ไม่รับคืน</otion>
+                                               </select>
                                               </div>
                                            </div>
                                         </div>
+                                        <script>
+                                            $('#ProcessExhibit1').change(function(){
+                                              var value = document.getElementById('ProcessExhibit1').value;
+                                              var today = new Date();
+                                              var date = today.getFullYear()+'-'+(today.getMonth()+1).toString().padStart(2, "0")+'-'+today.getDate().toString().padStart(2, "0");
+                                                if(value != ''){
+                                                  $('#DategetResult1').val(date);
+                                                }
+                                                else{
+                                                  $('#DategetResult1').val('');
+                                                }
+                                            });
+                                        </script>
                                         <div class="row">
                                            <div class="col-md-4">
                                              <div class="form-inline" align="right">
@@ -374,7 +391,8 @@
                                            </div>
                                            <div class="col-md-4">
                                              <div class="form-inline" align="right">
-
+                                               <label><font>วันทีดำเนินการ : </font></label>
+                                               <input type="date" id="DategetResult1" name="DategetResult1" class="form-control" value="{{$data->Dategetresult_legis}}" style="width: 250px"/>
                                              </div>
                                            </div>
                                         </div>
@@ -426,8 +444,43 @@
                                            </div>
                                            <div class="col-md-4">
                                              <div class="form-inline" align="right">
-                                               <label><font>วันที่ทราบผล : </font></label>
-                                               <input type="date" name="DategetResult2" class="form-control" value="{{$data->Dategetresult_legis}}" style="width: 250px"/>
+                                               <label><font>วิธีดำเนินการ : </font></label>
+                                               <select id="ProcessExhibit2" name="ProcessExhibit2" class="form-control" style="width: 250px">
+                                                 <option selected value="">---เลือกผล---</option>
+                                                   <option value="ไปรับเช็ค" {{($data->Processexhibit2_legis === 'ไปรับเช็ค') ? 'selected' : '' }}>ไปรับเช็ค</otion>
+                                                   <option value="ไปรับรถ" {{($data->Processexhibit2_legis === 'ไปรับรถ') ? 'selected' : '' }}>ไปรับรถ</otion>
+                                               </select>
+                                             </div>
+                                           </div>
+                                        </div>
+                                        <script>
+                                            $('#ProcessExhibit2').change(function(){
+                                              var value = document.getElementById('ProcessExhibit2').value;
+                                              var today = new Date();
+                                              var date = today.getFullYear()+'-'+(today.getMonth()+1).toString().padStart(2, "0")+'-'+today.getDate().toString().padStart(2, "0");
+                                                if(value != ''){
+                                                  $('#DategetResult2').val(date);
+                                                }
+                                                else{
+                                                  $('#DategetResult2').val('');
+                                                }
+                                            });
+                                        </script>
+                                      <div class="row">
+                                           <div class="col-md-4">
+                                             <div class="form-inline" align="right">
+
+                                              </div>
+                                           </div>
+                                           <div class="col-md-4">
+                                             <div class="form-inline" align="right">
+
+                                              </div>
+                                           </div>
+                                           <div class="col-md-4">
+                                             <div class="form-inline" align="right">
+                                               <label><font>วันที่ดำเนินการ : </font></label>
+                                               <input type="date" id="DategetResult2" name="DategetResult2" class="form-control" value="{{$data->Dategetresult_legis}}" style="width: 250px"/>
                                              </div>
                                            </div>
                                         </div>

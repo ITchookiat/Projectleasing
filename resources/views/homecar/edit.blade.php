@@ -317,7 +317,7 @@
 
                          <div class="col-md-5">
                              <div class="form-inline" align="right">
-                                 <label>ราคาขาย :</label>
+                                 <label>ราคาตั้งขาย :</label>
                                  <input type="text" name="NetCar" class="form-control" style="width: 250px;" placeholder="ป้อนราคาขาย" value="{{number_format($datacar->Net_Price, 2)}}" />
                              </div>
                           </div>

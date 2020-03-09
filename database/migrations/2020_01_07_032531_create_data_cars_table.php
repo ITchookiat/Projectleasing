@@ -50,11 +50,18 @@ class CreateDataCarsTable extends Migration
           $table->string('Name_Agent')->nullable();
           $table->string('Name_Buyer')->nullable();
           $table->string('Accounting_Cost')->nullable();
+          //ข้อมูลยืม
           $table->string('Date_Borrowcar')->nullable();
           $table->string('Date_Returncar')->nullable();
           $table->string('Name_Borrow')->nullable();
           $table->string('Note_Borrow')->nullable();
           $table->string('BorrowStatus')->nullable();
+          //ข้อมูลหัก vat
+          $table->string('Down_Price')->nullable();
+          $table->string('Transfer_Price')->nullable();
+          $table->string('Subdown_Price')->nullable();
+          $table->string('Insurance_Price')->nullable();
+          $table->string('Topcar_Price')->nullable();
           $table->timestamps();
         });
     }

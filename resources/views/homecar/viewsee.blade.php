@@ -487,7 +487,7 @@
                  </div>
                  <div class="col-md-6">
                   <div class="form-inline" align="right">
-                    <label>ราคาขาย :</label>
+                    <label>ราคาตั้งขาย :</label>
                     @if($datacar->Net_Price == '' OR $datacar->Net_Price == Null )
                     <input type="text" name="NetCar" class="form-control" style="width: 200px;" placeholder="ยังไม่มีการป้อน" value="" readonly />
                     @else

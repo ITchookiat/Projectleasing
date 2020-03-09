@@ -297,11 +297,11 @@
                                            </div>
                                            <div class="col-md-4">
                                              <div class="form-inline" align="right">
-                                               <label><font>คำให้การ : </font></label>
+                                               <label><font>ชั้นสำนวน : </font></label>
                                                <select name="TypeGiveword" class="form-control" style="width: 250px">
                                                  <option selected value="">---เลือกคำให้การ---</option>
-                                                 <option value="พนักงานสอบสวน">พนักงานสอบสวน</otion>
-                                                 <option value="พนักงานอัยการ">พนักงานอัยการ</otion>
+                                                 <option value="พนักงานสอบสวน">ชั้นพนักงานสอบสวน</otion>
+                                                 <option value="พนักงานอัยการ">ชั้นพนักงานอัยการ</otion>
                                                  <option value="ชั้นศาล">ชั้นศาล</otion>
                                                </select>
                                              </div>
@@ -332,11 +332,28 @@
                                            </div>
                                            <div class="col-md-4">
                                              <div class="form-inline" align="right">
-                                               <label><font>วันที่ทราบผล : </font></label>
-                                               <input type="date" name="DategetResult1" class="form-control" style="width: 250px"/>
+                                               <label><font>วิธีดำเนินการ : </font></label>
+                                               <select id="ProcessExhibit1" name="ProcessExhibit1" class="form-control" style="width: 250px">
+                                                 <option selected value="">---เลือกวิธีดำเนินการ---</option>
+                                                   <option value="รับคืน">รับคืน</otion>
+                                                   <option value="ไม่รับคืน">ไม่รับคืน</otion>
+                                               </select>
                                               </div>
                                            </div>
                                         </div>
+                                        <script>
+                                            $('#ProcessExhibit1').change(function(){
+                                              var value = document.getElementById('ProcessExhibit1').value;
+                                              var today = new Date();
+                                              var date = today.getFullYear()+'-'+(today.getMonth()+1).toString().padStart(2, "0")+'-'+today.getDate().toString().padStart(2, "0");
+                                                if(value != ''){
+                                                  $('#DategetResult1').val(date);
+                                                }
+                                                else{
+                                                  $('#DategetResult1').val('');
+                                                }
+                                            });
+                                        </script>
                                         <div class="row">
                                            <div class="col-md-4">
                                              <div class="form-inline" align="right">
@@ -352,7 +369,9 @@
                                            </div>
                                            <div class="col-md-4">
                                              <div class="form-inline" align="right">
-
+                                               <label><font>วันที่ดำเนินการ : </font></label>
+                                               <input type="date" id="DategetResult1" name="DategetResult1" class="form-control" style="width: 250px"/>
+                                              </div>
                                              </div>
                                            </div>
                                         </div>
@@ -400,8 +419,43 @@
                                            </div>
                                            <div class="col-md-4">
                                              <div class="form-inline" align="right">
-                                               <label><font>วันที่ทราบผล : </font></label>
-                                               <input type="date" name="DategetResult2" class="form-control" style="width: 250px"/>
+                                               <label><font>วิธีดำเนินการ : </font></label>
+                                               <select id="ProcessExhibit2" name="ProcessExhibit2" class="form-control" style="width: 250px">
+                                                 <option selected value="">---เลือกวิธีดำเนินการ---</option>
+                                                   <option value="ไปรับเช็ค">ไปรับเช็ค</otion>
+                                                   <option value="ไปรับรถ">ไปรับรถ</otion>
+                                               </select>
+                                             </div>
+                                           </div>
+                                        </div>
+                                        <script>
+                                            $('#ProcessExhibit2').change(function(){
+                                              var value = document.getElementById('ProcessExhibit2').value;
+                                              var today = new Date();
+                                              var date = today.getFullYear()+'-'+(today.getMonth()+1).toString().padStart(2, "0")+'-'+today.getDate().toString().padStart(2, "0");
+                                                if(value != ''){
+                                                  $('#DategetResult2').val(date);
+                                                }
+                                                else{
+                                                  $('#DategetResult2').val('');
+                                                }
+                                            });
+                                        </script>
+                                      <div class="row">
+                                           <div class="col-md-4">
+                                             <div class="form-inline" align="right">
+
+                                             </div>
+                                           </div>
+                                           <div class="col-md-4">
+                                             <div class="form-inline" align="right">
+
+                                             </div>
+                                           </div>
+                                           <div class="col-md-4">
+                                             <div class="form-inline" align="right">
+                                               <label><font>วันที่ดำเนินการ : </font></label>
+                                               <input type="date" id="DategetResult2" name="DategetResult2" class="form-control" style="width: 250px"/>
                                              </div>
                                            </div>
                                         </div>

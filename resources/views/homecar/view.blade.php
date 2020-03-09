@@ -91,6 +91,7 @@
                         <th class="text-center">ลำดับ</th>
                         <th class="text-center">เลขที่สัญญา</th>
                         <th class="text-center">ชื่อ - สกุล</th>
+                        <th class="text-center">ยี่ห้อรถ</th>
                         <th class="text-center">ทะเบียน</th>
                         <th class="text-center">วันที่ยึด</th>
                         <th class="text-center">Action</th>
@@ -108,9 +109,10 @@
                         <tr>
                           <td class="text-center">{{$key+1}}</td>
                           <td class="text-center">{{$row->Contno_hold}}</td>
-                          <td class="text-center">{{$row->Name_hold}}</td>
+                          <td class="text-left"> {{$row->Name_hold}}</td>
                           <td class="text-center">{{$row->Brandcar_hold}}</td>
                           <td class="text-center">{{$row->Number_Regist}}</td>
+                          <td class="text-center">{{DateThai($row->Date_hold)}}</td>
                           <td class="text-center">
                             @foreach($dataDB as $key => $row2)
                               @if($row->Number_Regist == $row2->Number_Regist)

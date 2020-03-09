@@ -81,23 +81,8 @@ class LegislationController extends Controller
         $dataDB = DB::table('legislations')
                   ->orderBy('Contract_legis', 'ASC')
                   ->get();
-
-        $dataLand = DB::connection('ibmi')
-                  ->table('LSFHP.ARMAST')
-                  ->join('LSFHP.INVTRAN','LSFHP.ARMAST.CONTNO','=','LSFHP.INVTRAN.CONTNO')
-                  ->join('LSFHP.VIEW_CUSTMAIL','LSFHP.ARMAST.CUSCOD','=','LSFHP.VIEW_CUSTMAIL.CUSCOD')
-                  ->orderBy('LSFHP.ARMAST.CONTNO', 'ASC')
-                  ->get();
-
-        $dataLandDB = DB::table('legislands')
-                  ->orderBy('ContractNo_legis', 'ASC')
-                  ->get();
-        // foreach ($dataLand as $key => $value) {
-        //   @$SumRemain +=  $value->BALANC - $value->SMPAY;
-        // }
-        $tab = '';
         $type = $request->type;
-        return view('legislation.view', compact('type','data','result','dataDB','result2','arrayMerge','dataLandDB','dataLand','SumRemain','tab'));
+        return view('legislation.view', compact('type','data','result','dataDB','result2','arrayMerge'));
 
       }
       elseif ($request->type == 2) {   //งานฟ้อง
@@ -534,7 +519,7 @@ class LegislationController extends Controller
         return redirect()->back()->with(['id' => $id,'type' => $type,'success' => 'บันทึกข้อมูลเรียบร้อย']);
       }
       if ($type == 11){ //เพิ่มข้อของกลาง
-        $Dateresult = '';
+        $Dateresult = NULL;
         if($request->get('DategetResult1') != Null){
           $Dateresult = $request->get('DategetResult1');
         }
@@ -563,8 +548,10 @@ class LegislationController extends Controller
           'Datecheckexhibit_legis' =>  $request->get('DateCheckexhibit'),
           'Datesendword_legis' =>  $request->get('DateSendword'),
           'Resultexhibit1_legis' =>  $request->get('ResultExhibit1'),
+          'Processexhibit1_legis' =>  $request->get('ProcessExhibit1'),
           'Datesenddetail_legis' =>  $request->get('DateSenddetail'),
           'Resultexhibit2_legis' =>  $request->get('ResultExhibit2'),
+          'Processexhibit1_legis' =>  $request->get('ProcessExhibit2'),
           'Dategetresult_legis' =>  $Dateresult,
         ]);
         // dd($LegisExhibit);
@@ -1321,7 +1308,7 @@ class LegislationController extends Controller
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อย');
       }
       elseif ($type == 10){ //ของกลาง
-          $Dateresult = '';
+          $Dateresult = NULL;
           if($request->get('DategetResult1') != Null){
             $Dateresult = $request->get('DategetResult1');
           }
@@ -1350,8 +1337,10 @@ class LegislationController extends Controller
             $LegisExhibit->Datecheckexhibit_legis =  $request->get('DateCheckexhibit');
             $LegisExhibit->Datesendword_legis =  $request->get('DateSendword');
             $LegisExhibit->Resultexhibit1_legis =  $request->get('ResultExhibit1');
+            $LegisExhibit->Processexhibit1_legis =  $request->get('ResultExhibit1');
             $LegisExhibit->Datesenddetail_legis =  $request->get('DateSenddetail');
             $LegisExhibit->Resultexhibit2_legis =  $request->get('ResultExhibit2');
+            $LegisExhibit->Processexhibit2_legis =  $request->get('ProcessExhibit2');
             $LegisExhibit->Dategetresult_legis =  $Dateresult;
           $LegisExhibit->update();
           return redirect()->back()->with('success','อัพเดทข้อมูลเรียบร้อย');
