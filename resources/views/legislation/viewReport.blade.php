@@ -105,6 +105,36 @@
                               <input type="text" name="Contract" class="form-control text-center" style="padding:5px; width:250px; border-radius: 5px 0 5px 5px; font-size:24px;" data-inputmask="&quot;mask&quot;:&quot;99-9999/9999&quot;" data-mask="" required/>
                             </div>
                             <div class="col-md-5">
+                              <br>
+                              <button type="submit" class="btn btn-primary btn-app">
+                                <span class="glyphicon glyphicon-print"></span> ปริ้น
+                              </button>
+                              <a class="btn btn-app" href="{{ route('legislation',7) }}" style="background-color:#DB0000; color:#FFFFFF;">
+                                <span class="glyphicon glyphicon-remove"></span> ยกเลิก
+                              </a>
+                              <br><br>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+
+                <input type="hidden" name="_token" value="{{csrf_token()}}" />
+              </form>
+            @elseif($type == 16)
+              <form name="form1" action="{{ route('legislation.report' ,[00, 16]) }}" target="_blank" method="get" id="formimage" enctype="multipart/form-data">
+                @csrf
+                <div class="card">
+                  <div class="card-body">
+                    <div class="tab-content">
+                        <div class="form-inline" align="center">
+                          <div class="row"> 
+                            <div class="col-md-7">
+                              <label><font color="red">เลขที่สัญญา :</font></label>
+                              <input type="text" name="Contract" class="form-control text-center" style="padding:5px; width:250px; border-radius: 5px 0 5px 5px; font-size:24px;" data-inputmask="&quot;mask&quot;:&quot;99-9999/9999&quot;" data-mask="" required/>
+                            </div>
+                            <div class="col-md-5">
                             <br>
                               <button type="submit" class="btn btn-primary btn-app">
                                 <span class="glyphicon glyphicon-print"></span> ปริ้น

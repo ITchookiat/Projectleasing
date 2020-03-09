@@ -697,7 +697,14 @@
                                   </div>
                                   <div class="col-md-3">
                                     ศาล
-                                    <input type="text" name="lawcourt" class="form-control" value="{{ ($data->law_court) }}" />
+                                    <select name="lawcourt" class="form-control">
+                                      <option value="" selected>--- ศาล ---</option>
+                                      <option value="ศาลปัตตานี" {{ ($data->law_court === 'ศาลปัตตานี') ? 'selected' : '' }}>ศาลปัตตานี</option>
+                                      <option value="ศาลยะลา" {{ ($data->law_court === 'ศาลยะลา') ? 'selected' : '' }}>ศาลยะลา</option>
+                                      <option value="ศาลนราธิวาส" {{ ($data->law_court === 'ศาลนราธิวาส') ? 'selected' : '' }}>ศาลนราธิวาส</option>
+                                      <option value="ศาลเบตง" {{ ($data->law_court === 'ศาลเบตง') ? 'selected' : '' }}>ศาลเบตง</option>
+                                      <option value="ศาลนาทวี" {{ ($data->law_court === 'ศาลนาทวี') ? 'selected' : '' }}>ศาลนาทวี</option>
+                                    </select>
                                   </div>
                                   <div class="col-md-3">
                                     เลขคดีดำ

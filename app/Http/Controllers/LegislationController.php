@@ -379,6 +379,10 @@ class LegislationController extends Controller
         $type = $request->type;
         return view('legislation.viewReport',compact('type'));
       }
+      elseif ($request->type == 16) {   //รายงานบันทึกชำะค่างวด
+        $type = $request->type;
+        return view('legislation.viewReport',compact('type'));
+      }
     }
 
     /**
@@ -1618,7 +1622,6 @@ class LegislationController extends Controller
 
     public function deleteImageAll($id)
     {
-
       $item = LegisImage::where('legisImage_id','=',$id)->get();
 
       foreach ($item as $key => $value) {
@@ -1735,6 +1738,8 @@ class LegislationController extends Controller
                   ->where('SFHP.ARMAST.CONTNO','=', $dataDB[0]->Contract_legis)
                   ->first();
           }
+        }else {
+          dd('ไม่มีเลขที่สัญญานี้ไม่ระบบประนอมหนี้');
         }
 
         // dd($dataDB);
@@ -1746,7 +1751,7 @@ class LegislationController extends Controller
         $pdf::SetFont('freeserif', '', 8, '', true);
 
       }
-        $view = \View::make('legislation.reportCompro' ,compact('data','dataDB','type'));
+        $view = \View::make('legislation.reportCompro' ,compact('data','dataDB','type','dataCount'));
         $html = $view->render();
         $pdf::SetAutoPageBreak(TRUE, 5);
         $pdf::WriteHTML($html,true,false,true,false,'');

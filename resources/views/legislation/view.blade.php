@@ -307,7 +307,8 @@
                           <th class="text-center">No.</th>
                           <th class="text-center">Job.</th>
                           <th class="text-center">ชื่อ-สกุล</th>
-                          <th class="text-center">วันที่ส่งฟ้อง</th>
+                          <th class="text-center">วันถืองาน</th>
+                          <th class="text-center">วันส่งฟ้อง</th>
                           <th class="text-center" style="width: 70px">ระยะเวลา</th>
                           <th class="text-center" style="width: 80px">สถานะลูกหนี้</th>
                           <th class="text-center" style="width: 80px">สถานะทรัพย์</th>
@@ -322,6 +323,25 @@
                             <!-- <td class="text-center"><a href="#" data-toggle="modal" data-target="#modal_default" data-backdrop="static" data-keyboard="false">{{$row->Contract_legis}}</a></td> -->
                             <td class="text-center"> {{$row->Contract_legis}}</a></td>
                             <td class="text-left"> {{$row->Name_legis}} </td>
+                            <td class="text-center">  <!-- วันถืองาน -->
+                              @if($row->fillingdate_court == Null)
+                                @php
+                                  $Cldate = date_create($row->Datesend_Flag);
+                                  $nowCldate = date_create($date);
+                                  $ClDateDiff = date_diff($Cldate,$nowCldate);
+                                  $duration = $ClDateDiff->format("%a วัน")
+                                @endphp
+                                <font color="red">{{$duration}}</font>
+                              @elseif($row->fillingdate_court != Null)
+                                @php
+                                  $Cldate = date_create($row->Datesend_Flag);
+                                  $nowCldate = date_create($row->fillingdate_court);
+                                  $ClDateDiff = date_diff($Cldate,$nowCldate);
+                                  $duration = $ClDateDiff->format("%a วัน")
+                                @endphp
+                                <font color="green">{{$duration}}</font>
+                              @endif
+                            </td>
                             <td class="text-center">
                               @if($row->fillingdate_court != NUll)
                                 {{ DateThai($row->fillingdate_court) }}
@@ -346,7 +366,7 @@
                                 <font color="green">{{$duration}}</font>
                               @else
                                 @php
-                                  $Cldate = date_create($row->Datesend_Flag);
+                                  $Cldate = date_create($row->fillingdate_court);
                                   $nowCldate = date_create($date);
                                   $ClDateDiff = date_diff($Cldate,$nowCldate);
                                   $duration = $ClDateDiff->format("%a วัน")
@@ -836,7 +856,7 @@
                           <li class="divider"></li>
                           <li><a target="_blank" href="{{ route('legislation', 15) }}" data-toggle="modal" data-target="#modal-2" data-backdrop="static" data-keyboard="false">รายงานบันทึกชำะค่างวด</a></li>
                           <li class="divider"></li>
-                          <li><a target="_blank" href="#">รายงานลูกหนี้ประนอม</a></li>
+                          <li><a target="_blank" href="{{ route('legislation', 16) }}" data-toggle="modal" data-target="#modal-3" data-backdrop="static" data-keyboard="false">รายงานลูกหนี้ประนอม</a></li>
                         </ul>
                       </div>
 
@@ -1412,6 +1432,19 @@
 
             <!-- Pop up รายงานบันทึกชำะค่างวด -->
             <div class="modal fade" id="modal-2">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">ข้อมูลรายละเอียด</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pop up รายงานลูกหนี้ประนอม -->
+            <div class="modal fade" id="modal-3">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
