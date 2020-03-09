@@ -215,7 +215,7 @@
                                 <div class="row">
                                   <div class="col-md-6">
                                     วันสืบทรัพย์
-                                    <input type="date" id="Dateasset" name="Dateasset" class="form-control" value="{{ ($data->Date_asset != Null) ? $data->Date_asset : date('Y-m-d') }}" required/>
+                                    <input type="date" id="Dateasset" name="Dateasset" class="form-control" value="{{ ($data->Date_asset != Null) ? $data->Date_asset : date('Y-m-d') }}" readonly/>
                                     วันสืบทรัพย์ครั้งแรก
                                     <input type="date" id="sequesterasset" name="sequesterasset" class="form-control" value="{{ $data->sequester_asset }}"/>
                                     ผลสืบ :

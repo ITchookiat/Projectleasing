@@ -92,13 +92,10 @@
   @elseif($type == 3)
     <h3 class="card-title p-3" align="center">ใบเสร็จปิดบัญชี</h3>
     <hr>
-<<<<<<< HEAD:resources/views/legislation/reportCompro.blade.php
   @elseif($type == 15)
     <label align="right">วันที่ : <u>{{ date('d-m-Y') }}</u></label>
-    <h3 class="card-title p-3" align="center">รายงานบันทึกชำะค่างวด</h3>
+    <h2 class="card-title p-3" align="center"><u>รายงานบันทึกชำะค่างวด</u></h2>
     <!-- <hr> -->
-=======
->>>>>>> e202cf5e21773ffb94857a8df98b5d6932dc6b69:resources/views/legislation/report.blade.php
   @endif
 
 <!-- ส่วนข้อมูล -->
@@ -408,32 +405,53 @@
         </tbody>
       </table>
       <br><br>
-      <table border="1" align="center">
-        <thead>
-          <tr align="center" style="line-height: 250%;">
-            <th align="center" width="50px" style="background-color: #33FF00;"><b>งวดที่</b></th>
-            <th align="center" width="70px" style="background-color: #BEBEBE;"><b>ค่างวด</b></th>
-            <th align="center" width="100px" style="background-color: #BEBEBE;"><b>เลขที่ใบเสร็จ</b></th>
-            <th align="center" width="100px" style="background-color: #BEBEBE;"><b>วันที่ชำระ</b></th>
-            <th align="center" width="70px" style="background-color: #BEBEBE;"><b>จำนวนรับ</b></th>
-            <th align="center" width="100px" style="background-color: #BEBEBE;"><b>ผู้รับ</b></th>
-          </tr>
-        </thead>
+
+      <!-- หัวเรื่อง -->
+      <table border="0" align="center">
+        <tr align="center" style="line-height: 250%;">
+          <th align="center" width="50px" style="background-color: #33FF00;"><b>ลำดับ</b></th>
+          <th align="center" width="90px" style="background-color: #BEBEBE;"><b>ค่างวด</b></th>
+          <th align="center" width="90px" style="background-color: #BEBEBE;"><b>เลขที่ใบเสร็จ</b></th>
+          <th align="center" width="90px" style="background-color: #BEBEBE;"><b>วันที่ชำระ</b></th>
+          <th align="center" width="110px" style="background-color: #BEBEBE;"><b>จำนวนรับ</b></th>
+          <th align="center" width="130px" style="background-color: #BEBEBE;"><b>ผู้รับ</b></th>
+        </tr>
+      </table>
+
+      @php
+        $SetCountPrice = 0;
+        $SetSumPrice = 0;
+        $SetDiscount = 0;
+      @endphp
+
+      <!-- เนื้อหา -->
+      <table border="0" align="center">
         <tbody>
           @foreach($dataDB as $key => $value)
-            <tr align="center" style="line-height: 200%;">
-              <td width="50px" style="background-color: #33FF00; line-height:550%;"></td>
-              <td width="70px" style="line-height:550%;"></td>
-              <td width="100px" style="line-height:550%;"></td>
-              <td width="100px" style="line-height:550%;"></td>
-              <td width="70px" style="line-height:550%;"></td>
-              <td width="100px" style="line-height:550%;"></td>
+            @php
+                $SetCountPrice = $SetCountPrice + $value->Gold_Payment;
+                $SetSumPrice = $value->Sum_Promise;
+                $SetDiscount = $value->Discount_Promise;
+            @endphp
+            <tr align="center" style="line-height: 180%;">
+              <td width="50px">{{ $key+1 }}</td>
+              <td width="90px">{{ number_format($value->DuePay_Promise, 2) }}</td>
+              <td width="90px">{{ $value->Jobnumber_Payment }}</td>
+              <td width="90px">{{ $value->Date_Payment }}</td>
+              <td width="110px">{{ number_format($value->Gold_Payment, 2) }}</td>
+              <td width="130px">{{ $value->Adduser_Payment }}</td>
             </tr>
           @endforeach
-            <!-- <tr align="center" style="line-height: 200%;">
-              <td width="115px" style="background-color: #FFFF00; line-height:250%;">รวมยอดจัดเป็นคัน</td>
-              <td width="165px" style="background-color: #FFFF00; line-height:250%;">ยอดรวมอนุมัติ</td>
-            </tr> -->
+          <tr style="line-height: 50%;">
+              <td></td>
+            </tr>
+            <tr align="center" style="line-height: 250%;">
+              <td width="140px" style="background-color: #FFFF00;"></td>
+              <td width="90px" style="background-color: #FFFF00;">จำนวนงวดจ่ายจริง &nbsp;&nbsp;{{ $dataCount }} งวด</td>
+              <td width="90px" style="background-color: #FFFF00;">ส่วนลด &nbsp;&nbsp;{{ number_format($SetDiscount, 2) }} บาท</td>
+              <td width="110px" style="background-color: #FFFF00;">รวมยอดชำระ &nbsp;&nbsp;{{ number_format($SetCountPrice, 2) }} บาท</td>
+              <td width="130px" style="background-color: #FFFF00;">รวมยอดคงเหลือ &nbsp;&nbsp;{{ number_format($SetSumPrice, 2) }} บาท</td>
+            </tr>
         </tbody>
       </table> 
     </body>
