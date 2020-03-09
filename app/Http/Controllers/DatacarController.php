@@ -261,6 +261,11 @@ class DatacarController extends Controller
      public function Savestore(Request $request, $SetStr1, $SetStr2, $type)
      {
       if($type == 1){
+        date_default_timezone_set('Asia/Bangkok');
+        $Y = date('Y') + 543;
+        $m = date('m');
+        $d = date('d');
+        $datethai = $Y.'-'.$m.'-'.$d;
         $SetStrConn = $SetStr1."/".$SetStr2;
         $data = DB::table('holdcars')
         ->where('holdcars.Contno_hold', '=', $SetStrConn)
@@ -268,7 +273,7 @@ class DatacarController extends Controller
         ->first();
 
         $datacardb = new data_car([
-          'create_date' => date('Y-m-d'),
+          'create_date' => $datethai,
           'Fisrt_Price' => Null,
           'Offer_Price' => Null,
           'Brand_Car' => $data->Brandcar_hold,
@@ -286,7 +291,7 @@ class DatacarController extends Controller
           'Name_Sale' => Null,
           'Origin_Car' => 3, //ประเภทรถยึด
           'Car_type' => 1, //สถานะนำเข้าใหม่
-          'Date_Status' => date('Y-m-d'),
+          'Date_Status' => $datethai,
           'Accounting_Cost' => Null,
         ]);
         $datacardb->save();
@@ -616,6 +621,12 @@ class DatacarController extends Controller
       $user->Type_Sale = $request->get('TypeSale');
       $user->Name_Agent = $request->get('NameAgent');
       $user->Name_Buyer = $request->get('NameBuyer');
+
+      $user->Down_Price = str_replace (",","",$request->get('DownPrice'));;
+      $user->Transfer_Price = str_replace (",","",$request->get('TransferPrice'));;
+      $user->Subdown_Price = str_replace (",","",$request->get('SubdownPrice'));;
+      $user->Insurance_Price = str_replace (",","",$request->get('InsurancePrice'));;
+      $user->Topcar_Price = str_replace (",","",$request->get('TopcarPrice'));;
       $user->update();
       $type = $user->Car_type;  //Get ค่าใหม่
       return redirect()->Route('datacar',$type)->with('success','อัพเดตข้อมูลเรียบร้อย');
