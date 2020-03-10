@@ -212,7 +212,7 @@
 
                 <div class="col-md-6">
                   <div class="form-inline" align="right">
-                  <label>รายละเอียด : </label>
+                  <label style="vertical-align: top;">รายละเอียด : </label>
                   <textarea name="Note" class="form-control" placeholder="ป้อนรายละเอียด" rows="2" style="width: 250px;">{{ $data->Note_hold }}</textarea>
                   </div>
                 </div>
@@ -254,9 +254,6 @@
                   </div>
 
                 </div>
-
-                <hr>
-
                 <div class="row">
                   <div class="col-md-5">
                     <div class="form-inline" align="right">
@@ -273,7 +270,8 @@
                   </div>
 
                 </div>
-
+                <hr>
+                <h3 align="center"><b>ส่วนผู้เช่าซื้อ</b></h3>
                 <div class="row">
                   <div class="col-md-5">
                     <div class="form-inline" align="right">
@@ -319,14 +317,14 @@
                 <div class="row">
                   <div class="col-md-5">
                     <div class="form-inline" align="right">
-                    <label>หมายเหตุ : </label>
+                    <label style="vertical-align: top;">หมายเหตุ : </label>
                     <textarea name="Note2" class="form-control" placeholder="ป้อนหมายเหตุ" rows="2" style="width: 250px;">{{ $data->Note2_hold }}</textarea>
                     </div>
                   </div>
                 </div>
 
                 <hr>
-
+                <h3 align="center"><b>ส่วนผู้ค้ำ</b></h3>
                 <div class="row">
                   <div class="col-md-5">
                     <div class="form-inline" align="right">
