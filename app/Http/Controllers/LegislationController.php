@@ -1309,10 +1309,10 @@ class LegislationController extends Controller
       }
       elseif ($type == 10){ //ของกลาง
           $Dateresult = NULL;
-          if($request->get('DategetResult1') != Null){
+          if($request->get('TypeExhibit') == 'ของกลาง'){
             $Dateresult = $request->get('DategetResult1');
           }
-          if($request->get('DategetResult2') != Null){
+          if($request->get('TypeExhibit') == 'ยึดตามมาตราการ(ปปส.)'){
             $Dateresult = $request->get('DategetResult2');
           }
           $LegisExhibit = Legisexhibit::where('Legisexhibit_id',$id)->first();
@@ -1337,7 +1337,7 @@ class LegislationController extends Controller
             $LegisExhibit->Datecheckexhibit_legis =  $request->get('DateCheckexhibit');
             $LegisExhibit->Datesendword_legis =  $request->get('DateSendword');
             $LegisExhibit->Resultexhibit1_legis =  $request->get('ResultExhibit1');
-            $LegisExhibit->Processexhibit1_legis =  $request->get('ResultExhibit1');
+            $LegisExhibit->Processexhibit1_legis =  $request->get('ProcessExhibit1');
             $LegisExhibit->Datesenddetail_legis =  $request->get('DateSenddetail');
             $LegisExhibit->Resultexhibit2_legis =  $request->get('ResultExhibit2');
             $LegisExhibit->Processexhibit2_legis =  $request->get('ProcessExhibit2');
