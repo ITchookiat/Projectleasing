@@ -879,6 +879,53 @@
                     </div>
                  </div>
               </div> <!-- endrow -->
+              <hr>
+              <div class="row">
+                  <div class="col-md-5">
+                     <div class="form-inline" align="right">
+                       <label> เงินดาวน์ :</label>
+                        <input type="text" class="form-control" name="DateSoldoutplus" style="width: 200px;" value="{{number_format($datacar->Down_Price,2) }}" readonly/>
+                     </div>
+                  </div>
+
+                    <div class="col-md-6">
+                      <div class="form-inline" align="right">
+                        <label> ค่าใช้จ่ายโอน :</label>
+                         <input type="text" class="form-control" name="DateWithdraw" style="width: 200px;" value="{{ number_format($datacar->Transfer_Price,2) }}" readonly  />
+                      </div>
+                    </div>
+
+              </div> <!-- endrow -->
+              <div class="row">
+                  <div class="col-md-5">
+                     <div class="form-inline" align="right">
+                       <label> ซับดาวน์ :</label>
+                        <input type="text" class="form-control" name="DateSoldoutplus" style="width: 200px;" value="{{ number_format($datacar->Subdown_Price,2) }}" readonly/>
+                     </div>
+                  </div>
+
+                    <div class="col-md-6">
+                      <div class="form-inline" align="right">
+                        <label> ค่าประกัน :</label>
+                         <input type="text" class="form-control" name="DateWithdraw" style="width: 200px;" value="{{ number_format($datacar->Insurance_Price,2) }}" readonly  />
+                      </div>
+                    </div>
+
+              </div> <!-- endrow -->
+              <div class="row">
+                 <div class="col-md-5">
+                    <div class="form-inline" align="right">
+
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                     <div class="form-inline" align="right">
+                       <label>ยอดจัด :</label>
+                       <input type="text" id="TopcarPrice" name="TopcarPrice" class="form-control" style="width: 200px;" placeholder="ป้อนยอดจัด" value="{{ number_format($datacar->Topcar_Price,2) }}" readonly/>
+                      </div>
+                   </div>
+              </div> <!-- endrow -->
             @endif
 
               <input type="hidden" name="_method" value="PATCH"/>
