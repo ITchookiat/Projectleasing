@@ -336,6 +336,7 @@
                             <p><i class="fa fa-user-circle-o fa-5x"></i></p>
                           </div>
                           <h3 class="widget-user-username">ปล่อยงานตาม</h3>
+                          <h5 class="widget-user-desc">ดิววันที่ {{DateThai($newfdate)}}</h5>
                           <h5 class="widget-user-desc">3.00 - 4.96</h5>
                         </div>
                         <div class="box-footer">
@@ -386,6 +387,7 @@
                             <p class=""><i class="fa fa-user-times fa-5x"></i></p>
                           </div>
                           <h3 class="widget-user-username">ปล่อยงานโนติส</h3>
+                          <h5 class="widget-user-desc">ดิววันที่ {{DateThai($fdate)}}</h5>
                           <h5 class="widget-user-desc">4.70 - 5.69</h5>
                         </div>
 
@@ -442,6 +444,7 @@
                             <p><i class="fa fa-gg fa-5x"></i></p>
                           </div>
                           <h3 class="widget-user-username">ปล่อยงานเร่งรัด</h3>
+                          <h5 class="widget-user-desc">ดิววันที่ {{DateThai($fdate)}}</h5>
                           <h5 class="widget-user-desc">3.70 - 4.69</h5>
                         </div>
                         <div class="box-footer">
@@ -492,6 +495,7 @@
                             <p class=""><i class="fa fa-gavel fa-5x"></i></p>
                           </div>
                           <h3 class="widget-user-username">ปล่อยงานเตรียมฟ้อง</h3>
+                          <h5 class="widget-user-desc">ดิววันที่ {{DateThai($fdate)}}</h5>
                           <h5 class="widget-user-desc">5.70 - 6.69</h5>
                         </div>
 

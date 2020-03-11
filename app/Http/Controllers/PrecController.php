@@ -26,11 +26,12 @@ class PrecController extends Controller
         $d = date('d');
         $date = $Y.'-'.$m.'-'.$d;
 
-        if ($request->type == 1) {  //ปล่อยงานตาม
+        if ($request->type == 1) {  //ปล่อยงานตาม (เรียกย้อนหลัง 1 วัน)
+          $dateyesterdate = date('Y-m-d', strtotime('-1 days'));
           $fstart = '3.00';
           $tend = '4.69';
-          $fdate = $date;
-          $tdate = $date;
+          $fdate = $dateyesterdate;
+          $tdate = $dateyesterdate;
           if ($request->has('Fromdate')) {
             $fdate = $request->get('Fromdate');
           }
@@ -243,9 +244,24 @@ class PrecController extends Controller
           $tdate = $date;
           if ($request->has('Fromdate')) {
             $fdate = $request->get('Fromdate');
+
+            $new = Carbon::parse($fdate)->addDays(-1);
+            $newfdate = \Carbon\Carbon::parse($new)->format('Y') ."-". \Carbon\Carbon::parse($new)->format('m')."-". \Carbon\Carbon::parse($new)->format('d');
           }
+          else {
+            $new = Carbon::parse($date)->addDays(-1);
+            $newfdate = \Carbon\Carbon::parse($new)->format('Y') ."-". \Carbon\Carbon::parse($new)->format('m')."-". \Carbon\Carbon::parse($new)->format('d');
+          }
+
           if ($request->has('Todate')) {
             $tdate = $request->get('Todate');
+
+            $new = Carbon::parse($tdate)->addDays(-1);
+            $newtdate = \Carbon\Carbon::parse($new)->format('Y') ."-". \Carbon\Carbon::parse($new)->format('m')."-". \Carbon\Carbon::parse($new)->format('d');
+          }
+          else {
+            $new = Carbon::parse($date)->addDays(-1);
+            $newtdate = \Carbon\Carbon::parse($new)->format('Y') ."-". \Carbon\Carbon::parse($new)->format('m')."-". \Carbon\Carbon::parse($new)->format('d');
           }
 
           $dataFollow = DB::connection('ibmi')
@@ -254,8 +270,8 @@ class PrecController extends Controller
                     ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
                     ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
                     ->where('SFHP.ARMAST.BILLCOLL','=',99)
-                    ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
-                      return $q->whereBetween('SFHP.ARPAY.DDATE',[$fdate,$tdate]);
+                    ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+                      return $q->whereBetween('SFHP.ARPAY.DDATE',[$newfdate,$newtdate]);
                     })
                     ->whereBetween('SFHP.ARMAST.HLDNO',[3.00,4.69])
                     ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
@@ -298,7 +314,7 @@ class PrecController extends Controller
                     ->get();
 
             $type = $request->type;
-            return view('precipitate.viewReport', compact('dataFollow','dataNotice','dataPrec','dataLegis','fdate','tdate','fstart','tend','type'));
+            return view('precipitate.viewReport', compact('dataFollow','dataNotice','dataPrec','dataLegis','fdate','tdate','newfdate','newtdate','fstart','tend','type'));
         }
         elseif ($request->type == 8) {  //รายงาน รับชำระค่าติดตาม
           $fdate = $date;
@@ -1212,19 +1228,25 @@ class PrecController extends Controller
 
         if ($request->has('Fromdate')) {
           $fdate = $request->get('Fromdate');
+
+          $new = Carbon::parse($fdate)->addDays(-1);
+          $newfdate = \Carbon\Carbon::parse($new)->format('Y') ."-". \Carbon\Carbon::parse($new)->format('m')."-". \Carbon\Carbon::parse($new)->format('d');
         }
         if ($request->has('Todate')) {
           $tdate = $request->get('Todate');
+
+          $new = Carbon::parse($tdate)->addDays(-1);
+          $newtdate = \Carbon\Carbon::parse($new)->format('Y') ."-". \Carbon\Carbon::parse($new)->format('m')."-". \Carbon\Carbon::parse($new)->format('d');
         }
 
-        $dataFollow = DB::connection('ibmi')
+        $dataFollow = DB::connection('ibmi') //ปล่อยงานตาม ต้องดึงย้อยหลัง 1 วัน
                   ->table('SFHP.ARMAST')
                   ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
                   ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
                   ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
                   ->where('SFHP.ARMAST.BILLCOLL','=',99)
-                  ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
-                    return $q->whereBetween('SFHP.ARPAY.DDATE',[$fdate,$tdate]);
+                  ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+                    return $q->whereBetween('SFHP.ARPAY.DDATE',[$newfdate,$newtdate]);
                   })
                   ->whereBetween('SFHP.ARMAST.HLDNO',[3.00,4.69])
                   ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
@@ -1269,14 +1291,16 @@ class PrecController extends Controller
         $Datethai = Helper::formatDateThai($newdate);
         $FDatethai = Helper::formatDateThai($fdate);
         $TDatethai = Helper::formatDateThai($tdate);
+        $FnewDatethai = Helper::formatDateThai($newfdate);
+        $TnewDatethai = Helper::formatDateThai($newtdate);
 
          // dd(iconv('Tis-620','utf-8',str_replace(" ","",$ConnData[1]->BAAB)));
 
          $type = $request->type;
 
-         Excel::create('ปล่อยงานประจำวัน', function ($excel) use($dataFollow,$dataNotice,$dataPrec,$dataLegis,$Datethai,$FDatethai,$TDatethai) {
-             $excel->sheet('ปล่อยงานตาม', function ($sheet) use($dataFollow,$Datethai,$FDatethai,$TDatethai) {
-                 $sheet->prependRow(1, array("ดิวงานวันที่ ".$FDatethai." ถึงวันที่ ".$TDatethai." ปล่อยงานตาม ".$Datethai));
+         Excel::create('ปล่อยงานประจำวัน', function ($excel) use($dataFollow,$dataNotice,$dataPrec,$dataLegis,$Datethai,$FDatethai,$TDatethai,$FnewDatethai,$TnewDatethai) {
+             $excel->sheet('ปล่อยงานตาม', function ($sheet) use($dataFollow,$Datethai,$FnewDatethai,$TnewDatethai) {
+                 $sheet->prependRow(1, array("ดิวงานวันที่ ".$FnewDatethai." ถึงวันที่ ".$TnewDatethai." ปล่อยงานตาม ".$Datethai));
                  $sheet->cells('A2:M2', function($cells) {
                    $cells->setBackground('#FFCC00');
                  });
