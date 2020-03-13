@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\User;
 
 class LoginController extends Controller
 {
@@ -42,6 +43,21 @@ class LoginController extends Controller
       $loginType = request()->input('username');
       $this->username = filter_var($loginType, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
       request()->merge([$this->username => $loginType]);
+
+      $DatabaseType = request()->input('DB_type');
+      $GetUser = request()->input('username');
+
+      $Users = User::where('username', '=', $GetUser)->first(); //ระหว่างทำสี
+      // dd($Users);
+      
+      // กำหนดค่าให้กับ session
+      session(['type' => $DatabaseType]);
+      if ($DatabaseType == 2) {
+        if ($Users->branch == 01 or $Users->branch == 03 or $Users->branch == 04 or $Users->branch == 05 or $Users->branch == 06 or $Users->branch == 07 or $Users->branch == 31) {
+          # code...
+          dd('คุณไม่มีสิทธใช้งานในส่วนนี้');
+        }
+      }
 
       return property_exists($this, 'username') ? $this->username : 'email';
     }

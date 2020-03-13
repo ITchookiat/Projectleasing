@@ -50,6 +50,7 @@ class CreateLegislationsTable extends Migration
             $table->string('txtStatus_legis')->nullable();    //ยอดชำระ
             $table->string('Discount_legis')->nullable();     //ส่วนลด
             $table->string('DateUpState_legis')->nullable();  //วันที่เลือกสถานะ
+            $table->string('DateCarState_legis')->nullable();  //วันที่ยึดรถ
 
             $table->string('Flag_status')->nullable();
             $table->string('Datesend_Flag')->nullable(); //วันที่ส่งงานให้ทีมทนาย

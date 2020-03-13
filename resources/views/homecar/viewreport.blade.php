@@ -25,21 +25,7 @@
       <!-- Default box -->
       <div class="box">
         <div class="box-header with-border">
-          <ul class="nav nav-pills ml-auto p-2">
-              <li class="nav-item {{ (request()->is('datacar/viewreport/3')) ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('datacarreport',3) }}">รายงานสต๊อกบัญชี</a>
-              </li>
-              <li class="nav-item {{ (request()->is('datacar/viewreport/4')) ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('datacarreport',4) }}">รายงานวันหมดอายุบัตร</a>
-              </li>
-              <li class="nav-item {{ (request()->is('datacar/viewreport/5')) ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('datacarreport',5) }}">รายงานรถยึด</a>
-              </li>
-              <li class="nav-item {{ (request()->is('datacar/viewreport/6')) ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('datacarreport',6) }}">รายงานสรุปกำไรรถยนต์</a>
-              </li>
-          </ul>
-          <!-- <h3 align="center"><b>รายการ {{ $title }}</b></h3> -->
+          <h3 align="center"><b>รายงาน {{ $title }}</b></h3>
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
               <i class="fa fa-minus"></i></button>
@@ -85,7 +71,7 @@
                   </div>
                   @endif
                 </form>
-                <hr>
+
               <div class="table-responsive">
                 <table class="table table-bordered" id="table">
                   @if($type == 3)
@@ -418,5 +404,26 @@
         </div>
       </div>
     </section>
+
+         <div class="modal fade" id="modal-default">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">ข้อมูลรายละเอียด...</h4>
+              </div>
+              <div class="modal-body">
+
+              <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button> -->
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
 
 @endsection

@@ -23,6 +23,9 @@
               <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 3]) }}">ชั้นศาล</a></li>
               <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 7]) }}">ชั้นบังคับคดี</a></li>
               <li class="nav-item active"><a href="{{ action('LegislationController@edit',[$id, 13]) }}">โกงเจ้าหนี้</a></li>
+              <li class="nav-item pull-right"><a href="{{ action('LegislationController@edit',[$id, 11]) }}">รูปและแผนที่</a></li>
+              <li class="nav-item pull-right"><a href="{{ action('LegislationController@edit',[$id, 4]) }}">ประนอมหนี้</a></li>
+              <li class="nav-item pull-right"><a href="{{ action('LegislationController@edit',[$id, 8]) }}">สืบทรัพย์</a></li>
             </ul>
           </div>
 
@@ -47,47 +50,30 @@
                         <div class="col-md-9">
                           <span class="info-box-icon bg-red"><i class="fa fa-id-badge fa-lg"></i></span>
                           <div class="info-box-content">
-                              <div class="col-md-4">
-                                <span class="info-box-number"><font style="font-size: 30px;">{{ $data->Contract_legis }}</font></span>
-                                <span class="info-box-text"><font style="font-size: 20px;">{{ $data->Name_legis }}</font></span>
-                              </div>
-                              <div class="col-md-8">
-                                <div class="form-inline">
-                                  <p></p>
-                                  <div align="center">
-                                    <small class="label label-success" style="font-size: 25px;">
-                                      <i class="fa fa-expeditedssl"></i>
-                                      @if($data->Status_legis == "จ่ายจบก่อนฟ้อง")
-                                        จ่ายจบก่อนฟ้อง
-                                      @elseif($data->Status_legis == "ยึดรถก่อนฟ้อง")
-                                        ยึดรถก่อนฟ้อง
-                                      @elseif($data->Status_legis == "ปิดบัญชีประนอมหนี้")
-                                        ปิดบัญชีประนอมหนี้
-                                      @elseif($data->Status_legis == "ปิดบัญชีหลังฟ้อง")
-                                        ปิดบัญชีหลังฟ้อง
-                                      @elseif($data->Status_legis == "ยึดรถหลังฟ้อง")
-                                        ยึดรถหลังฟ้อง
-                                      @elseif($data->Status_legis == "หมดอายุความคดี")
-                                        หมดอายุความคดี
-                                      @endif
-                                    </small>
-                                  </div>
-                                  <p></p>
-                                  <label>สถานะ : </label>
-                                  <select name="Statuslegis" class="form-control" style="width: 170px;">
-                                    <option value="" selected>--- status ---</option>
-                                    <option value="จ่ายจบก่อนฟ้อง" {{ ($data->Status_legis === 'จ่ายจบก่อนฟ้อง') ? 'selected' : '' }}>จ่ายจบก่อนฟ้อง</option>
-                                    <option value="ยึดรถก่อนฟ้อง" {{ ($data->Status_legis === 'ยึดรถก่อนฟ้อง') ? 'selected' : '' }}>ยึดรถก่อนฟ้อง</option>
-                                    <option value="ปิดบัญชีประนอมหนี้" {{ ($data->Status_legis === 'ปิดบัญชีประนอมหนี้') ? 'selected' : '' }}>ปิดบัญชีประนอมหนี้</option>
-                                    <option value="ปิดบัญชีหลังฟ้อง" {{ ($data->Status_legis === 'ปิดบัญชีหลังฟ้อง') ? 'selected' : '' }}>ปิดบัญชีหลังฟ้อง</option>
-                                    <option value="ยึดรถหลังฟ้อง" {{ ($data->Status_legis === 'ยึดรถหลังฟ้อง') ? 'selected' : '' }}>ยึดรถหลังฟ้อง</option>
-                                    <option value="หมดอายุความคดี" {{ ($data->Status_legis === 'หมดอายุความคดี') ? 'selected' : '' }}>หมดอายุความคดี</option>
-                                  </select>
-
-                                  <!-- <input type="text" id="txtStatuslegis" name="txtStatuslegis" class="form-control" style="width: 100px;" oninput="AddComma();"> -->
-                                  <input type="date" name="DateStatuslegis" class="form-control" style="width: 170px;" value="{{ $data->DateStatus_legis }}">
+                            <div class="col-md-4">
+                              <span class="info-box-number"><font style="font-size: 30px;">{{ $data->Contract_legis }}</font></span>
+                              <span class="info-box-text"><font style="font-size: 20px;">{{ $data->Name_legis }}</font></span>
+                            </div>
+                            <div class="col-md-8">
+                              <div class="form-inline">
+                                <p></p>
+                                <div align="left">
+                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                  <small class="label label-success" style="font-size: 25px;">
+                                  <i class="fa fa-expeditedssl"></i>&nbsp; สถานะ : 
+                                    @if($data->Status_legis != Null)
+                                      {{$data->Status_legis}}
+                                    @endif
+                                  </small>
                                 </div>
+                                <p></p>
+                                <label>สถานะ : </label>
+                                <select name="" class="form-control" style="width: 170px;" disabled>
+                                  <option value="" selected>--- status ---</option>
+                                </select>
+                                <input type="date" name="" class="form-control" style="width: 170px;" value="" disabled>
                               </div>
+                            </div>
                           </div>
                         </div>
 
@@ -144,11 +130,28 @@
                                       <select id="StatusCheat" name="StatusCheat" class="form-control">
                                         <option value="" selected>--- เลือกสถานะ ---</option>
                                         <option value="ศาลพิพากษา" {{ ($data->Status_cheat === 'ศาลพิพากษา') ? 'selected' : '' }}>ศาลพิพากษา</option>
-                                        <option value="ประนีประนอม(ศาลจำหน่ายคดี)" {{ ($data->Status_cheat === 'ประนีประนอม(ศาลจำหน่ายคดี)') ? 'selected' : '' }}>ประนีประนอม(ศาลจำหน่ายคดี)</option>
+                                        <option value="ประนีประนอม(จำหน่ายคดี)" {{ ($data->Status_cheat === 'ประนีประนอม(จำหน่ายคดี)') ? 'selected' : '' }}>ประนีประนอม(จำหน่ายคดี)</option>
                                         <option value="ยื่นคำร้องให้ศาลพิพากษา" {{ ($data->Status_cheat === 'ยื่นคำร้องให้ศาลพิพากษา') ? 'selected' : '' }}>ยื่นคำร้องให้ศาลพิพากษา</option>
-                                    </select>
+                                        <option value="ปิดบัญชีโกงเจ้าหนี้" {{ ($data->Status_cheat === 'ปิดบัญชีโกงเจ้าหนี้') ? 'selected' : '' }}>ปิดบัญชีโกงเจ้าหนี้</option>
+                                      </select>
+                                      วันที่เลือกสถานะ
+                                      <input type="date" id="DateStatusCheat" name="DateStatusCheat" value="{{ $data->DateStatus_cheat }}" class="form-control" readonly/>
                                     </div>
                                   </div>
+
+                                  <script>
+                                    $('#StatusCheat').change(function(){
+                                      var value = document.getElementById('StatusCheat').value;
+                                      var today = new Date();
+                                      var date = today.getFullYear()+'-'+(today.getMonth()+1).toString().padStart(2, "0")+'-'+today.getDate().toString().padStart(2, "0");
+                                        if(value != ''){
+                                          $('#DateStatusCheat').val(date);
+                                        }
+                                        else{
+                                          $('#DateStatusCheat').val('');
+                                        }
+                                    });
+                                  </script>
 
                                   <div class="col-md-6">
                                     หมายเหตุ
@@ -221,7 +224,7 @@
                   <div class="row">
                     <div class="col-md-6">
                       <label>วันที่ปิดบัญชี</label>
-                      <input type="date" name="DateCloseAccount" class="form-control" style="width: 150px;" value="{{ (($data->DateStatus_legis !== Null) ?$data->DateStatus_legis: date('Y-m-d')) }}" />
+                      <input type="date" id="DateCloseAccount" name="DateCloseAccount" class="form-control" style="width: 150px;" value="{{ (($data->DateStatus_legis !== Null) ?$data->DateStatus_legis: date('Y-m-d')) }}" />
                     </div>
                     <div class="col-md-6">
                       <label>ยอดปิดบัญชี</label>

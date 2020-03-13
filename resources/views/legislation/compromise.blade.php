@@ -68,38 +68,21 @@
                                 <div class="col-md-8">
                                   <div class="form-inline">
                                     <p></p>
-                                    <div class="" align="center">
+                                    <div align="left">
+                                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                       <small class="label label-success" style="font-size: 25px;">
-                                        <i class="fa fa-expeditedssl"></i>
-                                        @if($data->Status_legis == "จ่ายจบก่อนฟ้อง")
-                                          จ่ายจบก่อนฟ้อง
-                                        @elseif($data->Status_legis == "ยึดรถก่อนฟ้อง")
-                                          ยึดรถก่อนฟ้อง
-                                        @elseif($data->Status_legis == "ปิดบัญชีประนอมหนี้")
-                                          ปิดบัญชีประนอมหนี้
-                                        @elseif($data->Status_legis == "ปิดบัญชีหลังฟ้อง")
-                                          ปิดบัญชีหลังฟ้อง
-                                        @elseif($data->Status_legis == "ยึดรถหลังฟ้อง")
-                                          ยึดรถหลังฟ้อง
-                                        @elseif($data->Status_legis == "หมดอายุความคดี")
-                                          หมดอายุความคดี
+                                      <i class="fa fa-expeditedssl"></i>&nbsp; สถานะ : 
+                                        @if($data->Status_legis != Null)
+                                          {{$data->Status_legis}}
                                         @endif
                                       </small>
                                     </div>
                                     <p></p>
                                     <label>สถานะ : </label>
-                                    <select name="Statuslegis" class="form-control" style="width: 170px;">
+                                    <select name="" class="form-control" style="width: 170px;" disabled>
                                       <option value="" selected>--- status ---</option>
-                                      <option value="จ่ายจบก่อนฟ้อง" {{ ($data->Status_legis === 'จ่ายจบก่อนฟ้อง') ? 'selected' : '' }}>จ่ายจบก่อนฟ้อง</option>
-                                      <option value="ยึดรถก่อนฟ้อง" {{ ($data->Status_legis === 'ยึดรถก่อนฟ้อง') ? 'selected' : '' }}>ยึดรถก่อนฟ้อง</option>
-                                      <option value="ปิดบัญชีประนอมหนี้" {{ ($data->Status_legis === 'ปิดบัญชีประนอมหนี้') ? 'selected' : '' }}>ปิดบัญชีประนอมหนี้</option>
-                                      <option value="ปิดบัญชีหลังฟ้อง" {{ ($data->Status_legis === 'ปิดบัญชีหลังฟ้อง') ? 'selected' : '' }}>ปิดบัญชีหลังฟ้อง</option>
-                                      <option value="ยึดรถหลังฟ้อง" {{ ($data->Status_legis === 'ยึดรถหลังฟ้อง') ? 'selected' : '' }}>ยึดรถหลังฟ้อง</option>
-                                      <option value="หมดอายุความคดี" {{ ($data->Status_legis === 'หมดอายุความคดี') ? 'selected' : '' }}>หมดอายุความคดี</option>
                                     </select>
-
-                                    <!-- <input type="text" id="txtStatuslegis" name="txtStatuslegis" class="form-control" style="width: 100px;" oninput="AddComma();"> -->
-                                    <input type="date" name="DateStatuslegis" class="form-control" style="width: 170px;" value="{{ $data->DateStatus_legis }}">
+                                    <input type="date" name="" class="form-control" style="width: 170px;" value="" disabled>
                                   </div>
                                 </div>
                             </div>
@@ -129,80 +112,78 @@
                       </div>
 
                       <script>
-                          function addCommas(nStr){
-                             nStr += '';
-                             x = nStr.split('.');
-                             x1 = x[0];
-                             x2 = x.length > 1 ? '.' + x[1] : '';
-                             var rgx = /(\d+)(\d{3})/;
-                             while (rgx.test(x1)) {
-                               x1 = x1.replace(rgx, '$1' + ',' + '$2');
-                              }
-                            return x1 + x2;
-                          }
-                          function Comma(){
-                            var num11 = document.getElementById('TotalPromise').value;
-                            var num1 = num11.replace(",","");
-                            var num22 = document.getElementById('PayallPromise').value;
-                            var num2 = num22.replace(",","");
-                            var num66 = document.getElementById('SumPromise').value;
-                            var num6 = num66.replace(",","");
-                            var num88 = document.getElementById('SumAllPromise').value;
-                            var num8 = num88.replace(",","");
+                        function addCommas(nStr){
+                            nStr += '';
+                            x = nStr.split('.');
+                            x1 = x[0];
+                            x2 = x.length > 1 ? '.' + x[1] : '';
+                            var rgx = /(\d+)(\d{3})/;
+                            while (rgx.test(x1)) {
+                              x1 = x1.replace(rgx, '$1' + ',' + '$2');
+                            }
+                          return x1 + x2;
+                        }
+                        function Comma(){
+                          var num11 = document.getElementById('TotalPromise').value;
+                          var num1 = num11.replace(",","");
+                          var num22 = document.getElementById('PayallPromise').value;
+                          var num2 = num22.replace(",","");
+                          var num66 = document.getElementById('SumPromise').value;
+                          var num6 = num66.replace(",","");
+                          var num88 = document.getElementById('SumAllPromise').value;
+                          var num8 = num88.replace(",","");
 
-                            document.form1.TotalPromise.value = addCommas(num1);
-                            document.form1.PayallPromise.value = addCommas(num2);
-                            document.form1.SumPromise.value = addCommas(num6);
-                            document.form1.SumAllPromise.value = addCommas(num8);
-                          }
+                          document.form1.TotalPromise.value = addCommas(num1);
+                          document.form1.PayallPromise.value = addCommas(num2);
+                          document.form1.SumPromise.value = addCommas(num6);
+                          document.form1.SumAllPromise.value = addCommas(num8);
+                        }
+                        function Discount() {
+                            var txtSum = document.getElementById('SumPromise').value;
+                            var txtDis = document.getElementById('DiscountPromise').value;
+                            var txtComma = txtDis.replace(",","");
+                            var txtSumhide = document.getElementById('Sumhide').value;
+                            var txtDishide = document.getElementById('Discounthide').value;
 
-                          function Discount() {
-                              var txtSum = document.getElementById('SumPromise').value;
-                              var txtDis = document.getElementById('DiscountPromise').value;
-                              var txtComma = txtDis.replace(",","");
-                              var txtSumhide = document.getElementById('Sumhide').value;
-                              var txtDishide = document.getElementById('Discounthide').value;
+                            // if (txtSetPay1 != 0 || txtSetPay2 != 0 || txtSetPay3 != 0) {
+                            //   var result = parseFloat(txtSumhide) - parseFloat(txtSetPay1) - parseFloat(txtSetPay2) - parseFloat(txtSetPay3);
+                            //   console.log(result);
 
-                              // if (txtSetPay1 != 0 || txtSetPay2 != 0 || txtSetPay3 != 0) {
-                              //   var result = parseFloat(txtSumhide) - parseFloat(txtSetPay1) - parseFloat(txtSetPay2) - parseFloat(txtSetPay3);
-                              //   console.log(result);
+                            if (txtDis != txtDishide) {
+                              var SetDiscount = parseFloat(txtDis) - parseFloat(txtDishide);
+                              // var result = parseFloat(result) - parseFloat(SetDiscount);
+                              var result = parseFloat(txtSumhide) - parseFloat(SetDiscount);
+                            }else if (txtDis == 0) {
+                              console.log(txtDis);
+                              var result = parseFloat(txtSumhide);
+                            }
 
-                              if (txtDis != txtDishide) {
-                                var SetDiscount = parseFloat(txtDis) - parseFloat(txtDishide);
-                                // var result = parseFloat(result) - parseFloat(SetDiscount);
-                                var result = parseFloat(txtSumhide) - parseFloat(SetDiscount);
-                              }else if (txtDis == 0) {
-                                console.log(txtDis);
-                                var result = parseFloat(txtSumhide);
-                              }
+                            if (!isNaN(result)) {
+                              document.form1.SumPromise.value = addCommas(result);
+                            }
+                        }
+                        function DuePay() {
+                            var SumPayAll = document.getElementById('SumPayAll').value;
+                            var txtSumPayAll = SumPayAll.replace(",","");
+                            var txtDuepay = document.getElementById('DuePayPromise').value;
+                            var txtSetDue = txtDuepay.replace(",","");
 
-                              if (!isNaN(result)) {
-                                document.form1.SumPromise.value = addCommas(result);
-                              }
-                          }
+                            var Sum = (parseFloat(txtSumPayAll) / parseFloat(txtSetDue));
+                            var result = Math.floor(Sum);
 
-                          function DuePay() {
-                              var SumPayAll = document.getElementById('SumPayAll').value;
-                              var txtSumPayAll = SumPayAll.replace(",","");
-                              var txtDuepay = document.getElementById('DuePayPromise').value;
-                              var txtSetDue = txtDuepay.replace(",","");
+                            if (txtSetDue == 0) {
+                              console.log(txtSetDue);
+                              var result = 0;
+                            }
 
-                              var Sum = (parseFloat(txtSumPayAll) / parseFloat(txtSetDue));
-                              var result = Math.floor(Sum);
-
-                              if (txtSetDue == 0) {
-                                console.log(txtSetDue);
-                                var result = 0;
-                              }
-
-                              if (!isNaN(result)) {
-                                document.form1.DuePromise.value = result;
-                                document.form1.DuePayPromise.value = numberWithCommas(txtSetDue);
-                              }
-                          }
-                          function numberWithCommas(x) {
-                              return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                          }
+                            if (!isNaN(result)) {
+                              document.form1.DuePromise.value = result;
+                              document.form1.DuePayPromise.value = numberWithCommas(txtSetDue);
+                            }
+                        }
+                        function numberWithCommas(x) {
+                            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                        }
                       </script>
 
                       <hr>

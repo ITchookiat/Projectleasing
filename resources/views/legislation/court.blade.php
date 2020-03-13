@@ -221,6 +221,9 @@
               <li class="nav-item active"><a href="{{ action('LegislationController@edit',[$id, 3]) }}">ชั้นศาล</a></li>
               <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 7]) }}">ชั้นบังคับคดี</a></li>
               <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 13]) }}">โกงเจ้าหนี้</a></li>
+              <li class="nav-item pull-right"><a href="{{ action('LegislationController@edit',[$id, 11]) }}">รูปและแผนที่</a></li>
+              <li class="nav-item pull-right"><a href="{{ action('LegislationController@edit',[$id, 4]) }}">ประนอมหนี้</a></li>
+              <li class="nav-item pull-right"><a href="{{ action('LegislationController@edit',[$id, 8]) }}">สืบทรัพย์</a></li>
             </ul>
           </div>
 
@@ -249,7 +252,6 @@
                     }
                   return x1 + x2;
                 }
-
                 function CourtDate(){
                   //---------- วันสืบพยาน
                   var date1 = document.getElementById('examidaycourt').value;
@@ -333,8 +335,6 @@
 
                   var checkFlag = document.getElementById("1").checked;
                   var messageFlag = document.getElementById("4").checked;
-                  // console.log(checkFlag);
-                  // console.log(messageFlag);
 
                   if (messageFlag == false) {
                     if (checkFlag == false) {
@@ -528,59 +528,6 @@
                     document.getElementById('checkresultscourt').value = resultcheck;
                   }
                 }
-                // ฟังชันคำนวณ วันที่ได้รับและไมไ่ด้รับ
-                // function Datesuccess(){
-                //   var sendcheckresult = document.getElementById('sendcheckresultscourt').value;
-                //   var dayresults = document.getElementById('dayresultscourt').value;
-                //
-                //   var Setdate = new Date(sendcheckresult);
-                //   var newdate = new Date(Setdate);
-                //
-                //   newdate.setDate(newdate.getDate() + 45);
-                //   var dd = newdate.getDate();
-                //   var mm = newdate.getMonth() + 1;
-                //   var yyyy = newdate.getFullYear();
-                //
-                //   if (dd < 10) {
-                //     var Newdd = '0' + dd;
-                //   }else {
-                //     var Newdd = dd;
-                //   }
-                //   if (mm < 10) {
-                //     var Newmm = '0' + mm;
-                //   }else {
-                //     var Newmm = mm;
-                //   }
-                //   var resultcheck = yyyy + '-' + Newmm + '-' + Newdd;
-                //   document.getElementById('sequestercourt').value = resultcheck;
-                //
-                //   console.log(dayresults);
-                //   if (dayresults != '') {
-                //     var Setdate = new Date(dayresults);
-                //     var newdate = new Date(Setdate);
-                //
-                //     newdate.setDate(newdate.getDate() + 45);
-                //     var dd = newdate.getDate();
-                //     var mm = newdate.getMonth() + 1;
-                //     var yyyy = newdate.getFullYear();
-                //
-                //     if (dd < 10) {
-                //       var Newdd = '0' + dd;
-                //     }else {
-                //       var Newdd = dd;
-                //     }
-                //     if (mm < 10) {
-                //       var Newmm = '0' + mm;
-                //     }else {
-                //       var Newmm = mm;
-                //     }
-                //     var result = yyyy + '-' + Newmm + '-' + Newdd;
-                //     document.getElementById('sequestercourt').value = result;
-                //   }
-                //
-                // }
-
-                // ฟังชันคำนวณ ค่าทนาย
                 function CalculateCap(){
                     var cap = document.getElementById('capitalcourt').value;
                     var Setcap = cap.replace(",","");
@@ -597,7 +544,6 @@
                         document.form1.indictmentcourt.value = addCommas(Setind);
                    }
                 }
-
               </script>
 
               <div class="card">
@@ -615,21 +561,12 @@
                               <div class="col-md-8">
                                 <div class="form-inline">
                                   <p></p>
-                                  <div class="" align="center">
+                                  <div align="left">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <small class="label label-success" style="font-size: 25px;">
-                                      <i class="fa fa-expeditedssl"></i>
-                                      @if($data->Status_legis == "จ่ายจบก่อนฟ้อง")
-                                        จ่ายจบก่อนฟ้อง
-                                      @elseif($data->Status_legis == "ยึดรถก่อนฟ้อง")
-                                        ยึดรถก่อนฟ้อง
-                                      @elseif($data->Status_legis == "ปิดบัญชีประนอมหนี้")
-                                        ปิดบัญชีประนอมหนี้
-                                      @elseif($data->Status_legis == "ปิดบัญชีหลังฟ้อง")
-                                        ปิดบัญชีหลังฟ้อง
-                                      @elseif($data->Status_legis == "ยึดรถหลังฟ้อง")
-                                        ยึดรถหลังฟ้อง
-                                      @elseif($data->Status_legis == "หมดอายุความคดี")
-                                        หมดอายุความคดี
+                                    <i class="fa fa-expeditedssl"></i>&nbsp; สถานะ : 
+                                      @if($data->Status_legis != Null)
+                                          {{$data->Status_legis}}
                                       @endif
                                     </small>
                                   </div>
@@ -637,16 +574,11 @@
                                   <label>สถานะ : </label>
                                   <select name="Statuslegis" class="form-control" style="width: 170px;">
                                     <option value="" selected>--- status ---</option>
-                                    <option value="จ่ายจบก่อนฟ้อง" {{ ($data->Status_legis === 'จ่ายจบก่อนฟ้อง') ? 'selected' : '' }}>จ่ายจบก่อนฟ้อง</option>
-                                    <option value="ยึดรถก่อนฟ้อง" {{ ($data->Status_legis === 'ยึดรถก่อนฟ้อง') ? 'selected' : '' }}>ยึดรถก่อนฟ้อง</option>
-                                    <option value="ปิดบัญชีประนอมหนี้" {{ ($data->Status_legis === 'ปิดบัญชีประนอมหนี้') ? 'selected' : '' }}>ปิดบัญชีประนอมหนี้</option>
-                                    <option value="ปิดบัญชีหลังฟ้อง" {{ ($data->Status_legis === 'ปิดบัญชีหลังฟ้อง') ? 'selected' : '' }}>ปิดบัญชีหลังฟ้อง</option>
-                                    <option value="ยึดรถหลังฟ้อง" {{ ($data->Status_legis === 'ยึดรถหลังฟ้อง') ? 'selected' : '' }}>ยึดรถหลังฟ้อง</option>
-                                    <option value="หมดอายุความคดี" {{ ($data->Status_legis === 'หมดอายุความคดี') ? 'selected' : '' }}>หมดอายุความคดี</option>
+                                    <option value="ปิดบัญชีชั้นศาล" {{ ($data->Status_legis === 'ปิดบัญชีชั้นศาล') ? 'selected' : '' }}>ปิดบัญชีชั้นศาล</option>
+                                    <option value="ยึดรถชั้นศาล" {{ ($data->Status_legis === 'ยึดรถชั้นศาล') ? 'selected' : '' }}>ยึดรถชั้นศาล</option>
+                                    <option value="ประนอมหนี้ชั้นศาล" {{ ($data->Status_legis === 'ประนอมหนี้ชั้นศาล') ? 'selected' : '' }}>ประนอมหนี้ชั้นศาล</option>
                                   </select>
-
-                                  <!-- <input type="text" id="txtStatuslegis" name="txtStatuslegis" class="form-control" style="width: 100px;" oninput="AddComma();"> -->
-                                  <input type="date" name="DateStatuslegis" class="form-control" style="width: 170px;" value="{{ $data->DateStatus_legis }}">
+                                  <input type="date" name="DateStatuslegis" class="form-control" style="width: 170px;" value="{{ $data->txtStatus_court }}">
                                 </div>
                               </div>
                           </div>

@@ -2,10 +2,8 @@
 <header class="main-header">
   <!-- Logo -->
   <a href="{{ route('index','home') }}" class="logo">
-    <!-- mini logo for sidebar mini 50x50 pixels -->
     <span class="logo-mini"><b>LS</b></span>
-    <!-- logo for regular state and mobile devices -->
-    <span class="logo-lg"><b>Chookiat Leasing</b></span>
+    <span class="logo-lg"><b>Chookiat</b></span>
   </a>
   <!-- Header Navbar: style can be found in header.less -->
 
@@ -21,65 +19,11 @@
     @if(auth::user()->type == 1)
     <ul class="nav navbar-nav">
       <li>
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> ระบบรถบ้าน </a>
-        <ul class="dropdown-menu">
-          <li><a href="{{ route('datacar',11) }}">ข้อมูลยอด</a></li>
-          <li class="divider"></li>
-          <li class="dropdown-submenu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">สต็อกรถยนต์</a>
-            <ul class="dropdown-menu">
-              <li><a href="{{ route('datacar',1) }}">รถยนต์ทั้งหมด</a></li>
-              <li class="divider"></li>
-              <li><a href="{{ route('datacar',2) }}">รถยนต์ระหว่างทำสี</a></li>
-              <li class="divider"></li>
-              <li><a href="{{ route('datacar',3) }}">รถยนต์รอซ่อม</a></li>
-              <li class="divider"></li>
-              <li><a href="{{ route('datacar',4) }}">รถยนต์ระหว่างซ่อม</a></li>
-              <li class="divider"></li>
-              <li><a href="{{ route('datacar',5) }}">รถยนต์ที่พร้อมขาย</a></li>
-              <li class="divider"></li>
-              <li><a href="{{ route('datacar',6) }}">รถยนต์ที่ขายแล้ว</a></li>
-              <li class="divider"></li>
-              <li><a href="{{ route('datacar',8) }}">รถยนต์ยืมใช้</a></li>
-              <!--
-                <li class="dropdown-submenu">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown</a>
-                  <ul class="dropdown-menu">
-                    <li class="dropdown-submenu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown</a>
-                    <ul class="dropdown-menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">One more separated link</a></li>
-                  </ul>
-                  </li>
-                </ul>
-              </li>
-            -->
-            </ul>
-          </li>
-          <li class="divider"></li>
-          <li class="dropdown-submenu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">รายงาน</a>
-            <ul class="dropdown-menu">
-              <li><a href="{{ route('datacarreport',3) }}">รายงานสต๊อกบัญชี</a></li>
-              <li class="divider"></li>
-              <li><a href="{{ route('datacarreport',4) }}">รายงานวันหมดอายุบัตร</a></li>
-              <li class="divider"></li>
-              <li><a href="{{ route('datacarreport',5) }}">รายงานรถยึด</a></li>
-              <li class="divider"></li>
-              <li><a href="{{ route('datacarreport',6) }}">รายงานสรุปกำไรรถยนต์</a></li>
-            </ul>
-          </li>
-          <li class="divider"></li>
-          <li><a href="{{ route('datacar',12) }}">รถยึดจากเร่งรัด</a></li>
-        </ul>
+        <a href="{{ route('datacar',11) }}" >ระบบรถบ้าน</a>
       </li>
-
+      <li>
+        <a href="{{ route('datacar',11) }}" >ระบบขายฝาก</a>
+      </li>
     </ul>
     @endif
 

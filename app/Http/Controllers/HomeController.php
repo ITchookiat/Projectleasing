@@ -85,9 +85,7 @@ class HomeController extends Controller
                   ->whereBetween('SFHP.ARMAST.HLDNO',[4.7,5.69])
                   ->count();
 
-        $datastock = DB::table('holdcars')
-                  // ->whereBetween('holdcars.Date_hold',[$date,$date])
-                  ->count();
+        $datastock = DB::table('holdcars')->count();
 
         $legisCourt = DB::table('legislations')
                     ->where('legislations.Flag_status','=',1)
@@ -97,14 +95,21 @@ class HomeController extends Controller
                     ->where('legislations.Flag_status','=',2)
                     ->count();
 
-        $LegisAsset = DB::table('legisassets')
-                    ->count();
+        $LegisAsset = DB::table('legisassets')->count();
 
-        $LegisCompro = DB::table('Legiscompromises')
-                    ->count();
+        $LegisCompro = DB::table('Legiscompromises')->count();
 
+        // ระบบรถบ้าน
+        $data1 = data_car::count(); //รถในสต็อกทั้งหมด
+        $data2 = data_car::where('car_type', '=', 2 )->count(); //ระหว่างทำสี
+        $data3 = data_car::where('car_type', '=', 3 )->count(); //รอซ่อม
+        $data4 = data_car::where('car_type', '=', 4 )->count(); //ระหว่างซ่อม
+        $data5 = data_car::where('car_type', '=', 5 )->count(); //พร้อมขาย
+        $data6 = data_car::where('car_type', '=', 6 )->count(); //ขายแล้ว
+        
         return view($name, compact('datafinance','datahomecar','datafollow','datamassage','datanotice','datastock',
-                                   'legisCourt','legisCourt2','LegisAsset','LegisCompro'));
+                                   'legisCourt','legisCourt2','LegisAsset','LegisCompro',
+                                   'data1','data2','data3','data4','data5','data6'));
     }
 
     public function get_json(Request $request)
