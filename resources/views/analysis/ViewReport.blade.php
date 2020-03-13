@@ -264,8 +264,11 @@
               <div class="col-md-12">
               <form method="get" action="{{ route('Analysis', 7) }}">
                 <div align="left" class="form-inline pull-right">
-                  <label>เลือกวันที่อนุมัติ : </label>
-                  <input type="date" name="Approvedate" style="width: 180px;" value="{{ ($approvedate != '') ?$approvedate: date('Y-m-d') }}" class="form-control" />
+                  <label>จากวันที่ : </label>
+                  <input type="date" name="Fromdate" style="width: 150px;" value="{{ ($fdate != '') ?$fdate: date('Y-m-d') }}" class="form-control" />
+                  &nbsp;
+                  <label>ถึงวันที่ : </label>
+                  <input type="date" name="Todate" style="width: 150px;" value="{{ ($tdate != '') ?$tdate: date('Y-m-d') }}" class="form-control" />
                   <button type="submit" class="btn btn-warning btn-app">
                     <span class="glyphicon glyphicon-search"></span> Search
                   </button >
@@ -277,7 +280,8 @@
                   <button type="submit" class="btn btn-primary btn-app">
                     <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
                   </button >
-                    <input type="hidden" name="Approvedate" style="width: 180px;" value="{{ ($approvedate != '') ?$approvedate: date('Y-m-d') }}" class="form-control" />
+                    <input type="hidden" name="Fromdate" style="width: 180px;" value="{{ ($fdate != '') ?$fdate: date('Y-m-d') }}" class="form-control" />
+                    <input type="hidden" name="Todate" style="width: 180px;" value="{{ ($tdate != '') ?$tdate: date('Y-m-d') }}" class="form-control" />
                 </div>
 
               <hr>

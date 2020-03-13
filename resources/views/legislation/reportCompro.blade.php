@@ -92,6 +92,17 @@
   @elseif($type == 3)
     <h3 class="card-title p-3" align="center">ใบเสร็จปิดบัญชี</h3>
     <hr>
+  @elseif($type == 7)
+    <label align="right">ปริ้นวันที่ : <u>{{ date('d-m-Y') }}</u></label>
+    <h1 align="center" style="font-weight: bold;line-height:1px;"><b>ลูกหนี้ประนอมหนี้ @if($status != '')({{$status}})@endif</b></h1>
+     @if($newfdate != '')
+      <h3 align="center" style="font-weight: bold;"><b>ช่วงระหว่างวันที่ {{DateThai($newfdate)}} ถึงวันที่ {{DateThai($newtdate)}}</b></h3>
+     @endif
+    <hr>
+  @elseif($type == 10)
+    <label align="right">วันที่ : <u>{{ date('d-m-Y') }}</u></label>
+    <h1 align="center" style="font-weight: bold;line-height:1px;"><b>ลูกหนี้ของกลาง</b></h1>
+    <hr>
   @elseif($type == 15)
     <label align="right">วันที่ : <u>{{ date('d-m-Y') }}</u></label>
     <h2 class="card-title p-3" align="center"><u>รายงานบันทึกชำะค่างวด</u></h2>
@@ -338,6 +349,128 @@
         </tbody>
       </table>
     </body>
+  @elseif($type == 7)
+   <body>
+      <br>
+      <table border="1">
+          <tr align="center" style="background-color: yellow;line-height: 200%;font-weight:bold;">
+            <th style="width: 30px">ลำดับ</th>
+            <th style="width: 80px">วันที่เริ่มประนอม</th>
+            <th style="width: 60px">ระยะเวลา</th>
+            <th>เลขที่สัญญา</th>
+            <th style="width: 130px">ชื่อ-สกุล</th>
+            <th style="width: 80px">ยอดประนอมหนี้</th>
+            <th style="width: 80px">ยอดคงเหลือ</th>
+            <th style="width: 80px">งวดละ</th>
+            <th style="width: 80px">วันชำระล่าสุด</th>
+            <th style="width: 80px">สถานะ</th>
+          </tr>
+          @foreach($data as $key => $row)
+          <tr style="line-height: 150%;">
+            <td align="center" style="width: 30px">{{$key+1}}</td>
+            <td align="center" style="width: 80px">{{DateThai($row->Date_Promise)}}</td>
+            <td align="center" style="width: 60px">
+              @if($row->Status_legis == "ปิดบัญชีประนอมหนี้" or $row->Status_legis == "ยึดรถหลังฟ้อง")
+                @php
+                  $Cldate = date_create($row->Date_Promise);
+                  $nowCldate = date_create($row->DateUpState_legis);
+                  $ClDateDiff = date_diff($Cldate,$nowCldate);
+                  $duration = $ClDateDiff->format("%a วัน")
+                @endphp
+                <font color="green">{{$duration}}</font>
+              @else
+                @php
+                  $nowday = date('Y-m-d');
+                  $Cldate = date_create($row->Date_Promise);
+                  $nowCldate = date_create($nowday);
+                  $ClDateDiff = date_diff($Cldate,$nowCldate);
+                  $duration = $ClDateDiff->format("%a วัน")
+                @endphp
+                <font>{{$duration}}</font>
+              @endif
+            </td>
+            <td align="center">{{$row->Contract_legis}}</td>
+            <td style="width: 130px"> {{$row->Name_legis}}</td>
+            <td align="center" style="width: 80px"> {{number_format($row->Total_Promise,2)}} &nbsp;</td>
+            <td align="center" style="width: 80px"> {{number_format($row->Sum_Promise,2)}} &nbsp;</td>
+            <td align="center" style="width: 80px"> {{number_format($row->DuePay_Promise,2)}} &nbsp; </td>
+            <td align="center" style="width: 80px">
+              @foreach($dataPay as $key => $value)
+                @if($row->legisPromise_id == $value->legis_Com_Payment_id)
+                      {{DateThai($value->Date_Payment)}}
+                @endif
+              @endforeach
+            </td>
+            <td align="center" style="width: 80px">
+              @php
+                @$sumTotal += $row->Total_Promise;
+                @$sumRemain += $row->Sum_Promise;
+                $lastday = date('Y-m-d', strtotime("-90 days"));
+              @endphp
+              @if($row->Status_legis == "ปิดบัญชีประนอมหนี้" or $row->Status_legis == "ยึดรถหลังฟ้อง")
+                <button type="button" class="btn btn-success btn-sm" title="ปิดบัญชี">
+                  <span class="glyphicon glyphicon-ok prem"></span> ปิดบัญชี
+                </button>
+              @else
+                @foreach($dataPay as $key => $value)
+                  @if($row->legisPromise_id == $value->legis_Com_Payment_id)
+                       @if($value->Date_Payment < $lastday)
+                        <font color="red"> ขาดชำระ </font>
+                       @else
+                        <font color="green"> ชำระปกติ </font>
+                       @endif
+                     @endif
+                @endforeach
+              @endif
+            </td>
+          </tr>
+          @endforeach
+          <tr style="line-height: 150%;">
+            <td align="right" style="width: 378px">รวมยอด &nbsp;</td>
+            <td align="center" style="width: 80px">{{number_format(@$sumTotal,2)}} &nbsp;</td>
+            <td align="center" style="width: 80px">{{number_format(@$sumRemain,2)}} &nbsp;</td>
+            <td style="width: 240px">&nbsp;บาท</td>
+          </tr>
+      </table>
+    </body>
+  @elseif($type == 10)
+   <body>
+     <br>
+     <table border="1">
+       <thead>
+         <tr align="center" style="background-color: yellow;">
+           <th style="width: 30px">ลำดับ</th>
+           <th style="width: 60px">วันที่รับเรื่อง</th>
+           <th>เลขที่สัญญา</th>
+           <th style="width: 110px">ชื่อ-สกุลผู้เช่าซื้อ</th>
+           <th style="width: 110px">ชื่อผู้ต้องหา</th>
+           <th style="width: 50px">ข้อหา</th>
+           <th style="width: 110px">ชื่อ พนง.สอบสวน</th>
+           <th style="width: 60px">โทรศัพท์</th>
+           <th style="width: 50px">สถานีภูธร</th>
+           <th style="width: 50px">บอกเลิก</th>
+           <th style="width: 100px">ประเภท</th>
+         </tr>
+       </thead>
+       <tbody>
+         @foreach($data as $key => $row)
+         <tr>
+           <td align="center" style="width: 30px">{{$key+1}}</td>
+           <td align="center" style="width: 60px">{{DateThai($row->Dateaccept_legis)}}</td>
+           <td align="center">{{$row->Contract_legis}}</td>
+           <td style="width: 110px"> {{$row->Name_legis}}</td>
+           <td style="width: 110px"> {{$row->Suspect_legis}}</td>
+           <td align="center" style="width: 50px"> {{$row->Plaint_legis}}</td>
+           <td style="width: 110px"> {{$row->Inquiryofficial_legis}}</td>
+           <td align="center" style="width: 60px"> {{$row->Inquiryofficialtel_legis}}</td>
+           <td align="center" style="width: 50px"> {{$row->Policestation_legis}}</td>
+           <td align="center" style="width: 50px"> {{$row->Terminate_legis}}</td>
+           <td align="center" style="width: 100px"> {{$row->Typeexhibit_legis}}</td>
+         </tr>
+         @endforeach
+       </tbody>
+     </table>
+   </body>
   @elseif($type == 15)
     <body style="margin-top: 0 0 0px;">
       <table border="0">
@@ -453,7 +586,7 @@
               <td width="130px" style="background-color: #FFFF00;">รวมยอดคงเหลือ &nbsp;&nbsp;{{ number_format($SetSumPrice, 2) }} บาท</td>
             </tr>
         </tbody>
-      </table> 
+      </table>
     </body>
   @endif
 

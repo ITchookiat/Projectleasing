@@ -63,27 +63,27 @@
             @if($type == 5)
               <form method="get" action="{{ route('Precipitate', 5) }}">
                 <div align="right" class="form-inline">
-                  <a href="{{ route('Precipitate', 6) }}" class="btn btn-primary btn-app">
+                  <a href="{{ route('Precipitate', 6) }}" class="btn btn-success btn-app">
                     <span class="fa fa-plus"></span> เพิ่มข้อมูล
                   </a>
-                  <a target="_blank" href="{{ action('PrecController@excel') }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{5}}&Statuscar={{$Statuscar}}" class="btn btn-success btn-app">
-                    <span class="fa fa-file-excel-o"></span> Excel
-                  </a>
-                  <a target="_blank" href="{{ action('PrecController@ReportPrecDue',[00,00]) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{5}}&Statuscar={{$Statuscar}}" class="btn btn-danger btn-app">
-                    <span class="fa fa-file-pdf-o"></span> PDF
-                  </a>
+                  &nbsp;
+                  <div class="btn-group">
+                   <button type="button" class="btn btn-primary btn-app dropdown-toggle" data-toggle="dropdown">
+                     <span class="glyphicon glyphicon-print"></span> ปริ้นรายงาน
+                   </button>
+                   <ul class="dropdown-menu" role="menu">
+                     <li><a target="_blank" href="{{ action('PrecController@ReportPrecDue',[00,00]) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{5}}&Statuscar={{$Statuscar}}"><i class="fa fa-file-pdf-o text-red"></i>PDF </a></li>
+                     <li class="divider"></li>
+                    <li><a target="_blank" href="{{ action('PrecController@excel') }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{5}}&Statuscar={{$Statuscar}}"><i class="fa fa-file-excel-o text-green"></i>Excel </a></li>
+                   </ul>
+                 </div>
                   <button type="submit" class="btn btn-warning btn-app">
                     <span class="glyphicon glyphicon-search"></span> Search
                   </button >
                   <p></p>
-                  <label>จากวันที่ : </label>
-                  <input type="date" name="Fromdate" style="width: 150px;" value="{{ ($fdate != '') ?$fdate: '' }}" class="form-control" />
-                  <label>ถึงวันที่ : </label>
-                  <input type="date" name="Todate" style="width: 150px;" value="{{ ($tdate != '') ?$tdate: '' }}" class="form-control" />
-                </div>
-                <div align="right" class="form-inline">
-                  <label for="text" class="mr-sm-2">สถานะรถ : </label>
-                  <select name="Statuscar" class="form-control mb-2 mr-sm-2" id="text" style="width: 360px">
+                  <div align="right" class="form-inline">
+                  <label for="text" class="mr-sm-2">สถานะ : </label>
+                  <select name="Statuscar" class="form-control mb-2 mr-sm-2" id="text" style="width: 180px">
                     <option selected value="">---เลือกสถานะ---</option>
                       <option value="1" {{ ($Statuscar == '1') ? 'selected' : '' }}> ยึดจากลูกค้าครั้งแรก</otion>
                       <option value="2" {{ ($Statuscar == '2') ? 'selected' : '' }}> ลูกค้ามารับรถคืน</otion>
@@ -93,6 +93,11 @@
                       <option value="6" {{ ($Statuscar == '6') ? 'selected' : '' }}> ลูกค้าส่งรถคืน</otion>
                       <option value="7" {{ ($Statuscar == '7') ? 'selected' : '' }}> รถยึดที่ถือครอง</otion>
                   </select>
+                  </div>
+                  <label>จากวันที่ : </label>
+                  <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($fdate != '') ?$fdate: '' }}" class="form-control" />
+                  <label>ถึงวันที่ : </label>
+                  <input type="date" name="Todate" style="width: 180px;" value="{{ ($tdate != '') ?$tdate: '' }}" class="form-control" />
                 </div>
               </form>
 
