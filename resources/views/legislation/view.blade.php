@@ -324,7 +324,7 @@
                             <td class="text-center"> {{$row->Contract_legis}}</a></td>
                             <td class="text-left"> {{$row->Name_legis}} </td>
                             <td class="text-center">  <!-- วันถืองาน -->
-                              @if($row->fillingdate_court == Null)
+                              @if($row->DateComplete_court == Null)
                                 @php
                                   $Cldate = date_create($row->Datesend_Flag);
                                   $nowCldate = date_create($date);
@@ -332,34 +332,26 @@
                                   $duration = $ClDateDiff->format("%a วัน")
                                 @endphp
                                 <font color="red">{{$duration}}</font>
-                              @elseif($row->fillingdate_court != Null)
+                              @elseif($row->DateComplete_court != Null)
                                 @php
                                   $Cldate = date_create($row->Datesend_Flag);
-                                  $nowCldate = date_create($row->fillingdate_court);
+                                  $nowCldate = date_create($row->DateComplete_court);
                                   $ClDateDiff = date_diff($Cldate,$nowCldate);
                                   $duration = $ClDateDiff->format("%a วัน")
                                 @endphp
                                 <font color="green">{{$duration}}</font>
                               @endif
                             </td>
-                            <td class="text-center">
+                            <td class="text-center">  <!-- วันฟ้อง -->
                               @if($row->fillingdate_court != NUll)
                                 {{ DateThai($row->fillingdate_court) }}
                               @endif
                             </td>
                             <td class="text-center">  <!-- ระยะเวลา -->
-                              @if($row->Status_legis == "จ่ายจบก่อนฟ้อง" or $row->Status_legis == "ยึดรถก่อนฟ้อง" or $row->Status_legis == "ปิดบัญชีประนอมหนี้" or $row->Status_legis == "ปิดบัญชีหลังฟ้อง" or $row->Status_legis == "ยึดรถหลังฟ้อง" or $row->Status_legis == "หมดอายุความคดี" or $row->resultsell_case == "เต็มจำนวน")
+                              @if($row->Status_legis != Null)
                                 @php
-                                  $Cldate = date_create($row->Datesend_Flag);
+                                  $Cldate = date_create($row->DateComplete_court);
                                   $nowCldate = date_create($row->DateUpState_legis);
-                                  $ClDateDiff = date_diff($Cldate,$nowCldate);
-                                  $duration = $ClDateDiff->format("%a วัน")
-                                @endphp
-                                <font color="green">{{$duration}}</font>
-                              @elseif($row->sendsequester_asset == "หมดอายุความ")
-                                @php
-                                  $Cldate = date_create($row->Datesend_Flag);
-                                  $nowCldate = date_create($row->Dateresult_asset);
                                   $ClDateDiff = date_diff($Cldate,$nowCldate);
                                   $duration = $ClDateDiff->format("%a วัน")
                                 @endphp
@@ -375,29 +367,9 @@
                               @endif
                             </td>
                             <td class="text-center">  <!-- สถานะลูกหนี้ -->
-                              @if($row->Status_legis == "จ่ายจบก่อนฟ้อง")
-                                <button type="button" class="btn btn-success btn-sm" title="จ่ายจบก่อนฟ้อง">
-                                  <i class="fa fa-check prem"></i> จ่ายจบก่อนฟ้อง
-                                </button>
-                              @elseif($row->Status_legis == "ยึดรถก่อนฟ้อง")
-                                <button type="button" class="btn btn-success btn-sm" title="ยึดรถก่อนฟ้อง">
-                                  <i class="fa fa-check prem"></i> ยึดรถก่อนฟ้อง
-                                </button>
-                              @elseif($row->Status_legis == "ปิดบัญชีประนอมหนี้")
-                                <button type="button" class="btn btn-success btn-sm" title="ปิดบัญชีประนอมหนี้">
-                                  <i class="fa fa-check prem"></i> ปิดบัญชีประนอมหนี้
-                                </button>
-                              @elseif($row->Status_legis == "ปิดบัญชีหลังฟ้อง")
-                                <button type="button" class="btn btn-success btn-sm" title="ปิดบัญชีหลังฟ้อง">
-                                  <i class="fa fa-check prem"></i> ปิดบัญชีหลังฟ้อง
-                                </button>
-                              @elseif($row->Status_legis == "ยึดรถหลังฟ้อง")
-                                <button type="button" class="btn btn-success btn-sm" title="ยึดรถหลังฟ้อง">
-                                  <i class="fa fa-check prem"></i> ยึดรถหลังฟ้อง
-                                </button>
-                              @elseif($row->Status_legis == "หมดอายุความคดี")
-                                <button type="button" class="btn btn-primary btn-sm" title="ยึดรถหลังฟ้อง">
-                                  <i class="fa fa-gavel prem"></i> หมดอายุความคดี
+                              @if($row->Status_legis != NULL)
+                                <button type="button" class="btn btn-success btn-sm" title="{{ $row->Status_legis }}">
+                                  <i class="fa fa-check-square-o prem"></i> {{ $row->Status_legis }}
                                 </button>
                               @else   <!-- ชั้นศาล -->
                                 @php
@@ -528,13 +500,19 @@
                                       </button>
                                     @endif
                                   @elseif($Newdate <= $Tab4)
-                                    @if($DateEx4->days <= 7)
-                                      <button type="button" class="btn btn-danger btn-sm" title="วันตั้งเจ้าพนักงาน {{ DateThai($Tab4->format('Y-m-d')) }}">
-                                        <span class="fa fa-bello text-white prem"> ตั้งเจ้าพนักงาน {{ $DateEx4->days }} วัน</span>
-                                      </button>
+                                    @if($row->checksend_court != Null)
+                                      @if($DateEx4->days <= 7)
+                                        <button type="button" class="btn btn-danger btn-sm" title="วันตั้งเจ้าพนักงาน {{ DateThai($Tab4->format('Y-m-d')) }}">
+                                          <span class="fa fa-bello text-white prem"> ตั้งเจ้าพนักงาน {{ $DateEx4->days }} วัน</span>
+                                        </button>
+                                      @else
+                                        <button type="button" class="btn btn-warning btn-sm" title="วันตั้งเจ้าพนักงาน {{ DateThai($Tab4->format('Y-m-d')) }}">
+                                          <i class="fa fa-clock-o prem"></i> รอตั้งเจ้าพนักงาน
+                                        </button>
+                                      @endif
                                     @else
                                       <button type="button" class="btn btn-warning btn-sm" title="วันตั้งเจ้าพนักงาน {{ DateThai($Tab4->format('Y-m-d')) }}">
-                                        <i class="fa fa-clock-o prem"></i> รอตั้งเจ้าพนักงาน
+                                        <i class="fa fa-clock-o prem"></i> รอผลตรวจหมายจริง
                                       </button>
                                     @endif
                                   @elseif($Newdate <= $Tab5)
@@ -603,12 +581,11 @@
                                         <i class="fa fa-clock-o prem"></i> รอขั้นตอนต่อไป
                                       </button>
                                     @endif
-
                                   @endif
                                 @else
                                   @if($row->fillingdate_court == Null)
                                     <button type="button" class="btn btn-danger btn-sm" title="รอฟ้อง">
-                                      <i class="fa fa-warning"></i> รอฟ้อง
+                                      <i class="fa fa-warning prem"></i> รอฟ้อง
                                     </button>
                                   @elseif($row->fillingdate_court != Null)
                                   <button type="button" class="btn btn-warning btn-sm" title="สถานะฟ้อง">
@@ -651,9 +628,9 @@
                                   <button type="button" class="btn btn-success btn-sm" title="สืบทรัพย์เจอ">
                                     <i class="fa fa-check-square-o prem"></i> สืบทรัพย์เจอ
                                   </button>
-                                @elseif($row->sendsequester_asset == "หมดอายุความ")
+                                @elseif($row->sendsequester_asset == "หมดอายุความคดี")
                                   <button type="button" class="btn btn-primary btn-sm" title="หมดอายุความ">
-                                    <i class="fa fa-gavel prem"></i> หมดอายุความ
+                                    <i class="fa fa-gavel prem"></i> หมดอายุความคดี
                                   </button>
                                 @elseif($row->sendsequester_asset == "จบงานสืบทรัพย์")
                                   <button type="button" class="btn btn-success btn-sm" title="จบงานสืบทรัพย์">
@@ -683,8 +660,8 @@
                                         @endif                       
                                       @endif
                                     @else
-                                      <button type="button" class="btn btn-gray btn-sm prem" title="รอผลสืบทรัพย์">
-                                        <span class="fa fa-hourglass-half active"> รอผลสืบทรัพย์ </span>
+                                      <button type="button" class="btn btn-gray btn-sm" title="รอผลสืบทรัพย์">
+                                        <i class="fa fa-hourglass-half active prem"></i> รอผลสืบทรัพย์
                                       </button>
                                     @endif
                                   @endif
@@ -1034,7 +1011,7 @@
                             <td class="text-center"> {{$row->Contract_legis}}</a></td>
                             <td class="text-center"> {{$row->Name_legis}} </td>
                             <td class="text-center"> {{ DateThai($row->Date_asset) }}</td>
-                            <td class="text-center">
+                            <td class="text-center">  <!-- ระยะเวลา -->
                               @if($row->Dateresult_asset != Null)
                                 @php
                                   $Cldate = date_create($row->Date_asset);
@@ -1063,7 +1040,7 @@
                                 @endif
                               @endif
                             </td>
-                            <td class="text-center">
+                            <td class="text-center">  <!-- สถานะทรัพย์ -->
                               @if($row->propertied_asset == "Y")
                                 <button type="button" class="btn btn-success btn-sm" title="มีทรัพย์">
                                   <i class="fa fa-map prem"></i> มีทรัพย์
@@ -1074,7 +1051,7 @@
                                 </button>
                               @endif
                             </td>
-                            <td class="text-center">
+                            <td class="text-center">  <!-- สถานะแจ้งเตือน -->
                               @if($row->sequester_asset != Null)
                                 @php
                                   $Getdate = date_create($row->sequester_asset);
@@ -1107,9 +1084,9 @@
                                   <button type="button" class="btn btn-success btn-sm" title="สืบทรัพย์เจอ">
                                     <i class="fa fa-check-square-o prem"></i> สืบทรัพย์เจอ
                                   </button>
-                                @elseif($row->sendsequester_asset == "หมดอายุความ")
+                                @elseif($row->sendsequester_asset == "หมดอายุความคดี")
                                   <button type="button" class="btn btn-primary btn-sm" title="หมดอายุความ">
-                                    <i class="fa fa-gavel prem"></i> หมดอายุความ
+                                    <i class="fa fa-gavel prem"></i> หมดอายุความคดี
                                   </button>
                                 @elseif($row->sendsequester_asset == "จบงานสืบทรัพย์")
                                   <button type="button" class="btn btn-success btn-sm" title="จบงานสืบทรัพย์">
@@ -1139,8 +1116,8 @@
                                         @endif                       
                                       @endif
                                     @else
-                                      <button type="button" class="btn btn-gray btn-sm prem" title="รอผลสืบทรัพย์">
-                                        <span class="fa fa-hourglass-half active"> รอผลสืบทรัพย์ </span>
+                                      <button type="button" class="btn btn-gray btn-sm" title="รอผลสืบทรัพย์">
+                                        <i class="fa fa-hourglass-half active prem"></i> รอผลสืบทรัพย์
                                       </button>
                                     @endif
                                   @endif

@@ -41,6 +41,11 @@ class CreateLegiscourtsTable extends Migration
             $table->string('received_court')->nullable();
             $table->string('telresults_court')->nullable();
             $table->string('dayresults_court')->nullable();
+            $table->string('Status_court')->nullable();
+            $table->string('DateStatus_court')->nullable();
+            $table->string('txtStatus_court')->nullable();
+            $table->string('DateComplete_court')->nullable(); //วันที่กดอัพเดต
+
 
             $table->string('latitude_court')->nullable();   //ค่า ละติจุต แผนที
             $table->string('longitude_court')->nullable();  //ค่า ลองติจุต แผนที

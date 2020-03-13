@@ -49,6 +49,19 @@
                             </div>
                         </div>
 
+                        
+                        <div class="form-group row">
+                            <label for="DB_type" class="col-md-4 col-form-label text-md-right">{{ __('Database') }}</label>
+
+                            <div class="col-md-6">
+                                <select name="DB_type" class="form-control" required>
+                                    <option selected disabled value="">เลือกฐานข้อมูล</option>
+                                    <option value="1" > ระบบ ลิสซิ่ง</option>
+                                    <option value="2" > ระบบ รถบ้าน</option>
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="form-group row">
                             <div class="col-md-6 offset-md-4">
                                 <div class="form-check">

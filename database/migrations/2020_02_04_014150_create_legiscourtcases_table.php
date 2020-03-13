@@ -26,7 +26,10 @@ class CreateLegiscourtcasesTable extends Migration
             $table->string('resultsell_case')->nullable();
             $table->string('datesoldout_case')->nullable();
             $table->string('amountsequester_case')->nullable();
-            $table->string('statussequester_case')->nullable();
+            $table->string('NumAmount_case')->nullable();
+            $table->string('Status_case')->nullable();
+            $table->string('DateStatus_case')->nullable();
+            $table->string('txtStatus_case')->nullable();
             $table->string('Flag_case')->nullable();
 
             $table->string('DateNotice_cheat')->nullable();
@@ -35,6 +38,7 @@ class CreateLegiscourtcasesTable extends Migration
             $table->string('Datedeposition_cheat')->nullable();
             $table->string('Dateplantiff_cheat')->nullable();
             $table->string('Status_cheat')->nullable();
+            $table->string('DateStatus_cheat')->nullable();
             $table->string('note_cheat')->nullable();
             $table->timestamps();
         });

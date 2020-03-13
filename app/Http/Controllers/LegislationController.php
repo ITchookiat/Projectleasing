@@ -128,7 +128,7 @@ class LegislationController extends Controller
                     return $q->whereBetween('legislations.Datesend_Flag',[$newfdate,$newtdate]);
                   })
                   ->where('legislations.Flag_status','=', '2')
-                  ->orderBy('legislations.id', 'ASC')
+                  ->orderBy('legislations.id', 'DESC')
                   ->get();
 
         $dataPay = DB::table('legislations')
@@ -149,7 +149,7 @@ class LegislationController extends Controller
                   return $q->whereBetween('legislations.Datesend_Flag',[$newfdate,$newtdate]);
                 })
                 ->where('legiscourts.fillingdate_court','!=', Null)
-                ->orderBy('legislations.id', 'ASC')
+                ->orderBy('legislations.id', 'DESC')
                 ->get();
         }
         elseif ($StateCourt == "ชั้นบังคับคดี") {
@@ -162,7 +162,7 @@ class LegislationController extends Controller
                   return $q->whereBetween('legislations.Datesend_Flag',[$newfdate,$newtdate]);
                 })
                 ->where('Legiscourtcases.datepreparedoc_case','!=', Null)
-                ->orderBy('legislations.id', 'ASC')
+                ->orderBy('legislations.id', 'DESC')
                 ->get();
         }
         elseif ($StateLegis != Null) {
@@ -177,7 +177,7 @@ class LegislationController extends Controller
                 ->when(!empty($StateLegis), function($q) use($StateLegis){
                   return $q->where('legislations.Status_legis',$StateLegis);
                 })
-                ->orderBy('legislations.id', 'ASC')
+                ->orderBy('legislations.id', 'DESC')
                 ->get();
         }
 
@@ -531,7 +531,10 @@ class LegislationController extends Controller
           $Legiscom->Sum_Promise = $dataSum[0]->Total_Promise - $sum;
         $Legiscom->update();
 
-        return redirect()->back()->with(['id' => $id,'type' => $type,'success' => 'บันทึกข้อมูลเรียบร้อย']);
+        $type = 4;
+
+        // return redirect()->back()->with(['id' => $id,'type' => $type,'success' => 'บันทึกข้อมูลเรียบร้อย']);
+        return redirect()->Route('legislation.edit',[$id,$type])->with(['success'=>'รับเรื่องเรียบร้อย']);
       }
       if ($type == 11){ //เพิ่มข้อของกลาง
         $Dateresult = '';
@@ -795,7 +798,6 @@ class LegislationController extends Controller
     public function edit($id, $type)
     {
       if ($type == 2) {     //ข้อมูลผู้เช่าซื้อ
-
         $data = DB::table('legislations')
               ->where('legislations.id',$id)->first();
 
@@ -999,17 +1001,24 @@ class LegislationController extends Controller
         $user = Legislation::find($id);
           // เพิ่มสถานะจบงาน
           if ($request->get('Statuslegis') != Null) {
-            // $SettxtStatus = str_replace (",","",$request->get('txtStatuslegis'));
             $user->Status_legis = $request->get('Statuslegis');
-            // $user->txtStatus_legis = $SettxtStatus;
-            $user->DateStatus_legis = $request->get('DateStatuslegis');
+            $user->DateStatus_legis = $request->get('DateCloseAccount');
+            $user->PriceStatus_legis = $request->get('PriceAccount');
+            $user->txtStatus_legis = $request->get('TopCloseAccount');
+            $user->Discount_legis = $request->get('DiscountAccount');
             $user->DateUpState_legis = date('Y-m-d');
+            $user->DateCarState_legis = $request->get('DateStatuslegis');
           }elseif ($request->get('Statuslegis') == Null) {
-            $user->Status_legis = Null;
-            $user->DateUpState_legis = Null;
-            $user->DateStatus_legis = Null;
+            $user->Status_legis = NULL; 
+            $user->DateStatus_legis = NULL; 
+            $user->PriceStatus_legis = NULL; 
+            $user->txtStatus_legis = NULL; 
+            $user->Discount_legis = NULL; 
+            $user->DateUpState_legis = NULL;
+            $user->DateCarState_legis = NULL; 
           }
 
+          //หน้าทีมทนาย
           $user->Pay_legis = str_replace(",","",$request->get('Paylegis'));
           $user->Period_legis = str_replace(",","",$request->get('Periodlegis'));
           $user->Countperiod_legis = $request->get('Countperiodlegis');
@@ -1026,6 +1035,7 @@ class LegislationController extends Controller
           $user->Purchase_list = $request->get('Purchaselist');
           $user->Promise_list = $request->get('Promiselist');
           $user->Titledeed_list = $request->get('Titledeedlist');
+
           //หน้าทีมวิเคราะห์
           $user->Terminatebuyer_list = $request->get('Terminatebuyerlist');
           $user->Terminatesupport_list = $request->get('Terminatesupportlist');
@@ -1041,14 +1051,25 @@ class LegislationController extends Controller
       elseif ($type == 3) { //ชั้นศาล
         $user = Legislation::find($id); //update status
           if ($request->get('Statuslegis') != Null) {
-            // $SettxtStatus = str_replace (",","",$request->get('txtStatuslegis'));
             $user->Status_legis = $request->get('Statuslegis');
-            // $user->txtStatus_legis = $SettxtStatus;
-            $user->DateStatus_legis = $request->get('DateStatuslegis');
+            $user->DateStatus_legis = $request->get('DateCloseAccount');
+            $user->PriceStatus_legis = $request->get('PriceAccount');
+            $user->txtStatus_legis = $request->get('TopCloseAccount');
+            $user->Discount_legis = $request->get('DiscountAccount');
             $user->DateUpState_legis = date('Y-m-d');
+
+            $SetDateUp = date('Y-m-d');
+            $SettxtStatus = $request->get('DateStatuslegis');
           }elseif ($request->get('Statuslegis') == Null) {
-            $user->Status_legis = Null;
-            $user->DateUpState_legis = Null;
+            $user->Status_legis = NULL; 
+            $user->DateStatus_legis = NULL; 
+            $user->PriceStatus_legis = NULL; 
+            $user->txtStatus_legis = NULL; 
+            $user->Discount_legis = NULL; 
+            $user->DateUpState_legis = NULL; 
+
+            $SetDateUp = NULL;
+            $SettxtStatus = NULL;
           }
         $user->update();
 
@@ -1078,8 +1099,20 @@ class LegislationController extends Controller
           $Legiscourt->received_court = $request->get('radio-receivedflag');
           $Legiscourt->telresults_court = $request->get('telresultscourt');
           $Legiscourt->dayresults_court = $request->get('dayresultscourt');
+
+          $Legiscourt->Status_court = $request->get('Statuslegis');
+          $Legiscourt->DateStatus_court = $SetDateUp;
+          $Legiscourt->txtStatus_court = $SettxtStatus;
+
+          
+          if ($Legiscourt->DateComplete_court == NULL) {
+            if ($request->get('fillingdatecourt') != NULL) {
+              $Legiscourt->DateComplete_court = date('Y-m-d');
+            }
+          }
         $Legiscourt->update();
 
+        // update key ลูก
         $Legislation = Legislation::find($id);
           $Legislation->KeyCourts_id = $Legiscourt->court_id;
         $Legislation->update();
@@ -1220,6 +1253,32 @@ class LegislationController extends Controller
           $Amountsequester = 0;
         }
 
+        if ($request->get('StatusCase') == "ถอนบังคับคดีปิดบัญชี") {
+          if ($request->get('txtStatusCase1') != Null) {
+            $SettxtStatus = $request->get('txtStatusCase1');
+            $SetDateStatus = $request->get('DateStatusCase1');
+          }
+        }elseif ($request->get('StatusCase') == "ถอนบังคับคดียึดรถ") {
+          if ($request->get('txtStatusCase2') != Null) {
+            $SettxtStatus = $request->get('txtStatusCase2');
+            $SetDateStatus = $request->get('DateStatusCase2');
+          }
+        }elseif ($request->get('StatusCase') == "ถอนบังคับคดียอดเหลือน้อย") {
+          if ( $request->get('txtStatusCase3') != Null) {
+            $SettxtStatus = $request->get('txtStatusCase3');
+            $SetDateStatus = $request->get('DateStatusCase3');
+          }
+        }elseif ($request->get('StatusCase') == "ถอนบังคับคดีขายเต็มจำนวน") {
+          $SettxtStatus = NULL;
+          $SetDateStatus = $request->get('Datesoldout');
+        }elseif ($request->get('StatusCase') == "ประนอมหลังยึดทรัพย์") {
+          $SettxtStatus = NULL;
+          $SetDateStatus = date('Y-m-d');
+        }else {
+          $SettxtStatus = NULL;
+          $SetDateStatus = NULL;
+        }
+
         $Legiscourtcase = Legiscourtcase::where('legislation_id',$id)->first();
           $Legiscourtcase->datepreparedoc_case = $request->get('datepreparedoc');
           $Legiscourtcase->noteprepare_case = $request->get('noteprepare');
@@ -1231,7 +1290,10 @@ class LegislationController extends Controller
           $Legiscourtcase->resultsell_case = $request->get('ResultSell');
           $Legiscourtcase->datesoldout_case = $request->get('Datesoldout');
           $Legiscourtcase->amountsequester_case = $Amountsequester;
-          $Legiscourtcase->statussequester_case = NULL;
+          $Legiscourtcase->NumAmount_case = $request->get('CountSeliing');
+          $Legiscourtcase->Status_case = $request->get('StatusCase');
+          $Legiscourtcase->DateStatus_case = $SetDateStatus;
+          $Legiscourtcase->txtStatus_case = $SettxtStatus;
           $Legiscourtcase->Flag_case = $request->get('Flagcase');
         $Legiscourtcase->update();
 
@@ -1245,15 +1307,20 @@ class LegislationController extends Controller
         $courtcase->update();
 
         $user = Legislation::find($id); //update status
-          if ($request->get('Statuslegis') != Null) {
-            // $SettxtStatus = str_replace (",","",$request->get('txtStatuslegis'));
-            $user->Status_legis = $request->get('Statuslegis');
-            // $user->txtStatus_legis = $SettxtStatus;
-            $user->DateStatus_legis = $request->get('DateStatuslegis');
-            $user->DateUpState_legis = date('Y-m-d');
-          }elseif ($request->get('Statuslegis') == Null) {
-            $user->Status_legis = Null;
-            $user->DateUpState_legis = Null;
+          if ($request->get('StatusCase') != Null) {
+            $user->Status_legis = $request->get('StatusCase');
+            $user->DateStatus_legis = $request->get('DateCloseAccount');
+            $user->PriceStatus_legis = $request->get('PriceAccount');
+            $user->txtStatus_legis = $request->get('TopCloseAccount');
+            $user->Discount_legis = $request->get('DiscountAccount');
+            $user->DateUpState_legis = $SetDateStatus;
+          }elseif ($request->get('StatusCase') == Null) {
+            $user->Status_legis = NULL; 
+            $user->DateStatus_legis = NULL; 
+            $user->PriceStatus_legis = NULL; 
+            $user->txtStatus_legis = NULL; 
+            $user->Discount_legis = NULL; 
+            $user->DateUpState_legis = NULL; 
           }
         $user->update();
 
@@ -1304,23 +1371,10 @@ class LegislationController extends Controller
             $LegisAsset->Notepursue_asset =  $request->get('Notepursueasset');
           $LegisAsset->update();
         }
-        // เพิ่มสถานะจบงาน
-        $Legislation = Legislation::find($id);
-          if ($request->get('Statuslegis') != Null) {
-            // $SettxtStatus = str_replace (",","",$request->get('txtStatuslegis'));
-            $Legislation->Status_legis = $request->get('Statuslegis');
-            // $Legislation->txtStatus_legis = $SettxtStatus;
-            $Legislation->DateStatus_legis = $request->get('DateStatuslegis');
-            $Legislation->DateUpState_legis = date('Y-m-d');
-          }elseif ($request->get('Statuslegis') == Null) {
-            $Legislation->Status_legis = Null;
-            $Legislation->DateUpState_legis = Null;
-          }
-        $Legislation->update();
 
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อย');
       }
-      elseif ($type == 10){ //ของกลาง
+      elseif ($type == 10) { //ของกลาง
           $Dateresult = '';
           if($request->get('DategetResult1') != Null){
             $Dateresult = $request->get('DategetResult1');
@@ -1356,7 +1410,7 @@ class LegislationController extends Controller
           $LegisExhibit->update();
           return redirect()->back()->with('success','อัพเดทข้อมูลเรียบร้อย');
       }
-      elseif ($type == 11){ //รูปและแผนที่
+      elseif ($type == 11) { //รูปและแผนที่
         $Legiscourt = Legiscourt::where('legislation_id',$id)->first();
           $Legiscourt->latitude_court = $request->get('latitude');
           $Legiscourt->longitude_court = $request->get('longitude');
@@ -1386,7 +1440,6 @@ class LegislationController extends Controller
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
       }
       elseif ($type == 13) { //โกงเจ้าหนี้
-        // dd($request);
         $Legiscourtcase = Legiscourtcase::where('legislation_id',$id)->first();
           $Legiscourtcase->DateNotice_cheat = $request->get('DateNoticeCheat');
           $Legiscourtcase->Dateindictment_cheat = $request->get('DateindictmentCheat');
@@ -1394,25 +1447,31 @@ class LegislationController extends Controller
           $Legiscourtcase->Datedeposition_cheat = $request->get('DatedepositionCheat');
           $Legiscourtcase->Dateplantiff_cheat = $request->get('DateplantiffCheat');
           $Legiscourtcase->Status_cheat = $request->get('StatusCheat');
+          $Legiscourtcase->DateStatus_Cheat = $request->get('DateStatusCheat');
           $Legiscourtcase->note_cheat = $request->get('noteCheat');
         $Legiscourtcase->update();
 
         $user = Legislation::find($id); //update status
-          if ($request->get('Statuslegis') != Null) {
-            // $SettxtStatus = str_replace (",","",$request->get('txtStatuslegis'));
-            $user->Status_legis = $request->get('Statuslegis');
-            // $user->txtStatus_legis = $SettxtStatus;
-            $user->DateStatus_legis = $request->get('DateStatuslegis');
-            $user->DateUpState_legis = date('Y-m-d');
-          }elseif ($request->get('Statuslegis') == Null) {
-            $user->Status_legis = Null;
-            $user->DateUpState_legis = Null;
+          if ($request->get('StatusCheat') != Null) {
+            $user->Status_legis = $request->get('StatusCheat');
+            $user->DateStatus_legis = $request->get('DateCloseAccount');
+            $user->PriceStatus_legis = $request->get('PriceAccount');
+            $user->txtStatus_legis = $request->get('TopCloseAccount');
+            $user->Discount_legis = $request->get('DiscountAccount');
+            $user->DateUpState_legis = $request->get('DateStatusCheat');
+          }elseif ($request->get('StatusCheat') == Null) {
+            $user->Status_legis = NULL; 
+            $user->DateStatus_legis = NULL; 
+            $user->PriceStatus_legis = NULL; 
+            $user->txtStatus_legis = NULL; 
+            $user->Discount_legis = NULL; 
+            $user->DateUpState_legis = NULL; 
           }
         $user->update();
 
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
       }
-      elseif ($type == 12){ //ขายฝาก
+      elseif ($type == 12) {  //ขายฝาก
         $LegisLand = Legisland::where('Legisland_id',$id)->first();
           $LegisLand->Beforemoney_legis = str_replace(",","",$request->get('Beforemoneylegis'));
           $LegisLand->Sumperiod_legis = str_replace(",","",$request->get('Sumperiodlegis'));
@@ -1436,7 +1495,6 @@ class LegislationController extends Controller
         return redirect()->back()->with('success','อัพเดทข้อมูลเรียบร้อย');
       }
       elseif ($type == 100) { //Json ประนอมหนี้
-
         $input = $request->all();
         $data = DB::table('Legiscompromises')
                   ->where('Legiscompromises.legisPromise_id',$input["Getid"])->get();
@@ -1545,7 +1603,10 @@ class LegislationController extends Controller
            'resultsell_case' =>  Null,
            'datesoldout_case' =>  Null,
            'amountsequester_case' =>  Null,
-           'statussequester_case' =>  Null,
+           'NumAmount_case' =>  Null,
+           'Status_case' =>  Null,
+           'DateStatus_case' =>  Null,
+           'txtStatus_case' =>  Null,
            'Flag_case' =>  Null,
 
            'DateNotice_cheat' => Null,

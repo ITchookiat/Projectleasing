@@ -98,46 +98,30 @@
                         <div class="col-md-9">
                           <span class="info-box-icon bg-red"><i class="fa fa-id-badge fa-lg"></i></span>
                           <div class="info-box-content">
-                              <div class="col-md-4">
-                                <span class="info-box-number"><font style="font-size: 30px;">{{ $data->Contract_legis }}</font></span>
-                                <span class="info-box-text"><font style="font-size: 20px;">{{ $data->Name_legis }}</font></span>
-                              </div>
-                              <div class="col-md-8">
-                                <div class="form-inline">
-                                  <p></p>
-                                  <div class="" align="center">
-                                    <small class="label label-success" style="font-size: 25px;">
-                                      <i class="fa fa-expeditedssl"></i>
-                                      @if($data->Status_legis == "จ่ายจบก่อนฟ้อง")
-                                        จ่ายจบก่อนฟ้อง
-                                      @elseif($data->Status_legis == "ยึดรถก่อนฟ้อง")
-                                        ยึดรถก่อนฟ้อง
-                                      @elseif($data->Status_legis == "ปิดบัญชีประนอมหนี้")
-                                        ปิดบัญชีประนอมหนี้
-                                      @elseif($data->Status_legis == "ปิดบัญชีหลังฟ้อง")
-                                        ปิดบัญชีหลังฟ้อง
-                                      @elseif($data->Status_legis == "ยึดรถหลังฟ้อง")
-                                        ยึดรถหลังฟ้อง
-                                      @elseif($data->Status_legis == "หมดอายุความคดี")
-                                        หมดอายุความคดี
-                                      @endif
-                                    </small>
-                                  </div>
-                                  <p></p>
-                                  <label>สถานะ : </label>
-                                  <select name="Statuslegis" class="form-control" style="width: 170px;">
-                                    <option value="" selected>--- status ---</option>
-                                    <option value="จ่ายจบก่อนฟ้อง" {{ ($data->Status_legis === 'จ่ายจบก่อนฟ้อง') ? 'selected' : '' }}>จ่ายจบก่อนฟ้อง</option>
-                                    <option value="ยึดรถก่อนฟ้อง" {{ ($data->Status_legis === 'ยึดรถก่อนฟ้อง') ? 'selected' : '' }}>ยึดรถก่อนฟ้อง</option>
-                                    <option value="ปิดบัญชีประนอมหนี้" {{ ($data->Status_legis === 'ปิดบัญชีประนอมหนี้') ? 'selected' : '' }}>ปิดบัญชีประนอมหนี้</option>
-                                    <option value="ปิดบัญชีหลังฟ้อง" {{ ($data->Status_legis === 'ปิดบัญชีหลังฟ้อง') ? 'selected' : '' }}>ปิดบัญชีหลังฟ้อง</option>
-                                    <option value="ยึดรถหลังฟ้อง" {{ ($data->Status_legis === 'ยึดรถหลังฟ้อง') ? 'selected' : '' }}>ยึดรถหลังฟ้อง</option>
-                                    <option value="หมดอายุความคดี" {{ ($data->Status_legis === 'หมดอายุความคดี') ? 'selected' : '' }}>หมดอายุความคดี</option>
-                                  </select>
-
-                                  <input type="date" name="DateStatuslegis" class="form-control" style="width: 170px;" value="{{ $data->DateStatus_legis }}">
+                            <div class="col-md-4">
+                              <span class="info-box-number"><font style="font-size: 30px;">{{ $data->Contract_legis }}</font></span>
+                              <span class="info-box-text"><font style="font-size: 20px;">{{ $data->Name_legis }}</font></span>
+                            </div>
+                            <div class="col-md-8">
+                              <div class="form-inline">
+                                <p></p>
+                                <div align="left">
+                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                  <small class="label label-success" style="font-size: 25px;">
+                                  <i class="fa fa-expeditedssl"></i>&nbsp; สถานะ : 
+                                    @if($data->Status_legis != Null)
+                                      {{$data->Status_legis}}
+                                    @endif
+                                  </small>
                                 </div>
+                                <p></p>
+                                <label>สถานะ : </label>
+                                <select name="" class="form-control" style="width: 170px;" disabled>
+                                  <option value="" selected>--- status ---</option>
+                                </select>
+                                <input type="date" name="" class="form-control" style="width: 170px;" value="" disabled>
                               </div>
+                            </div>
                           </div>
                         </div>
 
@@ -163,23 +147,23 @@
                       </div>
 
                       <script>
-                          function adds(nStr){
-                             nStr += '';
-                             x = nStr.split('.');
-                             x1 = x[0];
-                             x2 = x.length > 1 ? '.' + x[1] : '';
-                             var rgx = /(\d+)(\d{3})/;
-                             while (rgx.test(x1)) {
-                               x1 = x1.replace(rgx, '$1' + ',' + '$2');
-                              }
-                            return x1 + x2;
-                          }
-                          function Comma(){
-                            var num11 = document.getElementById('Priceasset').value;
-                            var num1 = num11.replace(",","");
+                        function adds(nStr){
+                            nStr += '';
+                            x = nStr.split('.');
+                            x1 = x[0];
+                            x2 = x.length > 1 ? '.' + x[1] : '';
+                            var rgx = /(\d+)(\d{3})/;
+                            while (rgx.test(x1)) {
+                              x1 = x1.replace(rgx, '$1' + ',' + '$2');
+                            }
+                          return x1 + x2;
+                        }
+                        function Comma(){
+                          var num11 = document.getElementById('Priceasset').value;
+                          var num1 = num11.replace(",","");
 
-                            document.form1.Priceasset.value = adds(num1);
-                          }
+                          document.form1.Priceasset.value = adds(num1);
+                        }
                       </script>
 
                       <h4 class="card-title p-3" align="left"><b> ขั้นตอนสืบทรัพย์</b></h4>
@@ -223,7 +207,7 @@
                                       <option value="" selected>--- เลือกผล ---</option>
                                       <option value="เจอ" {{ ($data->sendsequester_asset === 'เจอ') ? 'selected' : '' }}>เจอ</option>
                                       <option value="ไม่เจอ" {{ ($data->sendsequester_asset === 'ไม่เจอ') ? 'selected' : '' }}>ไม่เจอ</option>
-                                      <option value="หมดอายุความ" {{ ($data->sendsequester_asset === 'หมดอายุความ') ? 'selected' : '' }}>หมดอายุความ</option>
+                                      <option value="หมดอายุความคดี" {{ ($data->sendsequester_asset === 'หมดอายุความคดี') ? 'selected' : '' }}>หมดอายุความคดี</option>
                                       <option value="จบงานสืบทรัพย์" {{ ($data->sendsequester_asset === 'จบงานสืบทรัพย์') ? 'selected' : '' }}>จบงานสืบทรัพย์</option>
                                     </select>
                                     ค่าใช้จ่าย

@@ -30,6 +30,9 @@
               <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 3]) }}">ชั้นศาล</a></li>
               <li class="nav-item active"><a href="{{ action('LegislationController@edit',[$id, 7]) }}">ชั้นบังคับคดี</a></li>
               <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 13]) }}">โกงเจ้าหนี้</a></li>
+              <li class="nav-item pull-right"><a href="{{ action('LegislationController@edit',[$id, 11]) }}">รูปและแผนที่</a></li>
+              <li class="nav-item pull-right"><a href="{{ action('LegislationController@edit',[$id, 4]) }}">ประนอมหนี้</a></li>
+              <li class="nav-item pull-right"><a href="{{ action('LegislationController@edit',[$id, 8]) }}">สืบทรัพย์</a></li>
             </ul>
           </div>
 
@@ -46,56 +49,6 @@
               @csrf
               @method('put')
 
-              <!-- <script>
-                function addCommas(nStr){
-                   nStr += '';
-                   x = nStr.split('.');
-                   x1 = x[0];
-                   x2 = x.length > 1 ? '.' + x[1] : '';
-                   var rgx = /(\d+)(\d{3})/;
-                   while (rgx.test(x1)) {
-                     x1 = x1.replace(rgx, '$1' + ',' + '$2');
-                    }
-                  return x1 + x2;
-                }
-                function CourtcaseDate(){
-                  //---------- วันเตรียมเอกสาร
-                  var date1 = document.getElementById('datepreparedoc').value;
-                  var dateset = document.getElementById('DatesetSequester').value;
-
-                    if (date1 != '') {
-                      var Setdate = new Date(date1);
-                      var newdate = new Date(Setdate);
-                    }
-                    else if (dateset != '') {
-                      var Setdate = new Date(dateset);
-                      var newdate = new Date(Setdate);
-                    }
-
-                    newdate.setDate(newdate.getDate() + 30);
-                    var dd = newdate.getDate();
-                    var mm = newdate.getMonth() + 1;
-                    var yyyy = newdate.getFullYear();
-
-                    if (dd < 10) {
-                      var Newdd = '0' + dd;
-                    }
-                    else {
-                      var Newdd = dd;
-                    }
-                    if (mm < 10) {
-                      var Newmm = '0' + mm;
-                    }
-                    else {
-                      var Newmm = mm;
-                    }
-                    var result = yyyy + '-' + Newmm + '-' + Newdd;
-                    //วันตั้งเรื่องยึดทรัพย์
-                    document.getElementById('DatesetSequester').value = result;
-                  }
-
-              </script> -->
-
               <div class="card">
                 <div class="card-body">
                   <div class="tab-content">
@@ -104,47 +57,30 @@
                         <div class="col-md-9">
                           <span class="info-box-icon bg-red"><i class="fa fa-id-badge fa-lg"></i></span>
                           <div class="info-box-content">
-                              <div class="col-md-4">
-                                <span class="info-box-number"><font style="font-size: 30px;">{{ $data->Contract_legis }}</font></span>
-                                <span class="info-box-text"><font style="font-size: 20px;">{{ $data->Name_legis }}</font></span>
-                              </div>
-                              <div class="col-md-8">
-                                <div class="form-inline">
-                                  <p></p>
-                                  <div class="" align="center">
-                                    <small class="label label-success" style="font-size: 25px;">
-                                      <i class="fa fa-expeditedssl"></i>
-                                      @if($data->Status_legis == "จ่ายจบก่อนฟ้อง")
-                                        จ่ายจบก่อนฟ้อง
-                                      @elseif($data->Status_legis == "ยึดรถก่อนฟ้อง")
-                                        ยึดรถก่อนฟ้อง
-                                      @elseif($data->Status_legis == "ปิดบัญชีประนอมหนี้")
-                                        ปิดบัญชีประนอมหนี้
-                                      @elseif($data->Status_legis == "ปิดบัญชีหลังฟ้อง")
-                                        ปิดบัญชีหลังฟ้อง
-                                      @elseif($data->Status_legis == "ยึดรถหลังฟ้อง")
-                                        ยึดรถหลังฟ้อง
-                                      @elseif($data->Status_legis == "หมดอายุความคดี")
-                                        หมดอายุความคดี
-                                      @endif
-                                    </small>
-                                  </div>
-                                  <p></p>
-                                  <label>สถานะ : </label>
-                                  <select name="Statuslegis" class="form-control" style="width: 170px;">
-                                    <option value="" selected>--- status ---</option>
-                                    <option value="จ่ายจบก่อนฟ้อง" {{ ($data->Status_legis === 'จ่ายจบก่อนฟ้อง') ? 'selected' : '' }}>จ่ายจบก่อนฟ้อง</option>
-                                    <option value="ยึดรถก่อนฟ้อง" {{ ($data->Status_legis === 'ยึดรถก่อนฟ้อง') ? 'selected' : '' }}>ยึดรถก่อนฟ้อง</option>
-                                    <option value="ปิดบัญชีประนอมหนี้" {{ ($data->Status_legis === 'ปิดบัญชีประนอมหนี้') ? 'selected' : '' }}>ปิดบัญชีประนอมหนี้</option>
-                                    <option value="ปิดบัญชีหลังฟ้อง" {{ ($data->Status_legis === 'ปิดบัญชีหลังฟ้อง') ? 'selected' : '' }}>ปิดบัญชีหลังฟ้อง</option>
-                                    <option value="ยึดรถหลังฟ้อง" {{ ($data->Status_legis === 'ยึดรถหลังฟ้อง') ? 'selected' : '' }}>ยึดรถหลังฟ้อง</option>
-                                    <option value="หมดอายุความคดี" {{ ($data->Status_legis === 'หมดอายุความคดี') ? 'selected' : '' }}>หมดอายุความคดี</option>
-                                  </select>
-
-                                  <!-- <input type="text" id="txtStatuslegis" name="txtStatuslegis" class="form-control" style="width: 100px;" oninput="AddComma();"> -->
-                                  <input type="date" name="DateStatuslegis" class="form-control" style="width: 170px;" value="{{ $data->DateStatus_legis }}">
+                            <div class="col-md-4">
+                              <span class="info-box-number"><font style="font-size: 30px;">{{ $data->Contract_legis }}</font></span>
+                              <span class="info-box-text"><font style="font-size: 20px;">{{ $data->Name_legis }}</font></span>
+                            </div>
+                            <div class="col-md-8">
+                              <div class="form-inline">
+                                <p></p>
+                                <div align="left">
+                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                  <small class="label label-success" style="font-size: 25px;">
+                                  <i class="fa fa-expeditedssl"></i>&nbsp; สถานะ : 
+                                    @if($data->Status_legis != Null)
+                                        {{$data->Status_legis}}
+                                    @endif
+                                  </small>
                                 </div>
+                                <p></p>
+                                <label>สถานะ : </label>
+                                <select name="" class="form-control" style="width: 170px;" disabled>
+                                  <option value="" selected>--- status ---</option>
+                                </select>
+                                <input type="date" name="" class="form-control" style="width: 170px;" value="" disabled>
                               </div>
+                            </div>
                           </div>
                         </div>
 
@@ -209,6 +145,7 @@
                                     วันที่ตั้งเรื่องยึดทรัพย์แรกเริ่ม
                                     <input type="date" id="DatesetSequester" name="DatesetSequester" class="form-control" value="{{ $data->datesetsequester_case }}" />
                                   </div>
+                                  
                                   <div class="col-md-6">
                                     ประกาศขาย
                                     <select id="ResultSequester" name="ResultSequester" class="form-control">
@@ -241,10 +178,75 @@
                                           $('#ShowSellDetail2').hide();
                                         }
                                     });
+
                                 </script>
 
                                 <div class="row">
                                   <div class="col-md-6">
+                                  สถานะบังคับคดี
+                                    <select id="StatusCase" name="StatusCase" class="form-control">
+                                      <option value="" selected>--- สถานะ ---</option>
+                                      <option value="ถอนบังคับคดีปิดบัญชี" {{ ($data->Status_case === 'ถอนบังคับคดีปิดบัญชี') ? 'selected' : '' }}>ถอนบังคับคดีปิดบัญชี</option>
+                                      <option value="ถอนบังคับคดียึดรถ" {{ ($data->Status_case === 'ถอนบังคับคดียึดรถ') ? 'selected' : '' }}>ถอนบังคับคดียึดรถ</option>
+                                      <option value="ประนอมหลังยึดทรัพย์" {{ ($data->Status_case === 'ประนอมหลังยึดทรัพย์') ? 'selected' : '' }}>ประนอมหลังยึดทรัพย์</option>
+                                      <option value="ถอนบังคับคดียอดเหลือน้อย" {{ ($data->Status_case === 'ถอนบังคับคดียอดเหลือน้อย') ? 'selected' : '' }}>ถอนบังคับคดียอดเหลือน้อย</option>
+                                      <option value="ถอนบังคับคดีขายเต็มจำนวน" {{ ($data->Status_case === 'ถอนบังคับคดีขายเต็มจำนวน') ? 'selected' : '' }}>ถอนบังคับคดีขายเต็มจำนวน</option>
+                                    </select>
+                                  
+                                    @if($data->Status_case == 'ถอนบังคับคดีปิดบัญชี')
+                                    <div id="StatusShow1">
+                                    @else
+                                    <div id="StatusShow1" style="display:none;">
+                                    @endif
+                                      <div class="form-inline">
+                                        <br>
+                                        <div class="col-md-7">
+                                          วันที่เลือกสถานะ
+                                          <input type="date" id="DateStatusCase1" name="DateStatusCase1" class="form-control" value="{{ $data->DateStatus_case }}" readonly/> 
+                                        </div>
+                                        <div class="col-md-5">
+                                          ยอดพิพากษา
+                                          <input type="text" id="txtStatusCase1" name="txtStatusCase1" class="form-control" style="width: 130px;" value="{{ $data->txtStatus_case }}" />
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    @if($data->Status_case == 'ถอนบังคับคดียึดรถ')
+                                    <div id="StatusShow2">
+                                    @else
+                                    <div id="StatusShow2" style="display:none;">
+                                    @endif
+                                      <div class="form-inline">
+                                        <br>
+                                        <div class="col-md-7">
+                                          วันที่เลือกสถานะ
+                                          <input type="date" id="DateStatusCase2" name="DateStatusCase2" class="form-control" value="{{ $data->DateStatus_case }}" readonly/> 
+                                        </div>
+                                        <div class="col-md-5">
+                                          วันที่ยึดรถ
+                                          <input type="date" id="txtStatusCase2" name="txtStatusCase2" class="form-control" style="width: 150px;" value="{{ $data->txtStatus_case }}" />
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    @if($data->Status_case == 'ถอนบังคับคดียอดเหลือน้อย')
+                                    <div id="StatusShow3">
+                                    @else
+                                    <div id="StatusShow3" style="display:none;">
+                                    @endif
+                                      <div class="form-inline">
+                                        <br>
+                                        <div class="col-md-7">
+                                          วันที่เลือกสถานะ
+                                          <input type="date" id="DateStatusCase3" name="DateStatusCase3" class="form-control" value="{{ $data->DateStatus_case }}" readonly/> 
+                                        </div>
+                                        <div class="col-md-5">
+                                          ยอดเหลือน้อย
+                                          <input type="text" id="txtStatusCase3" name="txtStatusCase3" class="form-control" style="width: 120px;" value="{{ $data->txtStatus_case }}" />
+                                        </div>
+                                      </div>
+                                    </div>
+
                                     หมายเหตุ
                                     <textarea name="Notesequester" class="form-control" rows="3">{{$data->notesequester_case}}</textarea>
                                   </div>
@@ -257,10 +259,20 @@
                                     <div class="col-md-6">
                                       วันที่จ่ายเงิน
                                       <input type="date" id="DatenextSequester" name="DatenextSequester" class="form-control" value="{{$data->datenextsequester_case}}" />
-                                      เงินค่าใช้จ่าย
-                                      <input type="text" id="Paidseguester" name="Paidseguester" class="form-control" value="{{number_format($data->paidsequester_case,0)}}" />
+                                      <br>
+                                      <div class="form-inline">
+                                        <div class="col-md-7">
+                                          จำนวนครั้งประกาศขาย
+                                          <input type="number" id="CountSeliing" name="CountSeliing" class="form-control" min="1" style="width: 130px;" value="{{ $data->NumAmount_case }}" />
+                                        </div>
+                                        <div class="col-md-5">
+                                          เงินค่าใช้จ่าย
+                                          <input type="text" id="Paidseguester" name="Paidseguester" class="form-control" style="width: 130px;" value="{{number_format($data->paidsequester_case,0)}}" />
+                                        </div>
+                                      </div>
                                     </div>
                                   </div>
+
                                   @if($data->resultsequester_case == 'ขายได้')
                                   <div id="ShowDetail2">
                                   @else
@@ -276,23 +288,80 @@
                                       </select>
                                     </div>
                                   </div>
+
                                   <script>
-                                      $('#ResultSell').change(function(){
-                                        var value = document.getElementById('ResultSell').value;
-                                          if(value == 'เต็มจำนวน'){
-                                            $('#ShowSellDetail1').show();
-                                            $('#ShowSellDetail2').hide();
-                                          }
-                                          else if(value == 'ไม่เต็มจำนวน'){
-                                            $('#ShowSellDetail1').hide();
-                                            $('#ShowSellDetail2').show();
-                                          }
-                                          else{
-                                            $('#ShowSellDetail1').hide();
-                                            $('#ShowSellDetail2').hide();
-                                          }
-                                      });
+                                    $('#ResultSell').change(function(){
+                                      var value = document.getElementById('ResultSell').value;
+                                        if(value == 'เต็มจำนวน'){
+                                          $('#ShowSellDetail1').show();
+                                          $('#ShowSellDetail2').hide();
+                                        }
+                                        else if(value == 'ไม่เต็มจำนวน'){
+                                          $('#ShowSellDetail1').hide();
+                                          $('#ShowSellDetail2').show();
+                                        }
+                                        else{
+                                          $('#ShowSellDetail1').hide();
+                                          $('#ShowSellDetail2').hide();
+                                        }
+                                    });
+
+                                    $('#StatusCase').change(function(){
+                                      var value = document.getElementById('StatusCase').value;
+                                      var today = new Date();
+                                      var date = today.getFullYear()+'-'+(today.getMonth()+1).toString().padStart(2, "0")+'-'+today.getDate().toString().padStart(2, "0");
+
+                                      if(value == 'ถอนบังคับคดีปิดบัญชี'){
+                                        $('#StatusShow1').show();
+                                        $('#StatusShow2').hide();
+                                        $('#StatusShow3').hide();
+
+                                        if(value != ''){
+                                          $('#DateStatusCase1').val(date);
+                                        }
+                                        else{
+                                          $('#DateStatusCase1').val('');
+                                        }
+                                      }
+                                      else if(value == 'ถอนบังคับคดียึดรถ'){
+                                        $('#StatusShow2').show();
+                                        $('#StatusShow1').hide();
+                                        $('#StatusShow3').hide();
+
+                                        if(value != ''){
+                                          $('#DateStatusCase2').val(date);
+                                        }
+                                        else{
+                                          $('#DateStatusCase2').val('');
+                                        }
+                                      }
+                                      else if(value == 'ถอนบังคับคดียอดเหลือน้อย'){
+                                        $('#StatusShow3').show();
+                                        $('#StatusShow1').hide();
+                                        $('#StatusShow2').hide();
+
+                                        if(value != ''){
+                                          $('#DateStatusCase3').val(date);
+                                        }
+                                        else{
+                                          $('#DateStatusCase3').val('');
+                                        }
+                                      }
+                                      else{
+                                        $('#StatusShow1').hide();
+                                        $('#StatusShow2').hide();
+                                        $('#StatusShow3').hide();
+
+                                        if(value != ''){
+                                          $('#DateStatusCase3').val(date);
+                                        }
+                                        else{
+                                          $('#DateStatusCase3').val('');
+                                        }
+                                      }
+                                    });
                                   </script>
+
                                   @if($data->resultsell_case == 'เต็มจำนวน')
                                   <div id="ShowSellDetail1">
                                   @else
@@ -303,6 +372,7 @@
                                       <input type="date" id="Datesoldout" name="Datesoldout" class="form-control" value="{{$data->datesoldout_case}}" />
                                     </div>
                                   </div>
+
                                   @if($data->resultsell_case == 'ไม่เต็มจำนวน')
                                   <div id="ShowSellDetail2">
                                   @else
