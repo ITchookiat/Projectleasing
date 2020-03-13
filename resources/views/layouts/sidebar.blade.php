@@ -219,7 +219,18 @@
             <li>
                 <a href="{{ route('datacarreport',6) }}"><i class="fa fa-clipboard text-yellow"></i> รายงาน ยอดขาดทุนรถต่อคัน</a>
             </li>
-
+          @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 21 or auth::user()->type == 31)
+            <ul class="treeview-menu">
+              <li><a href="{{ route('legislation',1) }}"><i class="fa fa-cube text-primary"></i>รายชื่อส่งฟ้อง</a></li>
+              <li><a href="{{ route('legislation',6) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้เตรียมฟ้อง</a></li>
+              <li><a href="{{ route('legislation',2) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้ฟ้อง</a></li>
+              <li><a href="{{ route('legislation',8) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้สืบทรัพย์</a></li>
+              <li><a href="{{ route('legislation',7) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้ประนอมหนี้</a></li>
+              <li><a href="{{ route('legislation',10) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้ของกลาง</a></li>
+              <!-- <li><a href="{{ route('legislation',12) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้ขายฝาก</a></li> -->
+            </ul>
+          @endif
+        </li>
           </ul>
         </li>
       @endif

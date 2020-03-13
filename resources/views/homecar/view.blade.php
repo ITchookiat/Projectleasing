@@ -61,7 +61,63 @@ function DateThai($strDate)
 
             <div class="row">
               <div class="col-md-12">
+                <div class="table-responsive">
+                  <table class="table table-bordered" id="table">
+                    <thead class="thead-dark bg-gray-light" >
+                      <br>
+                      <tr>
+                        <th class="text-center">ลำดับ</th>
+                        <th class="text-center">เลขที่สัญญา</th>
+                        <th class="text-center">ชื่อ - สกุล</th>
+                        <th class="text-center">ยี่ห้อรถ</th>
+                        <th class="text-center">ทะเบียน</th>
+                        <th class="text-center">วันที่ยึด</th>
+                        <th class="text-center">Action</th>
+                      </tr>
+                    </thead>
 
+                    <tbody>
+                      @foreach($data as $key => $row)
+                      @php
+                         @$StrCon = explode("/",$row->Contno_hold);
+                         $SetStr1 = $StrCon[0];
+                         $SetStr2 = $StrCon[1];
+                         $Flag = "N";
+                      @endphp
+                        <tr>
+                          <td class="text-center">{{$key+1}}</td>
+                          <td class="text-center">{{$row->Contno_hold}}</td>
+                          <td class="text-left"> {{$row->Name_hold}}</td>
+                          <td class="text-center">{{$row->Brandcar_hold}}</td>
+                          <td class="text-center">{{$row->Number_Regist}}</td>
+                          <td class="text-center">{{DateThai($row->Date_hold)}}</td>
+                          <td class="text-center">
+                            @foreach($dataDB as $key => $row2)
+                              @if($row->Number_Regist == $row2->Number_Regist)
+                              <a id="edit" class="btn btn-success btn-sm" title="ส่งแล้ว">
+                                <span class="glyphicon glyphicon-lock"></span> นำเข้าแล้ว
+                              </a>
+                                @php
+                                $Flag = "Y";
+                                @endphp
+                              @endif
+                            @endforeach
+                            @if($Flag == 'N')
+                              <a href="{{ route('datacar.Savestore', [$SetStr1,$SetStr2,1]) }}" id="edit" class="btn btn-info btn-sm" title="จัดเตรียมเอกสาร">
+                                <span class="glyphicon glyphicon-edit"></span> นำเข้าสต็อก
+                              </a>
+                            @endif
+                          </td>
+                        </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            @else
+              <div class="row">
+                <div class="col-md-12">
               @if($type == 1 or $type == 6)
                 <form method="get" action="{{ route('datacar',$type) }}">
                   <div align="right" class="form-inline">

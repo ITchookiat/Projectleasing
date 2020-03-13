@@ -91,6 +91,7 @@
                         <div class="form-inline form-group">
                           <label for="password-confirm" class="col-md-4 col-form-label text-md-right">
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             สาขา</label>
                             &nbsp;&nbsp;&nbsp;
                           <select name="branch" class="form-control" style="width: 330px;">

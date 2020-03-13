@@ -36,8 +36,10 @@ class CreateLegisexhibitsTable extends Migration
             $table->string('Datesendword_legis')->nullable(); //วันที่ยื่นคำร้อง(ของกลาง)
             $table->string('Dateinvestigate_legis')->nullable(); //วันที่ไต่สวน(ของกลาง)
             $table->string('Resultexhibit1_legis')->nullable(); //ผล(ของกลาง)
+            $table->string('Processexhibit1_legis')->nullable(); //วิธีดำเนินการ(ของกลาง)
             $table->string('Datesenddetail_legis')->nullable(); //วันที่เตรียมเอกสาร(ปปส.)
             $table->string('Resultexhibit2_legis')->nullable(); //ผล(ปปส.)
+            $table->string('Processexhibit2_legis')->nullable(); //วิธีดำเนินการ(ปปส.)
             $table->string('Dategetresult_legis')->nullable(); //วันที่ทราบผล
             $table->timestamps();
         });

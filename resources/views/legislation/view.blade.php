@@ -78,15 +78,7 @@
             <div class="row">
               @if($type == 1)   {{--รายชื่อ--}}
                 <div class="col-md-12">
-                   <div class="nav-tabs-custom">
-                    <ul class="nav nav-tabs">
-                      <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">ฟ้องทั่วไป</a></li>
-                      <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">ฟ้องขายฝาก</a></li>
-                    </ul>
                     <div class="tab-content">
-                      <!-- รายชื่อส่งฟ้องทั่วไป -->
-                      <div class="tab-pane active" id="tab_1">
-                        <br>
                         <div class="table-responsive">
                           <table class="table table-bordered" id="table">
                              <thead class="thead-dark bg-gray-light" >
@@ -199,66 +191,7 @@
                              </tbody>
                          </table>
                         </div>
-                      </div>
-                      <!-- รายชื่อส่งฟ้องขายฝาก-->
-                      <div class="tab-pane" id="tab_2">
-                        <br>
-                         <div class="table-responsive">
-                           <table class="table table-bordered" id="table1">
-                              <thead class="thead-dark bg-gray-light" >
-                                <tr>
-                                  <th class="text-center" style="width: 10px">ลำดับ</th>
-                                  <th class="text-center">เลขที่สัญญา</th>
-                                  <th class="text-center">ชื่อ-สกุล</th>
-                                  <th class="text-center">วันที่ทำสัญญา</th>
-                                  <th class="text-center">ยอดคงเหลือ</th>
-                                  <th class="text-center">สถานะ</th>
-                                  <th class="text-center">ค้างงวดจริง</th>
-                                  <th class="text-center" style="width: 130px">ตัวเลือก</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                @foreach($dataLand as $key => $data)
-                                  @php
-                                     $StrCon = explode("/",$data->CONTNO);
-                                     $SetStr1 = $StrCon[0];
-                                     $SetStr2 = str_replace(" ", "",$StrCon[1]);
-                                     $Realty = 'ขายฝาก';
-                                     $Flag = "N";
-                                  @endphp
-                                  <tr>
-                                    <td class="text-center" style="widtd: 10px">{{$key+1}}</td>
-                                    <td class="text-center">{{$data->CONTNO}}</td>
-                                    <td class="text-left">{{iconv('Tis-620','utf-8',str_replace(" ","",$data->SNAM.$data->NAME1)."   ".str_replace(" ","",$data->NAME2))}}</td>
-                                    <td class="text-center"> {{ DateThai($data->FDATE) }} </td>
-                                    <td class="text-center"> {{ number_format($data->BALANC - $data->SMPAY, 2) }} </td>
-                                    <td class="text-center">{{iconv('Tis-620','utf-8',str_replace(" ","",$data->CONTSTAT))}}</td>
-                                    <td class="text-center"> {{$data->HLDNO}} </td>
-                                    <td class="text-center" style="widtd: 120px">
-                                      @foreach($dataLandDB as $key => $row2)
-                                        @if($data->CONTNO == $row2->ContractNo_legis)
-                                        <a id="edit" class="btn btn-success btn-sm" title="ส่งแล้ว">
-                                          <span class="glyphicon glyphicon-lock"></span> ส่งแล้ว
-                                        </a>
-                                        @php
-                                        $Flag = "Y";
-                                        @endphp
-                                        @endif
-                                      @endforeach
-                                      @if($Flag == 'N')
-                                        <a href="{{ route('legislation.Savestore', [$SetStr1,$SetStr2,$Realty,3]) }}" id="edit" class="btn btn-danger btn-sm" title="ส่งฟ้อง">
-                                          <span class="glyphicon glyphicon-edit"></span> ส่งฟ้อง
-                                        </a>
-                                      @endif
-                                    </td>
-                                  </tr>
-                                @endforeach
-                              </tbody>
-                          </table>
-                         </div>
-                        </div>
-                      </div>
-                  </div>
+                    </div>
                 </div>
               @elseif($type == 2)  {{--ลูกหนี้ฟ้อง--}}
                 <div class="col-md-12">
@@ -657,7 +590,7 @@
                                           <button type="button" class="btn btn-warning btn-sm" title="รอสืบทรัพย์ {{DateThai($row->sequester_asset)}}">
                                             <i class="fa fa-clock-o text-white prem"></i> รอสืบทรัพย์
                                           </button>
-                                        @endif                       
+                                        @endif
                                       @endif
                                     @else
                                       <button type="button" class="btn btn-gray btn-sm" title="รอผลสืบทรัพย์">
@@ -1113,7 +1046,7 @@
                                           <button type="button" class="btn btn-warning btn-sm" title="รอสืบทรัพย์ {{DateThai($row->sequester_asset)}}">
                                             <i class="fa fa-clock-o text-white prem"></i> รอสืบทรัพย์
                                           </button>
-                                        @endif                       
+                                        @endif
                                       @endif
                                     @else
                                       <button type="button" class="btn btn-gray btn-sm" title="รอผลสืบทรัพย์">
@@ -1214,23 +1147,36 @@
                                 <i class="fa fa-check-circle prem"></i> จบงาน
                               </button>
                               @elseif($row->Dateinvestigate_legis != null)
-                                <button type="button" class="btn btn-danger btn-sm" title="{{DateThai($row->Dateinvestigate_legis)}}">
-                                 <i class="fa fa-question-circle prem"></i> ไต่สวน
-                                </button>
+                                  @php
+                                    $datecheck = date('Y-m-d');
+                                    $Cldate = date_create($row->Dateinvestigate_legis);
+                                    $nowCldate = date_create($datecheck);
+                                    $ClDateDiff = date_diff($Cldate,$nowCldate);
+                                    // $duration = $ClDateDiff->format("อีก %a วัน");
+                                  @endphp
+                                  @if($datecheck > $row->Dateinvestigate_legis)
+                                    <button type="button" class="btn btn-warning btn-sm" title="{{DateThai($row->Dateinvestigate_legis)}}">
+                                     <i class="fa fa-question-circle prem"></i> เลยไต่สวนแล้ว
+                                    </button>
+                                  @elseif($ClDateDiff->days <= 7)
+                                    <button type="button" class="btn btn-danger btn-sm prem" title="{{DateThai($row->Dateinvestigate_legis)}}">
+                                     <i class="fa fa-question-circle"></i> ไต่สวนอีก {{$ClDateDiff->days}} วัน
+                                    </button>
+                                  @endif
                               @elseif($row->Datesendword_legis != null)
-                                  <button type="button" class="btn btn-danger btn-sm" title="{{DateThai($row->Datesendword_legis)}}">
+                                  <button type="button" class="btn btn-warning btn-sm" title="{{DateThai($row->Datesendword_legis)}}">
                                    <i class="fa fa-question-circle prem"></i> ยื่นคำร้อง
                                   </button>
                               @elseif($row->Datepreparedoc_legis != null)
-                                  <button type="button" class="btn btn-danger btn-sm" title="{{DateThai($row->Datepreparedoc_legis)}}">
+                                  <button type="button" class="btn btn-primary btn-sm" title="{{DateThai($row->Datepreparedoc_legis)}}">
                                    <i class="fa fa-question-circle prem"></i> เตรียมเอกสาร
                                   </button>
                               @elseif($row->Datecheckexhibit_legis != null)
-                                  <button type="button" class="btn btn-danger btn-sm" title="{{DateThai($row->Datecheckexhibit_legis)}}">
+                                  <button type="button" class="btn btn-primary btn-sm" title="{{DateThai($row->Datecheckexhibit_legis)}}">
                                    <i class="fa fa-question-circle prem"></i> เช็คสำนวน
                                   </button>
                               @elseif($row->Dategiveword_legis != null)
-                                  <button type="button" class="btn btn-danger btn-sm" title="{{DateThai($row->Dategiveword_legis)}}">
+                                  <button type="button" class="btn btn-primary btn-sm" title="{{DateThai($row->Dategiveword_legis)}}">
                                    <i class="fa fa-question-circle prem"></i> สอบคำให้การ
                                   </button>
                               @else

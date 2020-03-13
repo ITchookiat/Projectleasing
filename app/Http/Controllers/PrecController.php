@@ -26,11 +26,12 @@ class PrecController extends Controller
         $d = date('d');
         $date = $Y.'-'.$m.'-'.$d;
 
-        if ($request->type == 1) {  //ปล่อยงานตาม
+        if ($request->type == 1) {  //ปล่อยงานตาม (เรียกย้อนหลัง 1 วัน)
+          $dateyesterdate = date('Y-m-d', strtotime('-1 days'));
           $fstart = '3.00';
           $tend = '4.69';
-          $fdate = $date;
-          $tdate = $date;
+          $fdate = $dateyesterdate;
+          $tdate = $dateyesterdate;
           if ($request->has('Fromdate')) {
             $fdate = $request->get('Fromdate');
           }
@@ -272,7 +273,7 @@ class PrecController extends Controller
                     ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
                       return $q->whereBetween('SFHP.ARPAY.DDATE',[$newfdate,$newtdate]);
                     })
-                    ->whereBetween('SFHP.ARMAST.HLDNO',[2.5,4.69])
+                    ->whereBetween('SFHP.ARMAST.HLDNO',[3.00,4.69])
                     ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
                     ->get();
 
@@ -288,8 +289,32 @@ class PrecController extends Controller
                     ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
                     ->get();
 
+          $dataPrec  = DB::connection('ibmi')
+                    ->table('SFHP.ARMAST')
+                    ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
+                    ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                    ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+                    ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+                      return $q->whereBetween('SFHP.ARPAY.DDATE',[$fdate,$tdate]);
+                    })
+                    ->whereBetween('SFHP.ARMAST.HLDNO',[3.7,4.69])
+                    ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                    ->get();
+
+          $dataLegis  = DB::connection('ibmi')
+                    ->table('SFHP.ARMAST')
+                    ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
+                    ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                    ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+                    ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+                      return $q->whereBetween('SFHP.ARPAY.DDATE',[$fdate,$tdate]);
+                    })
+                    ->whereBetween('SFHP.ARMAST.HLDNO',[5.7,6.69])
+                    ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                    ->get();
+
             $type = $request->type;
-            return view('precipitate.viewReport', compact('dataFollow','dataNotice','fdate','tdate','type'));
+            return view('precipitate.viewReport', compact('dataFollow','dataNotice','dataPrec','dataLegis','fdate','tdate','newfdate','newtdate','fstart','tend','type'));
         }
         elseif ($request->type == 8) {  //รายงาน รับชำระค่าติดตาม
           $fdate = $date;
@@ -310,9 +335,6 @@ class PrecController extends Controller
                     ->where('SFHP.TRPAYMENT.PAYCODE','!=','006')
                     ->orderBy('SFHP.HDPAYMENT.CONTNO', 'ASC')
                     ->get();
-
-
-            // dd($data);
 
             $type = $request->type;
             $Office = $request->DataOffice;
@@ -1217,7 +1239,7 @@ class PrecController extends Controller
           $newtdate = \Carbon\Carbon::parse($new)->format('Y') ."-". \Carbon\Carbon::parse($new)->format('m')."-". \Carbon\Carbon::parse($new)->format('d');
         }
 
-        $dataFollow = DB::connection('ibmi')
+        $dataFollow = DB::connection('ibmi') //ปล่อยงานตาม ต้องดึงย้อยหลัง 1 วัน
                   ->table('SFHP.ARMAST')
                   ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
                   ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
@@ -1226,11 +1248,11 @@ class PrecController extends Controller
                   ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
                     return $q->whereBetween('SFHP.ARPAY.DDATE',[$newfdate,$newtdate]);
                   })
-                  ->whereBetween('SFHP.ARMAST.HLDNO',[2.5,4.69])
+                  ->whereBetween('SFHP.ARMAST.HLDNO',[3.00,4.69])
                   ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
                   ->get();
 
-        $dataNotice = DB::connection('ibmi')
+        $dataNotice  = DB::connection('ibmi')
                   ->table('SFHP.ARMAST')
                   ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
                   ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
@@ -1242,7 +1264,30 @@ class PrecController extends Controller
                   ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
                   ->get();
 
-        $ConnData = $dataFollow->concat($dataNotice);
+        $dataPrec  = DB::connection('ibmi')
+                  ->table('SFHP.ARMAST')
+                  ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
+                  ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                  ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+                  ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+                    return $q->whereBetween('SFHP.ARPAY.DDATE',[$fdate,$tdate]);
+                  })
+                  ->whereBetween('SFHP.ARMAST.HLDNO',[3.7,4.69])
+                  ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                  ->get();
+
+        $dataLegis  = DB::connection('ibmi')
+                  ->table('SFHP.ARMAST')
+                  ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
+                  ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                  ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+                  ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+                    return $q->whereBetween('SFHP.ARPAY.DDATE',[$fdate,$tdate]);
+                  })
+                  ->whereBetween('SFHP.ARMAST.HLDNO',[5.7,6.69])
+                  ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                  ->get();
+
         $Datethai = Helper::formatDateThai($newdate);
         $FDatethai = Helper::formatDateThai($fdate);
         $TDatethai = Helper::formatDateThai($tdate);
@@ -1253,8 +1298,8 @@ class PrecController extends Controller
 
          $type = $request->type;
 
-         Excel::create('ปล่อยงานประจำวัน', function ($excel) use($ConnData,$Datethai,$FDatethai,$TDatethai,$FnewDatethai,$TnewDatethai) {
-             $excel->sheet('ปล่อยงานตาม', function ($sheet) use($ConnData,$Datethai,$FnewDatethai,$TnewDatethai) {
+         Excel::create('ปล่อยงานประจำวัน', function ($excel) use($dataFollow,$dataNotice,$dataPrec,$dataLegis,$Datethai,$FDatethai,$TDatethai,$FnewDatethai,$TnewDatethai) {
+             $excel->sheet('ปล่อยงานตาม', function ($sheet) use($dataFollow,$Datethai,$FnewDatethai,$TnewDatethai) {
                  $sheet->prependRow(1, array("ดิวงานวันที่ ".$FnewDatethai." ถึงวันที่ ".$TnewDatethai." ปล่อยงานตาม ".$Datethai));
                  $sheet->cells('A2:M2', function($cells) {
                    $cells->setBackground('#FFCC00');
@@ -1262,8 +1307,7 @@ class PrecController extends Controller
                  $row = 2;
                  $sheet->row($row, array('ลำดับ','เลขที่สัญญา','ชื่อลูกค้า','วันชำระล่าสุด','ผ่อนงวดละ','งวดค้างชำระ','ค้างงวดจริง','ลูกหนี้คงเหลือ','เลขทะเบียน','ยี่ห้อ','ปีรถ','แบบ','หมายเหตุ'));
                  $no = 1;
-                 foreach ($ConnData as $value) {
-                   if ($value->HLDNO < 4.69) {
+                 foreach ($dataFollow as $value) {
                      $NewBaab = iconv('Tis-620','utf-8',str_replace(" ","",$value->BAAB));
                      if ($NewBaab != "") {
                        if ($NewBaab == "กสค้ำมีหลักทรัพย์") {
@@ -1291,14 +1335,13 @@ class PrecController extends Controller
                            }
                          }
                        }
-                     }
 
                      $sheet->row(++$row, array($no++, $value->CONTNO,
                      iconv('Tis-620','utf-8',str_replace(" ","",$value->SNAM.$value->NAME1)."   ".str_replace(" ","",$value->NAME2)),
                      Helper::formatDateThai($value->LPAYD),
                      number_format($value->DAMT,2),
                      number_format($value->EXP_AMT, 2),
-                     $value->HLDNO,
+                     number_format($value->HLDNO,2),
                      number_format($value->BALANC - $value->SMPAY, 2),
                      iconv('Tis-620','utf-8',str_replace(" ","",$value->REGNO)),
                      iconv('Tis-620','utf-8',str_replace(" ","",$value->TYPE)),
@@ -1309,7 +1352,7 @@ class PrecController extends Controller
                  }
              });
 
-             $excel->sheet('ปล่อยงานโนติส', function ($sheet) use($ConnData,$Datethai,$FDatethai,$TDatethai) {
+             $excel->sheet('ปล่อยงานโนติส', function ($sheet) use($dataNotice,$Datethai,$FDatethai,$TDatethai) {
                  $sheet->prependRow(1, array("ดิวงานวันที่ ".$FDatethai." ถึงวันที่  ".$TDatethai." ปล่อยงานโนติส ".$Datethai));
                  $sheet->cells('A2:M2', function($cells) {
                    $cells->setBackground('#FFCC00');
@@ -1317,8 +1360,7 @@ class PrecController extends Controller
                  $row = 2;
                  $sheet->row($row, array('ลำดับ','เลขที่สัญญา','ชื่อลูกค้า','วันชำระล่าสุด','ผ่อนงวดละ','งวดค้างชำระ','ค้างงวดจริง','ลูกหนี้คงเหลือ','เลขทะเบียน','ยี่ห้อ','ปีรถ','แบบ','หมายเหตุ'));
                  $no = 1;
-                 foreach ($ConnData as $value) {
-                   if ($value->HLDNO > 4.7) {
+                 foreach ($dataNotice as $value) {
                      $NewBaab = iconv('Tis-620','utf-8',str_replace(" ","",$value->BAAB));
                      if ($NewBaab != "") {
                        if ($NewBaab == "กสค้ำมีหลักทรัพย์") {
@@ -1346,14 +1388,119 @@ class PrecController extends Controller
                            }
                          }
                        }
-                     }
 
                      $sheet->row(++$row, array($no++, $value->CONTNO,
                      iconv('Tis-620','utf-8',str_replace(" ","",$value->SNAM.$value->NAME1)."   ".str_replace(" ","",$value->NAME2)),
                      Helper::formatDateThai($value->LPAYD),
                      number_format($value->DAMT,2),
                      number_format($value->EXP_AMT, 2),
-                     $value->HLDNO,
+                     number_format($value->HLDNO,2),
+                     number_format($value->BALANC - $value->SMPAY, 2),
+                     iconv('Tis-620','utf-8',str_replace(" ","",$value->REGNO)),
+                     iconv('Tis-620','utf-8',str_replace(" ","",$value->TYPE)),
+                     $value->MANUYR,
+                     $NewBaab,
+                     " "));
+                   }
+                 }
+             });
+
+             $excel->sheet('ปล่อยงานเร่งรัด', function ($sheet) use($dataPrec,$Datethai,$FDatethai,$TDatethai) {
+                 $sheet->prependRow(1, array("ดิวงานวันที่ ".$FDatethai." ถึงวันที่  ".$TDatethai." ปล่อยงานเร่งรัด ".$Datethai));
+                 $sheet->cells('A2:M2', function($cells) {
+                   $cells->setBackground('#FFCC00');
+                 });
+                 $row = 2;
+                 $sheet->row($row, array('ลำดับ','เลขที่สัญญา','ชื่อลูกค้า','วันชำระล่าสุด','ผ่อนงวดละ','งวดค้างชำระ','ค้างงวดจริง','ลูกหนี้คงเหลือ','เลขทะเบียน','ยี่ห้อ','ปีรถ','แบบ','หมายเหตุ'));
+                 $no = 1;
+                 foreach ($dataPrec as $value) {
+                     $NewBaab = iconv('Tis-620','utf-8',str_replace(" ","",$value->BAAB));
+                     if ($NewBaab != "") {
+                       if ($NewBaab == "กสค้ำมีหลักทรัพย์") {
+                          $NewBaab = "กส.ค้ำมีหลักทรัพย์";
+                       }elseif ($NewBaab == "กสค้ำไม่มีหลักทรัพย") {
+                          $NewBaab = "กส.ค้ำไม่มีหลักทรัพย";
+                       }elseif ($NewBaab == "กสไม่ค้ำประกัน") {
+                          $NewBaab = "กส.ไม่ค้ำประกัน";
+                       }elseif ($NewBaab == "ซขค้ำมีหลักทรัพย์") {
+                          $NewBaab = "ซข.ค้ำมีหลักทรัพย์";
+                       }elseif ($NewBaab == "ซขค้ำไม่มีหลักทรัพย") {
+                          $NewBaab = "ซข.ค้ำไม่มีหลักทรัพย";
+                       }elseif ($NewBaab == "ซขไม่ค้ำประกัน") {
+                          $NewBaab = "ซข.ไม่ค้ำประกัน";
+                       }elseif ($NewBaab == "ลูกค้าVIP1") {
+                          $NewBaab = "ลูกค้า VIP1";
+                       }else {
+                         if ($value->CLOSAR != "") {
+                           if ($value->CLOSAR == 1) {
+                             $NewBaab = "ซื้อขาย";
+                           }elseif ($value->CLOSAR == 2) {
+                             $NewBaab = "กรรมสิทธิ์";
+                           }elseif ($value->CLOSAR == 3) {
+                             $NewBaab = "รถบริษัท";
+                           }
+                         }
+                       }
+
+                     $sheet->row(++$row, array($no++, $value->CONTNO,
+                     iconv('Tis-620','utf-8',str_replace(" ","",$value->SNAM.$value->NAME1)."   ".str_replace(" ","",$value->NAME2)),
+                     Helper::formatDateThai($value->LPAYD),
+                     number_format($value->DAMT,2),
+                     number_format($value->EXP_AMT, 2),
+                     number_format($value->HLDNO,2),
+                     number_format($value->BALANC - $value->SMPAY, 2),
+                     iconv('Tis-620','utf-8',str_replace(" ","",$value->REGNO)),
+                     iconv('Tis-620','utf-8',str_replace(" ","",$value->TYPE)),
+                     $value->MANUYR,
+                     $NewBaab,
+                     " "));
+                   }
+                 }
+             });
+
+             $excel->sheet('ปล่อยงานเตรียมฟ้อง', function ($sheet) use($dataLegis,$Datethai,$FDatethai,$TDatethai) {
+                 $sheet->prependRow(1, array("ดิวงานวันที่ ".$FDatethai." ถึงวันที่  ".$TDatethai." ปล่อยงานเตรียมฟ้อง ".$Datethai));
+                 $sheet->cells('A2:M2', function($cells) {
+                   $cells->setBackground('#FFCC00');
+                 });
+                 $row = 2;
+                 $sheet->row($row, array('ลำดับ','เลขที่สัญญา','ชื่อลูกค้า','วันชำระล่าสุด','ผ่อนงวดละ','งวดค้างชำระ','ค้างงวดจริง','ลูกหนี้คงเหลือ','เลขทะเบียน','ยี่ห้อ','ปีรถ','แบบ','หมายเหตุ'));
+                 $no = 1;
+                 foreach ($dataLegis as $value) {
+                     $NewBaab = iconv('Tis-620','utf-8',str_replace(" ","",$value->BAAB));
+                     if ($NewBaab != "") {
+                       if ($NewBaab == "กสค้ำมีหลักทรัพย์") {
+                          $NewBaab = "กส.ค้ำมีหลักทรัพย์";
+                       }elseif ($NewBaab == "กสค้ำไม่มีหลักทรัพย") {
+                          $NewBaab = "กส.ค้ำไม่มีหลักทรัพย";
+                       }elseif ($NewBaab == "กสไม่ค้ำประกัน") {
+                          $NewBaab = "กส.ไม่ค้ำประกัน";
+                       }elseif ($NewBaab == "ซขค้ำมีหลักทรัพย์") {
+                          $NewBaab = "ซข.ค้ำมีหลักทรัพย์";
+                       }elseif ($NewBaab == "ซขค้ำไม่มีหลักทรัพย") {
+                          $NewBaab = "ซข.ค้ำไม่มีหลักทรัพย";
+                       }elseif ($NewBaab == "ซขไม่ค้ำประกัน") {
+                          $NewBaab = "ซข.ไม่ค้ำประกัน";
+                       }elseif ($NewBaab == "ลูกค้าVIP1") {
+                          $NewBaab = "ลูกค้า VIP1";
+                       }else {
+                         if ($value->CLOSAR != "") {
+                           if ($value->CLOSAR == 1) {
+                             $NewBaab = "ซื้อขาย";
+                           }elseif ($value->CLOSAR == 2) {
+                             $NewBaab = "กรรมสิทธิ์";
+                           }elseif ($value->CLOSAR == 3) {
+                             $NewBaab = "รถบริษัท";
+                           }
+                         }
+                       }
+
+                     $sheet->row(++$row, array($no++, $value->CONTNO,
+                     iconv('Tis-620','utf-8',str_replace(" ","",$value->SNAM.$value->NAME1)."   ".str_replace(" ","",$value->NAME2)),
+                     Helper::formatDateThai($value->LPAYD),
+                     number_format($value->DAMT,2),
+                     number_format($value->EXP_AMT, 2),
+                     number_format($value->HLDNO,2),
                      number_format($value->BALANC - $value->SMPAY, 2),
                      iconv('Tis-620','utf-8',str_replace(" ","",$value->REGNO)),
                      iconv('Tis-620','utf-8',str_replace(" ","",$value->TYPE)),
