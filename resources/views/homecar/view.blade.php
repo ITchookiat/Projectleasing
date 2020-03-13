@@ -262,7 +262,7 @@ function DateThai($strDate)
                         </td>
 
                           <td class="text-center">
-                              <a href="{{ action('DatacarController@viewsee',[$row->Datacar_id,$row->Car_type]) }}" class="btn btn-info btn-sm" title="ดูรายการ" data-toggle="modal" data-target="#modal-default">
+                              <a href="{{ action('DatacarController@viewsee',[$row->Datacar_id,$row->Car_type]) }}" class="btn btn-info btn-sm" title="ดูรายการ" data-toggle="modal" data-target="#modal-default" data-backdrop="static" data-keyboard="false">
                               <span class="glyphicon glyphicon-eye-open"></span> ดู
                               </a>
 
@@ -271,7 +271,7 @@ function DateThai($strDate)
                               <span class="glyphicon glyphicon-pencil"></span> แก้ไข
                               </a>
                             @elseif ($type == 6)
-                              <a href="{{ action('DatacarController@edit',[$row->Datacar_id,$row->Car_type]) }}" class="btn btn-warning btn-sm" title="ข้อมูลซื้อ">
+                              <a href="{{ action('DatacarController@edit',[$row->Datacar_id,$row->Car_type]) }}" class="btn btn-warning btn-sm" title="ข้อมูลซื้อ" data-toggle="modal" data-target="#modal-buyinfo" data-backdrop="static" data-keyboard="false">
                               <span class="glyphicon glyphicon-pencil"></span> ข้อมูลขาย
                               </a>
                             @endif
@@ -300,7 +300,7 @@ function DateThai($strDate)
           @endif
         </div>
       </div>
-      
+
       <script type="text/javascript">
         $(function() {
             $('#table').DataTable(
@@ -360,6 +360,21 @@ function DateThai($strDate)
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="modal fade" id="modal-buyinfo">
+     <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+         <div class="modal-header">
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span></button>
+           <h4 class="modal-title">ข้อมูลรายละเอียด...</h4>
+         </div>
+         <div class="modal-body">
+           <div class="modal-footer"></div>
+         </div>
+       </div>
+     </div>
     </div>
 
 @endsection
