@@ -171,12 +171,24 @@ class ReportAnalysController extends Controller
                         ->orderBy('buyers.Contract_buyer', 'ASC')
                         ->get();
       }
-      elseif($request->type == 7){
+      elseif($request->type == 7){ //รายงานส่งผู้บริหาร
         $ids = $request->choose;
+        $approvedate = date('Y-m-d');
+        $fdate = date('Y-m-d');
+        $tdate = date('Y-m-d');
         if ($request->has('Approvedate')) {
           $approvedate = $request->get('Approvedate');
           $approvedate = \Carbon\Carbon::parse($approvedate)->format('Y') ."-". \Carbon\Carbon::parse($approvedate)->format('m')."-". \Carbon\Carbon::parse($approvedate)->format('d');
         }
+        if ($request->has('Fromdate')) {
+          $fdate = $request->get('Fromdate');
+          $fdate = \Carbon\Carbon::parse($fdate)->format('Y') ."-". \Carbon\Carbon::parse($fdate)->format('m')."-". \Carbon\Carbon::parse($fdate)->format('d');
+        }
+        if ($request->has('Todate')) {
+          $tdate = $request->get('Todate');
+          $tdate = \Carbon\Carbon::parse($tdate)->format('Y') ."-". \Carbon\Carbon::parse($tdate)->format('m')."-". \Carbon\Carbon::parse($tdate)->format('d');
+        }
+        // dd($ids,$fdate,$tdate);
         $dataReport = DB::table('buyers')
                         ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
                         ->join('cardetails','Buyers.id','=','cardetails.Buyercar_id')
@@ -185,8 +197,8 @@ class ReportAnalysController extends Controller
                         ->when(!empty($ids), function($q) use($ids){
                           return $q->whereIn('buyers.id', $ids);
                           })
-                        ->when(!empty($approvedate), function($q) use($approvedate){
-                            return $q->where('cardetails.Date_Appcar',$approvedate);
+                        ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+                            return $q->whereBetween('cardetails.Date_Appcar',[$fdate,$tdate]);
                           })
                         ->where('cardetails.Approvers_car','<>','')
                         ->orderBy('buyers.Contract_buyer', 'ASC')

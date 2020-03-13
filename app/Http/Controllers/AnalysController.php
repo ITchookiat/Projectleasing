@@ -433,22 +433,32 @@ class AnalysController extends Controller
       }
       elseif($request->type == 7){ //รายงานส่งผู้บริหาร
         $approvedate = date('Y-m-d');
+        $fdate = date('Y-m-d');
+        $tdate = date('Y-m-d');
         if ($request->has('Approvedate')) {
           $approvedate = $request->get('Approvedate');
           $approvedate = \Carbon\Carbon::parse($approvedate)->format('Y') ."-". \Carbon\Carbon::parse($approvedate)->format('m')."-". \Carbon\Carbon::parse($approvedate)->format('d');
+        }
+        if ($request->has('Fromdate')) {
+          $fdate = $request->get('Fromdate');
+          $fdate = \Carbon\Carbon::parse($fdate)->format('Y') ."-". \Carbon\Carbon::parse($fdate)->format('m')."-". \Carbon\Carbon::parse($fdate)->format('d');
+        }
+        if ($request->has('Todate')) {
+          $tdate = $request->get('Todate');
+          $tdate = \Carbon\Carbon::parse($tdate)->format('Y') ."-". \Carbon\Carbon::parse($tdate)->format('m')."-". \Carbon\Carbon::parse($tdate)->format('d');
         }
         $dataReport = DB::table('buyers')
                         ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
                         ->join('cardetails','Buyers.id','=','cardetails.Buyercar_id')
                         ->join('Expenses','Buyers.id','=','Expenses.Buyerexpenses_id')
-                        ->when(!empty($approvedate), function($q) use($approvedate){
-                          return $q->where('cardetails.Date_Appcar',$approvedate);
+                        ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+                          return $q->whereBetween('cardetails.Date_Appcar',[$fdate,$tdate]);
                         })
                         ->where('cardetails.Approvers_car','<>','')
                         ->orderBy('buyers.Contract_buyer', 'ASC')
                         ->get();
         $type = $request->type;
-        return view('analysis.viewReport', compact('type', 'dataReport','approvedate'));
+        return view('analysis.viewReport', compact('type', 'dataReport','approvedate','fdate','tdate'));
       }
     }
 

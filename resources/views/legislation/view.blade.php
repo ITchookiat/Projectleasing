@@ -49,11 +49,11 @@
           @elseif($type == 6)
             <h4 class="card-title" align="center"><b>ลูกหนี้เตรียมฟ้อง</b></h4>
           @elseif($type == 7)
-            <h4 class="card-title" align="center"><b>ลูกหนี้ประนอมหนี้</b></h4>
+            <h4 class="card-title" align="center"><a href="{{ route('legislation',7) }}"><b>ลูกหนี้ประนอมหนี้</b></a></h4>
           @elseif($type == 8)
             <h4 class="card-title" align="center"><b>ลูกหนี้สืบทรัพย์</b></h4>
           @elseif($type == 10)
-            <h4 class="card-title" align="center"><b>ลูกหนี้ของกลาง</b></h4>
+            <h4 class="card-title" align="center"><b><a href="{{ route('legislation',10) }}">ลูกหนี้ของกลาง</a></b></h4>
           @elseif($type == 12)
             <h4 class="card-title" align="center"><b>ลูกหนี้ขายฝาก</b></h4>
           @endif
@@ -790,6 +790,8 @@
                           <li><a target="_blank" href="{{ route('legislation', 15) }}" data-toggle="modal" data-target="#modal-2" data-backdrop="static" data-keyboard="false">รายงานบันทึกชำะค่างวด</a></li>
                           <li class="divider"></li>
                           <li><a target="_blank" href="{{ route('legislation', 16) }}" data-toggle="modal" data-target="#modal-3" data-backdrop="static" data-keyboard="false">รายงานลูกหนี้ประนอม</a></li>
+                          <!-- <li class="divider"></li>
+                          <li><a target="_blank" href="{{ route('legislation.report', [00,7]) }}?&Fromdate={{$newfdate}}&Todate={{$newtdate}}&status={{$status}}">รายงาน PDF</a></li> -->
                         </ul>
                       </div>
 
@@ -806,10 +808,10 @@
                         </select>
                         <br>
                         <label>จากวันที่ : </label>
-                        <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" style="width: 180px;" class="form-control" />
+                        <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: '' }}" style="width: 180px;" class="form-control" />
 
                         <label>ถึงวันที่ : </label>
-                        <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" style="width: 180px;" class="form-control" />
+                        <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: '' }}" style="width: 180px;" class="form-control" />
                       </div>
                  </form>
                 </div>
@@ -823,11 +825,12 @@
                           <th class="text-center">ลำดับ</th>
                           <th class="text-center">เลขที่สัญญา</th>
                           <th class="text-center">ชื่อ-สกุล</th>
-                          <th class="text-center">วันเริ่มประนอม</th>
+                          <th class="text-center">ประนอม</th>
                           <th class="text-center">ระยะเวลา</th>
-                          <th class="text-center">ยอดประนอมหนี้</th>
+                          <th class="text-center">ยอดประนอม</th>
                           <th class="text-center">ยอดคงเหลือ</th>
-                          <th class="text-center" style="width: 100px">สถานะ</th>
+                          <th class="text-center">ชำระล่าสุด</th>
+                          <th class="text-center">สถานะ</th>
                           <th class="text-center">ตัวเลือก</th>
                         </tr>
                       </thead>
@@ -865,6 +868,13 @@
                             </td>
                             <td class="text-center"> {{number_format($row->Total_Promise,2)}}</a></td>
                             <td class="text-center"> {{number_format($row->Sum_Promise,2)}}</a></td>
+                            <td class="text-center">
+                              @foreach($dataPay as $key => $value)
+                               @if($row->legisPromise_id == $value->legis_Com_Payment_id)
+                                {{DateThai($value->Date_Payment)}}
+                               @endif
+                              @endforeach
+                            </td>
                             <td class="text-center">
                               @php
                                 $lastday = date('Y-m-d', strtotime("-90 days"));
@@ -1107,31 +1117,40 @@
                           <a href="{{ route('legislation', 11) }}" class="btn btn-success btn-app">
                             <span class="glyphicon glyphicon-plus"></span> เพิ่มข้อมูล
                           </a>
-                          <a target="_blank" class="btn btn-primary btn-app">
-                            <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
-                          </a>
+                          &nbsp;
+                          <div class="btn-group">
+                           <button type="button" class="btn btn-primary btn-app dropdown-toggle" data-toggle="dropdown">
+                             <span class="glyphicon glyphicon-print"></span> ปริ้นรายงาน
+                           </button>
+                           <ul class="dropdown-menu" role="menu">
+                             <li><a target="_blank" href="{{ route('legislation.report', [00,10]) }}?&Fromdate={{$fdate}}&Todate={{$tdate}}&TerminateExhibit={{$terminateexhibit}}&Typeexhibit={{$typeexhibit}}"><i class="fa fa-file-pdf-o text-red"></i>PDF </a></li>
+                             <li class="divider"></li>
+                            <li><a target="_blank" href="{{ route('legislation.report', [00,10]) }}?&Fromdate={{$fdate}}&Todate={{$tdate}}&TerminateExhibit={{$terminateexhibit}}&Typeexhibit={{$typeexhibit}}"><i class="fa fa-file-excel-o text-green"></i>Excel </a></li>
+                           </ul>
+                         </div>
                         <button type="submit" class="btn btn-warning btn-app">
                           <span class="glyphicon glyphicon-search"></span> Search
                         </button>
                         <p></p>
                         <label for="text" class="mr-sm-2">บอกเลิกสัญญา : </label>
-                        <select name="TerminateExhibit" class="form-control mb-2 mr-sm-2" id="text" style="width: 150px">
+                        <select name="TerminateExhibit" class="form-control mb-2 mr-sm-2" id="text" style="width: 185px">
                           <option selected value="">--- เลือกสถานะ ---</option>
                           <option value="เร่งรัด" {{ ($terminateexhibit == 'เร่งรัด') ? 'selected' : '' }}>เร่งรัด</otion>
                           <option value="ทนาย" {{ ($terminateexhibit == 'ทนาย') ? 'selected' : '' }}>ทนาย</otion>
                         </select>
-                        <label for="text" class="mr-sm-2">ประเภทของกลาง : </label>
-                        <select name="Typeexhibit" class="form-control mb-2 mr-sm-2" id="text" style="width: 150px">
+                        &nbsp;&nbsp;&nbsp;
+                        <label for="text" class="mr-sm-2">ประเภท : </label>
+                        <select name="Typeexhibit" class="form-control mb-2 mr-sm-2" id="text" style="width: 185px">
                           <option selected value="">---เลือกประเภท---</option>
                           <option value="ของกลาง" {{ ($typeexhibit == 'ของกลาง') ? 'selected' : '' }}>ของกลาง</otion>
                           <option value="ยึดตามมาตราการ(ปปส.)" {{ ($typeexhibit == 'ยึดตามมาตราการ(ปปส.)') ? 'selected' : '' }}>ยึดตามมาตราการ(ปปส.)</otion>
                         </select>
                         <div class="form-inline">
                           <label>จากวันที่ : </label>
-                          <input type="date" name="Fromdate" style="width: 150px;" value="{{ ($fdate != '') ?$fdate: '' }}" class="form-control" />
-                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                          <input type="date" name="Fromdate" style="width: 185px;" value="{{ ($fdate != '') ?$fdate: '' }}" class="form-control" />
+                          &nbsp;&nbsp;&nbsp;&nbsp;
                           <label>ถึงวันที่ : </label>
-                          <input type="date" name="Todate" style="width: 150px;" value="{{ ($tdate != '') ?$tdate: '' }}" class="form-control" />
+                          <input type="date" name="Todate" style="width: 185px;" value="{{ ($tdate != '') ?$tdate: '' }}" class="form-control" />
                         </div>
                       </div>
                     </form>
@@ -1160,9 +1179,9 @@
                           <td class="text-center">{{$row->Contract_legis}}</td>
                           <td class="text-left"> {{$row->Name_legis}}</td>
                           <td class="text-left"> {{$row->Suspect_legis}}</td>
-                          <td class="text-left"> {{$row->Plaint_legis}}</td>
-                          <td class="text-left"> {{$row->Terminate_legis}}</td>
-                          <td class="text-left"> {{$row->Typeexhibit_legis}}</td>
+                          <td class="text-center"> {{$row->Plaint_legis}}</td>
+                          <td class="text-center"> {{$row->Terminate_legis}}</td>
+                          <td class="text-center"> {{$row->Typeexhibit_legis}}</td>
                           <td class="text-center">
                             @if($row->Typeexhibit_legis == 'ของกลาง')
                               @if($row->Dategetresult_legis != null)
@@ -1418,6 +1437,12 @@
           $('.prem').fadeIn(1500);
           }
           setInterval(blinker, 1500);
+        </script>
+
+        <script type="text/javascript">
+          $(".alert").fadeTo(3000, 1000).slideUp(1000, function(){
+          $(".alert").alert('close');
+          });
         </script>
 
       </div>
