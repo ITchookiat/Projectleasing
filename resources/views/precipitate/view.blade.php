@@ -22,7 +22,7 @@
       <div class="box box-warning box-solid">
         <div class="box-header with-border">
           @if($type == 1)
-            <h4 class="card-title" align="center"><b>ระบบปล่อยงานตาม</b></h4>
+            <h4 class="card-title" align="center"><b>ระบบปล่อยงาน</b></h4>
           @elseif($type == 2)
             <h4 class="card-title" align="center"><b>รายงานแยกทีมติดตาม</b></h4>
           @elseif($type == 3)
@@ -52,17 +52,35 @@
             @if($type == 1) {{-- ระบบ ปล่อยงานตาม --}}
               <form method="get" action="{{ route('Precipitate', 1) }}">
                 <div align="right" class="form-inline">
-                    <a target="_blank" href="{{ action('PrecController@ReportPrecDue',[00,00]) }}?Fromstart={{$fstart}}&Toend={{$tend}}&Fromdate={{$fdate}}&Todate={{$tdate}}&type={{1}}" class="btn btn-danger btn-app">
+                  {{--
+                    <!-- <a target="_blank" href="{{ action('PrecController@ReportPrecDue',[00,00]) }}?Fromstart={{$fstart}}&Toend={{$tend}}&Fromdate={{$fdate}}&Todate={{$tdate}}&type={{1}}" class="btn btn-danger btn-app">
                       <span class="fa fa-street-view"></span> ใบติดตาม
-                    </a>
+                    </a> -->
+                  --}}
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-primary btn-app dropdown-toggle" data-toggle="dropdown">
+                      <span class="fa fa-street-view"></span> ปริ้นใบงาน
+                    </button>
+                     <ul class="dropdown-menu" role="menu">
+                        <li><a target="_blank" href="{{ action('PrecController@ReportPrecDue',[00,00]) }}?Fromdate={{$newfdate}}&Todate={{$newtdate}}&type={{1}}"> ใบงานตาม</a></li>
+                        <li class="divider"></li>
+                        <li><a target="_blank" href="{{ action('PrecController@ReportPrecDue',[00,00]) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{7}}"> ใบงานโนติส</a></li>
+                        <li class="divider"></li>
+                        <li><a target="_blank" href="{{ action('PrecController@ReportPrecDue',[00,00]) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{9}}"> ใบงานเร่งรัด</a></li>
+                        <li class="divider"></li>
+                        <li><a target="_blank" href="{{ action('PrecController@ReportPrecDue',[00,00]) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{10}}"> ใบงานเตรียมฟ้อง</a></li>
+                      </ul>
+                  </div>
                   <button type="submit" class="btn btn-warning btn-app">
                     <span class="glyphicon glyphicon-search"></span> Search
                   </button >
-                  <p></p>
+                  {{--
+                  <!-- <p></p>
                   <label>จากงวดที่ : </label>
                   <input type="text" name="Fromstart" style="width: 155px;" value="{{ ($fstart != '') ?$fstart: '' }}" class="form-control" />
                   <label>ถึงงวดที่ : </label>
-                  <input type="text" name="Toend" style="width: 155px;" value="{{ ($tend != '') ?$tend: '' }}" class="form-control" />
+                  <input type="text" name="Toend" style="width: 155px;" value="{{ ($tend != '') ?$tend: '' }}" class="form-control" /> -->
+                  --}}
                   <p></p>
                   <label>จากวันที่ : </label>
                   <input type="date" name="Fromdate" style="width: 155px;" value="{{ ($fdate != '') ?$fdate: '' }}" class="form-control" />
@@ -145,90 +163,301 @@
               </form>
             @endif
 
-            <div class="row">
-              <div class="col-md-12">
-                  <hr>
-                  <div class="table-responsive">
-                   <table class="table table-bordered" id="table">
-                      <thead class="thead-dark bg-gray-light" >
-                        <tr>
-                          <th class="text-center">ลำดับ</th>
-                          <th class="text-center">เลขที่สัญญา</th>
-                          <th class="text-center">ชื่อ-สกุล</th>
-                          @if($type == 3)
-                            <th class="text-center">เบอร์โทร</th>
-                            <th class="text-center">งานติดตาม</th>
-                          @endif
-                          <th class="text-center">ชำระล่าสุด</th>
-                          <th class="text-center">งวดละ</th>
-                          <th class="text-center">งวดจริง</th>
-                          <th class="text-center">คงเหลือ</th>
-                          @if($type != 3)
-                            <th class="text-center">พนง</th>
-                            <th class="text-center">สถานะ</th>
-                            @if($type != 2)
-                            <th class="text-center">ตัวเลือก</th>
-                            @endif
-                          @endif
-                        </tr>
-                      </thead>
-                      <tbody>
-                        @foreach($data as $key => $row)
+            @if($type == 1)
+              <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                  <li class="active"><a href="#tab_1" data-toggle="tab">ปล่อยงานตาม</a></li>
+                  <li><a href="#tab_2" data-toggle="tab">ปล่อยงานโนติส</a></li>
+                  <li><a href="#tab_3" data-toggle="tab">ปล่อยงานเร่งรัด</a></li>
+                  <li><a href="#tab_4" data-toggle="tab">ปล่อยงานเตรียมฟ้อง</a></li>
+                </ul>
+                <div class="tab-content">
+                  <div class="tab-pane active" id="tab_1">
+                    <br>
+                    <div class="table-responsive">
+                     <table class="table table-bordered" id="table">
+                        <thead class="thead-dark bg-gray-light" >
                           <tr>
-                            <td class="text-center"> {{$key+1}} </td>
-                            <td class="text-center"> {{$row->CONTNO}}</td>
-                            <td class="text-left"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->SNAM.$row->NAME1)."   ".str_replace(" ","",$row->NAME2))}} </td>
-                            @if($type == 3)
-                              <td class="text-left"> {{iconv('Tis-620','utf-8', $row->TELP)}} </td>
-                              <td class="text-center"> {{iconv('Tis-620','utf-8', $row->CONTSTAT)}} </td>
-                            @endif
-                            <td class="text-center">
-                              @php
-                              $LPAYD = date_create($row->LPAYD);
-                              @endphp
-                              {{ date_format($LPAYD, 'd-m-Y')}}
-                            </td>
-                            @if($type == 3)
-                              <td class="text-center"> {{number_format($row->T_LUPAY, 2)}} </td>
-                            @else
-                              <td class="text-center"> {{number_format($row->DAMT, 2)}} </td>
-                            @endif
-                            <td class="text-center"> {{$row->HLDNO}} </td>
-                            <td class="text-center"> {{number_format($row->BALANC - $row->SMPAY, 2 )}} </td>
-                            @if($type != 3)
-                            <td class="text-center"> {{$row->BILLCOLL}} </td>
-                            <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->CONTSTAT)) }} </td>
-                              @if($type != 2)
-                                <td class="text-center">
+                            <th class="text-center">ลำดับ</th>
+                            <th class="text-center">เลขที่สัญญา</th>
+                            <th class="text-center">ชื่อ-สกุล</th>
+                            <th class="text-center">ชำระล่าสุด</th>
+                            <th class="text-center">งวดจริง</th>
+                            <th class="text-center">คงเหลือ</th>
+                            <th class="text-center">พนง.</th>
+                            <th class="text-center">สถานะ</th>
+                            <th class="text-center">ตัวเลือก</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @foreach($data as $key => $row)
+                            <tr>
+                              <td class="text-center"> {{$key+1}} </td>
+                              <td class="text-center"> {{$row->CONTNO}}</td>
+                              <td class="text-left"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->SNAM.$row->NAME1)."   ".str_replace(" ","",$row->NAME2))}} </td>
+                              <td class="text-center">
+                                @php
+                                $LPAYD = date_create($row->LPAYD);
+                                @endphp
+                                {{ date_format($LPAYD, 'd-m-Y')}}
+                              </td>
+                              <td class="text-center"> {{$row->HLDNO}} </td>
+                              <td class="text-center"> {{number_format($row->BALANC - $row->SMPAY, 2 )}} </td>
+                              <td class="text-center"> {{$row->BILLCOLL}} </td>
+                              <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->CONTSTAT)) }} </td>
+                              <td class="text-center">
+                                @php
+                                   $StrCon = explode("/",$row->CONTNO);
+                                   $SetStr1 = $StrCon[0];
+                                   $SetStr2 = $StrCon[1];
+                                @endphp
+                                <a target="_blank" href="{{ action('PrecController@ReportPrecDue',[$SetStr1,$SetStr2]) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{2}}" class="btn btn-sm bg-blue" title="พิมพ์">
+                                  <span class="fa fa-id-card-o"></span> ใบแจ้งหนี้
+                                </a>
+                              </td>
+                            </tr>
+                          @endforeach
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="tab-pane" id="tab_2">
+                    <br>
+                    <div class="table-responsive">
+                     <table class="table table-bordered" id="table1">
+                        <thead class="thead-dark bg-gray-light" >
+                          <tr>
+                            <th class="text-center">ลำดับ</th>
+                            <th class="text-center">เลขที่สัญญา</th>
+                            <th class="text-center">ชื่อ-สกุล</th>
+                            <th class="text-center">ชำระล่าสุด</th>
+                            <th class="text-center">งวดจริง</th>
+                            <th class="text-center">คงเหลือ</th>
+                            <th class="text-center">พนง.</th>
+                            <th class="text-center">สถานะ</th>
+                            <th class="text-center">ตัวเลือก</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @foreach($dataNotice as $key => $row)
+                            <tr>
+                              <td class="text-center"> {{$key+1}} </td>
+                              <td class="text-center"> {{$row->CONTNO}}</td>
+                              <td class="text-left"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->SNAM.$row->NAME1)."   ".str_replace(" ","",$row->NAME2))}} </td>
+                              <td class="text-center">
+                                @php
+                                $LPAYD = date_create($row->LPAYD);
+                                @endphp
+                                {{ date_format($LPAYD, 'd-m-Y')}}
+                              </td>
+                              <td class="text-center"> {{$row->HLDNO}} </td>
+                              <td class="text-center"> {{number_format($row->BALANC - $row->SMPAY, 2 )}} </td>
+                              <td class="text-center"> {{$row->BILLCOLL}} </td>
+                              <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->CONTSTAT)) }} </td>
+                              <td class="text-center">
                                   @php
                                      $StrCon = explode("/",$row->CONTNO);
                                      $SetStr1 = $StrCon[0];
                                      $SetStr2 = $StrCon[1];
                                   @endphp
-                                  @if($type == 1)
-                                    <a target="_blank" href="{{ action('PrecController@ReportPrecDue',[$SetStr1,$SetStr2]) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{2}}" class="btn btn-sm bg-blue" title="พิมพ์">
-                                      <span class="fa fa-id-card-o"></span> ใบแจ้งหนี้
-                                    </a>
-                                  @elseif($type == 4)
-                                    <a target="_blank" href="{{ action('PrecController@ReportPrecDue',[$SetStr1,$SetStr2]) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{4}}" class="btn btn-sm bg-blue" title="พิมพ์">
-                                      <span class="fa fa-id-card-o"></span> ใบแจ้งหนี้
-                                    </a>
-                                  @endif
-                                </td>
+                                  <a target="_blank" href="{{ action('PrecController@ReportPrecDue',[$SetStr1,$SetStr2]) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{4}}" class="btn btn-sm bg-blue" title="พิมพ์">
+                                    <span class="fa fa-id-card-o"></span> ใบแจ้งหนี้
+                                  </a>
+                              </td>
+                            </tr>
+                          @endforeach
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="tab-pane" id="tab_3">
+                    <br>
+                    <div class="table-responsive">
+                     <table class="table table-bordered" id="table2">
+                        <thead class="thead-dark bg-gray-light" >
+                          <tr>
+                            <th class="text-center">ลำดับ</th>
+                            <th class="text-center">เลขที่สัญญา</th>
+                            <th class="text-center">ชื่อ-สกุล</th>
+                            <th class="text-center">ชำระล่าสุด</th>
+                            <th class="text-center">งวดจริง</th>
+                            <th class="text-center">คงเหลือ</th>
+                            <th class="text-center">พนง.</th>
+                            <th class="text-center">สถานะ</th>
+                            <th class="text-center">ตัวเลือก</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @foreach($dataPrec as $key => $row)
+                            <tr>
+                              <td class="text-center"> {{$key+1}} </td>
+                              <td class="text-center"> {{$row->CONTNO}}</td>
+                              <td class="text-left"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->SNAM.$row->NAME1)."   ".str_replace(" ","",$row->NAME2))}} </td>
+                              <td class="text-center">
+                                @php
+                                $LPAYD = date_create($row->LPAYD);
+                                @endphp
+                                {{ date_format($LPAYD, 'd-m-Y')}}
+                              </td>
+                              <td class="text-center"> {{$row->HLDNO}} </td>
+                              <td class="text-center"> {{number_format($row->BALANC - $row->SMPAY, 2 )}} </td>
+                              <td class="text-center"> {{$row->BILLCOLL}} </td>
+                              <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->CONTSTAT)) }} </td>
+                              <td class="text-center">
+                                  @php
+                                     $StrCon = explode("/",$row->CONTNO);
+                                     $SetStr1 = $StrCon[0];
+                                     $SetStr2 = $StrCon[1];
+                                  @endphp
+                                  <a target="_blank" href="{{ action('PrecController@ReportPrecDue',[$SetStr1,$SetStr2]) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{11}}" class="btn btn-sm bg-blue" title="พิมพ์">
+                                    <span class="fa fa-id-card-o"></span> ใบแจ้งหนี้
+                                  </a>
+                              </td>
+                            </tr>
+                          @endforeach
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="tab-pane" id="tab_4">
+                    <br>
+                    <div class="table-responsive">
+                     <table class="table table-bordered" id="table2">
+                        <thead class="thead-dark bg-gray-light" >
+                          <tr>
+                            <th class="text-center">ลำดับ</th>
+                            <th class="text-center">เลขที่สัญญา</th>
+                            <th class="text-center">ชื่อ-สกุล</th>
+                            <th class="text-center">ชำระล่าสุด</th>
+                            <th class="text-center">งวดจริง</th>
+                            <th class="text-center">คงเหลือ</th>
+                            <th class="text-center">พนง.</th>
+                            <th class="text-center">สถานะ</th>
+                            <th class="text-center">ตัวเลือก</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @foreach($dataLegis as $key => $row)
+                            <tr>
+                              <td class="text-center"> {{$key+1}} </td>
+                              <td class="text-center"> {{$row->CONTNO}}</td>
+                              <td class="text-left"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->SNAM.$row->NAME1)."   ".str_replace(" ","",$row->NAME2))}} </td>
+                              <td class="text-center">
+                                @php
+                                $LPAYD = date_create($row->LPAYD);
+                                @endphp
+                                {{ date_format($LPAYD, 'd-m-Y')}}
+                              </td>
+                              <td class="text-center"> {{$row->HLDNO}} </td>
+                              <td class="text-center"> {{number_format($row->BALANC - $row->SMPAY, 2 )}} </td>
+                              <td class="text-center"> {{$row->BILLCOLL}} </td>
+                              <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->CONTSTAT)) }} </td>
+                              <td class="text-center">
+                                  @php
+                                     $StrCon = explode("/",$row->CONTNO);
+                                     $SetStr1 = $StrCon[0];
+                                     $SetStr2 = $StrCon[1];
+                                  @endphp
+                                  <a target="_blank" href="{{ action('PrecController@ReportPrecDue',[$SetStr1,$SetStr2]) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{12}}" class="btn btn-sm bg-blue" title="พิมพ์">
+                                    <span class="fa fa-id-card-o"></span> ใบแจ้งหนี้
+                                  </a>
+                              </td>
+                            </tr>
+                          @endforeach
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            @endif
+            @if($type == 2 or $type == 3 or $type == 4)
+              <div class="row">
+                <div class="col-md-12">
+                    <hr>
+                    <div class="table-responsive">
+                     <table class="table table-bordered" id="table">
+                        <thead class="thead-dark bg-gray-light" >
+                          <tr>
+                            <th class="text-center">ลำดับ</th>
+                            <th class="text-center">เลขที่สัญญา</th>
+                            <th class="text-center">ชื่อ-สกุล</th>
+                            @if($type == 3)
+                              <th class="text-center">เบอร์โทร</th>
+                              <th class="text-center">งานติดตาม</th>
+                            @endif
+                            <th class="text-center">ชำระล่าสุด</th>
+                            <th class="text-center">งวดละ</th>
+                            <th class="text-center">งวดจริง</th>
+                            <th class="text-center">คงเหลือ</th>
+                            @if($type != 3)
+                              <th class="text-center">พนง</th>
+                              <th class="text-center">สถานะ</th>
+                              @if($type != 2)
+                              <th class="text-center">ตัวเลือก</th>
                               @endif
                             @endif
                           </tr>
-                        @endforeach
-                      </tbody>
-                    </table>
-                  </div>
-              </div>
-           </div>
+                        </thead>
+                        <tbody>
+                          @foreach($data as $key => $row)
+                            <tr>
+                              <td class="text-center"> {{$key+1}} </td>
+                              <td class="text-center"> {{$row->CONTNO}}</td>
+                              <td class="text-left"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->SNAM.$row->NAME1)."   ".str_replace(" ","",$row->NAME2))}} </td>
+                              @if($type == 3)
+                                <td class="text-left"> {{iconv('Tis-620','utf-8', $row->TELP)}} </td>
+                                <td class="text-center"> {{iconv('Tis-620','utf-8', $row->CONTSTAT)}} </td>
+                              @endif
+                              <td class="text-center">
+                                @php
+                                $LPAYD = date_create($row->LPAYD);
+                                @endphp
+                                {{ date_format($LPAYD, 'd-m-Y')}}
+                              </td>
+                              @if($type == 3)
+                                <td class="text-center"> {{number_format($row->T_LUPAY, 2)}} </td>
+                              @else
+                                <td class="text-center"> {{number_format($row->DAMT, 2)}} </td>
+                              @endif
+                              <td class="text-center"> {{$row->HLDNO}} </td>
+                              <td class="text-center"> {{number_format($row->BALANC - $row->SMPAY, 2 )}} </td>
+                              @if($type != 3)
+                              <td class="text-center"> {{$row->BILLCOLL}} </td>
+                              <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->CONTSTAT)) }} </td>
+                                @if($type != 2)
+                                  <td class="text-center">
+                                    @php
+                                       $StrCon = explode("/",$row->CONTNO);
+                                       $SetStr1 = $StrCon[0];
+                                       $SetStr2 = $StrCon[1];
+                                    @endphp
+                                    @if($type == 1)
+                                      <a target="_blank" href="{{ action('PrecController@ReportPrecDue',[$SetStr1,$SetStr2]) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{2}}" class="btn btn-sm bg-blue" title="พิมพ์">
+                                        <span class="fa fa-id-card-o"></span> ใบแจ้งหนี้
+                                      </a>
+                                    @elseif($type == 4)
+                                      <a target="_blank" href="{{ action('PrecController@ReportPrecDue',[$SetStr1,$SetStr2]) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{4}}" class="btn btn-sm bg-blue" title="พิมพ์">
+                                        <span class="fa fa-id-card-o"></span> ใบแจ้งหนี้
+                                      </a>
+                                    @endif
+                                  </td>
+                                @endif
+                              @endif
+                            </tr>
+                          @endforeach
+                        </tbody>
+                      </table>
+                    </div>
+                </div>
+             </div>
+            @endif
+
 
            @if($type == 1 or $type == 4)
              <script type="text/javascript">
                $(document).ready(function() {
-                 $('#table').DataTable( {
+                 $('#table,#table1,#table2,#table3').DataTable( {
                    "order": [[ 1, "asc" ]]
                  } );
                } );

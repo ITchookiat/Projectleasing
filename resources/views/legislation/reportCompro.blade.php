@@ -425,12 +425,18 @@
             </td>
           </tr>
           @endforeach
-          <tr style="line-height: 150%;">
+          <tr style="line-height: 250%;">
             <td align="right" style="width: 378px">รวมยอด &nbsp;</td>
             <td align="center" style="width: 80px">{{number_format(@$sumTotal,2)}} &nbsp;</td>
             <td align="center" style="width: 80px">{{number_format(@$sumRemain,2)}} &nbsp;</td>
             <td style="width: 240px">&nbsp;บาท</td>
           </tr>
+          {{--
+          <tr style="line-height: 200%;">
+            <td align="center" style="width: 378px">รวมยอดประนอมหนี้ {{number_format(@$sumTotal,2)}} บาท&nbsp;</td>
+            <td align="center" style="width: 400px">รวมยอดคงเหลือ  {{number_format(@$sumRemain,2)}} บาท&nbsp;</td>
+          </tr>
+          --}}
       </table>
     </body>
   @elseif($type == 10)

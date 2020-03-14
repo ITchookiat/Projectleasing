@@ -94,9 +94,9 @@
       <h1 class="card-title p-3" align="center"><b>บริษัท ชูเกียรติลิสซิ่ง จำกัด</b></h1>
       <h3 class="card-title p-3" align="center" style="letter-spacing: 0.3px;"><b>17/8 ม.4 ต.รูสะมิแล อ.เมือง จ.ปัตตานี   โทร. 073-450700-4 </b></h3>
     <hr>
-  @elseif($type == 2 or $type == 4)
+  @elseif($type == 2 or $type == 4 or $type == 11 or $type == 12)
     <label align="right">วันที่ : <u>{{DateThai($date)}}</u></label>
-    <h2 class="card-title p-3" align="center">รายงาน ใบแจ้งหนี้ (บริษัท ชูเกียรติลิสซิ่ง จำกัด)</h2>
+    <h2 class="card-title p-3" align="center" style="line-height:5px;">รายงาน ใบแจ้งหนี้ (บริษัท ชูเกียรติลิสซิ่ง จำกัด)</h2>
   @endif
   <body>
 
@@ -190,7 +190,7 @@
             <td width="240px"> ผู้รับมอบอำนาจ </td>
           </tr>
         </table>
-    @elseif($type == 2 or $type == 4)
+    @elseif($type == 2 or $type == 4 or $type == 11 or $type == 12)
       @foreach($data as $key => $value)
         <h3 align="left"><u>ประวัติผู้เช่าซื้อ/กู้</u></h3>
         <br />
@@ -426,7 +426,7 @@
                             <td width="100px" colspan="2"><b>รวมยอด</b></td>
                             <td width="90px" colspan="2" align="right">
                               @php
-                                $Sum = $value->EXP_AMT + $SumPay + $Count + $Notice;
+                                @$Sum = $value->EXP_AMT + $SumPay + $Count + $Notice;
                               @endphp
                               {{number_format($Sum, 2)}}
                             </td>

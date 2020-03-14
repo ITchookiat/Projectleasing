@@ -41,11 +41,17 @@
     @elseif($type == 8)
       <h2 class="card-title p-3" align="center">รายงาน รับชำระค่าติดตาม</h2>
       <h3 class="card-title p-3" align="center">จากวันที่ {{ DateThai($fdate) }} ถึงวันที่ {{ DateThai($tdate) }}</h3>
+    @elseif($type == 9)
+    <h2 class="card-title p-3" align="center">รายงาน ปล่อยงานเร่งรัด</h2>
+    <h3 class="card-title p-3" align="center">ดิววันที่ {{ DateThai($fdate) }} ถึงวันที่ {{ DateThai($tdate) }} ปล่อยงานตามวันที่ {{ DateThai($date) }}</h3>
+    @elseif($type == 10)
+    <h2 class="card-title p-3" align="center">รายงาน ปล่อยงานเตรียมฟ้อง</h2>
+    <h3 class="card-title p-3" align="center">ดิววันที่ {{ DateThai($fdate) }} ถึงวันที่ {{ DateThai($tdate) }} ปล่อยงานตามวันที่ {{ DateThai($date) }}</h3>
     @endif
     <hr>
     <body>
     <br />
-    @if($type == 1 or $type == 7)
+    @if($type == 1 or $type == 7 or $type == 9 or $type == 10)
       <table border="1">
         <thead>
           <tr align="center" style="line-height: 250%;">

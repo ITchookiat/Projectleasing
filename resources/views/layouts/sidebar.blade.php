@@ -101,8 +101,8 @@
                   </a>
                   <ul class="treeview-menu">
                     <li><a href="{{ route('Precipitate',3) }}"><i class="fa fa-cube text-primary"></i>ระบบแจ้งเตือนติดตาม</a></li>
-                    <li><a href="{{ route('Precipitate',1) }}"><i class="fa fa-cube text-primary"></i>ระบบปล่อยงานตาม</a></li>
-                    <li><a href="{{ route('Precipitate',4) }}"><i class="fa fa-cube text-primary"></i>ระบบปล่อยงานโนติส</a></li>
+                    <li><a href="{{ route('Precipitate',1) }}"><i class="fa fa-cube text-primary"></i>ระบบปล่อยงาน</a></li>
+                    <!-- <li><a href="{{ route('Precipitate',4) }}"><i class="fa fa-cube text-primary"></i>ระบบปล่อยงานโนติส</a></li> -->
                     <li><a href="{{ route('Precipitate',5) }}"><i class="fa fa-cube text-primary"></i>ระบบสต็อกรถเร่งรัด</a></li>
                     <li><a href="{{ route('Precipitate',11) }}"><i class="fa fa-cube text-primary"></i>ระบบปรับโครงสร้างหนี้</a></li>
                   </ul>
