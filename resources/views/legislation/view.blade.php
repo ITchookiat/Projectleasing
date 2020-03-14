@@ -757,20 +757,20 @@
                 <div class="col-md-12">
                   <form method="get" >
                      <div class="form-inline" align=right>
-                       <div class="btn-group">
-                        <button type="button" class="btn btn-primary btn-app dropdown-toggle" data-toggle="dropdown">
-                          <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a target="_blank" href="{{ route('legislation', 9) }}" data-toggle="modal" data-target="#modal-1" data-backdrop="static" data-keyboard="false"> ใบเสร็จรับชำระ</a></li>
-                          <li class="divider"></li>
-                          <li><a target="_blank" href="{{ route('legislation', 15) }}" data-toggle="modal" data-target="#modal-2" data-backdrop="static" data-keyboard="false">รายงานบันทึกชำะค่างวด</a></li>
-                          <li class="divider"></li>
-                          <li><a target="_blank" href="{{ route('legislation', 16) }}" data-toggle="modal" data-target="#modal-3" data-backdrop="static" data-keyboard="false">รายงานลูกหนี้ประนอม</a></li>
-                          <!-- <li class="divider"></li>
-                          <li><a target="_blank" href="{{ route('legislation.report', [00,7]) }}?&Fromdate={{$newfdate}}&Todate={{$newtdate}}&status={{$status}}">รายงาน PDF</a></li> -->
-                        </ul>
-                      </div>
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-primary btn-app dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
+                          </button>
+                           <ul class="dropdown-menu" role="menu">
+                              <li><a target="_blank" href="{{ route('legislation', 9) }}" data-toggle="modal" data-target="#modal-1" data-backdrop="static" data-keyboard="false"> ใบเสร็จรับชำระ</a></li>
+                              <li class="divider"></li>
+                              <li><a target="_blank" href="{{ route('legislation', 15) }}" data-toggle="modal" data-target="#modal-2" data-backdrop="static" data-keyboard="false">รายงานบันทึกชำะค่างวด</a></li>
+                              <li class="divider"></li>
+                              <li><a target="_blank" href="{{ route('legislation', 16) }}" data-toggle="modal" data-target="#modal-3" data-backdrop="static" data-keyboard="false">รายงานลูกหนี้ประนอม</a></li>
+                              <!-- <li class="divider"></li>
+                              <li><a target="_blank" href="{{ route('legislation.report', [00,7]) }}?&Fromdate={{$newfdate}}&Todate={{$newtdate}}&status={{$status}}">รายงาน PDF</a></li> -->
+                            </ul>
+                        </div>
 
                        <button type="submit" class="btn btn-warning btn-app">
                          <span class="glyphicon glyphicon-search"></span> Search

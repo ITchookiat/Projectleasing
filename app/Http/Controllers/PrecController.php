@@ -27,23 +27,30 @@ class PrecController extends Controller
         $date = $Y.'-'.$m.'-'.$d;
 
         if ($request->type == 1) {  //ปล่อยงานตาม (เรียกย้อนหลัง 1 วัน)
-          $dateyesterdate = date('Y-m-d', strtotime('-1 days'));
-          $fstart = '3.00';
-          $tend = '4.69';
-          $fdate = $dateyesterdate;
-          $tdate = $dateyesterdate;
+          $newdate = date('Y-m-d');
+          $yesterdate = date('Y-m-d',strtotime('-1 days'));
+          $fdate = $newdate;
+          $tdate = $newdate;
+          $newfdate = $yesterdate;
+          $newtdate = $yesterdate;
           if ($request->has('Fromdate')) {
             $fdate = $request->get('Fromdate');
+
+            $new = Carbon::parse($fdate)->addDays(-1);
+            $newfdate = \Carbon\Carbon::parse($new)->format('Y') ."-". \Carbon\Carbon::parse($new)->format('m')."-". \Carbon\Carbon::parse($new)->format('d');
           }
           if ($request->has('Todate')) {
             $tdate = $request->get('Todate');
+
+            $new = Carbon::parse($tdate)->addDays(-1);
+            $newtdate = \Carbon\Carbon::parse($new)->format('Y') ."-". \Carbon\Carbon::parse($new)->format('m')."-". \Carbon\Carbon::parse($new)->format('d');
           }
-          if ($request->has('Fromstart')) {
-            $fstart = $request->get('Fromstart');
-          }
-          if ($request->has('Toend')) {
-            $tend = $request->get('Toend');
-          }
+          // if ($request->has('Fromstart')) {
+          //   $fstart = $request->get('Fromstart');
+          // }
+          // if ($request->has('Toend')) {
+          //   $tend = $request->get('Toend');
+          // }
 
           $data = DB::connection('ibmi')
                     ->table('SFHP.ARMAST')
@@ -51,18 +58,51 @@ class PrecController extends Controller
                     ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
                     ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
                     ->where('SFHP.ARMAST.BILLCOLL','=',99)
-                    ->when(!empty($fstart)  && !empty($tend), function($q) use ($fstart, $tend) {
-                      return $q->whereBetween('SFHP.ARMAST.HLDNO',[$fstart,$tend]);
+                    ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+                      return $q->whereBetween('SFHP.ARPAY.DDATE',[$newfdate,$newtdate]);
                     })
+                    ->whereBetween('SFHP.ARMAST.HLDNO',[3.00,4.69])
+                    ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                    ->get();
+
+          $dataNotice = DB::connection('ibmi')
+                    ->table('SFHP.ARMAST')
+                    ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
+                    ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                    ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
                     ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
                       return $q->whereBetween('SFHP.ARPAY.DDATE',[$fdate,$tdate]);
                     })
-                    // ->whereBetween('SFHP.ARMAST.HLDNO',[3.00,4.69])
+                    ->whereBetween('SFHP.ARMAST.HLDNO',[4.7,5.69])
+                    ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                    ->get();
+
+          $dataPrec  = DB::connection('ibmi')
+                    ->table('SFHP.ARMAST')
+                    ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
+                    ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                    ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+                    ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+                      return $q->whereBetween('SFHP.ARPAY.DDATE',[$fdate,$tdate]);
+                    })
+                    ->whereBetween('SFHP.ARMAST.HLDNO',[3.7,4.69])
+                    ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                    ->get();
+
+          $dataLegis  = DB::connection('ibmi')
+                    ->table('SFHP.ARMAST')
+                    ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
+                    ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                    ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+                    ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+                      return $q->whereBetween('SFHP.ARPAY.DDATE',[$fdate,$tdate]);
+                    })
+                    ->whereBetween('SFHP.ARMAST.HLDNO',[5.7,6.69])
                     ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
                     ->get();
 
           $type = $request->type;
-          return view('precipitate.view', compact('data','fstart','tend','fdate','tdate','type'));
+          return view('precipitate.view', compact('data','dataNotice','dataPrec','dataLegis','fstart','tend','fdate','tdate','newfdate','newtdate','type'));
         }
         elseif ($request->type == 2) {
           $fdate = $date;
@@ -933,16 +973,22 @@ class PrecController extends Controller
       $tdate = '';
       if ($request->has('Fromdate')) {
         $fdate = $request->get('Fromdate');
+
+        $new = Carbon::parse($fdate)->addDays(-1);
+        $newfdate = \Carbon\Carbon::parse($new)->format('Y') ."-". \Carbon\Carbon::parse($new)->format('m')."-". \Carbon\Carbon::parse($new)->format('d');
       }
       if ($request->has('Todate')) {
         $tdate = $request->get('Todate');
+
+        $new = Carbon::parse($tdate)->addDays(-1);
+        $newtdate = \Carbon\Carbon::parse($new)->format('Y') ."-". \Carbon\Carbon::parse($new)->format('m')."-". \Carbon\Carbon::parse($new)->format('d');
       }
-      if ($request->has('Fromstart')) {
-        $fstart = $request->get('Fromstart');
-      }
-      if ($request->has('Toend')) {
-        $tend = $request->get('Toend');
-      }
+      // if ($request->has('Fromstart')) {
+      //   $fstart = $request->get('Fromstart');
+      // }
+      // if ($request->has('Toend')) {
+      //   $tend = $request->get('Toend');
+      // }
 
       if ($request->type == 1) {  //รายงาน ใบติดตาม
         $data = DB::connection('ibmi')
@@ -952,7 +998,8 @@ class PrecController extends Controller
                   ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
                   ->where('SFHP.ARMAST.BILLCOLL','=',99)
                   ->whereBetween('SFHP.ARPAY.DDATE',[$fdate,$tdate])
-                  ->whereBetween('SFHP.ARMAST.HLDNO',[$fstart,$tend])
+                  // ->whereBetween('SFHP.ARMAST.HLDNO',[$fstart,$tend])
+                  ->whereBetween('SFHP.ARMAST.HLDNO',[3.00,4.69])
                   ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
                   ->get();
 
@@ -986,14 +1033,11 @@ class PrecController extends Controller
                            'SFHP.VIEW_ARMGAR.PROVDES AS PROARMGAR','SFHP.VIEW_ARMGAR.OFFIC AS OFFICARMGAR','SFHP.VIEW_ARMGAR.TELP AS TELPARMGAR',
                            'SFHP.CUSTMAST.OCCUP','SFHP.CUSTMAST.MEMO1 AS CUSMEMO','SFHP.CUSTMAST.OFFIC AS CUSOFFIC',
                            'SFHP.TBROKER.FNAME','SFHP.TBROKER.LNAME','SFHP.TBROKER.MEMBERID','SFHP.TBROKER.ADDRESS','SFHP.TBROKER.TELP AS TELPTBROKER')
-                  ->where('SFHP.ARMAST.BILLCOLL','=',99)
                   ->where('SFHP.ARMAST.CONTNO','=',$SetStrConn)
-                  ->whereBetween('SFHP.ARPAY.DDATE',[$fdate,$tdate])
-                  ->whereBetween('SFHP.ARMAST.HLDNO',[2.5,4.69])
+                  ->whereBetween('SFHP.ARPAY.DDATE',[$newfdate,$newtdate])
+                  ->whereBetween('SFHP.ARMAST.HLDNO',[3.00,4.69])
                   ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
                   ->get();
-
-                  // dd($data);
 
         $dataArpay = DB::connection('ibmi')
                   ->table('SFHP.ARPAY')
@@ -1007,7 +1051,6 @@ class PrecController extends Controller
 
         $SumPay = $dataArpay - $dataInpay;
         $type = $request->type;
-
 
         $view = \View::make('precipitate.ReportInvoice' ,compact('data','date','fdate','tdate','type','SumPay'));
         $html = $view->render();
@@ -1130,7 +1173,7 @@ class PrecController extends Controller
         $view = \View::make('precipitate.ReportPrecDue' ,compact('data','date','fdate','tdate','type'));
         $html = $view->render();
         $pdf = new PDF();
-        $pdf::SetTitle('รายงานข้อมูลติดตาม');
+        $pdf::SetTitle('รายงานข้อมูลโนติส');
         $pdf::AddPage('L', 'A4');
         $pdf::SetMargins(5, 5, 5, 0);
         $pdf::SetFont('freeserif', '', 10, '', true);
@@ -1216,6 +1259,146 @@ class PrecController extends Controller
         $pdf::SetAutoPageBreak(TRUE, 25);
         $pdf::WriteHTML($html,true,false,true,false,'');
         $pdf::Output('ReportAddPayment.pdf');
+      }
+      elseif ($request->type == 9) {  //รายงาน ใบติดตามเร่งรัด
+        $data = DB::connection('ibmi')
+                  ->table('SFHP.ARMAST')
+                  ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
+                  ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                  ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+                  ->whereBetween('SFHP.ARPAY.DDATE',[$fdate,$tdate])
+                  ->whereBetween('SFHP.ARMAST.HLDNO',[3.7,4.69])
+                  ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                  ->get();
+
+        $type = $request->type;
+
+        $view = \View::make('precipitate.ReportPrecDue' ,compact('data','date','fdate','tdate','type'));
+        $html = $view->render();
+        $pdf = new PDF();
+        $pdf::SetTitle('รายงานข้อมูลเร่งรัด');
+        $pdf::AddPage('L', 'A4');
+        $pdf::SetMargins(5, 5, 5, 0);
+        $pdf::SetFont('freeserif', '', 10, '', true);
+        $pdf::SetAutoPageBreak(TRUE, 25);
+        $pdf::WriteHTML($html,true,false,true,false,'');
+        $pdf::Output('ReportPrecDue.pdf');
+      }
+      elseif ($request->type == 10) {  //รายงาน ใบติดตามเตรียมฟ้อง
+        $data = DB::connection('ibmi')
+                  ->table('SFHP.ARMAST')
+                  ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
+                  ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                  ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+                  ->whereBetween('SFHP.ARPAY.DDATE',[$fdate,$tdate])
+                  ->whereBetween('SFHP.ARMAST.HLDNO',[5.7,6.69])
+                  ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                  ->get();
+
+        $type = $request->type;
+
+        $view = \View::make('precipitate.ReportPrecDue' ,compact('data','date','fdate','tdate','type'));
+        $html = $view->render();
+        $pdf = new PDF();
+        $pdf::SetTitle('รายงานข้อมูลเตรียมฟ้อง');
+        $pdf::AddPage('L', 'A4');
+        $pdf::SetMargins(5, 5, 5, 0);
+        $pdf::SetFont('freeserif', '', 10, '', true);
+        $pdf::SetAutoPageBreak(TRUE, 25);
+        $pdf::WriteHTML($html,true,false,true,false,'');
+        $pdf::Output('ReportPrecDue.pdf');
+      }
+      elseif ($request->type == 11) {  //รายงาน ใบแจ้งหนี้เร่งรัด
+        $SetStrConn = $SetStr1."/".$SetStr2;
+        $data = DB::connection('ibmi')
+                  ->table('SFHP.ARMAST')
+                  ->leftJoin('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                  ->leftJoin('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
+                  ->leftJoin('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+                  ->leftJoin('SFHP.VIEW_ARMGAR','SFHP.ARMAST.CONTNO','=','SFHP.VIEW_ARMGAR.CONTNO')
+                  ->leftJoin('SFHP.ARMGAR','SFHP.ARMAST.CONTNO','=','SFHP.ARMGAR.CONTNO')
+                  ->leftJoin('SFHP.TBROKER','SFHP.ARMAST.RECOMCOD','=','SFHP.TBROKER.MEMBERID')
+                  ->leftJoin('SFHP.CUSTMAST','SFHP.ARMAST.CUSCOD','=','SFHP.CUSTMAST.CUSCOD')
+                  ->select('SFHP.ARMAST.*','SFHP.VIEW_CUSTMAIL.*','SFHP.INVTRAN.*','SFHP.VIEW_ARMGAR.NAME','SFHP.VIEW_ARMGAR.NICKNM AS NICKARMGAR',
+                           'SFHP.ARMGAR.RELATN','SFHP.VIEW_ARMGAR.ADDRES as ADDARMGAR','SFHP.VIEW_ARMGAR.TUMB as TUMBARMGAR','SFHP.VIEW_ARMGAR.AUMPDES AS AUMARMGAR',
+                           'SFHP.VIEW_ARMGAR.PROVDES AS PROARMGAR','SFHP.VIEW_ARMGAR.OFFIC AS OFFICARMGAR','SFHP.VIEW_ARMGAR.TELP AS TELPARMGAR',
+                           'SFHP.CUSTMAST.OCCUP','SFHP.CUSTMAST.MEMO1 AS CUSMEMO','SFHP.CUSTMAST.OFFIC AS CUSOFFIC',
+                           'SFHP.TBROKER.FNAME','SFHP.TBROKER.LNAME','SFHP.TBROKER.MEMBERID','SFHP.TBROKER.ADDRESS','SFHP.TBROKER.TELP AS TELPTBROKER')
+                  ->where('SFHP.ARMAST.CONTNO','=',$SetStrConn)
+                  ->whereBetween('SFHP.ARPAY.DDATE',[$fdate,$tdate])
+                  ->whereBetween('SFHP.ARMAST.HLDNO',[3.7,4.69])
+                  ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                  ->get();
+
+        $dataArpay = DB::connection('ibmi')
+                  ->table('SFHP.ARPAY')
+                  ->where('SFHP.ARPAY.CONTNO','=',$SetStrConn)
+                  ->sum('SFHP.ARPAY.INTAMT');
+
+        $dataInpay = DB::connection('ibmi')
+                  ->table('SFHP.CHQTRAN')
+                  ->where('SFHP.CHQTRAN.CONTNO','=',$SetStrConn)
+                  ->sum('SFHP.CHQTRAN.PAYINT');
+
+        $SumPay = $dataArpay - $dataInpay;
+        $type = $request->type;
+
+        $view = \View::make('precipitate.ReportInvoice' ,compact('data','date','fdate','tdate','type','SumPay'));
+        $html = $view->render();
+        $pdf = new PDF();
+        $pdf::SetTitle('รายงานข้อมูลเร่งรัด');
+        $pdf::AddPage('P', 'A4');
+        $pdf::SetMargins(5, 5, 5, 0);
+        $pdf::SetFont('freeserif', '', 10, '', true);
+        $pdf::SetAutoPageBreak(TRUE, 25);
+        $pdf::WriteHTML($html,true,false,true,false,'');
+        $pdf::Output('ReportInvoice.pdf');
+      }
+      elseif ($request->type == 12) {  //รายงาน ใบแจ้งหนี้เตรียมฟ้อง
+        $SetStrConn = $SetStr1."/".$SetStr2;
+        $data = DB::connection('ibmi')
+                  ->table('SFHP.ARMAST')
+                  ->leftJoin('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                  ->leftJoin('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
+                  ->leftJoin('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+                  ->leftJoin('SFHP.VIEW_ARMGAR','SFHP.ARMAST.CONTNO','=','SFHP.VIEW_ARMGAR.CONTNO')
+                  ->leftJoin('SFHP.ARMGAR','SFHP.ARMAST.CONTNO','=','SFHP.ARMGAR.CONTNO')
+                  ->leftJoin('SFHP.TBROKER','SFHP.ARMAST.RECOMCOD','=','SFHP.TBROKER.MEMBERID')
+                  ->leftJoin('SFHP.CUSTMAST','SFHP.ARMAST.CUSCOD','=','SFHP.CUSTMAST.CUSCOD')
+                  ->select('SFHP.ARMAST.*','SFHP.VIEW_CUSTMAIL.*','SFHP.INVTRAN.*','SFHP.VIEW_ARMGAR.NAME','SFHP.VIEW_ARMGAR.NICKNM AS NICKARMGAR',
+                           'SFHP.ARMGAR.RELATN','SFHP.VIEW_ARMGAR.ADDRES as ADDARMGAR','SFHP.VIEW_ARMGAR.TUMB as TUMBARMGAR','SFHP.VIEW_ARMGAR.AUMPDES AS AUMARMGAR',
+                           'SFHP.VIEW_ARMGAR.PROVDES AS PROARMGAR','SFHP.VIEW_ARMGAR.OFFIC AS OFFICARMGAR','SFHP.VIEW_ARMGAR.TELP AS TELPARMGAR',
+                           'SFHP.CUSTMAST.OCCUP','SFHP.CUSTMAST.MEMO1 AS CUSMEMO','SFHP.CUSTMAST.OFFIC AS CUSOFFIC',
+                           'SFHP.TBROKER.FNAME','SFHP.TBROKER.LNAME','SFHP.TBROKER.MEMBERID','SFHP.TBROKER.ADDRESS','SFHP.TBROKER.TELP AS TELPTBROKER')
+                  ->where('SFHP.ARMAST.CONTNO','=',$SetStrConn)
+                  ->whereBetween('SFHP.ARPAY.DDATE',[$fdate,$tdate])
+                  ->whereBetween('SFHP.ARMAST.HLDNO',[5.7,6.69])
+                  ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                  ->get();
+
+        $dataArpay = DB::connection('ibmi')
+                  ->table('SFHP.ARPAY')
+                  ->where('SFHP.ARPAY.CONTNO','=',$SetStrConn)
+                  ->sum('SFHP.ARPAY.INTAMT');
+
+        $dataInpay = DB::connection('ibmi')
+                  ->table('SFHP.CHQTRAN')
+                  ->where('SFHP.CHQTRAN.CONTNO','=',$SetStrConn)
+                  ->sum('SFHP.CHQTRAN.PAYINT');
+
+        $SumPay = $dataArpay - $dataInpay;
+        $type = $request->type;
+
+        $view = \View::make('precipitate.ReportInvoice' ,compact('data','date','fdate','tdate','type','SumPay'));
+        $html = $view->render();
+        $pdf = new PDF();
+        $pdf::SetTitle('รายงานข้อมูลเตรียมฟ้อง');
+        $pdf::AddPage('P', 'A4');
+        $pdf::SetMargins(5, 5, 5, 0);
+        $pdf::SetFont('freeserif', '', 10, '', true);
+        $pdf::SetAutoPageBreak(TRUE, 25);
+        $pdf::WriteHTML($html,true,false,true,false,'');
+        $pdf::Output('ReportInvoice.pdf');
       }
     }
 
