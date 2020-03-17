@@ -940,7 +940,7 @@
                     <h5 class="widget-user-desc">Founder & CEO</h5>
                   </div>
                   <div class="widget-user-image">
-                    <img class="img-circle" src="{{ asset('/dist/img/leasingLogo1.png') }}" alt="User Avatar">
+                    <img class="img-circle" src="{{ asset('/dist/img/leasingLogo1.jpg') }}" alt="User Avatar">
                   </div>
                   <div class="box-footer">
                     <div class="row">
@@ -1182,11 +1182,11 @@
                     <h5 class="modal-title" id="title" align="center"></h5>
                   </div>
                   <div class="modal-body">
-                    <input type="date" id="Datepay" name="AcceptDate" class="form-control" />
+                    <input type="date" id="Datepay" name="AcceptDate" class="form-control" required/>
                     <br>
-                    <input type="text" id="PayAmount" name="PayAmount" class="form-control" placeholder="ป้อนยอดชำระ" oninput="addcomma();" />
+                    <input type="text" id="PayAmount" name="PayAmount" class="form-control" placeholder="ป้อนยอดชำระ" oninput="addcomma();" required/>
                     <br>
-                    <input type="text" id="BalanceAmount" name="BalanceAmount" class="form-control" placeholder="ป้อนยอดคงขาด" oninput="addcomma();" />
+                    <input type="text" id="BalanceAmount" name="BalanceAmount" class="form-control" placeholder="ป้อนยอดคงขาด" oninput="addcomma();" required/>
                     <input type="hidden" name="type" class="form-control" value="10" />
                     <input type="hidden" id="contno" name="contno" class="form-control" />
                     <!-- <input type="hidden" id="SetStr1" name="SetStr1" class="form-control" />
