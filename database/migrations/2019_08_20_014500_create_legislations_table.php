@@ -21,6 +21,7 @@ class CreateLegislationsTable extends Migration
             $table->string('Contract_legis')->nullable();
             $table->string('Name_legis')->nullable();
             $table->string('Idcard_legis')->nullable();
+            $table->string('Address_legis')->nullable();
             $table->string('BrandCar_legis')->nullable();
             $table->string('register_legis')->nullable();
             $table->string('YearCar_legis')->nullable();
@@ -31,6 +32,7 @@ class CreateLegislationsTable extends Migration
             $table->string('DateVAT_legis')->nullable();
             $table->string('NameGT_legis')->nullable();
             $table->string('IdcardGT_legis')->nullable();
+            $table->string('AddressGT_legis')->nullable();
             $table->string('Realty_legis')->nullable();
             $table->string('Mile_legis')->nullable();         //เลขไมล์
             $table->string('Period_legis')->nullable();       //ค่างวด
@@ -55,6 +57,8 @@ class CreateLegislationsTable extends Migration
             $table->string('Flag_status')->nullable();
             $table->string('Datesend_Flag')->nullable(); //วันที่ส่งงานให้ทีมทนาย
             $table->string('Noteby_legis')->nullable(); //หมายเหตุจากทีมวิวิเคราะห์
+            $table->string('UserSend1_legis')->nullable(); //ชื่อ user ส่งฟ้อง
+            $table->string('UserSend2_legis')->nullable(); //ชื่อ user เตรียมฟ้อง
 
             $table->string('Certificate_list')->nullable();
             $table->string('Authorize_list')->nullable();

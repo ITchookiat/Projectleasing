@@ -48,7 +48,6 @@ function DateThai($strDate)
           </div>
         </div>
 
-
         <div class="box-body">
           @if(session()->has('success'))
             <div class="alert alert-success alert-dismissible" role="alert">
