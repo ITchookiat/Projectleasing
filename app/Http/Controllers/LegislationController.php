@@ -1000,13 +1000,13 @@ class LegislationController extends Controller
             $user->DateUpState_legis = date('Y-m-d');
             $user->DateCarState_legis = $request->get('DateStatuslegis');
           }elseif ($request->get('Statuslegis') == Null) {
-            $user->Status_legis = NULL; 
-            $user->DateStatus_legis = NULL; 
-            $user->PriceStatus_legis = NULL; 
-            $user->txtStatus_legis = NULL; 
-            $user->Discount_legis = NULL; 
+            $user->Status_legis = NULL;
+            $user->DateStatus_legis = NULL;
+            $user->PriceStatus_legis = NULL;
+            $user->txtStatus_legis = NULL;
+            $user->Discount_legis = NULL;
             $user->DateUpState_legis = NULL;
-            $user->DateCarState_legis = NULL; 
+            $user->DateCarState_legis = NULL;
           }
 
           //หน้าทีมทนาย
@@ -1052,12 +1052,12 @@ class LegislationController extends Controller
             $SetDateUp = date('Y-m-d');
             $SettxtStatus = $request->get('DateStatuslegis');
           }elseif ($request->get('Statuslegis') == Null) {
-            $user->Status_legis = NULL; 
-            $user->DateStatus_legis = NULL; 
-            $user->PriceStatus_legis = NULL; 
-            $user->txtStatus_legis = NULL; 
-            $user->Discount_legis = NULL; 
-            $user->DateUpState_legis = NULL; 
+            $user->Status_legis = NULL;
+            $user->DateStatus_legis = NULL;
+            $user->PriceStatus_legis = NULL;
+            $user->txtStatus_legis = NULL;
+            $user->Discount_legis = NULL;
+            $user->DateUpState_legis = NULL;
 
             $SetDateUp = NULL;
             $SettxtStatus = NULL;
@@ -1095,7 +1095,7 @@ class LegislationController extends Controller
           $Legiscourt->DateStatus_court = $SetDateUp;
           $Legiscourt->txtStatus_court = $SettxtStatus;
 
-          
+
           if ($Legiscourt->DateComplete_court == NULL) {
             if ($request->get('fillingdatecourt') != NULL) {
               $Legiscourt->DateComplete_court = date('Y-m-d');
@@ -1306,12 +1306,12 @@ class LegislationController extends Controller
             $user->Discount_legis = $request->get('DiscountAccount');
             $user->DateUpState_legis = $SetDateStatus;
           }elseif ($request->get('StatusCase') == Null) {
-            $user->Status_legis = NULL; 
-            $user->DateStatus_legis = NULL; 
-            $user->PriceStatus_legis = NULL; 
-            $user->txtStatus_legis = NULL; 
-            $user->Discount_legis = NULL; 
-            $user->DateUpState_legis = NULL; 
+            $user->Status_legis = NULL;
+            $user->DateStatus_legis = NULL;
+            $user->PriceStatus_legis = NULL;
+            $user->txtStatus_legis = NULL;
+            $user->Discount_legis = NULL;
+            $user->DateUpState_legis = NULL;
           }
         $user->update();
 
@@ -1453,12 +1453,12 @@ class LegislationController extends Controller
             $user->Discount_legis = $request->get('DiscountAccount');
             $user->DateUpState_legis = $request->get('DateStatusCheat');
           }elseif ($request->get('StatusCheat') == Null) {
-            $user->Status_legis = NULL; 
-            $user->DateStatus_legis = NULL; 
-            $user->PriceStatus_legis = NULL; 
-            $user->txtStatus_legis = NULL; 
-            $user->Discount_legis = NULL; 
-            $user->DateUpState_legis = NULL; 
+            $user->Status_legis = NULL;
+            $user->DateStatus_legis = NULL;
+            $user->PriceStatus_legis = NULL;
+            $user->txtStatus_legis = NULL;
+            $user->Discount_legis = NULL;
+            $user->DateUpState_legis = NULL;
           }
         $user->update();
 
@@ -1853,8 +1853,8 @@ class LegislationController extends Controller
           $pdf = new PDF();
           $pdf::SetTitle('รายงานลูกหนี้ประนอมหนี้');
           $pdf::AddPage('L', 'A4');
-          // $pdf::SetMargins(10, 5, 5, 10);
-          $pdf::SetFont('thsarabunpsk', '', 14, '', true);
+          // $pdf::SetMargins(5, 5, 5, 5);
+          $pdf::SetFont('thsarabunpsk', '', 15, '', true);
           $pdf::SetAutoPageBreak(TRUE, 20);
       }
       elseif ($request->type == 10){ //รายงานลูกหนี้ของกลาง

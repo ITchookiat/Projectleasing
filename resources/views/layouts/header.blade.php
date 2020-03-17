@@ -77,20 +77,22 @@
 <div class="modal fade in" id="modal-danger">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
-      <div class="modal-header">
-        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span></button> -->
-          <h3 class="modal-title" align="center"><i class="fa fa-warning text-warning"> Alert </i></h3>
-        </div>
+
         <div class="modal-body">
-          <h5 align="center">คุณแน่ใจที่จะออกจากระบบหรือไม่?</h5>
+          <h5 align="center">คุณแน่ใจที่จะออกจากระบบหรือไม่ <i class="fa fa-question-circle"></i></h5>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger btn-outline pull-left" data-dismiss="modal">ยกเลิก</button>
-          <a href="{{ route('logout') }}" class="btn btn-success btn-outline" >ตกลง</a>
+          <button type="button" class="btn btn-danger btn-outline pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i>  ยกเลิก</button>
+          <a href="{{ route('logout') }}" class="btn btn-success btn-outline" ><i class="fa fa-check-circle"></i>  ตกลง</a>
         </div>
+
+        <!-- <div class="modal-body text-center"> คุณแน่ใจที่จะออกจากระบบหรือไม่ <i class="fa fa-question-circle"></i></div>
+        <div class="modal-footer">
+            <a href="{{ route('logout') }}" class="btn btn-success btn-block" >ตกลง</a>
+            <button type="button" class="btn btn-danger btn-block" data-dismiss="modal"> ยกเลิก</button>
+        </div> -->
+
       </div>
       <!-- /.modal-content -->
     </div>
-    <!-- /.modal-dialog -->
   </div>

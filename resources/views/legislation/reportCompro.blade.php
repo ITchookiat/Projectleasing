@@ -356,20 +356,20 @@
           <tr align="center" style="background-color: yellow;line-height: 200%;font-weight:bold;">
             <th style="width: 30px">ลำดับ</th>
             <th style="width: 80px">วันที่เริ่มประนอม</th>
-            <th style="width: 60px">ระยะเวลา</th>
+            <th style="width: 90px">ระยะเวลา</th>
             <th>เลขที่สัญญา</th>
             <th style="width: 130px">ชื่อ-สกุล</th>
-            <th style="width: 80px">ยอดประนอมหนี้</th>
-            <th style="width: 80px">ยอดคงเหลือ</th>
+            <th style="width: 75px">ยอดประนอมหนี้</th>
+            <th style="width: 75px">ยอดคงเหลือ</th>
             <th style="width: 80px">งวดละ</th>
-            <th style="width: 80px">วันชำระล่าสุด</th>
-            <th style="width: 80px">สถานะ</th>
+            <th style="width: 75px">วันชำระล่าสุด</th>
+            <th style="width: 70px">สถานะ</th>
           </tr>
           @foreach($data as $key => $row)
           <tr style="line-height: 150%;">
             <td align="center" style="width: 30px">{{$key+1}}</td>
             <td align="center" style="width: 80px">{{DateThai($row->Date_Promise)}}</td>
-            <td align="center" style="width: 60px">
+            <td align="left" style="width: 90px">
               @if($row->Status_legis == "ปิดบัญชีประนอมหนี้" or $row->Status_legis == "ยึดรถหลังฟ้อง")
                 @php
                   $Cldate = date_create($row->Date_Promise);
@@ -377,7 +377,8 @@
                   $ClDateDiff = date_diff($Cldate,$nowCldate);
                   $duration = $ClDateDiff->format("%a วัน")
                 @endphp
-                <font color="green">{{$duration}}</font>
+                <!-- <font color="green">{{$duration}}</font> -->
+                <font color="green">{{$ClDateDiff->y}} ปี {{$ClDateDiff->m}} เดือน {{$ClDateDiff->d}} วัน</font>
               @else
                 @php
                   $nowday = date('Y-m-d');
@@ -386,22 +387,23 @@
                   $ClDateDiff = date_diff($Cldate,$nowCldate);
                   $duration = $ClDateDiff->format("%a วัน")
                 @endphp
-                <font>{{$duration}}</font>
+                <!-- <font>{{$duration}}</font> -->
+                <font>{{$ClDateDiff->y}} ปี {{$ClDateDiff->m}} เดือน {{$ClDateDiff->d}} วัน</font>
               @endif
             </td>
             <td align="center">{{$row->Contract_legis}}</td>
             <td style="width: 130px"> {{$row->Name_legis}}</td>
-            <td align="center" style="width: 80px"> {{number_format($row->Total_Promise,2)}} &nbsp;</td>
-            <td align="center" style="width: 80px"> {{number_format($row->Sum_Promise,2)}} &nbsp;</td>
+            <td align="center" style="width: 75px"> {{number_format($row->Total_Promise,2)}} &nbsp;</td>
+            <td align="center" style="width: 75px"> {{number_format($row->Sum_Promise,2)}} &nbsp;</td>
             <td align="center" style="width: 80px"> {{number_format($row->DuePay_Promise,2)}} &nbsp; </td>
-            <td align="center" style="width: 80px">
+            <td align="center" style="width: 75px">
               @foreach($dataPay as $key => $value)
                 @if($row->legisPromise_id == $value->legis_Com_Payment_id)
                       {{DateThai($value->Date_Payment)}}
                 @endif
               @endforeach
             </td>
-            <td align="center" style="width: 80px">
+            <td align="center" style="width: 70px">
               @php
                 @$sumTotal += $row->Total_Promise;
                 @$sumRemain += $row->Sum_Promise;
@@ -425,16 +427,16 @@
             </td>
           </tr>
           @endforeach
-          <tr style="line-height: 250%;">
-            <td align="right" style="width: 378px">รวมยอด &nbsp;</td>
-            <td align="center" style="width: 80px">{{number_format(@$sumTotal,2)}} &nbsp;</td>
-            <td align="center" style="width: 80px">{{number_format(@$sumRemain,2)}} &nbsp;</td>
-            <td style="width: 240px">&nbsp;บาท</td>
+          <tr style="line-height: 150%;">
+            <td align="right" style="width: 408px">รวมยอด &nbsp;</td>
+            <td align="center" style="width: 75px">{{number_format(@$sumTotal,2)}} &nbsp;</td>
+            <td align="center" style="width: 75px">{{number_format(@$sumRemain,2)}} &nbsp;</td>
+            <td style="width: 225px">&nbsp;บาท</td>
           </tr>
           {{--
           <tr style="line-height: 200%;">
             <td align="center" style="width: 378px">รวมยอดประนอมหนี้ {{number_format(@$sumTotal,2)}} บาท&nbsp;</td>
-            <td align="center" style="width: 400px">รวมยอดคงเหลือ  {{number_format(@$sumRemain,2)}} บาท&nbsp;</td>
+            <td align="center" style="width: 390px">รวมยอดคงเหลือ  {{number_format(@$sumRemain,2)}} บาท&nbsp;</td>
           </tr>
           --}}
       </table>

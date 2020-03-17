@@ -831,7 +831,7 @@
                                   $ClDateDiff = date_diff($Cldate,$nowCldate);
                                   $duration = $ClDateDiff->format("%a วัน")
                                 @endphp
-                                <font color="green">{{$duration}}</font>
+                                <span title="{{$ClDateDiff->y}} ปี {{$ClDateDiff->m}} เดือน {{$ClDateDiff->d}} วัน"><font color="green" title="test">{{$duration}}</font></span>
                               @else
                                 @php
                                   $nowday = date('Y-m-d');
@@ -840,7 +840,7 @@
                                   $ClDateDiff = date_diff($Cldate,$nowCldate);
                                   $duration = $ClDateDiff->format("%a วัน")
                                 @endphp
-                                <font color="red">{{$duration}}</font>
+                                <span title="{{$ClDateDiff->y}} ปี {{$ClDateDiff->m}} เดือน {{$ClDateDiff->d}} วัน"><font color="red">{{$duration}}</font></span>
                               @endif
                             </td>
                             <td class="text-center"> {{number_format($row->Total_Promise,2)}}</a></td>
