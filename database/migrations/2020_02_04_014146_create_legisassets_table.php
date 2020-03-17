@@ -25,6 +25,7 @@ class CreateLegisassetsTable extends Migration
             $table->string('Dateresult_asset')->nullable();
             $table->string('NewpursueDate_asset')->nullable();
             $table->string('Notepursue_asset')->nullable();
+            $table->string('User_asset')->nullable();
             $table->timestamps();
         });
     }

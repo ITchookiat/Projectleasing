@@ -605,6 +605,7 @@ class LegislationController extends Controller
           'Contract_legis' => $data->CONTNO,
           'Name_legis' => (iconv('TIS-620', 'utf-8', str_replace(" ","",$data->SNAM)." ".str_replace(" ","",$data->NAME1)."  ".str_replace(" ","",$data->NAME2))),
           'Idcard_legis' => (str_replace(" ","",$data->IDNO)),
+          'Address_legis' => (iconv('TIS-620', 'utf-8', str_replace(" ","",$data->ADDRES))." ต.".iconv('TIS-620', 'utf-8', str_replace(" ","",$data->TUMB))." อ.".iconv('TIS-620', 'utf-8', str_replace(" ","",$data->AUMPDES))." จ.".iconv('TIS-620', 'utf-8', str_replace(" ","",$data->PROVDES))."  ".iconv('TIS-620', 'utf-8', str_replace(" ","",$data->ZIP))),
           'BrandCar_legis' => (iconv('Tis-620','utf-8',str_replace(" ","",$data->TYPE))),
           'register_legis' => (iconv('Tis-620','utf-8',str_replace(" ","",$data->REGNO))),
           'YearCar_legis' => $data->MANUYR,
@@ -614,6 +615,7 @@ class LegislationController extends Controller
           'DateVAT_legis' => $data->DTSTOPV,
           'NameGT_legis' => $SetGTName,
           'IdcardGT_legis' => $SetGTIDNO,
+          'AddressGT_legis' => (iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->ADDRES))." ต.".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->TUMB))." อ.".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->AUMPDES))." จ.".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->PROVDES))."  ".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->ZIP))),
           'Realty_legis' => $SetRealty,
 
           'Mile_legis' => $data->MILERT,
@@ -627,6 +629,7 @@ class LegislationController extends Controller
           'Sumperiod_legis' => $data->BALANC - $data->SMPAY,
           'Flag' => 'Y',
           'Flag_status' => '1',
+          'UserSend1_legis' => auth()->user()->name,
         ]);
         $LegisDB->save();
         $tab = 1;
@@ -685,6 +688,8 @@ class LegislationController extends Controller
           'Sumperiod_legis' => $data->BALANC - $data->SMPAY,
           'Flag' => 'C',
           'Flag_status' => '3',
+          'UserSend1_legis' => auth()->user()->name,
+          
         ]);
         $LegisDB->save();
 
@@ -1095,10 +1100,10 @@ class LegislationController extends Controller
           $Legiscourt->DateStatus_court = $SetDateUp;
           $Legiscourt->txtStatus_court = $SettxtStatus;
 
-          
           if ($Legiscourt->DateComplete_court == NULL) {
             if ($request->get('fillingdatecourt') != NULL) {
               $Legiscourt->DateComplete_court = date('Y-m-d');
+              $Legiscourt->User_court = auth()->user()->name;
             }
           }
         $Legiscourt->update();
@@ -1138,26 +1143,9 @@ class LegislationController extends Controller
               'Datelast_Promise' =>  $request->get('DatelastPromise'),
               'SumAll_Promise' =>  $request->get('SumAllPromise'),
               'Note_Promise' =>  $request->get('NotePromise'),
+              'User_Promise' =>  auth()->user()->name,
             ]);
             $LegisPromise->save();
-
-            $Legislation = Legislation::find($id);
-              $Legislation->KeyCompro_id = $LegisPromise->legisPromise_id;
-
-              if ($request->get('Statuslegis') != Null) {
-                $SettxtStatus = str_replace (",","",$request->get('txtStatuslegis'));
-
-                $Legislation->Status_legis = $request->get('Statuslegis');
-                $Legislation->txtStatus_legis = $SettxtStatus;
-                $Legislation->DateStatus_legis = $request->get('DateStatuslegis');
-                $Legislation->DateUpState_legis = date('Y-m-d');
-              }elseif ($request->get('Statuslegis') == Null) {
-                $Legislation->Status_legis = Null;
-                $Legislation->DateUpState_legis = Null;
-              }
-
-            $Legislation->update();
-
         }else {
           // dd($request->get('FlagPromise'));
           $LegisPromise = Legiscompromise::where('legisPromise_id',$id)->first();
@@ -1175,21 +1163,6 @@ class LegislationController extends Controller
             $LegisPromise->SumAll_Promise = $request->get('SumAllPromise');
             $LegisPromise->Note_Promise = $request->get('NotePromise');
           $LegisPromise->update();
-
-          // เพิ่มสถานะจบงาน
-          $Legislation = Legislation::find($id);
-            if ($request->get('Statuslegis') != Null) {
-              $SettxtStatus = str_replace (",","",$request->get('txtStatuslegis'));
-
-              $Legislation->Status_legis = $request->get('Statuslegis');
-              $Legislation->txtStatus_legis = $SettxtStatus;
-              $Legislation->DateStatus_legis = $request->get('DateStatuslegis');
-              $Legislation->DateUpState_legis = date('Y-m-d');
-            }elseif ($request->get('Statuslegis') == Null) {
-              $Legislation->Status_legis = Null;
-              $Legislation->DateUpState_legis = Null;
-            }
-          $Legislation->update();
         }
         // dd($LegisPromise);
         $data = DB::table('legislations')
@@ -1335,11 +1308,11 @@ class LegislationController extends Controller
               'Dateresult_asset' => Null,
               'NewpursueDate_asset' => $request->get('NewpursueDateasset'),
               'Notepursue_asset' =>  $request->get('Notepursueasset'),
+              'User_asset' =>  auth()->user()->name,
             ]);
             $LegisAsset->save();
-
         }else {
-          if ($request->get('sendsequesterasset') == "เจอ" or $request->get('sendsequesterasset') == "หมดอายุความ" or $request->get('sendsequesterasset') == "จบงานสืบทรัพย์") {
+          if ($request->get('sendsequesterasset') == "เจอ" or $request->get('sendsequesterasset') == "หมดอายุความคดี" or $request->get('sendsequesterasset') == "จบงานสืบทรัพย์") {
             $Dateresult = date('Y-m-d');
           }else {
             $Dateresult = Null;
@@ -1549,6 +1522,7 @@ class LegislationController extends Controller
        if ($type == 6) {     //ข้อมูลผู้เช่าซื้อจากฝ่ายวิเคราะห์
          $user = Legislation::find($id);
                $user->Flag_status = $request->get('Flag');
+               $user->UserSend2_legis = auth()->user()->name;
                $user->Datesend_Flag = date('Y-m-d');
          $user->update();
 
@@ -1579,6 +1553,7 @@ class LegislationController extends Controller
            'received_court' =>  Null,
            'telresults_court' =>  Null,
            'dayresults_court' =>  Null,
+           'User_court' => NULL,
            'latitude_court' =>  Null,
            'longitude_court' =>  Null,
          ]);
