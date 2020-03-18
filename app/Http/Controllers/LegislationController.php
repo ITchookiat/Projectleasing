@@ -372,6 +372,60 @@ class LegislationController extends Controller
         // dd($type);
         return view('legislation.viewReport',compact('type'));
       }
+      elseif ($request->type == 100) {   //Dashboard
+        $dataprepare = DB::table('legislations')
+                  ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+                  ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+                  ->where('legislations.Flag_status','=', '1')
+                  ->orderBy('legislations.id', 'DESC')
+                  ->count();
+        $dataprepareDone = DB::table('legislations')
+                  ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+                  ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+                  ->where('legislations.Flag_status','=', '2')
+                  ->orderBy('legislations.id', 'DESC')
+                  ->count();
+
+        $datalegis = DB::table('legislations')
+                  ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+                  ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+                  ->where('legislations.Flag_status','=', '2')
+                  ->whereNull('legiscourts.fillingdate_court')
+                  ->orderBy('legislations.id', 'DESC')
+                  ->count();
+        $datalegisDone = DB::table('legislations')
+                  ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+                  ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+                  ->where('legislations.Flag_status','=', '2')
+                  ->whereNotNull('legiscourts.fillingdate_court')
+                  ->orderBy('legislations.id', 'DESC')
+                  ->count();
+
+        $lastday = date('Y-m-d', strtotime("-90 days"));
+        $dataPaymentAll = DB::table('Legiscompromises')->count();
+        $dataPayment = DB::table('legislations')
+                  ->leftjoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+                  ->leftjoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+                  ->leftjoin('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
+                  ->where('legislations.Flag_status','!=', '1')
+                  ->where('legispayments.Date_Payment','>=',$lastday)
+                  ->where('legispayments.Flag_Payment', '=', 'Y')
+                  ->where('legislations.Status_legis','=', Null)
+                  ->orderBy('legislations.Contract_legis', 'ASC')
+                  ->count();
+        $dataPaymentDone = DB::table('legislations')
+                  ->leftjoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+                  ->leftjoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+                  ->leftjoin('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
+                  ->where('legislations.Flag_status','!=', '1')
+                  ->where('legispayments.Date_Payment','<',$lastday)
+                  ->where('legispayments.Flag_Payment', '=', 'Y')
+                  ->where('legislations.Status_legis','=', Null)
+                  ->orderBy('legislations.Contract_legis', 'ASC')
+                  ->count();
+        $type = $request->type;
+        return view('legislation.view',compact('type','dataprepare','dataprepareDone','datalegis','datalegisDone','dataPaymentAll','dataPayment','dataPaymentDone'));
+      }
     }
 
     /**
@@ -1031,6 +1085,7 @@ class LegislationController extends Controller
           $user->Purchase_list = $request->get('Purchaselist');
           $user->Promise_list = $request->get('Promiselist');
           $user->Titledeed_list = $request->get('Titledeedlist');
+          $user->Note = $request->get('Legisnote');
 
           //หน้าทีมวิเคราะห์
           $user->Terminatebuyer_list = $request->get('Terminatebuyerlist');
