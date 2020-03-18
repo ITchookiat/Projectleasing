@@ -31,6 +31,7 @@ class CreateLegiscompromisesTable extends Migration
             $table->string('Datelast_Promise')->nullable();
             $table->string('SumAll_Promise')->nullable();
             $table->string('Note_Promise')->nullable();
+            $table->string('User_Promise')->nullable();
             $table->timestamps();
         });
     }
