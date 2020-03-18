@@ -234,7 +234,7 @@
                                 <div align="left">
                                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                   <small class="label label-success" style="font-size: 25px;">
-                                    <i class="fa fa-expeditedssl"></i>&nbsp; สถานะ : 
+                                    <i class="fa fa-expeditedssl"></i>&nbsp; สถานะ :
                                     @if($data->Status_legis != Null)
                                         {{$data->Status_legis}}
                                     @endif
@@ -397,26 +397,22 @@
                                   </div>
                                 </div>
                                 <div class="col-md-4">
-                                  ค้าง
+                                  ค้าง&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ค้างงวดจริง
                                   <div class="form-inline" align="left">
-                                    <input type="text" class="form-control" style="width: 100%;" value="{{ number_format($data1->EXP_PRD, 0) }}" readonly/>
+                                    <input type="text" class="form-control" style="width: 40%;" value="{{ number_format($data1->EXP_PRD, 0) }}" readonly/>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type="text" class="form-control" style="width: 40%;" value="{{ number_format($data1->HLDNO, 2) }}" readonly/>
                                   </div>
                                 </div>
-                                <div class="col-md-4">
-                                  ค้างงวดจริง
-                                  <div class="form-inline" align="left">
-                                    <input type="text" class="form-control" style="width: 100%;" value="{{ number_format($data1->HLDNO, 2) }}" readonly/>
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div class="row">
                                 <div class="col-md-4">
                                   ลูกหนี้คงเหลือ
                                   <div class="form-inline" align="left">
                                     <input type="text" name="Sumperiodlegis" class="form-control" style="width: 100%;" value="{{ number_format($data1->BALANC - $data1->SMPAY, 2) }}" readonly/>
                                   </div>
                                 </div>
+                              </div>
+
+                              <div class="row">
                                 <div class="col-md-4">
                                   วันที่หยุด Vat
                                   <div class="form-inline" align="left">
@@ -433,9 +429,6 @@
                                     <input type="text" name="NameGTlegis" class="form-control" style="width: 100%;" value="{{ $data->NameGT_legis }}" readonly/>
                                   </div>
                                 </div>
-                              </div>
-
-                              <div class="row">
                                 <div class="col-md-4">
                                   เลขบัตรประชาชน
                                   <div class="form-inline" align="left">
@@ -443,10 +436,10 @@
                                   </div>
                                 </div>
                               </div>
+
                             </div>
                           </div>
                         </div>
-
                         <div class="col-md-6">
                           <div class="box box-warning">
                             <div class="box-header with-border">
@@ -660,6 +653,30 @@
                           </div>
                         </div>
                       </div>
+
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="box box-warning box-solid">
+                            <div class="box-header with-border">
+                              <h3 class="box-title"><i class="fa fa-edit"></i> หมายเหตุ</h3>
+                              <div class="box-tools pull-center">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                </button>
+                              </div>
+                            </div>
+                            <div class="box-body">
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <div class="form-inline" align="left">
+                                    <textarea style="width:100%" name="Legisnote" class="form-control" rows="5">{{ ($data->Note) }}</textarea>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
                     </div>
 
                   </div>
@@ -758,7 +775,7 @@
       </script>
 
       <script type="text/javascript">
-        $(".alert").fadeTo(3000, 1000).slideUp(1000, function(){
+        $(".alert").fadeTo(500, 500).slideUp(500, function(){
         $(".alert").alert('close');
         });
       </script>

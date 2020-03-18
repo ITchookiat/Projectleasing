@@ -141,6 +141,7 @@
                 <li><a href="{{ route('legislation',8) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้สืบทรัพย์</a></li>
                 <li><a href="{{ route('legislation',7) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้ประนอมหนี้</a></li>
                 <li><a href="{{ route('legislation',10) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้ของกลาง</a></li>
+                <!-- <li><a href="{{ route('legislation',100) }}"><i class="fa fa-dashboard text-primary"></i>Dashboard</a></li> -->
               </ul>
             @endif
           </li>
