@@ -244,7 +244,7 @@
                                 <label>สถานะ : </label>
                                 <select name="Statuslegis" class="form-control" style="width: 170px;">
                                   <option value="" selected>--- status ---</option>
-                                  <option value="จ่าบจบก่อนฟ้อง" {{ ($data->Status_legis === 'จ่าบจบก่อนฟ้อง') ? 'selected' : '' }}>จ่าบจบก่อนฟ้อง</option>
+                                  <option value="จ่ายจบก่อนฟ้อง" {{ ($data->Status_legis === 'จ่ายจบก่อนฟ้อง') ? 'selected' : '' }}>จ่ายจบก่อนฟ้อง</option>
                                   <option value="ยึดรถก่อนฟ้อง" {{ ($data->Status_legis === 'ยึดรถก่อนฟ้อง') ? 'selected' : '' }}>ยึดรถก่อนฟ้อง</option>
                                   <option value="หมดอายุความคดี" {{ ($data->Status_legis === 'หมดอายุความคดี') ? 'selected' : '' }}>หมดอายุความคดี</option>
                                 </select>
@@ -653,6 +653,8 @@
                           </div>
                         </div>
                       </div>
+                      <input type="hidden" name="Adreeslegis" class="form-control"  value="{{ iconv('TIS-620', 'utf-8', str_replace(" ","",$data1->ADDRES))." ต.".iconv('TIS-620', 'utf-8', str_replace(" ","",$data1->TUMB))." อ.".iconv('TIS-620', 'utf-8', str_replace(" ","",$data1->AUMPDES))." จ.".iconv('TIS-620', 'utf-8', str_replace(" ","",$data1->PROVDES))."  ".iconv('TIS-620', 'utf-8', str_replace(" ","",$data1->ZIP)) }}"/>
+                      <input type="hidden" name="AdreesGTlegis" class="form-control"  value="{{ iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->ADDRES))." ต.".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->TUMB))." อ.".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->AUMPDES))." จ.".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->PROVDES))."  ".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->ZIP)) }}"/>
 
                       <div class="row">
                         <div class="col-md-12">
@@ -676,7 +678,6 @@
                           </div>
                         </div>
                       </div>
-
                     </div>
 
                   </div>

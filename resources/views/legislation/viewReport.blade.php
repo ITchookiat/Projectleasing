@@ -11,6 +11,14 @@
 @endphp
 
 <style>
+  input[type="checkbox"] { position: absolute; opacity: 0; z-index: -1; }
+  input[type="checkbox"]+span { font: 12pt sans-serif; color: #000; }
+  input[type="checkbox"]+span:before { font: 12pt FontAwesome; content: '\00f096'; display: inline-block; width: 12pt; padding: 2px 0 0 3px; margin-right: 0.5em; }
+  input[type="checkbox"]:checked+span:before { content: '\00f046'; }
+  input[type="checkbox"]:focus+span:before { outline: 1px dotted #aaa; }
+</style>
+
+<style>
   [type="radio"]:checked,
   [type="radio"]:not(:checked) {
       position: absolute;
@@ -66,8 +74,6 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css">
 
-
-
       <!-- Main content -->
       <section class="content">
         <!-- Default box -->
@@ -79,6 +85,8 @@
             <h4 class="card-title p-3" align="center">รายงานบันทึกชำะค่างวด</h4>
           @elseif($type == 16)
           <h4 class="card-title p-3" align="center">รายงานลูกหนี้ประนอม</h4>
+          @elseif($type == 17)
+          <h4 class="card-title p-3" align="center">รายงานลูกหนี้ฟ้อง</h4>
           @endif
             <div class="box-tools pull-right">
               <button type="button" data-dismiss="modal" class="close" >
@@ -178,56 +186,123 @@
                 <input type="hidden" name="_token" value="{{csrf_token()}}" />
               </form>
             @elseif($type == 16)
-            <form name="form1" action="{{ route('legislation.report' ,[00, 7]) }}" target="_blank" method="get" id="formimage" enctype="multipart/form-data">
-              <div class="card">
-                <div class="card-body">
-                  <div class="tab-content">
-                    <div class="form-inline" align="right">
-                      <div class="row">
-                        <div class="col-md-7">
-                          <div class="" align="right">
-                            <label>วันที่ : </label>
-                            <input type="date" name="Fromdate" class="form-control" style="width: 200px;"/>
+              <form name="form1" action="{{ route('legislation.report' ,[00, 16]) }}" target="_blank" method="get" id="formimage" enctype="multipart/form-data">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="tab-content">
+                      <div class="form-inline" align="right">
+                        <div class="row">
+                          <div class="col-md-7">
+                            <div class="" align="right">
+                              <label>วันที่ : </label>
+                              <input type="date" name="Fromdate" class="form-control" style="width: 200px;"/>
+                            </div>
+                            <div class="" align="right">
+                              <label>ถึงวันที่ : </label>
+                              <input type="date" name="Todate" class="form-control" style="width: 200px;"/>
+                            </div>
+                            <br>
                           </div>
-                          <div class="" align="right">
-                            <label>ถึงวันที่ : </label>
-                            <input type="date" name="Todate" class="form-control" style="width: 200px;"/>
+
+                          <div class="col-md-5">
+                            <div class="form-inline" align="center">
+                              <button type="submit" class="btn btn-primary btn-app">
+                                <span class="glyphicon glyphicon-print"></span> ปริ้น
+                              </button>
+                              <a class="btn btn-app" href="{{ route('legislation',7) }}" style="background-color:#DB0000; color:#FFFFFF;">
+                                <span class="glyphicon glyphicon-remove"></span> ยกเลิก
+                              </a>
+                            </div>
                           </div>
-                          <br>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-3">
+                            <div class="" align="right">
+                              <label>สถานะ : &nbsp;&nbsp;</label>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="" align="left">
+                              <label>
+                                <input type="checkbox" id="test3" name="status" value="ชำระปกติ"/>
+                                <span>ชำระปกติ</span>
+                              </label>
+                            <p></p>
+                              <label>
+                                <input type="checkbox" id="test4" name="status" value="ขาดชำระ"/>
+                                <span>ขาดชำระเกิน 3 งวด</span>
+                              </label>
+                            <p></p>
+                              <label>
+                                <input type="checkbox" id="test5" name="status" value="ปิดบัญชี"/>
+                                <span>ปิดบัญชี</span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      <br>
+                    </div>
+                  </div>
+
+                </div>
+              </form>
+            @elseif($type == 17)
+              <form name="form1" action="{{ route('legislation.report' ,[00, 17]) }}" target="_blank" method="get" id="formimage" enctype="multipart/form-data">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="tab-content">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-inline" align="center">
+                              <label>วันที่ : </label>
+                              <input type="date" name="Fromdate" class="form-control" style="width: 180px;"/>
+                              <label>ถึงวันที่ : </label>
+                              <input type="date" name="Todate" class="form-control" style="width: 180px;"/>
+                            </div>
+                          </div>
+                        </div>
+                        <p></p>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-inline" align="center">
+                              <label>สถานะทรัพย์ : </label>
+                              <select name="StateLegis" class="form-control" style="width: 180px">
+                                <option selected value="">--- สถานะทรัพย์ ---</option>
+                                <option value="มีทรัพย์">มีทรัพย์</otion>
+                                <option value="ไม่มีทรัพย์">ไม่มีทรัพย์</otion>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <p></p>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-inline" align="center">
+                              <label>สถานะทรัพย์ : </label>
+                              <select name="StateLegis" class="form-control" style="width: 180px">
+                                <option selected value="">--- สถานะทรัพย์ ---</option>
+                                <option value="มีทรัพย์">มีทรัพย์</otion>
+                                <option value="ไม่มีทรัพย์">ไม่มีทรัพย์</otion>
+                              </select>
+                            </div>
+                          </div>
                         </div>
 
-                        <div class="col-md-5">
-                          <div class="form-inline" align="center">
-                            <button type="submit" class="btn btn-primary btn-app">
-                              <span class="glyphicon glyphicon-print"></span> ปริ้น
-                            </button>
-                            <a class="btn btn-app" href="{{ route('legislation',7) }}" style="background-color:#DB0000; color:#FFFFFF;">
-                              <span class="glyphicon glyphicon-remove"></span> ยกเลิก
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-9">
-                          <div class="" align="left">
-                            &nbsp;&nbsp;
-                            <input type="radio" id="test3" name="status" value="ชำระปกติ" />
-                            <label for="test3">ชำระปกติ</label>
-                            &nbsp;
-                            <input type="radio" id="test4" name="status" value="ขาดชำระ" />
-                            <label for="test4">ขาดชำระเกิน 3 งวด</label>
-                            &nbsp;
-                            <input type="radio" id="test5" name="status" value="ปิดบัญชี" />
-                            <label for="test5">ปิดบัญชี</label>
-                          </div>
-                      </div>
+
+                          <!-- <div class="col-md-5">
+                            <div class="form-inline" align="center">
+                              <button type="submit" class="btn btn-primary btn-app">
+                                <span class="glyphicon glyphicon-print"></span> ปริ้น
+                              </button>
+                              <a class="btn btn-app" href="{{ route('legislation',7) }}" style="background-color:#DB0000; color:#FFFFFF;">
+                                <span class="glyphicon glyphicon-remove"></span> ยกเลิก
+                              </a>
+                            </div>
+                          </div> -->
                     </div>
-                    <br>
                   </div>
                 </div>
-
-              </div>
-            </form>
+              </form>
             @endif
 
           </div>
