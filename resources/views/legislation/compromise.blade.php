@@ -72,15 +72,17 @@
                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                       <small class="label label-success" style="font-size: 25px;">
                                       <i class="fa fa-expeditedssl"></i>&nbsp; สถานะ : 
-                                        @if($data->Status_legis != Null)
-                                          {{$data->Status_legis}}
+                                        @if($data->Status_Promise != Null)
+                                          {{$data->Status_Promise}}
                                         @endif
                                       </small>
                                     </div>
                                     <p></p>
                                     <label>สถานะ : </label>
-                                    <select name="" class="form-control" style="width: 170px;" disabled>
+                                    <select name="StatusCompro" class="form-control" style="width: 170px;">
                                       <option value="" selected>--- status ---</option>
+                                      <option value="ปิดบัญชีประนอมหนี้" {{ ($data->Status_Promise === 'ปิดบัญชีประนอมหนี้') ? 'selected' : '' }}>ปิดบัญชีประนอมหนี้</option>
+                                      <option value="จ่ายจบประนอมหนี้" {{ ($data->Status_Promise === 'จ่ายจบประนอมหนี้') ? 'selected' : '' }}>จ่ายจบประนอมหนี้</option>
                                     </select>
                                     <input type="date" name="" class="form-control" style="width: 170px;" value="" disabled>
                                   </div>

@@ -92,7 +92,7 @@
   @elseif($type == 3)
     <h3 class="card-title p-3" align="center">ใบเสร็จปิดบัญชี</h3>
     <hr>
-  @elseif($type == 7)
+  @elseif($type == 16)
     <label align="right">ปริ้นวันที่ : <u>{{ date('d-m-Y') }}</u></label>
     <h1 align="center" style="font-weight: bold;line-height:1px;"><b>ลูกหนี้ประนอมหนี้ @if($status != '')({{$status}})@endif</b></h1>
      @if($newfdate != '')
@@ -349,7 +349,7 @@
         </tbody>
       </table>
     </body>
-  @elseif($type == 7)
+  @elseif($type == 16)
    <body>
       <br>
       <table border="1">

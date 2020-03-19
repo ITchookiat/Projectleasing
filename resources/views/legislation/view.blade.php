@@ -197,9 +197,14 @@
                 <div class="col-md-12">
                   <form method="get" action="{{ route('legislation', 2) }}">
                       <div align="right" class="form-inline">
-                          <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', $type) }}" class="btn btn-primary btn-app">
+                      <div class="btn-group">
+                          <button type="button" class="btn btn-primary btn-app dropdown-toggle" data-toggle="dropdown">
                             <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
-                          </a>
+                          </button>
+                           <ul class="dropdown-menu" role="menu">
+                              <li><a target="_blank" href="{{ route('legislation', 17) }}" data-toggle="modal" data-target="#modal-4" data-backdrop="static" data-keyboard="false"> รายงานลูกหนี้ฟ้อง</a></li>
+                            </ul>
+                        </div>
                         <button type="submit" class="btn btn-warning btn-app">
                           <span class="glyphicon glyphicon-search"></span> Search
                         </button>
@@ -610,7 +615,7 @@
                                 $lastday = date('Y-m-d', strtotime("-90 days"));
                               @endphp
 
-                              @if($row->Status_legis == "ปิดบัญชีประนอมหนี้" or $row->Status_legis == "ยึดรถหลังฟ้อง")
+                              @if($row->Status_Promise != NULL)
                                 <button type="button" class="btn btn-success btn-sm" title="ปิดบัญชี">
                                   <span class="glyphicon glyphicon-ok prem"></span> ปิดบัญชี
                                 </button>
@@ -618,23 +623,23 @@
                                 @if($row->KeyCompro_id != Null)
                                   @foreach($dataPay as $key => $value)
                                     @if($row->legisPromise_id == $value->legis_Com_Payment_id)
-                                         @if($value->Date_Payment < $lastday)
-                                           <button type="button" class="btn btn-danger btn-sm" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
-                                             <span class="glyphicon glyphicon-thumbs-down prem"></span> ขาดชำระ
-                                           </button>
-                                         @else
-                                           <button type="button" class="btn btn-info btn-sm" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
-                                             <span class="glyphicon glyphicon-thumbs-up prem"></span> ชำระปกติ
-                                           </button>
-                                         @endif
-                                       @endif
+                                      @if($value->Date_Payment < $lastday)
+                                        <button type="button" class="btn btn-danger btn-sm" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
+                                          <span class="glyphicon glyphicon-thumbs-down prem"></span> ขาดชำระ
+                                        </button>
+                                      @else
+                                        <button type="button" class="btn btn-info btn-sm" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
+                                          <span class="glyphicon glyphicon-thumbs-up prem"></span> ชำระปกติ
+                                        </button>
+                                      @endif
+                                    @endif
                                   @endforeach
-                                 @else
-                                   <button type="button" class="btn btn-gray btn-sm" title="ไม่มีข้อมูล">
-                                     <i class="fa fa-question-circle prem"></i> ไม่มีข้อมูล
-                                   </button>
-                                 @endif
-                               @endif
+                                @else
+                                  <button type="button" class="btn btn-gray btn-sm" title="ไม่มีข้อมูล">
+                                    <i class="fa fa-question-circle prem"></i> ไม่มีข้อมูล
+                                  </button>
+                                @endif
+                              @endif
                             </td>
                             <td class="text-center">
                               <a href="{{ action('LegislationController@edit',[$row->id,$type]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
@@ -1387,6 +1392,19 @@
 
             <!-- Pop up รายงานลูกหนี้ประนอม -->
             <div class="modal fade" id="modal-3">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">ข้อมูลรายละเอียด</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pop up รายงานลูกฟ้อง -->
+            <div class="modal fade" id="modal-4">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
