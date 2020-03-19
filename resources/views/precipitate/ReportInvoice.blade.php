@@ -91,7 +91,7 @@
 
   @if($type == 10)
     <br/>
-      <h1 class="card-title p-3" align="center"><b>บริษัท ชูเกียรติลิสซิ่ง จำกัด</b></h1>
+      <h1 class="card-title p-3" align="center" style="line-height: 10px;"><b>บริษัท ชูเกียรติลิสซิ่ง จำกัด</b></h1>
       <h3 class="card-title p-3" align="center" style="letter-spacing: 0.3px;"><b>17/8 ม.4 ต.รูสะมิแล อ.เมือง จ.ปัตตานี   โทร. 073-450700-4 </b></h3>
     <hr>
   @elseif($type == 2 or $type == 4 or $type == 11 or $type == 12)
@@ -107,8 +107,8 @@
           $Date = date('Y-m-d');
           @endphp
           <tr style="line-height: 150%;">
-            <td width="250px"> {{-- $data->CONTNO --}}</td>
-            <td width="250px"> วันที่ {{DateThai2($Date)}} </td>
+            <td width="270px"> {{-- $data->CONTNO --}}</td>
+            <td width="230px"> วันที่ {{DateThai2($Date)}} </td>
           </tr>
           <tr style="line-height: 20%;">
             <td width="500px"> </td>
@@ -174,13 +174,13 @@
           <tr>
             <td width="500px"> </td>
           </tr>
-          <tr style="line-height: 150%;">
+          <tr style="line-height: 200%;">
             <td width="250px"> {{-- $data->CONTNO --}}</td>
             <td width="250px"> ขอแสดงความนับถือ </td>
           </tr>
-          <!-- <tr>
+          <tr>
             <td width="500px"> </td>
-          </tr> -->
+          </tr>
           <tr style="line-height: 150%;letter-spacing: 0.2px;">
             <td width="220px"> {{-- $data->CONTNO --}}</td>
             <td width="280px"> ( นางสาวขวัญตา   เหมือนพยอม ) </td>
