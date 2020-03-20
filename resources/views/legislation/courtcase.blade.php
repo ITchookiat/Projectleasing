@@ -191,6 +191,10 @@
                                       <option value="ประนอมหลังยึดทรัพย์" {{ ($data->Status_case === 'ประนอมหลังยึดทรัพย์') ? 'selected' : '' }}>ประนอมหลังยึดทรัพย์</option>
                                       <option value="ถอนบังคับคดียอดเหลือน้อย" {{ ($data->Status_case === 'ถอนบังคับคดียอดเหลือน้อย') ? 'selected' : '' }}>ถอนบังคับคดียอดเหลือน้อย</option>
                                       <option value="ถอนบังคับคดีขายเต็มจำนวน" {{ ($data->Status_case === 'ถอนบังคับคดีขายเต็มจำนวน') ? 'selected' : '' }}>ถอนบังคับคดีขายเต็มจำนวน</option>
+                                      @if($data->Status_legis != Null)
+                                        <option disabled>------------------------------</option>
+                                        <option value="{{$data->Status_legis}}" style="color:red" {{ ($data->Status_legis === $data->Status_legis) ? 'selected' : '' }}>{{$data->Status_legis}}</option>
+                                      @endif
                                     </select>
                                   
                                     @if($data->Status_case == 'ถอนบังคับคดีปิดบัญชี')

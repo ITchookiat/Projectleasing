@@ -242,12 +242,17 @@
                                 </div>
                                 <p></p>
                                 <label>สถานะ : </label>
-                                <select name="Statuslegis" class="form-control" style="width: 170px;">
-                                  <option value="" selected>--- status ---</option>
-                                  <option value="จ่ายจบก่อนฟ้อง" {{ ($data->Status_legis === 'จ่ายจบก่อนฟ้อง') ? 'selected' : '' }}>จ่ายจบก่อนฟ้อง</option>
-                                  <option value="ยึดรถก่อนฟ้อง" {{ ($data->Status_legis === 'ยึดรถก่อนฟ้อง') ? 'selected' : '' }}>ยึดรถก่อนฟ้อง</option>
-                                  <option value="หมดอายุความคดี" {{ ($data->Status_legis === 'หมดอายุความคดี') ? 'selected' : '' }}>หมดอายุความคดี</option>
-                                </select>
+                                  <select name="Statuslegis" class="form-control" style="width: 170px;">
+                                    <option value="" selected>--------- status ----------</option>
+                                    <option value="จ่ายจบก่อนฟ้อง" {{ ($data->Status_legis === 'จ่ายจบก่อนฟ้อง') ? 'selected' : '' }}>จ่ายจบก่อนฟ้อง</option>
+                                    <option value="ยึดรถก่อนฟ้อง" {{ ($data->Status_legis === 'ยึดรถก่อนฟ้อง') ? 'selected' : '' }}>ยึดรถก่อนฟ้อง</option>
+                                    <option value="หมดอายุความคดี" {{ ($data->Status_legis === 'หมดอายุความคดี') ? 'selected' : '' }}>หมดอายุความคดี</option>
+                                    @if($data->Status_legis != Null)
+                                      <option disabled>------------------------------</option>
+                                      <option value="{{$data->Status_legis}}" style="color:red" {{ ($data->Status_legis === $data->Status_legis) ? 'selected' : '' }}>{{$data->Status_legis}}</option>
+                                    @endif
+                                  </select>
+
                                 <input type="date" name="DateStatuslegis" class="form-control" style="width: 170px;" value="{{ $data->DateCarState_legis }}">
                               </div>
                             </div>

@@ -133,6 +133,10 @@
                                         <option value="ประนีประนอม(จำหน่ายคดี)" {{ ($data->Status_cheat === 'ประนีประนอม(จำหน่ายคดี)') ? 'selected' : '' }}>ประนีประนอม(จำหน่ายคดี)</option>
                                         <option value="ยื่นคำร้องให้ศาลพิพากษา" {{ ($data->Status_cheat === 'ยื่นคำร้องให้ศาลพิพากษา') ? 'selected' : '' }}>ยื่นคำร้องให้ศาลพิพากษา</option>
                                         <option value="ปิดบัญชีโกงเจ้าหนี้" {{ ($data->Status_cheat === 'ปิดบัญชีโกงเจ้าหนี้') ? 'selected' : '' }}>ปิดบัญชีโกงเจ้าหนี้</option>
+                                        @if($data->Status_legis != Null)
+                                          <option disabled>------------------------------</option>
+                                          <option value="{{$data->Status_legis}}" style="color:red" {{ ($data->Status_legis === $data->Status_legis) ? 'selected' : '' }}>{{$data->Status_legis}}</option>
+                                        @endif
                                       </select>
                                       วันที่เลือกสถานะ
                                       <input type="date" id="DateStatusCheat" name="DateStatusCheat" value="{{ $data->DateStatus_cheat }}" class="form-control" readonly/>
