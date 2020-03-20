@@ -70,7 +70,7 @@
                                     <p></p>
                                     <div align="left">
                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                      <small class="label label-success" style="font-size: 25px;">
+                                      <small class="label label-primary" style="font-size: 25px;">
                                       <i class="fa fa-expeditedssl"></i>&nbsp; สถานะ : 
                                         @if($data->Status_Promise != Null)
                                           {{$data->Status_Promise}}
@@ -80,7 +80,7 @@
                                     <p></p>
                                     <label>สถานะ : </label>
                                     <select name="StatusCompro" class="form-control" style="width: 170px;">
-                                      <option value="" selected>--- status ---</option>
+                                      <option value="" selected>--------- status ----------</option>
                                       <option value="ปิดบัญชีประนอมหนี้" {{ ($data->Status_Promise === 'ปิดบัญชีประนอมหนี้') ? 'selected' : '' }}>ปิดบัญชีประนอมหนี้</option>
                                       <option value="จ่ายจบประนอมหนี้" {{ ($data->Status_Promise === 'จ่ายจบประนอมหนี้') ? 'selected' : '' }}>จ่ายจบประนอมหนี้</option>
                                     </select>

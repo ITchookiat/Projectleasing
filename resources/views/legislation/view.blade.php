@@ -247,13 +247,14 @@
                           <th class="text-center">No.</th>
                           <th class="text-center">Job.</th>
                           <th class="text-center">ชื่อ-สกุล</th>
-                          <th class="text-center">วันถืองาน</th>
+                          <th class="text-center" style="width: 40px">วันถืองาน</th>
                           <th class="text-center">วันส่งฟ้อง</th>
-                          <th class="text-center" style="width: 70px">ระยะเวลา</th>
+                          <th class="text-center" style="width: 40px">ระยะเวลา</th>
                           <th class="text-center" style="width: 80px">สถานะลูกหนี้</th>
                           <th class="text-center" style="width: 80px">สถานะทรัพย์</th>
                           <th class="text-center" style="width: 80px">สถานะประนอม</th>
-                          <th class="text-center" style="width: 130px">ตัวเลือก</th>
+                          <th class="text-center" style="width: 80px">ผู้ส่งฟ้อง</th>
+                          <th class="text-center" style="width: 100px">ตัวเลือก</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -643,6 +644,7 @@
                                 @endif
                               @endif
                             </td>
+                            <td class="text-center"> {{$row->User_court}} </td>
                             <td class="text-center">
                               <a href="{{ action('LegislationController@edit',[$row->id,$type]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                 <span class="glyphicon glyphicon-pencil"></span> แก้ไข
@@ -675,9 +677,10 @@
                           <th class="text-center">วันทีส่งทนาย</th>
                           <th class="text-center">ค้างงวด</th>
                           <th class="text-center">ระยะเวลา</th>
+                          <th class="text-center">ผู้จัดเตรียม</th>
                           <th class="text-center">หมายเหตุ</th>
                           <th class="text-center">สถานะ</th>
-                          <th class="text-center" style="width: 150px">ตัวเลือก</th>
+                          <th class="text-center" style="width: 100px">ตัวเลือก</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -685,7 +688,7 @@
                           <tr>
                             <td class="text-center"> {{$key+1}} </td>
                             <td class="text-center"> {{$row->Contract_legis}}</a></td>
-                            <td class="text-center"> {{$row->Name_legis}} </td>
+                            <td class="text-left"> {{$row->Name_legis}} </td>
                             <td class="text-center">
                               @if($row->Datesend_Flag != Null)
                                 {{ DateThai($row->Datesend_Flag) }}
@@ -728,6 +731,7 @@
                                 <font color="green">{{$duration}}</font>
                               @endif
                             </td>
+                            <td class="text-center"> {{ $row->UserSend2_legis }} </td>
                             <td class="text-left" style="width:200px;"> {{ $row->Noteby_legis }} </td>
                             <td class="text-center">
                               @if($row->Flag_status == '1')
@@ -813,7 +817,7 @@
                           <th class="text-center">ระยะเวลา</th>
                           <th class="text-center">ยอดประนอม</th>
                           <th class="text-center">ยอดคงเหลือ</th>
-                          <th class="text-center">ชำระล่าสุด</th>
+                          <th class="text-center">ผู้ส่งประนอม</th>
                           <th class="text-center">สถานะ</th>
                           <th class="text-center">ตัวเลือก</th>
                         </tr>
@@ -831,10 +835,10 @@
                             <td class="text-left"> {{$row->Name_legis}} </td>
                             <td class="text-center"> {{DateThai($row->Date_Promise)}}</td>
                             <td class="text-center">
-                              @if($row->Status_legis == "ปิดบัญชีประนอมหนี้" or $row->Status_legis == "ยึดรถหลังฟ้อง")
+                              @if($row->Status_Promise == "ปิดบัญชีประนอมหนี้" or $row->Status_Promise == "จ่ายจบประนอมหนี้")
                                 @php
                                   $Cldate = date_create($row->Date_Promise);
-                                  $nowCldate = date_create($row->DateUpState_legis);
+                                  $nowCldate = date_create($row->DateStatus_Promise);
                                   $ClDateDiff = date_diff($Cldate,$nowCldate);
                                   $duration = $ClDateDiff->format("%a วัน")
                                 @endphp
@@ -850,23 +854,21 @@
                                 <span title="{{$ClDateDiff->y}} ปี {{$ClDateDiff->m}} เดือน {{$ClDateDiff->d}} วัน"><font color="red">{{$duration}}</font></span>
                               @endif
                             </td>
-                            <td class="text-center"> {{number_format($row->Total_Promise,2)}}</a></td>
-                            <td class="text-center"> {{number_format($row->Sum_Promise,2)}}</a></td>
-                            <td class="text-center">
-                              @foreach($dataPay as $key => $value)
-                               @if($row->legisPromise_id == $value->legis_Com_Payment_id)
-                                {{DateThai($value->Date_Payment)}}
-                               @endif
-                              @endforeach
-                            </td>
+                            <td class="text-center"> {{number_format($row->Total_Promise,2)}}</td>
+                            <td class="text-center"> {{number_format($row->Sum_Promise,2)}}</td>
+                            <td class="text-center">{{ $row->User_Promise }}</td>
                             <td class="text-center">
                               @php
                                 $lastday = date('Y-m-d', strtotime("-90 days"));
                               @endphp
 
-                              @if($row->Status_legis == "ปิดบัญชีประนอมหนี้" or $row->Status_legis == "ยึดรถหลังฟ้อง")
+                              @if($row->Status_Promise == "ปิดบัญชีประนอมหนี้")
                                 <button type="button" class="btn btn-success btn-sm" title="ปิดบัญชี">
                                   <span class="glyphicon glyphicon-ok prem"></span> ปิดบัญชี
+                                </button>
+                              @elseif($row->Status_Promise == "จ่ายจบประนอมหนี้")
+                                <button type="button" class="btn btn-success btn-sm" title="จ่ายจบ">
+                                  <span class="glyphicon glyphicon-ok prem"></span> จ่ายจบ
                                 </button>
                               @else
                                   @foreach($dataPay as $key => $value)
@@ -950,6 +952,7 @@
                           <th class="text-center">ระยะเวลา</th>
                           <th class="text-center">สถานะทรัพย์</th>
                           <th class="text-center">สถานะแจ้งเตือน</th>
+                          <th class="text-center">ผู้สืบทรัพย์</th>
                           <th class="text-center" style="width: 150px">ตัวเลือก</th>
                         </tr>
                       </thead>
@@ -1074,6 +1077,7 @@
                                 @endif
                               @endif
                             </td>
+                            <td class="text-center"> {{ DateThai($row->User_asset) }} </td>
                             <td class="text-center">
                               <a href="{{ action('LegislationController@edit',[$row->id,$type]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                 <span class="glyphicon glyphicon-pencil"></span> แก้ไข
@@ -1364,173 +1368,173 @@
                  </div>
                 </div>
               @elseif($type == 100)
-              <div class="col-md-12">
-                <div class="row">
-                  <div class="col-md-4">
-                    <!-- Widget: user widget style 1 -->
-                    <div class="box box-widget widget-user-2">
-                      <!-- Add the bg color to the header using any of the bg-* classes -->
-                      <div class="widget-user-header bg-green" style="border-radius: 20px;">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <!-- Widget: user widget style 1 -->
+                      <div class="box box-widget widget-user-2">
+                        <!-- Add the bg color to the header using any of the bg-* classes -->
+                        <div class="widget-user-header bg-green" style="border-radius: 20px;">
+                          <div class="widget-user-image">
+                            <img class="img-circle" src="{{ asset('dist/img/leasingLogo1.jpg') }}" alt="User Avatar">
+                          </div>
+                          <!-- /.widget-user-image -->
+                          <h3 class="widget-user-username">ลูกหนี้</h3>
+                          <h5 class="widget-user-desc">เตรียมฟ้อง</h5>
+                        </div>
+                        <div class="box-footer no-padding">
+                          <ul class="nav nav-stacked">
+                            <li><a href="#">ทั้งหมด <span class="pull-right badge bg-blue">{{$dataprepare + $dataprepareDone}}</span></a></li>
+                            <li><a href="#">กำลังเตรียมเอกสาร <span class="pull-right badge bg-red">{{$dataprepare}}</span></a></li>
+                            <li><a href="#">ส่งเอกสารแล้ว<span class="pull-right badge bg-green">{{$dataprepareDone}}</span></a></li>
+                          </ul>
+                        </div>
+                      </div>
+                      <!-- /.widget-user -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-4">
+                      <!-- Widget: user widget style 1 -->
+                      <div class="box box-widget widget-user-2">
+                        <!-- Add the bg color to the header using any of the bg-* classes -->
+                        <div class="widget-user-header bg-yellow" style="border-radius: 20px;">
+                          <div class="widget-user-image">
+                            <img class="img-circle" src="{{ asset('dist/img/leasingLogo1.jpg') }}" alt="User Avatar">
+                          </div>
+                          <!-- /.widget-user-image -->
+                          <h3 class="widget-user-username">ลูกหนี้</h3>
+                          <h5 class="widget-user-desc">ฟ้อง</h5>
+                        </div>
+                        <div class="box-footer no-padding">
+                          <ul class="nav nav-stacked">
+                            <li><a href="#">ทั้งหมด <span class="pull-right badge bg-blue">{{$datalegis+$datalegisDone}}</span></a></li>
+                            <li><a href="#">ยังไม่ฟ้อง <span class="pull-right badge bg-red">{{$datalegis}}</span></a></li>
+                            <li><a href="#">ฟ้องแล้ว <span class="pull-right badge bg-green">{{$datalegisDone}}</span></a></li>
+                          </ul>
+                        </div>
+                      </div>
+                      <!-- /.widget-user -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-4">
+                      <!-- Widget: user widget style 1 -->
+                      <div class="box box-widget widget-user-2">
+                        <!-- Add the bg color to the header using any of the bg-* classes -->
+                        <div class="widget-user-header bg-purple" style="border-radius: 20px;">
+                          <div class="widget-user-image">
+                            <img class="img-circle" src="{{ asset('dist/img/leasingLogo1.jpg') }}" alt="User Avatar">
+                          </div>
+                          <!-- /.widget-user-image -->
+                          <h3 class="widget-user-username">ลูกหนี้</h3>
+                          <h5 class="widget-user-desc">ประนอมหนี้</h5>
+                        </div>
+                        <div class="box-footer no-padding">
+                          <ul class="nav nav-stacked">
+                            <li><a href="#">ทั้งหมด <span class="pull-right badge bg-blue">{{$dataPaymentAll}}</span></a></li>
+                            <li><a href="#">ขาดชำระเกิน 3 เดือน <span class="pull-right badge bg-red">{{$dataPayment}}</span></a></li>
+                            <li><a href="#">ชำระปกติ <span class="pull-right badge bg-green">{{$dataPaymentDone}}</span></a></li>
+                            <!-- <li><a href="#">อื่นๆ <span class="pull-right badge bg-yellow">{{$dataPaymentAll - ($dataPayment+$dataPaymentDone)}}</span></a></li> -->
+                          </ul>
+                        </div>
+                      </div>
+                      <!-- /.widget-user -->
+                    </div>
+                    <!-- /.col -->
+                  </div>
+                  {{--
+                  <br>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <!-- Widget: user widget style 1 -->
+                      <div class="box box-widget widget-user">
+                        <!-- Add the bg color to the header using any of the bg-* classes -->
+                        <div class="widget-user-header bg-aqua-active">
+                          <h3 class="widget-user-username">ลูกหนี้</h3>
+                          <h5 class="widget-user-desc">เตรียมฟ้อง</h5>
+                        </div>
                         <div class="widget-user-image">
                           <img class="img-circle" src="{{ asset('dist/img/leasingLogo1.jpg') }}" alt="User Avatar">
                         </div>
-                        <!-- /.widget-user-image -->
-                        <h3 class="widget-user-username">ลูกหนี้</h3>
-                        <h5 class="widget-user-desc">เตรียมฟ้อง</h5>
+                        <div class="box-footer">
+                          <div class="row">
+                            <div class="col-sm-4 border-right">
+                              <div class="description-block">
+                                <h5 class="description-header">ทั้งหมด</h5>
+                                <span class="description-text">51</span>
+                              </div>
+                              <!-- /.description-block -->
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-sm-4 border-right">
+                              <div class="description-block">
+                                <h5 class="description-header">เตรียมเอกสาร</h5>
+                                <span class="description-text">2</span>
+                              </div>
+                              <!-- /.description-block -->
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-sm-4">
+                              <div class="description-block">
+                                <h5 class="description-header">ส่งเอกสารแล้ว</h5>
+                                <span class="description-text">49</span>
+                              </div>
+                              <!-- /.description-block -->
+                            </div>
+                            <!-- /.col -->
+                          </div>
+                          <!-- /.row -->
+                        </div>
                       </div>
-                      <div class="box-footer no-padding">
-                        <ul class="nav nav-stacked">
-                          <li><a href="#">ทั้งหมด <span class="pull-right badge bg-blue">{{$dataprepare + $dataprepareDone}}</span></a></li>
-                          <li><a href="#">กำลังเตรียมเอกสาร <span class="pull-right badge bg-red">{{$dataprepare}}</span></a></li>
-                          <li><a href="#">ส่งเอกสารแล้ว<span class="pull-right badge bg-green">{{$dataprepareDone}}</span></a></li>
-                        </ul>
-                      </div>
+                      <!-- /.widget-user -->
                     </div>
-                    <!-- /.widget-user -->
-                  </div>
-                  <!-- /.col -->
-                  <div class="col-md-4">
-                    <!-- Widget: user widget style 1 -->
-                    <div class="box box-widget widget-user-2">
-                      <!-- Add the bg color to the header using any of the bg-* classes -->
-                      <div class="widget-user-header bg-yellow" style="border-radius: 20px;">
+                    <!-- /.col -->
+                    <div class="col-md-6">
+                      <!-- Widget: user widget style 1 -->
+                      <div class="box box-widget widget-user">
+                        <!-- Add the bg color to the header using any of the bg-* classes -->
+                        <div class="widget-user-header bg-aqua-active">
+                          <h3 class="widget-user-username">ลูกหนี้</h3>
+                          <h5 class="widget-user-desc">ฟ้อง</h5>
+                        </div>
                         <div class="widget-user-image">
                           <img class="img-circle" src="{{ asset('dist/img/leasingLogo1.jpg') }}" alt="User Avatar">
                         </div>
-                        <!-- /.widget-user-image -->
-                        <h3 class="widget-user-username">ลูกหนี้</h3>
-                        <h5 class="widget-user-desc">ฟ้อง</h5>
-                      </div>
-                      <div class="box-footer no-padding">
-                        <ul class="nav nav-stacked">
-                          <li><a href="#">ทั้งหมด <span class="pull-right badge bg-blue">{{$datalegis+$datalegisDone}}</span></a></li>
-                          <li><a href="#">ยังไม่ฟ้อง <span class="pull-right badge bg-red">{{$datalegis}}</span></a></li>
-                          <li><a href="#">ฟ้องแล้ว <span class="pull-right badge bg-green">{{$datalegisDone}}</span></a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <!-- /.widget-user -->
-                  </div>
-                  <!-- /.col -->
-                  <div class="col-md-4">
-                    <!-- Widget: user widget style 1 -->
-                    <div class="box box-widget widget-user-2">
-                      <!-- Add the bg color to the header using any of the bg-* classes -->
-                      <div class="widget-user-header bg-purple" style="border-radius: 20px;">
-                        <div class="widget-user-image">
-                          <img class="img-circle" src="{{ asset('dist/img/leasingLogo1.jpg') }}" alt="User Avatar">
+                        <div class="box-footer">
+                          <div class="row">
+                            <div class="col-sm-4 border-right">
+                              <div class="description-block">
+                                <h5 class="description-header">ทั้งหมด</h5>
+                                <span class="description-text badge bg-blue">49</span>
+                              </div>
+                              <!-- /.description-block -->
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-sm-4 border-right">
+                              <div class="description-block">
+                                <h5 class="description-header">ยังไม่ฟ้อง</h5>
+                                <span class="description-text badge bg-red">48</span>
+                              </div>
+                              <!-- /.description-block -->
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-sm-4">
+                              <div class="description-block">
+                                <h5 class="description-header">ฟ้องแล้ว</h5>
+                                <span class="description-text badge bg-green">1</span>
+                              </div>
+                              <!-- /.description-block -->
+                            </div>
+                            <!-- /.col -->
+                          </div>
+                          <!-- /.row -->
                         </div>
-                        <!-- /.widget-user-image -->
-                        <h3 class="widget-user-username">ลูกหนี้</h3>
-                        <h5 class="widget-user-desc">ประนอมหนี้</h5>
                       </div>
-                      <div class="box-footer no-padding">
-                        <ul class="nav nav-stacked">
-                          <li><a href="#">ทั้งหมด <span class="pull-right badge bg-blue">{{$dataPaymentAll}}</span></a></li>
-                          <li><a href="#">ขาดชำระเกิน 3 เดือน <span class="pull-right badge bg-red">{{$dataPayment}}</span></a></li>
-                          <li><a href="#">ชำระปกติ <span class="pull-right badge bg-green">{{$dataPaymentDone}}</span></a></li>
-                          <!-- <li><a href="#">อื่นๆ <span class="pull-right badge bg-yellow">{{$dataPaymentAll - ($dataPayment+$dataPaymentDone)}}</span></a></li> -->
-                        </ul>
-                      </div>
+                      <!-- /.widget-user -->
                     </div>
-                    <!-- /.widget-user -->
+                    <!-- /.col -->
                   </div>
-                  <!-- /.col -->
+                  --}}
                 </div>
-                {{--
-                <br>
-                <div class="row">
-                  <div class="col-md-6">
-                    <!-- Widget: user widget style 1 -->
-                    <div class="box box-widget widget-user">
-                      <!-- Add the bg color to the header using any of the bg-* classes -->
-                      <div class="widget-user-header bg-aqua-active">
-                        <h3 class="widget-user-username">ลูกหนี้</h3>
-                        <h5 class="widget-user-desc">เตรียมฟ้อง</h5>
-                      </div>
-                      <div class="widget-user-image">
-                        <img class="img-circle" src="{{ asset('dist/img/leasingLogo1.jpg') }}" alt="User Avatar">
-                      </div>
-                      <div class="box-footer">
-                        <div class="row">
-                          <div class="col-sm-4 border-right">
-                            <div class="description-block">
-                              <h5 class="description-header">ทั้งหมด</h5>
-                              <span class="description-text">51</span>
-                            </div>
-                            <!-- /.description-block -->
-                          </div>
-                          <!-- /.col -->
-                          <div class="col-sm-4 border-right">
-                            <div class="description-block">
-                              <h5 class="description-header">เตรียมเอกสาร</h5>
-                              <span class="description-text">2</span>
-                            </div>
-                            <!-- /.description-block -->
-                          </div>
-                          <!-- /.col -->
-                          <div class="col-sm-4">
-                            <div class="description-block">
-                              <h5 class="description-header">ส่งเอกสารแล้ว</h5>
-                              <span class="description-text">49</span>
-                            </div>
-                            <!-- /.description-block -->
-                          </div>
-                          <!-- /.col -->
-                        </div>
-                        <!-- /.row -->
-                      </div>
-                    </div>
-                    <!-- /.widget-user -->
-                  </div>
-                  <!-- /.col -->
-                  <div class="col-md-6">
-                    <!-- Widget: user widget style 1 -->
-                    <div class="box box-widget widget-user">
-                      <!-- Add the bg color to the header using any of the bg-* classes -->
-                      <div class="widget-user-header bg-aqua-active">
-                        <h3 class="widget-user-username">ลูกหนี้</h3>
-                        <h5 class="widget-user-desc">ฟ้อง</h5>
-                      </div>
-                      <div class="widget-user-image">
-                        <img class="img-circle" src="{{ asset('dist/img/leasingLogo1.jpg') }}" alt="User Avatar">
-                      </div>
-                      <div class="box-footer">
-                        <div class="row">
-                          <div class="col-sm-4 border-right">
-                            <div class="description-block">
-                              <h5 class="description-header">ทั้งหมด</h5>
-                              <span class="description-text badge bg-blue">49</span>
-                            </div>
-                            <!-- /.description-block -->
-                          </div>
-                          <!-- /.col -->
-                          <div class="col-sm-4 border-right">
-                            <div class="description-block">
-                              <h5 class="description-header">ยังไม่ฟ้อง</h5>
-                              <span class="description-text badge bg-red">48</span>
-                            </div>
-                            <!-- /.description-block -->
-                          </div>
-                          <!-- /.col -->
-                          <div class="col-sm-4">
-                            <div class="description-block">
-                              <h5 class="description-header">ฟ้องแล้ว</h5>
-                              <span class="description-text badge bg-green">1</span>
-                            </div>
-                            <!-- /.description-block -->
-                          </div>
-                          <!-- /.col -->
-                        </div>
-                        <!-- /.row -->
-                      </div>
-                    </div>
-                    <!-- /.widget-user -->
-                  </div>
-                  <!-- /.col -->
-                </div>
-                --}}
-              </div>
               @endif
             </div>
 
