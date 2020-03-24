@@ -573,10 +573,14 @@
                                   <p></p>
                                   <label>สถานะ : </label>
                                   <select name="Statuslegis" class="form-control" style="width: 170px;">
-                                    <option value="" selected>--- status ---</option>
+                                    <option value="" selected>--------- status ----------</option>
                                     <option value="ปิดบัญชีชั้นศาล" {{ ($data->Status_legis === 'ปิดบัญชีชั้นศาล') ? 'selected' : '' }}>ปิดบัญชีชั้นศาล</option>
                                     <option value="ยึดรถชั้นศาล" {{ ($data->Status_legis === 'ยึดรถชั้นศาล') ? 'selected' : '' }}>ยึดรถชั้นศาล</option>
                                     <option value="ประนอมหนี้ชั้นศาล" {{ ($data->Status_legis === 'ประนอมหนี้ชั้นศาล') ? 'selected' : '' }}>ประนอมหนี้ชั้นศาล</option>
+                                    @if($data->Status_legis != Null)
+                                      <option disabled>------------------------------</option>
+                                      <option value="{{$data->Status_legis}}" style="color:red" {{ ($data->Status_legis === $data->Status_legis) ? 'selected' : '' }}>{{$data->Status_legis}}</option>
+                                    @endif
                                   </select>
                                   <input type="date" name="DateStatuslegis" class="form-control" style="width: 170px;" value="{{ $data->txtStatus_court }}">
                                 </div>

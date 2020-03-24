@@ -1057,12 +1057,13 @@ class LegislationController extends Controller
           // เพิ่มสถานะจบงาน
           if ($request->get('Statuslegis') != Null) {
             $user->Status_legis = $request->get('Statuslegis');
+            $user->DateUpState_legis = date('Y-m-d');
+            $user->DateCarState_legis = $request->get('DateStatuslegis');
+
             $user->DateStatus_legis = $request->get('DateCloseAccount');
             $user->PriceStatus_legis = $request->get('PriceAccount');
             $user->txtStatus_legis = $request->get('TopCloseAccount');
             $user->Discount_legis = $request->get('DiscountAccount');
-            $user->DateUpState_legis = date('Y-m-d');
-            $user->DateCarState_legis = $request->get('DateStatuslegis');
           }
           elseif ($request->get('Statuslegis') == Null) {
             $user->Status_legis = NULL;
@@ -1111,25 +1112,20 @@ class LegislationController extends Controller
       elseif ($type == 3) { //ชั้นศาล
         $user = Legislation::find($id); //update status
           if ($request->get('Statuslegis') != Null) {
-            if ($user->Status_legis == NULL) {
-              $user->Status_legis = $request->get('Statuslegis');
-              $user->DateUpState_legis = date('Y-m-d');
-
-              $SetDateUp = date('Y-m-d');
-              $SettxtStatus = $request->get('DateStatuslegis');
-            }
+            $user->Status_legis = $request->get('Statuslegis');
+            $user->DateUpState_legis = date('Y-m-d');
+            $SettxtStatus = $request->get('DateStatuslegis');
+            $SetDateUp = date('Y-m-d');
+            
             $user->DateStatus_legis = $request->get('DateCloseAccount');
             $user->PriceStatus_legis = $request->get('PriceAccount');
             $user->txtStatus_legis = $request->get('TopCloseAccount');
             $user->Discount_legis = $request->get('DiscountAccount');
-
-          }elseif ($request->get('Statuslegis') == Null) {
+          }
+          elseif ($request->get('Statuslegis') == Null) {
             $user->Status_legis = NULL;
-            $user->DateStatus_legis = NULL;
-            $user->PriceStatus_legis = NULL;
-            $user->txtStatus_legis = NULL;
-            $user->Discount_legis = NULL;
             $user->DateUpState_legis = NULL;
+            $SettxtStatus = NULL;
 
             $SetDateUp = NULL;
             $SettxtStatus = NULL;
@@ -1344,17 +1340,15 @@ class LegislationController extends Controller
         $user = Legislation::find($id); //update status
           if ($request->get('StatusCase') != Null) {
             $user->Status_legis = $request->get('StatusCase');
+            $user->DateUpState_legis = $SetDateStatus;
+
             $user->DateStatus_legis = $request->get('DateCloseAccount');
             $user->PriceStatus_legis = $request->get('PriceAccount');
             $user->txtStatus_legis = $request->get('TopCloseAccount');
             $user->Discount_legis = $request->get('DiscountAccount');
-            $user->DateUpState_legis = $SetDateStatus;
-          }elseif ($request->get('StatusCase') == Null) {
+          }
+          elseif ($request->get('StatusCase') == Null) {
             $user->Status_legis = NULL;
-            $user->DateStatus_legis = NULL;
-            $user->PriceStatus_legis = NULL;
-            $user->txtStatus_legis = NULL;
-            $user->Discount_legis = NULL;
             $user->DateUpState_legis = NULL;
           }
         $user->update();
@@ -1491,17 +1485,15 @@ class LegislationController extends Controller
         $user = Legislation::find($id); //update status
           if ($request->get('StatusCheat') != Null) {
             $user->Status_legis = $request->get('StatusCheat');
+            $user->DateUpState_legis = $request->get('DateStatusCheat');
+
             $user->DateStatus_legis = $request->get('DateCloseAccount');
             $user->PriceStatus_legis = $request->get('PriceAccount');
             $user->txtStatus_legis = $request->get('TopCloseAccount');
             $user->Discount_legis = $request->get('DiscountAccount');
-            $user->DateUpState_legis = $request->get('DateStatusCheat');
-          }elseif ($request->get('StatusCheat') == Null) {
+          }
+          elseif ($request->get('StatusCheat') == Null) {
             $user->Status_legis = NULL;
-            $user->DateStatus_legis = NULL;
-            $user->PriceStatus_legis = NULL;
-            $user->txtStatus_legis = NULL;
-            $user->Discount_legis = NULL;
             $user->DateUpState_legis = NULL;
           }
         $user->update();
