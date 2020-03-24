@@ -420,7 +420,7 @@
                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
                                   <a href="{{ action('AnalysController@deleteImageAll',$data->id) }}" class="btn btn-danger pull-left" title="ลบรูปทั้งหมด" onclick="return confirm('คุณต้องการลบรูปทั้งหมดหรือไม่?')"> ลบรูปทั้งหมด..</a>
                                 @endif
-                                  <a href="{{ action('AnalysController@deleteImageEach',[$data->id,$Gettype,$fdate,$tdate,$branch,$status]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
+                                  <a href="{{ action('AnalysController@deleteImageEach',[$Gettype,$data->id,$fdate,$tdate,$branch,$status]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
                                   <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ..
                                   </a>
                                 @endif
@@ -1079,7 +1079,7 @@
                     <button type="submit" class="delete-modal btn btn-success">
                       <span class="glyphicon glyphicon-floppy-save"></span> อัพเดท
                     </button>
-                    <a class="delete-modal btn btn-danger" href="{{ URL::previous() }}">
+                    <a class="delete-modal btn btn-danger" href="{{ route('Analysis',4)}}">
                       <span class="glyphicon glyphicon-remove"></span> ยกเลิก
                     </a>
                   </div>

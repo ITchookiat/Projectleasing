@@ -33,7 +33,7 @@ Route::group(['middleware' => 'auth'], function()
     Route::patch('/Analysis/update/{id}/{type}', 'AnalysController@update')->name('Analysis.update');
     Route::delete('/Analysis/delete/{id}', 'AnalysController@destroy')->name('Analysis.destroy');
     Route::get('/Analysis/deleteImageAll/{id}', 'AnalysController@deleteImageAll');
-    Route::get('/Analysis/deleteImageEach/{id}/{type}/{fdate}/{tdate}/{branch}/{status}', 'AnalysController@deleteImageEach');
+    Route::get('/Analysis/deleteImageEach/{type}/{id}/{fdate}/{tdate}/{branch}/{status}', 'AnalysController@deleteImageEach')->name('deleteImageEach');
     Route::get('/Analysis/destroyImage/{id}/{type}/{fdate}/{tdate}/{branch}/{status}', 'AnalysController@destroyImage');
 
     Route::get('/Analysis/Report/{id}/{type}', 'ReportAnalysController@ReportPDFIndex');
