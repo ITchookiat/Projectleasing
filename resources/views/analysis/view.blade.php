@@ -95,9 +95,11 @@ $date = date('Y-m-d', strtotime('-1 days'));
               <li class="nav-item">
                 <a class="nav-link" href="#">แบบฟอร์มรถยนต์</a>
               </li>
+              @if($type != 8)
               <li class="nav-item">
                 <a class="nav-link" href="#">แบบฟอร์มค่าใช้จ่าย</a>
               </li>
+              @endif
             @endif
           </ul>
           <div class="box-tools pull-right">
