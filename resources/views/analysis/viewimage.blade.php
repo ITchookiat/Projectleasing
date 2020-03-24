@@ -45,7 +45,7 @@ $date = date('Y-m-d', strtotime('-1 days'));
       <!-- Default box -->
       <div class="box">
         <div class="box-header with-border">
-          <a href="{{ action('AnalysController@edit',[$id,$type,$fdate,$tdate,$branch,$status]) }}" class="btn btn-info pull-left">
+          <a href="{{ action('AnalysController@edit',[$type,$id,$fdate,$tdate,$branch,$status]) }}" class="btn btn-info pull-left">
           <span class="glyphicon glyphicon-arrow-left"></span> ย้อนกลับ
           </a>
           <!-- <h3 align="center">รูปทั้งหมด</h3> -->
