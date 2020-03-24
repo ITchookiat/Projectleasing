@@ -275,7 +275,7 @@
             <li class="nav-item active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">แบบฟอร์มผู้เช่าซื้อ</a></li>
             <li class="nav-item"><a href="#tab_2" data-toggle="tab" aria-expanded="false">แบบฟอร์มผู้ค้ำ</a></li>
             <li class="nav-item"><a href="#tab_3" data-toggle="tab" aria-expanded="false">แบบฟอร์มรถยนต์</a></li>
-            <li class="nav-item"><a href="#tab_4" data-toggle="tab" aria-expanded="false">แบบฟอร์มค่าใช้จ่าย</a></li>
+            <!-- <li class="nav-item"><a href="#tab_4" data-toggle="tab" aria-expanded="false">แบบฟอร์มค่าใช้จ่าย</a></li> -->
           </ul>
         </div>
 
@@ -1853,7 +1853,6 @@
                                  <label>ดอกเบี้ย : </label>
                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
                                   <input type="text" id="Interestcar" name="Interestcar" class="form-control" style="width: 250px;" value="{{$data->Interest_car}}" placeholder="ดอกเบี้ย" onchange="calculate();"/>
-                                  <input type="text" id="Timeslackencar" name="Timeslackencar" value="{{$data->Timeslacken_car}}" placeholder="ป้อนระยะเวลาผ่อน" class="form-control" style="width: 250px;" onchange="calculate();" />
                                  @else
                                    @if($GetDocComplete != Null)
                                      <input type="text" id="Interestcar" name="Interestcar" class="form-control" style="width: 250px;" value="{{$data->Interest_car}}" placeholder="ดอกเบี้ย" onchange="calculate();" readonly/>
@@ -2005,12 +2004,21 @@
 
                             <div class="col-md-6">
                              <div class="form-inline" align="right">
-
+                               <label>หมายเหตุ : </label>
+                               @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                   <input type="text" name="Notecar" value="{{$data->Note_car}}" class="form-control" style="width: 250px;" placeholder="หมายเหตุ"/>
+                               @else
+                                 @if($GetDocComplete != Null)
+                                     <input type="text" name="Notecar" value="{{$data->Note_car}}" class="form-control" style="width: 250px;" placeholder="หมายเหตุ" readonly/>
+                                 @else
+                                     <input type="text" name="Notecar" value="{{$data->Note_car}}" class="form-control" style="width: 250px;" placeholder="หมายเหตุ"/>
+                                 @endif
+                               @endif
                              </div>
                             </div>
                           </div>
 
-                          <hr />
+                          {{--
                           <div class="row">
                             <div class="col-md-5">
                               <div class="form-inline" align="right">
@@ -2229,8 +2237,9 @@
                             <div class="col-md-6">
                             </div>
                           </div>
+                          --}}
                         </div>
-                        <div class="tab-pane" id="tab_4">
+                        <div class="tab-pane" id="tab_4" style="display:none;">
                           <div class="row">
                             <div class="col-md-5">
                               <div class="form-inline" align="right">
@@ -2400,6 +2409,7 @@
                   </div>
 
                   <br>
+                  <hr />
                     @if(auth::user()->type == 1 or auth::user()->type == 2)
                     <table class="table table-bordered" id="table" border="3" align="center" style="width: 50%;" align="center">
                       <thead class="thead-dark">

@@ -88,7 +88,7 @@ $date = date('Y-m-d', strtotime('-1 days'));
                               <img class="img-bordered" src="{{ asset('upload-image/'.$row->Name_fileimage) }}" width="150" height="120" alt="Photo">
                             </div>
 
-                            <a href="{{ action('AnalysController@destroyImage',[$row->fileimage_id,$type,$fdate,$tdate,$branch,$status]) }}" class="btn btn-danger btn-sm" onclick="return confirm('คุณต้องการลบรูปนี้หรือไม่?')">
+                            <a href="{{ action('AnalysController@destroyImage',[$type,$row->fileimage_id,$fdate,$tdate,$branch,$status])}}?mainid={{$id}}" class="btn btn-danger btn-sm" onclick="return confirm('คุณต้องการลบรูปนี้หรือไม่?')">
                               <span class="glyphicon glyphicon-trash"></span> ลบ
                             </a>
                               <br/>

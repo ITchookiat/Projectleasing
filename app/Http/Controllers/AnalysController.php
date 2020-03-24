@@ -1981,7 +1981,6 @@ class AnalysController extends Controller
     public function deleteImageEach($type,$id,$fdate,$tdate,$branch,$status,Request $request)
     {
 
-      // dd($id);
       $id = $id;
       $type = $type;
       $fdate = $fdate;
@@ -1991,23 +1990,22 @@ class AnalysController extends Controller
 
       $data = UploadfileImage::where('Buyerfileimage_id','=',$id)->get();
       $countData = count($data);
-      // dd($data[0]->fileimage_id);
 
       return view('analysis.viewimage', compact('data','countData','id','type','fdate','tdate','branch','status'));
     }
 
-    public function destroyImage($id,$type,$fdate,$tdate,$branch,$status,Request $request)
+    public function destroyImage($type,$id,$fdate,$tdate,$branch,$status,Request $request)
     {
-      // dd($id,$type,$fdate,$tdate,$branch,$status);
-      $id = $id;
+      // dd($type,$id,$fdate,$tdate,$branch,$status);
       $type = $type;
+      $id = $id;
       $fdate = $fdate;
       $tdate = $tdate;
       $branch = $branch;
       $status = $status;
+      $mainid = $request->mainid;
 
       $item1 = UploadfileImage::where('fileimage_id',$id);
-      // dd($item1);
       $data = UploadfileImage::where('fileimage_id','=',$id)->get();
       foreach ($data as $key => $value) {
         $itemPath = $value->Name_fileimage;
@@ -2017,7 +2015,8 @@ class AnalysController extends Controller
       $item1->Delete();
 
       // return redirect()->back()->with('success','ลบรูปเรียบร้อยแล้ว');
-      return redirect()->back()->with(['id' => $id,'type' => $type,'fdate' => $fdate,'tdate' => $tdate,'branch' => $branch,'status' => $status,'success' => 'ลบรูปสำเร็จเรียบร้อย']);
+      // return redirect()->back()->with(['id' => $id,'type' => $type,'fdate' => $fdate,'tdate' => $tdate,'branch' => $branch,'status' => $status,'success' => 'ลบรูปสำเร็จเรียบร้อย']);
+      return redirect()->Route('deleteImageEach',[$type,$mainid,$fdate,$tdate,$branch,$status])->with(['success' => 'ลบรูปสำเร็จเรียบร้อย']);
     }
 
 }

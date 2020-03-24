@@ -377,7 +377,7 @@ $date = date('Y-m-d', strtotime('-1 days'));
                                 @if($status == "")
                                   @php $status = 'Null'; @endphp
                                 @endif
-                                <a href="{{ action('AnalysController@edit',[$row->id,$type,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
+                                <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                   <span class="glyphicon glyphicon-pencil"></span> แก้ไข
                                 </a>
                               @else
@@ -386,7 +386,7 @@ $date = date('Y-m-d', strtotime('-1 days'));
                                   @if($status == "")
                                     @php $status = 'Null'; @endphp
                                   @endif
-                                  <a href="{{ action('AnalysController@edit',[$row->id,$type,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
+                                  <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                     <span class="glyphicon glyphicon-pencil"></span> แก้ไข
                                   </a>
                                 @endif

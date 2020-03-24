@@ -59,7 +59,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="treeview {{ (request()->is('Analysis/Home/1')) ? 'active' : '' }} {{ (request()->is('Analysis/Home/3')) ? 'active' : '' }} {{ (request()->is('Analysis/Home/4')) ? 'active' : '' }} {{ (request()->is('Analysis/Home/6')) ? 'active' : '' }} {{ (request()->is('Analysis/Home/7')) ? 'active' : '' }} {{ (request()->is('Analysis/edit/1/*')) ? 'active' : '' }} {{ (request()->is('Analysis/edit/4/*')) ? 'active' : '' }}">
+            <li class="treeview {{ (request()->is('Analysis/Home/1')) ? 'active' : '' }} {{ (request()->is('Analysis/Home/3')) ? 'active' : '' }} {{ (request()->is('Analysis/Home/4')) ? 'active' : '' }} {{ (request()->is('Analysis/Home/6')) ? 'active' : '' }} {{ (request()->is('Analysis/Home/7')) ? 'active' : '' }} {{ (request()->is('Analysis/edit/1/*')) ? 'active' : '' }} {{ (request()->is('Analysis/edit/4/*')) ? 'active' : '' }} {{ (request()->is('Analysis/deleteImageEach/1/*')) ? 'active' : '' }} {{ (request()->is('Analysis/deleteImageEach/4/*')) ? 'active' : '' }}">
                 <a href="#">
                   <i class="fa fa-folder-open text-red"></i>สินเชื่อ
                   <span class="pull-right-container">
@@ -80,7 +80,7 @@
                   @endif
                 </ul>
             </li>
-            <li class="treeview {{ (request()->is('Analysis/Home/8')) ? 'active' : '' }} {{ (request()->is('Analysis/edit/8/*')) ? 'active' : '' }}">
+            <li class="treeview {{ (request()->is('Analysis/Home/8')) ? 'active' : '' }} {{ (request()->is('Analysis/edit/8/*')) ? 'active' : '' }} {{ (request()->is('Analysis/deleteImageEach/8/*')) ? 'active' : '' }}">
               <a href="{{ route('Analysis',8) }}"><i class="fa fa-folder-open text-red"></i>ปรับโครงสร้างหนี้</a>
             </li>
           </ul>

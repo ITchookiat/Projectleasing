@@ -854,7 +854,7 @@
                           <div class="row">
                             <div class="col-md-5">
                               <div class="form-inline" align="right">
-                               
+
                               </div>
 
                             </div>
@@ -912,13 +912,13 @@
                                       <br/>
                                       @if(auth::user()->type == 1 or auth::user()->type == 2)
                                         <a href="{{ action('AnalysController@deleteImageAll',$data->id) }}" class="btn btn-danger pull-left" title="ลบรูปทั้งหมด" onclick="return confirm('คุณต้องการลบรูปทั้งหมดหรือไม่?')"> ลบรูปทั้งหมด..</a>
-                                        <a href="{{ action('AnalysController@deleteImageEach',[$data->id,$type,$fdate,$tdate,$branch,$status]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
+                                        <a href="{{ action('AnalysController@deleteImageEach',[$type,$data->id,$fdate,$tdate,$branch,$status]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
                                           <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ..
                                         </a>
                                       @else
                                         @if($data->Approvers_car == Null)
                                           @if($GetDocComplete == Null)
-                                          <a href="{{ action('AnalysController@deleteImageEach',[$data->id,$type,$fdate,$tdate,$branch,$status]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
+                                          <a href="{{ action('AnalysController@deleteImageEach',[$type,$data->id,$fdate,$tdate,$branch,$status]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
                                             <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ..
                                           </a>
                                           @endif
@@ -2177,6 +2177,7 @@
 
                   <br>
                     @if(auth::user()->type == 1 or auth::user()->type == 2)
+                    <hr/>
                     <table class="table table-bordered" id="table" border="3" align="center" style="width: 50%;" align="center">
                       <thead class="thead-dark">
                         <tr>
@@ -2231,7 +2232,8 @@
                       </tbody>
                     </table>
                     @else
-                      <table class="table table-bordered" id="table" border="3" align="center" style="width: 30%;" align="center">
+                    <hr/>
+                    <table class="table table-bordered" id="table" border="3" align="center" style="width: 30%;" align="center">
                         <thead class="thead-dark">
                           <tr>
                             <th class="text-center"><font color="red"><h3>เอกสารครบ</h3></font></th>
