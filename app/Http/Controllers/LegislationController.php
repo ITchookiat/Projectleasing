@@ -738,7 +738,7 @@ class LegislationController extends Controller
           'Flag' => 'C',
           'Flag_status' => '3',
           'UserSend1_legis' => auth()->user()->name,
-          
+
         ]);
         $LegisDB->save();
 
@@ -1065,11 +1065,11 @@ class LegislationController extends Controller
             $user->DateCarState_legis = $request->get('DateStatuslegis');
           }
           elseif ($request->get('Statuslegis') == Null) {
-            $user->Status_legis = NULL; 
-            $user->DateStatus_legis = NULL; 
-            $user->PriceStatus_legis = NULL; 
-            $user->txtStatus_legis = NULL; 
-            $user->Discount_legis = NULL; 
+            $user->Status_legis = NULL;
+            $user->DateStatus_legis = NULL;
+            $user->PriceStatus_legis = NULL;
+            $user->txtStatus_legis = NULL;
+            $user->Discount_legis = NULL;
             $user->DateUpState_legis = NULL;
             $user->DateCarState_legis = NULL;
           }
