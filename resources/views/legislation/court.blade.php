@@ -654,15 +654,15 @@
                                 <div class="row">
                                   <div class="col-md-3">
                                     ทุนทรัพย์
-                                    <input type="text" id="capitalcourt" name="capitalcourt" class="form-control" value="{{ ($data->capital_court) }}" oninput="CalculateCap();"/>
+                                    <input type="text" id="capitalcourt" name="capitalcourt" class="form-control" value="{{ number_format($data->capital_court, 2) }}" oninput="CalculateCap();"/>
                                   </div>
                                   <div class="col-md-3">
                                     ค่าฟ้อง
-                                    <input type="text" id="indictmentcourt" name="indictmentcourt" class="form-control" value="{{ ($data->indictment_court) }}" oninput="CalculateCap();"/>
+                                    <input type="text" id="indictmentcourt" name="indictmentcourt" class="form-control" value="{{ number_format($data->indictment_court, 2) }}" oninput="CalculateCap();"/>
                                   </div>
                                   <div class="col-md-3">
                                     ค่าทนาย
-                                    <input type="text" id="pricelawyercourt" name="pricelawyercourt" class="form-control" value="{{ ($data->pricelawyer_court) }}" readonly/>
+                                    <input type="text" id="pricelawyercourt" name="pricelawyercourt" class="form-control" value="{{ number_format($data->pricelawyer_court, 2) }}" readonly/>
                                   </div>
                                 </div>
                               </div>

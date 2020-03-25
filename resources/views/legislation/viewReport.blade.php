@@ -86,7 +86,9 @@
           @elseif($type == 16)
           <h4 class="card-title p-3" align="center">รายงานลูกหนี้ประนอม</h4>
           @elseif($type == 17)
-          <h4 class="card-title p-3" align="center">รายงานลูกหนี้ฟ้อง</h4>
+          <h4 class="card-title p-3" align="center">รายงานลูกหนี้</h4>
+          @elseif($type == 18)
+          <h4 class="card-title p-3" align="center">รายงานลูกหนี้สืบพยาน</h4>
           @endif
             <div class="box-tools pull-right">
               <button type="button" data-dismiss="modal" class="close" >
@@ -141,7 +143,7 @@
                               <button type="submit" class="btn btn-primary btn-app">
                                 <span class="glyphicon glyphicon-print"></span> ปริ้น
                               </button>
-                              <a class="btn btn-app" href="{{ route('legislation',7) }}" style="background-color:#DB0000; color:#FFFFFF;">
+                              <a class="btn btn-app" href="{{ route('legislation',7) }}" style="background-color:#E7910F; color:#FFFFFF;">
                                 <span class="glyphicon glyphicon-remove"></span> ยกเลิก
                               </a>
                             </div>
@@ -172,7 +174,7 @@
                               <button type="submit" class="btn btn-primary btn-app">
                                 <span class="glyphicon glyphicon-print"></span> ปริ้น
                               </button>
-                              <a class="btn btn-app" href="{{ route('legislation',7) }}" style="background-color:#DB0000; color:#FFFFFF;">
+                              <a class="btn btn-app" href="{{ route('legislation',7) }}" style="background-color:#E7910F; color:#FFFFFF;">
                                 <span class="glyphicon glyphicon-remove"></span> ยกเลิก
                               </a>
                               <br><br>
@@ -206,10 +208,10 @@
 
                           <div class="col-md-5">
                             <div class="form-inline" align="center">
-                              <button type="submit" class="btn btn-primary btn-app">
-                                <span class="glyphicon glyphicon-print"></span> ปริ้น
+                              <button type="submit" class="btn btn-danger btn-app">
+                                <span class="fa fa-file-pdf-o"></span> PDF
                               </button>
-                              <a class="btn btn-app" href="{{ route('legislation',7) }}" style="background-color:#DB0000; color:#FFFFFF;">
+                              <a class="btn btn-app" href="{{ route('legislation',7) }}" style="background-color:#E7910F ; color:#FFFFFF;">
                                 <span class="glyphicon glyphicon-remove"></span> ยกเลิก
                               </a>
                             </div>
@@ -262,24 +264,56 @@
                           </div>
                         </div>
                         <p></p>
+
                         <div class="row">
-                          <div class="col-md-12">
-                            <div class="form-inline" align="center">
-                              <label>สถานะทรัพย์ : </label>
-                              <select name="StateLegis" class="form-control" style="width: 180px">
-                                <option selected value="">--- สถานะทรัพย์ ---</option>
-                                <option value="มีทรัพย์">มีทรัพย์</otion>
-                                <option value="ไม่มีทรัพย์">ไม่มีทรัพย์</otion>
-                              </select>
+                          <div class="col-md-3">
+                            <div class="" align="right">
+                              <label>สถานะ : </label>
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="" align="left">
+                              <label>
+                                <input type="checkbox" id="test1" name="status" value="ลูกหนี้ฟ้อง"/>
+                                <span>ลูกหนี้ฟ้อง</span>
+                              </label>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="" align="left">
+                              <label>
+                                <input type="checkbox" id="test2" name="status" value="ลูกหนี้ยังไม่ฟ้อง"/>
+                                <span>ลูกหนี้ยังไม่ฟ้อง</span>
+                              </label>
                             </div>
                           </div>
                         </div>
+
+                        <div class="row">
+                          <div class="col-md-3">
+                            <div class="" align="right">
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="" align="left">
+                              <label>
+                                <input type="checkbox" id="test3" name="status" value="ลูกหนี้ปิดจบงาน"/>
+                                <span>ลูกหนี้ปิดจบงาน</span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+
                         <p></p>
-                        <div class="row">
-                          <div class="col-md-12">
-                            <div class="form-inline" align="center">
+                        <!-- <div class="row">
+                          <div class="col-md-3">
+                            <div class="" align="right">
                               <label>สถานะทรัพย์ : </label>
-                              <select name="StateLegis" class="form-control" style="width: 180px">
+                            </div>
+                          </div>
+                          <div class="col-md-9">
+                            <div class="form-inline" align="left">
+                              <select name="StateLegis" class="form-control" style="width: 200px">
                                 <option selected value="">--- สถานะทรัพย์ ---</option>
                                 <option value="มีทรัพย์">มีทรัพย์</otion>
                                 <option value="ไม่มีทรัพย์">ไม่มีทรัพย์</otion>
@@ -287,18 +321,87 @@
                             </div>
                           </div>
                         </div>
+                        <p></p> -->
 
+                        <!-- <div class="row">
+                          <div class="col-md-3">
+                            <div class="" align="right">
+                              <label>สถานะปิดงาน : </label>
+                            </div>
+                          </div>
+                          <div class="col-md-9">
+                            <div class="form-inline" align="left">
+                              <select name="StateLegis" class="form-control" style="width: 200px">
+                                <option selected value="">--- สถานะปิดงาน ---</option>
+                                <option value="จ่ายจบก่อนฟ้อง">จ่ายจบก่อนฟ้อง</otion>
+                                <option value="ยึดรถก่อนฟ้อง">ยึดรถก่อนฟ้อง</otion>
+                                <option value="หมดอายุความคดี">หมดอายุความคดี</otion>
+                                <option value="ปิดบัญชีชั้นศาล">ปิดบัญชีชั้นศาล</otion>
+                                <option value="ยึดรถชั้นศาล">ยึดรถชั้นศาล</otion>
+                                <option value="ถอนบังคับคดีปิดบัญชี">ถอนบังคับคดีปิดบัญชี</otion>
+                                <option value="ถอนบังคับคดียึดรถ">ถอนบังคับคดียึดรถ</otion>
+                                <option value="ประนอมหลังยึดทรัพย์">ประนอมหลังยึดทรัพย์</otion>
+                                <option value="ถอนบังคับคดียอดเหลือน้อย">ถอนบังคับคดียอดเหลือน้อย</otion>
+                                <option value="ถอนบังคับคดีขายเต็มจำนวน">ถอนบังคับคดีขายเต็มจำนวน</otion>
+                                <option value="ศาลพิพากษา">ศาลพิพากษา</otion>
+                                <option value="ประนีประนอม(จำหน่ายคดี)">ประนีประนอม(จำหน่ายคดี)</otion>
+                                <option value="ยื่นคำร้องให้ศาลพิพากษา">ยื่นคำร้องให้ศาลพิพากษา</otion>
+                                <option value="ปิดบัญชีโกงเจ้าหนี้">ปิดบัญชีโกงเจ้าหนี้</otion>
+                              </select>
+                            </div>
+                          </div>
+                        </div> -->
 
-                          <!-- <div class="col-md-5">
+                        <p></p>
+                        <br>
+                        <div class="row">
+                          <div class="col-md-12>
+                            <div class="form-inline" align="center">
+                              <button type="submit" class="btn btn-success btn-app">
+                                <span class="fa fa-file-excel-o"></span> Excel
+                              </button>
+                              <a class="btn btn-app" href="{{ route('legislation',2) }}" style="background-color:#E7910F; color:#FFFFFF;">
+                                <span class="glyphicon glyphicon-remove"></span> ยกเลิก
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+
+                    </div>
+                  </div>
+                </div>
+              </form>
+            @elseif($type == 18)
+              <form name="form1" action="{{ route('legislation.report' ,[00, 18]) }}" target="_blank" method="get" id="formimage" enctype="multipart/form-data">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="tab-content">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-inline" align="center">
+                              <label>วันที่ : </label>
+                              <input type="date" name="Fromdate" class="form-control" style="width: 180px;"/>
+                              <label>ถึงวันที่ : </label>
+                              <input type="date" name="Todate" class="form-control" style="width: 180px;"/>
+                            </div>
+                          </div>
+                        </div>
+
+                        <p></p>
+                        <br>
+                        <div class="row">
+                          <div class="col-md-12>
                             <div class="form-inline" align="center">
                               <button type="submit" class="btn btn-primary btn-app">
                                 <span class="glyphicon glyphicon-print"></span> ปริ้น
                               </button>
-                              <a class="btn btn-app" href="{{ route('legislation',7) }}" style="background-color:#DB0000; color:#FFFFFF;">
+                              <a class="btn btn-app" href="{{ route('legislation',2) }}" style="background-color:#DB0000; color:#FFFFFF;">
                                 <span class="glyphicon glyphicon-remove"></span> ยกเลิก
                               </a>
                             </div>
-                          </div> -->
+                          </div>
+                        </div>
+
                     </div>
                   </div>
                 </div>

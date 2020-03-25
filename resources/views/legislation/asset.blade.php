@@ -107,10 +107,12 @@
                                 <p></p>
                                 <div align="left">
                                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                  <small class="label label-success" style="font-size: 25px;">
+                                  <small class="label label-primary" style="font-size: 25px;">
                                   <i class="fa fa-expeditedssl"></i>&nbsp; สถานะ : 
-                                    @if($data->Status_legis != Null)
-                                      {{$data->Status_legis}}
+                                    @if($data->sendsequester_asset != Null)
+                                      {{ $data->sendsequester_asset }}
+                                    @elseif($data->propertied_asset == "Y")
+                                      มีทรัพย์
                                     @endif
                                   </small>
                                 </div>
@@ -205,8 +207,8 @@
                                     ผลสืบ :
                                     <select id="sendsequesterasset" name="sendsequesterasset" class="form-control">
                                       <option value="" selected>--- เลือกผล ---</option>
-                                      <option value="เจอ" {{ ($data->sendsequester_asset === 'เจอ') ? 'selected' : '' }}>เจอ</option>
-                                      <option value="ไม่เจอ" {{ ($data->sendsequester_asset === 'ไม่เจอ') ? 'selected' : '' }}>ไม่เจอ</option>
+                                      <option value="สืบทรัพย์เจอ" {{ ($data->sendsequester_asset === 'สืบทรัพย์เจอ') ? 'selected' : '' }}>สืบทรัพย์เจอ</option>
+                                      <option value="สืบทรัพย์ไม่เจอ" {{ ($data->sendsequester_asset === 'สืบทรัพย์ไม่เจอ') ? 'selected' : '' }}>สืบทรัพย์ไม่เจอ</option>
                                       <option value="หมดอายุความคดี" {{ ($data->sendsequester_asset === 'หมดอายุความคดี') ? 'selected' : '' }}>หมดอายุความคดี</option>
                                       <option value="จบงานสืบทรัพย์" {{ ($data->sendsequester_asset === 'จบงานสืบทรัพย์') ? 'selected' : '' }}>จบงานสืบทรัพย์</option>
                                     </select>
