@@ -204,7 +204,10 @@
                             <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
                           </button>
                            <ul class="dropdown-menu" role="menu">
-                              <li><a target="_blank" href="{{ route('legislation', 17) }}" data-toggle="modal" data-target="#modal-4" data-backdrop="static" data-keyboard="false"> รายงานลูกหนี้ฟ้อง</a></li>
+                              <li><a target="_blank" href="{{ route('legislation', 17) }}" data-toggle="modal" data-target="#modal-4" data-backdrop="static" data-keyboard="false"> รายงานลูกหนี้</a></li>
+                              <li class="divider"></li>
+                              <li><a target="_blank" href="{{ route('legislation', 18) }}" data-toggle="modal" data-target="#modal-5" data-backdrop="static" data-keyboard="false"> รายงานลูกหนี้สืบพยาน</a></li>
+
                             </ul>
                         </div>
                         <button type="submit" class="btn btn-warning btn-app">
@@ -248,7 +251,7 @@
                           <th class="text-center">Job.</th>
                           <th class="text-center">ชื่อ-สกุล</th>
                           <th class="text-center" style="width: 40px">วันถืองาน</th>
-                          <th class="text-center">วันส่งฟ้อง</th>
+                          <th class="text-center">วันฟ้อง</th>
                           <th class="text-center" style="width: 40px">ระยะเวลา</th>
                           <th class="text-center" style="width: 80px">สถานะลูกหนี้</th>
                           <th class="text-center" style="width: 80px">สถานะทรัพย์</th>
@@ -265,15 +268,7 @@
                             <td class="text-center"> {{$row->Contract_legis}}</a></td>
                             <td class="text-left"> {{$row->Name_legis}} </td>
                             <td class="text-center">  <!-- วันถืองาน -->
-                              @if($row->DateComplete_court == Null)
-                                @php
-                                  $Cldate = date_create($row->Datesend_Flag);
-                                  $nowCldate = date_create($date);
-                                  $ClDateDiff = date_diff($Cldate,$nowCldate);
-                                  $duration = $ClDateDiff->format("%a วัน")
-                                @endphp
-                                <font color="red">{{$duration}}</font>
-                              @elseif($row->DateComplete_court != Null)
+                              @if($row->DateComplete_court != Null)
                                 @php
                                   $Cldate = date_create($row->Datesend_Flag);
                                   $nowCldate = date_create($row->DateComplete_court);
@@ -281,6 +276,22 @@
                                   $duration = $ClDateDiff->format("%a วัน")
                                 @endphp
                                 <font color="green">{{$duration}}</font>
+                              @elseif($row->DateUpState_legis != Null)
+                                @php
+                                  $Cldate = date_create($row->Datesend_Flag);
+                                  $nowCldate = date_create($row->DateUpState_legis);
+                                  $ClDateDiff = date_diff($Cldate,$nowCldate);
+                                  $duration = $ClDateDiff->format("%a วัน")
+                                @endphp
+                                <font color="green">{{$duration}}</font>
+                              @elseif($row->DateComplete_court == Null)
+                                @php
+                                  $Cldate = date_create($row->Datesend_Flag);
+                                  $nowCldate = date_create($date);
+                                  $ClDateDiff = date_diff($Cldate,$nowCldate);
+                                  $duration = $ClDateDiff->format("%a วัน")
+                                @endphp
+                                <font color="red">{{$duration}}</font>
                               @endif
                             </td>
                             <td class="text-center">  <!-- วันฟ้อง -->
@@ -508,7 +519,7 @@
                                         @endif
                                       @endif
                                     @elseif($Newdate <= $Tab8)  <!-- โกงเจ้าหนี้ -->
-                                      @if($DateEx8->days <= 8)
+                                      @if($DateEx8->days <= 7)
                                         <button type="button" class="btn btn-danger btn-sm" title="วันที่แจ้งความ {{ DateThai($Tab8->format('Y-m-d')) }}">
                                           <span class="fa fa-bell text-white prem"> โกงเจ้าหนี้ {{ $DateEx8->days }} วัน</span>
                                         </button>
@@ -544,7 +555,7 @@
                                   $DateEx = date_diff($Newdate,$Getdate);
                                 @endphp
 
-                                @if($row->sendsequester_asset == "ไม่เจอ")
+                                @if($row->sendsequester_asset == "สืบทรัพย์ไม่เจอ")
                                     @php
                                       $Getdate = date_create($row->NewpursueDate_asset);
                                       $DateEx = date_diff($Newdate,$Getdate);
@@ -565,7 +576,7 @@
                                         <span class="fa fa-hourglass-half active"> ไม่มีการอัพเดต </span>
                                       </button>
                                     @endif
-                                @elseif($row->sendsequester_asset == "เจอ")
+                                @elseif($row->sendsequester_asset == "สืบทรัพย์เจอ")
                                   <button type="button" class="btn btn-success btn-sm" title="สืบทรัพย์เจอ">
                                     <i class="fa fa-check-square-o prem"></i> สืบทรัพย์เจอ
                                   </button>
@@ -620,7 +631,7 @@
 
                               @if($row->Status_Promise != NULL)
                                 <button type="button" class="btn btn-success btn-sm" title="ปิดบัญชี">
-                                  <span class="glyphicon glyphicon-ok prem"></span> ปิดบัญชี
+                                  <span class="fa fa-check-square-o prem"></span> ปิดบัญชี
                                 </button>
                               @else
                                 @if($row->KeyCompro_id != Null)
@@ -674,8 +685,8 @@
                           <th class="text-center">ลำดับ</th>
                           <th class="text-center">เลขที่สัญญา</th>
                           <th class="text-center">ชื่อ-สกุล</th>
-                          <th class="text-center">วันทีส่งทนาย</th>
-                          <th class="text-center">ค้างงวด</th>
+                          <th class="text-center">งวด</th>
+                          <th class="text-center">วันรับงาน</th>
                           <th class="text-center">ระยะเวลา</th>
                           <th class="text-center">ผู้จัดเตรียม</th>
                           <th class="text-center">หมายเหตุ</th>
@@ -686,14 +697,9 @@
                       <tbody>
                         @foreach($data as $key => $row)
                           <tr>
-                            <td class="text-center"> {{$key+1}} </td>
-                            <td class="text-center"> {{$row->Contract_legis}}</a></td>
-                            <td class="text-left"> {{$row->Name_legis}} </td>
-                            <td class="text-center">
-                              @if($row->Datesend_Flag != Null)
-                                {{ DateThai($row->Datesend_Flag) }}
-                              @endif
-                            </td>
+                            <td class="text-center"> {{$key+1}}</td>
+                            <td class="text-center"> {{$row->Contract_legis}}</td>
+                            <td class="text-left"> {{$row->Name_legis}}</td>
                             <td class="text-center">
                               @php
                                  $StrCon = explode("/",$row->Contract_legis);
@@ -711,6 +717,7 @@
                                 @endif
                               @endforeach
                             </td>
+                            <td class="text-center"> {{ DateThai($row->Date_legis) }}</td>
                             <td class="text-center">
                               @if($row->Datesend_Flag == null)
                                 @php
@@ -731,16 +738,16 @@
                                 <font color="green">{{$duration}}</font>
                               @endif
                             </td>
-                            <td class="text-center"> {{ $row->UserSend2_legis }} </td>
+                            <td class="text-center"> {{ $row->UserSend2_legis }}</td>
                             <td class="text-left" style="width:200px;"> {{ $row->Noteby_legis }} </td>
                             <td class="text-center">
                               @if($row->Flag_status == '1')
                               <button type="button" class="btn btn-danger btn-sm" title="เตรียมเอกสาร">
-                                <span class="glyphicon glyphicon-copy"></span> เตรียมเอกสาร
+                                <span class="glyphicon glyphicon-copy"></span> เตรียม
                               </button>
                               @else
-                              <button type="button" class="btn btn-success btn-sm" title="ส่งเอกสารแล้ว">
-                                <span class="glyphicon glyphicon-paste"></span> ส่งเอกสารแล้ว
+                              <button type="button" class="btn btn-success btn-sm" title="วันส่งทนาย {{ DateThai($row->Datesend_Flag) }}">
+                                <span class="glyphicon glyphicon-paste"></span> ส่งทนาย
                               </button>
                               @endif
                             </td>
@@ -945,7 +952,7 @@
                     <table class="table table-bordered" id="table">
                       <thead class="thead-dark bg-gray-light" >
                         <tr>
-                          <th class="text-center" style="width: 40px">ลำดับ</th>
+                          <th class="text-center" style="width: 30px">No.</th>
                           <th class="text-center">เลขที่สัญญา</th>
                           <th class="text-center">ชื่อ-สกุล</th>
                           <th class="text-center">วันที่สืบทรัพย์</th>
@@ -953,7 +960,7 @@
                           <th class="text-center">สถานะทรัพย์</th>
                           <th class="text-center">สถานะแจ้งเตือน</th>
                           <th class="text-center">ผู้สืบทรัพย์</th>
-                          <th class="text-center" style="width: 150px">ตัวเลือก</th>
+                          <th class="text-center" style="width: 100px">ตัวเลือก</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -961,8 +968,8 @@
                           <tr>
                             <td class="text-center"> {{$key+1}} </td>
                             <!-- <td class="text-center"><a href="#" data-toggle="modal" data-target="#modal_default" data-backdrop="static" data-keyboard="false">{{$row->Contract_legis}}</a></td> -->
-                            <td class="text-center"> {{$row->Contract_legis}}</a></td>
-                            <td class="text-center"> {{$row->Name_legis}} </td>
+                            <td class="text-center"> {{$row->Contract_legis}}</td>
+                            <td class="text-left"> {{$row->Name_legis}} </td>
                             <td class="text-center"> {{ DateThai($row->Date_asset) }}</td>
                             <td class="text-center">  <!-- ระยะเวลา -->
                               @if($row->Dateresult_asset != Null)
@@ -1012,7 +1019,7 @@
                                   $DateEx = date_diff($Newdate,$Getdate);
                                 @endphp
 
-                                @if($row->sendsequester_asset == "ไม่เจอ")
+                                @if($row->sendsequester_asset == "สืบทรัพย์ไม่เจอ")
                                     @php
                                       $Getdate = date_create($row->NewpursueDate_asset);
                                       $DateEx = date_diff($Newdate,$Getdate);
@@ -1033,7 +1040,7 @@
                                         <span class="fa fa-hourglass-half active"> ไม่มีการอัพเดต </span>
                                       </button>
                                     @endif
-                                @elseif($row->sendsequester_asset == "เจอ")
+                                @elseif($row->sendsequester_asset == "สืบทรัพย์เจอ")
                                   <button type="button" class="btn btn-success btn-sm" title="สืบทรัพย์เจอ">
                                     <i class="fa fa-check-square-o prem"></i> สืบทรัพย์เจอ
                                   </button>
@@ -1077,7 +1084,7 @@
                                 @endif
                               @endif
                             </td>
-                            <td class="text-center"> {{ DateThai($row->User_asset) }} </td>
+                            <td class="text-center"> {{ $row->User_asset }}</td>
                             <td class="text-center">
                               <a href="{{ action('LegislationController@edit',[$row->id,$type]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                 <span class="glyphicon glyphicon-pencil"></span> แก้ไข
@@ -1577,8 +1584,21 @@
               </div>
             </div>
 
-            <!-- Pop up รายงานลูกฟ้อง -->
+            <!-- Pop up รายงานลูกหนี้ -->
             <div class="modal fade" id="modal-4">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">ข้อมูลรายละเอียด</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pop up รายงานลูกหนี้สืบพยาน -->
+            <div class="modal fade" id="modal-5">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">

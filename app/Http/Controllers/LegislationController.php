@@ -7,6 +7,9 @@ use DB;
 use PDF;
 use Storage;
 use Carbon\Carbon;
+use Exporter;
+use Excel;
+use Helper;
 
 use App\Legislation;
 use App\Legiscourt;
@@ -363,7 +366,7 @@ class LegislationController extends Controller
         $type = $request->type;
         return view('legislation.viewReport',compact('type'));
       }
-      elseif ($request->type == 17) {   //รายงานลูกฟ้อง
+      elseif ($request->type == 17 or $request->type == 18) {   //รายงานลูกฟ้อง
         $type = $request->type;
         return view('legislation.viewReport',compact('type'));
       }
@@ -1132,14 +1135,18 @@ class LegislationController extends Controller
           }
         $user->update();
 
+        $Setcapitalcourt = str_replace (",","",$request->get('capitalcourt'));
+        $Setindictmentcourt = str_replace (",","",$request->get('indictmentcourt'));
+        $Setpricelawyercourt = str_replace (",","",$request->get('pricelawyercourt'));
+
         $Legiscourt = Legiscourt::where('legislation_id',$id)->first();
           $Legiscourt->fillingdate_court = $request->get('fillingdatecourt');
           $Legiscourt->law_court = $request->get('lawcourt');
           $Legiscourt->bnumber_court = $request->get('bnumbercourt');
           $Legiscourt->rnumber_court = $request->get('rnumbercourt');
-          $Legiscourt->capital_court = $request->get('capitalcourt');
-          $Legiscourt->indictment_court = $request->get('indictmentcourt');
-          $Legiscourt->pricelawyer_court = $request->get('pricelawyercourt');
+          $Legiscourt->capital_court = $Setcapitalcourt;
+          $Legiscourt->indictment_court = $Setindictmentcourt;
+          $Legiscourt->pricelawyer_court = $Setpricelawyercourt;
           $Legiscourt->examiday_court = $request->get('examidaycourt');
           $Legiscourt->fuzzy_court = $request->get('fuzzycourt');
           $Legiscourt->examinote_court = $request->get('examinotecourt');
@@ -1377,7 +1384,7 @@ class LegislationController extends Controller
             ]);
             $LegisAsset->save();
         }else {
-          if ($request->get('sendsequesterasset') == "เจอ" or $request->get('sendsequesterasset') == "หมดอายุความคดี" or $request->get('sendsequesterasset') == "จบงานสืบทรัพย์") {
+          if ($request->get('sendsequesterasset') == "สืบทรัพย์เจอ" or $request->get('sendsequesterasset') == "หมดอายุความคดี" or $request->get('sendsequesterasset') == "จบงานสืบทรัพย์") {
             $Dateresult = date('Y-m-d');
           }else {
             $Dateresult = Null;
@@ -1595,9 +1602,9 @@ class LegislationController extends Controller
            'law_court' =>  Null,
            'bnumber_court' =>  Null,
            'rnumber_court' =>  Null,
-           'capital_court' =>  Null,
-           'indictment_court' =>  Null,
-           'pricelawyer_court' =>  Null,
+           'capital_court' =>  0,
+           'indictment_court' =>  0,
+           'pricelawyer_court' =>  0,
            'examiday_court' =>  Null,
            'fuzzy_court' =>  Null,
            'examinote_court' =>  Null,
@@ -1672,11 +1679,9 @@ class LegislationController extends Controller
         $item6->Delete();
       }
       elseif ($type == 2) { //ลบตาราง Payment
-
         $item1 = legispayment::where('Payment_id',$id)->first();
 
         // dd($item1);
-
         $dataFind = DB::table('legiscompromises')
                       ->where('legisPromise_id','=', $item1->legis_Com_Payment_id)->first();
 
@@ -1689,9 +1694,7 @@ class LegislationController extends Controller
         $item = legispayment::where('Payment_id',$id);
         $item->Delete();
 
-
         $LegisPay = legispayment::where('legis_Com_Payment_id',$item1->legis_Com_Payment_id)->latest()->first();
-
         if ($LegisPay != Null) {
           DB::table('legispayments')
             ->where('Payment_id', $LegisPay->Payment_id)
@@ -1984,8 +1987,335 @@ class LegislationController extends Controller
         $pdf::WriteHTML($html,true,false,true,false,'');
         $pdf::Output('report.pdf');
       }
-      elseif ($type == 17) {
-        # code...
+      elseif ($type == 17) { //รายงานลูกหนี้
+        date_default_timezone_set('Asia/Bangkok');
+        $Y = date('Y') + 543;
+        $Y2 = date('Y');
+        $m = date('m');
+        $d = date('d');
+        $time = date('H:i');
+        $date = $Y2.'-'.$m.'-'.$d;
+        $date2 = $Y.'-'.$m.'-'.$d;
+
+        $newfdate = '';
+        $newtdate = '';
+        $status = '';
+
+        if ($request->has('Fromdate')) {
+          $newfdate = $request->get('Fromdate');
+        }
+        if ($request->has('Todate')) {
+          $newtdate = $request->get('Todate');
+        }
+        if ($request->has('status')) {
+          $status = $request->get('status');
+        }
+
+        if($status == "ลูกหนี้ฟ้อง"){
+          $data = DB::table('legislations')
+                ->leftJoin('Legiscourtcases','legislations.id','=','Legiscourtcases.legislation_id')
+                ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+                ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+                ->leftJoin('legisassets','legislations.id','=','legisassets.legisAsset_id')
+                ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+                  return $q->whereBetween('legiscourts.fillingdate_court',[$newfdate,$newtdate]);
+                })
+                ->where('legislations.KeyCourts_id','!=', NULL)
+                ->where('legislations.Status_legis','=', NULL)
+                ->where('legislations.Flag_status','=', '2')
+                ->orderBy('legislations.id', 'DESC')
+                ->get();
+
+        }elseif ($status == "ลูกหนี้ยังไม่ฟ้อง") {
+          $data = DB::table('legislations')
+                ->leftJoin('Legiscourtcases','legislations.id','=','Legiscourtcases.legislation_id')
+                ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+                ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+                ->leftJoin('legisassets','legislations.id','=','legisassets.legisAsset_id')
+                ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+                  return $q->whereBetween('legiscourts.fillingdate_court',[$newfdate,$newtdate]);
+                })
+                ->where('legislations.KeyCourts_id','=', NULL)
+                ->where('legislations.Status_legis','=', NULL)
+                ->where('legislations.Flag_status','=', '2')
+                ->orderBy('legislations.id', 'DESC')
+                ->get();
+
+        }elseif ($status == "ลูกหนี้ปิดจบงาน"){
+          $data = DB::table('legislations')
+                ->leftJoin('Legiscourtcases','legislations.id','=','Legiscourtcases.legislation_id')
+                ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+                ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+                ->leftJoin('legisassets','legislations.id','=','legisassets.legisAsset_id')
+                ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+                  return $q->whereBetween('legiscourts.fillingdate_court',[$newfdate,$newtdate]);
+                })
+                ->where('legislations.Status_legis','!=', NULL)
+                ->where('legislations.Flag_status','=', '2')
+                ->orderBy('legislations.id', 'DESC')
+                ->get();
+
+        }else {
+          $data = DB::table('legislations')
+                ->leftJoin('Legiscourtcases','legislations.id','=','Legiscourtcases.legislation_id')
+                ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+                ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+                ->leftJoin('legisassets','legislations.id','=','legisassets.legisAsset_id')
+                ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+                  return $q->whereBetween('legiscourts.fillingdate_court',[$newfdate,$newtdate]);
+                })
+                ->where('legislations.Flag_status','=', '2')
+                ->orderBy('legislations.id', 'DESC')
+                ->get();
+
+                $status = 'ลูกหนี้รวม';
+              }
+              
+        if ($newfdate != NULL) {
+          $Fdate = date('d-m-Y', strtotime($newfdate));
+          $Tdate = date('d-m-Y', strtotime($newtdate));
+        }else {
+          $Fdate = "";
+          $Tdate = "";
+        }
+
+        Excel::create('รายงานลูกหนี้', function ($excel) use($data,$status,$date,$Fdate,$Tdate) {
+          $excel->sheet($status, function ($sheet) use($data,$status,$date,$Fdate,$Tdate) {
+              $sheet->prependRow(1, array("บริษัท ชูเกียรติลิสซิ่ง จำกัด"));
+              $sheet->prependRow(2, array("จากวันที่  ".$Fdate,"ถึงวันที่  ".$Tdate));
+              $sheet->cells('A3:J3', function($cells) {
+                $cells->setBackground('#FFCC00');
+              });
+              $row = 3;
+              $sheet->row($row, array('เลขที่สัญญา','ชื่อ-นามสกุล','ยอดคงเหลือ','ยอดตั้งฟ้อง','สถานะลูกหนี้','สถานะทรัพย์','สถานะประนอมหนี้','วันที่ปิดงาน','ยอดชำระ','หมายเหตุ'));
+              $Summperiod = 0;    //รวมยอดคงเหลือ
+              $SumAmount = 0;
+              $SumTextStatus = 0; //ยอดปิดบัญชี
+
+              foreach ($data as $value) {
+                $SumCourt = ($value->capital_court + $value->indictment_court + $value->pricelawyer_court);
+                $Summperiod += $value->Sumperiod_legis;
+                $SumAmount += $SumCourt;
+                $SumTextStatus += $value->txtStatus_legis + ($value->Total_Promise - $value->Sum_Promise);
+
+                if ($value->txtStatus_legis != NULL) {
+                  $TextStatus = $value->txtStatus_legis;
+                }else {
+                  $TextStatus = $value->Total_Promise - $value->Sum_Promise;
+                }
+                
+                //สถานะลูกหนี้
+                if ($value->Status_legis != NULL) {
+                  $SetText = $value->Status_legis;
+                }
+                else {
+                  $SetText = 'รอฟ้อง';
+                  $Newdate = date_create($date);
+
+                  // วันที่สืบพยาน
+                  if ($value->examiday_court != Null) {
+                    $Tab1 = date_create($value->examiday_court);
+                    $DateEx = date_diff($Newdate,$Tab1);
+                    // วันที่ส่งจริง/ส่งคำบังคับ
+                    if($value->fuzzy_court != Null){
+                      $Tab1 = date_create($value->fuzzy_court);
+                      $DateEx = date_diff($Newdate,$Tab1);
+                    }
+                    // วันที่ตรวจผลหมายจริง
+                    if ($value->ordersend_court != Null) {
+                      $Tab2 = date_create($value->ordersend_court);
+                      $DateEx2 = date_diff($Newdate,$Tab2);
+                    }elseif ($value->ordersend_court == Null) {
+                      $Tab2 = date_create($value->orderday_court);
+                      $DateEx2 = date_diff($Newdate,$Tab2);
+                    }
+                    // วันที่ตรวจผลหมาย
+                    if ($value->checkday_court != Null) {
+                      $Tab3 = date_create($value->checkday_court);
+                      $DateEx3 = date_diff($Newdate,$Tab3);
+                    }
+                    // วันที่ตั้งเจ้าพนักงาน
+                    if ($value->sendoffice_court != Null) {
+                      $Tab4 = date_create($value->sendoffice_court);
+                      $DateEx4 = date_diff($Newdate,$Tab4);
+                    }elseif ($value->sendoffice_court == Null) {
+                      $Tab4 = date_create($value->setoffice_court);
+                      $DateEx4 = date_diff($Newdate,$Tab4);
+                    }
+                    // วันที่ตรวจผลหมายตั้ง
+                    if ($value->sendcheckresults_court != Null) {
+                      $Tab5 = date_create($value->sendcheckresults_court);
+                      $DateEx5 = date_diff($Newdate,$Tab5);
+                    }elseif ($value->sendcheckresults_court == Null) {
+                      $Tab5 = date_create($value->checkresults_court);
+                      $DateEx5 = date_diff($Newdate,$Tab5);
+                    }
+                    // เตรียมเอกสาร/ชั้นบังคับคดี
+                    if ($value->datepreparedoc_case != Null) {
+                      $Tab6 = date_create($value->datepreparedoc_case);
+                      $DateEx6 = date_diff($Newdate,$Tab6);
+                    }else {
+                      $Tab6 = date_create("0000-00-00");
+                      $DateEx6 = date_diff($Newdate,$Tab6);
+                    }
+                    // ยึดทรัพย์/ชั้นบังคับคดี
+                    if ($value->datesetsequester_case != Null) {
+                      $Tab7 = date_create($value->datesetsequester_case);
+                      $DateEx7 = date_diff($Newdate,$Tab7);
+                    }else {
+                      $Tab7 = date_create("0000-00-00");
+                      $DateEx7 = date_diff($Newdate,$Tab7);
+                    }
+                    // วันที่แจ้งความ/โกงเจ้าหนี้
+                    if ($value->DateNotice_cheat != Null) {
+                      $Tab8 = date_create($value->DateNotice_cheat);
+                      $DateEx8 = date_diff($Newdate,$Tab8);
+                    }else {
+                      $Tab8 = date_create("0000-00-00");
+                      $DateEx8 = date_diff($Newdate,$Tab8);
+                    }
+
+                    if($Newdate <= $Tab1){
+                      if($DateEx->days <= 7){
+                        $SetText = 'สืบพยาน';
+                      }else {
+                        $SetText = 'รอสืบพยาน';
+                      }
+                    }
+                    elseif($Newdate <= $Tab2){
+                      if($DateEx2->days <= 7){
+                        $SetText = 'ส่งคำบังคับ';
+                      }else {
+                        $SetText = 'รอส่งคำบังคับ';
+                      }
+                    }
+                    elseif($Newdate <= $Tab3){
+                      if($DateEx3->days <= 7){
+                        $SetText = 'ตรวจผลหมาย';
+                      }else {
+                        $SetText = 'รอตรวจผลหมาย';
+                      }
+                    }
+                    elseif($Newdate <= $Tab4){
+                      if($value->checksend_court != Null){
+                        if($DateEx4->days <= 7){
+                          $SetText = 'ตั้งเจ้าพนักงาน';
+                        }else {
+                          $SetText = 'รอตั้งเจ้าพนักงาน';
+                        }
+                      }else {
+                        $SetText = 'รอผลตรวจหมายจริง';
+                      }
+                    }
+                    elseif($Newdate <= $Tab5){
+                      if($DateEx5->days <= 7){
+                        $SetText = 'ตรวจผลหมายตั้ง';
+                      }else {
+                        $SetText = 'รอตรวจผลหมายตั้ง';
+                      }
+                    }
+                    else{
+                      if($Newdate <= $Tab6){    // เตรียมเอกสาร/ชั้นบังคับคดี
+                        if($DateEx6->days <= 7){
+                          $SetText = 'คัดโฉนด';
+                        }else {
+                          $SetText = 'รอคัดโฉนด';
+                        }
+                      }
+                      elseif($Newdate <= $Tab7){  // ยึดทรัพย์/ชั้นบังคับคดี
+                        if($DateEx7->days <= 7){
+                          $SetText = 'ตั้งเรื่องยึดทรัพย์';
+                        }else {
+                          $SetText = 'รอตั้งเรื่องยึดทรัพย์';
+                        }
+                      }
+                      elseif($value->resultsequester_case != Null){ // ประกาศขาย/ชั้นบังคับคดี
+                        if($value->resultsequester_case == "ขายไม่ได้"){
+                          $SetText = 'บังคับคดี/ขายไม่ได้';
+                        }else {
+                          if($value->resultsell_case == "เต็มจำนวน"){
+                            $SetText = 'ขายได้/เต็มจำนวน';
+                          }
+                          elseif($value->resultsell_case == "ไม่เต็มจำนวน"){
+                            $SetText = 'ขายได้/ไม่เต็มจำนวน';
+                          }
+                          else {
+                            $SetText = 'รอผลจากการขาย';
+                          }
+                        }
+                      }
+                      elseif($Newdate <= $Tab8){  // โกงเจ้าหนี้
+                        if($DateEx8->days <= 7){
+                          $SetText = 'โกงเจ้าหนี้';
+                        }else {
+                          $SetText = 'โกงเจ้าหนี้';
+                        }
+                      }
+                      else {
+                        $SetText = 'รอขั้นตอนต่อไป';
+                      }
+                    }
+                  }
+                  else {
+                    if($value->fillingdate_court == Null){
+                      $SetText = "รอฟ้อง";
+                    }
+                    elseif($value->fillingdate_court != Null){
+                      $SetText = "ฟ้อง";
+                    }
+                  }
+                }
+                //สถานะสืบทรัพย์
+                if ($value->propertied_asset == "Y") {
+                  $SetTextAsset = "มีทรัพย์";
+                }elseif ($value->propertied_asset == "N") {
+                  $SetTextAsset = "ไม่มีทรัพย์";
+                }else {
+                  $SetTextAsset = "ไม่มีข้อมูล";
+                }
+                //สถานะประนอมหนี้
+                if ($value->Status_Promise != NULL) {
+                  $SetTextCompro = $value->Status_Promise;
+                }else {
+                  if ($value->Date_Promise != NULL) {
+                    $SetTextCompro = "ประนอมหนี้";
+                  }else {
+                    $SetTextCompro = "ไม่มีข้อมูล";
+                  }
+                }
+
+                if ($value->DateUpState_legis != NULL) {
+                  $SetDatelegis = Helper::formatDateThai($value->DateUpState_legis);
+
+                  // $SetDatelegis = date('d-m-Y', strtotime($value->DateUpState_legis));
+                }else {
+                  $SetDatelegis = "";
+                }
+
+                $sheet->row(++$row, array(
+                  $value->Contract_legis,
+                  $value->Name_legis,
+                  number_format($value->Sumperiod_legis, 2),
+                  number_format($SumCourt, 2),
+                  $SetText,
+                  $SetTextAsset,
+                  $SetTextCompro,
+                  $SetDatelegis,
+                  number_format($TextStatus, 2),
+                  $value->Note
+                ));
+
+              }
+              $sheet->appendRow(function($rows) {
+                $rows->setBackground('#FFCC00');
+              });
+              $sheet->appendRow(array('รวมทั้งหมด','',number_format($Summperiod,2).'  บาท',number_format($SumAmount,2).'  บาท','','','','',number_format($SumTextStatus,2).'  บาท'));
+          });
+        })->export('xlsx');
+        
+      }
+      elseif ($type == 18) {
+        dd('rfghjkl');
       }
 
     }
