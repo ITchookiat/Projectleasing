@@ -184,6 +184,7 @@ class AnalysController extends Controller
         ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
         ->select('cardetails.Agent_car', DB::raw('count(*) as total'))
         ->where('cardetails.Agent_car','<>',Null)
+        ->where('buyers.Contract_buyer','not like', '22%')
         ->groupBy('cardetails.Agent_car')
         ->get();
 
@@ -191,6 +192,7 @@ class AnalysController extends Controller
         ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
         ->select('cardetails.Year_car', DB::raw('count(*) as total'))
         ->where('cardetails.Year_car','<>',Null)
+        ->where('buyers.Contract_buyer','not like', '22%')
         ->groupBy('cardetails.Year_car')
         ->get();
 
@@ -198,6 +200,7 @@ class AnalysController extends Controller
         ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
         ->select('cardetails.status_car', DB::raw('count(*) as total'))
         ->where('cardetails.status_car','<>',Null)
+        ->where('buyers.Contract_buyer','not like', '22%')
         ->groupBy('cardetails.status_car')
         ->get();
 
@@ -205,6 +208,7 @@ class AnalysController extends Controller
         ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
         ->select('cardetails.branch_car', DB::raw('count(*) as total'))
         ->where('cardetails.branch_car','<>',Null)
+        ->where('buyers.Contract_buyer','not like', '22%')
         ->groupBy('cardetails.branch_car')
         ->get();
 
@@ -243,6 +247,7 @@ class AnalysController extends Controller
           ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
           ->join('expenses','buyers.id','=','expenses.Buyerexpenses_id')
           ->where('cardetails.Approvers_car','!=',Null)
+          ->where('buyers.Contract_buyer','not like', '22%')
           ->orderBy('buyers.Contract_buyer', 'ASC')
           ->get();
 
@@ -268,6 +273,7 @@ class AnalysController extends Controller
           ->when(!empty($branch), function($q) use($branch){
             return $q->where('cardetails.branch_car',$branch);
           })
+          ->where('buyers.Contract_buyer','not like', '22%')
           ->orderBy('buyers.Contract_buyer', 'ASC')
           ->get();
         }
