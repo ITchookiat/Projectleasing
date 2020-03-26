@@ -1116,7 +1116,7 @@ class LegislationController extends Controller
             $user->DateUpState_legis = date('Y-m-d');
             $SettxtStatus = $request->get('DateStatuslegis');
             $SetDateUp = date('Y-m-d');
-            
+
             $user->DateStatus_legis = $request->get('DateCloseAccount');
             $user->PriceStatus_legis = $request->get('PriceAccount');
             $user->txtStatus_legis = $request->get('TopCloseAccount');
