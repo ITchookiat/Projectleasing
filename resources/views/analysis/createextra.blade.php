@@ -295,13 +295,12 @@
 
                                   <div class="col-md-6">
                                     <div class="form-inline" align="right">
-                                      <label>สถานะ : </label>
-                                        <select name="Statusbuyer" class="form-control" style="width: 250px;">
-                                          <option value="" selected>--- เลือกสถานะ ---</option>
-                                          <option value="โสด">โสด</option>
-                                          <option value="สมรส">สมรส</option>
-                                          <option value="หย่าร้าง">หย่าร้าง</option>
-                                        </select>
+                                        <label>เลขบัตรประชาชน : </label>
+                                        @if($data == null)
+                                          <input type="text" name="Idcardbuyer" class="form-control" style="width: 250px;" placeholder="ป้อนเลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask="" />
+                                        @else
+                                          <input type="text" name="Idcardbuyer" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->IDNO))}}" class="form-control" style="width: 250px;" placeholder="ป้อนเลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask=""/>
+                                        @endif
                                     </div>
                                   </div>
                                 </div>
@@ -345,11 +344,17 @@
 
                                   <div class="col-md-6">
                                     <div class="form-inline" align="right">
-                                      <label>เลขบัตรประชาชน : </label>
+                                      <label>ที่อยู่ : </label>
                                       @if($data == null)
-                                        <input type="text" name="Idcardbuyer" class="form-control" style="width: 250px;" placeholder="ป้อนเลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask="" />
+                                        <select name="Addressbuyer" class="form-control" style="width: 250px;">
+                                          <option value="" selected>--- เลือกที่อยู่ ---</option>
+                                          <option value="ตามทะเบียนบ้าน">ตามทะเบียนบ้าน</option>
+                                        </select>
                                       @else
-                                        <input type="text" name="Idcardbuyer" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->IDNO))}}" class="form-control" style="width: 250px;" placeholder="ป้อนเลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask=""/>
+                                        <select name="Addressbuyer" class="form-control" style="width: 250px;">
+                                          <option value="" selected>--- เลือกที่อยู่ ---</option>
+                                          <option value="ตามทะเบียนบ้าน" selected>ตามทะเบียนบ้าน</option>
+                                        </select>
                                       @endif
                                     </div>
                                   </div>
@@ -358,11 +363,12 @@
                                 <div class="row">
                                    <div class="col-md-5">
                                     <div class="form-inline" align="right">
-                                      <label>ที่อยู่ : </label>
-                                        <select name="Addressbuyer" class="form-control" style="width: 250px;">
-                                          <option value="" selected>--- เลือกที่อยู่ ---</option>
-                                          <option value="ตามทะเบียนบ้าน">ตามทะเบียนบ้าน</option>
-                                        </select>
+                                      <label>รายละเอียดที่อยู่ : </label>
+                                      @if($data == null)
+                                        <input type="text" name="StatusAddbuyer" class="form-control" style="width: 250px;" placeholder="ป้อนรายละเอียดที่อยู่" />
+                                      @else
+                                        <input type="text" name="StatusAddbuyer" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->ADDRES))}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->TUMB))}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->AUMPDES))}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->PROVDES))}}" class="form-control" style="width: 250px;" placeholder="ป้อนรายละเอียดที่อยู่" />
+                                      @endif
                                     </div>
                                   </div>
 
@@ -381,15 +387,49 @@
                                 <div class="row">
                                    <div class="col-md-5">
                                     <div class="form-inline" align="right">
-                                      <label>รายละเอียดที่อยู่ : </label>
-                                        <input type="text" name="StatusAddbuyer" class="form-control" style="width: 250px;" placeholder="ป้อนรายละเอียดที่อยู่" />
+                                        <label>อาชีพ : </label>
+                                          <select name="Careerbuyer" class="form-control" style="width: 250px;">
+                                            <option value="" selected>--- อาชีพ ---</option>
+                                            <option value="ตำรวจ">ตำรวจ</option>
+                                            <option value="ทหาร">ทหาร</option>
+                                            <option value="ครู">ครู</option>
+                                            <option value="ข้าราชการอื่นๆ">ข้าราชการอื่นๆ</option>
+                                            <option value="ลูกจ้างเทศบาล">ลูกจ้างเทศบาล</option>
+                                            <option value="ลูกจ้างประจำ">ลูกจ้างประจำ</option>
+                                            <option value="สมาชิก อบต.">สมาชิก อบต.</option>
+                                            <option value="ลูกจ้างชั่วคราว">ลูกจ้างชั่วคราว</option>
+                                            <option value="รับจ้าง">รับจ้าง</option>
+                                            <option value="พนักงานบริษัทเอกชน">พนักงานบริษัทเอกชน</option>
+                                            <option value="อาชีพอิสระ">อาชีพอิสระ</option>
+                                            <option value="กำนัน">กำนัน</option>
+                                            <option value="ผู้ใหญ่บ้าน">ผู้ใหญ่บ้าน</option>
+                                            <option value="ผู้ช่วยผู้ใหญ่บ้าน">ผู้ช่วยผู้ใหญ่บ้าน</option>
+                                            <option value="นักการภารโรง">นักการภารโรง</option>
+                                            <option value="มอเตอร์ไซร์รับจ้าง">มอเตอร์ไซร์รับจ้าง</option>
+                                            <option value="ค้าขาย">ค้าขาย</option>
+                                            <option value="เจ้าของธุรกิจ">เจ้าของธุรกิจ</option>
+                                            <option value="เจ้าของอู่รถ">เจ้าของอู่รถ</option>
+                                            <option value="ให้เช่ารถบรรทุก">ให้เช่ารถบรรทุก</option>
+                                            <option value="ช่างตัดผม">ช่างตัดผม</option>
+                                            <option value="ชาวนา">ชาวนา</option>
+                                            <option value="ชาวไร่">ชาวไร่</option>
+                                            <option value="แม่บ้าน">แม่บ้าน</option>
+                                            <option value="รับเหมาก่อสร้าง">รับเหมาก่อสร้าง</option>
+                                            <option value="ประมง">ประมง</option>
+                                            <option value="ทนายความ">ทนายความ</option>
+                                            <option value="พระ">พระ</option>
+                                          </select>
                                     </div>
                                   </div>
 
                                   <div class="col-md-6">
                                     <div class="form-inline" align="right">
                                       <label>สถานที่ทำงาน : </label>
+                                      @if($data == null)
                                         <input type="text" name="Workplacebuyer" class="form-control" style="width: 250px;" placeholder="ป้อนสถานที่ทำงาน" />
+                                      @else
+                                        <input type="text" name="Workplacebuyer" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->OFFIC))}}" class="form-control" style="width: 250px;" placeholder="ป้อนสถานที่ทำงาน" />
+                                      @endif
                                     </div>
                                   </div>
                                 </div>
@@ -397,16 +437,12 @@
                                 <div class="row">
                                    <div class="col-md-5">
                                     <div class="form-inline" align="right">
-                                      <label>ลักษณะบ้าน : </label>
-                                        <select name="Housebuyer" class="form-control" style="width: 250px;">
-                                          <option value="" selected>--- เลือกลักษณะบ้าน ---</option>
-                                          <option value="บ้านตึก 1 ชั้น">บ้านตึก 1 ชั้น</option>
-                                          <option value="บ้านตึก 2 ชั้น">บ้านตึก 2 ชั้น</option>
-                                          <option value="บ้านไม้ 1 ชั้น">บ้านไม้ 1 ชั้น</option>
-                                          <option value="บ้านไม้ 2 ชั้น">บ้านไม้ 2 ชั้น</option>
-                                          <option value="บ้านเดี่ยว">บ้านเดี่ยว</option>
-                                          <option value="แฟลต">แฟลต</option>
-                                        </select>
+                                      <label>เลขที่โฉนด : </label>
+                                      @if($data == null)
+                                        <input type="text" name="deednumberbuyer" class="form-control" style="width: 250px;" placeholder="เลขที่โฉนด" />
+                                      @else
+                                        <input type="text" name="deednumberbuyer" value="" class="form-control" style="width: 250px;" placeholder="เลขที่โฉนด" />
+                                      @endif
                                     </div>
                                   </div>
 
@@ -428,17 +464,6 @@
                                 <div class="row">
                                    <div class="col-md-5">
                                     <div class="form-inline" align="right">
-                                      <label>เลขที่โฉนด : </label>
-                                      @if($data == null)
-                                        <input type="text" name="deednumberbuyer" class="form-control" style="width: 250px;" placeholder="เลขที่โฉนด" />
-                                      @else
-                                        <input type="text" name="deednumberbuyer" value="" class="form-control" style="width: 250px;" placeholder="เลขที่โฉนด" />
-                                      @endif
-                                    </div>
-                                  </div>
-
-                                  <div class="col-md-6">
-                                    <div class="form-inline" align="right">
                                       <label>เนื่อที่ : </label>
                                       @if($data == null)
                                         <input type="text" name="areabuyer" class="form-control" style="width: 250px;" placeholder="เนื้อที่" data-inputmask="&quot;mask&quot;:&quot;99-9-99&quot;" data-mask=""/>
@@ -446,180 +471,6 @@
                                         <input type="text" name="areabuyer" value="" class="form-control" style="width: 250px;" placeholder="เนื้อที่" data-inputmask="&quot;mask&quot;:&quot;99-9-99&quot;" data-mask=""/>
                                       @endif
                                     </div>
-                                  </div>
-                                </div>
-
-                                <div class="row">
-                                   <div class="col-md-5">
-                                    <div class="form-inline" align="right">
-                                      <label>ประเภทบ้าน : </label>
-                                        <select name="HouseStylebuyer" class="form-control" style="width: 250px;">
-                                          <option value="" selected>--- ประเภทบ้าน ---</option>
-                                          <option value="ของตนเอง">ของตนเอง</option>
-                                          <option value="อาศัยบิดา-มารดา">อาศัยบิดา-มารดา</option>
-                                          <option value="อาศัยผู้อื่น">อาศัยผู้อื่น</option>
-                                          <option value="บ้านพักราชการ">บ้านพักราชการ</option>
-                                          <option value="บ้านเช่า">บ้านเช่า</option>
-                                        </select>
-                                    </div>
-                                  </div>
-
-                                  <div class="col-md-6">
-                                    <div class="form-inline" align="right">
-                                      <label>อาชีพ : </label>
-                                        <select name="Careerbuyer" class="form-control" style="width: 250px;">
-                                          <option value="" selected>--- อาชีพ ---</option>
-                                          <option value="ตำรวจ">ตำรวจ</option>
-                                          <option value="ทหาร">ทหาร</option>
-                                          <option value="ครู">ครู</option>
-                                          <option value="ข้าราชการอื่นๆ">ข้าราชการอื่นๆ</option>
-                                          <option value="ลูกจ้างเทศบาล">ลูกจ้างเทศบาล</option>
-                                          <option value="ลูกจ้างประจำ">ลูกจ้างประจำ</option>
-                                          <option value="สมาชิก อบต.">สมาชิก อบต.</option>
-                                          <option value="ลูกจ้างชั่วคราว">ลูกจ้างชั่วคราว</option>
-                                          <option value="รับจ้าง">รับจ้าง</option>
-                                          <option value="พนักงานบริษัทเอกชน">พนักงานบริษัทเอกชน</option>
-                                          <option value="อาชีพอิสระ">อาชีพอิสระ</option>
-                                          <option value="กำนัน">กำนัน</option>
-                                          <option value="ผู้ใหญ่บ้าน">ผู้ใหญ่บ้าน</option>
-                                          <option value="ผู้ช่วยผู้ใหญ่บ้าน">ผู้ช่วยผู้ใหญ่บ้าน</option>
-                                          <option value="นักการภารโรง">นักการภารโรง</option>
-                                          <option value="มอเตอร์ไซร์รับจ้าง">มอเตอร์ไซร์รับจ้าง</option>
-                                          <option value="ค้าขาย">ค้าขาย</option>
-                                          <option value="เจ้าของธุรกิจ">เจ้าของธุรกิจ</option>
-                                          <option value="เจ้าของอู่รถ">เจ้าของอู่รถ</option>
-                                          <option value="ให้เช่ารถบรรทุก">ให้เช่ารถบรรทุก</option>
-                                          <option value="ช่างตัดผม">ช่างตัดผม</option>
-                                          <option value="ชาวนา">ชาวนา</option>
-                                          <option value="ชาวไร่">ชาวไร่</option>
-                                          <option value="แม่บ้าน">แม่บ้าน</option>
-                                          <option value="รับเหมาก่อสร้าง">รับเหมาก่อสร้าง</option>
-                                          <option value="ประมง">ประมง</option>
-                                          <option value="ทนายความ">ทนายความ</option>
-                                          <option value="พระ">พระ</option>
-                                        </select>
-                                    </div>
-                                  </div>
-                                </div>
-
-                                <div class="row">
-                                   <div class="col-md-5">
-                                       <div class="form-inline" align="right">
-                                         <label>รายได้ : </label>
-                                           <select name="Incomebuyer" class="form-control" style="width: 250px;">
-                                             <option value="" selected>--- รายได้ ---</option>
-                                             <option value="5,000 - 10,000">5,000 - 10,000</option>
-                                             <option value="10,000 - 15,000">10,000 - 15,000</option>
-                                             <option value="15,000 - 20,000">15,000 - 20,000</option>
-                                             <option value="มากกว่า 20,000">มากกว่า 20,000</option>
-                                           </select>
-                                       </div>
-                                  </div>
-
-                                  <div class="col-md-6">
-                                    <div class="form-inline" align="right">
-                                      <label>ใบขับขี่ : </label>
-                                        <select name="Driverbuyer" class="form-control" style="width: 250px;">
-                                          <option value="" selected>--- ใบขับขี่ ---</option>
-                                          <option value="มี">มี</option>
-                                          <option value="ไม่มี">ไม่มี</option>
-                                        </select>
-                                    </div>
-                                  </div>
-                                </div>
-
-                                <div class="row">
-                                  <div class="col-md-5">
-                                    <div class="form-inline" align="right">
-                                      <label>หักค่าใช้จ่าย : </label>
-                                        <input type="text" id="Beforeincome" name="Beforeincome" class="form-control" style="width: 250px;" placeholder="ก่อนหักค่าใช้จ่าย" oninput="income();" maxlength="9" />
-                                    </div>
-                                  </div>
-
-                                  <div class="col-md-6">
-                                    <div class="form-inline" align="right">
-                                      <label>ประวัติการซื้อ/ค้ำ : </label>
-                                        <select name="Purchasebuyer" class="form-control" style="width: 108px;">
-                                          <option value="" selected>--- ซื้อ ---</option>
-                                          <option value="0 คัน">0 คัน</option>
-                                          <option value="1 คัน">1 คัน</option>
-                                          <option value="2 คัน">2 คัน</option>
-                                          <option value="3 คัน">3 คัน</option>
-                                          <option value="4 คัน">4 คัน</option>
-                                          <option value="5 คัน">5 คัน</option>
-                                          <option value="6 คัน">6 คัน</option>
-                                          <option value="7 คัน">7 คัน</option>
-                                          <option value="8 คัน">8 คัน</option>
-                                          <option value="9 คัน">9 คัน</option>
-                                          <option value="10 คัน">10 คัน</option>
-                                          <option value="11 คัน">11 คัน</option>
-                                          <option value="12 คัน">12 คัน</option>
-                                          <option value="13 คัน">13 คัน</option>
-                                          <option value="14 คัน">14 คัน</option>
-                                          <option value="15 คัน">15 คัน</option>
-                                          <option value="16 คัน">16 คัน</option>
-                                          <option value="17 คัน">17 คัน</option>
-                                          <option value="18 คัน">18 คัน</option>
-                                          <option value="19 คัน">19 คัน</option>
-                                          <option value="20 คัน">20 คัน</option>
-                                        </select>
-                                        <label>ค้ำ : </label>
-                                        <select name="Supportbuyer" class="form-control" style="width: 108px;">
-                                          <option value="" selected>--- ค้ำ ---</option>
-                                          <option value="0 คัน">0 คัน</option>
-                                          <option value="1 คัน">1 คัน</option>
-                                          <option value="2 คัน">2 คัน</option>
-                                          <option value="3 คัน">3 คัน</option>
-                                          <option value="4 คัน">4 คัน</option>
-                                          <option value="5 คัน">5 คัน</option>
-                                          <option value="6 คัน">6 คัน</option>
-                                          <option value="7 คัน">7 คัน</option>
-                                          <option value="8 คัน">8 คัน</option>
-                                          <option value="9 คัน">9 คัน</option>
-                                          <option value="10 คัน">10 คัน</option>
-                                          <option value="11 คัน">11 คัน</option>
-                                          <option value="12 คัน">12 คัน</option>
-                                          <option value="13 คัน">13 คัน</option>
-                                          <option value="14 คัน">14 คัน</option>
-                                          <option value="15 คัน">15 คัน</option>
-                                          <option value="16 คัน">16 คัน</option>
-                                          <option value="17 คัน">17 คัน</option>
-                                          <option value="18 คัน">18 คัน</option>
-                                          <option value="19 คัน">19 คัน</option>
-                                          <option value="20 คัน">20 คัน</option>
-                                        </select>
-                                   </div>
-                                  </div>
-                                </div>
-
-                                <div class="row">
-                                  <div class="col-md-5">
-                                    <div class="form-inline" align="right">
-                                      <label>รายได้หลังหักค่าใช้จ่าย : </label>
-                                        <input type="text" id="Afterincome" name="Afterincome" class="form-control" style="width: 250px;" placeholder="หลังหักค่าใช้จ่าย" oninput="income();" maxlength="9" />
-                                    </div>
-                                  </div>
-
-                                  <div class="col-md-6">
-                                    <div class="form-inline" align="right">
-                                      <label>สถานะผู้เช่าซื้อ : </label>
-                                        <select name="Gradebuyer" class="form-control" style="width: 250px;">
-                                          <option value="" selected>--- สถานะผู้เช่าซื้อ ---</option>
-                                          <option value="ลูกค้าเก่าผ่อนดี">ลูกค้าเก่าผ่อนดี</option>
-                                          <option value="ลูกค้ามีงานตาม">ลูกค้ามีงานตาม</option>
-                                          <option value="ลูกค้าใหม่">ลูกค้าใหม่</option>
-                                          <option value="ลูกค้าใหม่(ปิดธนาคาร)">ลูกค้าใหม่(ปิดธนาคาร)</option>
-                                          <option value="ปิดจัดใหม่(งานตาม)">ปิดจัดใหม่(งานตาม)</option>
-                                          <option value="ปิดจัดใหม่(ผ่อนดี)">ปิดจัดใหม่(ผ่อนดี)</option>
-                                        </select>
-                                   </div>
-                                  </div>
-                                </div>
-
-                                <div class="row">
-                                  <div class="col-md-5">
-                                    <div class="form-inline" align="right">
-                                       </div>
                                   </div>
 
                                   <div class="col-md-6">
@@ -636,8 +487,9 @@
                                           <option value="ซื้อวัว">ซื้อวัว</option>
                                           <option value="ซื้อที่ดิน">ซื้อที่ดิน</option>
                                           <option value="ซ่อมบ้าน">ซ่อมบ้าน</option>
+                                          <option value="ขยายระยะเวลาชำระหนี้">ขยายระยะเวลาชำระหนี้</option>
                                         </select>
-                                   </div>
+                                    </div>
                                   </div>
                                 </div>
 
@@ -652,22 +504,6 @@
                                     </div>
                                   </div>
                                 </div>
-                                {{--
-                                  @if($dataImage != null)
-                                    <br/>
-                                    <div class="col-md-12">
-                                      <div class="form-group">
-                                        @foreach($dataImage as $images)
-                                        <div class="col-sm-3">
-                                          <a href="{{ asset('upload-image/'.$images->Name_fileimage) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true" style="width: 300px; height: auto;">
-                                            <img src="{{ asset('upload-image/'.$images->Name_fileimage) }}">
-                                          </a>
-                                        </div>
-                                        @endforeach
-                                      </div>
-                                    </div>
-                                  @endif
-                                --}}
 
                               </div>
                               <div class="tab-pane" id="tab_2">
@@ -722,14 +558,12 @@
 
                                   <div class="col-md-6">
                                    <div class="form-inline" align="right">
-                                       <label>สถานะ : </label>
-                                         <select name="statusSP" class="form-control" style="width: 250px;">
-                                           <option value="" selected>--- สถานะ ---</option>
-                                           <option value="โสด">โสด</option>
-                                           <option value="สมรส">สมรส</option>
-                                           <option value="หย่าร้าง">หย่าร้าง</option>
-                                           <option value="เสียชีวิต">เสียชีวิต</option>
-                                         </select>
+                                     <label>เลขบัตรประชาชน : </label>
+                                     @if($dataGT == null)
+                                       <input type="text" name="idcardSP" class="form-control" style="width: 250px;" placeholder="เลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask="" />
+                                     @else
+                                       <input type="text" name="idcardSP" value="{{iconv('TIS-620', 'utf-8',$dataGT->IDNO)}}" class="form-control" style="width: 250px;" placeholder="เลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask=""/>
+                                     @endif
                                    </div>
                                   </div>
                                 </div>
@@ -749,6 +583,7 @@
                                   <div class="col-md-6">
                                    <div class="form-inline" align="right">
                                        <label>ความสัมพันธ์ : </label>
+                                       @if($dataGT == null)
                                          <select name="relationSP" class="form-control" style="width: 250px;">
                                            <option value="" selected>--- ความสัมพันธ์ ---</option>
                                            <option value="พี่น้อง">พี่น้อง</option>
@@ -759,6 +594,18 @@
                                            <option value="ตำบลเดี่ยวกัน">ตำบลเดี่ยวกัน</option>
                                            <option value="จ้างค้ำ(ไม่รู้จักกัน)">จ้างค้ำ(ไม่รู้จักกัน)</option>
                                          </select>
+                                        @else
+                                          <select name="relationSP" class="form-control" style="width: 250px;">
+                                            <option value="" selected>--- ความสัมพันธ์ ---</option>
+                                            <option value="พี่น้อง" {{($NewRelate == 'พี่น้อง') ? 'selected' : ''}}>พี่น้อง</option>
+                                            <option value="ญาติ" {{($NewRelate == 'ญาติ') ? 'selected' : ''}}>ญาติ</option>
+                                            <option value="เพื่อน" {{($NewRelate == 'เพื่อน') ? 'selected' : ''}}>เพื่อน</option>
+                                            <option value="บิดา" {{($NewRelate == 'บิดา') ? 'selected' : ''}}>บิดา</option>
+                                            <option value="มารดา" {{($NewRelate == 'มารดา') ? 'selected' : ''}}>มารดา</option>
+                                            <option value="ตำบลเดี่ยวกัน" {{($NewRelate == 'ตำบลเดี่ยวกัน') ? 'selected' : ''}}>ตำบลเดี่ยวกัน</option>
+                                            <option value="จ้างค้ำ(ไม่รู้จักกัน)" {{($NewRelate == 'จ้างค้ำ(ไม่รู้จักกัน)') ? 'selected' : ''}}>จ้างค้ำ(ไม่รู้จักกัน)</option>
+                                          </select>
+                                        @endif
                                    </div>
                                   </div>
                                 </div>
@@ -777,12 +624,18 @@
 
                                   <div class="col-md-6">
                                    <div class="form-inline" align="right">
-                                       <label>เลขบัตรประชาชน : </label>
-                                       @if($dataGT == null)
-                                         <input type="text" name="idcardSP" class="form-control" style="width: 250px;" placeholder="เลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask="" />
-                                       @else
-                                         <input type="text" name="idcardSP" value="{{iconv('TIS-620', 'utf-8',$dataGT->IDNO)}}" class="form-control" style="width: 250px;" placeholder="เลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask=""/>
-                                       @endif
+                                     <label>ที่อยู่ : </label>
+                                     @if($dataGT == null)
+                                       <select name="addSP" class="form-control" style="width: 250px;">
+                                         <option value="" selected>--- ที่อยู่ ---</option>
+                                         <option value="ตามทะเบียนบ้าน">ตามทะเบียนบ้าน</option>
+                                       </select>
+                                     @else
+                                       <select name="addSP" class="form-control" style="width: 250px;">
+                                         <option value="" selected>--- ที่อยู่ ---</option>
+                                         <option value="ตามทะเบียนบ้าน" selected>ตามทะเบียนบ้าน</option>
+                                       </select>
+                                     @endif
                                    </div>
                                   </div>
                                 </div>
@@ -790,22 +643,23 @@
                                 <div class="row">
                                     <div class="col-md-5">
                                       <div class="form-inline" align="right">
-                                         <label>ที่อยู่ : </label>
-                                           <select name="addSP" class="form-control" style="width: 250px;">
-                                             <option value="" selected>--- ที่อยู่ ---</option>
-                                             <option value="ตามทะเบียนบ้าน">ตามทะเบียนบ้าน</option>
-                                           </select>
+                                         <label>รายละเอียดที่อยู่ : </label>
+                                         @if($dataGT == null)
+                                           <input type="text" name="statusaddSP" class="form-control" style="width: 250px;" placeholder="รายละเอียดที่อยู่" />
+                                         @else
+                                           <input type="text" name="statusaddSP" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$dataGT->ADDRES))}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$dataGT->TUMB))}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$dataGT->AUMPDES))}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$dataGT->PROVDES))}}" class="form-control" style="width: 250px;" placeholder="รายละเอียดที่อยู่" />
+                                         @endif
                                        </div>
                                     </div>
 
                                     <div class="col-md-6">
                                      <div class="form-inline" align="right">
-                                         <label>ที่อยู่ปัจจุบัน/จัดส่งเอกสาร : </label>
-                                         @if($dataGT == null)
-                                           <input type="text" name="addnowSP" class="form-control" style="width: 250px;" placeholder="ที่อยู่ปัจจุบัน/จัดส่งเอกสาร" />
-                                         @else
-                                           <input type="text" name="addnowSP" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$dataGT->ADDRES))}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$dataGT->TUMB))}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$dataGT->AUMPDES))}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$dataGT->PROVDES))}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$dataGT->ZIP))}}" class="form-control" style="width: 250px;" placeholder="ที่อยู่ปัจจุบัน/จัดส่งเอกสาร" />
-                                         @endif
+                                       <label>สถานที่ทำงาน : </label>
+                                       @if($dataGT == null)
+                                         <input type="text" name="workplaceSP" class="form-control" style="width: 250px;" placeholder="สถานที่ทำงาน" />
+                                       @else
+                                         <input type="text" name="workplaceSP" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$dataGT->OFFIC))}}" class="form-control" style="width: 250px;" placeholder="สถานที่ทำงาน" />
+                                       @endif
                                      </div>
                                     </div>
                                 </div>
@@ -813,23 +667,52 @@
                                 <div class="row">
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
-                                       <label>รายละเอียดที่อยู่ : </label>
-                                       @if($dataGT == null)
-                                         <input type="text" name="statusaddSP" class="form-control" style="width: 250px;" placeholder="รายละเอียดที่อยู่" />
-                                       @else
-                                         <input type="text" name="statusaddSP" value="" class="form-control" style="width: 250px;" placeholder="รายละเอียดที่อยู่" />
-                                       @endif
+                                       <label>อาชีพ : </label>
+                                         <select name="careerSP" class="form-control" style="width: 250px;">
+                                           <option value="" selected>--- อาชีพ ---</option>
+                                           <option value="ตำรวจ">ตำรวจ</option>
+                                           <option value="ทหาร">ทหาร</option>
+                                           <option value="ครู">ครู</option>
+                                           <option value="ข้าราชการอื่น">ข้าราชการอื่น</option>
+                                           <option value="ลูกจ้างเทศบาล">ลูกจ้างเทศบาล</option>
+                                           <option value="ลูกจ้างประจำ">ลูกจ้างประจำ</option>
+                                           <option value="สมาชิก อบต.">สมาชิก อบต.</option>
+                                           <option value="ลูกจ้างชั่วคราว">ลูกจ้างชั่วคราว</option>
+                                           <option value="รับจ้าง">รับจ้าง</option>
+                                           <option value="พนักงานบริษัทเอกชน">พนักงานบริษัทเอกชน</option>
+                                           <option value="อาชีพอิสระ">อาชีพอิสระ</option>
+                                           <option value="กำนัน">กำนัน</option>
+                                           <option value="ผู้ใหญ่บ้าน">ผู้ใหญ่บ้าน</option>
+                                           <option value="ผู้ช่วยผู้ใหญ่บ้าน">ผู้ช่วยผู้ใหญ่บ้าน</option>
+                                           <option value="นักการภารโรง">นักการภารโรง</option>
+                                           <option value="มอเตอร์ไซร์รับจ้าง">มอเตอร์ไซร์รับจ้าง</option>
+                                           <option value="ค้าขาย">ค้าขาย</option>
+                                           <option value="เจ้าของธุรกิจ">เจ้าของธุรกิจ</option>
+                                           <option value="เจ้าของอู่รถ">เจ้าของอู่รถ</option>
+                                           <option value="ให้เช่ารถบรรทุก">ให้เช่ารถบรรทุก</option>
+                                           <option value="ช่างตัดผม">ช่างตัดผม</option>
+                                           <option value="ชาวนา">ชาวนา</option>
+                                           <option value="ชาวไร่">ชาวไร่</option>
+                                           <option value="แม่บ้าน">แม่บ้าน</option>
+                                           <option value="รับเหมาก่อสร้าง">รับเหมาก่อสร้าง</option>
+                                           <option value="ประมง">ประมง</option>
+                                           <option value="ทนายความ">ทนายความ</option>
+                                           <option value="พระ">พระ</option>
+                                         </select>
                                      </div>
                                   </div>
 
                                   <div class="col-md-6">
                                    <div class="form-inline" align="right">
-                                       <label>สถานที่ทำงาน : </label>
-                                       @if($dataGT == null)
-                                         <input type="text" name="workplaceSP" class="form-control" style="width: 250px;" placeholder="สถานที่ทำงาน" />
-                                       @else
-                                         <input type="text" name="workplaceSP" value="" class="form-control" style="width: 250px;" placeholder="สถานที่ทำงาน" />
-                                       @endif
+                                     <label>ประเภทหลักทรัพย์ : </label>
+                                       <select name="securitiesSP" class="form-control" style="width: 250px;">
+                                         <option value="" selected>--- ประเภทหลักทรัพย์ ---</option>
+                                         <option value="โฉนด">โฉนด</option>
+                                         <option value="นส.3">นส.3</option>
+                                         <option value="นส.3 ก">นส.3 ก</option>
+                                         <option value="นส.4">นส.4</option>
+                                         <option value="นส.4 จ">นส.4 จ</option>
+                                       </select>
                                    </div>
                                   </div>
                                 </div>
@@ -837,165 +720,18 @@
                                 <div class="row">
                                     <div class="col-md-5">
                                       <div class="form-inline" align="right">
-                                         <label>ลักษณะบ้าน : </label>
-                                           <select name="houseSP" class="form-control" style="width: 250px;">
-                                             <option value="" selected>--- เลือกลักษณะบ้าน ---</option>
-                                             <option value="บ้านตึก 1 ชั้น">บ้านตึก 1 ชั้น</option>
-                                             <option value="บ้านตึก 2 ชั้น">บ้านตึก 2 ชั้น</option>
-                                             <option value="บ้านไม้ 1 ชั้น">บ้านไม้ 1 ชั้น</option>
-                                             <option value="บ้านไม้ 2 ชั้น">บ้านไม้ 2 ชั้น</option>
-                                             <option value="บ้านเดี่ยว">บ้านเดี่ยว</option>
-                                             <option value="แฟลต">แฟลต</option>
-                                           </select>
-                                       </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                      <div class="form-inline" align="right">
-                                          <label>ประเภทหลักทรัพย์ : </label>
-                                            <select name="securitiesSP" class="form-control" style="width: 250px;">
-                                              <option value="" selected>--- ประเภทหลักทรัพย์ ---</option>
-                                              <option value="โฉนด">โฉนด</option>
-                                              <option value="นส.3">นส.3</option>
-                                              <option value="นส.3 ก">นส.3 ก</option>
-                                              <option value="นส.4">นส.4</option>
-                                              <option value="นส.4 จ">นส.4 จ</option>
-                                            </select>
-                                      </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-5">
-                                      <div class="form-inline" align="right">
-                                          <label>เลขที่โฉนด : </label>
-                                          <input type="text" name="deednumberSP" class="form-control" style="width: 250px;" placeholder="เลขที่โฉนด" />
+                                         <label>เลขที่โฉนด : </label>
+                                         <input type="text" name="deednumberSP" class="form-control" style="width: 250px;" placeholder="เลขที่โฉนด" />
                                       </div>
                                     </div>
                                     <div class="col-md-6">
                                       <div class="form-inline" align="right">
-                                         <label>เนื้อที่ : </label>
-                                          <input type="text" name="areaSP" class="form-control" style="width: 250px;" placeholder="เนื้อที่" data-inputmask="&quot;mask&quot;:&quot;99-9-99&quot;" data-mask=""/>
-                                       </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-5">
-                                      <div class="form-inline" align="right">
-                                          <label>ประเภทบ้าน : </label>
-                                            <select name="housestyleSP" class="form-control" style="width: 250px;">
-                                              <option value="" selected>--- ประเภทบ้าน ---</option>
-                                              <option value="ของตนเอง">ของตนเอง</option>
-                                              <option value="อาศัยบิดา">อาศัยบิดา-มารดา</option>
-                                              <option value="อาศัยผู้อื่น">อาศัยผู้อื่น</option>
-                                              <option value="บ้านพักราชการ">บ้านพักราชการ</option>
-                                              <option value="บ้านเช่า">บ้านเช่า</option>
-                                            </select>
+                                        <label>เนื้อที่ : </label>
+                                         <input type="text" name="areaSP" class="form-control" style="width: 250px;" placeholder="เนื้อที่" data-inputmask="&quot;mask&quot;:&quot;99-9-99&quot;" data-mask=""/>
                                       </div>
                                     </div>
-                                    <div class="col-md-6">
-                                      <div class="form-inline" align="right">
-                                         <label>อาชีพ : </label>
-                                           <select name="careerSP" class="form-control" style="width: 250px;">
-                                             <option value="" selected>--- อาชีพ ---</option>
-                                             <option value="ตำรวจ">ตำรวจ</option>
-                                             <option value="ทหาร">ทหาร</option>
-                                             <option value="ครู">ครู</option>
-                                             <option value="ข้าราชการอื่น">ข้าราชการอื่น</option>
-                                             <option value="ลูกจ้างเทศบาล">ลูกจ้างเทศบาล</option>
-                                             <option value="ลูกจ้างประจำ">ลูกจ้างประจำ</option>
-                                             <option value="สมาชิก อบต.">สมาชิก อบต.</option>
-                                             <option value="ลูกจ้างชั่วคราว">ลูกจ้างชั่วคราว</option>
-                                             <option value="รับจ้าง">รับจ้าง</option>
-                                             <option value="พนักงานบริษัทเอกชน">พนักงานบริษัทเอกชน</option>
-                                             <option value="อาชีพอิสระ">อาชีพอิสระ</option>
-                                             <option value="กำนัน">กำนัน</option>
-                                             <option value="ผู้ใหญ่บ้าน">ผู้ใหญ่บ้าน</option>
-                                             <option value="ผู้ช่วยผู้ใหญ่บ้าน">ผู้ช่วยผู้ใหญ่บ้าน</option>
-                                             <option value="นักการภารโรง">นักการภารโรง</option>
-                                             <option value="มอเตอร์ไซร์รับจ้าง">มอเตอร์ไซร์รับจ้าง</option>
-                                             <option value="ค้าขาย">ค้าขาย</option>
-                                             <option value="เจ้าของธุรกิจ">เจ้าของธุรกิจ</option>
-                                             <option value="เจ้าของอู่รถ">เจ้าของอู่รถ</option>
-                                             <option value="ให้เช่ารถบรรทุก">ให้เช่ารถบรรทุก</option>
-                                             <option value="ช่างตัดผม">ช่างตัดผม</option>
-                                             <option value="ชาวนา">ชาวนา</option>
-                                             <option value="ชาวไร่">ชาวไร่</option>
-                                             <option value="แม่บ้าน">แม่บ้าน</option>
-                                             <option value="รับเหมาก่อสร้าง">รับเหมาก่อสร้าง</option>
-                                             <option value="ประมง">ประมง</option>
-                                             <option value="ทนายความ">ทนายความ</option>
-                                             <option value="พระ">พระ</option>
-                                           </select>
-                                       </div>
-                                    </div>
-                                  </div>
-                                <div class="row">
-                                  <div class="col-md-5">
-                                    <div class="form-inline" align="right">
-                                        <label>รายได้ : </label>
-                                          <select name="incomeSP" class="form-control" style="width: 250px;">
-                                            <option value="" selected>--- รายได้ ---</option>
-                                            <option value="5,000 - 10,000">5,000 - 10,000</option>
-                                            <option value="10,000 - 15,000">10,000 - 15,000</option>
-                                            <option value="15,000 - 20,000">15,000 - 20,000</option>
-                                            <option value="มากกว่า 20,000">มากกว่า 20,000</option>
-                                          </select>
-                                    </div>
-                                    </div>
-                                  <div class="col-md-6">
-                                    <div class="form-inline" align="right">
-                                       <label>ประวัติซื้อ/ค้ำ : </label>
-                                         <select name="puchaseSP" class="form-control" style="width: 108px;">
-                                           <option value="" selected>--- ซื้อ ---</option>
-                                           <option value="0 คัน">0 คัน</option>
-                                           <option value="1 คัน">1 คัน</option>
-                                           <option value="2 คัน">2 คัน</option>
-                                           <option value="3 คัน">3 คัน</option>
-                                           <option value="4 คัน">4 คัน</option>
-                                           <option value="5 คัน">5 คัน</option>
-                                           <option value="6 คัน">6 คัน</option>
-                                           <option value="7 คัน">7 คัน</option>
-                                           <option value="8 คัน">8 คัน</option>
-                                           <option value="9 คัน">9 คัน</option>
-                                           <option value="10 คัน">10 คัน</option>
-                                           <option value="11 คัน">11 คัน</option>
-                                           <option value="12 คัน">12 คัน</option>
-                                           <option value="13 คัน">13 คัน</option>
-                                           <option value="14 คัน">14 คัน</option>
-                                           <option value="15 คัน">15 คัน</option>
-                                           <option value="16 คัน">16 คัน</option>
-                                           <option value="17 คัน">17 คัน</option>
-                                           <option value="18 คัน">18 คัน</option>
-                                           <option value="19 คัน">19 คัน</option>
-                                           <option value="20 คัน">20 คัน</option>
-                                         </select>
-                                         <label>ค้ำ : </label>
-                                         <select name="supportSP" class="form-control" style="width: 108px;">
-                                            <option value="" selected>--- ค้ำ ---</option>
-                                            <option value="0 คัน">0 คัน</option>
-                                            <option value="1 คัน">1 คัน</option>
-                                            <option value="2 คัน">2 คัน</option>
-                                            <option value="3 คัน">3 คัน</option>
-                                            <option value="4 คัน">4 คัน</option>
-                                            <option value="5 คัน">5 คัน</option>
-                                            <option value="6 คัน">6 คัน</option>
-                                            <option value="7 คัน">7 คัน</option>
-                                            <option value="8 คัน">8 คัน</option>
-                                            <option value="9 คัน">9 คัน</option>
-                                            <option value="10 คัน">10 คัน</option>
-                                            <option value="11 คัน">11 คัน</option>
-                                            <option value="12 คัน">12 คัน</option>
-                                            <option value="13 คัน">13 คัน</option>
-                                            <option value="14 คัน">14 คัน</option>
-                                            <option value="15 คัน">15 คัน</option>
-                                            <option value="16 คัน">16 คัน</option>
-                                            <option value="17 คัน">17 คัน</option>
-                                            <option value="18 คัน">18 คัน</option>
-                                            <option value="19 คัน">19 คัน</option>
-                                            <option value="20 คัน">20 คัน</option>
-                                         </select>
-                                     </div>
-                                   </div>
                                 </div>
+
                               </div>
                               <div class="tab-pane" id="tab_3">
                                 <h3 class="card-title p-3" align="center">แบบฟอร์มรายละเอียดรถยนต์</h3>
@@ -1038,31 +774,6 @@
 
                                   <div class="col-md-6">
                                    <div class="form-inline" align="right">
-                                     <label>ประเภทรถ : </label>
-                                       <select id="Typecardetail" name="Typecardetail" class="form-control" style="width: 250px;">
-                                         <option value="" selected>--- ประเภทรถ ---</option>
-                                         <option value="รถกระบะ">รถกระบะ</option>
-                                         <option value="รถตอนเดียว">รถตอนเดียว</option>
-                                         <option value="รถเก๋ง/7ที่นั่ง">รถเก๋ง/7ที่นั่ง</option>
-                                       </select>
-                                   </div>
-                                  </div>
-                                </div>
-
-                                <div class="row">
-                                  <div class="col-md-5">
-                                    <div class="form-inline" align="right">
-                                       <label>สี : </label>
-                                       @if($data == null)
-                                         <input type="text" name="Colourcar" class="form-control" style="width: 250px;" placeholder="สี" />
-                                       @else
-                                         <input type="text" name="Colourcar" value="{{iconv('Tis-620','utf-8',str_replace(" ","",$data->COLOR))}}" class="form-control" style="width: 250px;" placeholder="สี" />
-                                       @endif
-                                     </div>
-                                  </div>
-
-                                  <div class="col-md-6">
-                                   <div class="form-inline" align="right">
                                      <label>ปี : </label>
                                      @if($data == null)
                                        <select id="Yearcar" name="Yearcar" class="form-control" style="width: 250px;">
@@ -1087,60 +798,24 @@
                                 <div class="row">
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
-                                      <label>ป้ายเดิม : </label>
-                                      @if($data == null)
-                                        <input type="text" name="Licensecar" class="form-control" style="width: 250px;" placeholder="ป้ายเดิม"/>
-                                      @else
-                                        <input type="text" name="Licensecar"  value="{{iconv('Tis-620','utf-8',$data->REGNO)}}" class="form-control" style="width: 250px;" placeholder="ป้ายเดิม" />
-                                      @endif
+                                       <label>สี : </label>
+                                       @if($data == null)
+                                         <input type="text" name="Colourcar" class="form-control" style="width: 250px;" placeholder="สี" />
+                                       @else
+                                         <input type="text" name="Colourcar" value="{{iconv('Tis-620','utf-8',str_replace(" ","",$data->COLOR))}}" class="form-control" style="width: 250px;" placeholder="สี" />
+                                       @endif
                                      </div>
                                   </div>
 
                                   <div class="col-md-6">
-                                   <!-- <div class="form-inline" align="right">
-                                     <label>กลุ่มปีรถยนต์ : </label>
-                                     <input type="text" id="Groupyearcar" name="Groupyearcar" class="form-control" style="width: 250px;" onchange="calculate();"/>
-                                   </div> -->
-                                  </div>
-                                </div>
-
-                                <div class="row">
-                                  <div class="col-md-5">
-                                    <div class="form-inline" align="right">
-                                      <label>ป้ายใหม่ : </label>
-                                      @if($data == null)
-                                        <input type="text" name="Nowlicensecar" class="form-control" style="width: 250px;" placeholder="ป้ายใหม่" />
-                                      @else
-                                        <input type="text" name="Nowlicensecar" value="" class="form-control" style="width: 250px;" placeholder="ป้ายใหม่" />
-                                      @endif
-                                     </div>
-                                  </div>
-
-                                  <div class="col-md-6">
-                                    <div class="form-inline" align="right">
-                                      <label>เลขไมล์ : </label>
-                                      <input type="text" id="Milecar" name="Milecar" class="form-control" style="width: 250px;" placeholder="เลขไมล์" oninput="mile();" />
-                                    </div>
-                                  </div>
-                                </div>
-
-                                <div class="row">
-                                  <div class="col-md-5">
-                                    <div class="form-inline" align="right">
-                                      <label>รุ่น : </label>
-                                      @if($data == null)
-                                        <input type="text" name="Modelcar" class="form-control" style="width: 250px;" placeholder="รุ่น" />
-                                      @else
-                                        <input type="text" name="Modelcar" value="" class="form-control" style="width: 250px;" placeholder="รุ่น" />
-                                      @endif
-                                     </div>
-                                  </div>
-
-                                  <div class="col-md-6">
-                                    <div class="form-inline" align="right">
-                                      <label>ราคากลาง : </label>
-                                      <input type="text" id="Midpricecar" name="Midpricecar" class="form-control" style="width: 250px;" maxlength="9" placeholder="ราคากลาง" oninput="percent();" />
-                                    </div>
+                                   <div class="form-inline" align="right">
+                                     <label>ป้ายทะเบียน : </label>
+                                     @if($data == null)
+                                       <input type="text" name="Licensecar" class="form-control" style="width: 250px;" placeholder="ป้ายเดิม"/>
+                                     @else
+                                       <input type="text" name="Licensecar"  value="{{iconv('Tis-620','utf-8',$data->REGNO)}}" class="form-control" style="width: 250px;" placeholder="ป้ายเดิม" />
+                                     @endif
+                                   </div>
                                   </div>
                                 </div>
 
@@ -1431,7 +1106,7 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                       <label>VAT : </label>
-                                      <input type="text" id="Vatcar" name="Vatcar" class="form-control" style="width: 250px;" value="7 %" readonly onchange="calculate()"/>
+                                      <input type="text" id="Vatcar" name="Vatcar" class="form-control" style="width: 250px;background-color: white;" value="7 %" readonly onchange="calculate()"/>
                                      </div>
                                   </div>
                                   <div class="col-md-6">
@@ -1446,53 +1121,8 @@
                                 <div class="row">
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
-                                      <label>ประกันภัย : </label>
-                                      <select id="Insurancecar" name="Insurancecar" class="form-control" style="width: 250px;" onchange="insurance();">
-                                        <option value="" selected>--- ประกันภัย ---</option>
-                                        <option value="มี ป2+ อยู่แล้ว">มี ป2+ อยู่แล้ว</option>
-                                        <option value="ไม่ซื้อ">ไม่ซื้อ</option>
-                                        <option value="ซื้อ ป2+ 1ป">ซื้อ ป2+ 1ปี</option>
-                                        <option value="ซื้อ ป1 1ปี">ซื้อ ป1 1ปี</option>
-                                        <option value="มี ป1 อยู่แล้ว">มี ป1 อยู่แล้ว</option>
-                                      </select>
-                                     </div>
-                                  </div>
-
-                                  <div class="col-md-6">
-                                   <div class="form-inline" align="right">
-                                     <label>เปอร์เซ็นจัดไฟแนนซ์ : </label>
-                                     <input type="text" id="Percentcar" name="Percentcar" class="form-control int" style="width: 250px;" placeholder="เปอร์เซ็นจัดไฟแนนซ์" readonly />
-                                   </div>
-                                  </div>
-                                </div>
-
-                                <!-- <div class="row">
-                                  <div class="col-md-5">
-
-                                  </div>
-
-                                  <div class="col-md-6">
-                                   <div class="form-inline" align="right">
-                                       <label>เลขกรมธรรม์ : </label>
-                                       <input type="text" name="Insurancekey" class="form-control" style="width: 250px;" placeholder="เลขกรมธรรม์" />
-                                   </div>
-                                  </div>
-                                </div> -->
-
-                                <div class="row">
-                                  <div class="col-md-5">
-                                    <div class="form-inline" align="right">
-                                       <label>แบบ : </label>
-                                       <select name="statuscar" class="form-control" style="width: 250px;">
-                                         <option value="" selected>--- เลือกแบบ ---</option>
-                                         <option value="กส.ค้ำมีหลักทรัพย์">กส.ค้ำมีหลักทรัพย์</option>
-                                         <option value="กส.ค้ำไม่มีหลักทรัพย์">กส.ค้ำไม่มีหลักทรัพย์</option>
-                                         <option value="กส.ไม่ค้ำประกัน">กส.ไม่ค้ำประกัน</option>
-                                         <option value="ซข.ค้ำมีหลักทรัพย์">ซข.ค้ำมีหลักทรัพย์</option>
-                                         <option value="ซข.ค้ำไม่มีหลักทรัพย์">ซข.ค้ำไม่มีหลักทรัพย์</option>
-                                         <option value="ซข.ไม่ค้ำประกัน">ซข.ไม่ค้ำประกัน</option>
-                                         <option value="VIP1">VIP1</option>
-                                       </select>
+                                      <label>หมายเหตุ : </label>
+                                      <input type="text" name="Notecar" class="form-control" style="width: 250px;" placeholder="หมายเหตุ"/>
                                      </div>
                                   </div>
 
@@ -1504,179 +1134,6 @@
                                   </div>
                                 </div>
 
-                                <div class="row">
-                                  <div class="col-md-5">
-                                    <div class="form-inline" align="right">
-                                      <span class="todo-wrap">
-                                          <input type="checkbox" id="1" name="Salemethod" value="on"/>
-                                          <label for="1" class="todo">
-                                            <i class="fa fa-check"></i>
-                                            กรรมสิทธิ์ในแบบซื้อขาย
-                                          </label>
-                                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                      </span>
-                                     </div>
-                                  </div>
-
-                                  <div class="col-md-6">
-                                   <div class="form-inline" align="right">
-                                     <label>หมายเหตุ : </label>
-                                     <input type="text" name="Notecar" class="form-control" style="width: 250px;" placeholder="หมายเหตุ"/>
-                                   </div>
-                                  </div>
-                                </div>
-
-                                {{--
-                                <div class="row">
-                                  <div class="col-md-5">
-                                    <div class="form-inline" align="right">
-                                       <label>ผู้รับเงิน : </label>
-                                       <input type="text" name="Payeecar" class="form-control" style="width: 250px;" placeholder="ผู้รับเงิน" />
-                                     </div>
-                                  </div>
-
-                                  <div class="col-md-6">
-                                   <div class="form-inline" align="right">
-                                       <label>เลขที่บัญชี : </label>
-                                       <input type="text" name="Accountbrancecar" class="form-control" style="width: 250px;" placeholder="เลขที่บัญชีผู้รับเงิน" maxlength="15" />
-                                   </div>
-                                  </div>
-                                </div>
-
-                                <div class="row">
-                                  <div class="col-md-5">
-                                  </div>
-
-                                  <div class="col-md-6">
-                                    <div class="form-inline" align="right">
-                                      <label>สาขา : </label>
-                                      <input type="text" name="branchbrancecar" class="form-control" style="width: 250px;" placeholder="สาขาผู้รับเงิน" />
-                                    </div>
-                                  </div>
-                                </div>
-
-                                <div class="row">
-                                  <div class="col-md-5">
-                                    <div class="form-inline" align="right">
-                                    </div>
-                                  </div>
-
-                                  <div class="col-md-6">
-                                    <div class="form-inline" align="right">
-                                      <label>เบอร์โทรศัพท์ : </label>
-                                      <input type="text" name="Tellbrancecar" class="form-control" style="width: 250px;" placeholder="เบอร์โทรศัพท์" data-inputmask="&quot;mask&quot;:&quot;999-9999999&quot;" data-mask="" />
-                                    </div>
-                                  </div>
-                                </div>
-
-                                <div class="row">
-                                  <div class="col-md-5">
-                                    <div class="form-inline" align="right">
-                                       <font color="red">(* กรณีเป็นพนักงาน) </font><label>แนะนำ/นายหน้า : </label>
-                                       <input type="text" id="Agentcar" name="Agentcar" class="form-control" style="width: 250px;" placeholder="แนะนำ/นายหน้า" oninput="commission();"/>
-                                     </div>
-                                  </div>
-
-                                  <div class="col-md-6">
-                                   <div class="form-inline" align="right">
-                                       <label>เลขที่บัญชี : </label>
-                                       <input type="text" name="Accountagentcar" class="form-control" style="width: 250px;" placeholder="เลขที่บัญชีนายหน้า" maxlength="15" />
-                                   </div>
-                                  </div>
-                                </div>
-
-                                <div class="row">
-                                  <div class="col-md-5">
-                                    <div class="form-inline" align="right">
-                                      <label>ค่าคอม : </label>
-                                      <input type="text" id="Commissioncar" name="Commissioncar" class="form-control" style="width: 250px;" placeholder="ค่าคอม" oninput="commission();"/>
-                                    </div>
-                                  </div>
-
-                                  <div class="col-md-6">
-                                    <div class="form-inline" align="right">
-                                      <label>สาขา : </label>
-                                      <input type="text" name="branchAgentcar" class="form-control" style="width: 250px;" placeholder="สาขานายหน้า" />
-                                    </div>
-                                  </div>
-                                </div>
-
-                                <div class="row">
-                                  <div class="col-md-5">
-                                    <div class="form-inline" align="right">
-                                      <label>ประวัติการซื้อ/ค้ำ : </label>
-                                      <select name="Purchasehistorycar" class="form-control" style="width: 108px;">
-                                        <option value="" selected>--- ซื้อ ---</option>
-                                        <option value="0 คัน">0 คัน</option>
-                                        <option value="1 คัน">1 คัน</option>
-                                        <option value="2 คัน">2 คัน</option>
-                                        <option value="3 คัน">3 คัน</option>
-                                        <option value="4 คัน">4 คัน</option>
-                                        <option value="5 คัน">5 คัน</option>
-                                        <option value="6 คัน">6 คัน</option>
-                                        <option value="7 คัน">7 คัน</option>
-                                        <option value="8 คัน">8 คัน</option>
-                                        <option value="9 คัน">9 คัน</option>
-                                        <option value="10 คัน">10 คัน</option>
-                                        <option value="11 คัน">11 คัน</option>
-                                        <option value="12 คัน">12 คัน</option>
-                                        <option value="13 คัน">13 คัน</option>
-                                        <option value="14 คัน">14 คัน</option>
-                                        <option value="15 คัน">15 คัน</option>
-                                        <option value="16 คัน">16 คัน</option>
-                                        <option value="17 คัน">17 คัน</option>
-                                        <option value="18 คัน">18 คัน</option>
-                                        <option value="19 คัน">19 คัน</option>
-                                        <option value="20 คัน">20 คัน</option>
-                                      </select>
-                                      <label>ค้ำ : </label>
-                                      <select name="Supporthistorycar" class="form-control" style="width: 108px;">
-                                        <option value="" selected>--- ค้ำ ---</option>
-                                        <option value="0 คัน">0 คัน</option>
-                                        <option value="1 คัน">1 คัน</option>
-                                        <option value="2 คัน">2 คัน</option>
-                                        <option value="3 คัน">3 คัน</option>
-                                        <option value="4 คัน">4 คัน</option>
-                                        <option value="5 คัน">5 คัน</option>
-                                        <option value="6 คัน">6 คัน</option>
-                                        <option value="7 คัน">7 คัน</option>
-                                        <option value="8 คัน">8 คัน</option>
-                                        <option value="9 คัน">9 คัน</option>
-                                        <option value="10 คัน">10 คัน</option>
-                                        <option value="11 คัน">11 คัน</option>
-                                        <option value="12 คัน">12 คัน</option>
-                                        <option value="13 คัน">13 คัน</option>
-                                        <option value="14 คัน">14 คัน</option>
-                                        <option value="15 คัน">15 คัน</option>
-                                        <option value="16 คัน">16 คัน</option>
-                                        <option value="17 คัน">17 คัน</option>
-                                        <option value="18 คัน">18 คัน</option>
-                                        <option value="19 คัน">19 คัน</option>
-                                        <option value="20 คัน">20 คัน</option>
-                                      </select>
-                                    </div>
-                                  </div>
-
-                                  <div class="col-md-6">
-                                    <div class="form-inline" align="right">
-                                      <label>เบอร์โทรศัพท์ : </label>
-                                      <input type="text" name="Tellagentcar" class="form-control" style="width: 250px;" placeholder="เบอร์โทรศัพท์" data-inputmask="&quot;mask&quot;:&quot;999-9999999&quot;" data-mask="" />
-                                    </div>
-                                  </div>
-                                </div>
-
-                                <div class="row">
-                                  <div class="col-md-5">
-                                    <div class="form-inline" align="right">
-                                      <label>หมายเหตุ : </label>
-                                      <input type="text" name="Notecar" class="form-control" style="width: 250px;" placeholder="หมายเหตุ"/>
-                                    </div>
-                                  </div>
-
-                                  <div class="col-md-6">
-                                  </div>
-                                </div>
-                                --}}
                                 <div class="row">
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">

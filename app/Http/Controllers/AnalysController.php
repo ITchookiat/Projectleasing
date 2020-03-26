@@ -580,6 +580,7 @@ class AnalysController extends Controller
       elseif ($request->type == 9){ //เพิ่มปรับโครงสร้างหนี้
         $Contno = '';
         $NewBrand = '';
+        $NewRelate = '';
         if ($request->Contno != '') {
           $Contno = $request->Contno;
         }
@@ -600,7 +601,10 @@ class AnalysController extends Controller
                   ->where('SFHP.VIEW_ARMGAR.CONTNO','=', $Contno)
                   ->first();
         // dump($data,$dataGT);
-        return view('analysis.createextra', compact('data','dataGT','NewBrand'));
+        if($dataGT != null){
+          $NewRelate = iconv('Tis-620','utf-8',str_replace(" ","",$dataGT->RELATN));
+        }
+        return view('analysis.createextra', compact('data','dataGT','NewBrand','NewRelate'));
       }
       elseif ($request->type == 10){ //เช็คสิทธิ์ลูกค้า
         $Contno = '';
@@ -1155,6 +1159,7 @@ class AnalysController extends Controller
         'ซื้อวัว' => 'ซื้อวัว',
         'ซื้อที่ดิน' => 'ซื้อที่ดิน',
         'ซ่อมบ้าน' => 'ซ่อมบ้าน',
+        'ขยายระยะเวลาชำระหนี้' => 'ขยายระยะเวลาชำระหนี้',
       ];
 
       $Brandcarr = [
