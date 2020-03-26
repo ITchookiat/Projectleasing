@@ -629,11 +629,11 @@ $date = date('Y-m-d', strtotime('-1 days'));
               @endif
            </div>
            <script type="text/javascript">
-           $(document).ready(function() {
-             $('#table').DataTable( {
-               "order": [[ 1, "asc" ]]
+             $(document).ready(function() {
+               $('#table').DataTable( {
+                 "order": [[ 1, "asc" ]]
+               } );
              } );
-           } );
            </script>
 
           <script type="text/javascript">

@@ -80,8 +80,17 @@
                   @endif
                 </ul>
             </li>
-            <li class="treeview {{ (request()->is('Analysis/Home/8')) ? 'active' : '' }} {{ (request()->is('Analysis/edit/8/*')) ? 'active' : '' }} {{ (request()->is('Analysis/deleteImageEach/8/*')) ? 'active' : '' }}">
-              <a href="{{ route('Analysis',8) }}"><i class="fa fa-folder-open text-red"></i>ปรับโครงสร้างหนี้</a>
+            <li class="treeview {{ (request()->is('Analysis/Home/8')) ? 'active' : '' }} {{ (request()->is('Analysis/Home/9')) ? 'active' : '' }} {{ (request()->is('Analysis/Home/10')) ? 'active' : '' }} {{ (request()->is('Analysis/edit/8/*')) ? 'active' : '' }} {{ (request()->is('Analysis/deleteImageEach/8/*')) ? 'active' : '' }}">
+              <a href="#">
+                <i class="fa fa-folder-open text-red"></i>ปรับโครงสร้างหนี้
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{{ route('Analysis',8) }}"><i class="fa fa-cube text-primary"></i>ปรับโครงสร้าง</a></li>
+                <li><a href="{{ route('Analysis',10) }}"><i class="fa fa-cube text-primary"></i>เช็คสิทธิลูกค้า</a></li>
+              </ul>
             </li>
           </ul>
         </li>

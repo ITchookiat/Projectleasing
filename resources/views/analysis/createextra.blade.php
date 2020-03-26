@@ -170,7 +170,7 @@
           @if($data == null)
             <input type="type" name="Contno" maxlength="12" style="width:100px;"/>
           @else
-            <input type="type" name="Contno" value="{{$data->Contract_buyer}}" maxlength="12" style="width:100px;"/>
+            <input type="type" name="Contno" value="{{$data->CONTNO}}" maxlength="12" style="width:100px;"/>
           @endif
           <button type="submit" class="btn btn-warning">
             <span class="glyphicon glyphicon-search"></span>
@@ -264,7 +264,7 @@
                                       @if($data == null)
                                         <input type="text" name="Namebuyer" class="form-control" style="width: 250px;" placeholder="ป้อนชื่อ" />
                                       @else
-                                        <input type="text" name="Namebuyer" value="{{ $data->Name_buyer }}" class="form-control" style="width: 250px;" placeholder="ป้อนชื่อ" />
+                                        <input type="text" name="Namebuyer" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->SNAM))}}{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->NAME1))}}" class="form-control" style="width: 250px;" placeholder="ป้อนชื่อ" />
                                       @endif
                                     </div>
                                   </div>
@@ -275,7 +275,7 @@
                                       @if($data == null)
                                         <input type="text" name="lastbuyer" class="form-control" style="width: 250px;" placeholder="ป้อนนามสกุล" />
                                       @else
-                                        <input type="text" name="lastbuyer" value="{{ $data->last_buyer }}" class="form-control" style="width: 250px;"  placeholder="ป้อนนามสกุล" />
+                                        <input type="text" name="lastbuyer" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->NAME2))}}" class="form-control" style="width: 250px;"  placeholder="ป้อนนามสกุล" />
                                       @endif
                                     </div>
                                   </div>
@@ -288,7 +288,7 @@
                                       @if($data == null)
                                         <input type="text" name="Nickbuyer" class="form-control" style="width: 250px;" placeholder="ป้อนชื่อเล่น" />
                                       @else
-                                        <input type="text" name="Nickbuyer" value="{{ $data->Nick_buyer }}" class="form-control" style="width: 250px;" placeholder="ป้อนชื่อเล่น" />
+                                        <input type="text" name="Nickbuyer" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->NICKNM))}}" class="form-control" style="width: 250px;" placeholder="ป้อนชื่อเล่น" />
                                       @endif
                                     </div>
                                   </div>
@@ -296,21 +296,12 @@
                                   <div class="col-md-6">
                                     <div class="form-inline" align="right">
                                       <label>สถานะ : </label>
-                                      @if($data == null)
                                         <select name="Statusbuyer" class="form-control" style="width: 250px;">
                                           <option value="" selected>--- เลือกสถานะ ---</option>
                                           <option value="โสด">โสด</option>
                                           <option value="สมรส">สมรส</option>
                                           <option value="หย่าร้าง">หย่าร้าง</option>
                                         </select>
-                                      @else
-                                        <select name="Statusbuyer" class="form-control" style="width: 250px;">
-                                          <option value="" selected>--- เลือกสถานะ ---</option>
-                                          <option value="โสด" {{ ($data->Status_buyer === 'โสด') ? 'selected' : '' }}>โสด</option>
-                                          <option value="สมรส" {{ ($data->Status_buyer === 'สมรส') ? 'selected' : '' }}>สมรส</option>
-                                          <option value="หย่าร้าง" {{ ($data->Status_buyer === 'หย่าร้าง') ? 'selected' : '' }}>หย่าร้าง</option>
-                                        </select>
-                                      @endif
                                     </div>
                                   </div>
                                 </div>
@@ -322,7 +313,7 @@
                                       @if($data == null)
                                         <input type="text" name="Phonebuyer" class="form-control" style="width: 250px;" placeholder="ป้อนเบอร์โทรศัพท์" data-inputmask="&quot;mask&quot;:&quot;999-9999999,999-9999999&quot;" data-mask=""/>
                                       @else
-                                        <input type="text" name="Phonebuyer" value="{{ $data->Phone_buyer }}" class="form-control" style="width: 250px;" placeholder="ป้อนเบอร์โทรศัพท์" data-inputmask="&quot;mask&quot;:&quot;999-9999999,999-9999999&quot;" data-mask=""/>
+                                        <input type="text" name="Phonebuyer" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->TELP))}}" class="form-control" style="width: 250px;" placeholder="ป้อนเบอร์โทรศัพท์" data-inputmask="&quot;mask&quot;:&quot;999-9999999,999-9999999&quot;" data-mask=""/>
                                       @endif
                                     </div>
                                   </div>
@@ -334,7 +325,7 @@
                                       @if($data == null)
                                         <input type="text" name="Phone2buyer" class="form-control" style="width: 250px;" placeholder="ป้อนเบอร์โทรอื่นๆ" />
                                       @else
-                                        <input type="text" name="Phone2buyer" value="{{ $data->Phone2_buyer }}" class="form-control" style="width: 250px;" placeholder="ป้อนเบอร์โทรอื่นๆ" />
+                                        <input type="text" name="Phone2buyer" value="" class="form-control" style="width: 250px;" placeholder="ป้อนเบอร์โทรอื่นๆ" />
                                       @endif
                                     </div>
                                   </div>
@@ -347,7 +338,7 @@
                                       @if($data == null)
                                         <input type="text" name="Matebuyer" class="form-control" style="width: 250px;" placeholder="ป้อนคู่สมรส" />
                                       @else
-                                        <input type="text" name="Matebuyer" value="{{ $data->Mate_buyer }}" class="form-control" style="width: 250px;" placeholder="ป้อนคู่สมรส" />
+                                        <input type="text" name="Matebuyer" value="{{iconv('TIS-620', 'utf-8', $data->PARTNERNAME)}}" class="form-control" style="width: 250px;" placeholder="ป้อนคู่สมรส" />
                                       @endif
                                     </div>
                                   </div>
@@ -358,7 +349,7 @@
                                       @if($data == null)
                                         <input type="text" name="Idcardbuyer" class="form-control" style="width: 250px;" placeholder="ป้อนเลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask="" />
                                       @else
-                                        <input type="text" name="Idcardbuyer" value="{{ $data->Idcard_buyer }}" class="form-control" style="width: 250px;" placeholder="ป้อนเลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask=""/>
+                                        <input type="text" name="Idcardbuyer" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->IDNO))}}" class="form-control" style="width: 250px;" placeholder="ป้อนเลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask=""/>
                                       @endif
                                     </div>
                                   </div>
@@ -368,17 +359,10 @@
                                    <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                       <label>ที่อยู่ : </label>
-                                      @if($data == null)
                                         <select name="Addressbuyer" class="form-control" style="width: 250px;">
                                           <option value="" selected>--- เลือกที่อยู่ ---</option>
                                           <option value="ตามทะเบียนบ้าน">ตามทะเบียนบ้าน</option>
                                         </select>
-                                      @else
-                                      <select name="Addressbuyer" class="form-control" style="width: 250px;">
-                                        <option value="" selected>--- เลือกที่อยู่ ---</option>
-                                        <option value="ตามทะเบียนบ้าน" {{ ($data->Address_buyer === 'ตามทะเบียนบ้าน') ? 'selected' : '' }}>ตามทะเบียนบ้าน</option>
-                                      </select>
-                                      @endif
                                     </div>
                                   </div>
 
@@ -388,7 +372,7 @@
                                       @if($data == null)
                                         <input type="text" name="AddNbuyer" class="form-control" style="width: 250px;" placeholder="ที่อยู่ปัจจุบัน/ส่งเอกสาร" />
                                       @else
-                                        <input type="text" name="AddNbuyer" value="{{ $data->AddN_buyer }}" class="form-control" style="width: 250px;" placeholder="ที่อยู่ปัจจุบัน/ส่งเอกสาร" />
+                                        <input type="text" name="AddNbuyer" value="{{iconv('TIS-620', 'utf-8',$data->ADDRES)}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->TUMB))}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->AUMPDES))}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->PROVDES))}}" class="form-control" style="width: 250px;" placeholder="ที่อยู่ปัจจุบัน/ส่งเอกสาร" />
                                       @endif
                                     </div>
                                   </div>
@@ -398,22 +382,14 @@
                                    <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                       <label>รายละเอียดที่อยู่ : </label>
-                                      @if($data == null)
                                         <input type="text" name="StatusAddbuyer" class="form-control" style="width: 250px;" placeholder="ป้อนรายละเอียดที่อยู่" />
-                                      @else
-                                        <input type="text" name="StatusAddbuyer" value="{{ $data->StatusAdd_buyer }}" class="form-control" style="width: 250px;" placeholder="ป้อนรายละเอียดที่อยู่" />
-                                      @endif
                                     </div>
                                   </div>
 
                                   <div class="col-md-6">
                                     <div class="form-inline" align="right">
                                       <label>สถานที่ทำงาน : </label>
-                                      @if($data == null)
                                         <input type="text" name="Workplacebuyer" class="form-control" style="width: 250px;" placeholder="ป้อนสถานที่ทำงาน" />
-                                      @else
-                                        <input type="text" name="Workplacebuyer" value="{{ $data->Workplace_buyer }}" class="form-control" style="width: 250px;" placeholder="ป้อนสถานที่ทำงาน" />
-                                      @endif
                                     </div>
                                   </div>
                                 </div>
@@ -422,7 +398,6 @@
                                    <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                       <label>ลักษณะบ้าน : </label>
-                                      @if($data == null)
                                         <select name="Housebuyer" class="form-control" style="width: 250px;">
                                           <option value="" selected>--- เลือกลักษณะบ้าน ---</option>
                                           <option value="บ้านตึก 1 ชั้น">บ้านตึก 1 ชั้น</option>
@@ -432,24 +407,12 @@
                                           <option value="บ้านเดี่ยว">บ้านเดี่ยว</option>
                                           <option value="แฟลต">แฟลต</option>
                                         </select>
-                                      @else
-                                        <select name="Housebuyer" class="form-control" style="width: 250px;">
-                                          <option value="" selected>--- เลือกลักษณะบ้าน ---</option>
-                                          <option value="บ้านตึก 1 ชั้น" {{ ($data->House_buyer === 'บ้านตึก 1 ชั้น') ? 'selected' : '' }}>บ้านตึก 1 ชั้น</option>
-                                          <option value="บ้านตึก 2 ชั้น" {{ ($data->House_buyer === 'บ้านตึก 2 ชั้น') ? 'selected' : '' }}>บ้านตึก 2 ชั้น</option>
-                                          <option value="บ้านไม้ 1 ชั้น" {{ ($data->House_buyer === 'บ้านไม้ 1 ชั้น') ? 'selected' : '' }}>บ้านไม้ 1 ชั้น</option>
-                                          <option value="บ้านไม้ 2 ชั้น" {{ ($data->House_buyer === 'บ้านไม้ 2 ชั้น') ? 'selected' : '' }}>บ้านไม้ 2 ชั้น</option>
-                                          <option value="บ้านเดี่ยว" {{ ($data->House_buyer === 'บ้านเดี่ยว') ? 'selected' : '' }}>บ้านเดี่ยว</option>
-                                          <option value="แฟลต" {{ ($data->House_buyer === 'แฟลต') ? 'selected' : '' }}>แฟลต</option>
-                                        </select>
-                                      @endif
                                     </div>
                                   </div>
 
                                   <div class="col-md-6">
                                     <div class="form-inline" align="right">
                                       <label>ประเภทหลักทรัพย์ : </label>
-                                      @if($data == null)
                                         <select name="securitiesbuyer" class="form-control" style="width: 250px;">
                                           <option value="" selected>--- ประเภทหลักทรัพย์ ---</option>
                                           <option value="โฉนด">โฉนด</option>
@@ -458,16 +421,6 @@
                                           <option value="นส.4">นส.4</option>
                                           <option value="นส.4 จ">นส.4 จ</option>
                                         </select>
-                                      @else
-                                        <select name="securitiesbuyer" class="form-control" style="width: 250px;">
-                                          <option value="" selected>--- ประเภทหลักทรัพย์ ---</option>
-                                          <option value="โฉนด" {{ ($data->securities_buyer === 'โฉนด') ? 'selected' : '' }}>โฉนด</option>
-                                          <option value="นส.3" {{ ($data->securities_buyer === 'นส.3') ? 'selected' : '' }}>นส.3</option>
-                                          <option value="นส.3 ก" {{ ($data->securities_buyer === 'นส.3 ก') ? 'selected' : '' }}>นส.3 ก</option>
-                                          <option value="นส.4" {{ ($data->securities_buyer === 'นส.4') ? 'selected' : '' }}>นส.4</option>
-                                          <option value="นส.4 จ" {{ ($data->securities_buyer === 'นส.4 จ') ? 'selected' : '' }}>นส.4 จ</option>
-                                        </select>
-                                      @endif
                                     </div>
                                   </div>
                                 </div>
@@ -479,7 +432,7 @@
                                       @if($data == null)
                                         <input type="text" name="deednumberbuyer" class="form-control" style="width: 250px;" placeholder="เลขที่โฉนด" />
                                       @else
-                                        <input type="text" name="deednumberbuyer" value="{{$data->deednumber_buyer}}" class="form-control" style="width: 250px;" placeholder="เลขที่โฉนด" />
+                                        <input type="text" name="deednumberbuyer" value="" class="form-control" style="width: 250px;" placeholder="เลขที่โฉนด" />
                                       @endif
                                     </div>
                                   </div>
@@ -490,7 +443,7 @@
                                       @if($data == null)
                                         <input type="text" name="areabuyer" class="form-control" style="width: 250px;" placeholder="เนื้อที่" data-inputmask="&quot;mask&quot;:&quot;99-9-99&quot;" data-mask=""/>
                                       @else
-                                        <input type="text" name="areabuyer" value="{{$data->area_buyer}}" class="form-control" style="width: 250px;" placeholder="เนื้อที่" data-inputmask="&quot;mask&quot;:&quot;99-9-99&quot;" data-mask=""/>
+                                        <input type="text" name="areabuyer" value="" class="form-control" style="width: 250px;" placeholder="เนื้อที่" data-inputmask="&quot;mask&quot;:&quot;99-9-99&quot;" data-mask=""/>
                                       @endif
                                     </div>
                                   </div>
@@ -500,7 +453,6 @@
                                    <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                       <label>ประเภทบ้าน : </label>
-                                      @if($data == null)
                                         <select name="HouseStylebuyer" class="form-control" style="width: 250px;">
                                           <option value="" selected>--- ประเภทบ้าน ---</option>
                                           <option value="ของตนเอง">ของตนเอง</option>
@@ -509,23 +461,12 @@
                                           <option value="บ้านพักราชการ">บ้านพักราชการ</option>
                                           <option value="บ้านเช่า">บ้านเช่า</option>
                                         </select>
-                                      @else
-                                        <select name="HouseStylebuyer" class="form-control" style="width: 250px;">
-                                          <option value="" selected>--- ประเภทบ้าน ---</option>
-                                          <option value="ของตนเอง" {{ ($data->HouseStyle_buyer === 'ของตนเอง') ? 'selected' : '' }}>ของตนเอง</option>
-                                          <option value="อาศัยบิดา-มารดา" {{ ($data->HouseStyle_buyer === 'อาศัยบิดา-มารดา') ? 'selected' : '' }}>อาศัยบิดา-มารดา</option>
-                                          <option value="อาศัยผู้อื่น" {{ ($data->HouseStyle_buyer === 'อาศัยผู้อื่น') ? 'selected' : '' }}>อาศัยผู้อื่น</option>
-                                          <option value="บ้านพักราชการ" {{ ($data->HouseStyle_buyer === 'บ้านพักราชการ') ? 'selected' : '' }}>บ้านพักราชการ</option>
-                                          <option value="บ้านเช่า" {{ ($data->HouseStyle_buyer === 'บ้านเช่า') ? 'selected' : '' }}>บ้านเช่า</option>
-                                        </select>
-                                      @endif
                                     </div>
                                   </div>
 
                                   <div class="col-md-6">
                                     <div class="form-inline" align="right">
                                       <label>อาชีพ : </label>
-                                      @if($data == null)
                                         <select name="Careerbuyer" class="form-control" style="width: 250px;">
                                           <option value="" selected>--- อาชีพ ---</option>
                                           <option value="ตำรวจ">ตำรวจ</option>
@@ -557,39 +498,6 @@
                                           <option value="ทนายความ">ทนายความ</option>
                                           <option value="พระ">พระ</option>
                                         </select>
-                                      @else
-                                        <select name="Careerbuyer" class="form-control" style="width: 250px;">
-                                          <option value="" selected>--- อาชีพ ---</option>
-                                          <option value="ตำรวจ" {{ ($data->Career_buyer === 'ตำรวจ') ? 'selected' : '' }}>ตำรวจ</option>
-                                          <option value="ทหาร" {{ ($data->Career_buyer === 'ทหาร') ? 'selected' : '' }}>ทหาร</option>
-                                          <option value="ครู" {{ ($data->Career_buyer === 'ครู') ? 'selected' : '' }}>ครู</option>
-                                          <option value="ข้าราชการอื่นๆ" {{ ($data->Career_buyer === 'ข้าราชการอื่นๆ') ? 'selected' : '' }}>ข้าราชการอื่นๆ</option>
-                                          <option value="ลูกจ้างเทศบาล" {{ ($data->Career_buyer === 'ลูกจ้างเทศบาล') ? 'selected' : '' }}>ลูกจ้างเทศบาล</option>
-                                          <option value="ลูกจ้างประจำ" {{ ($data->Career_buyer === 'ลูกจ้างประจำ') ? 'selected' : '' }}>ลูกจ้างประจำ</option>
-                                          <option value="สมาชิก อบต." {{ ($data->Career_buyer === 'สมาชิก อบต.') ? 'selected' : '' }}>สมาชิก อบต.</option>
-                                          <option value="ลูกจ้างชั่วคราว" {{ ($data->Career_buyer === 'ลูกจ้างชั่วคราว') ? 'selected' : '' }}>ลูกจ้างชั่วคราว</option>
-                                          <option value="รับจ้าง" {{ ($data->Career_buyer === 'รับจ้าง') ? 'selected' : '' }}>รับจ้าง</option>
-                                          <option value="พนักงานบริษัทเอกชน" {{ ($data->Career_buyer === 'พนักงานบริษัทเอกชน') ? 'selected' : '' }}>พนักงานบริษัทเอกชน</option>
-                                          <option value="อาชีพอิสระ" {{ ($data->Career_buyer === 'อาชีพอิสระ') ? 'selected' : '' }}>อาชีพอิสระ</option>
-                                          <option value="กำนัน" {{ ($data->Career_buyer === 'กำนัน') ? 'selected' : '' }}>กำนัน</option>
-                                          <option value="ผู้ใหญ่บ้าน" {{ ($data->Career_buyer === 'ผู้ใหญ่บ้าน') ? 'selected' : '' }}>ผู้ใหญ่บ้าน</option>
-                                          <option value="ผู้ช่วยผู้ใหญ่บ้าน" {{ ($data->Career_buyer === 'ผู้ช่วยผู้ใหญ่บ้าน') ? 'selected' : '' }}>ผู้ช่วยผู้ใหญ่บ้าน</option>
-                                          <option value="นักการภารโรง" {{ ($data->Career_buyer === 'นักการภารโรง') ? 'selected' : '' }}>นักการภารโรง</option>
-                                          <option value="มอเตอร์ไซร์รับจ้าง" {{ ($data->Career_buyer === 'มอเตอร์ไซร์รับจ้าง') ? 'selected' : '' }}>มอเตอร์ไซร์รับจ้าง</option>
-                                          <option value="ค้าขาย" {{ ($data->Career_buyer === 'ค้าขาย') ? 'selected' : '' }}>ค้าขาย</option>
-                                          <option value="เจ้าของธุรกิจ" {{ ($data->Career_buyer === 'เจ้าของธุรกิจ') ? 'selected' : '' }}>เจ้าของธุรกิจ</option>
-                                          <option value="เจ้าของอู่รถ" {{ ($data->Career_buyer === 'เจ้าของอู่รถ') ? 'selected' : '' }}>เจ้าของอู่รถ</option>
-                                          <option value="ให้เช่ารถบรรทุก" {{ ($data->Career_buyer === 'ให้เช่ารถบรรทุก') ? 'selected' : '' }}>ให้เช่ารถบรรทุก</option>
-                                          <option value="ช่างตัดผม" {{ ($data->Career_buyer === 'ช่างตัดผม') ? 'selected' : '' }}>ช่างตัดผม</option>
-                                          <option value="ชาวนา" {{ ($data->Career_buyer === 'ชาวนา') ? 'selected' : '' }}>ชาวนา</option>
-                                          <option value="ชาวไร่" {{ ($data->Career_buyer === 'ชาวไร่') ? 'selected' : '' }}>ชาวไร่</option>
-                                          <option value="แม่บ้าน" {{ ($data->Career_buyer === 'แม่บ้าน') ? 'selected' : '' }}>แม่บ้าน</option>
-                                          <option value="รับเหมาก่อสร้าง" {{ ($data->Career_buyer === 'รับเหมาก่อสร้าง') ? 'selected' : '' }}>รับเหมาก่อสร้าง</option>
-                                          <option value="ประมง" {{ ($data->Career_buyer === 'ประมง') ? 'selected' : '' }}>ประมง</option>
-                                          <option value="ทนายความ" {{ ($data->Career_buyer === 'ทนายความ') ? 'selected' : '' }}>ทนายความ</option>
-                                          <option value="พระ" {{ ($data->Career_buyer === 'พระ') ? 'selected' : '' }}>พระ</option>
-                                        </select>
-                                      @endif
                                     </div>
                                   </div>
                                 </div>
@@ -598,7 +506,6 @@
                                    <div class="col-md-5">
                                        <div class="form-inline" align="right">
                                          <label>รายได้ : </label>
-                                         @if($data == null)
                                            <select name="Incomebuyer" class="form-control" style="width: 250px;">
                                              <option value="" selected>--- รายได้ ---</option>
                                              <option value="5,000 - 10,000">5,000 - 10,000</option>
@@ -606,34 +513,17 @@
                                              <option value="15,000 - 20,000">15,000 - 20,000</option>
                                              <option value="มากกว่า 20,000">มากกว่า 20,000</option>
                                            </select>
-                                         @else
-                                           <select name="Incomebuyer" class="form-control" style="width: 250px;">
-                                             <option value="" selected>--- รายได้ ---</option>
-                                             <option value="5,000 - 10,000" {{ ($data->Income_buyer === '5,000 - 10,000') ? 'selected' : '' }}>5,000 - 10,000</option>
-                                             <option value="10,000 - 15,000" {{ ($data->Income_buyer === '10,000 - 15,000') ? 'selected' : '' }}>10,000 - 15,000</option>
-                                             <option value="15,000 - 20,000" {{ ($data->Income_buyer === '15,000 - 20,000') ? 'selected' : '' }}>15,000 - 20,000</option>
-                                             <option value="มากกว่า 20,000" {{ ($data->Income_buyer === 'มากกว่า 20,000') ? 'selected' : '' }}>มากกว่า 20,000</option>
-                                           </select>
-                                         @endif
                                        </div>
                                   </div>
 
                                   <div class="col-md-6">
                                     <div class="form-inline" align="right">
                                       <label>ใบขับขี่ : </label>
-                                      @if($data == null)
                                         <select name="Driverbuyer" class="form-control" style="width: 250px;">
                                           <option value="" selected>--- ใบขับขี่ ---</option>
                                           <option value="มี">มี</option>
                                           <option value="ไม่มี">ไม่มี</option>
                                         </select>
-                                      @else
-                                        <select name="Driverbuyer" class="form-control" style="width: 250px;">
-                                          <option value="" selected>--- ใบขับขี่ ---</option>
-                                          <option value="มี" {{ ($data->Driver_buyer === 'มี') ? 'selected' : '' }}>มี</option>
-                                          <option value="ไม่มี" {{ ($data->Driver_buyer === 'ไม่มี') ? 'selected' : '' }}>ไม่มี</option>
-                                        </select>
-                                      @endif
                                     </div>
                                   </div>
                                 </div>
@@ -642,18 +532,13 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                       <label>หักค่าใช้จ่าย : </label>
-                                      @if($data == null)
                                         <input type="text" id="Beforeincome" name="Beforeincome" class="form-control" style="width: 250px;" placeholder="ก่อนหักค่าใช้จ่าย" oninput="income();" maxlength="9" />
-                                      @else
-                                        <input type="text" id="Beforeincome" name="Beforeincome" value="{{ number_format($data->BeforeIncome_buyer,0) }}" class="form-control" style="width: 250px;" placeholder="ก่อนหักค่าใช้จ่าย" oninput="income();" maxlength="9" />
-                                      @endif
                                     </div>
                                   </div>
 
                                   <div class="col-md-6">
                                     <div class="form-inline" align="right">
                                       <label>ประวัติการซื้อ/ค้ำ : </label>
-                                      @if($data == null)
                                         <select name="Purchasebuyer" class="form-control" style="width: 108px;">
                                           <option value="" selected>--- ซื้อ ---</option>
                                           <option value="0 คัน">0 คัน</option>
@@ -703,57 +588,6 @@
                                           <option value="19 คัน">19 คัน</option>
                                           <option value="20 คัน">20 คัน</option>
                                         </select>
-                                      @else
-                                        <select name="Purchasebuyer" class="form-control" style="width: 108px;">
-                                          <option value="" selected>--- ซื้อ ---</option>
-                                          <option value="0 คัน" {{ ($data->Purchase_buyer === '0 คัน') ? 'selected' : '' }}>0 คัน</option>
-                                          <option value="1 คัน" {{ ($data->Purchase_buyer === '1 คัน') ? 'selected' : '' }}>1 คัน</option>
-                                          <option value="2 คัน" {{ ($data->Purchase_buyer === '2 คัน') ? 'selected' : '' }}>2 คัน</option>
-                                          <option value="3 คัน" {{ ($data->Purchase_buyer === '3 คัน') ? 'selected' : '' }}>3 คัน</option>
-                                          <option value="4 คัน" {{ ($data->Purchase_buyer === '4 คัน') ? 'selected' : '' }}>4 คัน</option>
-                                          <option value="5 คัน" {{ ($data->Purchase_buyer === '5 คัน') ? 'selected' : '' }}>5 คัน</option>
-                                          <option value="6 คัน" {{ ($data->Purchase_buyer === '6 คัน') ? 'selected' : '' }}>6 คัน</option>
-                                          <option value="7 คัน" {{ ($data->Purchase_buyer === '7 คัน') ? 'selected' : '' }}>7 คัน</option>
-                                          <option value="8 คัน" {{ ($data->Purchase_buyer === '8 คัน') ? 'selected' : '' }}>8 คัน</option>
-                                          <option value="9 คัน" {{ ($data->Purchase_buyer === '9 คัน') ? 'selected' : '' }}>9 คัน</option>
-                                          <option value="10 คัน" {{ ($data->Purchase_buyer === '10 คัน') ? 'selected' : '' }}>10 คัน</option>
-                                          <option value="11 คัน" {{ ($data->Purchase_buyer === '11 คัน') ? 'selected' : '' }}>11 คัน</option>
-                                          <option value="12 คัน" {{ ($data->Purchase_buyer === '12 คัน') ? 'selected' : '' }}>12 คัน</option>
-                                          <option value="13 คัน" {{ ($data->Purchase_buyer === '13 คัน') ? 'selected' : '' }}>13 คัน</option>
-                                          <option value="14 คัน" {{ ($data->Purchase_buyer === '14 คัน') ? 'selected' : '' }}>14 คัน</option>
-                                          <option value="15 คัน" {{ ($data->Purchase_buyer === '15 คัน') ? 'selected' : '' }}>15 คัน</option>
-                                          <option value="16 คัน" {{ ($data->Purchase_buyer === '16 คัน') ? 'selected' : '' }}>16 คัน</option>
-                                          <option value="17 คัน" {{ ($data->Purchase_buyer === '17 คัน') ? 'selected' : '' }}>17 คัน</option>
-                                          <option value="18 คัน" {{ ($data->Purchase_buyer === '18 คัน') ? 'selected' : '' }}>18 คัน</option>
-                                          <option value="19 คัน" {{ ($data->Purchase_buyer === '19 คัน') ? 'selected' : '' }}>19 คัน</option>
-                                          <option value="20 คัน" {{ ($data->Purchase_buyer === '20 คัน') ? 'selected' : '' }}>20 คัน</option>
-                                        </select>
-                                        <label>ค้ำ : </label>
-                                        <select name="Supportbuyer" class="form-control" style="width: 108px;">
-                                          <option value="" selected>--- ค้ำ ---</option>
-                                          <option value="0 คัน" {{ ($data->Support_buyer === '0 คัน') ? 'selected' : '' }}>0 คัน</option>
-                                          <option value="1 คัน" {{ ($data->Support_buyer === '1 คัน') ? 'selected' : '' }}>1 คัน</option>
-                                          <option value="2 คัน" {{ ($data->Support_buyer === '2 คัน') ? 'selected' : '' }}>2 คัน</option>
-                                          <option value="3 คัน" {{ ($data->Support_buyer === '3 คัน') ? 'selected' : '' }}>3 คัน</option>
-                                          <option value="4 คัน" {{ ($data->Support_buyer === '4 คัน') ? 'selected' : '' }}>4 คัน</option>
-                                          <option value="5 คัน" {{ ($data->Support_buyer === '5 คัน') ? 'selected' : '' }}>5 คัน</option>
-                                          <option value="6 คัน" {{ ($data->Support_buyer === '6 คัน') ? 'selected' : '' }}>6 คัน</option>
-                                          <option value="7 คัน" {{ ($data->Support_buyer === '7 คัน') ? 'selected' : '' }}>7 คัน</option>
-                                          <option value="8 คัน" {{ ($data->Support_buyer === '8 คัน') ? 'selected' : '' }}>8 คัน</option>
-                                          <option value="9 คัน" {{ ($data->Support_buyer === '9 คัน') ? 'selected' : '' }}>9 คัน</option>
-                                          <option value="10 คัน" {{ ($data->Support_buyer === '10 คัน') ? 'selected' : '' }}>10 คัน</option>
-                                          <option value="11 คัน" {{ ($data->Support_buyer === '11 คัน') ? 'selected' : '' }}>11 คัน</option>
-                                          <option value="12 คัน" {{ ($data->Support_buyer === '12 คัน') ? 'selected' : '' }}>12 คัน</option>
-                                          <option value="13 คัน" {{ ($data->Support_buyer === '13 คัน') ? 'selected' : '' }}>13 คัน</option>
-                                          <option value="14 คัน" {{ ($data->Support_buyer === '14 คัน') ? 'selected' : '' }}>14 คัน</option>
-                                          <option value="15 คัน" {{ ($data->Support_buyer === '15 คัน') ? 'selected' : '' }}>15 คัน</option>
-                                          <option value="16 คัน" {{ ($data->Support_buyer === '16 คัน') ? 'selected' : '' }}>16 คัน</option>
-                                          <option value="17 คัน" {{ ($data->Support_buyer === '17 คัน') ? 'selected' : '' }}>17 คัน</option>
-                                          <option value="18 คัน" {{ ($data->Support_buyer === '18 คัน') ? 'selected' : '' }}>18 คัน</option>
-                                          <option value="19 คัน" {{ ($data->Support_buyer === '19 คัน') ? 'selected' : '' }}>19 คัน</option>
-                                          <option value="20 คัน" {{ ($data->Support_buyer === '20 คัน') ? 'selected' : '' }}>20 คัน</option>
-                                        </select>
-                                      @endif
                                    </div>
                                   </div>
                                 </div>
@@ -762,18 +596,13 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                       <label>รายได้หลังหักค่าใช้จ่าย : </label>
-                                      @if($data == null)
                                         <input type="text" id="Afterincome" name="Afterincome" class="form-control" style="width: 250px;" placeholder="หลังหักค่าใช้จ่าย" oninput="income();" maxlength="9" />
-                                      @else
-                                        <input type="text" id="Afterincome" name="Afterincome" value="{{ number_format($data->AfterIncome_buyer,0) }}" class="form-control" style="width: 250px;" placeholder="ก่อนหักค่าใช้จ่าย" oninput="income();" maxlength="9"/>
-                                      @endif
                                     </div>
                                   </div>
 
                                   <div class="col-md-6">
                                     <div class="form-inline" align="right">
                                       <label>สถานะผู้เช่าซื้อ : </label>
-                                      @if($data == null)
                                         <select name="Gradebuyer" class="form-control" style="width: 250px;">
                                           <option value="" selected>--- สถานะผู้เช่าซื้อ ---</option>
                                           <option value="ลูกค้าเก่าผ่อนดี">ลูกค้าเก่าผ่อนดี</option>
@@ -783,17 +612,6 @@
                                           <option value="ปิดจัดใหม่(งานตาม)">ปิดจัดใหม่(งานตาม)</option>
                                           <option value="ปิดจัดใหม่(ผ่อนดี)">ปิดจัดใหม่(ผ่อนดี)</option>
                                         </select>
-                                      @else
-                                        <select name="Gradebuyer" class="form-control" style="width: 250px;">
-                                          <option value="" selected>--- สถานะผู้เช่าซื้อ ---</option>
-                                          <option value="ลูกค้าเก่าผ่อนดี" {{ ($data->Gradebuyer_car === 'ลูกค้าเก่าผ่อนดี') ? 'selected' : '' }}>ลูกค้าเก่าผ่อนดี</option>
-                                          <option value="ลูกค้ามีงานตาม" {{ ($data->Gradebuyer_car === 'ลูกค้ามีงานตาม') ? 'selected' : '' }}>ลูกค้ามีงานตาม</option>
-                                          <option value="ลูกค้าใหม่" {{ ($data->Gradebuyer_car === 'ลูกค้าใหม่') ? 'selected' : '' }}>ลูกค้าใหม่</option>
-                                          <option value="ลูกค้าใหม่(ปิดธนาคาร)" {{ ($data->Gradebuyer_car === 'ลูกค้าใหม่(ปิดธนาคาร)') ? 'selected' : '' }}>ลูกค้าใหม่(ปิดธนาคาร)</option>
-                                          <option value="ปิดจัดใหม่(งานตาม)" {{ ($data->Gradebuyer_car === 'ปิดจัดใหม่(งานตาม)') ? 'selected' : '' }}>ปิดจัดใหม่(งานตาม)</option>
-                                          <option value="ปิดจัดใหม่(ผ่อนดี)" {{ ($data->Gradebuyer_car === 'ปิดจัดใหม่(ผ่อนดี)') ? 'selected' : '' }}>ปิดจัดใหม่(ผ่อนดี)</option>
-                                        </select>
-                                      @endif
                                    </div>
                                   </div>
                                 </div>
@@ -807,7 +625,6 @@
                                   <div class="col-md-6">
                                     <div class="form-inline" align="right">
                                       <label>วัตถุประสงค์ของสินเชื่อ : </label>
-                                      @if($data == null)
                                         <select name="objectivecar" class="form-control" style="width: 250px;">
                                           <option value="" selected>--- วัตถุประสงค์ของสินเชื่อ ---</option>
                                           <option value="ลงทุนในธุรกิจ">ลงทุนในธุรกิจ</option>
@@ -820,20 +637,6 @@
                                           <option value="ซื้อที่ดิน">ซื้อที่ดิน</option>
                                           <option value="ซ่อมบ้าน">ซ่อมบ้าน</option>
                                         </select>
-                                      @else
-                                        <select name="objectivecar" class="form-control" style="width: 250px;">
-                                          <option value="" selected>--- วัตถุประสงค์ของสินเชื่อ ---</option>
-                                          <option value="ลงทุนในธุรกิจ" {{ ($data->Objective_car === 'ลงทุนในธุรกิจ') ? 'selected' : '' }}>ลงทุนในธุรกิจ</option>
-                                          <option value="ขยายกิจการ" {{ ($data->Objective_car === 'ขยายกิจการ') ? 'selected' : '' }}>ขยายกิจการ</option>
-                                          <option value="ซื้อรถยนต์" {{ ($data->Objective_car === 'ซื้อรถยนต์') ? 'selected' : '' }}>ซื้อรถยนต์</option>
-                                          <option value="ใช้หนี้นอกระบบ" {{ ($data->Objective_car === 'ใช้หนี้นอกระบบ') ? 'selected' : '' }}>ใช้หนี้นอกระบบ</option>
-                                          <option value="จ่ายค่าเทอม" {{ ($data->Objective_car === 'จ่ายค่าเทอม') ? 'selected' : '' }}>จ่ายค่าเทอม</option>
-                                          <option value="ซื้อของใช้ภายในบ้าน" {{ ($data->Objective_car === 'ซื้อของใช้ภายในบ้าน') ? 'selected' : '' }}>ซื้อของใช้ภายในบ้าน</option>
-                                          <option value="ซื้อวัว" {{ ($data->Objective_car === 'ซื้อวัว') ? 'selected' : '' }}>ซื้อวัว</option>
-                                          <option value="ซื้อที่ดิน" {{ ($data->Objective_car === 'ซื้อที่ดิน') ? 'selected' : '' }}>ซื้อที่ดิน</option>
-                                          <option value="ซ่อมบ้าน" {{ ($data->Objective_car === 'ซ่อมบ้าน') ? 'selected' : '' }}>ซ่อมบ้าน</option>
-                                        </select>
-                                      @endif
                                    </div>
                                   </div>
                                 </div>
@@ -877,10 +680,14 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                        <label>ชื่อ : </label>
-                                       @if($data == null)
+                                       @if($dataGT == null)
                                          <input type="text" name="nameSP" class="form-control" style="width: 250px;" placeholder="ชื่อ" />
                                        @else
-                                         <input type="text" name="nameSP" value="{{$data->name_SP}}" class="form-control" style="width: 250px;" placeholder="ชื่อ" />
+                                         @php
+                                         $StrCon = explode(" ",$dataGT->NAME);
+                                         $Firstname = $StrCon[0];
+                                         @endphp
+                                         <input type="text" name="nameSP" value="{{iconv('TIS-620', 'utf-8',$Firstname)}}" class="form-control" style="width: 250px;" placeholder="ชื่อ" />
                                        @endif
                                      </div>
                                   </div>
@@ -888,10 +695,14 @@
                                   <div class="col-md-6">
                                    <div class="form-inline" align="right">
                                        <label>นามสกุล : </label>
-                                       @if($data == null)
+                                       @if($dataGT == null)
                                          <input type="text" name="lnameSP" class="form-control" style="width: 250px;" placeholder="นามสกุล" />
                                        @else
-                                         <input type="text" name="lnameSP" value="{{$data->lname_SP}}" class="form-control" style="width: 250px;" placeholder="นามสกุล" />
+                                       @php
+                                         $StrCon = explode("  ",$dataGT->NAME);
+                                         $Lastname = $StrCon[1];
+                                         @endphp
+                                         <input type="text" name="lnameSP" value="{{iconv('TIS-620', 'utf-8',$Lastname)}}" class="form-control" style="width: 250px;" placeholder="นามสกุล" />
                                        @endif
                                    </div>
                                   </div>
@@ -901,10 +712,10 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                        <label>ชื่อเล่น : </label>
-                                       @if($data == null)
+                                       @if($dataGT == null)
                                          <input type="text" name="niknameSP" class="form-control" style="width: 250px;" placeholder="ชื่อเล่น" />
                                        @else
-                                         <input type="text" name="niknameSP" value="{{$data->nikname_SP}}" class="form-control" style="width: 250px;" placeholder="ชื่อเล่น" />
+                                         <input type="text" name="niknameSP" value="{{iconv('TIS-620', 'utf-8',$dataGT->NICKNM)}}" class="form-control" style="width: 250px;" placeholder="ชื่อเล่น" />
                                        @endif
                                      </div>
                                   </div>
@@ -912,7 +723,6 @@
                                   <div class="col-md-6">
                                    <div class="form-inline" align="right">
                                        <label>สถานะ : </label>
-                                       @if($data == null)
                                          <select name="statusSP" class="form-control" style="width: 250px;">
                                            <option value="" selected>--- สถานะ ---</option>
                                            <option value="โสด">โสด</option>
@@ -920,15 +730,6 @@
                                            <option value="หย่าร้าง">หย่าร้าง</option>
                                            <option value="เสียชีวิต">เสียชีวิต</option>
                                          </select>
-                                       @else
-                                         <select name="statusSP" class="form-control" style="width: 250px;">
-                                           <option value="" selected>--- สถานะ ---</option>
-                                           <option value="โสด" {{ ($data->status_SP === 'โสด') ? 'selected' : '' }}>โสด</option>
-                                           <option value="สมรส" {{ ($data->status_SP === 'สมรส') ? 'selected' : '' }}>สมรส</option>
-                                           <option value="หย่าร้าง" {{ ($data->status_SP === 'หย่าร้าง') ? 'selected' : '' }}>หย่าร้าง</option>
-                                           <option value="เสียชีวิต" {{ ($data->status_SP === 'เสียชีวิต') ? 'selected' : '' }}>เสียชีวิต</option>
-                                         </select>
-                                       @endif
                                    </div>
                                   </div>
                                 </div>
@@ -937,10 +738,10 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                        <label>เบอร์โทร : </label>
-                                       @if($data == null)
+                                       @if($dataGT == null)
                                          <input type="text" name="telSP" class="form-control" style="width: 250px;" placeholder="เบอร์โทร" data-inputmask="&quot;mask&quot;:&quot;999-9999999,999-9999999&quot;" data-mask=""/>
                                        @else
-                                         <input type="text" name="telSP" value="{{$data->tel_SP}}" class="form-control" style="width: 250px;" placeholder="เบอร์โทร" data-inputmask="&quot;mask&quot;:&quot;999-9999999,999-9999999&quot;" data-mask=""/>
+                                         <input type="text" name="telSP" value="{{iconv('TIS-620', 'utf-8',$dataGT->TELP)}}" class="form-control" style="width: 250px;" placeholder="เบอร์โทร" data-inputmask="&quot;mask&quot;:&quot;999-9999999,999-9999999&quot;" data-mask=""/>
                                        @endif
                                      </div>
                                   </div>
@@ -948,7 +749,6 @@
                                   <div class="col-md-6">
                                    <div class="form-inline" align="right">
                                        <label>ความสัมพันธ์ : </label>
-                                       @if($data == null)
                                          <select name="relationSP" class="form-control" style="width: 250px;">
                                            <option value="" selected>--- ความสัมพันธ์ ---</option>
                                            <option value="พี่น้อง">พี่น้อง</option>
@@ -959,18 +759,6 @@
                                            <option value="ตำบลเดี่ยวกัน">ตำบลเดี่ยวกัน</option>
                                            <option value="จ้างค้ำ(ไม่รู้จักกัน)">จ้างค้ำ(ไม่รู้จักกัน)</option>
                                          </select>
-                                       @else
-                                         <select name="relationSP" class="form-control" style="width: 250px;">
-                                           <option value="" selected>--- ความสัมพันธ์ ---</option>
-                                           <option value="พี่น้อง" {{ ($data->relation_SP === 'พี่น้อง') ? 'selected' : '' }}>พี่น้อง</option>
-                                           <option value="ญาติ" {{ ($data->relation_SP === 'ญาติ') ? 'selected' : '' }}>ญาติ</option>
-                                           <option value="เพื่อน" {{ ($data->relation_SP === 'เพื่อน') ? 'selected' : '' }}>เพื่อน</option>
-                                           <option value="บิดา" {{ ($data->relation_SP === 'บิดา') ? 'selected' : '' }}>บิดา</option>
-                                           <option value="มารดา" {{ ($data->relation_SP === 'มารดา') ? 'selected' : '' }}>มารดา</option>
-                                           <option value="ตำบลเดี่ยวกัน" {{ ($data->relation_SP === 'ตำบลเดี่ยวกัน') ? 'selected' : '' }}>ตำบลเดี่ยวกัน</option>
-                                           <option value="จ้างค้ำ(ไม่รู้จักกัน)" {{ ($data->relation_SP === 'จ้างค้ำ(ไม่รู้จักกัน)') ? 'selected' : '' }}>จ้างค้ำ(ไม่รู้จักกัน)</option>
-                                         </select>
-                                       @endif
                                    </div>
                                   </div>
                                 </div>
@@ -979,10 +767,10 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                        <label>คู่สมรส : </label>
-                                       @if($data == null)
+                                       @if($dataGT == null)
                                          <input type="text" name="mateSP" class="form-control" style="width: 250px;" placeholder="คู่สมรส" />
                                        @else
-                                         <input type="text" name="mateSP" value="{{$data->mate_SP}}" class="form-control" style="width: 250px;" placeholder="คู่สมรส" />
+                                         <input type="text" name="mateSP" value="" class="form-control" style="width: 250px;" placeholder="คู่สมรส" />
                                        @endif
                                      </div>
                                   </div>
@@ -990,10 +778,10 @@
                                   <div class="col-md-6">
                                    <div class="form-inline" align="right">
                                        <label>เลขบัตรประชาชน : </label>
-                                       @if($data == null)
+                                       @if($dataGT == null)
                                          <input type="text" name="idcardSP" class="form-control" style="width: 250px;" placeholder="เลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask="" />
                                        @else
-                                         <input type="text" name="idcardSP" value="{{$data->idcard_SP}}" class="form-control" style="width: 250px;" placeholder="เลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask=""/>
+                                         <input type="text" name="idcardSP" value="{{iconv('TIS-620', 'utf-8',$dataGT->IDNO)}}" class="form-control" style="width: 250px;" placeholder="เลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask=""/>
                                        @endif
                                    </div>
                                   </div>
@@ -1003,27 +791,20 @@
                                     <div class="col-md-5">
                                       <div class="form-inline" align="right">
                                          <label>ที่อยู่ : </label>
-                                         @if($data == null)
                                            <select name="addSP" class="form-control" style="width: 250px;">
                                              <option value="" selected>--- ที่อยู่ ---</option>
                                              <option value="ตามทะเบียนบ้าน">ตามทะเบียนบ้าน</option>
                                            </select>
-                                         @else
-                                           <select name="addSP" class="form-control" style="width: 250px;">
-                                             <option value="" selected>--- ที่อยู่ ---</option>
-                                             <option value="ตามทะเบียนบ้าน" {{ ($data->add_SP === 'ตามทะเบียนบ้าน') ? 'selected' : '' }}>ตามทะเบียนบ้าน</option>
-                                           </select>
-                                         @endif
                                        </div>
                                     </div>
 
                                     <div class="col-md-6">
                                      <div class="form-inline" align="right">
                                          <label>ที่อยู่ปัจจุบัน/จัดส่งเอกสาร : </label>
-                                         @if($data == null)
+                                         @if($dataGT == null)
                                            <input type="text" name="addnowSP" class="form-control" style="width: 250px;" placeholder="ที่อยู่ปัจจุบัน/จัดส่งเอกสาร" />
                                          @else
-                                           <input type="text" name="addnowSP" value="{{$data->addnow_SP}}" class="form-control" style="width: 250px;" placeholder="ที่อยู่ปัจจุบัน/จัดส่งเอกสาร" />
+                                           <input type="text" name="addnowSP" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$dataGT->ADDRES))}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$dataGT->TUMB))}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$dataGT->AUMPDES))}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$dataGT->PROVDES))}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$dataGT->ZIP))}}" class="form-control" style="width: 250px;" placeholder="ที่อยู่ปัจจุบัน/จัดส่งเอกสาร" />
                                          @endif
                                      </div>
                                     </div>
@@ -1033,10 +814,10 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                        <label>รายละเอียดที่อยู่ : </label>
-                                       @if($data == null)
+                                       @if($dataGT == null)
                                          <input type="text" name="statusaddSP" class="form-control" style="width: 250px;" placeholder="รายละเอียดที่อยู่" />
                                        @else
-                                         <input type="text" name="statusaddSP" value="{{$data->statusadd_SP}}" class="form-control" style="width: 250px;" placeholder="รายละเอียดที่อยู่" />
+                                         <input type="text" name="statusaddSP" value="" class="form-control" style="width: 250px;" placeholder="รายละเอียดที่อยู่" />
                                        @endif
                                      </div>
                                   </div>
@@ -1044,10 +825,10 @@
                                   <div class="col-md-6">
                                    <div class="form-inline" align="right">
                                        <label>สถานที่ทำงาน : </label>
-                                       @if($data == null)
+                                       @if($dataGT == null)
                                          <input type="text" name="workplaceSP" class="form-control" style="width: 250px;" placeholder="สถานที่ทำงาน" />
                                        @else
-                                         <input type="text" name="workplaceSP" value="{{$data->workplace_SP}}" class="form-control" style="width: 250px;" placeholder="สถานที่ทำงาน" />
+                                         <input type="text" name="workplaceSP" value="" class="form-control" style="width: 250px;" placeholder="สถานที่ทำงาน" />
                                        @endif
                                    </div>
                                   </div>
@@ -1057,7 +838,6 @@
                                     <div class="col-md-5">
                                       <div class="form-inline" align="right">
                                          <label>ลักษณะบ้าน : </label>
-                                         @if($data == null)
                                            <select name="houseSP" class="form-control" style="width: 250px;">
                                              <option value="" selected>--- เลือกลักษณะบ้าน ---</option>
                                              <option value="บ้านตึก 1 ชั้น">บ้านตึก 1 ชั้น</option>
@@ -1067,23 +847,11 @@
                                              <option value="บ้านเดี่ยว">บ้านเดี่ยว</option>
                                              <option value="แฟลต">แฟลต</option>
                                            </select>
-                                         @else
-                                           <select name="houseSP" class="form-control" style="width: 250px;">
-                                             <option value="" selected>--- เลือกลักษณะบ้าน ---</option>
-                                             <option value="บ้านตึก 1 ชั้น" {{ ($data->house_SP === 'บ้านตึก 1 ชั้น') ? 'selected' : '' }}>บ้านตึก 1 ชั้น</option>
-                                             <option value="บ้านตึก 2 ชั้น" {{ ($data->house_SP === 'บ้านตึก 2 ชั้น') ? 'selected' : '' }}>บ้านตึก 2 ชั้น</option>
-                                             <option value="บ้านไม้ 1 ชั้น" {{ ($data->house_SP === 'บ้านไม้ 1 ชั้น') ? 'selected' : '' }}>บ้านไม้ 1 ชั้น</option>
-                                             <option value="บ้านไม้ 2 ชั้น" {{ ($data->house_SP === 'บ้านไม้ 2 ชั้น') ? 'selected' : '' }}>บ้านไม้ 2 ชั้น</option>
-                                             <option value="บ้านเดี่ยว" {{ ($data->house_SP === 'บ้านเดี่ยว') ? 'selected' : '' }}>บ้านเดี่ยว</option>
-                                             <option value="แฟลต" {{ ($data->house_SP === 'แฟลต') ? 'selected' : '' }}>แฟลต</option>
-                                           </select>
-                                         @endif
                                        </div>
                                     </div>
                                     <div class="col-md-6">
                                       <div class="form-inline" align="right">
                                           <label>ประเภทหลักทรัพย์ : </label>
-                                          @if($data == null)
                                             <select name="securitiesSP" class="form-control" style="width: 250px;">
                                               <option value="" selected>--- ประเภทหลักทรัพย์ ---</option>
                                               <option value="โฉนด">โฉนด</option>
@@ -1092,16 +860,6 @@
                                               <option value="นส.4">นส.4</option>
                                               <option value="นส.4 จ">นส.4 จ</option>
                                             </select>
-                                          @else
-                                            <select name="securitiesSP" class="form-control" style="width: 250px;">
-                                              <option value="" selected>--- ประเภทหลักทรัพย์ ---</option>
-                                              <option value="โฉนด" {{ ($data->securities_SP === 'โฉนด') ? 'selected' : '' }}>โฉนด</option>
-                                              <option value="นส.3" {{ ($data->securities_SP === 'นส.3') ? 'selected' : '' }}>นส.3</option>
-                                              <option value="นส.3 ก" {{ ($data->securities_SP === 'นส.3 ก') ? 'selected' : '' }}>นส.3 ก</option>
-                                              <option value="นส.4" {{ ($data->securities_SP === 'นส.4') ? 'selected' : '' }}>นส.4</option>
-                                              <option value="นส.4 จ" {{ ($data->securities_SP === 'นส.4 จ') ? 'selected' : '' }}>นส.4 จ</option>
-                                            </select>
-                                          @endif
                                       </div>
                                     </div>
                                 </div>
@@ -1109,21 +867,13 @@
                                     <div class="col-md-5">
                                       <div class="form-inline" align="right">
                                           <label>เลขที่โฉนด : </label>
-                                          @if($data == null)
-                                            <input type="text" name="deednumberSP" class="form-control" style="width: 250px;" placeholder="เลขที่โฉนด" />
-                                          @else
-                                            <input type="text" name="deednumberSP" value="{{$data->deednumber_SP}}" class="form-control" style="width: 250px;" placeholder="เลขที่โฉนด" />
-                                          @endif
+                                          <input type="text" name="deednumberSP" class="form-control" style="width: 250px;" placeholder="เลขที่โฉนด" />
                                       </div>
                                     </div>
                                     <div class="col-md-6">
                                       <div class="form-inline" align="right">
                                          <label>เนื้อที่ : </label>
-                                         @if($data == null)
-                                           <input type="text" name="areaSP" class="form-control" style="width: 250px;" placeholder="เนื้อที่" data-inputmask="&quot;mask&quot;:&quot;99-9-99&quot;" data-mask=""/>
-                                         @else
-                                           <input type="text" name="areaSP" value="{{$data->area_SP}}" class="form-control" style="width: 250px;" placeholder="เนื้อที่" data-inputmask="&quot;mask&quot;:&quot;99-9-99&quot;" data-mask=""/>
-                                         @endif
+                                          <input type="text" name="areaSP" class="form-control" style="width: 250px;" placeholder="เนื้อที่" data-inputmask="&quot;mask&quot;:&quot;99-9-99&quot;" data-mask=""/>
                                        </div>
                                     </div>
                                 </div>
@@ -1131,7 +881,6 @@
                                     <div class="col-md-5">
                                       <div class="form-inline" align="right">
                                           <label>ประเภทบ้าน : </label>
-                                          @if($data == null)
                                             <select name="housestyleSP" class="form-control" style="width: 250px;">
                                               <option value="" selected>--- ประเภทบ้าน ---</option>
                                               <option value="ของตนเอง">ของตนเอง</option>
@@ -1140,22 +889,11 @@
                                               <option value="บ้านพักราชการ">บ้านพักราชการ</option>
                                               <option value="บ้านเช่า">บ้านเช่า</option>
                                             </select>
-                                          @else
-                                            <select name="housestyleSP" class="form-control" style="width: 250px;">
-                                              <option value="" selected>--- ประเภทบ้าน ---</option>
-                                              <option value="ของตนเอง" {{ ($data->housestyle_SP === 'ของตนเอง') ? 'selected' : '' }}>ของตนเอง</option>
-                                              <option value="อาศัยบิดา-มารดา" {{ ($data->housestyle_SP === 'อาศัยบิดา-มารดา') ? 'selected' : '' }}>อาศัยบิดา-มารดา</option>
-                                              <option value="อาศัยผู้อื่น" {{ ($data->housestyle_SP === 'อาศัยผู้อื่น') ? 'selected' : '' }}>อาศัยผู้อื่น</option>
-                                              <option value="บ้านพักราชการ" {{ ($data->housestyle_SP === 'บ้านพักราชการ') ? 'selected' : '' }}>บ้านพักราชการ</option>
-                                              <option value="บ้านเช่า" {{ ($data->housestyle_SP === 'บ้านเช่า') ? 'selected' : '' }}>บ้านเช่า</option>
-                                            </select>
-                                          @endif
                                       </div>
                                     </div>
                                     <div class="col-md-6">
                                       <div class="form-inline" align="right">
                                          <label>อาชีพ : </label>
-                                         @if($data == null)
                                            <select name="careerSP" class="form-control" style="width: 250px;">
                                              <option value="" selected>--- อาชีพ ---</option>
                                              <option value="ตำรวจ">ตำรวจ</option>
@@ -1187,39 +925,6 @@
                                              <option value="ทนายความ">ทนายความ</option>
                                              <option value="พระ">พระ</option>
                                            </select>
-                                         @else
-                                           <select name="careerSP" class="form-control" style="width: 250px;">
-                                             <option value="" selected>--- อาชีพ ---</option>
-                                             <option value="ตำรวจ" {{ ($data->career_SP === 'ตำรวจ') ? 'selected' : '' }}>ตำรวจ</option>
-                                             <option value="ทหาร" {{ ($data->career_SP === 'ทหาร') ? 'selected' : '' }}>ทหาร</option>
-                                             <option value="ครู" {{ ($data->career_SP === 'ครู') ? 'selected' : '' }}>ครู</option>
-                                             <option value="ข้าราชการอื่นๆ" {{ ($data->career_SP === 'ข้าราชการอื่นๆ') ? 'selected' : '' }}>ข้าราชการอื่นๆ</option>
-                                             <option value="ลูกจ้างเทศบาล" {{ ($data->career_SP === 'ลูกจ้างเทศบาล') ? 'selected' : '' }}>ลูกจ้างเทศบาล</option>
-                                             <option value="ลูกจ้างประจำ" {{ ($data->career_SP === 'ลูกจ้างประจำ') ? 'selected' : '' }}>ลูกจ้างประจำ</option>
-                                             <option value="สมาชิก อบต." {{ ($data->career_SP === 'สมาชิก อบต.') ? 'selected' : '' }}>สมาชิก อบต.</option>
-                                             <option value="ลูกจ้างชั่วคราว" {{ ($data->career_SP === 'ลูกจ้างชั่วคราว') ? 'selected' : '' }}>ลูกจ้างชั่วคราว</option>
-                                             <option value="รับจ้าง" {{ ($data->career_SP === 'รับจ้าง') ? 'selected' : '' }}>รับจ้าง</option>
-                                             <option value="พนักงานบริษัทเอกชน" {{ ($data->career_SP === 'พนักงานบริษัทเอกชน') ? 'selected' : '' }}>พนักงานบริษัทเอกชน</option>
-                                             <option value="อาชีพอิสระ" {{ ($data->career_SP === 'อาชีพอิสระ') ? 'selected' : '' }}>อาชีพอิสระ</option>
-                                             <option value="กำนัน" {{ ($data->career_SP === 'กำนัน') ? 'selected' : '' }}>กำนัน</option>
-                                             <option value="ผู้ใหญ่บ้าน" {{ ($data->career_SP === 'ผู้ใหญ่บ้าน') ? 'selected' : '' }}>ผู้ใหญ่บ้าน</option>
-                                             <option value="ผู้ช่วยผู้ใหญ่บ้าน" {{ ($data->career_SP === 'ผู้ช่วยผู้ใหญ่บ้าน') ? 'selected' : '' }}>ผู้ช่วยผู้ใหญ่บ้าน</option>
-                                             <option value="นักการภารโรง" {{ ($data->career_SP === 'นักการภารโรง') ? 'selected' : '' }}>นักการภารโรง</option>
-                                             <option value="มอเตอร์ไซร์รับจ้าง" {{ ($data->career_SP === 'มอเตอร์ไซร์รับจ้าง') ? 'selected' : '' }}>มอเตอร์ไซร์รับจ้าง</option>
-                                             <option value="ค้าขาย" {{ ($data->career_SP === 'ค้าขาย') ? 'selected' : '' }}>ค้าขาย</option>
-                                             <option value="เจ้าของธุรกิจ" {{ ($data->career_SP === 'เจ้าของธุรกิจ') ? 'selected' : '' }}>เจ้าของธุรกิจ</option>
-                                             <option value="เจ้าของอู่รถ" {{ ($data->career_SP === 'เจ้าของอู่รถ') ? 'selected' : '' }}>เจ้าของอู่รถ</option>
-                                             <option value="ให้เช่ารถบรรทุก" {{ ($data->career_SP === 'ให้เช่ารถบรรทุก') ? 'selected' : '' }}>ให้เช่ารถบรรทุก</option>
-                                             <option value="ช่างตัดผม" {{ ($data->career_SP === 'ช่างตัดผม') ? 'selected' : '' }}>ช่างตัดผม</option>
-                                             <option value="ชาวนา" {{ ($data->career_SP === 'ชาวนา') ? 'selected' : '' }}>ชาวนา</option>
-                                             <option value="ชาวไร่" {{ ($data->career_SP === 'ชาวไร่') ? 'selected' : '' }}>ชาวไร่</option>
-                                             <option value="แม่บ้าน" {{ ($data->career_SP === 'แม่บ้าน') ? 'selected' : '' }}>แม่บ้าน</option>
-                                             <option value="รับเหมาก่อสร้าง" {{ ($data->career_SP === 'รับเหมาก่อสร้าง') ? 'selected' : '' }}>รับเหมาก่อสร้าง</option>
-                                             <option value="ประมง" {{ ($data->career_SP === 'ประมง') ? 'selected' : '' }}>ประมง</option>
-                                             <option value="ทนายความ" {{ ($data->career_SP === 'ทนายความ') ? 'selected' : '' }}>ทนายความ</option>
-                                             <option value="พระ" {{ ($data->career_SP === 'พระ') ? 'selected' : '' }}>พระ</option>
-                                           </select>
-                                         @endif
                                        </div>
                                     </div>
                                   </div>
@@ -1227,7 +932,6 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                         <label>รายได้ : </label>
-                                        @if($data == null)
                                           <select name="incomeSP" class="form-control" style="width: 250px;">
                                             <option value="" selected>--- รายได้ ---</option>
                                             <option value="5,000 - 10,000">5,000 - 10,000</option>
@@ -1235,21 +939,11 @@
                                             <option value="15,000 - 20,000">15,000 - 20,000</option>
                                             <option value="มากกว่า 20,000">มากกว่า 20,000</option>
                                           </select>
-                                        @else
-                                          <select name="incomeSP" class="form-control" style="width: 250px;">
-                                            <option value="" selected>--- รายได้ ---</option>
-                                            <option value="5,000 - 10,000" {{ ($data->income_SP === '5,000 - 10,000') ? 'selected' : '' }}>5,000 - 10,000</option>
-                                            <option value="10,000 - 15,000" {{ ($data->income_SP === '10,000 - 15,000') ? 'selected' : '' }}>10,000 - 15,000</option>
-                                            <option value="15,000 - 20,000" {{ ($data->income_SP === '15,000 - 20,000') ? 'selected' : '' }}>15,000 - 20,000</option>
-                                            <option value="มากกว่า 20,000" {{ ($data->income_SP === 'มากกว่า 20,000') ? 'selected' : '' }}>มากกว่า 20,000</option>
-                                          </select>
-                                        @endif
                                     </div>
                                     </div>
                                   <div class="col-md-6">
                                     <div class="form-inline" align="right">
                                        <label>ประวัติซื้อ/ค้ำ : </label>
-                                       @if($data == null)
                                          <select name="puchaseSP" class="form-control" style="width: 108px;">
                                            <option value="" selected>--- ซื้อ ---</option>
                                            <option value="0 คัน">0 คัน</option>
@@ -1299,57 +993,6 @@
                                             <option value="19 คัน">19 คัน</option>
                                             <option value="20 คัน">20 คัน</option>
                                          </select>
-                                       @else
-                                         <select name="puchaseSP" class="form-control" style="width: 108px;">
-                                           <option value="" selected>--- ซื้อ ---</option>
-                                           <option value="0 คัน" {{ ($data->puchase_SP === '0 คัน') ? 'selected' : '' }}>0 คัน</option>
-                                           <option value="1 คัน" {{ ($data->puchase_SP === '1 คัน') ? 'selected' : '' }}>1 คัน</option>
-                                           <option value="2 คัน" {{ ($data->puchase_SP === '2 คัน') ? 'selected' : '' }}>2 คัน</option>
-                                           <option value="3 คัน" {{ ($data->puchase_SP === '3 คัน') ? 'selected' : '' }}>3 คัน</option>
-                                           <option value="4 คัน" {{ ($data->puchase_SP === '4 คัน') ? 'selected' : '' }}>4 คัน</option>
-                                           <option value="5 คัน" {{ ($data->puchase_SP === '5 คัน') ? 'selected' : '' }}>5 คัน</option>
-                                           <option value="6 คัน" {{ ($data->puchase_SP === '6 คัน') ? 'selected' : '' }}>6 คัน</option>
-                                           <option value="7 คัน" {{ ($data->puchase_SP === '7 คัน') ? 'selected' : '' }}>7 คัน</option>
-                                           <option value="8 คัน" {{ ($data->puchase_SP === '8 คัน') ? 'selected' : '' }}>8 คัน</option>
-                                           <option value="9 คัน" {{ ($data->puchase_SP === '9 คัน') ? 'selected' : '' }}>9 คัน</option>
-                                           <option value="10 คัน" {{ ($data->puchase_SP === '10 คัน') ? 'selected' : '' }}>10 คัน</option>
-                                           <option value="11 คัน" {{ ($data->puchase_SP === '11 คัน') ? 'selected' : '' }}>11 คัน</option>
-                                           <option value="12 คัน" {{ ($data->puchase_SP === '12 คัน') ? 'selected' : '' }}>12 คัน</option>
-                                           <option value="13 คัน" {{ ($data->puchase_SP === '13 คัน') ? 'selected' : '' }}>13 คัน</option>
-                                           <option value="14 คัน" {{ ($data->puchase_SP === '14 คัน') ? 'selected' : '' }}>14 คัน</option>
-                                           <option value="15 คัน" {{ ($data->puchase_SP === '15 คัน') ? 'selected' : '' }}>15 คัน</option>
-                                           <option value="16 คัน" {{ ($data->puchase_SP === '16 คัน') ? 'selected' : '' }}>16 คัน</option>
-                                           <option value="17 คัน" {{ ($data->puchase_SP === '17 คัน') ? 'selected' : '' }}>17 คัน</option>
-                                           <option value="18 คัน" {{ ($data->puchase_SP === '18 คัน') ? 'selected' : '' }}>18 คัน</option>
-                                           <option value="19 คัน" {{ ($data->puchase_SP === '19 คัน') ? 'selected' : '' }}>19 คัน</option>
-                                           <option value="20 คัน" {{ ($data->puchase_SP === '20 คัน') ? 'selected' : '' }}>20 คัน</option>
-                                         </select>
-                                         <label>ค้ำ : </label>
-                                         <select name="supportSP" class="form-control" style="width: 108px;">
-                                            <option value="" selected>--- ค้ำ ---</option>
-                                            <option value="0 คัน" {{ ($data->support_SP === '0 คัน') ? 'selected' : '' }}>0 คัน</option>
-                                            <option value="1 คัน" {{ ($data->support_SP === '1 คัน') ? 'selected' : '' }}>1 คัน</option>
-                                            <option value="2 คัน" {{ ($data->support_SP === '2 คัน') ? 'selected' : '' }}>2 คัน</option>
-                                            <option value="3 คัน" {{ ($data->support_SP === '3 คัน') ? 'selected' : '' }}>3 คัน</option>
-                                            <option value="4 คัน" {{ ($data->support_SP === '4 คัน') ? 'selected' : '' }}>4 คัน</option>
-                                            <option value="5 คัน" {{ ($data->support_SP === '5 คัน') ? 'selected' : '' }}>5 คัน</option>
-                                            <option value="6 คัน" {{ ($data->support_SP === '6 คัน') ? 'selected' : '' }}>6 คัน</option>
-                                            <option value="7 คัน" {{ ($data->support_SP === '7 คัน') ? 'selected' : '' }}>7 คัน</option>
-                                            <option value="8 คัน" {{ ($data->support_SP === '8 คัน') ? 'selected' : '' }}>8 คัน</option>
-                                            <option value="9 คัน" {{ ($data->support_SP === '9 คัน') ? 'selected' : '' }}>9 คัน</option>
-                                            <option value="10 คัน" {{ ($data->support_SP === '10 คัน') ? 'selected' : '' }}>10 คัน</option>
-                                            <option value="11 คัน" {{ ($data->support_SP === '11 คัน') ? 'selected' : '' }}>11 คัน</option>
-                                            <option value="12 คัน" {{ ($data->support_SP === '12 คัน') ? 'selected' : '' }}>12 คัน</option>
-                                            <option value="13 คัน" {{ ($data->support_SP === '13 คัน') ? 'selected' : '' }}>13 คัน</option>
-                                            <option value="14 คัน" {{ ($data->support_SP === '14 คัน') ? 'selected' : '' }}>14 คัน</option>
-                                            <option value="15 คัน" {{ ($data->support_SP === '15 คัน') ? 'selected' : '' }}>15 คัน</option>
-                                            <option value="16 คัน" {{ ($data->support_SP === '16 คัน') ? 'selected' : '' }}>16 คัน</option>
-                                            <option value="17 คัน" {{ ($data->support_SP === '17 คัน') ? 'selected' : '' }}>17 คัน</option>
-                                            <option value="18 คัน" {{ ($data->support_SP === '18 คัน') ? 'selected' : '' }}>18 คัน</option>
-                                            <option value="19 คัน" {{ ($data->support_SP === '19 คัน') ? 'selected' : '' }}>19 คัน</option>
-                                            <option value="20 คัน" {{ ($data->support_SP === '20 คัน') ? 'selected' : '' }}>20 คัน</option>
-                                         </select>
-                                       @endif
                                      </div>
                                    </div>
                                 </div>
@@ -1378,16 +1021,16 @@
                                        @else
                                          <select name="Brandcar" class="form-control" style="width: 250px;">
                                            <option value="" selected>--- ยี่ห้อ ---</option>
-                                           <option value="ISUZU" {{ ($data->Brand_car === 'ISUZU') ? 'selected' : '' }}>ISUZU</option>
-                                           <option value="MITSUBISHI" {{ ($data->Brand_car === 'MITSUBISHI') ? 'selected' : '' }}>MITSUBISHI</option>
-                                           <option value="TOYOTA" {{ ($data->Brand_car === 'TOYOTA') ? 'selected' : '' }}>TOYOTA</option>
-                                           <option value="MAZDA" {{ ($data->Brand_car === 'MAZDA') ? 'selected' : '' }}>MAZDA</option>
-                                           <option value="FORD" {{ ($data->Brand_car === 'FORD') ? 'selected' : '' }}>FORD</option>
-                                           <option value="NISSAN" {{ ($data->Brand_car === 'NISSAN') ? 'selected' : '' }}>NISSAN</option>
-                                           <option value="HONDA" {{ ($data->Brand_car === 'HONDA') ? 'selected' : '' }}>HONDA</option>
-                                           <option value="CHEVROLET" {{ ($data->Brand_car === 'CHEVROLET') ? 'selected' : '' }}>CHEVROLET</option>
-                                           <option value="MG" {{ ($data->Brand_car === 'MG') ? 'selected' : '' }}>MG</option>
-                                           <option value="SUZUKI" {{ ($data->Brand_car === 'SUZUKI') ? 'selected' : '' }}>SUZUKI</option>
+                                           <option value="ISUZU" {{($NewBrand == 'อีซูซุ') ? 'selected' : ''}}>ISUZU</option>
+                                           <option value="MITSUBISHI" {{($NewBrand == 'มิตซูบิชิ') ? 'selected' : ''}}>MITSUBISHI</option>
+                                           <option value="TOYOTA" {{($NewBrand == 'โตโยต้า') ? 'selected' : ''}}>TOYOTA</option>
+                                           <option value="MAZDA" {{($NewBrand == 'มาสด้า') ? 'selected' : ''}}>MAZDA</option>
+                                           <option value="FORD" {{($NewBrand == 'ฟอร์ด') ? 'selected' : ''}}>FORD</option>
+                                           <option value="NISSAN" {{($NewBrand == 'นิสสัน') ? 'selected' : ''}}>NISSAN</option>
+                                           <option value="HONDA" {{($NewBrand == 'ฮอนด้า') ? 'selected' : ''}}>HONDA</option>
+                                           <option value="CHEVROLET" {{($NewBrand == 'เชฟโรเล๊ต') ? 'selected' : ''}}>CHEVROLET</option>
+                                           <option value="MG" {{($NewBrand == 'เอ็มจี') ? 'selected' : ''}}>MG</option>
+                                           <option value="SUZUKI" {{($NewBrand == 'ซูซูกิ') ? 'selected' : ''}}>SUZUKI</option>
                                          </select>
                                        @endif
                                      </div>
@@ -1396,21 +1039,12 @@
                                   <div class="col-md-6">
                                    <div class="form-inline" align="right">
                                      <label>ประเภทรถ : </label>
-                                     @if($data == null)
                                        <select id="Typecardetail" name="Typecardetail" class="form-control" style="width: 250px;">
                                          <option value="" selected>--- ประเภทรถ ---</option>
                                          <option value="รถกระบะ">รถกระบะ</option>
                                          <option value="รถตอนเดียว">รถตอนเดียว</option>
                                          <option value="รถเก๋ง/7ที่นั่ง">รถเก๋ง/7ที่นั่ง</option>
                                        </select>
-                                     @else
-                                       <select id="Typecardetail" name="Typecardetail" class="form-control" style="width: 250px;">
-                                         <option value="" selected>--- ประเภทรถ ---</option>
-                                         <option value="รถกระบะ" {{ ($data->Typecardetails === 'รถกระบะ') ? 'selected' : '' }}>รถกระบะ</option>
-                                         <option value="รถตอนเดียว" {{ ($data->Typecardetails === 'รถตอนเดียว') ? 'selected' : '' }}>รถตอนเดียว</option>
-                                         <option value="รถเก๋ง/7ที่นั่ง" {{ ($data->Typecardetails === 'รถเก๋ง/7ที่นั่ง') ? 'selected' : '' }}>รถเก๋ง/7ที่นั่ง</option>
-                                       </select>
-                                     @endif
                                    </div>
                                   </div>
                                 </div>
@@ -1422,7 +1056,7 @@
                                        @if($data == null)
                                          <input type="text" name="Colourcar" class="form-control" style="width: 250px;" placeholder="สี" />
                                        @else
-                                         <input type="text" name="Colourcar" value="{{ $data->Colour_car }}" class="form-control" style="width: 250px;" placeholder="สี" />
+                                         <input type="text" name="Colourcar" value="{{iconv('Tis-620','utf-8',str_replace(" ","",$data->COLOR))}}" class="form-control" style="width: 250px;" placeholder="สี" />
                                        @endif
                                      </div>
                                   </div>
@@ -1444,19 +1078,7 @@
                                           @endfor
                                        </select>
                                      @else
-                                       <select id="Yearcar" name="Yearcar" class="form-control" style="width: 250px;" onchange="calculate();">
-                                         <option value="{{$data->Year_car}}" selected>{{$data->Year_car}}</option>
-                                         <option value="">--------------------</option>
-                                          @php
-                                              $Year = date('Y');
-                                          @endphp
-                                          @for ($i = 0; $i < 20; $i++)
-                                              <option value="{{ $Year }}">{{ $Year }}</option>
-                                              @php
-                                                  $Year -= 1;
-                                              @endphp
-                                          @endfor
-                                       </select>
+                                       <input type="text" name="Yearcar" value="{{iconv('Tis-620','utf-8',str_replace(" ","",$data->MANUYR))}}" class="form-control" style="width: 250px;" placeholder="ปี" />
                                      @endif
                                    </div>
                                   </div>
@@ -1469,7 +1091,7 @@
                                       @if($data == null)
                                         <input type="text" name="Licensecar" class="form-control" style="width: 250px;" placeholder="ป้ายเดิม"/>
                                       @else
-                                        <input type="text" name="Licensecar"  value="{{ $data->License_car}}" class="form-control" style="width: 250px;" placeholder="ป้ายเดิม" />
+                                        <input type="text" name="Licensecar"  value="{{iconv('Tis-620','utf-8',$data->REGNO)}}" class="form-control" style="width: 250px;" placeholder="ป้ายเดิม" />
                                       @endif
                                      </div>
                                   </div>
@@ -1489,7 +1111,7 @@
                                       @if($data == null)
                                         <input type="text" name="Nowlicensecar" class="form-control" style="width: 250px;" placeholder="ป้ายใหม่" />
                                       @else
-                                        <input type="text" name="Nowlicensecar" value="{{$data->Nowlicense_car}}" class="form-control" style="width: 250px;" placeholder="ป้ายใหม่" />
+                                        <input type="text" name="Nowlicensecar" value="" class="form-control" style="width: 250px;" placeholder="ป้ายใหม่" />
                                       @endif
                                      </div>
                                   </div>
@@ -1509,7 +1131,7 @@
                                       @if($data == null)
                                         <input type="text" name="Modelcar" class="form-control" style="width: 250px;" placeholder="รุ่น" />
                                       @else
-                                        <input type="text" name="Modelcar" value="{{$data->Model_car}}" class="form-control" style="width: 250px;" placeholder="รุ่น" />
+                                        <input type="text" name="Modelcar" value="" class="form-control" style="width: 250px;" placeholder="รุ่น" />
                                       @endif
                                      </div>
                                   </div>
@@ -1788,7 +1410,11 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                        <label>ดอกเบี้ย / ปี : </label>
-                                       <input type="text" id="Interestcar" name="Interestcar" class="form-control" style="width: 250px;" placeholder="ดอกเบี้ย" oninput="calculate();"/>
+                                       @if($data == null)
+                                         <input type="text" id="Interestcar" name="Interestcar" class="form-control" style="width: 250px;" placeholder="ดอกเบี้ย" oninput="calculate();"/>
+                                       @else
+                                         <input type="text" id="Interestcar" name="Interestcar" value="{{iconv('Tis-620','utf-8',str_replace(" ","",$data->EFRATE))}}" class="form-control" style="width: 250px;" placeholder="ดอกเบี้ย" oninput="calculate();"/>
+                                       @endif
                                      </div>
                                   </div>
 

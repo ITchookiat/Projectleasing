@@ -434,7 +434,7 @@ class AnalysController extends Controller
         $type = $request->type;
         return view('analysis.viewReport', compact('type', 'data','newfdate','newtdate','datadrop','agen','datedue','datayear','yearcar'));
       }
-      elseif($request->type == 7){ //รายงานส่งผู้บริหาร
+      elseif ($request->type == 7){ //รายงานส่งผู้บริหาร
         $approvedate = date('Y-m-d');
         $fdate = date('Y-m-d');
         $tdate = date('Y-m-d');
@@ -463,7 +463,7 @@ class AnalysController extends Controller
         $type = $request->type;
         return view('analysis.viewReport', compact('type', 'dataReport','approvedate','fdate','tdate'));
       }
-      elseif($request->type == 8){ //ปรับโครงสร้างหนี้
+      elseif ($request->type == 8){ //ปรับโครงสร้างหนี้
         $contno = '';
         $newfdate = '';
         $newtdate = '';
@@ -579,20 +579,72 @@ class AnalysController extends Controller
       }
       elseif ($request->type == 9){ //เพิ่มปรับโครงสร้างหนี้
         $Contno = '';
-        $dataImage = '';
+        $NewBrand = '';
         if ($request->Contno != '') {
           $Contno = $request->Contno;
         }
-        $data = DB::table('buyers')
-        ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
-        ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
-        ->join('expenses','buyers.id','=','expenses.Buyerexpenses_id')
-        ->where('buyers.Contract_buyer','=',$Contno)
+        $data = DB::connection('ibmi')
+        ->table('SFHP.ARMAST')
+        ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
+        ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+        ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+        ->join('SFHP.CUSTMAST','SFHP.ARMAST.CUSCOD','=','SFHP.CUSTMAST.CUSCOD')
+        ->where('SFHP.ARMAST.CONTNO','=', $Contno)
+        ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
         ->first();
         if($data != null){
-          $dataImage = DB::table('uploadfile_images')->where('Buyerfileimage_id',$data->id)->get();
+          $NewBrand = iconv('Tis-620','utf-8',str_replace(" ","",$data->TYPE));
         }
-        return view('analysis.createextra', compact('data','dataImage'));
+        $dataGT = DB::connection('ibmi')
+                  ->table('SFHP.VIEW_ARMGAR')
+                  ->where('SFHP.VIEW_ARMGAR.CONTNO','=', $Contno)
+                  ->first();
+        // dump($data,$dataGT);
+        return view('analysis.createextra', compact('data','dataGT','NewBrand'));
+      }
+      elseif ($request->type == 10){ //เช็คสิทธิ์ลูกค้า
+        $Contno = '';
+        $data = '';
+        if ($request->Contno != '') {
+            $Contno = $request->Contno;
+            $data = DB::connection('ibmi')
+            ->table('SFHP.ARMAST')
+            ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
+            ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+            ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+            ->where('SFHP.ARMAST.CONTNO','=', $Contno)
+            ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+            ->get();
+            $dataARPAYcount = count($data);
+            // dd($dataARPAYcount);
+            if($dataARPAYcount == 0){
+              $Contno = $request->Contno;
+              $percent = '';
+              $dataPAYcount = '';
+              $dataNOPAYcount = '';
+              $dataPay[] = '';
+              $dataNoPay[] = '';
+            }
+            else{
+              for ($i=0; $i < $dataARPAYcount; $i++) {
+                if($data[$i]->DATE1 != null){
+                  $dataPay[] = $data[$i]->DATE1;
+                }
+                elseif($data[$i]->DATE1 == null){
+                  $dataNoPay[] = $data[$i]->DATE1;
+                }
+              }
+              $T_Nopay = $data[0]->T_NOPAY;
+              $dataPAYcount = count($dataPay);
+              $dataNOPAYcount = count($dataNoPay);
+              $percent = ceil(($dataPAYcount/$T_Nopay)*100);
+              $newPeriod = ceil(($dataPAYcount/$T_Nopay)*100);
+            }
+            // dd($percent,$T_Nopay,$dataPAYcount,$dataNOPAYcount,$dataPay,$dataNoPay,$data);
+        }
+
+
+        return view('analysis.checkcustomer', compact('data','Contno','percent','dataPAYcount','dataNOPAYcount'));
       }
     }
 
