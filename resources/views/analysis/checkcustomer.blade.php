@@ -104,9 +104,9 @@
                       <div class="form-inline" align="right">
                         <label>เลขที่สัญญา : </label>
                         @if($data == null)
-                        <input type="text" class="form-control" style="width: 180px;background-color:white;" readonly/>
+                        <input type="text" class="form-control" style="width: 150px;background-color:white;" readonly/>
                         @else
-                        <input type="text" value="{{$data[0]->CONTNO}}" class="form-control" style="width: 180px;background-color:white;" readonly/>
+                        <input type="text" value="{{$data[0]->CONTNO}}" class="form-control" style="width: 150px;background-color:white;" readonly/>
                         @endif
                       </div>
                     </div>
@@ -114,9 +114,9 @@
                     <div class="form-inline" align="right">
                       <label>ชื่อลูกค้า : </label>
                       @if($data == null)
-                        <input type="text" class="form-control" style="width: 180px;background-color:white;" readonly/>
+                        <input type="text" class="form-control" style="width: 150px;background-color:white;" readonly/>
                       @else
-                        <input type="text" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data[0]->SNAM))}}{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data[0]->NAME1))}}   {{iconv('TIS-620', 'utf-8',str_replace(" ","",$data[0]->NAME2))}}" class="form-control" style="width: 180px;background-color:white;" readonly/>
+                        <input type="text" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data[0]->SNAM))}}{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data[0]->NAME1))}}   {{iconv('TIS-620', 'utf-8',str_replace(" ","",$data[0]->NAME2))}}" class="form-control" style="width: 150px;background-color:white;" readonly/>
                       @endif
                     </div>
 
@@ -125,9 +125,9 @@
                     <div class="form-inline" align="right">
                       <label><font color="red">อายุ</font> : </label>
                       @if($data == null)
-                        <input type="text" class="form-control" style="width: 180px;background-color:white;" readonly/>
+                        <input type="text" class="form-control" style="width: 150px;background-color:white;" readonly/>
                       @else
-                        <input type="text" value="{{$data[0]->AGE}}" class="form-control" style="width: 180px;background-color:white;" readonly/>
+                        <input type="text" value="{{$data[0]->AGE}}" class="form-control" style="width: 150px;background-color:white;" readonly/>
                       @endif
                     </div>
                   </div>
@@ -137,9 +137,9 @@
                       <div class="form-inline" align="right">
                         <label>วันทำสัญญา : </label>
                         @if($data == null)
-                          <input type="text" class="form-control" style="width: 180px;background-color:white;" readonly/>
+                          <input type="text" class="form-control" style="width: 150px;background-color:white;" readonly/>
                         @else
-                          <input type="text" value="{{DateThai1($data[0]->ISSUDT)}}" class="form-control" style="width: 180px;background-color:white;" readonly/>
+                          <input type="text" value="{{DateThai1($data[0]->ISSUDT)}}" class="form-control" style="width: 150px;background-color:white;" readonly/>
                         @endif
                       </div>
                     </div>
@@ -147,9 +147,9 @@
                     <div class="form-inline" align="right">
                       <label>ที่อยู่ : </label>
                       @if($data == null)
-                        <input type="text" class="form-control" style="width: 180px;background-color:white;" readonly/>
+                        <input type="text" class="form-control" style="width: 150px;background-color:white;" readonly/>
                       @else
-                        <input type="text" value="{{iconv('TIS-620', 'utf-8',$data[0]->ADDRES)}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$data[0]->TUMB))}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$data[0]->AUMPDES))}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$data[0]->PROVDES))}} {{$data[0]->ZIP}}" class="form-control" style="width: 180px;background-color:white;" readonly/>
+                        <input type="text" value="{{iconv('TIS-620', 'utf-8',$data[0]->ADDRES)}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$data[0]->TUMB))}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$data[0]->AUMPDES))}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$data[0]->PROVDES))}} {{$data[0]->ZIP}}" class="form-control" style="width: 150px;background-color:white;" readonly/>
                       @endif
                     </div>
 
@@ -158,9 +158,9 @@
                     <div class="form-inline" align="right">
                       <label>เบอร์โทร : </label>
                       @if($data == null)
-                        <input type="text" class="form-control" style="width: 180px;background-color:white;" readonly/>
+                        <input type="text" class="form-control" style="width: 150px;background-color:white;" readonly/>
                       @else
-                        <input type="text" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data[0]->TELP))}}" class="form-control" style="width: 180px;background-color:white;" readonly/>
+                        <input type="text" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data[0]->TELP))}}" class="form-control" style="width: 150px;background-color:white;" readonly/>
                       @endif
                     </div>
                   </div>
@@ -170,9 +170,9 @@
                       <div class="form-inline" align="right">
                         <label>เงินลงทุน : </label>
                         @if($data == null)
-                          <input type="text" class="form-control" style="width: 180px;background-color:white;" readonly/>
+                          <input type="text" class="form-control" style="width: 150px;background-color:white;" readonly/>
                         @else
-                          <input type="text" value="{{number_format($data[0]->NCARCST,2)}}" class="form-control" style="width: 180px;background-color:white;" readonly/>
+                          <input type="text" value="{{number_format($data[0]->NCARCST,2)}}" class="form-control" style="width: 150px;background-color:white;" readonly/>
                         @endif
                       </div>
                   </div>
@@ -180,9 +180,9 @@
                     <div class="form-inline" align="right">
                       <label>จำนวดงวด : </label>
                       @if($data == null)
-                        <input type="text" class="form-control" style="width: 180px;background-color:white;" readonly/>
+                        <input type="text" class="form-control" style="width: 150px;background-color:white;" readonly/>
                       @else
-                        <input type="text" value="{{$data[0]->T_NOPAY}}" class="form-control" style="width: 180px;background-color:white;" readonly/>
+                        <input type="text" value="{{$data[0]->T_NOPAY}}" class="form-control" style="width: 150px;background-color:white;" readonly/>
                       @endif
                     </div>
                   </div>
@@ -190,9 +190,9 @@
                     <div class="form-inline" align="right">
                       <label>ดอกเบี้ย : </label>
                       @if($data == null)
-                        <input type="text" class="form-control" style="width: 148px;background-color:white;" readonly/>
+                        <input type="text" class="form-control" style="width: 118px;background-color:white;" readonly/>
                       @else
-                        <input type="text" value="{{$data[0]->EFRATE}}" class="form-control" style="width: 148px;background-color:white;" readonly/>
+                        <input type="text" value="{{$data[0]->EFRATE}}" class="form-control" style="width: 118px;background-color:white;" readonly/>
                       @endif
                       <label>ต่อปี</label>
                     </div>
@@ -203,9 +203,9 @@
                       <div class="form-inline" align="right">
                         <label><font color="red">ค่างวดละ</font> : </label>
                         @if($data == null)
-                          <input type="text" class="form-control" style="width: 180px;background-color:white;" readonly/>
+                          <input type="text" class="form-control" style="width: 150px;background-color:white;" readonly/>
                         @else
-                          <input type="text" value="{{number_format($data[0]->DAMT,2)}}" class="form-control" style="width: 180px;background-color:white;" readonly/>
+                          <input type="text" value="{{number_format($data[0]->DAMT,2)}}" class="form-control" style="width: 150px;background-color:white;" readonly/>
                         @endif
                       </div>
                   </div>
@@ -213,9 +213,9 @@
                     <div class="form-inline" align="right">
                       <label>ชำระแล้ว : </label>
                       @if($data == null)
-                        <input type="text" class="form-control" style="width: 180px;background-color:white;" readonly/>
+                        <input type="text" class="form-control" style="width: 150px;background-color:white;" readonly/>
                       @else
-                        <input type="text" value="{{number_format($data[0]->SMPAY,2)}}" class="form-control" style="width: 180px;background-color:white;" readonly/>
+                        <input type="text" value="{{number_format($data[0]->SMPAY,2)}}" class="form-control" style="width: 150px;background-color:white;" readonly/>
                       @endif
                     </div>
                   </div>
@@ -223,9 +223,9 @@
                     <div class="form-inline" align="right">
                       <label>คงเหลือ : </label>
                       @if($data == null)
-                        <input type="text" class="form-control" style="width: 180px;background-color:white;" readonly/>
+                        <input type="text" class="form-control" style="width: 150px;background-color:white;" readonly/>
                       @else
-                        <input type="text" value="{{number_format($data[0]->BALANC - $data[0]->SMPAY,2)}}" class="form-control" style="width: 180px;background-color:white;" readonly/>
+                        <input type="text" value="{{number_format($data[0]->BALANC - $data[0]->SMPAY,2)}}" class="form-control" style="width: 150px;background-color:white;" readonly/>
                       @endif
                     </div>
                   </div>
@@ -235,9 +235,9 @@
                       <div class="form-inline" align="right">
                         <label>ผ่อนมาแล้ว : </label>
                         @if($data == null)
-                          <input type="text" class="form-control" style="width: 150px;background-color:white;" readonly/>
+                          <input type="text" class="form-control" style="width: 120px;background-color:white;" readonly/>
                         @else
-                          <input type="text" value="{{$dataPAYcount}}" class="form-control" style="width: 150px;background-color:white;" readonly/>
+                          <input type="text" value="{{$dataPAYcount}}" class="form-control" style="width: 120px;background-color:white;" readonly/>
                         @endif
                         <label>งวด</label>
                       </div>
@@ -246,9 +246,9 @@
                     <div class="form-inline" align="right">
                       <label>ผ่อนคงเหลือ : </label>
                       @if($data == null)
-                        <input type="text" class="form-control" style="width: 150px;background-color:white;" readonly/>
+                        <input type="text" class="form-control" style="width: 120px;background-color:white;" readonly/>
                       @else
-                        <input type="text" value="{{$dataNOPAYcount}}" class="form-control" style="width: 150px;background-color:white;" readonly/>
+                        <input type="text" value="{{$dataNOPAYcount}}" class="form-control" style="width: 120px;background-color:white;" readonly/>
                       @endif
                       <label>งวด</label>
                     </div>
@@ -257,9 +257,9 @@
                     <div class="form-inline" align="right">
                       <label>เงินต้นใหม่ : </label>
                       @if($data == null)
-                        <input type="text" class="form-control" style="width: 180px;background-color:white;" readonly/>
+                        <input type="text" class="form-control" style="width: 150px;background-color:white;" readonly/>
                       @else
-                        <input type="text" value="{{number_format(round(($data[0]->NCARCST / $data[0]->T_NOPAY)*$dataNOPAYcount),2)}}" class="form-control" style="width: 180px;background-color:white;" readonly/>
+                        <input type="text" value="{{number_format(round(($data[0]->NCARCST / $data[0]->T_NOPAY)*$dataNOPAYcount),2)}}" class="form-control" style="width: 150px;background-color:white;" readonly/>
                       @endif
                     </div>
                   </div>
@@ -270,9 +270,9 @@
                       <div class="form-inline" align="right">
                         <label>ยี่ห้อรถ : </label>
                         @if($data == null)
-                          <input type="text" class="form-control" style="width: 180px;background-color:white;" readonly/>
+                          <input type="text" class="form-control" style="width: 150px;background-color:white;" readonly/>
                         @else
-                          <input type="text" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data[0]->TYPE))}}" class="form-control" style="width: 180px;background-color:white;" readonly/>
+                          <input type="text" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data[0]->TYPE))}}" class="form-control" style="width: 150px;background-color:white;" readonly/>
                         @endif
                       </div>
                   </div>
@@ -280,9 +280,9 @@
                     <div class="form-inline" align="right">
                       <label>รุ่นรถ : </label>
                       @if($data == null)
-                        <input type="text" class="form-control" style="width: 180px;background-color:white;" readonly/>
+                        <input type="text" class="form-control" style="width: 150px;background-color:white;" readonly/>
                       @else
-                        <input type="text" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data[0]->MODEL))}}" class="form-control" style="width: 180px;background-color:white;" readonly/>
+                        <input type="text" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data[0]->MODEL))}}" class="form-control" style="width: 150px;background-color:white;" readonly/>
                       @endif
                     </div>
                   </div>
@@ -290,9 +290,9 @@
                     <div class="form-inline" align="right">
                       <label>สีรถ : </label>
                       @if($data == null)
-                        <input type="text" class="form-control" style="width: 180px;background-color:white;" readonly/>
+                        <input type="text" class="form-control" style="width: 150px;background-color:white;" readonly/>
                       @else
-                        <input type="text" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data[0]->COLOR))}}" class="form-control" style="width: 180px;background-color:white;" readonly/>
+                        <input type="text" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data[0]->COLOR))}}" class="form-control" style="width: 150px;background-color:white;" readonly/>
                       @endif
                     </div>
                   </div>
@@ -302,9 +302,9 @@
                       <div class="form-inline" align="right">
                         <label>ทะเบียนรถ : </label>
                         @if($data == null)
-                          <input type="text" class="form-control" style="width: 180px;background-color:white;" readonly/>
+                          <input type="text" class="form-control" style="width: 150px;background-color:white;" readonly/>
                         @else
-                          <input type="text" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data[0]->REGNO))}}" class="form-control" style="width: 180px;background-color:white;" readonly/>
+                          <input type="text" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data[0]->REGNO))}}" class="form-control" style="width: 150px;background-color:white;" readonly/>
                         @endif
                       </div>
                   </div>
@@ -312,9 +312,9 @@
                     <div class="form-inline" align="right">
                       <label><font color="red">ปีรถ</font> : </label>
                       @if($data == null)
-                        <input type="text" class="form-control" style="width: 180px;background-color:white;" readonly/>
+                        <input type="text" class="form-control" style="width: 150px;background-color:white;" readonly/>
                       @else
-                        <input type="text" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data[0]->MANUYR))}}" class="form-control" style="width: 180px;background-color:white;" readonly/>
+                        <input type="text" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data[0]->MANUYR))}}" class="form-control" style="width: 150px;background-color:white;" readonly/>
                       @endif
                     </div>
                   </div>
@@ -322,9 +322,9 @@
                     <div class="form-inline" align="right">
                       <label>ขนาด cc : </label>
                       @if($data == null)
-                        <input type="text" class="form-control" style="width: 180px;background-color:white;" readonly/>
+                        <input type="text" class="form-control" style="width: 150px;background-color:white;" readonly/>
                       @else
-                        <input type="text" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data[0]->CC))}}" class="form-control" style="width: 180px;background-color:white;" readonly/>
+                        <input type="text" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data[0]->CC))}}" class="form-control" style="width: 150px;background-color:white;" readonly/>
                       @endif
                     </div>
                   </div>
