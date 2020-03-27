@@ -656,6 +656,80 @@ class AnalysController extends Controller
 
         return view('analysis.checkcustomer', compact('data','Contno','percent','dataPAYcount','dataNOPAYcount'));
       }
+      elseif ($request->type == 11){ //รายงาน ปรับโครงสร้างหนี้
+        $newfdate = '';
+        $newtdate = '';
+        $agen = '';
+        $yearcar = '';
+        $typecar = '';
+        $branch = '';
+
+        if ($request->has('Fromdate')) {
+          $fdate = $request->get('Fromdate');
+          $newfdate = \Carbon\Carbon::parse($fdate)->format('Y') ."-". \Carbon\Carbon::parse($fdate)->format('m')."-". \Carbon\Carbon::parse($fdate)->format('d');
+        }
+        if ($request->has('Todate')) {
+          $tdate = $request->get('Todate');
+          $newtdate = \Carbon\Carbon::parse($tdate)->format('Y') ."-". \Carbon\Carbon::parse($tdate)->format('m')."-". \Carbon\Carbon::parse($tdate)->format('d');
+        }
+        // if ($request->has('agen')) {
+        //   $agen = $request->get('agen');
+        // }
+        // if ($request->has('yearcar')) {
+        //   $yearcar = $request->get('yearcar');
+        // }
+        // if ($request->has('typecar')) {
+        //   $typecar = $request->get('typecar');
+        // }
+        // if ($request->has('branch')) {
+        //   $branch = $request->get('branch');
+        // }
+
+        if ($request->has('Fromdate') == false and $request->has('Todate') == false and $request->has('agen') == false) {
+          $data = DB::table('buyers')
+          ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
+          ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
+          ->join('expenses','buyers.id','=','expenses.Buyerexpenses_id')
+          ->where('cardetails.Approvers_car','!=',Null)
+          ->where('buyers.Contract_buyer','like', '22%')
+          ->orderBy('buyers.Contract_buyer', 'ASC')
+          ->get();
+
+          // dd($data);
+        }else {
+          $data = DB::table('buyers')
+          ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
+          ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
+          ->join('expenses','buyers.id','=','expenses.Buyerexpenses_id')
+          ->where('cardetails.Approvers_car','!=',Null)
+          ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+            return $q->whereBetween('buyers.Date_Due',[$newfdate,$newtdate]);
+          })
+          // ->when(!empty($agen), function($q) use($agen){
+          //   return $q->where('cardetails.Agent_car',$agen);
+          // })
+          // ->when(!empty($yearcar), function($q) use($yearcar){
+          //   return $q->where('cardetails.Year_car',$yearcar);
+          // })
+          // ->when(!empty($typecar), function($q) use($typecar){
+          //   return $q->where('cardetails.status_car',$typecar);
+          // })
+          // ->when(!empty($branch), function($q) use($branch){
+          //   return $q->where('cardetails.branch_car',$branch);
+          // })
+          ->where('buyers.Contract_buyer','like', '22%')
+          ->orderBy('buyers.Contract_buyer', 'ASC')
+          ->get();
+        }
+
+        if ($newfdate != '' and $newtdate != '') {
+          $newfdate = \Carbon\Carbon::parse($newfdate)->format('Y') ."-". \Carbon\Carbon::parse($newfdate)->format('m')."-". \Carbon\Carbon::parse($newfdate)->format('d');
+          $newtdate = \Carbon\Carbon::parse($newtdate)->format('Y') ."-". \Carbon\Carbon::parse($newtdate)->format('m')."-". \Carbon\Carbon::parse($newtdate)->format('d');
+        }elseif ($newfdate == '' or $newtdate == '') {
+        }
+        $type = $request->type;
+        return view('analysis.viewReport', compact('type', 'data','newfdate','newtdate','datadrop','agen','datedue','datayear','yearcar','datastatus','typecar','databranch','branch'));
+      }
     }
 
     /**

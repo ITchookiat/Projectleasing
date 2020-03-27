@@ -255,12 +255,12 @@
                   </div>
                   <div class="col-md-3">
                     <div class="form-inline" align="right">
-                      <label>เงินต้นใหม่ : </label>
+                      <!-- <label>เงินต้นใหม่ : </label>
                       @if($data == null)
                         <input type="text" class="form-control" style="width: 150px;background-color:white;" readonly/>
                       @else
                         <input type="text" value="{{number_format(round(($data[0]->NCARCST / $data[0]->T_NOPAY)*$dataNOPAYcount),2)}}" class="form-control" style="width: 150px;background-color:white;" readonly/>
-                      @endif
+                      @endif -->
                     </div>
                   </div>
                 </div>

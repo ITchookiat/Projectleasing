@@ -1106,7 +1106,7 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                       <label>VAT : </label>
-                                      <input type="text" id="Vatcar" name="Vatcar" class="form-control" style="width: 250px;background-color: white;" value="7 %" readonly onchange="calculate()"/>
+                                      <input type="text" id="Vatcar" name="Vatcar" class="form-control" style="width: 250px;background-color: white;" value="7 %" readonly oninput="calculate()"/>
                                      </div>
                                   </div>
                                   <div class="col-md-6">
