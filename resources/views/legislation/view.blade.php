@@ -199,7 +199,7 @@
                 <div class="col-md-12">
                   <form method="get" action="{{ route('legislation', 2) }}">
                       <div align="right" class="form-inline">
-                      <div class="btn-group">
+                        <div class="btn-group">
                           <button type="button" class="btn btn-primary btn-app dropdown-toggle" data-toggle="dropdown">
                             <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
                           </button>
@@ -207,7 +207,6 @@
                               <li><a target="_blank" href="{{ route('legislation', 17) }}" data-toggle="modal" data-target="#modal-4" data-backdrop="static" data-keyboard="false"> รายงานลูกหนี้</a></li>
                               <li class="divider"></li>
                               <li><a target="_blank" href="{{ route('legislation', 18) }}" data-toggle="modal" data-target="#modal-5" data-backdrop="static" data-keyboard="false"> รายงานลูกหนี้สืบพยาน</a></li>
-
                             </ul>
                         </div>
                         <button type="submit" class="btn btn-warning btn-app">
@@ -920,9 +919,14 @@
                 <div class="col-md-12">
                   <form method="get" action="{{ route('legislation', 8) }}">
                       <div align="right" class="form-inline">
-                          <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', $type) }}" class="btn btn-primary btn-app">
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-primary btn-app dropdown-toggle" data-toggle="dropdown">
                             <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
-                          </a>
+                          </button>
+                           <ul class="dropdown-menu" role="menu">
+                              <li><a target="_blank" href="{{ route('legislation', 19) }}" data-toggle="modal" data-target="#modal-4" data-backdrop="static" data-keyboard="false"> รายงานสืบทรัพย์</a></li>
+                            </ul>
+                        </div>
                         <button type="submit" class="btn btn-warning btn-app">
                           <span class="glyphicon glyphicon-search"></span> Search
                         </button>
