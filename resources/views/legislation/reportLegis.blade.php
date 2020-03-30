@@ -18,7 +18,6 @@
 
 <!-- ส่วนหัว -->
   @if($type == 18)
-    <!-- <label align="right">วันที่ : <u>{{ date('d-m-Y') }}</u></label> -->
     <h1 align="center" style="font-weight: bold;line-height:1px;"><b>รายงานลูกหนี้สิบพยาน</b></h1>
     <h3 align="center" style="font-weight: bold;line-height:10px;"><b>จากวันที่ {{DateThai($newfdate)}} ถึงวันที่ {{DateThai($newtdate)}}</b></h3>
     <hr>
