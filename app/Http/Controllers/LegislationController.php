@@ -2319,9 +2319,6 @@ class LegislationController extends Controller
         
       }
       elseif ($type == 18) {  //รายงานลูกหนี้สืบพยาน
-        // $DateFrom = date('Y-m-d');
-        // $DateTo = date('Y-m-d', strtotime("+60 days"));
-
         $newfdate = '';
         $newtdate = '';
 
@@ -2337,8 +2334,6 @@ class LegislationController extends Controller
               ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
                 return $q->whereBetween('legiscourts.examiday_court',[$newfdate,$newtdate]);
               })
-              // ->where('legiscourts.examiday_court','>=',$DateNew)
-              // ->whereBetween('legiscourts.examiday_court',[$DateFrom,$DateTo])
               ->orderBy('legislations.id', 'DESC')
               ->get();
 
@@ -2353,7 +2348,7 @@ class LegislationController extends Controller
         $pdf::WriteHTML($html,true,false,true,false,'');
         $pdf::Output('report.pdf');
       }
-      elseif ($type == 19) {
+      elseif ($type == 19) {  //รายงานลูกหนี้สืบทรัพย์
         $newfdate = '';
         $newtdate = '';
         $status = '';
