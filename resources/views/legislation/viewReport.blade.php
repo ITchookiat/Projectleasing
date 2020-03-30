@@ -89,6 +89,8 @@
           <h4 class="card-title p-3" align="center">รายงานลูกหนี้</h4>
           @elseif($type == 18)
           <h4 class="card-title p-3" align="center">รายงานลูกหนี้สืบพยาน</h4>
+          @elseif($type == 19)
+          <h4 class="card-title p-3" align="center">รายงานลูกหนี้สืบทรัพย์</h4>
           @endif
             <div class="box-tools pull-right">
               <button type="button" data-dismiss="modal" class="close" >
@@ -380,9 +382,9 @@
                           <div class="col-md-12">
                             <div class="form-inline" align="center">
                               <label>วันที่ : </label>
-                              <input type="date" name="Fromdate" class="form-control" style="width: 180px;"/>
+                              <input type="date" name="Fromdate" class="form-control" style="width: 180px;" required/>
                               <label>ถึงวันที่ : </label>
-                              <input type="date" name="Todate" class="form-control" style="width: 180px;"/>
+                              <input type="date" name="Todate" class="form-control" style="width: 180px;" required/>
                             </div>
                           </div>
                         </div>
@@ -396,6 +398,66 @@
                                 <span class="glyphicon glyphicon-print"></span> ปริ้น
                               </button>
                               <a class="btn btn-app" href="{{ route('legislation',2) }}" style="background-color:#DB0000; color:#FFFFFF;">
+                                <span class="glyphicon glyphicon-remove"></span> ยกเลิก
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+
+                    </div>
+                  </div>
+                </div>
+              </form>
+            @elseif($type == 19)
+              <form name="form1" action="{{ route('legislation.report' ,[00, 19]) }}" target="_blank" method="get" id="formimage" enctype="multipart/form-data">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="tab-content">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-inline" align="center">
+                              <label>วันที่ : </label>
+                              <input type="date" name="Fromdate" class="form-control" style="width: 180px;"/>
+                              <label>ถึงวันที่ : </label>
+                              <input type="date" name="Todate" class="form-control" style="width: 180px;"/>
+                            </div>
+                          </div>
+                        </div>
+                        <br>
+
+                        <div class="row">
+                          <div class="col-md-3">
+                            <div class="" align="right">
+                              <label>สถานะ : </label>
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="" align="left">
+                              <label>
+                                <input type="checkbox" id="test1" name="status" value="Y"/>
+                                <span>ลูกหนี้มีทรัพย์</span>
+                              </label>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="" align="left">
+                              <label>
+                                <input type="checkbox" id="test2" name="status" value="N"/>
+                                <span>ลูกหนี้ไม่มีทรัพย์</span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+
+                        <p></p>
+                        <br>
+                        <div class="row">
+                          <div class="col-md-12>
+                            <div class="form-inline" align="center">
+                              <button type="submit" class="btn btn-primary btn-app">
+                                <span class="glyphicon glyphicon-print"></span> ปริ้น
+                              </button>
+                              <a class="btn btn-app" href="{{ route('legislation',8) }}" style="background-color:#DB0000; color:#FFFFFF;">
                                 <span class="glyphicon glyphicon-remove"></span> ยกเลิก
                               </a>
                             </div>
