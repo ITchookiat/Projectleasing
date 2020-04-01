@@ -164,13 +164,17 @@
     </style>
 
     <section class="content-header">
+      @if($type == 9)
       <form method="get" action="{{ route('Analysis',9) }}">
+      @elseif($type == 13)
+      <form method="get" action="{{ route('Analysis',13) }}">
+      @endif
         <div align="right" class="form-inline pull-right">
           <label>เลขที่สัญญา : </label>
           @if($data == null)
-            <input type="type" name="Contno" maxlength="12" style="width:100px;"/>
+            <input type="type" name="Contno" maxlength="12" style="width:120px;"/>
           @else
-            <input type="type" name="Contno" value="{{$data->CONTNO}}" maxlength="12" style="width:100px;"/>
+            <input type="type" name="Contno" value="{{$data->CONTNO}}" maxlength="12" style="width:120px;"/>
           @endif
           <button type="submit" class="btn btn-warning">
             <span class="glyphicon glyphicon-search"></span>
@@ -178,7 +182,11 @@
         </div>
       </form>
       <h1>
-        ปรับโครงสร้างหนี้
+        @if($type == 9)
+          ปรับโครงสร้างหนี้
+        @elseif($type == 13)
+          มาตรการ COVID-19
+        @endif
       </h1>
     </section>
 
@@ -188,7 +196,11 @@
       <div class="box box-primary">
         <div class="box-header with-border">
           <ul class="nav nav-pills ml-auto p-2">
+          @if($type == 9)
             <li class="nav-item"><a class="nav-link" href="{{ route('Analysis',8) }}" onclick="return confirm('คุณต้องการออกไปหน้าหลักหรือไม่ ? \n')">หน้าหลัก</a></li>
+          @elseif($type == 13)
+            <li class="nav-item"><a class="nav-link" href="{{ route('Analysis',12) }}" onclick="return confirm('คุณต้องการออกไปหน้าหลักหรือไม่ ? \n')">หน้าหลัก</a></li>
+          @endif
             <li class="nav-item active"><a class="nav-link" href="#tab_1" data-toggle="tab">แบบฟอร์มผู้เช่าซื้อ</a></li>
             <li class="nav-item"><a class="nav-link" href="#tab_2" data-toggle="tab">แบบฟอร์มผู้ค้ำ</a></li>
             <li class="nav-item"><a class="nav-link" href="#tab_3" data-toggle="tab">แบบฟอร์มรถยนต์</a></li>
@@ -241,9 +253,17 @@
                                      <div class="form-inline" align="right">
                                         <label><font color="red">เลขที่สัญญา : </font></label>
                                         @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                          <input type="text" name="Contract_buyer" class="form-control" style="width: 250px;" value="22-{{$Y}}/" required/>
+                                          @if($type == 9)
+                                            <input type="text" name="Contract_buyer" class="form-control" style="width: 250px;" value="22-{{$Y}}/" required/>
+                                          @elseif($type == 13)
+                                            <input type="text" name="Contract_buyer" class="form-control" style="width: 250px;" value="33-{{$Y}}/" required/>
+                                          @endif
                                         @else
-                                          <input type="text" name="Contract_buyer" class="form-control" style="width: 250px;" data-inputmask="&quot;mask&quot;:&quot;99-9999/&quot;" data-mask="" value="22-{{$Y}}/" readonly required/>
+                                          @if($type == 9)
+                                            <input type="text" name="Contract_buyer" class="form-control" style="width: 250px;" data-inputmask="&quot;mask&quot;:&quot;99-9999/&quot;" data-mask="" value="22-{{$Y}}/" readonly required/>
+                                          @elseif($type == 13)
+                                          <input type="text" name="Contract_buyer" class="form-control" style="width: 250px;" data-inputmask="&quot;mask&quot;:&quot;99-9999/&quot;" data-mask="" value="33-{{$Y}}/" readonly required/>
+                                          @endif
                                         @endif
                                       </div>
                                    </div>
@@ -473,24 +493,40 @@
                                     </div>
                                   </div>
 
-                                  <div class="col-md-6">
-                                    <div class="form-inline" align="right">
-                                      <label>วัตถุประสงค์ของสินเชื่อ : </label>
-                                        <select name="objectivecar" class="form-control" style="width: 250px;">
-                                          <option value="" selected>--- วัตถุประสงค์ของสินเชื่อ ---</option>
-                                          <option value="ลงทุนในธุรกิจ">ลงทุนในธุรกิจ</option>
-                                          <option value="ขยายกิจการ">ขยายกิจการ</option>
-                                          <option value="ซื้อรถยนต์">ซื้อรถยนต์</option>
-                                          <option value="ใช้หนี้นอกระบบ">ใช้หนี้นอกระบบ</option>
-                                          <option value="จ่ายค่าเทอม">จ่ายค่าเทอม</option>
-                                          <option value="ซื้อของใช้ภายในบ้าน">ซื้อของใช้ภายในบ้าน</option>
-                                          <option value="ซื้อวัว">ซื้อวัว</option>
-                                          <option value="ซื้อที่ดิน">ซื้อที่ดิน</option>
-                                          <option value="ซ่อมบ้าน">ซ่อมบ้าน</option>
-                                          <option value="ขยายระยะเวลาชำระหนี้">ขยายระยะเวลาชำระหนี้</option>
-                                        </select>
+                                  @if($type == 9)
+                                    <div class="col-md-6">
+                                      <div class="form-inline" align="right">
+                                        <label>วัตถุประสงค์ของสินเชื่อ : </label>
+                                          <select name="objectivecar" class="form-control" style="width: 250px;">
+                                            <option value="" selected>--- วัตถุประสงค์ของสินเชื่อ ---</option>
+                                            <option value="ลงทุนในธุรกิจ">ลงทุนในธุรกิจ</option>
+                                            <option value="ขยายกิจการ">ขยายกิจการ</option>
+                                            <option value="ซื้อรถยนต์">ซื้อรถยนต์</option>
+                                            <option value="ใช้หนี้นอกระบบ">ใช้หนี้นอกระบบ</option>
+                                            <option value="จ่ายค่าเทอม">จ่ายค่าเทอม</option>
+                                            <option value="ซื้อของใช้ภายในบ้าน">ซื้อของใช้ภายในบ้าน</option>
+                                            <option value="ซื้อวัว">ซื้อวัว</option>
+                                            <option value="ซื้อที่ดิน">ซื้อที่ดิน</option>
+                                            <option value="ซ่อมบ้าน">ซ่อมบ้าน</option>
+                                            <option value="ขยายระยะเวลาชำระหนี้">ขยายระยะเวลาชำระหนี้</option>
+                                          </select>
+                                      </div>
+                                      </div>
+                                  @elseif($type == 13)
+                                    <div class="col-md-6">
+                                      <div class="form-inline" align="right">
+                                        <label>มาตรการช่วยเหลือ : </label>
+                                          <select name="objectivecar" class="form-control" style="width: 250px;">
+                                            <option value="" selected>--- มาตรการช่วยเหลือ ---</option>
+                                            <!-- <option value="ลดค่าธรรมเนียม">ลดค่าธรรมเนียม</option>
+                                            <option value="ลดดอกเบี้ย สูงสุด 100 %">ลดดอกเบี้ย สูงสุด 100 %</option> -->
+                                            <option value="พักชำระเงินต้น 3 เดือน">พักชำระเงินต้น 3 เดือน</option>
+                                            <option value="พักชำระหนี้ 3 เดือน">พักชำระหนี้ 3 เดือน</option>
+                                            <option value="ขยายระยะเวลาชำระหนี้">ขยายระยะเวลาชำระหนี้</option>
+                                          </select>
+                                      </div>
                                     </div>
-                                  </div>
+                                  @endif
                                 </div>
 
                                 <hr>
@@ -901,10 +937,11 @@
                                         }
 
                                       var totaltopcar = parseFloat(num1);
+                                      var vat = (100+parseFloat(num3))/100;
                                       var a = (num2*period)+100;
-                                      var b = (((totaltopcar*a)/100)*1.07)/num4;
+                                      var b = (((totaltopcar*a)/100)*vat)/num4;
                                       var result = Math.ceil(b/10)*10;
-                                      var durate = result/1.07;
+                                      var durate = result/vat;
                                       var durate2 = durate.toFixed(2)*num4;
                                       var tax = result-durate;
                                       var tax2 = tax.toFixed(2)*num4;
@@ -1106,7 +1143,8 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                       <label>VAT : </label>
-                                      <input type="text" id="Vatcar" name="Vatcar" class="form-control" style="width: 250px;background-color: white;" value="7 %" readonly oninput="calculate()"/>
+                                      <input type="text" id="Vatcar" name="Vatcar" class="form-control" style="width: 233px;background-color: white;" value="7" oninput="calculate()"/>
+                                      <label>%</label>
                                      </div>
                                   </div>
                                   <div class="col-md-6">
@@ -1122,7 +1160,11 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                       <label>หมายเหตุ : </label>
-                                      <input type="text" name="Notecar" class="form-control" style="width: 250px;" placeholder="หมายเหตุ"/>
+                                      @if($data == null)
+                                        <input type="text" name="Notecar" class="form-control" style="width: 250px;" placeholder="หมายเหตุ"/>
+                                      @else
+                                        <input type="text" name="Notecar" value="{{$data->CONTNO}}" class="form-control" style="width: 250px;" placeholder="หมายเหตุ"/>
+                                      @endif
                                      </div>
                                   </div>
 
@@ -1133,6 +1175,12 @@
                                    </div>
                                   </div>
                                 </div>
+                                @if($data == null)
+                                  <input type="hidden" name="statuscar" class="form-control" style="width: 250px;"/>
+                                @else
+                                  <input type="hidden" name="statuscar" value="{{iconv('Tis-620','utf-8',$data->BAAB)}}" class="form-control" style="width: 250px;" />
+                                @endif
+
 
                                 <div class="row">
                                   <div class="col-md-5">
@@ -1275,7 +1323,7 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                        <label>หมายเหตุ : </label>
-                                       <input type="text" name="notePrice" class="form-control" style="width: 250px;" placeholder="หมายเหตุ"/>
+                                         <input type="text" name="notePrice" class="form-control" style="width: 250px;" placeholder="หมายเหตุ"/>
                                      </div>
                                    </div>
 
@@ -1289,7 +1337,6 @@
                         </div>
 
                       <input type="hidden" name="_token" value="{{csrf_token()}}" />
-                      <input type="hidden" name="type" value="8" />
                       <br>
                       <hr />
                       <table class="table table-bordered" id="table" border="3" align="center" style="width: 30%;" align="center">
@@ -1315,9 +1362,17 @@
                         <button type="submit" class="delete-modal btn btn-success">
                           <span class="glyphicon glyphicon-floppy-save"></span> บันทึก
                         </button>
-                        <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}">
-                          <span class="glyphicon glyphicon-remove"></span> ยกเลิก
-                        </a>
+                        @if($type == 9)
+                          <a class="delete-modal btn btn-danger" href="{{ route('Analysis',8) }}">
+                            <span class="glyphicon glyphicon-remove"></span> ยกเลิก
+                          </a>
+                          <input type="hidden" name="type" value="8" />
+                        @elseif($type == 13)
+                          <a class="delete-modal btn btn-danger" href="{{ route('Analysis',12) }}">
+                            <span class="glyphicon glyphicon-remove"></span> ยกเลิก
+                          </a>
+                          <input type="hidden" name="type" value="12" />
+                        @endif
                       </div>
 
                       <!-- แบบฟอร์มผู้ค้ำ 2 -->

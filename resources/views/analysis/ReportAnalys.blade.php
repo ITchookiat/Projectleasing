@@ -95,11 +95,21 @@
         </tr>
         <tr>
           <th align="right" width="120px"> รายได้ &nbsp;</th>
-          <th class="text-center" width="120px" style="background-color: yellow;"> <b>{{$dataReport->Income_buyer}}</b></th>
+          <th class="text-center" width="120px" style="background-color: yellow;">
+            <b>{{$dataReport->Income_buyer}}</b>
+          </th>
           <th align="right" width="60"> หักค่าใช้จ่าย &nbsp;</th>
-          <th class="text-center" width="60" style="background-color: yellow;"> <b>{{number_format($dataReport->BeforeIncome_buyer)}}</b></th>
+          <th class="text-center" width="60" style="background-color: yellow;">
+            @if($dataReport->BeforeIncome_buyer != null)
+              <b>{{number_format($dataReport->BeforeIncome_buyer)}}</b>
+            @endif
+          </th>
           <th align="right" width="85"> รายได้หลังหัก คชจ. &nbsp;</th>
-          <th class="text-center" width="95" style="background-color: yellow;"> <b>{{number_format($dataReport->AfterIncome_buyer)}}</b></th>
+          <th class="text-center" width="95" style="background-color: yellow;">
+            @if($dataReport->AfterIncome_buyer != null)
+              <b>{{number_format($dataReport->AfterIncome_buyer)}}</b>
+            @endif
+          </th>
         </tr>
     </table>
 
@@ -453,7 +463,7 @@
           <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataReport->contrac_HC}}</b></th>
         </tr>
       </table>
-    @elseif($type == 8)
+    @elseif($type == 8 or $type == 12)
         <table border="1">
           <thead>
             <tr align="center">
