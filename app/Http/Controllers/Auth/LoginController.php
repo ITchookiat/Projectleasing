@@ -47,14 +47,13 @@ class LoginController extends Controller
       $DatabaseType = request()->input('DB_type');
       $GetUser = request()->input('username');
 
-      $Users = User::where('username', '=', $GetUser)->first(); //ระหว่างทำสี
+      $Users = User::where('username', '=', $GetUser)->first();
       // dd($Users);
       
       // กำหนดค่าให้กับ session
       session(['type' => $DatabaseType]);
       if ($DatabaseType == 2) {
         if ($Users->branch == 01 or $Users->branch == 03 or $Users->branch == 04 or $Users->branch == 05 or $Users->branch == 06 or $Users->branch == 07 or $Users->branch == 31) {
-          # code...
           dd('คุณไม่มีสิทธใช้งานในส่วนนี้');
         }
       }
