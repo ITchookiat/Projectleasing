@@ -705,7 +705,7 @@
           var num11 = 0;
           }
           else{
-          var sumCom = (num1*0.03);
+          var sumCom = (num1*0.015);
           var result = num1 - sumCom;
           }
           }else{
@@ -742,7 +742,7 @@
           var toptemp = temp.replace(",","");
           var ori = document.getElementById('Topcar').value;
           var Topori = ori.replace(",","");
-          
+
           if(num8 > 6900){
           var tempresult = parseFloat(num1)+parseFloat(num2)+parseFloat(num3)+parseFloat(num4)+parseFloat(num5)+parseFloat(num6)+parseFloat(num8);
           }else{

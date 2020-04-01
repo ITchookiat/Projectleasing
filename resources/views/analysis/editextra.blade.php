@@ -248,7 +248,11 @@
 
     <section class="content-header">
       <h1>
-        ปรับโครงสร้างหนี้
+        @if($type == 8)
+          ปรับโครงสร้างหนี้
+        @elseif($type == 12)
+          มาตรการ COVID-19
+        @endif
         <!-- <small>it all starts here</small> -->
       </h1>
     </section>
@@ -259,9 +263,17 @@
       <div class="box box-primary box-solid">
         <div class="box-header with-border">
           @if($data->StatusApp_car != 'อนุมัติ')
-          <h4 class="card-title p-3" align="center">แก้ไขข้อมูลสัญญา (ปรับโครงสร้างหนี้)</h4>
+            @if($type == 8)
+              <h4 class="card-title p-3" align="center">แก้ไขข้อมูลสัญญา (ปรับโครงสร้างหนี้)</h4>
+            @elseif($type == 12)
+              <h4 class="card-title p-3" align="center">แก้ไขข้อมูลสัญญา (มาตรการช่วยเหลือ)</h4>
+            @endif
           @else
-          <h4 class="card-title p-3" align="center">รายละเอียดข้อมูลสัญญา (ปรับโครงสร้างหนี้)</h4>
+            @if($type == 8)
+              <h4 class="card-title p-3" align="center">รายละเอียดข้อมูลสัญญา (ปรับโครงสร้างหนี้)</h4>
+            @elseif($type == 12)
+              <h4 class="card-title p-3" align="center">รายละเอียดข้อมูลสัญญา (มาตรการช่วยเหลือ)</h4>
+            @endif
           @endif
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -1150,10 +1162,11 @@
                                   }
 
                                 var totaltopcar = parseFloat(num1);
+                                var vat = (100+parseFloat(num3))/100;
                                 var a = (num2*period)+100;
-                                var b = (((totaltopcar*a)/100)*1.07)/num4;
+                                var b = (((totaltopcar*a)/100)*vat)/num4;
                                 var result = Math.ceil(b/10)*10;
-                                var durate = result/1.07;
+                                var durate = result/vat;
                                 var durate2 = durate.toFixed(2)*num4;
                                 var tax = result-durate;
                                 var tax2 = tax.toFixed(2)*num4;
@@ -1375,7 +1388,8 @@
                             <div class="col-md-5">
                               <div class="form-inline" align="right">
                                 <label>VAT : </label>
-                                <input type="text" id="Vatcar" name="Vatcar" value="{{$data->Vat_car}}" class="form-control" style="width: 250px;background-color: white;" placeholder="7 %" value="7 %" readonly onchange="calculate()"/>
+                                <input type="text" id="Vatcar" name="Vatcar" value="{{$data->Vat_car}}" class="form-control" style="width: 233px;background-color: white;" placeholder="7 %" onchange="calculate();"/>
+                                <label>%</label>
                                </div>
                             </div>
 
@@ -1411,6 +1425,15 @@
                                </div>
                             </div>
                           </div>
+                          @if(auth::user()->type == 1 or auth::user()->type == 2)
+                              <input type="text" name="statuscar" value="{{$data->status_car}}" class="form-control" style="width: 250px;" />
+                          @else
+                            @if($GetDocComplete != Null)
+                                <input type="text" name="statuscar" value="{{$data->status_car}}" class="form-control" style="width: 250px;" readonly/>
+                            @else
+                                <input type="text" name="statuscar" value="{{$data->status_car}}" class="form-control" style="width: 250px;" />
+                            @endif
+                          @endif
 
                         </div>
                         <div class="tab-pane" id="tab_4" style="display:none;">
@@ -1670,17 +1693,29 @@
                       <button type="submit" class="delete-modal btn btn-success">
                         <span class="glyphicon glyphicon-floppy-save"></span> อัพเดท
                       </button>
-                      <a class="delete-modal btn btn-danger" href="{{ route('Analysis',8) }}">
-                        <span class="glyphicon glyphicon-remove"></span> ยกเลิก
-                      </a>
+                      @if($type == 8)
+                        <a class="delete-modal btn btn-danger" href="{{ route('Analysis',8) }}">
+                          <span class="glyphicon glyphicon-remove"></span> ยกเลิก
+                        </a>
+                      @elseif($type == 12)
+                        <a class="delete-modal btn btn-danger" href="{{ route('Analysis',12) }}">
+                          <span class="glyphicon glyphicon-remove"></span> ยกเลิก
+                        </a>
+                      @endif
                     @else
                       @if($data->StatusApp_car != 'อนุมัติ')
                         <button type="submit" class="delete-modal btn btn-success">
                           <span class="glyphicon glyphicon-floppy-save"></span> อัพเดท
                         </button>
-                        <a class="delete-modal btn btn-danger" href="{{ route('Analysis',8) }}">
-                          <span class="glyphicon glyphicon-remove"></span> ยกเลิก
-                        </a>
+                        @if($type == 8)
+                          <a class="delete-modal btn btn-danger" href="{{ route('Analysis',8) }}">
+                            <span class="glyphicon glyphicon-remove"></span> ยกเลิก
+                          </a>
+                        @elseif($type == 12)
+                          <a class="delete-modal btn btn-danger" href="{{ route('Analysis',12) }}">
+                            <span class="glyphicon glyphicon-remove"></span> ยกเลิก
+                          </a>
+                        @endif
                       @else
                         <a class="delete-modal btn btn-danger" href="{{ URL::previous() }}">
                           <span class="glyphicon glyphicon-arrow-left"></span> ย้อนกลับ
