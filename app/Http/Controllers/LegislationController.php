@@ -1064,6 +1064,7 @@ class LegislationController extends Controller
           // เพิ่มสถานะจบงาน
           if ($request->get('Statuslegis') != Null) {
             $user->Status_legis = $request->get('Statuslegis');
+            $user->UserStatus_legis = auth()->user()->name;
             $user->DateUpState_legis = date('Y-m-d');
             $user->DateCarState_legis = $request->get('DateStatuslegis');
 
@@ -1074,6 +1075,7 @@ class LegislationController extends Controller
           }
           elseif ($request->get('Statuslegis') == Null) {
             $user->Status_legis = NULL;
+            $user->UserStatus_legis = NULL;
             $user->DateStatus_legis = NULL;
             $user->PriceStatus_legis = NULL;
             $user->txtStatus_legis = NULL;
@@ -1120,6 +1122,7 @@ class LegislationController extends Controller
         $user = Legislation::find($id); //update status
           if ($request->get('Statuslegis') != Null) {
             $user->Status_legis = $request->get('Statuslegis');
+            $user->UserStatus_legis = auth()->user()->name;
             $user->DateUpState_legis = date('Y-m-d');
             $SettxtStatus = $request->get('DateStatuslegis');
             $SetDateUp = date('Y-m-d');
@@ -1131,6 +1134,7 @@ class LegislationController extends Controller
           }
           elseif ($request->get('Statuslegis') == Null) {
             $user->Status_legis = NULL;
+            $user->UserStatus_legis = NULL;
             $user->DateUpState_legis = NULL;
             $SettxtStatus = NULL;
 
@@ -1351,6 +1355,7 @@ class LegislationController extends Controller
         $user = Legislation::find($id); //update status
           if ($request->get('StatusCase') != Null) {
             $user->Status_legis = $request->get('StatusCase');
+            $user->UserStatus_legis = auth()->user()->name;
             $user->DateUpState_legis = $SetDateStatus;
 
             $user->DateStatus_legis = $request->get('DateCloseAccount');
@@ -1360,6 +1365,7 @@ class LegislationController extends Controller
           }
           elseif ($request->get('StatusCase') == Null) {
             $user->Status_legis = NULL;
+            $user->UserStatus_legis = NULL;
             $user->DateUpState_legis = NULL;
           }
         $user->update();
@@ -1496,6 +1502,7 @@ class LegislationController extends Controller
         $user = Legislation::find($id); //update status
           if ($request->get('StatusCheat') != Null) {
             $user->Status_legis = $request->get('StatusCheat');
+            $user->UserStatus_legis = auth()->user()->name;
             $user->DateUpState_legis = $request->get('DateStatusCheat');
 
             $user->DateStatus_legis = $request->get('DateCloseAccount');
@@ -1505,6 +1512,7 @@ class LegislationController extends Controller
           }
           elseif ($request->get('StatusCheat') == Null) {
             $user->Status_legis = NULL;
+            $user->UserStatus_legis = NULL;
             $user->DateUpState_legis = NULL;
           }
         $user->update();

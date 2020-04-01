@@ -47,6 +47,7 @@ class CreateLegislationsTable extends Migration
             $table->string('Flag')->nullable();
 
             $table->string('Status_legis')->nullable();       //สถานะ
+            $table->string('UserStatus_legis')->nullable();   //ชื่อคนเลือกสถานะ
             $table->string('DateStatus_legis')->nullable();   //วันที่สถานะ
             $table->string('PriceStatus_legis')->nullable();  //ยอดตั้งต้น
             $table->string('txtStatus_legis')->nullable();    //ยอดชำระ
