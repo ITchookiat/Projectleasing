@@ -1122,70 +1122,6 @@
                                 document.form1.Milecar.value = addCommas(num1);
                               }
 
-                              function calculate(){
-                                var num11 = document.getElementById('Topcar').value;
-                                var num1 = num11.replace(",","");
-                                var num4 = document.getElementById('Timeslackencar').value;
-                                var num2 = document.getElementById('Interestcar').value;
-                                var num3 = document.getElementById('Vatcar').value;
-
-                                  if(num4 == '12'){
-                                  var period = '1';
-                                  }else if(num4 == '18'){
-                                  var period = '1.5';
-                                  }else if(num4 == '24'){
-                                  var period = '2';
-                                  }else if(num4 == '30'){
-                                  var period = '2.5';
-                                  }else if(num4 == '36'){
-                                  var period = '3';
-                                  }else if(num4 == '42'){
-                                  var period = '3.5';
-                                  }else if(num4 == '48'){
-                                  var period = '4';
-                                  }else if(num4 == '54'){
-                                  var period = '4.5';
-                                  }else if(num4 == '60'){
-                                  var period = '5';
-                                  }else if(num4 == '66'){
-                                  var period = '5.5';
-                                  }else if(num4 == '72'){
-                                  var period = '6';
-                                  }else if(num4 == '78'){
-                                  var period = '6.5';
-                                  }else if(num4 == '84'){
-                                  var period = '7';
-                                  }else if(num4 == '90'){
-                                  var period = '7.5';
-                                  }else if(num4 == '96'){
-                                  var period = '8';
-                                  }
-
-                                var totaltopcar = parseFloat(num1);
-                                var vat = (100+parseFloat(num3))/100;
-                                var a = (num2*period)+100;
-                                var b = (((totaltopcar*a)/100)*vat)/num4;
-                                var result = Math.ceil(b/10)*10;
-                                var durate = result/vat;
-                                var durate2 = durate.toFixed(2)*num4;
-                                var tax = result-durate;
-                                var tax2 = tax.toFixed(2)*num4;
-                                var total = result*num4;
-                                var total2 = durate2+tax2;
-
-                                document.form1.Topcar.value = addCommas(totaltopcar);
-
-                                if(!isNaN(result) && num2 != ''){
-                                  document.form1.Paycar.value = addCommas(result.toFixed(2));
-                                  document.form1.Paymemtcar.value = addCommas(durate.toFixed(2));
-                                  document.form1.Timepaymentcar.value = addCommas(durate2.toFixed(2));
-                                  document.form1.Taxcar.value = addCommas(tax.toFixed(2));
-                                  document.form1.Taxpaycar.value = addCommas(tax2.toFixed(2));
-                                  document.form1.Totalpay1car.value = addCommas(total.toFixed(2));
-                                  document.form1.Totalpay2car.value = addCommas(total2.toFixed(2));
-                                }
-                              }
-
                               function commission(){
                                     var num11 = document.getElementById('Commissioncar').value;
                                     var num1 = num11.replace(",","");
@@ -1308,6 +1244,108 @@
 
                                     }
                           </script>
+                          @if($type == 8)
+                            <script>
+                              function calculate(){
+                                var num11 = document.getElementById('Topcar').value;
+                                var num1 = num11.replace(",","");
+                                var num4 = document.getElementById('Timeslackencar').value;
+                                var num2 = document.getElementById('Interestcar').value;
+                                var num3 = document.getElementById('Vatcar').value;
+
+                                  if(num4 == '12'){
+                                  var period = '1';
+                                  }else if(num4 == '18'){
+                                  var period = '1.5';
+                                  }else if(num4 == '24'){
+                                  var period = '2';
+                                  }else if(num4 == '30'){
+                                  var period = '2.5';
+                                  }else if(num4 == '36'){
+                                  var period = '3';
+                                  }else if(num4 == '42'){
+                                  var period = '3.5';
+                                  }else if(num4 == '48'){
+                                  var period = '4';
+                                  }else if(num4 == '54'){
+                                  var period = '4.5';
+                                  }else if(num4 == '60'){
+                                  var period = '5';
+                                  }else if(num4 == '66'){
+                                  var period = '5.5';
+                                  }else if(num4 == '72'){
+                                  var period = '6';
+                                  }else if(num4 == '78'){
+                                  var period = '6.5';
+                                  }else if(num4 == '84'){
+                                  var period = '7';
+                                  }else if(num4 == '90'){
+                                  var period = '7.5';
+                                  }else if(num4 == '96'){
+                                  var period = '8';
+                                  }
+
+                                var totaltopcar = parseFloat(num1);
+                                var vat = (100+parseFloat(num3))/100;
+                                var a = (num2*period)+100;
+                                var b = (((totaltopcar*a)/100)*vat)/num4;
+                                var result = Math.ceil(b/10)*10;
+                                var durate = result/vat;
+                                var durate2 = durate.toFixed(2)*num4;
+                                var tax = result-durate;
+                                var tax2 = tax.toFixed(2)*num4;
+                                var total = result*num4;
+                                var total2 = durate2+tax2;
+
+                                document.form1.Topcar.value = addCommas(totaltopcar);
+
+                                if(!isNaN(result) && num2 != ''){
+                                  document.form1.Paycar.value = addCommas(result.toFixed(2));
+                                  document.form1.Paymemtcar.value = addCommas(durate.toFixed(2));
+                                  document.form1.Timepaymentcar.value = addCommas(durate2.toFixed(2));
+                                  document.form1.Taxcar.value = addCommas(tax.toFixed(2));
+                                  document.form1.Taxpaycar.value = addCommas(tax2.toFixed(2));
+                                  document.form1.Totalpay1car.value = addCommas(total.toFixed(2));
+                                  document.form1.Totalpay2car.value = addCommas(total2.toFixed(2));
+                                }
+                              }
+                            </script>
+                          @elseif($type == 12)
+                            <script>
+                              function calculate(){
+                                var num11 = document.getElementById('Topcar').value;
+                                var num1 = num11.replace(",","");
+                                var num33 = document.getElementById('Vatcar').value;
+                                var num3 = num33.replace(",","");
+                                var num2 = document.getElementById('Interestcar').value;
+                                var num4 = document.getElementById('Timeslackencar').value;
+
+                                var vatTop = parseFloat(num1)*0.07;
+                                var newTop = parseFloat(num1)+vatTop;
+                                var vat = (100+parseFloat(num2))/100;
+                                var result = Math.ceil((newTop*vat)/12);
+                                var tax = vatTop/num4;
+                                var tax2 = tax.toFixed(2)*num4;
+                                var durate = result-tax;
+                                var durate2 = durate.toFixed(2)*num4;
+                                var total = result*num4;
+                                var total2 = durate2+tax2;
+
+                                if(!isNaN(vatTop)){
+                                  document.form1.Topcar.value = addCommas(num1);
+                                  document.form1.Vatcar.value = addCommas(vatTop.toFixed(0));
+                                  document.form1.Vatcar.value = addCommas(vatTop.toFixed(0));
+                                  document.form1.Paycar.value = addCommas(result.toFixed(2));
+                                  document.form1.Paymemtcar.value = addCommas(durate.toFixed(2));
+                                  document.form1.Timepaymentcar.value = addCommas(durate2.toFixed(2));
+                                  document.form1.Taxcar.value = addCommas(tax.toFixed(2));
+                                  document.form1.Taxpaycar.value = addCommas(tax2.toFixed(2));
+                                  document.form1.Totalpay1car.value = addCommas(total.toFixed(2));
+                                  document.form1.Totalpay2car.value = addCommas(total2.toFixed(2));
+                                }
+                                }
+                            </script>
+                          @endif
 
                           <div class="row">
                             <div class="col-md-5">
@@ -1388,8 +1426,7 @@
                             <div class="col-md-5">
                               <div class="form-inline" align="right">
                                 <label>VAT : </label>
-                                <input type="text" id="Vatcar" name="Vatcar" value="{{$data->Vat_car}}" class="form-control" style="width: 233px;background-color: white;" placeholder="7 %" onchange="calculate();"/>
-                                <label>%</label>
+                                <input type="text" id="Vatcar" name="Vatcar" value="{{$data->Vat_car}}" class="form-control" style="width: 250px;background-color: white;" onchange="calculate();"/>
                                </div>
                             </div>
 
@@ -1426,12 +1463,12 @@
                             </div>
                           </div>
                           @if(auth::user()->type == 1 or auth::user()->type == 2)
-                              <input type="text" name="statuscar" value="{{$data->status_car}}" class="form-control" style="width: 250px;" />
+                              <input type="hidden" name="statuscar" value="{{$data->status_car}}" class="form-control" style="width: 250px;" />
                           @else
                             @if($GetDocComplete != Null)
-                                <input type="text" name="statuscar" value="{{$data->status_car}}" class="form-control" style="width: 250px;" readonly/>
+                                <input type="hidden" name="statuscar" value="{{$data->status_car}}" class="form-control" style="width: 250px;" readonly/>
                             @else
-                                <input type="text" name="statuscar" value="{{$data->status_car}}" class="form-control" style="width: 250px;" />
+                                <input type="hidden" name="statuscar" value="{{$data->status_car}}" class="form-control" style="width: 250px;" />
                             @endif
                           @endif
 
