@@ -346,6 +346,8 @@
                                <th class="text-center">ยอดชำระ</th>
                                <th class="text-center">เลขที่ใบกำกับ</th>
                                <th class="text-center">วันที่ใบกำกับ</th>
+                               <th class="text-center">เงินต้น</th>
+                               <th class="text-center">ดอกเบี้ย</th>
                              </tr>
                            </thead>
                            <tbody>
@@ -371,6 +373,8 @@
                                    @else
                                      <td class="text-center"></td>
                                    @endif
+                                   <td class="text-center">{{number_format($row->TONEFFR,2)}}</td>
+                                   <td class="text-center">{{number_format($row->INTEFFR,2)}}</td>
                                  </tr>
                                 @else
                                  <tr style="color:red;">
@@ -393,6 +397,8 @@
                                    @else
                                      <td class="text-center"></td>
                                    @endif
+                                   <td class="text-center">{{number_format($row->TONEFFR,2)}}</td>
+                                   <td class="text-center">{{number_format($row->INTEFFR,2)}}</td>
                                  </tr>
                                 @endif
                               @endforeach
