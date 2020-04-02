@@ -854,7 +854,7 @@ class AnalysController extends Controller
         $type = $request->type;
         return view('analysis.view', compact('type', 'data','branch','newfdate','newtdate','status','Setdate','SumTopcar','SumCommissioncar','SumCommitprice','contno','SetStrConn','SetStr1','SetStr2'));
       }
-      elseif ($request->type == 13){ //เพิ่มมาตราการ COVID-19
+      elseif ($request->type == 13){ //เพิ่มพักชำระหนี้
         $Contno = '';
         $NewBrand = '';
         $NewRelate = '';
@@ -884,7 +884,7 @@ class AnalysController extends Controller
         $type = $request->type;
         return view('analysis.createextra', compact('type','data','dataGT','NewBrand','NewRelate'));
       }
-      elseif ($request->type == 14){ //รายงาน มาตราการ COVID-19
+      elseif ($request->type == 14){ //รายงาน พักชำระหนี้
         $newfdate = '';
         $newtdate = '';
         $agen = '';
@@ -1489,8 +1489,8 @@ class AnalysController extends Controller
         'ซื้อวัว' => 'ซื้อวัว',
         'ซื้อที่ดิน' => 'ซื้อที่ดิน',
         'ซ่อมบ้าน' => 'ซ่อมบ้าน',
-        // 'ลดค่าธรรมเนียม' => 'ลดค่าธรรมเนียม',
-        // 'ลดดอกเบี้ย สูงสุด 100 %' => 'ลดดอกเบี้ย สูงสุด 100 %',
+        'ลดค่าธรรมเนียม' => 'ลดค่าธรรมเนียม',
+        'ลดดอกเบี้ย สูงสุด 100 %' => 'ลดดอกเบี้ย สูงสุด 100 %',
         'พักชำระเงินต้น 3 เดือน' => 'พักชำระเงินต้น 3 เดือน',
         'พักชำระหนี้ 3 เดือน' => 'พักชำระหนี้ 3 เดือน',
         'ขยายระยะเวลาชำระหนี้' => 'ขยายระยะเวลาชำระหนี้',

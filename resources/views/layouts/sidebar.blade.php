@@ -101,8 +101,8 @@
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="{{ route('Analysis',12) }}"><i class="fa fa-cube text-primary"></i>มาตรการช่วยเหลือ</a></li>
-                <li><a href="{{ route('Analysis',14) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน มาตรการช่วยเหลือ</a></li>
+                <li><a href="{{ route('Analysis',12) }}"><i class="fa fa-cube text-primary"></i>พักชำระหนี้</a></li>
+                <li><a href="{{ route('Analysis',14) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน พักชำระหนี้</a></li>
               </ul>
             </li>
           </ul>

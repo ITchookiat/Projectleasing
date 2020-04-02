@@ -518,8 +518,8 @@
                                         <label>มาตรการช่วยเหลือ : </label>
                                           <select name="objectivecar" class="form-control" style="width: 250px;">
                                             <option value="" selected>--- มาตรการช่วยเหลือ ---</option>
-                                            <!-- <option value="ลดค่าธรรมเนียม">ลดค่าธรรมเนียม</option>
-                                            <option value="ลดดอกเบี้ย สูงสุด 100 %">ลดดอกเบี้ย สูงสุด 100 %</option> -->
+                                            <option value="ลดค่าธรรมเนียม">ลดค่าธรรมเนียม</option>
+                                            <option value="ลดดอกเบี้ย สูงสุด 100 %">ลดดอกเบี้ย สูงสุด 100 %</option>
                                             <option value="พักชำระเงินต้น 3 เดือน">พักชำระเงินต้น 3 เดือน</option>
                                             <option value="พักชำระหนี้ 3 เดือน">พักชำระหนี้ 3 เดือน</option>
                                             <!-- <option value="ขยายระยะเวลาชำระหนี้">ขยายระยะเวลาชำระหนี้</option> -->
