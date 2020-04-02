@@ -1099,17 +1099,17 @@
                                       var total = result*num4;
                                       var total2 = durate2+tax2;
 
-                                      if(!isNaN(vatTop)){
-                                        document.form1.Topcar.value = addCommas(num1);
-                                        document.form1.Vatcar.value = addCommas(vatTop.toFixed(0));
-                                        document.form1.Paycar.value = addCommas(result.toFixed(2));
-                                        document.form1.Paymemtcar.value = addCommas(durate.toFixed(2));
-                                        document.form1.Timepaymentcar.value = addCommas(durate2.toFixed(2));
-                                        document.form1.Taxcar.value = addCommas(tax.toFixed(2));
-                                        document.form1.Taxpaycar.value = addCommas(tax2.toFixed(2));
-                                        document.form1.Totalpay1car.value = addCommas(total.toFixed(2));
-                                        document.form1.Totalpay2car.value = addCommas(total2.toFixed(2));
-                                      }
+                                        if(!isNaN(result)){
+                                          document.form1.Topcar.value = addCommas(num1);
+                                          document.form1.Vatcar.value = addCommas(vatTop.toFixed(0));
+                                          document.form1.Paycar.value = addCommas(result.toFixed(2));
+                                          document.form1.Paymemtcar.value = addCommas(durate.toFixed(2));
+                                          document.form1.Timepaymentcar.value = addCommas(durate2.toFixed(2));
+                                          document.form1.Taxcar.value = addCommas(tax.toFixed(2));
+                                          document.form1.Taxpaycar.value = addCommas(tax2.toFixed(2));
+                                          document.form1.Totalpay1car.value = addCommas(total.toFixed(2));
+                                          document.form1.Totalpay2car.value = addCommas(total2.toFixed(2));
+                                        }                                  
                                       }
                                   </script>
                                 @endif
