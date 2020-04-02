@@ -497,7 +497,7 @@
                                     <div class="col-md-6">
                                       <div class="form-inline" align="right">
                                         <label>วัตถุประสงค์ของสินเชื่อ : </label>
-                                          <select name="objectivecar" class="form-control" style="width: 250px;">
+                                          <select id="objectivecar" name="objectivecar" class="form-control" style="width: 250px;" oninput="calculate();">
                                             <option value="" selected>--- วัตถุประสงค์ของสินเชื่อ ---</option>
                                             <option value="ลงทุนในธุรกิจ">ลงทุนในธุรกิจ</option>
                                             <option value="ขยายกิจการ">ขยายกิจการ</option>
@@ -516,7 +516,7 @@
                                     <div class="col-md-6">
                                       <div class="form-inline" align="right">
                                         <label>มาตรการช่วยเหลือ : </label>
-                                          <select name="objectivecar" class="form-control" style="width: 250px;">
+                                          <select id="objectivecar" name="objectivecar" class="form-control" style="width: 250px;" oninput="calculate();">
                                             <option value="" selected>--- มาตรการช่วยเหลือ ---</option>
                                             <option value="ลดค่าธรรมเนียม">ลดค่าธรรมเนียม</option>
                                             <option value="ลดดอกเบี้ย สูงสุด 100 %">ลดดอกเบี้ย สูงสุด 100 %</option>
@@ -1081,8 +1081,14 @@
                                       var num3 = num33.replace(",","");
                                       var num2 = document.getElementById('Interestcar').value;
                                       var num4 = document.getElementById('Timeslackencar').value;
+                                      var num5 = document.getElementById('objectivecar').value;
+                                      console.log(num5);
 
-                                      var vatTop = parseFloat(num1)*0.07;
+                                      if(num5 == 'พักชำระหนี้ 3 เดือน'){
+                                        var vatTop = 0;
+                                      }else{
+                                        var vatTop = parseFloat(num1)*0.07;
+                                      }
                                       var newTop = parseFloat(num1)+vatTop;
                                       var vat = (100+parseFloat(num2))/100;
                                       var result = Math.ceil((newTop*vat)/12);
@@ -1095,7 +1101,6 @@
 
                                       if(!isNaN(vatTop)){
                                         document.form1.Topcar.value = addCommas(num1);
-                                        document.form1.Vatcar.value = addCommas(vatTop.toFixed(0));
                                         document.form1.Vatcar.value = addCommas(vatTop.toFixed(0));
                                         document.form1.Paycar.value = addCommas(result.toFixed(2));
                                         document.form1.Paymemtcar.value = addCommas(durate.toFixed(2));
