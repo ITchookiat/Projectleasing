@@ -1155,7 +1155,7 @@ class AnalysController extends Controller
       else {
         if($request->get('type') == 8){
           $SetBranch = 'ปรับโครงสร้าง';
-        }if($request->get('type') == 12){
+        }else if($request->get('type') == 12){
           $SetBranch = 'มาตรการช่วยเหลือ';
         }else{
           $SetBranch = $request->get('branchcar');
