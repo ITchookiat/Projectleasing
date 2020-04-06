@@ -619,8 +619,13 @@ class AnalysController extends Controller
         if($dataGT != null){
           $NewRelate = iconv('Tis-620','utf-8',str_replace(" ","",$dataGT->RELATN));
         }
+        $dataPay = DB::connection('ibmi')
+        ->table('SFHP.ARPAY')
+        ->where('SFHP.ARPAY.CONTNO','=', $Contno)
+        ->orderBy('SFHP.ARPAY.CONTNO', 'ASC')
+        ->get();
         $type = $request->type;
-        return view('analysis.createextra', compact('type','data','dataGT','NewBrand','NewRelate'));
+        return view('analysis.createextra', compact('type','data','dataGT','NewBrand','NewRelate','dataPay'));
       }
       elseif ($request->type == 10){ //เช็คสิทธิ์ลูกค้า
         $Contno = '';
@@ -854,7 +859,7 @@ class AnalysController extends Controller
         $type = $request->type;
         return view('analysis.view', compact('type', 'data','branch','newfdate','newtdate','status','Setdate','SumTopcar','SumCommissioncar','SumCommitprice','contno','SetStrConn','SetStr1','SetStr2'));
       }
-      elseif ($request->type == 13){ //เพิ่มมาตราการ COVID-19
+      elseif ($request->type == 13){ //เพิ่มพักชำระหนี้
         $Contno = '';
         $NewBrand = '';
         $NewRelate = '';
@@ -882,9 +887,14 @@ class AnalysController extends Controller
           $NewRelate = iconv('Tis-620','utf-8',str_replace(" ","",$dataGT->RELATN));
         }
         $type = $request->type;
-        return view('analysis.createextra', compact('type','data','dataGT','NewBrand','NewRelate'));
+        $dataPay = DB::connection('ibmi')
+        ->table('SFHP.ARPAY')
+        ->where('SFHP.ARPAY.CONTNO','=', $Contno)
+        ->orderBy('SFHP.ARPAY.CONTNO', 'ASC')
+        ->get();
+        return view('analysis.createextra', compact('type','data','dataGT','NewBrand','NewRelate','dataPay'));
       }
-      elseif ($request->type == 14){ //รายงาน มาตราการ COVID-19
+      elseif ($request->type == 14){ //รายงาน พักชำระหนี้
         $newfdate = '';
         $newtdate = '';
         $agen = '';
@@ -1145,7 +1155,7 @@ class AnalysController extends Controller
       else {
         if($request->get('type') == 8){
           $SetBranch = 'ปรับโครงสร้าง';
-        }if($request->get('type') == 12){
+        }else if($request->get('type') == 12){
           $SetBranch = 'มาตรการช่วยเหลือ';
         }else{
           $SetBranch = $request->get('branchcar');
@@ -1489,8 +1499,8 @@ class AnalysController extends Controller
         'ซื้อวัว' => 'ซื้อวัว',
         'ซื้อที่ดิน' => 'ซื้อที่ดิน',
         'ซ่อมบ้าน' => 'ซ่อมบ้าน',
-        // 'ลดค่าธรรมเนียม' => 'ลดค่าธรรมเนียม',
-        // 'ลดดอกเบี้ย สูงสุด 100 %' => 'ลดดอกเบี้ย สูงสุด 100 %',
+        'ลดค่าธรรมเนียม' => 'ลดค่าธรรมเนียม',
+        'ลดดอกเบี้ย สูงสุด 100 %' => 'ลดดอกเบี้ย สูงสุด 100 %',
         'พักชำระเงินต้น 3 เดือน' => 'พักชำระเงินต้น 3 เดือน',
         'พักชำระหนี้ 3 เดือน' => 'พักชำระหนี้ 3 เดือน',
         'ขยายระยะเวลาชำระหนี้' => 'ขยายระยะเวลาชำระหนี้',

@@ -649,9 +649,11 @@ class LegislationController extends Controller
         if ($dataGT == Null) {
           $SetGTName = Null;
           $SetGTIDNO = Null;
+          $SetGTAddress = Null;
         }else {
           $SetGTName = (iconv('Tis-620','utf-8',$dataGT->NAME));
           $SetGTIDNO = (str_replace(" ","",$dataGT->IDNO));
+          $SetGTAddress = (iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->ADDRES))." ต.".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->TUMB))." อ.".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->AUMPDES))." จ.".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->PROVDES))."  ".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->ZIP)));
         }
 
         $LegisDB = new Legislation([
@@ -671,7 +673,7 @@ class LegislationController extends Controller
           'DateVAT_legis' => $data->DTSTOPV,
           'NameGT_legis' => $SetGTName,
           'IdcardGT_legis' => $SetGTIDNO,
-          'AddressGT_legis' => (iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->ADDRES))." ต.".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->TUMB))." อ.".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->AUMPDES))." จ.".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->PROVDES))."  ".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->ZIP))),
+          'AddressGT_legis' => $SetGTAddress,
           'Realty_legis' => $SetRealty,
 
           'Mile_legis' => $data->MILERT,
@@ -1754,7 +1756,7 @@ class LegislationController extends Controller
       $time = date('H:i');
       $date = $Y2.'-'.$m.'-'.$d;
       $date2 = $Y.'-'.$m.'-'.$d;
-      
+
       if ($type == 1) {     //เมนูค้นหาหน้า View
         $NumberBill = $request->NumberBill;
         $Fromdate = $request->Fdate;
@@ -2082,7 +2084,7 @@ class LegislationController extends Controller
 
                 $status = 'ลูกหนี้รวม';
               }
-              
+
         if ($newfdate != NULL) {
           $Fdate = date('d-m-Y', strtotime($newfdate));
           $Tdate = date('d-m-Y', strtotime($newtdate));
@@ -2115,7 +2117,7 @@ class LegislationController extends Controller
                 }else {
                   $TextStatus = $value->Total_Promise - $value->Sum_Promise;
                 }
-                
+
                 //สถานะลูกหนี้
                 if ($value->Status_legis != NULL) {
                   $SetText = $value->Status_legis;
@@ -2324,7 +2326,7 @@ class LegislationController extends Controller
               $sheet->appendRow(array('รวมทั้งหมด','',number_format($Summperiod,2).'  บาท',number_format($SumAmount,2).'  บาท','','','','',number_format($SumTextStatus,2).'  บาท'));
           });
         })->export('xlsx');
-        
+
       }
       elseif ($type == 18) {  //รายงานลูกหนี้สืบพยาน
         $newfdate = '';

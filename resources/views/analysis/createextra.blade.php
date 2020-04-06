@@ -163,6 +163,23 @@
 
     </style>
 
+    <style>
+      #mydiv {
+        position: absolute;
+        z-index: 9;
+        text-align: center;
+        width:230px;
+        right: 100px;
+        top: 10px;
+      }
+
+      #mydivheader {
+        /* padding: 10px; */
+        cursor: move;
+        z-index: 10;
+      }
+      </style>
+
     <section class="content-header">
       @if($type == 9)
       <form method="get" action="{{ route('Analysis',9) }}">
@@ -237,6 +254,74 @@
             @endif
 
             <div class="row">
+              <!-- กล่องย้ายได้ -->
+                @if($data != null)
+                  <div id="mydiv">
+                    <div id="mydivheader" class="box box-default box-solid">
+                      <div class="box-header with-border">
+                        <h5 style="font-size:14px;" class="box-title pull-left">ข้อมูลเพิ่มเติม</h5>
+
+                        <div class="box-tools pull-right">
+                          <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="collapse"><i class="fa fa-plus"></i>
+                          </button>
+                          <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                            <i class="fa fa-times"></i></button>
+                        </div>
+                        <!-- /.box-tools -->
+                      </div>
+                      <!-- /.box-header -->
+                      <div class="box-body" style="display: none;">
+                        <div class="form-inline" align="right">
+                          <label><font color="red">อายุ</font> : </label>
+                          <input type="text" value="{{$data->AGE}}" class="form-control" style="width: 110px;background-color:white;"/>
+                        </div>
+                        <div class="form-inline" align="right">
+                          <label>เงินลงทุน : </label>
+                          <input type="text" value="{{number_format($data->NCARCST,2)}}" class="form-control" style="width: 110px;background-color:white;" readonly/>
+                        </div>
+                        <div class="form-inline" align="right">
+                          <label><font color="red">ค่างวดละ</font> : </label>
+                          <input type="text" value="{{number_format($data->DAMT,2)}}" class="form-control" style="width: 110px;background-color:white;" readonly/>
+                        </div>
+                        <div class="form-inline" align="right">
+                          <label>ชำระแล้ว : </label>
+                          <input type="text" value="{{number_format($data->SMPAY,2)}}" class="form-control" style="width: 110px;background-color:white;" readonly/>
+                        </div>
+                        <div class="form-inline" align="right">
+                          <label>คงเหลือ : </label>
+                          <input type="text" value="{{number_format($data->BALANC - $data->SMPAY,2)}}" class="form-control" style="width: 110px;background-color:white;" readonly/>
+                        </div>
+                        <br>
+                        <div class="form-inline" align="center">
+                          <table class="table" id="table">
+                            <tr align="center" style="background-color:#E7E9EC;">
+                              <td>งวดที่</td>
+                              <td>เงินต้น</td>
+                              <td>ดอกเบี้ย</td>
+                            </tr>
+                          @foreach($dataPay as $row)
+                            @if($row->DATE1 != null)
+                            <tr>
+                              <td align="center">{{$row->NOPAY}}</td>
+                              <td>{{number_format($row->TONEFFR,2)}}</td>
+                              <td>{{number_format($row->INTEFFR,2)}}</td>
+                            </tr>
+                            @else
+                            <tr style="color:red;">
+                              <td align="center">{{$row->NOPAY}}</td>
+                              <td>{{number_format($row->TONEFFR,2)}}</td>
+                              <td>{{number_format($row->INTEFFR,2)}}</td>
+                            </tr>
+                            @endif
+                          @endforeach
+                        </table>
+                        </div>
+                      </div>
+                      <!-- /.box-body -->
+                    </div>
+                  </div>
+                @endif
+              <!-- กล่องย้ายได้ -->
               <div class="col-md-12">
                 <div class="row">
                   <div class="col-md-12">
@@ -497,7 +582,7 @@
                                     <div class="col-md-6">
                                       <div class="form-inline" align="right">
                                         <label>วัตถุประสงค์ของสินเชื่อ : </label>
-                                          <select name="objectivecar" class="form-control" style="width: 250px;">
+                                          <select id="objectivecar" name="objectivecar" class="form-control" style="width: 250px;" oninput="calculate();">
                                             <option value="" selected>--- วัตถุประสงค์ของสินเชื่อ ---</option>
                                             <option value="ลงทุนในธุรกิจ">ลงทุนในธุรกิจ</option>
                                             <option value="ขยายกิจการ">ขยายกิจการ</option>
@@ -516,13 +601,13 @@
                                     <div class="col-md-6">
                                       <div class="form-inline" align="right">
                                         <label>มาตรการช่วยเหลือ : </label>
-                                          <select name="objectivecar" class="form-control" style="width: 250px;">
+                                          <select id="objectivecar" name="objectivecar" class="form-control" style="width: 250px;" oninput="calculate();" required>
                                             <option value="" selected>--- มาตรการช่วยเหลือ ---</option>
-                                            <!-- <option value="ลดค่าธรรมเนียม">ลดค่าธรรมเนียม</option>
-                                            <option value="ลดดอกเบี้ย สูงสุด 100 %">ลดดอกเบี้ย สูงสุด 100 %</option> -->
+                                            <option value="ลดค่าธรรมเนียม">ลดค่าธรรมเนียม</option>
+                                            <option value="ลดดอกเบี้ย สูงสุด 100 %">ลดดอกเบี้ย สูงสุด 100 %</option>
                                             <option value="พักชำระเงินต้น 3 เดือน">พักชำระเงินต้น 3 เดือน</option>
                                             <option value="พักชำระหนี้ 3 เดือน">พักชำระหนี้ 3 เดือน</option>
-                                            <option value="ขยายระยะเวลาชำระหนี้">ขยายระยะเวลาชำระหนี้</option>
+                                            <option value="ขยายระยะเวลาชำระหนี้" disabled>ขยายระยะเวลาชำระหนี้</option>
                                           </select>
                                       </div>
                                     </div>
@@ -878,87 +963,10 @@
                                       document.form1.Afterincome.value = addCommas(num2);
                                     }
 
-                                    function percent(){
-                                      var num11 = document.getElementById('Midpricecar').value;
-                                      var num1 = num11.replace(",","").replace(",","");
-                                      var num22 = document.getElementById('Topcar').value;
-                                      var num2 = num22.replace(",","");
-                                      var percent = (num2/num1) * 100;
-                                      if(!isNaN(percent) && num1 != ''){
-                                        document.form1.Percentcar.value = percent.toFixed(0);
-                                        document.form1.Midpricecar.value = addCommas(num1);
-                                        document.form1.Topcar.value = addCommas(num2);
-                                      }
-                                    }
-
                                     function mile(){
                                       var num11 = document.getElementById('Milecar').value;
                                       var num1 = num11.replace(",","");
                                       document.form1.Milecar.value = addCommas(num1);
-                                    }
-
-                                    function calculate(){
-                                      var num11 = document.getElementById('Topcar').value;
-                                      var num1 = num11.replace(",","");
-                                      var num4 = document.getElementById('Timeslackencar').value;
-                                      var num2 = document.getElementById('Interestcar').value;
-                                      var num3 = document.getElementById('Vatcar').value;
-
-                                        if(num4 == '12'){
-                                        var period = '1';
-                                        }else if(num4 == '18'){
-                                        var period = '1.5';
-                                        }else if(num4 == '24'){
-                                        var period = '2';
-                                        }else if(num4 == '30'){
-                                        var period = '2.5';
-                                        }else if(num4 == '36'){
-                                        var period = '3';
-                                        }else if(num4 == '42'){
-                                        var period = '3.5';
-                                        }else if(num4 == '48'){
-                                        var period = '4';
-                                        }else if(num4 == '54'){
-                                        var period = '4.5';
-                                        }else if(num4 == '60'){
-                                        var period = '5';
-                                        }else if(num4 == '66'){
-                                        var period = '5.5';
-                                        }else if(num4 == '72'){
-                                        var period = '6';
-                                        }else if(num4 == '78'){
-                                        var period = '6.5';
-                                        }else if(num4 == '84'){
-                                        var period = '7';
-                                        }else if(num4 == '90'){
-                                        var period = '7.5';
-                                        }else if(num4 == '96'){
-                                        var period = '8';
-                                        }
-
-                                      var totaltopcar = parseFloat(num1);
-                                      var vat = (100+parseFloat(num3))/100;
-                                      var a = (num2*period)+100;
-                                      var b = (((totaltopcar*a)/100)*vat)/num4;
-                                      var result = Math.ceil(b/10)*10;
-                                      var durate = result/vat;
-                                      var durate2 = durate.toFixed(2)*num4;
-                                      var tax = result-durate;
-                                      var tax2 = tax.toFixed(2)*num4;
-                                      var total = result*num4;
-                                      var total2 = durate2+tax2;
-
-                                      document.form1.Topcar.value = addCommas(totaltopcar);
-
-                                      if(!isNaN(result) && num2 != ''){
-                                        document.form1.Paycar.value = addCommas(result.toFixed(2));
-                                        document.form1.Paymemtcar.value = addCommas(durate.toFixed(2));
-                                        document.form1.Timepaymentcar.value = addCommas(durate2.toFixed(2));
-                                        document.form1.Taxcar.value = addCommas(tax.toFixed(2));
-                                        document.form1.Taxpaycar.value = addCommas(tax2.toFixed(2));
-                                        document.form1.Totalpay1car.value = addCommas(total.toFixed(2));
-                                        document.form1.Totalpay2car.value = addCommas(total2.toFixed(2));
-                                      }
                                     }
 
                                     function commission(){
@@ -1082,13 +1090,121 @@
                                             }
 
                                           }
-                                </script>
+                                        </script>
+                                @if($type == 9)
+                                  <script>
+                                    function calculate(){
+                                      var num11 = document.getElementById('Topcar').value;
+                                      var num1 = num11.replace(",","");
+                                      var num4 = document.getElementById('Timeslackencar').value;
+                                      var num2 = document.getElementById('Interestcar').value;
+                                      var num3 = document.getElementById('Vatcar').value;
+
+                                        if(num4 == '12'){
+                                        var period = '1';
+                                        }else if(num4 == '18'){
+                                        var period = '1.5';
+                                        }else if(num4 == '24'){
+                                        var period = '2';
+                                        }else if(num4 == '30'){
+                                        var period = '2.5';
+                                        }else if(num4 == '36'){
+                                        var period = '3';
+                                        }else if(num4 == '42'){
+                                        var period = '3.5';
+                                        }else if(num4 == '48'){
+                                        var period = '4';
+                                        }else if(num4 == '54'){
+                                        var period = '4.5';
+                                        }else if(num4 == '60'){
+                                        var period = '5';
+                                        }else if(num4 == '66'){
+                                        var period = '5.5';
+                                        }else if(num4 == '72'){
+                                        var period = '6';
+                                        }else if(num4 == '78'){
+                                        var period = '6.5';
+                                        }else if(num4 == '84'){
+                                        var period = '7';
+                                        }else if(num4 == '90'){
+                                        var period = '7.5';
+                                        }else if(num4 == '96'){
+                                        var period = '8';
+                                        }
+
+                                      var totaltopcar = parseFloat(num1);
+                                      var vat = (100+parseFloat(num3))/100;
+                                      var a = (num2*period)+100;
+                                      var b = (((totaltopcar*a)/100)*vat)/num4;
+                                      var result = Math.ceil(b/10)*10;
+                                      var durate = result/vat;
+                                      var durate2 = durate.toFixed(2)*num4;
+                                      var tax = result-durate;
+                                      var tax2 = tax.toFixed(2)*num4;
+                                      var total = result*num4;
+                                      var total2 = durate2+tax2;
+
+                                      document.form1.Topcar.value = addCommas(totaltopcar);
+
+                                      if(!isNaN(result) && num2 != ''){
+                                        document.form1.Paycar.value = addCommas(result.toFixed(2));
+                                        document.form1.Paymemtcar.value = addCommas(durate.toFixed(2));
+                                        document.form1.Timepaymentcar.value = addCommas(durate2.toFixed(2));
+                                        document.form1.Taxcar.value = addCommas(tax.toFixed(2));
+                                        document.form1.Taxpaycar.value = addCommas(tax2.toFixed(2));
+                                        document.form1.Totalpay1car.value = addCommas(total.toFixed(2));
+                                        document.form1.Totalpay2car.value = addCommas(total2.toFixed(2));
+                                      }
+                                    }
+                                  </script>
+                                @elseif($type == 13)
+                                  <script>
+                                    function calculate(){
+                                      var num11 = document.getElementById('Topcar').value;
+                                      var num1 = num11.replace(",","");
+                                      var num33 = document.getElementById('Vatcar').value;
+                                      var num3 = num33.replace(",","");
+                                      var num2 = document.getElementById('Interestcar').value;
+                                      var num4 = document.getElementById('Timeslackencar').value;
+                                      var num5 = document.getElementById('objectivecar').value;
+                                      console.log(num5);
+
+                                      if(num5 == 'พักชำระหนี้ 3 เดือน'){
+                                        var vatTop = 0;
+                                      }else{
+                                        var vatTop = parseFloat(num1)*0.07;
+                                      }
+                                      var newTop = parseFloat(num1)+vatTop;
+                                      var vat = (100+parseFloat(num2))/100;
+                                      var result = Math.ceil((newTop*vat)/12);
+                                      // var result = (newTop*vat)/12;
+                                      var tax = vatTop/num4;
+                                      var tax2 = tax.toFixed(2)*num4;
+                                      var durate = result-tax;
+                                      var durate2 = durate.toFixed(2)*num4;
+                                      var total = result*num4;
+                                      var total2 = durate2+tax2;
+
+                                        if(!isNaN(result)){
+                                          document.form1.Topcar.value = addCommas(num1);
+                                          document.form1.Vatcar.value = addCommas(vatTop.toFixed(0));
+                                          document.form1.Paycar.value = addCommas(result.toFixed(2));
+                                          document.form1.Paymemtcar.value = addCommas(durate.toFixed(2));
+                                          document.form1.Timepaymentcar.value = addCommas(durate2.toFixed(2));
+                                          document.form1.Taxcar.value = addCommas(tax.toFixed(2));
+                                          document.form1.Taxpaycar.value = addCommas(tax2.toFixed(2));
+                                          document.form1.Totalpay1car.value = addCommas(total.toFixed(2));
+                                          document.form1.Totalpay2car.value = addCommas(total2.toFixed(2));
+                                        }
+                                      }
+                                  </script>
+                                @endif
 
                                 <div class="row">
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                       <label>ยอดจัด : </label>
-                                      <input type="text" id="Topcar" name="Topcar" class="form-control" style="width: 250px;" maxlength="9" placeholder="กรอกยอดจัด" oninput="calculate();percent();balance();" />
+                                      <input type="text" id="Topcar" name="Topcar" class="form-control" style="width: 250px;" maxlength="9" placeholder="กรอกยอดจัด" oninput="calculate();" />
                                     </div>
                                   </div>
 
@@ -1104,15 +1220,19 @@
                                   <div class="col-md-5">
                                    <div class="form-inline" align="right">
                                      <label>ระยะเวลาผ่อน : </label>
-                                     <input type="text" id="Timeslackencar" name="Timeslackencar" placeholder="ป้อนระยะเวลาผ่อน" class="form-control" style="width: 250px;" onchange="calculate();" />
+                                     @if($type == 9)
+                                      <input type="text" id="Timeslackencar" name="Timeslackencar" class="form-control" style="width: 250px;" onchange="calculate();" />
+                                     @elseif($type == 13)
+                                      <input type="text" id="Timeslackencar" name="Timeslackencar" value="12" class="form-control" style="width: 250px;" onchange="calculate();" />
+                                     @endif
                                    </div>
 
                                   </div>
                                   <div class="col-md-6">
                                     <div class="form-inline" align="right">
-                                        <label>ภาษี / ระยะเวลาผ่อน : </label>
-                                        <input type="text" id="Taxcar" name="Taxcar" class="form-control" style="width: 123px;" readonly />
-                                        <input type="text" id="Taxpaycar" name="Taxpaycar" class="form-control" style="width: 123px;" readonly />
+                                      <label>ภาษี / ระยะเวลาผ่อน : </label>
+                                      <input type="text" id="Taxcar" name="Taxcar" class="form-control" style="width: 123px;" readonly />
+                                      <input type="text" id="Taxpaycar" name="Taxpaycar" class="form-control" style="width: 123px;" readonly />
                                     </div>
 
                                   </div>
@@ -1123,9 +1243,17 @@
                                     <div class="form-inline" align="right">
                                        <label>ดอกเบี้ย / ปี : </label>
                                        @if($data == null)
-                                         <input type="text" id="Interestcar" name="Interestcar" class="form-control" style="width: 250px;" placeholder="ดอกเบี้ย" oninput="calculate();"/>
+                                         @if($type == 9)
+                                         <input type="text" id="Interestcar" name="Interestcar" class="form-control" style="width: 250px;" oninput="calculate();"/>
+                                         @elseif($type == 13)
+                                           <input type="text" id="Interestcar" name="Interestcar" class="form-control" style="width: 250px;" value="12" oninput="calculate();"/>
+                                         @endif
                                        @else
-                                         <input type="text" id="Interestcar" name="Interestcar" value="{{iconv('Tis-620','utf-8',str_replace(" ","",$data->EFRATE))}}" class="form-control" style="width: 250px;" placeholder="ดอกเบี้ย" oninput="calculate();"/>
+                                        @if($type == 9)
+                                          <input type="text" id="Interestcar" name="Interestcar" value="{{iconv('Tis-620','utf-8',str_replace(" ","",$data->EFRATE))}}" class="form-control" style="width: 250px;" placeholder="ดอกเบี้ย" oninput="calculate();"/>
+                                        @elseif($type == 13)
+                                          <input type="text" id="Interestcar" name="Interestcar" class="form-control" style="width: 250px;" value="12" oninput="calculate();"/>
+                                        @endif
                                        @endif
                                      </div>
                                   </div>
@@ -1143,8 +1271,11 @@
                                   <div class="col-md-5">
                                     <div class="form-inline" align="right">
                                       <label>VAT : </label>
-                                      <input type="text" id="Vatcar" name="Vatcar" class="form-control" style="width: 233px;background-color: white;" value="7" oninput="calculate()"/>
-                                      <label>%</label>
+                                      @if($type == 9)
+                                        <input type="text" id="Vatcar" name="Vatcar" value="7" class="form-control" style="width: 250px;background-color: white;" oninput="calculate()"/>
+                                      @elseif($type == 13)
+                                        <input type="text" id="Vatcar" name="Vatcar" class="form-control" style="width: 250px;background-color: white;" oninput="calculate()"/>
+                                      @endif
                                      </div>
                                   </div>
                                   <div class="col-md-6">
@@ -1700,6 +1831,53 @@
           $('[data-mask]').inputmask()
         })
       </script>
+
+      <script>
+        //Make the DIV element draggagle:
+        dragElement(document.getElementById("mydiv"));
+
+        function dragElement(elmnt) {
+          var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+          if (document.getElementById(elmnt.id + "header")) {
+            /* if present, the header is where you move the DIV from:*/
+            document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+          } else {
+            /* otherwise, move the DIV from anywhere inside the DIV:*/
+            elmnt.onmousedown = dragMouseDown;
+          }
+
+          function dragMouseDown(e) {
+            e = e || window.event;
+            e.preventDefault();
+            // get the mouse cursor position at startup:
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            document.onmouseup = closeDragElement;
+            // call a function whenever the cursor moves:
+            document.onmousemove = elementDrag;
+          }
+
+          function elementDrag(e) {
+            e = e || window.event;
+            e.preventDefault();
+            // calculate the new cursor position:
+            pos1 = pos3 - e.clientX;
+            pos2 = pos4 - e.clientY;
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            // set the element's new position:
+            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+            elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+          }
+
+          function closeDragElement() {
+            /* stop moving when mouse button is released:*/
+            document.onmouseup = null;
+            document.onmousemove = null;
+          }
+        }
+        </script>
+
 
     </section>
     {{csrf_field()}}
