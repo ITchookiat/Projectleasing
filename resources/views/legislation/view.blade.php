@@ -848,7 +848,7 @@
                                   $ClDateDiff = date_diff($Cldate,$nowCldate);
                                   $duration = $ClDateDiff->format("%a วัน")
                                 @endphp
-                                <span title="{{$ClDateDiff->y}} ปี {{$ClDateDiff->m}} เดือน {{$ClDateDiff->d}} วัน"><font color="green" title="test">{{$duration}}</font></span>
+                                <span data-toggle="tooltip" title="{{$ClDateDiff->y}} ปี {{$ClDateDiff->m}} เดือน {{$ClDateDiff->d}} วัน"><font color="green" title="test">{{$duration}}</font></span>
                               @else
                                 @php
                                   $nowday = date('Y-m-d');
@@ -857,7 +857,7 @@
                                   $ClDateDiff = date_diff($Cldate,$nowCldate);
                                   $duration = $ClDateDiff->format("%a วัน")
                                 @endphp
-                                <span title="{{$ClDateDiff->y}} ปี {{$ClDateDiff->m}} เดือน {{$ClDateDiff->d}} วัน"><font color="red">{{$duration}}</font></span>
+                                <span data-toggle="tooltip" title="{{$ClDateDiff->y}} ปี {{$ClDateDiff->m}} เดือน {{$ClDateDiff->d}} วัน"><font color="red">{{$duration}}</font></span>
                               @endif
                             </td>
                             <td class="text-center"> {{number_format($row->Total_Promise,2)}}</td>
@@ -869,22 +869,22 @@
                               @endphp
 
                               @if($row->Status_Promise == "ปิดบัญชีประนอมหนี้")
-                                <button type="button" class="btn btn-success btn-sm" title="ปิดบัญชี">
+                                <button data-toggle="tooltip" type="button" class="btn btn-success btn-sm" title="ปิดบัญชี">
                                   <span class="glyphicon glyphicon-ok prem"></span> ปิดบัญชี
                                 </button>
                               @elseif($row->Status_Promise == "จ่ายจบประนอมหนี้")
-                                <button type="button" class="btn btn-success btn-sm" title="จ่ายจบ">
+                                <button data-toggle="tooltip" type="button" class="btn btn-success btn-sm" title="จ่ายจบ">
                                   <span class="glyphicon glyphicon-ok prem"></span> จ่ายจบ
                                 </button>
                               @else
                                   @foreach($dataPay as $key => $value)
                                     @if($row->legisPromise_id == $value->legis_Com_Payment_id)
                                          @if($value->Date_Payment < $lastday)
-                                           <button type="button" class="btn btn-danger btn-sm" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
+                                           <button data-toggle="tooltip" type="button" class="btn btn-danger btn-sm" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
                                              <span class="glyphicon glyphicon-thumbs-down prem"></span> ขาดชำระ
                                            </button>
                                          @else
-                                           <button type="button" class="btn btn-info btn-sm" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
+                                           <button data-toggle="tooltip" type="button" class="btn btn-info btn-sm" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
                                              <span class="glyphicon glyphicon-thumbs-up prem"></span> ชำระปกติ
                                            </button>
                                          @endif

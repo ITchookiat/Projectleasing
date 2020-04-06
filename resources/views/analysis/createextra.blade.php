@@ -163,6 +163,23 @@
 
     </style>
 
+    <style>
+      #mydiv {
+        position: absolute;
+        z-index: 9;
+        text-align: center;
+        width:230px;
+        right: 100px;
+        top: 10px;
+      }
+
+      #mydivheader {
+        /* padding: 10px; */
+        cursor: move;
+        z-index: 10;
+      }
+      </style>
+
     <section class="content-header">
       @if($type == 9)
       <form method="get" action="{{ route('Analysis',9) }}">
@@ -237,6 +254,74 @@
             @endif
 
             <div class="row">
+              <!-- กล่องย้ายได้ -->
+                @if($data != null)
+                  <div id="mydiv">
+                    <div id="mydivheader" class="box box-default box-solid">
+                      <div class="box-header with-border">
+                        <h5 style="font-size:14px;" class="box-title pull-left">ข้อมูลเพิ่มเติม</h5>
+
+                        <div class="box-tools pull-right">
+                          <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="collapse"><i class="fa fa-plus"></i>
+                          </button>
+                          <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                            <i class="fa fa-times"></i></button>
+                        </div>
+                        <!-- /.box-tools -->
+                      </div>
+                      <!-- /.box-header -->
+                      <div class="box-body" style="display: none;">
+                        <div class="form-inline" align="right">
+                          <label><font color="red">อายุ</font> : </label>
+                          <input type="text" value="{{$data->AGE}}" class="form-control" style="width: 110px;background-color:white;"/>
+                        </div>
+                        <div class="form-inline" align="right">
+                          <label>เงินลงทุน : </label>
+                          <input type="text" value="{{number_format($data->NCARCST,2)}}" class="form-control" style="width: 110px;background-color:white;" readonly/>
+                        </div>
+                        <div class="form-inline" align="right">
+                          <label><font color="red">ค่างวดละ</font> : </label>
+                          <input type="text" value="{{number_format($data->DAMT,2)}}" class="form-control" style="width: 110px;background-color:white;" readonly/>
+                        </div>
+                        <div class="form-inline" align="right">
+                          <label>ชำระแล้ว : </label>
+                          <input type="text" value="{{number_format($data->SMPAY,2)}}" class="form-control" style="width: 110px;background-color:white;" readonly/>
+                        </div>
+                        <div class="form-inline" align="right">
+                          <label>คงเหลือ : </label>
+                          <input type="text" value="{{number_format($data->BALANC - $data->SMPAY,2)}}" class="form-control" style="width: 110px;background-color:white;" readonly/>
+                        </div>
+                        <br>
+                        <div class="form-inline" align="center">
+                          <table class="table" id="table">
+                            <tr align="center" style="background-color:#E7E9EC;">
+                              <td>งวดที่</td>
+                              <td>เงินต้น</td>
+                              <td>ดอกเบี้ย</td>
+                            </tr>
+                          @foreach($dataPay as $row)
+                            @if($row->DATE1 != null)
+                            <tr>
+                              <td align="center">{{$row->NOPAY}}</td>
+                              <td>{{number_format($row->TONEFFR,2)}}</td>
+                              <td>{{number_format($row->INTEFFR,2)}}</td>
+                            </tr>
+                            @else
+                            <tr style="color:red;">
+                              <td align="center">{{$row->NOPAY}}</td>
+                              <td>{{number_format($row->TONEFFR,2)}}</td>
+                              <td>{{number_format($row->INTEFFR,2)}}</td>
+                            </tr>
+                            @endif
+                          @endforeach
+                        </table>
+                        </div>
+                      </div>
+                      <!-- /.box-body -->
+                    </div>
+                  </div>
+                @endif
+              <!-- กล่องย้ายได้ -->
               <div class="col-md-12">
                 <div class="row">
                   <div class="col-md-12">
@@ -516,13 +601,13 @@
                                     <div class="col-md-6">
                                       <div class="form-inline" align="right">
                                         <label>มาตรการช่วยเหลือ : </label>
-                                          <select id="objectivecar" name="objectivecar" class="form-control" style="width: 250px;" oninput="calculate();">
+                                          <select id="objectivecar" name="objectivecar" class="form-control" style="width: 250px;" oninput="calculate();" required>
                                             <option value="" selected>--- มาตรการช่วยเหลือ ---</option>
                                             <option value="ลดค่าธรรมเนียม">ลดค่าธรรมเนียม</option>
                                             <option value="ลดดอกเบี้ย สูงสุด 100 %">ลดดอกเบี้ย สูงสุด 100 %</option>
                                             <option value="พักชำระเงินต้น 3 เดือน">พักชำระเงินต้น 3 เดือน</option>
                                             <option value="พักชำระหนี้ 3 เดือน">พักชำระหนี้ 3 เดือน</option>
-                                            <option value="ขยายระยะเวลาชำระหนี้">ขยายระยะเวลาชำระหนี้</option>
+                                            <option value="ขยายระยะเวลาชำระหนี้" disabled>ขยายระยะเวลาชำระหนี้</option>
                                           </select>
                                       </div>
                                     </div>
@@ -1092,6 +1177,7 @@
                                       var newTop = parseFloat(num1)+vatTop;
                                       var vat = (100+parseFloat(num2))/100;
                                       var result = Math.ceil((newTop*vat)/12);
+                                      // var result = (newTop*vat)/12;
                                       var tax = vatTop/num4;
                                       var tax2 = tax.toFixed(2)*num4;
                                       var durate = result-tax;
@@ -1109,7 +1195,7 @@
                                           document.form1.Taxpaycar.value = addCommas(tax2.toFixed(2));
                                           document.form1.Totalpay1car.value = addCommas(total.toFixed(2));
                                           document.form1.Totalpay2car.value = addCommas(total2.toFixed(2));
-                                        }                                  
+                                        }
                                       }
                                   </script>
                                 @endif
@@ -1744,6 +1830,60 @@
         $(function () {
           $('[data-mask]').inputmask()
         })
+      </script>
+
+      <script>
+        //Make the DIV element draggagle:
+        dragElement(document.getElementById("mydiv"));
+
+        function dragElement(elmnt) {
+          var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+          if (document.getElementById(elmnt.id + "header")) {
+            /* if present, the header is where you move the DIV from:*/
+            document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+          } else {
+            /* otherwise, move the DIV from anywhere inside the DIV:*/
+            elmnt.onmousedown = dragMouseDown;
+          }
+
+          function dragMouseDown(e) {
+            e = e || window.event;
+            e.preventDefault();
+            // get the mouse cursor position at startup:
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            document.onmouseup = closeDragElement;
+            // call a function whenever the cursor moves:
+            document.onmousemove = elementDrag;
+          }
+
+          function elementDrag(e) {
+            e = e || window.event;
+            e.preventDefault();
+            // calculate the new cursor position:
+            pos1 = pos3 - e.clientX;
+            pos2 = pos4 - e.clientY;
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            // set the element's new position:
+            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+            elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+          }
+
+          function closeDragElement() {
+            /* stop moving when mouse button is released:*/
+            document.onmouseup = null;
+            document.onmousemove = null;
+          }
+        }
+        </script>
+
+      <script type="text/javascript">
+        $(document).ready(function() {
+          $('#table').DataTable( {
+            "order": [[ 0, "asc" ]]
+          } );
+        } );
       </script>
 
     </section>
