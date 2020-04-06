@@ -3,7 +3,7 @@
   <!-- Logo -->
   <a href="{{ route('index','home') }}" class="logo">
     <span class="logo-mini"><b>LS</b></span>
-    <span class="logo-lg"><b>Chookiat</b></span>
+    <span class="logo-lg"><b>Chookiat Leasing</b></span>
   </a>
   <!-- Header Navbar: style can be found in header.less -->
 
@@ -16,25 +16,11 @@
       <span class="icon-bar"></span>
     </a>
 
-    @if(auth::user()->type == 1)
-    <ul class="nav navbar-nav">
-      <li>
-        <a href="{{ route('datacar',11) }}" >ระบบรถบ้าน</a>
-      </li>
-      <li>
-        <a href="{{ route('datacar',11) }}" >ระบบขายฝาก</a>
-      </li>
-    </ul>
-    @endif
-
     <div class="navbar-custom-menu">
       <ul class="nav navbar-nav">
         <li>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </li>
-        <!-- <li>
-          <a href="{{ route('logout') }}" onclick="return confirm('ต้องการออกจากระบบหรือไม่?')"><i class="fa fa-power-off"></i>  ออกจากระบบ </a>
-        </li> -->
 
         <!-- User Account: style can be found in dropdown.less -->
         <li class="dropdown user user-menu">
@@ -51,7 +37,6 @@
                 <small>{{ Auth::user()->username }}</small>
               </p>
             </li>
-
 
             <!-- Menu Footer-->
             <li class="user-footer">
@@ -72,27 +57,56 @@
 
       </ul>
     </div>
+
+    @if(auth::user()->type == 1)
+    <div class="navbar-custom-menu">
+      <ul class="nav navbar-nav">
+        <!-- <li class="dropdown">
+          <a href="{{ route('datacar',11) }}" >ระบบรถบ้าน</a>
+        </li> -->
+        <li class="dropdown">
+          <a class="btn btn-block active" href="{{ route('datacar',11) }}" >
+            <i class="fa fa-bitcoin"></i> ระบบขายฝาก
+          </a>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="btn btn-block active" 
+             onclick="on_login('http://localhost/ProjectHomeCar/public/login', '{{ Auth::user()->username }}', '{{ Auth::user()->password_token }}');">
+            <i class="fa fa-automobile"></i> ระบบรถบ้าน
+          </a>
+        </li>
+      
+      </ul>
+    </div>
+    @endif
+
   </nav>
 </header>
 <div class="modal fade in" id="modal-danger">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
 
-        <div class="modal-body">
-          <h5 align="center">คุณแน่ใจที่จะออกจากระบบหรือไม่ <i class="fa fa-question-circle"></i></h5>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger btn-outline pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i>  ยกเลิก</button>
-          <a href="{{ route('logout') }}" class="btn btn-success btn-outline" ><i class="fa fa-check-circle"></i>  ตกลง</a>
-        </div>
-
-        <!-- <div class="modal-body text-center"> คุณแน่ใจที่จะออกจากระบบหรือไม่ <i class="fa fa-question-circle"></i></div>
-        <div class="modal-footer">
-            <a href="{{ route('logout') }}" class="btn btn-success btn-block" >ตกลง</a>
-            <button type="button" class="btn btn-danger btn-block" data-dismiss="modal"> ยกเลิก</button>
-        </div> -->
-
+      <div class="modal-body">
+        <h5 align="center">คุณแน่ใจที่จะออกจากระบบหรือไม่ <i class="fa fa-question-circle"></i></h5>
       </div>
-      <!-- /.modal-content -->
+      <div class="modal-footer">
+        <a href="{{ route('logout') }}" class="btn btn-success btn-outline" ><i class="fa fa-check-circle"></i>  ตกลง</a>
+        <button type="button" class="btn btn-danger btn-outline pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i>  ยกเลิก</button>
+      </div>
+
+      <!-- <div class="modal-body text-center"> คุณแน่ใจที่จะออกจากระบบหรือไม่ <i class="fa fa-question-circle"></i></div>
+      <div class="modal-footer">
+          <a href="{{ route('logout') }}" class="btn btn-success btn-block" >ตกลง</a>
+          <button type="button" class="btn btn-danger btn-block" data-dismiss="modal"> ยกเลิก</button>
+      </div> -->
     </div>
   </div>
+</div>
+
+<script>
+    function on_login(link, user, pass) {
+        $.post( link, { username: user, password: pass }, function( data ) {
+            location.href = link;
+        });
+    }
+</script>

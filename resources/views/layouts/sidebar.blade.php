@@ -50,36 +50,101 @@
         </li>
       @endif
 
-      @if(session('type') == 1)
-        <li class="treeview {{ (request()->is('Analysis/*')) ? 'active' : '' }}">
-          <a href="#">
-            <i class="fa fa-sitemap"></i> <span> แผนกสินเชื่อ</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
+      <li class="treeview {{ (request()->is('Analysis/*')) ? 'active' : '' }}">
+        <a href="#">
+          <i class="fa fa-sitemap"></i> <span> แผนกสินเชื่อ</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li class="treeview {{ (request()->is('Analysis/Home/1')) ? 'active' : '' }} {{ (request()->is('Analysis/Home/3')) ? 'active' : '' }} {{ (request()->is('Analysis/Home/4')) ? 'active' : '' }} {{ (request()->is('Analysis/Home/6')) ? 'active' : '' }} {{ (request()->is('Analysis/Home/7')) ? 'active' : '' }} {{ (request()->is('Analysis/edit/1/*')) ? 'active' : '' }} {{ (request()->is('Analysis/edit/4/*')) ? 'active' : '' }} {{ (request()->is('Analysis/deleteImageEach/1/*')) ? 'active' : '' }} {{ (request()->is('Analysis/deleteImageEach/4/*')) ? 'active' : '' }}">
+              <a href="#">
+                <i class="fa fa-folder-open text-red"></i>สินเชื่อ
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 3 or auth::user()->type == 4)
+                  @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->branch == 01 or auth::user()->branch == 03 or auth::user()->branch == 04 or auth::user()->branch == 05 or auth::user()->branch == 06 or auth::user()->branch == 07)
+                    <li><a href="{{ route('Analysis',1) }}"><i class="fa fa-cube text-primary"></i>สินเชื่อ</a></li>
+                    <li><a href="{{ route('Analysis',3) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน สินเชื่อ</a></li>
+                  @endif
+                  @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 4 or auth::user()->branch == 10 or auth::user()->branch == 11)
+                    <li><a href="{{ route('Analysis',4) }}"><i class="fa fa-cube text-primary"></i>รถบ้าน</a></li>
+                    <li><a href="{{ route('Analysis',6) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน รถบ้าน</a></li>
+                    <li><a href="{{ route('Analysis',7) }}"><i class="fa fa-folder-open text-success"></i>รายงานการอนุมัติ</a></li>
+                  @endif
+                @endif
+              </ul>
+          </li>
+          <li class="treeview {{ (request()->is('Analysis/Home/8')) ? 'active' : '' }} {{ (request()->is('Analysis/Home/9')) ? 'active' : '' }} {{ (request()->is('Analysis/Home/10')) ? 'active' : '' }} {{ (request()->is('Analysis/Home/11')) ? 'active' : '' }} {{ (request()->is('Analysis/edit/8/*')) ? 'active' : '' }} {{ (request()->is('Analysis/deleteImageEach/8/*')) ? 'active' : '' }}">
+            <a href="#">
+              <i class="fa fa-folder-open text-red"></i>ปรับโครงสร้างหนี้
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="{{ route('Analysis',10) }}"><i class="fa fa-cube text-primary"></i>เช็คข้อมูลลูกค้า</a></li>
+              <li><a href="{{ route('Analysis',8) }}"><i class="fa fa-cube text-primary"></i>ปรับโครงสร้าง</a></li>
+              <li><a href="{{ route('Analysis',11) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน ปรับโครงสร้าง</a></li>
+            </ul>
+          </li>
+          <li class="treeview {{ (request()->is('Analysis/Home/12')) ? 'active' : '' }} {{ (request()->is('Analysis/Home/13')) ? 'active' : '' }} {{ (request()->is('Analysis/Home/14')) ? 'active' : '' }} {{ (request()->is('Analysis/edit/9/*')) ? 'active' : '' }} {{ (request()->is('Analysis/deleteImageEach/9/*')) ? 'active' : '' }}">
+            <a href="#">
+              <i class="fa fa-folder-open text-red"></i>มาตรการ COVID-19
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="{{ route('Analysis',12) }}"><i class="fa fa-cube text-primary"></i>มาตรการช่วยเหลือ</a></li>
+              <li><a href="{{ route('Analysis',14) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน มาตรการช่วยเหลือ</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+
+      <li class="treeview {{ (request()->is('Precipitate/*')) ? 'active' : '' }}">
+        <a href="#">
+          <i class="fa fa-handshake-o"></i> <span> แผนกเร่งรัด</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 31)
           <ul class="treeview-menu">
-            <li class="treeview {{ (request()->is('Analysis/Home/1')) ? 'active' : '' }} {{ (request()->is('Analysis/Home/3')) ? 'active' : '' }} {{ (request()->is('Analysis/Home/4')) ? 'active' : '' }} {{ (request()->is('Analysis/Home/6')) ? 'active' : '' }} {{ (request()->is('Analysis/Home/7')) ? 'active' : '' }} {{ (request()->is('Analysis/edit/1/*')) ? 'active' : '' }} {{ (request()->is('Analysis/edit/4/*')) ? 'active' : '' }} {{ (request()->is('Analysis/deleteImageEach/1/*')) ? 'active' : '' }} {{ (request()->is('Analysis/deleteImageEach/4/*')) ? 'active' : '' }}">
+            <li class="treeview {{(request()->is('Precipitate/Home/3'))?'active':''}} {{(request()->is('Precipitate/Home/1'))?'active':''}} {{(request()->is('Precipitate/Home/4'))?'active':''}} {{(request()->is('Precipitate/Home/5'))?'active':''}} {{(request()->is('Precipitate/Home/11'))?'active':''}}">
                 <a href="#">
-                  <i class="fa fa-folder-open text-red"></i>สินเชื่อ
+                  <i class="fa fa-folder-open text-red"></i>ระบบ
                   <span class="pull-right-container">
                     <i class="fa fa-angle-left pull-right"></i>
                   </span>
                 </a>
                 <ul class="treeview-menu">
-                  @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 3 or auth::user()->type == 4)
-                    @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->branch == 01 or auth::user()->branch == 03 or auth::user()->branch == 04 or auth::user()->branch == 05 or auth::user()->branch == 06 or auth::user()->branch == 07)
-                      <li><a href="{{ route('Analysis',1) }}"><i class="fa fa-cube text-primary"></i>สินเชื่อ</a></li>
-                      <li><a href="{{ route('Analysis',3) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน สินเชื่อ</a></li>
-                    @endif
-                    @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 4 or auth::user()->branch == 10 or auth::user()->branch == 11)
-                      <li><a href="{{ route('Analysis',4) }}"><i class="fa fa-cube text-primary"></i>รถบ้าน</a></li>
-                      <li><a href="{{ route('Analysis',6) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน รถบ้าน</a></li>
-                      <li><a href="{{ route('Analysis',7) }}"><i class="fa fa-folder-open text-success"></i>รายงานการอนุมัติ</a></li>
-                    @endif
-                  @endif
+                  <li><a href="{{ route('Precipitate',3) }}"><i class="fa fa-cube text-primary"></i>ระบบแจ้งเตือนติดตาม</a></li>
+                  <li><a href="{{ route('Precipitate',1) }}"><i class="fa fa-cube text-primary"></i>ระบบปล่อยงาน</a></li>
+                  <!-- <li><a href="{{ route('Precipitate',4) }}"><i class="fa fa-cube text-primary"></i>ระบบปล่อยงานโนติส</a></li> -->
+                  <li><a href="{{ route('Precipitate',5) }}"><i class="fa fa-cube text-primary"></i>ระบบสต็อกรถเร่งรัด</a></li>
+                  <li><a href="{{ route('Precipitate',11) }}"><i class="fa fa-cube text-primary"></i>ระบบปรับโครงสร้างหนี้</a></li>
                 </ul>
             </li>
+            <li class="treeview {{(request()->is('Precipitate/Home/2'))?'active':''}} {{(request()->is('Precipitate/Home/7'))?'active':''}} {{(request()->is('Precipitate/Home/8'))?'active':''}} {{(request()->is('Precipitate/Home/9'))?'active':''}} {{(request()->is('Precipitate/Home/10'))?'active':''}}">
+                <a href="#">
+                  <i class="fa fa-folder-open text-red"></i>รายงาน
+                  <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="{{ route('Precipitate',2) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน แยกตามทีม</a></li>
+                  <li><a href="{{ route('Precipitate',7) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน งานประจำวัน</a></li>
+                  <li><a href="{{ route('Precipitate',8) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน รับชำระค่าติดตาม</a></li>
+                  <li><a href="{{ route('Precipitate',9) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน ใบรับฝาก</a></li>
+                  <li><a href="{{ route('Precipitate',10) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน หนังสือขอยืนยัน</a></li>
+                </ul>
             <li class="treeview {{ (request()->is('Analysis/Home/8')) ? 'active' : '' }} {{ (request()->is('Analysis/Home/9')) ? 'active' : '' }} {{ (request()->is('Analysis/Home/10')) ? 'active' : '' }} {{ (request()->is('Analysis/Home/11')) ? 'active' : '' }} {{ (request()->is('Analysis/edit/8/*')) ? 'active' : '' }} {{ (request()->is('Analysis/deleteImageEach/8/*')) ? 'active' : '' }}">
               <a href="#">
                 <i class="fa fa-folder-open text-red"></i>ปรับโครงสร้างหนี้
@@ -106,75 +171,35 @@
               </ul>
             </li>
           </ul>
-        </li>
+        @endif
+      </li>
 
-        <li class="treeview {{ (request()->is('Precipitate/*')) ? 'active' : '' }}">
+      <li class="treeview {{ (request()->is('Legislation/Home*')) ? 'active' : '' }} {{ (request()->is('Legislation/edit/*')) ? 'active' : '' }}"> <!-- /.DINsidebar -->
           <a href="#">
-            <i class="fa fa-handshake-o"></i> <span> แผนกเร่งรัด</span>
+            <i class="fa fa-gavel"></i> <span> แผนกกฏหมาย</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-          @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 31)
+          @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 21 or auth::user()->type == 31)
             <ul class="treeview-menu">
-              <li class="treeview {{(request()->is('Precipitate/Home/3'))?'active':''}} {{(request()->is('Precipitate/Home/1'))?'active':''}} {{(request()->is('Precipitate/Home/4'))?'active':''}} {{(request()->is('Precipitate/Home/5'))?'active':''}} {{(request()->is('Precipitate/Home/11'))?'active':''}}">
-                  <a href="#">
-                    <i class="fa fa-folder-open text-red"></i>ระบบ
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="{{ route('Precipitate',3) }}"><i class="fa fa-cube text-primary"></i>ระบบแจ้งเตือนติดตาม</a></li>
-                    <li><a href="{{ route('Precipitate',1) }}"><i class="fa fa-cube text-primary"></i>ระบบปล่อยงาน</a></li>
-                    <!-- <li><a href="{{ route('Precipitate',4) }}"><i class="fa fa-cube text-primary"></i>ระบบปล่อยงานโนติส</a></li> -->
-                    <li><a href="{{ route('Precipitate',5) }}"><i class="fa fa-cube text-primary"></i>ระบบสต็อกรถเร่งรัด</a></li>
-                    <li><a href="{{ route('Precipitate',11) }}"><i class="fa fa-cube text-primary"></i>ระบบปรับโครงสร้างหนี้</a></li>
-                  </ul>
-              </li>
-              <li class="treeview {{(request()->is('Precipitate/Home/2'))?'active':''}} {{(request()->is('Precipitate/Home/7'))?'active':''}} {{(request()->is('Precipitate/Home/8'))?'active':''}} {{(request()->is('Precipitate/Home/9'))?'active':''}} {{(request()->is('Precipitate/Home/10'))?'active':''}}">
-                  <a href="#">
-                    <i class="fa fa-folder-open text-red"></i>รายงาน
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="{{ route('Precipitate',2) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน แยกตามทีม</a></li>
-                    <li><a href="{{ route('Precipitate',7) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน งานประจำวัน</a></li>
-                    <li><a href="{{ route('Precipitate',8) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน รับชำระค่าติดตาม</a></li>
-                    <li><a href="{{ route('Precipitate',9) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน ใบรับฝาก</a></li>
-                    <li><a href="{{ route('Precipitate',10) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน หนังสือขอยืนยัน</a></li>
-                  </ul>
-              </li>
+              <li><a href="{{ route('legislation',1) }}"><i class="fa fa-cube text-primary"></i>รายชื่อส่งฟ้อง</a></li>
+              <li><a href="{{ route('legislation',6) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้เตรียมฟ้อง</a></li>
+              <li><a href="{{ route('legislation',2) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้ฟ้อง</a></li>
+              <li><a href="{{ route('legislation',8) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้สืบทรัพย์</a></li>
+              <li><a href="{{ route('legislation',7) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้ประนอมหนี้</a></li>
+              <li><a href="{{ route('legislation',10) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้ของกลาง</a></li>
+              <!-- <li><a href="{{ route('legislation',100) }}"><i class="fa fa-dashboard text-primary"></i>Dashboard</a></li> -->
             </ul>
           @endif
         </li>
 
-        <li class="treeview {{ (request()->is('Legislation/Home*')) ? 'active' : '' }} {{ (request()->is('Legislation/edit/*')) ? 'active' : '' }}"> <!-- /.DINsidebar -->
-            <a href="#">
-              <i class="fa fa-gavel"></i> <span> แผนกกฏหมาย</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-            </a>
-            @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 21 or auth::user()->type == 31)
-              <ul class="treeview-menu">
-                <li><a href="{{ route('legislation',1) }}"><i class="fa fa-cube text-primary"></i>รายชื่อส่งฟ้อง</a></li>
-                <li><a href="{{ route('legislation',6) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้เตรียมฟ้อง</a></li>
-                <li><a href="{{ route('legislation',2) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้ฟ้อง</a></li>
-                <li><a href="{{ route('legislation',8) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้สืบทรัพย์</a></li>
-                <li><a href="{{ route('legislation',7) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้ประนอมหนี้</a></li>
-                <li><a href="{{ route('legislation',10) }}"><i class="fa fa-cube text-primary"></i>ลูกหนี้ของกลาง</a></li>
-                <!-- <li><a href="{{ route('legislation',100) }}"><i class="fa fa-dashboard text-primary"></i>Dashboard</a></li> -->
-              </ul>
-            @endif
-          </li>
+      <!-- <li>
+          <a href="{{ route('report',1) }}"><i class="fa fa-newspaper-o text-red"></i>รายงาน ใบเบิกเงิน</a>
+      </li> -->
 
-        <!-- <li>
-            <a href="{{ route('report',1) }}"><i class="fa fa-newspaper-o text-red"></i>รายงาน ใบเบิกเงิน</a>
-        </li> -->
-      @elseif(session('type') == 2)
+{{--
+      @if(session('type') == 2)
         <li class="treeview {{ (request()->is('datacar/view*')) ? 'active' : '' }}">
           <a href="#">
             <i class="fa fa-database"></i> <span> สต๊อกรถยนต์</span>
@@ -218,12 +243,6 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <!-- <li>
-                <a href="{{ route('datacarreport',1) }}"><i class="fa fa-book text-success"></i> รายงานรถยนต์ทั้งหมด</a>
-            </li>
-            <li>
-                <a href="{{ route('datacarreport',2) }}"><i class="fa fa-book text-info"></i> รายงานรถยนต์พร้อมขาย</a>
-            </li> -->
             <li>
                 <a href="{{ route('datacarreport',3) }}"><i class="fa fa-clipboard text-yellow"></i> รายงาน สต๊อกบัญชี</a>
             </li>
@@ -240,6 +259,7 @@
           </ul>
         </li>
       @endif
+--}}      
 
     </ul>
   </section>
