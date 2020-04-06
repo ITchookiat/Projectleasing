@@ -87,7 +87,7 @@
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="{{ route('Analysis',10) }}"><i class="fa fa-cube text-primary"></i>เช็คข้อมูลลูกค้า</a></li>
+              <!-- <li><a href="{{ route('Analysis',10) }}"><i class="fa fa-cube text-primary"></i>เช็คข้อมูลลูกค้า</a></li> -->
               <li><a href="{{ route('Analysis',8) }}"><i class="fa fa-cube text-primary"></i>ปรับโครงสร้าง</a></li>
               <li><a href="{{ route('Analysis',11) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน ปรับโครงสร้าง</a></li>
             </ul>
@@ -145,30 +145,6 @@
                   <li><a href="{{ route('Precipitate',9) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน ใบรับฝาก</a></li>
                   <li><a href="{{ route('Precipitate',10) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน หนังสือขอยืนยัน</a></li>
                 </ul>
-            <li class="treeview {{ (request()->is('Analysis/Home/8')) ? 'active' : '' }} {{ (request()->is('Analysis/Home/9')) ? 'active' : '' }} {{ (request()->is('Analysis/Home/10')) ? 'active' : '' }} {{ (request()->is('Analysis/Home/11')) ? 'active' : '' }} {{ (request()->is('Analysis/edit/8/*')) ? 'active' : '' }} {{ (request()->is('Analysis/deleteImageEach/8/*')) ? 'active' : '' }}">
-              <a href="#">
-                <i class="fa fa-folder-open text-red"></i>ปรับโครงสร้างหนี้
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <!-- <li><a href="{{ route('Analysis',10) }}"><i class="fa fa-cube text-primary"></i>เช็คข้อมูลลูกค้า</a></li> -->
-                <li><a href="{{ route('Analysis',8) }}"><i class="fa fa-cube text-primary"></i>ปรับโครงสร้าง</a></li>
-                <li><a href="{{ route('Analysis',11) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน ปรับโครงสร้าง</a></li>
-              </ul>
-            </li>
-            <li class="treeview {{ (request()->is('Analysis/Home/12')) ? 'active' : '' }} {{ (request()->is('Analysis/Home/13')) ? 'active' : '' }} {{ (request()->is('Analysis/Home/14')) ? 'active' : '' }} {{ (request()->is('Analysis/edit/9/*')) ? 'active' : '' }} {{ (request()->is('Analysis/deleteImageEach/9/*')) ? 'active' : '' }}">
-              <a href="#">
-                <i class="fa fa-folder-open text-red"></i>มาตรการ COVID-19
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="{{ route('Analysis',12) }}"><i class="fa fa-cube text-primary"></i>พักชำระหนี้</a></li>
-                <li><a href="{{ route('Analysis',14) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน พักชำระหนี้</a></li>
-              </ul>
             </li>
           </ul>
         @endif
