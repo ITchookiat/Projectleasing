@@ -632,7 +632,8 @@
                               <div class="form-inline" align="right">
                                 <label>วัตถุประสงค์ของสินเชื่อ : </label>
                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                  <select name="objectivecar" class="form-control" style="width: 250px;">
+                                  <!-- <select name="objectivecar" class="form-control" style="width: 250px;"> -->
+                                  <select id="objectivecar" name="objectivecar" class="form-control" style="width: 250px;" oninput="calculate();">
                                     <option value="" selected>--- วัตถุประสงค์ของสินเชื่อ ---</option>
                                     @foreach ($objectivecar as $key => $value)
                                       <option value="{{$key}}" {{ ($key == $data->Objective_car) ? 'selected' : '' }}>{{$value}}</option>
@@ -640,9 +641,9 @@
                                   </select>
                                 @else
                                   @if($GetDocComplete != Null)
-                                    <input type="text" name="objectivecar" value="{{ $data->Objective_car }}" class="form-control" style="width: 250px;" placeholder="เลือกวัตถุประสงค์ของสินเชื่อ" readonly/>
+                                    <input type="text" id="objectivecar" name="objectivecar" value="{{ $data->Objective_car }}" class="form-control" style="width: 250px;" placeholder="เลือกวัตถุประสงค์ของสินเชื่อ" readonly/>
                                   @else
-                                    <select name="objectivecar" class="form-control" style="width: 250px;">
+                                    <select id="objectivecar" name="objectivecar" class="form-control" style="width: 250px;" oninput="calculate();">
                                       <option value="" selected>--- วัตถุประสงค์ของสินเชื่อ ---</option>
                                       @foreach ($objectivecar as $key => $value)
                                       <option value="{{$key}}" {{ ($key == $data->Objective_car) ? 'selected' : '' }}>{{$value}}</option>
@@ -1326,7 +1327,7 @@
                                 }else{
                                   var vatTop = parseFloat(num1)*0.07;
                                 }
-                                var vatTop = parseFloat(num1)*0.07;
+                                // var vatTop = parseFloat(num1)*0.07;
                                 var newTop = parseFloat(num1)+vatTop;
                                 var vat = (100+parseFloat(num2))/100;
                                 var result = Math.round((newTop*vat)/12);
@@ -1337,9 +1338,8 @@
                                 var total = result*num4;
                                 var total2 = durate2+tax2;
 
-                                if(!isNaN(vatTop)){
+                                if(!isNaN(result)){
                                   document.form1.Topcar.value = addCommas(num1);
-                                  document.form1.Vatcar.value = addCommas(vatTop.toFixed(0));
                                   document.form1.Vatcar.value = addCommas(vatTop.toFixed(0));
                                   document.form1.Paycar.value = addCommas(result.toFixed(2));
                                   document.form1.Paymemtcar.value = addCommas(durate.toFixed(2));
