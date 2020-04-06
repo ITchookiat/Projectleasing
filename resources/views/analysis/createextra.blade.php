@@ -1878,13 +1878,6 @@
         }
         </script>
 
-      <script type="text/javascript">
-        $(document).ready(function() {
-          $('#table').DataTable( {
-            "order": [[ 0, "asc" ]]
-          } );
-        } );
-      </script>
 
     </section>
     {{csrf_field()}}
