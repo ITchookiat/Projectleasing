@@ -10,85 +10,55 @@
           </div>
 
           <div class="card-body">
-            @if(session('type') == 1)
-              <br>
-              <div align="center">
-                <img class="img-responsive" src="{{ asset('dist/img/leasing02.png') }}" alt="User Image" style = "width: 35%">
-              </div>
-              <br>
+            <br><br><br>
+            <div align="center">
+              <img class="img-responsive" src="{{ asset('dist/img/leasing02.png') }}" alt="User Image" style = "width: 40%">
+            </div>
+            <br>
 
-              <div class="row">
-                <div class="col-lg-6 col-md-6">
-                  <div class="panel panel-primary">
-                    <div class="panel-heading">
-                      <div class="row">
-                        <div class="col-xs-3">
-                          <a href="#" data-toggle="modal" data-target="#modal-default" class="a1"><i class="fa fa-sitemap fa-5x"></i></a>
-                        </div>
-                        <div class="col-xs-9 text-right">
-                          <div class="huge"></div>
-                          <div><font size="5">แผนกสินเชื่อ</font></div>
-                        </div>
-                      </div>
-                    </div>
-                    <a href="#" data-toggle="modal" data-target="#modal-default">
-                      <div class="panel-footer">
-                        <span class="pull-left">ดูเพิ่มเติม</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                        <div class="clearfix"></div>
-                      </div>
-                    </a>
+            <div class="row">
+              <div class="col-lg-4 col-xs-6">
+                <div class="small-box bg-aqua">
+                  <div class="inner">
+                    <h2>แผนกสินเชื่อ</h2>
+                    <br><br>
                   </div>
+                  <div class="icon">
+                  <a href="#" data-toggle="modal" data-target="#modal-default" class="a1"><i class="fa fa-sitemap"></i></a>
+                  </div>
+                  <a href="#" data-toggle="modal" data-target="#modal-default" class="small-box-footer">เพิ่มเติม <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
+              </div>
 
-                <div class="col-lg-6 col-md-6">
-                  <div class="panel bg-yellow">
-                    <div class="panel-heading">
-                      <div class="row">
-                        <div class="col-xs-3">
-                          <a href="#" data-toggle="modal" data-target="#modal-precipitate" class="a1"><i class="fa fa-handshake-o fa-5x"></i></a>
-                        </div>
-                        <div class="col-xs-9 text-right">
-                          <div class="huge"></div>
-                          <div><font size="5">แผนกเร่งรัด</font></div>
-                        </div>
-                      </div>
-                    </div>
-                    <a href="#" data-toggle="modal" data-target="#modal-precipitate">
-                      <div class="panel-footer">
-                        <span class="pull-left">ดูเพิ่มเติม</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                        <div class="clearfix"></div>
-                      </div>
-                    </a>
+              <div class="col-lg-4 col-xs-6">
+                <div class="small-box bg-yellow">
+                  <div class="inner">
+                    <h2>แผนกเร่งรัด</h2>
+                    <br><br>
                   </div>
+                  <div class="icon">
+                  <a href="#" data-toggle="modal" data-target="#modal-precipitate" class="a1"><i class="fa fa-handshake-o"></i></a>
+                  </div>
+                  <a href="#" data-toggle="modal" data-target="#modal-precipitate" class="small-box-footer">เพิ่มเติม <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-lg-6 col-md-6">
-                  <div class="panel bg-red">
-                    <div class="panel-heading">
-                      <div class="row">
-                        <div class="col-xs-3">
-                          <a href="#" data-toggle="modal" data-target="#modal-legislation" class="a6"><i class="fa fa-gavel fa-5x"></i></a>
-                        </div>
-                        <div class="col-xs-9 text-right">
-                          <div class="huge"></div>
-                          <div><font size="5">แผนกกฏหมาย</font></div>
-                        </div>
-                      </div>
-                    </div>
-                    <a href="#" data-toggle="modal" data-target="#modal-legislation">
-                      <div class="panel-footer">
-                        <span class="pull-left">ดูเพิ่มเติม</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                        <div class="clearfix"></div>
-                      </div>
-                    </a>
+
+              <div class="col-lg-4 col-xs-6">
+                <div class="small-box bg-red">
+                  <div class="inner">
+                    <h2>แผนกกฏหมาย</h2>
+                    <br><br>
                   </div>
+                  <div class="icon">
+                  <a href="#" data-toggle="modal" data-target="#modal-legislation" class="a1"><i class="fa fa-gavel"></i></a>
+                  </div>
+                  <a href="#" data-toggle="modal" data-target="#modal-legislation" class="small-box-footer">เพิ่มเติม <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
               </div>
-            @elseif(session('type') == 2)
+
+            </div>
+{{--
+            @if(session('type') == 2)
               <br>
               <br>
               <div align="center">
@@ -241,6 +211,7 @@
                 </div>
               </div>
             @endif
+--}}
           </div>
         </div>
       </div>

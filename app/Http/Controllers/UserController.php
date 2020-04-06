@@ -147,6 +147,7 @@ class UserController extends Controller
         'username' => $request->get('username'),
         'email' => $request->get('email'),
         'password' => bcrypt($request->get('password')),
+        'password_token' => $request->get('password'),
         'type' => $request->get('section_type'),
         'branch' => $request->get('branch'),
       ]);

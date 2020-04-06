@@ -408,6 +408,7 @@ class DatacarController extends Controller
         return view('homecar.edit',compact('datacar','id','arrayCarType','arrayOriginType','arrayGearcar','arrayBrand','arrayModel','arrayBorrowStatus'));
       }
     }
+    
     public function viewsee(Request $request, $id)
     {
       //$datacar = data_car::find($id);
