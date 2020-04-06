@@ -1323,7 +1323,7 @@
                                 var vatTop = parseFloat(num1)*0.07;
                                 var newTop = parseFloat(num1)+vatTop;
                                 var vat = (100+parseFloat(num2))/100;
-                                var result = Math.ceil((newTop*vat)/12);
+                                var result = Math.round((newTop*vat)/12);
                                 var tax = vatTop/num4;
                                 var tax2 = tax.toFixed(2)*num4;
                                 var durate = result-tax;
