@@ -1319,7 +1319,13 @@
                                 var num3 = num33.replace(",","");
                                 var num2 = document.getElementById('Interestcar').value;
                                 var num4 = document.getElementById('Timeslackencar').value;
+                                var num5 = document.getElementById('objectivecar').value;
 
+                                if(num5 == 'พักชำระหนี้ 3 เดือน'){
+                                  var vatTop = 0;
+                                }else{
+                                  var vatTop = parseFloat(num1)*0.07;
+                                }
                                 var vatTop = parseFloat(num1)*0.07;
                                 var newTop = parseFloat(num1)+vatTop;
                                 var vat = (100+parseFloat(num2))/100;
