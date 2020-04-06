@@ -88,7 +88,7 @@
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="{{ route('Analysis',10) }}"><i class="fa fa-cube text-primary"></i>เช็คข้อมูลลูกค้า</a></li>
+                <!-- <li><a href="{{ route('Analysis',10) }}"><i class="fa fa-cube text-primary"></i>เช็คข้อมูลลูกค้า</a></li> -->
                 <li><a href="{{ route('Analysis',8) }}"><i class="fa fa-cube text-primary"></i>ปรับโครงสร้าง</a></li>
                 <li><a href="{{ route('Analysis',11) }}"><i class="fa fa-clipboard text-yellow"></i>รายงาน ปรับโครงสร้าง</a></li>
               </ul>

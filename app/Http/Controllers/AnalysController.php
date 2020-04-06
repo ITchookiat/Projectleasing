@@ -619,8 +619,13 @@ class AnalysController extends Controller
         if($dataGT != null){
           $NewRelate = iconv('Tis-620','utf-8',str_replace(" ","",$dataGT->RELATN));
         }
+        $dataPay = DB::connection('ibmi')
+        ->table('SFHP.ARPAY')
+        ->where('SFHP.ARPAY.CONTNO','=', $Contno)
+        ->orderBy('SFHP.ARPAY.CONTNO', 'ASC')
+        ->get();
         $type = $request->type;
-        return view('analysis.createextra', compact('type','data','dataGT','NewBrand','NewRelate'));
+        return view('analysis.createextra', compact('type','data','dataGT','NewBrand','NewRelate','dataPay'));
       }
       elseif ($request->type == 10){ //เช็คสิทธิ์ลูกค้า
         $Contno = '';
@@ -882,7 +887,12 @@ class AnalysController extends Controller
           $NewRelate = iconv('Tis-620','utf-8',str_replace(" ","",$dataGT->RELATN));
         }
         $type = $request->type;
-        return view('analysis.createextra', compact('type','data','dataGT','NewBrand','NewRelate'));
+        $dataPay = DB::connection('ibmi')
+        ->table('SFHP.ARPAY')
+        ->where('SFHP.ARPAY.CONTNO','=', $Contno)
+        ->orderBy('SFHP.ARPAY.CONTNO', 'ASC')
+        ->get();
+        return view('analysis.createextra', compact('type','data','dataGT','NewBrand','NewRelate','dataPay'));
       }
       elseif ($request->type == 14){ //รายงาน พักชำระหนี้
         $newfdate = '';
