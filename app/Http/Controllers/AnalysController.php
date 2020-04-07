@@ -162,6 +162,8 @@ class AnalysController extends Controller
         ->join('expenses','buyers.id','=','expenses.Buyerexpenses_id')
         // ->where('buyers.Date_Due', '=', $datesum)
         ->whereBetween('buyers.Date_Due',[$newfdate,$newtdate])
+        ->where('buyers.Contract_buyer','not like', '22%')
+        ->where('buyers.Contract_buyer','not like', '33%')
         ->get();
         $count = count($topcar);
 

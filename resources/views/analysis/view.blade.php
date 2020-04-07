@@ -433,7 +433,7 @@ $date = date('Y-m-d', strtotime('-1 days'));
                     </table>
                   </div>
                 </div>
-              @elseif($type == 8)
+              @elseif($type == 8) {{-- ปรับโครงสร้างหนี้ --}}
                   <div class="col-md-12">
                     <form method="get" action="{{ route('Analysis',8) }}">
                         <div align="right" class="form-inline">
@@ -443,7 +443,7 @@ $date = date('Y-m-d', strtotime('-1 days'));
                           <label>เลขที่สัญญา : </label>
                           <input type="type" name="Contno" value="{{$contno}}" maxlength="12" style="padding:5px;width:180px;border-radius: 5px 0 5px 5px; font-size:24px;"/>
                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', 1) }}" class="btn btn-primary btn-app">
+                            <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', 2) }}" class="btn btn-primary btn-app">
                               <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
                             </a>
                           @else
@@ -635,7 +635,7 @@ $date = date('Y-m-d', strtotime('-1 days'));
                       </table>
                     </div>
                   </div>
-              @elseif($type == 12)
+              @elseif($type == 12) {{-- มาตรการช่วยเหลือ --}}
                   <div class="col-md-12">
                     <form method="get" action="{{ route('Analysis',12) }}">
                         <div align="right" class="form-inline">
@@ -645,7 +645,7 @@ $date = date('Y-m-d', strtotime('-1 days'));
                           <label>เลขที่สัญญา : </label>
                           <input type="type" name="Contno" value="{{$contno}}" maxlength="12" style="padding:5px;width:180px;border-radius: 5px 0 5px 5px; font-size:24px;"/>
                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', 1) }}" class="btn btn-primary btn-app">
+                            <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', 3) }}" class="btn btn-primary btn-app">
                               <span class="glyphicon glyphicon-print"></span> ปริ้นรายการ
                             </a>
                           @else
