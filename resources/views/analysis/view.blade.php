@@ -690,16 +690,17 @@ $date = date('Y-m-d', strtotime('-1 days'));
                           <thead class="thead-dark bg-gray-light" >
                             <tr>
                               <th class="text-center" style="width:100px;">สาขา</th>
+                              <th class="text-center">เจ้าหน้าที่</th>
                               <th class="text-center">เลขที่สัญญา</th>
                               <th class="text-center">แบบ</th>
                               <th class="text-center">ยีห้อ</th>
-                              <th class="text-center">ทะเบียนเดิม</th>
+                              <th class="text-center">ทะเบียน</th>
                               <th class="text-center">ปี</th>
                               <th class="text-center">ยอดจัด</th>
                               <th class="text-center">เอกสาร/แก้ไข</th>
                               <th class="text-center">ตรวจสอบ</th>
                               <th class="text-center">สถานะอนุมัติ</th>
-                              <th class="text-center" style="width: 200px">ตัวเลือก</th>
+                              <th class="text-center" style="width: 90px">ตัวเลือก</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -709,6 +710,7 @@ $date = date('Y-m-d', strtotime('-1 days'));
                                   {{ $row->branch_car}}<br/>
                                   (<font color="blue" size="1px">{{ $row->Objective_car}}</font>)
                                 </td>
+                                <td class="text-center"> {{ $row->Loanofficer_car }}</td>
                                 <td class="text-center"> {{ $row->Contract_buyer}} </td>
                                 <td class="text-center"> {{ $row->status_car}} </td>
                                 <td class="text-center"> {{ $row->Brand_car}} </td>
@@ -756,7 +758,7 @@ $date = date('Y-m-d', strtotime('-1 days'));
                                 </td>
                                 <td class="text-center">
                                   <a target="_blank" href="{{ action('ReportAnalysController@ReportPDFIndex',[$row->id,$type]) }}" class="btn btn-info btn-sm" title="พิมพ์">
-                                    <span class="glyphicon glyphicon-print"></span> พิมพ์
+                                    <span class="glyphicon glyphicon-print"></span>
                                   </a>
                                   @if(auth::user()->type == 3 and $row->StatusApp_car == 'อนุมัติ')
                                       @php $branch = 'Null'; @endphp
@@ -768,7 +770,7 @@ $date = date('Y-m-d', strtotime('-1 days'));
                                         @php $newtdate = date('Y-m-d'); @endphp
                                       @endif
                                   <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
-                                    <span class="glyphicon glyphicon-eye-open"></span> ดู
+                                    <span class="glyphicon glyphicon-eye-open"></span>
                                   </a>
                                   @endif
 
@@ -786,7 +788,7 @@ $date = date('Y-m-d', strtotime('-1 days'));
                                       @php $newtdate = date('Y-m-d'); @endphp
                                     @endif
                                     <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
-                                      <span class="glyphicon glyphicon-pencil"></span> แก้ไข
+                                      <span class="glyphicon glyphicon-pencil"></span>
                                     </a>
                                   @else
                                     @if($row->Approvers_car == Null)
@@ -803,7 +805,7 @@ $date = date('Y-m-d', strtotime('-1 days'));
                                         @php $newtdate = date('Y-m-d'); @endphp
                                       @endif
                                       <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
-                                        <span class="glyphicon glyphicon-pencil"></span> แก้ไข
+                                        <span class="glyphicon glyphicon-pencil"></span>
                                       </a>
                                     @endif
                                   @endif
@@ -814,7 +816,7 @@ $date = date('Y-m-d', strtotime('-1 days'));
                                     {{csrf_field()}}
                                       <input type="hidden" name="_method" value="DELETE" />
                                       <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
-                                        <span class="glyphicon glyphicon-trash"></span> ลบ
+                                        <span class="glyphicon glyphicon-trash"></span>
                                       </button>
                                     </form>
                                   </div>
@@ -826,7 +828,7 @@ $date = date('Y-m-d', strtotime('-1 days'));
                                       {{csrf_field()}}
                                         <input type="hidden" name="_method" value="DELETE" />
                                         <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
-                                          <span class="glyphicon glyphicon-trash"></span> ลบ
+                                          <span class="glyphicon glyphicon-trash"></span>
                                         </button>
                                       </form>
                                     </div>

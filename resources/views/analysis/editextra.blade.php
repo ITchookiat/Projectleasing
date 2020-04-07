@@ -1464,7 +1464,15 @@
                             <div class="col-md-6">
                                <div class="form-inline" align="right">
                                  <label>วันที่ชำระงวดแรก : </label>
-                                 <input type="text" name="Dateduefirstcar" value="{{$data->Dateduefirst_car}}" class="form-control" style="width: 250px;" readonly placeholder="วันที่ชำระงวดแรก" />
+                                 @php
+                                  $a = date_create($data->Dateduefirst_car);
+                                  $Dateduefirs = date_format($a, 'Y-m-d');
+                                 @endphp
+                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                 <input type="date" name="Dateduefirstcar" value="{{$Dateduefirs}}" class="form-control" style="width: 250px;" placeholder="วันที่ชำระงวดแรก" />
+                                 @else
+                                 <input type="date" name="Dateduefirstcar" value="{{$Dateduefirs}}" class="form-control" style="width: 250px;" placeholder="วันที่ชำระงวดแรก" readonly/>
+                                 @endif
                                </div>
                             </div>
                           </div>
