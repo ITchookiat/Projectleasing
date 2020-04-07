@@ -1156,8 +1156,7 @@ class AnalysController extends Controller
         if($request->get('type') == 8){
           $SetBranch = 'ปรับโครงสร้าง';
         }else if($request->get('type') == 12){
-          // $SetBranch = 'มาตรการช่วยเหลือ';
-          $SetBranch = $request->get('branchcar');
+          $SetBranch = 'มาตรการช่วยเหลือ';
         }else{
           $SetBranch = $request->get('branchcar');
         }
@@ -1981,6 +1980,8 @@ class AnalysController extends Controller
 
             if ($request->get('Approverscar') != Null) { //กรณี อนุมัติ
                 $SetStatusApp = 'อนุมัติ';
+                // $cardetail->Date_Appcar = $request->get('Dateduefirstcar');
+                // $cardetail->update();
 
                 if ($cardetail->Approvers_car == Null) {
                   $Y = date('Y') +543;
@@ -2081,7 +2082,7 @@ class AnalysController extends Controller
                   }
                 }
             }
-            else {                                       //ยกเลิก หรือ ไม่อนุมัติ
+            else { //ยกเลิก หรือ ไม่อนุมัติ
               if (auth()->user()->type == 1 or auth()->user()->type == 2) {
                 $SetStatusApp = 'รออนุมัติ';
                 $cardetail->Dateduefirst_car = Null;
@@ -2174,6 +2175,8 @@ class AnalysController extends Controller
             //     $SetCheckcar = Null;
             //   }
             // }
+            $dateFirst = date_create($request->get('Dateduefirstcar'));
+            $SetDatefirst = date_format($dateFirst, 'd-m-Y');
 
             $cardetail->Insurance_car = $request->get('Insurancecar');
             $cardetail->status_car = $request->get('statuscar');
@@ -2194,6 +2197,7 @@ class AnalysController extends Controller
             $cardetail->branchbrance_car = $request->get('branchbrancecar');
             $cardetail->branchAgent_car = $request->get('branchAgentcar');
             $cardetail->Note_car = $request->get('Notecar');
+            $cardetail->Dateduefirst_car = $SetDatefirst;
           $cardetail->update();
 
           if ($request->get('tranPrice') != Null) {
