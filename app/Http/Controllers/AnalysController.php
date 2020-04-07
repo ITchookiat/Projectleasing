@@ -1168,6 +1168,7 @@ class AnalysController extends Controller
           }else{
             $SetDatefirst = NULL;
           }
+          // dd($SetDatefirst);
         $Cardetaildb = new Cardetail([
           'Buyercar_id' => $Buyerdb->id,
           'Brand_car' => $request->get('Brandcar'),
