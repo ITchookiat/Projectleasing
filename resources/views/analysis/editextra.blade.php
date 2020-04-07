@@ -1464,14 +1464,21 @@
                             <div class="col-md-6">
                                <div class="form-inline" align="right">
                                  <label>วันที่ชำระงวดแรก : </label>
-                                 @php
-                                  $a = date_create($data->Dateduefirst_car);
-                                  $Dateduefirs = date_format($a, 'Y-m-d');
-                                 @endphp
-                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                 <input type="date" name="Dateduefirstcar" value="{{$Dateduefirs}}" class="form-control" style="width: 250px;" placeholder="วันที่ชำระงวดแรก" />
+                                 @if($data->Dateduefirst_car != Null)
+                                   @php
+                                    $a = date_create($data->Dateduefirst_car);
+                                    $Dateduefirst = date_format($a, 'Y-m-d');
+                                   @endphp
                                  @else
-                                 <input type="date" name="Dateduefirstcar" value="{{$Dateduefirs}}" class="form-control" style="width: 250px;" placeholder="วันที่ชำระงวดแรก" readonly/>
+                                    @php
+                                     $Dateduefirst = $data->Dateduefirst_car;
+                                    @endphp
+                                 @endif
+
+                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                 <input type="date" name="Dateduefirstcar" value="{{$Dateduefirst}}" class="form-control" style="width: 250px;" placeholder="วันที่ชำระงวดแรก" />
+                                 @else
+                                 <input type="text" name="Dateduefirstcar" value="{{$Dateduefirst}}" class="form-control" style="width: 250px;" placeholder="วันที่ชำระงวดแรก" readonly/>
                                  @endif
                                </div>
                             </div>
