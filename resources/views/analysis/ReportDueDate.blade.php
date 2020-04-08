@@ -157,7 +157,7 @@
                       $ArcSum = $value->balance_Price + $value->commit_Price;
                       $sumArcsum = $sumArcsum + $ArcSum;
                   @endphp
-                  {{number_format($ArcSum)}}
+                  {{number_format($ArcSum,2)}}
                 @elseif($value->Accountbrance_car == Null)
                   สด {{number_format($value->balance_Price,2)}}
                   @php
@@ -235,13 +235,13 @@
           @endphp
             <tr align="center" style="line-height: 200%;">
               <td width="115px" style="background-color: #FFFF00; line-height:250%;">รวมยอดจัดเป็นคัน    {{$countcar}}    คัน</td>
-              <td width="100px" style="background-color: #00FFFF; line-height:250%;">รวมยอดจัดเป็นเงิน      {{number_format($sumtopcar)}}</td>
-              <td width="120px" style="background-color: #00FFFF; line-height:250%;">รวมค่าใช้จ่ายขนส่ง     {{number_format($sumtotransport)}}</td>
+              <td width="100px" style="background-color: #00FFFF; line-height:250%;">รวมยอดจัดเป็นเงิน      {{number_format($sumtopcar,2)}}</td>
+              <td width="120px" style="background-color: #00FFFF; line-height:250%;">รวมค่าใช้จ่ายขนส่ง     {{number_format($sumtotransport,2)}}</td>
               <!-- <td width="95px" style="background-color: #00FFFF; line-height:250%;">รวมค่าใช้จ่ายบริษัท     {{number_format($sumtocompany)}}</td> -->
-              <td width="95px" style="background-color: #00FFFF; line-height:250%;">รวมค่าใช้จ่ายบริษัท     {{number_format($sumtototalk_Price - $sumtotransport - $sumtocloseAccount_Price)}}</td>
-              <td width="110px" style="background-color: #00FFFF; line-height:250%;">รวมค่ารถ     {{number_format($sumbalanceprice)}}</td>
-              <td width="110px" style="background-color: #00FFFF; line-height:250%;">รวมค่าคอม     {{number_format($sumcommitprice)}}</td>
-              <td width="165px" style="background-color: #FFFF00; line-height:250%;">ยอดรวมอนุมัติ        {{number_format($sumall)}}</td>
+              <td width="95px" style="background-color: #00FFFF; line-height:250%;">รวมค่าใช้จ่ายบริษัท     {{number_format($sumtototalk_Price - $sumtotransport - $sumtocloseAccount_Price,2)}}</td>
+              <td width="110px" style="background-color: #00FFFF; line-height:250%;">รวมค่ารถ     {{number_format($sumbalanceprice,2)}}</td>
+              <td width="110px" style="background-color: #00FFFF; line-height:250%;">รวมค่าคอม     {{number_format($sumcommitprice,2)}}</td>
+              <td width="165px" style="background-color: #FFFF00; line-height:250%;">ยอดรวมอนุมัติ        {{number_format($sumall,2)}}</td>
             </tr>
         @endif
       </tbody>
