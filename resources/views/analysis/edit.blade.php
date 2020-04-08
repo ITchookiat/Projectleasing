@@ -2152,7 +2152,7 @@
 
                              <div class="col-md-6">
                                 <div class="form-inline" align="right">
-                                  <label>ค่าคอมหลังหัก 3% : </label>
+                                  <label>ค่าคอมหลังหัก 1.5% : </label>
                                   <input type="text" id="commitPrice" name="commitPrice" value="{{number_format($data->commit_Price, 2)}}" class="form-control" style="width: 250px;" placeholder="ค่าคอมหลังหัก" readonly/>
                                 </div>
                              </div>
