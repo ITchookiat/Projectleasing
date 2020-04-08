@@ -75,7 +75,7 @@
           <th align="center" width="35px" style="background-color: #BEBEBE;"><b>หัก 1.5 %</b></th>
           <th align="center" width="110px" style="background-color: #BEBEBE;"><b>ผู้รับเงิน</b></th>
           <th align="center" width="110px" style="background-color: #BEBEBE;"><b>ผู้รับคอม</b></th>
-          <th align="center" width="55px" style="background-color: #BEBEBE;"><b>รวม</b></th>
+          <th align="center" width="50px" style="background-color: #BEBEBE;"><b>รวม</b></th>
         </tr>
       </thead>
       <tbody>
@@ -226,7 +226,7 @@
                     โทร : {{$value->Tellagent_car}}
                 @endif
               </td>
-              <td width="55px"></td>
+              <td width="50px"></td>
             </tr>
             <br>
           @endforeach
