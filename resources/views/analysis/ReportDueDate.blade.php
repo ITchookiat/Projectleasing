@@ -159,12 +159,12 @@
                   @endphp
                   {{number_format($ArcSum)}}
                 @elseif($value->Accountbrance_car == Null)
-                  สด {{number_format($value->balance_Price)}}
+                  สด {{number_format($value->balance_Price,2)}}
                   @php
                   $sumArcsum = $sumArcsum + $value->balance_Price;
                   @endphp
                 @else
-                  รถ {{number_format($value->balance_Price)}}
+                  รถ {{number_format($value->balance_Price,2)}}
                   @php
                   $sumArcsum = $sumArcsum + $value->balance_Price;
                   @endphp
@@ -187,14 +187,14 @@
                   บัญชี :{{$value->Accountagent_car}}/{{$value->branchAgent_car}}
                 @endif
               </td>
-              <td width="55px">
+              <td width="50px">
                 @if($value->Accountbrance_car != $value->Accountagent_car and $value->Accountagent_car != Null)
-                  คอม {{ number_format($value->commit_Price) }}
+                  คอม {{ number_format($value->commit_Price,2) }}
                   @php
                     $sumbalance = $sumbalance + $value->commit_Price;
                   @endphp
                 @elseif($value->Accountagent_car == Null and $value->Agent_car != Null)
-                  สด {{number_format($value->commit_Price)}}
+                  สด {{number_format($value->commit_Price,2)}}
                   @php
                     $sumbalance = $sumbalance + $value->commit_Price;
                   @endphp
