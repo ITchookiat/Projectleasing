@@ -72,7 +72,7 @@
           <th align="center" width="35px" style="background-color: #FFFF00;"><b>การตลาด</b></th>
           <th align="center" width="45px" style="background-color: #BEBEBE;"><b>รวมค่าใช้จ่าย</b></th>
           <th align="center" width="35px" style="background-color: #BEBEBE;"><b>คงเหลือ</b></th>
-          <th align="center" width="30px" style="background-color: #BEBEBE;"><b>หัก 1.5 %</b></th>
+          <th align="center" width="35px" style="background-color: #BEBEBE;"><b>หัก 1.5 %</b></th>
           <th align="center" width="110px" style="background-color: #BEBEBE;"><b>ผู้รับเงิน</b></th>
           <th align="center" width="110px" style="background-color: #BEBEBE;"><b>ผู้รับคอม</b></th>
           <th align="center" width="55px" style="background-color: #BEBEBE;"><b>รวม</b></th>
@@ -148,10 +148,10 @@
               <td width="35px" rowspan="3" style="background-color: #FFFF00; line-height:550%;">{{ $value->marketing_Price }}</td>
               <td width="45px" rowspan="3" style="line-height:550%;">{{number_format($value->totalk_Price,0)}}</td>
               <td width="35px" rowspan="3" style="line-height:550%;">{{number_format($value->balance_Price,0)}}</td>
-              <td width="30px" rowspan="3" style="line-height:550%;">{{number_format($value->commit_Price,2)}}</td>
+              <td width="35px" rowspan="3" style="line-height:550%;">{{number_format($value->commit_Price,2)}}</td>
               <td width="110px">{{$value->Payee_car}}</td>
               <td width="110px">{{$value->Agent_car}}</td>
-              <td width="55px">
+              <td width="50px">
                 @if($value->Accountbrance_car == $value->Accountagent_car and $value->Accountbrance_car != Null)
                   @php
                       $ArcSum = $value->balance_Price + $value->commit_Price;
