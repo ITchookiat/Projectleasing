@@ -126,12 +126,17 @@
             @elseif($type == 3) {{-- ระบบ แจ้งเตือนติดตาม --}}
               <form method="get" action="{{ route('Precipitate', 3) }}">
                 <div align="right" class="form-inline">
-                  <a href="{{ action('PrecController@excel') }}?Fromstart={{$fstart}}&Toend={{$tend}}&Fromdate={{$fdate}}&Todate={{$tdate}}&type={{3}}" class="btn btn-success btn-app">
+                  <a href="{{ action('PrecController@excel') }}?Fromstart={{$fstart}}&Toend={{$tend}}&Fromdate={{$fdate}}&Todate={{$tdate}}&Followcode={{$followcode}}&type={{3}}" class="btn btn-success btn-app">
                     <span class="fa fa-file-excel-o"></span> Excel
                   </a>
                   <button type="submit" class="btn btn-warning btn-app">
                     <span class="glyphicon glyphicon-search"></span> Search
-                  </button >
+                  </button>
+                  {{--
+                  <p></p>
+                  <label>พนง.ติดตาม : </label>
+                  <input type="text" name="Followcode" style="width: 165px;" value="{{ ($followcode != '') ?$followcode: '' }}" class="form-control" />
+                  --}}
                   <p></p>
                   <label>จากงวดที่ : </label>
                   <input type="text" name="Fromstart" style="width: 165px;" value="{{ ($fstart != '') ?$fstart: '' }}" class="form-control" />
@@ -384,18 +389,15 @@
                             <th class="text-center">ชื่อ-สกุล</th>
                             @if($type == 3)
                               <th class="text-center">เบอร์โทร</th>
-                              <th class="text-center">งานติดตาม</th>
                             @endif
                             <th class="text-center">ชำระล่าสุด</th>
                             <th class="text-center">งวดละ</th>
                             <th class="text-center">งวดจริง</th>
                             <th class="text-center">คงเหลือ</th>
-                            @if($type != 3)
-                              <th class="text-center">พนง</th>
-                              <th class="text-center">สถานะ</th>
-                              @if($type != 2)
+                            <th class="text-center">พนง</th>
+                            <th class="text-center">สถานะ</th>
+                            @if($type == 1)
                               <th class="text-center">ตัวเลือก</th>
-                              @endif
                             @endif
                           </tr>
                         </thead>
@@ -407,7 +409,6 @@
                               <td class="text-left"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->SNAM.$row->NAME1)."   ".str_replace(" ","",$row->NAME2))}} </td>
                               @if($type == 3)
                                 <td class="text-left"> {{iconv('Tis-620','utf-8', $row->TELP)}} </td>
-                                <td class="text-center"> {{iconv('Tis-620','utf-8', $row->CONTSTAT)}} </td>
                               @endif
                               <td class="text-center">
                                 @php
@@ -422,10 +423,9 @@
                               @endif
                               <td class="text-center"> {{$row->HLDNO}} </td>
                               <td class="text-center"> {{number_format($row->BALANC - $row->SMPAY, 2 )}} </td>
-                              @if($type != 3)
                               <td class="text-center"> {{$row->BILLCOLL}} </td>
                               <td class="text-center"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->CONTSTAT)) }} </td>
-                                @if($type != 2)
+                                @if($type == 1)
                                   <td class="text-center">
                                     @php
                                        $StrCon = explode("/",$row->CONTNO);
@@ -443,7 +443,6 @@
                                     @endif
                                   </td>
                                 @endif
-                              @endif
                             </tr>
                           @endforeach
                         </tbody>
