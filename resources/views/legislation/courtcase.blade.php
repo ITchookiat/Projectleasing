@@ -67,7 +67,7 @@
                                 <div align="left">
                                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                   <small class="label label-success" style="font-size: 25px;">
-                                  <i class="fa fa-expeditedssl"></i>&nbsp; สถานะ : 
+                                  <i class="fa fa-expeditedssl"></i>&nbsp; สถานะ :
                                     @if($data->Status_legis != Null)
                                         {{$data->Status_legis}}
                                     @endif
@@ -121,7 +121,7 @@
                               <div class="box-body">
                                 <div class="row">
                                   <div class="col-md-6">
-                                    วันที่คัดฉโหนด
+                                    วันที่คัดโฉนด
                                     <input type="date" id="datepreparedoc" name="datepreparedoc" class="form-control" value="{{$data->datepreparedoc_case}}" onchange="CourtcaseDate();" />
                                     <br>
                                     <label>
@@ -145,7 +145,7 @@
                                     วันที่ตั้งเรื่องยึดทรัพย์แรกเริ่ม
                                     <input type="date" id="DatesetSequester" name="DatesetSequester" class="form-control" value="{{ $data->datesetsequester_case }}" />
                                   </div>
-                                  
+
                                   <div class="col-md-6">
                                     ประกาศขาย
                                     <select id="ResultSequester" name="ResultSequester" class="form-control">
@@ -196,7 +196,7 @@
                                         <option value="{{$data->Status_legis}}" style="color:red" {{ ($data->Status_legis === $data->Status_legis) ? 'selected' : '' }}>{{$data->Status_legis}}</option>
                                       @endif
                                     </select>
-                                  
+
                                     @if($data->Status_case == 'ถอนบังคับคดีปิดบัญชี')
                                     <div id="StatusShow1">
                                     @else
@@ -206,7 +206,7 @@
                                         <br>
                                         <div class="col-md-7">
                                           วันที่เลือกสถานะ
-                                          <input type="date" id="DateStatusCase1" name="DateStatusCase1" class="form-control" value="{{ $data->DateStatus_case }}" readonly/> 
+                                          <input type="date" id="DateStatusCase1" name="DateStatusCase1" class="form-control" value="{{ $data->DateStatus_case }}" readonly/>
                                         </div>
                                         <div class="col-md-5">
                                           ยอดพิพากษา
@@ -224,7 +224,7 @@
                                         <br>
                                         <div class="col-md-7">
                                           วันที่เลือกสถานะ
-                                          <input type="date" id="DateStatusCase2" name="DateStatusCase2" class="form-control" value="{{ $data->DateStatus_case }}" readonly/> 
+                                          <input type="date" id="DateStatusCase2" name="DateStatusCase2" class="form-control" value="{{ $data->DateStatus_case }}" readonly/>
                                         </div>
                                         <div class="col-md-5">
                                           วันที่ยึดรถ
@@ -242,7 +242,7 @@
                                         <br>
                                         <div class="col-md-7">
                                           วันที่เลือกสถานะ
-                                          <input type="date" id="DateStatusCase3" name="DateStatusCase3" class="form-control" value="{{ $data->DateStatus_case }}" readonly/> 
+                                          <input type="date" id="DateStatusCase3" name="DateStatusCase3" class="form-control" value="{{ $data->DateStatus_case }}" readonly/>
                                         </div>
                                         <div class="col-md-5">
                                           ยอดเหลือน้อย
