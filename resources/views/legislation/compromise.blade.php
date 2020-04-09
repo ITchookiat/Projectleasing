@@ -71,7 +71,7 @@
                                     <div align="left">
                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                       <small class="label label-primary" style="font-size: 25px;">
-                                      <i class="fa fa-expeditedssl"></i>&nbsp; สถานะ : 
+                                      <i class="fa fa-expeditedssl"></i>&nbsp; สถานะ :
                                         @if($data->Status_Promise != Null)
                                           {{$data->Status_Promise}}
                                         @endif
@@ -365,15 +365,18 @@
                                     </tbody>
                                 </table>
 
-                                <div class="form-inline" align="left">
+                                <div class="form-inline" align="center">
                                   <label><font color="red">ค่างวดทั้งหมด : </font></label>
-                                  <input type="text" value="{{ number_format($Getdata, 2) }}" class="form-control" style="width: 150px;" readonly/>
+                                  <input type="text" value="{{ number_format($Getdata, 2) }}" class="form-control" style="width: 100px;" readonly/>
 
                                   <label><font color="red">ยอดชำระ : </font></label>
-                                  <input type="text" value="{{ number_format($SumCount, 2) }}" class="form-control" style="width: 150px;" readonly/>
+                                  <input type="text" value="{{ number_format($SumCount, 2) }}" class="form-control" style="width: 100px;" readonly/>
+
+                                  <label><font color="red">ส่วนลด : </font></label>
+                                  <input type="text" value="{{ number_format($data->Discount_Promise, 2) }}" class="form-control" style="width: 100px;" readonly/>
 
                                   <label><font color="red">ยอดคงเหลือ : </font></label>
-                                  <input type="text" value="{{ number_format($Getdata - $SumCount, 2) }}" class="form-control" style="width: 150px;" readonly/>
+                                  <input type="text" value="{{ number_format($Getdata - ($SumCount + $data->Discount_Promise), 2) }}" class="form-control" style="width: 100px;" readonly/>
                                 </div>
 
                               </div>
