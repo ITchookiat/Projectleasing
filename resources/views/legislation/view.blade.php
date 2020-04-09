@@ -247,7 +247,7 @@
                       <thead class="thead-dark bg-gray-light" >
                         <tr>
                           <th class="text-center">No.</th>
-                          <th class="text-center">Job.</th>
+                          <th class="text-center">เลขที่สัญญา</th>
                           <th class="text-center">ชื่อ-สกุล</th>
                           <th class="text-center" style="width: 40px">วันถืองาน</th>
                           <th class="text-center">วันฟ้อง</th>
