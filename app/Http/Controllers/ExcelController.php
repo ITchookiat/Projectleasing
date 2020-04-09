@@ -90,6 +90,8 @@ class ExcelController extends Controller
                     ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
                     ->join('expenses','buyers.id','=','expenses.Buyerexpenses_id')
                     ->where('cardetails.Approvers_car','!=',Null)
+                    ->where('buyers.Contract_buyer','not like', '22%')
+                    ->where('buyers.Contract_buyer','not like', '33%')
                     ->orderBy('buyers.Contract_buyer', 'ASC')
                     ->get()
                     ->toArray();
@@ -114,6 +116,8 @@ class ExcelController extends Controller
                     ->when(!empty($branch), function($q) use($branch){
                       return $q->where('cardetails.branch_car',$branch);
                     })
+                    ->where('buyers.Contract_buyer','not like', '22%')
+                    ->where('buyers.Contract_buyer','not like', '33%')
                     ->orderBy('buyers.Contract_buyer', 'ASC')
                     ->get()
                     ->toArray();
@@ -210,6 +214,8 @@ class ExcelController extends Controller
                     ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
                     ->join('homecardetails','buyers.id','=','homecardetails.Buyerhomecar_id')
                     ->where('homecardetails.approvers_HC','!=',Null)
+                    ->where('buyers.Contract_buyer','not like', '22%')
+                    ->where('buyers.Contract_buyer','not like', '33%')
                     ->orderBy('buyers.Contract_buyer', 'ASC')
                     ->get()
                     ->toArray();
@@ -227,6 +233,8 @@ class ExcelController extends Controller
                     ->when(!empty($yearcar), function($q) use($yearcar){
                       return $q->where('homecardetails.year_HC',$yearcar);
                     })
+                    ->where('buyers.Contract_buyer','not like', '22%')
+                    ->where('buyers.Contract_buyer','not like', '33%')
                     ->orderBy('buyers.Contract_buyer', 'ASC')
                     ->get()
                     ->toArray();
