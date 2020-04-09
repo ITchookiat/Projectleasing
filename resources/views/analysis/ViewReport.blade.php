@@ -110,7 +110,7 @@
                         @endforeach
                       </select>
 
-                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                       <label for="text" class="mr-sm-2">ปี : </label>
                       <select name="yearcar" class="form-control mb-2 mr-sm-2" id="text" style="width: 180px">
                         <option selected disabled value="">---เลือกปี---</option>
@@ -127,7 +127,7 @@
                           <option value="{{ $row->status_car }}" {{ ($typecar == $row->status_car) ? 'selected' : '' }}>{{ $row->status_car }}</otion>
                         @endforeach
                       </select>
-
+                      &nbsp;&nbsp;
                       <label for="text" class="mr-sm-2">สาขา : </label>
                       <select name="branch" class="form-control mb-2 mr-sm-2" id="text" style="width: 180px">
                         <option selected disabled value="">---เลือกสาขา---</option>
