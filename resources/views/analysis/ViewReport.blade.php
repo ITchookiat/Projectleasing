@@ -443,8 +443,8 @@
                        </table>
                   </div>
                 </div>
-                @elseif($type == 14)
-                  <div class="col-md-12">
+              @elseif($type == 14)
+                <div class="col-md-12">
                     <form method="get" action="{{ route('Analysis', 14) }}">
                       <div align="right" class="form-inline">
                         <a target="_blank" href="{{ action('ExcelController@excel',$type) }}?&Fromdate={{$newfdate}}&Todate={{$newtdate}}&agen={{$agen}}&yearcar={{$yearcar}}&typecar={{$typecar}}&branch={{$branch}}" class="btn btn-success btn-app">
@@ -502,26 +502,42 @@
                       <table class="table table-bordered" id="table">
                            <thead class="thead-dark bg-gray-light" >
                              <tr>
-                               <th class="text-center" style="width:90px;">สาขา</th>
+                               <th class="text-center" style="width:100px;">สาขา</th>
                                <th class="text-center">เลขที่สัญญา</th>
-                               <th class="text-center">วันที่</th>
+                               <th class="text-center">เลขสัญญาเดิม</th>
+                               <!-- <th class="text-center">วันที่</th> -->
                                <th class="text-center">สถานะ</th>
                                <th class="text-center">ยีห้อ</th>
                                <th class="text-center">ทะเบียนเดิม</th>
                                <th class="text-center">ปี</th>
                                <th class="text-center">ยอดจัด</th>
-                               <th class="text-center">สถานะอนุมัติ</th>
+                               <th class="text-center">ค่างวด</th>
+                               <th class="text-center">ผู้อนุมัติ</th>
                              </tr>
                            </thead>
                            <tbody>
                              @foreach($data as $row)
                                <tr>
                                  <td class="text-center">
-                                   {{ $row->branch_car}}<br/>
+                                   @if($row->Loanofficer_car == 'นายต่วนมุหยีดีน ลอจิ' or $row->Loanofficer_car == 'นางวิธุกร ณ พิชัย' or $row->Loanofficer_car == 'นางวุฐิกุล ศุกลรัตน์')
+                                     ปัตตานี
+                                   @elseif($row->Loanofficer_car == 'นายเดะมะ มะ' or $row->Loanofficer_car == 'นายมะยูโซะ อามะ' or $row->Loanofficer_car == 'นายฤทธิพร ดือราแม')
+                                     ยะลา
+                                   @elseif($row->Loanofficer_car == 'น.ส.ฮายาตี นิบง' or $row->Loanofficer_car == 'นายซุลกิฟลี แมเราะ' or $row->Loanofficer_car == 'นายมัซวัน มะสาแม')
+                                     นราธิวาส
+                                   @elseif($row->Loanofficer_car == 'นายฟิกรีย์ บาราเต๊ะ' or $row->Loanofficer_car == 'น.ส สาลีละห์ เจะโซะ')
+                                     สายบุรี
+                                   @elseif($row->Loanofficer_car == 'นายฟาอีส อูมา' or $row->Loanofficer_car == 'สุภาพร สุขแดง')
+                                     โกลก
+                                   @elseif($row->Loanofficer_car == 'น.ส.เพ็ญทิพย์ หนูบุญล้อม' or $row->Loanofficer_car == 'น.ส สาลีละห์ เจะโซะ')
+                                     เบตง
+                                   @endif
+                                   <br/>
                                    (<font color="blue" size="1px">{{ $row->Objective_car}}</font>)
                                  </td>
                                  <td class="text-center"> {{ $row->Contract_buyer}} </td>
-                                 <td class="text-center">{{ DateThai($row->Date_Due)}}</td>
+                                 <td class="text-center">{{ $row->Note_car}}</td>
+                                 <!-- <td class="text-center">{{ DateThai($row->Date_Due)}}</td> -->
                                  <td class="text-center"> {{ $row->status_car}} </td>
                                  <td class="text-center"> {{ $row->Brand_car}} </td>
                                  <td class="text-center"> {{ $row->License_car}} </td>
@@ -533,6 +549,7 @@
                                      0
                                    @endif
                                  </td>
+                                 <td class="text-center"> {{ $row->Pay_car}} </td>
                                  <td class="text-center">
                                    @if ( $row->Approvers_car != Null)
                                        {{ $row->Approvers_car }}

@@ -449,7 +449,8 @@ class ExcelController extends Controller
                     ->orderBy('buyers.Contract_buyer', 'ASC')
                     ->get()
                     ->toArray();
-        }else{
+        }
+        else{
           $data = DB::table('buyers')
                     ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
                     ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
@@ -476,55 +477,55 @@ class ExcelController extends Controller
                     ->toArray();
         }
 
-        $data_array[] = array('ลำดับ', 'วันที่โอน', 'สถานะ', 'ยี่ห้อ', 'รุ่น', 'ทะเบียนเดิม', 'ทะเบียนใหม่', 'เลขสัญญา', 'เลขสัญญาเดิม', 'ปี', 'ยอดจัด', 'พรบ.','ยอดปิดบัญชี','ซื้อประกัน', '%ยอดจัด', 'งวดผ่อน(เดือน)', 'ค่าใช้จ่ายขนส่ง', 'อื่นๆ', 'ค่าประเมิน',
-                        'ค่าการตลาด', 'อากร','รวม คชจ', 'คงเหลือ', 'ค่าคอมก่อนหัก3%', 'ค่ค่าคอมหลังหัก3%', 'เอกสารผู้ค้ำ', 'ผู้รับเงิน', 'เลขที่บัญชี', 'เบอร์โทรผู้รับเงิน', 'ผู้รับค่าคอม', 'เลขที่บัญชี', 'เบอร์โทรผู้แนะนำ', 'ใบขับขี่', 'แถมประกัน'.'สถานะผู้เช่าซื้อ');
+        $data_array[] = array('ลำดับ','สาขา','วันที่อนุมัติ','เลขสัญญาเดิม','มาตรการช่วยเหลือ','เลขสัญญา','แบบ','ยี่ห้อ','ทะเบียน','ปี','ยอดจัด','ค่างวด','ระยะเวลาผ่อน','ยอดรวม','วันที่ชำระงวดแรก');
 
           foreach($data as $key => $row){
             $date = date_create($row->Date_Due);
             $Date_Due = date_format($date, 'd-m-Y');
+            $date2 = date_create($row->Dateduefirst_car);
+            $Date_DueFirstcar = date_format($date2, 'd-m-Y');
+
+            if($row->Loanofficer_car == 'นายต่วนมุหยีดีน ลอจิ' or $row->Loanofficer_car == 'นางวิธุกร ณ พิชัย' or $row->Loanofficer_car == 'นางวุฐิกุล ศุกลรัตน์'){
+              $Branch = 'ปัตตานี';
+            }
+            elseif($row->Loanofficer_car == 'นายเดะมะ มะ' or $row->Loanofficer_car == 'นายมะยูโซะ อามะ' or $row->Loanofficer_car == 'นายฤทธิพร ดือราแม'){
+              $Branch = 'ยะลา';
+            }
+            elseif($row->Loanofficer_car == 'น.ส.ฮายาตี นิบง' or $row->Loanofficer_car == 'นายซุลกิฟลี แมเราะ' or $row->Loanofficer_car == 'นายมัซวัน มะสาแม'){
+              $Branch = 'นราธิวาส';
+            }
+            elseif($row->Loanofficer_car == 'นายฟิกรีย์ บาราเต๊ะ' or $row->Loanofficer_car == 'น.ส สาลีละห์ เจะโซะ'){
+              $Branch = 'สายบุรี';
+            }
+            elseif($row->Loanofficer_car == 'นายฟาอีส อูมา' or $row->Loanofficer_car == 'สุภาพร สุขแดง'){
+              $Branch = 'โกลก';
+            }
+            elseif($row->Loanofficer_car == 'น.ส.เพ็ญทิพย์ หนูบุญล้อม' or $row->Loanofficer_car == 'น.ส สาลีละห์ เจะโซะ'){
+              $Branch = 'เบตง';
+            }
 
             $data_array[] = array(
              'ลำดับ' => $key+1,
-             'วันที่โอน' => $Date_Due,
-             'สถานะ' => $row->status_car,
-             'ยี่ห้อ' => $row->Brand_car,
-             'รุ่น' => $row->Model_car,
-             'ทะเบียนเดิม' => $row->License_car,
-             'ทะเบียนใหม่' => $row->Nowlicense_car,
-             'เลขสัญญา' => $row->Contract_buyer,
+             'สาขา' => $Branch,
+             'วันที่อนุมัติ' => $Date_Due,
              'เลขสัญญาเดิม' => $row->Note_car,
+             'มาตรการช่วยเหลือ' => $row->Objective_car,
+             'เลขสัญญา' => $row->Contract_buyer,
+             'แบบ' => $row->status_car,
+             'ยี่ห้อ' => $row->Brand_car,
+             'ทะเบียน' => $row->License_car,
              'ปี' => $row->Year_car,
-             'ยอดจัด' => $row->Top_car,
-             'พรบ.' => $row->act_Price,
-             'ยอดปิดบัญชี' => $row->closeAccount_Price,
-             'ซื้อประกัน' => $row->P2_Price,
-             'ดอกเบี้ย' => $row->Percent_car,
-             'งวดผ่อน(เดือน)' => $row->Timeslacken_car,
-             'ค่าใช้จ่ายขนส่ง' => $row->tran_Price,
-             'อื่นๆ' => $row->other_Price,
-             'ค่าประเมิน' => $row->evaluetion_Price,
-             'ค่าการตลาด' => $row->marketing_Price,
-             'อากร' => $row->duty_Price,
-             'รวม คชจ.' => $row->totalk_Price,
-             'คงเหลือ' => $row->balance_Price,
-             'ค่าคอมก่อนหัก3%' => $row->Commission_car,
-             'ค่าคอมหลังหัก3%' => $row->commit_Price,
-             'เอกสารผู้ค้ำ' => $row->deednumber_SP,
-             'ผู้รับเงิน' => $row->Payee_car,
-             'เลขที่บัญช(ผู้รับเงิน)' => $row->Accountbrance_car,
-             'เบอร์โทร(ผู้รับเงิน)' => $row->Tellbrance_car,
-             'ผู้รับค่าคอม' => $row->Agent_car,
-             'เลขที่บัญชี(รับคอม)' => $row->Accountagent_car,
-             'เบอร์โทรผู้แนะนำ' => $row->Tellagent_car,
-             'ใบขับขี่' => $row->Driver_buyer,
-             'แถมประกัน' => $row->Insurance_car,
-             'สถานะผู้เช่าซื้อ' => $row->Gradebuyer_car,
+             'ยอดจัด' => number_format($row->Top_car,2),
+             'ค่างวด' => $row->Pay_car,
+             'ระยะเวลาผ่อน' => $row->Timeslacken_car,
+             'ยอดรวม' => $row->Totalpay1_car,
+             'วันที่ชำระงวดแรก' => $Date_DueFirstcar,
             );
           }
         $data_array = collect($data_array);
         $excel = Exporter::make('Excel');
         $excel->load($data_array);
-        return $excel->stream('reportapprove.xlsx');
+        return $excel->stream('reportCovidapprove.xlsx');
       }
     }
 }
