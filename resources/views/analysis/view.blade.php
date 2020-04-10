@@ -690,11 +690,11 @@ $date = date('Y-m-d', strtotime('-1 days'));
                           <thead class="thead-dark bg-gray-light" >
                             <tr>
                               <th class="text-center" style="width:100px;">สาขา</th>
-                              <th class="text-center">เจ้าหน้าที่</th>
                               <th class="text-center">เลขที่สัญญา</th>
+                              <th class="text-center">เลขสัญญาเดิม</th>
                               <th class="text-center">แบบ</th>
                               <th class="text-center">ยีห้อ</th>
-                              <th class="text-center">ทะเบียน</th>
+                              <!-- <th class="text-center">ทะเบียน</th> -->
                               <th class="text-center">ปี</th>
                               <th class="text-center">ยอดจัด</th>
                               <th class="text-center">เอกสาร/แก้ไข</th>
@@ -707,13 +707,26 @@ $date = date('Y-m-d', strtotime('-1 days'));
                             @foreach($data as $row)
                               <tr>
                                 <td class="text-center">
-                                  {{ $row->branch_car}}<br/>
+                                  @if($row->Loanofficer_car == 'นายต่วนมุหยีดีน ลอจิ' or $row->Loanofficer_car == 'นางวิธุกร ณ พิชัย' or $row->Loanofficer_car == 'นางวุฐิกุล ศุกลรัตน์')
+                                    ปัตตานี
+                                  @elseif($row->Loanofficer_car == 'นายเดะมะ มะ' or $row->Loanofficer_car == 'นายมะยูโซะ อามะ' or $row->Loanofficer_car == 'นายฤทธิพร ดือราแม')
+                                    ยะลา
+                                  @elseif($row->Loanofficer_car == 'น.ส.ฮายาตี นิบง' or $row->Loanofficer_car == 'นายซุลกิฟลี แมเราะ' or $row->Loanofficer_car == 'นายมัซวัน มะสาแม')
+                                    นราธิวาส
+                                  @elseif($row->Loanofficer_car == 'นายฟิกรีย์ บาราเต๊ะ' or $row->Loanofficer_car == 'น.ส สาลีละห์ เจะโซะ')
+                                    สายบุรี
+                                  @elseif($row->Loanofficer_car == 'นายฟาอีส อูมา' or $row->Loanofficer_car == 'สุภาพร สุขแดง')
+                                    โกลก
+                                  @elseif($row->Loanofficer_car == 'น.ส.เพ็ญทิพย์ หนูบุญล้อม' or $row->Loanofficer_car == 'น.ส สาลีละห์ เจะโซะ')
+                                    เบตง
+                                  @endif
+                                  <br/>
                                   (<font color="blue" size="1px">{{ $row->Objective_car}}</font>)
                                 </td>
-                                <td class="text-center"> {{ $row->Loanofficer_car }}</td>
                                 <td class="text-center"> {{ $row->Contract_buyer}} </td>
+                                <td class="text-center"> {{ $row->Note_car}} </td>
                                 <td class="text-center"> {{ $row->status_car}} </td>
-                                <td class="text-center"> {{ $row->Brand_car}} </td>
+                                <!-- <td class="text-center"> {{ $row->Brand_car}} </td> -->
                                 <td class="text-center"> {{ $row->License_car}} </td>
                                 <td class="text-center"> {{ $row->Year_car}} </td>
                                 <td class="text-center">
