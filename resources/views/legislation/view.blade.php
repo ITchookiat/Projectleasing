@@ -547,7 +547,7 @@
                               @endif
                             </td>
                             <td class="text-center">  <!-- สถานะทรัพย์ -->
-                              @if($row->sequester_asset != Null)
+                              @if($row->Date_asset != Null)
                                 @php
                                   $Getdate = date_create($row->sequester_asset);
                                   $Newdate = date_create($date);
@@ -974,7 +974,17 @@
                             <!-- <td class="text-center"><a href="#" data-toggle="modal" data-target="#modal_default" data-backdrop="static" data-keyboard="false">{{$row->Contract_legis}}</a></td> -->
                             <td class="text-center"> {{$row->Contract_legis}}</td>
                             <td class="text-left"> {{$row->Name_legis}} </td>
-                            <td class="text-center"> {{ DateThai($row->Date_asset) }}</td>
+                            <td class="text-center">
+                              @if($row->propertied_asset == "Y")
+                               {{ DateThai($row->Date_asset) }}
+                              @else
+                                @if($row->sequester_asset != NULL)
+                                  {{ DateThai($row->sequester_asset) }}
+                               @else
+                                  ไม่มีข้อมูล
+                               @endif
+                              @endif
+                             </td>
                             <td class="text-center">  <!-- ระยะเวลา -->
                               @if($row->Dateresult_asset != Null)
                                 @php
@@ -1016,7 +1026,7 @@
                               @endif
                             </td>
                             <td class="text-center">  <!-- สถานะแจ้งเตือน -->
-                              @if($row->sequester_asset != Null)
+                              @if($row->Date_asset != Null)
                                 @php
                                   $Getdate = date_create($row->sequester_asset);
                                   $Newdate = date_create($date);
