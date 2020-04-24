@@ -1920,13 +1920,34 @@ class LegislationController extends Controller
                 ->orderBy('legislations.Contract_legis', 'ASC')
                 ->get();
         }
+
+        $dataSmart = DB::connection('ibmi')
+        ->table('ASFHP.ARMAST')
+        ->join('ASFHP.VIEW_CUSTMAIL','ASFHP.ARMAST.CUSCOD','=','ASFHP.VIEW_CUSTMAIL.CUSCOD')
+        ->orderBy('ASFHP.ARMAST.CONTNO', 'ASC')
+        ->get();
+        $countDatasmart = count($dataSmart);
+        $countData = count($data);
+
+        for ($i=0; $i < $countData; $i++) {
+          $Contract_No[] = str_replace(" ", "",$data[$i]->Contract_legis);
+            for ($j=0; $j < $countDatasmart; $j++) {
+              if($data[$i]->Contract_legis == $dataSmart[$j]->CONTNO){
+                $SmartInfo[] = $dataSmart[$j];
+              }
+            }
+        }
+
+        // dump($dataSmart);
+        // dd($SmartInfo,$Contract_No);
+
         $pdf = new PDF();
         $pdf::SetTitle('รายงานลูกหนี้ประนอมหนี้');
         $pdf::AddPage('L', 'A4');
         $pdf::SetFont('thsarabunpsk', '', 14, '', true);
         $pdf::SetAutoPageBreak(TRUE, 20);
 
-        $view = \View::make('legislation.reportCompro' ,compact('data','dataPay','dataDB','type','dataCount','status','newfdate','newtdate'));
+        $view = \View::make('legislation.reportCompro' ,compact('data','dataPay','dataDB','type','dataCount','status','newfdate','newtdate','SmartInfo','countDatasmart'));
         $html = $view->render();
         $pdf::WriteHTML($html,true,false,true,false,'');
         $pdf::Output('report.pdf');
@@ -2558,7 +2579,8 @@ class LegislationController extends Controller
         $pdf::SetTitle('รายงานลูกหนี้สิบทรัพย์');
         $pdf::AddPage('L', 'A4');
         $pdf::SetMargins(5, 5, 5, 5);
-        $pdf::SetFont('freeserif', '', 8, '', true);
+        // $pdf::SetFont('freeserif', '', 8, '', true);
+        $pdf::SetFont('thsarabunpsk', '', 10, '', true);
 
         $view = \View::make('legislation.reportAsset' ,compact('data','type','newfdate','newtdate','status','SetaArry'));
         $html = $view->render();

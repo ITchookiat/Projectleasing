@@ -355,22 +355,23 @@
       <table border="1">
           <tr align="center" style="background-color: yellow;line-height: 200%;font-weight:bold;">
             <th style="width: 30px">ลำดับ</th>
-            <th style="width: 70px">วันที่ประนอม</th>
-            <th style="width: 90px">ระยะเวลา</th>
+            <th style="width: 65px">วันที่ประนอม</th>
+            <th style="width: 80px">ระยะเวลา</th>
             <th>เลขที่สัญญา</th>
-            <th style="width: 130px">ชื่อ-สกุล</th>
+            <th style="width: 125px">ชื่อ-สกุล</th>
+            <th style="width: 70px">เบอร์โทร</th>
             <th style="width: 60px">ยอดประนอม</th>
-            <th style="width: 60px">ชำระแล้ว</th>
-            <th style="width: 60px">ยอดคงเหลือ</th>
-            <th style="width: 60px">งวดละ</th>
-            <th style="width: 75px">วันชำระล่าสุด</th>
-            <th style="width: 70px">สถานะ</th>
+            <th style="width: 55px">ชำระแล้ว</th>
+            <th style="width: 55px">ยอดคงเหลือ</th>
+            <th style="width: 50px">งวดละ</th>
+            <th style="width: 65px">วันชำระล่าสุด</th>
+            <th style="width: 55px">สถานะ</th>
           </tr>
           @foreach($data as $key => $row)
           <tr style="line-height: 150%;">
             <td align="center" style="width: 30px">{{$key+1}}</td>
-            <td align="center" style="width: 70px">{{DateThai($row->Date_Promise)}}</td>
-            <td align="left" style="width: 90px">
+            <td align="center" style="width: 65px">{{DateThai($row->Date_Promise)}}</td>
+            <td align="left" style="width: 80px">
               @if($row->Status_legis == "ปิดบัญชีประนอมหนี้" or $row->Status_legis == "ยึดรถหลังฟ้อง")
                 @php
                   $Cldate = date_create($row->Date_Promise);
@@ -393,19 +394,30 @@
               @endif
             </td>
             <td align="center">{{$row->Contract_legis}}</td>
-            <td style="width: 130px"> {{$row->Name_legis}}</td>
+            <td style="width: 125px"> {{$row->Name_legis}}</td>
+            <td align="left" style="width: 70px">
+              @if($countDatasmart != 0)
+                @foreach($SmartInfo as $key => $row1)
+                  @if($row1->CONTNO == $row->Contract_legis)
+                    {{ str_limit(iconv('Tis-620','utf-8',str_replace(" ","",$row1->TELP)),11)}}
+                  @endif
+                @endforeach
+              @else
+                -
+              @endif
+            </td>
             <td align="center" style="width: 60px"> {{number_format($row->Total_Promise,2)}} &nbsp;</td>
-            <td align="center" style="width: 60px"> {{number_format($row->Total_Promise - $row->Sum_Promise,2)}} &nbsp;</td>
-            <td align="center" style="width: 60px"> {{number_format($row->Sum_Promise,2)}} &nbsp;</td>
-            <td align="center" style="width: 60px"> {{number_format($row->DuePay_Promise,2)}} &nbsp; </td>
-            <td align="center" style="width: 75px">
+            <td align="center" style="width: 55px"> {{number_format($row->Total_Promise - $row->Sum_Promise,2)}} &nbsp;</td>
+            <td align="center" style="width: 55px"> {{number_format($row->Sum_Promise,2)}} &nbsp;</td>
+            <td align="center" style="width: 50px"> {{number_format($row->DuePay_Promise,2)}} &nbsp; </td>
+            <td align="center" style="width: 65px">
               @foreach($dataPay as $key => $value)
                 @if($row->legisPromise_id == $value->legis_Com_Payment_id)
                       {{DateThai($value->Date_Payment)}}
                 @endif
               @endforeach
             </td>
-            <td align="center" style="width: 70px">
+            <td align="center" style="width: 55px">
               @php
                 @$sumTotal += $row->Total_Promise;
                 @$sumRemain += $row->Sum_Promise;
