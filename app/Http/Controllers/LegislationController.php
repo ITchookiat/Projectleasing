@@ -2353,19 +2353,19 @@ class LegislationController extends Controller
                   $Cldate = date_create($value->Datesend_Flag);
                   $nowCldate = date_create($value->DateComplete_court);
                   $ClDateDiff = date_diff($Cldate,$nowCldate);
-                  $date_carry = $ClDateDiff->format("%a วัน")
+                  $date_carry = $ClDateDiff->format("%a วัน");
                 }
                 elseif($value->DateUpState_legis != Null){
                   $Cldate = date_create($value->Datesend_Flag);
                   $nowCldate = date_create($value->DateUpState_legis);
                   $ClDateDiff = date_diff($Cldate,$nowCldate);
-                  $date_carry = $ClDateDiff->format("%a วัน")
+                  $date_carry = $ClDateDiff->format("%a วัน");
                 }
                 elseif($value->DateComplete_court == Null){
                   $Cldate = date_create($value->Datesend_Flag);
                   $nowCldate = date_create($date);
                   $ClDateDiff = date_diff($Cldate,$nowCldate);
-                  $date_carry = $ClDateDiff->format("%a วัน")
+                  $date_carry = $ClDateDiff->format("%a วัน");
                 }
 
                 $sheet->row(++$row, array(
