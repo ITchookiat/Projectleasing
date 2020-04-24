@@ -2122,7 +2122,7 @@ class LegislationController extends Controller
                 $cells->setBackground('#FFCC00');
               });
               $row = 3;
-              $sheet->row($row, array('เลขที่สัญญา','ชื่อ-นามสกุล','ยอดคงเหลือ','ยอดตั้งฟ้อง','วันที่ฟ้อง','ระยะเวลาถืองาน','สถานะลูกหนี้','สถานะทรัพย์','สถานะประนอมหนี้','วันที่ปิดงาน','ยอดชำระ','หมายเหตุ'));
+              $sheet->row($row, array('เลขที่สัญญา','ชื่อ-นามสกุล','ยอดคงเหลือ','ยอดตั้งฟ้อง','วันที่ฟ้อง','ระยะเวลางาน','สถานะลูกหนี้','สถานะทรัพย์','สถานะประนอมหนี้','วันที่ปิดงาน','ยอดชำระ','หมายเหตุ'));
               $Summperiod = 0;    //รวมยอดคงเหลือ
               $SumAmount = 0;
               $SumTextStatus = 0; //ยอดปิดบัญชี
@@ -2329,18 +2329,13 @@ class LegislationController extends Controller
                 //เพิ่ม 2 ฟิวด์
                 $SetDatefillingdate = Helper::formatDateThai($value->fillingdate_court);
                 $date = date('Y-m-d');
-                if($value->DateComplete_court != Null){
-                  $Cldate = date_create($value->Datesend_Flag);
-                  $nowCldate = date_create($value->DateComplete_court);
-                  $ClDateDiff = date_diff($Cldate,$nowCldate);
-                  $duration = $ClDateDiff->format("%a วัน");
-                }elseif($value->DateUpState_legis != Null){
-                  $Cldate = date_create($value->Datesend_Flag);
+                if($value->Status_legis != Null){
+                  $Cldate = date_create($value->DateComplete_court);
                   $nowCldate = date_create($value->DateUpState_legis);
                   $ClDateDiff = date_diff($Cldate,$nowCldate);
                   $duration = $ClDateDiff->format("%a วัน");
-                }elseif($value->DateComplete_court == Null){
-                  $Cldate = date_create($value->Datesend_Flag);
+                }else{
+                  $Cldate = date_create($value->fillingdate_court);
                   $nowCldate = date_create($date);
                   $ClDateDiff = date_diff($Cldate,$nowCldate);
                   $duration = $ClDateDiff->format("%a วัน");
