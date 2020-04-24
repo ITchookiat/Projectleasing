@@ -2118,7 +2118,7 @@ class LegislationController extends Controller
           $excel->sheet($status, function ($sheet) use($data,$status,$date,$Fdate,$Tdate) {
               $sheet->prependRow(1, array("บริษัท ชูเกียรติลิสซิ่ง จำกัด"));
               $sheet->prependRow(2, array("จากวันที่  ".$Fdate,"ถึงวันที่  ".$Tdate));
-              $sheet->cells('A3:J3', function($cells) {
+              $sheet->cells('A3:M3', function($cells) {
                 $cells->setBackground('#FFCC00');
               });
               $row = 3;
