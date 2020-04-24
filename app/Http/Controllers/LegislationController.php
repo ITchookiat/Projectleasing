@@ -2122,7 +2122,7 @@ class LegislationController extends Controller
                 $cells->setBackground('#FFCC00');
               });
               $row = 3;
-              $sheet->row($row, array('เลขที่สัญญา','ชื่อ-นามสกุล','ยอดคงเหลือ','ยอดตั้งฟ้อง','วันที่ฟ้อง','ระยะเวลางาน','สถานะลูกหนี้','สถานะทรัพย์','สถานะประนอมหนี้','วันที่ปิดงาน','ยอดชำระ','หมายเหตุ'));
+              $sheet->row($row, array('เลขที่สัญญา','ชื่อ-นามสกุล','ยอดคงเหลือ','ยอดตั้งฟ้อง','วันถืองาน','วันที่ฟ้อง','ระยะเวลา','สถานะลูกหนี้','สถานะทรัพย์','สถานะประนอมหนี้','วันที่ปิดงาน','ยอดชำระ','หมายเหตุ'));
               $Summperiod = 0;    //รวมยอดคงเหลือ
               $SumAmount = 0;
               $SumTextStatus = 0; //ยอดปิดบัญชี
@@ -2326,6 +2326,7 @@ class LegislationController extends Controller
                 }else {
                   $SetDatelegis = "";
                 }
+
                 //เพิ่ม 2 ฟิวด์
                 if($value->fillingdate_court != Null){
                   $SetDatefillingdate = Helper::formatDateThai($value->fillingdate_court);
@@ -2334,6 +2335,7 @@ class LegislationController extends Controller
                   $SetDatefillingdate = '';
                 }
                 $date = date('Y-m-d');
+                //ระยะเวลางานข
                 if($value->Status_legis != Null){
                   $Cldate = date_create($value->DateComplete_court);
                   $nowCldate = date_create($value->DateUpState_legis);
@@ -2346,12 +2348,32 @@ class LegislationController extends Controller
                   $ClDateDiff = date_diff($Cldate,$nowCldate);
                   $duration = $ClDateDiff->format("%a วัน");
                 }
+                ///วันถืองาน
+                if($value->DateComplete_court != Null){
+                  $Cldate = date_create($value->Datesend_Flag);
+                  $nowCldate = date_create($value->DateComplete_court);
+                  $ClDateDiff = date_diff($Cldate,$nowCldate);
+                  $date_carry = $ClDateDiff->format("%a วัน")
+                }
+                elseif($value->DateUpState_legis != Null){
+                  $Cldate = date_create($value->Datesend_Flag);
+                  $nowCldate = date_create($value->DateUpState_legis);
+                  $ClDateDiff = date_diff($Cldate,$nowCldate);
+                  $date_carry = $ClDateDiff->format("%a วัน")
+                }
+                elseif($value->DateComplete_court == Null){
+                  $Cldate = date_create($value->Datesend_Flag);
+                  $nowCldate = date_create($date);
+                  $ClDateDiff = date_diff($Cldate,$nowCldate);
+                  $date_carry = $ClDateDiff->format("%a วัน")
+                }
 
                 $sheet->row(++$row, array(
                   $value->Contract_legis,
                   $value->Name_legis,
                   number_format($value->Sumperiod_legis, 2),
                   number_format($SumCourt, 2),
+                  $date_carry,
                   $SetDatefillingdate,
                   $duration,
                   $SetText,
