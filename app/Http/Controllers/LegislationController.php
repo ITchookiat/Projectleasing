@@ -1944,7 +1944,7 @@ class LegislationController extends Controller
         $pdf = new PDF();
         $pdf::SetTitle('รายงานลูกหนี้ประนอมหนี้');
         $pdf::AddPage('L', 'A4');
-        $pdf::SetFont('thsarabunpsk', '', 14, '', true);
+        $pdf::SetFont('thsarabunpsk', '', 12, '', true);
         $pdf::SetAutoPageBreak(TRUE, 20);
 
         $view = \View::make('legislation.reportCompro' ,compact('data','dataPay','dataDB','type','dataCount','status','newfdate','newtdate','SmartInfo','countDatasmart'));
