@@ -2327,14 +2327,20 @@ class LegislationController extends Controller
                   $SetDatelegis = "";
                 }
                 //เพิ่ม 2 ฟิวด์
-                $SetDatefillingdate = Helper::formatDateThai($value->fillingdate_court);
+                if($value->fillingdate_court != Null){
+                  $SetDatefillingdate = Helper::formatDateThai($value->fillingdate_court);
+                }
+                else{
+                  $SetDatefillingdate = '';
+                }
                 $date = date('Y-m-d');
                 if($value->Status_legis != Null){
                   $Cldate = date_create($value->DateComplete_court);
                   $nowCldate = date_create($value->DateUpState_legis);
                   $ClDateDiff = date_diff($Cldate,$nowCldate);
                   $duration = $ClDateDiff->format("%a วัน");
-                }else{
+                }
+                else{
                   $Cldate = date_create($value->fillingdate_court);
                   $nowCldate = date_create($date);
                   $ClDateDiff = date_diff($Cldate,$nowCldate);
