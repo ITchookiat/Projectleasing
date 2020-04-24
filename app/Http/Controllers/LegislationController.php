@@ -2326,14 +2326,33 @@ class LegislationController extends Controller
                 }else {
                   $SetDatelegis = "";
                 }
+                //เพิ่ม 2 ฟิวด์
+                $SetDatefillingdate = Helper::formatDateThai($value->fillingdate_court);
+                $date = date('Y-m-d');
+                if($value->DateComplete_court != Null){
+                  $Cldate = date_create($value->Datesend_Flag);
+                  $nowCldate = date_create($value->DateComplete_court);
+                  $ClDateDiff = date_diff($Cldate,$nowCldate);
+                  $duration = $ClDateDiff->format("%a วัน");
+                }elseif($value->DateUpState_legis != Null){
+                  $Cldate = date_create($value->Datesend_Flag);
+                  $nowCldate = date_create($value->DateUpState_legis);
+                  $ClDateDiff = date_diff($Cldate,$nowCldate);
+                  $duration = $ClDateDiff->format("%a วัน");
+                }elseif($value->DateComplete_court == Null){
+                  $Cldate = date_create($value->Datesend_Flag);
+                  $nowCldate = date_create($date);
+                  $ClDateDiff = date_diff($Cldate,$nowCldate);
+                  $duration = $ClDateDiff->format("%a วัน");
+                }
 
                 $sheet->row(++$row, array(
                   $value->Contract_legis,
                   $value->Name_legis,
                   number_format($value->Sumperiod_legis, 2),
                   number_format($SumCourt, 2),
-                  $value->fillingdate_court,
-                  $value->DateComplete_court,
+                  $SetDatefillingdate,
+                  $duration,
                   $SetText,
                   $SetTextAsset,
                   $SetTextCompro,
