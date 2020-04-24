@@ -18,8 +18,11 @@
 
 <!-- ส่วนหัว -->
   @if($type == 19)
-    <h1 align="center" style="font-weight: bold;line-height:1px;"><b>รายงานลูกหนี้สิบทรัพย์</b></h1>
-    <h3 align="center" style="font-weight: bold;line-height:10px;"><b>จากวันที่ @if($newfdate != Null)({{DateThai($newfdate)}})@endif ถึงวันที่ @if($newtdate != Null)({{DateThai($newtdate)}})@endif</b></h3>
+    <label align="right">ปริ้นวันที่ : <u>{{ date('d-m-Y') }}</u></label>
+    <h1 align="center" style="font-weight: bold;line-height:1px;"><b>รายงานลูกหนี้สืบทรัพย์</b></h1>
+    @if($newfdate != '')
+      <h3 align="center" style="font-weight: bold;line-height:10px;"><b>จากวันที่ ({{DateThai($newfdate)}}) ถึงวันที่ ({{DateThai($newtdate)}})</b></h3>
+    @endif
     <hr>
   @endif
 
@@ -29,27 +32,29 @@
       <br>
       <table border="1">
           <tr align="center" style="background-color: yellow;line-height: 200%;font-weight:bold;">
-            <th style="width: 30px">ลำดับ</th>
-            <th style="width: 60px">เลขที่สัญญา</th>
-            <th style="width: 100px">ชื่อ-นามสกุล(ผู้ซื้อ)</th>
-            <th style="width: 150px">ที่อยู่(ผู้ซื้อ)</th>
-            <th style="width: 70px">เลขประชาชน(ผู้ซื้อ)</th>
-            <th style="width: 100px">ชื่อ-นามสกุล(ผู้ค่ำ)</th>
-            <th style="width: 150px">ที่อยู่(ผู้ค่ำ)</th>
-            <th style="width: 70px">เลขประชาชน(ผู้ค่ำ)</th>
-            <th style="width: 80px">สถานะลูกหนี้</th>
+            <th style="width: 25px">ลำดับ</th>
+            <th style="width: 50px">วันที่สืบทรัพย์</th>
+            <th style="width: 50px">เลขที่สัญญา</th>
+            <th style="width: 95px">ชื่อ-นามสกุล(ผู้ซื้อ)</th>
+            <th style="width: 160px">ที่อยู่(ผู้ซื้อ)</th>
+            <th style="width: 55px">เลขประชาชน(ผู้ซื้อ)</th>
+            <th style="width: 95px">ชื่อ-นามสกุล(ผู้ค้ำ)</th>
+            <th style="width: 160px">ที่อยู่(ผู้ค้ำ)</th>
+            <th style="width: 55px">เลขประชาชน(ผู้ค้ำ)</th>
+            <th style="width: 65px">สถานะลูกหนี้</th>
           </tr>
           @foreach($data as $key => $row)
           <tr style="line-height: 200%;">
-            <td align="center" style="width: 30px"> {{$key+1}}</td>
-            <td align="center" style="width: 60px"> {{$row->Contract_legis}}</td>
-            <td align="center" style="width: 100px"> {{$row->Name_legis}}</td>
-            <td align="center" style="width: 150px"> {{$row->Address_legis}}</td>
-            <td align="center" style="width: 70px"> {{$row->Idcard_legis}}</td>
-            <td align="center" style="width: 100px"> {{$row->NameGT_legis}}</td>
-            <td align="center" style="width: 150px"> {{$row->AddressGT_legis}}</td>
-            <td align="center" style="width: 70px"> {{$row->IdcardGT_legis}}</td>
-            <td align="center" style="width: 80px">
+            <td align="center" style="width: 25px"> {{$key+1}}</td>
+            <td align="center" style="width: 50px"> {{DateThai($row->Date_asset)}}</td>
+            <td align="center" style="width: 50px"> {{$row->Contract_legis}}</td>
+            <td align="left" style="width: 95px"> {{$row->Name_legis}}</td>
+            <td align="left" style="width: 160px"> {{$row->Address_legis}}</td>
+            <td align="center" style="width: 55px"> {{$row->Idcard_legis}}</td>
+            <td align="left" style="width: 95px"> {{$row->NameGT_legis}}</td>
+            <td align="left" style="width: 160px"> {{$row->AddressGT_legis}}</td>
+            <td align="center" style="width: 55px"> {{$row->IdcardGT_legis}}</td>
+            <td align="center" style="width: 65px">
               @foreach($SetaArry as $value)
                 @if($value['id_status'] == $row->id)
                   {{$value['txt_status']}}
