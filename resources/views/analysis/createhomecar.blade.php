@@ -789,6 +789,7 @@
                                         <option value="รถเทิร์น">รถเทิร์น</option>
                                         <option value="รถยึด">รถยึด</option>
                                         <option value="รถฝากขาย">รถฝากขาย</option>
+                                        <option value="โมบายบริษัท">โมบายบริษัท</option>
                                       </select>
                                     </div>
                                   </div>
@@ -919,6 +920,7 @@
                                       <select id="interestHC" name="interestHC" class="form-control" style="width: 250px;" oninput="priceHomecar()">
                                         <option value="" selected>--- ดอกเบี้ย ---</option>
                                         <option value="0.40">0.40</option>
+                                        <option value="0.42">0.42</option>
                                         <option value="0.45">0.45</option>
                                         <option value="0.55">0.55</option>
                                         <option value="0.65">0.65</option>
@@ -956,6 +958,7 @@
                                         <option value="60">60</option>
                                         <option value="66">66</option>
                                         <option value="72">72</option>
+                                        <option value="78">78</option>
                                       </select>
                                     </div>
                                   </div>
