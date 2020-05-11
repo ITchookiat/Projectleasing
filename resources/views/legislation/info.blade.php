@@ -5,18 +5,10 @@
   <link type="text/css" rel="stylesheet" href="{{ asset('css/magiczoomplus.css') }}"/>
   <script type="text/javascript" src="{{ asset('js/magiczoomplus.js') }}"></script>
 
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css">
-
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css"/>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/js/fileinput.js" type="text/javascript"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/themes/fa/theme.js" type="text/javascript"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" type="text/javascript"></script>
-
-  <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
 
   <style>
    readonly{
@@ -155,54 +147,73 @@
       }
   </style>
 
-      <!-- <section class="content-header">
-      </section> -->
+  <!-- Main content -->
+  <section class="content">
+    <div class="content-header">
+      @if(session()->has('success'))
+        <div class="alert alert-success alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+          <strong>สำเร็จ!</strong> {{ session()->get('success') }}
+        </div>
+      @endif
 
-      <!-- Main content -->
       <section class="content">
-        <!-- Default box -->
-        <div class="box box-danger box-solid">
-          <div class="box-header with-border">
-            <h4 class="card-title p-3" align="center">แก้ไขข้อมูงานฟ้อง</h4>
-            <div class="box-tools pull-right">
-              <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                <i class="fa fa-minus"></i></button>
-              <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-                <i class="fa fa-times"></i></button>
-            </div>
-          </div>
-          <div class="nav-tabs-custom">
-            <ul class="nav nav-tabs bg-warning">
-            <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 2]) }}">ข้อมูลผู้เช่าซื้อ</a></li>
-              <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 3]) }}">ชั้นศาล</a></li>
-              <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 7]) }}">ชั้นบังคับคดี</a></li>
-              <li class="nav-item"><a href="{{ action('LegislationController@edit',[$id, 13]) }}">โกงเจ้าหนี้</a></li>
-              <li class="nav-item pull-right active"><a href="{{ action('LegislationController@edit',[$id, 11]) }}">รูปและแผนที่</a></li>
-            </ul>
-          </div>
-
-          <div class="box-body">
-
-            @if (count($errors) > 0)
-              <div class="alert alert-danger">
-                <ul>
-                  @foreach($errors->all() as $error)
-                  <li>กรุณาลงชื่อ ผู้อนุมัติ {{$error}}</li>
-                  @endforeach
-                </ul>
+        <div class="row justify-content-center">
+          <div class="col-12 table-responsive">
+            <div class="card">
+              <div class="card-header">
+                <h4 class="">
+                  รูปและแผนที่
+                </h4>                  
+                <div class="card card-warning card-tabs">
+                  <div class="card-header p-0 pt-1">
+                    <div class="container-fluid">
+                      <div class="row mb-2">
+                        @if ($data->Flag == "C")
+                          <div class="col-sm-6">
+                            <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+                              <li class="nav-item">
+                                <a class="nav-link" href="{{ route('legislation',7) }}">หน้าหลัก</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 4]) }}">ประนอมหนี้</a>
+                              </li>
+                            </ul>
+                          </div>
+                        @else
+                          <div class="col-sm-6">
+                            <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+                              <li class="nav-item">
+                                <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 2]) }}">ข้อมูลผู้เช่าซื้อ</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 3]) }}">ชั้นศาล</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 7]) }}">ชั้นบังคับคดี</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 13]) }}">โกงเจ้าหนี้</a>
+                              </li>
+                            </ul>
+                          </div>
+                          <div class="col-sm-6">
+                            <div class="float-right form-inline">
+                              <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+                                <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 8]) }}">สืบทรัพย์</a>
+                                <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 4]) }}">ประนอมหนี้</a>
+                                <a class="nav-link active" href="{{ action('LegislationController@edit',[$id, 11]) }}">รูปและแผนที่</a>
+                              </ul>
+                            </div>
+                          </div>
+                        @endif
+                      </div>
+                    </div>
+                  </div>          
+                </div>
               </div>
-            @endif
-
-            @if(session()->has('success'))
-              <div class="alert alert-success alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span></button>
-                <strong>สำเร็จ!</strong> {{ session()->get('success') }}
-              </div>
-            @endif
-
-            <div class="row">
-              <div class="col-md-12"> <br />
+              <div class="card-body text-sm">
                 <form name="form1" method="post" action="{{ action('LegislationController@update',[$id,$type]) }}" enctype="multipart/form-data">
                   @csrf
                   @method('put')
@@ -223,50 +234,50 @@
                           <div class="col-md-12">
                             <div class="row">
                               <div class="col-md-6">
-                                <div class="box box-warning box-solid">
-                                  <div class="box-header with-border">
-                                    <h3 class="box-title">
+                                <div class="card card-danger">
+                                  <div class="card-header">
+                                    <h3 class="card-title">
                                       รูปภาพ
                                       @if($SumImage != 0)
-                                      ({{$SumImage}})
+                                        ({{$SumImage}})
                                       @endif
                                     </h3>
-                                    <div class="box-tools pull-right">
+                    
+                                    <div class="card-tools">
                                       @if($SumImage != 0)
-                                      <a href="{{ action('LegislationController@deleteImageAll',$id) }}" title="ลบรูปทั้งหมด" onclick="return confirm('คุณต้องการลบรูปทั้งหมดหรือไม่?')" class="btn btn-box-tool">
-                                        <i class="fa fa-trash"></i>
-                                      </a>
+                                        <a href="{{ action('LegislationController@deleteImageAll',$id) }}" title="ลบรูปทั้งหมด" onclick="return confirm('คุณต้องการลบรูปทั้งหมดหรือไม่?')" class="btn btn-box-tool">
+                                          <i class="fa fa-trash"></i>
+                                        </a>
                                       @endif
-                                      <button type="button" class="btn btn-box-tool" onclick="showImg()" title="แสดงที่เพิ่มรูป"><i class="fa fa-eye"></i></button>
-                                      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                      <button type="button" class="btn btn-tool" onclick="showImg()" title="แสดงที่เพิ่มรูป"><i class="fa fa-eye"></i></button>
+                                      <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                                      <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
                                     </div>
                                   </div>
-                                  <div class="box-body">
-
+                                  <div class="card-body">
                                     @if($SumImage == 0)
-                                    <div id="myImg">
+                                      <div id="myImg">
                                     @else
-                                    <div id="myImg" style="display:none;">
+                                      <div id="myImg" style="display:none;">
                                     @endif
-                                        <div class="form-group">
-                                          <div class="file-loading">
-                                            <input id="image-file" type="file" name="file_image[]" accept="image/*" data-min-file-count="1" multiple>
-                                          </div>
+                                      <div class="form-group">
+                                        <div class="file-loading">
+                                          <input id="image-file" type="file" name="file_image[]" accept="image/*" data-min-file-count="1" multiple>
                                         </div>
-                                        <br><hr>
                                       </div>
+                                      <br><hr>
+                                    </div>
 
-                                  @if($SumImage > 0)
-                                    <div class="container1">
+                                    @if($SumImage > 0)
+                                      <div class="container1">
                                         @foreach($dataImages as $key => $images)
                                           <div class="mySlides">
                                             <div class="numbertext">{{$key+1}} / {{$SumImage}}</div>
                                             <img class="img-responsive" src="{{ asset('upload-image/'.$images->name_image) }}" style="width:675px; height:400px;">
                                           </div>
                                         @endforeach
-
-                                          <a class="prev" onclick="plusSlides(-1)">❮</a>
-                                          <a class="next" onclick="plusSlides(1)">❯</a>
+                                        <a class="prev" onclick="plusSlides(-1)">❮</a>
+                                        <a class="next" onclick="plusSlides(1)">❯</a>
 
                                         <div class="caption-container">
                                           <p id="caption"></p>
@@ -279,43 +290,37 @@
                                           </div>
                                           @endforeach
                                         </div>
-                                    </div>
+                                      </div>
                                     @endif
                                   </div>
                                 </div>
                               </div>
 
                               <div class="col-md-6">
-                                <div class="box box-warning box-solid">
-                                  <div class="box-header with-border">
-                                    <h3 class="box-title"> แผนที่ </h3>
-                                    <div class="box-tools pull-right">
-                                      <button type="button" class="btn btn-box-tool" onclick="showMap()" title="แสดงละติจูดและลองจิจูด"><i class="fa fa-eye"></i></button>
-                                      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                                      </button>
+                                <div class="card card-danger">
+                                  <div class="card-header">
+                                    <h3 class="card-title">แผนที่</h3>
+                    
+                                    <div class="card-tools">
+                                      <button type="button" class="btn btn-tool" onclick="showMap()" title="แสดงละติจูดและลองจิจูด"><i class="fa fa-eye"></i></button>
+                                      <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                      <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
                                     </div>
                                   </div>
-
-                                  <div class="box-body">
+                                  <div class="card-body">
                                     <div class="row">
                                       <div class="col-md-12">
                                         <div id="myLat" style="display:none;">
                                           <div class="form-inline" align="center">
                                             <label>ละติจูด : </label> <input type="text" name="latitude" class="form-control" style="width:175px" value="{{ $lat }}"/>
                                             <label>ลองจิจูด : </label> <input type="text" name="longitude" class="form-control" style="width:175px" value="{{ $long }}"/>
-                                            <!-- <button type="submit" class="btn btn-warning" style="width:100px">
-                                              <span class="glyphicon glyphicon-search"></span> Search
-                                            </button> -->
                                           </div>
                                           <br><br>
                                         </div>
-
                                         <div id="map" style="width:100%;height:63vh"></div>
-
                                       </div>
                                     </div>
                                   </div>
-
                                 </div>
                               </div>
                             </div>
@@ -328,147 +333,150 @@
                     <input type="hidden" name="_method" value="PATCH"/>
                   </div>
                 </form>
+                  
+
               </div>
             </div>
           </div>
         </div>
+      </section>
+    </div>
+  </section>
 
-<!-- เวลาแจ้งเตือน -->
-      <script type="text/javascript">
-          $("#image-file").fileinput({
-            uploadUrl:"{{ route('MasterAnalysis.store') }}",
-            theme:'fa',
-            uploadExtraData:function(){
-              return{
-                _token:"{{csrf_token()}}",
-              }
-            },
-            allowedFileExtensions:['jpg','png','gif'],
-            maxFileSize:10240
-          })
-      </script>
+  <!-- เวลาแจ้งเตือน -->
+  <script type="text/javascript">
+    $("#image-file").fileinput({
+      uploadUrl:"{{ route('MasterAnalysis.store') }}",
+      theme:'fa',
+      uploadExtraData:function(){
+        return{
+          _token:"{{csrf_token()}}",
+        }
+      },
+      allowedFileExtensions:['jpg','png','gif'],
+      maxFileSize:10240
+    })
+  </script>
 
-      <script type="text/javascript">
-        $(".alert").fadeTo(3000, 1000).slideUp(1000, function(){
-        $(".alert").alert('close');
+  <script type="text/javascript">
+    $(".alert").fadeTo(3000, 1000).slideUp(1000, function(){
+    $(".alert").alert('close');
+    });
+  </script>
+
+  <script>
+      function showMap() {
+      var x = document.getElementById("myLat");
+      if (x.style.display === "none") {
+      x.style.display = "block";
+      } else {
+      x.style.display = "none";
+      }
+      }
+      function showImg() {
+      var x = document.getElementById("myImg");
+      if (x.style.display === "none") {
+      x.style.display = "block";
+      } else {
+      x.style.display = "none";
+      }
+      }
+  </script>
+
+  @if($lat == null && $long ==null)
+    <script>
+      function initMap() {
+        var myLatlng = {lat: 6.855323, lng: 101.220649};
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 1,
+          center: myLatlng
         });
-      </script>
 
-      <script>
-          function showMap() {
-          var x = document.getElementById("myLat");
-          if (x.style.display === "none") {
-          x.style.display = "block";
-          } else {
-          x.style.display = "none";
-          }
-          }
-          function showImg() {
-          var x = document.getElementById("myImg");
-          if (x.style.display === "none") {
-          x.style.display = "block";
-          } else {
-          x.style.display = "none";
-          }
-          }
-      </script>
+        var marker = new google.maps.Marker({
+          position: myLatlng,
+          map: map,
+          title: 'Click to zoom'
+        });
 
-      @if($lat == null && $long ==null)
-      <script>
-        function initMap() {
-          var myLatlng = {lat: 6.855323, lng: 101.220649};
+        map.addListener('center_changed', function() {
+          // 3 seconds after the center of the map has changed, pan back to the
+          // marker.
+          window.setTimeout(function() {
+            map.panTo(marker.getPosition());
+          }, 3000);
+        });
 
-          var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 1,
-            center: myLatlng
-          });
+        marker.addListener('click', function() {
+          map.setZoom(15);
+          map.setCenter(marker.getPosition());
+        });
+      }
+    </script>
+  @else
+    <script>
+      function initMap() {
+        var myLatlng = {lat: {{ $lat }}, lng: {{ $long }}};
 
-          var marker = new google.maps.Marker({
-            position: myLatlng,
-            map: map,
-            title: 'Click to zoom'
-          });
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 18,
+          center: myLatlng
+        });
 
-          map.addListener('center_changed', function() {
-            // 3 seconds after the center of the map has changed, pan back to the
-            // marker.
-            window.setTimeout(function() {
-              map.panTo(marker.getPosition());
-            }, 3000);
-          });
+        var marker = new google.maps.Marker({
+          position: myLatlng,
+          map: map,
+          title: 'Click to zoom'
+        });
 
-          marker.addListener('click', function() {
-            map.setZoom(15);
-            map.setCenter(marker.getPosition());
-          });
-        }
-      </script>
-      @else
-      <script>
-        function initMap() {
-          var myLatlng = {lat: {{ $lat }}, lng: {{ $long }}};
+        map.addListener('center_changed', function() {
+          // 3 seconds after the center of the map has changed, pan back to the
+          // marker.
+          window.setTimeout(function() {
+            map.panTo(marker.getPosition());
+          }, 3000);
+        });
 
-          var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 18,
-            center: myLatlng
-          });
+        marker.addListener('click', function() {
+          map.setZoom(15);
+          map.setCenter(marker.getPosition());
+        });
+      }
+    </script>
+  @endif
 
-          var marker = new google.maps.Marker({
-            position: myLatlng,
-            map: map,
-            title: 'Click to zoom'
-          });
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHvHdio8MNE9aqZZmfvd49zHgLbixudMs&callback=initMap&language=th">
+  </script>
 
-          map.addListener('center_changed', function() {
-            // 3 seconds after the center of the map has changed, pan back to the
-            // marker.
-            window.setTimeout(function() {
-              map.panTo(marker.getPosition());
-            }, 3000);
-          });
+  <script>
+    var slideIndex = 1;
+    showSlides(slideIndex);
 
-          marker.addListener('click', function() {
-            map.setZoom(15);
-            map.setCenter(marker.getPosition());
-          });
-        }
-      </script>
-      @endif
-      
-      <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHvHdio8MNE9aqZZmfvd49zHgLbixudMs&callback=initMap&language=th">
-      </script>
+    function plusSlides(n) {
+    showSlides(slideIndex += n);
+    }
 
-      <script>
-        var slideIndex = 1;
-        showSlides(slideIndex);
+    function currentSlide(n) {
+    showSlides(slideIndex = n);
+    }
 
-        function plusSlides(n) {
-        showSlides(slideIndex += n);
-        }
-
-        function currentSlide(n) {
-        showSlides(slideIndex = n);
-        }
-
-        function showSlides(n) {
-        var i;
-        var slides = document.getElementsByClassName("mySlides");
-        var dots = document.getElementsByClassName("demo");
-        var captionText = document.getElementById("caption");
-        if (n > slides.length) {slideIndex = 1}
-        if (n < 1) {slideIndex = slides.length}
-        for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-        }
-        for (i = 0; i < dots.length; i++) {
-        dots[i].className = dots[i].className.replace(" active", "");
-        }
-        slides[slideIndex-1].style.display = "block";
-        dots[slideIndex-1].className += " active";
-        captionText.innerHTML = dots[slideIndex-1].alt;
-        }
-      </script>
-
-    </section>
+    function showSlides(n) {
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+    var dots = document.getElementsByClassName("demo");
+    var captionText = document.getElementById("caption");
+    if (n > slides.length) {slideIndex = 1}
+    if (n < 1) {slideIndex = slides.length}
+    for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex-1].style.display = "block";
+    dots[slideIndex-1].className += " active";
+    captionText.innerHTML = dots[slideIndex-1].alt;
+    }
+  </script>
 @endsection

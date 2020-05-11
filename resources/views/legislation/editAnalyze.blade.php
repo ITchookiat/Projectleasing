@@ -14,8 +14,6 @@
   }
 @endphp
 
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-
   <style>
     #todo-list{
     width:100%;
@@ -173,66 +171,78 @@
     color:#cd4400;
     }
   </style>
-  
-      <!-- Main content -->
+
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="content-header">
+      @if(session()->has('success'))
+        <div class="alert alert-success alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+          <strong>สำเร็จ!</strong> {{ session()->get('success') }}
+        </div>
+      @endif
+
       <section class="content">
-        <!-- Default box -->
-        <div class="box box-danger box-solid">
-          <div class="box-header with-border">
-            <h4 class="card-title p-3" align="center">ข้อมูลเตรียมเอกสาร</h4>
-            <div class="box-tools pull-right">
-              <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                <i class="fa fa-minus"></i></button>
-              <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-                <i class="fa fa-times"></i></button>
-            </div>
-          </div>
-
-          <div class="box-body" style="background-color:#F1F1F1">
-
-            @if(session()->has('success'))
-              <div class="alert alert-success alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <h4><i class="icon fa fa-check"></i> Alert!</h4>
-                <strong>สำเร็จ!</strong> {{ session()->get('success') }}
-              </div>
-            @endif
-
-            <form name="form1" method="post" action="{{ action('LegislationController@update',[$id,$type]) }}" enctype="multipart/form-data">
-              @csrf
-              @method('put')
-
-              <div class="card">
-                <div class="card-body">
-                  <div class="tab-content">
-                    <div class="form-group" align="right">
-                      @if($data->Flag_status == 1)
-                      <a class="btn btn-app" href="{{ action('LegislationController@updateLegislation',[$id,$type]) }}?&Flag={{2}}" style="background-color:#031261; color:#FFFFFF;">
-                        <span class="glyphicon glyphicon-log-out"></span> ส่งทนาย
-                      </a>
-                      @else
-                      <a class="btn btn-app" style="background-color:#CCCCCC; color:#FFFFFF;">
-                        <span class="glyphicon glyphicon-log-out"></span> ส่งทนาย
-                      </a>
-                      @endif
-                      <button type="submit" class="btn btn-app" style="background-color:#189100; color:#FFFFFF;">
-                        <span class="glyphicon glyphicon-floppy-save"></span> บันทึก
-                      </button>
-                      <a class="btn btn-app" href="{{ route('legislation',6) }}" style="background-color:#DB0000; color:#FFFFFF;">
-                        <span class="glyphicon glyphicon-remove"></span> ยกเลิก
-                      </a>
+        <form name="form1" method="post" action="{{ action('LegislationController@update',[$id,$type]) }}" enctype="multipart/form-data">
+          @csrf
+          @method('put')
+            <div class="row justify-content-center">
+              <div class="col-12 table-responsive">
+                <div class="card">
+                  <div class="card-header">
+                    <div class="row">
+                      <div class="col-4">
+                        <div class="form-inline">
+                          <h4>ข้อมูลเตรียมเอกสาร...</h4>
+                        </div>
+                      </div>
+                      <div class="col-8">
+                        <div class="row">
+                          <div class="col-3">
+                          </div>
+                          <div class="col-3">
+                          </div>
+                          <div class="col-6">
+                            <div class="float-right form-inline">
+                              @if($data->Flag_status == 1)
+                              <a class="btn btn-primary" href="{{ action('LegislationController@updateLegislation',[$id,$type]) }}?&Flag={{2}}" style="background-color:#031261; color:#FFFFFF;">
+                                <i class="fas fa-share-square"></i> ส่งทนาย
+                              </a>
+                              &nbsp;&nbsp;
+                              @else
+                              <a class="btn btn-primary" style="background-color:#CCCCCC; color:#FFFFFF;">
+                                <i class="fas fa-share-square"></i> ส่งทนาย
+                              </a>
+                              &nbsp;&nbsp;
+                              @endif
+                              <button type="submit" class="btn btn-success" style="background-color:#189100; color:#FFFFFF;">
+                                <i class="fas fa-save"></i> บันทึก
+                              </button>
+                              &nbsp;&nbsp;
+                              <a class="btn btn-danger" href="{{ route('legislation',6) }}" style="background-color:#DB0000; color:#FFFFFF;">
+                                <i class="far fa-window-close"></i> ยกเลิก
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
+                  </div>
+                  <div class="card-body text-sm">
+
                     <div class="row">
                       <div class="col-md-6">
-                        <div class="box box-warning box-solid">
-                          <div class="box-header with-border">
-                            <h3 class="box-title"><i class="fa fa-street-view"></i> ข้อมูลผู้เช่าซื้อ</h3>
-                            <div class="box-tools pull-center">
-                              <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        <div class="card card-warning">
+                          <div class="card-header">
+                            <h3 class="card-title"><i class="fas fa-street-view"></i> ข้อมูลผู้เช่าซื้อ</h3>
+                            <div class="card-tools">
+                              <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
                               </button>
                             </div>
                           </div>
-                          <div class="box-body">
+                          <div class="card-body">
                             <div class="row">
                                <div class="col-md-4">
                                  เลขที่สัญญา
@@ -388,164 +398,160 @@
                       </div>
 
                       <div class="col-md-3">
-                        <div class="box box-warning">
-                          <div class="box-header with-border bg-yellow">
-                            <h3 class="box-title"><i class="fa fa-check-square-o"></i> เอกสาร</h3>
-                            <div class="box-tools pull-right">
-                              <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        <div class="card card-warning">
+                          <div class="card-header">
+                            <h3 class="card-title"><i class="fas fa-tasks"></i> เอกสาร</h3>
+                            <div class="card-tools">
+                              <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
                               </button>
                             </div>
                           </div>
-                            <div class="col-md-12">
+                            <div class="card-body">
                               <div class="row">
-
-                                  <div class="form-inline" align="left">
-                                    <div class="" id="todo-list">
-                                      <span class="todo-wrap">
-                                        @if($data->Terminatebuyer_list != Null)
-                                          <input type="checkbox" id="7" name="Terminatebuyerlist" value="{{ $data->Terminatebuyer_list }}" checked="checked"/>
-                                        @else
-                                          <input type="checkbox" id="7" name="Terminatebuyerlist" value="on"/>
-                                        @endif
-                                        <label for="7" class="todo">
-                                          <i class="fa fa-check"></i>
-                                          สัญญาบอกเลิกผู้ซื้อ
-                                        </label>
-                                        <span class="delete-item" title="remove">
-                                          <i class="fa fa-times-circle"></i>
-                                        </span>
-                                      </span>
-                                      <span class="todo-wrap">
-                                        @if($data->Terminatesupport_list != Null)
-                                          <input type="checkbox" id="8" name="Terminatesupportlist" value="{{ $data->Terminatesupport_list }}" checked="checked"/>
-                                        @else
-                                          <input type="checkbox" id="8" name="Terminatesupportlist" value="on"/>
-                                        @endif
-                                        <label for="8" class="todo">
-                                          <i class="fa fa-check"></i>
-                                          สัญญาบอกเลิกผู้ค้ำ
-                                        </label>
-                                        <span class="delete-item" title="remove">
-                                          <i class="fa fa-times-circle"></i>
-                                        </span>
-                                      </span>
-                                      <span class="todo-wrap">
-                                        @if($data->Acceptbuyerandsup_list != Null)
-                                          <input type="checkbox" id="9" name="Acceptbuyerandsuplist" value="{{ $data->Acceptbuyerandsup_list }}" checked="checked"/>
-                                        @else
-                                          <input type="checkbox" id="9" name="Acceptbuyerandsuplist" value="on"/>
-                                        @endif
-                                        <label for="9" class="todo">
-                                          <i class="fa fa-check"></i>
-                                          ใบตอบรับผู้ซื้อ - ผู้ค้ำ
-                                        </label>
-                                        <span class="delete-item" title="remove">
-                                          <i class="fa fa-times-circle"></i>
-                                        </span>
-                                      </span>
-                                      <span class="todo-wrap">
-                                        @if($data->Twodue_list != Null)
-                                          <input type="checkbox" id="10" name="Twoduelist" value="{{ $data->Twodue_list }}" checked="checked"/>
-                                        @else
-                                          <input type="checkbox" id="10" name="Twoduelist" value="on"/>
-                                        @endif
-                                        <label for="10" class="todo">
-                                          <i class="fa fa-check"></i>
-                                          หนังสือ 2 งวด
-                                        </label>
-                                        <span class="delete-item" title="remove">
-                                          <i class="fa fa-times-circle"></i>
-                                        </span>
-                                      </span>
-                                      <span class="todo-wrap">
-                                        @if($data->AcceptTwodue_list != Null)
-                                          <input type="checkbox" id="11" name="AcceptTwoduelist" value="{{ $data->AcceptTwodue_list }}" checked="checked"/>
-                                        @else
-                                          <input type="checkbox" id="11" name="AcceptTwoduelist" value="on"/>
-                                        @endif
-                                        <label for="11" class="todo">
-                                          <i class="fa fa-check"></i>
-                                          ใบตอบรับหนังสือ 2 งวด
-                                        </label>
-                                        <span class="delete-item" title="remove">
-                                          <i class="fa fa-times-circle"></i>
-                                        </span>
-                                      </span>
-                                      <span class="todo-wrap">
-                                        @if($data->Confirm_list != Null)
-                                          <input type="checkbox" id="12" name="Confirmlist" value="{{ $data->Confirm_list }}" checked="checked"/>
-                                        @else
-                                          <input type="checkbox" id="12" name="Confirmlist" value="on"/>
-                                        @endif
-                                        <label for="12" class="todo">
-                                          <i class="fa fa-check"></i>
-                                          หนังสือยืนยันการบอกเลิก
-                                        </label>
-                                        <span class="delete-item" title="remove">
-                                          <i class="fa fa-times-circle"></i>
-                                        </span>
-                                      </span>
-                                      <span class="todo-wrap">
-                                        @if($data->Accept_list != Null)
-                                          <input type="checkbox" id="13" name="Acceptlist" value="{{ $data->Accept_list }}" checked="checked"/>
-                                        @else
-                                          <input type="checkbox" id="13" name="Acceptlist" value="on"/>
-                                        @endif
-                                        <label for="13" class="todo">
-                                          <i class="fa fa-check"></i>
-                                          ใบตอบรับ
-                                        </label>
-                                        <span class="delete-item" title="remove">
-                                          <i class="fa fa-times-circle"></i>
-                                        </span>
-                                      </span>
-                                    </div>
-                                  </div>
+                                <div class="" id="todo-list">
+                                  <span class="todo-wrap">
+                                    @if($data->Terminatebuyer_list != Null)
+                                      <input type="checkbox" id="7" name="Terminatebuyerlist" value="{{ $data->Terminatebuyer_list }}" checked="checked"/>
+                                    @else
+                                      <input type="checkbox" id="7" name="Terminatebuyerlist" value="on"/>
+                                    @endif
+                                    <label for="7" class="todo">
+                                      <i class="fa fa-check"></i>
+                                      สัญญาบอกเลิกผู้ซื้อ
+                                    </label>
+                                    <span class="delete-item" title="remove">
+                                      <i class="fa fa-times-circle"></i>
+                                    </span>
+                                  </span>
+                                  <span class="todo-wrap">
+                                    @if($data->Terminatesupport_list != Null)
+                                      <input type="checkbox" id="8" name="Terminatesupportlist" value="{{ $data->Terminatesupport_list }}" checked="checked"/>
+                                    @else
+                                      <input type="checkbox" id="8" name="Terminatesupportlist" value="on"/>
+                                    @endif
+                                    <label for="8" class="todo">
+                                      <i class="fa fa-check"></i>
+                                      สัญญาบอกเลิกผู้ค้ำ
+                                    </label>
+                                    <span class="delete-item" title="remove">
+                                      <i class="fa fa-times-circle"></i>
+                                    </span>
+                                  </span>
+                                  <span class="todo-wrap">
+                                    @if($data->Acceptbuyerandsup_list != Null)
+                                      <input type="checkbox" id="9" name="Acceptbuyerandsuplist" value="{{ $data->Acceptbuyerandsup_list }}" checked="checked"/>
+                                    @else
+                                      <input type="checkbox" id="9" name="Acceptbuyerandsuplist" value="on"/>
+                                    @endif
+                                    <label for="9" class="todo">
+                                      <i class="fa fa-check"></i>
+                                      ใบตอบรับผู้ซื้อ - ผู้ค้ำ
+                                    </label>
+                                    <span class="delete-item" title="remove">
+                                      <i class="fa fa-times-circle"></i>
+                                    </span>
+                                  </span>
+                                  <span class="todo-wrap">
+                                    @if($data->Twodue_list != Null)
+                                      <input type="checkbox" id="10" name="Twoduelist" value="{{ $data->Twodue_list }}" checked="checked"/>
+                                    @else
+                                      <input type="checkbox" id="10" name="Twoduelist" value="on"/>
+                                    @endif
+                                    <label for="10" class="todo">
+                                      <i class="fa fa-check"></i>
+                                      หนังสือ 2 งวด
+                                    </label>
+                                    <span class="delete-item" title="remove">
+                                      <i class="fa fa-times-circle"></i>
+                                    </span>
+                                  </span>
+                                  <span class="todo-wrap">
+                                    @if($data->AcceptTwodue_list != Null)
+                                      <input type="checkbox" id="11" name="AcceptTwoduelist" value="{{ $data->AcceptTwodue_list }}" checked="checked"/>
+                                    @else
+                                      <input type="checkbox" id="11" name="AcceptTwoduelist" value="on"/>
+                                    @endif
+                                    <label for="11" class="todo">
+                                      <i class="fa fa-check"></i>
+                                      ใบตอบรับหนังสือ 2 งวด
+                                    </label>
+                                    <span class="delete-item" title="remove">
+                                      <i class="fa fa-times-circle"></i>
+                                    </span>
+                                  </span>
+                                  <span class="todo-wrap">
+                                    @if($data->Confirm_list != Null)
+                                      <input type="checkbox" id="12" name="Confirmlist" value="{{ $data->Confirm_list }}" checked="checked"/>
+                                    @else
+                                      <input type="checkbox" id="12" name="Confirmlist" value="on"/>
+                                    @endif
+                                    <label for="12" class="todo">
+                                      <i class="fa fa-check"></i>
+                                      หนังสือยืนยันการบอกเลิก
+                                    </label>
+                                    <span class="delete-item" title="remove">
+                                      <i class="fa fa-times-circle"></i>
+                                    </span>
+                                  </span>
+                                  <span class="todo-wrap">
+                                    @if($data->Accept_list != Null)
+                                      <input type="checkbox" id="13" name="Acceptlist" value="{{ $data->Accept_list }}" checked="checked"/>
+                                    @else
+                                      <input type="checkbox" id="13" name="Acceptlist" value="on"/>
+                                    @endif
+                                    <label for="13" class="todo">
+                                      <i class="fa fa-check"></i>
+                                      ใบตอบรับ
+                                    </label>
+                                    <span class="delete-item" title="remove">
+                                      <i class="fa fa-times-circle"></i>
+                                    </span>
+                                  </span>
+                                </div>
                               </div>
                             </div>
                         </div>
                       </div>
 
                       <div class="col-md-3">
-                        <div class="box box-warning">
-                          <div class="box-header with-border bg-yellow">
-                            <h3 class="box-title"><i class="fa fa-edit"></i> หมายเหตุ</h3>
-                            <div class="box-tools pull-right">
-                              <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        <div class="card card-warning">
+                          <div class="card-header">
+                            <h3 class="card-title"><i class="far fa-comment-alt"></i> หมายเหตุ</h3>
+                            <div class="card-tools">
+                              <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
                               </button>
                             </div>
                           </div>
-                          <div class="box-body">
-                            <div class="col-md-12">
-                              <div class="row">
-                                    <textarea name="NotebyAnalysis" class="form-control" rows="14">{{ $data->Noteby_legis }}</textarea>
-                              </div>
+                          <div class="card-body">
+                            <div class="row">
+                              <textarea name="NotebyAnalysis" class="form-control" rows="14">{{ $data->Noteby_legis }}</textarea>
                             </div>
                           </div>
                         </div>
                       </div>
 
                     </div>
+
                   </div>
                 </div>
-
-                <input type="hidden" name="_method" value="PATCH"/>
               </div>
-            </form>
-          </div>
-        </div>
+            </div>
 
-      <script>
-      $(function () {
-        $('[data-mask]').inputmask()
-      })
-      </script>
+            <input type="hidden" name="_method" value="PATCH"/>
+        </form>
+      </section>
+    </div>
+  </section>
 
-      <script type="text/javascript">
-        $(".alert").fadeTo(3000, 1000).slideUp(1000, function(){
-        $(".alert").alert('close');
-        });
-      </script>
+  <script>
+    $(function () {
+      $('[data-mask]').inputmask()
+    })
+  </script>
 
-    </section>
+  <script type="text/javascript">
+    $(".alert").fadeTo(3000, 1000).slideUp(1000, function(){
+    $(".alert").alert('close');
+    });
+  </script>
 @endsection

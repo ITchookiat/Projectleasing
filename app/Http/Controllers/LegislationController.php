@@ -912,7 +912,8 @@ class LegislationController extends Controller
         $dataPranom = DB::table('Legiscompromises')
                   ->where('legisPromise_id', $id)
                   ->count();
-        // dd($dataPay);
+
+        // dd($data);
 
         $SumCount = 0;  //ค่าผ่อนชำระทั้งหมด
         $SumPay = 0;    //ค่าชำระ
@@ -991,10 +992,16 @@ class LegislationController extends Controller
         return view('legislation.editmore',compact('data','data1','id','type'));
       }
       elseif ($type == 11){ //รูปและแผนที
-        $data = DB::table('legiscourts')
-        ->where('legiscourts.legislation_id',$id)->first();
+        // $data = DB::table('legiscourts')
+        //       ->where('legiscourts.legislation_id',$id)->first();
+
+        $data = DB::table('legislations')
+                  ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+                  ->where('legiscourts.legislation_id',$id)->first();
+
         $dataImages = DB::table('legisimages')
-        ->where('legisimages.legisImage_id',$id)->get();
+                    ->where('legisimages.legisImage_id',$id)->get();
+
         $SumImage = count($dataImages);
         if($SumImage > 0){
           $column = 100/$SumImage - 0.8;
@@ -1004,7 +1011,8 @@ class LegislationController extends Controller
 
         $lat = $data->latitude_court;
         $long = $data->longitude_court;
-        // dd($datalatlong);
+
+        // dd($data);
 
         // foreach ($datalatlong as $key => $value) {
         //   $lat = $value->latitude_court;

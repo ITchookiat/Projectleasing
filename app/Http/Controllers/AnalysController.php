@@ -179,7 +179,7 @@ class AnalysController extends Controller
 
         return view('analysis.view', compact('type', 'data','branch','newfdate','newtdate','status','Setdate','SumTopcar','SumCommissioncar','SumCommitprice','contno','SetStrConn','SetStr1','SetStr2'));
       }
-      elseif ($request->type == 2){
+      elseif ($request->type == 2){ //เพิ่มสินเชื่อ
         return view('analysis.createbuyer');
       }
       elseif ($request->type == 3){ //รายงาน สินเชื่อ
@@ -1003,7 +1003,6 @@ class AnalysController extends Controller
 
       $newDateDue = \Carbon\Carbon::parse($request->DateDue)->format('Y') ."-". \Carbon\Carbon::parse($request->DateDue)->format('m')."-". \Carbon\Carbon::parse($request->DateDue)->format('d');
       $SetPhonebuyer = str_replace ( "_","",$request->get('Phonebuyer'));
-      // dd($newDateDue);
 
       $Buyerdb = new Buyer([
         'Contract_buyer' => $request->get('Contract_buyer'),
@@ -1103,54 +1102,57 @@ class AnalysController extends Controller
         $SetCommissioncar = 0;
       }
 
-      if (auth()->user()->branch == 10 or auth()->user()->branch == 11 or auth()->user()->type == 4) {
-        $Homecardetaildb = new homecardetail([
-          'Buyerhomecar_id' => $Buyerdb->id,
-          'brand_HC' => $request->get('brandHC'),
-          'year_HC' => $request->get('yearHC'),
-          'colour_HC' => $request->get('colourHC'),
-          'oldplate_HC' => $request->get('oldplateHC'),
-          'newplate_HC' => $request->get('newplateHC'),
-          'mile_HC' => $request->get('mileHC'),
-          'model_HC' => $request->get('modelHC'),
-          'type_HC' => $request->get('typeHC'),
-          'price_HC' => $request->get('priceHC'),
-          'downpay_HC' => $request->get('downpayHC'),
-          'insurancefee_HC' => $request->get('insurancefeeHC'),
-          'transfer_HC' => $request->get('transferHC'),
-          'topprice_HC' => $request->get('toppriceHC'),
-          'interest_HC' => $request->get('interestHC'),
-          'vat_HC' => $request->get('vatHC'),
-          'period_HC' => $request->get('periodHC'),
-          'paypor_HC' => $request->get('payporHC'),
-          'payment_HC' => $request->get('paymentHC'),
-          'payperriod_HC' => $request->get('payperriodHC'),
-          'tax_HC' => $request->get('taxHC'),
-          'taxperriod_HC' => $request->get('taxperriodHC'),
-          'totalinstalments_HC' => $request->get('totalinstalmentsHC'),
-          'baab_HC' => $request->get('baabHC'),
-          'guarantee_HC' => $request->get('guaranteeHC'),
-          'firstpay_HC' => $request->get('firstpayHC'),
-          'insurance_HC' => $request->get('insuranceHC'),
-          'agent_HC' => $request->get('agentHC'),
-          'tel_HC' => $request->get('telHC'),
-          'commit_HC' => $request->get('commitHC'),
-          'purchhis_HC' => $request->get('purchhisHC'),
-          'supporthis_HC' => $request->get('supporthisHC'),
-          'other_HC' => $request->get('otherHC'),
-          'sale_HC' => $request->get('saleHC'),
-          'approvers_HC' => $request->get('approversHC'),
-          'contrac_HC' => $request->get('contracHC'),
-          'totalinstalments1_HC' => $request->get('totalinstalments1HC'),
-          'insurancekey_HC' => $request->get('insurancekeyHC'),
-          'dateapp_HC' => Null,
-          'statusapp_HC' => 'รออนุมัติ',
-          'branchUS_HC' => $request->get('branchUSHC'),
-          'note_HC' => $request->get('noteHC'),
-        ]);
-        $Homecardetaildb ->save();
 
-        $type = 4;
+      if ($request->patch_type == 4) {
+        if (auth()->user()->branch == 10 or auth()->user()->branch == 11 or auth()->user()->type == 4 or auth()->user()->type == 1){
+          $Homecardetaildb = new homecardetail([
+            'Buyerhomecar_id' => $Buyerdb->id,
+            'brand_HC' => $request->get('brandHC'),
+            'year_HC' => $request->get('yearHC'),
+            'colour_HC' => $request->get('colourHC'),
+            'oldplate_HC' => $request->get('oldplateHC'),
+            'newplate_HC' => $request->get('newplateHC'),
+            'mile_HC' => $request->get('mileHC'),
+            'model_HC' => $request->get('modelHC'),
+            'type_HC' => $request->get('typeHC'),
+            'price_HC' => $request->get('priceHC'),
+            'downpay_HC' => $request->get('downpayHC'),
+            'insurancefee_HC' => $request->get('insurancefeeHC'),
+            'transfer_HC' => $request->get('transferHC'),
+            'topprice_HC' => $request->get('toppriceHC'),
+            'interest_HC' => $request->get('interestHC'),
+            'vat_HC' => $request->get('vatHC'),
+            'period_HC' => $request->get('periodHC'),
+            'paypor_HC' => $request->get('payporHC'),
+            'payment_HC' => $request->get('paymentHC'),
+            'payperriod_HC' => $request->get('payperriodHC'),
+            'tax_HC' => $request->get('taxHC'),
+            'taxperriod_HC' => $request->get('taxperriodHC'),
+            'totalinstalments_HC' => $request->get('totalinstalmentsHC'),
+            'baab_HC' => $request->get('baabHC'),
+            'guarantee_HC' => $request->get('guaranteeHC'),
+            'firstpay_HC' => $request->get('firstpayHC'),
+            'insurance_HC' => $request->get('insuranceHC'),
+            'agent_HC' => $request->get('agentHC'),
+            'tel_HC' => $request->get('telHC'),
+            'commit_HC' => $request->get('commitHC'),
+            'purchhis_HC' => $request->get('purchhisHC'),
+            'supporthis_HC' => $request->get('supporthisHC'),
+            'other_HC' => $request->get('otherHC'),
+            'sale_HC' => $request->get('saleHC'),
+            'approvers_HC' => $request->get('approversHC'),
+            'contrac_HC' => $request->get('contracHC'),
+            'totalinstalments1_HC' => $request->get('totalinstalments1HC'),
+            'insurancekey_HC' => $request->get('insurancekeyHC'),
+            'dateapp_HC' => Null,
+            'statusapp_HC' => 'รออนุมัติ',
+            'branchUS_HC' => $request->get('branchUSHC'),
+            'note_HC' => $request->get('noteHC'),
+          ]);
+          $Homecardetaildb ->save();
+
+          $type = 4;  //Set ค่ากลับหน้าหลัก
+        }
       }
       else {
         if($request->get('type') == 8){
@@ -1270,6 +1272,7 @@ class AnalysController extends Controller
           'note_Price' => $request->get('notePrice'),
         ]);
         $Expensesdb ->save();
+
         if($request->type == 8){
           $type = 8;
         }elseif($request->type == 12){
@@ -1619,6 +1622,7 @@ class AnalysController extends Controller
       ];
       $Getinterest = [
         '0.40' => '0.40',
+        '0.42' => '0.42',
         '0.45' => '0.45',
         '0.55' => '0.55',
         '0.65' => '0.65',
@@ -1635,9 +1639,10 @@ class AnalysController extends Controller
         'ธัญญ์วรา สีลาภเกื้อ' => 'ธัญญ์วรา สีลาภเกื้อ',
       ];
       $GetypeHC = [
-      'รถเทิร์น' => 'รถเทิร์น',
+        'รถเทิร์น' => 'รถเทิร์น',
         'รถยึด' => 'รถยึด',
         'รถฝากขาย' => 'รถฝากขาย',
+        'รถโมบายบริษัท' => 'รถโมบายบริษัท',
       ];
       $GetbaabHC = [
         'ซข.ค้ำมีหลักทรัพย์' => 'ซข.ค้ำมีหลักทรัพย์',
@@ -1795,7 +1800,8 @@ class AnalysController extends Controller
 
         $SettelSP2 = str_replace ("_","",$request->get('telSP2'));
         $sponsor2 = Sponsor2::where('Buyer_id2',$id)->first();
-          if ($sponsor2 != Null) {
+
+        if ($sponsor2 != Null) {
             $sponsor2->name_SP2 = $request->get('nameSP2');
             $sponsor2->lname_SP2 = $request->get('lnameSP2');
             $sponsor2->nikname_SP2 = $request->get('niknameSP2');
@@ -1847,99 +1853,101 @@ class AnalysController extends Controller
           $Sponsor2db->save();
         }
 
-      if (auth()->user()->branch == 10 or auth()->user()->branch == 11 or auth()->user()->type == 4) {
-        $Homecardetail = homecardetail::where('Buyerhomecar_id',$id)->first();
-          $Homecardetail->brand_HC = $request->get('brandHC');
-          $Homecardetail->year_HC = $request->get('yearHC');
-          $Homecardetail->colour_HC = $request->get('colourHC');
-          $Homecardetail->oldplate_HC = $request->get('oldplateHC');
-          $Homecardetail->newplate_HC = $request->get('newplateHC');
-          $Homecardetail->mile_HC = $request->get('mileHC');
-          $Homecardetail->model_HC = $request->get('modelHC');
-          $Homecardetail->type_HC = $request->get('typeHC');
-          $Homecardetail->price_HC = $request->get('priceHC');
-          $Homecardetail->downpay_HC = $request->get('downpayHC');
-          $Homecardetail->insurancefee_HC = $request->get('insurancefeeHC');
-          $Homecardetail->transfer_HC = $request->get('transferHC');
-          $Homecardetail->topprice_HC = $request->get('toppriceHC');
-          $Homecardetail->interest_HC = $request->get('interestHC');
-          $Homecardetail->vat_HC = $request->get('vatHC');
-          $Homecardetail->period_HC = $request->get('periodHC');
-          $Homecardetail->paypor_HC = $request->get('payporHC');
-          $Homecardetail->payment_HC = $request->get('paymentHC');
-          $Homecardetail->payperriod_HC = $request->get('payperriodHC');
-          $Homecardetail->tax_HC = $request->get('taxHC');
-          $Homecardetail->taxperriod_HC = $request->get('taxperriodHC');
-          $Homecardetail->totalinstalments_HC = $request->get('totalinstalmentsHC');
-          $Homecardetail->baab_HC = $request->get('baabHC');
-          $Homecardetail->guarantee_HC = $request->get('guaranteeHC');
-          $Homecardetail->insurance_HC = $request->get('insuranceHC');
-          $Homecardetail->agent_HC = $request->get('agentHC');
-          $Homecardetail->tel_HC = $request->get('telHC');
-          $Homecardetail->commit_HC = $request->get('commitHC');
-          $Homecardetail->purchhis_HC = $request->get('purchhisHC');
-          $Homecardetail->supporthis_HC = $request->get('supporthisHC');
-          $Homecardetail->other_HC = $request->get('otherHC');
-          $Homecardetail->sale_HC = $request->get('saleHC');
-
-          if ($request->get('approversHC') != Null) {
-            $SetStatusApp = 'อนุมัติ';
-
-            if ($Homecardetail->dateapp_HC == Null) {
-              $Y = date('Y') +543;
-              $Y2 = date('Y');
-              $m = date('m', strtotime('+1 month'));
-              $m2 = date('m');
-              $d = date('d');
-              $datefirst = $d.'-'.$m.'-'.$Y;
-              $dateApp = $Y2.'-'.$m2.'-'.$d;
-
-              $Homecardetail->firstpay_HC = $datefirst;
-              $Homecardetail->dateapp_HC = $dateApp;
-              $SetStatusApp = 'อนุมัติ';
-
-
-              $branchType = Null;
-              if ($Homecardetail->branchUS_HC == "รถบ้าน") {
-                  $branchType = 10;
-              }elseif ($Homecardetail->branchUS_HC == "รถยืดขายผ่อน") {
-                  $branchType = 11;
-              }
-
-              if ($branchType != Null) {
-                if ($branchType == 10) { //สาขารถบ้าน
-                  $connect = Buyer::where('Contract_buyer', 'like', '10%' )
-                                    ->orderBy('Contract_buyer', 'desc')->limit(1)
-                                    ->get();
-                }elseif ($branchType == 11) { //สาขารถยืดขายผ่อน
-                  $connect = Buyer::where('Contract_buyer', 'like', '11%' )
-                                    ->orderBy('Contract_buyer', 'desc')->limit(1)
-                                    ->get();
+        if ($type == 4) {
+          if (auth()->user()->branch == 10 or auth()->user()->branch == 11 or auth()->user()->type == 4 or auth()->user()->type == 1) {
+            $Homecardetail = homecardetail::where('Buyerhomecar_id',$id)->first();
+              $Homecardetail->brand_HC = $request->get('brandHC');
+              $Homecardetail->year_HC = $request->get('yearHC');
+              $Homecardetail->colour_HC = $request->get('colourHC');
+              $Homecardetail->oldplate_HC = $request->get('oldplateHC');
+              $Homecardetail->newplate_HC = $request->get('newplateHC');
+              $Homecardetail->mile_HC = $request->get('mileHC');
+              $Homecardetail->model_HC = $request->get('modelHC');
+              $Homecardetail->type_HC = $request->get('typeHC');
+              $Homecardetail->price_HC = $request->get('priceHC');
+              $Homecardetail->downpay_HC = $request->get('downpayHC');
+              $Homecardetail->insurancefee_HC = $request->get('insurancefeeHC');
+              $Homecardetail->transfer_HC = $request->get('transferHC');
+              $Homecardetail->topprice_HC = $request->get('toppriceHC');
+              $Homecardetail->interest_HC = $request->get('interestHC');
+              $Homecardetail->vat_HC = $request->get('vatHC');
+              $Homecardetail->period_HC = $request->get('periodHC');
+              $Homecardetail->paypor_HC = $request->get('payporHC');
+              $Homecardetail->payment_HC = $request->get('paymentHC');
+              $Homecardetail->payperriod_HC = $request->get('payperriodHC');
+              $Homecardetail->tax_HC = $request->get('taxHC');
+              $Homecardetail->taxperriod_HC = $request->get('taxperriodHC');
+              $Homecardetail->totalinstalments_HC = $request->get('totalinstalmentsHC');
+              $Homecardetail->baab_HC = $request->get('baabHC');
+              $Homecardetail->guarantee_HC = $request->get('guaranteeHC');
+              $Homecardetail->insurance_HC = $request->get('insuranceHC');
+              $Homecardetail->agent_HC = $request->get('agentHC');
+              $Homecardetail->tel_HC = $request->get('telHC');
+              $Homecardetail->commit_HC = $request->get('commitHC');
+              $Homecardetail->purchhis_HC = $request->get('purchhisHC');
+              $Homecardetail->supporthis_HC = $request->get('supporthisHC');
+              $Homecardetail->other_HC = $request->get('otherHC');
+              $Homecardetail->sale_HC = $request->get('saleHC');
+    
+              if ($request->get('approversHC') != Null) {
+                $SetStatusApp = 'อนุมัติ';
+    
+                if ($Homecardetail->dateapp_HC == Null) {
+                  $Y = date('Y') +543;
+                  $Y2 = date('Y');
+                  $m = date('m', strtotime('+1 month'));
+                  $m2 = date('m');
+                  $d = date('d');
+                  $datefirst = $d.'-'.$m.'-'.$Y;
+                  $dateApp = $Y2.'-'.$m2.'-'.$d;
+    
+                  $Homecardetail->firstpay_HC = $datefirst;
+                  $Homecardetail->dateapp_HC = $dateApp;
+                  $SetStatusApp = 'อนุมัติ';
+    
+    
+                  $branchType = Null;
+                  if ($Homecardetail->branchUS_HC == "รถบ้าน") {
+                      $branchType = 10;
+                  }elseif ($Homecardetail->branchUS_HC == "รถยืดขายผ่อน") {
+                      $branchType = 11;
+                  }
+    
+                  if ($branchType != Null) {
+                    if ($branchType == 10) { //สาขารถบ้าน
+                      $connect = Buyer::where('Contract_buyer', 'like', '10%' )
+                                        ->orderBy('Contract_buyer', 'desc')->limit(1)
+                                        ->get();
+                    }elseif ($branchType == 11) { //สาขารถยืดขายผ่อน
+                      $connect = Buyer::where('Contract_buyer', 'like', '11%' )
+                                        ->orderBy('Contract_buyer', 'desc')->limit(1)
+                                        ->get();
+                    }
+    
+                    $contract = $connect[0]->Contract_buyer;
+                    $SetStr = explode("/",$contract);
+                    $StrNum = $SetStr[1] + 1;
+    
+                    $num = "1000";
+                    $SubStr = substr($num.$StrNum, -4);
+                    $StrConn = $SetStr[0]."/".$SubStr;
+    
+                    $GetIdConn = Buyer::where('id',$id)->first();
+                      $GetIdConn->Contract_buyer = $StrConn;
+                    $GetIdConn->update();
+                  }
                 }
-
-                $contract = $connect[0]->Contract_buyer;
-                $SetStr = explode("/",$contract);
-                $StrNum = $SetStr[1] + 1;
-
-                $num = "1000";
-                $SubStr = substr($num.$StrNum, -4);
-                $StrConn = $SetStr[0]."/".$SubStr;
-
-                $GetIdConn = Buyer::where('id',$id)->first();
-                  $GetIdConn->Contract_buyer = $StrConn;
-                $GetIdConn->update();
+              }else {
+                $SetStatusApp = 'รออนุมัติ';
               }
-            }
-          }else {
-            $SetStatusApp = 'รออนุมัติ';
+    
+              $Homecardetail->approvers_HC = $request->get('approversHC');
+              $Homecardetail->totalinstalments1_HC = $request->get('totalinstalments1HC');
+              $Homecardetail->statusapp_HC = $SetStatusApp;
+            $Homecardetail->update();
           }
-
-          $Homecardetail->approvers_HC = $request->get('approversHC');
-          $Homecardetail->totalinstalments1_HC = $request->get('totalinstalments1HC');
-          $Homecardetail->statusapp_HC = $SetStatusApp;
-        $Homecardetail->update();
-      }
-      else {
+        }
+        else {
           if ($request->get('Topcar') != Null) {
             $SetTopcar = str_replace (",","",$request->get('Topcar'));
           }else {
@@ -2164,15 +2172,6 @@ class AnalysController extends Controller
                 $SetStatusApp = 'รออนุมัติ';
               }
             }
-            // if ($request->get('Checkcar') != Null) {
-            //   $SetCheckcar = $request->get('Checkcar');
-            // }else {
-            //   if ($cardetail->Check_car != Null) {
-            //     $SetCheckcar = $cardetail->Check_car;
-            //   }else {
-            //     $SetCheckcar = Null;
-            //   }
-            // }
 
             $cardetail->Insurance_car = $request->get('Insurancecar');
             $cardetail->status_car = $request->get('statuscar');
@@ -2252,30 +2251,30 @@ class AnalysController extends Controller
             $expenses->insurance_Price = $request->get('insurancePrice');
             $expenses->note_Price = $request->get('notePrice');
           $expenses->update();
+        }
+
+      if ($request->hasFile('file_image')) {
+        $image_array = $request->file('file_image');
+        $array_len = count($image_array);
+
+        for ($i=0; $i < $array_len; $i++) {
+          $image_size = $image_array[$i]->getClientSize();
+          $image_lastname = $image_array[$i]->getClientOriginalExtension();
+          $image_new_name = str_random(10).time(). '.' .$image_array[$i]->getClientOriginalExtension();
+
+          $destination_path = public_path('/upload-image');
+          $image_array[$i]->move($destination_path,$image_new_name);
+
+          $Uploaddb = new UploadfileImage([
+            'Buyerfileimage_id' => $id,
+            'Name_fileimage' => $image_new_name,
+            'Size_fileimage' => $image_size,
+          ]);
+          // dd($Uploaddb);
+          $Uploaddb ->save();
+        }
       }
 
-
-        if ($request->hasFile('file_image')) {
-          $image_array = $request->file('file_image');
-          $array_len = count($image_array);
-
-          for ($i=0; $i < $array_len; $i++) {
-            $image_size = $image_array[$i]->getClientSize();
-            $image_lastname = $image_array[$i]->getClientOriginalExtension();
-            $image_new_name = str_random(10).time(). '.' .$image_array[$i]->getClientOriginalExtension();
-
-            $destination_path = public_path('/upload-image');
-            $image_array[$i]->move($destination_path,$image_new_name);
-
-            $Uploaddb = new UploadfileImage([
-              'Buyerfileimage_id' => $id,
-              'Name_fileimage' => $image_new_name,
-              'Size_fileimage' => $image_size,
-            ]);
-            // dd($Uploaddb);
-            $Uploaddb ->save();
-          }
-        }
       $fdate = $request->fdate;
       $tdate = $request->tdate;
       $branch = $request->branch;
