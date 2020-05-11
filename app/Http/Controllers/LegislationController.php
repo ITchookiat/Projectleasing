@@ -1928,13 +1928,34 @@ class LegislationController extends Controller
                 ->orderBy('legislations.Contract_legis', 'ASC')
                 ->get();
         }
+
+        $dataSmart = DB::connection('ibmi')
+        ->table('ASFHP.ARMAST')
+        ->join('ASFHP.VIEW_CUSTMAIL','ASFHP.ARMAST.CUSCOD','=','ASFHP.VIEW_CUSTMAIL.CUSCOD')
+        ->orderBy('ASFHP.ARMAST.CONTNO', 'ASC')
+        ->get();
+        $countDatasmart = count($dataSmart);
+        $countData = count($data);
+
+        for ($i=0; $i < $countData; $i++) {
+          $Contract_No[] = str_replace(" ", "",$data[$i]->Contract_legis);
+            for ($j=0; $j < $countDatasmart; $j++) {
+              if($data[$i]->Contract_legis == $dataSmart[$j]->CONTNO){
+                $SmartInfo[] = $dataSmart[$j];
+              }
+            }
+        }
+
+        // dump($dataSmart);
+        // dd($SmartInfo,$Contract_No);
+
         $pdf = new PDF();
         $pdf::SetTitle('รายงานลูกหนี้ประนอมหนี้');
         $pdf::AddPage('L', 'A4');
-        $pdf::SetFont('thsarabunpsk', '', 14, '', true);
+        $pdf::SetFont('thsarabunpsk', '', 12, '', true);
         $pdf::SetAutoPageBreak(TRUE, 20);
 
-        $view = \View::make('legislation.reportCompro' ,compact('data','dataPay','dataDB','type','dataCount','status','newfdate','newtdate'));
+        $view = \View::make('legislation.reportCompro' ,compact('data','dataPay','dataDB','type','dataCount','status','newfdate','newtdate','SmartInfo','countDatasmart'));
         $html = $view->render();
         $pdf::WriteHTML($html,true,false,true,false,'');
         $pdf::Output('report.pdf');
@@ -2105,11 +2126,11 @@ class LegislationController extends Controller
           $excel->sheet($status, function ($sheet) use($data,$status,$date,$Fdate,$Tdate) {
               $sheet->prependRow(1, array("บริษัท ชูเกียรติลิสซิ่ง จำกัด"));
               $sheet->prependRow(2, array("จากวันที่  ".$Fdate,"ถึงวันที่  ".$Tdate));
-              $sheet->cells('A3:J3', function($cells) {
+              $sheet->cells('A3:M3', function($cells) {
                 $cells->setBackground('#FFCC00');
               });
               $row = 3;
-              $sheet->row($row, array('เลขที่สัญญา','ชื่อ-นามสกุล','ยอดคงเหลือ','ยอดตั้งฟ้อง','สถานะลูกหนี้','สถานะทรัพย์','สถานะประนอมหนี้','วันที่ปิดงาน','ยอดชำระ','หมายเหตุ'));
+              $sheet->row($row, array('เลขที่สัญญา','ชื่อ-นามสกุล','ยอดคงเหลือ','ยอดตั้งฟ้อง','วันถืองาน','วันที่ฟ้อง','ระยะเวลา','สถานะลูกหนี้','สถานะทรัพย์','สถานะประนอมหนี้','วันที่ปิดงาน','ยอดชำระ','หมายเหตุ'));
               $Summperiod = 0;    //รวมยอดคงเหลือ
               $SumAmount = 0;
               $SumTextStatus = 0; //ยอดปิดบัญชี
@@ -2314,11 +2335,55 @@ class LegislationController extends Controller
                   $SetDatelegis = "";
                 }
 
+                //เพิ่ม 2 ฟิวด์
+                if($value->fillingdate_court != Null){
+                  $SetDatefillingdate = Helper::formatDateThai($value->fillingdate_court);
+                }
+                else{
+                  $SetDatefillingdate = '';
+                }
+                $date = date('Y-m-d');
+                //ระยะเวลางานข
+                if($value->Status_legis != Null){
+                  $Cldate = date_create($value->DateComplete_court);
+                  $nowCldate = date_create($value->DateUpState_legis);
+                  $ClDateDiff = date_diff($Cldate,$nowCldate);
+                  $duration = $ClDateDiff->format("%a วัน");
+                }
+                else{
+                  $Cldate = date_create($value->fillingdate_court);
+                  $nowCldate = date_create($date);
+                  $ClDateDiff = date_diff($Cldate,$nowCldate);
+                  $duration = $ClDateDiff->format("%a วัน");
+                }
+                ///วันถืองาน
+                if($value->DateComplete_court != Null){
+                  $Cldate = date_create($value->Datesend_Flag);
+                  $nowCldate = date_create($value->DateComplete_court);
+                  $ClDateDiff = date_diff($Cldate,$nowCldate);
+                  $date_carry = $ClDateDiff->format("%a วัน");
+                }
+                elseif($value->DateUpState_legis != Null){
+                  $Cldate = date_create($value->Datesend_Flag);
+                  $nowCldate = date_create($value->DateUpState_legis);
+                  $ClDateDiff = date_diff($Cldate,$nowCldate);
+                  $date_carry = $ClDateDiff->format("%a วัน");
+                }
+                elseif($value->DateComplete_court == Null){
+                  $Cldate = date_create($value->Datesend_Flag);
+                  $nowCldate = date_create($date);
+                  $ClDateDiff = date_diff($Cldate,$nowCldate);
+                  $date_carry = $ClDateDiff->format("%a วัน");
+                }
+
                 $sheet->row(++$row, array(
                   $value->Contract_legis,
                   $value->Name_legis,
                   number_format($value->Sumperiod_legis, 2),
                   number_format($SumCourt, 2),
+                  $date_carry,
+                  $SetDatefillingdate,
+                  $duration,
                   $SetText,
                   $SetTextAsset,
                   $SetTextCompro,
@@ -2566,7 +2631,8 @@ class LegislationController extends Controller
         $pdf::SetTitle('รายงานลูกหนี้สิบทรัพย์');
         $pdf::AddPage('L', 'A4');
         $pdf::SetMargins(5, 5, 5, 5);
-        $pdf::SetFont('freeserif', '', 8, '', true);
+        // $pdf::SetFont('freeserif', '', 8, '', true);
+        $pdf::SetFont('thsarabunpsk', '', 10, '', true);
 
         $view = \View::make('legislation.reportAsset' ,compact('data','type','newfdate','newtdate','status','SetaArry'));
         $html = $view->render();

@@ -167,9 +167,36 @@ class ReportAnalysController extends Controller
                         ->join('cardetails','Buyers.id','=','cardetails.Buyercar_id')
                         ->join('Expenses','Buyers.id','=','Expenses.Buyerexpenses_id')
                         ->where('cardetails.Date_Appcar',$date)
+                        ->where('buyers.Contract_buyer','not like', '22%')
+                        ->where('buyers.Contract_buyer','not like', '33%')
                         ->where('cardetails.Approvers_car','<>','')
                         ->orderBy('buyers.Contract_buyer', 'ASC')
                         ->get();
+        $view = \View::make('analysis.ReportDueDate' ,compact('dataReport','date2'));
+      }
+      elseif($request->type == 2){ //ปรับโครงสร้างหนี้
+        $dataReport = DB::table('buyers')
+                        ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
+                        ->join('cardetails','Buyers.id','=','cardetails.Buyercar_id')
+                        ->join('Expenses','Buyers.id','=','Expenses.Buyerexpenses_id')
+                        ->where('cardetails.Date_Appcar',$date)
+                        ->where('buyers.Contract_buyer','like', '22%')
+                        ->where('cardetails.Approvers_car','<>','')
+                        ->orderBy('buyers.Contract_buyer', 'ASC')
+                        ->get();
+        $view = \View::make('analysis.ReportDueDate' ,compact('dataReport','date2'));
+      }
+      elseif($request->type == 3){ //มาตรการช่วยเหลือ
+        $dataReport = DB::table('buyers')
+                        ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
+                        ->join('cardetails','Buyers.id','=','cardetails.Buyercar_id')
+                        ->join('Expenses','Buyers.id','=','Expenses.Buyerexpenses_id')
+                        ->where('cardetails.Date_Appcar',$date)
+                        ->where('buyers.Contract_buyer','like', '33%')
+                        ->where('cardetails.Approvers_car','<>','')
+                        ->orderBy('buyers.Contract_buyer', 'ASC')
+                        ->get();
+        $view = \View::make('analysis.ReportDueDate1' ,compact('dataReport','date2'));
       }
       elseif($request->type == 7){ //รายงานส่งผู้บริหาร
         $ids = $request->choose;
@@ -203,10 +230,10 @@ class ReportAnalysController extends Controller
                         ->where('cardetails.Approvers_car','<>','')
                         ->orderBy('buyers.Contract_buyer', 'ASC')
                         ->get();
-        // dd($dataReport);
+        $view = \View::make('analysis.ReportDueDate' ,compact('dataReport','date2'));
       }
 
-        $view = \View::make('analysis.ReportDueDate' ,compact('dataReport','date2'));
+        // $view = \View::make('analysis.ReportDueDate' ,compact('dataReport','date2'));
         $html = $view->render();
         $pdf = new PDF();
         $pdf::SetTitle('รายงานนำเสนอ');

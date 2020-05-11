@@ -106,7 +106,6 @@
                               <option value="{{ $row->status_car }}" {{ ($typecar == $row->status_car) ? 'selected' : '' }}>{{ $row->status_car }}</otion>
                             @endforeach
                           </select>
-
                           <label for="text" class="mr-sm-2">สาขา : </label>
                           <select name="branch" class="form-control" id="text" style="width: 180px">
                             <option selected disabled value="">---เลือกสาขา---</option>

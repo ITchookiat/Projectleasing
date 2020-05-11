@@ -509,9 +509,10 @@
                             <tr>
                               <th class="text-center">สาขา</th>
                               <th class="text-center">เลขที่สัญญา</th>
-                              <th class="text-center">แบบ</th>
+                              <th class="text-center">สัญญาเดิม</th>
+                              <!-- <th class="text-center">แบบ</th> -->
                               <th class="text-center">ยีห้อ</th>
-                              <th class="text-center">ทะเบียนเดิม</th>
+                              <th class="text-center">ทะเบียน</th>
                               <th class="text-center">ปี</th>
                               <th class="text-center">ยอดจัด</th>
                               <th class="text-center">เอกสาร/แก้ไข</th>
@@ -525,7 +526,8 @@
                               <tr>
                                 <td class="text-center"> {{ $row->branch_car}} </td>
                                 <td class="text-center"> {{ $row->Contract_buyer}} </td>
-                                <td class="text-center"> {{ $row->status_car}} </td>
+                                <td class="text-center"> {{ $row->Note_car}} </td>
+                                <!-- <td class="text-center"> {{ $row->status_car}} </td> -->
                                 <td class="text-center"> {{ $row->Brand_car}} </td>
                                 <td class="text-center"> {{ $row->License_car}} </td>
                                 <td class="text-center"> {{ $row->Year_car}} </td>

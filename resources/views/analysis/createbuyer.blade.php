@@ -1397,9 +1397,9 @@
                             </div>
                             <div class="col-5">
                               <div class="float-right form-inline">
-                                <label>รวม คชจ. : </label>
-                                <input type="text" id="totalkPrice" name="totalkPrice" class="form-control" style="width: 250px;" placeholder="รวม คชจ." onchange="balance();" readonly/>
-                                <input type="hidden" id="temptotalkPrice" name="temptotalkPrice" class="form-control" style="width: 250px;" placeholder="รวม คชจ." onchange="balance();"/>
+                               <label>รวม คชจ. : </label>
+                               <input type="text" id="totalkPrice" name="totalkPrice" class="form-control" style="width: 250px;" placeholder="รวม คชจ." onchange="balance();" readonly/>
+                               <input type="hidden" id="temptotalkPrice" name="temptotalkPrice" class="form-control" style="width: 250px;" placeholder="รวม คชจ." onchange="balance();"/>
                               </div>
                             </div>
                           </div>
@@ -1408,15 +1408,15 @@
                           <div class="row">
                             <div class="col-5">
                               <div class="float-right form-inline">
-                                <label>คงเหลือ : </label>
-                                <input type="text" id="balancePrice" name="balancePrice" class="form-control" style="width: 250px;" placeholder="คงเหลือ" readonly/>
+                               <label>คงเหลือ : </label>
+                               <input type="text" id="balancePrice" name="balancePrice" class="form-control" style="width: 250px;" placeholder="คงเหลือ" readonly/>
                               </div>
                             </div>
                             <div class="col-5">
                               <div class="float-right form-inline">
-                                  <label>ค่าคอมหลังหัก 3% : </label>
-                                  <input type="text" id="commitPrice" name="commitPrice" class="form-control" style="width: 250px;" placeholder="ค่าคอมหลังหัก" readonly/>
-                                </div>
+                                <label>ค่าคอมหลังหัก 1.5% : </label>
+                                <input type="text" id="commitPrice" name="commitPrice" class="form-control" style="width: 250px;" placeholder="ค่าคอมหลังหัก" readonly/>
+                              </div>
                             </div>
                           </div>
 

@@ -162,6 +162,8 @@ class AnalysController extends Controller
         ->join('expenses','buyers.id','=','expenses.Buyerexpenses_id')
         // ->where('buyers.Date_Due', '=', $datesum)
         ->whereBetween('buyers.Date_Due',[$newfdate,$newtdate])
+        ->where('buyers.Contract_buyer','not like', '22%')
+        ->where('buyers.Contract_buyer','not like', '33%')
         ->get();
         $count = count($topcar);
 
@@ -1162,6 +1164,13 @@ class AnalysController extends Controller
         }else{
           $SetBranch = $request->get('branchcar');
         }
+          if($request->get('Dateduefirstcar') != null){
+            $dateFirst = date_create($request->get('Dateduefirstcar'));
+            $SetDatefirst = date_format($dateFirst, 'd-m-Y');
+          }else{
+            $SetDatefirst = NULL;
+          }
+          // dd($SetDatefirst);
         $Cardetaildb = new Cardetail([
           'Buyercar_id' => $Buyerdb->id,
           'Brand_car' => $request->get('Brandcar'),
@@ -1185,7 +1194,7 @@ class AnalysController extends Controller
           'Taxpay_car' => $request->get('Taxpaycar'),
           'Totalpay1_car' => $request->get('Totalpay1car'),
           'Totalpay2_car' => $request->get('Totalpay2car'),
-          'Dateduefirst_car' => $request->get('Dateduefirstcar'),
+          'Dateduefirst_car' => $SetDatefirst,
           'Insurance_car' => $request->get('Insurancecar'),
           'status_car' => $request->get('statuscar'),
           'Percent_car' => $request->get('Percentcar'),
@@ -1988,6 +1997,8 @@ class AnalysController extends Controller
 
             if ($request->get('Approverscar') != Null) { //กรณี อนุมัติ
                 $SetStatusApp = 'อนุมัติ';
+                // $cardetail->Date_Appcar = $request->get('Dateduefirstcar');
+                // $cardetail->update();
 
                 if ($cardetail->Approvers_car == Null) {
                   $Y = date('Y') +543;
@@ -2085,10 +2096,11 @@ class AnalysController extends Controller
                     $GetIdConn = Buyer::where('id',$id)->first();
                       $GetIdConn->Contract_buyer = $StrConn;
                     $GetIdConn->update();
+
                   }
                 }
             }
-            else {                                       //ยกเลิก หรือ ไม่อนุมัติ
+            else { //ยกเลิก หรือ ไม่อนุมัติ
               if (auth()->user()->type == 1 or auth()->user()->type == 2) {
                 $SetStatusApp = 'รออนุมัติ';
                 $cardetail->Dateduefirst_car = Null;
@@ -2173,6 +2185,7 @@ class AnalysController extends Controller
               }
             }
 
+
             $cardetail->Insurance_car = $request->get('Insurancecar');
             $cardetail->status_car = $request->get('statuscar');
             $cardetail->Percent_car = $request->get('Percentcar');
@@ -2192,6 +2205,9 @@ class AnalysController extends Controller
             $cardetail->branchbrance_car = $request->get('branchbrancecar');
             $cardetail->branchAgent_car = $request->get('branchAgentcar');
             $cardetail->Note_car = $request->get('Notecar');
+            if($type == 12){
+              $cardetail->Dateduefirst_car = $request->get('Dateduefirstcar');
+            }
           $cardetail->update();
 
           if ($request->get('tranPrice') != Null) {

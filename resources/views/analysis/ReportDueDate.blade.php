@@ -72,10 +72,10 @@
           <th align="center" width="35px" style="background-color: #FFFF00;"><b>การตลาด</b></th>
           <th align="center" width="45px" style="background-color: #BEBEBE;"><b>รวมค่าใช้จ่าย</b></th>
           <th align="center" width="35px" style="background-color: #BEBEBE;"><b>คงเหลือ</b></th>
-          <th align="center" width="30px" style="background-color: #BEBEBE;"><b>หัก 3%</b></th>
+          <th align="center" width="35px" style="background-color: #BEBEBE;"><b>หัก 1.5 %</b></th>
           <th align="center" width="110px" style="background-color: #BEBEBE;"><b>ผู้รับเงิน</b></th>
           <th align="center" width="110px" style="background-color: #BEBEBE;"><b>ผู้รับคอม</b></th>
-          <th align="center" width="55px" style="background-color: #BEBEBE;"><b>รวม</b></th>
+          <th align="center" width="50px" style="background-color: #BEBEBE;"><b>รวม</b></th>
         </tr>
       </thead>
       <tbody>
@@ -141,30 +141,30 @@
                   พรบ. {{number_format($value->act_Price)}}
                 @endif
               </td>
-              <td width="40px" rowspan="3" style="background-color: #FFFF00; line-height:550%;">{{number_format($value->tran_Price)}}</td>
-              <td width="25px" rowspan="3" style="background-color: #FFFF00; line-height:550%;">{{number_format($value->other_Price)}}</td>
+              <td width="40px" rowspan="3" style="background-color: #FFFF00; line-height:550%;">{{number_format($value->tran_Price,0)}}</td>
+              <td width="25px" rowspan="3" style="background-color: #FFFF00; line-height:550%;">{{number_format($value->other_Price,0)}}</td>
               <td width="35px" rowspan="3" style="background-color: #FFFF00; line-height:550%;">{{ $value->evaluetion_Price }}</td>
               <td width="25px" rowspan="3" style="background-color: #FFFF00; line-height:550%;">{{ $value->duty_Price }}</td>
               <td width="35px" rowspan="3" style="background-color: #FFFF00; line-height:550%;">{{ $value->marketing_Price }}</td>
-              <td width="45px" rowspan="3" style="line-height:550%;">{{number_format($value->totalk_Price)}}</td>
-              <td width="35px" rowspan="3" style="line-height:550%;">{{number_format($value->balance_Price)}}</td>
-              <td width="30px" rowspan="3" style="line-height:550%;">{{number_format($value->commit_Price)}}</td>
+              <td width="45px" rowspan="3" style="line-height:550%;">{{number_format($value->totalk_Price,0)}}</td>
+              <td width="35px" rowspan="3" style="line-height:550%;">{{number_format($value->balance_Price,0)}}</td>
+              <td width="35px" rowspan="3" style="line-height:550%;">{{number_format($value->commit_Price,2)}}</td>
               <td width="110px">{{$value->Payee_car}}</td>
               <td width="110px">{{$value->Agent_car}}</td>
-              <td width="55px">
+              <td width="50px">
                 @if($value->Accountbrance_car == $value->Accountagent_car and $value->Accountbrance_car != Null)
                   @php
                       $ArcSum = $value->balance_Price + $value->commit_Price;
                       $sumArcsum = $sumArcsum + $ArcSum;
                   @endphp
-                  {{number_format($ArcSum)}}
+                  {{number_format($ArcSum,2)}}
                 @elseif($value->Accountbrance_car == Null)
-                  สด {{number_format($value->balance_Price)}}
+                  สด {{number_format($value->balance_Price,2)}}
                   @php
                   $sumArcsum = $sumArcsum + $value->balance_Price;
                   @endphp
                 @else
-                  รถ {{number_format($value->balance_Price)}}
+                  รถ {{number_format($value->balance_Price,2)}}
                   @php
                   $sumArcsum = $sumArcsum + $value->balance_Price;
                   @endphp
@@ -187,14 +187,14 @@
                   บัญชี :{{$value->Accountagent_car}}/{{$value->branchAgent_car}}
                 @endif
               </td>
-              <td width="55px">
+              <td width="50px">
                 @if($value->Accountbrance_car != $value->Accountagent_car and $value->Accountagent_car != Null)
-                  คอม {{ number_format($value->commit_Price) }}
+                  คอม {{ number_format($value->commit_Price,2) }}
                   @php
                     $sumbalance = $sumbalance + $value->commit_Price;
                   @endphp
                 @elseif($value->Accountagent_car == Null and $value->Agent_car != Null)
-                  สด {{number_format($value->commit_Price)}}
+                  สด {{number_format($value->commit_Price,2)}}
                   @php
                     $sumbalance = $sumbalance + $value->commit_Price;
                   @endphp
@@ -226,7 +226,7 @@
                     โทร : {{$value->Tellagent_car}}
                 @endif
               </td>
-              <td width="55px"></td>
+              <td width="50px"></td>
             </tr>
             <br>
           @endforeach
@@ -235,13 +235,13 @@
           @endphp
             <tr align="center" style="line-height: 200%;">
               <td width="115px" style="background-color: #FFFF00; line-height:250%;">รวมยอดจัดเป็นคัน    {{$countcar}}    คัน</td>
-              <td width="100px" style="background-color: #00FFFF; line-height:250%;">รวมยอดจัดเป็นเงิน      {{number_format($sumtopcar)}}</td>
-              <td width="120px" style="background-color: #00FFFF; line-height:250%;">รวมค่าใช้จ่ายขนส่ง     {{number_format($sumtotransport)}}</td>
+              <td width="100px" style="background-color: #00FFFF; line-height:250%;">รวมยอดจัดเป็นเงิน      {{number_format($sumtopcar,2)}}</td>
+              <td width="120px" style="background-color: #00FFFF; line-height:250%;">รวมค่าใช้จ่ายขนส่ง     {{number_format($sumtotransport,2)}}</td>
               <!-- <td width="95px" style="background-color: #00FFFF; line-height:250%;">รวมค่าใช้จ่ายบริษัท     {{number_format($sumtocompany)}}</td> -->
-              <td width="95px" style="background-color: #00FFFF; line-height:250%;">รวมค่าใช้จ่ายบริษัท     {{number_format($sumtototalk_Price - $sumtotransport - $sumtocloseAccount_Price)}}</td>
-              <td width="110px" style="background-color: #00FFFF; line-height:250%;">รวมค่ารถ     {{number_format($sumbalanceprice)}}</td>
-              <td width="110px" style="background-color: #00FFFF; line-height:250%;">รวมค่าคอม     {{number_format($sumcommitprice)}}</td>
-              <td width="165px" style="background-color: #FFFF00; line-height:250%;">ยอดรวมอนุมัติ        {{number_format($sumall)}}</td>
+              <td width="95px" style="background-color: #00FFFF; line-height:250%;">รวมค่าใช้จ่ายบริษัท     {{number_format($sumtototalk_Price - $sumtotransport - $sumtocloseAccount_Price,2)}}</td>
+              <td width="110px" style="background-color: #00FFFF; line-height:250%;">รวมค่ารถ     {{number_format($sumbalanceprice,2)}}</td>
+              <td width="110px" style="background-color: #00FFFF; line-height:250%;">รวมค่าคอม     {{number_format($sumcommitprice,2)}}</td>
+              <td width="165px" style="background-color: #FFFF00; line-height:250%;">ยอดรวมอนุมัติ        {{number_format($sumall,2)}}</td>
             </tr>
         @endif
       </tbody>

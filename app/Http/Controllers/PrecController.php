@@ -143,6 +143,7 @@ class PrecController extends Controller
           $newDay = substr($newdate, 8, 9);
           $fstart = '1.5';
           $tend = '2.99';
+          $followcode = '';
 
           if ($request->has('Fromdate')) {
             $fdate = $request->get('Fromdate');
@@ -157,6 +158,9 @@ class PrecController extends Controller
           if ($request->has('Toend')) {
             $tend = $request->get('Toend');
           }
+          if ($request->has('Followcode')) {
+            $followcode = $request->get('Followcode');
+          }
 
           $data1 = DB::connection('ibmi')
                     ->table('SFHP.ARMAST')
@@ -169,6 +173,10 @@ class PrecController extends Controller
                     ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
                       return $q->whereBetween('SFHP.ARPAY.DDATE',[$fdate,$tdate]);
                     })
+                    ->when(!empty($followcode), function($q) use ($followcode) {
+                      return $q->where('SFHP.ARMAST.BILLCOLL','=', $followcode);
+                    })
+                    // ->where('SFHP.ARMAST.BILLCOLL','=',99)
                     ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
                     ->get();
           $count = count($data1);
@@ -185,6 +193,9 @@ class PrecController extends Controller
                     ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
                     ->when(!empty($fstart)  && !empty($tend), function($q) use ($fstart, $tend) {
                       return $q->whereBetween('SFHP.ARMAST.HLDNO',[$fstart,$tend]);
+                    })
+                    ->when(!empty($followcode), function($q) use ($followcode) {
+                      return $q->where('SFHP.ARMAST.BILLCOLL','=', $followcode);
                     })
                     // ->whereBetween('SFHP.ARMAST.HLDNO',[1.5,2.99])
                     // ->where('SFHP.ARMAST.BILLCOLL','=',99)
@@ -210,7 +221,7 @@ class PrecController extends Controller
 
 
           $type = $request->type;
-          return view('precipitate.view', compact('data','fdate','tdate','fstart','tend','type'));
+          return view('precipitate.view', compact('data','fdate','tdate','fstart','tend','type','followcode'));
         }
         elseif ($request->type == 4) {  //ปล่อยงานโนติส
           $fdate = $date;
@@ -1674,6 +1685,7 @@ class PrecController extends Controller
         $newDay = substr($newdate, 8, 9);
         $fstart = '1.5';
         $tend = '2.99';
+        $followcode = '';
 
         if ($request->has('Fromdate')) {
           $fdate = $request->get('Fromdate');
@@ -1688,6 +1700,9 @@ class PrecController extends Controller
         if ($request->has('Toend')) {
           $tend = $request->get('Toend');
         }
+        if ($request->has('Followcode')) {
+          $followcode = $request->get('Followcode');
+        }
 
         $data1 = DB::connection('ibmi')
                   ->table('SFHP.ARMAST')
@@ -1699,6 +1714,9 @@ class PrecController extends Controller
                   })
                   ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
                     return $q->whereBetween('SFHP.ARPAY.DDATE',[$fdate,$tdate]);
+                  })
+                  ->when(!empty($followcode), function($q) use ($followcode) {
+                    return $q->where('SFHP.ARMAST.BILLCOLL','=', $followcode);
                   })
                   // ->whereBetween('SFHP.ARMAST.HLDNO',[1.5,2.99])
                   // ->where('SFHP.ARMAST.BILLCOLL','=',99)
@@ -1719,6 +1737,9 @@ class PrecController extends Controller
                   ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
                   ->when(!empty($fstart)  && !empty($tend), function($q) use ($fstart, $tend) {
                     return $q->whereBetween('SFHP.ARMAST.HLDNO',[$fstart,$tend]);
+                  })
+                  ->when(!empty($followcode), function($q) use ($followcode) {
+                    return $q->where('SFHP.ARMAST.BILLCOLL','=', $followcode);
                   })
                   // ->whereBetween('SFHP.ARMAST.HLDNO',[1.5,2.99])
                   // ->where('SFHP.ARMAST.BILLCOLL','=',99)

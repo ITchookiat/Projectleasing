@@ -499,7 +499,6 @@
                           </div>
                         </div>
                       </div>
-
                       <div class="row">
                         <div class="col-5">
                           <div class="float-right form-inline">
@@ -522,7 +521,6 @@
                           </div>
                         </div>
                       </div>
-
                       <div class="row">
                         <div class="col-5">
                           <div class="float-right form-inline">

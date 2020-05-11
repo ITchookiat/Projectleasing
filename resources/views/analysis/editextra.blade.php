@@ -1346,7 +1346,7 @@
                                 document.form1.Totalpay1car.value = addCommas(total.toFixed(2));
                                 document.form1.Totalpay2car.value = addCommas(total2.toFixed(2));
                               }
-                              }
+                             }
                           </script>
                         @endif
 
