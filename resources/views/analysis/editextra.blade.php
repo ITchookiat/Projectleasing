@@ -1107,19 +1107,6 @@
                               document.form1.Afterincome.value = addCommas(num2);
                             }
 
-                            function percent(){
-                              var num11 = document.getElementById('Midpricecar').value;
-                              var num1 = num11.replace(",","").replace(",","");
-                              var num22 = document.getElementById('Topcar').value;
-                              var num2 = num22.replace(",","");
-                              var percent = (num2/num1) * 100;
-                              if(!isNaN(percent) && num1 != ''){
-                                document.form1.Percentcar.value = percent.toFixed(0);
-                                document.form1.Midpricecar.value = addCommas(num1);
-                                document.form1.Topcar.value = addCommas(num2);
-                              }
-                            }
-
                             function mile(){
                               var num11 = document.getElementById('Milecar').value;
                               var num1 = num11.replace(",","");
