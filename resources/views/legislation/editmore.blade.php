@@ -182,11 +182,11 @@
                               @else
                                 <div class="col-md-6" id="ShowTerminate" style="display:none;">
                               @endif
-                                  <div class="form-inline" align="right">
-                                    <label><font>วันที่ทนายส่งเรื่อง : </font></label>
-                                    <input type="date" name="DateLawyersend" class="form-control" value="{{$data->DateLawyersend_legis}}" style="width: 250px;"/>
-                                  </div>
+                                <div class="float-right form-inline">
+                                  <label><font>วันที่ทนายส่งเรื่อง : </font></label>
+                                  <input type="date" name="DateLawyersend" class="form-control" value="{{$data->DateLawyersend_legis}}" style="width: 250px;"/>
                                 </div>
+                              </div>
                             </div>
 
                           </div>
