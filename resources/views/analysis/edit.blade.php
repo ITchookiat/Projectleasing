@@ -481,7 +481,7 @@
                               <i class="fas fa-grip-vertical"></i>
                               <span class="todo-wrap">
                                 @if ( $data->DocComplete_car != Null)
-                                  <input type="checkbox" id="5" class="checkbox" name="doccomplete" value="{{ $data->DocComplete_car }}" checked="checked" disabled/> <!-- checked="checked"  -->
+                                  <input type="checkbox" id="5" class="checkbox" name="doccomplete" value="{{ $data->DocComplete_car }}" checked="checked"/> <!-- checked="checked"  -->
                                 @else
                                   <input type="checkbox" id="5" class="checkbox" name="doccomplete" value="{{ auth::user()->name }}">
                                 @endif

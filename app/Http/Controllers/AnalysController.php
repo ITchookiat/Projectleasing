@@ -1456,6 +1456,7 @@ class AnalysController extends Controller
         'ช่างตัดผม' => 'ช่างตัดผม',
         'ชาวนา' => 'ชาวนา',
         'ชาวไร่' => 'ชาวไร่',
+        'ชาวสวนยาง' => 'ชาวสวนยาง',
         'แม่บ้าน' => 'แม่บ้าน',
         'รับเหมาก่อสร้าง' => 'รับเหมาก่อสร้าง',
         'ประมง' => 'ประมง',
@@ -1968,6 +1969,7 @@ class AnalysController extends Controller
           }else {
             $SetCommissioncar = 0;
           }
+
           $cardetail = Cardetail::where('Buyercar_id',$id)->first();
             $cardetail->Brand_car = $request->get('Brandcar');
             $cardetail->Year_car = $request->get('Yearcar');
@@ -1995,110 +1997,109 @@ class AnalysController extends Controller
 
           // dd($request->get('Approverscar'));
 
+            // สถานะ อนุมัติสัญญา
             if ($request->get('Approverscar') != Null) { //กรณี อนุมัติ
+              $SetStatusApp = 'อนุมัติ';
+
+              if ($cardetail->Approvers_car == Null) {
+                $Y = date('Y') +543;
+                $Y2 = date('Y');
+                $m = date('m', strtotime('+1 month'));
+                $m2 = date('m');
+                $d = date('d');
+                $test = date('d-m-Y', strtotime('+1 month'));
+                $dateduebefore = \Carbon\Carbon::parse($test)->format('Y')+543 ."-". \Carbon\Carbon::parse($test)->format('m')."-". \Carbon\Carbon::parse($test)->format('d');
+                $dateduechange = date_create($dateduebefore);
+                $datefirst = date_format($dateduechange, 'd-m-Y');
+
+                $dateApp = $Y2.'-'.$m2.'-'.$d;
+
+                $cardetail->Dateduefirst_car = $datefirst;
+                $cardetail->Date_Appcar = $dateApp;
                 $SetStatusApp = 'อนุมัติ';
-                // $cardetail->Date_Appcar = $request->get('Dateduefirstcar');
-                // $cardetail->update();
 
-                if ($cardetail->Approvers_car == Null) {
-                  $Y = date('Y') +543;
-                  $Y2 = date('Y');
-                  $m = date('m', strtotime('+1 month'));
-                  $m2 = date('m');
-                  $d = date('d');
-                  $test = date('d-m-Y', strtotime('+1 month'));
-                  $dateduebefore = \Carbon\Carbon::parse($test)->format('Y')+543 ."-". \Carbon\Carbon::parse($test)->format('m')."-". \Carbon\Carbon::parse($test)->format('d');
-                  $dateduechange = date_create($dateduebefore);
-                  $datefirst = date_format($dateduechange, 'd-m-Y');
-
-                  $dateApp = $Y2.'-'.$m2.'-'.$d;
-
-                  $cardetail->Dateduefirst_car = $datefirst;
-                  $cardetail->Date_Appcar = $dateApp;
-                  $SetStatusApp = 'อนุมัติ';
-
-                  $branchType = Null;
-                  if ($cardetail->branch_car == "ปัตตานี") {
-                      $branchType = 01;
-                  }elseif ($cardetail->branch_car == "ยะลา") {
-                      $branchType = 03;
-                  }elseif ($cardetail->branch_car == "นราธิวาส") {
-                      $branchType = 04;
-                  }elseif ($cardetail->branch_car == "สายบุรี") {
-                      $branchType = 05;
-                  }elseif ($cardetail->branch_car == "โกลก") {
-                      $branchType = 06;
-                  }elseif ($cardetail->branch_car == "เบตง") {
-                      $branchType = 07;
-                  }elseif ($cardetail->branch_car == "รถบ้าน") {
-                      $branchType = 10;
-                  }elseif ($cardetail->branch_car == "รถยืดขายผ่อน") {
-                      $branchType = 11;
-                  }elseif ($cardetail->branch_car == "ปรับโครงสร้าง") {
-                      $branchType = 22;
-                  }elseif ($cardetail->branch_car == "มาตรการช่วยเหลือ") {
-                      $branchType = 33;
-                  }
-
-                  if ($branchType != Null) {
-                    if ($branchType == 01) { //สาขาปัตตานี
-                      $connect = Buyer::where('Contract_buyer', 'like', '01%' )
-                                        ->orderBy('Contract_buyer', 'desc')->limit(1)
-                                        ->get();
-                    // dd($connect);
-                    }elseif ($branchType == 03) { //สาขายะลา
-                      $connect = Buyer::where('Contract_buyer', 'like', '03%' )
-                                        ->orderBy('Contract_buyer', 'desc')->limit(1)
-                                        ->get();
-                    }elseif ($branchType == 04) { //สาขานรา
-                      $connect = Buyer::where('Contract_buyer', 'like', '04%' )
-                                        ->orderBy('Contract_buyer', 'desc')->limit(1)
-                                        ->get();
-                    }elseif ($branchType == 05) { //สาขาสายบรุี
-                      $connect = Buyer::where('Contract_buyer', 'like', '05%' )
-                                        ->orderBy('Contract_buyer', 'desc')->limit(1)
-                                        ->get();
-                    }elseif ($branchType == 06) { //สาขาโกลก
-                      $connect = Buyer::where('Contract_buyer', 'like', '06%' )
-                                        ->orderBy('Contract_buyer', 'desc')->limit(1)
-                                        ->get();
-                    }elseif ($branchType == 07) { //สาขาเบตง
-                      $connect = Buyer::where('Contract_buyer', 'like', '07%' )
-                                        ->orderBy('Contract_buyer', 'desc')->limit(1)
-                                        ->get();
-                    }elseif ($branchType == 10) { //สาขารถบ้าน
-                      $connect = Buyer::where('Contract_buyer', 'like', '10%' )
-                                        ->orderBy('Contract_buyer', 'desc')->limit(1)
-                                        ->get();
-                    }elseif ($branchType == 11) { //สาขารถยืดขายผ่อน
-                      $connect = Buyer::where('Contract_buyer', 'like', '11%' )
-                                        ->orderBy('Contract_buyer', 'desc')->limit(1)
-                                        ->get();
-                    }elseif ($branchType == 22) { //ปรับโครงสร้างหนี้
-                      $connect = Buyer::where('Contract_buyer', 'like', '22%' )
-                                        ->orderBy('Contract_buyer', 'desc')->limit(1)
-                                        ->get();
-                    }elseif ($branchType == 33) { //มาตรการช่วยเหลือ
-                      $connect = Buyer::where('Contract_buyer', 'like', '33%' )
-                                        ->orderBy('Contract_buyer', 'desc')->limit(1)
-                                        ->get();
-                    }
-
-                    // dd($connect);
-                    $contract = $connect[0]->Contract_buyer;
-                    $SetStr = explode("/",$contract);
-                    $StrNum = $SetStr[1] + 1;
-
-                    $num = "1000";
-                    $SubStr = substr($num.$StrNum, -4);
-                    $StrConn = $SetStr[0]."/".$SubStr;
-
-                    $GetIdConn = Buyer::where('id',$id)->first();
-                      $GetIdConn->Contract_buyer = $StrConn;
-                    $GetIdConn->update();
-
-                  }
+                $branchType = Null;
+                if ($cardetail->branch_car == "ปัตตานี") {
+                    $branchType = 01;
+                }elseif ($cardetail->branch_car == "ยะลา") {
+                    $branchType = 03;
+                }elseif ($cardetail->branch_car == "นราธิวาส") {
+                    $branchType = 04;
+                }elseif ($cardetail->branch_car == "สายบุรี") {
+                    $branchType = 05;
+                }elseif ($cardetail->branch_car == "โกลก") {
+                    $branchType = 06;
+                }elseif ($cardetail->branch_car == "เบตง") {
+                    $branchType = 07;
+                }elseif ($cardetail->branch_car == "รถบ้าน") {
+                    $branchType = 10;
+                }elseif ($cardetail->branch_car == "รถยืดขายผ่อน") {
+                    $branchType = 11;
+                }elseif ($cardetail->branch_car == "ปรับโครงสร้าง") {
+                    $branchType = 22;
+                }elseif ($cardetail->branch_car == "มาตรการช่วยเหลือ") {
+                    $branchType = 33;
                 }
+
+                if ($branchType != Null) {
+                  if ($branchType == 01) { //สาขาปัตตานี
+                    $connect = Buyer::where('Contract_buyer', 'like', '01%' )
+                                      ->orderBy('Contract_buyer', 'desc')->limit(1)
+                                      ->get();
+                  // dd($connect);
+                  }elseif ($branchType == 03) { //สาขายะลา
+                    $connect = Buyer::where('Contract_buyer', 'like', '03%' )
+                                      ->orderBy('Contract_buyer', 'desc')->limit(1)
+                                      ->get();
+                  }elseif ($branchType == 04) { //สาขานรา
+                    $connect = Buyer::where('Contract_buyer', 'like', '04%' )
+                                      ->orderBy('Contract_buyer', 'desc')->limit(1)
+                                      ->get();
+                  }elseif ($branchType == 05) { //สาขาสายบรุี
+                    $connect = Buyer::where('Contract_buyer', 'like', '05%' )
+                                      ->orderBy('Contract_buyer', 'desc')->limit(1)
+                                      ->get();
+                  }elseif ($branchType == 06) { //สาขาโกลก
+                    $connect = Buyer::where('Contract_buyer', 'like', '06%' )
+                                      ->orderBy('Contract_buyer', 'desc')->limit(1)
+                                      ->get();
+                  }elseif ($branchType == 07) { //สาขาเบตง
+                    $connect = Buyer::where('Contract_buyer', 'like', '07%' )
+                                      ->orderBy('Contract_buyer', 'desc')->limit(1)
+                                      ->get();
+                  }elseif ($branchType == 10) { //สาขารถบ้าน
+                    $connect = Buyer::where('Contract_buyer', 'like', '10%' )
+                                      ->orderBy('Contract_buyer', 'desc')->limit(1)
+                                      ->get();
+                  }elseif ($branchType == 11) { //สาขารถยืดขายผ่อน
+                    $connect = Buyer::where('Contract_buyer', 'like', '11%' )
+                                      ->orderBy('Contract_buyer', 'desc')->limit(1)
+                                      ->get();
+                  }elseif ($branchType == 22) { //ปรับโครงสร้างหนี้
+                    $connect = Buyer::where('Contract_buyer', 'like', '22%' )
+                                      ->orderBy('Contract_buyer', 'desc')->limit(1)
+                                      ->get();
+                  }elseif ($branchType == 33) { //มาตรการช่วยเหลือ
+                    $connect = Buyer::where('Contract_buyer', 'like', '33%' )
+                                      ->orderBy('Contract_buyer', 'desc')->limit(1)
+                                      ->get();
+                  }
+
+                  // dd($connect);
+                  $contract = $connect[0]->Contract_buyer;
+                  $SetStr = explode("/",$contract);
+                  $StrNum = $SetStr[1] + 1;
+
+                  $num = "1000";
+                  $SubStr = substr($num.$StrNum, -4);
+                  $StrConn = $SetStr[0]."/".$SubStr;
+
+                  $GetIdConn = Buyer::where('id',$id)->first();
+                    $GetIdConn->Contract_buyer = $StrConn;
+                  $GetIdConn->update();
+
+                }
+              }
             }
             else { //ยกเลิก หรือ ไม่อนุมัติ
               if (auth()->user()->type == 1 or auth()->user()->type == 2) {
@@ -2185,6 +2186,16 @@ class AnalysController extends Controller
               }
             }
 
+            // เก็บชื่อ สถานะตรวจเอกสาร
+            if ($request->get('Checkcar') != NULL) {
+              if ($cardetail->Check_car == NULL) {
+                $cardetail->Check_car = $request->get('Checkcar');
+              }
+            }else {
+              if (auth()->user()->type == 1 or auth()->user()->type == 2) {
+                $cardetail->Check_car = NULL;
+              }
+            }
 
             $cardetail->Insurance_car = $request->get('Insurancecar');
             $cardetail->status_car = $request->get('statuscar');
@@ -2199,7 +2210,6 @@ class AnalysController extends Controller
             $cardetail->Purchasehistory_car = $request->get('Purchasehistorycar');
             $cardetail->Supporthistory_car = $request->get('Supporthistorycar');
             $cardetail->Approvers_car = $request->get('Approverscar');
-            $cardetail->Check_car = $request->get('Checkcar');
             $cardetail->StatusApp_car = $SetStatusApp;
             $cardetail->DocComplete_car = $request->get('doccomplete');
             $cardetail->branchbrance_car = $request->get('branchbrancecar');
