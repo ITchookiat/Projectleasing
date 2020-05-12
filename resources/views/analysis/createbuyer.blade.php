@@ -460,6 +460,7 @@
                                     <option value="ช่างตัดผม">ช่างตัดผม</option>
                                     <option value="ชาวนา">ชาวนา</option>
                                     <option value="ชาวไร่">ชาวไร่</option>
+                                    <option value="ชาวสวนยาง">ชาวสวนยาง</option>
                                     <option value="แม่บ้าน">แม่บ้าน</option>
                                     <option value="รับเหมาก่อสร้าง">รับเหมาก่อสร้าง</option>
                                     <option value="ประมง">ประมง</option>
@@ -817,6 +818,7 @@
                                   <option value="ช่างตัดผม">ช่างตัดผม</option>
                                   <option value="ชาวนา">ชาวนา</option>
                                   <option value="ชาวไร่">ชาวไร่</option>
+                                  <option value="ชาวสวนยาง">ชาวสวนยาง</option>
                                   <option value="แม่บ้าน">แม่บ้าน</option>
                                   <option value="รับเหมาก่อสร้าง">รับเหมาก่อสร้าง</option>
                                   <option value="ประมง">ประมง</option>
@@ -1637,6 +1639,7 @@
                                       <option value="ช่างตัดผม">ช่างตัดผม</option>
                                       <option value="ชาวนา">ชาวนา</option>
                                       <option value="ชาวไร่">ชาวไร่</option>
+                                      <option value="ชาวสวนยาง">ชาวสวนยาง</option>
                                       <option value="แม่บ้าน">แม่บ้าน</option>
                                       <option value="รับเหมาก่อสร้าง">รับเหมาก่อสร้าง</option>
                                       <option value="ประมง">ประมง</option>
