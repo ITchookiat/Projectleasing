@@ -190,7 +190,7 @@
               <div class="card-header">
                 <h4 class="">
                   ลูกหนี้งานฟ้อง
-                </h4>                  
+                </h4>
                 <div class="card card-warning card-tabs">
                   <div class="card-header p-0 pt-1">
                     <div class="container-fluid">
@@ -222,7 +222,7 @@
                         </div>
                       </div>
                     </div>
-                  </div>          
+                  </div>
                 </div>
               </div>
               <div class="card-body text-sm">
@@ -230,12 +230,12 @@
                 <form name="form1" method="post" action="{{ action('LegislationController@update',[$id,$type]) }}" enctype="multipart/form-data">
                   @csrf
                   @method('put')
-    
+
                   <div class="row">
                     <div class="col-md-12">
                       <div class="info-box">
                         <span class="info-box-icon bg-danger"><i class="far fa-id-badge fa-2x"></i></span>
-          
+
                         <div class="info-box-content">
                           <div class="form-inline">
                             <div class="col-md-3">
@@ -268,7 +268,7 @@
                                 <input type="date" name="DateStatuslegis" class="form-control" style="width: 170px;" value="{{ $data->DateCarState_legis }}">
                               </div>
                             </div>
-                            
+
                             <div class="col-md-4">
                               <div class="float-right form-inline">
                                 <a class="btn btn-app" data-toggle="modal" data-target="#modal-printinfo" data-backdrop="static" data-keyboard="false" style="background-color:blue; color:#FFFFFF;">
@@ -309,7 +309,7 @@
                       <div class="card card-danger">
                         <div class="card-header">
                           <h3 class="card-title"><i class="fas fa-user-tag"></i> ข้อมูลผู้เช่าซื้อ</h3>
-                    
+
                           <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                             </button>
@@ -338,7 +338,7 @@
                               </div>
                             </div>
                           </div>
-                    
+
                           <div class="row">
                             <div class="col-md-4">
                               ปีรถ
@@ -359,7 +359,7 @@
                               </div>
                             </div>
                           </div>
-                    
+
                           <div class="row">
                             <div class="col-md-4">
                               วันที่ทำสัญญา
@@ -380,7 +380,7 @@
                               </div>
                             </div>
                           </div>
-                    
+
                           <div class="row">
                             <div class="col-md-4">
                               จำนวนงวดทั้งหมด
@@ -401,7 +401,7 @@
                               </div>
                             </div>
                           </div>
-                    
+
                           <div class="row">
                             <div class="col-md-4">
                               ชำระแล้ว
@@ -424,7 +424,7 @@
                               </div>
                             </div>
                           </div>
-                    
+
                           <div class="row">
                             <div class="col-md-4">
                               วันที่หยุด Vat
@@ -449,7 +449,7 @@
                               </div>
                             </div>
                           </div>
-                    
+
                         </div>
                       </div>
                     </div>
@@ -458,7 +458,7 @@
                       <div class="card card-danger">
                         <div class="card-header">
                           <h3 class="card-title"><i class="fas fa-tasks"></i> เอกสาร</h3>
-          
+
                           <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                             </button>
@@ -670,7 +670,7 @@
                       <div class="card card-danger">
                         <div class="card-header">
                           <h3 class="card-title"><i class="fas fa-marker"></i> หมายเหตุ</h3>
-          
+
                           <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                             </button>
@@ -692,7 +692,9 @@
                   </div>
 
                   <input type="hidden" name="Adreeslegis" class="form-control"  value="{{ iconv('TIS-620', 'utf-8', str_replace(" ","",$data1->ADDRES))." ต.".iconv('TIS-620', 'utf-8', str_replace(" ","",$data1->TUMB))." อ.".iconv('TIS-620', 'utf-8', str_replace(" ","",$data1->AUMPDES))." จ.".iconv('TIS-620', 'utf-8', str_replace(" ","",$data1->PROVDES))."  ".iconv('TIS-620', 'utf-8', str_replace(" ","",$data1->ZIP)) }}"/>
-                  <input type="hidden" name="AdreesGTlegis" class="form-control"  value="{{ iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->ADDRES))." ต.".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->TUMB))." อ.".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->AUMPDES))." จ.".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->PROVDES))."  ".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->ZIP)) }}"/>  
+                  @if($dataGT != Null)
+                  <input type="hidden" name="AdreesGTlegis" class="form-control"  value="{{ iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->ADDRES))." ต.".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->TUMB))." อ.".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->AUMPDES))." จ.".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->PROVDES))."  ".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->ZIP)) }}"/>
+                  @endif 
                   <input type="hidden" name="_method" value="PATCH"/>
                 </form>
 
