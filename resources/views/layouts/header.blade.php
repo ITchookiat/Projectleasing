@@ -70,12 +70,12 @@
           </a>
         </li>
         <li class="dropdown">
-          <a href="#" class="btn btn-block active" 
-             onclick="on_login('http://localhost/ProjectHomeCar/public/login', '{{ Auth::user()->username }}', '{{ Auth::user()->password_token }}');">
+          <a href="#" class="btn btn-block active"
+             onclick="on_login('http://192.168.200.9/ProjectHomeCar/public/login', '{{ Auth::user()->username }}', '{{ Auth::user()->password_token }}');">
             <i class="fa fa-automobile"></i> ระบบรถบ้าน
           </a>
         </li>
-      
+
       </ul>
     </div>
     @endif
