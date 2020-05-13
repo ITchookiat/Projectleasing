@@ -51,7 +51,7 @@
 
   </head>
     <label align="right">วันที่ : <u>{{$date2}}</u></label>
-    <h2 class="card-title p-3" align="center">รายงานขออนุมัติโอนเงินไฟแนนซ์</h2>
+    <h2 class="card-title p-3" align="center" style="font-weight: bold;line-height:1px;">รายงานขออนุมัติโอนเงินไฟแนนซ์</h2>
     <h4 class="card-title p-3" align="center">บริษัท ชูเกียรติลิสซิ่ง จำกัด</h4>
     <hr>
   <body>
@@ -113,9 +113,9 @@
               $sumcommitprice += str_replace(",","",$value->commit_Price);
             @endphp
             <tr align="center" style="line-height: 200%;">
-              <td width="50px" rowspan="3" style="background-color: #33FF00; line-height:550%;">{{$value->Brand_car}}</td>
-              <td width="65px" rowspan="3" style="line-height:550%;">{{$value->status_car}}</td>
-              <td width="20px" rowspan="3" style="line-height:550%;">
+              <td width="50px" rowspan="4" style="background-color: #33FF00; line-height:750%;">{{$value->Brand_car}}</td>
+              <td width="65px" rowspan="4" style="line-height:750%;">{{$value->status_car}}</td>
+              <td width="20px" rowspan="4" style="line-height:750%;">
                 @if($value->branch_car == 'ปัตตานี')
                   ปน
                 @elseif($value->branch_car == 'ยะลา')
@@ -131,24 +131,24 @@
                 @endif
               </td>
               @if($value->note_Price == Null)
-              <td width="45px" rowspan="3" style="line-height:550%;">{{$value->License_car}}</td>
+              <td width="45px" rowspan="4" style="line-height:750%;">{{$value->License_car}}</td>
               @else
-              <td width="45px" rowspan="2" style="line-height:400%;">{{$value->License_car}}</td>
+              <td width="45px" rowspan="3" style="line-height:500%;">{{$value->License_car}}</td>
               @endif
-              <td width="35px" rowspan="3" style="line-height:550%;">{{number_format($value->Top_car)}}</td>
+              <td width="35px" rowspan="4" style="line-height:750%;">{{number_format($value->Top_car)}}</td>
               <td width="55px">
                 @if($value->act_Price != 0)
                   พรบ. {{number_format($value->act_Price)}}
                 @endif
               </td>
-              <td width="40px" rowspan="3" style="background-color: #FFFF00; line-height:550%;">{{number_format($value->tran_Price,0)}}</td>
-              <td width="25px" rowspan="3" style="background-color: #FFFF00; line-height:550%;">{{number_format($value->other_Price,0)}}</td>
-              <td width="35px" rowspan="3" style="background-color: #FFFF00; line-height:550%;">{{ $value->evaluetion_Price }}</td>
-              <td width="25px" rowspan="3" style="background-color: #FFFF00; line-height:550%;">{{ $value->duty_Price }}</td>
-              <td width="35px" rowspan="3" style="background-color: #FFFF00; line-height:550%;">{{ $value->marketing_Price }}</td>
-              <td width="45px" rowspan="3" style="line-height:550%;">{{number_format($value->totalk_Price,0)}}</td>
-              <td width="35px" rowspan="3" style="line-height:550%;">{{number_format($value->balance_Price,0)}}</td>
-              <td width="35px" rowspan="3" style="line-height:550%;">{{number_format($value->commit_Price,2)}}</td>
+              <td width="40px" rowspan="4" style="background-color: #FFFF00; line-height:750%;">{{number_format($value->tran_Price,0)}}</td>
+              <td width="25px" rowspan="4" style="background-color: #FFFF00; line-height:750%;">{{number_format($value->other_Price,0)}}</td>
+              <td width="35px" rowspan="4" style="background-color: #FFFF00; line-height:750%;">{{ $value->evaluetion_Price }}</td>
+              <td width="25px" rowspan="4" style="background-color: #FFFF00; line-height:750%;">{{ $value->duty_Price }}</td>
+              <td width="35px" rowspan="4" style="background-color: #FFFF00; line-height:750%;">{{ $value->marketing_Price }}</td>
+              <td width="45px" rowspan="4" style="line-height:750%;">{{number_format($value->totalk_Price,0)}}</td>
+              <td width="35px" rowspan="4" style="line-height:750%;">{{number_format($value->balance_Price,0)}}</td>
+              <td width="35px" rowspan="4" style="line-height:750%;">{{number_format($value->commit_Price,2)}}</td>
               <td width="110px">{{$value->Payee_car}}</td>
               <td width="110px">{{$value->Agent_car}}</td>
               <td width="50px">
@@ -179,12 +179,12 @@
               </td>
               <td width="110px">
                 @if($value->Accountbrance_car != Null)
-                  บัญชี :{{$value->Accountbrance_car}}/{{$value->branchbrance_car}}
+                  บัญชี :{{$value->Accountbrance_car}}
                 @endif
               </td>
               <td width="110px">
                 @if($value->Accountagent_car != Null)
-                  บัญชี :{{$value->Accountagent_car}}/{{$value->branchAgent_car}}
+                  บัญชี :{{$value->Accountagent_car}}
                 @endif
               </td>
               <td width="50px">
@@ -200,6 +200,26 @@
                   @endphp
                 @elseif($value->Accountagent_car == Null)
                 @endif
+              </td>
+            </tr>
+            <tr align="center" style="line-height: 200%;">
+              <td width="55px">
+                @if($value->closeAccount_Price != 0)
+                  ปิดบัญชี {{number_format($value->closeAccount_Price)}}
+                @endif
+              </td>
+              <td width="110px">
+                @if($value->Accountbrance_car != Null)
+                  สาขา :{{$value->branchbrance_car}}
+                @endif
+              </td>
+              <td width="110px">
+                @if($value->Accountagent_car != Null)
+                  สาขา :{{$value->branchAgent_car}}
+                @endif
+              </td>
+              <td width="50px">
+
               </td>
             </tr>
             <tr align="center" style="line-height: 200%;">
@@ -226,22 +246,32 @@
                     โทร : {{$value->Tellagent_car}}
                 @endif
               </td>
-              <td width="50px"></td>
+              <td width="50px" style="background-color: #00FF89;">
+                @if($value->Approvers_car == 'อรุณวรรณ แก้วมลทิน')
+                  อรุณวรรณ
+                @elseif($value->Approvers_car == 'นายอำพัน ดือราแมหะยี')
+                  อำพัน
+                @elseif($value->Approvers_car == 'ศิราภรณ์ ขาวมะลิ')
+                  ศิราภรณ์
+                @elseif($value->Approvers_car == 'นายซอลาฮุดดีน ตอแก')
+                  ซอลาฮุดดีน
+                @endif
+              </td>
             </tr>
             <br>
           @endforeach
           @php
             $sumall = $sumArcsum + $sumbalance;
           @endphp
-            <tr align="center" style="line-height: 200%;">
+            <tr align="center">
               <td width="115px" style="background-color: #FFFF00; line-height:250%;">รวมยอดจัดเป็นคัน    {{$countcar}}    คัน</td>
               <td width="100px" style="background-color: #00FFFF; line-height:250%;">รวมยอดจัดเป็นเงิน      {{number_format($sumtopcar,2)}}</td>
               <td width="120px" style="background-color: #00FFFF; line-height:250%;">รวมค่าใช้จ่ายขนส่ง     {{number_format($sumtotransport,2)}}</td>
               <!-- <td width="95px" style="background-color: #00FFFF; line-height:250%;">รวมค่าใช้จ่ายบริษัท     {{number_format($sumtocompany)}}</td> -->
               <td width="95px" style="background-color: #00FFFF; line-height:250%;">รวมค่าใช้จ่ายบริษัท     {{number_format($sumtototalk_Price - $sumtotransport - $sumtocloseAccount_Price,2)}}</td>
-              <td width="110px" style="background-color: #00FFFF; line-height:250%;">รวมค่ารถ     {{number_format($sumbalanceprice,2)}}</td>
+              <td width="115px" style="background-color: #00FFFF; line-height:250%;">รวมค่ารถ     {{number_format($sumbalanceprice,2)}}</td>
               <td width="110px" style="background-color: #00FFFF; line-height:250%;">รวมค่าคอม     {{number_format($sumcommitprice,2)}}</td>
-              <td width="165px" style="background-color: #FFFF00; line-height:250%;">ยอดรวมอนุมัติ        {{number_format($sumall,2)}}</td>
+              <td width="160px" style="background-color: #FFFF00; line-height:250%;">ยอดรวมอนุมัติ        {{number_format($sumall,2)}}</td>
             </tr>
         @endif
       </tbody>

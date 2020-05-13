@@ -385,254 +385,252 @@
           //    $('#P2Price').val('0');
           //  }
           // });
-
-            if(num1 >= 200000 && num1 <= 300000){
-               var num5 = '6900';
-               // var num5 = '6500';
-             }else if(num1 > 300000){
-               var num5 ='0'
-             }
-             else{
+            if(num1 <= 100000 && num4 < 48){
+               var num5 = '6500';
+             }else if(num1 >= 200000 && num1 <= 300000){
+               // var num5 = '6900';
+               var num5 = '6500';
+             }else{
                var num5 ='0';
-             }
-           // console.log(num5);
+            }
+           // console.log(num1);
 
           $('#Typecardetail,#Yearcar').change(function(){
             $('#Year').hide();
             $('#Timeslackencar').show();
             if(year > 2014 && year <= 2020 ){
               if(typedetail == 'รถตอนเดียว'){
-                $("#Timeslackencar option[value='1']").show();
-                $("#Timeslackencar option[value='1.5']").show();
-                $("#Timeslackencar option[value='2']").show();
-                $("#Timeslackencar option[value='2.5']").show();
-                $("#Timeslackencar option[value='3']").show();
-                $("#Timeslackencar option[value='3.5']").show();
-                $("#Timeslackencar option[value='4']").show();
-                $("#Timeslackencar option[value='4.5']").show();
-                $("#Timeslackencar option[value='5']").show();
-                $("#Timeslackencar option[value='5.5']").hide();
-                $("#Timeslackencar option[value='6']").hide();
-                $("#Timeslackencar option[value='6.5']").hide();
-                $("#Timeslackencar option[value='7']").hide();
+                $("#Timeslackencar option[value='12']").show();
+                $("#Timeslackencar option[value='18']").show();
+                $("#Timeslackencar option[value='24']").show();
+                $("#Timeslackencar option[value='30']").show();
+                $("#Timeslackencar option[value='36']").show();
+                $("#Timeslackencar option[value='42']").show();
+                $("#Timeslackencar option[value='48']").show();
+                $("#Timeslackencar option[value='54']").show();
+                $("#Timeslackencar option[value='60']").show();
+                $("#Timeslackencar option[value='66']").hide();
+                $("#Timeslackencar option[value='72']").hide();
+                $("#Timeslackencar option[value='78']").hide();
+                $("#Timeslackencar option[value='84']").hide();
               }else{
-                $("#Timeslackencar option[value='1']").show();
-                $("#Timeslackencar option[value='1.5']").show();
-                $("#Timeslackencar option[value='2']").show();
-                $("#Timeslackencar option[value='2.5']").show();
-                $("#Timeslackencar option[value='3']").show();
-                $("#Timeslackencar option[value='3.5']").show();
-                $("#Timeslackencar option[value='4']").show();
-                $("#Timeslackencar option[value='4.5']").show();
-                $("#Timeslackencar option[value='5']").show();
-                $("#Timeslackencar option[value='5.5']").show();
-                $("#Timeslackencar option[value='6']").show();
-                $("#Timeslackencar option[value='6.5']").show();
-                $("#Timeslackencar option[value='7']").show();
+                $("#Timeslackencar option[value='12']").show();
+                $("#Timeslackencar option[value='18']").show();
+                $("#Timeslackencar option[value='24']").show();
+                $("#Timeslackencar option[value='30']").show();
+                $("#Timeslackencar option[value='36']").show();
+                $("#Timeslackencar option[value='42']").show();
+                $("#Timeslackencar option[value='48']").show();
+                $("#Timeslackencar option[value='54']").show();
+                $("#Timeslackencar option[value='60']").show();
+                $("#Timeslackencar option[value='66']").show();
+                $("#Timeslackencar option[value='72']").show();
+                $("#Timeslackencar option[value='78']").show();
+                $("#Timeslackencar option[value='84']").show();
               }
              }
             else if(year > 2009 && year <= 2014 ){
               if(typedetail == 'รถตอนเดียว'){
-                $("#Timeslackencar option[value='1']").show();
-                $("#Timeslackencar option[value='1.5']").show();
-                $("#Timeslackencar option[value='2']").show();
-                $("#Timeslackencar option[value='2.5']").show();
-                $("#Timeslackencar option[value='3']").show();
-                $("#Timeslackencar option[value='3.5']").show();
-                $("#Timeslackencar option[value='4']").show();
-                $("#Timeslackencar option[value='4.5']").show();
-                $("#Timeslackencar option[value='5']").show();
-                $("#Timeslackencar option[value='5.5']").hide();
-                $("#Timeslackencar option[value='6']").hide();
-                $("#Timeslackencar option[value='6.5']").hide();
-                $("#Timeslackencar option[value='7']").hide();
+                $("#Timeslackencar option[value='12']").show();
+                $("#Timeslackencar option[value='18']").show();
+                $("#Timeslackencar option[value='24']").show();
+                $("#Timeslackencar option[value='30']").show();
+                $("#Timeslackencar option[value='36']").show();
+                $("#Timeslackencar option[value='42']").show();
+                $("#Timeslackencar option[value='48']").show();
+                $("#Timeslackencar option[value='54']").show();
+                $("#Timeslackencar option[value='60']").show();
+                $("#Timeslackencar option[value='66']").hide();
+                $("#Timeslackencar option[value='72']").hide();
+                $("#Timeslackencar option[value='78']").hide();
+                $("#Timeslackencar option[value='84']").hide();
               }else{
-                $("#Timeslackencar option[value='1']").show();
-                $("#Timeslackencar option[value='1.5']").show();
-                $("#Timeslackencar option[value='2']").show();
-                $("#Timeslackencar option[value='2.5']").show();
-                $("#Timeslackencar option[value='3']").show();
-                $("#Timeslackencar option[value='3.5']").show();
-                $("#Timeslackencar option[value='4']").show();
-                $("#Timeslackencar option[value='4.5']").show();
-                $("#Timeslackencar option[value='5']").show();
-                $("#Timeslackencar option[value='5.5']").show();
-                $("#Timeslackencar option[value='6']").show();
-                $("#Timeslackencar option[value='6.5']").hide();
-                $("#Timeslackencar option[value='7']").hide();
+                $("#Timeslackencar option[value='12']").show();
+                $("#Timeslackencar option[value='18']").show();
+                $("#Timeslackencar option[value='24']").show();
+                $("#Timeslackencar option[value='30']").show();
+                $("#Timeslackencar option[value='36']").show();
+                $("#Timeslackencar option[value='42']").show();
+                $("#Timeslackencar option[value='48']").show();
+                $("#Timeslackencar option[value='54']").show();
+                $("#Timeslackencar option[value='60']").show();
+                $("#Timeslackencar option[value='66']").show();
+                $("#Timeslackencar option[value='72']").show();
+                $("#Timeslackencar option[value='78']").hide();
+                $("#Timeslackencar option[value='84']").hide();
               }
              }
             else if(year > 2007 && year <= 2009 ){
                if(typedetail == 'รถตอนเดียว'){
-                 $("#Timeslackencar option[value='1']").show();
-                 $("#Timeslackencar option[value='1.5']").show();
-                 $("#Timeslackencar option[value='2']").show();
-                 $("#Timeslackencar option[value='2.5']").show();
-                 $("#Timeslackencar option[value='3']").show();
-                 $("#Timeslackencar option[value='3.5']").show();
-                 $("#Timeslackencar option[value='4']").show();
-                 $("#Timeslackencar option[value='4.5']").hide();
-                 $("#Timeslackencar option[value='5']").hide();
-                 $("#Timeslackencar option[value='5.5']").hide();
-                 $("#Timeslackencar option[value='6']").hide();
-                 $("#Timeslackencar option[value='6.5']").hide();
-                 $("#Timeslackencar option[value='7']").hide();
+                 $("#Timeslackencar option[value='12']").show();
+                 $("#Timeslackencar option[value='18']").show();
+                 $("#Timeslackencar option[value='24']").show();
+                 $("#Timeslackencar option[value='30']").show();
+                 $("#Timeslackencar option[value='36']").show();
+                 $("#Timeslackencar option[value='42']").show();
+                 $("#Timeslackencar option[value='48']").show();
+                 $("#Timeslackencar option[value='54']").hide();
+                 $("#Timeslackencar option[value='60']").hide();
+                 $("#Timeslackencar option[value='66']").hide();
+                 $("#Timeslackencar option[value='72']").hide();
+                 $("#Timeslackencar option[value='78']").hide();
+                 $("#Timeslackencar option[value='84']").hide();
                }else{
-                 $("#Timeslackencar option[value='1']").show();
-                 $("#Timeslackencar option[value='1.5']").show();
-                 $("#Timeslackencar option[value='2']").show();
-                 $("#Timeslackencar option[value='2.5']").show();
-                 $("#Timeslackencar option[value='3']").show();
-                 $("#Timeslackencar option[value='3.5']").show();
-                 $("#Timeslackencar option[value='4']").show();
-                 $("#Timeslackencar option[value='4.5']").show();
-                 $("#Timeslackencar option[value='5']").show();
-                 $("#Timeslackencar option[value='5.5']").show();
-                 $("#Timeslackencar option[value='6']").show();
-                 $("#Timeslackencar option[value='6.5']").hide();
-                 $("#Timeslackencar option[value='7']").hide();
+                 $("#Timeslackencar option[value='12']").show();
+                 $("#Timeslackencar option[value='18']").show();
+                 $("#Timeslackencar option[value='24']").show();
+                 $("#Timeslackencar option[value='30']").show();
+                 $("#Timeslackencar option[value='36']").show();
+                 $("#Timeslackencar option[value='42']").show();
+                 $("#Timeslackencar option[value='48']").show();
+                 $("#Timeslackencar option[value='54']").show();
+                 $("#Timeslackencar option[value='60']").show();
+                 $("#Timeslackencar option[value='66']").show();
+                 $("#Timeslackencar option[value='72']").show();
+                 $("#Timeslackencar option[value='78']").hide();
+                 $("#Timeslackencar option[value='84']").hide();
                }
               }
             else if(year > 2005 && year <= 2007 ){
                if(typedetail == 'รถตอนเดียว'){
-                 $("#Timeslackencar option[value='1']").show();
-                 $("#Timeslackencar option[value='1.5']").show();
-                 $("#Timeslackencar option[value='2']").show();
-                 $("#Timeslackencar option[value='2.5']").show();
-                 $("#Timeslackencar option[value='3']").show();
-                 $("#Timeslackencar option[value='3.5']").show();
-                 $("#Timeslackencar option[value='4']").show();
-                 $("#Timeslackencar option[value='4.5']").hide();
-                 $("#Timeslackencar option[value='5']").hide();
-                 $("#Timeslackencar option[value='5.5']").hide();
-                 $("#Timeslackencar option[value='6']").hide();
-                 $("#Timeslackencar option[value='6.5']").hide();
-                 $("#Timeslackencar option[value='7']").hide();
+                 $("#Timeslackencar option[value='12']").show();
+                 $("#Timeslackencar option[value='18']").show();
+                 $("#Timeslackencar option[value='24']").show();
+                 $("#Timeslackencar option[value='30']").show();
+                 $("#Timeslackencar option[value='36']").show();
+                 $("#Timeslackencar option[value='42']").show();
+                 $("#Timeslackencar option[value='48']").show();
+                 $("#Timeslackencar option[value='54']").hide();
+                 $("#Timeslackencar option[value='60']").hide();
+                 $("#Timeslackencar option[value='66']").hide();
+                 $("#Timeslackencar option[value='72']").hide();
+                 $("#Timeslackencar option[value='78']").hide();
+                 $("#Timeslackencar option[value='84']").hide();
                }else{
-                 $("#Timeslackencar option[value='1']").show();
-                 $("#Timeslackencar option[value='1.5']").show();
-                 $("#Timeslackencar option[value='2']").show();
-                 $("#Timeslackencar option[value='2.5']").show();
-                 $("#Timeslackencar option[value='3']").show();
-                 $("#Timeslackencar option[value='3.5']").show();
-                 $("#Timeslackencar option[value='4']").show();
-                 $("#Timeslackencar option[value='4.5']").show();
-                 $("#Timeslackencar option[value='5']").show();
-                 $("#Timeslackencar option[value='5.5']").hide();
-                 $("#Timeslackencar option[value='6']").hide();
-                 $("#Timeslackencar option[value='6.5']").hide();
-                 $("#Timeslackencar option[value='7']").hide();
+                 $("#Timeslackencar option[value='12']").show();
+                 $("#Timeslackencar option[value='18']").show();
+                 $("#Timeslackencar option[value='24']").show();
+                 $("#Timeslackencar option[value='30']").show();
+                 $("#Timeslackencar option[value='36']").show();
+                 $("#Timeslackencar option[value='42']").show();
+                 $("#Timeslackencar option[value='48']").show();
+                 $("#Timeslackencar option[value='54']").show();
+                 $("#Timeslackencar option[value='60']").show();
+                 $("#Timeslackencar option[value='66']").hide();
+                 $("#Timeslackencar option[value='72']").hide();
+                 $("#Timeslackencar option[value='78']").hide();
+                 $("#Timeslackencar option[value='84']").hide();
                }
               }
             else if(year > 2003 && year <= 2005 ){
                if(typedetail == 'รถตอนเดียว'){
-                 $("#Timeslackencar option[value='1']").show();
-                 $("#Timeslackencar option[value='1.5']").show();
-                 $("#Timeslackencar option[value='2']").show();
-                 $("#Timeslackencar option[value='2.5']").show();
-                 $("#Timeslackencar option[value='3']").show();
-                 $("#Timeslackencar option[value='3.5']").hide();
-                 $("#Timeslackencar option[value='4']").hide();
-                 $("#Timeslackencar option[value='4.5']").hide();
-                 $("#Timeslackencar option[value='5']").hide();
-                 $("#Timeslackencar option[value='5.5']").hide();
-                 $("#Timeslackencar option[value='6']").hide();
-                 $("#Timeslackencar option[value='6.5']").hide();
-                 $("#Timeslackencar option[value='7']").hide();
+                 $("#Timeslackencar option[value='12']").show();
+                 $("#Timeslackencar option[value='18']").show();
+                 $("#Timeslackencar option[value='24']").show();
+                 $("#Timeslackencar option[value='30']").show();
+                 $("#Timeslackencar option[value='36']").show();
+                 $("#Timeslackencar option[value='42']").hide();
+                 $("#Timeslackencar option[value='48']").hide();
+                 $("#Timeslackencar option[value='54']").hide();
+                 $("#Timeslackencar option[value='60']").hide();
+                 $("#Timeslackencar option[value='66']").hide();
+                 $("#Timeslackencar option[value='72']").hide();
+                 $("#Timeslackencar option[value='78']").hide();
+                 $("#Timeslackencar option[value='84']").hide();
                }else{
-                 $("#Timeslackencar option[value='1']").show();
-                 $("#Timeslackencar option[value='1.5']").show();
-                 $("#Timeslackencar option[value='2']").show();
-                 $("#Timeslackencar option[value='2.5']").show();
-                 $("#Timeslackencar option[value='3']").show();
-                 $("#Timeslackencar option[value='3.5']").show();
-                 $("#Timeslackencar option[value='4']").show();
-                 $("#Timeslackencar option[value='4.5']").hide();
-                 $("#Timeslackencar option[value='5']").hide();
-                 $("#Timeslackencar option[value='5.5']").hide();
-                 $("#Timeslackencar option[value='6']").hide();
-                 $("#Timeslackencar option[value='6.5']").hide();
-                 $("#Timeslackencar option[value='7']").hide();
+                 $("#Timeslackencar option[value='12']").show();
+                 $("#Timeslackencar option[value='18']").show();
+                 $("#Timeslackencar option[value='24']").show();
+                 $("#Timeslackencar option[value='30']").show();
+                 $("#Timeslackencar option[value='36']").show();
+                 $("#Timeslackencar option[value='42']").show();
+                 $("#Timeslackencar option[value='48']").show();
+                 $("#Timeslackencar option[value='54']").hide();
+                 $("#Timeslackencar option[value='60']").hide();
+                 $("#Timeslackencar option[value='66']").hide();
+                 $("#Timeslackencar option[value='72']").hide();
+                 $("#Timeslackencar option[value='78']").hide();
+                 $("#Timeslackencar option[value='84']").hide();
                }
               }
             else if(year > 2003 && year <= 2005 ){
                if(typedetail == 'รถตอนเดียว'){
-                 $("#Timeslackencar option[value='1']").show();
-                 $("#Timeslackencar option[value='1.5']").show();
-                 $("#Timeslackencar option[value='2']").show();
-                 $("#Timeslackencar option[value='2.5']").show();
-                 $("#Timeslackencar option[value='3']").show();
-                 $("#Timeslackencar option[value='3.5']").hide();
-                 $("#Timeslackencar option[value='4']").hide();
-                 $("#Timeslackencar option[value='4.5']").hide();
-                 $("#Timeslackencar option[value='5']").hide();
-                 $("#Timeslackencar option[value='5.5']").hide();
-                 $("#Timeslackencar option[value='6']").hide();
-                 $("#Timeslackencar option[value='6.5']").hide();
-                 $("#Timeslackencar option[value='7']").hide();
+                 $("#Timeslackencar option[value='12']").show();
+                 $("#Timeslackencar option[value='18']").show();
+                 $("#Timeslackencar option[value='24']").show();
+                 $("#Timeslackencar option[value='30']").show();
+                 $("#Timeslackencar option[value='36']").show();
+                 $("#Timeslackencar option[value='42']").hide();
+                 $("#Timeslackencar option[value='48']").hide();
+                 $("#Timeslackencar option[value='54']").hide();
+                 $("#Timeslackencar option[value='60']").hide();
+                 $("#Timeslackencar option[value='66']").hide();
+                 $("#Timeslackencar option[value='72']").hide();
+                 $("#Timeslackencar option[value='78']").hide();
+                 $("#Timeslackencar option[value='84']").hide();
                }else if(typedetail == 'รถตอนเดียว' && year <= 2005){
 
                }else{
-                 $("#Timeslackencar option[value='1']").show();
-                 $("#Timeslackencar option[value='1.5']").show();
-                 $("#Timeslackencar option[value='2']").show();
-                 $("#Timeslackencar option[value='2.5']").show();
-                 $("#Timeslackencar option[value='3']").show();
-                 $("#Timeslackencar option[value='3.5']").show();
-                 $("#Timeslackencar option[value='4']").show();
-                 $("#Timeslackencar option[value='4.5']").hide();
-                 $("#Timeslackencar option[value='5']").hide();
-                 $("#Timeslackencar option[value='5.5']").hide();
-                 $("#Timeslackencar option[value='6']").hide();
-                 $("#Timeslackencar option[value='6.5']").hide();
-                 $("#Timeslackencar option[value='7']").hide();
+                 $("#Timeslackencar option[value='12']").show();
+                 $("#Timeslackencar option[value='18']").show();
+                 $("#Timeslackencar option[value='24']").show();
+                 $("#Timeslackencar option[value='30']").show();
+                 $("#Timeslackencar option[value='36']").show();
+                 $("#Timeslackencar option[value='42']").show();
+                 $("#Timeslackencar option[value='48']").show();
+                 $("#Timeslackencar option[value='54']").hide();
+                 $("#Timeslackencar option[value='60']").hide();
+                 $("#Timeslackencar option[value='66']").hide();
+                 $("#Timeslackencar option[value='72']").hide();
+                 $("#Timeslackencar option[value='78']").hide();
+                 $("#Timeslackencar option[value='84']").hide();
                }
               }
             else if(year > 2002 && year <= 2003 ){
                if(typedetail == 'รถตอนเดียว'){
-                 $("#Timeslackencar option[value='1']").hide();
-                 $("#Timeslackencar option[value='1.5']").hide();
-                 $("#Timeslackencar option[value='2']").hide();
-                 $("#Timeslackencar option[value='2.5']").hide();
-                 $("#Timeslackencar option[value='3']").hide();
-                 $("#Timeslackencar option[value='3.5']").hide();
-                 $("#Timeslackencar option[value='4']").hide();
-                 $("#Timeslackencar option[value='4.5']").hide();
-                 $("#Timeslackencar option[value='5']").hide();
-                 $("#Timeslackencar option[value='5.5']").hide();
-                 $("#Timeslackencar option[value='6']").hide();
-                 $("#Timeslackencar option[value='6.5']").hide();
-                 $("#Timeslackencar option[value='7']").hide();
+                 $("#Timeslackencar option[value='12']").hide();
+                 $("#Timeslackencar option[value='18']").hide();
+                 $("#Timeslackencar option[value='24']").hide();
+                 $("#Timeslackencar option[value='30']").hide();
+                 $("#Timeslackencar option[value='36']").hide();
+                 $("#Timeslackencar option[value='42']").hide();
+                 $("#Timeslackencar option[value='48']").hide();
+                 $("#Timeslackencar option[value='54']").hide();
+                 $("#Timeslackencar option[value='60']").hide();
+                 $("#Timeslackencar option[value='66']").hide();
+                 $("#Timeslackencar option[value='72']").hide();
+                 $("#Timeslackencar option[value='78']").hide();
+                 $("#Timeslackencar option[value='84']").hide();
                }else{
-                 $("#Timeslackencar option[value='1']").show();
-                 $("#Timeslackencar option[value='1.5']").show();
-                 $("#Timeslackencar option[value='2']").show();
-                 $("#Timeslackencar option[value='2.5']").show();
-                 $("#Timeslackencar option[value='3']").show();
-                 $("#Timeslackencar option[value='3.5']").show();
-                 $("#Timeslackencar option[value='4']").show();
-                 $("#Timeslackencar option[value='4.5']").hide();
-                 $("#Timeslackencar option[value='5']").hide();
-                 $("#Timeslackencar option[value='5.5']").hide();
-                 $("#Timeslackencar option[value='6']").hide();
-                 $("#Timeslackencar option[value='6.5']").hide();
-                 $("#Timeslackencar option[value='7']").hide();
+                 $("#Timeslackencar option[value='12']").show();
+                 $("#Timeslackencar option[value='18']").show();
+                 $("#Timeslackencar option[value='24']").show();
+                 $("#Timeslackencar option[value='30']").show();
+                 $("#Timeslackencar option[value='36']").show();
+                 $("#Timeslackencar option[value='42']").show();
+                 $("#Timeslackencar option[value='48']").show();
+                 $("#Timeslackencar option[value='54']").hide();
+                 $("#Timeslackencar option[value='60']").hide();
+                 $("#Timeslackencar option[value='66']").hide();
+                 $("#Timeslackencar option[value='72']").hide();
+                 $("#Timeslackencar option[value='78']").hide();
+                 $("#Timeslackencar option[value='84']").hide();
                }
               }
             else{
-              $("#Timeslackencar option[value='1']").hide();
-              $("#Timeslackencar option[value='1.5']").hide();
-              $("#Timeslackencar option[value='2']").hide();
-              $("#Timeslackencar option[value='2.5']").hide();
-              $("#Timeslackencar option[value='3']").hide();
-              $("#Timeslackencar option[value='3.5']").hide();
-              $("#Timeslackencar option[value='4']").hide();
-              $("#Timeslackencar option[value='4.5']").hide();
-              $("#Timeslackencar option[value='5']").hide();
-              $("#Timeslackencar option[value='5.5']").hide();
-              $("#Timeslackencar option[value='6']").hide();
-              $("#Timeslackencar option[value='6.5']").hide();
-              $("#Timeslackencar option[value='7']").hide();
+              $("#Timeslackencar option[value='12']").hide();
+              $("#Timeslackencar option[value='18']").hide();
+              $("#Timeslackencar option[value='24']").hide();
+              $("#Timeslackencar option[value='30']").hide();
+              $("#Timeslackencar option[value='36']").hide();
+              $("#Timeslackencar option[value='42']").hide();
+              $("#Timeslackencar option[value='48']").hide();
+              $("#Timeslackencar option[value='54']").hide();
+              $("#Timeslackencar option[value='60']").hide();
+              $("#Timeslackencar option[value='66']").hide();
+              $("#Timeslackencar option[value='72']").hide();
+              $("#Timeslackencar option[value='78']").hide();
+              $("#Timeslackencar option[value='84']").hide();
             }
           });
 
