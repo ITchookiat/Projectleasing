@@ -92,7 +92,7 @@ class ExcelController extends Controller
                     ->where('cardetails.Approvers_car','!=',Null)
                     ->where('buyers.Contract_buyer','not like', '22%')
                     ->where('buyers.Contract_buyer','not like', '33%')
-                    ->orderBy('buyers.Contract_buyer', 'ASC')
+                    ->orderBy('buyers.Date_Due', 'ASC')
                     ->get()
                     ->toArray();
         }else{
@@ -118,7 +118,7 @@ class ExcelController extends Controller
                     })
                     ->where('buyers.Contract_buyer','not like', '22%')
                     ->where('buyers.Contract_buyer','not like', '33%')
-                    ->orderBy('buyers.Contract_buyer', 'ASC')
+                    ->orderBy('buyers.Date_Due', 'ASC')
                     ->get()
                     ->toArray();
         }
