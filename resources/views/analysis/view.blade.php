@@ -879,6 +879,7 @@
         "responsive": true,
         "autoWidth": false,
         "ordering": true,
+        "order": [[ 1, "asc" ]],
       });
     });
   </script>
