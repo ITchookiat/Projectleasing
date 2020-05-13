@@ -129,9 +129,9 @@
                             <li class="nav-item">
                               <a class="nav-link" id="custom-tabs-2" data-toggle="pill" href="#tabs-2" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false"><i class="fas fa-toggle-on"></i> ตั้งเรื่องยึดทรัพย์(180 วัน)</a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                               <a class="nav-link" id="custom-tabs-3" data-toggle="pill" href="#tabs-3" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false"><i class="fas fa-toggle-on"></i> อัพโหลดเอกสาร</a>
-                            </li>
+                            </li> --}}
                           </ul>
                         </div>
                         <div class="card-body">
@@ -404,11 +404,11 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="tab-pane fade" id="tabs-3" role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
+                            {{-- <div class="tab-pane fade" id="tabs-3" role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
                               <div class="row">
                                 <input type="file" name="Upfile">
                               </div>
-                            </div>
+                            </div> --}}
                           </div>
                         </div>
                       </div>

@@ -1298,11 +1298,11 @@ class LegislationController extends Controller
       }
       elseif ($type == 7) { //ชั้นบังคับคดี
 
-        $file = $request->file('Upfile');
+        // $file = $request->file('Upfile');
 
-        dump($file->getClientOriginalName());
-        dump($file->getClientOriginalExtension());
-        dd($file->getSize());
+        // dump($file->getClientOriginalName());
+        // dump($file->getClientOriginalExtension());
+        // dd($file->getSize());
 
         if($request->get('Paidseguester') != ''){
           $Paidseguester = str_replace(",","",$request->get('Paidseguester'));
