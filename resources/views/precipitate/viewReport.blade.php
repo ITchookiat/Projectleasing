@@ -726,7 +726,7 @@
                           <h5 class="widget-user-desc">4.7 - 5.69</h5>
                         </div>
                         <div class="widget-user-image">
-                          <img class="img-circle" src="{{ asset('/dist/img/112.png') }}" alt="User Avatar">
+                          <img class="img-circle" src="{{ asset('/dist/img/114.png') }}" alt="User Avatar">
                         </div>
                         <div class="card-footer">
                           <div class="row">
