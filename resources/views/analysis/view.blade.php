@@ -145,7 +145,7 @@
                             <a class="nav-link" id="Tab-sub-1" href="{{ route('Analysis',$SubTab) }}" >แบบฟอร์มผู้เช่าซื้อ</a>
                           </li>
                         @endif
-                        
+
                         @if($type != 1 and $type != 8 and $type != 12)
                           <li class="nav-item">
                             <a class="nav-link active" href="#">หน้าหลัก</a>
@@ -183,7 +183,7 @@
                               <label>เลขที่สัญญา : </label>
                               <input type="type" name="Contno" value="{{$contno}}" maxlength="12" style="padding:5px;width:330px;border-radius: 5px 0 5px 5px; font-size:24px;"/>
                               @endif
-      
+
                               <button type="submit" class="btn bg-warning btn-app">
                                 <span class="fas fa-search"></span> Search
                               </button>
@@ -195,7 +195,7 @@
                             <div class="float-right form-inline">
                               <label>จากวันที่ : </label>
                               <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control" />
-      
+
                               <label>ถึงวันที่ : </label>
                               <input type="date" name="Todate" style="width: 180px;" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control" />
 
@@ -209,7 +209,7 @@
                                 <option value="โกลก" {{ ($branch == 'โกลก') ? 'selected' : '' }}>โกลก</otion>
                                 <option value="เบตง" {{ ($branch == 'เบตง') ? 'selected' : '' }}>เบตง</otion>
                               </select>
-    
+
                               <label for="text" class="mr-sm-2">สถานะ : </label>
                               <select name="status" class="form-control" id="text" style="width: 180px">
                                 <option selected value="">---สถานะ---</option>
@@ -263,7 +263,7 @@
                                     @endif
                                     <span class="checkmark"></span>
                                     </label>
-    
+
                                     <label class="con2">
                                     @if ( $row->tran_Price != 0)
                                       <input type="checkbox" class="checkbox" name="Checkcar" id="" checked="checked" disabled>
@@ -298,7 +298,7 @@
                                       <i class="fas fa-eye"></i> ดู
                                     </a>
                                     @endif
-    
+
                                     @if(auth::user()->type == 1 or auth::user()->type == 2)
                                       @if($branch == "")
                                         @php $branch = 'Null'; @endphp
@@ -322,7 +322,7 @@
                                         </a>
                                       @endif
                                     @endif
-    
+
                                   @if(auth::user()->type == 1 or auth::user()->type == 2)
                                     <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',$row->id) }}" style="display:inline;">
                                     {{csrf_field()}}
@@ -364,10 +364,10 @@
                         <div class="float-right form-inline">
                           <label>จากวันที่ : </label>
                           <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control" />
-    
+
                           <label>ถึงวันที่ : </label>
                           <input type="date" name="Todate" style="width: 180px;" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control" />
-    
+
                           <label for="text" class="mr-sm-2">สถานะ : </label>
                           <select name="status" class="form-control" id="text" style="width: 180px">
                             <option selected disabled value="">---สถานะ---</option>
@@ -419,7 +419,7 @@
                                   <a target="_blank" href="{{ action('ReportAnalysController@ReportHomecar',[$row->id,$type]) }}" class="btn btn-info btn-sm" title="พิมพ์">
                                     <i class="fas fa-print"></i> พิมพ์
                                   </a>
-    
+
                                   @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 4)
                                     @php $branch = 'Null'; @endphp
                                     @if($status == "")
@@ -439,7 +439,7 @@
                                       </a>
                                     @endif
                                   @endif
-    
+
                                   @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 4)
                                     <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',$row->id) }}" style="display:inline;">
                                     {{csrf_field()}}
@@ -474,7 +474,7 @@
                           @if(auth::user()->type == 1 or auth::user()->type == 2)
                             <label>เลขที่สัญญา : </label>
                             <input type="type" name="Contno" value="{{$contno}}" maxlength="12" style="padding:5px;width:180px;border-radius: 5px 0 5px 5px; font-size:24px;"/>
-                            <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', 1) }}" class="btn bg-primary btn-app">
+                            <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', 2) }}" class="btn bg-primary btn-app">
                               <span class="fas fa-print"></span> ปริ้นรายการ
                             </a>
                           @else
@@ -492,7 +492,7 @@
 
                           <label>ถึงวันที่ : </label>
                           <input type="date" name="Todate" style="width: 180px;" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control" />
-                          
+
                           <label for="text" class="mr-sm-2">สถานะ : </label>
                           <select name="status" class="form-control" id="text" style="width: 180px">
                             <option selected value="">---สถานะ---</option>
@@ -502,7 +502,7 @@
                         </div>
                       </form>
                       <br><br>
-                      
+
                       <div class="table-responsive">
                         <table class="table table-bordered" id="table1">
                           <thead class="thead-dark bg-gray-light" >
@@ -657,32 +657,32 @@
                       <div class="col-md-12">
                         <form method="get" action="{{ route('Analysis',12) }}">
                           <p></p>
-                          <div class="float-right form-inline">  
+                          <div class="float-right form-inline">
                             @if(auth::user()->type == 1 or auth::user()->type == 2)
                             <label>เลขที่สัญญา : </label>
                             <input type="type" name="Contno" value="{{$contno}}" maxlength="12" style="padding:5px;width:180px;border-radius: 5px 0 5px 5px; font-size:24px;"/>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                              <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', 1) }}" class="btn bg-primary btn-app">
+                              <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', 3) }}" class="btn bg-primary btn-app">
                                 <span class="fas fa-print"></span> ปริ้นรายการ
                               </a>
                             @else
                             <label>เลขที่สัญญา : </label>
                             <input type="type" name="Contno" value="{{$contno}}" maxlength="12" style="padding:5px;width:330px;border-radius: 5px 0 5px 5px; font-size:24px;"/>
                             @endif
-  
+
                             <button type="submit" class="btn bg-warning btn-app">
                               <span class="fas fa-search"></span> Search
                             </button>
                           </div>
                           <br><br><br><p></p>
-                          <div class="float-right form-inline">  
+                          <div class="float-right form-inline">
                             <p></p>
                             <label>จากวันที่ : </label>
                             <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control" />
-  
+
                             <label>ถึงวันที่ : </label>
                             <input type="date" name="Todate" style="width: 180px;" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control" />
-  
+
                             <label for="text" class="mr-sm-2">สถานะ : </label>
                             <select name="status" class="form-control" id="text" style="width: 180px">
                               <option selected value="">---สถานะ---</option>
@@ -737,7 +737,7 @@
                                       @endif
                                       <span class="checkmark"></span>
                                       </label>
-    
+
                                       <label class="con2">
                                       @if ( $row->tran_Price != 0)
                                         <input type="checkbox" class="checkbox" name="Checkcar" id="" checked="checked" disabled>
@@ -778,7 +778,7 @@
                                         <i class="fas fa-eye"></i> ดู
                                       </a>
                                       @endif
-    
+
                                       @if(auth::user()->type == 1 or auth::user()->type == 2)
                                         @if($branch == "")
                                           @php $branch = 'Null'; @endphp
@@ -814,7 +814,7 @@
                                           </a>
                                         @endif
                                       @endif
-    
+
                                     @if(auth::user()->type == 1 or auth::user()->type == 2)
                                       <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',$row->id) }}" style="display:inline;">
                                       {{csrf_field()}}
