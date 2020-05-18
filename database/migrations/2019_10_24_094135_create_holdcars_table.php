@@ -25,6 +25,7 @@ class CreateHoldcarsTable extends Migration
             $table->string('Team_hold')->nullable();
             $table->string('Price_hold')->nullable();
             $table->string('Statuscar')->nullable();
+            $table->string('Status_soldcar')->nullable();
             $table->string('Note_hold')->nullable();
             $table->string('Date_came')->nullable();
             $table->string('Amount_hold')->nullable();

@@ -8,6 +8,7 @@
     @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 4 or auth::user()->branch == 10)
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link" onclick="on_login('http://192.168.200.9/ProjectHomeCar/public/login', '{{ Auth::user()->username }}', '{{ Auth::user()->password_token }}');">
+        <!-- <a href="#" class="nav-link" onclick="on_login('http://localhost/ProjectHomeCar/public/login', '{{ Auth::user()->username }}', '{{ Auth::user()->password_token }}');"> -->
           <i class="fas fa-car"></i> ระบบรถบ้าน
         </a>
       </li>
@@ -82,7 +83,7 @@
         </li>
       </ul>
     </li>
-    
+
     <li class="nav-item">
       <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
         <i class="fas fa-th-large"></i>
@@ -97,7 +98,7 @@
       <div class="modal-header">
       </div>
       <div class="modal-body">
-        <h5 align="center">คุณแน่ใจที่จะออกจากระบบหรือไม่ 
+        <h5 align="center">คุณแน่ใจที่จะออกจากระบบหรือไม่
           <i class="fas fa-question"></i>
         </h5>
       </div>
