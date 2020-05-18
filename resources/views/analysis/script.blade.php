@@ -385,14 +385,6 @@
           //    $('#P2Price').val('0');
           //  }
           // });
-            if(num1 <= 150000 && num4 < 48){
-               var num5 = '6500';
-             }else if(num1 >= 200000 && num1 <= 300000){
-               // var num5 = '6900';
-               var num5 = '6500';
-             }else{
-               var num5 ='0';
-            }
            // console.log(num1);
 
           $('#Typecardetail,#Yearcar').change(function(){
@@ -634,6 +626,22 @@
             }
           });
 
+          if(num1 < 150000){
+            // var num5 = '6500';
+            var num5 = '0';
+            var totaltopcar = parseFloat(num1);
+          }else if(num1 >= 150000 && num4 < 48){
+            var num5 = '6500';
+            var totaltopcar = parseFloat(num1)+parseFloat(num5);
+          }else if(num1 > 300000){
+            var num5 = '0';
+            var totaltopcar = parseFloat(num1);
+          }else {
+            var num5 ='0';
+            var totaltopcar = parseFloat(num1);
+          }
+          // console.log(num5);
+
           if(num4 == '12'){
              var period = '1';
            }else if(num4 == '18'){
@@ -662,7 +670,7 @@
              var period = '7';
           }
 
-          var totaltopcar = parseFloat(num1);
+
           var a = (num2*period)+100;
           var b = (((totaltopcar*a)/100)*1.07)/num4;
           var result = Math.ceil(b/10)*10;
@@ -790,38 +798,38 @@
             }
           }
 
-    function insurance(){
-
-          var num1 = document.getElementById('Insurancecar').value;
-          var num22 = document.getElementById('totalkPrice').value;
-          var num2 = num22.replace(",","");
-          var num33 = document.getElementById('balancePrice').value;
-          var num3 = num33.replace(",","");
-          var num44 = document.getElementById('Topcar').value;
-          var num4 = num44.replace(",","");
-          var num55 = document.getElementById('P2Price').value;
-          var num5 = num55.replace(",","");
-
-            if(num1 == 'มี ป2+ อยู่แล้ว' && num4 >= '200000'){
-                    var total1 = parseFloat(num2) - 6900;
-                    var total2 = parseFloat(num3) + 6900;
-                    document.form1.P2Price.value = 0;
-                    document.form1.totalkPrice.value = addCommas(total1);
-                    document.form1.balancePrice.value = addCommas(total2);
-            }
-            else if(num1 == 'มี ป1 อยู่แล้ว' && num4 >= '200000'){
-                    var total1 = parseFloat(num2) - 6900;
-                    var total2 = parseFloat(num3) + 6900;
-                    document.form1.P2Price.value = 0;
-                    document.form1.totalkPrice.value = addCommas(total1);
-                    document.form1.balancePrice.value = addCommas(total2);
-            }
-            else{
-                    document.form1.P2Price.value = addCommas(num5);
-                    document.form1.totalkPrice.value = addCommas(num2);
-                    document.form1.balancePrice.value = addCommas(num3);
-            }
-
-          }
+    // function insurance(){
+    //
+    //       var num1 = document.getElementById('Insurancecar').value;
+    //       var num22 = document.getElementById('totalkPrice').value;
+    //       var num2 = num22.replace(",","");
+    //       var num33 = document.getElementById('balancePrice').value;
+    //       var num3 = num33.replace(",","");
+    //       var num44 = document.getElementById('Topcar').value;
+    //       var num4 = num44.replace(",","");
+    //       var num55 = document.getElementById('P2Price').value;
+    //       var num5 = num55.replace(",","");
+    //
+    //         if(num1 == 'มี ป2+ อยู่แล้ว' && num4 >= '200000'){
+    //                 var total1 = parseFloat(num2) - 6900;
+    //                 var total2 = parseFloat(num3) + 6900;
+    //                 document.form1.P2Price.value = 0;
+    //                 document.form1.totalkPrice.value = addCommas(total1);
+    //                 document.form1.balancePrice.value = addCommas(total2);
+    //         }
+    //         else if(num1 == 'มี ป1 อยู่แล้ว' && num4 >= '200000'){
+    //                 var total1 = parseFloat(num2) - 6900;
+    //                 var total2 = parseFloat(num3) + 6900;
+    //                 document.form1.P2Price.value = 0;
+    //                 document.form1.totalkPrice.value = addCommas(total1);
+    //                 document.form1.balancePrice.value = addCommas(total2);
+    //         }
+    //         else{
+    //                 document.form1.P2Price.value = addCommas(num5);
+    //                 document.form1.totalkPrice.value = addCommas(num2);
+    //                 document.form1.balancePrice.value = addCommas(num3);
+    //         }
+    //
+    //       }
 
 </script>
