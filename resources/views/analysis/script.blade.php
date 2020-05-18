@@ -385,7 +385,7 @@
           //    $('#P2Price').val('0');
           //  }
           // });
-            if(num1 <= 100000 && num4 < 48){
+            if(num1 <= 150000 && num4 < 48){
                var num5 = '6500';
              }else if(num1 >= 200000 && num1 <= 300000){
                // var num5 = '6900';
@@ -741,13 +741,13 @@
           var ori = document.getElementById('Topcar').value;
           var Topori = ori.replace(",","");
 
-          if(num8 > 6900){
+          if(num8 > 6500){
           var tempresult = parseFloat(num1)+parseFloat(num2)+parseFloat(num3)+parseFloat(num4)+parseFloat(num5)+parseFloat(num6)+parseFloat(num8);
           }else{
           var tempresult = parseFloat(num1)+parseFloat(num2)+parseFloat(num3)+parseFloat(num4)+parseFloat(num5)+parseFloat(num6)+parseFloat(num8);
           }
 
-          if(num8 > 6900){
+          if(num8 > 6500){
           var result = parseFloat(num1)+parseFloat(num2)+parseFloat(num3)+parseFloat(num4)+parseFloat(num5)+parseFloat(num6)+parseFloat(num7)+parseFloat(num8);
           }else {
           var result = parseFloat(num1)+parseFloat(num2)+parseFloat(num3)+parseFloat(num4)+parseFloat(num5)+parseFloat(num6)+parseFloat(num7)+parseFloat(num8);
@@ -756,7 +756,7 @@
           if(num88 == 0){
           var TotalBalance = parseFloat(toptemp)-result;
           }
-          else if(num8 > 6900){
+          else if(num8 > 6500){
           var TotalBalance = parseFloat(toptemp)-result;
           }
           else{
@@ -775,7 +775,7 @@
           document.form1.balancePrice.value = addCommas(TotalBalance);
           document.form1.P2Price.value = addCommas(num8);
           }
-                }
+        }
 
     function percent(){
           var num11 = document.getElementById('Midpricecar').value;
