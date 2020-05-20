@@ -1575,7 +1575,7 @@ class AnalysController extends Controller
         'มี ป2+ อยู่แล้ว' => 'มี ป2+ อยู่แล้ว',
         'ไม่แถม' => 'ไม่แถม',
         'ไม่ซื้อ' => 'ไม่ซื้อ',
-        'ซื้อ ป2+ 1ป' => 'ซื้อ ป2+ 1ป',
+        'ซื้อ ป2+ 1ปี' => 'ซื้อ ป2+ 1ปี',
         'ซื้อ ป1 1ปี' => 'ซื้อ ป1 1ปี',
         'มี ป1 อยู่แล้ว' => 'มี ป1 อยู่แล้ว',
       ];
@@ -1898,10 +1898,10 @@ class AnalysController extends Controller
               $Homecardetail->supporthis_HC = $request->get('supporthisHC');
               $Homecardetail->other_HC = $request->get('otherHC');
               $Homecardetail->sale_HC = $request->get('saleHC');
-    
+
               if ($request->get('approversHC') != Null) {
                 $SetStatusApp = 'อนุมัติ';
-    
+
                 if ($Homecardetail->dateapp_HC == Null) {
                   $Y = date('Y') +543;
                   $Y2 = date('Y');
@@ -1910,19 +1910,19 @@ class AnalysController extends Controller
                   $d = date('d');
                   $datefirst = $d.'-'.$m.'-'.$Y;
                   $dateApp = $Y2.'-'.$m2.'-'.$d;
-    
+
                   $Homecardetail->firstpay_HC = $datefirst;
                   $Homecardetail->dateapp_HC = $dateApp;
                   $SetStatusApp = 'อนุมัติ';
-    
-    
+
+
                   $branchType = Null;
                   if ($Homecardetail->branchUS_HC == "รถบ้าน") {
                       $branchType = 10;
                   }elseif ($Homecardetail->branchUS_HC == "รถยืดขายผ่อน") {
                       $branchType = 11;
                   }
-    
+
                   if ($branchType != Null) {
                     if ($branchType == 10) { //สาขารถบ้าน
                       $connect = Buyer::where('Contract_buyer', 'like', '10%' )
@@ -1933,15 +1933,15 @@ class AnalysController extends Controller
                                         ->orderBy('Contract_buyer', 'desc')->limit(1)
                                         ->get();
                     }
-    
+
                     $contract = $connect[0]->Contract_buyer;
                     $SetStr = explode("/",$contract);
                     $StrNum = $SetStr[1] + 1;
-    
+
                     $num = "1000";
                     $SubStr = substr($num.$StrNum, -4);
                     $StrConn = $SetStr[0]."/".$SubStr;
-    
+
                     $GetIdConn = Buyer::where('id',$id)->first();
                       $GetIdConn->Contract_buyer = $StrConn;
                     $GetIdConn->update();
@@ -1950,7 +1950,7 @@ class AnalysController extends Controller
               }else {
                 $SetStatusApp = 'รออนุมัติ';
               }
-    
+
               $Homecardetail->approvers_HC = $request->get('approversHC');
               $Homecardetail->totalinstalments1_HC = $request->get('totalinstalments1HC');
               $Homecardetail->statusapp_HC = $SetStatusApp;
