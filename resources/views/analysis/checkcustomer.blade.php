@@ -31,21 +31,10 @@
   }
 @endphp
 
-<link type="text/css" rel="stylesheet" href="{{ asset('css/magiczoomplus.css') }}"/>
-<script type="text/javascript" src="{{ asset('js/magiczoomplus.js') }}"></script>
-
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css">
-
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css"/>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/js/fileinput.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/themes/fa/theme.js" type="text/javascript"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" type="text/javascript"></script>
-
-<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
 
     <!-- <section class="content-header">
       <h1>
@@ -85,19 +74,7 @@
 
             <div class="row">
               <div class="col-md-12">
-                <form method="get" action="{{ route('Analysis',10) }}">
-                  <div align="right" class="form-inline">
-                    <label>เลขที่สัญญา : </label>
-                    @if($data == null)
-                      <input type="type" name="Contno" maxlength="12" style="padding:5px;width:250px;border-radius: 5px 0 5px 5px; font-size:24px;"/>
-                    @else
-                      <input type="type" name="Contno" value="{{$Contno}}" maxlength="12" style="padding:5px;width:250px;border-radius: 5px 0 5px 5px; font-size:24px;"/>
-                    @endif
-                    <button type="submit" class="btn btn-warning btn-app">
-                      <span class="glyphicon glyphicon-search"></span> Search
-                    </button>
-                  </div>
-                </form>
+
                 <hr>
                 <div class="row">
                   <div class="col-md-4">
@@ -412,6 +389,367 @@
 
         </div>
 
+      </div>
+    </section>
+
+    <section class="content">
+      <div class="content-header">
+        @if(session()->has('success'))
+          <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+            <strong>สำเร็จ!</strong> {{ session()->get('success') }}
+          </div>
+        @endif
+        @if (count($errors) > 0)
+          <div class="alert alert-danger">
+            <ul>
+              @foreach($errors->all() as $error)
+                <li>กรุณากรอกข้อมูลอีกครั้ง ({{$error}}) </li>
+              @endforeach
+            </ul>
+          </div>
+        @endif
+
+        <section class="content">
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <div class="row">
+                      <div class="col-4">
+                        <div class="form-inline">
+                          <h4>
+                          เช็คข้อมูลลูกค้าปรับโครงสร้างหนี้
+                          </h4>
+                        </div>
+                      </div>
+                      <div class="col-8">
+                        <div class="row">
+                          <div class="col-8">
+                          </div>
+                          <div class="col-4">
+                            <form method="get" action="{{ route('Analysis',10) }}">
+                              <div align="right" class="form-inline">
+                                <label>เลขที่สัญญา : </label>
+                                @if($data == null)
+                                  <input type="type" name="Contno" maxlength="12" style="padding:3px;width:150px;border-radius: 5px 0 5px 5px; font-size:20px;"/>
+                                @else
+                                  <input type="type" name="Contno" value="{{$Contno}}" maxlength="12" style="padding:3px;width:150px;border-radius: 5px 0 5px 5px; font-size:20px;"/>
+                                @endif
+                                <button type="submit" class="btn btn-info">
+                                  <span class="fas fa-search"></span>
+                                </button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body text-sm">
+
+                    <div class="row">
+                      <div class="col-md-12">
+
+                          <div class="card card-warning">
+                            <div class="card-header">
+                              <h3 class="card-title">ข้อมูลทั่วไป</h3>
+                              <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                                </button>
+                              </div>
+                            </div>
+                            <div class="card-body">
+                              <div class="row">
+                                <div class="col-4">
+                                  <div class="float-right form-inline">
+                                  <label>เลขที่สัญญา : </label>
+                                  @if($data == null)
+                                  <input type="text" class="form-control" style="width: 150px;background-color:white;" readonly/>
+                                  @else
+                                  <input type="text" value="{{$data[0]->CONTNO}}" class="form-control" style="width: 150px;background-color:white;" readonly/>
+                                  @endif
+                                  </div>
+                                </div>
+                                <div class="col-3">
+                                  <div class="float-right form-inline">
+                                  <label>ชื่อลูกค้า : </label>
+                                  @if($data == null)
+                                    <input type="text" class="form-control" style="width: 150px;background-color:white;" readonly/>
+                                  @else
+                                    <input type="text" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data[0]->SNAM))}}{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data[0]->NAME1))}}   {{iconv('TIS-620', 'utf-8',str_replace(" ","",$data[0]->NAME2))}}" class="form-control" style="width: 150px;background-color:white;" readonly/>
+                                  @endif
+                                  </div>
+                                </div>
+                                <div class="col-3">
+                                  <div class="float-right form-inline">
+                                    <label><font color="red">อายุ</font> : </label>
+                                    @if($data == null)
+                                      <input type="text" class="form-control" style="width: 150px;background-color:white;" readonly/>
+                                    @else
+                                      <input type="text" value="{{$data[0]->AGE}}" class="form-control" style="width: 150px;background-color:white;" readonly/>
+                                    @endif
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-5">
+                                  <div class="float-right form-inline">
+                                  <label>ยี่ห้อ : </label>
+                                  <select name="Brandcar" class="form-control" style="width: 250px;">
+                                    <option value="" disabled selected>--- เลือกยี่ห้อ ---</option>
+                                    <option value="ISUZU">ISUZU</option>
+                                    <option value="MITSUBISHI">MITSUBISHI</option>
+                                    <option value="TOYOTA">TOYOTA</option>
+                                    <option value="MAZDA">MAZDA</option>
+                                    <option value="FORD">FORD</option>
+                                    <option value="NISSAN">NISSAN</option>
+                                    <option value="HONDA">HONDA</option>
+                                    <option value="CHEVROLET">CHEVROLET</option>
+                                    <option value="MG">MG</option>
+                                    <option value="SUZUKI">SUZUKI</option>
+                                  </select>
+                                  </div>
+                                </div>
+                                <div class="col-5">
+                                  <div class="float-right form-inline">
+                                  <label>ทะเบียน : </label>
+                                  <input type="text" name="Number_Regist" class="form-control" style="width: 250px;" placeholder="ป้อนทะเบียน" >
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-5">
+                                  <div class="float-right form-inline">
+                                  <label>ปี : </label>
+                                  <select name="Yearcar" class="form-control" style="width: 250px;">
+                                    <option value="" disabled selected>--- เลือกปี ---</option>
+                                    @php
+                                        $Year = date('Y');
+                                    @endphp
+                                    @for ($i = 0; $i < 30; $i++)
+                                        <option value="{{ $Year }}">{{ $Year }}</option>
+                                        @php
+                                            $Year -= 1;
+                                        @endphp
+                                    @endfor
+                                  </select>
+                                  </div>
+                                </div>
+                                <div class="col-5">
+                                  <div class="float-right form-inline">
+                                  <label>วันที่ยึด : </label>
+                                  <input type="date" name="Datehold" class="form-control" style="width: 250px;" value="{{ date('Y-m-d') }}">
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-5">
+                                  <div class="float-right form-inline">
+                                  <label>ทีมยึด : </label>
+                                  <select name="Teamhold" class="form-control" style="width: 250px">
+                                    <option selected value="">---เลือกทีมยึด---</option>
+                                      <option value="008">008 - เจ๊ะฟารีด๊ะห์ เจ๊ะกาเดร์</otion>
+                                      <option value="102">102 - นายอับดุลเล๊าะ กาซอ</otion>
+                                      <option value="104">104 - นายอนุวัฒน์ อับดุลรานี</otion>
+                                      <option value="105">105 - นายธีรวัฒน์ เจ๊ะกา</otion>
+                                      <option value="112">112 - นายราชัน เจ๊ะกา</otion>
+                                      <option value="113">113 - นายฟิฏตรี วิชา</otion>
+                                      <option value="114">114 - นายอานันท์ กาซอ</otion>
+                                  </select>
+                                  </div>
+                                </div>
+                                <div class="col-5">
+                                  <div class="float-right form-inline">
+                                  <label>ค่ายึด : </label>
+                                  <input type="text" id="Pricehold" name="Pricehold" class="form-control" style="width: 250px;" placeholder="ป้อนค่ายึด" oninput="comma();">
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-5">
+                                  <div class="float-right form-inline">
+                                  <label><font color="red">สถานะรถ : </font></label>
+                                  <select name="Statuscar" class="form-control" style="width: 250px">
+                                    <option selected value="">---เลือกสถานะ---</option>
+                                      <option value="1">ยึดจากลูกค้าครั้งแรก</otion>
+                                      <option value="2">ลูกค้ามารับรถคืน</otion>
+                                      <option value="3">ยึดจากลูกค้าครั้งที่ 2</otion>
+                                      <option value="4">รับรถจากของกลาง</otion>
+                                      <option value="5">ส่งรถบ้าน</otion>
+                                      <option value="6">ลูกค้าส่งรถคืน</otion>
+                                  </select>
+                                  </div>
+                                </div>
+                                <div class="col-5">
+                                  <div class="float-right form-inline">
+                                  <label style="vertical-align: top;">รายละเอียด : </label>
+                                  <textarea name="Note" class="form-control" placeholder="ป้อนรายละเอียด" rows="2" style="width: 250px;"></textarea>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <hr>
+                              <div class="row">
+                                <div class="col-5">
+                                  <div class="float-right form-inline">
+                                  <label>วันที่มารับรถคืน : </label>
+                                  <input type="date" name="Datecame" class="form-control" style="width: 250px;">
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-5">
+                                  <div class="float-right form-inline">
+                                  <label>ค่างวดยึดค้าง : </label>
+                                  <input type="text" id="Amounthold" name="Amounthold" class="form-control" style="width: 250px;" placeholder="ป้อนค่างวดยึดค้าง" oninput="comma();" >
+                                  </div>
+                                </div>
+                                <div class="col-5">
+                                  <div class="float-right form-inline">
+                                  <label>ชำระค่างวดยึด : </label>
+                                  <input type="text" id="Payhold" name="Payhold" class="form-control" style="width: 250px;" placeholder="ป้อนชำระค่างวดยึด" oninput="comma();">
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-5">
+                                  <div class="float-right form-inline">
+                                  <label>วันที่เช็คต้นทุน : </label>
+                                  <input type="date" name="DatecheckCapital" class="form-control" style="width: 250px;">
+                                  </div>
+                                </div>
+                                <div class="col-5">
+                                  <div class="float-right form-inline">
+                                  <label>วันที่ส่งรถบ้าน : </label>
+                                  <input type="date" name="DatesendStockhome" class="form-control" style="width: 250px;">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="card card-warning">
+                            <div class="card-header">
+                              <h3 class="card-title">ข้อมูลผู้เช่าซื้อ</h3>
+                              <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                                </button>
+                              </div>
+                            </div>
+                            <div class="card-body">
+                              <div class="row">
+                                <div class="col-5">
+                                  <div class="float-right form-inline">
+                                  <label>วันที่ส่งจดหมาย : </label>
+                                  <input type="date" name="DatesendLetter" class="form-control" style="width: 250px;">
+                                  </div>
+                                </div>
+                                <div class="col-5">
+                                  <div class="float-right form-inline">
+                                  <label>เลขบาร์โค๊ด : </label>
+                                  <input type="text" name="BarcodeNo" class="form-control" style="width: 250px;" placeholder="ป้อนเลขบาร์โค๊ด">
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-5">
+                                  <div class="float-right form-inline">
+                                  <label>ต้นทุนบัญชี : </label>
+                                  <input type="text" id="CapitalAccount" name="CapitalAccount" class="form-control" style="width: 250px;" placeholder="ป้อนต้นทุนบัญชี" oninput="comma();">
+                                  </div>
+                                </div>
+                                <div class="col-5">
+                                  <div class="float-right form-inline">
+                                  <label>ต้นทุนยอดจัด : </label>
+                                  <input type="text" id="CapitalTopprice" name="CapitalTopprice" class="form-control" style="width: 250px;" placeholder="ป้อนต้นทุนยอดจัด" oninput="comma();">
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-5">
+                                  <div class="float-right form-inline">
+                                  <label style="vertical-align: top;">หมายเหตุ : </label>
+                                  <textarea name="Note2" class="form-control" placeholder="ป้อนหมายเหตุ" rows="2" style="width: 250px;"></textarea>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="card card-warning">
+                            <div class="card-header">
+                              <h3 class="card-title">ข้อมูลผู้ค้ำ</h3>
+                              <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                                </button>
+                              </div>
+                            </div>
+                            <div class="card-body">
+                              <div class="row">
+                                <div class="col-5">
+                                  <div class="float-right form-inline">
+                                  <label>จดหมาย : </label>
+                                  <input type="text" name="Letter" class="form-control" style="width: 250px;" placeholder="ป้อนจดหมาย">
+                                  </div>
+                                </div>
+                                <div class="col-5">
+                                  <div class="float-right form-inline">
+                                    <label>วันส่ง : </label>
+                                    <input type="date" name="Datesend" class="form-control" style="width: 250px;">
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-5">
+                                  <div class="float-right form-inline">
+                                  <label>บาร์โค๊ดผู้ค้ำ : </label>
+                                  <input type="text" name="Barcode2" class="form-control" style="width: 250px;" placeholder="ป้อนบาร์โค๊ด">
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-5">
+                                  <div class="float-right form-inline">
+                                  <label>รับ : </label>
+                                  <!-- <input type="text" name="Accept" class="form-control" style="width: 250px;" placeholder="ป้อนข้อมูล"> -->
+                                  <select name="Accept" class="form-control" style="width: 250px">
+                                    <option selected disabled value="">---เลือก---</option>
+                                      <option value="ได้รับ">ได้รับ</otion>
+                                      <option value="รอส่ง">รอส่ง</otion>
+                                      <option value="ส่งใหม่">ส่งใหม่</otion>
+                                  </select>
+                                  </div>
+                                </div>
+                                <div class="col-5">
+                                  <div class="float-right form-inline">
+                                  <label>ขายได้ : </label>
+                                  <input type="text" name="Soldout" class="form-control" style="width: 250px;" readonly>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+        </section>
       </div>
     </section>
 
