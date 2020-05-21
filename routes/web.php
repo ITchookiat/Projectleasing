@@ -49,7 +49,7 @@ Route::group(['middleware' => 'auth'], function()
     // route::resource('ReportCall','ReportCallController');
 
     // Route::get('/finance/{type}', 'FinanceController@index')->name('finance');
-    // Route::get('/ExportExcel/{type}', 'ExcelController@excel');
+    Route::get('/ExportExcel/{type}', 'ExcelController@excel');
 
     //------------------งานกฏหมาย--------------------//
     Route::post('/Legislation/store/{id}/{type}', 'LegislationController@store')->name('legislation.store');
