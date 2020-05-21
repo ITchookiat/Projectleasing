@@ -1092,11 +1092,12 @@
                             <div class="col-5">
                               <div class="float-right form-inline">
                                 <label>ประกันภัย : </label>
-                                <select id="Insurancecar" name="Insurancecar" class="form-control" style="width: 250px;" onchange="insurance();">
+                                <select id="Insurancecar" name="Insurancecar" class="form-control" style="width: 250px;" onchange="calculate();">
                                   <option value="" selected>--- ประกันภัย ---</option>
+                                  <option value="แถม ป2+ 1ปี">แถม ป2+ 1ปี</option>
                                   <option value="มี ป2+ อยู่แล้ว">มี ป2+ อยู่แล้ว</option>
-                                  <option value="ไม่ซื้อ">ไม่ซื้อ</option>
-                                  <option value="ซื้อ ป2+ 1ป">ซื้อ ป2+ 1ปี</option>
+                                  <option value="ไม่แถม">ไม่แถม</option>
+                                  <option value="ซื้อ ป2+ 1ปี">ซื้อ ป2+ 1ปี</option>
                                   <option value="ซื้อ ป1 1ปี">ซื้อ ป1 1ปี</option>
                                   <option value="มี ป1 อยู่แล้ว">มี ป1 อยู่แล้ว</option>
                                 </select>
@@ -1445,7 +1446,7 @@
                         </div>
                       </div>
                     </div>
-                    
+
                     <input type="hidden" name="patch_type" value="1">
                     <input type="hidden" name="_token" value="{{csrf_token()}}" />
 
