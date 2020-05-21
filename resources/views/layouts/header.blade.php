@@ -13,7 +13,7 @@
       </li>
     @endif
     <li class="nav-item d-none d-sm-inline-block">
-      <a class="nav-link" href="{{ route('datacar',11) }}">
+      <a class="nav-link" href="#">
         <i class="fab fa-accusoft"></i> ระบบขายฝาก
       </a>
     </li>

@@ -1288,6 +1288,18 @@
                             </div>
                           </div>
 
+                          <hr>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <h5 class="text-center"><font color="red">รูปภาพหน้าบัญชี</font></h5>
+                              <div class="form-group">
+                                <div class="file-loading">
+                                  <input id="Account_image" type="file" name="Account_image" accept="image/*" data-min-file-count="1" multiple>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
                           <div class="row">
                             <div class="col-5">
                               <div class="float-right form-inline">
@@ -1759,6 +1771,18 @@
 
   <script type="text/javascript">
     $("#image-file").fileinput({
+      uploadUrl:"{{ route('MasterAnalysis.store') }}",
+      theme:'fa',
+      uploadExtraData:function(){
+        return{
+          _token:"{{csrf_token()}}",
+        }
+      },
+      allowedFileExtensions:['jpg','png','gif'],
+      maxFileSize:10240
+    })
+
+    $("#Account_image").fileinput({
       uploadUrl:"{{ route('MasterAnalysis.store') }}",
       theme:'fa',
       uploadExtraData:function(){

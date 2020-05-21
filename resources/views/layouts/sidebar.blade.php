@@ -273,6 +273,27 @@
             @endif
           </li>
 
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-hand-holding-usd"></i>
+              <p>
+                แผนกการเงิน
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+
+            @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 40)
+              <ul class="nav nav-treeview" style="margin-left: 15px;">
+                <li class="nav-item">
+                  <a href="{{ route('treasury', 1) }}" class="nav-link">
+                    <i class="far fa-dot-circle nav-icon"></i>
+                    <p>รายการ อนุมัติโอนเงิน</p>
+                  </a>
+                </li>
+              </ul>
+            @endif
+          </li>
+
         </ul>
       </nav>
     </div>

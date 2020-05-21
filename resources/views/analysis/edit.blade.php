@@ -496,12 +496,27 @@
                         <div class="col-3">
                           <div class="card-tools d-inline float-right">
                             @if(auth::user()->type == 1 or auth::user()->type == 2)
-                            <button type="submit" class="delete-modal btn btn-success">
-                              <i class="fas fa-save"></i> อัพเดท
-                            </button>
-                            <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}">
-                              <i class="far fa-window-close"></i> ยกเลิก
-                            </a>
+                              @if(auth::user()->type == 1)
+                                <button type="submit" class="delete-modal btn btn-success">
+                                  <i class="fas fa-save"></i> อัพเดท
+                                </button>
+                                <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}">
+                                  <i class="far fa-window-close"></i> ยกเลิก
+                                </a>
+                              @elseif(auth::user()->type == 2)
+                                @if($data->StatusApp_car != 'อนุมัติ')
+                                  <button type="submit" class="delete-modal btn btn-success">
+                                    <i class="fas fa-save"></i> อัพเดท
+                                  </button>
+                                  <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}">
+                                    <i class="far fa-window-close"></i> ยกเลิก
+                                  </a>
+                                @else
+                                  <a class="delete-modal btn btn-danger" href="{{ URL::previous() }}">
+                                    <i class="fas fa-undo"></i> ย้อนกลับ
+                                  </a>
+                                @endif
+                              @endif
                           @else
                             @if($data->StatusApp_car != 'อนุมัติ')
                               <button type="submit" class="delete-modal btn btn-success">
@@ -545,7 +560,7 @@
                     <div class="card-body">
                       <div class="tab-content">
                         <div class="tab-pane fade show active" id="Sub-tab1" role="tabpanel" aria-labelledby="Sub-custom-tab1">
-                          <h3 class="text-center">แบบฟอร์มรายละเอียดผู้เช่าซื้อ</h3>
+                          <h5 class="text-center">แบบฟอร์มรายละเอียดผู้เช่าซื้อ</h5>
                           <p></p>
                             <div class="row">
                               <div class="col-5">
@@ -1050,7 +1065,7 @@
 
                             <div class="row">
                               <div class="col-md-12">
-                                <h3 class="text-center">รูปภาพประกอบ</h3>
+                                <h5 class="text-center">รูปภาพประกอบ</h5>
                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
                                   <div class="file-loading">
                                     <input id="image-file" type="file" name="file_image[]" accept="image/*" data-min-file-count="1" multiple>
@@ -1098,11 +1113,9 @@
                                 </div>
                               </div>
                             </div>
-
-
                         </div>
                         <div class="tab-pane fade" id="Sub-tab2" role="tabpanel" aria-labelledby="Sub-custom-tab2">
-                          <h3 class="text-center">แบบฟอร์มรายละเอียดผู้ค้ำ</h3>
+                          <h5 class="text-center">แบบฟอร์มรายละเอียดผู้ค้ำ</h5>
                           <div class="float-right form-inline">
                             <a class="btn btn-default" title="เพิ่มข้อมูลผู้ค้ำที่ 2" data-toggle="modal" data-target="#modal-default" data-backdrop="static" data-keyboard="false">
                               <i class="fa fa-users fa-lg"></i>
@@ -1489,7 +1502,7 @@
 
                         </div>
                         <div class="tab-pane fade" id="Sub-tab3" role="tabpanel" aria-labelledby="Sub-custom-tab3">
-                          <h3 class="text-center">แบบฟอร์มรายละเอียดรถยนต์</h3>
+                          <h5 class="text-center">แบบฟอร์มรายละเอียดรถยนต์</h5>
                           <p></p>
 
                           <div class="row">
@@ -2002,9 +2015,43 @@
                               </div>
                             </div>
                           </div>
+
+                          <hr>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <h5 class="text-center"><font color="red">รูปภาพหน้าบัญชี</font></h5>
+                              @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                <div class="file-loading">
+                                  <input id="Account_image" type="file" name="Account_image" accept="image/*" data-min-file-count="1" multiple>
+                                </div>
+                              @else
+                                @if($data->Approvers_car == Null)
+                                  <div class="file-loading">
+                                    <input id="Account_image" type="file" name="Account_image" accept="image/*" data-min-file-count="1" multiple>
+                                  </div>
+                                @endif
+                              @endif
+                            </div>
+                          </div>
+
+                          <br>
+                          <div class="row">
+                            <div class="col-12">
+                              <div class="form-inline">
+                                <div class="col-sm-4"></div>
+                                <div class="col-sm-3">
+                                  @if ($data->AccountImage_car != NULL)
+                                    <a href="{{ asset('upload-image/'.$data->AccountImage_car) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true" style="width: 300px; height: auto;">
+                                      <img src="{{ asset('upload-image/'.$data->AccountImage_car) }}">
+                                    </a>
+                                  @endif
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                         <div class="tab-pane fade" id="Sub-tab4" role="tabpanel" aria-labelledby="Sub-custom-tab4">
-                          <h3 class="text-center">แบบฟอร์มรายละเอียดค่าใช้จ่าย</h3>
+                          <h5 class="text-center">แบบฟอร์มรายละเอียดค่าใช้จ่าย</h5>
                           <p></p>
                           
                           <div class="row">
@@ -2130,7 +2177,7 @@
                             </div>
                             <div class="col-5">
                               <div class="float-right form-inline">
-                                <label>ค่าคอมหลังหัก 3% : </label>
+                                <label>ค่าคอมหลังหัก 1.5% : </label>
                                 <input type="text" id="commitPrice" name="commitPrice" value="{{number_format($data->commit_Price, 2)}}" class="form-control" style="width: 250px;" placeholder="ค่าคอมหลังหัก" readonly/>
                               </div>
                             </div>
@@ -2573,6 +2620,18 @@
 
   <script type="text/javascript">
     $("#image-file").fileinput({
+      uploadUrl:"{{ route('MasterAnalysis.store') }}",
+      theme:'fa',
+      uploadExtraData:function(){
+        return{
+          _token:"{{csrf_token()}}",
+        }
+      },
+      allowedFileExtensions:['jpg','png','gif'],
+      maxFileSize:10240
+    })
+
+    $("#Account_image").fileinput({
       uploadUrl:"{{ route('MasterAnalysis.store') }}",
       theme:'fa',
       uploadExtraData:function(){

@@ -82,9 +82,12 @@
                             &nbsp;&nbsp;&nbsp;
                           <select name="section_type" class="form-control" style="width: 330px;">
                             <option selected disabled value="" >Select type</option>
-                            <option value="1" > Admin</option>
-                            <option value="2" > ฝ่ายอนุมัติ</option>
-                            <option value="3" > จัดไฟแนนท์</option>
+                            <option value="1"> Admin</option>
+                            <option value="2"> แผนกวิเคราะห์</option>
+                            <option value="3"> แผนกจัดไฟแนนท์</option>
+                            <option value="4"> ฝ่ายอนุมัติรถบ้าน</option>
+                            <option value="21"> แผนกกฏหมาย</option>
+                            <option value="31"> แผนกเร่งรัด</option>
                           </select>
                         </div>
 
@@ -97,14 +100,16 @@
                           <select name="branch" class="form-control" style="width: 330px;">
                             <option selected disabled value="" >เลือกสาขา</option>
                             <option value="99" > Admin</option>
-                            <option value="01" > ปัตตานี</option>
-                            <option value="03" > ยะลา</option>
-                            <option value="04" > นราธิวาส</option>
-                            <option value="05" > สายบุรี</option>
-                            <option value="06" > โกลก</option>
-                            <option value="07" > เบตง</option>
-                            <option value="10" > รถบ้าน</option>
-                            <option value="11" > รถยืดขายผ่อน</option>
+                            <option value="01" > สาขาปัตตานี</option>
+                            <option value="03" > สาขายะลา</option>
+                            <option value="04" > สาขานราธิวาส</option>
+                            <option value="05" > สาขาสายบุรี</option>
+                            <option value="06" > สาขาโกลก</option>
+                            <option value="07" > สาขาเบตง</option>
+                            <option value="10" > สาขารถบ้าน</option>
+                            {{-- <option value="11" > สาขารถยืดขายผ่อน</option> --}}
+                            <option value="21" > แผนกกฏหมาย</option>
+                            <option value="31" > แผนกเร่งรัด</option>
                           </select>
                         </div>
 
