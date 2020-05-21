@@ -70,7 +70,7 @@
 
                 <div class="col-md-12">
                   <div class="table-responsive">
-                    <table class="table table-striped table-valign-middle" id="table">
+                    <table class="table table-striped table-valign-middle" id="table1">
                       <thead>
                         <tr>
                           <th class="text-center" style="width: 50px">ลำดับ</th>
@@ -96,7 +96,7 @@
                               <i class="float-right fas fa-search-dollar"></i>
                             </td>
                             <td class="text-left"> {{$row->Brand_car}} </td>
-                            <td class="text-left"> {{number_format($row->Top_car, 2)}} </td>
+                            <td class="text-left"> {{number_format($row->Top_car)}} </td>
                             <td class="text-left"> {{$row->Approvers_car}} </td>
                             <td class="text-center">
                               @if ($row->UserCheckAc_car != NULL)
@@ -212,16 +212,19 @@
     });
   </script>
 
-  <script>
-    $(function () {
-      $("#table").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        "ordering": true,
-        "order": [[ 1, "desc" ]],
-      });
+<script>
+  $(function () {
+    $("#table1").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+      "ordering": false,
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "order": [[ 1, "asc" ]],
     });
-  </script>
+  });
+</script>
 
   <script type="text/javascript">
     $(".alert").fadeTo(3000, 1000).slideUp(1000, function(){
