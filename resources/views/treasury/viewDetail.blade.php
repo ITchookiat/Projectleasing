@@ -251,7 +251,8 @@
             <div class="col-12">
               <div class="form-inline">
                 <div class="col-sm-6">
-                  <div class="card card-danger">
+                
+                  <div class="card card-warning">
                     <div class="card-header">
                       <h3 class="card-title">ผู้รับเงิน</h3>
       
@@ -290,10 +291,25 @@
                           </div>
                         </div>
                       </div>
+
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="float-right form-inline">
+                            @if($data->Payee_car == $data->Agent_car and $data->Accountbrance_car == $data->Accountagent_car)
+                              <label>ยอดรถ : </label>
+                            @else
+                              <label><font color="red">ยอดโอนรถ : </font></label>
+                            @endif
+                          <input type="text" class="form-control text-right" style="width: 220px; background-color: red; color: white" value="{{number_format($data->balance_Price, 2)}}" readonly/>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                        </div>
+                      </div>
                     </div>
                   </div>
 
-                  <div class="card card-danger">
+                  <div class="card card-warning">
                     <div class="card-header">
                       <h3 class="card-title">ผู้รับค่าคอม</h3>
       
@@ -307,7 +323,7 @@
                         <div class="col-md-6">
                           <div class="float-right form-inline">
                             <label>ชื่อ : </label>
-                          <input type="text" class="form-control text-right" style="width: 220px;" value="{{$data->Agent_car}}" readonly/>
+                            <input type="text" class="form-control text-right" style="width: 220px;" value="{{$data->Agent_car}}" readonly/>
                           </div>
                         </div>
                         <div class="col-md-6">
@@ -332,6 +348,21 @@
                           </div>
                         </div>
                       </div>
+
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="float-right form-inline">
+                            @if($data->Payee_car == $data->Agent_car and $data->Accountbrance_car == $data->Accountagent_car)
+                            <label>ยอดค่าคอม : </label>
+                          @else
+                            <label><font color="red">ยอดโอนค่าคอม : </font></label>
+                          @endif
+                          <input type="text" class="form-control text-right" style="width: 220px; background-color: red; color: white" value="{{number_format($data->commit_Price, 2)}}" readonly/>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                        </div>
+                      </div>
                     </div>
                   </div>
 
@@ -347,10 +378,26 @@
             </div>
           </div>
 
+          @php
+            $sumArcsum = 0;
+          @endphp
+          @if($data->Payee_car == $data->Agent_car and $data->Accountbrance_car == $data->Accountagent_car)
+            @php
+              $sumArcsum = $data->balance_Price + $data->commit_Price;
+            @endphp
+          @endif
+
           <div class="row">
             @if(auth::user()->type != 2)
-              <div class="col-3"></div>
-              <div class="col-7">
+              <div class="col-5">
+                @if($data->Payee_car == $data->Agent_car and $data->Accountbrance_car == $data->Accountagent_car)
+                  <div class="float-right form-inline">
+                    <label><font color="red">* ยอดโอนรวม : </font></label>
+                    <input type="text" class="form-control text-right" style="width: 220px; background-color: red; color: white" value="{{ number_format($sumArcsum, 2) }}" readonly/>
+                  </div>
+                @endif
+              </div>
+              <div class="col-5">
                 <div class="float-right form-inline">
                   <i class="fas fa-grip-vertical"></i>
                   <span class="todo-wrap">
@@ -367,7 +414,7 @@
                   <button type="submit" class="delete-modal btn btn-success">
                     <i class="fas fa-save"></i> บันทึก
                   </button>
-                  <a class="delete-modal btn btn-danger" href="{{ route('treasury', 1) }}">
+                  <a class="delete-modal btn btn-danger" href="{{ URL::previous() }}">
                     <i class="far fa-window-close"></i> ยกเลิก
                   </a>
                 </div>
