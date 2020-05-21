@@ -108,62 +108,6 @@
                           <a class="nav-link" href="#">แบบฟอร์มค่าใช้จ่าย</a>
                         </li>
                       @endif
-
-                      {{-- @if(auth::user()->branch == 10 or auth::user()->branch == 11 or auth::user()->type == 4)
-                        <li class="nav-item">
-                          <a class="nav-link active" href="{{ route('Analysis',4) }}">หน้าหลัก</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="{{ route('Analysis',5) }}">แบบฟอร์มผู้เช่าซื้อ</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="#">แบบฟอร์มผู้ค้ำ</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="#">แบบฟอร์มรถยนต์</a>
-                        </li>
-                      @else
-                        @if($type == 1)
-                          @php
-                            $SubTab = 2;
-                          @endphp
-                        @elseif($type == 8)
-                          @php
-                            $SubTab = 9;
-                          @endphp
-                        @elseif($type == 12)
-                          @php
-                            $SubTab = 13;
-                          @endphp
-                        @endif
-
-                        @if($type == 1 or $type == 8 or $type == 12)
-                          <li class="nav-item">
-                            <a class="nav-link active" id="Tab-Main-1" href="{{ route('Analysis',$type) }}" >หน้าหลัก</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link" id="Tab-sub-1" href="{{ route('Analysis',$SubTab) }}" >แบบฟอร์มผู้เช่าซื้อ</a>
-                          </li>
-                        @endif
-
-                        @if($type != 1 and $type != 8 and $type != 12)
-                          <li class="nav-item">
-                            <a class="nav-link active" href="#">หน้าหลัก</a>
-                          </li>
-                        @endif
-                        <li class="nav-item">
-                          <a class="nav-link" href="#">แบบฟอร์มผู้ค้ำ</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="#">แบบฟอร์มรถยนต์</a>
-                        </li>
-                        @if($type < 8)
-                          <li class="nav-item">
-                            <a class="nav-link" href="#">แบบฟอร์มค่าใช้จ่าย</a>
-                          </li>
-                        @endif
-                      @endif --}}
-
                     </ul>
                   </div>
                   @if($type == 1)
@@ -292,11 +236,11 @@
                                       <i class="fas fa-print"></i> พิมพ์
                                     </a>
                                     @if(auth::user()->type == 3 and $row->StatusApp_car == 'อนุมัติ')
-                                        @php $branch = 'Null'; @endphp
-                                        @php $status = 'Null'; @endphp
-                                    <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
-                                      <i class="fas fa-eye"></i> ดู
-                                    </a>
+                                      @php $branch = 'Null'; @endphp
+                                      @php $status = 'Null'; @endphp
+                                      <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
+                                        <i class="fas fa-eye"></i> ดู
+                                      </a>
                                     @endif
 
                                     @if(auth::user()->type == 1 or auth::user()->type == 2)
@@ -306,9 +250,22 @@
                                       @if($status == "")
                                         @php $status = 'Null'; @endphp
                                       @endif
-                                      <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
-                                        <i class="far fa-edit"></i> แก้ไข
-                                      </a>
+
+                                      @if(auth::user()->type == 1)
+                                        <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
+                                          <i class="far fa-edit"></i> แก้ไข
+                                        </a>
+                                      @elseif(auth::user()->type == 2)
+                                        @if($row->StatusApp_car == 'อนุมัติ')
+                                          <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
+                                            <i class="fas fa-eye"></i> ดู
+                                          </a>
+                                        @else
+                                          <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
+                                            <i class="far fa-edit"></i> แก้ไข
+                                          </a>
+                                        @endif
+                                      @endif
                                     @else
                                       @if($row->Approvers_car == Null)
                                         @if($branch == "")
@@ -324,18 +281,30 @@
                                     @endif
 
                                   @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                    <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',$row->id) }}" style="display:inline;">
-                                    {{csrf_field()}}
-                                      <input type="hidden" name="_method" value="DELETE" />
-                                      <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
-                                        <i class="far fa-trash-alt"></i> ลบ
-                                      </button>
-                                    </form>
+                                    @if(auth::user()->type == 1) 
+                                      <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',$row->id) }}" style="display:inline;">
+                                        {{csrf_field()}}
+                                        <input type="hidden" name="_method" value="DELETE" />
+                                        <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
+                                          <i class="far fa-trash-alt"></i> ลบ
+                                        </button>
+                                      </form>
+                                    @elseif(auth::user()->type == 2)
+                                      @if($row->StatusApp_car != 'อนุมัติ')
+                                        <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',$row->id) }}" style="display:inline;">
+                                          {{csrf_field()}}
+                                          <input type="hidden" name="_method" value="DELETE" />
+                                          <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
+                                            <i class="far fa-trash-alt"></i> ลบ
+                                          </button>
+                                        </form>
+                                      @endif
+                                    @endif
                                   @else
                                     @if($row->DocComplete_car == Null)
                                       @if($row->StatusApp_car != 'อนุมัติ')
                                         <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',$row->id) }}" style="display:inline;">
-                                        {{csrf_field()}}
+                                          {{csrf_field()}}
                                           <input type="hidden" name="_method" value="DELETE" />
                                           <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
                                             <i class="far fa-trash-alt"></i> ลบ

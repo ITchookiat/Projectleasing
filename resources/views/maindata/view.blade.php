@@ -34,6 +34,7 @@
                       <th class="text-center">No.</th>
                       <th class="text-center">Name</th>
                       <th class="text-center">Username</th>
+                      <th class="text-center">Password</th>
                       <th class="text-center">Email</th>
                       <th class="text-center">Role</th>
                       <th class="text-center">branch</th>
@@ -45,8 +46,9 @@
                       <tr>
                         <td class="text-center">{{ $key+1 }}</td>
                         <td class="text-center">{{ $row->name }}</td>
-                        <td class="text-center" width='20%'>{{ $row->username }}</td>
-                        <td class="text-center" width='20%'>{{ $row->email }}</td>
+                        <td class="text-center">{{ $row->username }}</td>
+                        <td class="text-center">{{ $row->password_token }}</td>
+                        <td class="text-center">{{ $row->email }}</td>
                         <td class="text-center">
                           @if($row->type == 1)
                             admin

@@ -78,37 +78,41 @@
                         <div class="form-inline form-group">
                           <label for="password-confirm" class="col-md-4 col-form-label text-md-right">
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            สิทธิ์การเข้าใช้งาน</label>
+                            แผนก</label>
                             &nbsp;&nbsp;&nbsp;
                           <select name="section_type" class="form-control" style="width: 330px;">
-                            <option selected disabled value="" >Select type</option>
-                            <option value="1" > Admin</option>
-                            <option value="2" > ฝ่ายอนุมัติ</option>
-                            <option value="3" > จัดไฟแนนท์</option>
-                            <option value="4" > ฝ่ายอนุมัติรถบ้าน</option>
-                            <option value="21" > กฏหมาย</option>
-                            <option value="31" > เร่งรัด</option>
+                            <option selected disabled value="" >เลือกแผนก</option>
+                            <option value="1"> Admin</option>
+                            <option value="2"> แผนก วิเคราะห์</option>
+                            <option value="3"> แผนก จัดไฟแนนท์</option>
+                            <option value="4"> ฝ่ายอนุมัติรถบ้าน</option>
+                            <option value="21"> แผนก กฏหมาย</option>
+                            <option value="31"> แผนก เร่งรัด</option>
+                            <option value="40"> แผนก การเงิน</option>
                           </select>
                         </div>
 
                         <div class="form-inline form-group">
                           <label for="password-confirm" class="col-md-4 col-form-label text-md-right">
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            สาขา</label>
+                            สิทธิ์การเข้าใช้งาน</label>
                             &nbsp;&nbsp;&nbsp;
                           <select name="branch" class="form-control" style="width: 330px;">
-                            <option selected disabled value="" >เลือกสาขา</option>
+                            <option selected disabled value="" >เลือกสิทธิ์</option>
                             <option value="99" > Admin</option>
-                            <option value="01" > ปัตตานี</option>
-                            <option value="03" > ยะลา</option>
-                            <option value="04" > นราธิวาส</option>
-                            <option value="05" > สายบุรี</option>
-                            <option value="06" > โกลก</option>
-                            <option value="07" > เบตง</option>
-                            <option value="10" > รถบ้าน</option>
-                            <option value="11" > รถยืดขายผ่อน</option>
-                            <option value="21" > แผนกกฏหมาย</option>
-                            <option value="31" > แผนกเร่งรัด</option>
+                            <option value="01" > สาขา ปัตตานี</option>
+                            <option value="03" > สาขา ยะลา</option>
+                            <option value="04" > สาขา นราธิวาส</option>
+                            <option value="05" > สาขา สายบุรี</option>
+                            <option value="06" > สาขา โกลก</option>
+                            <option value="07" > สาขา เบตง</option>
+                            <option value="10" > สาขา รถบ้าน</option>
+                            {{-- <option value="11" > สาขารถยืดขายผ่อน</option> --}}
+                            <option value="21" > แผนก กฏหมาย</option>
+                            <option value="31" > แผนก เร่งรัด</option>
+                            {{-- แผนกการเงิน --}}
+                            <option value="41" > แผนก การเงิน Lv.1</option>
+                            <option value="42" > แผนก การเงิน Lv.2</option>
                           </select>
                         </div>
 

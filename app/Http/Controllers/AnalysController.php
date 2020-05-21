@@ -1171,6 +1171,16 @@ class AnalysController extends Controller
             $SetDatefirst = NULL;
           }
           // dd($SetDatefirst);
+
+        $NameImage = NULL;
+        if ($request->hasFile('Account_image')) {
+          $AccountImage = $request->file('Account_image');
+          $NameImage = $AccountImage->getClientOriginalName();
+
+          $destination_path = public_path('/upload-image');
+          $AccountImage->move($destination_path,$NameImage);
+        }
+
         $Cardetaildb = new Cardetail([
           'Buyercar_id' => $Buyerdb->id,
           'Brand_car' => $request->get('Brandcar'),
@@ -1219,6 +1229,7 @@ class AnalysController extends Controller
           'Note_car' => $request->get('Notecar'),
           'Insurance_key' => $request->get('Insurancekey'),
           'Salemethod_car' => $request->get('Salemethod'),
+          'AccountImage_car' => $NameImage,
         ]);
         $Cardetaildb ->save();
 
@@ -1353,7 +1364,7 @@ class AnalysController extends Controller
         $branch = $branch;
         $status = $status;
 
-        // dd($Getfdate);
+        // dd($data);
       }
       elseif ($type == 4) {
         $data = DB::table('buyers')
@@ -1995,7 +2006,16 @@ class AnalysController extends Controller
             $cardetail->Insurance_key = $request->get('Insurancekey');
             $cardetail->Salemethod_car = $request->get('Salemethod');
 
-          // dd($request->get('Approverscar'));
+            // รูปภาพหน้าบัญชี
+            if ($request->hasFile('Account_image')) {
+              $AccountImage = $request->file('Account_image');
+              $NameImage = $AccountImage->getClientOriginalName();
+      
+              $destination_path = public_path('/upload-image');
+              $AccountImage->move($destination_path,$NameImage);
+
+              $cardetail->AccountImage_car = $NameImage;
+            }
 
             // สถานะ อนุมัติสัญญา
             if ($request->get('Approverscar') != Null) { //กรณี อนุมัติ
@@ -2340,69 +2360,32 @@ class AnalysController extends Controller
       $item7 = Sponsor2::where('Buyer_id2',$id);
 
       $item5 = UploadfileImage::where('Buyerfileimage_id','=',$id)->get();
-
       foreach ($item5 as $key => $value) {
         $itemID = $value->Buyerfileimage_id;
         $itemPath = $value->Name_fileimage;
 
         Storage::delete($itemPath);
       }
+      $ImageAccount = Cardetail::where('Buyercar_id','=',$id)->get();
+      if ($ImageAccount != NULL) {
+        Storage::delete($ImageAccount[0]->AccountImage_car);
+      }
 
-      // $datadelete = DB::table('buyers')
-      //           ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
-      //           ->join('cardetails','Buyers.id','=','cardetails.Buyercar_id')
-      //           ->join('expenses','Buyers.id','=','expenses.Buyerexpenses_id')
-      //           ->where('buyers.id',$id)->first();
-      //
-      // $datacontract = DB::table('buyers')
-      //                 ->orderBy('Contract_buyer', 'ASC')
-      //                 ->get();
-      //
-      // $numcount = count($datacontract);
-      // // dd($numcount);
-      //
-      //   $getnum = 0;
-      //   for ($i=0; $i < $numcount; $i++) {
-      //     // dump($datacontract[$i]->Contract_buyer);
-      //     dump($i);
-      //     if ($datacontract[$i]->Contract_buyer == $datadelete->Contract_buyer) {
-      //       $getnum = $i  + 1;
-      //
-      //       if ($getnum != $numcount) { //ลบข้าม
-      //         $GetContract = $datacontract[$i]->Contract_buyer;
-      //
-      //         $SetStrCon = $GetContract;
-      //         $SetStr = explode("-",$SetStrCon);
-      //         $StrNum = $SetStr[0];
-      //         dd($StrNum);
-      //
-      //         $user = Buyer::find($id);
-      //         $user->Date_Soldout_plus = $GetContract;
-      //
-      //         dump($getnum);
-      //         dump($GetContract);
-      //       }elseif ($getnum == $numcount) {
-      //         dd('sdf');
-      //       }
-      //     }
-      //   }
+      $deleteItem = UploadfileImage::where('Buyerfileimage_id',$itemID);
+      $deleteItem->Delete();
 
-        $deleteItem = UploadfileImage::where('Buyerfileimage_id',$itemID);
-        $deleteItem->Delete();
-
-        $item1->Delete();
-        $item2->Delete();
-        $item3->Delete();
-        $item4->Delete();
-        $item6->Delete();
-        $item7->Delete();
+      $item1->Delete();
+      $item2->Delete();
+      $item3->Delete();
+      $item4->Delete();
+      $item6->Delete();
+      $item7->Delete();
 
       return redirect()->back()->with('success','ลบข้อมูลเรียบร้อย');
     }
 
     public function deleteImageAll($id)
     {
-
       // dd($id);
       $item = UploadfileImage::where('Buyerfileimage_id','=',$id)->get();
 

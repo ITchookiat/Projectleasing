@@ -187,50 +187,50 @@
                   @elseif($type == 2)  {{--ลูกหนี้ฟ้อง--}}
                     <div class="col-md-12">
                       <form method="get" action="{{ route('legislation', 2) }}">
-                          <div class="float-right form-inline">
-                            <div class="btn-group">
-                              <button type="button" class="btn bg-primary btn-app" data-toggle="dropdown">
-                                <span class="fas fa-print"></span> ปริ้นรายงาน
-                              </button>
-                              <ul class="dropdown-menu" role="menu">
-                                <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-4" data-link="{{ route('legislation', 17) }}"> รายงานลูกหนี้</a></li>
-                                <li class="dropdown-divider"></li>
-                                <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-5" data-link="{{ route('legislation', 18) }}"> รายงานลูกหนี้สืบพยาน</a></li>
-                              </ul>
-                            </div>
-                            <button type="submit" class="btn bg-warning btn-app">
-                              <span class="fas fa-search"></span> Search
+                        <div class="float-right form-inline">
+                          <div class="btn-group">
+                            <button type="button" class="btn bg-primary btn-app" data-toggle="dropdown">
+                              <span class="fas fa-print"></span> ปริ้นรายงาน
                             </button>
+                            <ul class="dropdown-menu" role="menu">
+                              <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-4" data-link="{{ route('legislation', 17) }}"> รายงานลูกหนี้</a></li>
+                              <li class="dropdown-divider"></li>
+                              <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-5" data-link="{{ route('legislation', 18) }}"> รายงานลูกหนี้สืบพยาน</a></li>
+                            </ul>
                           </div>
-                          <br><br><br><p></p>
-                          <div class="float-right form-inline">
-                            <label for="text" class="mr-sm-2">สถานะปิดงาน : </label>
-                            <select name="StateLegis" class="form-control" id="text" style="width: 180px">
-                              <option selected value="">--- สถานะ ---</option>
-                              <option value="จ่ายจบก่อนฟ้อง" {{ ($StateLegis == 'จ่ายจบก่อนฟ้อง') ? 'selected' : '' }}>จ่ายจบก่อนฟ้อง</otion>
-                              <option value="ยึดรถก่อนฟ้อง" {{ ($StateLegis == 'ยึดรถก่อนฟ้อง') ? 'selected' : '' }}>ยึดรถก่อนฟ้อง</otion>
-                              <option value="ปิดบัญชีประนอมหนี้" {{ ($StateLegis == 'ปิดบัญชีประนอมหนี้') ? 'selected' : '' }}>ปิดบัญชีประนอมหนี้</otion>
-                              <option value="ยึดรถหลังฟ้อง" {{ ($StateLegis == 'ยึดรถหลังฟ้อง') ? 'selected' : '' }}>ยึดรถหลังฟ้อง</otion>
-                              <option value="หมดอายุความคดี" {{ ($StateLegis == 'หมดอายุความคดี') ? 'selected' : '' }}>หมดอายุความคดี</otion>
-                            </select>
-    
-                            <label for="text" class="mr-sm-2">สถานะ : </label>
-                            <select name="StateCourt" class="form-control" id="text" style="width: 180px">
-                              <option selected value="">--- สถานะ ---</option>
-                              <option value="ชั้นศาล" {{ ($StateCourt == 'ชั้นศาล') ? 'selected' : '' }}>ชั้นศาล</otion>
-                              <option value="ชั้นบังคับคดี" {{ ($StateCourt == 'ชั้นบังคับคดี') ? 'selected' : '' }}>ชั้นบังคับคดี</otion>
-                            </select>
-                          </div>
-                          <br><br>
-                          <div class="float-right form-inline">
-                            <label>จากวันที่ : </label>
-                            <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control" />
-    
-                            <label>ถึงวันที่ : </label>
-                            <input type="date" name="Todate" style="width: 180px;" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control" />
-                          </div>
-                        </form>
+                          <button type="submit" class="btn bg-warning btn-app">
+                            <span class="fas fa-search"></span> Search
+                          </button>
+                        </div>
+                        <br><br><br><p></p>
+                        <div class="float-right form-inline">
+                          <label for="text" class="mr-sm-2">สถานะปิดงาน : </label>
+                          <select name="StateLegis" class="form-control" id="text" style="width: 180px">
+                            <option selected value="">--- สถานะ ---</option>
+                            <option value="จ่ายจบก่อนฟ้อง" {{ ($StateLegis == 'จ่ายจบก่อนฟ้อง') ? 'selected' : '' }}>จ่ายจบก่อนฟ้อง</otion>
+                            <option value="ยึดรถก่อนฟ้อง" {{ ($StateLegis == 'ยึดรถก่อนฟ้อง') ? 'selected' : '' }}>ยึดรถก่อนฟ้อง</otion>
+                            <option value="ปิดบัญชีประนอมหนี้" {{ ($StateLegis == 'ปิดบัญชีประนอมหนี้') ? 'selected' : '' }}>ปิดบัญชีประนอมหนี้</otion>
+                            <option value="ยึดรถหลังฟ้อง" {{ ($StateLegis == 'ยึดรถหลังฟ้อง') ? 'selected' : '' }}>ยึดรถหลังฟ้อง</otion>
+                            <option value="หมดอายุความคดี" {{ ($StateLegis == 'หมดอายุความคดี') ? 'selected' : '' }}>หมดอายุความคดี</otion>
+                          </select>
+  
+                          <label for="text" class="mr-sm-2">สถานะ : </label>
+                          <select name="StateCourt" class="form-control" id="text" style="width: 180px">
+                            <option selected value="">--- สถานะ ---</option>
+                            <option value="ชั้นศาล" {{ ($StateCourt == 'ชั้นศาล') ? 'selected' : '' }}>ชั้นศาล</otion>
+                            <option value="ชั้นบังคับคดี" {{ ($StateCourt == 'ชั้นบังคับคดี') ? 'selected' : '' }}>ชั้นบังคับคดี</otion>
+                          </select>
+                        </div>
                         <br><br>
+                        <div class="float-right form-inline">
+                          <label>จากวันที่ : </label>
+                          <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control" />
+  
+                          <label>ถึงวันที่ : </label>
+                          <input type="date" name="Todate" style="width: 180px;" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control" />
+                        </div>
+                      </form>
+                      <br><br>
                     </div>
                     <div class="col-md-12">
                       <div class="table-responsive">

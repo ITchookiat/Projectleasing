@@ -19,7 +19,7 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function()
   {
-    //admin register
+    //------------------Admin--------------------//
     Route::get('/maindata/register', 'UserController@register')->name('regist');
     Route::post('/maindata/saveregister', 'UserController@Saveregister')->name('Saveregist');
     Route::get('/maindata/view', 'UserController@index')->name('ViewMaindata');
@@ -40,17 +40,18 @@ Route::group(['middleware' => 'auth'], function()
     Route::get('/Analysis/ReportDueDate/{type}', 'ReportAnalysController@ReportDueDate');
     Route::get('/Analysis/ReportHomecar/{id}/{type}', 'ReportAnalysController@ReportHomecar');
 
-    Route::get('/call/viewdetail/{Str1}/{Str2}', 'CallController@viewdetail')->name('callDetail.viewdetail');
-    Route::get('/call/{type}', 'CallController@index')->name('call');
-    Route::get('/Reportcall/{type}', 'ReportCallController@index')->name('reportcall');
-    Route::get('/monthreport/{type}/{fmonth}/{fyear}', 'ReportCallController@monthReport')->name('monthreport');
-    Route::get('/ReportCall/{type}', 'ReportCallController@update')->name('ReportCall.update');
-    Route::get('/GroupCall/{type}', 'ReportCallController@updategroup')->name('updategroup');
-    route::resource('ReportCall','ReportCallController');
+    // Route::get('/call/viewdetail/{Str1}/{Str2}', 'CallController@viewdetail')->name('callDetail.viewdetail');
+    // Route::get('/call/{type}', 'CallController@index')->name('call');
+    // Route::get('/Reportcall/{type}', 'ReportCallController@index')->name('reportcall');
+    // Route::get('/monthreport/{type}/{fmonth}/{fyear}', 'ReportCallController@monthReport')->name('monthreport');
+    // Route::get('/ReportCall/{type}', 'ReportCallController@update')->name('ReportCall.update');
+    // Route::get('/GroupCall/{type}', 'ReportCallController@updategroup')->name('updategroup');
+    // route::resource('ReportCall','ReportCallController');
 
-    Route::get('/finance/{type}', 'FinanceController@index')->name('finance');
-    Route::get('/ExportExcel/{type}', 'ExcelController@excel');
+    // Route::get('/finance/{type}', 'FinanceController@index')->name('finance');
+    // Route::get('/ExportExcel/{type}', 'ExcelController@excel');
 
+    //------------------งานกฏหมาย--------------------//
     Route::post('/Legislation/store/{id}/{type}', 'LegislationController@store')->name('legislation.store');
     Route::get('/Legislation/Savestore/{Str1}/{Str2}/{Realty}/{type}', 'LegislationController@Savestore')->name('legislation.Savestore');
     Route::get('/Legislation/Home/{type}', 'LegislationController@index')->name('legislation');
@@ -62,6 +63,7 @@ Route::group(['middleware' => 'auth'], function()
     Route::get('/Legislation/deleteImageAll/{id}', 'LegislationController@deleteImageAll');
     Route::get('/Legislation/Report/{id}/{type}', 'LegislationController@ReportReceipt')->name('legislation.report');
 
+    //------------------งานเร่งรัด----------------------//
     route::resource('MasterPrecipitate','PrecController');
     Route::get('/Precipitate/Home/{type}', 'PrecController@index')->name('Precipitate');
     Route::get('/Precipitate/ReportPrecDue/{Str1}/{Str2}', 'PrecController@ReportPrecDue');
@@ -70,30 +72,17 @@ Route::group(['middleware' => 'auth'], function()
     Route::patch('/Precipitate/update/{id}/{type}', 'PrecController@update')->name('Precipitate.update');
     Route::delete('/Precipitate/delete/{id}/{type}', 'PrecController@destroy')->name('Precipitate.destroy');
 
-    //--------------ชูเกียรติรถบ้าน-----------------------//
-    Route::get('/ExportPDF', 'DatacarController@ReportPDF');
-    Route::get('/ExportPDFIndex', 'DatacarController@ReportPDFIndex');
-    Route::get('/datacar/viewsee/{id}/{car_type}', 'DatacarController@viewsee')->name('datacar.viewsee');
-    Route::get('/datacar/view/{type}', 'DatacarController@index')->name('datacar');
-    Route::get('/datacar/create/{type}', 'DatacarController@create')->name('datacar.create');
-    Route::post('/datacar/store', 'DatacarController@store')->name('datacar.store');
-    Route::get('/datacar/edit/{id}/{car_type}', 'DatacarController@edit')->name('datacar.edit');
-    Route::patch('/datacar/update/{id}', 'DatacarController@update')->name('datacar.update');
-    Route::patch('/datacar/updateinfo/{id}', 'DatacarController@updateinfo')->name('datacar.updateinfo');
-    Route::delete('/datacar/delete/{id}', 'DatacarController@destroy')->name('datacar.destroy');
-    Route::get('/datacar/Savestore/{Str1}/{Str2}/{type}', 'DatacarController@Savestore')->name('datacar.Savestore');
+    //------------------งานการเงิน---------------------//
+    Route::get('/Treasury/Home/{type}', 'TreasController@index')->name('treasury');
+    Route::get('/Treasury/SearchData/{type}/{id}', 'TreasController@SearchData')->name('SearchData');
+    Route::get('/Treasury/update/{type}/{id}', 'TreasController@updateAnalysis')->name('treasury.updateAnalysis');
+    Route::get('/Treasury/ReportDueDate/{type}', 'TreasController@ReportDueDate')->name('treasury.ReportDueDate');
 
-    route::resource('reportBetween','ReportController');
-    Route::get('/datacar/viewreport/{type}', 'ReportController@index')->name('datacarreport');
-    Route::get('/ExportStockcar', 'ReportController@ReportStockcar');
-
-    //------------------งานทะเบียน------------------------//
+    //------------------งานทะเบียน--------------------//
     Route::get('/regcar/view/{type}', 'RegcarController@index')->name('regcar');
     Route::get('/regcar/create/{type}', 'RegcarController@create')->name('regcar.create');
 
-    //---------------- ยังไม่ใช้งาน --------------------//
-    Route::get('/Report/Home/{type}', 'ReportController@index')->name('report');
-
+    //---------------- logout --------------------//
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
     Route::get('/{name}', 'HomeController@index')->name('index');
 
