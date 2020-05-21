@@ -243,7 +243,7 @@
                                       </a>
                                     @endif
 
-                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 40)
                                       @if($branch == "")
                                         @php $branch = 'Null'; @endphp
                                       @endif
@@ -255,7 +255,7 @@
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                           <i class="far fa-edit"></i> แก้ไข
                                         </a>
-                                      @elseif(auth::user()->type == 2)
+                                      @elseif(auth::user()->type == 2 or auth::user()->type == 40)
                                         @if($row->StatusApp_car == 'อนุมัติ')
                                           <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
                                             <i class="fas fa-eye"></i> ดู
