@@ -388,7 +388,6 @@
           @endif
 
           <div class="row">
-            @if(auth::user()->type != 2)
               <div class="col-5">
                 @if($data->Payee_car == $data->Agent_car and $data->Accountbrance_car == $data->Accountagent_car)
                   <div class="float-right form-inline">
@@ -397,6 +396,7 @@
                   </div>
                 @endif
               </div>
+            @if(auth::user()->type != 2)
               <div class="col-5">
                 <div class="float-right form-inline">
                   <i class="fas fa-grip-vertical"></i>
