@@ -74,11 +74,12 @@
                       <thead>
                         <tr>
                           <th class="text-center" style="width: 50px">ลำดับ</th>
+                          <th class="text-left">สาขา</th>
                           <th class="text-left">ทะเบียน</th>
                           <th class="text-left">ยี่ห้อ</th>
                           <th class="text-left">ยอดจัด</th>
                           <th class="text-left">ผู้อนุมัติ</th>
-                          <th class="text-center" style="width: 250px">สถานะ</th>
+                          <th class="text-center">สถานะ</th>
                           <th class="text-center">ตัวเลือก</th>
                         </tr>
                       </thead>
@@ -86,6 +87,7 @@
                         @foreach($data as $key => $row)
                           <tr>
                             <td class="text-center"> {{$key+1}} </td>
+                            <td class="text-left"> {{$row->branch_car}} </td>
                             <td class="text-left" data-toggle="modal" data-target="#modal-4" data-link="{{ route('SearchData', [1, $row->id]) }}" style="cursor: pointer;"> 
                               <span>{{$row->License_car}}</span>
                               @if ($row->Date_Appcar == date('Y-m-d'))
@@ -108,6 +110,9 @@
                               @endif
                             </td>
                             <td class="text-center">
+                              <a target="_blank" href="{{ action('ReportAnalysController@ReportPDFIndex',[$row->id, 1]) }}" class="btn btn-info btn-sm" title="พิมพ์">
+                                <i class="fas fa-print"></i> พิมพ์
+                              </a>
                               <a data-toggle="modal" data-target="#modal-5" data-link="{{ route('SearchData', [2, $row->id]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                 <i class="far fa-edit"> ตรวจสอบบัญชี</i>
                               </a>
