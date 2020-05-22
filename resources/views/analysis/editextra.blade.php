@@ -681,7 +681,7 @@
                             <div class="float-right form-inline">
                               <label>วัตถุประสงค์ของสินเชื่อ : </label>
                               @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                <select id="objectivecar" name="objectivecar" class="form-control" style="width: 250px;">
+                                <select id="objectivecar" name="objectivecar" class="form-control" style="width: 250px;" oninput="calculate();">
                                   <option value="" selected>--- วัตถุประสงค์ของสินเชื่อ ---</option>
                                   @foreach ($objectivecar as $key => $value)
                                     <option value="{{$key}}" {{ ($key == $data->Objective_car) ? 'selected' : '' }}>{{$value}}</option>
@@ -689,9 +689,9 @@
                                 </select>
                               @else
                                 @if($GetDocComplete != Null)
-                                  <input id="objectivecar" type="text" name="objectivecar" value="{{ $data->Objective_car }}" class="form-control" style="width: 250px;" placeholder="เลือกวัตถุประสงค์ของสินเชื่อ" readonly/>
+                                  <input id="objectivecar" type="text" name="objectivecar" value="{{ $data->Objective_car }}" class="form-control" style="width: 250px;" placeholder="เลือกวัตถุประสงค์ของสินเชื่อ" oninput="calculate();" readonly/>
                                 @else
-                                  <select id="objectivecar" name="objectivecar" class="form-control" style="width: 250px;">
+                                  <select id="objectivecar" name="objectivecar" class="form-control" style="width: 250px;" oninput="calculate();">
                                     <option value="" selected>--- วัตถุประสงค์ของสินเชื่อ ---</option>
                                     @foreach ($objectivecar as $key => $value)
                                     <option value="{{$key}}" {{ ($key == $data->Objective_car) ? 'selected' : '' }}>{{$value}}</option>
