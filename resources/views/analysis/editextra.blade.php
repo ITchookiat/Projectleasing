@@ -1318,7 +1318,7 @@
                                 var vatTop = parseFloat(num1)*0.07;
                               }
 
-                              var vatTop = parseFloat(num1)*0.07;
+                              // var vatTop = parseFloat(num1)*0.07;
                               var newTop = parseFloat(num1)+vatTop;
                               var vat = (100+parseFloat(num2))/100;
                               var result = Math.round((newTop*vat)/12);
