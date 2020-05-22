@@ -29,14 +29,14 @@
             <div class="col-md-5">
               <div class="float-right form-inline">
                 <label>จากวันที่ : </label>
-                <input type="date" name="Fdate" class="form-control" style="width: 170px;"/>
+                <input type="date" name="Fromdate" class="form-control" value="{{ date('Y-m-d') }}" style="width: 170px;"/>
               </div>
             </div>
 
             <div class="col-md-6">
               <div class="float-right form-inline">
                 <label>ถึงวันที่ : </label>
-                <input type="date" name="Tdate" class="form-control" style="width: 170px;"/>
+                <input type="date" name="Todate" class="form-control" value="{{ date('Y-m-d') }}" style="width: 170px;"/>
               </div>
             </div>
           </div>
