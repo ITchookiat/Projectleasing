@@ -349,7 +349,7 @@
                           </div>
                         </div>
                       @else
-                        <div class="col-6">       
+                        <div class="col-6">
                         </div>
                         <div class="col-3">
                           <div class="float-right form-inline">
@@ -760,7 +760,7 @@
                             @endforeach
                           </div>
                         </div>
-                      
+
                       </div>
                       <div class="tab-pane fade" id="Sub-tab2" role="tabpanel" aria-labelledby="Sub-custom-tab2">
                         <h5 class="text-center">แบบฟอร์มรายละเอียดผู้ค้ำ</h5>
@@ -1313,7 +1313,7 @@
                               var vatTop = parseFloat(num1)*0.07;
                               var newTop = parseFloat(num1)+vatTop;
                               var vat = (100+parseFloat(num2))/100;
-                              var result = Math.ceil((newTop*vat)/12);
+                              var result = Math.round((newTop*vat)/12);
                               var tax = vatTop/num4;
                               var tax2 = tax.toFixed(2)*num4;
                               var durate = result-tax;
@@ -1582,7 +1582,7 @@
                       </div>
                     </div>
                   </div>
-                  
+
                   <input type="hidden" name="_method" value="PATCH"/>
 
                   <!-- แบบฟอร์มผู้ค้ำ 2 -->
@@ -1598,7 +1598,7 @@
                               </button>
                             </div>
                           </div>
-                          
+
                           <div class="card-body">
                             <div class="row">
                               <div class="col-5">

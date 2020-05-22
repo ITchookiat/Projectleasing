@@ -655,7 +655,7 @@
                           </div>
                         </div>
                       </div>
-                    
+
                     </div>
                     <div class="tab-pane fade" id="Sub-tab2" role="tabpanel" aria-labelledby="Sub-custom-tab2">
                       <h5 class="text-center">แบบฟอร์มรายละเอียดผู้ค้ำ</h5>
@@ -1200,7 +1200,7 @@
                             }
                             var newTop = parseFloat(num1)+vatTop;
                             var vat = (100+parseFloat(num2))/100;
-                            var result = Math.ceil((newTop*vat)/12);
+                            var result = Math.round((newTop*vat)/12);
                             // var result = (newTop*vat)/12;
                             var tax = vatTop/num4;
                             var tax2 = tax.toFixed(2)*num4;
@@ -1479,7 +1479,7 @@
                 @elseif($type == 13)
                   <input type="hidden" name="patch_type" value="12">
                 @endif
-                
+
                 <input type="hidden" name="_token" value="{{csrf_token()}}" />
 
                 <!-- แบบฟอร์มผู้ค้ำ 2 -->
@@ -1781,7 +1781,7 @@
   </section>
   {{csrf_field()}}
 
-  
+
   {{-- button-to-top --}}
   <script>
     var btn = $('#button');
