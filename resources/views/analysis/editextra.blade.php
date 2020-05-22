@@ -681,7 +681,7 @@
                             <div class="float-right form-inline">
                               <label>วัตถุประสงค์ของสินเชื่อ : </label>
                               @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                <select name="objectivecar" class="form-control" style="width: 250px;">
+                                <select id="objectivecar" name="objectivecar" class="form-control" style="width: 250px;">
                                   <option value="" selected>--- วัตถุประสงค์ของสินเชื่อ ---</option>
                                   @foreach ($objectivecar as $key => $value)
                                     <option value="{{$key}}" {{ ($key == $data->Objective_car) ? 'selected' : '' }}>{{$value}}</option>
@@ -689,9 +689,9 @@
                                 </select>
                               @else
                                 @if($GetDocComplete != Null)
-                                  <input type="text" name="objectivecar" value="{{ $data->Objective_car }}" class="form-control" style="width: 250px;" placeholder="เลือกวัตถุประสงค์ของสินเชื่อ" readonly/>
+                                  <input id="objectivecar" type="text" name="objectivecar" value="{{ $data->Objective_car }}" class="form-control" style="width: 250px;" placeholder="เลือกวัตถุประสงค์ของสินเชื่อ" readonly/>
                                 @else
-                                  <select name="objectivecar" class="form-control" style="width: 250px;">
+                                  <select id="objectivecar" name="objectivecar" class="form-control" style="width: 250px;">
                                     <option value="" selected>--- วัตถุประสงค์ของสินเชื่อ ---</option>
                                     @foreach ($objectivecar as $key => $value)
                                     <option value="{{$key}}" {{ ($key == $data->Objective_car) ? 'selected' : '' }}>{{$value}}</option>
@@ -1309,6 +1309,14 @@
                               var num3 = num33.replace(",","");
                               var num2 = document.getElementById('Interestcar').value;
                               var num4 = document.getElementById('Timeslackencar').value;
+                              var num5 = document.getElementById('objectivecar').value;
+                              console.log(num5);
+
+                              if(num5 == 'พักชำระหนี้ 3 เดือน'){
+                                var vatTop = 0;
+                              }else{
+                                var vatTop = parseFloat(num1)*0.07;
+                              }
 
                               var vatTop = parseFloat(num1)*0.07;
                               var newTop = parseFloat(num1)+vatTop;
