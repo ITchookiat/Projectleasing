@@ -186,6 +186,42 @@
 
     <div class="card-body text-sm">
       @if ($GetType == 1)
+      <div class="row">
+        <div class="col-md-5">
+          <div class="float-right form-inline">
+            <label>ยอดจัด : </label>
+          <input type="text" class="form-control text-right" style="width: 200px;" value="{{number_format($data->Top_car)}}" readonly/>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="float-right form-inline">
+            <label>พรบ. : </label>
+            <input type="text" class="form-control text-right" style="width: 200px;" value="{{number_format($data->act_Price)}}" readonly/>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-5">
+          <div class="float-right form-inline">
+            <label>ยอดปิดบัญชี : </label>
+            <input type="text" class="form-control text-right" style="width: 200px;" value="{{number_format($data->closeAccount_Price)}}" readonly/>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="float-right form-inline">
+            @if($data->P2_Price == "6500" or $data->P2_Price == "0")
+              <label>ซื้อป2+ : </label>
+            @else
+              <label>ซื้อป1 : </label>
+            @endif
+            <input type="text" class="form-control text-right" style="width: 200px;" value="{{number_format($data->P2_Price)}}" readonly/>
+          </div>
+        </div>
+      </div>
+
+
+        <hr>
         <div class="row">
           <div class="col-md-5">
             <div class="float-right form-inline">
