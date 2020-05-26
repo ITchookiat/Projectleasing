@@ -61,6 +61,11 @@ class TreasController extends Controller
             
             return view('treasury.viewReport',compact('type'));
         }
+        elseif ($request->type == 3) {
+            $type = $request->type;
+            
+            return view('treasury.viewReport',compact('type'));
+        }
     }
 
     public function SearchData(Request $request, $type, $id)
@@ -73,8 +78,24 @@ class TreasController extends Controller
                     ->where('buyers.id', $id)
                     ->first();
 
+            if ($data->Payee_car != NULL) {
+                $SetAccount = str_replace ("-","",$data->Accountbrance_car);
+                $SetTell = str_replace ("-","",$data->Tellbrance_car);
+            }else {
+                $SetAccount = "";
+                $SetTell = "";
+            }
+
+            if ($data->Payee_car != NULL) {
+                $SetAccountGT = str_replace ("-","",$data->Accountagent_car);
+                $SetTellGT = str_replace ("-","",$data->Tellagent_car);
+            }else {
+                $SetAccountGT = "";
+                $SetTellGT = "";
+            }
+
             $GetType = $type;
-            return view('treasury.viewDetail', compact('data','GetType'));
+            return view('treasury.viewDetail', compact('data','GetType','SetAccount','SetTell','SetAccountGT','SetTellGT'));
         }    
     }
 
@@ -135,7 +156,31 @@ class TreasController extends Controller
 
             $pdf::WriteHTML($html,true,false,true,false,'');
             $pdf::Output('report.pdf');
-        
+        }
+        elseif ($type == 3) {
+            $dataReport = DB::table('buyers')
+            ->join('cardetails','Buyers.id','=','cardetails.Buyercar_id')
+            ->join('Expenses','Buyers.id','=','Expenses.Buyerexpenses_id')
+            ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+                return $q->whereBetween('cardetails.DateCheckAc_car',[$newfdate,$newtdate]);
+            })
+            ->where('cardetails.UserCheckAc_car','<>',NULL)
+            ->orderBy('buyers.Contract_buyer', 'ASC')
+            ->get();
+
+            dd('ยังไม่เปิดให้ใช้งาน');
+
+            $view = \View::make('treasury.reportTreas' ,compact('dataReport','type','newfdate','newtdate'));
+            $html = $view->render();
+            $pdf = new PDF();
+            $pdf::SetTitle('รายงานแผนกการเงิน');
+            $pdf::AddPage('L', 'A4');
+            $pdf::SetMargins(5, 5, 5, 0);
+            $pdf::SetFont('freeserif', '', 8, '', true);
+            $pdf::SetAutoPageBreak(TRUE, 25);
+
+            $pdf::WriteHTML($html,true,false,true,false,'');
+            $pdf::Output('report.pdf');
         }
     }
 }

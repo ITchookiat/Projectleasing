@@ -49,7 +49,9 @@
                           <span class="fas fa-print"></span> ปริ้นรายงาน
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                          <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-6" data-link="{{ route('treasury', 2) }}"> รายงานอนุมัติโอนเงิน</a></li>
+                          <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-6" data-link="{{ route('treasury', 2) }}"> รายงานอนุมัติประจำวัน</a></li>
+                          <li class="dropdown-divider"></li>
+                          <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-7" data-link="{{ route('treasury', 3) }}"> รายงานโอนเงินประจำวัน</a></li>
                         </ul>
                       </div>
                       <button type="submit" class="btn bg-warning btn-app">
@@ -172,6 +174,19 @@
     </div>
   </div>
 
+  <!-- Pop up รายละเอียดค่าใช้จ่าย -->
+  <div class="modal fade" id="modal-7">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-body">
+          <p>One fine body…</p>
+        </div>
+        <div class="modal-footer justify-content-between">
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   {{-- Popup --}}
   <script>
@@ -189,6 +204,11 @@
       $("#modal-6").on("show.bs.modal", function (e) {
         var link = $(e.relatedTarget).data("link");
         $("#modal-6 .modal-body").load(link, function(){
+        });
+      });
+      $("#modal-7").on("show.bs.modal", function (e) {
+        var link = $(e.relatedTarget).data("link");
+        $("#modal-7 .modal-body").load(link, function(){
         });
       });
     });
