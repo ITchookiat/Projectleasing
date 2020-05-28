@@ -1435,7 +1435,7 @@
                           <div class="col-5">
                             <div class="float-right form-inline">
                                 <label>วันที่ชำระงวดแรก : </label>
-                                <input type="text" name="Dateduefirstcar" value="{{$data->Dateduefirst_car}}" class="form-control" style="width: 250px;" readonly placeholder="วันที่ชำระงวดแรก" />
+                                <input type="date" name="Dateduefirstcar" value="{{$data->Dateduefirst_car}}" class="form-control" style="width: 250px;" placeholder="วันที่ชำระงวดแรก" />
                               </div>
                           </div>
                         </div>
