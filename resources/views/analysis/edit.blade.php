@@ -8,7 +8,7 @@
   $Y2 = date('Y') + 531;
   $m = date('m');
   $d = date('d');
-  //$date = date('Y-m-d');
+  $Currdate = date('2020-05-28');
   $time = date('H:i');
   $date = $Y.'-'.$m.'-'.$d;
   $date2 = $Y2.'-'.'01'.'-'.'01';
@@ -1079,16 +1079,19 @@
                                 @endif
                                 <div class="float-right form-inline">
                                   @if($countImage != 0)
+                                    @php
+                                      $path = $data->License_car;
+                                    @endphp
                                     <br/><br/><br/>
                                     @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                      <a href="{{ action('AnalysController@deleteImageAll',$data->id) }}" class="btn btn-danger pull-left" title="ลบรูปทั้งหมด" onclick="return confirm('คุณต้องการลบรูปทั้งหมดหรือไม่?')"> ลบรูปทั้งหมด..</a>
-                                      <a href="{{ action('AnalysController@deleteImageEach',[$type,$data->id,$fdate,$tdate,$branch,$status]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
+                                      <a href="{{ action('AnalysController@deleteImageAll',[$data->id,$path]) }}" class="btn btn-danger pull-left" title="ลบรูปทั้งหมด" onclick="return confirm('คุณต้องการลบรูปทั้งหมดหรือไม่?')"> ลบรูปทั้งหมด..</a>
+                                      <a href="{{ action('AnalysController@deleteImageEach',[$type,$data->id,$fdate,$tdate,$branch,$status,$path]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
                                         <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ..
                                       </a>
                                     @else
                                       @if($data->Approvers_car == Null)
                                         @if($GetDocComplete == Null)
-                                        <a href="{{ action('AnalysController@deleteImageEach',[$type,$data->id,$fdate,$tdate,$branch,$status]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
+                                        <a href="{{ action('AnalysController@deleteImageEach',[$type,$data->id,$fdate,$tdate,$branch,$status,$path]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
                                           <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ..
                                         </a>
                                         @endif
@@ -1103,13 +1106,23 @@
                             <div class="row">
                               <div class="col-12">
                                 <div class="form-inline">
-                                  @foreach($dataImage as $images)
-                                  <div class="col-sm-3">
-                                    <a href="{{ asset('upload-image/'.$images->Name_fileimage) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true" style="width: 300px; height: auto;">
-                                      <img src="{{ asset('upload-image/'.$images->Name_fileimage) }}">
-                                    </a>
-                                  </div>
-                                  @endforeach
+                                  @if(substr($data->created_at,0,10) < $Currdate)
+                                    @foreach($dataImage as $images)
+                                      <div class="col-sm-3">
+                                        <a href="{{ asset('upload-image/'.$images->Name_fileimage) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true" style="width: 300px; height: auto;">
+                                          <img src="{{ asset('upload-image/'.$images->Name_fileimage) }}">
+                                        </a>
+                                      </div>
+                                    @endforeach
+                                  @else
+                                    @foreach($dataImage as $images)
+                                      <div class="col-sm-3">
+                                        <a href="{{ asset('upload-image/'.$data->License_car.'/'.$images->Name_fileimage) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true" style="width: 300px; height: auto;">
+                                          <img src="{{ asset('upload-image/'.$data->License_car.'/'.$images->Name_fileimage) }}">
+                                        </a>
+                                      </div>
+                                    @endforeach
+                                  @endif
                                 </div>
                               </div>
                             </div>
