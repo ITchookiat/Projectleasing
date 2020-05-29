@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use PDF;
 use DB;
 use Carbon\Carbon;
 
@@ -60,6 +61,11 @@ class TreasController extends Controller
             
             return view('treasury.viewReport',compact('type'));
         }
+        elseif ($request->type == 3) {
+            $type = $request->type;
+            
+            return view('treasury.viewReport',compact('type'));
+        }
     }
 
     public function SearchData(Request $request, $type, $id)
@@ -72,8 +78,24 @@ class TreasController extends Controller
                     ->where('buyers.id', $id)
                     ->first();
 
+            if ($data->Payee_car != NULL) {
+                $SetAccount = str_replace ("-","",$data->Accountbrance_car);
+                $SetTell = str_replace ("-","",$data->Tellbrance_car);
+            }else {
+                $SetAccount = "";
+                $SetTell = "";
+            }
+
+            if ($data->Payee_car != NULL) {
+                $SetAccountGT = str_replace ("-","",$data->Accountagent_car);
+                $SetTellGT = str_replace ("-","",$data->Tellagent_car);
+            }else {
+                $SetAccountGT = "";
+                $SetTellGT = "";
+            }
+
             $GetType = $type;
-            return view('treasury.viewDetail', compact('data','GetType'));
+            return view('treasury.viewDetail', compact('data','GetType','SetAccount','SetTell','SetAccountGT','SetTellGT'));
         }    
     }
 
@@ -93,34 +115,72 @@ class TreasController extends Controller
 
     public function ReportDueDate(Request $request, $type)
     {
-      if ($type == 2) {
+        date_default_timezone_set('Asia/Bangkok');
+        $Y = date('Y');
+        $Y2 = date('Y') +543;
+        $m = date('m');
+        $d = date('d');
+        $date2 = $d.'-'.$m.'-'.$Y2;
 
-        //   $dataDB = DB::table('legislations')
-        //   ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
-        //   ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
-        //   ->leftJoin('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
-        //   ->where('legislations.Contract_legis','=', $request->Contract)
-        //   ->when(!empty($NumberBill), function($q) use($NumberBill){
-        //     return $q->where('legispayments.Jobnumber_Payment',$NumberBill);
-        //   })
-        //   ->when(!empty($Fromdate)  && !empty($Todate), function($q) use ($Fromdate, $Todate) {
-        //     return $q->whereBetween('legispayments.Date_Payment',[$Fromdate,$Todate]);
-        //   })
-        //   ->orderBy('legislations.id', 'ASC')
-        //   ->first();
+        $newfdate = '';
+        $newtdate = '';
 
-        // $pdf = new PDF();
-        // $pdf::SetTitle('ใบเสร็จรับชำระค่างวด');
-        // $pdf::AddPage('L', 'A5');
-        // $pdf::SetMargins(16, 5, 5, 5);
-        // $pdf::SetFont('freeserif', '', 11, '', true);
-        // $pdf::SetAutoPageBreak(TRUE, 5);
+        if ($request->has('Fromdate')) {
+            $newfdate = $request->get('Fromdate');
+        }
+        if ($request->has('Todate')) {
+            $newtdate = $request->get('Todate');
+        }
 
-        // $view = \View::make('legislation.reportCompro' ,compact('data'));
-        // $html = $view->render();
-        // $pdf::WriteHTML($html,true,false,true,false,'');
-        // $pdf::Output('report.pdf');
-        
+        if ($type == 2) {
+            $dataReport = DB::table('buyers')
+                    ->join('cardetails','Buyers.id','=','cardetails.Buyercar_id')
+                    ->join('Expenses','Buyers.id','=','Expenses.Buyerexpenses_id')
+                    ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+                        return $q->whereBetween('cardetails.Date_Appcar',[$newfdate,$newtdate]);
+                    })
+                    ->where('buyers.Contract_buyer','not like', '22%')
+                    ->where('buyers.Contract_buyer','not like', '33%')
+                    ->where('cardetails.Approvers_car','<>','')
+                    ->orderBy('buyers.Contract_buyer', 'ASC')
+                    ->get();
+
+            $view = \View::make('analysis.ReportDueDate' ,compact('dataReport','date2'));
+            $html = $view->render();
+            $pdf = new PDF();
+            $pdf::SetTitle('รายงานนำเสนอ');
+            $pdf::AddPage('L', 'A4');
+            $pdf::SetMargins(5, 5, 5, 0);
+            $pdf::SetFont('freeserif', '', 8, '', true);
+            $pdf::SetAutoPageBreak(TRUE, 25);
+
+            $pdf::WriteHTML($html,true,false,true,false,'');
+            $pdf::Output('report.pdf');
+        }
+        elseif ($type == 3) {
+            $dataReport = DB::table('buyers')
+            ->join('cardetails','Buyers.id','=','cardetails.Buyercar_id')
+            ->join('Expenses','Buyers.id','=','Expenses.Buyerexpenses_id')
+            ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+                return $q->whereBetween('cardetails.DateCheckAc_car',[$newfdate,$newtdate]);
+            })
+            ->where('cardetails.UserCheckAc_car','<>',NULL)
+            ->orderBy('buyers.Contract_buyer', 'ASC')
+            ->get();
+
+            dd('ยังไม่เปิดให้ใช้งาน');
+
+            $view = \View::make('treasury.reportTreas' ,compact('dataReport','type','newfdate','newtdate'));
+            $html = $view->render();
+            $pdf = new PDF();
+            $pdf::SetTitle('รายงานแผนกการเงิน');
+            $pdf::AddPage('L', 'A4');
+            $pdf::SetMargins(5, 5, 5, 0);
+            $pdf::SetFont('freeserif', '', 8, '', true);
+            $pdf::SetAutoPageBreak(TRUE, 25);
+
+            $pdf::WriteHTML($html,true,false,true,false,'');
+            $pdf::Output('report.pdf');
         }
     }
 }

@@ -49,7 +49,9 @@
                           <span class="fas fa-print"></span> ปริ้นรายงาน
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                          <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-6" data-link="{{ route('treasury', 2) }}"> รายงานอนุมัติโอนเงิน</a></li>
+                          <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-6" data-link="{{ route('treasury', 2) }}"> รายงานอนุมัติประจำวัน</a></li>
+                          <li class="dropdown-divider"></li>
+                          <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-7" data-link="{{ route('treasury', 3) }}"> รายงานโอนเงินประจำวัน</a></li>
                         </ul>
                       </div>
                       <button type="submit" class="btn bg-warning btn-app">
@@ -70,15 +72,16 @@
 
                 <div class="col-md-12">
                   <div class="table-responsive">
-                    <table class="table table-striped table-valign-middle" id="table">
+                    <table class="table table-striped table-valign-middle" id="table1">
                       <thead>
                         <tr>
                           <th class="text-center" style="width: 50px">ลำดับ</th>
+                          <th class="text-left">สาขา</th>
                           <th class="text-left">ทะเบียน</th>
                           <th class="text-left">ยี่ห้อ</th>
                           <th class="text-left">ยอดจัด</th>
                           <th class="text-left">ผู้อนุมัติ</th>
-                          <th class="text-center" style="width: 250px">สถานะ</th>
+                          <th class="text-center">สถานะ</th>
                           <th class="text-center">ตัวเลือก</th>
                         </tr>
                       </thead>
@@ -86,6 +89,7 @@
                         @foreach($data as $key => $row)
                           <tr>
                             <td class="text-center"> {{$key+1}} </td>
+                            <td class="text-left"> {{$row->branch_car}} </td>
                             <td class="text-left" data-toggle="modal" data-target="#modal-4" data-link="{{ route('SearchData', [1, $row->id]) }}" style="cursor: pointer;"> 
                               <span>{{$row->License_car}}</span>
                               @if ($row->Date_Appcar == date('Y-m-d'))
@@ -94,7 +98,7 @@
                               <i class="float-right fas fa-search-dollar"></i>
                             </td>
                             <td class="text-left"> {{$row->Brand_car}} </td>
-                            <td class="text-left"> {{number_format($row->Top_car, 2)}} </td>
+                            <td class="text-left"> {{number_format($row->Top_car)}} </td>
                             <td class="text-left"> {{$row->Approvers_car}} </td>
                             <td class="text-center">
                               @if ($row->UserCheckAc_car != NULL)
@@ -108,6 +112,9 @@
                               @endif
                             </td>
                             <td class="text-center">
+                              <a target="_blank" href="{{ action('ReportAnalysController@ReportPDFIndex',[$row->id, 1]) }}" class="btn btn-info btn-sm" title="พิมพ์">
+                                <i class="fas fa-print"></i> พิมพ์
+                              </a>
                               <a data-toggle="modal" data-target="#modal-5" data-link="{{ route('SearchData', [2, $row->id]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                 <i class="far fa-edit"> ตรวจสอบบัญชี</i>
                               </a>
@@ -167,6 +174,19 @@
     </div>
   </div>
 
+  <!-- Pop up รายละเอียดค่าใช้จ่าย -->
+  <div class="modal fade" id="modal-7">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-body">
+          <p>One fine body…</p>
+        </div>
+        <div class="modal-footer justify-content-between">
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   {{-- Popup --}}
   <script>
@@ -184,6 +204,11 @@
       $("#modal-6").on("show.bs.modal", function (e) {
         var link = $(e.relatedTarget).data("link");
         $("#modal-6 .modal-body").load(link, function(){
+        });
+      });
+      $("#modal-7").on("show.bs.modal", function (e) {
+        var link = $(e.relatedTarget).data("link");
+        $("#modal-7 .modal-body").load(link, function(){
         });
       });
     });
@@ -207,16 +232,19 @@
     });
   </script>
 
-  <script>
-    $(function () {
-      $("#table").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        "ordering": true,
-        "order": [[ 1, "desc" ]],
-      });
+<script>
+  $(function () {
+    $("#table1").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+      "ordering": false,
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "order": [[ 1, "asc" ]],
     });
-  </script>
+  });
+</script>
 
   <script type="text/javascript">
     $(".alert").fadeTo(3000, 1000).slideUp(1000, function(){
