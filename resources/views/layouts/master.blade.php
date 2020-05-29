@@ -344,6 +344,10 @@
   <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
   <script src="{{ asset('plugins/input-mask/jquery.inputmask.js') }}"></script>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+  
+  <script src="{{asset('js/sweetAlert.js')}}"></script>
+
   <script>
     $.widget.bridge('uibutton', $.ui.button)
   </script>

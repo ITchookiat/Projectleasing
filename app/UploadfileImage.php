@@ -8,7 +8,7 @@ class UploadfileImage extends Model
 {
   protected $table = 'uploadfile_images';
   protected $primaryKey = 'Buyerfileimage_id';
-  protected $fillable = ['Buyerfileimage_id','Name_fileimage','Size_fileimage'];
+  protected $fillable = ['Buyerfileimage_id','Type_fileimage','Name_fileimage','Size_fileimage'];
 
   public function Buyeruploadfileimages()
   {

@@ -233,7 +233,7 @@
                     <div class="card-header p-0 pt-1">
                       <ul class="nav nav-tabs" id="custom-tabs-five-tab" role="tablist">
                         <li class="nav-item">
-                          <a class="nav-link" href="{{ route('Analysis',1) }}" onclick="return confirm('คุณต้องการออกไปหน้าหลักหรือไม่ ? \n')">หน้าหลัก</a>
+                          <a class="nav-link MainPage" href="{{ route('Analysis',1) }}">หน้าหลัก</a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link active" id="Sub-custom-tab1" data-toggle="pill" href="#Sub-tab1" role="tab" aria-controls="Sub-tab1" aria-selected="false">แบบฟอร์มผู้เช่าซื้อ</a>
@@ -246,6 +246,9 @@
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" id="Sub-custom-tab4" data-toggle="pill" href="#Sub-tab4" role="tab" aria-controls="Sub-tab4" aria-selected="false">แบบฟอร์มค่าใช้จ่าย</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="Sub-custom-tab5" data-toggle="pill" href="#Sub-tab5" role="tab" aria-controls="Sub-tab5" aria-selected="false">Checker</a>
                         </li>
                       </ul>
                     </div>
@@ -1444,8 +1447,72 @@
                             </div>
                           </div>
                         </div>
+                        <div class="tab-pane fade" id="Sub-tab5" role="tabpanel" aria-labelledby="Sub-custom-tab5">
+                          <h5 class="text-center">ข้อมูลลงพื้นที ตรวจสอบ</h5>
+                          <p></p>
+
+                          <div class="row">
+
+                            <div class="col-md-8">  
+                              <div class="card card-danger">
+                                <div class="card-header">
+                                  <h3 class="card-title">รูปภาพ</h3>
+                  
+                                  <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                                    <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                                  </div>
+                                </div>
+                                <div class="card-body">
+                                  <div class="form-group">
+                                    <div class="file-loading">
+                                      <input id="image_checker" type="file" name="image_checker[]" accept="image/*" data-min-file-count="1" multiple>
+                                    </div>
+                                  </div>
+                                  <br><hr>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-md-4">
+                              <div class="card card-danger">
+                                <div class="card-header">
+                                  <h3 class="card-title">แผนที่</h3>
+                                  <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                    <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                                  </div>
+                                </div>
+                                <div class="card-body">
+                                  <div class="row">
+                                    <div class="col-md-12">
+                                      <div class="row">
+                                        <div class="col-md-12">
+                                          <div class="form-inline float-right">
+                                            <label>ละติจูด : </label> 
+                                            <input type="text" name="T_latitude" class="form-control"  placeholder="ป้อนค่าละติจูด" />
+                                          </div>
+                                        </div>
+                                        <br><br>
+                                        <div class="col-md-12">
+                                          <div class="form-inline float-right">
+                                            <label>ลองติจูด : </label> 
+                                            <input type="text" name="T_longitude" class="form-control"  placeholder="ป้อนค่าลองติจูด" />
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <br>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
                       </div>
                     </div>
+                    
 
                     <input type="hidden" name="patch_type" value="1">
                     <input type="hidden" name="_token" value="{{csrf_token()}}" />
@@ -1739,8 +1806,10 @@
                         </div>
                       </div>
                     </div>
+                    
 
                   </div>
+                  
                 </div>
               </div>
             </div>
@@ -1770,6 +1839,7 @@
     });
   </script>
 
+  {{-- image --}}
   <script type="text/javascript">
     $("#image-file").fileinput({
       uploadUrl:"{{ route('MasterAnalysis.store') }}",
@@ -1794,7 +1864,20 @@
       allowedFileExtensions:['jpg','png','gif'],
       maxFileSize:10240
     })
+
+    $("#image_checker").fileinput({
+      uploadUrl:"{{ route('MasterAnalysis.store') }}",
+      theme:'fa',
+      uploadExtraData:function(){
+        return{
+          _token:"{{csrf_token()}}",
+        }
+      },
+      allowedFileExtensions:['jpg','png','gif'],
+      maxFileSize:10240
+    })
   </script>
+
 
   <script type="text/javascript">
     $(".alert").fadeTo(3000, 1000).slideUp(1000, function(){

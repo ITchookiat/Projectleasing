@@ -20,83 +20,11 @@
   <script type="text/javascript" src="{{ asset('js/magiczoomplus.js') }}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/js/fileinput.js" type="text/javascript"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/themes/fa/theme.js" type="text/javascript"></script>
-
-
-  {{-- <style>
-    body {
-      font-family: Arial;
-      margin: 0;
-    }
-    * {
-      box-sizing: border-box;
-    }
-    img {
-      vertical-align: middle;
-    }
-    .container {
-      position: relative;
-    }
-    .mySlides {
-      display: none;
-    }
-    .cursor {
-      cursor: pointer;
-    }
-    .prev,
-    .next {
-      cursor: pointer;
-      position: absolute;
-      top: 40%;
-      width: auto;
-      padding: 16px;
-      margin-top: -50px;
-      color: white;
-      font-weight: bold;
-      font-size: 20px;
-      border-radius: 0 3px 3px 0;
-      user-select: none;
-      -webkit-user-select: none;
-    }
-    .next {
-      right: 0;
-      border-radius: 3px 0 0 3px;
-    }
-    .prev:hover,
-    .next:hover {
-      background-color: rgba(0, 0, 0, 0.8);
-    }
-    .numbertext {
-      color: #f2f2f2;
-      font-size: 12px;
-      padding: 8px 12px;
-      position: absolute;
-      top: 0;
-    }
-    .caption-container {
-      text-align: center;
-      background-color: #222;
-      padding: 2px 16px;
-      color: white;
-    }
-    .row:after {
-      content: "";
-      display: table;
-      clear: both;
-    }
-    .column {
-      float: left;
-      width: 16.66%;
-    }
-    .demo {
-      opacity: 0.6;
-    }
-    .active,
-    .demo:hover {
-      opacity: 1;
-    }
-  </style> --}}
-
-  {{-- <style>
+  
+  <script src="{{ asset('plugins/ekko-lightbox/ekko-lightbox.min.js') }}"></script>
+  <script src="{{ asset('plugins/filterizr/jquery.filterizr.min.js') }}"></script>
+ 
+ <style>
     #todo-list{
     width:100%;
     margin:0 auto 50px auto;
@@ -105,11 +33,11 @@
     position:relative;
     /*box-shadow*/
     -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
-     -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
           box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
     /*border-radius*/
     -webkit-border-radius:5px;
-     -moz-border-radius:5px;
+    -moz-border-radius:5px;
           border-radius:5px;
     }
     #todo-list:before{
@@ -118,7 +46,7 @@
     z-index:-1;
     /*box-shadow*/
     -webkit-box-shadow:0 0 20px rgba(0,0,0,0.4);
-     -moz-box-shadow:0 0 20px rgba(0,0,0,0.4);
+    -moz-box-shadow:0 0 20px rgba(0,0,0,0.4);
           box-shadow:0 0 20px rgba(0,0,0,0.4);
     top:50%;
     bottom:0;
@@ -126,7 +54,7 @@
     right:10px;
     /*border-radius*/
     -webkit-border-radius:100px / 10px;
-     -moz-border-radius:100px / 10px;
+    -moz-border-radius:100px / 10px;
           border-radius:100px / 10px;
     }
     .todo-wrap{
@@ -135,13 +63,13 @@
     padding-left:35px;
     /*box-shadow*/
     -webkit-box-shadow:0 2px 0 -1px #ebebeb;
-     -moz-box-shadow:0 2px 0 -1px #ebebeb;
+    -moz-box-shadow:0 2px 0 -1px #ebebeb;
           box-shadow:0 2px 0 -1px #ebebeb;
     }
     .todo-wrap:last-of-type{
     /*box-shadow*/
     -webkit-box-shadow:none;
-     -moz-box-shadow:none;
+    -moz-box-shadow:none;
           box-shadow:none;
     }
     input[type="checkbox"]{
@@ -166,10 +94,11 @@
     left:0;
     width:0%;
     height:1px;
+    background:#cd4400;
     /*transition*/
     -webkit-transition:.25s ease-in-out;
-     -moz-transition:.25s ease-in-out;
-       -o-transition:.25s ease-in-out;
+    -moz-transition:.25s ease-in-out;
+      -o-transition:.25s ease-in-out;
           transition:.25s ease-in-out;
     }
     .todo:after{
@@ -183,22 +112,22 @@
     left:-25px;
     /*box-shadow*/
     -webkit-box-shadow:inset 0 0 0 2px #d8d8d8;
-     -moz-box-shadow:inset 0 0 0 2px #d8d8d8;
+    -moz-box-shadow:inset 0 0 0 2px #d8d8d8;
           box-shadow:inset 0 0 0 2px #d8d8d8;
     /*transition*/
     -webkit-transition:.25s ease-in-out;
-     -moz-transition:.25s ease-in-out;
-       -o-transition:.25s ease-in-out;
+    -moz-transition:.25s ease-in-out;
+      -o-transition:.25s ease-in-out;
           transition:.25s ease-in-out;
     /*border-radius*/
     -webkit-border-radius:4px;
-     -moz-border-radius:4px;
+    -moz-border-radius:4px;
           border-radius:4px;
     }
     .todo:hover:after{
     /*box-shadow*/
     -webkit-box-shadow:inset 0 0 0 2px #949494;
-     -moz-box-shadow:inset 0 0 0 2px #949494;
+    -moz-box-shadow:inset 0 0 0 2px #949494;
           box-shadow:inset 0 0 0 2px #949494;
     }
     .todo .fa-check{
@@ -223,7 +152,7 @@
     :checked + .todo:after{
     /*box-shadow*/
     -webkit-box-shadow:inset 0 0 0 2px #0eb0b7;
-     -moz-box-shadow:inset 0 0 0 2px #0eb0b7;
+    -moz-box-shadow:inset 0 0 0 2px #0eb0b7;
           box-shadow:inset 0 0 0 2px #0eb0b7;
     }
     :checked + .todo .fa-check{
@@ -231,166 +160,27 @@
     line-height:35px;
     color:#0eb0b7;
     }
+    /* Delete Items */
 
-  </style> --}}
-
-<style>
-  #todo-list{
-  width:100%;
-  margin:0 auto 50px auto;
-  padding:5px;
-  background:white;
-  position:relative;
-  /*box-shadow*/
-  -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
-   -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
-        box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
-  /*border-radius*/
-  -webkit-border-radius:5px;
-   -moz-border-radius:5px;
-        border-radius:5px;
-  }
-  #todo-list:before{
-  content:"";
-  position:absolute;
-  z-index:-1;
-  /*box-shadow*/
-  -webkit-box-shadow:0 0 20px rgba(0,0,0,0.4);
-   -moz-box-shadow:0 0 20px rgba(0,0,0,0.4);
-        box-shadow:0 0 20px rgba(0,0,0,0.4);
-  top:50%;
-  bottom:0;
-  left:10px;
-  right:10px;
-  /*border-radius*/
-  -webkit-border-radius:100px / 10px;
-   -moz-border-radius:100px / 10px;
-        border-radius:100px / 10px;
-  }
-  .todo-wrap{
-  display:block;
-  position:relative;
-  padding-left:35px;
-  /*box-shadow*/
-  -webkit-box-shadow:0 2px 0 -1px #ebebeb;
-   -moz-box-shadow:0 2px 0 -1px #ebebeb;
-        box-shadow:0 2px 0 -1px #ebebeb;
-  }
-  .todo-wrap:last-of-type{
-  /*box-shadow*/
-  -webkit-box-shadow:none;
-   -moz-box-shadow:none;
-        box-shadow:none;
-  }
-  input[type="checkbox"]{
-  position:absolute;
-  height:0;
-  width:0;
-  opacity:0;
-  /* top:-600px; */
-  }
-  .todo{
-  display:inline-block;
-  font-weight:200;
-  padding:10px 5px;
-  height:37px;
-  position:relative;
-  }
-  .todo:before{
-  content:'';
-  display:block;
-  position:absolute;
-  top:calc(50% + 2px);
-  left:0;
-  width:0%;
-  height:1px;
-  background:#cd4400;
-  /*transition*/
-  -webkit-transition:.25s ease-in-out;
-   -moz-transition:.25s ease-in-out;
-     -o-transition:.25s ease-in-out;
-        transition:.25s ease-in-out;
-  }
-  .todo:after{
-  content:'';
-  display:block;
-  position:absolute;
-  z-index:0;
-  height:18px;
-  width:18px;
-  top:9px;
-  left:-25px;
-  /*box-shadow*/
-  -webkit-box-shadow:inset 0 0 0 2px #d8d8d8;
-   -moz-box-shadow:inset 0 0 0 2px #d8d8d8;
-        box-shadow:inset 0 0 0 2px #d8d8d8;
-  /*transition*/
-  -webkit-transition:.25s ease-in-out;
-   -moz-transition:.25s ease-in-out;
-     -o-transition:.25s ease-in-out;
-        transition:.25s ease-in-out;
-  /*border-radius*/
-  -webkit-border-radius:4px;
-   -moz-border-radius:4px;
-        border-radius:4px;
-  }
-  .todo:hover:after{
-  /*box-shadow*/
-  -webkit-box-shadow:inset 0 0 0 2px #949494;
-   -moz-box-shadow:inset 0 0 0 2px #949494;
-        box-shadow:inset 0 0 0 2px #949494;
-  }
-  .todo .fa-check{
-  position:absolute;
-  z-index:1;
-  left:-31px;
-  top:0;
-  font-size:1px;
-  line-height:36px;
-  width:36px;
-  height:36px;
-  text-align:center;
-  color:transparent;
-  text-shadow:1px 1px 0 white, -1px -1px 0 white;
-  }
-  :checked + .todo{
-  color:#717171;
-  }
-  :checked + .todo:before{
-  width:100%;
-  }
-  :checked + .todo:after{
-  /*box-shadow*/
-  -webkit-box-shadow:inset 0 0 0 2px #0eb0b7;
-   -moz-box-shadow:inset 0 0 0 2px #0eb0b7;
-        box-shadow:inset 0 0 0 2px #0eb0b7;
-  }
-  :checked + .todo .fa-check{
-  font-size:20px;
-  line-height:35px;
-  color:#0eb0b7;
-  }
-  /* Delete Items */
-
-  .delete-item{
-  display:block;
-  position:absolute;
-  height:36px;
-  width:36px;
-  line-height:36px;
-  right:0;
-  top:0;
-  text-align:center;
-  color:#d8d8d8;
-  opacity:0;
-  }
-  .todo-wrap:hover .delete-item{
-  opacity:1;
-  }
-  .delete-item:hover{
-  color:#cd4400;
-  }
-</style>
+    .delete-item{
+    display:block;
+    position:absolute;
+    height:36px;
+    width:36px;
+    line-height:36px;
+    right:0;
+    top:0;
+    text-align:center;
+    color:#d8d8d8;
+    opacity:0;
+    }
+    .todo-wrap:hover .delete-item{
+    opacity:1;
+    }
+    .delete-item:hover{
+    color:#cd4400;
+    }
+  </style>
 
   <section class="content">
     <div class="content-header">
@@ -552,6 +342,9 @@
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" id="Sub-custom-tab4" data-toggle="pill" href="#Sub-tab4" role="tab" aria-controls="Sub-tab4" aria-selected="false">แบบฟอร์มค่าใช้จ่าย</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="Sub-custom-tab5" data-toggle="pill" href="#Sub-tab5" role="tab" aria-controls="Sub-tab4" aria-selected="false">Checker</a>
                         </li>
                       </ul>
                     </div>
@@ -2205,6 +1998,142 @@
                               </div>
                           </div>
                         </div>
+                        <div class="tab-pane fade" id="Sub-tab5" role="tabpanel" aria-labelledby="Sub-custom-tab5">
+                          <h5 class="text-center">ข้อมูลลงพื้นที ตรวจสอบ</h5>
+                          <p></p>
+
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="card card-danger">
+                                <div class="card-header">
+                                  <h3 class="card-title">รูปภาพ</h3>
+                  
+                                  <div class="card-tools">
+                                    @if($countImage != 0)
+                                      <a href="{{ action('LegislationController@deleteImageAll',$id) }}" title="ลบรูปทั้งหมด" onclick="return confirm('คุณต้องการลบรูปทั้งหมดหรือไม่?')" class="btn btn-box-tool">
+                                        <i class="fas fa-trash"></i>
+                                      </a>
+                                    @endif
+                                    <button type="button" class="btn btn-tool" onclick="showImg()" title="แสดงที่เพิ่มรูป"><i class="fa fa-eye"></i></button>
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                                    <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                                  </div>
+                                </div>
+                                <div class="card-body">
+
+                                  <div class="form-group">
+                                    <div class="file-loading">
+                                      <input id="image_checker" type="file" name="image_checker[]" accept="image/*" data-min-file-count="1" multiple>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="col-12">
+                                  <div class="card card-primary">
+                                    <div class="card-header">
+                                      <div class="card-title">
+                                        Ekko Lightbox
+                                      </div>
+                                    </div>
+                                    <div class="card-body">
+
+                                      @if($data->Nowlicense_car != NULL)
+                                        @php
+                                          $Setlisence = $data->Nowlicense_car;
+                                        @endphp
+                                      @elseif($data->License_car != NULL)
+                                        @php
+                                          $Setlisence = $data->License_car;
+                                        @endphp
+                                      @endif
+
+                                      <div class="row">
+                                        @foreach($dataImage as $key => $images)
+                                          @if($images->Type_fileimage == "2")
+                                            <div class="col-sm-2">
+                                              <a href="{{ asset('upload-image/'.$Setlisence.'/'.$images->Name_fileimage) }}" data-toggle="lightbox" data-title="sample 1 - white">
+                                                <img src="{{ asset('upload-image/'.$Setlisence.'/'.$images->Name_fileimage) }}" class="img-fluid mb-2" alt="white sample">
+                                              </a>
+                                            </div>
+                                          @endif
+                                        @endforeach
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                {{-- <div class="col-12">
+                                  <div class="card card-primary">
+                                    <div class="card-header">
+                                      <div class="card-title">
+                                        Ekko Lightbox
+                                      </div>
+                                    </div>
+                                    <div class="card-body">
+                                      @if($data->Nowlicense_car != NULL)
+                                        @php
+                                          $Setlisence = $data->Nowlicense_car;
+                                        @endphp
+                                      @elseif($data->License_car != NULL)
+                                        @php
+                                          $Setlisence = $data->License_car;
+                                        @endphp
+                                      @endif
+
+                                      <div class="row">
+                                        <div class="col-sm-2">
+                                          <a href="{{ asset('upload-image/'.$Setlisence.'/'.$images->Name_fileimage) }}" data-toggle="lightbox" data-title="sample 1 - white" data-gallery="gallery">
+                                            <img src="{{ asset('upload-image/'.$Setlisence.'/'.$images->Name_fileimage) }}" class="img-fluid mb-2" alt="white sample">
+                                          </a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div> --}}
+
+                                {{-- @if($countImage > 0)
+                                  <div class="container1">
+                                    @foreach($dataImage as $key => $images)
+                                      @if($images->Type_fileimage == "2")
+                                        <div class="numbertext">{{$key+1}} / {{$countImage}}</div>
+                                        <img class="img-responsive" src="{{ asset('upload-image/'.$Setlisence.'/'.$images->Name_fileimage) }}" style="width:675px; height:400px;">
+                                      @endif
+                                    @endforeach
+                                  </div>
+                                @endif --}}
+
+                              </div>
+                            </div>
+
+                            {{-- <div class="col-md-6">
+                              <div class="card card-danger">
+                                <div class="card-header">
+                                  <h3 class="card-title">แผนที่</h3>
+                  
+                                  <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" onclick="showMap()" title="แสดงละติจูดและลองจิจูด"><i class="fa fa-eye"></i></button>
+                                    <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                    <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                                  </div>
+                                </div>
+                                <div class="card-body">
+                                  <div class="row">
+                                    <div class="col-md-12">
+                                      <div id="myLat" style="display:none;">
+                                        <div class="form-inline" align="center">
+                                          <label>ละติจูด : </label> <input type="text" name="latitude" class="form-control" style="width:175px" value="{{ $lat }}"/>
+                                          <label>ลองจิจูด : </label> <input type="text" name="longitude" class="form-control" style="width:175px" value="{{ $long }}"/>
+                                        </div>
+                                        <br><br>
+                                      </div>
+                                      <div id="map" style="width:100%;height:63vh"></div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div> --}}
+                          </div>
+                        </div>
                       </div>
                     </div>
 
@@ -2621,6 +2550,23 @@
 
   <script>
     $(function () {
+      $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+        event.preventDefault();
+        $(this).ekkoLightbox({
+          alwaysShowClose: true
+        });
+      });
+  
+      // $('.filter-container').filterizr({gutterPixels: 3});
+      // $('.btn[data-filter]').on('click', function() {
+      //   $('.btn[data-filter]').removeClass('active');
+      //   $(this).addClass('active');
+      // });
+    })
+  </script>
+
+  <script>
+    $(function () {
       $('[data-mask]').inputmask()
     })
   </script>
@@ -2631,6 +2577,7 @@
     });
   </script>
 
+  {{-- image --}}
   <script type="text/javascript">
     $("#image-file").fileinput({
       uploadUrl:"{{ route('MasterAnalysis.store') }}",
@@ -2645,6 +2592,18 @@
     })
 
     $("#Account_image").fileinput({
+      uploadUrl:"{{ route('MasterAnalysis.store') }}",
+      theme:'fa',
+      uploadExtraData:function(){
+        return{
+          _token:"{{csrf_token()}}",
+        }
+      },
+      allowedFileExtensions:['jpg','png','gif'],
+      maxFileSize:10240
+    })
+
+    $("#image_checker").fileinput({
       uploadUrl:"{{ route('MasterAnalysis.store') }}",
       theme:'fa',
       uploadExtraData:function(){
