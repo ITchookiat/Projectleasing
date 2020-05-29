@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Storage;
+use File;
 
 use App\Buyer;
 use App\Sponsor;
@@ -1312,8 +1313,12 @@ class AnalysController extends Controller
           $image_lastname = $image_array[$i]->getClientOriginalExtension();
           $image_new_name = str_random(10).time(). '.' .$image_array[$i]->getClientOriginalExtension();
 
-          $destination_path = public_path('/upload-image');
-          $image_array[$i]->move($destination_path,$image_new_name);
+          // $destination_path = public_path('/upload-image');
+          // $image_array[$i]->move($destination_path,$image_new_name);
+
+          $path = public_path().'/upload-image/'.$request->get('Licensecar');
+          Storage::makeDirectory($path, 0777, true, true);
+          $image_array[$i]->move($path,$image_new_name);
 
           $Uploaddb = new UploadfileImage([
             'Buyerfileimage_id' => $Buyerdb->id,
@@ -1415,7 +1420,6 @@ class AnalysController extends Controller
       $dataImage = DB::table('uploadfile_images')->where('Buyerfileimage_id',$data->id)->get();
       $countImage = count($dataImage);
       $newDateDue = \Carbon\Carbon::parse($data->Date_Due)->format('Y') ."-". \Carbon\Carbon::parse($data->Date_Due)->format('m')."-". \Carbon\Carbon::parse($data->Date_Due)->format('d');
-
       $Statusby = [
         'โสด' => 'โสด',
         'สมรส' => 'สมรส',
@@ -2010,7 +2014,7 @@ class AnalysController extends Controller
             if ($request->hasFile('Account_image')) {
               $AccountImage = $request->file('Account_image');
               $NameImage = $AccountImage->getClientOriginalName();
-      
+
               $destination_path = public_path('/upload-image');
               $AccountImage->move($destination_path,$NameImage);
 
@@ -2308,15 +2312,23 @@ class AnalysController extends Controller
           $image_lastname = $image_array[$i]->getClientOriginalExtension();
           $image_new_name = str_random(10).time(). '.' .$image_array[$i]->getClientOriginalExtension();
 
-          $destination_path = public_path('/upload-image');
-          $image_array[$i]->move($destination_path,$image_new_name);
+          $Currdate = date('2020-05-28');
+          if(substr($user->created_at,0,10) < $Currdate){
+            $destination_path = public_path('/upload-image');
+            $image_array[$i]->move($destination_path,$image_new_name);
+          }
+          else{
+            $path = public_path().'/upload-image/'.$request->get('Licensecar');
+            Storage::makeDirectory($path, 0777, true, true);
+            $image_array[$i]->move($path,$image_new_name);
+          }
+
 
           $Uploaddb = new UploadfileImage([
             'Buyerfileimage_id' => $id,
             'Name_fileimage' => $image_new_name,
             'Size_fileimage' => $image_size,
           ]);
-          // dd($Uploaddb);
           $Uploaddb ->save();
         }
       }
@@ -2360,15 +2372,36 @@ class AnalysController extends Controller
       $item7 = Sponsor2::where('Buyer_id2',$id);
 
       $item5 = UploadfileImage::where('Buyerfileimage_id','=',$id)->get();
-      foreach ($item5 as $key => $value) {
-        $itemID = $value->Buyerfileimage_id;
-        $itemPath = $value->Name_fileimage;
-
-        Storage::delete($itemPath);
+      $countData = count($item5);
+      $Currdate = date('2020-05-28');
+      $created_at = '';
+      if($countData != 0){
+        $dataold = Buyer::where('id','=',$id)->first();
+        $datacarold = Cardetail::where('Buyercar_id',$id)->first();
+        $created_at = substr($dataold->created_at,0,10);
+        $path = $datacarold->License_car;
       }
-      $ImageAccount = Cardetail::where('Buyercar_id','=',$id)->get();
-      if ($ImageAccount != NULL) {
-        Storage::delete($ImageAccount[0]->AccountImage_car);
+      if($created_at < $Currdate){
+        foreach ($item5 as $key => $value) {
+          $itemID = $value->Buyerfileimage_id;
+          $itemPath = $value->Name_fileimage;
+          Storage::delete($itemPath);
+        }
+        $ImageAccount = Cardetail::where('Buyercar_id','=',$id)->get();
+        if ($ImageAccount != NULL) {
+          Storage::delete($ImageAccount[0]->AccountImage_car);
+        }
+      }
+      else{
+        foreach ($item5 as $key => $value) {
+          $itemID = $value->Buyerfileimage_id;
+          $itemPath = public_path().'/upload-image/'.$path;
+          File::deleteDirectory($itemPath);
+        }
+        $ImageAccount = Cardetail::where('Buyercar_id','=',$id)->get();
+        if ($ImageAccount != NULL) {
+          File::delete($ImageAccount[0]->AccountImage_car);
+        }
       }
 
       $deleteItem = UploadfileImage::where('Buyerfileimage_id',$itemID);
@@ -2384,64 +2417,94 @@ class AnalysController extends Controller
       return redirect()->back()->with('success','ลบข้อมูลเรียบร้อย');
     }
 
-    public function deleteImageAll($id)
+    public function deleteImageAll($id,$path,Request $request)
     {
-      // dd($id);
+      $Currdate = date('2020-05-28');
+      $created_at = '';
       $item = UploadfileImage::where('Buyerfileimage_id','=',$id)->get();
-
-      foreach ($item as $key => $value) {
-        $itemID = $value->Buyerfileimage_id;
-        $itemPath = $value->Name_fileimage;
-
-        Storage::delete($itemPath);
+      $countData = count($item);
+      if($countData != 0){
+        $dataold = Buyer::where('id','=',$id)->first();
+        $created_at = substr($dataold->created_at,0,10);
       }
 
-        $deleteItem = UploadfileImage::where('Buyerfileimage_id',$itemID);
-        $deleteItem->Delete();
+      if($created_at < $Currdate){
+        foreach ($item as $key => $value) {
+          $itemID = $value->Buyerfileimage_id;
+          $itemPath = $value->Name_fileimage;
+          Storage::delete($itemPath);
+        }
+      }
+      else{
+        foreach ($item as $key => $value) {
+          $itemID = $value->Buyerfileimage_id;
+          $itemPath = public_path().'/upload-image/'.$path.'/'.$value->Name_fileimage;
+          File::delete($itemPath);
+        }
+      }
+
+      $deleteItem = UploadfileImage::where('Buyerfileimage_id',$itemID);
+      $deleteItem->Delete();
 
       return redirect()->back()->with('success','ลบรูปทั้งหมดเรียบร้อยแล้ว');
       // return redirect()->Route('deleteImageEach',[$type,$mainid,$fdate,$tdate,$branch,$status])->with(['success' => 'ลบรูปสำเร็จเรียบร้อย']);
     }
 
-    public function deleteImageEach($type,$id,$fdate,$tdate,$branch,$status,Request $request)
+    public function deleteImageEach($type,$id,$fdate,$tdate,$branch,$status,$path,Request $request)
     {
-
       $id = $id;
       $type = $type;
       $fdate = $fdate;
       $tdate = $tdate;
       $branch = $branch;
       $status = $status;
+      $path = $path;
+      $created_at = '';
 
       $data = UploadfileImage::where('Buyerfileimage_id','=',$id)->get();
       $countData = count($data);
+      if($countData != 0){
+        $dataold = Buyer::where('id','=',$id)->first();
+        $created_at = substr($dataold->created_at,0,10);
+      }
 
-      return view('analysis.viewimage', compact('data','countData','id','type','fdate','tdate','branch','status'));
+      return view('analysis.viewimage', compact('data','countData','id','type','fdate','tdate','branch','status','path','created_at'));
     }
 
-    public function destroyImage($type,$id,$fdate,$tdate,$branch,$status,Request $request)
+    public function destroyImage($type,$id,$fdate,$tdate,$branch,$status,$path,Request $request)
     {
-      // dd($type,$id,$fdate,$tdate,$branch,$status);
       $type = $type;
       $id = $id;
       $fdate = $fdate;
       $tdate = $tdate;
       $branch = $branch;
       $status = $status;
+      $path = $path;
       $mainid = $request->mainid;
+      $created_at = '';
+      $Currdate = date('2020-05-28');
 
       $item1 = UploadfileImage::where('fileimage_id',$id);
       $data = UploadfileImage::where('fileimage_id','=',$id)->get();
-      foreach ($data as $key => $value) {
-        $itemPath = $value->Name_fileimage;
-        Storage::delete($itemPath);
+      $countData = count($data);
+      if($countData != 0){
+        $dataold = Buyer::where('id','=',$mainid)->first();
+        $created_at = substr($dataold->created_at,0,10);
       }
-
+      if($created_at < $Currdate){
+        foreach ($data as $key => $value) {
+          $itemPath = $value->Name_fileimage;
+          Storage::delete($itemPath);
+        }
+      }
+      else{
+        foreach ($data as $key => $value) {
+          $itemPath = public_path().'/upload-image/'.$path.'/'.$value->Name_fileimage;
+          File::delete($itemPath);
+        }
+      }
       $item1->Delete();
-
-      // return redirect()->back()->with('success','ลบรูปเรียบร้อยแล้ว');
-      // return redirect()->back()->with(['id' => $id,'type' => $type,'fdate' => $fdate,'tdate' => $tdate,'branch' => $branch,'status' => $status,'success' => 'ลบรูปสำเร็จเรียบร้อย']);
-      return redirect()->Route('deleteImageEach',[$type,$mainid,$fdate,$tdate,$branch,$status])->with(['success' => 'ลบรูปสำเร็จเรียบร้อย']);
+      return redirect()->Route('deleteImageEach',[$type,$mainid,$fdate,$tdate,$branch,$status,$path])->with(['success' => 'ลบรูปสำเร็จเรียบร้อย']);
     }
 
 }
