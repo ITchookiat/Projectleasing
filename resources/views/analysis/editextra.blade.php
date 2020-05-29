@@ -349,7 +349,7 @@
                           </div>
                         </div>
                       @else
-                        <div class="col-6">       
+                        <div class="col-6">
                         </div>
                         <div class="col-3">
                           <div class="float-right form-inline">
@@ -681,7 +681,7 @@
                             <div class="float-right form-inline">
                               <label>วัตถุประสงค์ของสินเชื่อ : </label>
                               @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                <select name="objectivecar" class="form-control" style="width: 250px;">
+                                <select id="objectivecar" name="objectivecar" class="form-control" style="width: 250px;" oninput="calculate();">
                                   <option value="" selected>--- วัตถุประสงค์ของสินเชื่อ ---</option>
                                   @foreach ($objectivecar as $key => $value)
                                     <option value="{{$key}}" {{ ($key == $data->Objective_car) ? 'selected' : '' }}>{{$value}}</option>
@@ -689,9 +689,9 @@
                                 </select>
                               @else
                                 @if($GetDocComplete != Null)
-                                  <input type="text" name="objectivecar" value="{{ $data->Objective_car }}" class="form-control" style="width: 250px;" placeholder="เลือกวัตถุประสงค์ของสินเชื่อ" readonly/>
+                                  <input id="objectivecar" type="text" name="objectivecar" value="{{ $data->Objective_car }}" class="form-control" style="width: 250px;" placeholder="เลือกวัตถุประสงค์ของสินเชื่อ" oninput="calculate();" readonly/>
                                 @else
-                                  <select name="objectivecar" class="form-control" style="width: 250px;">
+                                  <select id="objectivecar" name="objectivecar" class="form-control" style="width: 250px;" oninput="calculate();">
                                     <option value="" selected>--- วัตถุประสงค์ของสินเชื่อ ---</option>
                                     @foreach ($objectivecar as $key => $value)
                                     <option value="{{$key}}" {{ ($key == $data->Objective_car) ? 'selected' : '' }}>{{$value}}</option>
@@ -760,7 +760,7 @@
                             @endforeach
                           </div>
                         </div>
-                      
+
                       </div>
                       <div class="tab-pane fade" id="Sub-tab2" role="tabpanel" aria-labelledby="Sub-custom-tab2">
                         <h5 class="text-center">แบบฟอร์มรายละเอียดผู้ค้ำ</h5>
@@ -1309,11 +1309,19 @@
                               var num3 = num33.replace(",","");
                               var num2 = document.getElementById('Interestcar').value;
                               var num4 = document.getElementById('Timeslackencar').value;
+                              var num5 = document.getElementById('objectivecar').value;
+                              console.log(num5);
 
-                              var vatTop = parseFloat(num1)*0.07;
+                              if(num5 == 'พักชำระหนี้ 3 เดือน'){
+                                var vatTop = 0;
+                              }else{
+                                var vatTop = parseFloat(num1)*0.07;
+                              }
+
+                              // var vatTop = parseFloat(num1)*0.07;
                               var newTop = parseFloat(num1)+vatTop;
                               var vat = (100+parseFloat(num2))/100;
-                              var result = Math.ceil((newTop*vat)/12);
+                              var result = Math.round((newTop*vat)/12);
                               var tax = vatTop/num4;
                               var tax2 = tax.toFixed(2)*num4;
                               var durate = result-tax;
@@ -1427,7 +1435,7 @@
                           <div class="col-5">
                             <div class="float-right form-inline">
                                 <label>วันที่ชำระงวดแรก : </label>
-                                <input type="text" name="Dateduefirstcar" value="{{$data->Dateduefirst_car}}" class="form-control" style="width: 250px;" readonly placeholder="วันที่ชำระงวดแรก" />
+                                <input type="date" name="Dateduefirstcar" value="{{$data->Dateduefirst_car}}" class="form-control" style="width: 250px;" placeholder="วันที่ชำระงวดแรก" />
                               </div>
                           </div>
                         </div>
@@ -1582,7 +1590,7 @@
                       </div>
                     </div>
                   </div>
-                  
+
                   <input type="hidden" name="_method" value="PATCH"/>
 
                   <!-- แบบฟอร์มผู้ค้ำ 2 -->
@@ -1598,7 +1606,7 @@
                               </button>
                             </div>
                           </div>
-                          
+
                           <div class="card-body">
                             <div class="row">
                               <div class="col-5">

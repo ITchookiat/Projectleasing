@@ -8,7 +8,7 @@
   $Y2 = date('Y') + 531;
   $m = date('m');
   $d = date('d');
-  //$date = date('Y-m-d');
+  $Currdate = date('2020-05-28');
   $time = date('H:i');
   $date = $Y.'-'.$m.'-'.$d;
   $date2 = $Y2.'-'.'01'.'-'.'01';
@@ -16,7 +16,7 @@
 
   <link type="text/css" rel="stylesheet" href="{{ asset('css/magiczoomplus.css') }}"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
-  
+
   <script type="text/javascript" src="{{ asset('js/magiczoomplus.js') }}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/js/fileinput.js" type="text/javascript"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/themes/fa/theme.js" type="text/javascript"></script>
@@ -24,7 +24,7 @@
   <script src="{{ asset('plugins/ekko-lightbox/ekko-lightbox.min.js') }}"></script>
   <script src="{{ asset('plugins/filterizr/jquery.filterizr.min.js') }}"></script>
  
-  <style>
+ <style>
     #todo-list{
     width:100%;
     margin:0 auto 50px auto;
@@ -205,7 +205,7 @@
         <form name="form1" method="post" action="{{ action('AnalysController@update',[$id,$Gettype]) }}" enctype="multipart/form-data">
           @csrf
           @method('put')
-          
+
           <div class="row">
             <div class="col-12">
               <div class="card">
@@ -323,7 +323,7 @@
                           @endif
                           </div>
                         </div>
-                      </div> 
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -872,16 +872,19 @@
                                 @endif
                                 <div class="float-right form-inline">
                                   @if($countImage != 0)
+                                    @php
+                                      $path = $data->License_car;
+                                    @endphp
                                     <br/><br/><br/>
                                     @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                      <a href="{{ action('AnalysController@deleteImageAll',$data->id) }}" class="btn btn-danger pull-left" title="ลบรูปทั้งหมด" onclick="return confirm('คุณต้องการลบรูปทั้งหมดหรือไม่?')"> ลบรูปทั้งหมด..</a>
-                                      <a href="{{ action('AnalysController@deleteImageEach',[$type,$data->id,$fdate,$tdate,$branch,$status]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
+                                      <a href="{{ action('AnalysController@deleteImageAll',[$data->id,$path]) }}" class="btn btn-danger pull-left" title="ลบรูปทั้งหมด" onclick="return confirm('คุณต้องการลบรูปทั้งหมดหรือไม่?')"> ลบรูปทั้งหมด..</a>
+                                      <a href="{{ action('AnalysController@deleteImageEach',[$type,$data->id,$fdate,$tdate,$branch,$status,$path]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
                                         <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ..
                                       </a>
                                     @else
                                       @if($data->Approvers_car == Null)
                                         @if($GetDocComplete == Null)
-                                        <a href="{{ action('AnalysController@deleteImageEach',[$type,$data->id,$fdate,$tdate,$branch,$status]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
+                                        <a href="{{ action('AnalysController@deleteImageEach',[$type,$data->id,$fdate,$tdate,$branch,$status,$path]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
                                           <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ..
                                         </a>
                                         @endif
@@ -892,17 +895,27 @@
                               </div>
                             </div>
                             <br/>
-                            
+
                             <div class="row">
                               <div class="col-12">
                                 <div class="form-inline">
-                                  @foreach($dataImage as $images)
-                                  <div class="col-sm-3">
-                                    <a href="{{ asset('upload-image/'.$images->Name_fileimage) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true" style="width: 300px; height: auto;">
-                                      <img src="{{ asset('upload-image/'.$images->Name_fileimage) }}">
-                                    </a>
-                                  </div>
-                                  @endforeach
+                                  @if(substr($data->created_at,0,10) < $Currdate)
+                                    @foreach($dataImage as $images)
+                                      <div class="col-sm-3">
+                                        <a href="{{ asset('upload-image/'.$images->Name_fileimage) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true" style="width: 300px; height: auto;">
+                                          <img src="{{ asset('upload-image/'.$images->Name_fileimage) }}">
+                                        </a>
+                                      </div>
+                                    @endforeach
+                                  @else
+                                    @foreach($dataImage as $images)
+                                      <div class="col-sm-3">
+                                        <a href="{{ asset('upload-image/'.$data->License_car.'/'.$images->Name_fileimage) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true" style="width: 300px; height: auto;">
+                                          <img src="{{ asset('upload-image/'.$data->License_car.'/'.$images->Name_fileimage) }}">
+                                        </a>
+                                      </div>
+                                    @endforeach
+                                  @endif
                                 </div>
                               </div>
                             </div>
@@ -1737,7 +1750,7 @@
                               </div>
                             </div>
                           </div>
-  
+
                           <div class="row">
                             <div class="col-5">
                               <div class="float-right form-inline">
@@ -1846,7 +1859,7 @@
                         <div class="tab-pane fade" id="Sub-tab4" role="tabpanel" aria-labelledby="Sub-custom-tab4">
                           <h5 class="text-center">แบบฟอร์มรายละเอียดค่าใช้จ่าย</h5>
                           <p></p>
-                          
+
                           <div class="row">
                             <div class="col-5">
                               <div class="float-right form-inline">
@@ -1886,9 +1899,9 @@
                               <div class="float-right form-inline">
                                 <label>ซื้อ ป2+ / ป1 : </label>
                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                  <input type="text" id="P2Price" name="P2Price" value="{{number_format($data->P2_Price)}}" class="form-control" style="width: 250px;" placeholder="ซื้อ ป2+" onchange="calculate();balance();"/>
+                                  <input type="text" id="P2Price" name="P2Price" value="{{number_format($data->P2_Price)}}" class="form-control" style="width: 250px;" placeholder="ซื้อ ป2+" onchange="balance();"/>
                                 @else
-                                  <input type="text" id="P2Price" name="P2Price" value="{{number_format($data->P2_Price)}}" class="form-control" style="width: 250px;" placeholder="ซื้อ ป2+" onchange="calculate();balance();" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                  <input type="text" id="P2Price" name="P2Price" value="{{number_format($data->P2_Price)}}" class="form-control" style="width: 250px;" placeholder="ซื้อ ป2+" onchange="balance();" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
                                 @endif
                                 <input type="hidden" id="P2PriceOri" name="P2PriceOri" class="form-control" value="{{number_format($data->P2_Price)}}" style="width: 250px;" placeholder="ซื้อ ป2+" onchange="calculate();" readonly/>
                               </div>
@@ -1900,13 +1913,13 @@
                             <div class="col-5">
                               <div class="float-right form-inline">
                                 <label>ค่าใช้จ่ายขนส่ง : </label>
-                                <input type="text" id="tranPrice" name="tranPrice" value="{{number_format($data->tran_Price)}}" class="form-control" style="width: 250px;" placeholder="ค่าใช้จ่ายขนส่ง" onchange="balance()"/>
+                                <input type="text" id="tranPrice" name="tranPrice" value="{{number_format($data->tran_Price)}}" class="form-control" style="width: 250px;" placeholder="ค่าใช้จ่ายขนส่ง" onchange="balance();"/>
                               </div>
                             </div>
                             <div class="col-5">
                               <div class="float-right form-inline">
                                 <label>อื่นๆ : </label>
-                                <input type="text" id="otherPrice" name="otherPrice" value="{{number_format($data->other_Price)}}" class="form-control" style="width: 250px;" placeholder="อื่นๆ" onchange="balance()"/>
+                                <input type="text" id="otherPrice" name="otherPrice" value="{{number_format($data->other_Price)}}" class="form-control" style="width: 250px;" placeholder="อื่นๆ" onchange="balance();"/>
                               </div>
                             </div>
                           </div>
@@ -1916,7 +1929,7 @@
                               <div class="float-right form-inline">
                                 <label>ค่าประเมิน : </label>
                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                  <select id="evaluetionPrice" name="evaluetionPrice" class="form-control" style="width: 250px;" onchange="balance()">
+                                  <select id="evaluetionPrice" name="evaluetionPrice" class="form-control" style="width: 250px;" onchange="balance();">
                                     <option value="" selected>--- ค่าประเมิน ---</option>
                                     @foreach ($evaluetionPricee as $key => $value)
                                       <option value="{{$key}}" {{ ($key == $data->evaluetion_Price) ? 'selected' : '' }}>{{$value}}</option>
@@ -1926,7 +1939,7 @@
                                   @if($GetDocComplete != Null)
                                     <input type="text" id="evaluetionPrice" name="evaluetionPrice" value="{{ $data->evaluetion_Price }}" class="form-control" style="width: 250px;" placeholder="พรบ." onchange="balance()" readonly/>
                                   @else
-                                    <select id="evaluetionPrice" name="evaluetionPrice" class="form-control" style="width: 250px;" onchange="balance()">
+                                    <select id="evaluetionPrice" name="evaluetionPrice" class="form-control" style="width: 250px;" onchange="balance();">
                                       <option value="" selected>--- ค่าประเมิน ---</option>
                                       @foreach ($evaluetionPricee as $key => $value)
                                         <option value="{{$key}}" {{ ($key == $data->evaluetion_Price) ? 'selected' : '' }}>{{$value}}</option>
@@ -1939,7 +1952,7 @@
                             <div class="col-5">
                               <div class="float-right form-inline">
                                 <label>อากร : </label>
-                                <input type="text" id="dutyPrice" name="dutyPrice" value="{{$data->duty_Price}}" class="form-control" style="width: 250px;" placeholder="อากร" onchange="balance()" readonly />
+                                <input type="text" id="dutyPrice" name="dutyPrice" value="{{$data->duty_Price}}" class="form-control" style="width: 250px;" placeholder="อากร" onchange="balance();" readonly />
                               </div>
                             </div>
                           </div>
@@ -1948,14 +1961,14 @@
                             <div class="col-5">
                               <div class="float-right form-inline">
                                 <label>ค่าการตลาด : </label>
-                                <input type="text" id="marketingPrice" name="marketingPrice" value="{{ $data->marketing_Price }}" class="form-control" style="width: 250px;" placeholder="การตลาด" onchange="balance()" readonly />
+                                <input type="text" id="marketingPrice" name="marketingPrice" value="{{ $data->marketing_Price }}" class="form-control" style="width: 250px;" placeholder="การตลาด" onchange="balance();" readonly />
                               </div>
                             </div>
                             <div class="col-5">
                               <div class="float-right form-inline">
                                 <label>รวม คชจ. : </label>
-                                <input type="text" id="totalkPrice" name="totalkPrice" value="{{number_format($data->totalk_Price, 2)}}" class="form-control" style="width: 250px;" placeholder="รวม คชจ." onchange="balance()" readonly/>
-                                <input type="hidden" id="temptotalkPrice" name="temptotalkPrice" value="{{number_format($data->totalk_Price, 2)}}" class="form-control" style="width: 250px;" placeholder="รวม คชจ." onchange="balance()" readonly/>
+                                <input type="text" id="totalkPrice" name="totalkPrice" value="{{number_format($data->totalk_Price, 2)}}" class="form-control" style="width: 250px;" placeholder="รวม คชจ." onchange="balance();" readonly/>
+                                <input type="hidden" id="temptotalkPrice" name="temptotalkPrice" value="{{number_format($data->totalk_Price, 2)}}" class="form-control" style="width: 250px;" placeholder="รวม คชจ." onchange="balance();" readonly/>
                               </div>
                             </div>
                           </div>
@@ -2123,7 +2136,7 @@
                         </div>
                       </div>
                     </div>
-                    
+
                     <input type="hidden" name="_method" value="PATCH"/>
 
                     <!-- แบบฟอร์มผู้ค้ำ 2 -->
@@ -2139,7 +2152,7 @@
                                 </button>
                               </div>
                             </div>
-                            
+
                             <div class="card-body">
                               <div class="row">
                                 <div class="col-5">
@@ -2524,7 +2537,7 @@
                         </div>
                       </div>
                     </div>
-                    
+
                   </div>
                 </div>
               </div>

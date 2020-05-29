@@ -5,6 +5,7 @@
   @php
     date_default_timezone_set('Asia/Bangkok');
     $date = date('Y-m-d', strtotime('-1 days'));
+    $Currdate = date('2020-05-28');
   @endphp
 
   @php
@@ -51,7 +52,7 @@
                       <div class="col-9"></div>
                       <div class="col-3">
                         <div class="card-tools d-inline float-right">
-                          <a href="{{ action('AnalysController@edit',[$type,$id,$fdate,$tdate,$branch,$status]) }}" class="btn bg-danger">
+                          <a href="{{ action('AnalysController@edit',[$type,$id,$fdate,$tdate,$branch,$status,$path]) }}" class="btn bg-danger">
                             <i class="far fa-arrow-alt-circle-left"></i> ย้อนกลับ
                             </a>
                         </div>
@@ -66,6 +67,7 @@
                 <input type="hidden" name="tdate" value="{{ $tdate }}" />
                 <input type="hidden" name="branch" value="{{ $branch }}" />
                 <input type="hidden" name="status" value="{{ $status }}" />
+                <input type="hidden" name="status" value="{{ $path }}" />
 
                 @if($countData == 0)
                 <div class="col-md-12" align="center">
@@ -77,10 +79,14 @@
                       <div class="col-lg-3 col-xs-12">
                         <div class="small-box btn-default fixed" align="center">
                           <div class="inner">
-                            <img class="img-bordered" src="{{ asset('upload-image/'.$row->Name_fileimage) }}" width="150" height="120" alt="Photo">
+                            @if($created_at < $Currdate)
+                              <img class="img-bordered" src="{{ asset('upload-image/'.$row->Name_fileimage) }}" width="150" height="120" alt="Photo">
+                            @else
+                              <img class="img-bordered" src="{{ asset('upload-image/'.$path.'/'.$row->Name_fileimage) }}" width="150" height="120" alt="Photo">
+                            @endif
                           </div>
 
-                          <a href="{{ action('AnalysController@destroyImage',[$type,$row->fileimage_id,$fdate,$tdate,$branch,$status])}}?mainid={{$id}}" class="btn btn-danger btn-sm" onclick="return confirm('คุณต้องการลบรูปนี้หรือไม่?')">
+                          <a href="{{ action('AnalysController@destroyImage',[$type,$row->fileimage_id,$fdate,$tdate,$branch,$status,$path])}}?mainid={{$id}}" class="btn btn-danger btn-sm" onclick="return confirm('คุณต้องการลบรูปนี้หรือไม่?')">
                             <span class="glyphicon glyphicon-trash"></span> ลบ
                           </a>
                           <br/><br/>
