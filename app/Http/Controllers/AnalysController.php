@@ -12,6 +12,7 @@ use App\Sponsor2;
 use App\Cardetail;
 use App\homecardetail;
 use App\UploadfileImage;
+use App\upload_lat_long;
 use App\Expenses;
 use Carbon\Carbon;
 use Helper;
@@ -990,6 +991,8 @@ class AnalysController extends Controller
      */
     public function store(Request $request)
     {
+      // dd($request->get('Nowlicensecar'));
+
       $SetDateDue = str_replace ("/","-",$request->get('DateDue'));
       $dateConvert0 = date_create($SetDateDue);
       $DateDue = date_format($dateConvert0, 'Y-m-d');
@@ -1104,6 +1107,7 @@ class AnalysController extends Controller
         $SetCommissioncar = 0;
       }
 
+      
 
       if ($request->patch_type == 4) {
         if (auth()->user()->branch == 10 or auth()->user()->branch == 11 or auth()->user()->type == 4 or auth()->user()->type == 1){
@@ -1170,14 +1174,23 @@ class AnalysController extends Controller
           }else{
             $SetDatefirst = NULL;
           }
-          // dd($SetDatefirst);
 
+        $SetLicense = "";
+        if ($request->get('Nowlicensecar') != NULL) {
+          $SetLicense = $request->get('Nowlicensecar');
+        }elseif ($request->get('Licensecar') != NULL) {
+          $SetLicense = $request->get('Licensecar');
+        }
+        
+        //รูปหน้าบัญชี
         $NameImage = NULL;
         if ($request->hasFile('Account_image')) {
           $AccountImage = $request->file('Account_image');
           $NameImage = $AccountImage->getClientOriginalName();
 
-          $destination_path = public_path('/upload-image');
+          $destination_path = public_path().'/upload-image/'.$SetLicense;
+          Storage::makeDirectory($destination_path, 0777, true, true);
+
           $AccountImage->move($destination_path,$NameImage);
         }
 
@@ -1312,17 +1325,58 @@ class AnalysController extends Controller
           $image_lastname = $image_array[$i]->getClientOriginalExtension();
           $image_new_name = str_random(10).time(). '.' .$image_array[$i]->getClientOriginalExtension();
 
-          $destination_path = public_path('/upload-image');
+          $destination_path = public_path().'/upload-image/'.$SetLicense;
+          Storage::makeDirectory($destination_path, 0777, true, true);
+          
           $image_array[$i]->move($destination_path,$image_new_name);
 
+          $SetType = 1; //ประเภทรูปภาพ รูปประกอบ
           $Uploaddb = new UploadfileImage([
             'Buyerfileimage_id' => $Buyerdb->id,
+            'Type_fileimage' => $SetType,
             'Name_fileimage' => $image_new_name,
             'Size_fileimage' => $image_size,
           ]);
           $Uploaddb ->save();
         }
       }
+
+      if ($request->hasFile('image_checker')) {
+        $image_array = $request->file('image_checker');
+        $array_len = count($image_array);
+
+        for ($i=0; $i < $array_len; $i++) {
+          $image_size = $image_array[$i]->getClientSize();
+          $image_lastname = $image_array[$i]->getClientOriginalExtension();
+          $image_new_name = str_random(10).time(). '.' .$image_array[$i]->getClientOriginalExtension();
+
+          $destination_path = public_path().'/upload-image/'.$SetLicense;
+          Storage::makeDirectory($destination_path, 0777, true, true);
+
+          $image_array[$i]->move($destination_path,$image_new_name);
+
+          $SetType = 2; //ประเภทรูปภาพ checker
+          $Uploaddb = new UploadfileImage([
+            'Buyerfileimage_id' => $Buyerdb->id,
+            'Type_fileimage' => $SetType,
+            'Name_fileimage' => $image_new_name,
+            'Size_fileimage' => $image_size,
+          ]);
+          $Uploaddb ->save();
+        }
+      }
+
+      // เก็บค่า lat-long 
+      if ($request->get('T_latitude') and $request->get('T_longitude')) {
+        $locationDB = new upload_lat_long([
+          'Use_id' => $Buyerdb->id,
+          'T_lat' => $request->get('T_latitude'),
+          'T_long' => $request->get('T_longitude'),
+        ]);
+        $locationDB ->save();
+      }
+
+
 
       return redirect()->Route('Analysis',$type)->with('success','บันทึกข้อมูลเรียบร้อย');
     }
@@ -1413,6 +1467,8 @@ class AnalysController extends Controller
       }
 
       $dataImage = DB::table('uploadfile_images')->where('Buyerfileimage_id',$data->id)->get();
+      // dd($dataImage);
+      
       $countImage = count($dataImage);
       $newDateDue = \Carbon\Carbon::parse($data->Date_Due)->format('Y') ."-". \Carbon\Carbon::parse($data->Date_Due)->format('m')."-". \Carbon\Carbon::parse($data->Date_Due)->format('d');
 
@@ -1512,7 +1568,6 @@ class AnalysController extends Controller
         'ตำบลเดี่ยวกัน' => 'ตำบลเดี่ยวกัน',
         'จ้างค้ำ(ไม่รู้จักกัน)' => 'จ้างค้ำ(ไม่รู้จักกัน)',
       ];
-
       $objectivecar = [
         'ลงทุนในธุรกิจ' => 'ลงทุนในธุรกิจ',
         'ขยายกิจการ' => 'ขยายกิจการ',
@@ -1529,7 +1584,6 @@ class AnalysController extends Controller
         'พักชำระหนี้ 3 เดือน' => 'พักชำระหนี้ 3 เดือน',
         'ขยายระยะเวลาชำระหนี้' => 'ขยายระยะเวลาชำระหนี้',
       ];
-
       $Brandcarr = [
         'ISUZU' => 'ISUZU',
         'MITSUBISHI' => 'MITSUBISHI',
@@ -1599,24 +1653,6 @@ class AnalysController extends Controller
         'ซข.ไม่ค้ำประกัน' => 'ซข.ไม่ค้ำประกัน',
         'VIP1' => 'VIP1',
       ];
-      // $Loanofficercarr = [
-      //   'นาย.ซอลาฮุดดีน ตอแก' => 'นาย.ซอลาฮุดดีน ตอแก',
-      //   'นาง.วิธุกร ณ พิชัย' => 'นาง.วิธุกร ณ พิชัย',
-      //   'นาง.วุฐิกุล ศุกลรัตน์' => 'นาง.วุฐิกุล ศุกลรัตน์',
-      //   'นาย.ต่วนมุหยีดีน ลอจ' => 'นาย.ต่วนมุหยีดีน ลอจิ',
-      //   'นาย.ฤทธิพร ดือราแม' => 'นาย.ฤทธิพร ดือราแม',
-      //   'นาย.เดะมะ มะ' => 'นาย.เดะมะ มะ',
-      //   'นาย.มะยูโซะ อามะ' => 'นาย.มะยูโซะ อามะ',
-      //   'น.ส.รุสนีดา อูมา' => 'น.ส.รุสนีดา อูมา',
-      //   'น.ส.ฮายาตี นิบง' => 'น.ส.ฮายาตี นิบง',
-      //   'นาย.ซุลกิฟลี แมเราะ' => 'นาย.ซุลกิฟลี แมเราะ',
-      //   'น.ส.สาลีละห์ เจะโซะ' => 'น.ส.สาลีละห์ เจะโซะ',
-      //   'นาย.ฟิกรีย์ บาราเต๊ะ' => 'นาย.ฟิกรีย์ บาราเต๊ะ',
-      //   'น.ส.ซูไฮดา สะมาแอ' => 'น.ส.ซูไฮดา สะมาแอ',
-      //   'นาย.ธนวัฒน์ อาแว' => 'นาย.ธนวัฒน์ อาแว',
-      //   'นาย.มัซวัน มะสาแม' => 'นาย.มัซวัน มะสาแม',
-      //   'น.ส.เพ็ญทิพย์ หนูบุญล้อม' => 'น.ส.เพ็ญทิพย์ หนูบุญล้อม',
-      // ];
       $evaluetionPricee = [
         '1,000' => '1,000',
         '1,500' => '1,500',

@@ -20,12 +20,10 @@ class Buyer extends Model
   {
     return $this->hasMany(Sponsor2::class);
   }
-
   public function Cardetail()
   {
     return $this->hasMany(Cardetail::class);
   }
-
   public function UploadfileImage()
   {
     return $this->hasMany(UploadfileImage::class);
@@ -37,5 +35,9 @@ class Buyer extends Model
   public function homecardetails()
   {
     return $this->hasMany(Homecardetail::class);
+  }
+  public function Uploadlat_long()
+  {
+    return $this->hasMany(upload_lat_long::class);
   }
 }

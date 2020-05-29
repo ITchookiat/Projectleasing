@@ -108,6 +108,10 @@
                           <a class="nav-link" href="#">แบบฟอร์มค่าใช้จ่าย</a>
                         </li>
                       @endif
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Checker</a>
+                      </li>
+
                     </ul>
                   </div>
                   @if($type == 1)
@@ -285,7 +289,7 @@
                                       <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',$row->id) }}" style="display:inline;">
                                         {{csrf_field()}}
                                         <input type="hidden" name="_method" value="DELETE" />
-                                        <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
+                                        <button type="submit" data-name="{{ $row->Contract_buyer }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
                                           <i class="far fa-trash-alt"></i> ลบ
                                         </button>
                                       </form>
@@ -294,7 +298,7 @@
                                         <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',$row->id) }}" style="display:inline;">
                                           {{csrf_field()}}
                                           <input type="hidden" name="_method" value="DELETE" />
-                                          <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
+                                          <button type="submit" data-name="{{ $row->Contract_buyer }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
                                             <i class="far fa-trash-alt"></i> ลบ
                                           </button>
                                         </form>
@@ -306,7 +310,7 @@
                                         <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',$row->id) }}" style="display:inline;">
                                           {{csrf_field()}}
                                           <input type="hidden" name="_method" value="DELETE" />
-                                          <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
+                                          <button type="submit" data-name="{{ $row->Contract_buyer }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
                                             <i class="far fa-trash-alt"></i> ลบ
                                           </button>
                                         </form>
