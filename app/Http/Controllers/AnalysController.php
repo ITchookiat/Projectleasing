@@ -1408,18 +1408,13 @@ class AnalysController extends Controller
                   ->leftJoin('sponsor2s','buyers.id','=','sponsor2s.Buyer_id2')
                   ->leftJoin('cardetails','Buyers.id','=','cardetails.Buyercar_id')
                   ->leftJoin('expenses','Buyers.id','=','expenses.Buyerexpenses_id')
+                  ->leftJoin('upload_lat_longs','Buyers.id','=','upload_lat_longs.Use_id')
+                  ->select('buyers.*','sponsors.*','sponsor2s.*','cardetails.*','expenses.*','upload_lat_longs.*','buyers.created_at AS createdBuyers_at')
                   ->where('buyers.id',$id)->first();
-
+                  
         $GetDocComplete = $data->DocComplete_car;
         $Gettype = $type;
 
-        $type = $type;
-        $fdate = $fdate;
-        $tdate = $tdate;
-        $branch = $branch;
-        $status = $status;
-
-        // dd($data);
       }
       elseif ($type == 4) {
         $data = DB::table('buyers')
@@ -1440,12 +1435,6 @@ class AnalysController extends Controller
 
                   $GetDocComplete = $data->DocComplete_car;
                   $Gettype = $type;
-
-                  $type = $type;
-                  $fdate = $fdate;
-                  $tdate = $tdate;
-                  $branch = $branch;
-                  $status = $status;
                   $data = $data;
       }
       elseif ($type == 12) {
@@ -1459,11 +1448,6 @@ class AnalysController extends Controller
                   $GetDocComplete = $data->DocComplete_car;
                   $Gettype = $type;
 
-                  $type = $type;
-                  $fdate = $fdate;
-                  $tdate = $tdate;
-                  $branch = $branch;
-                  $status = $status;
                   $data = $data;
       }
 
@@ -1621,19 +1605,6 @@ class AnalysController extends Controller
         '72' => '72',
         '78' => '78',
         '84' => '84',
-        // '1' => '12',
-        // '1.5' => '18',
-        // '2' => '24',
-        // '2.5' => '30',
-        // '3' => '36',
-        // '3.5' => '42',
-        // '4' => '48',
-        // '4.5' => '54',
-        // '5' => '60',
-        // '5.5' => '66',
-        // '6' => '72',
-        // '6.5' => '78',
-        // '7' => '84',
       ];
       $Insurancecarr = [
         'แถม ป2+ 1ปี' => 'แถม ป2+ 1ปี',
