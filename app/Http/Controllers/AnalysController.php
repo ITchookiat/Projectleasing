@@ -1419,7 +1419,6 @@ class AnalysController extends Controller
         $branch = $branch;
         $status = $status;
 
-        // dd($data);
       }
       elseif ($type == 4) {
         $data = DB::table('buyers')
