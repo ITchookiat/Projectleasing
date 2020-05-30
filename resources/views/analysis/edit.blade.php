@@ -2134,7 +2134,6 @@
                                   <h3 class="card-title">แผนที่</h3>
                   
                                   <div class="card-tools">
-                                    <button type="button" class="btn btn-tool" onclick="showMap()" title="แสดงละติจูดและลองจิจูด"><i class="fa fa-eye"></i></button>
                                     <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                                     <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
                                   </div>
@@ -2142,14 +2141,22 @@
                                 <div class="card-body">
                                   <div class="row">
                                     <div class="col-md-12">
-                                      <div id="myLat" style="display:none;">
                                         <div class="form-inline" align="center">
-                                          <label>ละติจูด : </label> <input type="text" name="latitude" class="form-control" style="width:175px" value="{{ $data->T_lat }}"/>
-                                          <label>ลองจิจูด : </label> <input type="text" name="longitude" class="form-control" style="width:175px" value="{{ $data->T_long }}"/>
+                                          <label>ละติจูด : </label> 
+                                          <input type="text" id="S_latitude" name="S_latitude" class="form-control" style="width:175px"  value="{{ $data->T_lat}}"/>
+
+                                          <label>ลองจิจูด : </label> 
+                                          <input type="text" id="S_longitude" name="S_longitude" class="form-control" style="width:175px" value="{{ $data->T_long}}"/>
+                                        </div>
+                                        <div class="form-inline" align="center">
+                                          <label>ละติจูด : </label> 
+                                          <input type="text" id="E_latitude" name="E_latitude" class="form-control" style="width:175px"/>
+
+                                          <label>ลองจิจูด : </label> 
+                                          <input type="text" id="E_longitude" name="E_longitude" class="form-control" style="width:175px"/>
                                         </div>
                                         <br><br>
-                                      </div>
-                                      <div id="map" style="width:100%;height:63vh"></div>
+                                      <div id="map" style="width:100%;height:30vh"></div>
                                     </div>
                                   </div>
                                 </div>
@@ -2633,36 +2640,143 @@
     })
   </script>
 
+
+{{-- <script>
+  function initMap() {
+    var markerArray = [];
+
+    // Instantiate a directions service.
+    var directionsService = new google.maps.DirectionsService;
+
+    // Create a map and center it on Manhattan.
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 15,
+      center: {lat: 6.5481687, lng: 101.2860958}
+    });
+
+    var citymap = {
+            Thailand: {
+              center: {lat: 6.5481687, lng: 101.2860958},
+              population: 100
+            }
+          };
+
+    for (var city in citymap) {
+              // Add the circle for this city to the map.
+              var cityCircle = new google.maps.Circle({
+                strokeColor: '#00FF66',
+                strokeOpacity: 0.2,
+                strokeWeight: 2,
+                fillColor: '#FF0000',
+                fillOpacity: 0.1,
+                map: map,
+                center: citymap[city].center,
+                radius: Math.sqrt(citymap[city].population) * 100
+              });
+    }
+
+    var directionsDisplay = new google.maps.DirectionsRenderer({map: map});
+
+    var stepDisplay = new google.maps.InfoWindow;
+
+    calculateAndDisplayRoute(
+        directionsDisplay, directionsService, markerArray, stepDisplay, map);
+    directionsDisplay.setMap(map);
+    directionsDisplay.setPanel(document.getElementById('right-panel'));
+    var onChangeHandler = function() {
+      calculateAndDisplayRoute(
+          directionsDisplay, directionsService, markerArray, stepDisplay, map);
+    };
+    document.getElementById('start').addEventListener('change', onChangeHandler);
+    document.getElementById('end').addEventListener('change', onChangeHandler);
+  }
+
+  function calculateAndDisplayRoute(directionsDisplay, directionsService,markerArray, stepDisplay, map) {
+    for (var i = 0; i < markerArray.length; i++) {
+      markerArray[i].setMap(null);
+    }
+
+    directionsService.route({origin: document.getElementById('start').value,
+      destination: document.getElementById('end').value,
+      travelMode: 'DRIVING'
+    }, function(response, status) {
+        if (status === 'OK') {
+          document.getElementById('warnings-panel').innerHTML =
+              '<b>' + response.routes[0].warnings + '</b>';
+          directionsDisplay.setDirections(response);
+          showSteps(response, stepDisplay, map);
+        } else {
+          window.alert('Directions request failed due to ' + status);
+        }
+      });
+  }
+
+  function showSteps(directionResult, markerArray, stepDisplay, map) {
+    var myRoute = directionResult.routes[0].legs[0];
+    for (var i = 0; i < myRoute.steps.length; i++) {
+      var marker = markerArray[i] = markerArray[i] || new google.maps.Marker;
+      marker.setMap(map);
+      marker.setPosition(myRoute.steps[i].start_location);
+      attachInstructionText(
+          stepDisplay, marker, myRoute.steps[i].instructions, map);
+    }
+  }
+
+  document.getElementById('fare').value = marker; 
+
+  function attachInstructionText(stepDisplay, marker, text, map) {
+    google.maps.event.addListener(marker, 'click', function() {
+      stepDisplay.setContent(text);
+      stepDisplay.open(map, marker);
+    });
+  }
+</script> --}}
+
   
   <script>
     function initMap() {
       var myLatlng = {lat: {{ $data->T_lat }}, lng: {{ $data->T_long }} };
+      var directionsService = new google.maps.DirectionsService;
+      var directionsDisplay = new google.maps.DirectionsRenderer;
 
-      if (navigator.geolocation) {
+        if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            };
+          var pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
 
-          console.log(pos);
+          var Setlat = position.coords.latitude;
+          var Setlong = position.coords.longitude;
+
+          console.log(Setlat);
+          console.log(Setlong);
+
+          document.getElementById("E_latitude").value = Setlat;
+          document.getElementById("E_longitude").value = Setlong;
+
         });
       }
 
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 15,
+        center: myLatlng
+      });
+
+      var marker = new google.maps.Marker({
+        position: myLatlng,
+        map: map,
+        title: 'Click to zoom'
+      });
+
+      directionsDisplay.setMap(map);
+      var onChangeHandler = function() {
+        calculateAndDisplayRoute(directionsDisplay, directionsService);
+      };
+
+      document.getElementById('start').addEventListener('change', onChangeHandler);
+      document.getElementById('end').addEventListener('change', onChangeHandler);
       
-
-      console.log(myLatlng);
-
-      // var map = new google.maps.Map(document.getElementById('map'), {
-      //   zoom: 18,
-      //   center: myLatlng
-      // });
-
-      // var marker = new google.maps.Marker({
-      //   position: myLatlng,
-      //   map: map,
-      //   title: 'Click to zoom'
-      // });
     }
   </script>
 
