@@ -8,7 +8,7 @@
   $Y2 = date('Y') + 531;
   $m = date('m');
   $d = date('d');
-  $Currdate = date('2020-05-28');
+  $Currdate = date('2020-05-29');
   $time = date('H:i');
   $date = $Y.'-'.$m.'-'.$d;
   $date2 = $Y2.'-'.'01'.'-'.'01';
@@ -22,9 +22,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/themes/fa/theme.js" type="text/javascript"></script>
   
   <script src="{{ asset('plugins/ekko-lightbox/ekko-lightbox.min.js') }}"></script>
-  <script src="{{ asset('plugins/filterizr/jquery.filterizr.min.js') }}"></script>
  
- <style>
+  <style>
     #todo-list{
     width:100%;
     margin:0 auto 50px auto;
@@ -38,8 +37,7 @@
     /*border-radius*/
     -webkit-border-radius:5px;
     -moz-border-radius:5px;
-          border-radius:5px;
-    }
+          border-radius:5px;}
     #todo-list:before{
     content:"";
     position:absolute;
@@ -899,7 +897,7 @@
                             <div class="row">
                               <div class="col-12">
                                 <div class="form-inline">
-                                  @if(substr($data->created_at,0,10) < $Currdate)
+                                  @if(substr($data->createdBuyers_at,0,10) < date('Y-m-d'))
                                     @foreach($dataImage as $images)
                                       <div class="col-sm-3">
                                         <a href="{{ asset('upload-image/'.$images->Name_fileimage) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true" style="width: 300px; height: auto;">
@@ -2009,18 +2007,10 @@
                                   <h3 class="card-title">รูปภาพ</h3>
                   
                                   <div class="card-tools">
-                                    @if($countImage != 0)
-                                      <a href="{{ action('LegislationController@deleteImageAll',$id) }}" title="ลบรูปทั้งหมด" onclick="return confirm('คุณต้องการลบรูปทั้งหมดหรือไม่?')" class="btn btn-box-tool">
-                                        <i class="fas fa-trash"></i>
-                                      </a>
-                                    @endif
-                                    <button type="button" class="btn btn-tool" onclick="showImg()" title="แสดงที่เพิ่มรูป"><i class="fa fa-eye"></i></button>
-                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
                                     <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
                                   </div>
                                 </div>
                                 <div class="card-body">
-
                                   <div class="form-group">
                                     <div class="file-loading">
                                       <input id="image_checker" type="file" name="image_checker[]" accept="image/*" data-min-file-count="1" multiple>
@@ -2032,7 +2022,7 @@
                                   <div class="card card-primary">
                                     <div class="card-header">
                                       <div class="card-title">
-                                        Ekko Lightbox
+                                        รูปภาพทั้งหมด
                                       </div>
                                     </div>
                                     <div class="card-body">
@@ -2060,52 +2050,11 @@
                                       </div>
                                     </div>
                                   </div>
-                                </div>
-
-                                {{-- <div class="col-12">
-                                  <div class="card card-primary">
-                                    <div class="card-header">
-                                      <div class="card-title">
-                                        Ekko Lightbox
-                                      </div>
-                                    </div>
-                                    <div class="card-body">
-                                      @if($data->Nowlicense_car != NULL)
-                                        @php
-                                          $Setlisence = $data->Nowlicense_car;
-                                        @endphp
-                                      @elseif($data->License_car != NULL)
-                                        @php
-                                          $Setlisence = $data->License_car;
-                                        @endphp
-                                      @endif
-
-                                      <div class="row">
-                                        <div class="col-sm-2">
-                                          <a href="{{ asset('upload-image/'.$Setlisence.'/'.$images->Name_fileimage) }}" data-toggle="lightbox" data-title="sample 1 - white" data-gallery="gallery">
-                                            <img src="{{ asset('upload-image/'.$Setlisence.'/'.$images->Name_fileimage) }}" class="img-fluid mb-2" alt="white sample">
-                                          </a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div> --}}
-
-                                {{-- @if($countImage > 0)
-                                  <div class="container1">
-                                    @foreach($dataImage as $key => $images)
-                                      @if($images->Type_fileimage == "2")
-                                        <div class="numbertext">{{$key+1}} / {{$countImage}}</div>
-                                        <img class="img-responsive" src="{{ asset('upload-image/'.$Setlisence.'/'.$images->Name_fileimage) }}" style="width:675px; height:400px;">
-                                      @endif
-                                    @endforeach
-                                  </div>
-                                @endif --}}
-
+                                </div>  
                               </div>
                             </div>
 
-                            {{-- <div class="col-md-6">
+                            <div class="col-md-6">
                               <div class="card card-danger">
                                 <div class="card-header">
                                   <h3 class="card-title">แผนที่</h3>
@@ -2121,8 +2070,8 @@
                                     <div class="col-md-12">
                                       <div id="myLat" style="display:none;">
                                         <div class="form-inline" align="center">
-                                          <label>ละติจูด : </label> <input type="text" name="latitude" class="form-control" style="width:175px" value="{{ $lat }}"/>
-                                          <label>ลองจิจูด : </label> <input type="text" name="longitude" class="form-control" style="width:175px" value="{{ $long }}"/>
+                                          <label>ละติจูด : </label> <input type="text" name="latitude" class="form-control" style="width:175px" value="{{ $data->T_lat }}"/>
+                                          <label>ลองจิจูด : </label> <input type="text" name="longitude" class="form-control" style="width:175px" value="{{ $data->T_long }}"/>
                                         </div>
                                         <br><br>
                                       </div>
@@ -2131,7 +2080,7 @@
                                   </div>
                                 </div>
                               </div>
-                            </div> --}}
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -2556,12 +2505,6 @@
           alwaysShowClose: true
         });
       });
-  
-      // $('.filter-container').filterizr({gutterPixels: 3});
-      // $('.btn[data-filter]').on('click', function() {
-      //   $('.btn[data-filter]').removeClass('active');
-      //   $(this).addClass('active');
-      // });
     })
   </script>
 
@@ -2615,4 +2558,41 @@
       maxFileSize:10240
     })
   </script>
+
+  
+  <script>
+    function initMap() {
+      var myLatlng = {lat: {{ $data->T_lat }}, lng: {{ $data->T_long }} };
+
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+          console.log(pos);
+        });
+      }
+
+      
+
+      console.log(myLatlng);
+
+      // var map = new google.maps.Map(document.getElementById('map'), {
+      //   zoom: 18,
+      //   center: myLatlng
+      // });
+
+      // var marker = new google.maps.Marker({
+      //   position: myLatlng,
+      //   map: map,
+      //   title: 'Click to zoom'
+      // });
+    }
+  </script>
+
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHvHdio8MNE9aqZZmfvd49zHgLbixudMs&callback=initMap&language=th">
+</script>
 @endsection
