@@ -1744,7 +1744,9 @@ class AnalysController extends Controller
      */
     public function update(Request $request, $id, $type)
     {
+
         date_default_timezone_set('Asia/Bangkok');
+        $Currdate = date('2020-05-28');   //วันที่เช็ตค่า รูป
 
         $newDateDue = \Carbon\Carbon::parse($request->DateDue)->format('Y') ."-". \Carbon\Carbon::parse($request->DateDue)->format('m')."-". \Carbon\Carbon::parse($request->DateDue)->format('d');
         $SetPhonebuyer = str_replace ( "_","",$request->get('Phonebuyer'));
@@ -1988,6 +1990,14 @@ class AnalysController extends Controller
             $SetCommissioncar = 0;
           }
 
+          // ดึงค่า ป้ายทะเบียน
+          $SetLicense = "";
+          if ($request->get('Nowlicensecar') != NULL) {
+            $SetLicense = $request->get('Nowlicensecar');
+          }elseif ($request->get('Licensecar') != NULL) {
+            $SetLicense = $request->get('Licensecar');
+          }
+
           $cardetail = Cardetail::where('Buyercar_id',$id)->first();
             $cardetail->Brand_car = $request->get('Brandcar');
             $cardetail->Year_car = $request->get('Yearcar');
@@ -2018,8 +2028,16 @@ class AnalysController extends Controller
               $AccountImage = $request->file('Account_image');
               $NameImage = $AccountImage->getClientOriginalName();
 
-              $destination_path = public_path('/upload-image');
-              $AccountImage->move($destination_path,$NameImage);
+              if(substr($user->created_at,0,10) < $Currdate){
+                $destination_path = public_path('/upload-image');
+                $AccountImage->move($destination_path,$NameImage);
+              }
+              else {
+                $destination_path = public_path().'/upload-image/'.$SetLicense;
+                Storage::makeDirectory($destination_path, 0777, true, true);
+
+                $AccountImage->move($destination_path,$NameImage);
+              }
 
               $cardetail->AccountImage_car = $NameImage;
             }
@@ -2306,6 +2324,7 @@ class AnalysController extends Controller
           $expenses->update();
         }
 
+      // รูปภาพประกอบ
       if ($request->hasFile('file_image')) {
         $image_array = $request->file('file_image');
         $array_len = count($image_array);
@@ -2315,20 +2334,49 @@ class AnalysController extends Controller
           $image_lastname = $image_array[$i]->getClientOriginalExtension();
           $image_new_name = str_random(10).time(). '.' .$image_array[$i]->getClientOriginalExtension();
 
-          $Currdate = date('2020-05-28');
           if(substr($user->created_at,0,10) < $Currdate){
             $destination_path = public_path('/upload-image');
             $image_array[$i]->move($destination_path,$image_new_name);
           }
           else{
-            $path = public_path().'/upload-image/'.$request->get('Licensecar');
+            $path = public_path().'/upload-image/'.$SetLicense;
             Storage::makeDirectory($path, 0777, true, true);
             $image_array[$i]->move($path,$image_new_name);
           }
 
+          $Uploaddb = new UploadfileImage([
+            'Buyerfileimage_id' => $id,
+            'Type_fileimage' => 1,
+            'Name_fileimage' => $image_new_name,
+            'Size_fileimage' => $image_size,
+          ]);
+          $Uploaddb ->save();
+        }
+      }
+
+      // รูปภาพ Checker
+      if ($request->hasFile('image_checker')) {
+        $image_array = $request->file('image_checker');
+        $array_len = count($image_array);
+
+        for ($i=0; $i < $array_len; $i++) {
+          $image_size = $image_array[$i]->getClientSize();
+          $image_lastname = $image_array[$i]->getClientOriginalExtension();
+          $image_new_name = str_random(10).time(). '.' .$image_array[$i]->getClientOriginalExtension();
+
+          if(substr($user->created_at,0,10) < $Currdate){
+            $destination_path = public_path('/upload-image');
+            $image_array[$i]->move($destination_path,$image_new_name);
+          }
+          else{
+            $path = public_path().'/upload-image/'.$SetLicense;
+            Storage::makeDirectory($path, 0777, true, true);
+            $image_array[$i]->move($path,$image_new_name);
+          }
 
           $Uploaddb = new UploadfileImage([
             'Buyerfileimage_id' => $id,
+            'Type_fileimage' => 2,
             'Name_fileimage' => $image_new_name,
             'Size_fileimage' => $image_size,
           ]);
@@ -2373,17 +2421,20 @@ class AnalysController extends Controller
       $item4 = Expenses::where('Buyerexpenses_id',$id);
       $item6 = homecardetail::where('Buyerhomecar_id',$id);
       $item7 = Sponsor2::where('Buyer_id2',$id);
+      $item8 = upload_lat_long::where('Use_id',$id);
 
       $item5 = UploadfileImage::where('Buyerfileimage_id','=',$id)->get();
       $countData = count($item5);
       $Currdate = date('2020-05-28');
       $created_at = '';
+
       if($countData != 0){
         $dataold = Buyer::where('id','=',$id)->first();
         $datacarold = Cardetail::where('Buyercar_id',$id)->first();
         $created_at = substr($dataold->created_at,0,10);
         $path = $datacarold->License_car;
       }
+
       if($created_at < $Currdate){
         foreach ($item5 as $key => $value) {
           $itemID = $value->Buyerfileimage_id;
@@ -2416,6 +2467,7 @@ class AnalysController extends Controller
       $item4->Delete();
       $item6->Delete();
       $item7->Delete();
+      $item8->Delete();
 
       return redirect()->back()->with('success','ลบข้อมูลเรียบร้อย');
     }
