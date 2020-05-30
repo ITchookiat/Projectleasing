@@ -2141,22 +2141,22 @@
                                 <div class="card-body">
                                   <div class="row">
                                     <div class="col-md-12">
+                                      <div id="myLat" style="">
                                         <div class="form-inline" align="center">
-                                          <label>ละติจูด : </label> 
-                                          <input type="text" id="S_latitude" name="S_latitude" class="form-control" style="width:175px"  value="{{ $data->T_lat}}"/>
-
-                                          <label>ลองจิจูด : </label> 
-                                          <input type="text" id="S_longitude" name="S_longitude" class="form-control" style="width:175px" value="{{ $data->T_long}}"/>
-                                        </div>
-                                        <div class="form-inline" align="center">
-                                          <label>ละติจูด : </label> 
-                                          <input type="text" id="E_latitude" name="E_latitude" class="form-control" style="width:175px"/>
-
-                                          <label>ลองจิจูด : </label> 
-                                          <input type="text" id="E_longitude" name="E_longitude" class="form-control" style="width:175px"/>
+                                          <label>ละติจูด : </label> <input type="text" id="e_latitude" name="e_latitude" class="form-control" style="width:175px" value="{{ $data->T_lat }}"/>
+                                          <label>ลองจิจูด : </label> <input type="text" id="e_longitude" name="e_longitude" class="form-control" style="width:175px" value="{{ $data->T_long }}"/>
                                         </div>
                                         <br><br>
-                                      <div id="map" style="width:100%;height:30vh"></div>
+                                      </div>
+                                      <div id="floating-panel" style="background: #fff;padding: 5px;font-size: 14px;font-family: Arial;border: 1px solid #ccc;box-shadow: 0 2px 2px rgba(33, 33, 33, 0.4);display:none;">
+                                        <strong>Start:</strong>
+                                        <input type="text" id="start" value="6.8552595,101.22063299999999">
+                                        <strong>End:</strong>
+                                        <input type="text" id="end" value="{{ $data->T_lat }},{{ $data->T_long }}">
+                                      </div>
+                                      <div id="map" style="width:100%;height:63vh"></div>
+                                      <div id="right-panel" style="width: 350px;overflow: auto;float: none;width: auto;"></div>
+                                      <div id="warnings-panel"></div>
                                     </div>
                                   </div>
                                 </div>
@@ -2732,55 +2732,58 @@
   }
 </script> --}}
 
-  
-  <script>
-    function initMap() {
-      var myLatlng = {lat: {{ $data->T_lat }}, lng: {{ $data->T_long }} };
-      var directionsService = new google.maps.DirectionsService;
-      var directionsDisplay = new google.maps.DirectionsRenderer;
+ 
+<script>
+      function initMap() {
+        var markerArray = [];
 
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-          var pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          };
+        // Instantiate a directions service.
+        var directionsService = new google.maps.DirectionsService;
 
-          var Setlat = position.coords.latitude;
-          var Setlong = position.coords.longitude;
+        // Create a map and center it on Manhattan.
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 10,
+          center: {lat: 6.5481687, lng: 101.2860958}
 
-          console.log(Setlat);
-          console.log(Setlong);
+        var directionsDisplay = new google.maps.DirectionsRenderer({map: map});
 
-          document.getElementById("E_latitude").value = Setlat;
-          document.getElementById("E_longitude").value = Setlong;
+        var stepDisplay = new google.maps.InfoWindow;
 
-        });
+        calculateAndDisplayRoute(
+        directionsDisplay, directionsService, markerArray, stepDisplay, map);
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('right-panel'));
+        var onChangeHandler = function() {
+          calculateAndDisplayRoute(
+              directionsDisplay, directionsService, markerArray, stepDisplay, map);
+        };
+        document.getElementById('start').addEventListener('change', onChangeHandler);
+        document.getElementById('end').addEventListener('change', onChangeHandler);
       }
 
-      var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 15,
-        center: myLatlng
-      });
-
-      var marker = new google.maps.Marker({
-        position: myLatlng,
-        map: map,
-        title: 'Click to zoom'
-      });
-
-      directionsDisplay.setMap(map);
-      var onChangeHandler = function() {
-        calculateAndDisplayRoute(directionsDisplay, directionsService);
-      };
-
-      document.getElementById('start').addEventListener('change', onChangeHandler);
-      document.getElementById('end').addEventListener('change', onChangeHandler);
-      
-    }
-  </script>
-
-<script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHvHdio8MNE9aqZZmfvd49zHgLbixudMs&callback=initMap&language=th">
-</script>
+      function calculateAndDisplayRoute(directionsDisplay, directionsService,
+        markerArray, stepDisplay, map) {
+        for (var i = 0; i < markerArray.length; i++) {
+          markerArray[i].setMap(null);
+        }
+        directionsService.route({
+          origin: document.getElementById('start').value,
+          destination: document.getElementById('end').value,
+          travelMode: 'DRIVING'
+        }, function(response, status) {
+          if (status === 'OK') {
+            document.getElementById('warnings-panel').innerHTML =
+                '<b>' + response.routes[0].warnings + '</b>';
+            directionsDisplay.setDirections(response);
+            showSteps(response, markerArray, stepDisplay, map);
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        });
+      }
+    </script>
+    
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHvHdio8MNE9aqZZmfvd49zHgLbixudMs&callback=initMap&language=th">
+    </script>
 @endsection
