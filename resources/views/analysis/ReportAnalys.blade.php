@@ -258,8 +258,14 @@
           <th align="right" width="120px"> ประกันภัย &nbsp;</th>
           <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataReport->Insurance_car}}</b></th>
         </tr>
+        @php 
+          $intersetAll = (str_replace(",","",$dataReport->Totalpay1_car) - str_replace(",","",$dataReport->Top_car)) - str_replace(",","",$dataReport->Taxpay_car);
+        @endphp
         <tr>
-          <th class="text-center" width="540px"></th>
+          <!-- <th class="text-center" width="540px"></th> -->
+          <th class="text-center" width="240px"></th>
+          <th align="right" width="120px"> ดอกผลทั้งสัญญา &nbsp;</th>
+          <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{number_format($intersetAll,2)}}</b></th>
         </tr>
         <tr>
           <th align="right" width="120px"> แบบ &nbsp;</th>
@@ -417,7 +423,10 @@
           <th align="right" width="120px"> <b>{{$dataReport->totalinstalments1_HC}} &nbsp;</b></th>
         </tr>
         <tr>
-          <th class="text-center" width="540px"></th>
+          <!-- <th class="text-center" width="540px"></th> -->
+          <th class="text-center" width="240px"></th>
+          <th align="right" width="120px"> ดอกผลทั้งสัญญา &nbsp;</th>
+          <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{number_format($intersetAll,2)}}</b></th>
         </tr>
         <tr>
           <th align="right" width="120px"> แบบ &nbsp;</th>
@@ -537,7 +546,10 @@
             <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataReport->Insurance_car}}</b></th>
           </tr>
           <tr>
-            <th class="text-center" width="540px"></th>
+            <!-- <th class="text-center" width="540px"></th> -->
+            <th class="text-center" width="240px"></th>
+          <th align="right" width="120px"> ดอกผลทั้งสัญญา &nbsp;</th>
+          <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{number_format($intersetAll,2)}}</b></th>
           </tr>
           <tr>
             <th align="right" width="120px"> แบบ &nbsp;</th>
