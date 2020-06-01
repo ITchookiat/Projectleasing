@@ -2134,7 +2134,6 @@
                                   <h3 class="card-title">แผนที่</h3>
                   
                                   <div class="card-tools">
-                                    <button type="button" class="btn btn-tool" onclick="showMap()" title="แสดงละติจูดและลองจิจูด"><i class="fa fa-eye"></i></button>
                                     <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                                     <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
                                   </div>
@@ -2641,15 +2640,14 @@
       maxFileSize:10240
     })
   </script>
-  
-  <script>
+ 
+ <script>
       function initMap() {
         var markerArray = [];
         var directionsService = new google.maps.DirectionsService;
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 15,
           center: {lat: 6.5481687, lng: 101.2860958}
-        });
 
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
