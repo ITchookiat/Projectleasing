@@ -108,9 +108,9 @@
                           <a class="nav-link" href="#">แบบฟอร์มค่าใช้จ่าย</a>
                         </li>
                       @endif
-                      <li class="nav-item">
+                      {{-- <li class="nav-item">
                         <a class="nav-link" href="#">Checker</a>
-                      </li>
+                      </li> --}}
 
                     </ul>
                   </div>
