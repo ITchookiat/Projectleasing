@@ -1177,11 +1177,9 @@ class AnalysController extends Controller
           }
 
         $SetLicense = "";
-        if ($request->get('Nowlicensecar') != NULL) {
-          $SetLicense = $request->get('Nowlicensecar');
-        }elseif ($request->get('Licensecar') != NULL) {
-          $SetLicense = $request->get('Licensecar');
-        }
+          if ($request->get('Licensecar') != NULL) {
+            $SetLicense = $request->get('Licensecar');
+          }
         
         //รูปหน้าบัญชี
         $NameImage = NULL;
@@ -1992,9 +1990,7 @@ class AnalysController extends Controller
 
           // ดึงค่า ป้ายทะเบียน
           $SetLicense = "";
-          if ($request->get('Nowlicensecar') != NULL) {
-            $SetLicense = $request->get('Nowlicensecar');
-          }elseif ($request->get('Licensecar') != NULL) {
+          if ($request->get('Licensecar') != NULL) {
             $SetLicense = $request->get('Licensecar');
           }
 
