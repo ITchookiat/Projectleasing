@@ -8,6 +8,10 @@
     <label>วันที่ : {{$date}}</label>
     <h3 class="card-title p-3" align="center">แบบฟอร์มขออนุมัติเช่าซื้อรถยนต์</h3>
     <hr>
+  
+    @php 
+      $intersetAll = (str_replace(",","",$dataReport->Totalpay1_car) - str_replace(",","",$dataReport->Top_car)) - str_replace(",","",$dataReport->Taxpay_car);
+    @endphp
 
   <body style="margin-top: 0 0 0px;">
 
@@ -258,9 +262,6 @@
           <th align="right" width="120px"> ประกันภัย &nbsp;</th>
           <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataReport->Insurance_car}}</b></th>
         </tr>
-        @php 
-          $intersetAll = (str_replace(",","",$dataReport->Totalpay1_car) - str_replace(",","",$dataReport->Top_car)) - str_replace(",","",$dataReport->Taxpay_car);
-        @endphp
         <tr>
           <!-- <th class="text-center" width="540px"></th> -->
           <th class="text-center" width="240px"></th>
