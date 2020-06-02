@@ -341,9 +341,9 @@
                         <li class="nav-item">
                           <a class="nav-link" id="Sub-custom-tab4" data-toggle="pill" href="#Sub-tab4" role="tab" aria-controls="Sub-tab4" aria-selected="false">แบบฟอร์มค่าใช้จ่าย</a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                           <a class="nav-link" id="Sub-custom-tab5" data-toggle="pill" href="#Sub-tab5" role="tab" aria-controls="Sub-tab4" aria-selected="false">Checker</a>
-                        </li>
+                        </li> --}}
                       </ul>
                     </div>
 
@@ -2642,40 +2642,6 @@
     })
   </script>
 
-{{-- <script>
-  function initMap() {
-    var directionsService = new google.maps.DirectionsService;
-    var directionsDisplay = new google.maps.DirectionsRenderer;
-
-    var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 15,
-      center: {lat: 6.876454, lng: 101.236888}
-    });
-
-    directionsDisplay.setMap(map);
-
-    var onChangeHandler = function() {
-      calculateAndDisplayRoute(directionsDisplay, directionsService);
-    };
-
-    document.getElementById('start').addEventListener('change', onChangeHandler);
-    document.getElementById('end').addEventListener('change', onChangeHandler);
-  }
-
-  function calculateAndDisplayRoute(directionsService, directionsDisplay){
-      directionsService.route({
-        origin: document.getElementById('start').value,
-        destination: document.getElementById('end').value,
-        travelMode: 'DRIVING'
-      }, function(response, status) {
-        if (status === 'OK') {
-          directionsDisplay.setDirections(response);
-        } else {
-          window.alert('Directions request failed due to ' + status);
-        }
-      });
-  }
-</script> --}}
 
 <script>
   function initMap() {
@@ -2718,8 +2684,6 @@
             '<b>' + response.routes[0].warnings + '</b>';
         directionsDisplay.setDirections(response);
         // showSteps(response, stepDisplay, map);
-      } else {
-        window.alert('Directions request failed due to ' + status);
       }
     });
   }
