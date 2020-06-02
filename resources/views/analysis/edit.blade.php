@@ -901,12 +901,21 @@
                                 <div class="card card-primary">
                                   <div class="card-header">
                                     <div class="card-title">
-                                      รูปภาพหน้าบัญชี
+                                      รูปภาพทั้งหมด
                                     </div>
                                   </div>
                                   <div class="card-body">
+                                    @if($data->Nowlicense_car != NULL)
+                                      @php
+                                        $Setlisence = $data->Nowlicense_car;
+                                      @endphp
+                                    @elseif($data->License_car != NULL)
+                                      @php
+                                        $Setlisence = $data->License_car;
+                                      @endphp
+                                    @endif
                                     <div class="form-inline">
-                                      @if(substr($data->createdBuyers_at,0,10) < date('Y-m-d'))
+                                      @if(substr($data->createdBuyers_at,0,10) < $Currdate)
                                         @foreach($dataImage as $images)
                                           @if($images->Type_fileimage == "1")
                                             <div class="col-sm-3">
@@ -920,8 +929,8 @@
                                         @foreach($dataImage as $images)
                                           @if($images->Type_fileimage == "1")
                                             <div class="col-sm-3">
-                                              <a href="{{ asset('upload-image/'.$data->License_car.'/'.$images->Name_fileimage) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true" style="width: 300px; height: auto;">
-                                                <img src="{{ asset('upload-image/'.$data->License_car.'/'.$images->Name_fileimage) }}">
+                                              <a href="{{ asset('upload-image/'.$Setlisence .'/'.$images->Name_fileimage) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true" style="width: 300px; height: auto;">
+                                                <img src="{{ asset('upload-image/'.$Setlisence .'/'.$images->Name_fileimage) }}">
                                               </a>
                                             </div>
                                           @endif
