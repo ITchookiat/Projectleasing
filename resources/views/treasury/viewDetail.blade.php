@@ -407,11 +407,7 @@
 
                 </div>
                 <div class="col-sm-6">
-                  @if($data->Nowlicense_car != NULL)
-                    @php
-                      $Setlisence = $data->Nowlicense_car;
-                    @endphp
-                  @elseif($data->License_car != NULL)
+                  @if($data->License_car != NULL)
                     @php
                       $Setlisence = $data->License_car;
                     @endphp

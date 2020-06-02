@@ -905,11 +905,7 @@
                                     </div>
                                   </div>
                                   <div class="card-body">
-                                    @if($data->Nowlicense_car != NULL)
-                                      @php
-                                        $Setlisence = $data->Nowlicense_car;
-                                      @endphp
-                                    @elseif($data->License_car != NULL)
+                                    @if($data->License_car != NULL)
                                       @php
                                         $Setlisence = $data->License_car;
                                       @endphp
@@ -1871,11 +1867,7 @@
                                 </div>
                                 <div class="card-body">
 
-                                  @if($data->Nowlicense_car != NULL)
-                                    @php
-                                      $Setlisence = $data->Nowlicense_car;
-                                    @endphp
-                                  @elseif($data->License_car != NULL)
+                                  @if($data->License_car != NULL)
                                     @php
                                       $Setlisence = $data->License_car;
                                     @endphp
@@ -1889,11 +1881,6 @@
                                             <img src="{{ asset('upload-image/'.$data->AccountImage_car) }}">
                                           </a>
                                         </div>
-                                        {{-- <div class="col-sm-2">
-                                          <a href="{{ asset('upload-image/'.$data->AccountImage_car) }}" data-toggle="lightbox" data-title="รูปที่ 1 หน้าเล่มบัญชี">
-                                            <img src="{{ asset('upload-image/'.$data->AccountImage_car) }}" class="img-fluid mb-2" alt="white sample">
-                                          </a>
-                                        </div> --}}
                                       @endif
                                     @else
                                       @if ($data->AccountImage_car != NULL)
@@ -1902,61 +1889,13 @@
                                             <img src="{{ asset('upload-image/'.$Setlisence.'/'.$data->AccountImage_car) }}">
                                           </a>
                                         </div>
-                                        {{-- <div class="col-sm-2">
-                                          <a href="{{ asset('upload-image/'.$Setlisence.'/'.$data->AccountImage_car) }}" data-toggle="lightbox" data-title="รูปที่ 1 หน้าเล่มบัญชี">
-                                            <img src="{{ asset('upload-image/'.$Setlisence.'/'.$data->AccountImage_car) }}" class="img-fluid mb-2" alt="white sample">
-                                          </a>
-                                        </div> --}}
                                       @endif
                                     @endif
                                   </div>
                                 </div>
                               </div>
-
-                              {{-- <div class="form-inline">
-                                <div class="col-sm-4"></div>
-                                <div class="col-sm-3">
-                                  @if(substr($data->createdBuyers_at,0,10) < $Currdate)
-                                    @if ($data->AccountImage_car != NULL)
-                                      <a href="{{ asset('upload-image/'.$data->AccountImage_car) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true" style="width: 300px; height: auto;">
-                                        <img src="{{ asset('upload-image/'.$data->AccountImage_car) }}">
-                                      </a>
-                                    @endif
-                                  @else
-                                    @if ($data->AccountImage_car != NULL)
-                                      <a href="{{ asset('upload-image/'.$data->License_car.'/'.$data->AccountImage_car) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true" style="width: 300px; height: auto;">
-                                        <img src="{{ asset('upload-image/'.$data->License_car.'/'.$data->AccountImage_car) }}">
-                                      </a>
-                                    @endif
-                                  @endif
-                                </div>
-                              </div> --}}
                             </div>
                           </div>
-
-                          {{-- <br>
-                          <div class="row">
-                            <div class="col-12">
-                              <div class="form-inline">
-                                <div class="col-sm-4"></div>
-                                <div class="col-sm-3">
-                                  @if(substr($data->createdBuyers_at,0,10) < $Currdate)
-                                    @if ($data->AccountImage_car != NULL)
-                                      <a href="{{ asset('upload-image/'.$data->AccountImage_car) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true" style="width: 300px; height: auto;">
-                                        <img src="{{ asset('upload-image/'.$data->AccountImage_car) }}">
-                                      </a>
-                                    @endif
-                                  @else
-                                    @if ($data->AccountImage_car != NULL)
-                                      <a href="{{ asset('upload-image/'.$data->License_car.'/'.$data->AccountImage_car) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true" style="width: 300px; height: auto;">
-                                        <img src="{{ asset('upload-image/'.$data->License_car.'/'.$data->AccountImage_car) }}">
-                                      </a>
-                                    @endif
-                                  @endif
-                                </div>
-                              </div>
-                            </div>
-                          </div> --}}
                         </div>
                         <div class="tab-pane fade" id="Sub-tab4" role="tabpanel" aria-labelledby="Sub-custom-tab4">
                           <h5 class="text-center">แบบฟอร์มรายละเอียดค่าใช้จ่าย</h5>
@@ -2131,11 +2070,7 @@
                                     </div>
                                     <div class="card-body">
 
-                                      @if($data->Nowlicense_car != NULL)
-                                        @php
-                                          $Setlisence = $data->Nowlicense_car;
-                                        @endphp
-                                      @elseif($data->License_car != NULL)
+                                      @if($data->License_car != NULL)
                                         @php
                                           $Setlisence = $data->License_car;
                                         @endphp
