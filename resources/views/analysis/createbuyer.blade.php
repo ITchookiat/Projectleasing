@@ -1826,10 +1826,6 @@
 
 
   <script>
-    // Note: This example requires that you consent to location sharing when
-    // prompted by your browser. If you see the error "The Geolocation service
-    // failed.", it means you probably did not give permission for the browser to
-    // locate you.
     var map, infoWindow;
     function initMap() {
       map = new google.maps.Map(document.getElementById('map'), {
@@ -1874,9 +1870,9 @@
     }
   </script>
 
-<script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHvHdio8MNE9aqZZmfvd49zHgLbixudMs&callback=initMap&language=th">
-</script>
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHvHdio8MNE9aqZZmfvd49zHgLbixudMs&callback=initMap&language=th">
+  </script>
 
   {{-- button-to-top --}}
   <script>

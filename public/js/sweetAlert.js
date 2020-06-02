@@ -24,11 +24,12 @@ $(document).ready(function () {
          var form = $(this).closest("form");
          
          evt.preventDefault();
-         swal({
-                 icon: "warning",
-                 text: "คุณต้องการกลับหน้าหลักหรือไม่ ?",
-                 buttons: true,
-                 dangerMode: true
-         })
+        //  swal({
+        //          icon: "warning",
+        //          text: "คุณต้องการกลับหน้าหลักหรือไม่ ?",
+        //          buttons: true,
+        //          dangerMode: true
+        //  })
+        // swal("Deleted!", "Your imaginary file has been deleted.", "success");
     });
  });
