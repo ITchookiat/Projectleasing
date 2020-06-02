@@ -8,7 +8,7 @@
   $Y2 = date('Y') + 531;
   $m = date('m');
   $d = date('d');
-  $Currdate = date('2020-06-01');
+  $Currdate = date('2020-06-02');
   $time = date('H:i');
   $date = $Y.'-'.$m.'-'.$d;
   $date2 = $Y2.'-'.'01'.'-'.'01';
@@ -2148,14 +2148,15 @@
                                         </div>
                                         <!-- <br><br> -->
                                       </div>
-                                      <div id="floating-panel">
-                                        <!-- <strong>Start:</strong> -->
-                                        <input type="text" id="start" style="color:white;border: none">
-                                        <!-- <strong>End:</strong> -->
-                                        <input type="text" id="end" value="{{ $data->T_lat }},{{ $data->T_long }}" style="color:white;border: none">
-                                        <!-- <input type="text" id="end" value="6.7015476,101.1208669" style="color:white;border: none"> -->
+                                      
+                                      <div id="floating-panel" style="background: #fff;padding: 5px;font-size: 14px;font-family: Arial;border: 1px solid #ccc;box-shadow: 0 2px 2px rgba(33, 33, 33, 0.4);">
+                                        <strong>Start:</strong>
+                                        <input type="text" id="start" value="6.867774,101.2546353">
+                                        <strong>End:</strong>
+                                        <input type="text" id="end" value="{{ $data->T_lat }},{{ $data->T_long }}">
                                       </div>
                                       <div id="map" style="width:100%;height:63vh"></div>
+
                                       <div id="right-panel" style="width: 350px;overflow: auto;float: none;width: auto;"></div>
                                       <div id="warnings-panel"></div>
                                     </div>
@@ -2640,89 +2641,112 @@
       maxFileSize:10240
     })
   </script>
- 
- <script>
-      function initMap() {
-        var markerArray = [];
-        var directionsService = new google.maps.DirectionsService;
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 15,
-          center: {lat: 6.5481687, lng: 101.2860958}
 
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-              var pos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-              };
+{{-- <script>
+  function initMap() {
+    var directionsService = new google.maps.DirectionsService;
+    var directionsDisplay = new google.maps.DirectionsRenderer;
 
-              var Setlat = position.coords.latitude;
-              var Setlong = position.coords.longitude;
-              var start = Number(Setlat)+','+Number(Setlong);
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 15,
+      center: {lat: 6.876454, lng: 101.236888}
+    });
 
-            console.log(Setlat);
-            console.log(Setlong);
-            console.log(start);
+    directionsDisplay.setMap(map);
 
-            document.getElementById("start").value = start;
-          });
+    var onChangeHandler = function() {
+      calculateAndDisplayRoute(directionsDisplay, directionsService);
+    };
+
+    document.getElementById('start').addEventListener('change', onChangeHandler);
+    document.getElementById('end').addEventListener('change', onChangeHandler);
+  }
+
+  function calculateAndDisplayRoute(directionsService, directionsDisplay){
+      directionsService.route({
+        origin: document.getElementById('start').value,
+        destination: document.getElementById('end').value,
+        travelMode: 'DRIVING'
+      }, function(response, status) {
+        if (status === 'OK') {
+          directionsDisplay.setDirections(response);
+        } else {
+          window.alert('Directions request failed due to ' + status);
         }
+      });
+  }
+</script> --}}
 
-        var directionsDisplay = new google.maps.DirectionsRenderer({map: map});
-        var stepDisplay = new google.maps.InfoWindow;
-        calculateAndDisplayRoute(
-        directionsDisplay, directionsService, markerArray, stepDisplay, map);
-        directionsDisplay.setMap(map);
-        directionsDisplay.setPanel(document.getElementById('right-panel'));
-        var onChangeHandler = function() {
-          calculateAndDisplayRoute(
-        directionsDisplay, directionsService, markerArray, stepDisplay, map);
-        };
-        document.getElementById('start').addEventListener('mousemove', onChangeHandler);
-        document.getElementById('end').addEventListener('mousemove', onChangeHandler);
+<script>
+  function initMap() {
+    var markerArray = [];
 
-        // document.getElementById('map').addEventListener('mousemove', function() {
-        //   calculateAndDisplayRoute(directionsDisplay, directionsService, markerArray, stepDisplay, map);
-        // });
-      }
+    var directionsService = new google.maps.DirectionsService;
 
-      function calculateAndDisplayRoute(directionsDisplay, directionsService,
-          markerArray, stepDisplay, map) {
-          for (var i = 0; i < markerArray.length; i++) {
-            markerArray[i].setMap(null);
-          }
-          directionsService.route({
-          origin: document.getElementById('start').value,
-          destination: document.getElementById('end').value,
-          travelMode: 'DRIVING'
-        }, function(response, status) {
-          if (status === 'OK') {
-            document.getElementById('warnings-panel').innerHTML =
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 15,
+      center: {lat: 6.867774, lng: 101.2546353}
+    });
+
+    var directionsDisplay = new google.maps.DirectionsRenderer({map: map});
+    var stepDisplay = new google.maps.InfoWindow;
+
+    calculateAndDisplayRoute(directionsDisplay, directionsService, markerArray, stepDisplay, map);
+
+    directionsDisplay.setMap(map);
+    directionsDisplay.setPanel(document.getElementById('right-panel'));
+    var onChangeHandler = function() {
+      calculateAndDisplayRoute(directionsDisplay, directionsService, markerArray, stepDisplay, map);
+    };
+
+    document.getElementById('start').addEventListener('change', onChangeHandler);
+    document.getElementById('end').addEventListener('change', onChangeHandler);
+  }
+
+  function calculateAndDisplayRoute(directionsDisplay, directionsService,markerArray, stepDisplay, map) {
+    // for (var i = 0; i < markerArray.length; i++) {
+    //   markerArray[i].setMap(null);
+    // }
+
+    directionsService.route({
+      origin: document.getElementById('start').value,
+      destination: document.getElementById('end').value,
+      travelMode: 'DRIVING'
+    }, function(response, status) {
+      if (status === 'OK') {
+        document.getElementById('warnings-panel').innerHTML =
             '<b>' + response.routes[0].warnings + '</b>';
-            directionsDisplay.setDirections(response);
-            showSteps(response, stepDisplay, map);
-          }
-        });
+        directionsDisplay.setDirections(response);
+        // showSteps(response, stepDisplay, map);
+      } else {
+        window.alert('Directions request failed due to ' + status);
       }
+    });
+  }
 
-      function showSteps(directionResult, markerArray, stepDisplay, map) {
-        var myRoute = directionResult.routes[0].legs[0];
-        for (var i = 0; i < myRoute.steps.length; i++) {
-          var marker = markerArray[i] = markerArray[i] || new google.maps.Marker;
-          marker.setMap(map);
-          marker.setPosition(myRoute.steps[i].start_location);
-          attachInstructionText(
-          stepDisplay, marker, myRoute.steps[i].instructions, map);
-        }
-      }
+  // function showSteps(directionResult, markerArray, stepDisplay, map) {
+  //   // For each step, place a marker, and add the text to the marker's infowindow.
+  //   // Also attach the marker to an array so we can keep track of it and remove it
+  //   // when calculating new routes.
+  //   var myRoute = directionResult.routes[0].legs[0];
+  //   for (var i = 0; i < myRoute.steps.length; i++) {
+  //     var marker = markerArray[i] = markerArray[i] || new google.maps.Marker;
+  //     marker.setMap(map);
+  //     marker.setPosition(myRoute.steps[i].start_location);
+  //     attachInstructionText(
+  //         stepDisplay, marker, myRoute.steps[i].instructions, map);
+  //   }
+  // }
 
-      function attachInstructionText(stepDisplay, marker, text, map) {
-          google.maps.event.addListener(marker, 'click', function() {
-          stepDisplay.setContent(text);
-          stepDisplay.open(map, marker);
-        });
-      }
-  </script>
+  // function attachInstructionText(stepDisplay, marker, text, map) {
+  //   google.maps.event.addListener(marker, 'click', function() {
+  //     // Open an info window when the marker is clicked on, containing the text
+  //     // of the step.
+  //     stepDisplay.setContent(text);
+  //     stepDisplay.open(map, marker);
+  //   });
+  // }
+</script>
     
   <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHvHdio8MNE9aqZZmfvd49zHgLbixudMs&callback=initMap&language=th">
