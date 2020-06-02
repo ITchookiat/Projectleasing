@@ -2142,12 +2142,13 @@
                                   <div class="row">
                                     <div class="col-md-12">
                                       <div id="myLat" style="">
-                                        <div class="form-inline" align="center">
+                                        <div class="form-inline">
                                           <label>ละติจูด : </label> <input type="text" id="e_latitude" name="e_latitude" class="form-control" style="width:175px" value="{{ $data->T_lat }}"/>
                                           <label>ลองจิจูด : </label> <input type="text" id="e_longitude" name="e_longitude" class="form-control" style="width:175px" value="{{ $data->T_long }}"/>
                                         </div>
-                                        <br><br>
+                                        <!-- <br><br> -->
                                       </div>
+                                      
                                       <div id="floating-panel" style="background: #fff;padding: 5px;font-size: 14px;font-family: Arial;border: 1px solid #ccc;box-shadow: 0 2px 2px rgba(33, 33, 33, 0.4);">
                                         <strong>Start:</strong>
                                         <input type="text" id="start" value="6.867774,101.2546353">
@@ -2747,7 +2748,7 @@
   // }
 </script>
     
-    <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHvHdio8MNE9aqZZmfvd49zHgLbixudMs&callback=initMap&language=th">
-    </script>
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHvHdio8MNE9aqZZmfvd49zHgLbixudMs&callback=initMap&language=th">
+  </script>
 @endsection
