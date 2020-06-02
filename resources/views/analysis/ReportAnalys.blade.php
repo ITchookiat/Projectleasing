@@ -429,7 +429,7 @@
           <!-- <th class="text-center" width="540px"></th> -->
           <th class="text-center" width="240px"></th>
           <th align="right" width="120px"> ดอกผลทั้งสัญญา &nbsp;</th>
-          <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{number_format($intersetAllHC,2)}}</b></th>
+          <th class="text-center" width="180px" > <b>{{number_format($intersetAllHC,2)}}</b></th>
         </tr>
         <tr>
           <th align="right" width="120px"> แบบ &nbsp;</th>
