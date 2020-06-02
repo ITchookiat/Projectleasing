@@ -22,14 +22,18 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('.MainPage').click(function (evt) {
          var form = $(this).closest("form");
-         
+         var _this = $(this)
+
          evt.preventDefault();
-        //  swal({
-        //          icon: "warning",
-        //          text: "คุณต้องการกลับหน้าหลักหรือไม่ ?",
-        //          buttons: true,
-        //          dangerMode: true
-        //  })
-        // swal("Deleted!", "Your imaginary file has been deleted.", "success");
+         swal({
+                 icon: "warning",
+                 text: "คุณต้องการกลับหน้าหลักหรือไม่ ?",
+                 buttons: true,
+                 dangerMode: true
+         }).then((willDelete)=>{
+            if (willDelete) {
+               window.location.href = _this.attr('href')
+            }
+        });
     });
  });

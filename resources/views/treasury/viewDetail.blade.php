@@ -1,6 +1,10 @@
 <link type="text/css" rel="stylesheet" href="{{ asset('css/magiczoomplus.css') }}"/>
 <script type="text/javascript" src="{{ asset('js/magiczoomplus.js') }}"></script>
 
+@php
+  $Currdate = date('2020-06-02');
+@endphp
+
 <style>
   #todo-list{
   width:100%;
@@ -403,10 +407,28 @@
 
                 </div>
                 <div class="col-sm-6">
-                  @if ($data->AccountImage_car != NULL)
-                    <a href="{{ asset('upload-image/'.$data->AccountImage_car) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:off; variableZoom: true" style="width: 500px; height: auto;">
-                      <img src="{{ asset('upload-image/'.$data->AccountImage_car) }}" style="width: 300px; height: auto;">
-                    </a>
+                  @if($data->Nowlicense_car != NULL)
+                    @php
+                      $Setlisence = $data->Nowlicense_car;
+                    @endphp
+                  @elseif($data->License_car != NULL)
+                    @php
+                      $Setlisence = $data->License_car;
+                    @endphp
+                  @endif
+
+                  @if(substr($data->createdBuyers_at,0,10) < $Currdate)
+                    @if ($data->AccountImage_car != NULL)
+                      <a href="{{ asset('upload-image/'.$data->AccountImage_car) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:off; variableZoom: true" style="width: 500px; height: auto;">
+                        <img src="{{ asset('upload-image/'.$data->AccountImage_car) }}" style="width: 300px; height: auto;">
+                      </a>
+                    @endif
+                  @else
+                    @if ($data->AccountImage_car != NULL)
+                      <a href="{{ asset('upload-image/'.$Setlisence.'/'.$data->AccountImage_car) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:off; variableZoom: true" style="width: 500px; height: auto;">
+                        <img src="{{ asset('upload-image/'.$Setlisence.'/'.$data->AccountImage_car) }}" style="width: 300px; height: auto;">
+                      </a>
+                    @endif
                   @endif
                 </div>
               </div>
