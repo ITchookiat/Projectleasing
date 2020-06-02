@@ -9,6 +9,7 @@
   $m = date('m');
   $d = date('d');
   //$date = date('Y-m-d');
+  $Currdate = date('2020-06-02');
   $time = date('H:i');
   $date = $Y.'-'.$m.'-'.$d;
   $date2 = $Y2.'-'.'01'.'-'.'01';
@@ -753,15 +754,34 @@
                         <p></p>
 
                         <div class="col-md-12">
-                          <div class="form-inline">
+                        @if($data->License_car != NULL)
+                          @php
+                            $Setlisence = $data->License_car;
+                          @endphp
+                        @endif
+                        <div class="form-inline">
+                          @if(substr($data->createdBuyers_at,0,10) < $Currdate)
                             @foreach($dataImage as $images)
-                            <div class="col-sm-3">
-                              <a href="{{ asset('upload-image/'.$images->Name_fileimage) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true" style="width: 300px; height: auto;">
-                                <img src="{{ asset('upload-image/'.$images->Name_fileimage) }}">
-                              </a>
-                            </div>
+                              @if($images->Type_fileimage == "1")
+                                <div class="col-sm-3">
+                                  <a href="{{ asset('upload-image/'.$images->Name_fileimage) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true" style="width: 300px; height: auto;">
+                                    <img src="{{ asset('upload-image/'.$images->Name_fileimage) }}">
+                                  </a>
+                                </div>
+                              @endif
                             @endforeach
-                          </div>
+                          @else
+                            @foreach($dataImage as $images)
+                              @if($images->Type_fileimage == "1")
+                                <div class="col-sm-3">
+                                  <a href="{{ asset('upload-image/'.$Setlisence .'/'.$images->Name_fileimage) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true" style="width: 300px; height: auto;">
+                                    <img src="{{ asset('upload-image/'.$Setlisence .'/'.$images->Name_fileimage) }}">
+                                  </a>
+                                </div>
+                              @endif
+                            @endforeach
+                          @endif
+                        </div>
                         </div>
 
                       </div>
