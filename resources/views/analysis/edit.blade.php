@@ -341,9 +341,11 @@
                         <li class="nav-item">
                           <a class="nav-link" id="Sub-custom-tab4" data-toggle="pill" href="#Sub-tab4" role="tab" aria-controls="Sub-tab4" aria-selected="false">แบบฟอร์มค่าใช้จ่าย</a>
                         </li>
-                        {{-- <li class="nav-item">
-                          <a class="nav-link" id="Sub-custom-tab5" data-toggle="pill" href="#Sub-tab5" role="tab" aria-controls="Sub-tab4" aria-selected="false">Checker</a>
-                        </li> --}}
+                        @if(auth::user()->branch == 99)
+                          <li class="nav-item">
+                            <a class="nav-link" id="Sub-custom-tab5" data-toggle="pill" href="#Sub-tab5" role="tab" aria-controls="Sub-tab4" aria-selected="false">Checker</a>
+                          </li>
+                        @endif
                       </ul>
                     </div>
 
@@ -896,28 +898,37 @@
 
                             <div class="row">
                               <div class="col-12">
-                                <div class="form-inline">
-                                  @if(substr($data->createdBuyers_at,0,10) < date('Y-m-d'))
-                                    @foreach($dataImage as $images)
-                                      @if($images->Type_fileimage == "1")
-                                        <div class="col-sm-3">
-                                          <a href="{{ asset('upload-image/'.$images->Name_fileimage) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true" style="width: 300px; height: auto;">
-                                            <img src="{{ asset('upload-image/'.$images->Name_fileimage) }}">
-                                          </a>
-                                        </div>
+                                <div class="card card-primary">
+                                  <div class="card-header">
+                                    <div class="card-title">
+                                      รูปภาพหน้าบัญชี
+                                    </div>
+                                  </div>
+                                  <div class="card-body">
+                                    <div class="form-inline">
+                                      @if(substr($data->createdBuyers_at,0,10) < date('Y-m-d'))
+                                        @foreach($dataImage as $images)
+                                          @if($images->Type_fileimage == "1")
+                                            <div class="col-sm-3">
+                                              <a href="{{ asset('upload-image/'.$images->Name_fileimage) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true" style="width: 300px; height: auto;">
+                                                <img src="{{ asset('upload-image/'.$images->Name_fileimage) }}">
+                                              </a>
+                                            </div>
+                                          @endif
+                                        @endforeach
+                                      @else
+                                        @foreach($dataImage as $images)
+                                          @if($images->Type_fileimage == "1")
+                                            <div class="col-sm-3">
+                                              <a href="{{ asset('upload-image/'.$data->License_car.'/'.$images->Name_fileimage) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true" style="width: 300px; height: auto;">
+                                                <img src="{{ asset('upload-image/'.$data->License_car.'/'.$images->Name_fileimage) }}">
+                                              </a>
+                                            </div>
+                                          @endif
+                                        @endforeach
                                       @endif
-                                    @endforeach
-                                  @else
-                                    @foreach($dataImage as $images)
-                                      @if($images->Type_fileimage == "1")
-                                        <div class="col-sm-3">
-                                          <a href="{{ asset('upload-image/'.$data->License_car.'/'.$images->Name_fileimage) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true" style="width: 300px; height: auto;">
-                                            <img src="{{ asset('upload-image/'.$data->License_car.'/'.$images->Name_fileimage) }}">
-                                          </a>
-                                        </div>
-                                      @endif
-                                    @endforeach
-                                  @endif
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -1865,18 +1876,28 @@
                                     @if(substr($data->createdBuyers_at,0,10) < $Currdate)
                                       @if ($data->AccountImage_car != NULL)
                                         <div class="col-sm-2">
+                                          <a href="{{ asset('upload-image/'.$data->AccountImage_car) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true" style="width: 300px; height: auto;">
+                                            <img src="{{ asset('upload-image/'.$data->AccountImage_car) }}">
+                                          </a>
+                                        </div>
+                                        {{-- <div class="col-sm-2">
                                           <a href="{{ asset('upload-image/'.$data->AccountImage_car) }}" data-toggle="lightbox" data-title="รูปที่ 1 หน้าเล่มบัญชี">
                                             <img src="{{ asset('upload-image/'.$data->AccountImage_car) }}" class="img-fluid mb-2" alt="white sample">
                                           </a>
-                                        </div>
+                                        </div> --}}
                                       @endif
                                     @else
                                       @if ($data->AccountImage_car != NULL)
                                         <div class="col-sm-2">
+                                          <a href="{{ asset('upload-image/'.$Setlisence.'/'.$data->AccountImage_car) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true" style="width: 300px; height: auto;">
+                                            <img src="{{ asset('upload-image/'.$Setlisence.'/'.$data->AccountImage_car) }}">
+                                          </a>
+                                        </div>
+                                        {{-- <div class="col-sm-2">
                                           <a href="{{ asset('upload-image/'.$Setlisence.'/'.$data->AccountImage_car) }}" data-toggle="lightbox" data-title="รูปที่ 1 หน้าเล่มบัญชี">
                                             <img src="{{ asset('upload-image/'.$Setlisence.'/'.$data->AccountImage_car) }}" class="img-fluid mb-2" alt="white sample">
                                           </a>
-                                        </div>
+                                        </div> --}}
                                       @endif
                                     @endif
                                   </div>
