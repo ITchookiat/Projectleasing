@@ -1746,7 +1746,7 @@ class AnalysController extends Controller
     {
 
         date_default_timezone_set('Asia/Bangkok');
-        $Currdate = date('2020-05-28');   //วันที่เช็ตค่า รูป
+        $Currdate = date('2020-06-02');   //วันที่เช็ตค่า รูป
 
         $newDateDue = \Carbon\Carbon::parse($request->DateDue)->format('Y') ."-". \Carbon\Carbon::parse($request->DateDue)->format('m')."-". \Carbon\Carbon::parse($request->DateDue)->format('d');
         $SetPhonebuyer = str_replace ( "_","",$request->get('Phonebuyer'));
@@ -2425,7 +2425,7 @@ class AnalysController extends Controller
 
       $item5 = UploadfileImage::where('Buyerfileimage_id','=',$id)->get();
       $countData = count($item5);
-      $Currdate = date('2020-05-28');
+      $Currdate = date('2020-06-02');
       $created_at = '';
 
       if($countData != 0){
@@ -2474,7 +2474,7 @@ class AnalysController extends Controller
 
     public function deleteImageAll($id,$path,Request $request)
     {
-      $Currdate = date('2020-05-28');
+      $Currdate = date('2020-06-02');
       $created_at = '';
       $item = UploadfileImage::where('Buyerfileimage_id','=',$id)->get();
       $countData = count($item);
@@ -2537,7 +2537,7 @@ class AnalysController extends Controller
       $path = $path;
       $mainid = $request->mainid;
       $created_at = '';
-      $Currdate = date('2020-05-28');
+      $Currdate = date('2020-06-02');
 
       $item1 = UploadfileImage::where('fileimage_id',$id);
       $data = UploadfileImage::where('fileimage_id','=',$id)->get();

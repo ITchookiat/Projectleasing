@@ -5,7 +5,7 @@
   @php
     date_default_timezone_set('Asia/Bangkok');
     $date = date('Y-m-d', strtotime('-1 days'));
-    $Currdate = date('2020-05-28');
+    $Currdate = date('2020-06-02');
   @endphp
 
   @php
