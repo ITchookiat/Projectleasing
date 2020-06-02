@@ -75,8 +75,11 @@ class TreasController extends Controller
                     ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
                     ->join('cardetails','Buyers.id','=','cardetails.Buyercar_id')
                     ->join('Expenses','Buyers.id','=','Expenses.Buyerexpenses_id')
+                    ->select('buyers.*','sponsors.*','cardetails.*','Expenses.*','buyers.created_at AS createdBuyers_at')
                     ->where('buyers.id', $id)
                     ->first();
+
+                    // dd($data);
 
             if ($data->Payee_car != NULL) {
                 $SetAccount = str_replace ("-","",$data->Accountbrance_car);
