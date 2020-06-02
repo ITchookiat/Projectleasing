@@ -1429,6 +1429,8 @@ class AnalysController extends Controller
                   ->leftJoin('sponsor2s','buyers.id','=','sponsor2s.Buyer_id2')
                   ->leftJoin('cardetails','Buyers.id','=','cardetails.Buyercar_id')
                   ->leftJoin('expenses','Buyers.id','=','expenses.Buyerexpenses_id')
+                  ->leftJoin('upload_lat_longs','Buyers.id','=','upload_lat_longs.Use_id')
+                  ->select('buyers.*','sponsors.*','sponsor2s.*','cardetails.*','expenses.*','upload_lat_longs.*','buyers.created_at AS createdBuyers_at')
                   ->where('buyers.id',$id)->first();
 
                   $GetDocComplete = $data->DocComplete_car;
@@ -1441,6 +1443,8 @@ class AnalysController extends Controller
                   ->leftJoin('sponsor2s','buyers.id','=','sponsor2s.Buyer_id2')
                   ->leftJoin('cardetails','Buyers.id','=','cardetails.Buyercar_id')
                   ->leftJoin('expenses','Buyers.id','=','expenses.Buyerexpenses_id')
+                  ->leftJoin('upload_lat_longs','Buyers.id','=','upload_lat_longs.Use_id')
+                  ->select('buyers.*','sponsors.*','sponsor2s.*','cardetails.*','expenses.*','upload_lat_longs.*','buyers.created_at AS createdBuyers_at')
                   ->where('buyers.id',$id)->first();
 
                   $GetDocComplete = $data->DocComplete_car;
