@@ -1368,10 +1368,10 @@ class AnalysController extends Controller
       // เก็บค่า lat-long 
         $locationDB = new upload_lat_long([
           'Use_id' => $Buyerdb->id,
-          'B_lat' => $request->get('Buyer_latitude'),
-          'B_long' => $request->get('Buyer_longitude'),
-          'SP_lat' => $request->get('Support_latitude'),
-          'SP_long' => $request->get('Support_longitude'),
+          'Buyer_latlong' => $request->get('Buyer_latlong'),
+          'Support_latlong' => $request->get('Support_latlong'),
+          // 'SP_lat' => $request->get('Support_latitude'),
+          // 'SP_long' => $request->get('Support_longitude'),
         ]);
         $locationDB ->save();
 
@@ -2385,17 +2385,23 @@ class AnalysController extends Controller
       }
 
       // ตำแหน่งที่ตั้ง ผู้เช่าซื้อ ผู้ค้ำ
-      $StrBuyer = explode(",",$request->get('Buyer_latlong'));
-      $StrBuyerLat = $StrBuyer[0];
-      $StrBuyerLong = $StrBuyer[1];
-      $StrSupporter = explode(",",$request->get('Support_latlong'));
-      $StrSupporterLat = $StrSupporter[0];
-      $StrSupporterLong = $StrSupporter[1];
+      if($request->get('Buyer_latlong') != NULL){
+        $StrBuyerLatlong = $request->get('Buyer_latlong');
+      }else{
+        $StrBuyerLatlong = NULL;
+      }
+
+      if($request->get('Support_latlong') != NULL){
+        $StrSupporterlatLong = $request->get('Support_latlong');
+      }else{
+        $StrSupporterlatLong = NULL;
+      }
+      
       $Location = upload_lat_long::where('Use_id',$id)->first();
-        $Location->B_lat = $StrBuyerLat;
-        $Location->B_long = $StrBuyerLong;
-        $Location->SP_lat = $StrSupporterLat;
-        $Location->SP_long = $StrSupporterLong;
+        $Location->Buyer_latlong = $StrBuyerLatlong;
+        $Location->Support_latlong = $StrSupporterlatLong;
+        // $Location->SP_lat = $StrSupporterLat;
+        // $Location->SP_long = $StrSupporterLong;
       $Location->update();
 
       $fdate = $request->fdate;
