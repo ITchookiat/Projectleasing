@@ -1491,21 +1491,37 @@
                                       <div class="row">
                                         <div class="col-md-12">
                                           <div class="form-inline float-right">
-                                            <label>ละติจูด : </label> 
-                                            <input type="text" id="T_latitude" name="T_latitude" class="form-control"  placeholder="ป้อนค่าละติจูด" />
+                                            <label>ละติจูดผู้เช่าซื้อ : </label> 
+                                            <input type="text" id="Buyer_latitude" name="Buyer_latitude" class="form-control"  placeholder="ป้อนค่าละติจูดผู้เช่าซื้อ" />
                                           </div>
                                         </div>
                                         <br><br>
                                         <div class="col-md-12">
                                           <div class="form-inline float-right">
-                                            <label>ลองติจูด : </label> 
-                                            <input type="text" id="T_longitude" name="T_longitude" class="form-control"  placeholder="ป้อนค่าลองติจูด" />
+                                            <label>ลองติจูดผู้เช่าซื้อ : </label> 
+                                            <input type="text" id="Buyer_longitude" name="Buyer_longitude" class="form-control"  placeholder="ป้อนค่าลองติจูดผู้เช่าซื้อ" />
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <hr>
+                                      <div class="row">
+                                        <div class="col-md-12">
+                                          <div class="form-inline float-right">
+                                            <label>ละติจูดผู้ค้ำ : </label> 
+                                            <input type="text" id="Support_latitude" name="Support_latitude" class="form-control"  placeholder="ป้อนค่าละติจูดผู้ค้ำ" />
+                                          </div>
+                                        </div>
+                                        <br><br>
+                                        <div class="col-md-12">
+                                          <div class="form-inline float-right">
+                                            <label>ลองติจูดผู้ค้ำ : </label> 
+                                            <input type="text" id="Support_longitude" name="Support_longitude" class="form-control"  placeholder="ป้อนค่าลองติจูดผู้ค้ำ" />
                                           </div>
                                         </div>
                                       </div>
                                       <br>
                                     </div>
-                                    <div id="map"  style="width:100%;height:38vh"></div>
+                                    <div id="map"  style="width:1%;height:1vh"></div>
                                   </div>
                                 </div>
                               </div>
@@ -1845,8 +1861,8 @@
             var getlat=position.coords.latitude;
             var getlng=position.coords.longitude;
 
-            document.getElementById("T_latitude").value = getlat;
-            document.getElementById("T_longitude").value = getlng;
+            document.getElementById("Buyer_latitude").value = getlat;
+            document.getElementById("Buyer_longitude").value = getlng;
 
           infoWindow.setPosition(pos);
           infoWindow.setContent('ตำแหน่งปัจจบัน');infoWindow.open(map);

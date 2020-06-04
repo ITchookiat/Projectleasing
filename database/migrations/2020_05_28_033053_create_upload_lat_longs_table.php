@@ -16,10 +16,10 @@ class CreateUploadLatLongsTable extends Migration
         Schema::create('upload_lat_longs', function (Blueprint $table) {
             $table->bigIncrements('latlong_id');
             $table->integer('Use_id')->nullable();
-            $table->string('F_lat')->nullable();
-            $table->string('F_long')->nullable();
-            $table->string('T_lat')->nullable();
-            $table->string('T_long')->nullable();
+            $table->string('B_lat')->nullable();
+            $table->string('B_long')->nullable();
+            $table->string('SP_lat')->nullable();
+            $table->string('SP_long')->nullable();
             $table->timestamps();
         });
     }
