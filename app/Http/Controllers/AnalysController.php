@@ -2396,6 +2396,8 @@ class AnalysController extends Controller
       }else{
         $StrSupporterlatLong = NULL;
       }
+
+      dd($Buyerdb->id);
       
       $Location = upload_lat_long::where('Use_id',$id)->first();
       if($Location != null){
@@ -2404,6 +2406,15 @@ class AnalysController extends Controller
         // $Location->SP_lat = $StrSupporterLat;
         // $Location->SP_long = $StrSupporterLong;
         $Location->update();
+      }else{
+        $locationDB = new upload_lat_long([
+          'Use_id' => $user->id,
+          'Buyer_latlong' => $request->get('Buyer_latlong'),
+          'Support_latlong' => $request->get('Support_latlong'),
+          // 'SP_lat' => $request->get('Support_latitude'),
+          // 'SP_long' => $request->get('Support_longitude'),
+        ]);
+        $locationDB ->save();
       }
 
       $fdate = $request->fdate;
