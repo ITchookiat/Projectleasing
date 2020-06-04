@@ -2398,11 +2398,13 @@ class AnalysController extends Controller
       }
       
       $Location = upload_lat_long::where('Use_id',$id)->first();
+      if($Location != null){
         $Location->Buyer_latlong = $StrBuyerLatlong;
         $Location->Support_latlong = $StrSupporterlatLong;
         // $Location->SP_lat = $StrSupporterLat;
         // $Location->SP_long = $StrSupporterLong;
-      $Location->update();
+        $Location->update();
+      }
 
       $fdate = $request->fdate;
       $tdate = $request->tdate;
