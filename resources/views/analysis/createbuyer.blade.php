@@ -247,11 +247,9 @@
                         <li class="nav-item">
                           <a class="nav-link" id="Sub-custom-tab4" data-toggle="pill" href="#Sub-tab4" role="tab" aria-controls="Sub-tab4" aria-selected="false">แบบฟอร์มค่าใช้จ่าย</a>
                         </li>
-                        @if(auth::user()->branch == 99)
-                          <li class="nav-item">
-                            <a class="nav-link" id="Sub-custom-tab5" data-toggle="pill" href="#Sub-tab5" role="tab" aria-controls="Sub-tab5" aria-selected="false">Checker</a>
-                          </li>
-                        @endif
+                        <li class="nav-item">
+                          <a class="nav-link" id="Sub-custom-tab5" data-toggle="pill" href="#Sub-tab5" role="tab" aria-controls="Sub-tab5" aria-selected="false">Checker</a>
+                        </li>
                       </ul>
                     </div>
                     {{-- เนื้อหา --}}
