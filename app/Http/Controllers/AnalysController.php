@@ -1366,14 +1366,15 @@ class AnalysController extends Controller
       }
 
       // เก็บค่า lat-long 
-      if ($request->get('T_latitude') and $request->get('T_longitude')) {
         $locationDB = new upload_lat_long([
           'Use_id' => $Buyerdb->id,
-          'T_lat' => $request->get('T_latitude'),
-          'T_long' => $request->get('T_longitude'),
+          'B_lat' => $request->get('Buyer_latitude'),
+          'B_long' => $request->get('Buyer_longitude'),
+          'SP_lat' => $request->get('Support_latitude'),
+          'SP_long' => $request->get('Support_longitude'),
         ]);
+        dd($locationDB);
         $locationDB ->save();
-      }
 
 
 
@@ -2383,6 +2384,20 @@ class AnalysController extends Controller
           $Uploaddb ->save();
         }
       }
+
+      // ตำแหน่งที่ตั้ง ผู้เช่าซื้อ ผู้ค้ำ
+      $StrBuyer = explode(",",$request->get('Buyer_latlong'));
+      $StrBuyerLat = $StrBuyer[0];
+      $StrBuyerLong = $StrBuyer[1];
+      $StrSupporter = explode(",",$request->get('Support_latlong'));
+      $StrSupporterLat = $StrSupporter[0];
+      $StrSupporterLong = $StrSupporter[1];
+      $Location = upload_lat_long::where('Use_id',$id)->first();
+        $Location->B_lat = $StrBuyerLat;
+        $Location->B_long = $StrBuyerLong;
+        $Location->SP_lat = $StrSupporterLat;
+        $Location->SP_long = $StrSupporterLong;
+      $Location->update();
 
       $fdate = $request->fdate;
       $tdate = $request->tdate;
