@@ -2108,10 +2108,10 @@
                                     <div class="col-md-12">
                                       <div id="myLat" style="">
                                           <div class="form-inline float-right">
-                                            <label>ตำแหน่งที่ตั้งผู้เช่าซื้อ (A) : </label> <input type="text" id="Buyer_latlong" name="Buyer_latlong" class="form-control" style="width:250px" value="{{ $data->B_lat }},{{ $data->B_long }}"/>
+                                            <label>ตำแหน่งที่ตั้งผู้เช่าซื้อ (A) : </label> <input type="text" id="Buyer_latlong" name="Buyer_latlong" class="form-control" style="width:250px" value="{{ $data->Buyer_latlong }}"/>
                                           </div>
                                           <div class="form-inline float-right">
-                                            <label>ตำแหน่งที่ตั้งผู้ค้ำ (B): </label> <input type="text" id="Support_latlong" name="Support_latlong" class="form-control" style="width:250px" value="{{ $data->SP_lat }},{{ $data->SP_long }}"/>
+                                            <label>ตำแหน่งที่ตั้งผู้ค้ำ (B): </label> <input type="text" id="Support_latlong" name="Support_latlong" class="form-control" style="width:250px" value="{{ $data->Support_latlong }}"/>
                                           </div>
                                       </div>
                                     </div>
@@ -2600,6 +2600,33 @@
   </script>
 
 
+  @if($data->Buyer_latlong != NULL)
+    @php
+      $SetBuyerlatlong = explode(",",$data->Buyer_latlong);
+      $Buyerlat = $SetBuyerlatlong[0];
+      $Buyerlong = $SetBuyerlatlong[1];
+    @endphp
+  @else 
+    @php
+      $Buyerlat = 0;
+      $Buyerlong = 0;
+    @endphp
+  @endif
+
+  @if($data->Support_latlong != NULL)
+   @php
+      $SetSupportlatlong = explode(",",$data->Support_latlong);
+      $Supportlat = $SetSupportlatlong[0];
+      $Supportlong = $SetSupportlatlong[1];
+    @endphp
+  @else 
+    @php
+      $Supportlat = 0;
+      $Supportlong = 0;
+    @endphp
+  @endif
+
+
 <script>
       function initMap() {
 
@@ -2624,8 +2651,8 @@
           {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
       }
       var locations = [
-      {lat: {{ $data->B_lat }}, lng: {{ $data->B_long }} },
-      {lat: {{ $data->SP_lat }}, lng: {{ $data->SP_long }} }
+      {lat: {{ $Buyerlat }}, lng: {{ $Buyerlong }} },
+      {lat: {{ $Supportlat }}, lng: {{ $Supportlong }} }
       ]
   </script>
 
