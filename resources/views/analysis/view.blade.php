@@ -108,11 +108,9 @@
                           <a class="nav-link" href="#">แบบฟอร์มค่าใช้จ่าย</a>
                         </li>
                       @endif
-                      @if(auth::user()->branch == 99)
                         <li class="nav-item">
                           <a class="nav-link" href="#">Checker</a>
                         </li>
-                      @endif
                     </ul>
                   </div>
                   @if($type == 1)

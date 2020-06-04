@@ -2396,8 +2396,6 @@ class AnalysController extends Controller
       }else{
         $StrSupporterlatLong = NULL;
       }
-
-      dd($Buyerdb->id);
       
       $Location = upload_lat_long::where('Use_id',$id)->first();
       if($Location != null){
