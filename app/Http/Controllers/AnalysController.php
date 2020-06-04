@@ -1373,7 +1373,6 @@ class AnalysController extends Controller
           'SP_lat' => $request->get('Support_latitude'),
           'SP_long' => $request->get('Support_longitude'),
         ]);
-        dd($locationDB);
         $locationDB ->save();
 
 
