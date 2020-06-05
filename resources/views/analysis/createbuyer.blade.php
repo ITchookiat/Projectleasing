@@ -179,11 +179,9 @@
   <section class="content">
     <div class="content-header">
       @if(session()->has('success'))
-        <div class="alert alert-success alert-dismissible" role="alert">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span></button>
-          <strong>สำเร็จ!</strong> {{ session()->get('success') }}
-        </div>
+        <script type="text/javascript">
+          toastr.success('ดำเนินรายงานเสร็จสิ้น.')
+        </script>
       @endif
 
       <section class="content">
@@ -967,7 +965,7 @@
                             <div class="col-5">
                               <div class="float-right form-inline">
                                 <label>ป้ายเดิม : </label>
-                                <input type="text" name="Licensecar" class="form-control" style="width: 250px;" placeholder="ป้ายเดิม"/>
+                                <input type="text" name="Licensecar" class="form-control" style="width: 250px;" placeholder="ป้ายเดิม" required/>
                               </div>
                             </div>
                             <div class="col-5">
@@ -1207,7 +1205,7 @@
 
                           <div class="row">
                             <div class="col-5">
-                              <div class="float-right form-inline">
+                              <div class="float-right form-inline" style="display: none" id="ShowCom">
                                 <label>ค่าคอม : </label>
                                 <input type="text" id="Commissioncar" name="Commissioncar" class="form-control" style="width: 250px;" placeholder="ค่าคอม" oninput="commission();"/>
                               </div>
@@ -1219,6 +1217,18 @@
                               </div>
                             </div>
                           </div>
+
+                          <script>
+                            $('#Agentcar').change(function(){
+                              var value = document.getElementById('Agentcar').value;
+                                if(value == ''){
+                                  $('#ShowCom').hide();
+                                }
+                                else{
+                                  $('#ShowCom').show();
+                                }
+                            });
+                          </script>
 
                           <div class="row">
                             <div class="col-5">
@@ -1913,7 +1923,6 @@
       maxFileSize:10240
     })
   </script>
-
 
   <script type="text/javascript">
     $(".alert").fadeTo(3000, 1000).slideUp(1000, function(){

@@ -706,20 +706,20 @@
           var Subtstr = input.split("");
           var Setstr = Subtstr[0];
           if (Setstr[0] == "*") {
-          var result = num1;
+            var result = num1;
           }else {
-          if(num1 > 999){
-          if(num11 == ''){
-          var num11 = 0;
+            if(num1 > 999){
+              if(num11 == ''){
+                var num11 = 0;
+              }else{
+                var sumCom = (num1*0.015);
+                var result = num1 - sumCom;
+              }
+            }else{
+            var result = num1;
+            }
           }
-          else{
-          var sumCom = (num1*0.015);
-          var result = num1 - sumCom;
-          }
-          }else{
-          var result = num1;
-          }
-          }
+          
           if(!isNaN(num1)){
           document.form1.Commissioncar.value = addCommas(num1);
           document.form1.commitPrice.value =  addCommas(result);
