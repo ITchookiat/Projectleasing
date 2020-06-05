@@ -19,12 +19,10 @@
   <!-- Main content -->
   <section class="content">
     <div class="content-header">
-      @if(session()->has('success'))
-        <div class="alert alert-success alert-dismissible" role="alert">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span></button>
-          <strong>สำเร็จ!</strong> {{ session()->get('success') }}
-        </div>
+      @if(session()->has('success'))     
+        <script type="text/javascript">
+          toastr.success('ดำเนินรายงานเสร็จสิ้น.')
+        </script>
       @endif
 
       <section class="content">
@@ -418,7 +416,7 @@
                                     <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',$row->id) }}" style="display:inline;">
                                     {{csrf_field()}}
                                       <input type="hidden" name="_method" value="DELETE" />
-                                      <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
+                                      <button type="submit" data-name="{{ $row->Contract_buyer }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
                                         <i class="far fa-trash-alt"></i> ลบ
                                       </button>
                                     </form>
@@ -427,7 +425,7 @@
                                       <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',$row->id) }}" style="display:inline;">
                                       {{csrf_field()}}
                                         <input type="hidden" name="_method" value="DELETE" />
-                                        <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
+                                        <button type="submit" data-name="{{ $row->Contract_buyer }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
                                           <i class="far fa-trash-alt"></i> ลบ
                                         </button>
                                       </form>
@@ -863,5 +861,4 @@
     $(".alert").alert('close');
     });
   </script>
-
 @endsection
