@@ -9,6 +9,7 @@
     $m = date('m');
     $d = date('d');
     //$date = date('Y-m-d');
+    $Currdate = date('2020-06-02');
     $time = date('H:i');
     $date = $Y.'-'.$m.'-'.$d;
     $date2 = $Y2.'-'.'01'.'-'.'01';
@@ -580,11 +581,14 @@
                                   <input id="image-file" type="file" name="file_image[]" accept="image/*" data-min-file-count="1" multiple>
                                 </div>
                                 @if($countImage != 0)
+                                  @php
+                                    $path = $data->oldplate_HC;
+                                  @endphp
                                 <br/>
                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                  <a href="{{ action('AnalysController@deleteImageAll',$data->id) }}" class="btn btn-danger pull-left" title="ลบรูปทั้งหมด" onclick="return confirm('คุณต้องการลบรูปทั้งหมดหรือไม่?')"> ลบรูปทั้งหมด..</a>
+                                  <a href="{{ action('AnalysController@deleteImageAll',[$data->id,$path]) }}" class="btn btn-danger pull-left" title="ลบรูปทั้งหมด" onclick="return confirm('คุณต้องการลบรูปทั้งหมดหรือไม่?')"> ลบรูปทั้งหมด..</a>
                                 @endif
-                                  <a href="{{ action('AnalysController@deleteImageEach',[$Gettype,$data->id,$fdate,$tdate,$branch,$status]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
+                                  <a href="{{ action('AnalysController@deleteImageEach',[$Gettype,$data->id,$fdate,$tdate,$branch,$status,$path]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
                                   <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ..
                                   </a>
                                 @endif
@@ -594,12 +598,29 @@
 
                           <br/>
                           <div class="col-md-12">
+                            @if($data->oldplate_HC != NULL)
+                              @php
+                                $Setlisence = $data->oldplate_HC;
+                              @endphp
+                            @endif
                             <div class="form-group">
+                            @if(substr($data->createdBuyers_at,0,10) < $Currdate)
                               @foreach($dataImage as $images)
-                                <a href="{{ asset('upload-image/'.$images->Name_fileimage) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true" style="width: 300px; height: auto;">
-                                  <img src="{{ asset('upload-image/'.$images->Name_fileimage) }}">
-                                </a>
+                                @if($images->Type_fileimage == "1")
+                                  <a href="{{ asset('upload-image/'.$images->Name_fileimage) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true" style="width: 300px; height: auto;">
+                                    <img src="{{ asset('upload-image/'.$images->Name_fileimage) }}">
+                                  </a>
+                                @endif
                               @endforeach
+                            @else
+                              @foreach($dataImage as $images)
+                                @if($images->Type_fileimage == "1")
+                                  <a href="{{ asset('upload-image/'.$Setlisence .'/'.$images->Name_fileimage) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true" style="width: 300px; height: auto;">
+                                    <img src="{{ asset('upload-image/'.$Setlisence .'/'.$images->Name_fileimage) }}">
+                                  </a>
+                                @endif
+                              @endforeach
+                            @endif
                             </div>
                           </div>
                         </div>

@@ -107,10 +107,10 @@
                         <li class="nav-item">
                           <a class="nav-link" href="#">แบบฟอร์มค่าใช้จ่าย</a>
                         </li>
-                      @endif
                         <li class="nav-item">
                           <a class="nav-link" href="#">Checker</a>
                         </li>
+                      @endif
                     </ul>
                   </div>
                   @if($type == 1)
@@ -285,7 +285,7 @@
 
                                   @if(auth::user()->type == 1 or auth::user()->type == 2)
                                     @if(auth::user()->type == 1) 
-                                      <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',$row->id) }}" style="display:inline;">
+                                      <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
                                         {{csrf_field()}}
                                         <input type="hidden" name="_method" value="DELETE" />
                                         <button type="submit" data-name="{{ $row->Contract_buyer }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
@@ -294,7 +294,7 @@
                                       </form>
                                     @elseif(auth::user()->type == 2)
                                       @if($row->StatusApp_car != 'อนุมัติ')
-                                        <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',$row->id) }}" style="display:inline;">
+                                        <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
                                           {{csrf_field()}}
                                           <input type="hidden" name="_method" value="DELETE" />
                                           <button type="submit" data-name="{{ $row->Contract_buyer }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
@@ -306,7 +306,7 @@
                                   @else
                                     @if($row->DocComplete_car == Null)
                                       @if($row->StatusApp_car != 'อนุมัติ')
-                                        <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',$row->id) }}" style="display:inline;">
+                                        <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
                                           {{csrf_field()}}
                                           <input type="hidden" name="_method" value="DELETE" />
                                           <button type="submit" data-name="{{ $row->Contract_buyer }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
@@ -413,7 +413,7 @@
                                   @endif
 
                                   @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 4)
-                                    <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',$row->id) }}" style="display:inline;">
+                                    <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
                                     {{csrf_field()}}
                                       <input type="hidden" name="_method" value="DELETE" />
                                       <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
@@ -422,7 +422,7 @@
                                     </form>
                                   @else
                                     @if($row->approvers_HC == Null)
-                                      <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',$row->id) }}" style="display:inline;">
+                                      <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
                                       {{csrf_field()}}
                                         <input type="hidden" name="_method" value="DELETE" />
                                         <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
@@ -598,7 +598,7 @@
                                   @endif
 
                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                  <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',$row->id) }}" style="display:inline;">
+                                  <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
                                   {{csrf_field()}}
                                     <input type="hidden" name="_method" value="DELETE" />
                                     <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
@@ -608,7 +608,7 @@
                                 @else
                                   @if($row->DocComplete_car == Null)
                                     @if($row->StatusApp_car != 'อนุมัติ')
-                                      <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',$row->id) }}" style="display:inline;">
+                                      <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
                                       {{csrf_field()}}
                                         <input type="hidden" name="_method" value="DELETE" />
                                         <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
@@ -788,7 +788,7 @@
                                       @endif
 
                                     @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                      <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',$row->id) }}" style="display:inline;">
+                                      <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
                                       {{csrf_field()}}
                                         <input type="hidden" name="_method" value="DELETE" />
                                         <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
@@ -798,7 +798,7 @@
                                     @else
                                       @if($row->DocComplete_car == Null)
                                         @if($row->StatusApp_car != 'อนุมัติ')
-                                          <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',$row->id) }}" style="display:inline;">
+                                          <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
                                           {{csrf_field()}}
                                             <input type="hidden" name="_method" value="DELETE" />
                                             <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
