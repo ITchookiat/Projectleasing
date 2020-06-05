@@ -1158,6 +1158,11 @@ class AnalysController extends Controller
           ]);
           $Homecardetaildb ->save();
 
+          $SetLicense = "";
+          if ($request->get('oldplateHC') != NULL) {
+            $SetLicense = $request->get('oldplateHC');
+          }
+
           $type = 4;  //Set ค่ากลับหน้าหลัก
         }
       }
@@ -1175,7 +1180,6 @@ class AnalysController extends Controller
           }else{
             $SetDatefirst = NULL;
           }
-
           $SetLicense = "";
           if ($request->get('Licensecar') != NULL) {
             $SetLicense = $request->get('Licensecar');
@@ -1314,7 +1318,6 @@ class AnalysController extends Controller
         }
       }
 
-      
       $image_new_name = "";
 
       // รูปประกอบ
@@ -1423,6 +1426,7 @@ class AnalysController extends Controller
                   ->leftJoin('sponsors','buyers.id','=','sponsors.Buyer_id')
                   ->leftJoin('sponsor2s','buyers.id','=','sponsor2s.Buyer_id2')
                   ->leftJoin('homecardetails','buyers.id','=','homecardetails.Buyerhomecar_id')
+                  ->select('buyers.*','sponsors.*','sponsor2s.*','homecardetails.*','buyers.created_at AS createdBuyers_at')
                   ->where('buyers.id',$id)->first();
 
         $Gettype = $type;
@@ -1981,6 +1985,12 @@ class AnalysController extends Controller
               $Homecardetail->totalinstalments1_HC = $request->get('totalinstalments1HC');
               $Homecardetail->statusapp_HC = $SetStatusApp;
             $Homecardetail->update();
+
+            $SetLicense = "";
+            if ($request->get('oldplateHC') != NULL) {
+              $SetLicense = $request->get('oldplateHC');
+            }
+
           }
         }
         else {
@@ -2448,7 +2458,7 @@ class AnalysController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id, $type)
     {
       $item1 = Buyer::find($id);
       $item2 = Sponsor::where('Buyer_id',$id);
@@ -2463,11 +2473,20 @@ class AnalysController extends Controller
       $Currdate = date('2020-06-02');
       $created_at = '';
 
-      if($countData != 0){
-        $dataold = Buyer::where('id','=',$id)->first();
-        $datacarold = Cardetail::where('Buyercar_id',$id)->first();
-        $created_at = substr($dataold->created_at,0,10);
-        $path = $datacarold->License_car;
+      if($type == 1){
+        if($countData != 0){
+          $dataold = Buyer::where('id','=',$id)->first();
+          $datacarold = Cardetail::where('Buyercar_id',$id)->first();
+          $created_at = substr($dataold->created_at,0,10);
+          $path = $datacarold->License_car;
+        }
+      }elseif($type == 4){
+        if($countData != 0){
+          $dataold = Buyer::where('id','=',$id)->first();
+          $datacarold = homecardetail::where('Buyerhomecar_id',$id)->first();
+          $created_at = substr($dataold->created_at,0,10);
+          $path = $datacarold->oldplate_HC;
+        }
       }
 
       if($created_at < $Currdate){
@@ -2476,9 +2495,16 @@ class AnalysController extends Controller
           $itemPath = $value->Name_fileimage;
           Storage::delete($itemPath);
         }
-        $ImageAccount = Cardetail::where('Buyercar_id','=',$id)->get();
-        if ($ImageAccount != NULL) {
-          Storage::delete($ImageAccount[0]->AccountImage_car);
+        if($type == 1){
+          $ImageAccount = Cardetail::where('Buyercar_id','=',$id)->get();
+          if ($ImageAccount != NULL) {
+            Storage::delete($ImageAccount[0]->AccountImage_car);
+          }
+        }elseif($type == 4){
+          $ImageAccount = homecardetail::where('Buyerhomecar_id','=',$id)->get();
+          if ($ImageAccount != NULL) {
+            Storage::delete($ImageAccount[0]->AccountImage_car);
+          }
         }
       }
       else{
@@ -2487,9 +2513,16 @@ class AnalysController extends Controller
           $itemPath = public_path().'/upload-image/'.$path;
           File::deleteDirectory($itemPath);
         }
-        $ImageAccount = Cardetail::where('Buyercar_id','=',$id)->get();
-        if ($ImageAccount != NULL) {
-          File::delete($ImageAccount[0]->AccountImage_car);
+        if($type == 1){
+          $ImageAccount = Cardetail::where('Buyercar_id','=',$id)->get();
+          if ($ImageAccount != NULL) {
+            File::delete($ImageAccount[0]->AccountImage_car);
+          }
+        }elseif($type == 4){
+          $ImageAccount = homecardetail::where('Buyerhomecar_id','=',$id)->get();
+          if ($ImageAccount != NULL) {
+            File::delete($ImageAccount[0]->AccountImage_car);
+          }
         }
       }
 
