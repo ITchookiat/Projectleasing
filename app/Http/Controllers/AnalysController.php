@@ -1180,11 +1180,10 @@ class AnalysController extends Controller
           }else{
             $SetDatefirst = NULL;
           }
-
-        $SetLicense = "";
-        if ($request->get('Licensecar') != NULL) {
-          $SetLicense = $request->get('Licensecar');
-        }        
+          $SetLicense = "";
+          if ($request->get('Licensecar') != NULL) {
+            $SetLicense = $request->get('Licensecar');
+          }
         
         //รูปหน้าบัญชี
         $NameImage = NULL;
@@ -1319,9 +1318,9 @@ class AnalysController extends Controller
         }
       }
 
-      // dd($SetLicense);
-
       $image_new_name = "";
+
+      // รูปประกอบ
       if ($request->hasFile('file_image')) {
         $image_array = $request->file('file_image');
         $array_len = count($image_array);
@@ -1347,6 +1346,7 @@ class AnalysController extends Controller
         }
       }
 
+      //รูป Checker
       if ($request->hasFile('image_checker')) {
         $image_array = $request->file('image_checker');
         $array_len = count($image_array);
