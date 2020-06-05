@@ -22,6 +22,8 @@
 
   <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
   <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
+
 
   <style>
     .a1 {color: #E6E6FA;}
@@ -347,6 +349,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
   
   <script src="{{asset('js/sweetAlert.js')}}"></script>
+<script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
+
 
   <script>
     $.widget.bridge('uibutton', $.ui.button)

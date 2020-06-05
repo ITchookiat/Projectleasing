@@ -2129,6 +2129,8 @@ class LegislationController extends Controller
           $Tdate = "";
         }
 
+        // dd($data);
+
         Excel::create('รายงานลูกหนี้', function ($excel) use($data,$status,$date,$Fdate,$Tdate) {
           $excel->sheet($status, function ($sheet) use($data,$status,$date,$Fdate,$Tdate) {
               $sheet->prependRow(1, array("บริษัท ชูเกียรติลิสซิ่ง จำกัด"));
@@ -2137,7 +2139,7 @@ class LegislationController extends Controller
                 $cells->setBackground('#FFCC00');
               });
               $row = 3;
-              $sheet->row($row, array('เลขที่สัญญา','ชื่อ-นามสกุล','ยอดคงเหลือ','ยอดตั้งฟ้อง','วันถืองาน','วันที่ฟ้อง','ระยะเวลา','สถานะลูกหนี้','สถานะทรัพย์','สถานะประนอมหนี้','วันที่ปิดงาน','ยอดชำระ','หมายเหตุ'));
+              $sheet->row($row, array('เลขที่สัญญา','ชื่อ-นามสกุล','ยอดคงเหลือ','ยอดตั้งฟ้อง','เบอร์โทร','วันถืองาน','วันที่ฟ้อง','ระยะเวลา','สถานะลูกหนี้','สถานะทรัพย์','สถานะประนอมหนี้','วันที่ปิดงาน','ยอดชำระ','หมายเหตุ'));
               $Summperiod = 0;    //รวมยอดคงเหลือ
               $SumAmount = 0;
               $SumTextStatus = 0; //ยอดปิดบัญชี
@@ -2388,6 +2390,7 @@ class LegislationController extends Controller
                   $value->Name_legis,
                   number_format($value->Sumperiod_legis, 2),
                   number_format($SumCourt, 2),
+                  $date_carry,
                   $date_carry,
                   $SetDatefillingdate,
                   $duration,

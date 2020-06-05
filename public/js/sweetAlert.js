@@ -9,13 +9,19 @@ $(document).ready(function () {
             icon: "warning",
             text: "คุณต้องการยืนยันการลบหรือไม่ ?",
             buttons: true,
-            dangerMode: true
-        }).then((willDelete)=>{
-            if (willDelete) {
-                // swal("Deleted!", "Your imaginary file has been deleted.", "success");
+            dangerMode: true,
+        })
+        .then((isConfirm)=>{
+            console.log(isConfirm);
+            if (isConfirm) {
+                swal("ลบข้อมูลสำเร็จ !", {
+                    icon: "success",
+                    timer: 5000,
+                })
                 form.submit();
             }
         });
+
     });
 });
 
@@ -30,8 +36,8 @@ $(document).ready(function () {
                  text: "คุณต้องการกลับหน้าหลักหรือไม่ ?",
                  buttons: true,
                  dangerMode: true
-         }).then((willDelete)=>{
-            if (willDelete) {
+         }).then((willDone)=>{
+            if (willDone) {
                window.location.href = _this.attr('href')
             }
         });
