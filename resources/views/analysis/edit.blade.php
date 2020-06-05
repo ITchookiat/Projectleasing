@@ -21,7 +21,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/js/fileinput.js" type="text/javascript"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/themes/fa/theme.js" type="text/javascript"></script>
   
-  <script src="{{ asset('plugins/ekko-lightbox/ekko-lightbox.min.js') }}"></script>
  
   <style>
     #todo-list{
@@ -183,12 +182,11 @@
   <section class="content">
     <div class="content-header">
       @if(session()->has('success'))
-        <div class="alert alert-success alert-dismissible" role="alert">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span></button>
-          <strong>สำเร็จ!</strong> {{ session()->get('success') }}
-        </div>
+        <script type="text/javascript">
+          toastr.success('ดำเนินรายงานเสร็จสิ้น.')
+        </script>
       @endif
+
       @if (count($errors) > 0)
         <div class="alert alert-danger">
           <ul>
@@ -875,7 +873,7 @@
                                     @endphp
                                     <br/><br/><br/>
                                     @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                      <a href="{{ action('AnalysController@deleteImageAll',[$data->id,$path]) }}" class="btn btn-danger pull-left" title="ลบรูปทั้งหมด" onclick="return confirm('คุณต้องการลบรูปทั้งหมดหรือไม่?')"> ลบรูปทั้งหมด..</a>
+                                      <a href="{{ action('AnalysController@deleteImageAll',[$data->id,$path]) }}" class="btn btn-danger pull-left DeleteImage" title="ลบรูปภาพทั้งหมด"> ลบรูปภาพทั้งหมด..</a>
                                       <a href="{{ action('AnalysController@deleteImageEach',[$type,$data->id,$fdate,$tdate,$branch,$status,$path]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
                                         <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ..
                                       </a>
@@ -913,8 +911,8 @@
                                         @foreach($dataImage as $images)
                                           @if($images->Type_fileimage == "1")
                                             <div class="col-sm-3">
-                                              <a href="{{ asset('upload-image/'.$images->Name_fileimage) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true" style="width: 300px; height: auto;">
-                                                <img src="{{ asset('upload-image/'.$images->Name_fileimage) }}">
+                                              <a href="{{ asset('upload-image/'.$images->Name_fileimage) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true">
+                                                <img src="{{ asset('upload-image/'.$images->Name_fileimage) }}" style="width: 300px; height: 280px;">
                                               </a>
                                             </div>
                                           @endif
@@ -923,8 +921,8 @@
                                         @foreach($dataImage as $images)
                                           @if($images->Type_fileimage == "1")
                                             <div class="col-sm-3">
-                                              <a href="{{ asset('upload-image/'.$Setlisence .'/'.$images->Name_fileimage) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true" style="width: 300px; height: auto;">
-                                                <img src="{{ asset('upload-image/'.$Setlisence .'/'.$images->Name_fileimage) }}">
+                                              <a href="{{ asset('upload-image/'.$Setlisence .'/'.$images->Name_fileimage) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true">
+                                                <img src="{{ asset('upload-image/'.$Setlisence .'/'.$images->Name_fileimage) }}" style="width: 300px; height: 280px;">
                                               </a>
                                             </div>
                                           @endif
@@ -1433,10 +1431,10 @@
                             <div class="col-5">
                               <div class="float-right form-inline">
                                 <label>ป้ายเดิม : </label>
-                                @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                  <input type="text" name="Licensecar"  value="{{ $data->License_car}}" class="form-control" style="width: 250px;" placeholder="ป้ายเดิม" />
+                                @if(auth::user()->type == 1)
+                                  <input type="text" name="Licensecar"  value="{{ $data->License_car}}" class="form-control" style="width: 250px;" placeholder="ป้ายเดิม"/>
                                 @else
-                                  <input type="text" name="Licensecar"  value="{{ $data->License_car}}" class="form-control" style="width: 250px;" placeholder="ป้ายเดิม" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                  <input type="text" name="Licensecar"  value="{{ $data->License_car}}" class="form-control" style="width: 250px;" readonly/>
                                 @endif
                               </div>
                             </div>
@@ -1746,7 +1744,11 @@
 
                           <div class="row">
                             <div class="col-5">
-                              <div class="float-right form-inline">
+                              @if($data->Agent_car != NULL)
+                                <div class="float-right form-inline" id="ShowCom">
+                              @else
+                                <div class="float-right form-inline" style="display: none" id="ShowCom">
+                              @endif
                                 <label>ค่าคอม : </label>
                                 @if(auth::user()->type == 1 or auth::user()->type == 2)
                                   <input type="text" id="Commissioncar" name="Commissioncar" value="{{number_format($data->Commission_car, 2)}}" class="form-control" style="width: 250px;" placeholder="ค่าคอม" oninput="commission()"/>
@@ -1766,6 +1768,18 @@
                               </div>
                             </div>
                           </div>
+                          
+                          <script>
+                            $('#Agentcar').change(function(){
+                              var value = document.getElementById('Agentcar').value;
+                                if(value == ''){
+                                  $('#ShowCom').hide();
+                                }
+                                else{
+                                  $('#ShowCom').show();
+                                }
+                            });
+                          </script>
 
                           <div class="row">
                             <div class="col-5">
@@ -2624,34 +2638,33 @@
     @endphp
   @endif
 
-
-<script>
+  <script>
       function initMap() {
 
-      var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 9,
-        center: {lat: 6.6637053, lng: 101.2183787}
-      });
-      var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-      // var labels = 'BA';
-
-      var markers = locations.map(function(location, i) {
-        return new google.maps.Marker({
-          position: location,
-          label: labels[i],
-          // title: 'ตำแหน่งที่ตั้ง'
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 9,
+          center: {lat: 6.6637053, lng: 101.2183787}
         });
-      });
-      
+        var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        // var labels = 'BA';
 
-      // Add a marker clusterer to manage the markers.
-      var markerCluster = new MarkerClusterer(map, markers,
-          {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-      }
-      var locations = [
-      {lat: {{ $Buyerlat }}, lng: {{ $Buyerlong }} },
-      {lat: {{ $Supportlat }}, lng: {{ $Supportlong }} }
-      ]
+        var markers = locations.map(function(location, i) {
+          return new google.maps.Marker({
+            position: location,
+            label: labels[i],
+            // title: 'ตำแหน่งที่ตั้ง'
+          });
+        });
+        
+
+        // Add a marker clusterer to manage the markers.
+        var markerCluster = new MarkerClusterer(map, markers,
+            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+        }
+        var locations = [
+        {lat: {{ $Buyerlat }}, lng: {{ $Buyerlong }} },
+        {lat: {{ $Supportlat }}, lng: {{ $Supportlong }} }
+        ]
   </script>
 
   <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>

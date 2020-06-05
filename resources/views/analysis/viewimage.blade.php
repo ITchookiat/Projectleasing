@@ -29,11 +29,9 @@
   <section class="content">
     <div class="content-header">
       @if(session()->has('success'))
-        <div class="alert alert-success alert-dismissible" role="alert">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span></button>
-          <strong>สำเร็จ!</strong> {{ session()->get('success') }}
-        </div>
+        <script type="text/javascript">
+          toastr.success('ดำเนินรายงานเสร็จสิ้น.')
+        </script>
       @endif
 
       <section class="content">
@@ -70,26 +68,27 @@
                 <input type="hidden" name="status" value="{{ $path }}" />
 
                 @if($countData == 0)
-                <div class="col-md-12" align="center">
-                  <p>ไม่มีรูปแล้ว</p>
-                </div>
+                  <div class="col-md-12" align="center">
+                    <p>ไม่มีรูปแล้ว</p>
+                  </div>
                 @else
-                  <div class="form-inline">
+                  <div class="row">
                     @foreach($data as $key => $row)
-                      <div class="col-lg-3 col-xs-12">
-                        <div class="small-box btn-default fixed" align="center">
-                          <div class="inner">
-                            @if($created_at < $Currdate)
-                              <img class="img-bordered" src="{{ asset('upload-image/'.$row->Name_fileimage) }}" width="150" height="120" alt="Photo">
-                            @else
-                              <img class="img-bordered" src="{{ asset('upload-image/'.$path.'/'.$row->Name_fileimage) }}" width="150" height="120" alt="Photo">
-                            @endif
-                          </div>
-
-                          <a href="{{ action('AnalysController@destroyImage',[$type,$row->fileimage_id,$fdate,$tdate,$branch,$status,$path])}}?mainid={{$id}}" class="btn btn-danger btn-sm" onclick="return confirm('คุณต้องการลบรูปนี้หรือไม่?')">
+                      <div class="col-sm-2 ">
+                        @if($created_at < $Currdate)
+                          <a href="{{ asset('upload-image/'.$row->Name_fileimage) }}" data-toggle="lightbox" data-title="รูปภาพประกอบ">
+                            <img src="{{ asset('upload-image/'.$row->Name_fileimage) }}" class="img-fluid mb-2 img-bordered" alt="white sample" style="width: 180px; height: 160px;" >
+                          </a>
+                        @else
+                          <a href="{{ asset('upload-image/'.$path.'/'.$row->Name_fileimage) }}" data-toggle="lightbox" data-title="รูปภาพประกอบ">
+                            <img src="{{ asset('upload-image/'.$path.'/'.$row->Name_fileimage) }}" class="img-fluid mb-2 img-bordered" alt="white sample" style="width: 180px; height: 160px;" >
+                          </a>
+                        @endif
+                        <div align="center">
+                          <a href="{{ action('AnalysController@destroyImage',[$type,$row->fileimage_id,$fdate,$tdate,$branch,$status,$path])}}?mainid={{$id}}" class="btn btn-danger btn-sm DeleteImage">
                             <span class="glyphicon glyphicon-trash"></span> ลบ
                           </a>
-                          <br/><br/>
+                          <br><br>
                         </div>
                       </div>
                     @endforeach
@@ -105,7 +104,16 @@
   </section>
 
 
-
+  <script>
+    $(function () {
+      $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+        event.preventDefault();
+        $(this).ekkoLightbox({
+          alwaysShowClose: true
+        });
+      });
+    })
+  </script>
 
   <script type="text/javascript">
     $(document).ready(function() {

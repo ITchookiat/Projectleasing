@@ -111,6 +111,7 @@
                       @endif
                     </ul>
                   </div>
+                  
                   @if($type == 1)
                     <div class="col-md-12">
                       <form method="get" action="{{ route('Analysis',1) }}">

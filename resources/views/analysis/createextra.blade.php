@@ -349,9 +349,9 @@
                   <ul class="nav nav-tabs" id="custom-tabs-five-tab" role="tablist">
                     <li class="nav-item">
                       @if($type == 9)
-                        <a class="nav-link" href="{{ route('Analysis',8) }}" onclick="return confirm('คุณต้องการออกไปหน้าหลักหรือไม่ ? \n')">หน้าหลัก</a>
+                        <a class="nav-link MainPage" href="{{ route('Analysis',8) }}">หน้าหลัก</a>
                       @elseif($type == 13)
-                        <a class="nav-link" href="{{ route('Analysis',12) }}" onclick="return confirm('คุณต้องการออกไปหน้าหลักหรือไม่ ? \n')">หน้าหลัก</a>
+                        <a class="nav-link MainPage" href="{{ route('Analysis',12) }}">หน้าหลัก</a>
                       @endif
                     </li>
                     <li class="nav-item">
