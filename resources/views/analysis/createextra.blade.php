@@ -13,194 +13,192 @@
   $date2 = $Y2.'-'.'01'.'-'.'01';
 @endphp
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/js/fileinput.js" type="text/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/themes/fa/theme.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/js/fileinput.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/themes/fa/theme.js" type="text/javascript"></script>
 
-    <style>
-      #mydiv {
-        position: absolute;
-        z-index: 9;
-        text-align: center;
-        width:300px;
-        right: 500px;
-        top: 10px;
-      }
+  <style>
+    #mydiv {
+      position: absolute;
+      z-index: 9;
+      text-align: center;
+      width:300px;
+      right: 500px;
+      top: 10px;
+    }
 
-      #mydivheader {
-        /* padding: 10px; */
-        cursor: move;
-        z-index: 10;
-      }
-    </style>
+    #mydivheader {
+      /* padding: 10px; */
+      cursor: move;
+      z-index: 10;
+    }
+  </style>
 
-    <style>
-      #todo-list{
-      width:100%;
-      margin:0 auto 50px auto;
-      padding:5px;
-      background:white;
-      position:relative;
-      /*box-shadow*/
-      -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
-      -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
-            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
-      /*border-radius*/
-      -webkit-border-radius:5px;
-      -moz-border-radius:5px;
-            border-radius:5px;
-      }
-      #todo-list:before{
-      content:"";
-      position:absolute;
-      z-index:-1;
-      /*box-shadow*/
-      -webkit-box-shadow:0 0 20px rgba(0,0,0,0.4);
-      -moz-box-shadow:0 0 20px rgba(0,0,0,0.4);
-            box-shadow:0 0 20px rgba(0,0,0,0.4);
-      top:50%;
-      bottom:0;
-      left:10px;
-      right:10px;
-      /*border-radius*/
-      -webkit-border-radius:100px / 10px;
-      -moz-border-radius:100px / 10px;
-            border-radius:100px / 10px;
-      }
-      .todo-wrap{
-      display:block;
-      position:relative;
-      padding-left:35px;
-      /*box-shadow*/
-      -webkit-box-shadow:0 2px 0 -1px #ebebeb;
-      -moz-box-shadow:0 2px 0 -1px #ebebeb;
-            box-shadow:0 2px 0 -1px #ebebeb;
-      }
-      .todo-wrap:last-of-type{
-      /*box-shadow*/
-      -webkit-box-shadow:none;
-      -moz-box-shadow:none;
-            box-shadow:none;
-      }
-      input[type="checkbox"]{
-      position:absolute;
-      height:0;
-      width:0;
-      opacity:0;
-      /* top:-600px; */
-      }
-      .todo{
-      display:inline-block;
-      font-weight:200;
-      padding:10px 5px;
-      height:37px;
-      position:relative;
-      }
-      .todo:before{
-      content:'';
-      display:block;
-      position:absolute;
-      top:calc(50% + 2px);
-      left:0;
-      width:0%;
-      height:1px;
-      background:#cd4400;
-      /*transition*/
-      -webkit-transition:.25s ease-in-out;
-      -moz-transition:.25s ease-in-out;
-        -o-transition:.25s ease-in-out;
-            transition:.25s ease-in-out;
-      }
-      .todo:after{
-      content:'';
-      display:block;
-      position:absolute;
-      z-index:0;
-      height:18px;
-      width:18px;
-      top:9px;
-      left:-25px;
-      /*box-shadow*/
-      -webkit-box-shadow:inset 0 0 0 2px #d8d8d8;
-      -moz-box-shadow:inset 0 0 0 2px #d8d8d8;
-            box-shadow:inset 0 0 0 2px #d8d8d8;
-      /*transition*/
-      -webkit-transition:.25s ease-in-out;
-      -moz-transition:.25s ease-in-out;
-        -o-transition:.25s ease-in-out;
-            transition:.25s ease-in-out;
-      /*border-radius*/
-      -webkit-border-radius:4px;
-      -moz-border-radius:4px;
-            border-radius:4px;
-      }
-      .todo:hover:after{
-      /*box-shadow*/
-      -webkit-box-shadow:inset 0 0 0 2px #949494;
-      -moz-box-shadow:inset 0 0 0 2px #949494;
-            box-shadow:inset 0 0 0 2px #949494;
-      }
-      .todo .fa-check{
-      position:absolute;
-      z-index:1;
-      left:-31px;
-      top:0;
-      font-size:1px;
-      line-height:36px;
-      width:36px;
-      height:36px;
-      text-align:center;
-      color:transparent;
-      text-shadow:1px 1px 0 white, -1px -1px 0 white;
-      }
-      :checked + .todo{
-      color:#717171;
-      }
-      :checked + .todo:before{
-      width:100%;
-      }
-      :checked + .todo:after{
-      /*box-shadow*/
-      -webkit-box-shadow:inset 0 0 0 2px #0eb0b7;
-      -moz-box-shadow:inset 0 0 0 2px #0eb0b7;
-            box-shadow:inset 0 0 0 2px #0eb0b7;
-      }
-      :checked + .todo .fa-check{
-      font-size:20px;
-      line-height:35px;
-      color:#0eb0b7;
-      }
-      /* Delete Items */
+  <style>
+    #todo-list{
+    width:100%;
+    margin:0 auto 50px auto;
+    padding:5px;
+    background:white;
+    position:relative;
+    /*box-shadow*/
+    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
+          box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
+    /*border-radius*/
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+          border-radius:5px;
+    }
+    #todo-list:before{
+    content:"";
+    position:absolute;
+    z-index:-1;
+    /*box-shadow*/
+    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.4);
+    -moz-box-shadow:0 0 20px rgba(0,0,0,0.4);
+          box-shadow:0 0 20px rgba(0,0,0,0.4);
+    top:50%;
+    bottom:0;
+    left:10px;
+    right:10px;
+    /*border-radius*/
+    -webkit-border-radius:100px / 10px;
+    -moz-border-radius:100px / 10px;
+          border-radius:100px / 10px;
+    }
+    .todo-wrap{
+    display:block;
+    position:relative;
+    padding-left:35px;
+    /*box-shadow*/
+    -webkit-box-shadow:0 2px 0 -1px #ebebeb;
+    -moz-box-shadow:0 2px 0 -1px #ebebeb;
+          box-shadow:0 2px 0 -1px #ebebeb;
+    }
+    .todo-wrap:last-of-type{
+    /*box-shadow*/
+    -webkit-box-shadow:none;
+    -moz-box-shadow:none;
+          box-shadow:none;
+    }
+    input[type="checkbox"]{
+    position:absolute;
+    height:0;
+    width:0;
+    opacity:0;
+    /* top:-600px; */
+    }
+    .todo{
+    display:inline-block;
+    font-weight:200;
+    padding:10px 5px;
+    height:37px;
+    position:relative;
+    }
+    .todo:before{
+    content:'';
+    display:block;
+    position:absolute;
+    top:calc(50% + 2px);
+    left:0;
+    width:0%;
+    height:1px;
+    background:#cd4400;
+    /*transition*/
+    -webkit-transition:.25s ease-in-out;
+    -moz-transition:.25s ease-in-out;
+      -o-transition:.25s ease-in-out;
+          transition:.25s ease-in-out;
+    }
+    .todo:after{
+    content:'';
+    display:block;
+    position:absolute;
+    z-index:0;
+    height:18px;
+    width:18px;
+    top:9px;
+    left:-25px;
+    /*box-shadow*/
+    -webkit-box-shadow:inset 0 0 0 2px #d8d8d8;
+    -moz-box-shadow:inset 0 0 0 2px #d8d8d8;
+          box-shadow:inset 0 0 0 2px #d8d8d8;
+    /*transition*/
+    -webkit-transition:.25s ease-in-out;
+    -moz-transition:.25s ease-in-out;
+      -o-transition:.25s ease-in-out;
+          transition:.25s ease-in-out;
+    /*border-radius*/
+    -webkit-border-radius:4px;
+    -moz-border-radius:4px;
+          border-radius:4px;
+    }
+    .todo:hover:after{
+    /*box-shadow*/
+    -webkit-box-shadow:inset 0 0 0 2px #949494;
+    -moz-box-shadow:inset 0 0 0 2px #949494;
+          box-shadow:inset 0 0 0 2px #949494;
+    }
+    .todo .fa-check{
+    position:absolute;
+    z-index:1;
+    left:-31px;
+    top:0;
+    font-size:1px;
+    line-height:36px;
+    width:36px;
+    height:36px;
+    text-align:center;
+    color:transparent;
+    text-shadow:1px 1px 0 white, -1px -1px 0 white;
+    }
+    :checked + .todo{
+    color:#717171;
+    }
+    :checked + .todo:before{
+    width:100%;
+    }
+    :checked + .todo:after{
+    /*box-shadow*/
+    -webkit-box-shadow:inset 0 0 0 2px #0eb0b7;
+    -moz-box-shadow:inset 0 0 0 2px #0eb0b7;
+          box-shadow:inset 0 0 0 2px #0eb0b7;
+    }
+    :checked + .todo .fa-check{
+    font-size:20px;
+    line-height:35px;
+    color:#0eb0b7;
+    }
+    /* Delete Items */
 
-      .delete-item{
-      display:block;
-      position:absolute;
-      height:36px;
-      width:36px;
-      line-height:36px;
-      right:0;
-      top:0;
-      text-align:center;
-      color:#d8d8d8;
-      opacity:0;
-      }
-      .todo-wrap:hover .delete-item{
-      opacity:1;
-      }
-      .delete-item:hover{
-      color:#cd4400;
-      }
-    </style>
+    .delete-item{
+    display:block;
+    position:absolute;
+    height:36px;
+    width:36px;
+    line-height:36px;
+    right:0;
+    top:0;
+    text-align:center;
+    color:#d8d8d8;
+    opacity:0;
+    }
+    .todo-wrap:hover .delete-item{
+    opacity:1;
+    }
+    .delete-item:hover{
+    color:#cd4400;
+    }
+  </style>
 
   <section class="content">
     <div class="content-header">
       @if(session()->has('success'))
-        <div class="alert alert-success alert-dismissible" role="alert">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span></button>
-          <strong>สำเร็จ!</strong> {{ session()->get('success') }}
-        </div>
+        <script type="text/javascript">
+          toastr.success('ดำเนินรายงานเสร็จสิ้น.')
+        </script>
       @endif
 
       <section class="content">
@@ -363,9 +361,6 @@
                     <li class="nav-item">
                       <a class="nav-link" id="Sub-custom-tab3" data-toggle="pill" href="#Sub-tab3" role="tab" aria-controls="Sub-tab3" aria-selected="false">แบบฟอร์มรถยนต์</a>
                     </li>
-                    {{-- <li class="nav-item">
-                      <a class="nav-link" id="Sub-custom-tab4" data-toggle="pill" href="#Sub-tab4" role="tab" aria-controls="Sub-tab4" aria-selected="false">แบบฟอร์มค่าใช้จ่าย</a>
-                    </li> --}}
                   </ul>
                 </div>
                 {{-- เนื้อหา --}}
@@ -957,7 +952,7 @@
                           <div class="float-right form-inline">
                             <label>ป้ายทะเบียน : </label>
                             @if($data == null)
-                              <input type="text" name="Licensecar" class="form-control" style="width: 250px;" placeholder="ป้ายเดิม"/>
+                              <input type="text" name="Licensecar" class="form-control" style="width: 250px;" placeholder="ป้ายเดิม" required/>
                             @else
                               <input type="text" name="Licensecar"  value="{{iconv('Tis-620','utf-8',$data->REGNO)}}" class="form-control" style="width: 250px;" placeholder="ป้ายเดิม" />
                             @endif
@@ -1361,115 +1356,6 @@
                         </div>
                       </div>
                     </div>
-                    <div class="tab-pane fade" id="Sub-tab4" role="tabpanel" aria-labelledby="Sub-custom-tab4" style="display:none;">
-                      <h5 class="text-center">แบบฟอร์มรายละเอียดค่าใช้จ่าย</h5>
-                      <p></p>
-
-                      <div class="row">
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>พรบ. : </label>
-                            <input type="text" id="actPrice" name="actPrice" class="form-control" value="0" style="width: 250px;" placeholder="พรบ." oninput="balance()"/>
-                            <!-- <input type="hidden" id="tempTopcar" name="tempTopcar" class="form-control" style="width: 250px;" placeholder="พรบ."/> -->
-                          </div>
-                        </div>
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>เปอร์เซ็นต์ค่าคอม : </label>
-                            <input type="hidden" id="tempTopcar" name="tempTopcar" class="form-control" style="width: 250px;" placeholder="รวมยอดจัด" oninput="balance()" readonly/>
-                            <input type="text" name="vatPrice" class="form-control" style="width: 250px;" placeholder="เปอร์เซ็นต์ค่าคอม" />
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>ยอดปิดบัญชี : </label>
-                            <input type="text" id="closeAccountPrice" name="closeAccountPrice" class="form-control" value="0" style="width: 250px;" placeholder="ยอดปิดบัญชี" oninput="balance()"/>
-                          </div>
-                        </div>
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>ซื้อ ป2+ / ป1 : </label>
-                            <input type="text" id="P2Price" name="P2Price" class="form-control" value="0" style="width: 250px;" placeholder="ซื้อ ป2+" oninput="balance();"/>
-                            <input type="hidden" id="P2PriceOri" name="P2PriceOri" class="form-control" value="0" style="width: 250px;" placeholder="ซื้อ ป2+" onchange="calculate();balance();"/>
-                          </div>
-                        </div>
-                      </div>
-
-                      <hr />
-                      <div class="row">
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>ค่าใช้จ่ายขนส่ง : </label>
-                            <input type="text" id="tranPrice" name="tranPrice" class="form-control" value="0" style="width: 250px;" placeholder="ค่าใช้จ่ายขนส่ง" oninput="balance()"/>
-                          </div>
-                        </div>
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>อื่นๆ : </label>
-                            <input type="text" id="otherPrice" name="otherPrice" class="form-control" value="0" style="width: 250px;" placeholder="อื่นๆ" oninput="balance()"/>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>ค่าประเมิน : </label>
-                            <input type="text" id="evaluetionPrice" name="evaluetionPrice" class="form-control" value="0" style="width: 250px;" placeholder="อื่นๆ" oninput="balance()"/>
-                          </div>
-                        </div>
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>อากร : </label>
-                            <input type="text" id="dutyPrice" name="dutyPrice" class="form-control" style="width: 250px;" placeholder="0" value="0" readonly oninput="balance()"/>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>ค่าการตลาด : </label>
-                            <input type="text" id="marketingPrice" name="marketingPrice" class="form-control" style="width: 250px;"  placeholder="0" value="0" readonly oninput="balance()"/>
-                          </div>
-                        </div>
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>รวม คชจ. : </label>
-                            <input type="text" id="totalkPrice" name="totalkPrice" class="form-control" style="width: 250px;" placeholder="รวม คชจ." onchange="balance();" readonly/>
-                            <input type="hidden" id="temptotalkPrice" name="temptotalkPrice" class="form-control" style="width: 250px;" placeholder="รวม คชจ." onchange="balance();"/>
-                          </div>
-                        </div>
-                      </div>
-
-                      <hr>
-                      <div class="row">
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>คงเหลือ : </label>
-                            <input type="text" id="balancePrice" name="balancePrice" class="form-control" style="width: 250px;" placeholder="คงเหลือ" readonly/>
-                          </div>
-                        </div>
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>ค่าคอมหลังหัก 3% : </label>
-                            <input type="text" id="commitPrice" name="commitPrice" class="form-control" style="width: 250px;" placeholder="ค่าคอมหลังหัก" readonly/>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>หมายเหตุ : </label>
-                            <input type="text" name="notePrice" class="form-control" style="width: 250px;" placeholder="หมายเหตุ"/>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
 
@@ -1781,7 +1667,6 @@
   </section>
   {{csrf_field()}}
 
-
   {{-- button-to-top --}}
   <script>
     var btn = $('#button');
@@ -1812,12 +1697,6 @@
       allowedFileExtensions:['jpg','png','gif'],
       maxFileSize:10240
     })
-  </script>
-
-  <script type="text/javascript">
-    $(".alert").fadeTo(3000, 1000).slideUp(1000, function(){
-    $(".alert").alert('close');
-    });
   </script>
 
   <script>

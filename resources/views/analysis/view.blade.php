@@ -600,7 +600,7 @@
                                   <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
                                   {{csrf_field()}}
                                     <input type="hidden" name="_method" value="DELETE" />
-                                    <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
+                                    <button type="submit" data-name="{{ $row->Contract_buyer }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
                                       <i class="far fa-trash-alt"></i> ลบ
                                     </button>
                                   </form>
@@ -610,7 +610,7 @@
                                       <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
                                       {{csrf_field()}}
                                         <input type="hidden" name="_method" value="DELETE" />
-                                        <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
+                                        <button type="submit" data-name="{{ $row->Contract_buyer }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
                                           <i class="far fa-trash-alt"></i> ลบ
                                         </button>
                                       </form>
@@ -852,12 +852,6 @@
         "ordering": true,
         "order": [[ 1, "asc" ]],
       });
-    });
-  </script>
-
-  <script type="text/javascript">
-    $(".alert").fadeTo(3000, 1000).slideUp(1000, function(){
-    $(".alert").alert('close');
     });
   </script>
 @endsection

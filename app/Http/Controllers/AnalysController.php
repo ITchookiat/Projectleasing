@@ -2473,7 +2473,7 @@ class AnalysController extends Controller
       $Currdate = date('2020-06-02');
       $created_at = '';
 
-      if($type == 1){
+      if($type == 1 or $type == 8 or $type == 12){
         if($countData != 0){
           $dataold = Buyer::where('id','=',$id)->first();
           $datacarold = Cardetail::where('Buyercar_id',$id)->first();
