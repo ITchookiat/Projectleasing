@@ -184,7 +184,7 @@
     <div class="content-header">
       @if(session()->has('success'))
         <script type="text/javascript">
-          toastr.success('ดำเนินรายงานเสร็จสิ้น.')
+          toastr.success('{{ session()->get('success') }}')
         </script>
       @endif
       @if (count($errors) > 0)

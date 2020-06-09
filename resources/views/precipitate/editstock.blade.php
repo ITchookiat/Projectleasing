@@ -410,10 +410,4 @@
     </div>
   </section>
 
-  <script type="text/javascript">
-    $(".alert").fadeTo(3000, 1000).slideUp(1000, function(){
-    $(".alert").alert('close');
-    });
-  </script>
-
 @endsection

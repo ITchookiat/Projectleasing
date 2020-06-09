@@ -14,30 +14,8 @@
     $date2 = $Y2.'-'.$m.'-'.$d;
   @endphp
 
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/js/fileinput.js" type="text/javascript"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/themes/fa/theme.js" type="text/javascript"></script>
-
   <section class="content">
     <div class="content-header">
-      @if(session()->has('success'))
-        <div class="alert alert-success alert-dismissible" role="alert">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span></button>
-          <strong>สำเร็จ!</strong> {{ session()->get('success') }}
-        </div>
-      @endif
-      @if (count($errors) > 0)
-        <div class="alert alert-danger">
-          <ul>
-            @foreach($errors->all() as $error)
-              <li>กรุณากรอกข้อมูลอีกครั้ง ({{$error}}) </li>
-            @endforeach
-          </ul>
-        </div>
-      @endif
-
       <section class="content">
         <form name="form1" action="{{ route('MasterPrecipitate.store') }}" method="post" id="formimage" enctype="multipart/form-data">
           @csrf
@@ -400,31 +378,9 @@
     </div>
   </section>
 
-
-  <script type="text/javascript">
-    $("#image-file").fileinput({
-      uploadUrl:"{{ route('MasterAnalysis.store') }}",
-      theme:'fa',
-      uploadExtraData:function(){
-        return{
-          _token:"{{csrf_token()}}",
-        }
-      },
-      allowedFileExtensions:['jpg','png','gif'],
-      maxFileSize:10240
-    })
-  </script>
-
   <script>
     $(function () {
       $('[data-mask]').inputmask()
     })
   </script>
-
-  <script type="text/javascript">
-    $(".alert").fadeTo(3000, 1000).slideUp(1000, function(){
-    $(".alert").alert('close');
-    });
-  </script>
-
 @endsection
