@@ -1346,9 +1346,10 @@ class AnalysController extends Controller
         }
       }
 
-      //รูป Checker
-      if ($request->hasFile('image_checker')) {
-        $image_array = $request->file('image_checker');
+      // dd($request->hasFile('image_checker_2'));
+      //รูป Checker ผู้เช่าซื้อ
+      if ($request->hasFile('image_checker_1')) {
+        $image_array = $request->file('image_checker_1');
         $array_len = count($image_array);
 
         for ($i=0; $i < $array_len; $i++) {
@@ -1361,7 +1362,33 @@ class AnalysController extends Controller
 
           $image_array[$i]->move($destination_path,$image_new_name);
 
-          $SetType = 2; //ประเภทรูปภาพ checker
+          $SetType = 2; //ประเภทรูปภาพ checker ผู้เช่าซื้อ
+          $Uploaddb = new UploadfileImage([
+            'Buyerfileimage_id' => $Buyerdb->id,
+            'Type_fileimage' => $SetType,
+            'Name_fileimage' => $image_new_name,
+            'Size_fileimage' => $image_size,
+          ]);
+          $Uploaddb ->save();
+        }
+      }
+
+      //รูป Checker ผู้ค่ำ
+      if ($request->hasFile('image_checker_2')) {
+        $image_array = $request->file('image_checker_2');
+        $array_len = count($image_array);
+
+        for ($i=0; $i < $array_len; $i++) {
+          $image_size = $image_array[$i]->getClientSize();
+          $image_lastname = $image_array[$i]->getClientOriginalExtension();
+          $image_new_name = str_random(10).time(). '.' .$image_array[$i]->getClientOriginalExtension();
+
+          $destination_path = public_path().'/upload-image/'.$SetLicense;
+          Storage::makeDirectory($destination_path, 0777, true, true);
+
+          $image_array[$i]->move($destination_path,$image_new_name);
+
+          $SetType = 3; //ประเภทรูปภาพ checker ผู้ค่ำ
           $Uploaddb = new UploadfileImage([
             'Buyerfileimage_id' => $Buyerdb->id,
             'Type_fileimage' => $SetType,
@@ -1373,16 +1400,14 @@ class AnalysController extends Controller
       }
 
       // เก็บค่า lat-long 
-        $locationDB = new upload_lat_long([
-          'Use_id' => $Buyerdb->id,
-          'Buyer_latlong' => $request->get('Buyer_latlong'),
-          'Support_latlong' => $request->get('Support_latlong'),
-          // 'SP_lat' => $request->get('Support_latitude'),
-          // 'SP_long' => $request->get('Support_longitude'),
-        ]);
-        $locationDB ->save();
-
-
+      $locationDB = new upload_lat_long([
+        'Use_id' => $Buyerdb->id,
+        'Buyer_latlong' => $request->get('Buyer_latlong'),
+        'Support_latlong' => $request->get('Support_latlong'),
+        // 'SP_lat' => $request->get('Support_latitude'),
+        // 'SP_long' => $request->get('Support_longitude'),
+      ]);
+      $locationDB ->save();
 
       return redirect()->Route('Analysis',$type)->with('success','บันทึกข้อมูลเรียบร้อย');
     }
@@ -1754,7 +1779,6 @@ class AnalysController extends Controller
      */
     public function update(Request $request, $id, $type)
     {
-
         date_default_timezone_set('Asia/Bangkok');
         $Currdate = date('2020-06-02');   //วันที่เช็ตค่า รูป
 
@@ -1893,7 +1917,7 @@ class AnalysController extends Controller
           $Sponsor2db->save();
         }
 
-        if ($type == 4) {
+        if ($type == 4) {   //สินเชื่อ รถบ้าน
           if (auth()->user()->branch == 10 or auth()->user()->branch == 11 or auth()->user()->type == 4 or auth()->user()->type == 1) {
             $Homecardetail = homecardetail::where('Buyerhomecar_id',$id)->first();
               $Homecardetail->brand_HC = $request->get('brandHC');
@@ -2057,10 +2081,8 @@ class AnalysController extends Controller
             }
 
             // สถานะ อนุมัติสัญญา
-            if ($request->get('Approverscar') != Null) { //กรณี อนุมัติ
-              $SetStatusApp = 'อนุมัติ';
-
-              if ($cardetail->Approvers_car == Null) {
+            if ($request->get('Approverscar') != NULL) { //กรณี อนุมัติ
+              if ($cardetail->Approvers_car == NULL) {
                 $Y = date('Y') +543;
                 $Y2 = date('Y');
                 $m = date('m', strtotime('+1 month'));
@@ -2076,6 +2098,7 @@ class AnalysController extends Controller
                 $cardetail->Dateduefirst_car = $datefirst;
                 $cardetail->Date_Appcar = $dateApp;
                 $SetStatusApp = 'อนุมัติ';
+                $SetNameApp =  $request->get('Approverscar');   //ดึงชื่อคน อนุมัติ
 
                 $branchType = Null;
                 if ($cardetail->branch_car == "ปัตตานี") {
@@ -2158,15 +2181,19 @@ class AnalysController extends Controller
                   $GetIdConn->update();
 
                 }
+              }else {
+                $SetStatusApp = 'อนุมัติ';
+                $SetNameApp = $cardetail->Approvers_car;   //ดึงชื่อคน อนุมัติ
               }
             }
             else { //ยกเลิก หรือ ไม่อนุมัติ
               if (auth()->user()->type == 1 or auth()->user()->type == 2) {
                 $SetStatusApp = 'รออนุมัติ';
-                $cardetail->Dateduefirst_car = Null;
-                $cardetail->Date_Appcar = Null;
+                $cardetail->Dateduefirst_car = NULL;
+                $cardetail->Date_Appcar = NULL;
+                $SetNameApp =  NULL;   //ดึงชื่อคน อนุมัติ
 
-                $branchType = Null;
+                $branchType = NULL;
                 if ($cardetail->branch_car == "ปัตตานี") {
                     $branchType = 01;
                 }elseif ($cardetail->branch_car == "ยะลา") {
@@ -2242,6 +2269,7 @@ class AnalysController extends Controller
               }
               else {
                 $SetStatusApp = 'รออนุมัติ';
+                $SetNameApp =  NULL;   //ดึงชื่อคน อนุมัติ
               }
             }
 
@@ -2268,7 +2296,7 @@ class AnalysController extends Controller
             $cardetail->Tellagent_car = $request->get('Tellagentcar');
             $cardetail->Purchasehistory_car = $request->get('Purchasehistorycar');
             $cardetail->Supporthistory_car = $request->get('Supporthistorycar');
-            $cardetail->Approvers_car = $request->get('Approverscar');
+            $cardetail->Approvers_car = $SetNameApp;
             $cardetail->StatusApp_car = $SetStatusApp;
             $cardetail->DocComplete_car = $request->get('doccomplete');
             $cardetail->branchbrance_car = $request->get('branchbrancecar');
@@ -2368,9 +2396,9 @@ class AnalysController extends Controller
         }
       }
 
-      // รูปภาพ Checker
-      if ($request->hasFile('image_checker')) {
-        $image_array = $request->file('image_checker');
+      // รูปภาพ Checker ผู้เช่าซื้อ
+      if ($request->hasFile('image_checker_1')) {
+        $image_array = $request->file('image_checker_1');
         $array_len = count($image_array);
 
         for ($i=0; $i < $array_len; $i++) {
@@ -2398,6 +2426,36 @@ class AnalysController extends Controller
         }
       }
 
+      // รูปภาพ Checker ผู้ค่ำ
+      if ($request->hasFile('image_checker_2')) {
+        $image_array = $request->file('image_checker_2');
+        $array_len = count($image_array);
+
+        for ($i=0; $i < $array_len; $i++) {
+          $image_size = $image_array[$i]->getClientSize();
+          $image_lastname = $image_array[$i]->getClientOriginalExtension();
+          $image_new_name = str_random(10).time(). '.' .$image_array[$i]->getClientOriginalExtension();
+
+          if(substr($user->created_at,0,10) < $Currdate){
+            $destination_path = public_path('/upload-image');
+            $image_array[$i]->move($destination_path,$image_new_name);
+          }
+          else{
+            $path = public_path().'/upload-image/'.$SetLicense;
+            Storage::makeDirectory($path, 0777, true, true);
+            $image_array[$i]->move($path,$image_new_name);
+          }
+
+          $Uploaddb = new UploadfileImage([
+            'Buyerfileimage_id' => $id,
+            'Type_fileimage' => 3,
+            'Name_fileimage' => $image_new_name,
+            'Size_fileimage' => $image_size,
+          ]);
+          $Uploaddb ->save();
+        }
+      }
+
       // ตำแหน่งที่ตั้ง ผู้เช่าซื้อ ผู้ค้ำ
       if($request->get('Buyer_latlong') != NULL){
         $StrBuyerLatlong = $request->get('Buyer_latlong');
@@ -2415,16 +2473,12 @@ class AnalysController extends Controller
       if($Location != null){
         $Location->Buyer_latlong = $StrBuyerLatlong;
         $Location->Support_latlong = $StrSupporterlatLong;
-        // $Location->SP_lat = $StrSupporterLat;
-        // $Location->SP_long = $StrSupporterLong;
         $Location->update();
       }else{
         $locationDB = new upload_lat_long([
           'Use_id' => $user->id,
           'Buyer_latlong' => $request->get('Buyer_latlong'),
           'Support_latlong' => $request->get('Support_latlong'),
-          // 'SP_lat' => $request->get('Support_latitude'),
-          // 'SP_long' => $request->get('Support_longitude'),
         ]);
         $locationDB ->save();
       }
@@ -2542,34 +2596,70 @@ class AnalysController extends Controller
 
     public function deleteImageAll($id,$path,Request $request)
     {
+      
       $Currdate = date('2020-06-02');
       $created_at = '';
-      $item = UploadfileImage::where('Buyerfileimage_id','=',$id)->get();
-      $countData = count($item);
-      if($countData != 0){
-        $dataold = Buyer::where('id','=',$id)->first();
-        $created_at = substr($dataold->created_at,0,10);
-      }
+      if ($request->type == 2) {
+        $item = DB::table('uploadfile_images')
+              ->where('Buyerfileimage_id','=',$id)
+              ->where('Type_fileimage','=', '2')
+              ->get();
 
-      if($created_at < $Currdate){
-        foreach ($item as $key => $value) {
-          $itemID = $value->Buyerfileimage_id;
-          $itemPath = $value->Name_fileimage;
-          Storage::delete($itemPath);
+        if ($item != NULL) {
+          foreach ($item as $key => $value) {
+            $itemPath = public_path().'/upload-image/'.$path.'/'.$value->Name_fileimage;
+            File::delete($itemPath);
+
+            $deleteItem = UploadfileImage::where('fileimage_id',$value->fileimage_id);
+            $deleteItem->Delete();
+          }
+
         }
       }
-      else{
-        foreach ($item as $key => $value) {
-          $itemID = $value->Buyerfileimage_id;
-          $itemPath = public_path().'/upload-image/'.$path.'/'.$value->Name_fileimage;
-          File::delete($itemPath);
+      elseif ($request->type == 3) {
+        $item = DB::table('uploadfile_images')
+              ->where('Buyerfileimage_id','=',$id)
+              ->where('Type_fileimage','=', '3')
+              ->get();
+
+        if ($item != NULL) {
+          foreach ($item as $key => $value) {
+            $itemPath = public_path().'/upload-image/'.$path.'/'.$value->Name_fileimage;
+            File::delete($itemPath);
+
+            $deleteItem = UploadfileImage::where('fileimage_id',$value->fileimage_id);
+            $deleteItem->Delete();
+          }
+
         }
       }
+      else {
+        $item = UploadfileImage::where('Buyerfileimage_id','=',$id)->get();
+        $countData = count($item);
+        if($countData != 0){
+          $dataold = Buyer::where('id','=',$id)->first();
+          $created_at = substr($dataold->created_at,0,10);
+        }
+  
+        if($created_at < $Currdate){
+          foreach ($item as $key => $value) {
+            $itemID = $value->Buyerfileimage_id;
+            $itemPath = $value->Name_fileimage;
+            Storage::delete($itemPath);
+          }
+        }
+        else{
+          foreach ($item as $key => $value) {
+            $itemID = $value->Buyerfileimage_id;
+            $itemPath = public_path().'/upload-image/'.$path.'/'.$value->Name_fileimage;
+            File::delete($itemPath);
+          }
+        }
+        $deleteItem = UploadfileImage::where('Buyerfileimage_id',$itemID);
+        $deleteItem->Delete();
+      }
 
-      $deleteItem = UploadfileImage::where('Buyerfileimage_id',$itemID);
-      $deleteItem->Delete();
-
-      return redirect()->back()->with('success','ลบรูปทั้งหมดเรียบร้อยแล้ว');
+      return redirect()->back()->with('success','ลบรูปทั้งหมดเรียบร้อย');
       // return redirect()->Route('deleteImageEach',[$type,$mainid,$fdate,$tdate,$branch,$status])->with(['success' => 'ลบรูปสำเร็จเรียบร้อย']);
     }
 
@@ -2627,7 +2717,7 @@ class AnalysController extends Controller
         }
       }
       $item1->Delete();
-      return redirect()->Route('deleteImageEach',[$type,$mainid,$fdate,$tdate,$branch,$status,$path])->with(['success' => 'ลบรูปสำเร็จเรียบร้อย']);
+      return redirect()->Route('deleteImageEach',[$type,$mainid,$fdate,$tdate,$branch,$status,$path])->with(['success' => 'ลบรูปสำเร็จ']);
     }
 
 }

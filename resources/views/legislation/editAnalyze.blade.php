@@ -172,16 +172,13 @@
     }
   </style>
 
-
   <!-- Main content -->
   <section class="content">
     <div class="content-header">
       @if(session()->has('success'))
-        <div class="alert alert-success alert-dismissible" role="alert">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span></button>
-          <strong>สำเร็จ!</strong> {{ session()->get('success') }}
-        </div>
+        <script type="text/javascript">
+          toastr.success('ดำเนินรายงานเสร็จสิ้น.')
+        </script>
       @endif
 
       <section class="content">
@@ -547,11 +544,5 @@
     $(function () {
       $('[data-mask]').inputmask()
     })
-  </script>
-
-  <script type="text/javascript">
-    $(".alert").fadeTo(3000, 1000).slideUp(1000, function(){
-    $(".alert").alert('close');
-    });
   </script>
 @endsection

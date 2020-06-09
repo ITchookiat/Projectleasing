@@ -180,7 +180,7 @@
     <div class="content-header">
       @if(session()->has('success'))
         <script type="text/javascript">
-          toastr.success('ดำเนินรายงานเสร็จสิ้น.')
+          toastr.success('{{ session()->get('success') }}')
         </script>
       @endif
 
@@ -1462,29 +1462,53 @@
                           <p></p>
 
                           <div class="row">
-
-                            <div class="col-md-6">  
-                              <div class="card card-danger">
-                                <div class="card-header">
-                                  <h3 class="card-title">รูปภาพ</h3>
-                  
-                                  <div class="card-tools">
-                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-                                    <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
-                                  </div>
-                                </div>
-                                <div class="card-body">
-                                  <div class="form-group">
-                                    <div class="file-loading">
-                                      <input id="image_checker" type="file" name="image_checker[]" accept="image/*" data-min-file-count="1" multiple>
+                            <div class="col-md-4">
+                              <div class="col-md-12">
+                                <div class="card card-danger">
+                                  <div class="card-header">
+                                    <h3 class="card-title">รูปภาพผู้เช่าซื้อ</h3>
+                    
+                                    <div class="card-tools">
+                                      <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                                      <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
                                     </div>
                                   </div>
-                                  <br><hr>
+                                  <div class="card-body">
+                                    <div class="form-group">
+                                      <div class="file-loading">
+                                        <input id="image_checker_1" type="file" name="image_checker_1[]" accept="image/*" data-min-file-count="1" multiple>
+                                      </div>
+                                    </div>
+                                    <br><hr>
+                                  </div>
                                 </div>
                               </div>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-4">
+                              <div class="col-md-12">
+                                <div class="card card-danger">
+                                  <div class="card-header">
+                                    <h3 class="card-title">รูปภาพผู้ค้ำ</h3>
+                    
+                                    <div class="card-tools">
+                                      <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                                      <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                                    </div>
+                                  </div>
+                                  <div class="card-body">
+                                    <div class="form-group">
+                                      <div class="file-loading">
+                                        <input id="image_checker_2" type="file" name="image_checker_2[]" accept="image/*" data-min-file-count="1" multiple>
+                                      </div>
+                                    </div>
+                                    <br><hr>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-md-4">
                               <div class="card card-danger">
                                 <div class="card-header">
                                   <h3 class="card-title">แผนที่</h3>
@@ -1498,10 +1522,10 @@
                                       <div class="col-md-12">
                                         <div id="myLat" style="">
                                             <div class="form-inline float-right">
-                                              <label>ตำแหน่งที่ตั้งผู้เช่าซื้อ : </label> <input type="text" id="Buyer_latlong" name="Buyer_latlong" class="form-control" style="width:300px" placeholder="ป้อนตำแหน่งผู้เช่าซื้อ"/>
+                                              <label>ตำแหน่งผู้เช่าซื้อ : </label> <input type="text" id="Buyer_latlong" name="Buyer_latlong" class="form-control" style="width:300px" placeholder="ป้อนตำแหน่งผู้เช่าซื้อ"/>
                                             </div>
                                             <div class="form-inline float-right">
-                                              <label>ตำแหน่งที่ตั้งผู้ค้ำ : </label> <input type="text" id="Support_latlong" name="Support_latlong" class="form-control" style="width:300px" placeholder="ป้อนตำแหน่งผู้ค้ำ"/>
+                                              <label>ตำแหน่งผู้ค้ำ : </label> <input type="text" id="Support_latlong" name="Support_latlong" class="form-control" style="width:300px" placeholder="ป้อนตำแหน่งผู้ค้ำ"/>
                                             </div>
                                         </div>
                                       </div>
@@ -1511,7 +1535,6 @@
                                 </div>
                               </div>
                             </div>
-
                           </div>
                         </div>
                       </div>
@@ -1887,31 +1910,7 @@
 
   {{-- image --}}
   <script type="text/javascript">
-    $("#image-file").fileinput({
-      uploadUrl:"{{ route('MasterAnalysis.store') }}",
-      theme:'fa',
-      uploadExtraData:function(){
-        return{
-          _token:"{{csrf_token()}}",
-        }
-      },
-      allowedFileExtensions:['jpg','png','gif'],
-      maxFileSize:10240
-    })
-
-    $("#Account_image").fileinput({
-      uploadUrl:"{{ route('MasterAnalysis.store') }}",
-      theme:'fa',
-      uploadExtraData:function(){
-        return{
-          _token:"{{csrf_token()}}",
-        }
-      },
-      allowedFileExtensions:['jpg','png','gif'],
-      maxFileSize:10240
-    })
-
-    $("#image_checker").fileinput({
+    $("#Account_image,#image-file,#image_checker_1,#image_checker_2").fileinput({
       uploadUrl:"{{ route('MasterAnalysis.store') }}",
       theme:'fa',
       uploadExtraData:function(){

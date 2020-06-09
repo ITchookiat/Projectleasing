@@ -183,7 +183,7 @@
     <div class="content-header">
       @if(session()->has('success'))
         <script type="text/javascript">
-          toastr.success('ดำเนินรายงานเสร็จสิ้น.')
+          toastr.success('{{ session()->get('success') }}')
         </script>
       @endif
 
@@ -2059,10 +2059,10 @@
                           <p></p>
 
                           <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                               <div class="card card-danger">
                                 <div class="card-header">
-                                  <h3 class="card-title">รูปภาพ</h3>
+                                  <h3 class="card-title">รูปภาพผู้เช่าซื้อ</h3>
                   
                                   <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
@@ -2071,7 +2071,7 @@
                                 <div class="card-body">
                                   <div class="form-group">
                                     <div class="file-loading">
-                                      <input id="image_checker" type="file" name="image_checker[]" accept="image/*" data-min-file-count="1" multiple>
+                                      <input id="image_checker_1" type="file" name="image_checker_1[]" accept="image/*" data-min-file-count="1" multiple>
                                     </div>
                                   </div>
                                 </div>
@@ -2080,17 +2080,21 @@
                                   <div class="card card-primary">
                                     <div class="card-header">
                                       <div class="card-title">
-                                        รูปภาพทั้งหมด
+                                        รูปภาพผู้เช่าซื้อ
                                       </div>
-                                    </div>
-                                    <div class="card-body">
-
                                       @if($data->License_car != NULL)
                                         @php
                                           $Setlisence = $data->License_car;
                                         @endphp
                                       @endif
-
+                                      <div class="card-tools">
+                                        <a href="{{ action('AnalysController@deleteImageAll',[$id,$Setlisence]) }}?type=2" class="pull-left DeleteImage">
+                                          <i class="far fa-trash-alt"></i>
+                                        </a>
+                                      </div>
+                                    </div>
+                                    
+                                    <div class="card-body">
                                       <div class="row">
                                         @foreach($dataImage as $key => $images)
                                           @if($images->Type_fileimage == "2")
@@ -2108,7 +2112,60 @@
                               </div>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-4">
+                              <div class="card card-danger">
+                                <div class="card-header">
+                                  <h3 class="card-title">รูปภาพผู้ค้ำ</h3>
+                  
+                                  <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                                  </div>
+                                </div>
+                                <div class="card-body">
+                                  <div class="form-group">
+                                    <div class="file-loading">
+                                      <input id="image_checker_2" type="file" name="image_checker_2[]" accept="image/*" data-min-file-count="1" multiple>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="col-12">
+                                  <div class="card card-primary">
+                                    <div class="card-header">
+                                      <div class="card-title">
+                                        รูปภาพผู้ค้ำ
+                                      </div>
+                                      @if($data->License_car != NULL)
+                                        @php
+                                          $Setlisence = $data->License_car;
+                                        @endphp
+                                      @endif
+                                      <div class="card-tools">
+                                        <a href="{{ action('AnalysController@deleteImageAll',[$id,$Setlisence]) }}?type=3" class="pull-left DeleteImage">
+                                          <i class="far fa-trash-alt"></i>
+                                        </a>
+                                      </div>
+                                    </div>
+                                    
+                                    <div class="card-body">
+                                      <div class="row">
+                                        @foreach($dataImage as $key => $images)
+                                          @if($images->Type_fileimage == "3")
+                                            <div class="col-sm-2">
+                                              <a href="{{ asset('upload-image/'.$Setlisence.'/'.$images->Name_fileimage) }}" data-toggle="lightbox" data-title="sample 1 - white">
+                                                <img src="{{ asset('upload-image/'.$Setlisence.'/'.$images->Name_fileimage) }}" class="img-fluid mb-2" alt="white sample">
+                                              </a>
+                                            </div>
+                                          @endif
+                                        @endforeach
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>  
+                              </div>
+                            </div>
+
+                            <div class="col-md-4">
                               <div class="card card-danger">
                                 <div class="card-header">
                                   <h3 class="card-title">แผนที่</h3>
@@ -2571,31 +2628,7 @@
 
   {{-- image --}}
   <script type="text/javascript">
-    $("#image-file").fileinput({
-      uploadUrl:"{{ route('MasterAnalysis.store') }}",
-      theme:'fa',
-      uploadExtraData:function(){
-        return{
-          _token:"{{csrf_token()}}",
-        }
-      },
-      allowedFileExtensions:['jpg','png','gif'],
-      maxFileSize:10240
-    })
-
-    $("#Account_image").fileinput({
-      uploadUrl:"{{ route('MasterAnalysis.store') }}",
-      theme:'fa',
-      uploadExtraData:function(){
-        return{
-          _token:"{{csrf_token()}}",
-        }
-      },
-      allowedFileExtensions:['jpg','png','gif'],
-      maxFileSize:10240
-    })
-
-    $("#image_checker").fileinput({
+    $("#image-file,#Account_image,#image_checker_1,#image_checker_2").fileinput({
       uploadUrl:"{{ route('MasterAnalysis.store') }}",
       theme:'fa',
       uploadExtraData:function(){
