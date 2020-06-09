@@ -253,7 +253,7 @@
                                         @php $status = 'Null'; @endphp
                                       @endif
 
-                                      @if(auth::user()->type == 1)
+                                      @if(auth::user()->type == 1 or auth::user()->type == 2)
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                           <i class="far fa-edit"></i> แก้ไข
                                         </a>
