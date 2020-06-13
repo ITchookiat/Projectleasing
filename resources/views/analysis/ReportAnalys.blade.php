@@ -573,9 +573,7 @@
             <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataReport->Insurance_car}}</b></th>
           </tr>
           @if($dataReport->Totalpay1_car != null)
-            @php 
             $intersetAllCO = (str_replace(",","",$dataReport->Totalpay1_car) - str_replace(",","",$dataReport->Top_car)) - str_replace(",","",$dataReport->Taxpay_car);
-            @endphp
           @else 
             $intersetAllCO = 0;
           @endif
