@@ -99,7 +99,20 @@ class ReportAnalysController extends Controller
                       ->leftJoin('cardetails','Buyers.id','=','cardetails.Buyercar_id')
                       ->leftJoin('Expenses','Buyers.id','=','Expenses.Buyerexpenses_id')
                       ->where('buyers.id',$id)->first();
-
+      if($type == 8){
+        if($dataReport->Note_car != null){
+          $Contno = $dataReport->Note_car;
+          $dataStructure = DB::connection('ibmi')
+          ->table('SFHP.ARMAST')
+          ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
+          ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+          ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+          ->join('SFHP.CUSTMAST','SFHP.ARMAST.CUSCOD','=','SFHP.CUSTMAST.CUSCOD')
+          ->where('SFHP.ARMAST.CONTNO','=', $Contno)
+          ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+          ->first();
+        }
+      }
       // $newDateDue = \Carbon\Carbon::parse($dataReport->Date_Due)->format('Y')+543 ."-". \Carbon\Carbon::parse($dataReport->Date_Due)->format('m')."-". \Carbon\Carbon::parse($dataReport->Date_Due)->format('d');
       $DateDue = \Carbon\Carbon::parse($dataReport->Date_Due)->format('d')."-".\Carbon\Carbon::parse($dataReport->Date_Due)->format('m');
       $DateDueYear = \Carbon\Carbon::parse($dataReport->Date_Due)->format('Y')+543;
@@ -109,7 +122,7 @@ class ReportAnalysController extends Controller
       $date = Carbon::parse($now)->format('d-m-Y');
       // dd($date);
 
-      $view = \View::make('analysis.ReportAnalys' ,compact('dataReport','newDateDue','date','type'));
+      $view = \View::make('analysis.ReportAnalys' ,compact('dataReport','newDateDue','date','type','dataStructure'));
       $html = $view->render();
 
       $pdf = new PDF();
