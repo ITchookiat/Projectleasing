@@ -2,33 +2,31 @@
 @section('title','แผนกการเงิน')
 @section('content')
 
-@php
-  function DateThai($strDate){
-    $strYear = date("Y",strtotime($strDate))+543;
-    $strMonth= date("n",strtotime($strDate));
-    $strDay= date("d",strtotime($strDate));
-    $strMonthCut = Array("" , "ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค.");
-    $strMonthThai=$strMonthCut[$strMonth];
-    return "$strDay $strMonthThai $strYear";
-    //return "$strDay-$strMonthThai-$strYear";
-  }
-@endphp
+  @php
+    function DateThai($strDate){
+      $strYear = date("Y",strtotime($strDate))+543;
+      $strMonth= date("n",strtotime($strDate));
+      $strDay= date("d",strtotime($strDate));
+      $strMonthCut = Array("" , "ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค.");
+      $strMonthThai=$strMonthCut[$strMonth];
+      return "$strDay $strMonthThai $strYear";
+      //return "$strDay-$strMonthThai-$strYear";
+    }
+  @endphp
 
-<style>
-  span:hover {
-    color: blue;
-  }
-</style>
+  <style>
+    span:hover {
+      color: blue;
+    }
+  </style>
 
   <!-- Main content -->
   <section class="content">
     <div class="content-header">
       @if(session()->has('success'))
-        <div class="alert alert-success alert-dismissible" role="alert">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span></button>
-          <strong>สำเร็จ!</strong> {{ session()->get('success') }}
-        </div>
+        <script type="text/javascript">
+          toastr.success('{{ session()->get('success') }}')
+        </script>
       @endif
 
       <section class="content">
@@ -232,23 +230,17 @@
     });
   </script>
 
-<script>
-  $(function () {
-    $("#table1").DataTable({
-      "responsive": true,
-      "autoWidth": false,
-      "ordering": false,
-      "paging": true,
-      "lengthChange": true,
-      "searching": true,
-      "order": [[ 1, "asc" ]],
-    });
-  });
-</script>
-
-  <script type="text/javascript">
-    $(".alert").fadeTo(3000, 1000).slideUp(1000, function(){
-    $(".alert").alert('close');
+  <script>
+    $(function () {
+      $("#table1").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "ordering": false,
+        "paging": true,
+        "lengthChange": true,
+        "searching": true,
+        "order": [[ 1, "asc" ]],
+      });
     });
   </script>
 

@@ -201,73 +201,79 @@ class LegislationController extends Controller
         }
 
         $data = DB::table('legislations')
-                  ->leftjoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
-                  ->leftjoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
-                  ->where('legislations.Flag_status','!=', '1')
-                  ->where('Legiscompromises.Date_Promise','!=', null)
-                  // ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
-                  //   return $q->whereBetween('Legiscompromises.Date_Promise',[$newfdate,$newtdate]);
-                  // })
-                  ->orderBy('legislations.Contract_legis', 'ASC')
-                  ->get();
+                ->leftjoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+                ->leftjoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+                ->where('legislations.Flag_status','!=', '1')
+                ->where('Legiscompromises.Date_Promise','!=', null)
+                ->orderBy('legislations.Contract_legis', 'ASC')
+                ->get();
 
-          $dataPay = DB::table('legislations')
-                 ->join('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
-                 ->join('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
-                 ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
-                   return $q->whereBetween('legispayments.Date_Payment',[$newfdate,$newtdate]);
-                 })
-                 ->where('legispayments.Flag_Payment', '=', 'Y')
-                 ->get();
+        // $dataPay = DB::table('legislations')
+        //         ->join('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
+        //         ->join('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+        //         ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+        //           return $q->whereBetween('legispayments.Date_Payment',[$newfdate,$newtdate]);
+        //         })
+        //         ->where('legispayments.Flag_Payment', '=', 'Y')
+        //         ->get();
 
-          if($status == "ชำระปกติ"){
-            $data = DB::table('legislations')
-                  ->leftjoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
-                  ->leftjoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
-                  ->leftjoin('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
-                  ->where('legislations.Flag_status','!=', '1')
-                  ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
-                    return $q->whereBetween('legispayments.Date_Payment',[$newfdate,$newtdate]);
+        $dataPay = DB::table('legislations')
+                ->join('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
+                ->join('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+                ->select('legislations.*','legispayments.*','Legiscompromises.*','legispayments.created_at AS CPayments_at')
+                ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+                  return $q->whereBetween('legispayments.Date_Payment',[$newfdate,$newtdate]);
+                })
+                ->where('legispayments.Flag_Payment', '=', 'Y')
+                ->get();
+
+        if($status == "ชำระปกติ"){
+          $data = DB::table('legislations')
+                ->leftjoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+                ->leftjoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+                ->leftjoin('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
+                ->select('legislations.*','legiscourts.*','legispayments.*','Legiscompromises.*','legispayments.created_at AS CPayments_at')
+                ->where('legislations.Flag_status','!=', '1')
+                ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+                  return $q->whereBetween('legispayments.Date_Payment',[$newfdate,$newtdate]);
+                })
+                ->when(!empty($status), function($q) use($lastday){
+                    return $q->where('legispayments.Date_Payment','>=',$lastday);
                   })
-                  ->when(!empty($status), function($q) use($lastday){
-                      return $q->where('legispayments.Date_Payment','>=',$lastday);
-                    })
-                  ->where('legispayments.Flag_Payment', '=', 'Y')
-                  ->where('legislations.Status_legis','=', Null)
-                  ->orderBy('legislations.Contract_legis', 'ASC')
-                  ->get();
+                ->where('legispayments.Flag_Payment', '=', 'Y')
+                ->where('legislations.Status_legis','=', Null)
+                ->orderBy('legislations.Contract_legis', 'ASC')
+                ->get();
 
-            }
-          elseif($status == "ขาดชำระ"){
-            $data = DB::table('legislations')
-                  ->leftjoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
-                  ->leftjoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
-                  ->leftjoin('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
-                  ->where('legislations.Flag_status','!=', '1')
-                  ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
-                    return $q->whereBetween('legispayments.Date_Payment',[$newfdate,$newtdate]);
+        }
+        elseif($status == "ขาดชำระ"){
+          $data = DB::table('legislations')
+                ->leftjoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+                ->leftjoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+                ->leftjoin('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
+                ->select('legislations.*','legiscourts.*','legispayments.*','Legiscompromises.*','legispayments.created_at AS CPayments_at')
+                ->where('legislations.Flag_status','!=', '1')
+                ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+                  return $q->whereBetween('legispayments.Date_Payment',[$newfdate,$newtdate]);
+                })
+                ->when(!empty($status), function($q) use($lastday){
+                    return $q->where('legispayments.Date_Payment','<',$lastday);
                   })
-                  ->when(!empty($status), function($q) use($lastday){
-                      return $q->where('legispayments.Date_Payment','<',$lastday);
-                    })
-                  ->where('legispayments.Flag_Payment', '=', 'Y')
-                  ->get();
-          }
-          elseif($status == "ปิดบัญชี"){
-            $data = DB::table('legislations')
-                  ->leftjoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
-                  ->leftjoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
-                  ->where('legislations.Flag_status','!=', '1')
-                  // ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
-                  //   return $q->whereBetween('Legiscompromises.Date_Promise',[$newfdate,$newtdate]);
-                  // })
-                  ->where('legislations.Status_legis','=', 'ปิดบัญชีประนอมหนี้')
-                  ->orderBy('legislations.Contract_legis', 'ASC')
-                  ->get();
-          }
+                ->where('legispayments.Flag_Payment', '=', 'Y')
+                ->get();
+        }
+        elseif($status == "ปิดบัญชี"){
+          $data = DB::table('legislations')
+                ->leftjoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+                ->leftjoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+                ->where('legislations.Flag_status','!=', '1')
+                ->where('legislations.Status_legis','=', 'ปิดบัญชีประนอมหนี้')
+                ->orderBy('legislations.Contract_legis', 'ASC')
+                ->get();
+        }
 
-          $type = $request->type;
-          return view('legislation.view', compact('type', 'data','result','newfdate','newtdate','status','dataPay'));
+        $type = $request->type;
+        return view('legislation.view', compact('type', 'data','result','newfdate','newtdate','status','dataPay'));
       }
       elseif ($request->type == 8) {   //สืบทรัพย์
         $newfdate = '';
@@ -828,7 +834,7 @@ class LegislationController extends Controller
         $LegisLand->save();
         $tab = 2;
         $type = 1;
-        return redirect()->Route('legislation', $type)->with(['tab' => $tab , 'success' => 'รับเรื่องเรียบร้อย']);
+        return redirect()->Route('legislation', $type)->with(['tab' => $tab , 'success' => '่ส่งดำเนินเรื่องเรียบร้อย']);
       }
     }
 
@@ -944,6 +950,16 @@ class LegislationController extends Controller
         return view('legislation.compromise',compact('data','id','type','dataPay','SumPay','SumAllPAy','Getdata','SumCount','dataPranom'));
       }
       elseif ($type == 5) { //เพิ่มข้อมูลชำระ
+
+        $data = DB::table('legislations')
+              ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+              ->leftJoin('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
+              ->where('legispayments.legis_Com_Payment_id', $id)
+              ->orderBy('legispayments.Period_Payment', 'desc')->limit(1)
+              ->first();
+
+          // dd($data);
+
         return view('legislation.payment',compact('data','id','type'));
       }
       elseif ($type == 6) { //เพิ่มข้อมูลงาน วิเคราะห์

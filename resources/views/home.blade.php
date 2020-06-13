@@ -37,7 +37,7 @@
               </div>
             </div>
 
-            <div class="col-lg-4 col-6">
+            <div class="col-lg-4 col-xs-6">
               <div class="small-box bg-yellow">
                 <div class="inner">
                   <h2>แผนกเร่งรัด</h2>

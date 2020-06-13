@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title','ร้อมูลรถยนต์มือ 2')
+@section('title','เพิ่มข้อมูลสต็อกรถเร่งรัด')
 @section('content')
 
   @php
