@@ -1,3 +1,15 @@
+@php
+  function DateThai($strDate){
+    $strYear = date("Y",strtotime($strDate))+543;
+    $strMonth= date("n",strtotime($strDate));
+    $strDay= date("d",strtotime($strDate));
+    //$strMonthCut = Array("" , "ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค.");
+    $strMonthCut = Array("" , "01","02","03","04","05","06","07","08","09","10","11","12");
+    $strMonthThai=$strMonthCut[$strMonth];
+    //return "$strDay $strMonthThai $strYear";
+    return "$strDay-$strMonthThai-$strYear";
+  }
+@endphp
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -544,7 +556,7 @@
           </tr>
           <tr>
             <th align="right" width="120px"> วันที่ชำระงวดแรก &nbsp;</th>
-            <th class="text-center" width="120px" style="background-color: yellow;"> <b>{{$dataReport->Dateduefirst_car}}</b></th>
+            <th class="text-center" width="120px" style="background-color: yellow;"> <b>{{DateThai($dataReport->Dateduefirst_car)}}</b></th>
             <th align="right" width="120px"> ประกันภัย &nbsp;</th>
             <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataReport->Insurance_car}}</b></th>
           </tr>

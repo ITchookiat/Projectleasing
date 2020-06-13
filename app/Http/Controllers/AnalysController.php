@@ -2302,7 +2302,7 @@ class AnalysController extends Controller
             $cardetail->branchbrance_car = $request->get('branchbrancecar');
             $cardetail->branchAgent_car = $request->get('branchAgentcar');
             $cardetail->Note_car = $request->get('Notecar');
-            if($type == 12){
+            if($type == 8 or $type == 12){
               $cardetail->Dateduefirst_car = $request->get('Dateduefirstcar');
             }
           $cardetail->update();
