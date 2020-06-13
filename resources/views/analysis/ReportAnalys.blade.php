@@ -279,7 +279,7 @@
           $intersetAll = (str_replace(",","",$dataReport->Totalpay1_car) - str_replace(",","",$dataReport->Top_car)) - str_replace(",","",$dataReport->Taxpay_car);
         @endphp
         @else 
-          $intersetAll = '';
+          $intersetAll = 0;
         @endif
         <tr>
           <!-- <th class="text-center" width="540px"></th> -->
@@ -447,7 +447,7 @@
             $intersetAllHC = (str_replace(",","",$dataReport->totalinstalments_HC) - str_replace(",","",$dataReport->topprice_HC)) - str_replace(",","",$dataReport->taxperriod_HC);
           @endphp
         @else 
-          $intersetAllHC = '';
+          $intersetAllHC = 0;
         @endif
         <tr>
           <!-- <th class="text-center" width="540px"></th> -->
@@ -577,7 +577,7 @@
             $intersetAllCO = (str_replace(",","",$dataReport->Totalpay1_car) - str_replace(",","",$dataReport->Top_car)) - str_replace(",","",$dataReport->Taxpay_car);
             @endphp
           @else 
-            $intersetAllCO = '';
+            $intersetAllCO = 0;
           @endif
           <tr>
             <!-- <th class="text-center" width="540px"></th> -->
