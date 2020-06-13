@@ -1076,38 +1076,6 @@
                           document.form1.P2Price.value = addCommas(num8);
                           }
                         }
-
-                        function insurance(){
-                            var num1 = document.getElementById('Insurancecar').value;
-                            var num22 = document.getElementById('totalkPrice').value;
-                            var num2 = num22.replace(",","");
-                            var num33 = document.getElementById('balancePrice').value;
-                            var num3 = num33.replace(",","");
-                            var num44 = document.getElementById('Topcar').value;
-                            var num4 = num44.replace(",","");
-                            var num55 = document.getElementById('P2Price').value;
-                            var num5 = num55.replace(",","");
-
-                              if(num1 == 'มี ป2+ อยู่แล้ว' && num4 >= '200000'){
-                                var total1 = parseFloat(num2) - 6900;
-                                var total2 = parseFloat(num3) + 6900;
-                                document.form1.P2Price.value = 0;
-                                document.form1.totalkPrice.value = addCommas(total1);
-                                document.form1.balancePrice.value = addCommas(total2);
-                              }
-                              else if(num1 == 'มี ป1 อยู่แล้ว' && num4 >= '200000'){
-                                var total1 = parseFloat(num2) - 6900;
-                                var total2 = parseFloat(num3) + 6900;
-                                document.form1.P2Price.value = 0;
-                                document.form1.totalkPrice.value = addCommas(total1);
-                                document.form1.balancePrice.value = addCommas(total2);
-                              }
-                              else{
-                                document.form1.P2Price.value = addCommas(num5);
-                                document.form1.totalkPrice.value = addCommas(num2);
-                                document.form1.balancePrice.value = addCommas(num3);
-                              }
-                            }
                       </script>
 
                       @if($type == 9)

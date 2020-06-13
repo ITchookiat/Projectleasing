@@ -624,8 +624,15 @@
           <tr>
             <th align="right" width="120px"> เจ้าหน้าที่สินเชื่อ &nbsp;</th>
             <th class="text-center" width="120px" style="background-color: yellow;"> <b>{{$dataReport->Loanofficer_car}}</b></th>
+          @if($type == 8)
+            <th align="right" width="120px"> สาขา &nbsp;</th>
+            <th class="text-center" width="85px" style="background-color: yellow;"> <b>{{$dataReport->branch_car}}</b></th>
+            <th align="right" width="35px"> คชจ. &nbsp;</th>
+            <th align="right" width="60px" style="background-color: yellow;"><b> 2,500 บาท &nbsp;</b></th>
+          @elseif($type == 12)
             <th align="right" width="120px"> สาขา &nbsp;</th>
             <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataReport->branch_car}}</b></th>
+          @endif
           </tr>
           <tr>
             <th align="right" width="120px"> ผู้อนุมัติ &nbsp;</th>
