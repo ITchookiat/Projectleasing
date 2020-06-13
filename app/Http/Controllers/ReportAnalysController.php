@@ -111,6 +111,8 @@ class ReportAnalysController extends Controller
           ->where('SFHP.ARMAST.CONTNO','=', $Contno)
           ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
           ->first();
+        }else{
+          $dataStructure = '';
         }
       }
       // $newDateDue = \Carbon\Carbon::parse($dataReport->Date_Due)->format('Y')+543 ."-". \Carbon\Carbon::parse($dataReport->Date_Due)->format('m')."-". \Carbon\Carbon::parse($dataReport->Date_Due)->format('d');
