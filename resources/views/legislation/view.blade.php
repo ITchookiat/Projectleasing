@@ -35,7 +35,7 @@
     <div class="content-header">
       @if(session()->has('success'))
         <script type="text/javascript">
-          toastr.success('ดำเนินรายงานเสร็จสิ้น.')
+          toastr.success('{{ session()->get('success') }}')
         </script>
       @endif
 
@@ -650,7 +650,7 @@
                                   <form method="post" class="delete_form" action="{{ action('LegislationController@destroy',[$row->id ,1]) }}" style="display:inline;">
                                   {{csrf_field()}}
                                     <input type="hidden" name="_method" value="DELETE" />
-                                    <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
+                                    <button type="submit" data-name="{{ $row->Contract_legis }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
                                       <i class="far fa-trash-alt"></i>
                                     </button>
                                   </form>
@@ -808,7 +808,7 @@
                               <th class="text-center">ยอดคงเหลือ</th>
                               <th class="text-center">ผู้ส่งประนอม</th>
                               <th class="text-center">สถานะ</th>
-                              <th class="text-center">ตัวเลือก</th>
+                              <th class="text-center" style="width: 50px">ตัวเลือก</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -860,19 +860,19 @@
                                       <span class="glyphicon glyphicon-ok prem"></span> จ่ายจบ
                                     </button>
                                   @else
-                                      @foreach($dataPay as $key => $value)
-                                        @if($row->legisPromise_id == $value->legis_Com_Payment_id)
-                                             @if($value->Date_Payment < $lastday)
-                                               <button data-toggle="tooltip" type="button" class="btn btn-danger btn-sm" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
-                                                <i class="far fa-thumbs-down"></i> ขาดชำระ
-                                               </button>
-                                             @else
-                                               <button data-toggle="tooltip" type="button" class="btn btn-info btn-sm" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
-                                                <i class="far fa-thumbs-up"></i> ชำระปกติ
-                                               </button>
-                                             @endif
-                                           @endif
-                                      @endforeach
+                                    @foreach($dataPay as $key => $value)
+                                      @if($row->legisPromise_id == $value->legis_Com_Payment_id)
+                                        @if(substr($value->CPayments_at,0,10) < $lastday)
+                                          <button data-toggle="tooltip" type="button" class="btn btn-danger btn-sm" title="วันชำระล่าสุด {{DateThai(substr($value->CPayments_at,0,10))}}">
+                                            <i class="far fa-thumbs-down"></i> ขาดชำระ
+                                          </button>
+                                        @else
+                                          <button data-toggle="tooltip" type="button" class="btn btn-info btn-sm" title="วันชำระล่าสุด {{DateThai(substr($value->CPayments_at,0,10))}}">
+                                            <i class="far fa-thumbs-up"></i> ชำระปกติ
+                                          </button>
+                                        @endif
+                                      @endif
+                                    @endforeach
                                    @endif
     
                                 </td>
@@ -884,7 +884,7 @@
                                     <form method="post" class="delete_form" action="{{ action('LegislationController@destroy',[$row->id ,1]) }}" style="display:inline;">
                                     {{csrf_field()}}
                                       <input type="hidden" name="_method" value="DELETE" />
-                                      <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
+                                      <button type="submit" data-name="{{ $row->Contract_legis }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
                                         <i class="far fa-trash-alt"></i>
                                       </button>
                                     </form>
@@ -1077,7 +1077,7 @@
                                   <form method="post" class="delete_form" action="{{ action('LegislationController@destroy',[$row->id ,1]) }}"  style="display:inline;">
                                   {{csrf_field()}}
                                     <input type="hidden" name="_method" value="DELETE" />
-                                    <button disabled type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
+                                    <button disabled type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ">
                                       <i class="far fa-trash-alt"></i>
                                     </button>
                                   </form>
@@ -1234,7 +1234,7 @@
                                 <form method="post" class="delete_form" action="{{ action('LegislationController@destroy',[$row->Legisexhibit_id ,3]) }}"  style="display:inline;">
                                 {{csrf_field()}}
                                   <input type="hidden" name="_method" value="DELETE" />
-                                  <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
+                                  <button type="submit" data-name="{{ $row->Contract_legis }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
                                     <i class="far fa-trash-alt"></i>
                                   </button>
                                 </form>

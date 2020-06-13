@@ -407,7 +407,6 @@
     </div>
   </section>
 
-
   <script type="text/javascript">
     $("#image-file").fileinput({
       uploadUrl:"{{ route('MasterAnalysis.store') }}",
@@ -427,11 +426,4 @@
       $('[data-mask]').inputmask()
     })
   </script>
-
-  <script type="text/javascript">
-    $(".alert").fadeTo(3000, 1000).slideUp(1000, function(){
-    $(".alert").alert('close');
-    });
-  </script>
-
 @endsection

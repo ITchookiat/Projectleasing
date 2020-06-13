@@ -34,11 +34,9 @@
   <section class="content">
     <div class="content-header">
       @if(session()->has('success'))
-        <div class="alert alert-success alert-dismissible">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-          <h4><i class="icon fa fa-check"></i> Alert!</h4>
-          <strong>สำเร็จ!</strong> {{ session()->get('success') }}
-        </div>
+        <script type="text/javascript">
+          toastr.success('{{ session()->get('success') }}')
+        </script>
       @endif
 
       <section class="content">
@@ -427,8 +425,6 @@
     </div>
   </section>
   
-
-
   <script type="text/javascript">
     $("#image-file").fileinput({
       uploadUrl:"{{ route('MasterAnalysis.store') }}",
@@ -448,11 +444,4 @@
       $('[data-mask]').inputmask()
     })
   </script>
-
-  <script type="text/javascript">
-    $(".alert").fadeTo(3000, 1000).slideUp(1000, function(){
-    $(".alert").alert('close');
-    });
-  </script>
-
 @endsection

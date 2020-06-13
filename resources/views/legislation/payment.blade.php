@@ -13,19 +13,11 @@
 <section class="content">
   <div class="card card-warning">
     <div class="card-header">
-      <h4 class="card-title"><b>เพิ่มข้อมูลชำระ...</b></h4>
+      <h4 class="card-title"><b>เพิ่มข้อมูลชำระ</b></h4>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">×</span>
       </button>
     </div>
-
-    @if(session()->has('success'))
-    <div class="alert alert-success alert-dismissible">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-      <h4><i class="icon fa fa-check"></i> Alert!</h4>
-      <strong>สำเร็จ!</strong> {{ session()->get('success') }}
-    </div>
-    @endif
 
     <div class="card-body">
       <form name="form2" action="{{ route('legislation.store',[$id, $type]) }}" method="post" id="formimage" enctype="multipart/form-data">
@@ -44,22 +36,60 @@
             return x1 + x2;
           }
           function sperate(){
-            var num11 = document.getElementById('GoldPayment').value;
-            var num1 = num11.replace(",","");
-            console.log(num1);
-            document.form2.GoldPayment.value = adds(num1);
+            var input = document.getElementById('GoldPayment').value,   //ค่างวดรับชำระ
+                inputCut = input.replace(",",""),
+                def = document.getElementById('DuePrice').value,        //ค่างวดจากระบบ
+                state = 0;
+                round = Math.floor(input/def);
+
+            for (var i = 1; i <= round; i++) {
+              input -= def;
+              state = 30 * i;
+              console.log(i, def, state);
+            }
+            if (input > 0) {
+              console.log(i, input);
+              
+            }
+
+            var DatePay = document.getElementById('Datepay').value,
+                Setdate = new Date(DatePay);
+
+            Setdate.setDate(Setdate.getDate() + state);
+            var dd = Setdate.getDate(),
+                mm = Setdate.getMonth() + 1,
+                yyyy = Setdate.getFullYear();
+
+                if (dd < 10) {
+                  var Newdd = '0' + dd;
+                }else {
+                  var Newdd = dd;
+                }
+                if (mm < 10) {
+                  var Newmm = '0' + mm;
+                }else {
+                  var Newmm = mm;
+                }
+            var result = yyyy + '-' + Newmm + '-' + Newdd;
+            console.log(result);
+
+            document.form2.GoldPayment.value = adds(inputCut);
+            document.getElementById('DatePayment').value = result;
           }
         </script>
 
+        <input type="hidden" id="Datepay" name="Datepay" class="form-control" value="{{ $data->Date_Payment }}"/>
+        <input type="hidden" id="DuePrice" name="DuePrice" class="form-control" value="{{ $data->DuePay_Promise }}"/>
+        
         <div class="row">
           <div class="col-md-8">
             <div class="row">
               <div class="col-md-6">
                 <label>วันที่ : </label>
-                <input type="date" name="DatePayment" class="form-control" value="{{ date('Y-m-d') }}" style="width: 200px;"/>
+                <input type="date" id="DatePayment" name="DatePayment" class="form-control" value="{{ date('Y-m-d') }}" style="width: 200px;"/>
                 
                 <label>ยอดชำระ :</label>
-                <input type="text" name="GoldPayment" id="GoldPayment" class="form-control" value="" style="width: 200px;"  oninput="sperate();" maxlength="7"/>
+                <input type="text" name="GoldPayment" id="GoldPayment" class="form-control" value="" style="width: 200px;"  onchange="sperate();" maxlength="7"/>
               </div>
 
               <div class="col-md-6">
