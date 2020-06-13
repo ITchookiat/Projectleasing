@@ -274,9 +274,13 @@
           <th align="right" width="120px"> ประกันภัย &nbsp;</th>
           <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataReport->Insurance_car}}</b></th>
         </tr>
+        @if($dataReport->Totalpay1_car != null)
         @php 
           $intersetAll = (str_replace(",","",$dataReport->Totalpay1_car) - str_replace(",","",$dataReport->Top_car)) - str_replace(",","",$dataReport->Taxpay_car);
         @endphp
+        @else 
+          $intersetAll = '';
+        @endif
         <tr>
           <!-- <th class="text-center" width="540px"></th> -->
           <th class="text-center" width="240px"></th>
@@ -438,9 +442,13 @@
           <th align="right" width="120px"> <b>{{$dataReport->totalinstalments_HC}} &nbsp;</b></th>
           <th align="right" width="120px"> <b>{{$dataReport->totalinstalments1_HC}} &nbsp;</b></th>
         </tr>
-        @php 
-          $intersetAllHC = (str_replace(",","",$dataReport->totalinstalments_HC) - str_replace(",","",$dataReport->topprice_HC)) - str_replace(",","",$dataReport->taxperriod_HC);
-        @endphp
+        @if($dataReport->Totalpay1_car != null)
+          @php 
+            $intersetAllHC = (str_replace(",","",$dataReport->totalinstalments_HC) - str_replace(",","",$dataReport->topprice_HC)) - str_replace(",","",$dataReport->taxperriod_HC);
+          @endphp
+        @else 
+          $intersetAllHC = '';
+        @endif
         <tr>
           <!-- <th class="text-center" width="540px"></th> -->
           <th class="text-center" width="240px"></th>
@@ -564,9 +572,13 @@
             <th align="right" width="120px"> ประกันภัย &nbsp;</th>
             <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataReport->Insurance_car}}</b></th>
           </tr>
-          @php 
-          $intersetAllCO = (str_replace(",","",$dataReport->Totalpay1_car) - str_replace(",","",$dataReport->Top_car)) - str_replace(",","",$dataReport->Taxpay_car);
-        @endphp
+          @if($dataReport->Totalpay1_car != null)
+            @php 
+            $intersetAllCO = (str_replace(",","",$dataReport->Totalpay1_car) - str_replace(",","",$dataReport->Top_car)) - str_replace(",","",$dataReport->Taxpay_car);
+            @endphp
+          @else 
+            $intersetAllCO = '';
+          @endif
           <tr>
             <!-- <th class="text-center" width="540px"></th> -->
             <th class="text-center" width="240px"></th>
