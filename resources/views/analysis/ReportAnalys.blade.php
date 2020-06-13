@@ -18,7 +18,11 @@
 
   </head>
     <label>วันที่ : {{$date}}</label>
-    <h3 class="card-title p-3" align="center">แบบฟอร์มขออนุมัติเช่าซื้อรถยนต์</h3>
+    @if($type == 8)
+      <h3 class="card-title p-3" align="center">แบบฟอร์มขออนุมัติปรับโครงสร้างหนี้</h3>
+    @else
+      <h3 class="card-title p-3" align="center">แบบฟอร์มขออนุมัติเช่าซื้อรถยนต์</h3>
+    @endif
     <hr>
 
   <body style="margin-top: 0 0 0px;">
@@ -236,7 +240,7 @@
           <th align="right" width="120px"> <b>{{$dataReport->Vat_car}}</b></th>
           <th align="right" width="120px"> ระยะเวลาผ่อน &nbsp;</th>
           <th class="text-center" width="180px" style="background-color: yellow;">
-            <b>{{$dataReport->Timeslacken_car}}</b> งวด
+            <b>{{$dataReport->Timeslacken_car}} งวด </b>
            </th>
         </tr>
         <tr>
@@ -523,10 +527,10 @@
           </tr>
           <tr>
             <th align="right" width="120px"> VAT &nbsp;</th>
-            <th align="right" width="120px"> <b>{{$dataReport->Vat_car}}</b></th>
+            <th align="right" width="120px"> <b>{{$dataReport->Vat_car}} &nbsp;</b></th>
             <th align="right" width="120px"> ระยะเวลาผ่อน &nbsp;</th>
             <th class="text-center" width="180px" style="background-color: yellow;">
-              <b>{{$dataReport->Timeslacken_car}}</b> งวด
+              <b>{{$dataReport->Timeslacken_car}} งวด </b>
              </th>
           </tr>
           <tr>
@@ -587,6 +591,7 @@
             <th class="text-center" width="540px"></th>
             @endif
           </tr>
+          @if($type == 12)
           <tr>
             <th align="right" width="120px"> ผู้รับเงิน &nbsp;</th>
             <th class="text-center" width="120px" style="background-color: yellow;"> <b>{{$dataReport->Payee_car}}</b></th>
@@ -633,6 +638,17 @@
             <th align="right" width="120px"> ประวัติค้ำ &nbsp;</th>
             <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataReport->Supporthistory_car}}</b></th>
           </tr>
+          @elseif($type == 8)
+          <tr>
+            <th align="right" width="120px"> ค่างวดเดิม &nbsp;</th>
+            <th width="120px" style="background-color: yellow;"> <b>{{number_format($dataStructure->DAMT,2)}} </b>&nbsp; </th>
+            <th align="right" width="120px"> ระยะเวลาผ่อนเดิม &nbsp;</th>
+            <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataStructure->T_NOPAY}} งวด </b></th>
+          </tr>
+          <tr>
+            <th class="text-center" width="540px"></th>
+          </tr>
+          @endif
           <tr>
             <th align="right" width="120px"> เจ้าหน้าที่สินเชื่อ &nbsp;</th>
             <th class="text-center" width="120px" style="background-color: yellow;"> <b>{{$dataReport->Loanofficer_car}}</b></th>
