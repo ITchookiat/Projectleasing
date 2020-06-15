@@ -1627,6 +1627,12 @@
 
               </div>
             </div>
+          
+          @if($data != null)
+            <input type="hidden" name="otherPrice" value="{{number_format($data->DAMT,2)}}" />
+            <input type="hidden" name="notePrice" value="{{$data->T_NOPAY}}" />
+          @endif
+
           </form>
           <a id="button"></a>
         </div>

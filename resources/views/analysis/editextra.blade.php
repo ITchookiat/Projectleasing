@@ -1402,6 +1402,8 @@
                     </div>
 
                     <input type="hidden" name="_method" value="PATCH"/>
+                    <input type="hidden" name="otherPrice" value="{{number_format($data->other_Price,2)}}" />
+                    <input type="hidden" name="notePrice" value="{{$data->note_Price}}" />
 
                     <!-- แบบฟอร์มผู้ค้ำ 2 -->
                     <div class="modal fade" id="modal-default">
@@ -1794,6 +1796,7 @@
                                 </div>
                               </div>
                             </div>
+
                             <div class="modal-footer justify-content-between float-right">
                               <button type="button" class="btn btn-success" data-dismiss="modal">บันทึก</button>
                             </div>
