@@ -1392,6 +1392,26 @@
                             </div>
                           </div>
 
+                          <hr>
+                          <div class="row">
+                            <div class="col-5">
+                              <div class="float-right form-inline">
+                                <label>ค่างวดเดิม : </label>
+                                @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  <input type="text" name="otherPrice" value="{{number_format($data->other_Price,2)}}" class="form-control" style="width: 250px;" />
+                                @else
+                                  <input type="text" name="otherPrice" value="{{number_format($data->other_Price,2)}}" class="form-control" style="width: 250px;" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                @endif
+                              </div>
+                            </div>
+                            <div class="col-5">
+                              <div class="float-right form-inline">
+                                <label>ระยะเวลาผ่อนเดิม : </label>
+                                <input type="text" name="notePrice" value="{{$data->note_Price}}" class="form-control" style="width: 250px;" />
+                              </div>
+                            </div>
+                          </div>
+
                           @if(auth::user()->type == 1 or auth::user()->type == 2)
                             <input type="hidden" name="statuscar" value="{{$data->status_car}}" class="form-control" style="width: 250px;" />
                           @else
@@ -1402,8 +1422,6 @@
                     </div>
 
                     <input type="hidden" name="_method" value="PATCH"/>
-                    <input type="hidden" name="otherPrice" value="{{number_format($data->other_Price,2)}}" />
-                    <input type="hidden" name="notePrice" value="{{$data->note_Price}}" />
 
                     <!-- แบบฟอร์มผู้ค้ำ 2 -->
                     <div class="modal fade" id="modal-default">
