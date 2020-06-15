@@ -2099,7 +2099,7 @@
                                         @foreach($dataImage as $key => $images)
                                           @if($images->Type_fileimage == "2")
                                             <div class="col-sm-2">
-                                              <a href="{{ asset('upload-image/'.$Setlisence.'/'.$images->Name_fileimage) }}" data-toggle="lightbox" data-title="sample 1 - white">
+                                              <a href="{{ asset('upload-image/'.$Setlisence.'/'.$images->Name_fileimage) }}" data-toggle="lightbox" data-title="ภาพผู้เช่าซื้อ">
                                                 <img src="{{ asset('upload-image/'.$Setlisence.'/'.$images->Name_fileimage) }}" class="img-fluid mb-2" alt="white sample">
                                               </a>
                                             </div>
@@ -2152,7 +2152,7 @@
                                         @foreach($dataImage as $key => $images)
                                           @if($images->Type_fileimage == "3")
                                             <div class="col-sm-2">
-                                              <a href="{{ asset('upload-image/'.$Setlisence.'/'.$images->Name_fileimage) }}" data-toggle="lightbox" data-title="sample 1 - white">
+                                              <a href="{{ asset('upload-image/'.$Setlisence.'/'.$images->Name_fileimage) }}" data-toggle="lightbox" data-title="ภาพผู้ค้ำ">
                                                 <img src="{{ asset('upload-image/'.$Setlisence.'/'.$images->Name_fileimage) }}" class="img-fluid mb-2" alt="white sample">
                                               </a>
                                             </div>
