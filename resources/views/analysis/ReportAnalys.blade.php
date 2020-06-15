@@ -657,17 +657,15 @@
             <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataReport->Supporthistory_car}}</b></th>
           </tr>
           @elseif($type == 8)
-            @if($dataStructure != '')
               <tr>
                 <th align="right" width="120px"> ค่างวดเดิม &nbsp;</th>
-                <th width="120px" style="background-color: yellow;"> <b>{{number_format($dataStructure->DAMT,2)}} </b>&nbsp; </th>
+                <th width="120px" style="background-color: yellow;"> <b>{{number_format($dataReport->other_Price,2)}} </b>&nbsp; </th>
                 <th align="right" width="120px"> ระยะเวลาผ่อนเดิม &nbsp;</th>
-                <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataStructure->T_NOPAY}} งวด </b></th>
+                <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataReport->note_Price}} งวด </b></th>
               </tr>
               <tr>
                 <th class="text-center" width="540px"></th>
               </tr>
-            @endif
           @endif
           <tr>
             <th align="right" width="120px"> เจ้าหน้าที่สินเชื่อ &nbsp;</th>

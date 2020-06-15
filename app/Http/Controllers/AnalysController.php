@@ -992,7 +992,7 @@ class AnalysController extends Controller
      */
     public function store(Request $request)
     {
-      // dd($request->get('Nowlicensecar'));
+      // dd($request);
 
       $SetDateDue = str_replace ("/","-",$request->get('DateDue'));
       $dateConvert0 = date_create($SetDateDue);
