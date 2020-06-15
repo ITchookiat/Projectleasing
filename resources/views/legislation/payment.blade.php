@@ -35,20 +35,24 @@
               }
             return x1 + x2;
           }
+
           function sperate(){
             var input = document.getElementById('GoldPayment').value,   //ค่างวดรับชำระ
                 inputCut = input.replace(",",""),
                 def = document.getElementById('DuePrice').value,        //ค่างวดจากระบบ
                 state = 0;
                 round = Math.floor(input/def);
-
+            
             for (var i = 1; i <= round; i++) {
               input -= def;
               state = 30 * i;
               console.log(i, def, state);
             }
-            if (input > 0) {
-              console.log(i, input);
+            if (round == 0) {
+              if (input > 0) {
+                state += 30;
+                console.log(i, input, state);
+              }
               
             }
 
