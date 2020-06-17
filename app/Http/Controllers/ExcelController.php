@@ -477,7 +477,7 @@ class ExcelController extends Controller
                     ->toArray();
         }
 
-        $data_array[] = array('ลำดับ','สาขา','วันที่อนุมัติ','เลขสัญญาเดิม','มาตรการช่วยเหลือ','เลขสัญญา','แบบ','ยี่ห้อ','ทะเบียน','ปี','ยอดจัด','ค่างวด','ระยะเวลาผ่อน','ยอดรวม','วันที่ชำระงวดแรก');
+        $data_array[] = array('ลำดับ','สาขา','วันที่อนุมัติ','เลขสัญญาเดิม','มาตรการช่วยเหลือ','เลขสัญญา','แบบ','ยี่ห้อ','ทะเบียน','ปี','ยอดจัด','ค่างวด','ระยะเวลาผ่อน','ยอดรวม','วันที่ชำระงวดแรก','ที่อยู่','เบอร์ติดต่อ');
 
           foreach($data as $key => $row){
             $date = date_create($row->Date_Due);
@@ -520,6 +520,8 @@ class ExcelController extends Controller
              'ระยะเวลาผ่อน' => $row->Timeslacken_car,
              'ยอดรวม' => $row->Totalpay1_car,
              'วันที่ชำระงวดแรก' => $Date_DueFirstcar,
+             'ที่อยู่' => $row->StatusAdd_buyer,
+             'เบอร์ติดต่อ' => $row->Phone_buyer,
             );
           }
         $data_array = collect($data_array);
