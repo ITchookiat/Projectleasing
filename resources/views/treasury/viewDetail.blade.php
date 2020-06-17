@@ -292,16 +292,17 @@
                         </button>
                       </div>
                     </div>
+
                     <div class="card-body">
                       <div class="row">
                         <div class="col-md-6">
-                          <div class="float-right form-inline">
+                          <div class="form-group">
                             <label>ชื่อ : </label>
-                          <input type="text" class="form-control text-right" style="width: 220px;" value="{{$data->Payee_car}}" readonly/>
+                            <input type="text" class="form-control text-right" style="width: 220px;" value="{{$data->Payee_car}}" readonly/>
                           </div>
                         </div>
                         <div class="col-md-6">
-                          <div class="float-right form-inline">
+                          <div class="form-group">
                             <label>บัญชี : </label>
                             <input type="text" class="form-control text-right" style="width: 220px;" value="{{$SetAccount}}" readonly/>
                           </div>
@@ -310,13 +311,13 @@
 
                       <div class="row">
                         <div class="col-md-6">
-                          <div class="float-right form-inline">
+                          <div class="form-group">
                             <label>สาขา : </label>
                           <input type="text" class="form-control text-right" style="width: 220px;" value="{{$data->branchbrance_car}}" readonly/>
                           </div>
                         </div>
                         <div class="col-md-6">
-                          <div class="float-right form-inline">
+                          <div class="form-group">
                             <label>โทรศัพท์ : </label>
                             <input type="text" class="form-control text-right" style="width: 220px;" value="{{$SetTell}}" readonly/>
                           </div>
@@ -325,7 +326,7 @@
 
                       <div class="row">
                         <div class="col-md-6">
-                          <div class="float-right form-inline">
+                          <div class="form-group">
                             @if($data->Payee_car == $data->Agent_car and $data->Accountbrance_car == $data->Accountagent_car)
                               <label>ยอดรถ : </label>
                             @else
@@ -352,13 +353,13 @@
                     <div class="card-body">
                       <div class="row">
                         <div class="col-md-6">
-                          <div class="float-right form-inline">
+                          <div class="form-group">
                             <label>ชื่อ : </label>
                             <input type="text" class="form-control text-right" style="width: 220px;" value="{{$data->Agent_car}}" readonly/>
                           </div>
                         </div>
                         <div class="col-md-6">
-                          <div class="float-right form-inline">
+                          <div class="form-group">
                             <label>บัญชี : </label>
                             <input type="text" class="form-control text-right" style="width: 220px;" value="{{$SetAccountGT}}" readonly/>
                           </div>
@@ -367,13 +368,13 @@
 
                       <div class="row">
                         <div class="col-md-6">
-                          <div class="float-right form-inline">
+                          <div class="form-group">
                             <label>สาขา : </label>
                           <input type="text" class="form-control text-right" style="width: 220px;" value="{{$data->branchAgent_car}}" readonly/>
                           </div>
                         </div>
                         <div class="col-md-6">
-                          <div class="float-right form-inline">
+                          <div class="form-group">
                             <label>โทรศัพท์ : </label>
                             <input type="text" class="form-control text-right" style="width: 220px;" value="{{$SetTellGT}}" readonly/>
                           </div>
@@ -382,7 +383,7 @@
 
                       <div class="row">
                         <div class="col-md-6">
-                          <div class="float-right form-inline">
+                          <div class="form-group">
                             @if($data->Payee_car == $data->Agent_car and $data->Accountbrance_car == $data->Accountagent_car)
                             <label>ยอดค่าคอม : </label>
                           @else
