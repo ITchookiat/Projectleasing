@@ -121,7 +121,7 @@
                             <div class="float-right form-inline">
                               @if(auth::user()->type == 1 or auth::user()->type == 2)
                               <label>เลขที่สัญญา : </label>
-                              <input type="type" name="Contno" value="{{$contno}}" maxlength="12" style="padding:5px;width:180px;border-radius: 5px 0 5px 5px; font-size:24px;"/>
+                              <input type="type" name="Contno" value="{{$contno}}" maxlength="12" class="form-control form-control-lg"/>
                                 <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', $type) }}" class="btn bg-primary btn-app">
                                   <span class="fas fa-print"></span> ปริ้นรายการ
                                 </a>
@@ -140,13 +140,13 @@
                           <div class="col-md-12">
                             <div class="float-right form-inline">
                               <label>จากวันที่ : </label>
-                              <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control" />
+                              <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control" />
 
                               <label>ถึงวันที่ : </label>
-                              <input type="date" name="Todate" style="width: 180px;" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control" />
+                              <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control" />
 
                               <label for="text" class="mr-sm-2">สาขา : </label>
-                              <select name="branch" class="form-control" id="text" style="width: 180px">
+                              <select name="branch" class="form-control" id="text">
                                 <option selected value="">---เลือกสาขา---</option>
                                 <option value="ปัตตานี" {{ ($branch == 'ปัตตานี') ? 'selected' : '' }}>ปัตตานี</otion>
                                 <option value="ยะลา" {{ ($branch == 'ยะลา') ? 'selected' : '' }}>ยะลา</otion>
@@ -157,7 +157,7 @@
                               </select>
 
                               <label for="text" class="mr-sm-2">สถานะ : </label>
-                              <select name="status" class="form-control" id="text" style="width: 180px">
+                              <select name="status" class="form-control" id="text">
                                 <option selected value="">---สถานะ---</option>
                                 <option value="อนุมัติ"{{ ($status == 'อนุมัติ') ? 'selected' : '' }}>อนุมัติ</otion>
                                 <option value="รออนุมัติ"{{ ($status == 'รออนุมัติ') ? 'selected' : '' }}>รออนุมัติ</otion>
@@ -334,13 +334,13 @@
                         <br><br><br><p></p>
                         <div class="float-right form-inline">
                           <label>จากวันที่ : </label>
-                          <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control" />
+                          <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control" />
 
                           <label>ถึงวันที่ : </label>
-                          <input type="date" name="Todate" style="width: 180px;" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control" />
+                          <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control" />
 
                           <label for="text" class="mr-sm-2">สถานะ : </label>
-                          <select name="status" class="form-control" id="text" style="width: 180px">
+                          <select name="status" class="form-control" id="text" >
                             <option selected disabled value="">---สถานะ---</option>
                             <option value="อนุมัติ"{{ ($status == 'อนุมัติ') ? 'selected' : '' }}>อนุมัติ</otion>
                             <option value="รออนุมัติ"{{ ($status == 'รออนุมัติ') ? 'selected' : '' }}>รออนุมัติ</otion>
@@ -444,13 +444,13 @@
                         <div class="float-right form-inline">
                           @if(auth::user()->type == 1 or auth::user()->type == 2)
                             <label>เลขที่สัญญา : </label>
-                            <input type="type" name="Contno" value="{{$contno}}" maxlength="12" style="padding:5px;width:180px;border-radius: 5px 0 5px 5px; font-size:24px;"/>
+                            <input type="type" name="Contno" value="{{$contno}}" maxlength="12" class="form-control form-control-lg"/>
                             <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', 2) }}" class="btn bg-primary btn-app">
                               <span class="fas fa-print"></span> ปริ้นรายการ
                             </a>
                           @else
                             <label>เลขที่สัญญา : </label>
-                            <input type="type" name="Contno" value="{{$contno}}" maxlength="12" style="padding:5px;width:330px;border-radius: 5px 0 5px 5px; font-size:24px;"/>
+                            <input type="type" name="Contno" value="{{$contno}}" maxlength="12" class="form-control form-control-lg"/>
                           @endif
                           <button type="submit" class="btn bg-warning btn-app">
                             <span class="fas fa-search"></span> Search
@@ -459,13 +459,13 @@
                         <br/><br/><br/><p></p>
                         <div class="float-right form-inline">
                           <label>จากวันที่ : </label>
-                          <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control" />
+                          <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control" />
 
                           <label>ถึงวันที่ : </label>
-                          <input type="date" name="Todate" style="width: 180px;" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control" />
+                          <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control" />
 
                           <label for="text" class="mr-sm-2">สถานะ : </label>
-                          <select name="status" class="form-control" id="text" style="width: 180px">
+                          <select name="status" class="form-control" id="text">
                             <option selected value="">---สถานะ---</option>
                             <option value="อนุมัติ"{{ ($status == 'อนุมัติ') ? 'selected' : '' }}>อนุมัติ</otion>
                             <option value="รออนุมัติ"{{ ($status == 'รออนุมัติ') ? 'selected' : '' }}>รออนุมัติ</otion>
@@ -631,14 +631,13 @@
                           <div class="float-right form-inline">
                             @if(auth::user()->type == 1 or auth::user()->type == 2)
                             <label>เลขที่สัญญา : </label>
-                            <input type="type" name="Contno" value="{{$contno}}" maxlength="12" style="padding:5px;width:180px;border-radius: 5px 0 5px 5px; font-size:24px;"/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="type" name="Contno" value="{{$contno}}" maxlength="12" class="form-control form-control-lg"/>
                               <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', 3) }}" class="btn bg-primary btn-app">
                                 <span class="fas fa-print"></span> ปริ้นรายการ
                               </a>
                             @else
-                            <label>เลขที่สัญญา : </label>
-                            <input type="type" name="Contno" value="{{$contno}}" maxlength="12" style="padding:5px;width:330px;border-radius: 5px 0 5px 5px; font-size:24px;"/>
+                              <label>เลขที่สัญญา : </label>
+                              <input type="type" name="Contno" value="{{$contno}}" maxlength="12" class="form-control form-control-lg"/>
                             @endif
 
                             <button type="submit" class="btn bg-warning btn-app">
@@ -649,13 +648,13 @@
                           <div class="float-right form-inline">
                             <p></p>
                             <label>จากวันที่ : </label>
-                            <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control" />
+                            <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control" />
 
                             <label>ถึงวันที่ : </label>
-                            <input type="date" name="Todate" style="width: 180px;" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control" />
+                            <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control" />
 
                             <label for="text" class="mr-sm-2">สถานะ : </label>
-                            <select name="status" class="form-control" id="text" style="width: 180px">
+                            <select name="status" class="form-control" id="text">
                               <option selected value="">---สถานะ---</option>
                               <option value="อนุมัติ"{{ ($status == 'อนุมัติ') ? 'selected' : '' }}>อนุมัติ</otion>
                               <option value="รออนุมัติ"{{ ($status == 'รออนุมัติ') ? 'selected' : '' }}>รออนุมัติ</otion>
