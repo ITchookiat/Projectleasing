@@ -204,9 +204,7 @@
             </tr>
             <tr align="center" style="line-height: 200%;">
               <td width="55px">
-                @if($value->closeAccount_Price != 0)
-                  ปิดบัญชี {{number_format($value->closeAccount_Price)}}
-                @endif
+                
               </td>
               <td width="110px">
                 @if($value->Accountbrance_car != Null)
