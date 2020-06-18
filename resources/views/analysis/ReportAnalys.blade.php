@@ -444,7 +444,7 @@
           <th align="right" width="120px"> <b>{{$dataReport->totalinstalments_HC}} &nbsp;</b></th>
           <th align="right" width="120px"> <b>{{$dataReport->totalinstalments1_HC}} &nbsp;</b></th>
         </tr>
-          @if($dataReport->Totalpay1_car != null)
+          @if($dataReport->totalinstalments_HC != null)
             @php 
               $intersetAllHC = (str_replace(",","",$dataReport->totalinstalments_HC) - str_replace(",","",$dataReport->topprice_HC)) - str_replace(",","",$dataReport->taxperriod_HC);
             @endphp
