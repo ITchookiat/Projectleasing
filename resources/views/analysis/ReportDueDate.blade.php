@@ -282,7 +282,7 @@
               <td width="215px" style="background-color: #FFFF00; line-height:250%;">รวมยอดจัดเป็นเงิน      {{number_format($sumtopcar,2)}}</td>
               <td width="120px" style="background-color: #00FFFF; line-height:250%;">รวมค่าใช้จ่ายขนส่ง     {{number_format($sumtotransport,2)}}</td>
               <td width="95px" style="background-color: #00FFFF; line-height:250%;">รวมค่าใช้จ่ายบริษัท     {{number_format($sumtototalk_Price - $sumtotransport,2)}}</td>
-              <td width="115px" style="background-color: #00FFFF; line-height:250%;">รวมค่าใช้จ่ายทั้งหมด    {{number_format($sumtotransport + ($sumtototalk_Price - $sumtotransport),2)}}</td>
+              <td width="115px" style="background-color: #00FFFF; line-height:250%;">รวมค่าใช้จ่ายทั้งหมด    {{number_format($sumtototalk_Price,2)}}</td>
               <td width="270px" style="background-color: #FFFF00; line-height:250%;">ยอดรวมอนุมัติ        {{number_format($sumall,2)}}</td>
             </tr>
         @endif
