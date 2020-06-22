@@ -1771,18 +1771,6 @@
                               </div>
                             </div>
                           </div>
-                          
-                          <script>
-                            $('#Agentcar').change(function(){
-                              var value = document.getElementById('Agentcar').value;
-                                if(value == ''){
-                                  $('#ShowCom').hide();
-                                }
-                                else{
-                                  $('#ShowCom').show();
-                                }
-                            });
-                          </script>
 
                           <div class="row">
                             <div class="col-5">
