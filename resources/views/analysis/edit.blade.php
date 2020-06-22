@@ -1907,18 +1907,12 @@
                               <div class="form-group row mb-1" style="display: none" id="ShowCom">
                                 <label class="col-sm-3 col-form-label text-right">ค่าคอม : </label>
                                 <div class="col-sm-8">
-                                    @if($data->Agent_car != NULL)
-                                    <div class="float-right form-inline" id="ShowCom">
-                                  @else
-                                    <div class="float-right form-inline" style="display: none" id="ShowCom">
-                                  @endif
                                     <label>ค่าคอม : </label>
                                     @if(auth::user()->type == 1 or auth::user()->type == 2)
                                       <input type="text" id="Commissioncar" name="Commissioncar" value="{{number_format($data->Commission_car, 2)}}" class="form-control"  placeholder="ค่าคอม" oninput="commission()"/>
                                     @else
                                       <input type="text" id="Commissioncar" name="Commissioncar" value="{{number_format($data->Commission_car, 2)}}" class="form-control"  placeholder="ค่าคอม" oninput="commission()" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
                                     @endif
-                                  </div>
                                 </div>
                               </div>
                             </div>
