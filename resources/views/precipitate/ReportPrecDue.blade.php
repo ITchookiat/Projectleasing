@@ -153,7 +153,7 @@
               <td style="line-height:250%;" width="35px"> {{$value->Year_Product}} </td>
               <td style="line-height:250%;" width="60px"> {{DateThai($value->Date_hold)}} </td>
               <td style="line-height:250%;" width="35px"> {{$value->Team_hold}} </td>
-              <td style="line-height:250%;" width="40px"> {{number_format($value->Price_hold,0)}}&nbsp;</td>
+              <td style="line-height:250%;" width="50px"> {{number_format($value->Price_hold,0)}}&nbsp;</td>
               <td style="line-height:250%;" width="200px" align="left"> {{$value->Note_hold}} </td>
               <td style="line-height:250%;" width="90px">
                 @if($value->Statuscar == 1)
@@ -182,7 +182,7 @@
               <td style="line-height:250%;" width="35px"> {{$value->Year_Product}} </td>
               <td style="line-height:250%;" width="60px"> {{DateThai($value->Date_hold)}} </td>
               <td style="line-height:250%;" width="35px"> {{$value->Team_hold}} </td>
-              <td style="line-height:250%;" width="40px"> {{number_format($value->Price_hold,0)}}&nbsp;</td>
+              <td style="line-height:250%;" width="50px"> {{number_format($value->Price_hold,0)}}&nbsp;</td>
               <td style="line-height:250%;" width="200px" align="left"> {{$value->Note_hold}} </td>
               <td style="line-height:250%;" width="90px">
                 @if($value->Statuscar == 1)
@@ -211,7 +211,7 @@
               <td style="line-height:250%;" width="35px"> {{$value->Year_Product}} </td>
               <td style="line-height:250%;" width="60px"> {{DateThai($value->Date_hold)}} </td>
               <td style="line-height:250%;" width="35px"> {{$value->Team_hold}} </td>
-              <td style="line-height:250%;" width="40px"> {{number_format($value->Price_hold,0)}}&nbsp;</td>
+              <td style="line-height:250%;" width="50px"> {{number_format($value->Price_hold,0)}}&nbsp;</td>
               <td style="line-height:250%;" width="200px" align="left"> {{$value->Note_hold}} </td>
               <td style="line-height:250%;" width="90px">
                 @if($value->Statuscar == 1)
@@ -240,7 +240,7 @@
               <td style="line-height:250%;" width="35px"> {{$value->Year_Product}} </td>
               <td style="line-height:250%;" width="60px"> {{DateThai($value->Date_hold)}} </td>
               <td style="line-height:250%;" width="35px"> {{$value->Team_hold}} </td>
-              <td style="line-height:250%;" width="40px"> {{number_format($value->Price_hold,0)}}&nbsp;</td>
+              <td style="line-height:250%;" width="50px"> {{number_format($value->Price_hold,0)}}&nbsp;</td>
               <td style="line-height:250%;" width="200px" align="left"> {{$value->Note_hold}} </td>
               <td style="line-height:250%;" width="90px">
                 @if($value->Statuscar == 1)
@@ -263,7 +263,7 @@
           @endforeach
           <tr style="line-height: 200%;">
             <td width="475px" align="right"><b>รวมยอดค่ายึด &nbsp;</b></td>
-            <td width="40px" align="right"><b> {{number_format($total)}} &nbsp;</b></td>
+            <td width="50px" align="right"><b> {{number_format($total)}} &nbsp;</b></td>
             <td width="290px"><b>&nbsp;บาท</b></td>
           </tr>
         </tbody>
