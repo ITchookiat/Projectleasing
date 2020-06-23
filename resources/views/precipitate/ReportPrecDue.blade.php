@@ -103,7 +103,7 @@
             <th align="center" width="35px" style="background-color: #BEBEBE;"><b>ปีรถ</b></th>
             <th align="center" width="60px" style="background-color: #BEBEBE;"><b>วันที่ยึด</b></th>
             <th align="center" width="35px" style="background-color: #BEBEBE;"><b>ทีมยึด</b></th>
-            <th align="center" width="40px" style="background-color: #BEBEBE;"><b>ค่ายึด</b></th>
+            <th align="center" width="50px" style="background-color: #BEBEBE;"><b>ค่ายึด</b></th>
             <th align="center" width="200px" style="background-color: #BEBEBE;"><b>รายละเอียด</b></th>
             <th align="center" width="90px" style="background-color: #BEBEBE;"><b>สถานะ</b></th>
           </tr>
@@ -124,7 +124,7 @@
               <td style="line-height:250%;" width="35px"> {{$value->Year_Product}} </td>
               <td style="line-height:250%;" width="60px"> {{DateThai($value->Date_hold)}} </td>
               <td style="line-height:250%;" width="35px"> {{$value->Team_hold}} </td>
-              <td style="line-height:250%;" width="40px"> {{number_format($value->Price_hold,0)}}&nbsp;</td>
+              <td style="line-height:250%;" width="50px"> {{number_format($value->Price_hold,0)}}&nbsp;</td>
               <td style="line-height:250%;" width="200px" align="left"> {{$value->Note_hold}} </td>
               <td style="line-height:250%;" width="90px">
                 @if($value->Statuscar == 1)
