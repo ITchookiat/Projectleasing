@@ -2206,7 +2206,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">คงเหลือ : </label>
                                 <div class="col-sm-8">
-                                  <input type="text" id="balancePrice" name="balancePrice" value="{{number_format($data->balance_Price)}}" class="form-control" placeholder="คงเหลือ" readonly/>
+                                  <input type="text" id="balancePrice" name="balancePrice" value="{{number_format($data->balance_Price,2)}}" class="form-control" placeholder="คงเหลือ" readonly/>
                                 </div>
                               </div>
                             </div>
@@ -2229,6 +2229,16 @@
                                 </div>
                               </div>
                             </div>
+                          @if($data->Payee_car == $data->Agent_car)
+                            <div class="col-6">
+                              <div class="form-group row mb-1">
+                                <label class="col-sm-3 col-form-label text-right"><font color="red">รวมยอดโอน :</font> </label>
+                                <div class="col-sm-8">
+                                  <input type="text" value="{{ number_format($data->balance_Price+$data->commit_Price,2)}}" style="font-weight:bold;" class="form-control" readonly />
+                                </div>
+                              </div>
+                            </div>
+                          @endif
                           </div>
                         </div>
                         <div class="tab-pane fade" id="Sub-tab5" role="tabpanel" aria-labelledby="Sub-custom-tab5">
