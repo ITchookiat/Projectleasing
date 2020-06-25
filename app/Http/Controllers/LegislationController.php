@@ -857,6 +857,7 @@ class LegislationController extends Controller
      */
     public function edit($id, $type)
     {
+
       if ($type == 2) {     //ข้อมูลผู้เช่าซื้อ
         $data = DB::table('legislations')
               ->where('legislations.id',$id)->first();
@@ -919,7 +920,7 @@ class LegislationController extends Controller
                   ->where('legisPromise_id', $id)
                   ->count();
 
-        // dd($data);
+        // dd($dataPranom);
 
         $SumCount = 0;  //ค่าผ่อนชำระทั้งหมด
         $SumPay = 0;    //ค่าชำระ
@@ -950,7 +951,6 @@ class LegislationController extends Controller
         return view('legislation.compromise',compact('data','id','type','dataPay','SumPay','SumAllPAy','Getdata','SumCount','dataPranom'));
       }
       elseif ($type == 5) { //เพิ่มข้อมูลชำระ
-
         $data = DB::table('legislations')
               ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
               ->leftJoin('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
@@ -1084,6 +1084,8 @@ class LegislationController extends Controller
       $m = date('m');
       $d = date('d');
       $date = $Y.'-'.$m.'-'.$d;
+
+      // dd($request, $type);
 
       if ($type == 2) {     //ข้อมูลผู้เช่าซื้อ
         $user = Legislation::find($id);
@@ -1227,6 +1229,7 @@ class LegislationController extends Controller
         $SetSumPromise = str_replace (",","",$request->get('SumPromise'));
         $SetDuePay = str_replace (",","",$request->get('DuePayPromise'));
         $SetDiscount = str_replace (",","",$request->get('DiscountPromise'));
+        $SetPayallPromise = str_replace (",","",$request->get('PayallPromise'));
 
         if ($data == Null) {
             $LegisPromise = new Legiscompromise([
@@ -1238,11 +1241,11 @@ class LegislationController extends Controller
               'Type_Promise' =>  $request->get('TypePromise'),
               'DateNsale_Promise' =>  $request->get('DateNsalePromise'),
               'Dateset_Promise' =>  $request->get('DatesetPromise'),
-              'Payall_Promise' =>  $request->get('PayallPromise'),
+              'Payall_Promise' =>  $SetPayallPromise,
               'Sum_Promise' =>  $SetSumPromise,
               'Discount_Promise' =>  $SetDiscount,
               'Due_Promise' =>  $request->get('DuePromise'),
-              'DuePay_Promise' =>  $request->get('DuePayPromise'),
+              'DuePay_Promise' =>  $SetDuePay,
               'Datelast_Promise' =>  $request->get('DatelastPromise'),
               'SumAll_Promise' =>  $request->get('SumAllPromise'),
               'Note_Promise' =>  $request->get('NotePromise'),
