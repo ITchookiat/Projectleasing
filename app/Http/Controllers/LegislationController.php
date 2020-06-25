@@ -637,15 +637,16 @@ class LegislationController extends Controller
       $m = date('m');
       $d = date('d');
       $date = $Y.'-'.$m.'-'.$d;
-
+      
+      
       if ($type == 1) {       //ลูกหนี้ปกติ
         $SetStrConn = $SetStr1."/".$SetStr2;
         $data = DB::connection('ibmi')
-                  ->table('SFHP.ARMAST')
-                  ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
-                  ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
-                  ->where('SFHP.ARMAST.CONTNO','=', $SetStrConn)
-                  ->first();
+        ->table('SFHP.ARMAST')
+        ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+        ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+        ->where('SFHP.ARMAST.CONTNO','=', $SetStrConn)
+        ->first();
 
         $dataGT = DB::connection('ibmi')
                   ->table('SFHP.VIEW_ARMGAR')
@@ -1847,9 +1848,9 @@ class LegislationController extends Controller
                 ->where('legispayments.Payment_id','=', $id)
                 ->orderBy('legispayments.Payment_id', 'ASC')
                 ->first();
+                
 
-                // dd($dataDB);
-        if ($dataDB != "C") {
+        if ($dataDB->Flag == "C") {
           $data = DB::connection('ibmi')
                 ->table('ASFHP.ARMAST')
                 ->join('ASFHP.INVTRAN','ASFHP.ARMAST.CONTNO','=','ASFHP.INVTRAN.CONTNO')
@@ -1861,7 +1862,7 @@ class LegislationController extends Controller
                 ->table('SFHP.ARMAST')
                 ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
                 ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
-                ->where('SFHP.ARMAST.CONTNO','=', $dataDB->Contract_legis)
+                ->where('SFHP.ARMAST.CONTNO','=', "10-2561/0715")
                 ->first();
         }
 
@@ -2668,6 +2669,5 @@ class LegislationController extends Controller
         $pdf::WriteHTML($html,true,false,true,false,'');
         $pdf::Output('report.pdf');
       }
-
     }
 }
