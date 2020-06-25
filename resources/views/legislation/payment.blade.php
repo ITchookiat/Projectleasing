@@ -82,8 +82,10 @@
           }
         </script>
 
-        <input type="hidden" id="Datepay" name="Datepay" class="form-control" value="{{ $data->Date_Payment }}"/>
-        <input type="hidden" id="DuePrice" name="DuePrice" class="form-control" value="{{ $data->DuePay_Promise }}"/>
+        @if($data != NULL)
+          <input type="hidden" id="Datepay" name="Datepay" class="form-control" value="{{ $data->Date_Payment }}"/>
+          <input type="hidden" id="DuePrice" name="DuePrice" class="form-control" value="{{ $data->DuePay_Promise }}"/>
+        @endif
         
         <div class="row">
           <div class="col-md-8">
