@@ -2367,10 +2367,26 @@
                                     <div class="col-md-12">
                                       <div id="myLat" style="">
                                           <div class="form-inline float-right">
-                                            <label>ตำแหน่งที่ตั้งผู้เช่าซื้อ (A) : </label> <input type="text" id="Buyer_latlong" name="Buyer_latlong" class="form-control" style="width:250px" value="{{ $data->Buyer_latlong }}"/>
+                                            @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                              <label>ตำแหน่งที่ตั้งผู้เช่าซื้อ (A) : </label> <input type="text" id="Buyer_latlong" name="Buyer_latlong" class="form-control" style="width:250px" value="{{ $data->Buyer_latlong }}"/>
+                                            @else
+                                              @if($GetDocComplete != Null)
+                                                <label>ตำแหน่งที่ตั้งผู้เช่าซื้อ (A) : </label> <input type="text" id="Buyer_latlong" name="Buyer_latlong" class="form-control" style="width:250px" value="{{ $data->Buyer_latlong }}" readonly/>
+                                              @else
+                                                <label>ตำแหน่งที่ตั้งผู้เช่าซื้อ (A) : </label> <input type="text" id="Buyer_latlong" name="Buyer_latlong" class="form-control" style="width:250px" value="{{ $data->Buyer_latlong }}"/>
+                                              @endif
+                                            @endif
                                           </div>
                                           <div class="form-inline float-right">
-                                            <label>ตำแหน่งที่ตั้งผู้ค้ำ (B): </label> <input type="text" id="Support_latlong" name="Support_latlong" class="form-control" style="width:250px" value="{{ $data->Support_latlong }}"/>
+                                            @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                              <label>ตำแหน่งที่ตั้งผู้ค้ำ (B): </label> <input type="text" id="Support_latlong" name="Support_latlong" class="form-control" style="width:250px" value="{{ $data->Support_latlong }}"/>
+                                            @else
+                                              @if($GetDocComplete != Null)
+                                                <label>ตำแหน่งที่ตั้งผู้ค้ำ (B): </label> <input type="text" id="Support_latlong" name="Support_latlong" class="form-control" style="width:250px" value="{{ $data->Support_latlong }}" readonly/>
+                                              @else
+                                                <label>ตำแหน่งที่ตั้งผู้ค้ำ (B): </label> <input type="text" id="Support_latlong" name="Support_latlong" class="form-control" style="width:250px" value="{{ $data->Support_latlong }}"/>
+                                              @endif
+                                            @endif
                                           </div>
                                       </div>
                                     </div>
