@@ -62,6 +62,10 @@
                             กฏหมาย
                           @elseif ($row->type  == 31)
                             เร่งรัด
+                          @elseif ($row->type  == 41)
+                            การเงินใน
+                          @elseif ($row->type  == 42)
+                            การเงินนอก
                           @endif
                         </td>
                         <td class="text-center">
@@ -87,6 +91,8 @@
                             แผนกกฏหมาย
                           @elseif ($row->branch  == 31)
                             แผนกเร่งรัด
+                          @elseif ($row->branch  == 41 or $row->branch  == 42)
+                            แผนกการเงิน
                           @endif
                         </td>
                         <td class="text-center">
