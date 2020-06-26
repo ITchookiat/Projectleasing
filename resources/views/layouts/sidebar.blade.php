@@ -63,7 +63,7 @@
               </p>
             </a>
 
-          @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 3 or auth::user()->type == 4 or auth::user()->branch == 41)
+          @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 3 or auth::user()->type == 4 or auth::user()->type == 31 or auth::user()->branch == 41)
             <ul class="nav nav-treeview">
               <li class="nav-item has-treeview {{ Request::is('Analysis/Home/1') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/2') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/3') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/4') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/5') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/6') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/7') ? 'menu-open' : '' }} {{ Request::is('Analysis/edit/1/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/edit/4/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/deleteImageEach/1/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/deleteImageEach/4/*') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link">
