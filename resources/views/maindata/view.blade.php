@@ -62,10 +62,8 @@
                             กฏหมาย
                           @elseif ($row->type  == 31)
                             เร่งรัด
-                          @elseif ($row->type  == 41)
-                            การเงินใน
-                          @elseif ($row->type  == 42)
-                            การเงินนอก
+                          @elseif ($row->type  == 40)
+                            การเงิน
                           @endif
                         </td>
                         <td class="text-center">
