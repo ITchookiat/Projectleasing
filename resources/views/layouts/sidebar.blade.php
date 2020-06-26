@@ -63,6 +63,7 @@
               </p>
             </a>
 
+          @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 3 or auth::user()->type == 4 or auth::user()->branch == 41)
             <ul class="nav nav-treeview">
               <li class="nav-item has-treeview {{ Request::is('Analysis/Home/1') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/2') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/3') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/4') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/5') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/6') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/7') ? 'menu-open' : '' }} {{ Request::is('Analysis/edit/1/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/edit/4/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/deleteImageEach/1/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/deleteImageEach/4/*') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link">
@@ -73,8 +74,7 @@
                   </p>
                 </a>
                 <ul class="nav nav-treeview" style="margin-left: 15px;">
-                  @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 3 or auth::user()->type == 4 or auth::user()->type == 40)
-                    @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 40 or auth::user()->branch == 01 or auth::user()->branch == 03 or auth::user()->branch == 04 or auth::user()->branch == 05 or auth::user()->branch == 06 or auth::user()->branch == 07)
+                    @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->branch == 41 or auth::user()->branch == 01 or auth::user()->branch == 03 or auth::user()->branch == 04 or auth::user()->branch == 05 or auth::user()->branch == 06 or auth::user()->branch == 07)
                       <li class="nav-item">
                         <a href="{{ route('Analysis',1) }}" class="nav-link {{ Request::is('Analysis/Home/1') ? 'active' : '' }} {{ Request::is('Analysis/Home/2') ? 'active' : '' }} {{ Request::is('Analysis/edit/1/*/*/*/*/*') ? 'active' : '' }}">
                           <i class="far fa-dot-circle nav-icon"></i>
@@ -102,7 +102,6 @@
                         </a>
                       </li>
                     @endif
-                  @endif
                 </ul>
               </li>
             </ul>
@@ -154,6 +153,7 @@
                 </ul>
               </li>
             </ul>
+          @endif
           </li>
 
           <li class="nav-item has-treeview {{ Request::is('Precipitate/*') ? 'menu-open' : '' }}">
@@ -241,7 +241,7 @@
               </p>
             </a>
 
-            @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 21 or auth::user()->type == 31)
+            @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 21 or auth::user()->type == 31 or auth::user()->branch == 42)
               <ul class="nav nav-treeview" style="margin-left: 15px;">
                 <li class="nav-item">
                   <a href="{{ route('legislation',1) }}" class="nav-link {{ Request::is('Legislation/Home/1') ? 'active' : '' }}">
@@ -282,10 +282,10 @@
               </p>
             </a>
 
-            @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 40)
+            @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->branch == 41)
               <ul class="nav nav-treeview" style="margin-left: 15px;">
                 <li class="nav-item">
-                  <a href="{{ route('treasury', 1) }}" class="nav-link">
+                  <a href="{{ route('treasury', 1) }}" class="nav-link {{ Request::is('Treasury/Home/1') ? 'active' : '' }}">
                     <i class="far fa-dot-circle nav-icon"></i>
                     <p>รายการ อนุมัติโอนเงิน</p>
                   </a>

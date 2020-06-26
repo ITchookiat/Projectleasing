@@ -30,9 +30,11 @@
                   <h2>แผนกสินเชื่อ</h2>
                   <br><br>
                 </div>
+                @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 3 or auth::user()->type == 4 or auth::user()->branch == 41)
                 <div class="icon">
                   <i class="a1 fa fa-sitemap" data-toggle="modal" data-target="#modal-default" style="cursor: pointer;"></i>
                 </div>
+                @endif
                 <a href="#" data-toggle="modal" data-target="#modal-default" class="small-box-footer">เพิ่มเติม <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div>
@@ -43,9 +45,11 @@
                   <h2>แผนกเร่งรัด</h2>
                   <br><br>
                 </div>
+                @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 31 or auth::user()->branch == 41)
                 <div class="icon">
                   <i class="a1 far fa-handshake" data-toggle="modal" data-target="#modal-precipitate" style="cursor: pointer;"></i>
                 </div>
+                @endif
                 <a href="#" class="small-box-footer">ดูเพิ่มเติม <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
@@ -56,9 +60,11 @@
                   <h2>แผนกกฏหมาย</h2>
                   <br><br>
                 </div>
+                @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->branch == 42)
                 <div class="icon">
                   <i class="a1 fas fa-gavel" data-toggle="modal" data-target="#modal-legislation" style="cursor: pointer;"></i>
                 </div>
+                @endif
                 <a href="#" data-toggle="modal" data-target="#modal-legislation" class="small-box-footer">เพิ่มเติม <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div>
@@ -258,7 +264,7 @@
       </div>
       <div class="modal-body">
         <div class="row">
-          @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 21 or auth::user()->type == 31)
+          @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 21 or auth::user()->type == 31 or auth::user()->branch == 42)
             <div class="col-md-6 col-sm-6 col-xs-12">
               <div class="info-box bg-red">
                 <span class="info-box-icon bg-red">
