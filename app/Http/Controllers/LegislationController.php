@@ -1841,6 +1841,7 @@ class LegislationController extends Controller
 
       }
       elseif ($type == 2) { //ใบเสร็จรับชำระค่างวด
+        
         $dataDB = DB::table('legislations')
                 ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
                 ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
@@ -1848,7 +1849,8 @@ class LegislationController extends Controller
                 ->where('legispayments.Payment_id','=', $id)
                 ->orderBy('legispayments.Payment_id', 'ASC')
                 ->first();
-                
+
+        // dd($dataDB);
 
         if ($dataDB->Flag == "C") {
           $data = DB::connection('ibmi')
@@ -1862,7 +1864,7 @@ class LegislationController extends Controller
                 ->table('SFHP.ARMAST')
                 ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
                 ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
-                ->where('SFHP.ARMAST.CONTNO','=', "10-2561/0715")
+                ->where('SFHP.ARMAST.CONTNO','=', $dataDB->Contract_legis)
                 ->first();
         }
 

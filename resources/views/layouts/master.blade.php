@@ -360,8 +360,7 @@
 
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
-
+<body  class="sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed sidebar-collapse" style="height: auto;">
   <!-- Site wrapper -->
   <div class="wrapper">
 
