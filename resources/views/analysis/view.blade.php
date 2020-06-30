@@ -33,7 +33,7 @@
                 <h4 class="">
                   @if($type == 1)
                     สินเชื่อ
-                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                    @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->branch == 41)
                       <button class="btn btn-gray float-right">
                         ค่าคอม: <font color="red">{{ number_format($SumCommitprice) }}</font> บาท
                       </button>
