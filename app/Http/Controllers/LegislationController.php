@@ -2412,7 +2412,7 @@ class LegislationController extends Controller
                   $value->Name_legis,
                   number_format($value->Sumperiod_legis, 2),
                   number_format($SumCourt, 2),
-                  $date_carry,
+                  $value->Phone_legis,
                   $date_carry,
                   $SetDatefillingdate,
                   $duration,

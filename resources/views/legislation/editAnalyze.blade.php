@@ -392,6 +392,7 @@
                             </div>
                           </div>
                         </div>
+                      <input type="hidden" name="Phonelegis" class="form-control" style="width: 100%;" value="{{ (iconv('TIS-620', 'utf-8', $data1->TELP)) }}" readonly/>
                       </div>
 
                       <div class="col-md-3">
