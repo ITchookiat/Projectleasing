@@ -693,6 +693,7 @@ class LegislationController extends Controller
           'Realperiod_legis' => $data->HLDNO, //ค้างงวดจริง
           'Sumperiod_legis' => $data->BALANC - $data->SMPAY,
           'Flag' => 'Y',
+          'Phone_legis' => (iconv('Tis-620','utf-8',$data->TELP)),
           'Flag_status' => '1',
           'UserSend1_legis' => auth()->user()->name,
         ]);
@@ -752,6 +753,7 @@ class LegislationController extends Controller
           'Realperiod_legis' => $data->HLDNO, //ค้างงวดจริง
           'Sumperiod_legis' => $data->BALANC - $data->SMPAY,
           'Flag' => 'C',
+          'Phone_legis' => (iconv('Tis-620','utf-8',$data->TELP)),
           'Flag_status' => '3',
           'UserSend1_legis' => auth()->user()->name,
 
@@ -1143,6 +1145,7 @@ class LegislationController extends Controller
 
           $user->Address_legis = $request->get('Adreeslegis');
           $user->AddressGT_legis = $request->get('AdreesGTlegis');
+          $user->Phone_legis = $request->get('Phonelegis');
         $user->update();
 
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
@@ -1312,6 +1315,7 @@ class LegislationController extends Controller
           $user->Confirm_list = $request->get('Confirmlist');
           $user->Accept_list = $request->get('Acceptlist');
           $user->Noteby_legis = $request->get('NotebyAnalysis');
+          $user->Phone_legis = $request->get('Phonelegis');
         $user->update();
 
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
