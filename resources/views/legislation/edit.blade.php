@@ -408,7 +408,7 @@
                               </div>
                             </div>
                             <div class="col-md-4">
-                              ค้าง&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ค้างงวดจริง
+                              ค้าง&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ค้างงวดจริง
                               <div class="form-inline" align="left">
                                 <input type="text" class="form-control" style="width: 40%;" value="{{ number_format($data1->EXP_PRD, 0) }}" readonly/>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -422,6 +422,7 @@
                               </div>
                             </div>
                           </div>
+                          <input type="hidden" name="Phonelegis" class="form-control" style="width: 100%;" value="{{ (iconv('TIS-620', 'utf-8', $data1->TELP)) }}" readonly/>
 
                           <div class="row">
                             <div class="col-md-4">

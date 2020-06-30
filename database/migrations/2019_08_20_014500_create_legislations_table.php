@@ -45,6 +45,7 @@ class CreateLegislationsTable extends Migration
             $table->string('Sumperiod_legis')->nullable();    //เหลือเป็นจำนวนเงิน เท่าไร
             $table->string('Note')->nullable();
             $table->string('Flag')->nullable();
+            $table->string('Phone_legis')->nullable();
 
             $table->string('Status_legis')->nullable();       //สถานะ
             $table->string('UserStatus_legis')->nullable();   //ชื่อคนเลือกสถานะ
