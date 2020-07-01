@@ -2698,19 +2698,20 @@ class LegislationController extends Controller
         }
         // dd($newfdate,$newtdate,$CashReceiver);
 
-        $data = DB::table('legispayments')
-                  ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
-                    return $q->whereBetween('legispayments.Date_Payment',[$newfdate,$newtdate]);
-                  })
-                  ->when(!empty($CashReceiver), function($q) use($CashReceiver){
-                      return $q->where('legispayments.Adduser_Payment','=',$CashReceiver);
-                    })
-                  ->orderBy('legispayments.Date_Payment','ASC')
-                  ->get();
+        $data = DB::table('legislations')
+              ->leftJoin('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
+              ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+                return $q->whereBetween('legispayments.Date_Payment',[$newfdate,$newtdate]);
+              })
+              ->when(!empty($CashReceiver), function($q) use($CashReceiver){
+                  return $q->where('legispayments.Adduser_Payment','=',$CashReceiver);
+                })
+              ->orderBy('legispayments.Date_Payment','ASC')
+              ->get();
 
         $pdf = new PDF();
         $pdf::SetTitle('รายงานตรวจสอบยอดชำระ');
-        $pdf::AddPage('P', 'A4');
+        $pdf::AddPage('L', 'A4');
         $pdf::SetFont('thsarabunpsk', '', 16, '', true);
         $pdf::SetMargins(10, 5, 5, 5);
         $pdf::SetAutoPageBreak(TRUE, 18);
