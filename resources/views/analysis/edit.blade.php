@@ -2295,7 +2295,29 @@
                                       </div>
                                     </div>
                                   </div>
-                                </div>  
+
+                                  <div class="card card-danger">
+                                    <div class="card-header">
+                                      <h3 class="card-title">หมายเหตุผู้เช่าซื้อ</h3>
+                      
+                                      <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                                        <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                                      </div>
+                                    </div>
+                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                      <textarea class="form-control" name="BuyerNote" rows="3" placeholder="ป้อนหมายเหตุ...">{{$data->Buyer_note}}</textarea>
+                                    @else
+                                      @if($GetDocComplete != Null)
+                                        <textarea class="form-control" name="BuyerNote" rows="3" placeholder="ป้อนหมายเหตุ..." readonly>{{$data->Buyer_note}}</textarea>
+                                      @else
+                                        <textarea class="form-control" name="BuyerNote" rows="3" placeholder="ป้อนหมายเหตุ...">{{$data->Buyer_note}}</textarea>
+                                      @endif
+                                    @endif
+                                  </div>
+
+                                </div> 
+                                 
                               </div>
                             </div>
 
@@ -2348,6 +2370,27 @@
                                       </div>
                                     </div>
                                   </div>
+
+                                  <div class="card card-danger">
+                                    <div class="card-header">
+                                      <h3 class="card-title">หมายเหตุผู้ค่ำ</h3>
+                      
+                                      <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                                        <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                                      </div>
+                                    </div>
+                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                      <textarea class="form-control" name="SupportNote" rows="3" placeholder="ป้อนหมายเหตุ...">{{$data->Support_note}}</textarea>
+                                    @else
+                                      @if($GetDocComplete != Null)
+                                        <textarea class="form-control" name="SupportNote" rows="3" placeholder="ป้อนหมายเหตุ..." readonly>{{$data->Support_note}}</textarea>
+                                      @else
+                                        <textarea class="form-control" name="SupportNote" rows="3" placeholder="ป้อนหมายเหตุ...">{{$data->Support_note}}</textarea>
+                                      @endif
+                                    @endif
+                                  </div>
+
                                 </div>  
                               </div>
                             </div>
