@@ -2705,13 +2705,14 @@ class LegislationController extends Controller
                   ->when(!empty($CashReceiver), function($q) use($CashReceiver){
                       return $q->where('legispayments.Adduser_Payment','=',$CashReceiver);
                     })
+                  ->orderBy('legispayments.Date_Payment','ASC')
                   ->get();
 
         $pdf = new PDF();
         $pdf::SetTitle('รายงานตรวจสอบยอดชำระ');
         $pdf::AddPage('P', 'A4');
         $pdf::SetFont('thsarabunpsk', '', 16, '', true);
-        $pdf::SetMargins(5, 5, 5, 5);
+        $pdf::SetMargins(10, 5, 5, 5);
         $pdf::SetAutoPageBreak(TRUE, 18);
 
         $view = \View::make('legislation.reportCompro' ,compact('data','type','dataCount','CashReceiver','newfdate','newtdate'));
