@@ -18,8 +18,8 @@ class CreateUploadLatLongsTable extends Migration
             $table->integer('Use_id')->nullable();
             $table->string('Buyer_latlong')->nullable();
             $table->string('Support_latlong')->nullable();
-            $table->string('SP_lat')->nullable();
-            $table->string('SP_long')->nullable();
+            $table->string('Buyer_note')->nullable();
+            $table->string('Support_note')->nullable();
             $table->timestamps();
         });
     }

@@ -1681,8 +1681,19 @@
                                         <input id="image_checker_1" type="file" name="image_checker_1[]" accept="image/*" data-min-file-count="1" multiple>
                                       </div>
                                     </div>
-                                    <br><hr>
                                   </div>
+                                </div>
+
+                                <div class="card card-danger">
+                                  <div class="card-header">
+                                    <h3 class="card-title">หมายเหตุผู้เช่าซื้อ</h3>
+                    
+                                    <div class="card-tools">
+                                      <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                                      <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                                    </div>
+                                  </div>
+                                    <textarea class="form-control" name="BuyerNote" rows="3" placeholder="ป้อนหมายเหตุ..."></textarea>
                                 </div>
                               </div>
                             </div>
@@ -1704,8 +1715,19 @@
                                         <input id="image_checker_2" type="file" name="image_checker_2[]" accept="image/*" data-min-file-count="1" multiple>
                                       </div>
                                     </div>
-                                    <br><hr>
                                   </div>
+                                </div>
+
+                                <div class="card card-danger">
+                                  <div class="card-header">
+                                    <h3 class="card-title">หมายเหตุผู้ค้ำ</h3>
+                    
+                                    <div class="card-tools">
+                                      <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                                      <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                                    </div>
+                                  </div>
+                                    <textarea class="form-control" name="SupportNote" rows="3" placeholder="ป้อนหมายเหตุ..."></textarea>
                                 </div>
                               </div>
                             </div>

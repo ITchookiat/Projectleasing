@@ -1404,8 +1404,8 @@ class AnalysController extends Controller
         'Use_id' => $Buyerdb->id,
         'Buyer_latlong' => $request->get('Buyer_latlong'),
         'Support_latlong' => $request->get('Support_latlong'),
-        // 'SP_lat' => $request->get('Support_latitude'),
-        // 'SP_long' => $request->get('Support_longitude'),
+        'Buyer_note' => $request->get('BuyerNote'),
+        'Support_note' => $request->get('SupportNote'),
       ]);
       $locationDB ->save();
 
@@ -2473,12 +2473,16 @@ class AnalysController extends Controller
       if($Location != null){
         $Location->Buyer_latlong = $StrBuyerLatlong;
         $Location->Support_latlong = $StrSupporterlatLong;
+        $Location->Buyer_note = $request->get('BuyerNote');
+        $Location->Support_note = $request->get('SupportNote');
         $Location->update();
       }else{
         $locationDB = new upload_lat_long([
           'Use_id' => $user->id,
           'Buyer_latlong' => $request->get('Buyer_latlong'),
           'Support_latlong' => $request->get('Support_latlong'),
+          'Buyer_note' => $request->get('BuyerNote'),
+          'Support_note' => $request->get('SupportNote'),
         ]);
         $locationDB ->save();
       }
