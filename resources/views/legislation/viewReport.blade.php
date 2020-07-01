@@ -88,6 +88,8 @@
           รายงานลูกหนี้สืบพยาน
         @elseif($type == 19)
           รายงานลูกหนี้สืบทรัพย์
+        @elseif($type == 20)
+        รายงานตรวจสอบยอดชำระ
         @endif
       </h4>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -394,6 +396,52 @@
                   <i class="fas fa-print"></i> ปริ้น
                 </button>
                 <a class="btn btn-app bg-danger" href="{{ route('legislation',8) }}">
+                  <i class="fas fa-times"></i> ยกเลิก
+                </a>
+              </div>
+            </div>
+          </div>
+        </form>
+      @elseif($type == 20) {{--รายงานตรวจสอบยอดชำระ--}}
+        <form name="form1" action="{{ route('legislation.report' ,[00, 20]) }}" target="_blank" method="get" id="formimage" enctype="multipart/form-data">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="float-right form-inline">
+                <label>จากวันที่ : </label>
+                <input type="date" name="Fromdate" class="form-control" style="width: 200px;"/>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="float-right form-inline">
+                <label>ถึงวันที่ : </label>
+                <input type="date" name="Todate" class="form-control" style="width: 200px;"/>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-inline">
+                <label>ผู้รับชำระ : </label>
+                <select name="CashReceiver" class="form-control" style="width: 100%;">
+                  <option value="" selected>--- เลือกผู้รับชำระ ---</option>
+                  @foreach ($dataDB as $key => $value)
+                  <option value="{{$value->name}}">{{$value->name}}</option>
+                  @endforeach
+                </select>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-9">
+              <div class="form-inline">
+                <button type="submit" class="btn bg-primary btn-app">
+                  <i class="fas fa-print"></i> ปริ้น
+                </button>
+                <a class="btn btn-app bg-danger" href="{{ route('legislation',7) }}">
                   <i class="fas fa-times"></i> ยกเลิก
                 </a>
               </div>
