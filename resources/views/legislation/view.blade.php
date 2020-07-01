@@ -768,6 +768,8 @@
                                 <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-2" data-link="{{ route('legislation', 15) }}"> รายงานบันทึกชำะค่างวด</a></li>
                                 <li class="dropdown-divider"></li>
                                 <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-3" data-link="{{ route('legislation', 16) }}"> รายงานลูกหนี้ประนอม</a></li>
+                                <li class="dropdown-divider"></li>
+                                <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-6" data-link="{{ route('legislation', 20) }}"> รายงานตรวจสอบยอดชำระ</a></li>
                               </ul>
                           </div>
                           <button type="submit" class="btn bg-warning btn-app">
@@ -1439,6 +1441,17 @@
     </div>
   </div>
 
+  <!-- Pop up รายงานตรวจสอบยอดชำระ -->
+  <div class="modal fade" id="modal-6">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          {{-- <p>One fine body…</p> --}}
+        </div>
+      </div>
+    </div>
+  </div>
+
   {{-- button-to-top --}}
   <script>
     var btn = $('#button');
@@ -1483,6 +1496,11 @@
       $("#modal-5").on("show.bs.modal", function (e) {
         var link = $(e.relatedTarget).data("link");
         $("#modal-5 .modal-body").load(link, function(){
+        });
+      });
+      $("#modal-6").on("show.bs.modal", function (e) {
+        var link = $(e.relatedTarget).data("link");
+        $("#modal-6 .modal-body").load(link, function(){
         });
       });
     });

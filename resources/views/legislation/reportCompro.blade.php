@@ -109,6 +109,13 @@
     <label align="right">วันที่ : <u>{{ date('d-m-Y') }}</u></label>
     <h2 class="card-title p-3" align="center"><u>รายงานบันทึกชำะค่างวด</u></h2>
     <!-- <hr> -->
+  @elseif($type == 20)
+    <label align="right">วันที่ปริ้น : <u>{{ date('d-m-Y') }}</u></label>
+    <h2 class="card-title p-3" align="center" style="font-weight: bold;line-height:3px;"><b>รายงานตรวจสอบยอดชำระ</b></h2>
+    @if($newfdate != '')
+    <h5 class="card-title p-3" align="center" style="font-weight: bold;line-height:3px;">ระหว่างวันที่ {{DateThai($newfdate)}} ถึง วันที่ {{DateThai($newtdate)}}</h5>
+    @endif
+    <hr>
   @endif
 
 <!-- ส่วนข้อมูล -->
@@ -352,7 +359,7 @@
       </table>
     </body>
   @elseif($type == 16)
-   <body>
+    <body>
       <br>
       <table border="1">
           <tr align="center" style="background-color: yellow;line-height: 200%;font-weight:bold;">
@@ -605,6 +612,42 @@
               <td width="130px" style="background-color: #FFFF00;">รวมยอดคงเหลือ &nbsp;&nbsp;{{ number_format($SetSumPrice, 2) }} บาท</td>
             </tr>
         </tbody>
+      </table>
+    </body>
+  @elseif($type == 20)
+    <body>
+      <br>
+      <table border="1">
+          <tr align="center" style="background-color: yellow;line-height: 150%;font-weight:bold;">
+            <th style="width: 30px">ลำดับ</th>
+            <th style="width: 65px">วันที่รับชำระ</th>
+            <th style="width: 65px">ยอดชำระ</th>
+            <th style="width: 65px">ประเภทชำระ</th>
+            <th style="width: 75px">เลขที่ใบเสร็จ</th>
+            <th style="width: 135px">ผู้รับชำระ</th>
+            <th style="width: 110px">หมายเหตุ</th>
+          </tr>
+          @foreach($data as $key => $row)
+            @php
+              @$sumPayment += $row->Gold_Payment;
+            @endphp
+          <tr style="line-height: 110%;">
+            <td align="center" style="width: 30px">{{$key+1}}</td>
+            <td align="center" style="width: 65px">{{DateThai($row->Date_Payment)}}</td>
+            <td align="right" style="width: 65px">{{number_format($row->Gold_Payment,2)}} &nbsp;</td>
+            <td align="center" style="width: 65px">{{$row->Type_Payment}}</td>
+            <td align="center" style="width: 75px">{{$row->Jobnumber_Payment}}</td>
+            <td align="left" style="width: 135px">&nbsp; {{$row->Adduser_Payment}}</td>
+            <td align="left" style="width: 110px">&nbsp; {{$row->Note_Payment}}</td>
+          </tr>
+          @endforeach
+      </table>
+      <table border="1" style="background-color:#F6FEA1;">
+        <tr>
+          <td align="right" style="width: 95px">รวมยอดชำระ :</td>
+          <td align="right" style="width: 65px">{{number_format(@$sumPayment,2)}}</td>
+          <td align="left" style="width: 385px">บาท</td>
+        </tr>
       </table>
     </body>
   @endif

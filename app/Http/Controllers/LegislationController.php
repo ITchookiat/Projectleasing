@@ -380,6 +380,13 @@ class LegislationController extends Controller
         $type = $request->type;
         return view('legislation.viewReport',compact('type'));
       }
+      elseif ($request->type == 20) {   //รายงานตรวจสอบยอดชำระ
+        $dataDB = DB::table('users')
+                  ->whereBetween('users.branch',[31,42])
+                  ->get();
+        $type = $request->type;
+        return view('legislation.viewReport',compact('type','dataDB'));
+      }
       elseif ($request->type == 100) {   //Dashboard
         $dataprepare = DB::table('legislations')
                   ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
@@ -2674,6 +2681,43 @@ class LegislationController extends Controller
         $html = $view->render();
         $pdf::WriteHTML($html,true,false,true,false,'');
         $pdf::Output('report.pdf');
+      }
+      elseif ($type == 20) { //รายงานตรวจสอบยอดชำระ
+        $newfdate = '';
+        $newtdate = '';
+        $CashReceiver = '';
+
+        if ($request->has('Fromdate')) {
+          $newfdate = $request->get('Fromdate');
+        }
+        if ($request->has('Todate')) {
+          $newtdate = $request->get('Todate');
+        }
+        if ($request->has('CashReceiver')) {
+          $CashReceiver = $request->get('CashReceiver');
+        }
+        // dd($newfdate,$newtdate,$CashReceiver);
+
+        $data = DB::table('legispayments')
+                  ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+                    return $q->whereBetween('legispayments.Date_Payment',[$newfdate,$newtdate]);
+                  })
+                  ->when(!empty($CashReceiver), function($q) use($CashReceiver){
+                      return $q->where('legispayments.Adduser_Payment','=',$CashReceiver);
+                    })
+                  ->get();
+
+        $pdf = new PDF();
+        $pdf::SetTitle('รายงานตรวจสอบยอดชำระ');
+        $pdf::AddPage('P', 'A4');
+        $pdf::SetFont('thsarabunpsk', '', 16, '', true);
+        $pdf::SetAutoPageBreak(TRUE, 18);
+
+        $view = \View::make('legislation.reportCompro' ,compact('data','type','dataCount','CashReceiver','newfdate','newtdate'));
+        $html = $view->render();
+        $pdf::WriteHTML($html,true,false,true,false,'');
+        $pdf::Output('report.pdf');
+
       }
     }
 }
