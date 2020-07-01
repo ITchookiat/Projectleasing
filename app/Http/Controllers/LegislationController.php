@@ -2711,6 +2711,7 @@ class LegislationController extends Controller
         $pdf::SetTitle('รายงานตรวจสอบยอดชำระ');
         $pdf::AddPage('P', 'A4');
         $pdf::SetFont('thsarabunpsk', '', 16, '', true);
+        $pdf::SetMargins(5, 5, 5, 5);
         $pdf::SetAutoPageBreak(TRUE, 18);
 
         $view = \View::make('legislation.reportCompro' ,compact('data','type','dataCount','CashReceiver','newfdate','newtdate'));

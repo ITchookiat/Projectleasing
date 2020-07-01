@@ -621,11 +621,11 @@
           <tr align="center" style="background-color: yellow;line-height: 150%;font-weight:bold;">
             <th style="width: 30px">ลำดับ</th>
             <th style="width: 65px">วันที่รับชำระ</th>
-            <th style="width: 65px">ยอดชำระ</th>
+            <th style="width: 70px">ยอดชำระ</th>
             <th style="width: 65px">ประเภทชำระ</th>
             <th style="width: 75px">เลขที่ใบเสร็จ</th>
             <th style="width: 135px">ผู้รับชำระ</th>
-            <th style="width: 110px">หมายเหตุ</th>
+            <th style="width: 120px">หมายเหตุ</th>
           </tr>
           @foreach($data as $key => $row)
             @php
@@ -634,19 +634,19 @@
           <tr style="line-height: 110%;">
             <td align="center" style="width: 30px">{{$key+1}}</td>
             <td align="center" style="width: 65px">{{DateThai($row->Date_Payment)}}</td>
-            <td align="right" style="width: 65px">{{number_format($row->Gold_Payment,2)}} &nbsp;</td>
+            <td align="right" style="width: 70px">{{number_format($row->Gold_Payment,2)}} &nbsp;</td>
             <td align="center" style="width: 65px">{{$row->Type_Payment}}</td>
             <td align="center" style="width: 75px">{{$row->Jobnumber_Payment}}</td>
             <td align="left" style="width: 135px">&nbsp; {{$row->Adduser_Payment}}</td>
-            <td align="left" style="width: 110px">&nbsp; {{$row->Note_Payment}}</td>
+            <td align="left" style="width: 120px">&nbsp; {{$row->Note_Payment}}</td>
           </tr>
           @endforeach
       </table>
       <table border="1" style="background-color:#F6FEA1;">
         <tr>
           <td align="right" style="width: 95px">รวมยอดชำระ :</td>
-          <td align="right" style="width: 65px">{{number_format(@$sumPayment,2)}}</td>
-          <td align="left" style="width: 385px">บาท</td>
+          <td align="right" style="width: 70px">{{number_format(@$sumPayment,2)}}</td>
+          <td align="left" style="width: 395px">บาท</td>
         </tr>
       </table>
     </body>
