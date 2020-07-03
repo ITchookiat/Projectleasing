@@ -2707,7 +2707,7 @@ class LegislationController extends Controller
               ->when(!empty($CashReceiver), function($q) use($CashReceiver){
                   return $q->where('legispayments.Adduser_Payment','=',$CashReceiver);
                 })
-              ->orderBy('legispayments.Date_Payment','ASC')
+              ->orderBy('legispayments.created_at','ASC')
               ->get();
 
         $newtdate = Carbon::parse($tdate);
