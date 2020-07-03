@@ -638,7 +638,7 @@
             <td align="center" style="width: 30px">{{$key+1}}</td>
             <td align="center" style="width: 70px">{{$row->Contract_legis}}</td>
             <td align="left" style="width: 150px">&nbsp;{{$row->Name_legis}}</td>
-            <td align="center" style="width: 70px">{{DateThai($row->Date_Payment)}}</td>
+            <td align="center" style="width: 70px">{{DateThai(substr($row->created_at,0,10))}}</td>
             <td align="right" style="width: 70px">{{number_format($row->Gold_Payment,2)}} &nbsp;</td>
             <td align="center" style="width: 65px">{{$row->Type_Payment}}</td>
             <td align="center" style="width: 75px">{{$row->Jobnumber_Payment}}</td>

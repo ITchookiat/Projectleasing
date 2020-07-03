@@ -2439,7 +2439,7 @@ class LegislationController extends Controller
               $sheet->appendRow(function($rows) {
                 $rows->setBackground('#FFCC00');
               });
-              $sheet->appendRow(array('รวมทั้งหมด','',number_format($Summperiod,2).'  บาท',number_format($SumAmount,2).'  บาท','','','','',number_format($SumTextStatus,2).'  บาท'));
+              $sheet->appendRow(array('รวมทั้งหมด','',number_format($Summperiod,2).'  บาท',number_format($SumAmount,2).'  บาท','','','','','','','','',number_format($SumTextStatus,2).'  บาท'));
           });
         })->export('xlsx');
 
@@ -2691,7 +2691,8 @@ class LegislationController extends Controller
           $newfdate = $request->get('Fromdate');
         }
         if ($request->has('Todate')) {
-          $newtdate = $request->get('Todate');
+          $tdate = $request->get('Todate');
+          $newtdate = Carbon::parse($tdate)->addDays(+1);
         }
         if ($request->has('CashReceiver')) {
           $CashReceiver = $request->get('CashReceiver');
@@ -2708,6 +2709,8 @@ class LegislationController extends Controller
                 })
               ->orderBy('legispayments.Date_Payment','ASC')
               ->get();
+
+        $newtdate = Carbon::parse($tdate);
 
         $pdf = new PDF();
         $pdf::SetTitle('รายงานตรวจสอบยอดชำระ');
