@@ -2701,7 +2701,7 @@ class LegislationController extends Controller
         $data = DB::table('legislations')
               ->leftJoin('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
               ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
-                return $q->whereBetween('legispayments.Date_Payment',[$newfdate,$newtdate]);
+                return $q->whereBetween('legispayments.created_at',[$newfdate,$newtdate]);
               })
               ->when(!empty($CashReceiver), function($q) use($CashReceiver){
                   return $q->where('legispayments.Adduser_Payment','=',$CashReceiver);
