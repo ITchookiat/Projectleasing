@@ -120,14 +120,20 @@
                           <div class="col-md-12">
                             <div class="float-right form-inline">
                               @if(auth::user()->type == 1 or auth::user()->type == 2)
-                              <label>เลขที่สัญญา : </label>
-                              <input type="type" name="Contno" value="{{$contno}}" maxlength="12" class="form-control form-control-lg"/>
-                                <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', $type) }}" class="btn bg-primary btn-app">
-                                  <span class="fas fa-print"></span> ปริ้นรายการ
-                                </a>
+                                <label>เลขที่สัญญา : </label>
+                                <input type="type" name="Contno" value="{{$contno}}" maxlength="12" style="padding:5px;width:285px;border-radius: 5px 0 5px 5px; font-size:24px;"/>
+                                  <!-- <a class="btn bg-success btn-app" data-toggle="modal" data-target="#modal-lg" data-backdrop="static">
+                                    <span class="fas fa-plus"></span> เพิ่มรายการ
+                                  </a> -->
+                                  <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', $type) }}" class="btn bg-primary btn-app">
+                                    <span class="fas fa-print"></span> ปริ้นรายการ
+                                  </a>
                               @else
-                              <label>เลขที่สัญญา : </label>
-                              <input type="type" name="Contno" value="{{$contno}}" maxlength="12" style="padding:5px;width:330px;border-radius: 5px 0 5px 5px; font-size:24px;"/>
+                                <label>เลขที่สัญญา : </label>
+                                <input type="type" name="Contno" value="{{$contno}}" maxlength="12" style="padding:5px;width:370px;border-radius: 5px 0 5px 5px; font-size:24px;"/>
+                                  <!-- <a class="btn bg-success btn-app" data-toggle="modal" data-target="#modal-lg" data-backdrop="static">
+                                    <span class="fas fa-plus"></span> เพิ่มรายการ
+                                  </a> -->
                               @endif
 
                               <button type="submit" class="btn bg-warning btn-app">
@@ -233,7 +239,7 @@
                                         <font color="red">รออนุมัติ</font>
                                     @endif
                                   </td>
-                                  <td class="text-center">
+                                  <td class="text-left">
                                     <a target="_blank" href="{{ action('ReportAnalysController@ReportPDFIndex',[$row->id,$type]) }}" class="btn btn-info btn-sm" title="พิมพ์">
                                       <i class="fas fa-print"></i> พิมพ์
                                     </a>
@@ -386,7 +392,7 @@
                                       <font color="red">รออนุมัติ</font>
                                   @endif
                                 </td>
-                                <td class="text-center">
+                                <td class="text-left">
                                   <a target="_blank" href="{{ action('ReportAnalysController@ReportHomecar',[$row->id,$type]) }}" class="btn btn-info btn-sm" title="พิมพ์">
                                     <i class="fas fa-print"></i> พิมพ์
                                   </a>
@@ -542,7 +548,7 @@
                                       <font color="red">รออนุมัติ</font>
                                   @endif
                                 </td>
-                                <td class="text-center">
+                                <td class="text-left">
                                   <a target="_blank" href="{{ action('ReportAnalysController@ReportPDFIndex',[$row->id,$type]) }}" class="btn btn-info btn-sm" title="พิมพ์">
                                     <i class="fas fa-print"></i> พิมพ์
                                   </a>
@@ -731,7 +737,7 @@
                                           <font color="red">รออนุมัติ</font>
                                       @endif
                                     </td>
-                                    <td class="text-center">
+                                    <td class="text-left">
                                       <a target="_blank" href="{{ action('ReportAnalysController@ReportPDFIndex',[$row->id,$type]) }}" class="btn btn-info btn-sm" title="พิมพ์">
                                         <i class="fas fa-print"></i> พิมพ์
                                       </a>
@@ -824,6 +830,63 @@
       </section>
     </div>
   </section>
+
+  <form action="{{ route('MasterAnalysis.store') }}" method="post">
+    <div class="modal fade" id="modal-lg" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">เพิ่มรายการ</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-group row mb-1">
+                      <label class="col-sm-4 col-form-label text-right">ป้ายทะเบียน :</label>
+                      <div class="col-sm-8">
+                        <input type="text" name="RegCar" class="form-control" placeholder="ป้อนป้ายทะเบียน" required/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="form-group row mb-1">
+                      <label class="col-sm-4 col-form-label text-right">เบอร์ลูกค้า :</label>
+                      <div class="col-sm-8">
+                        <input type="text" name="Phone_buyer" class="form-control" placeholder="ป้อนเบอร์ลูกค้า"/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="form-group row mb-1">
+                      <label class="col-sm-4 col-form-label text-right">เบอร์นายหน้า :</label>
+                      <div class="col-sm-8">
+                        <input type="text" name="Phone_agen" class="form-control" placeholder="ป้อนเบอร์นายหน้า"/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="form-group row mb-1">
+                      <label class="col-sm-4 col-form-label text-right">หมายเหตุ :</label>
+                      <div class="col-sm-8">
+                        <textarea class="form-control" name="Note_buyer" rows="3" placeholder="ป้อนหมายเหตุ..."></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>
+              <button type="submit" class="btn btn-primary text-center">บันทึก</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+  </form>
 
   {{-- button-to-top --}}
   <script>
