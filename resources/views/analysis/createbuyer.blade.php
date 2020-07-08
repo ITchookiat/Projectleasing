@@ -1670,7 +1670,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">ค่าประเมิน : </label>
                                 <div class="col-sm-8">
-                                  <input id="evaluetionPrice" name="evaluetionPrice" class="form-control" readonly oninput="balance();"/>
+                                  <input id="evaluetionPrice" name="evaluetionPrice" class="form-control" value="0" readonly oninput="balance();"/>
                                   <!-- <select id="evaluetionPrice" name="evaluetionPrice" class="form-control" oninput="balance()">
                                     <option value="" selected>--- ค่าประเมิน ---</option>
                                     <option value="1,000">1,000</option>
