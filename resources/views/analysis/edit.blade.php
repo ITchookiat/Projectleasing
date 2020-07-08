@@ -1763,7 +1763,7 @@
                                 <label class="col-sm-3 col-form-label text-right">แบบ : </label>
                                 <div class="col-sm-8">
                                   @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                    <select name="statuscar" class="form-control" >
+                                    <select id="statuscar" name="statuscar" class="form-control" >
                                       <option value="" selected>--- เลือกแบบ ---</option>
                                       @foreach ($statuscarr as $key => $value)
                                         <option value="{{$key}}" {{ ($key == $data->status_car) ? 'selected' : '' }}>{{$value}}</option>
@@ -1773,7 +1773,7 @@
                                     @if($GetDocComplete != Null)
                                       <input type="text" id="statuscar" name="statuscar" value="{{$data->status_car}}" class="form-control"  placeholder="สถานะ" readonly />
                                     @else
-                                      <select name="statuscar" class="form-control" >
+                                      <select id="statuscar" name="statuscar" class="form-control" >
                                         <option value="" selected>--- เลือกแบบ ---</option>
                                         @foreach ($statuscarr as $key => $value)
                                           <option value="{{$key}}" {{ ($key == $data->status_car) ? 'selected' : '' }}>{{$value}}</option>
@@ -1814,6 +1814,48 @@
                               </div>
                             </div>
                           </div>
+
+                          <!-- สคริปคิดค่าคอม -->
+                          <script>
+                            $('#statuscar').change(function(){
+                              var value = document.getElementById('statuscar').value;
+                              var Year = document.getElementById('Yearcar').value;
+                              var Timelack = document.getElementById('Timeslackencar').value;
+                              var Settopcar = document.getElementById('Topcar').value;
+                              var Topcar = Settopcar.replace(",","");
+
+                                if(value == 'กส.ค้ำมีหลักทรัพย์' || value == 'กส.ค้ำไม่มีหลักทรัพย์' || value == 'กส.ไม่ค้ำประกัน' || value == 'VIP1'){
+                                  var Comprice = addCommas(parseInt(Topcar) * 0.02);
+                                  $('#Commissioncar').val(Comprice);
+                                }
+                                else{
+                                  if(Year <= 2008){
+                                    if(Timelack < 48){
+                                      var tempValue = (5 * parseInt(Timelack)/12) * 0.01;
+                                      var Comprice = parseInt(Topcar) * tempValue * 0.07;
+                                      $('#Commissioncar').val(addCommas(Comprice.toFixed(0))); 
+                                    }
+                                    else{
+                                      var tempValue = (5 * 4) * 0.01;
+                                      var Comprice = parseInt(Topcar) * tempValue * 0.07;
+                                      $('#Commissioncar').val(addCommas(Comprice.toFixed(0))); 
+                                    }
+                                  }
+                                  else{
+                                    if(Timelack < 48){
+                                      var tempValue = (6 * parseInt(Timelack)/12) * 0.01;
+                                      var Comprice = parseInt(Topcar) * tempValue * 0.07;
+                                      $('#Commissioncar').val(addCommas(Comprice.toFixed(0))); 
+                                    }
+                                    else{
+                                      var tempValue = (6 * 4) * 0.01;
+                                      var Comprice = parseInt(Topcar) * tempValue * 0.07;
+                                      $('#Commissioncar').val(addCommas(Comprice.toFixed(0))); 
+                                    }
+                                  }
+                                }
+                            });
+                          </script>  
 
                           <hr />
                           <div class="row">
@@ -1908,9 +1950,9 @@
                                   <label class="col-sm-3 col-form-label text-right">ค่าคอม : </label>
                                   <div class="col-sm-8">
                                     @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                      <input type="text" id="Commissioncar" name="Commissioncar" value="{{number_format($data->Commission_car, 2)}}" class="form-control"  placeholder="ค่าคอม" oninput="commission()"/>
+                                      <input type="text" id="Commissioncar" name="Commissioncar" value="{{number_format($data->Commission_car, 0)}}" class="form-control"  placeholder="ค่าคอม" oninput="commission()"/>
                                     @else
-                                      <input type="text" id="Commissioncar" name="Commissioncar" value="{{number_format($data->Commission_car, 2)}}" class="form-control"  placeholder="ค่าคอม" oninput="commission()" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                      <input type="text" id="Commissioncar" name="Commissioncar" value="{{number_format($data->Commission_car, 0)}}" class="form-control"  placeholder="ค่าคอม" oninput="commission()" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
                                     @endif
                                   </div>
                               </div>
@@ -2214,7 +2256,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">ค่าคอมหลังหัก 1.5%  : </label>
                                 <div class="col-sm-8">
-                                  <input type="text" id="commitPrice" name="commitPrice" value="{{number_format($data->commit_Price, 2)}}" class="form-control" placeholder="ค่าคอมหลังหัก" readonly/>
+                                  <input type="text" id="commitPrice" name="commitPrice" value="{{number_format($data->commit_Price, 0)}}" class="form-control" placeholder="ค่าคอมหลังหัก" readonly/>
                                 </div>
                               </div>
                             </div>
@@ -2409,28 +2451,31 @@
                                   <div class="row">
                                     <div class="col-md-12">
                                       <div id="myLat" style="">
-                                          <div class="form-inline float-right">
+                                          <div class="form-inline float-left">
+                                            <label>ตำแหน่งที่ตั้งผู้เช่าซื้อ (A) : </label>
+                                          </div>
                                             @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                              <label>ตำแหน่งที่ตั้งผู้เช่าซื้อ (A) : </label> <input type="text" id="Buyer_latlong" name="Buyer_latlong" class="form-control" style="width:250px" value="{{ $data->Buyer_latlong }}"/>
+                                              <input type="text" id="Buyer_latlong" name="Buyer_latlong" class="form-control" value="{{ $data->Buyer_latlong }}"/>
                                             @else
                                               @if($GetDocComplete != Null)
-                                                <label>ตำแหน่งที่ตั้งผู้เช่าซื้อ (A) : </label> <input type="text" id="Buyer_latlong" name="Buyer_latlong" class="form-control" style="width:250px" value="{{ $data->Buyer_latlong }}" readonly/>
+                                                <input type="text" id="Buyer_latlong" name="Buyer_latlong" class="form-control" value="{{ $data->Buyer_latlong }}" readonly/>
                                               @else
-                                                <label>ตำแหน่งที่ตั้งผู้เช่าซื้อ (A) : </label> <input type="text" id="Buyer_latlong" name="Buyer_latlong" class="form-control" style="width:250px" value="{{ $data->Buyer_latlong }}"/>
+                                                <input type="text" id="Buyer_latlong" name="Buyer_latlong" class="form-control" value="{{ $data->Buyer_latlong }}"/>
                                               @endif
                                             @endif
+                                            <br>
+                                          <div class="form-inline float-left">
+                                            <label>ตำแหน่งที่ตั้งผู้ค้ำ (B): </label>
                                           </div>
-                                          <div class="form-inline float-right">
                                             @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                              <label>ตำแหน่งที่ตั้งผู้ค้ำ (B): </label> <input type="text" id="Support_latlong" name="Support_latlong" class="form-control" style="width:250px" value="{{ $data->Support_latlong }}"/>
+                                               <input type="text" id="Support_latlong" name="Support_latlong" class="form-control" value="{{ $data->Support_latlong }}"/>
                                             @else
                                               @if($GetDocComplete != Null)
-                                                <label>ตำแหน่งที่ตั้งผู้ค้ำ (B): </label> <input type="text" id="Support_latlong" name="Support_latlong" class="form-control" style="width:250px" value="{{ $data->Support_latlong }}" readonly/>
+                                                 <input type="text" id="Support_latlong" name="Support_latlong" class="form-control" value="{{ $data->Support_latlong }}" readonly/>
                                               @else
-                                                <label>ตำแหน่งที่ตั้งผู้ค้ำ (B): </label> <input type="text" id="Support_latlong" name="Support_latlong" class="form-control" style="width:250px" value="{{ $data->Support_latlong }}"/>
+                                                 <input type="text" id="Support_latlong" name="Support_latlong" class="form-control" value="{{ $data->Support_latlong }}"/>
                                               @endif
                                             @endif
-                                          </div>
                                       </div>
                                     </div>
                                   </div>

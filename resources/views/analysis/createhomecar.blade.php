@@ -1300,6 +1300,7 @@
                                     <option value="แวยูคิมสี อาแว">แวยูคิมสี อาแว</option>
                                     <option value="อลิสา หิดาวรรณ">อลิสา หิดาวรรณ</option>
                                     <option value="ธัญญ์วรา สีลาภเกื้อ">ธัญญ์วรา สีลาภเกื้อ</option>
+                                    <option value="ชูชาติ สังขวัตร">ชูชาติ สังขวัตร</option>
                                   </select>
                                 </div>
                               </div>
