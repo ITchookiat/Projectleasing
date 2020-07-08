@@ -1108,7 +1108,11 @@ class AnalysController extends Controller
         $SetCommissioncar = 0;
       }
 
-      
+      if($request->get('Agentcar') == Null){
+        $SetCommissioncar = 0;
+      }else{
+        $SetCommissioncar = $SetCommissioncar;
+      }     
 
       if ($request->patch_type == 4) {
         if (auth()->user()->branch == 10 or auth()->user()->branch == 11 or auth()->user()->type == 4 or auth()->user()->type == 1){
