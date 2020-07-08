@@ -40,8 +40,8 @@ Route::group(['middleware' => 'auth'], function()
     Route::get('/Analysis/ReportDueDate/{type}', 'ReportAnalysController@ReportDueDate');
     Route::get('/Analysis/ReportHomecar/{id}/{type}', 'ReportAnalysController@ReportHomecar');
 
-    // Route::get('/call/viewdetail/{Str1}/{Str2}', 'CallController@viewdetail')->name('callDetail.viewdetail');
-    // Route::get('/call/{type}', 'CallController@index')->name('call');
+    Route::get('/call/viewdetail/{type}', 'CallController@viewdetail')->name('viewdetail');
+    Route::get('/call/{type}', 'CallController@index')->name('call');
     // Route::get('/Reportcall/{type}', 'ReportCallController@index')->name('reportcall');
     // Route::get('/monthreport/{type}/{fmonth}/{fyear}', 'ReportCallController@monthReport')->name('monthreport');
     // Route::get('/ReportCall/{type}', 'ReportCallController@update')->name('ReportCall.update');

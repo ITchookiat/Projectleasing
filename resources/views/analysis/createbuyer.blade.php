@@ -1266,7 +1266,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">แบบ : </label>
                                 <div class="col-sm-8">
-                                  <select name="statuscar" class="form-control">
+                                  <select id="statuscar" name="statuscar" class="form-control">
                                     <option value="" selected>--- เลือกแบบ ---</option>
                                     <option value="กส.ค้ำมีหลักทรัพย์">กส.ค้ำมีหลักทรัพย์</option>
                                     <option value="กส.ค้ำไม่มีหลักทรัพย์">กส.ค้ำไม่มีหลักทรัพย์</option>
@@ -1274,7 +1274,8 @@
                                     <option value="ซข.ค้ำมีหลักทรัพย์">ซข.ค้ำมีหลักทรัพย์</option>
                                     <option value="ซข.ค้ำไม่มีหลักทรัพย์">ซข.ค้ำไม่มีหลักทรัพย์</option>
                                     <option value="ซข.ไม่ค้ำประกัน">ซข.ไม่ค้ำประกัน</option>
-                                    <option value="VIP1">VIP1</option>
+                                    <option value="VIP.กรรมสิทธิ์">VIP (กรรมสิทธิ์)</option>
+                                    <option value="VIP.ซื้อขาย">VIP (ซื้อขาย)</option>
                                   </select>
                                 </div>
                               </div>
@@ -1371,10 +1372,10 @@
 
                           <div class="row">
                             <div class="col-6">
-                              <div class="form-group row mb-1" style="display: none" id="ShowCom">
+                              <div class="form-group row mb-1" id="ShowCom">
                                 <label class="col-sm-3 col-form-label text-right">ค่าคอม : </label>
                                 <div class="col-sm-8">
-                                  <input type="text" id="Commissioncar" name="Commissioncar" class="form-control" placeholder="ค่าคอม" oninput="commission();"/>
+                                  <input type="text" id="Commissioncar" name="Commissioncar" class="form-control" placeholder="ค่าคอม" oninput="commission();" readonly/>
                                 </div>
                               </div>
                             </div>
@@ -1399,6 +1400,64 @@
                                 }
                             });
                           </script>
+
+                          <!-- สคริปคิดค่าคอม -->
+                          <script>
+                            $('#statuscar').change(function(){
+                              var value = document.getElementById('statuscar').value;
+                              var Year = document.getElementById('Yearcar').value;
+                              var Timelack = document.getElementById('Timeslackencar').value;
+                              var Settopcar = document.getElementById('Topcar').value;
+                              var Topcar = Settopcar.replace(",","");
+                              var SetP2Price = document.getElementById('P2Price').value;
+                              var P2Price = SetP2Price.replace(",","");
+
+                                if(value == 'กส.ค้ำมีหลักทรัพย์' || value == 'กส.ค้ำไม่มีหลักทรัพย์' || value == 'กส.ไม่ค้ำประกัน' || value == 'VIP.กรรมสิทธิ์'){
+                                  var Comprice = addCommas((parseInt(Topcar) - parseInt(P2Price)) * 0.02);
+                                  $('#Commissioncar').val(Comprice);
+                                }
+                                else{
+                                  if(Year <= 2008){
+                                    if(Timelack < 48){
+                                      var tempValue = (5 * parseInt(Timelack)/12) * 0.01;
+                                      var SetComprice = (parseInt(Topcar) - parseInt(P2Price)) * tempValue * 0.07;
+                                      // var Comprice = Math.floor(SetComprice/100);
+                                      // var ResultPrice = Comprice*100;
+                                      // $('#Commissioncar').val(addCommas(ResultPrice.toFixed(0))); 
+                                    }
+                                    else{
+                                      var tempValue = (5 * 4) * 0.01;
+                                      var SetComprice = (parseInt(Topcar) - parseInt(P2Price)) * tempValue * 0.07;
+                                      // var Comprice = Math.floor(SetComprice/100);
+                                      // var ResultPrice = Comprice*100;
+                                      // $('#Commissioncar').val(addCommas(ResultPrice.toFixed(0))); 
+                                    }
+                                  }
+                                  else{
+                                    if(Timelack < 48){
+                                      var tempValue = (6 * parseInt(Timelack)/12) * 0.01;
+                                      var SetComprice = (parseInt(Topcar) - parseInt(P2Price)) * tempValue * 0.07;
+                                      // var Comprice = Math.floor(SetComprice/100);
+                                      // var ResultPrice = Comprice*100;
+                                      // $('#Commissioncar').val(addCommas(ResultPrice.toFixed(0))); 
+                                    }
+                                    else{
+                                      var tempValue = (6 * 4) * 0.01;
+                                      var SetComprice = (parseInt(Topcar) - parseInt(P2Price)) * tempValue * 0.07;
+                                    }
+                                  }
+
+                                    if(SetComprice < 1000){
+                                      var ResultPrice = Math.floor(SetComprice);
+                                    }else{
+                                      var Comprice = Math.floor(SetComprice/100);
+                                      var ResultPrice = Comprice*100;
+                                    }
+                                    $('#Commissioncar').val(addCommas(ResultPrice.toFixed(0))); 
+                                
+                                }
+                            });
+                          </script>                          
 
                           <div class="row">
                             <div class="col-6">
@@ -1583,18 +1642,42 @@
                             </div>
                           </div>
 
+                          <!-- สคริปค่าประเมิณ -->
+                          <script>
+                            $('#Topcar').change(function(){
+                              var Settopcar = document.getElementById('Topcar').value;
+                              var Topcar = Settopcar.replace(",","");
+                              if(Topcar <= 50000){
+                                var evaluetion = 1000;
+                              }else if(Topcar > 50000 && Topcar <= 100000){
+                                var evaluetion = 1500;
+                              }else if(Topcar > 100000 && Topcar <= 250000){
+                                var evaluetion = 2000;
+                              }else{
+                                var evaluetion = 2500;
+                              }
+                              var totalPrice = parseFloat(evaluetion) + parseFloat(1500) + parseFloat(1500);
+                              var balancePrice = parseFloat(Topcar) - parseFloat(totalPrice);
+                              $("#evaluetionPrice").val(addCommas(evaluetion));
+                              $("#totalkPrice").val(addCommas(totalPrice));
+                              $("#balancePrice").val(addCommas(balancePrice));
+
+                            });
+                          </script> 
+
                           <div class="row">
                             <div class="col-6">
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">ค่าประเมิน : </label>
                                 <div class="col-sm-8">
-                                  <select id="evaluetionPrice" name="evaluetionPrice" class="form-control" oninput="balance()">
+                                  <input id="evaluetionPrice" name="evaluetionPrice" class="form-control" readonly oninput="balance();"/>
+                                  <!-- <select id="evaluetionPrice" name="evaluetionPrice" class="form-control" oninput="balance()">
                                     <option value="" selected>--- ค่าประเมิน ---</option>
                                     <option value="1,000">1,000</option>
                                     <option value="1,500">1,500</option>
                                     <option value="2,000">2,000</option>
                                     <option value="2,500">2,500</option>
-                                  </select>
+                                  </select> -->
                                 </div>
                               </div>
                             </div>
@@ -1745,12 +1828,15 @@
                                   <div class="row">
                                       <div class="col-md-12">
                                         <div id="myLat">
-                                            <div class="form-inline float-right">
-                                              <label>ตำแหน่งผู้เช่าซื้อ : </label> <input type="text" id="Buyer_latlong" name="Buyer_latlong" class="form-control" placeholder="ป้อนตำแหน่งผู้เช่าซื้อ"/>
+                                            <div class="form-inline float-left">
+                                              <label>ตำแหน่งผู้เช่าซื้อ : </label>
                                             </div>
-                                            <div class="form-inline float-right">
-                                              <label>ตำแหน่งผู้ค้ำ : </label> <input type="text" id="Support_latlong" name="Support_latlong" class="form-control" placeholder="ป้อนตำแหน่งผู้ค้ำ"/>
+                                              <input type="text" id="Buyer_latlong" name="Buyer_latlong" class="form-control" placeholder="ป้อนตำแหน่งผู้เช่าซื้อ"/>
+                                              <br>
+                                            <div class="form-inline float-left">
+                                              <label>ตำแหน่งผู้ค้ำ : </label> 
                                             </div>
+                                              <input type="text" id="Support_latlong" name="Support_latlong" class="form-control" placeholder="ป้อนตำแหน่งผู้ค้ำ"/>
                                         </div>
                                       </div>
                                       <hr>
@@ -2133,7 +2219,6 @@
             var getlat=position.coords.latitude;
             var getlng=position.coords.longitude;
             var CurLocation = Number(getlat) + ',' + Number(getlng);
-            console.log(CurLocation);
 
             // document.getElementById("Buyer_latitude").value = getlat;
             // document.getElementById("Buyer_longitude").value = getlng;

@@ -633,8 +633,8 @@
           }else if(num1 >= 150000 && num4 < 48){
             var num5 = '6500';
             var totaltopcar = parseFloat(num1)+parseFloat(num5);
-            document.form1.Insurancecar.value = "ไม่แถม";
-            document.getElementById("Insurancecar").value = "ไม่แถม";
+            // document.form1.Insurancecar.value = "ไม่แถม";
+            // document.getElementById("Insurancecar").value = "ไม่แถม";
           }else if(num1 > 300000){
             var num5 = '0';
             var totaltopcar = parseFloat(num1);
@@ -724,7 +724,7 @@
           document.form1.Commissioncar.value = addCommas(num1);
           document.form1.commitPrice.value =  addCommas(result);
           }
-        }
+    }
 
     function balance(){
           var num11 = document.getElementById('tranPrice').value;
@@ -778,6 +778,7 @@
           document.form1.temptotalkPrice.value = addCommas(result);
           document.form1.tranPrice.value = addCommas(num1);
           document.form1.otherPrice.value = addCommas(num2);
+          document.form1.evaluetionPrice.value = addCommas(num3);
           document.form1.dutyPrice.value = addCommas(num4);
           document.form1.marketingPrice.value = addCommas(num5);
           document.form1.actPrice.value = addCommas(num6);
@@ -785,7 +786,7 @@
           document.form1.balancePrice.value = addCommas(TotalBalance);
           document.form1.P2Price.value = addCommas(num8);
           }
-        }
+    }
 
     function percent(){
       var num11 = document.getElementById('Midpricecar').value;
@@ -797,7 +798,8 @@
         if(!isNaN(result1)){
               document.form1.Percentcar.value = result1.toFixed(0);
               document.form1.Topcar.value = addCommas(num2);
-        }
+    }
+
     }
 
 
