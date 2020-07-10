@@ -1402,6 +1402,7 @@
                           </script>
 
                           <!-- สคริปคิดค่าคอม -->
+                          {{--
                           <script>
                             $('#statuscar').change(function(){
                               var value = document.getElementById('statuscar').value;
@@ -1457,7 +1458,8 @@
                                 
                                 }
                             });
-                          </script>                          
+                          </script>
+                          --}}
 
                           <div class="row">
                             <div class="col-6">
