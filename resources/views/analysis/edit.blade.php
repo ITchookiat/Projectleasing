@@ -1816,6 +1816,7 @@
                           </div>
 
                           <!-- สคริปคิดค่าคอม -->
+                          {{--
                           <script>
                             $('#statuscar').change(function(){
                               var value = document.getElementById('statuscar').value;
@@ -1855,7 +1856,8 @@
                                   }
                                 }
                             });
-                          </script>  
+                          </script> 
+                          --}}
 
                           <hr />
                           <div class="row">
