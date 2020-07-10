@@ -720,9 +720,10 @@
             }
           }
           
+          var resultCom = parseFloat(result);
           if(!isNaN(num1)){
           document.form1.Commissioncar.value = addCommas(num1);
-          document.form1.commitPrice.value =  addCommas(result.toFixed(2));
+          document.form1.commitPrice.value =  addCommas(resultCom.toFixed(2));
           }
     }
 
