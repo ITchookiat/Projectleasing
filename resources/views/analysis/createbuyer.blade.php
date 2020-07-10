@@ -1375,7 +1375,7 @@
                               <div class="form-group row mb-1" id="ShowCom">
                                 <label class="col-sm-3 col-form-label text-right">ค่าคอม : </label>
                                 <div class="col-sm-8">
-                                  <input type="text" id="Commissioncar" name="Commissioncar" class="form-control" placeholder="ค่าคอม" oninput="commission();" readonly/>
+                                  <input type="text" id="Commissioncar" name="Commissioncar" class="form-control" placeholder="ค่าคอม" oninput="commission();"/>
                                 </div>
                               </div>
                             </div>
@@ -1413,8 +1413,8 @@
                               var P2Price = SetP2Price.replace(",","");
 
                                 if(value == 'กส.ค้ำมีหลักทรัพย์' || value == 'กส.ค้ำไม่มีหลักทรัพย์' || value == 'กส.ไม่ค้ำประกัน' || value == 'VIP.กรรมสิทธิ์'){
-                                  var Comprice = addCommas((parseInt(Topcar) - parseInt(P2Price)) * 0.02);
-                                  $('#Commissioncar').val(Comprice);
+                                  var Comprice = (parseInt(Topcar) - parseInt(P2Price)) * 0.02;
+                                  $('#Commissioncar').val(addCommas(Comprice.toFixed(2));
                                 }
                                 else{
                                   if(Year <= 2008){
@@ -1453,7 +1453,7 @@
                                       var Comprice = Math.floor(SetComprice/100);
                                       var ResultPrice = Comprice*100;
                                     }
-                                    $('#Commissioncar').val(addCommas(ResultPrice.toFixed(0))); 
+                                    $('#Commissioncar').val(addCommas(ResultPrice.toFixed(2))); 
                                 
                                 }
                             });
