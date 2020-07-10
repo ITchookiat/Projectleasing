@@ -1950,9 +1950,9 @@
                                   <label class="col-sm-3 col-form-label text-right">ค่าคอม : </label>
                                   <div class="col-sm-8">
                                     @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                      <input type="text" id="Commissioncar" name="Commissioncar" value="{{number_format($data->Commission_car, 0)}}" class="form-control"  placeholder="ค่าคอม" oninput="commission()"/>
+                                      <input type="text" id="Commissioncar" name="Commissioncar" value="{{number_format($data->Commission_car, 2)}}" class="form-control"  placeholder="ค่าคอม" oninput="commission()"/>
                                     @else
-                                      <input type="text" id="Commissioncar" name="Commissioncar" value="{{number_format($data->Commission_car, 0)}}" class="form-control"  placeholder="ค่าคอม" oninput="commission()" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                      <input type="text" id="Commissioncar" name="Commissioncar" value="{{number_format($data->Commission_car, 2)}}" class="form-control"  placeholder="ค่าคอม" oninput="commission()" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
                                     @endif
                                   </div>
                               </div>
@@ -2256,7 +2256,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">ค่าคอมหลังหัก 1.5%  : </label>
                                 <div class="col-sm-8">
-                                  <input type="text" id="commitPrice" name="commitPrice" value="{{number_format($data->commit_Price, 0)}}" class="form-control" placeholder="ค่าคอมหลังหัก" readonly/>
+                                  <input type="text" id="commitPrice" name="commitPrice" value="{{number_format($data->commit_Price, 2)}}" class="form-control" placeholder="ค่าคอมหลังหัก" readonly/>
                                 </div>
                               </div>
                             </div>
