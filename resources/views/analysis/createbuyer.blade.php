@@ -1414,7 +1414,7 @@
 
                                 if(value == 'กส.ค้ำมีหลักทรัพย์' || value == 'กส.ค้ำไม่มีหลักทรัพย์' || value == 'กส.ไม่ค้ำประกัน' || value == 'VIP.กรรมสิทธิ์'){
                                   var Comprice = (parseInt(Topcar) - parseInt(P2Price)) * 0.02;
-                                  $('#Commissioncar').val(addCommas(Comprice.toFixed(2));
+                                  $('#Commissioncar').val(addCommas(Comprice.toFixed(2)));
                                 }
                                 else{
                                   if(Year <= 2008){
