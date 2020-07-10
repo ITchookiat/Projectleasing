@@ -721,7 +721,7 @@
           }
           
           if(!isNaN(num1)){
-          document.form1.Commissioncar.value = addCommas(num1.toFixed(2));
+          document.form1.Commissioncar.value = addCommas(num1);
           document.form1.commitPrice.value =  addCommas(result.toFixed(2));
           }
     }
