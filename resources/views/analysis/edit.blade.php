@@ -1825,32 +1825,32 @@
                               var Topcar = Settopcar.replace(",","");
 
                                 if(value == 'กส.ค้ำมีหลักทรัพย์' || value == 'กส.ค้ำไม่มีหลักทรัพย์' || value == 'กส.ไม่ค้ำประกัน' || value == 'VIP1'){
-                                  var Comprice = addCommas(parseInt(Topcar) * 0.02);
-                                  $('#Commissioncar').val(Comprice);
+                                  var Comprice = (parseInt(Topcar) - parseInt(P2Price)) * 0.02;
+                                  $('#Commissioncar').val(addCommas(Comprice.toFixed(2)));
                                 }
                                 else{
                                   if(Year <= 2008){
                                     if(Timelack < 48){
                                       var tempValue = (5 * parseInt(Timelack)/12) * 0.01;
                                       var Comprice = parseInt(Topcar) * tempValue * 0.07;
-                                      $('#Commissioncar').val(addCommas(Comprice.toFixed(0))); 
+                                      $('#Commissioncar').val(addCommas(Comprice.toFixed(2))); 
                                     }
                                     else{
                                       var tempValue = (5 * 4) * 0.01;
                                       var Comprice = parseInt(Topcar) * tempValue * 0.07;
-                                      $('#Commissioncar').val(addCommas(Comprice.toFixed(0))); 
+                                      $('#Commissioncar').val(addCommas(Comprice.toFixed(2))); 
                                     }
                                   }
                                   else{
                                     if(Timelack < 48){
                                       var tempValue = (6 * parseInt(Timelack)/12) * 0.01;
                                       var Comprice = parseInt(Topcar) * tempValue * 0.07;
-                                      $('#Commissioncar').val(addCommas(Comprice.toFixed(0))); 
+                                      $('#Commissioncar').val(addCommas(Comprice.toFixed(2))); 
                                     }
                                     else{
                                       var tempValue = (6 * 4) * 0.01;
                                       var Comprice = parseInt(Topcar) * tempValue * 0.07;
-                                      $('#Commissioncar').val(addCommas(Comprice.toFixed(0))); 
+                                      $('#Commissioncar').val(addCommas(Comprice.toFixed(2))); 
                                     }
                                   }
                                 }
