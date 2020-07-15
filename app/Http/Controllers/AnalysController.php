@@ -2684,7 +2684,7 @@ class AnalysController extends Controller
       $path = $path;
       $created_at = '';
 
-      $data = UploadfileImage::where('Buyerfileimage_id','=',$id)->get();
+      $data = UploadfileImage::where('Buyerfileimage_id','=',$id)->where('Type_fileimage','=','1')->get();
       $countData = count($data);
       if($countData != 0){
         $dataold = Buyer::where('id','=',$id)->first();
