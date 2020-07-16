@@ -630,9 +630,10 @@
                                 <div class="form-group row mb-1">
                                   <label class="col-sm-3 col-form-label text-right">สถานะผู้เช่าซื้อ : </label>
                                   <div class="col-sm-8">
-                                    <select name="Gradebuyer" class="form-control">
+                                    <select id="Gradebuyer" name="Gradebuyer" class="form-control">
                                       <option value="" selected>--- สถานะผู้เช่าซื้อ ---</option>
                                       <option value="ลูกค้าเก่าผ่อนดี">ลูกค้าเก่าผ่อนดี</option>
+                                      <option value="ลูกค้าเก่ามีงานตาม">ลูกค้าเก่ามีงานตาม</option>
                                       <option value="ลูกค้ามีงานตาม">ลูกค้ามีงานตาม</option>
                                       <option value="ลูกค้าใหม่">ลูกค้าใหม่</option>
                                       <option value="ลูกค้าใหม่(ปิดธนาคาร)">ลูกค้าใหม่(ปิดธนาคาร)</option>
@@ -1402,7 +1403,6 @@
                           </script>
 
                           <!-- สคริปคิดค่าคอม -->
-                          {{--
                           <script>
                             $('#statuscar').change(function(){
                               var value = document.getElementById('statuscar').value;
@@ -1414,33 +1414,24 @@
                               var P2Price = SetP2Price.replace(",","");
 
                                 if(value == 'กส.ค้ำมีหลักทรัพย์' || value == 'กส.ค้ำไม่มีหลักทรัพย์' || value == 'กส.ไม่ค้ำประกัน' || value == 'VIP.กรรมสิทธิ์'){
-                                  var Comprice = (parseInt(Topcar) - parseInt(P2Price)) * 0.02;
-                                  $('#Commissioncar').val(addCommas(Comprice.toFixed(2)));
+                                  var Comprice = addCommas((parseInt(Topcar) - parseInt(P2Price)) * 0.02);
+                                  $('#Commissioncar').val(Comprice);
                                 }
                                 else{
                                   if(Year <= 2008){
                                     if(Timelack < 48){
                                       var tempValue = (5 * parseInt(Timelack)/12) * 0.01;
                                       var SetComprice = (parseInt(Topcar) - parseInt(P2Price)) * tempValue * 0.07;
-                                      // var Comprice = Math.floor(SetComprice/100);
-                                      // var ResultPrice = Comprice*100;
-                                      // $('#Commissioncar').val(addCommas(ResultPrice.toFixed(0))); 
                                     }
                                     else{
                                       var tempValue = (5 * 4) * 0.01;
                                       var SetComprice = (parseInt(Topcar) - parseInt(P2Price)) * tempValue * 0.07;
-                                      // var Comprice = Math.floor(SetComprice/100);
-                                      // var ResultPrice = Comprice*100;
-                                      // $('#Commissioncar').val(addCommas(ResultPrice.toFixed(0))); 
                                     }
                                   }
                                   else{
                                     if(Timelack < 48){
                                       var tempValue = (6 * parseInt(Timelack)/12) * 0.01;
                                       var SetComprice = (parseInt(Topcar) - parseInt(P2Price)) * tempValue * 0.07;
-                                      // var Comprice = Math.floor(SetComprice/100);
-                                      // var ResultPrice = Comprice*100;
-                                      // $('#Commissioncar').val(addCommas(ResultPrice.toFixed(0))); 
                                     }
                                     else{
                                       var tempValue = (6 * 4) * 0.01;
@@ -1454,12 +1445,11 @@
                                       var Comprice = Math.floor(SetComprice/100);
                                       var ResultPrice = Comprice*100;
                                     }
-                                    $('#Commissioncar').val(addCommas(ResultPrice.toFixed(2))); 
+                                    $('#Commissioncar').val(addCommas(ResultPrice.toFixed(0))); 
                                 
                                 }
                             });
-                          </script>
-                          --}}
+                          </script>                          
 
                           <div class="row">
                             <div class="col-6">
@@ -1666,6 +1656,18 @@
 
                             });
                           </script> 
+
+                          <script>
+                            $('#Gradebuyer').change(function(){
+                              var value = document.getElementById('Gradebuyer').value;
+                              if(value == 'ปิดจัดใหม่(งานตาม)' || value == 'ปิดจัดใหม่(ผ่อนดี)'){
+                                $('#Commissioncar').attr('readonly', true);
+                              }else{
+                                $('#Commissioncar').attr('readonly', false);
+                              }
+
+                            });
+                          </script>
 
                           <div class="row">
                             <div class="col-6">
