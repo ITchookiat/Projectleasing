@@ -1816,7 +1816,6 @@
                           </div>
 
                           <!-- สคริปคิดค่าคอม -->
-                          {{--
                           <script>
                             $('#statuscar').change(function(){
                               var value = document.getElementById('statuscar').value;
@@ -1824,8 +1823,10 @@
                               var Timelack = document.getElementById('Timeslackencar').value;
                               var Settopcar = document.getElementById('Topcar').value;
                               var Topcar = Settopcar.replace(",","");
+                              var SetP2Price = document.getElementById('P2Price').value;
+                              var P2Price = SetP2Price.replace(",","");
 
-                                if(value == 'กส.ค้ำมีหลักทรัพย์' || value == 'กส.ค้ำไม่มีหลักทรัพย์' || value == 'กส.ไม่ค้ำประกัน' || value == 'VIP1'){
+                                if(value == 'กส.ค้ำมีหลักทรัพย์' || value == 'กส.ค้ำไม่มีหลักทรัพย์' || value == 'กส.ไม่ค้ำประกัน' || value == 'VIP.กรรมสิทธิ์'){
                                   var Comprice = (parseInt(Topcar) - parseInt(P2Price)) * 0.02;
                                   $('#Commissioncar').val(addCommas(Comprice.toFixed(2)));
                                 }
@@ -1833,31 +1834,69 @@
                                   if(Year <= 2008){
                                     if(Timelack < 48){
                                       var tempValue = (5 * parseInt(Timelack)/12) * 0.01;
-                                      var Comprice = parseInt(Topcar) * tempValue * 0.07;
-                                      $('#Commissioncar').val(addCommas(Comprice.toFixed(2))); 
+                                      var SetComprice = (parseInt(Topcar) - parseInt(P2Price)) * tempValue * 0.07;
                                     }
                                     else{
                                       var tempValue = (5 * 4) * 0.01;
-                                      var Comprice = parseInt(Topcar) * tempValue * 0.07;
-                                      $('#Commissioncar').val(addCommas(Comprice.toFixed(2))); 
+                                      var SetComprice = (parseInt(Topcar) - parseInt(P2Price)) * tempValue * 0.07;
                                     }
                                   }
                                   else{
                                     if(Timelack < 48){
                                       var tempValue = (6 * parseInt(Timelack)/12) * 0.01;
-                                      var Comprice = parseInt(Topcar) * tempValue * 0.07;
-                                      $('#Commissioncar').val(addCommas(Comprice.toFixed(2))); 
+                                      var SetComprice = (parseInt(Topcar) - parseInt(P2Price)) * tempValue * 0.07;
                                     }
                                     else{
                                       var tempValue = (6 * 4) * 0.01;
-                                      var Comprice = parseInt(Topcar) * tempValue * 0.07;
-                                      $('#Commissioncar').val(addCommas(Comprice.toFixed(2))); 
+                                      var SetComprice = (parseInt(Topcar) - parseInt(P2Price)) * tempValue * 0.07;
                                     }
                                   }
+
+                                    if(SetComprice < 1000){
+                                      var ResultPrice = Math.floor(SetComprice);
+                                    }else{
+                                      var Comprice = Math.floor(SetComprice/100);
+                                      var ResultPrice = Comprice*100;
+                                    }
+                                    $('#Commissioncar').val(addCommas(ResultPrice.toFixed(2)));
                                 }
                             });
-                          </script> 
-                          --}}
+                          </script>
+
+                          <!-- สคริปค่าประเมิณ -->
+                          <script>
+                            $('#Topcar').change(function(){
+                              var Settopcar = document.getElementById('Topcar').value;
+                              var Topcar = Settopcar.replace(",","");
+                              if(Topcar <= 50000){
+                                var evaluetion = 1000;
+                              }else if(Topcar > 50000 && Topcar <= 100000){
+                                var evaluetion = 1500;
+                              }else if(Topcar > 100000 && Topcar <= 250000){
+                                var evaluetion = 2000;
+                              }else{
+                                var evaluetion = 2500;
+                              }
+                              var totalPrice = parseFloat(evaluetion) + parseFloat(1500) + parseFloat(1500);
+                              var balancePrice = parseFloat(Topcar) - parseFloat(totalPrice);
+                              $("#evaluetionPrice").val(addCommas(evaluetion));
+                              $("#totalkPrice").val(addCommas(totalPrice));
+                              $("#balancePrice").val(addCommas(balancePrice.toFixed(2)));
+
+                            });
+                          </script>
+
+                          <script>
+                            $('#Gradebuyer').change(function(){
+                              var value = document.getElementById('Gradebuyer').value;
+                              if(value == 'ปิดจัดใหม่(งานตาม)' || value == 'ปิดจัดใหม่(ผ่อนดี)'){
+                                $('#Commissioncar').attr('readonly', true);
+                              }else{
+                                $('#Commissioncar').attr('readonly', false);
+                              }
+
+                            });
+                          </script>
 
                           <hr />
                           <div class="row">
