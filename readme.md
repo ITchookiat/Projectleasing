@@ -5,6 +5,7 @@ https://github.com/ITchookiat/Projectleasing.git
         2. upload_max_filesize=2M ->     upload_max_filesize=10G
         3.max_file_uploads=20 ->    max_file_uploads=100
         4.เพิ่มคำไสั่ง extension=php_pdo_sqlsrv_72_ts.dll
+        5.เปิดคำสั้ง extension=pdo_odbc
         
     - เพิ่มไฟล์ php_pdo_sqlsrv_72_ts.dll ในโฟรเดอร์ Xammp/php/ext
     
