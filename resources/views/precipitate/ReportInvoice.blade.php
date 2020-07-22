@@ -186,7 +186,7 @@
             <td width="280px"> ( นางอรุณวรรณ   แก้วมลทิน ) </td>
           </tr>
           <tr style="line-height: 150%;">
-            <td width="250px"> {{-- $data->CONTNO --}}</td>
+            <td width="255px"> {{-- $data->CONTNO --}}</td>
             <td width="240px"> ผู้รับมอบอำนาจ </td>
           </tr>
         </table>
