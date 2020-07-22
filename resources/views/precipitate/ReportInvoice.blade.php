@@ -183,7 +183,7 @@
           </tr>
           <tr style="line-height: 150%;letter-spacing: 0.2px;">
             <td width="220px"> {{-- $data->CONTNO --}}</td>
-            <td width="280px"> ( นางสาวขวัญตา   เหมือนพยอม ) </td>
+            <td width="280px"> ( นางอรุณวรรณ   แก้วมลทิน ) </td>
           </tr>
           <tr style="line-height: 150%;">
             <td width="260px"> {{-- $data->CONTNO --}}</td>
