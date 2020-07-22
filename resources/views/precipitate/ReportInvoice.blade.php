@@ -183,11 +183,11 @@
           </tr>
           <tr style="line-height: 150%;letter-spacing: 0.2px;">
             <td width="220px"> {{-- $data->CONTNO --}}</td>
-            <td width="290px"> ( นางอรุณวรรณ   แก้วมลทิน ) </td>
+            <td width="300px"> ( นางอรุณวรรณ   แก้วมลทิน ) </td>
           </tr>
           <tr style="line-height: 150%;">
             <td width="260px"> {{-- $data->CONTNO --}}</td>
-            <td width="220px"> ผู้รับมอบอำนาจ </td>
+            <td width="200px"> ผู้รับมอบอำนาจ </td>
           </tr>
         </table>
     @elseif($type == 2 or $type == 4 or $type == 11 or $type == 12)
