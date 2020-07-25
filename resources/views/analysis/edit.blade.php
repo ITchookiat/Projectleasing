@@ -21,7 +21,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/js/fileinput.js" type="text/javascript"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/themes/fa/theme.js" type="text/javascript"></script>
   
- 
   <style>
     #todo-list{
     width:100%;
@@ -87,7 +86,7 @@
     content:'';
     display:block;
     position:absolute;
-    top:calc(50% + 2px);
+    top:calc(50% + 10px);
     left:0;
     width:0%;
     height:1px;
@@ -217,93 +216,16 @@
                       </div>
                     </div>
                     <div class="col-8">
-                      <div class="row">
+                      <div class="card-tools d-inline float-right">
                         @if(auth::user()->type == 1 or auth::user()->type == 2)
-                          <div class="col-3">
-                            <div class="float-right form-inline">
-                              <i class="fas fa-grip-vertical"></i>
-                              <span class="todo-wrap">
-                                <input type="checkbox" id="1" name="Approverscar" value="{{ auth::user()->name }}" {{ ($data->Approvers_car !== NULL) ? 'checked' : '' }}/>
-                                <label for="1" class="todo">
-                                  <i class="fa fa-check"></i>
-                                  <font color="red">อนุมัติ</font>
-                                </label>
-                              </span>
-                            </div>
-                          </div>
-                          <div class="col-3">
-                            <div class="float-right form-inline">
-                              <i class="fas fa-grip-vertical"></i>
-                              <span class="todo-wrap">
-                                @if($data->Check_car != Null)
-                                  <input type="checkbox" class="checkbox" name="Checkcar" id="2" value="{{ $data->Check_car }}" checked="checked"> <!-- checked="checked"  -->
-                                @else
-                                  <input type="checkbox" class="checkbox" name="Checkcar" id="2" value="{{ auth::user()->name }}"> <!-- checked="checked"  -->
-                                @endif
-                                <label for="2" class="todo">
-                                  <i class="fa fa-check"></i>
-                                  <font color="red">ตรวจสอบ</font>
-                                </label>
-                              </span>
-                            </div>
-                          </div>
-                          <div class="col-3">
-                            <div class="float-right form-inline">
-                              <i class="fas fa-grip-vertical"></i>
-                              <span class="todo-wrap">
-                                <input type="checkbox" class="checkbox" name="doccomplete" id="3" value="{{ $data->DocComplete_car }}" {{ ($data->DocComplete_car !== NULL) ? 'checked' : '' }}> <!-- checked="checked"  -->
-                                <label for="3" class="todo">
-                                  <i class="fa fa-check"></i>
-                                  <font color="red">ปิดสิทธิ์แก้ไข</font>
-                                </label>
-                              </span>
-                            </div>
-                          </div>
-                        @else
-                          <div class="col-6">
-                          </div>
-                          <div class="col-3">
-                            <div class="float-right form-inline">
-                              <i class="fas fa-grip-vertical"></i>
-                              <span class="todo-wrap">
-                                @if ( $data->DocComplete_car != Null)
-                                  <input type="checkbox" id="5" class="checkbox" name="doccomplete" value="{{ $data->DocComplete_car }}" checked="checked"/> <!-- checked="checked"  -->
-                                @else
-                                  <input type="checkbox" id="5" class="checkbox" name="doccomplete" value="{{ auth::user()->name }}">
-                                @endif
-                                <label for="5" class="todo">
-                                  <i class="fa fa-check"></i>
-                                  <font color="red">เอกสารครบ</font>
-                                </label>
-                              </span>
-                            </div>
-                          </div>
-                        @endif
-                        <div class="col-3">
-                          <div class="card-tools d-inline float-right">
-                            @if(auth::user()->type == 1 or auth::user()->type == 2)
-                              @if(auth::user()->type == 1)
-                                <button type="submit" class="delete-modal btn btn-success">
-                                  <i class="fas fa-save"></i> อัพเดท
-                                </button>
-                                <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}">
-                                  <i class="far fa-window-close"></i> ยกเลิก
-                                </a>
-                              @elseif(auth::user()->type == 2)
-                                @if($data->StatusApp_car != 'อนุมัติ')
-                                  <button type="submit" class="delete-modal btn btn-success">
-                                    <i class="fas fa-save"></i> อัพเดท
-                                  </button>
-                                  <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}">
-                                    <i class="far fa-window-close"></i> ยกเลิก
-                                  </a>
-                                @else
-                                  <a class="delete-modal btn btn-danger" href="{{ URL::previous() }}">
-                                    <i class="fas fa-undo"></i> ย้อนกลับ
-                                  </a>
-                                @endif
-                              @endif
-                          @else
+                          @if(auth::user()->type == 1)
+                            <button type="submit" class="delete-modal btn btn-success">
+                              <i class="fas fa-save"></i> อัพเดท
+                            </button>
+                            <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}">
+                              <i class="far fa-window-close"></i> ยกเลิก
+                            </a>
+                          @elseif(auth::user()->type == 2)
                             @if($data->StatusApp_car != 'อนุมัติ')
                               <button type="submit" class="delete-modal btn btn-success">
                                 <i class="fas fa-save"></i> อัพเดท
@@ -317,13 +239,108 @@
                               </a>
                             @endif
                           @endif
-                          </div>
-                        </div>
+                        @else
+                          @if($data->StatusApp_car != 'อนุมัติ')
+                            <button type="submit" class="delete-modal btn btn-success">
+                              <i class="fas fa-save"></i> อัพเดท
+                            </button>
+                            <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}">
+                              <i class="far fa-window-close"></i> ยกเลิก
+                            </a>
+                          @else
+                            <a class="delete-modal btn btn-danger" href="{{ URL::previous() }}">
+                              <i class="fas fa-undo"></i> ย้อนกลับ
+                            </a>
+                          @endif
+                        @endif
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="card-body text-sm">
+                  <div class="container-fluid">
+                    <div class="row mb-2">
+                      <div class="col-sm-3">
+                        {{-- <h1 class="m-0 text-dark">Dashboard v2</h1> --}}
+                      </div>
+                      <div class="col-sm-9">
+                        <ol class="breadcrumb float-sm-right">
+                          {{-- ผู้จัดการ --}}
+                          @if($data->Top_car > 250000)
+                            <div class="float-right form-inline">
+                              <i class="fas fa-grip-vertical"></i>
+                              <span class="todo-wrap">
+                                @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
+                                  <input type="checkbox" class="checkbox" name="MANAGER" id="1" value="{{ auth::user()->name }}" {{ ($data->ManagerApp_car !== NULL) ? 'checked' : '' }}>
+                                @else
+                                  <input type="checkbox" class="checkbox" id="1" disabled>
+                                @endif
+                                <label for="1" class="todo">
+                                  <i class="fa fa-check"></i>
+                                  <font color="red">MANAGER &nbsp;&nbsp;</font>
+                                </label>
+                              </span>   
+                            </div>
+                          @endif
+                          {{-- audit --}}
+                          <div class="float-right form-inline">
+                            <i class="fas fa-grip-vertical"></i>
+                            <span class="todo-wrap">
+                              @if(auth::user()->type == "Admin" or auth::user()->position == "AUDIT")
+                                <input type="checkbox" id="2" name="AUDIT" value="{{ auth::user()->name }}" {{ ($data->Approvers_car !== NULL) ? 'checked' : '' }}/>
+                              @else
+                                <input type="checkbox" class="checkbox" id="2" disabled>
+                              @endif
+                                <label for="2" class="todo">
+                                <i class="fa fa-check"></i>
+                                <font color="red">AUDIT &nbsp;&nbsp;</font>
+                              </label>
+                            </span>
+                          </div>
+                          {{-- หัวหน้าสาขา --}}
+                          <div class="float-right form-inline">
+                            <i class="fas fa-grip-vertical"></i>
+                            <span class="todo-wrap">
+                              @if(auth::user()->type == "Admin" or auth::user()->position == "MASTER")
+                                <input type="checkbox" class="checkbox" name="MASTER" id="3" value="{{ auth::user()->name }}" {{ ($data->Check_car !== NULL) ? 'checked' : '' }}> <!-- checked="checked"  -->
+                              @else
+                                @if($data->Check_car != NULL)
+                                  <input type="checkbox" class="checkbox" id="3" checked disabled>
+                                @else
+                                  <input type="checkbox" class="checkbox" name="MASTER" id="3" value="{{ auth::user()->name }}">
+                                @endif
+                              @endif
+                              <label for="3" class="todo">
+                                <i class="fa fa-check"></i>
+                                <font color="red">MASTER &nbsp;&nbsp;</font>
+                              </label>
+                            </span>
+                          </div>
+                          {{-- ปิดสิทธ์แก้ไข / เอกสารครบ --}}
+                          <div class="float-right form-inline">
+                            <i class="fas fa-grip-vertical"></i>
+                            <span class="todo-wrap">
+                              @if(auth::user()->type == "Admin" or auth::user()->position == "MASTER")
+                                  <input type="checkbox" class="checkbox" name="doccomplete" id="4" value="{{ $data->DocComplete_car }}" {{ ($data->DocComplete_car !== NULL) ? 'checked' : '' }}>
+                              @else
+                                @if($data->DocComplete_car != NULL)
+                                  <input type="checkbox" class="checkbox" id="4" checked disabled>
+                                @else
+                                  <input type="checkbox" class="checkbox" name="doccomplete" id="4" value="{{ auth::user()->name }}">
+                                @endif
+                              @endif
+                              <label for="4" class="todo">
+                                <i class="fa fa-check"></i>
+                                <font color="red">RESTRICT RIGHTS</font>
+                              </label>
+                            </span>
+                          </div>  
+
+                        </ol>
+                      </div>
+                    </div>
+                  </div>
+
                   <div class="card card-warning card-tabs">
                     <div class="card-header p-0 pt-1">
                       <ul class="nav nav-tabs" id="custom-tabs-five-tab" role="tablist">
@@ -3014,7 +3031,6 @@
     })
   </script>
 
-
   @if($data->Buyer_latlong != NULL)
     @php
       $SetBuyerlatlong = explode(",",$data->Buyer_latlong);
@@ -3043,7 +3059,6 @@
 
   <script>
       function initMap() {
-
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 9,
           center: {lat: 6.6637053, lng: 101.2183787}

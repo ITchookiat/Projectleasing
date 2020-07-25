@@ -34,7 +34,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column text-sm" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          @if(auth::user()->type == 1)
+          @if(auth::user()->type == "Admin")
           <li class="nav-item has-treeview {{ Request::is('maindata/view*') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-window-restore"></i>

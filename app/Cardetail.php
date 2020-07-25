@@ -13,7 +13,7 @@ class Cardetail extends Model
                         'Taxpay_car','Totalpay1_car','Totalpay2_car','Dateduefirst_car','Insurance_car','status_car','Percent_car',
                         'Payee_car','Accountbrance_car','Tellbrance_car','Agent_car','Accountagent_car','Commission_car','Tellagent_car',
                         'Purchasehistory_car','Supporthistory_car','Loanofficer_car','Approvers_car','Date_Appcar','Check_car',
-                        'StatusApp_car','DocComplete_car','branch_car','branchbrance_car','branchAgent_car','Note_car','Insurance_key','Salemethod_car',
+                        'StatusApp_car','DocComplete_car','branch_car','ManagerApp_car','DataManager_car','branchbrance_car','branchAgent_car','Note_car','Insurance_key','Salemethod_car',
                         'AccountImage_car','UserCheckAc_car','DateCheckAc_car'];
 
   public function Buyercardetails()

@@ -122,18 +122,12 @@
                               @if(auth::user()->type == 1 or auth::user()->type == 2)
                                 <label>เลขที่สัญญา : </label>
                                 <input type="type" name="Contno" value="{{$contno}}" maxlength="12" style="padding:5px;width:285px;border-radius: 5px 0 5px 5px; font-size:24px;"/>
-                                  <!-- <a class="btn bg-success btn-app" data-toggle="modal" data-target="#modal-lg" data-backdrop="static">
-                                    <span class="fas fa-plus"></span> เพิ่มรายการ
-                                  </a> -->
                                   <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', $type) }}" class="btn bg-primary btn-app">
                                     <span class="fas fa-print"></span> ปริ้นรายการ
                                   </a>
                               @else
                                 <label>เลขที่สัญญา : </label>
                                 <input type="type" name="Contno" value="{{$contno}}" maxlength="12" style="padding:5px;width:370px;border-radius: 5px 0 5px 5px; font-size:24px;"/>
-                                  <!-- <a class="btn bg-success btn-app" data-toggle="modal" data-target="#modal-lg" data-backdrop="static">
-                                    <span class="fas fa-plus"></span> เพิ่มรายการ
-                                  </a> -->
                               @endif
 
                               <button type="submit" class="btn bg-warning btn-app">
@@ -174,32 +168,30 @@
                       </form>
                       <div class="table-responsive">
                         <hr>
-                        <table class="table table-bordered" id="table1">
-                            <thead class="thead-dark bg-gray-light" >
+                        <table class="table table-striped table-valign-middle" id="table1">
+                            <thead>
                               <tr>
                                 <th class="text-center">สาขา</th>
-                                <th class="text-center">เลขที่สัญญา</th>
-                                <th class="text-center">แบบ</th>
-                                <th class="text-center">ยีห้อ</th>
-                                <th class="text-center">ทะเบียน</th>
-                                <th class="text-center">ปี</th>
+                                <th class="text-left">เลขที่สัญญา</th>
+                                <th class="text-left">ยีห้อ</th>
+                                <th class="text-left">ทะเบียน</th>
+                                <th class="text-left">ปี</th>
                                 <th class="text-center">ยอดจัด</th>
                                 <th class="text-center">เอกสาร/แก้ไข</th>
-                                <th class="text-center">ตรวจสอบ</th>
+                                <th class="text-center">หัวหน้าสาขา</th>
                                 <th class="text-center">อนุมัติ</th>
-                                <th class="text-center" style="width: 180px">ตัวเลือก</th>
+                                <th class="text-center" style="width: 100px"></th>
                               </tr>
                             </thead>
                             <tbody>
                               @foreach($data as $row)
                                 <tr>
                                   <td class="text-center"> {{ $row->branch_car}} </td>
-                                  <td class="text-center"> {{ $row->Contract_buyer}} </td>
-                                  <td class="text-center"> {{ $row->status_car}} </td>
-                                  <td class="text-center"> {{ $row->Brand_car}} </td>
-                                  <td class="text-center"> {{ $row->License_car}} </td>
-                                  <td class="text-center"> {{ $row->Year_car}} </td>
-                                  <td class="text-center">
+                                  <td class="text-left"> {{ $row->Contract_buyer}} </td>
+                                  <td class="text-left"> {{ $row->Brand_car}} </td>
+                                  <td class="text-left"> {{ $row->License_car}} </td>
+                                  <td class="text-left"> {{ $row->Year_car}} </td>
+                                  <td class="text-right">
                                     @if($row->Top_car != Null)
                                       {{ number_format($row->Top_car)}}
                                     @else
@@ -227,27 +219,37 @@
                                   </td>
                                   <td class="text-center">
                                     @if ( $row->Check_car != Null)
-                                        {{ $row->Check_car }}
+                                      <button type="button" class="btn btn-success btn-sm">
+                                        <i class="fas fa-user-check"> Active</i>
+                                      </button>
                                     @else
-                                        <font color="red">รอตรวจสอบ</font>
+                                      <button type="button" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-bell"></i></span>
+                                      </button>
+                                      <font color="red">รอตรวจสอบ</font>
                                     @endif
                                   </td>
                                   <td class="text-center">
                                     @if ( $row->Approvers_car != Null)
-                                        {{ $row->Approvers_car }}
+                                      <button type="button" class="btn btn-success btn-sm">
+                                        <i class="fas fa-user-check"> Active</i>
+                                      </button>
                                     @else
-                                        <font color="red">รออนุมัติ</font>
+                                      <button type="button" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-bell"></i></span>
+                                      </button>
+                                      <font color="red">รอตรวจสอบ</font>
                                     @endif
                                   </td>
-                                  <td class="text-left">
+                                  <td class="text-right">
                                     <a target="_blank" href="{{ action('ReportAnalysController@ReportPDFIndex',[$row->id,$type]) }}" class="btn btn-info btn-sm" title="พิมพ์">
-                                      <i class="fas fa-print"></i> พิมพ์
+                                      <i class="fas fa-print"></i>
                                     </a>
                                     @if(auth::user()->type == 3 and $row->StatusApp_car == 'อนุมัติ')
                                       @php $branch = 'Null'; @endphp
                                       @php $status = 'Null'; @endphp
                                       <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
-                                        <i class="fas fa-eye"></i> ดู
+                                        <i class="fas fa-eye"></i>
                                       </a>
                                     @endif
 
@@ -261,16 +263,16 @@
 
                                       @if(auth::user()->type == 1)
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
-                                          <i class="far fa-edit"></i> แก้ไข
+                                          <i class="far fa-edit"></i>
                                         </a>
                                       @elseif(auth::user()->type == 2 or auth::user()->type == 40)
                                         @if($row->StatusApp_car == 'อนุมัติ')
                                           <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
-                                            <i class="fas fa-eye"></i> ดู
+                                            <i class="fas fa-eye"></i>
                                           </a>
                                         @else
                                           <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
-                                            <i class="far fa-edit"></i> แก้ไข
+                                            <i class="far fa-edit"></i>
                                           </a>
                                         @endif
                                       @endif
@@ -283,44 +285,44 @@
                                           @php $status = 'Null'; @endphp
                                         @endif
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
-                                          <i class="far fa-edit"></i> แก้ไข
+                                          <i class="far fa-edit"></i>
                                         </a>
                                       @endif
                                     @endif
 
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                    @if(auth::user()->type == 1) 
-                                      <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
-                                        {{csrf_field()}}
-                                        <input type="hidden" name="_method" value="DELETE" />
-                                        <button type="submit" data-name="{{ $row->Contract_buyer }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
-                                          <i class="far fa-trash-alt"></i> ลบ
-                                        </button>
-                                      </form>
-                                    @elseif(auth::user()->type == 2)
-                                      @if($row->StatusApp_car != 'อนุมัติ')
+                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                      @if(auth::user()->type == 1) 
                                         <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
                                           {{csrf_field()}}
                                           <input type="hidden" name="_method" value="DELETE" />
                                           <button type="submit" data-name="{{ $row->Contract_buyer }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
-                                            <i class="far fa-trash-alt"></i> ลบ
+                                            <i class="far fa-trash-alt"></i>
                                           </button>
                                         </form>
+                                      @elseif(auth::user()->type == 2)
+                                        @if($row->StatusApp_car != 'อนุมัติ')
+                                          <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
+                                            {{csrf_field()}}
+                                            <input type="hidden" name="_method" value="DELETE" />
+                                            <button type="submit" data-name="{{ $row->Contract_buyer }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
+                                              <i class="far fa-trash-alt"></i>
+                                            </button>
+                                          </form>
+                                        @endif
+                                      @endif
+                                    @else
+                                      @if($row->DocComplete_car == Null)
+                                        @if($row->StatusApp_car != 'อนุมัติ')
+                                          <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
+                                            {{csrf_field()}}
+                                            <input type="hidden" name="_method" value="DELETE" />
+                                            <button type="submit" data-name="{{ $row->Contract_buyer }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
+                                              <i class="far fa-trash-alt"></i>
+                                            </button>
+                                          </form>
+                                        @endif
                                       @endif
                                     @endif
-                                  @else
-                                    @if($row->DocComplete_car == Null)
-                                      @if($row->StatusApp_car != 'อนุมัติ')
-                                        <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
-                                          {{csrf_field()}}
-                                          <input type="hidden" name="_method" value="DELETE" />
-                                          <button type="submit" data-name="{{ $row->Contract_buyer }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
-                                            <i class="far fa-trash-alt"></i> ลบ
-                                          </button>
-                                        </form>
-                                      @endif
-                                    @endif
-                                  @endif
                                   </td>
                                 </tr>
                               @endforeach

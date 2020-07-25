@@ -36,8 +36,9 @@
                       <th class="text-center">Username</th>
                       <th class="text-center">Password</th>
                       <th class="text-center">Email</th>
-                      <th class="text-center">Role</th>
-                      <th class="text-center">branch</th>
+                      <th class="text-center">สาขา</th>
+                      <th class="text-center">แผนก</th>
+                      <th class="text-center">ตำแหน่ง</th>
                       <th class="text-center" width="150px">Action</th>
                     </tr>
                   </thead>
@@ -49,52 +50,9 @@
                         <td class="text-center">{{ $row->username }}</td>
                         <td class="text-center">{{ $row->password_token }}</td>
                         <td class="text-center">{{ $row->email }}</td>
-                        <td class="text-center">
-                          @if($row->type == 1)
-                            admin
-                          @elseif ($row->type  == 2)
-                            ฝ่ายอนุมัติ
-                          @elseif ($row->type  == 3)
-                            จัดไฟแนนท์
-                          @elseif ($row->type  == 4)
-                            ฝ่ายอนุมัติรถบ้าน
-                          @elseif ($row->type  == 21)
-                            กฏหมาย
-                          @elseif ($row->type  == 31)
-                            เร่งรัด
-                          @elseif ($row->type  == 40)
-                            การเงิน
-                          @endif
-                        </td>
-                        <td class="text-center">
-                          @if($row->branch == 99)
-                            admin
-                          @elseif ($row->branch  == 01)
-                            ปัตตานี
-                          @elseif ($row->branch  == 03)
-                            ยะลา
-                          @elseif ($row->branch  == 04)
-                            นราธิวาส
-                          @elseif ($row->branch  == 05)
-                            สายบุรี
-                          @elseif ($row->branch  == 06)
-                            โกลก
-                          @elseif ($row->branch  == 07)
-                            เบตง
-                          @elseif ($row->branch  == 10)
-                            รถบ้าน
-                          @elseif ($row->branch  == 11)
-                            รถยืดขายผ่อน
-                          @elseif ($row->branch  == 21)
-                            แผนกกฏหมาย
-                          @elseif ($row->branch  == 31)
-                            แผนกเร่งรัด
-                          @elseif ($row->branch  == 41)
-                            แผนกการเงินใน
-                          @elseif ($row->branch  == 42)
-                            แผนกการเงินนอก
-                          @endif
-                        </td>
+                        <td class="text-center">{{ $row->branch }}</td>
+                        <td class="text-center">{{ $row->type }}</td>
+                        <td class="text-center">{{ $row->position }}</td>
                         <td class="text-center">
                           <a href="{{ action('UserController@edit',[$row['id']]) }}" class="btn btn-warning btn-sm">
                             <span class="glyphicon glyphicon-edit"></span> Edit

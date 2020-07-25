@@ -15,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-      if(auth()->user()->type == 1){
+      if(auth()->user()->type == "Admin"){
         $users = User::all();
         return view('maindata.view', compact('users'));
       }else {
@@ -66,32 +66,7 @@ class UserController extends Controller
     {
       $user = User::find($id);
 
-      $arrayType = [
-        1 => 'Admin',
-        2 => 'แผนก วิเคราะห์',
-        3 => 'แผนก จัดไฟแนนท์',
-        4 => 'ฝ่ายอนุมัติรถบ้าน',
-        21 => 'แผนก กฏหมาย',
-        31 => 'แผนก เร่งรัด',
-        40 => 'แผนก การเงิน',
-      ];
-
-      $arrayBranch = [
-        99 => 'Admin',
-        01 => 'สาขา ปัตตานี',
-        03 => 'สาขา ยะลา',
-        04 => 'สาขา นราธิวาส',
-        05 => 'สาขา สายบุรี',
-        06 => 'สาขา โกลก',
-        07 => 'สาขา เบตง',
-        10 => 'สาขา รถบ้าน',
-        21 => 'แผนก กฏหมาย',
-        31 => 'แผนก เร่งรัด',
-        41 => 'แผนก การเงิน Lv.1',
-        42 => 'แผนก การเงิน Lv.2',
-      ];
-
-      return view('maindata.edit',compact('user','id','arrayType','arrayBranch'));
+      return view('maindata.edit',compact('user','id'));
     }
 
     /**
@@ -111,8 +86,9 @@ class UserController extends Controller
       $user->username = $request->get('main_username');
       $user->name = $request->get('main_name');
       $user->email = $request->get('main_email');
-      $user->type = $request->get('section_type');
       $user->branch = $request->get('branch');
+      $user->type = $request->get('section_type');
+      $user->position = $request->get('position');
 
       $user->update();
 
@@ -151,8 +127,9 @@ class UserController extends Controller
         'email' => $request->get('email'),
         'password' => bcrypt($request->get('password')),
         'password_token' => $request->get('password'),
-        'type' => $request->get('section_type'),
         'branch' => $request->get('branch'),
+        'type' => $request->get('section_type'),
+        'position' => $request->get('position'),
       ]);
 
       return redirect()->Route('ViewMaindata')->with('success','อัพเดตข้อมูลเรียบร้อย');

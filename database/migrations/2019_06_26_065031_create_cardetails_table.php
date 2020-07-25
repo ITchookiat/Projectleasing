@@ -57,6 +57,7 @@ class CreateCardetailsTable extends Migration
             $table->string('StatusApp_car')->nullable();
             $table->string('DocComplete_car')->nullable();
             $table->string('branch_car')->nullable();
+            $table->string('ManagerApp_car')->nullable();
             $table->string('branchbrance_car')->nullable();
             $table->string('branchAgent_car')->nullable();
             $table->string('Note_car')->nullable();

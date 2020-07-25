@@ -98,18 +98,9 @@ class HomeController extends Controller
         $LegisAsset = DB::table('legisassets')->count();
 
         $LegisCompro = DB::table('Legiscompromises')->count();
-
-        // ระบบรถบ้าน
-        $data1 = data_car::count(); //รถในสต็อกทั้งหมด
-        $data2 = data_car::where('car_type', '=', 2 )->count(); //ระหว่างทำสี
-        $data3 = data_car::where('car_type', '=', 3 )->count(); //รอซ่อม
-        $data4 = data_car::where('car_type', '=', 4 )->count(); //ระหว่างซ่อม
-        $data5 = data_car::where('car_type', '=', 5 )->count(); //พร้อมขาย
-        $data6 = data_car::where('car_type', '=', 6 )->count(); //ขายแล้ว
         
         return view($name, compact('datafinance','datahomecar','datafollow','datamassage','datanotice','datastock',
-                                   'legisCourt','legisCourt2','LegisAsset','LegisCompro',
-                                   'data1','data2','data3','data4','data5','data6'));
+                                   'legisCourt','legisCourt2','LegisAsset','LegisCompro'));
     }
 
     public function get_json(Request $request)
