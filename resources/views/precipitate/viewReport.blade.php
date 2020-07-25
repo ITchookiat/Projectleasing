@@ -1062,10 +1062,10 @@
   </script>
 
   <script type="text/javascript">
-    $("#submit").click(function () {
-      $("#modal-addinfo").modal('toggle');
-      location.reload();
-    });
+    // $("#submit").click(function () {
+    //   $("#modal-addinfo").modal('toggle');
+    //   location.reload();
+    // });
     $('#modal-addinfo').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget)
       var SetStr1 = button.data('str1')
