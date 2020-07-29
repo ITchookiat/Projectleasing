@@ -119,7 +119,7 @@
                         <div class="row">
                           <div class="col-md-12">
                             <div class="float-right form-inline">
-                              @if(auth::user()->type == 1 or auth::user()->type == 2)
+                              @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                 <label>เลขที่สัญญา : </label>
                                 <input type="type" name="Contno" value="{{$contno}}" maxlength="12" style="padding:5px;width:285px;border-radius: 5px 0 5px 5px; font-size:24px;"/>
                                   <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', $type) }}" class="btn bg-primary btn-app">
@@ -230,22 +230,34 @@
                                     @endif
                                   </td>
                                   <td class="text-center">
-                                    @if ( $row->Approvers_car != Null)
-                                      <button type="button" class="btn btn-success btn-sm">
-                                        <i class="fas fa-user-check"> Active</i>
-                                      </button>
+                                    @if($row->Top_car < 250000)
+                                      @if ($row->Approvers_car != Null)
+                                        <button type="button" class="btn btn-success btn-sm">
+                                          <i class="fas fa-user-check"> Active</i>
+                                        </button>
+                                      @else
+                                        <button type="button" class="btn btn-warning btn-sm">
+                                          <i class="fas fa-bell"></i></span>
+                                        </button>
+                                        <font color="red">รอตรวจสอบ</font>
+                                      @endif
                                     @else
-                                      <button type="button" class="btn btn-warning btn-sm">
-                                        <i class="fas fa-bell"></i></span>
-                                      </button>
-                                      <font color="red">รอตรวจสอบ</font>
+                                      @if ($row->ManagerApp_car != Null)
+                                        <button type="button" class="btn btn-success btn-sm">
+                                          <i class="fas fa-user-check"> Active</i>
+                                        </button>
+                                      @else
+                                        <button type="button" class="btn btn-danger btn-sm">
+                                          <i class="fab fa-monero"> วงเงินเกินสิทธิ์</i>
+                                        </button>
+                                      @endif
                                     @endif
                                   </td>
                                   <td class="text-right">
                                     <a target="_blank" href="{{ action('ReportAnalysController@ReportPDFIndex',[$row->id,$type]) }}" class="btn btn-info btn-sm" title="พิมพ์">
                                       <i class="fas fa-print"></i>
                                     </a>
-                                    @if(auth::user()->type == 3 and $row->StatusApp_car == 'อนุมัติ')
+                                    @if(auth::user()->position == "STAFF" and $row->StatusApp_car == 'อนุมัติ')
                                       @php $branch = 'Null'; @endphp
                                       @php $status = 'Null'; @endphp
                                       <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
@@ -253,7 +265,7 @@
                                       </a>
                                     @endif
 
-                                    @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 40)
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                       @if($branch == "")
                                         @php $branch = 'Null'; @endphp
                                       @endif
@@ -261,11 +273,11 @@
                                         @php $status = 'Null'; @endphp
                                       @endif
 
-                                      @if(auth::user()->type == 1)
+                                      @if(auth::user()->type == "Admin")
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                           <i class="far fa-edit"></i>
                                         </a>
-                                      @elseif(auth::user()->type == 2 or auth::user()->type == 40)
+                                      @elseif(auth::user()->type == "แผนก วิเคราะห์")
                                         @if($row->StatusApp_car == 'อนุมัติ')
                                           <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
                                             <i class="fas fa-eye"></i>
@@ -290,8 +302,8 @@
                                       @endif
                                     @endif
 
-                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                      @if(auth::user()->type == 1) 
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
+                                      @if(auth::user()->type == "Admin") 
                                         <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
                                           {{csrf_field()}}
                                           <input type="hidden" name="_method" value="DELETE" />
@@ -299,7 +311,7 @@
                                             <i class="far fa-trash-alt"></i>
                                           </button>
                                         </form>
-                                      @elseif(auth::user()->type == 2)
+                                      @elseif(auth::user()->type == "แผนก วิเคราะห์")
                                         @if($row->StatusApp_car != 'อนุมัติ')
                                           <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
                                             {{csrf_field()}}
