@@ -180,7 +180,7 @@
                                 <th class="text-center">เอกสาร/แก้ไข</th>
                                 <th class="text-center">หัวหน้าสาขา</th>
                                 <th class="text-center">อนุมัติ</th>
-                                <th class="text-center" style="width: 100px"></th>
+                                <th class="text-center" style="width: 100px">ดำเนินการ</th>
                               </tr>
                             </thead>
                             <tbody>
