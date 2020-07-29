@@ -82,6 +82,9 @@ Route::group(['middleware' => 'auth'], function()
     Route::get('/regcar/view/{type}', 'RegcarController@index')->name('regcar');
     Route::get('/regcar/create/{type}', 'RegcarController@create')->name('regcar.create');
 
+    //------------------ลูกค้า walkin------------------//
+    route::resource('MasterDataCustomer','DataCustomerController');
+
     //---------------- logout --------------------//
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
     Route::get('/{name}', 'HomeController@index')->name('index');

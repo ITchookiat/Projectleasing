@@ -54,7 +54,7 @@
             </li>
           @endif
 
-          <li class="nav-item has-treeview {{ Request::is('Analysis/*') ? 'menu-open' : '' }}">
+          <li class="nav-item has-treeview {{ Request::is('Analysis/Home/1') ? 'menu-open' : '' }}{{ Request::is('Analysis/Home/2') ? 'menu-open' : '' }}{{ Request::is('Analysis/Home/3') ? 'menu-open' : '' }}{{ Request::is('Analysis/Home/4') ? 'menu-open' : '' }}{{ Request::is('Analysis/Home/5') ? 'menu-open' : '' }}{{ Request::is('Analysis/Home/6') ? 'menu-open' : '' }}{{ Request::is('Analysis/Home/7') ? 'menu-open' : '' }} {{ Request::is('Analysis/edit/1/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/edit/4/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/deleteImageEach/1/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/deleteImageEach/4/*') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link active">
               <i class="nav-icon fa fa-sitemap"></i>
               <p>
@@ -106,7 +106,7 @@
               </li>
             </ul>
 
-            <ul class="nav nav-treeview">
+            <!-- <ul class="nav nav-treeview">
               <li class="nav-item has-treeview {{ Request::is('Analysis/Home/8') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/9') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/10') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/11') ? 'menu-open' : '' }} {{ Request::is('Analysis/edit/8/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/deleteImageEach/8/*') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link">
                   <i class="far fa-window-restore text-red nav-icon"></i>
@@ -128,9 +128,8 @@
                   </li>
                 </ul>
               </li>
-            </ul>
-
-            <ul class="nav nav-treeview">
+            </ul> -->
+            <!-- <ul class="nav nav-treeview">
               <li class="nav-item has-treeview {{ Request::is('Analysis/Home/12') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/13') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/14') ? 'menu-open' : '' }} {{ Request::is('Analysis/edit/9/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/edit/12/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/deleteImageEach/9/*') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link">
                   <i class="far fa-window-restore text-red nav-icon"></i>
@@ -152,11 +151,11 @@
                   </li>
                 </ul>
               </li>
-            </ul>
+            </ul> -->
           @endif
           </li>
 
-          <li class="nav-item has-treeview {{ Request::is('Precipitate/*') ? 'menu-open' : '' }}">
+          <li class="nav-item has-treeview {{ Request::is('Precipitate/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/8') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/9') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/10') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/11') ? 'menu-open' : '' }} {{ Request::is('Analysis/edit/8/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/deleteImageEach/8/*') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link active">
               <i class="nav-icon far fa-handshake"></i>
               <p>
@@ -167,7 +166,7 @@
 
             @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 31)
               <ul class="nav nav-treeview">
-                <li class="nav-item has-treeview {{ Request::is('Precipitate/Home/3') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/1') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/4') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/5') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/11') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/6') ? 'menu-open' : '' }}">
+                <li class="nav-item has-treeview {{ Request::is('Precipitate/Home/3') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/1') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/4') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/5') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/11') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/6') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/8') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/9') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/10') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/11') ? 'menu-open' : '' }} {{ Request::is('Analysis/edit/8/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/deleteImageEach/8/*') ? 'menu-open' : '' }}">
                   <a href="#" class="nav-link">
                     <i class="far fa-window-restore text-red nav-icon"></i>
                     <p>
@@ -188,6 +187,10 @@
                       <a href="{{ route('Precipitate',5) }}" class="nav-link {{ Request::is('Precipitate/Home/5') ? 'active' : '' }} {{ Request::is('Precipitate/Home/6') ? 'active' : '' }}">
                         <i class="far fa-dot-circle nav-icon"></i>
                         <p>ระบบสต็อกรถเร่งรัด</p>
+                      </a>
+                      <a href="{{ route('Analysis',8) }}" class="nav-link {{ Request::is('Analysis/Home/8') ? 'active' : '' }} {{ Request::is('Analysis/Home/9') ? 'active' : '' }} {{ Request::is('Analysis/edit/8/*/*/*/*/*') ? 'active' : '' }}">
+                        <i class="far fa-dot-circle nav-icon"></i>
+                        <p>ระบบปรับโครงสร้างหนี้</p>
                       </a>
                     </li>
                   </ul>
