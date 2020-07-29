@@ -386,7 +386,7 @@
                                 <div class="form-group row mb-1">
                                   <label class="col-sm-3 col-form-label text-right"><font color="red">เลขที่สัญญา : </font></label>
                                   <div class="col-sm-8">
-                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <input type="text" name="Contract_buyer" class="form-control" maxlength="12" value="{{ $data->Contract_buyer }}" />
                                   @else
                                     @if($GetDocComplete != Null)
@@ -406,7 +406,7 @@
                                 <div class="form-group row mb-1">
                                   <label class="col-sm-3 col-form-label text-right"><font color="red">วันที่ทำสัญญา : </font></label>
                                   <div class="col-sm-8">
-                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <input type="date" name="DateDue" class="form-control" value="{{ $newDateDue }}">
                                   @else
                                     <input type="date" name="DateDue" class="form-control" value="{{ $newDateDue }}" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}>
@@ -421,7 +421,7 @@
                                 <div class="form-group row mb-1">
                                   <label class="col-sm-3 col-form-label text-right">ชื่อ : </label>
                                   <div class="col-sm-8">
-                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                       <input type="text" name="Namebuyer" value="{{ $data->Name_buyer }}" class="form-control" placeholder="ป้อนชื่อ" />
                                     @else
                                       <input type="text" name="Namebuyer" value="{{ $data->Name_buyer }}" class="form-control" placeholder="ป้อนชื่อ" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -433,7 +433,7 @@
                                 <div class="form-group row mb-1">
                                   <label class="col-sm-3 col-form-label text-right">นามสกุล : </label>
                                   <div class="col-sm-8">
-                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                       <input type="text" name="lastbuyer" value="{{ $data->last_buyer }}" class="form-control" placeholder="ป้อนนามสกุล" />
                                     @else
                                       <input type="text" name="lastbuyer" value="{{ $data->last_buyer }}" class="form-control" placeholder="ป้อนนามสกุล" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -448,7 +448,7 @@
                                 <div class="form-group row mb-1">
                                   <label class="col-sm-3 col-form-label text-right">ชื่อเล่น : </label>
                                   <div class="col-sm-8">
-                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                       <input type="text" name="Nickbuyer" value="{{ $data->Nick_buyer }}" class="form-control" placeholder="ป้อนชื่อเล่น" />
                                     @else
                                       <input type="text" name="Nickbuyer" value="{{ $data->Nick_buyer }}" class="form-control" placeholder="ป้อนชื่อเล่น" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -460,7 +460,7 @@
                                 <div class="form-group row mb-1">
                                   <label class="col-sm-3 col-form-label text-right">สถานะ : </label>
                                   <div class="col-sm-8">
-                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                       <select name="Statusbuyer" class="form-control">
                                         <option value="" selected>--- เลือกสถานะ ---</option>
                                         @foreach ($Statusby as $key => $value)
@@ -489,7 +489,7 @@
                                 <div class="form-group row mb-1">
                                   <label class="col-sm-3 col-form-label text-right">เบอร์โทรศัพท์ : </label>
                                   <div class="col-sm-8">
-                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                       <input type="text" name="Phonebuyer" value="{{ $data->Phone_buyer }}" class="form-control"  placeholder="ป้อนเบอร์โทรศัพท์" data-inputmask="&quot;mask&quot;:&quot;999-9999999,999-9999999&quot;" data-mask=""/>
                                     @else
                                       <input type="text" name="Phonebuyer" value="{{ $data->Phone_buyer }}" class="form-control"  placeholder="ป้อนเบอร์โทรศัพท์" data-inputmask="&quot;mask&quot;:&quot;999-9999999,999-9999999&quot;" data-mask="" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -501,7 +501,7 @@
                                 <div class="form-group row mb-1">
                                   <label class="col-sm-3 col-form-label text-right">เบอร์โทรอื่นๆ : </label>
                                   <div class="col-sm-8">
-                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                       <input type="text" name="Phone2buyer" value="{{ $data->Phone2_buyer }}" class="form-control"  placeholder="ป้อนเบอร์โทรอื่นๆ" />
                                     @else
                                       <input type="text" name="Phone2buyer" value="{{ $data->Phone2_buyer }}" class="form-control"  placeholder="ป้อนเบอร์โทรอื่นๆ" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -516,7 +516,7 @@
                                 <div class="form-group row mb-1">
                                   <label class="col-sm-3 col-form-label text-right">คู่สมรส : </label>
                                   <div class="col-sm-8">
-                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                       <input type="text" name="Matebuyer" value="{{ $data->Mate_buyer }}" class="form-control"  placeholder="ป้อนคู่สมรส" />
                                     @else
                                       <input type="text" name="Matebuyer" value="{{ $data->Mate_buyer }}" class="form-control"  placeholder="ป้อนคู่สมรส" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -528,7 +528,7 @@
                                 <div class="form-group row mb-1">
                                   <label class="col-sm-3 col-form-label text-right">เลขบัตรประชาชน : </label>
                                   <div class="col-sm-8">
-                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                       <input type="text" name="Idcardbuyer" value="{{ $data->Idcard_buyer }}" class="form-control"  placeholder="ป้อนเลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask=""/>
                                     @else
                                       <input type="text" name="Idcardbuyer" value="{{ $data->Idcard_buyer }}" class="form-control"  placeholder="ป้อนเลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask="" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -543,7 +543,7 @@
                                 <div class="form-group row mb-1">
                                   <label class="col-sm-3 col-form-label text-right">ที่อยู่ : </label>
                                   <div class="col-sm-8">
-                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                       <select name="Addressbuyer" class="form-control" >
                                         <option value="" selected>--- เลือกที่อยู่ ---</option>
                                         @foreach ($Addby as $key => $value)
@@ -569,7 +569,7 @@
                                 <div class="form-group row mb-1">
                                   <label class="col-sm-3 col-form-label text-right">ที่อยู่ปัจจุบัน/ส่งเอกสาร : </label>
                                   <div class="col-sm-8">
-                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                       <input type="text" name="AddNbuyer" value="{{ $data->AddN_buyer }}" class="form-control"  placeholder="ที่อยู่ปัจจุบัน/ส่งเอกสาร" />
                                     @else
                                       <input type="text" name="AddNbuyer" value="{{ $data->AddN_buyer }}" class="form-control"  placeholder="ที่อยู่ปัจจุบัน/ส่งเอกสาร" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -584,7 +584,7 @@
                                 <div class="form-group row mb-1">
                                   <label class="col-sm-3 col-form-label text-right">รายละเอียดที่อยู่ : </label>
                                   <div class="col-sm-8">
-                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                       <input type="text" name="StatusAddbuyer" value="{{ $data->StatusAdd_buyer }}" class="form-control"  placeholder="ป้อนรายละเอียดที่อยู่" />
                                     @else
                                       <input type="text" name="StatusAddbuyer" value="{{ $data->StatusAdd_buyer }}" class="form-control"  placeholder="ป้อนรายละเอียดที่อยู่" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -596,7 +596,7 @@
                                 <div class="form-group row mb-1">
                                   <label class="col-sm-3 col-form-label text-right">สถานที่ทำงาน : </label>
                                   <div class="col-sm-8">
-                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                       <input type="text" name="Workplacebuyer" value="{{ $data->Workplace_buyer }}" class="form-control"  placeholder="ป้อนสถานที่ทำงาน" />
                                     @else
                                       <input type="text" name="Workplacebuyer" value="{{ $data->Workplace_buyer }}" class="form-control"  placeholder="ป้อนสถานที่ทำงาน" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -611,7 +611,7 @@
                                 <div class="form-group row mb-1">
                                   <label class="col-sm-3 col-form-label text-right">ลักษณะบ้าน : </label>
                                   <div class="col-sm-8">
-                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                       <select name="Housebuyer" class="form-control" >
                                         <option value="" selected>--- เลือกลักษณะบ้าน ---</option>
                                         @foreach ($Houseby as $key => $value)
@@ -637,7 +637,7 @@
                                 <div class="form-group row mb-1">
                                   <label class="col-sm-3 col-form-label text-right">ประเภทหลักทรัพย์ : </label>
                                   <div class="col-sm-8">
-                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                       <select name="securitiesbuyer" class="form-control" >
                                         <option value="" selected>--- ประเภทหลักทรัพย์ ---</option>
                                         @foreach ($securitiesSPp as $key => $value)
@@ -666,7 +666,7 @@
                                 <div class="form-group row mb-1">
                                   <label class="col-sm-3 col-form-label text-right">เลขที่โฉนด : </label>
                                   <div class="col-sm-8">
-                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                       <input type="text" name="deednumberbuyer" value="{{$data->deednumber_buyer}}" class="form-control"  placeholder="เลขที่โฉนด" />
                                     @else
                                       <input type="text" name="deednumberbuyer" value="{{$data->deednumber_buyer}}" class="form-control"  placeholder="เลขที่โฉนด" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -678,7 +678,7 @@
                                 <div class="form-group row mb-1">
                                   <label class="col-sm-3 col-form-label text-right">เนื่อที่ : </label>
                                   <div class="col-sm-8">
-                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                       <input type="text" name="areabuyer" value="{{$data->area_buyer}}" class="form-control"  placeholder="เนื้อที่" data-inputmask="&quot;mask&quot;:&quot;99-9-99&quot;" data-mask=""/>
                                     @else
                                       <input type="text" name="areabuyer" value="{{$data->area_buyer}}" class="form-control"  placeholder="เนื้อที่" data-inputmask="&quot;mask&quot;:&quot;99-9-99&quot;" data-mask="" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -693,7 +693,7 @@
                                 <div class="form-group row mb-1">
                                   <label class="col-sm-3 col-form-label text-right">ประเภทบ้าน : </label>
                                   <div class="col-sm-8">
-                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                       <select name="HouseStylebuyer" class="form-control" >
                                         <option value="" selected>--- ประเภทบ้าน ---</option>
                                         @foreach ($HouseStyleby as $key => $value)
@@ -719,7 +719,7 @@
                                 <div class="form-group row mb-1">
                                   <label class="col-sm-3 col-form-label text-right">อาชีพ : </label>
                                   <div class="col-sm-8">
-                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                       <select name="Careerbuyer" class="form-control" >
                                         <option value="" selected>--- อาชีพ ---</option>
                                         @foreach ($Careerby as $key => $value)
@@ -748,7 +748,7 @@
                                 <div class="form-group row mb-1">
                                   <label class="col-sm-3 col-form-label text-right">รายได้ : </label>
                                   <div class="col-sm-8">
-                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                       <select name="Incomebuyer" class="form-control" >
                                         <option value="" selected>--- รายได้ ---</option>
                                         @foreach ($Incomeby as $key => $value)
@@ -774,7 +774,7 @@
                                 <div class="form-group row mb-1">
                                   <label class="col-sm-3 col-form-label text-right">ใบขับขี่ : </label>
                                   <div class="col-sm-8">
-                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                       <select name="Driverbuyer" class="form-control" >
                                         <option value="" selected>--- เลือกใบขับขี่ ---</option>
                                         @foreach ($Driverby as $key => $value)
@@ -803,7 +803,7 @@
                                 <div class="form-group row mb-1">
                                   <label class="col-sm-3 col-form-label text-right">หักค่าใช้จ่าย : </label>
                                   <div class="col-sm-8">
-                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                       <input type="text" id="Beforeincome" name="Beforeincome" value="{{ number_format($data->BeforeIncome_buyer,0) }}" class="form-control"  placeholder="ก่อนหักค่าใช้จ่าย" onchange="income();" />
                                     @else
                                       <input type="text" id="Beforeincome" name="Beforeincome" value="{{ number_format($data->BeforeIncome_buyer,0) }}" class="form-control"  placeholder="ก่อนหักค่าใช้จ่าย" onchange="income();" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }} />
@@ -815,7 +815,7 @@
                                 <div class="form-group row mb-1">
                                   <label class="col-sm-3 col-form-label text-right">ประวัติการซื้อ/ค้ำ : </label>
                                   <div class="col-sm-4">
-                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                       <select name="Purchasebuyer" class="form-control">
                                         <option value="" selected>--- ซื้อ ---</option>
                                         @foreach ($HisCarby as $key => $value)
@@ -836,7 +836,7 @@
                                     @endif
                                   </div>
                                   <div class="col-sm-4">
-                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                       <select name="Supportbuyer" class="form-control">
                                         <option value="" selected>--- ค้ำ ---</option>
                                         @foreach ($HisCarby as $key => $value)
@@ -865,7 +865,7 @@
                                 <div class="form-group row mb-1">
                                   <label class="col-sm-3 col-form-label text-right">รายได้หลังหักค่าใช้จ่าย : </label>
                                   <div class="col-sm-8">
-                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                       <input type="text" id="Afterincome" name="Afterincome" value="{{ number_format($data->AfterIncome_buyer,0) }}" class="form-control"  placeholder="ก่อนหักค่าใช้จ่าย" onchange="income();" />
                                     @else
                                       <input type="text" id="Afterincome" name="Afterincome" value="{{ number_format($data->AfterIncome_buyer,0) }}" class="form-control"  placeholder="ก่อนหักค่าใช้จ่าย" onchange="income();" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }} />
@@ -877,7 +877,7 @@
                                 <div class="form-group row mb-1">
                                   <label class="col-sm-3 col-form-label text-right">สถานะผู้เช่าซื้อ : </label>
                                   <div class="col-sm-8">
-                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                       <select name="Gradebuyer" class="form-control" >
                                         <option value="" selected>--- สถานะผู้เช่าซื้อ ---</option>
                                         @foreach ($GradeBuyer as $key => $value)
@@ -906,7 +906,7 @@
                                 <div class="form-group row mb-1">
                                   <label class="col-sm-3 col-form-label text-right">วัตถุประสงค์ของสินเชื่อ : </label>
                                   <div class="col-sm-8">
-                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                       <select name="objectivecar" class="form-control" >
                                         <option value="" selected>--- วัตถุประสงค์ของสินเชื่อ ---</option>
                                         @foreach ($objectivecar as $key => $value)
@@ -939,7 +939,7 @@
                             <div class="row">
                               <div class="col-md-12">
                                 <h5 class="text-center"><b>รูปภาพประกอบ</b></h5>
-                                @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                   <div class="file-loading">
                                     <input id="image-file" type="file" name="file_image[]" accept="image/*" data-min-file-count="1" multiple>
                                   </div>
@@ -956,7 +956,7 @@
                                       $path = $data->License_car;
                                     @endphp
                                     <p></p>
-                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                       <a href="{{ action('AnalysController@deleteImageAll',[$data->id,$path]) }}" class="btn btn-danger pull-left DeleteImage" title="ลบรูปภาพทั้งหมด"> ลบรูปภาพทั้งหมด..</a>
                                       <a href="{{ action('AnalysController@deleteImageEach',[$type,$data->id,$fdate,$tdate,$branch,$status,$path]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
                                         <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ..
@@ -1032,7 +1032,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">ชื่อ : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <input type="text" name="nameSP" value="{{$data->name_SP}}" class="form-control" placeholder="ชื่อ" />
                                   @else
                                     <input type="text" name="nameSP" value="{{$data->name_SP}}" class="form-control" placeholder="ชื่อ" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -1044,7 +1044,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">นามสกุล : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <input type="text" name="lnameSP" value="{{$data->lname_SP}}" class="form-control" placeholder="นามสกุล" />
                                   @else
                                     <input type="text" name="lnameSP" value="{{$data->lname_SP}}" class="form-control" placeholder="นามสกุล" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -1059,7 +1059,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">ชื่อเล่น : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <input type="text" name="niknameSP" value="{{$data->nikname_SP}}" class="form-control" placeholder="ชื่อเล่น" />
                                   @else
                                     <input type="text" name="niknameSP" value="{{$data->nikname_SP}}" class="form-control" placeholder="ชื่อเล่น" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -1071,7 +1071,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">สถานะ : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <select name="statusSP" class="form-control">
                                       <option value="" selected>--- สถานะ ---</option>
                                       @foreach ($Statusby as $key => $value)
@@ -1100,7 +1100,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">เบอร์โทร : </label>
                                 <div class="col-sm-8">
-                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <input type="text" name="telSP" value="{{$data->tel_SP}}" class="form-control" placeholder="เบอร์โทร" data-inputmask="&quot;mask&quot;:&quot;999-9999999,999-9999999&quot;" data-mask=""/>
                                   @else
                                     <input type="text" name="telSP" value="{{$data->tel_SP}}" class="form-control" placeholder="เบอร์โทร" data-inputmask="&quot;mask&quot;:&quot;999-9999999,999-9999999&quot;" data-mask="" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -1112,7 +1112,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">ความสัมพันธ์ : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <select name="relationSP" class="form-control">
                                       <option value="" selected>--- ความสัมพันธ์ ---</option>
                                         @foreach ($relationSPp as $key => $value)
@@ -1141,7 +1141,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">คู่สมรส : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <input type="text" name="mateSP" value="{{$data->mate_SP}}" class="form-control" placeholder="คู่สมรส" />
                                   @else
                                     <input type="text" name="mateSP" value="{{$data->mate_SP}}" class="form-control" placeholder="คู่สมรส" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -1153,7 +1153,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">เลขบัตรประชาชน : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <input type="text" name="idcardSP" value="{{$data->idcard_SP}}" class="form-control" placeholder="เลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask=""/>
                                   @else
                                     <input type="text" name="idcardSP" value="{{$data->idcard_SP}}" class="form-control" placeholder="เลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask="" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -1168,7 +1168,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">ที่อยู่ : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <select name="addSP" class="form-control">
                                       <option value="" selected>--- ที่อยู่ ---</option>
                                         @foreach ($Addby as $key => $value)
@@ -1194,7 +1194,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">ที่อยู่ปัจจุบัน/จัดส่งเอกสาร : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <input type="text" name="addnowSP" value="{{$data->addnow_SP}}" class="form-control" placeholder="ที่อยู่ปัจจุบัน/จัดส่งเอกสาร" />
                                   @else
                                     <input type="text" name="addnowSP" value="{{$data->addnow_SP}}" class="form-control" placeholder="ที่อยู่ปัจจุบัน/จัดส่งเอกสาร" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -1209,7 +1209,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">รายละเอียดที่อยู่ : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <input type="text" name="statusaddSP" value="{{$data->statusadd_SP}}" class="form-control" placeholder="รายละเอียดที่อยู่" />
                                   @else
                                     <input type="text" name="statusaddSP" value="{{$data->statusadd_SP}}" class="form-control" placeholder="รายละเอียดที่อยู่" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -1221,7 +1221,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">สถานที่ทำงาน : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <input type="text" name="workplaceSP" value="{{$data->workplace_SP}}" class="form-control" placeholder="สถานที่ทำงาน" />
                                   @else
                                     <input type="text" name="workplaceSP" value="{{$data->workplace_SP}}" class="form-control" placeholder="สถานที่ทำงาน" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -1236,7 +1236,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">ลักษณะบ้าน : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <select name="houseSP" class="form-control">
                                       <option value="" selected>--- เลือกลักษณะบ้าน ---</option>
                                         @foreach ($Houseby as $key => $value)
@@ -1262,7 +1262,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">ประเภทหลักทรัพย์ : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <select name="securitiesSP" class="form-control">
                                       <option value="" selected>--- ประเภทหลักทรัพย์ ---</option>
                                         @foreach ($securitiesSPp as $key => $value)
@@ -1291,7 +1291,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">เลขที่โฉนด : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <input type="text" name="deednumberSP" value="{{$data->deednumber_SP}}" class="form-control" placeholder="เลขที่โฉนด" />
                                   @else
                                     <input type="text" name="deednumberSP" value="{{$data->deednumber_SP}}" class="form-control" placeholder="เลขที่โฉนด" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -1303,7 +1303,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">เนื้อที่ : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <input type="text" name="areaSP" value="{{$data->area_SP}}" class="form-control" placeholder="เนื้อที่" data-inputmask="&quot;mask&quot;:&quot;99-9-99&quot;" data-mask=""/>
                                   @else
                                     <input type="text" name="areaSP" value="{{$data->area_SP}}" class="form-control" placeholder="เนื้อที่" data-inputmask="&quot;mask&quot;:&quot;99-9-99&quot;" data-mask="" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -1318,7 +1318,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">ประเภทบ้าน : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <select name="housestyleSP" class="form-control">
                                       <option value="" selected>--- ประเภทบ้าน ---</option>
                                       @foreach ($HouseStyleby as $key => $value)
@@ -1344,7 +1344,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">อาชีพ : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <select name="careerSP" class="form-control">
                                       <option value="" selected>--- อาชีพ ---</option>
                                       @foreach ($Careerby as $key => $value)
@@ -1373,7 +1373,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">รายได้ : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <select name="incomeSP" class="form-control">
                                       <option value="" selected>--- รายได้ ---</option>
                                       @foreach ($Incomeby as $key => $value)
@@ -1399,7 +1399,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">ประวัติซื้อ/ค้ำ  : </label>
                                 <div class="col-sm-4">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <select name="puchaseSP" class="form-control">
                                       <option value="" selected>--- ซื้อ ---</option>
                                       @foreach ($HisCarby as $key => $value)
@@ -1420,7 +1420,7 @@
                                   @endif
                                 </div>
                                 <div class="col-sm-4">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <select name="supportSP" class="form-control">
                                       <option value="" selected>--- ค้ำ ---</option>
                                       @foreach ($HisCarby as $key => $value)
@@ -1454,7 +1454,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">ยี่ห้อ : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <select name="Brandcar" class="form-control" >
                                       <option value="" selected>--- ยี่ห้อ ---</option>
                                       @foreach ($Brandcarr as $key => $value)
@@ -1480,7 +1480,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">ประเภทรถ : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <select id="Typecardetail" name="Typecardetail" class="form-control"  onchange="calculate();">
                                       <option value="" selected>--- ประเภทรถ ---</option>
                                       @foreach ($Typecardetail as $key => $value)
@@ -1509,7 +1509,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">สี : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <input type="text" name="Colourcar" value="{{ $data->Colour_car }}" class="form-control"  placeholder="สี" />
                                   @else
                                     <input type="text" name="Colourcar" value="{{ $data->Colour_car }}" class="form-control"  placeholder="สี" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -1521,7 +1521,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">ปี : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <select id="Yearcar" name="Yearcar" class="form-control"  onchange="calculate();">
                                       <option value="{{$data->Year_car}}" selected>{{$data->Year_car}}</option>
                                       <option value="">--------------------</option>
@@ -1595,7 +1595,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">เลขไมล์ : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <input type="text" id="Milecar" name="Milecar" value="{{$data->Mile_car}}" class="form-control"  placeholder="เลขไมล์" onchange="mile();" />
                                   @else
                                     <input type="text" id="Milecar" name="Milecar" value="{{$data->Mile_car}}" class="form-control"  placeholder="เลขไมล์" onchange="mile();" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -1610,7 +1610,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">รุ่น : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <input type="text" name="Modelcar" value="{{$data->Model_car}}" class="form-control"  placeholder="รุ่น" />
                                   @else
                                     <input type="text" name="Modelcar" value="{{$data->Model_car}}" class="form-control"  placeholder="รุ่น" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -1622,7 +1622,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">ราคากลาง : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <input type="text" id="Midpricecar" name="Midpricecar" value="{{$data->Midprice_car}}" class="form-control"  placeholder="ราคากลาง" oninput="mile();percent();"/>
                                   @else
                                     <input type="text" id="Midpricecar" name="Midpricecar" value="{{$data->Midprice_car}}" class="form-control"  placeholder="ราคากลาง" oninput="mile();percent();" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -1640,7 +1640,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">ยอดจัด : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control"  placeholder="กรอกยอดจัด" oninput="calculate();balance();percent();" />
                                   @else
                                     <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control"  placeholder="กรอกยอดจัด" oninput="calculate();balance();percent();" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -1664,7 +1664,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">ระยะเวลาผ่อน : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <select id="Timeslackencar" name="Timeslackencar" class="form-control"  onchange="calculate();">
                                       <option value="" selected>--- ระยะเวลาผ่อน ---</option>
                                       @foreach ($Timeslackencarr as $key => $value)
@@ -1748,7 +1748,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">ประกันภัย : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <select id="Insurancecar" name="Insurancecar" class="form-control"  onchange="">
                                       <option value="" selected>--- ประกันภัย ---</option>
                                       @foreach ($Insurancecarr as $key => $value)
@@ -1774,7 +1774,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">เปอร์เซ็นจัดไฟแนนซ์ : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <input type="text" name="Percentcar" value="{{$data->Percent_car}}" class="form-control int"  placeholder="เปอร์เซ็นจัดไฟแนนซ์" readonly/>
                                   @else
                                     <input type="text" name="Percentcar" value="{{$data->Percent_car}}" class="form-control int"  placeholder="เปอร์เซ็นจัดไฟแนนซ์" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -1789,7 +1789,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">แบบ : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <select id="statuscar" name="statuscar" class="form-control" >
                                       <option value="" selected>--- เลือกแบบ ---</option>
                                       @foreach ($statuscarr as $key => $value)
@@ -1931,7 +1931,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">ผู้รับเงิน : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <input type="text" name="Payeecar" value="{{$data->Payee_car}}" class="form-control"  placeholder="ผู้รับเงิน" />
                                   @else
                                     <input type="text" name="Payeecar" value="{{$data->Payee_car}}" class="form-control"  placeholder="ผู้รับเงิน" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -1943,7 +1943,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">เลขที่บัญชี : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <input type="text" name="Accountbrancecar" value="{{$data->Accountbrance_car}}" class="form-control"  placeholder="เลขที่บัญชี" maxlength="15"/>
                                   @else
                                     <input type="text" name="Accountbrancecar" value="{{$data->Accountbrance_car}}" class="form-control"  placeholder="เลขที่บัญชี" maxlength="15" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -1959,7 +1959,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">สาขา : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <input type="text" name="branchbrancecar" value="{{$data->branchbrance_car}}" class="form-control"  placeholder="สาขาผู้รับเงิน" />
                                   @else
                                     <input type="text" name="branchbrancecar" value="{{$data->branchbrance_car}}" class="form-control"  placeholder="สาขาผู้รับเงิน" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -1975,7 +1975,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">เบอร์โทรศัพท์ : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <input type="text" name="Tellbrancecar" value="{{$data->Tellbrance_car}}" class="form-control"  placeholder="เบอร์โทรศัพท์" data-inputmask="&quot;mask&quot;:&quot;999-9999999&quot;" data-mask=""/>
                                   @else
                                     <input type="text" name="Tellbrancecar" value="{{$data->Tellbrance_car}}" class="form-control"  placeholder="เบอร์โทรศัพท์" data-inputmask="&quot;mask&quot;:&quot;999-9999999&quot;" data-mask="" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -1990,7 +1990,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right"><font color="red">(* กรณีเป็นพนักงาน) </font>แนะนำ/นายหน้า : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <input type="text" id="Agentcar" name="Agentcar" value="{{$data->Agent_car}}" class="form-control"  placeholder="แนะนำ/นายหน้า" />
                                   @else
                                     <input type="text" id="Agentcar" name="Agentcar" value="{{$data->Agent_car}}" class="form-control"  placeholder="แนะนำ/นายหน้า" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -2002,7 +2002,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">เลขที่บัญชี : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <input type="text" name="Accountagentcar" value="{{$data->Accountagent_car}}" class="form-control"  placeholder="เลขที่บัญชี" maxlength="15"/>
                                   @else
                                     <input type="text" name="Accountagentcar" value="{{$data->Accountagent_car}}" class="form-control"  placeholder="เลขที่บัญชี" maxlength="15" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -2017,7 +2017,7 @@
                               <div class="form-group row mb-1">
                                   <label class="col-sm-3 col-form-label text-right">ค่าคอม : </label>
                                   <div class="col-sm-8">
-                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                       <input type="text" id="Commissioncar" name="Commissioncar" value="{{number_format($data->Commission_car, 2)}}" class="form-control"  placeholder="ค่าคอม" oninput="commission()"/>
                                     @else
                                       <input type="text" id="Commissioncar" name="Commissioncar" value="{{number_format($data->Commission_car, 2)}}" class="form-control"  placeholder="ค่าคอม" oninput="commission()" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -2029,7 +2029,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">สาขา : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <input type="text" name="branchAgentcar" value="{{$data->branchAgent_car}}" class="form-control"  placeholder="สาขานายหน้า"/>
                                   @else
                                     <input type="text" name="branchAgentcar" value="{{$data->branchAgent_car}}" class="form-control"  placeholder="สาขานายหน้า" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -2044,7 +2044,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">ประวัติการซื้อ/ค้ำ : </label>
                                 <div class="col-sm-4">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <select name="Purchasehistorycar" class="form-control">
                                       <option value="" selected>--- ซื้อ ---</option>
                                       @foreach ($HisCarby as $key => $value)
@@ -2065,7 +2065,7 @@
                                   @endif
                                 </div>
                                 <div class="col-sm-4">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <select name="Supporthistorycar" class="form-control">
                                       <option value="" selected>--- ค้ำ ---</option>
                                       @foreach ($HisCarby as $key => $value)
@@ -2091,7 +2091,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">เบอร์โทรศัพท์ : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <input type="text" name="Tellagentcar" value="{{$data->Tellagent_car}}" class="form-control"  placeholder="เบอร์โทรศัพท์" data-inputmask="&quot;mask&quot;:&quot;999-9999999&quot;" data-mask=""/>
                                   @else
                                     <input type="text" name="Tellagentcar" value="{{$data->Tellagent_car}}" class="form-control"  placeholder="เบอร์โทรศัพท์" data-inputmask="&quot;mask&quot;:&quot;999-9999999&quot;" data-mask="" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -2106,7 +2106,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">หมายเหตุ : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <input type="text" name="Notecar" value="{{$data->Note_car}}" class="form-control"  placeholder="หมายเหตุ"/>
                                   @else
                                     <input type="text" name="Notecar" value="{{$data->Note_car}}" class="form-control" placeholder="หมายเหตุ" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -2120,7 +2120,7 @@
                           <div class="row">
                             <div class="col-md-6">
                               <h5 class="text-center"><font color="red"><b>เพิ่มรูปหน้าบัญชี</b></font></h5>
-                              @if(auth::user()->type == 1 or auth::user()->type == 2)
+                              @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                 <div class="file-loading">
                                   <input id="Account_image" type="file" name="Account_image" accept="image/*" data-min-file-count="1" multiple>
                                 </div>
@@ -2182,7 +2182,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">พรบ. : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <input type="text" id="actPrice" name="actPrice" value="{{number_format($data->act_Price)}}" class="form-control" placeholder="พรบ." onchange="balance();"/>
                                   @else
                                     <input type="text" id="actPrice" name="actPrice" value="{{number_format($data->act_Price)}}" class="form-control" placeholder="พรบ." onchange="balance();" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -2194,7 +2194,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">เปอร์เซ็นต์ค่าคอม : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <input type="text" name="vatPrice" value="{{$data->vat_Price}}" class="form-control" placeholder="เปอร์เซ็นต์ค่าคอม" />
                                   @else
                                     <input type="text" name="vatPrice" value="{{$data->vat_Price}}" class="form-control" placeholder="เปอร์เซ็นต์ค่าคอม" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -2210,7 +2210,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">ยอดปิดบัญชี : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <input type="text" id="closeAccountPrice" name="closeAccountPrice" value="{{number_format($data->closeAccount_Price)}}" class="form-control" placeholder="ยอดปิดบัญชี" onchange="balance()"/>
                                   @else
                                     <input type="text" id="closeAccountPrice" name="closeAccountPrice" value="{{number_format($data->closeAccount_Price)}}" class="form-control" placeholder="ยอดปิดบัญชี" onchange="balance()" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -2222,7 +2222,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">ซื้อ ป2+/ป1 : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <input type="text" id="P2Price" name="P2Price" value="{{number_format($data->P2_Price)}}" class="form-control" placeholder="ซื้อ ป2+" onchange="balance();"/>
                                   @else
                                     <input type="text" id="P2Price" name="P2Price" value="{{number_format($data->P2_Price)}}" class="form-control" placeholder="ซื้อ ป2+" onchange="balance();" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -2258,7 +2258,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">ค่าประเมิน : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <select id="evaluetionPrice" name="evaluetionPrice" class="form-control" onchange="balance();">
                                       <option value="" selected>--- ค่าประเมิน ---</option>
                                       @foreach ($evaluetionPricee as $key => $value)
@@ -2415,7 +2415,7 @@
                                         <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
                                       </div>
                                     </div>
-                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                       <textarea class="form-control" name="BuyerNote" rows="3" placeholder="ป้อนหมายเหตุ...">{{$data->Buyer_note}}</textarea>
                                     @else
                                       @if($GetDocComplete != Null)
@@ -2490,7 +2490,7 @@
                                         <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
                                       </div>
                                     </div>
-                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                       <textarea class="form-control" name="SupportNote" rows="3" placeholder="ป้อนหมายเหตุ...">{{$data->Support_note}}</textarea>
                                     @else
                                       @if($GetDocComplete != Null)
@@ -2522,7 +2522,7 @@
                                           <div class="form-inline float-left">
                                             <label>ตำแหน่งที่ตั้งผู้เช่าซื้อ (A) : </label>
                                           </div>
-                                            @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                            @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                               <input type="text" id="Buyer_latlong" name="Buyer_latlong" class="form-control" value="{{ $data->Buyer_latlong }}"/>
                                             @else
                                               @if($GetDocComplete != Null)
@@ -2535,7 +2535,7 @@
                                           <div class="form-inline float-left">
                                             <label>ตำแหน่งที่ตั้งผู้ค้ำ (B): </label>
                                           </div>
-                                            @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                            @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                                <input type="text" id="Support_latlong" name="Support_latlong" class="form-control" value="{{ $data->Support_latlong }}"/>
                                             @else
                                               @if($GetDocComplete != Null)
@@ -2579,7 +2579,7 @@
                                   <div class="form-group row mb-1">
                                     <label class="col-sm-3 col-form-label text-right">ชื่อ : </label>
                                     <div class="col-sm-8">
-                                      @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                         <input type="text" name="nameSP2" value="{{$data->name_SP2}}" class="form-control" placeholder="ชื่อ" />
                                       @else
                                           <input type="text" name="nameSP2" value="{{$data->name_SP2}}" class="form-control" placeholder="ชื่อ" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -2591,7 +2591,7 @@
                                   <div class="form-group row mb-1">
                                     <label class="col-sm-3 col-form-label text-right">นามสกุล : </label>
                                     <div class="col-sm-8">
-                                      @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                         <input type="text" name="lnameSP2" value="{{$data->lname_SP2}}" class="form-control" placeholder="นามสกุล" />
                                       @else
                                         <input type="text" name="lnameSP2" value="{{$data->lname_SP2}}" class="form-control" placeholder="นามสกุล" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -2606,7 +2606,7 @@
                                   <div class="form-group row mb-1">
                                     <label class="col-sm-3 col-form-label text-right">ชื่อเล่น : </label>
                                     <div class="col-sm-8">
-                                      @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                         <input type="text" name="niknameSP2" value="{{$data->nikname_SP2}}" class="form-control" placeholder="ชื่อเล่น" />
                                       @else
                                         <input type="text" name="niknameSP2" value="{{$data->nikname_SP2}}" class="form-control" placeholder="ชื่อเล่น" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -2618,7 +2618,7 @@
                                   <div class="form-group row mb-1">
                                     <label class="col-sm-3 col-form-label text-right">สถานะ : </label>
                                     <div class="col-sm-8">
-                                      @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                         <select name="statusSP2" class="form-control">
                                           <option value="" selected>--- สถานะ ---</option>
                                           @foreach ($Statusby as $key => $value)
@@ -2647,7 +2647,7 @@
                                   <div class="form-group row mb-1">
                                     <label class="col-sm-3 col-form-label text-right">เบอร์โทร : </label>
                                     <div class="col-sm-8">
-                                      @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                         <input type="text" name="telSP2" value="{{$data->tel_SP2}}" class="form-control" placeholder="เบอร์โทร" data-inputmask="&quot;mask&quot;:&quot;999-9999999,999-9999999&quot;" data-mask=""/>
                                       @else
                                         <input type="text" name="telSP2" value="{{$data->tel_SP2}}" class="form-control" placeholder="เบอร์โทร" data-inputmask="&quot;mask&quot;:&quot;999-9999999,999-9999999&quot;" data-mask="" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -2659,7 +2659,7 @@
                                   <div class="form-group row mb-1">
                                     <label class="col-sm-3 col-form-label text-right">ความสัมพันธ์ : </label>
                                     <div class="col-sm-8">
-                                      @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                         <select name="relationSP2" class="form-control">
                                           <option value="" selected>--- ความสัมพันธ์ ---</option>
                                           @foreach ($relationSPp as $key => $value)
@@ -2688,7 +2688,7 @@
                                   <div class="form-group row mb-1">
                                     <label class="col-sm-3 col-form-label text-right">คู่สมรส : </label>
                                     <div class="col-sm-8">
-                                      @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                         <input type="text" name="mateSP2" value="{{$data->mate_SP2}}" class="form-control" placeholder="คู่สมรส" />
                                       @else
                                         <input type="text" name="mateSP2" value="{{$data->mate_SP2}}" class="form-control" placeholder="คู่สมรส" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -2700,7 +2700,7 @@
                                   <div class="form-group row mb-1">
                                     <label class="col-sm-3 col-form-label text-right">เลขบัตรประชาชน : </label>
                                     <div class="col-sm-8">
-                                      @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                         <input type="text" name="idcardSP2" value="{{$data->idcard_SP2}}" class="form-control" placeholder="เลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask=""/>
                                       @else
                                         <input type="text" name="idcardSP2" value="{{$data->idcard_SP2}}" class="form-control" placeholder="เลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask="" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -2715,7 +2715,7 @@
                                   <div class="form-group row mb-1">
                                     <label class="col-sm-3 col-form-label text-right">ที่อยู่ : </label>
                                     <div class="col-sm-8">
-                                      @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                         <select name="addSP2" class="form-control">
                                           <option value="" selected>--- ที่อยู่ ---</option>
                                           @foreach ($Addby as $key => $value)
@@ -2741,7 +2741,7 @@
                                   <div class="form-group row mb-1">
                                     <label class="col-sm-3 col-form-label text-right">ที่อยู่ปัจจุบัน/จัดส่งเอกสาร : </label>
                                     <div class="col-sm-8">
-                                      @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                         <input type="text" name="addnowSP2" value="{{$data->addnow_SP2}}" class="form-control" placeholder="ที่อยู่ปัจจุบัน/จัดส่งเอกสาร" />
                                       @else
                                         <input type="text" name="addnowSP2" value="{{$data->addnow_SP2}}" class="form-control" placeholder="ที่อยู่ปัจจุบัน/จัดส่งเอกสาร" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -2756,7 +2756,7 @@
                                   <div class="form-group row mb-1">
                                     <label class="col-sm-3 col-form-label text-right">รายละเอียดที่อยู่ : </label>
                                     <div class="col-sm-8">
-                                      @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                         <input type="text" name="statusaddSP2" value="{{$data->statusadd_SP2}}" class="form-control" placeholder="รายละเอียดที่อยู่" />
                                       @else
                                         <input type="text" name="statusaddSP2" value="{{$data->statusadd_SP2}}" class="form-control" placeholder="รายละเอียดที่อยู่" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -2768,7 +2768,7 @@
                                   <div class="form-group row mb-1">
                                     <label class="col-sm-3 col-form-label text-right">สถานที่ทำงาน : </label>
                                     <div class="col-sm-8">
-                                      @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                         <input type="text" name="workplaceSP2" value="{{$data->workplace_SP2}}" class="form-control" placeholder="สถานที่ทำงาน" />
                                       @else
                                         <input type="text" name="workplaceSP2" value="{{$data->workplace_SP2}}" class="form-control" placeholder="สถานที่ทำงาน" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -2783,7 +2783,7 @@
                                   <div class="form-group row mb-1">
                                     <label class="col-sm-3 col-form-label text-right">ลักษณะบ้าน : </label>
                                     <div class="col-sm-8">
-                                      @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                         <select name="houseSP2" class="form-control">
                                           <option value="" selected>--- เลือกลักษณะบ้าน ---</option>
                                           @foreach ($Houseby as $key => $value)
@@ -2809,7 +2809,7 @@
                                   <div class="form-group row mb-1">
                                     <label class="col-sm-3 col-form-label text-right">ประเภทหลักทรัพย์ : </label>
                                     <div class="col-sm-8">
-                                      @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                         <select name="securitiesSP2" class="form-control">
                                           <option value="" selected>--- ประเภทหลักทรัพย์ ---</option>
                                           @foreach ($securitiesSPp as $key => $value)
@@ -2838,7 +2838,7 @@
                                   <div class="form-group row mb-1">
                                     <label class="col-sm-3 col-form-label text-right">เลขที่โฉนด : </label>
                                     <div class="col-sm-8">
-                                      @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                         <input type="text" name="deednumberSP2" value="{{$data->deednumber_SP2}}" class="form-control" placeholder="เลขที่โฉนด" />
                                       @else
                                         <input type="text" name="deednumberSP2" value="{{$data->deednumber_SP2}}" class="form-control" placeholder="เลขที่โฉนด" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -2850,7 +2850,7 @@
                                   <div class="form-group row mb-1">
                                     <label class="col-sm-3 col-form-label text-right">เนื้อที่ : </label>
                                     <div class="col-sm-8">
-                                      @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                         <input type="text" name="areaSP2" value="{{$data->area_SP2}}" class="form-control" placeholder="เนื้อที่" data-inputmask="&quot;mask&quot;:&quot;99-9-99&quot;" data-mask=""/>
                                       @else
                                         <input type="text" name="areaSP2" value="{{$data->area_SP2}}" class="form-control" placeholder="เนื้อที่" data-inputmask="&quot;mask&quot;:&quot;99-9-99&quot;" data-mask="" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
@@ -2865,7 +2865,7 @@
                                   <div class="form-group row mb-1">
                                     <label class="col-sm-3 col-form-label text-right">ประเภทบ้าน : </label>
                                     <div class="col-sm-8">
-                                      @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                         <select name="housestyleSP2" class="form-control">
                                           <option value="" selected>--- ประเภทบ้าน ---</option>
                                           @foreach ($HouseStyleby as $key => $value)
@@ -2891,7 +2891,7 @@
                                   <div class="form-group row mb-1">
                                     <label class="col-sm-3 col-form-label text-right">อาชีพ : </label>
                                     <div class="col-sm-8">
-                                      @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                         <select name="careerSP2" class="form-control">
                                           <option value="" selected>--- อาชีพ ---</option>
                                           @foreach ($Careerby as $key => $value)
@@ -2920,7 +2920,7 @@
                                   <div class="form-group row mb-1">
                                     <label class="col-sm-3 col-form-label text-right">รายได้ : </label>
                                     <div class="col-sm-8">
-                                      @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                         <select name="incomeSP2" class="form-control">
                                           <option value="" selected>--- รายได้ ---</option>
                                           @foreach ($Incomeby as $key => $value)
@@ -2946,7 +2946,7 @@
                                   <div class="form-group row mb-1">
                                     <label class="col-sm-3 col-form-label text-right">ประวัติซื้อ : </label>
                                     <div class="col-sm-4">
-                                      @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                         <select name="puchaseSP2" class="form-control">
                                           <option value="" selected>--- ซื้อ ---</option>
                                           @foreach ($HisCarby as $key => $value)
@@ -2967,7 +2967,7 @@
                                       @endif
                                     </div>
                                     <div class="col-sm-4">
-                                      @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                         <select name="supportSP2" class="form-control">
                                           <option value="" selected>--- ค้ำ ---</option>
                                           @foreach ($HisCarby as $key => $value)
