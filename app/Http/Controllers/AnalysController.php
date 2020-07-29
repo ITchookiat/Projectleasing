@@ -1381,7 +1381,6 @@ class AnalysController extends Controller
      */
     public function edit($type,$id,$fdate,$tdate,$branch,$status,Request $request)
     {
-
       if ($type == 1) {
         $data = DB::table('buyers')
           ->leftJoin('sponsors','buyers.id','=','sponsors.Buyer_id')
@@ -1732,55 +1731,63 @@ class AnalysController extends Controller
      */
     public function update(Request $request, $id, $type)
     {
-      dd($request);
+      // dd($request);
       date_default_timezone_set('Asia/Bangkok');
       $Currdate = date('2020-06-02');   //วันที่เช็ตค่า รูป
       $Getcardetail = Cardetail::where('Buyercar_id',$id)->first();
       $Gethomecardetail = homecardetail::where('Buyerhomecar_id',$id)->first();
 
-        $newDateDue = $request->DateDue;  //วันเริ่มทำสัญญา
-        $SetPhonebuyer = str_replace ( "_","",$request->get('Phonebuyer'));
+      $newDateDue = $request->DateDue;  //วันเริ่มทำสัญญา
+      $SetPhonebuyer = str_replace ( "_","",$request->get('Phonebuyer'));
 
-        if ($request->get('Topcar') != Null) {
-          $SetTopcar = str_replace (",","",$request->get('Topcar'));
+      if ($request->get('Topcar') != Null) {
+        $SetTopcar = str_replace (",","",$request->get('Topcar'));
+      }else {
+        $SetTopcar = 0;
+      }
+
+      if ($request->get('Commissioncar') != Null) {
+        $SetCommissioncar = str_replace (",","",$request->get('Commissioncar'));
+      }else {
+        $SetCommissioncar = 0;
+      }
+
+      // ดึงค่า ป้ายทะเบียน
+      $SetLicense = "";
+      if ($request->get('Licensecar') != NULL) {
+        $SetLicense = $request->get('Licensecar');
+      }
+
+      // กำหนด วันอนุมัติสัญญา
+      $StatusApp = "รออนุมัติ";
+      $newDateDue = $request->get('DateDue');
+      if ($SetTopcar > 250000) {
+        if ($request->get('MANAGER') != Null) {
+            $newDateDue = date('Y-m-d');
+            $StatusApp = "อนุมัติ";
         }else {
-          $SetTopcar = 0;
+          $newDateDue = $request->get('DateDue');
+          $StatusApp = "รออนุมัติ";
         }
-
-        if ($request->get('Commissioncar') != Null) {
-          $SetCommissioncar = str_replace (",","",$request->get('Commissioncar'));
-        }else {
-          $SetCommissioncar = 0;
-        }
-
-        // ดึงค่า ป้ายทะเบียน
-        $SetLicense = "";
-        if ($request->get('Licensecar') != NULL) {
-          $SetLicense = $request->get('Licensecar');
-        }
-
-        // กำหนด วันอนุมัติสัญญา
-        $StatusApp = "รออนุมัติ";
+      }else {
         if ($request->get('AUDIT') != Null) {
             $newDateDue = date('Y-m-d');
             $StatusApp = "อนุมัติ";
         }elseif ($request->get('MASTER') != Null) {
-            $SetMasterApp = $request->get('MASTER');
+            $newDateDue = $request->get('DateDue');
+            $StatusApp = "รออนุมัติ";
         }elseif ($request->get('approversHC') != Null) {
           if ($Gethomecardetail->dateapp_HC == Null) {
             $newDateDue = date('Y-m-d');
           }
         }
+      }
 
-        if ($SetTopcar > 250000) {
-          if ($request->get('MANAGER') != Null) {
-              $newDateDue = date('Y-m-d');
-              $StatusApp = "อนุมัติ";
-          }else {
-            $newDateDue = $request->get('DateDue');
-            $StatusApp = "รออนุมัติ";
-          }
-        }
+      if ($request->get('doccomplete') != Null) {
+        $SetDocComplete = $request->get('doccomplete');
+      }else {
+        $SetDocComplete = NULL;
+      }
 
         $user = Buyer::find($id);
           $user->Contract_buyer = $request->get('Contract_buyer');
@@ -1894,7 +1901,6 @@ class AnalysController extends Controller
         }
 
         if ($type == 4) {   //สินเชื่อ รถบ้าน
-
           if (auth()->user()->branch == 10 or auth()->user()->branch == 11 or auth()->user()->type == 4 or auth()->user()->type == 1) {
             $Homecardetail = homecardetail::where('Buyerhomecar_id',$id)->first();
               $Homecardetail->brand_HC = $request->get('brandHC');
@@ -2103,23 +2109,10 @@ class AnalysController extends Controller
 
               }
             }
-            else { //ยกเลิก หรือ ไม่อนุมัติ
+            else { //รออนุมัติ
                 $DateDue = NULL;      //วันดิวงวดแรก
                 $newDateDue = NULL;   //วันอนุมัติ
                 $StatusApp = "รออนุมัติ";
-
-                if ($request->get('doccomplete') != Null) {
-                    $cardetail->DocComplete_car = NULL;     //เอกสารครบ
-                }
-                if ($request->get('MASTER') != Null) {
-                    $cardetail->Check_car = NULL;           //หัวหน้า
-                }
-                if ($request->get('AUDIT') != Null) {
-                    $cardetail->Approvers_car = NULL;       //audit
-                }
-                if ($request->get('MANAGER') != Null) {
-                    $cardetail->ManagerApp_car = NULL;      //ผู้จัดการ
-                }
 
                 $branchType = NULL;
                 if ($cardetail->branch_car == "ปัตตานี") {
@@ -2189,26 +2182,10 @@ class AnalysController extends Controller
             $cardetail->Tellagent_car = $request->get('Tellagentcar');
             $cardetail->Purchasehistory_car = $request->get('Purchasehistorycar');
             $cardetail->Supporthistory_car = $request->get('Supporthistorycar');
-            if ($request->get('doccomplete') != Null) {
-              if ($Getcardetail->DocComplete_car == NULL) {
-                $cardetail->DocComplete_car = $request->get('doccomplete'); //เอกสารครบ
-              }
-            }
-            if ($request->get('MASTER') != Null) {
-              if ($Getcardetail->Check_car == NULL) {
-                $cardetail->Check_car = $SetMasterApp;                      //หัวหน้า
-              }
-            }
-            if ($request->get('AUDIT') != Null) {
-              if ($Getcardetail->Approvers_car == NULL) {
-                $cardetail->Approvers_car = $request->get('AUDIT');;        //audit
-              }
-            }
-            if ($request->get('MANAGER') != Null) {
-              if ($Getcardetail->ManagerApp_car == NULL) {
-                $cardetail->ManagerApp_car = $request->get('MANAGER');      //ผู้จัดการ
-              }
-            }
+            $cardetail->DocComplete_car = $SetDocComplete;             //เอกสารครบ
+            $cardetail->Check_car = $request->get('MASTER');;          //หัวหน้า
+            $cardetail->Approvers_car = $request->get('AUDIT');        //audit
+            $cardetail->ManagerApp_car = $request->get('MANAGER');     //ผู้จัดการ
             $cardetail->branchbrance_car = $request->get('branchbrancecar');
             $cardetail->branchAgent_car = $request->get('branchAgentcar');
             $cardetail->Note_car = $request->get('Notecar');

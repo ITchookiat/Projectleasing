@@ -30,12 +30,12 @@
                   <h2>แผนกสินเชื่อ</h2>
                   <br><br>
                 </div>
-                @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 3 or auth::user()->type == 4 or auth::user()->type == 31 or auth::user()->branch == 41)
+                @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์" or auth::user()->type == "แผนก รถบ้าน" or auth::user()->type == "แผนก การเงินใน")
                 <div class="icon">
                   <i class="a1 fa fa-sitemap" data-toggle="modal" data-target="#modal-default" style="cursor: pointer;"></i>
                 </div>
                 @endif
-                <a href="#" data-toggle="modal" data-target="#modal-default" class="small-box-footer">เพิ่มเติม <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="#" class="small-box-footer">เพิ่มเติม <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div>
 
@@ -45,7 +45,7 @@
                   <h2>แผนกเร่งรัด</h2>
                   <br><br>
                 </div>
-                @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 31 or auth::user()->branch == 41)
+                @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก เร่งรัด")
                 <div class="icon">
                   <i class="a1 far fa-handshake" data-toggle="modal" data-target="#modal-precipitate" style="cursor: pointer;"></i>
                 </div>
@@ -60,12 +60,12 @@
                   <h2>แผนกกฏหมาย</h2>
                   <br><br>
                 </div>
-                @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 31 or auth::user()->branch == 42)
+                @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก กฏหมาย")
                 <div class="icon">
                   <i class="a1 fas fa-gavel" data-toggle="modal" data-target="#modal-legislation" style="cursor: pointer;"></i>
                 </div>
                 @endif
-                <a href="#" data-toggle="modal" data-target="#modal-legislation" class="small-box-footer">เพิ่มเติม <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="#" class="small-box-footer">เพิ่มเติม <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div>
           </div>
@@ -88,8 +88,8 @@
       </div>
       <div class="modal-body">
         <div class="row">
-          @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 3 or auth::user()->type == 4 or auth::user()->type == 31 or auth::user()->branch == 41)
-            @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->branch == 01 or auth::user()->branch == 03 or auth::user()->branch == 04 or auth::user()->branch == 05 or auth::user()->branch == 06 or auth::user()->branch == 07 or auth::user()->type == 31 or auth::user()->branch == 41)
+          @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์" or auth::user()->type == "แผนก รถบ้าน" or auth::user()->type == "แผนก การเงินใน")
+            @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์" or auth::user()->type == "แผนก การเงินใน" or auth::user()->branch == 01 or auth::user()->branch == 03 or auth::user()->branch == 04 or auth::user()->branch == 05 or auth::user()->branch == 06 or auth::user()->branch == 07)
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="info-box bg-blue">
                   <span class="info-box-icon bg-blue">
@@ -112,7 +112,7 @@
               </div>
             @endif
 
-            @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 4 or auth::user()->branch == 10 or auth::user()->branch == 11)
+            @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก รถบ้าน")
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="info-box bg-blue">
                   <span class="info-box-icon bg-blue">
@@ -158,7 +158,7 @@
       </div>
       <div class="modal-body">
         <div class="row">
-          @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 31)
+          @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก เร่งรัด")
           <div class="col-md-6 col-sm-6 col-xs-12">
             <div class="info-box bg-yellow">
               <span class="info-box-icon bg-yellow">
@@ -264,7 +264,7 @@
       </div>
       <div class="modal-body">
         <div class="row">
-          @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 21 or auth::user()->type == 31 or auth::user()->branch == 42)
+          @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก กฏหมาย" or auth::user()->type == "แผนก การเงินนอก")
             <div class="col-md-6 col-sm-6 col-xs-12">
               <div class="info-box bg-red">
                 <span class="info-box-icon bg-red">
