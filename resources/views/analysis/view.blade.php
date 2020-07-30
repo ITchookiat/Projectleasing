@@ -121,13 +121,13 @@
                             <div class="float-right form-inline">
                               @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                 <label>เลขที่สัญญา : </label>
-                                <input type="type" name="Contno" value="{{$contno}}" maxlength="12" style="padding:5px;width:285px;border-radius: 5px 0 5px 5px; font-size:24px;"/>
+                                <input type="type" name="Contno" value="{{$contno}}" maxlength="12" class="form-control"/>
                                   <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', $type) }}" class="btn bg-primary btn-app">
                                     <span class="fas fa-print"></span> ปริ้นรายการ
                                   </a>
                               @else
                                 <label>เลขที่สัญญา : </label>
-                                <input type="type" name="Contno" value="{{$contno}}" maxlength="12" style="padding:5px;width:370px;border-radius: 5px 0 5px 5px; font-size:24px;"/>
+                                <input type="type" name="Contno" value="{{$contno}}" maxlength="12" class="form-control"/>
                               @endif
 
                               <button type="submit" class="btn bg-warning btn-app">
@@ -146,7 +146,7 @@
                               <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control" />
 
                               <label for="text" class="mr-sm-2">สาขา : </label>
-                              <select name="branch" class="form-control" id="text">
+                              <select name="branch" class="form-control">
                                 <option selected value="">---เลือกสาขา---</option>
                                 <option value="ปัตตานี" {{ ($branch == 'ปัตตานี') ? 'selected' : '' }}>ปัตตานี</otion>
                                 <option value="ยะลา" {{ ($branch == 'ยะลา') ? 'selected' : '' }}>ยะลา</otion>
@@ -157,7 +157,7 @@
                               </select>
 
                               <label for="text" class="mr-sm-2">สถานะ : </label>
-                              <select name="status" class="form-control" id="text">
+                              <select name="status" class="form-control">
                                 <option selected value="">---สถานะ---</option>
                                 <option value="อนุมัติ"{{ ($status == 'อนุมัติ') ? 'selected' : '' }}>อนุมัติ</otion>
                                 <option value="รออนุมัติ"{{ ($status == 'รออนุมัติ') ? 'selected' : '' }}>รออนุมัติ</otion>
@@ -424,7 +424,7 @@
                       <form method="get" action="{{ route('Analysis',8) }}">
                         <p></p>
                         <div class="float-right form-inline">
-                          @if(auth::user()->type == 1 or auth::user()->type == 2)
+                          @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                             <label>เลขที่สัญญา : </label>
                             <input type="type" name="Contno" value="{{$contno}}" maxlength="12" class="form-control form-control-lg"/>
                             <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', 2) }}" class="btn bg-primary btn-app">
@@ -542,7 +542,7 @@
                                   </a>
                                   @endif
 
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     @if($branch == "")
                                       @php $branch = 'Null'; @endphp
                                     @endif
@@ -578,7 +578,7 @@
                                     @endif
                                   @endif
 
-                                @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                   <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
                                   {{csrf_field()}}
                                     <input type="hidden" name="_method" value="DELETE" />
@@ -611,7 +611,7 @@
                         <form method="get" action="{{ route('Analysis',12) }}">
                           <p></p>
                           <div class="float-right form-inline">
-                            @if(auth::user()->type == 1 or auth::user()->type == 2)
+                            @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                             <label>เลขที่สัญญา : </label>
                             <input type="type" name="Contno" value="{{$contno}}" maxlength="12" class="form-control form-control-lg"/>
                               <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', 3) }}" class="btn bg-primary btn-app">
@@ -731,7 +731,7 @@
                                       </a>
                                       @endif
 
-                                      @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                         @if($branch == "")
                                           @php $branch = 'Null'; @endphp
                                         @endif
@@ -767,7 +767,7 @@
                                         @endif
                                       @endif
 
-                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                       <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
                                       {{csrf_field()}}
                                         <input type="hidden" name="_method" value="DELETE" />
@@ -888,6 +888,7 @@
         "responsive": true,
         "autoWidth": false,
         "ordering": true,
+        "lengthChange": false,
         "order": [[ 1, "asc" ]],
       });
     });

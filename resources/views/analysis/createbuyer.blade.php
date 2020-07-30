@@ -261,7 +261,7 @@
                               <div class="col-6">
                                 {{-- <div class="float-right form-inline">
                                   <label><font color="red">เลขที่สัญญา : </font></label>
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                     <input type="text" name="Contract_buyer" class="form-control" required/>
                                   @else
                                     <input type="text" name="Contract_buyer" class="form-control" data-inputmask="&quot;mask&quot;:&quot;99-9999/&quot;" data-mask="" required/>
@@ -270,7 +270,7 @@
                                 <div class="form-group row mb-1">
                                   <label class="col-sm-3 col-form-label text-right"><font color="red">เลขที่สัญญา : </font></label>
                                   <div class="col-sm-8">
-                                    @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                       <input type="text" name="Contract_buyer" class="form-control" required/>
                                     @else
                                       <input type="text" name="Contract_buyer" class="form-control" data-inputmask="&quot;mask&quot;:&quot;99-9999/&quot;" data-mask="" required/>
