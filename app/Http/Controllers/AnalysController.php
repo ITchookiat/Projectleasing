@@ -64,8 +64,6 @@ class AnalysController extends Controller
               ->where('cardetails.Date_Appcar','=',Null)
               ->where('buyers.Contract_buyer','not like', '22%')
               ->where('buyers.Contract_buyer','not like', '33%')
-              ->where('buyers.Contract_buyer','not like', 'P%')
-              ->where('buyers.Contract_buyer','not like', 'M%')
               ->orderBy('buyers.Contract_buyer', 'ASC')
               ->get();
         }else {
@@ -87,8 +85,6 @@ class AnalysController extends Controller
               })
               ->where('buyers.Contract_buyer','not like', '22%')
               ->where('buyers.Contract_buyer','not like', '33%')
-              ->where('buyers.Contract_buyer','not like', 'P%')
-              ->where('buyers.Contract_buyer','not like', 'M%')
               ->orderBy('buyers.Contract_buyer', 'ASC')
               ->get();
 
@@ -133,8 +129,6 @@ class AnalysController extends Controller
         ->where('cardetails.Agent_car','<>',Null)
         ->where('buyers.Contract_buyer','not like', '22%')
         ->where('buyers.Contract_buyer','not like', '33%')
-        ->where('buyers.Contract_buyer','not like', 'P%')
-        ->where('buyers.Contract_buyer','not like', 'M%')
         ->groupBy('cardetails.Agent_car')
         ->get();
 
@@ -144,8 +138,6 @@ class AnalysController extends Controller
         ->where('cardetails.Year_car','<>',Null)
         ->where('buyers.Contract_buyer','not like', '22%')
         ->where('buyers.Contract_buyer','not like', '33%')
-        ->where('buyers.Contract_buyer','not like', 'P%')
-        ->where('buyers.Contract_buyer','not like', 'M%')
         ->groupBy('cardetails.Year_car')
         ->get();
 
@@ -155,8 +147,6 @@ class AnalysController extends Controller
         ->where('cardetails.status_car','<>',Null)
         ->where('buyers.Contract_buyer','not like', '22%')
         ->where('buyers.Contract_buyer','not like', '33%')
-        ->where('buyers.Contract_buyer','not like', 'P%')
-        ->where('buyers.Contract_buyer','not like', 'M%')
         ->groupBy('cardetails.status_car')
         ->get();
 
@@ -166,8 +156,6 @@ class AnalysController extends Controller
         ->where('cardetails.branch_car','<>',Null)
         ->where('buyers.Contract_buyer','not like', '22%')
         ->where('buyers.Contract_buyer','not like', '33%')
-        ->where('buyers.Contract_buyer','not like', 'P%')
-        ->where('buyers.Contract_buyer','not like', 'M%')
         ->groupBy('cardetails.branch_car')
         ->get();
 
@@ -206,8 +194,6 @@ class AnalysController extends Controller
             ->where('cardetails.Approvers_car','!=',Null)
             ->where('buyers.Contract_buyer','not like', '22%')
             ->where('buyers.Contract_buyer','not like', '33%')
-            ->where('buyers.Contract_buyer','not like', 'P%')
-            ->where('buyers.Contract_buyer','not like', 'M%')
             ->orderBy('buyers.Contract_buyer', 'ASC')
             ->get();
         }else {
@@ -233,8 +219,6 @@ class AnalysController extends Controller
             })
             ->where('buyers.Contract_buyer','not like', '22%')
             ->where('buyers.Contract_buyer','not like', '33%')
-            ->where('buyers.Contract_buyer','not like', 'P%')
-            ->where('buyers.Contract_buyer','not like', 'M%')
             ->orderBy('buyers.Contract_buyer', 'ASC')
             ->get();
         }
@@ -2408,6 +2392,7 @@ class AnalysController extends Controller
 
       $item5 = UploadfileImage::where('Buyerfileimage_id','=',$id)->get();
       $countData = count($item5);
+
       $Currdate = date('2020-06-02');
       $created_at = '';
 
@@ -2464,8 +2449,10 @@ class AnalysController extends Controller
         }
       }
 
-      $deleteItem = UploadfileImage::where('Buyerfileimage_id',$itemID);
-      $deleteItem->Delete();
+      if ($countData != 0) {
+        $deleteItem = UploadfileImage::where('Buyerfileimage_id',$itemID);
+        $deleteItem->Delete();
+      }  
 
       $item1->Delete();
       $item2->Delete();

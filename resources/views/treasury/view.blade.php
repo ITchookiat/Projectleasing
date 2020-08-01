@@ -97,7 +97,13 @@
                             </td>
                             <td class="text-left"> {{$row->Brand_car}} </td>
                             <td class="text-left"> {{number_format($row->Top_car)}} </td>
-                            <td class="text-left"> {{$row->Approvers_car}} </td>
+                            <td class="text-left">
+                              @if ($row->ManagerApp_car != NULL)
+                                {{$row->ManagerApp_car}} 
+                              @else
+                                {{$row->Approvers_car}} 
+                              @endif
+                            </td>
                             <td class="text-center">
                               @if ($row->UserCheckAc_car != NULL)
                                 <button type="button" class="btn btn-success btn-sm" title="{{ DateThai($row->DateCheckAc_car) }}">
@@ -105,14 +111,11 @@
                                 </button>
                               @else
                                 <button type="button" class="btn btn-danger btn-sm" title="รอตรวจสอบ">
-                                  <i class="fas fa-exclamation-circle"></i>&nbsp; รอตรวจสอบ
+                                  <i class="fas fa-exclamation-circle prem"></i>&nbsp; รอตรวจสอบ
                                 </button>
                               @endif
                             </td>
                             <td class="text-center">
-                              <a target="_blank" href="{{ action('ReportAnalysController@ReportPDFIndex',[$row->id, 1]) }}" class="btn btn-info btn-sm" title="พิมพ์">
-                                <i class="fas fa-print"></i> พิมพ์
-                              </a>
                               <a data-toggle="modal" data-target="#modal-5" data-link="{{ route('SearchData', [2, $row->id]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                 <i class="far fa-edit"> ตรวจสอบบัญชี</i>
                               </a>

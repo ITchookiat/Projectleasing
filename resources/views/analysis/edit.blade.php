@@ -186,16 +186,6 @@
         </script>
       @endif
 
-      @if (count($errors) > 0)
-        <div class="alert alert-danger">
-          <ul>
-            @foreach($errors->all() as $error)
-            <li>กรุณาลงชื่อ ผู้อนุมัติ {{$error}}</li>
-            @endforeach
-          </ul>
-        </div>
-      @endif
-
       <section class="content">
         <form name="form1" method="post" action="{{ action('AnalysController@update',[$id,$Gettype]) }}" enctype="multipart/form-data">
           @csrf
