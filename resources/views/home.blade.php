@@ -13,16 +13,18 @@
     <div class="col-md-12 table-responsive">
       <div class="card">
         <div class="card-body">
-          @if (session('status'))
-            <div class="alert alert-success" role="alert">
-              {{ session('status') }}
-            </div>
+          @if(session()->has('success'))
+            <script type="text/javascript">
+              toastr.success('{{ session()->get('success') }}')
+            </script>
           @endif
           <div align="center">
               <img class="img-responsive" src="{{ asset('dist/img/leasing02.png') }}" alt="User Image" style = "width: 40%">
-              <a class="btn bg-warning btn-app float-right" data-toggle="modal" data-target="#modal-walkin" data-backdrop="static" data-keyboard="false" style="border-radius: 40px;">
-                <span class="fas fa-users prem fa-5x"></span> <label class="prem">WALK IN</label>
-              </a>
+              @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์" or auth::user()->type == "แผนก รถบ้าน")
+                <a class="btn bg-warning btn-app float-right" data-toggle="modal" data-target="#modal-walkin" data-backdrop="static" data-keyboard="false" style="border-radius: 40px;">
+                  <span class="fas fa-users prem fa-5x"></span> <label class="prem">WALK IN</label>
+                </a>
+              @endif
           </div>
           <br><br>
 
@@ -63,7 +65,7 @@
                   <h2>แผนกกฏหมาย</h2>
                   <br><br>
                 </div>
-                @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก กฏหมาย")
+                @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก เร่งรัด" or auth::user()->type == "แผนก กฏหมาย")
                 <div class="icon">
                   <i class="a1 fas fa-gavel" data-toggle="modal" data-target="#modal-legislation" style="cursor: pointer;"></i>
                 </div>
@@ -267,7 +269,7 @@
       </div>
       <div class="modal-body">
         <div class="row">
-          @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก กฏหมาย" or auth::user()->type == "แผนก การเงินนอก")
+          @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก กฏหมาย" or auth::user()->type == "แผนก เร่งรัด" or auth::user()->type == "แผนก การเงินนอก")
             <div class="col-md-6 col-sm-6 col-xs-12">
               <div class="info-box bg-red">
                 <span class="info-box-icon bg-red">
@@ -458,6 +460,24 @@
                 <div class="row">
                   <div class="col-6">
                     <div class="form-group row mb-1">
+                    <label class="col-sm-5 col-form-label text-right">ชื่อลูกค้า :</label>
+                      <div class="col-sm-7">
+                        <input type="text" name="Namebuyer" class="form-control" placeholder="ป้อนชื่อลูกค้า"/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group row mb-1">
+                    <label class="col-sm-4 col-form-label text-right">ชื่อนายหน้า :</label>
+                      <div class="col-sm-7">
+                        <input type="text" name="Nameagent" class="form-control" placeholder="ป้อนชื่อนายหน้า"/>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <div class="form-group row mb-1">
                     <label class="col-sm-5 col-form-label text-right">เบอร์ลูกค้า :</label>
                       <div class="col-sm-7">
                         <input type="text" name="Phonebuyer" class="form-control" placeholder="ป้อนเบอร์ลูกค้า"/>
@@ -476,8 +496,18 @@
                 <div class="row">
                   <div class="col-6">
                     <div class="form-group row mb-1">
-                    <label class="col-sm-5 col-form-label text-right">ที่มาของลูกค้า :</label>
+                    <label class="col-sm-5 col-form-label text-right">เลขบัตร ปชช :</label>
                       <div class="col-sm-7">
+                        <input type="text" name="IDCardbuyer" class="form-control" placeholder="ป้อนเลขบัตร ปชช" maxlength="13"/>
+                      </div>
+                      <br><br>
+                      <label class="col-sm-5 col-form-label text-right">ที่มาของลูกค้า :</label>
+                      <div class="col-sm-7">
+                      <!-- <select id="TypeLeasing" name="TypeLeasing" class="form-control" required>
+                          <option value="" selected>--- เลือกประเภทสินเชื่อ ---</option>
+                          <option value="เช่าซื้อ">เช่าซื้อ</option>
+                          <option value="เงินกู้">เงินกู้</option>
+                      </select> -->
                       <select id="News" name="News" class="form-control" required>
                           <option value="" selected>--- เลือกแหล่งที่มา ---</option>
                           <option value="นายหน้าแนะนำ">นายหน้าแนะนำ</option>
@@ -489,18 +519,9 @@
                         </select>
                       </div>
                       <br><br>
-                      <label class="col-sm-5 col-form-label text-right">ประเภทสินเชื่อ :</label>
-                      <div class="col-sm-7">
-                      <select id="TypeLeasing" name="TypeLeasing" class="form-control" required>
-                          <option value="" selected>--- เลือกประเภทสินเชื่อ ---</option>
-                          <option value="เช่าซื้อ">เช่าซื้อ</option>
-                          <option value="เงินกู้">เงินกู้</option>
-                      </select>
-                      </div>
-                      <br><br>
                       <label class="col-sm-5 col-form-label text-right">สาขา :</label>
                       <div class="col-sm-7">
-                        <select id="branchcar" name="branchcar" class="form-control">
+                        <select id="branchcar" name="branchcar" class="form-control" required>
                               <option value="" selected>--- เลือกสาขา ---</option>
                               <option value="ปัตตานี" {{ (auth::user()->branch == 01) ? 'selected' : '' }}>ปัตตานี</option>
                               <option value="ยะลา" {{ (auth::user()->branch == 03) ? 'selected' : '' }}>ยะลา</option>

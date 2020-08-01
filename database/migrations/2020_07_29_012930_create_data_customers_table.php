@@ -21,7 +21,10 @@ class CreateDataCustomersTable extends Migration
             $table->string('Typecardetails')->nullable();
             $table->string('Top_car')->nullable();
             $table->string('Year_car')->nullable();
+            $table->string('Name_buyer')->nullable();
             $table->string('Phone_buyer')->nullable();
+            $table->string('IDCard_buyer')->nullable();
+            $table->string('Name_agent')->nullable();
             $table->string('Phone_agent')->nullable();
             $table->string('Resource_news')->nullable();
             $table->string('Note_car')->nullable();
