@@ -178,9 +178,8 @@
                                 <th class="text-left">ปี</th>
                                 <th class="text-center">ยอดจัด</th>
                                 <th class="text-center">เอกสาร/แก้ไข</th>
-                                <th class="text-center">หัวหน้าสาขา</th>
-                                <th class="text-center">อนุมัติ</th>
-                                <th class="text-center" style="width: 100px">ดำเนินการ</th>
+                                <th class="text-center" style="width: 250px">สถานะ</th>
+                                <th class="text-center" style="width: 100px"></th>
                               </tr>
                             </thead>
                             <tbody>
@@ -217,38 +216,35 @@
                                     <span class="checkmark"></span>
                                     </label>
                                   </td>
-                                  <td class="text-center">
+                                  <td class="text-left">
                                     @if ( $row->Check_car != Null)
-                                      <button type="button" class="btn btn-success btn-sm">
-                                        <i class="fas fa-user-check"> Active</i>
+                                      <button type="button" class="btn btn-success btn-xs">
+                                        <i class="fas fa-user-check prem"></i> หัวหน้า
                                       </button>
                                     @else
-                                      <button type="button" class="btn btn-warning btn-sm">
-                                        <i class="fas fa-bell"></i></span>
+                                      <button type="button" class="btn btn-warning btn-xs">
+                                        <i class="fas fa-user-check prem"></i> หัวหน้า
                                       </button>
-                                      <font color="red">รอตรวจสอบ</font>
                                     @endif
-                                  </td>
-                                  <td class="text-center">
-                                    @if($row->Top_car < 250000)
-                                      @if ($row->Approvers_car != Null)
-                                        <button type="button" class="btn btn-success btn-sm">
-                                          <i class="fas fa-user-check"> Active</i>
-                                        </button>
-                                      @else
-                                        <button type="button" class="btn btn-warning btn-sm">
-                                          <i class="fas fa-bell"></i></span>
-                                        </button>
-                                        <font color="red">รอตรวจสอบ</font>
-                                      @endif
+
+                                    @if ( $row->Approvers_car != Null)
+                                      <button type="button" class="btn btn-success btn-xs">
+                                        <i class="fas fa-user-check prem"></i> Audit
+                                      </button>
                                     @else
+                                      <button type="button" class="btn btn-warning btn-xs">
+                                        <i class="fas fa-user-check prem"></i> Audit
+                                      </button>
+                                    @endif
+
+                                    @if($row->Top_car > 250000)
                                       @if ($row->ManagerApp_car != Null)
-                                        <button type="button" class="btn btn-success btn-sm">
-                                          <i class="fas fa-user-check"> Active</i>
+                                        <button type="button" class="btn btn-success btn-xs">
+                                          <i class="fas fa-user-tie prem"></i> ผู้จัดการ
                                         </button>
                                       @else
-                                        <button type="button" class="btn btn-danger btn-sm">
-                                          <i class="fab fa-monero"> วงเงินเกินสิทธิ์</i>
+                                        <button type="button" class="btn btn-warning btn-xs">
+                                          <i class="fas fa-user-tie prem"></i> ผู้จัดการ
                                         </button>
                                       @endif
                                     @endif
@@ -257,53 +253,41 @@
                                     <a target="_blank" href="{{ action('ReportAnalysController@ReportPDFIndex',[$row->id,$type]) }}" class="btn btn-info btn-sm" title="พิมพ์">
                                       <i class="fas fa-print"></i>
                                     </a>
-                                    @if(auth::user()->position == "STAFF" and $row->StatusApp_car == 'อนุมัติ')
+
+                                    @if($branch == "")
                                       @php $branch = 'Null'; @endphp
+                                    @endif
+                                    @if($status == "")
                                       @php $status = 'Null'; @endphp
-                                      <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
-                                        <i class="fas fa-eye"></i>
+                                    @endif
+
+                                    {{-- แก้ไข / ดูรายการ --}}
+                                    @if(auth::user()->type == "Admin")
+                                      <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
+                                        <i class="far fa-edit"></i>
                                       </a>
-                                    @endif
-
-                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                                      @if($branch == "")
-                                        @php $branch = 'Null'; @endphp
-                                      @endif
-                                      @if($status == "")
-                                        @php $status = 'Null'; @endphp
-                                      @endif
-
-                                      @if(auth::user()->type == "Admin")
-                                        <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
-                                          <i class="far fa-edit"></i>
+                                    @elseif(auth::user()->position == "MANAGER" or auth::user()->position == "AUDIT" or auth::user()->position == "MASTER" or auth::user()->position == "STAFF")
+                                      @if($row->StatusApp_car == 'อนุมัติ')
+                                        <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
+                                          <i class="fas fa-eye"></i>
                                         </a>
-                                      @elseif(auth::user()->type == "แผนก วิเคราะห์")
-                                        @if($row->StatusApp_car == 'อนุมัติ')
-                                          <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
-                                            <i class="fas fa-eye"></i>
-                                          </a>
-                                        @else
-                                          <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
-                                            <i class="far fa-edit"></i>
-                                          </a>
-                                        @endif
-                                      @endif
-                                    @else
-                                      @if($row->Approvers_car == Null)
-                                        @if($branch == "")
-                                          @php $branch = 'Null'; @endphp
-                                        @endif
-                                        @if($status == "")
-                                          @php $status = 'Null'; @endphp
-                                        @endif
+                                      @else
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                           <i class="far fa-edit"></i>
                                         </a>
                                       @endif
                                     @endif
 
-                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                                      @if(auth::user()->type == "Admin") 
+                                    @if(auth::user()->type == "Admin") 
+                                      <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
+                                        {{csrf_field()}}
+                                        <input type="hidden" name="_method" value="DELETE" />
+                                        <button type="submit" data-name="{{ $row->Contract_buyer }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
+                                          <i class="far fa-trash-alt"></i>
+                                        </button>
+                                      </form>
+                                    @elseif(auth::user()->position == "MASTER" or auth::user()->position == "STAFF")
+                                      @if($row->StatusApp_car != 'อนุมัติ')
                                         <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
                                           {{csrf_field()}}
                                           <input type="hidden" name="_method" value="DELETE" />
@@ -311,28 +295,6 @@
                                             <i class="far fa-trash-alt"></i>
                                           </button>
                                         </form>
-                                      @elseif(auth::user()->type == "แผนก วิเคราะห์")
-                                        @if($row->StatusApp_car != 'อนุมัติ')
-                                          <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
-                                            {{csrf_field()}}
-                                            <input type="hidden" name="_method" value="DELETE" />
-                                            <button type="submit" data-name="{{ $row->Contract_buyer }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
-                                              <i class="far fa-trash-alt"></i>
-                                            </button>
-                                          </form>
-                                        @endif
-                                      @endif
-                                    @else
-                                      @if($row->DocComplete_car == Null)
-                                        @if($row->StatusApp_car != 'อนุมัติ')
-                                          <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
-                                            {{csrf_field()}}
-                                            <input type="hidden" name="_method" value="DELETE" />
-                                            <button type="submit" data-name="{{ $row->Contract_buyer }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
-                                              <i class="far fa-trash-alt"></i>
-                                            </button>
-                                          </form>
-                                        @endif
                                       @endif
                                     @endif
                                   </td>
@@ -931,4 +893,13 @@
       });
     });
   </script>
+
+  <script>
+    function blinker() {
+    $('.prem').fadeOut(1500);
+    $('.prem').fadeIn(1500);
+    }
+    setInterval(blinker, 1500);
+  </script>
+
 @endsection

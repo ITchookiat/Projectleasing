@@ -19,8 +19,7 @@
   /*border-radius*/
   -webkit-border-radius:5px;
   -moz-border-radius:5px;
-        border-radius:5px;
-  }
+        border-radius:5px;}
   #todo-list:before{
   content:"";
   position:absolute;
@@ -71,7 +70,7 @@
   content:'';
   display:block;
   position:absolute;
-  top:calc(50% + 2px);
+  top:calc(50% + 10px);
   left:0;
   width:0%;
   height:1px;
@@ -282,11 +281,9 @@
             <div class="col-12">
               <div class="form-inline">
                 <div class="col-sm-6">
-                
                   <div class="card card-warning">
                     <div class="card-header">
                       <h3 class="card-title">ผู้รับเงิน</h3>
-      
                       <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                         </button>
@@ -340,7 +337,9 @@
                       </div>
                     </div>
                   </div>
+                </div>
 
+                <div class="col-sm-6">
                   <div class="card card-warning">
                     <div class="card-header">
                       <h3 class="card-title">ผู้รับค่าคอม</h3>
@@ -397,9 +396,9 @@
                       </div>
                     </div>
                   </div>
-
                 </div>
-                <div class="col-sm-6">
+
+                {{-- <div class="col-sm-6">
                   @if($data->License_car != NULL)
                     @php
                       $Setlisence = $data->License_car;
@@ -419,7 +418,7 @@
                       </a>
                     @endif
                   @endif
-                </div>
+                </div> --}}
               </div>
             </div>
           </div>
@@ -480,3 +479,4 @@
     $('[data-mask]').inputmask()
   })
 </script>
+
