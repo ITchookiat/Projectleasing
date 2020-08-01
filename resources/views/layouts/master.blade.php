@@ -351,6 +351,7 @@
   
   <script src="{{asset('js/sweetAlert.js')}}"></script>
   <script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
+  <script src="{{ asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
 
 
   <script>

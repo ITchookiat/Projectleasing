@@ -84,6 +84,15 @@ Route::group(['middleware' => 'auth'], function()
 
     //------------------ลูกค้า walkin------------------//
     route::resource('MasterDataCustomer','DataCustomerController');
+    Route::get('/DataCustomer/Home/{type}', 'DataCustomerController@index')->name('DataCustomer');
+    Route::get('/DataCustomer/Savestatus/{value}/{id}', 'DataCustomerController@savestatus')->name('DataCustomer.savestatus');
+
+    //------------------LOCKER เอกสาร---------------------//
+    Route::get('/Document/Home/{type}', 'DocumentController@index')->name('document');
+    Route::post('/Document/create', 'DocumentController@store')->name('document.store');
+    Route::get('/Document/download/{file}', 'DocumentController@download');
+    Route::get('/Document/preview/{id}', 'DocumentController@edit');
+    Route::delete('/Document/delete/{id}', 'DocumentController@destroy');
 
     //---------------- logout --------------------//
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');

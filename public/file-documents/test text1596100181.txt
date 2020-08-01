@@ -1,0 +1,5 @@
+'key' => env('APP_KEY',base64_decode('dSoeJIWwKAqQaQNjsFuv0KQTJnebIUiU5Dtz9yM4Eno=')),
+
+$app->bind('path.public', function(){ 
+	return __DIR__; 
+});
