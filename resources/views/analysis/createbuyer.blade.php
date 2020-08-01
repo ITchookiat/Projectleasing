@@ -32,8 +32,7 @@
     /*border-radius*/
     -webkit-border-radius:5px;
     -moz-border-radius:5px;
-          border-radius:5px;
-    }
+          border-radius:5px;}
     #todo-list:before{
     content:"";
     position:absolute;
@@ -84,7 +83,7 @@
     content:'';
     display:block;
     position:absolute;
-    top:calc(50% + 2px);
+    top:calc(50% + 10px);
     left:0;
     width:0%;
     height:1px;
@@ -194,13 +193,30 @@
                   <div class="row">
                     <div class="col-4">
                       <div class="form-inline">
-                        <h4>เพิ่มข้อมูลสินเชื่อ...</h4>
+                        <h4>เพิ่มรายการเช่าซื้อ...</h4>
                       </div>
                     </div>
                     <div class="col-8">
-                      <div class="row">
-                        <div class="col-3"></div>
-                        <div class="col-6">
+                      <div class="card-tools d-inline float-right">
+                        <button type="submit" class="delete-modal btn btn-success">
+                          <i class="fas fa-save"></i> บันทึก
+                        </button>
+                        <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}">
+                          <i class="far fa-window-close"></i> ยกเลิก
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body text-sm">
+                  <div class="container-fluid">
+                    <div class="row mb-2">
+                      <div class="col-sm-3">
+                        {{-- <h1 class="m-0 text-dark">Dashboard v2</h1> --}}
+                      </div>
+                      <div class="col-sm-9">
+                        <ol class="breadcrumb float-sm-right">
+                          {{-- ปิดสิทธ์แก้ไข / เอกสารครบ --}}
                           <div class="float-right form-inline">
                             <i class="fas fa-grip-vertical"></i>
                             <span class="todo-wrap">
@@ -211,22 +227,11 @@
                               </label>
                             </span>
                           </div>
-                        </div>
-                        <div class="col-3">
-                          <div class="card-tools d-inline float-right">
-                            <button type="submit" class="delete-modal btn btn-success">
-                              <i class="fas fa-save"></i> บันทึก
-                            </button>
-                            <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}">
-                              <i class="far fa-window-close"></i> ยกเลิก
-                            </a>
-                          </div>
-                        </div>
+                        </ol>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="card-body text-sm">
+
                   <div class="card card-warning card-tabs">
                     <div class="card-header p-0 pt-1">
                       <ul class="nav nav-tabs" id="custom-tabs-five-tab" role="tablist">

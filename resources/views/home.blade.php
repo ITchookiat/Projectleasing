@@ -30,7 +30,7 @@
             <div class="col-lg-4 col-xs-6">
               <div class="small-box bg-info">
                 <div class="inner">
-                  <h2>แผนกสินเชื่อ</h2>
+                  <h2>ระบบสินเชื่อ</h2>
                   <br><br>
                 </div>
                 @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์" or auth::user()->type == "แผนก รถบ้าน" or auth::user()->type == "แผนก การเงินใน")
@@ -83,7 +83,7 @@
     <div class="modal-content" >
       <div class="modal-header">
         <div class="col text-center">
-          <h4 class="modal-title">แผนกสินเชื่อ</h4>
+          <h4 class="modal-title">ระบบสินเชื่อ</h4>
         </div>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">x</span>
@@ -102,13 +102,13 @@
                   </span>
                   <div class="info-box-content">
                     <span class="info-box-text"><br /></span>
-                    <span class="info-box-number">สินเชื่อ</span>
+                    <span class="info-box-number">เช่าซื้อ</span>
 
                     <div class="progress">
                       <div class="progress-bar" style="width: 100%"></div>
                     </div>
                       <span class="progress-description">
-                        จำนวนรถที่อนุมัติ {{ $datafinance }} คัน
+                        {{-- จำนวนรถที่อนุมัติ {{ $datafinance }} คัน --}}
                       </span>
                   </div>
                 </div>
@@ -125,13 +125,13 @@
                   </span>
                   <div class="info-box-content">
                     <span class="info-box-text"><br /></span>
-                    <span class="info-box-number">รถบ้าน</span>
+                    <span class="info-box-number">เช่าซื้อรถบ้าน</span>
 
                     <div class="progress">
                       <div class="progress-bar" style="width: 100%"></div>
                     </div>
                       <span class="progress-description">
-                        จำนวนรถที่อนุมัติ {{ $datahomecar }} คัน
+                        {{-- จำนวนรถที่อนุมัติ {{ $datahomecar }} คัน --}}
                       </span>
                   </div>
                 </div>
@@ -177,7 +177,7 @@
                   <div class="progress-bar" style="width: 100%"></div>
                 </div>
                 <span class="progress-description">
-                  จำนวนแจ้งเตือน {{ $datamassage }} ราย
+                  {{-- จำนวนแจ้งเตือน {{ $datamassage }} ราย --}}
                 </span>
               </div>
             </div>
@@ -198,7 +198,7 @@
                   <div class="progress-bar" style="width: 100%"></div>
                 </div>
                 <span class="progress-description">
-                  จำนวนงานตาม {{ $datafollow }} ราย
+                  {{-- จำนวนงานตาม {{ $datafollow }} ราย --}}
                 </span>
               </div>
             </div>
@@ -219,7 +219,7 @@
                   <div class="progress-bar" style="width: 100%"></div>
                 </div>
                 <span class="progress-description">
-                  จำนวนงานโนติส {{ $datanotice }} ราย
+                  {{-- จำนวนงานโนติส {{ $datanotice }} ราย --}}
                 </span>
               </div>
             </div>
@@ -240,7 +240,7 @@
                   <div class="progress-bar" style="width: 100%"></div>
                 </div>
                 <span class="progress-description">
-                  จำนวนรถในระบบ {{ $datastock }} คัน
+                  {{-- จำนวนรถในระบบ {{ $datastock }} คัน --}}
                 </span>
               </div>
             </div>
@@ -283,7 +283,7 @@
                     <div class="progress-bar" style="width: 100%"></div>
                   </div>
                     <span class="progress-description">
-                      จำนวนลูกหนี้เตรียมฟ้อง {{ $legisCourt }} ราย
+                      {{-- จำนวนลูกหนี้เตรียมฟ้อง {{ $legisCourt }} ราย --}}
                     </span>
                 </div>
               </div>
@@ -303,7 +303,7 @@
                     <div class="progress-bar" style="width: 100%"></div>
                   </div>
                     <span class="progress-description">
-                      จำนวนลูกหนี้ฟ้อง {{ $legisCourt2 }} ราย
+                      {{-- จำนวนลูกหนี้ฟ้อง {{ $legisCourt2 }} ราย --}}
                     </span>
                 </div>
               </div>
@@ -323,7 +323,7 @@
                     <div class="progress-bar" style="width: 100%"></div>
                   </div>
                     <span class="progress-description">
-                      จำนวนลูกหนี้สืบทรัพย์ {{ $LegisAsset }} ราย
+                      {{-- จำนวนลูกหนี้สืบทรัพย์ {{ $LegisAsset }} ราย --}}
                     </span>
                 </div>
               </div>
@@ -343,7 +343,7 @@
                     <div class="progress-bar" style="width: 100%"></div>
                   </div>
                     <span class="progress-description">
-                      จำนวนลูกหนี้ประนอมหนี้ {{ $LegisCompro }} ราย
+                      {{-- จำนวนลูกหนี้ประนอมหนี้ {{ $LegisCompro }} ราย --}}
                     </span>
                 </div>
               </div>

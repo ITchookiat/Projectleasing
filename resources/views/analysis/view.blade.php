@@ -178,7 +178,7 @@
                                 <th class="text-left">ปี</th>
                                 <th class="text-center">ยอดจัด</th>
                                 <th class="text-center">เอกสาร/แก้ไข</th>
-                                <th class="text-left" style="width: 280px"></th>
+                                <th class="text-center" style="width: 250px">สถานะ</th>
                                 <th class="text-center" style="width: 100px"></th>
                               </tr>
                             </thead>
@@ -219,32 +219,32 @@
                                   <td class="text-left">
                                     @if ( $row->Check_car != Null)
                                       <button type="button" class="btn btn-success btn-xs">
-                                        <i class="fas fa-user-check"> หัวหน้า</i>
+                                        <i class="fas fa-user-check prem"></i> หัวหน้า
                                       </button>
                                     @else
-                                      <button type="button" class="btn btn-secondary btn-xs">
-                                        <i class="fas fa-user-check"> หัวหน้า</i>
+                                      <button type="button" class="btn btn-warning btn-xs">
+                                        <i class="fas fa-user-check prem"></i> หัวหน้า
                                       </button>
                                     @endif
 
                                     @if ( $row->Approvers_car != Null)
                                       <button type="button" class="btn btn-success btn-xs">
-                                        <i class="fas fa-user-check"> Audit</i>
+                                        <i class="fas fa-user-check prem"></i> Audit
                                       </button>
                                     @else
-                                      <button type="button" class="btn btn-secondary btn-xs">
-                                        <i class="fas fa-user-check"> Audit</i>
+                                      <button type="button" class="btn btn-warning btn-xs">
+                                        <i class="fas fa-user-check prem"></i> Audit
                                       </button>
                                     @endif
 
                                     @if($row->Top_car > 250000)
                                       @if ($row->ManagerApp_car != Null)
                                         <button type="button" class="btn btn-success btn-xs">
-                                          <i class="fas fa-user-tie"> ผู้จัดการ</i>
+                                          <i class="fas fa-user-tie prem"></i> ผู้จัดการ
                                         </button>
                                       @else
-                                        <button type="button" class="btn btn-secondary btn-xs">
-                                          <i class="fas fa-user-tie"> ผู้จัดการ</i>
+                                        <button type="button" class="btn btn-warning btn-xs">
+                                          <i class="fas fa-user-tie prem"></i> ผู้จัดการ
                                         </button>
                                       @endif
                                     @endif
@@ -893,4 +893,13 @@
       });
     });
   </script>
+
+  <script>
+    function blinker() {
+    $('.prem').fadeOut(1500);
+    $('.prem').fadeIn(1500);
+    }
+    setInterval(blinker, 1500);
+  </script>
+
 @endsection
