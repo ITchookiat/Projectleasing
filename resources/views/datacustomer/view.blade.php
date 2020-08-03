@@ -89,7 +89,9 @@
                     <table class="table table-striped table-valign-middle" id="table1">
                       <thead>
                         <tr>
+                          <th class="text-center" style="width:10px;"></th>
                           <th class="text-center">ลำดับ</th>
+                          <th class="text-center">วันที่ walkin</th>
                           <th class="text-center">ป้ายทะเบียน</th>
                           <th class="text-center">ยอดจัด</th>
                           <th class="text-center">ชื่อลูกค้า</th>
@@ -101,7 +103,17 @@
                       <tbody>
                         @foreach($data as $key => $row)
                           <tr>
+                            <td class="text-center">
+                              <form method="post" class="delete_form" action="{{ action('DataCustomerController@destroy',[$row->Customer_id]) }}" style="display:inline;">
+                              {{csrf_field()}}
+                                <input type="hidden" name="_method" value="DELETE" />
+                                <button type="submit" data-name="" class="delete-modal btn-danger btn-xs AlertForm" title="ลบรายการ">
+                                  <i class="far fa-trash-alt"></i>
+                                </button>
+                              </form>
+                            </td>
                             <td class="text-center">{{$key+1}}</td>
+                            <td class="text-center">{{DateThai(substr($row->created_at,0,10))}}</td>
                             <td class="text-center">{{$row->License_car}}</td>
                             <td class="text-center">{{number_format($row->Top_car,2)}}</td>
                             <td class="text-center">{{$row->Name_buyer}}</td>
@@ -114,7 +126,7 @@
                                 </a>
                               @else
                                 <a href="#" class="btn btn-success btn-sm" title="แก้ไขรายการ">
-                                  <i class="fas fa-check"></i> ส่งเรียบร้อย
+                                  <i class="fas fa-check"></i> ส่งแล้ว
                                 </a> 
                               @endif
                             </td>
@@ -283,6 +295,32 @@
   $(document).ready(function () {
     bsCustomFileInput.init();
   });
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function(e) {
+	increaseNotify();
+    setInterval(increaseNotify, 3000);
+  });
+  function increaseNotify(){ // โหลดตัวเลขทั้งหมดที่ถูกส่งมาแสดง
+    $.ajax({
+      url: "increase.php",
+      type: 'GET',
+      success: function(obj) {
+        var obj = JSON.parse(obj);
+        $(".badge_number").text(obj.badge_number);
+      }
+    });
+  }
+  function decreaseNotify(){ // ลบตัวเลข badge number
+    $.ajax({
+      url: "decrease.php",
+      type: 'GET',
+      success: function(obj) {
+        
+      }
+    });
+  }
 </script>
 
 @endsection

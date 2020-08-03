@@ -329,22 +329,22 @@
           </div>
 
           <li class="nav-item has-treeview {{ Request::is('Document/*') ? 'menu-open' : '' }}">
-            <a href="#" class="nav-link active bg-yellow">
+            <a href="{{ route('document', 1) }}" class="nav-link active bg-yellow">
               <i class="nav-icon fas fa-archive"></i>
               <p>
-                LOCKER เอกสาร
-                <i class="right fas fa-angle-left"></i>
+                ตู้เอกสาร
+                <!-- <i class="right fas fa-angle-left"></i> -->
               </p>
             </a>
 
-              <ul class="nav nav-treeview" style="margin-left: 15px;">
+              <!-- <ul class="nav nav-treeview" style="margin-left: 15px;">
                 <li class="nav-item">
                   <a href="{{ route('document', 1) }}" class="nav-link {{ Request::is('Document/Home/1') ? 'active' : '' }}">
                     <i class="far fa-dot-circle nav-icon"></i>
                     <p>รายการเอกสาร</p>
                   </a>
                 </li>
-              </ul>
+              </ul> -->
 
           </li>
 

@@ -27,6 +27,7 @@ class DataCustomerController extends Controller
         $newfdate = '';
         $newtdate = '';
         $data = DB::table('data_customers')
+              ->orderBY('created_at', 'DESC')
               ->get();
         return view('datacustomer.view', compact('data','type','newfdate','newtdate'));
     }
@@ -188,6 +189,6 @@ class DataCustomerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        dd($id);
     }
 }
