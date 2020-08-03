@@ -34,9 +34,9 @@
           <div class="col-12 table-responsive">
             <div class="card">
               <div class="card-header">
-                    <h4 class="">
-                      รายการ เอกสาร 
-                    </h4>
+                    <h5 class="">
+                      <a href="{{ route('document', 1) }}">ตู้เอกสาร </a> > {{$title}} 
+                    </h5>
                     <div class="float-right form-inline" style="margin-top:-40px;">
                         <a class="btn bg-success btn-sm" data-toggle="modal" data-target="#modal-lg" data-backdrop="static">
                           <span class="fas fa-plus"></span> อัพโหลด
@@ -44,28 +44,6 @@
                     </div>
               </div>
               <div class="card-body text-sm">
-                <!-- <div class="col-md-12">
-                  <form method="get" action="{{ route('treasury', 1) }}">
-                    <div class="float-right form-inline">
-                        <a class="btn bg-success btn-app" data-toggle="modal" data-target="#modal-lg" data-backdrop="static">
-                          <span class="fas fa-archive"></span> อัพโหลด
-                        </a>
-                      <button type="submit" class="btn bg-warning btn-app">
-                        <span class="fas fa-search"></span> Search
-                      </button>
-                    </div>
-                    <br><br><br>
-                    <div class="float-right form-inline">
-                      <label>จากวันที่ : </label>
-                      <input type="date" name="Fromdate" value="" class="form-control" />
-
-                      <label>ถึงวันที่ : </label>
-                      <input type="date" name="Todate" value="" class="form-control" />
-                    </div>
-                  </form>
-                  <br><br>
-                </div> -->
-
                 <div class="col-md-12">
                   <div class="table-responsive">
                     <table class="table table-striped table-valign-middle" id="table1">
@@ -103,7 +81,9 @@
                               @elseif($extension == 'zip')
                                 <i class="fas fa fa-file-zip-o text-purple"></i>
                               @elseif($extension == 'sql' or $extension == 'txt')
-                                <i class="fas fa fa fa-file-text-o"></i>
+                                <i class="fas fa-file-text-o"></i>
+                              @elseif($extension == 'mp4')
+                                <i class="fas fa-file-video-o"></i>
                               @endif
                               &nbsp;{{$row->file_title}}
                             </td>
@@ -113,10 +93,10 @@
                             </td>
                             <td class="text-center">{{$row->file_size}}</td>
                             <td class="text-center">{{$row->file_uploader}}</td>
-                            <td class="text-center">{{$row->created_at}}</td>
+                            <td class="text-center">{{DateThai(substr($row->created_at,0,10))}}</td>
                             <td class="text-right">
-                              @if($extension == 'pdf' or $extension == 'jpg' or $extension == 'png' or $extension == 'txt')
-                                <a href="" data-toggle="modal" data-target="#modal-preview" data-link="{{ action('DocumentController@edit',[$row->file_id]) }}" class="btn btn-warning btn-sm" title="ดูไฟล์">
+                              @if($extension == 'pdf' or $extension == 'jpg' or $extension == 'png' or $extension == 'txt' or $extension == 'mp4')
+                                <a href="#" data-toggle="modal" data-target="#modal-preview" data-link="{{ action('DocumentController@edit',[$row->file_id,2]) }}?foldername={{$title}}" class="btn btn-warning btn-sm" title="ดูไฟล์">
                                   <i class="far fa-eye"></i>
                                 </a>
                               @endif
@@ -124,9 +104,10 @@
                                 <i class="fas fa-download"></i>
                               </a>
                               @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                                <form method="post" class="delete_form" action="{{ action('DocumentController@destroy',[$row->file_id]) }}" style="display:inline;">
+                                <form method="post" class="delete_form" action="{{ action('DocumentController@destroy',[$row->file_id,2]) }}" style="display:inline;">
                                 {{csrf_field()}}
                                   <input type="hidden" name="_method" value="DELETE" />
+                                  <input type="hidden" name="foldername" value="{{$title}}" />
                                   <button type="submit" data-name="{{$row->file_name}}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบไฟล์">
                                     <i class="far fa-trash-alt"></i>
                                   </button>
@@ -150,7 +131,7 @@
   </section>
 
   <!-- pop up เพิ่มไฟล์อัพโหลด -->
-  <form action="{{ route('document.store') }}" method="post" enctype="multipart/form-data">
+  <form action="{{ route('document.store',2) }}" method="post" enctype="multipart/form-data">
     {{ csrf_field() }}
     <div class="modal fade" id="modal-lg" aria-hidden="true" style="display: none;">
         <div class="modal-dialog">
@@ -214,6 +195,8 @@
                 </div>
                 <br/>
                 <input type="hidden" name="uploader" value="{{auth::user()->name}}"/>
+                <input type="hidden" name="folder" value="{{$title}}"/>
+                <input type="hidden" name="folder_id" value="{{$id}}"/>
             </div>
             <div style="text-align: center;">
                 <button type="submit" class="btn btn-success" style="border-radius:50px;">อัพโหลด</button>
@@ -291,10 +274,11 @@
     setInterval(blinker, 1500);
   </script>
 
-<script type="text/javascript">
-  $(document).ready(function () {
-    bsCustomFileInput.init();
-  });
-</script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      bsCustomFileInput.init();
+    });
+  </script>
+
 
 @endsection
