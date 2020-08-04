@@ -2460,7 +2460,7 @@ class LegislationController extends Controller
               ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
                 return $q->whereBetween('legiscourts.examiday_court',[$newfdate,$newtdate]);
               })
-              ->orderBy('legislations.id', 'DESC')
+              ->orderBy('legiscourts.examiday_court', 'ASC')
               ->get();
 
         $pdf = new PDF();

@@ -5,7 +5,7 @@
     <li class="nav-item">
       <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
     </li>
-    @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 4 or auth::user()->branch == 10)
+    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก รถบ้าน")
       <li class="nav-item d-none d-sm-inline-block">
       <a href="#" class="nav-link" onclick="on_login('http://192.168.200.9/ProjectHomeCar/public/login', '{{ Auth::user()->username }}', '{{ Auth::user()->password_token }}');">
           {{-- <a href="#" class="nav-link" onclick="on_login('http://localhost/ProjectHomeCar/public/login', '{{ Auth::user()->username }}', '{{ Auth::user()->password_token }}');"> --}}
