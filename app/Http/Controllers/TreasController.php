@@ -99,7 +99,24 @@ class TreasController extends Controller
 
             $GetType = $type;
             return view('treasury.viewDetail', compact('data','GetType','SetAccount','SetTell','SetAccountGT','SetTellGT'));
-        }    
+        }
+        elseif ($type == 3) {
+            $data = DB::table('buyers')
+                ->leftJoin('cardetails','buyers.id','=','cardetails.Buyercar_id')
+                ->where('cardetails.Date_Appcar','>=',date('Y-m-d'))
+                ->where('cardetails.UserCheckAc_car','=',Null)
+                ->get();
+
+                $countData = Count($data);
+
+            if ($countData == 0) {
+            $countData = NULL;
+            }else {
+            $countData = '<span class="badge badge-danger navbar-badge">'.$countData.'</span>';
+            }
+            
+            echo $countData;
+        }
     }
 
     public function updateAnalysis(Request $request, $type, $id)

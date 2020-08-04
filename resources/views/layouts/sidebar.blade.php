@@ -304,6 +304,7 @@
           <li class="nav-item has-treeview {{ Request::is('Treasury/*') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-hand-holding-usd"></i>
+              <span id="ShowData"></span>
               <p>
                 แผนกการเงิน
                 <i class="right fas fa-angle-left"></i>
@@ -322,6 +323,31 @@
             @endif
           </li>
 
+          <li class="nav-item has-treeview {{ Request::is('Account/*') ? 'menu-open' : '' }}">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fab fa-leanpub"></i>
+              <span id="ShowData"></span>
+              <p>
+                แผนกบัญชี
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+
+            @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก บัญชี")
+              <ul class="nav nav-treeview" style="margin-left: 15px;">
+                <li class="nav-item">
+                  <a href="{{ route('Accounting', 1) }}" class="nav-link {{ Request::is('Account/Home/1') ? 'active' : '' }}">
+                    <i class="far fa-dot-circle nav-icon"></i>
+                    <p>Internal audit</p>
+                  </a>
+                  <a href="{{ route('Accounting', 3) }}" class="nav-link {{ Request::is('Account/Home/3') ? 'active' : '' }}">
+                    <i class="far fa-dot-circle nav-icon"></i>
+                    <p>Report Credit</p>
+                  </a>
+                </li>
+              </ul>
+            @endif
+            
           <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="info">
               <a href="#" class="d-block"> Documents Part </a>
@@ -345,10 +371,30 @@
                   </a>
                 </li>
               </ul> -->
-
+              
           </li>
 
         </ul>
       </nav>
     </div>
   </aside>
+
+  <script type="text/javascript">
+    SearchData(); //เรียกใช้งานทันที
+    var Data = setInterval(() => {SearchData()}, 10000);
+
+    function SearchData(){ 
+      $.ajax({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+        url:"{{ route('SearchData', [3, 0]) }}",
+        method:"GET",
+        data:{},
+    
+        success:function(result){ //เสร็จแล้วทำอะไรต่อ
+          $('#ShowData').html(result);
+        }
+      });
+    };
+  </script>
