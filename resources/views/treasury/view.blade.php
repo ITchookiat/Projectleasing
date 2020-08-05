@@ -35,7 +35,7 @@
             <div class="card">
               <div class="card-header">
                 <h4 class="">
-                  รายการ อนุมัติโอนเงิน (Approving transfers)
+                  รายการอนุมัติโอนเงิน (Approving transfers)
                 </h4>
               </div>
               <div class="card-body text-sm">

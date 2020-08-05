@@ -34,14 +34,22 @@
           <div class="col-12 table-responsive">
             <div class="card">
               <div class="card-header">
-                    <h5 class="">
-                      <a href="{{ route('document', 1) }}">ตู้เอกสาร </a> > {{$title}} 
-                    </h5>
-                    <div class="float-right form-inline" style="margin-top:-40px;">
-                        <a class="btn bg-success btn-sm" data-toggle="modal" data-target="#modal-lg" data-backdrop="static">
-                          <span class="fas fa-plus"></span> อัพโหลด
-                        </a>
+                <div class="row">
+                  <div class="col-6">
+                    <div class="form-inline">
+                      <h5>
+                        <a href="{{ route('document', 1) }}">คลังข้อมูล </a> / {{$title}} 
+                      </h5>
                     </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="card-tools d-inline float-right">
+                      <a class="btn bg-success btn-sm" data-toggle="modal" data-target="#modal-lg" data-backdrop="static">
+                        <span class="fas fa-plus"></span> อัพโหลด
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div class="card-body text-sm">
                 <div class="col-md-12">
@@ -49,14 +57,13 @@
                     <table class="table table-striped table-valign-middle" id="table1">
                       <thead>
                         <tr>
-                          <th class="text-center">ลำดับ</th>
-                          <th class="text-center">ชื่อไฟล์</th>
+                          <th class="text-center"  style="width: 50px;">No.</th>
+                          <th class="text-left">File Name</th>
                           <!-- <th class="text-center">รายละเอียด</th> -->
-                          <th class="text-center">สกุลไฟล์</th>
-                          <th class="text-center">ขนาดไฟล์</th>
-                          <th class="text-center">ผู้อัปโหลด</th>
-                          <th class="text-center">วันที่อัปโหลด</th>
-                          <th class="text-center">ตัวเลือก</th>
+                          <th class="text-center"></th>
+                          <th class="text-left">User Upload</th>
+                          <th class="text-left">Date Upload</th>
+                          <th class="text-right"></th>
                         </tr>
                       </thead>
                       <tbody>
@@ -88,12 +95,11 @@
                               &nbsp;{{$row->file_title}}
                             </td>
                             <!-- <td class="text-left"> {{$row->file_description}}</td> -->
-                            <td class="text-center">
+                            <td class="text-left">
                               .{{$extension}}
                             </td>
-                            <td class="text-center">{{$row->file_size}}</td>
-                            <td class="text-center">{{$row->file_uploader}}</td>
-                            <td class="text-center">{{DateThai(substr($row->created_at,0,10))}}</td>
+                            <td class="text-left">{{$row->file_uploader}}</td>
+                            <td class="text-left">{{DateThai(substr($row->created_at,0,10))}}</td>
                             <td class="text-right">
                               @if($extension == 'pdf' or $extension == 'jpg' or $extension == 'png' or $extension == 'txt' or $extension == 'mp4')
                                 <a href="#" data-toggle="modal" data-target="#modal-preview" data-link="{{ action('DocumentController@edit',[$row->file_id,2]) }}?foldername={{$title}}" class="btn btn-warning btn-sm" title="ดูไฟล์">
@@ -204,9 +210,7 @@
             </div>
             <br>
           </div>
-          <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
     </div>
   </form>
 
@@ -227,7 +231,6 @@
   {{-- button-to-top --}}
   <script>
     var btn = $('#button');
-
     $(window).scroll(function() {
       if ($(window).scrollTop() > 300) {
         btn.addClass('show');
@@ -257,9 +260,9 @@
       $("#table1").DataTable({
         "responsive": true,
         "autoWidth": false,
-        "ordering": false,
+        "ordering": true,
         "paging": true,
-        "lengthChange": false,
+        "lengthChange": true,
         "searching": true,
         "order": [[ 1, "asc" ]],
       });

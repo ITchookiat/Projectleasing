@@ -72,7 +72,6 @@ Route::group(['middleware' => 'auth'], function()
 
     //------------------งานบัญชี----------------------//
     Route::get('/Account/Home/{type}', 'AccountController@index')->name('Accounting');
-    // Route::get('/Account/SearchCashCus/{type}/{id}', 'AccountController@SearchCashCus')->name('SearchCashCus');
 
     //------------------งานทะเบียน--------------------//
     Route::get('/regcar/view/{type}', 'RegcarController@index')->name('regcar');

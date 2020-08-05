@@ -45,16 +45,15 @@
               <div class="card-header">
                 <h4 class="">
                   @if($type == 1)
-                    รายการ ลูกค้า walk in
+                    ลูกค้า walk-in (Customer walk-in)
                   @elseif($type == 2)
-                    รายงาน walk in
+                    รายงาน walk-in (Report Customer walk-in)
                   @endif
                 </h4>
               </div>
               <div class="card-body text-sm">
                 <div class="col-md-12">
                   <form method="get" action="{{ route('DataCustomer',1) }}">
-                    <p></p>
                     <div class="row">
                       <div class="col-md-12">
                         <div class="float-right form-inline">
@@ -70,20 +69,7 @@
                         </div>
                       </div>
                     </div>
-                    <!-- <div class="row">
-                      <div class="col-md-12">
-                        <div class="float-right form-inline">
-                          <label>จากวันที่ : </label>
-                          <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control" />
-
-                          <label>ถึงวันที่ : </label>
-                          <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control" />
-
-                        </div>
-                      </div>
-                    </div> -->
                   </form>
-                  <hr>
                 @if($type == 1)
                   <div class="table-responsive">
                     <table class="table table-striped table-valign-middle" id="table1">
@@ -150,7 +136,7 @@
   </section>
 
   <!-- pop up เพิ่มไฟล์อัพโหลด -->
-  <form action="{{ route('document.store') }}" method="post" enctype="multipart/form-data">
+  {{-- <form action="{{ route('document.store') }}" method="post" enctype="multipart/form-data">
     {{ csrf_field() }}
     <div class="modal fade" id="modal-lg" aria-hidden="true" style="display: none;">
         <div class="modal-dialog">
@@ -225,7 +211,7 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
-  </form>
+  </form> --}}
 
   <div class="modal fade" id="modal-preview">
     <div class="modal-dialog modal-xl">
