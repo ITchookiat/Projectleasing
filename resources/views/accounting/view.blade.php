@@ -33,31 +33,33 @@
                 </h4>
               </div>
               <div class="card-body text-sm">
-                <div class="col-md-12">
-                  <form method="get" action="{{ route('Accounting', 1) }}">
-                    <div class="float-right form-inline">
-                      <div class="btn-group">
-                        <button type="button" class="btn bg-primary btn-app" data-toggle="dropdown">
-                          <span class="fas fa-print"></span> ปริ้นรายงาน
+                <div class="row">
+                  <div class="col-md-12">
+                    <form method="get" action="{{ route('Accounting', 1) }}">
+                      <div class="float-right form-inline">
+                        <div class="btn-group">
+                          <button type="button" class="btn bg-primary btn-app" data-toggle="dropdown">
+                            <span class="fas fa-print"></span> ปริ้นรายงาน
+                          </button>
+                          <ul class="dropdown-menu" role="menu">
+                            <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-1" data-link="{{ route('Accounting', 2) }}"> รายงานตรวจสอบโอนเงิน</a></li>
+                          </ul>
+                        </div>
+                        <button type="submit" class="btn bg-warning btn-app">
+                          <span class="fas fa-search"></span> Search
                         </button>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-1" data-link="{{ route('Accounting', 2) }}"> รายงานตรวจสอบโอนเงิน</a></li>
-                        </ul>
                       </div>
-                      <button type="submit" class="btn bg-warning btn-app">
-                        <span class="fas fa-search"></span> Search
-                      </button>
-                    </div>
-                    <br><br><br><p></p>
-                    <div class="float-right form-inline">
-                      <label>จากวันที่ : </label>
-                      <input type="date" name="Fromdate" value="{{ date('Y-m-d') }}" class="form-control" />
+                      <br><br><br><p></p>
+                      <div class="float-right form-inline">
+                        <label>จากวันที่ : </label>
+                        <input type="date" name="Fromdate" value="{{ date('Y-m-d') }}" class="form-control" />
 
-                      <label>ถึงวันที่ : </label>
-                      <input type="date" name="Todate" value="{{ date('Y-m-d') }}" class="form-control" />
-                    </div>
-                  </form>
-                  <br><br>
+                        <label>ถึงวันที่ : </label>
+                        <input type="date" name="Todate" value="{{ date('Y-m-d') }}" class="form-control" />
+                      </div>
+                    </form>
+                    <br><br>
+                  </div>
                 </div>
 
                 <div class="row">
