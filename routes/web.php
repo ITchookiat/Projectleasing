@@ -42,13 +42,6 @@ Route::group(['middleware' => 'auth'], function()
 
     Route::get('/call/viewdetail/{type}', 'CallController@viewdetail')->name('viewdetail');
     Route::get('/call/{type}', 'CallController@index')->name('call');
-    // Route::get('/Reportcall/{type}', 'ReportCallController@index')->name('reportcall');
-    // Route::get('/monthreport/{type}/{fmonth}/{fyear}', 'ReportCallController@monthReport')->name('monthreport');
-    // Route::get('/ReportCall/{type}', 'ReportCallController@update')->name('ReportCall.update');
-    // Route::get('/GroupCall/{type}', 'ReportCallController@updategroup')->name('updategroup');
-    // route::resource('ReportCall','ReportCallController');
-
-    // Route::get('/finance/{type}', 'FinanceController@index')->name('finance');
     Route::get('/ExportExcel/{type}', 'ExcelController@excel');
 
     //------------------งานกฏหมาย--------------------//
@@ -57,7 +50,6 @@ Route::group(['middleware' => 'auth'], function()
     Route::get('/Legislation/Home/{type}', 'LegislationController@index')->name('legislation');
     Route::get('/Legislation/edit/{id}/{type}', 'LegislationController@edit')->name('legislation.edit');
     Route::patch('/Legislation/update/{id}/{type}', 'LegislationController@update')->name('legislation.update');
-    // Route::post('/Legislation/update/{id}/{type}', 'LegislationController@update')->name('legislation.update');
     Route::delete('/Legislation/delete/{id}/{type}', 'LegislationController@destroy')->name('legislation.destroy');
     Route::get('/Updateanalysis/{id}/{type}', 'LegislationController@updateLegislation');
     Route::get('/Legislation/deleteImageAll/{id}', 'LegislationController@deleteImageAll');
@@ -77,6 +69,9 @@ Route::group(['middleware' => 'auth'], function()
     Route::get('/Treasury/SearchData/{type}/{id}', 'TreasController@SearchData')->name('SearchData');
     Route::get('/Treasury/update/{type}/{id}', 'TreasController@updateAnalysis')->name('treasury.updateAnalysis');
     Route::get('/Treasury/ReportDueDate/{type}', 'TreasController@ReportDueDate')->name('treasury.ReportDueDate');
+
+    //------------------งานบัญชี----------------------//
+    Route::get('/Account/Home/{type}', 'AccountController@index')->name('Accounting');
 
     //------------------งานทะเบียน--------------------//
     Route::get('/regcar/view/{type}', 'RegcarController@index')->name('regcar');

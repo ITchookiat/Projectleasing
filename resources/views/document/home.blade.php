@@ -34,19 +34,24 @@
           <div class="col-12 table-responsive">
             <div class="card">
               <div class="card-header">
-                    <h5 class="">
-                      ตู้เอกสาร 
-                    </h5>
-                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                      <div class="float-right form-inline" style="margin-top:-40px;">
-                          <a class="btn bg-success btn-sm" data-toggle="modal" data-target="#modal-lg" data-backdrop="static">
-                            <span class="fas fa-plus"></span> สร้างโฟลเดอร์
-                          </a>
-                      </div>
-                    @endif
+                <div class="row">
+                  <div class="col-6">
+                    <div class="form-inline">
+                      <h5>คลังข้อมูล (Data warehouse)</h5>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="card-tools d-inline float-right">
+                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
+                        <a class="btn bg-success btn-sm" data-toggle="modal" data-target="#modal-lg" data-backdrop="static">
+                          <span class="fas fa-plus"></span> New Folder
+                        </a>
+                      @endif
+                    </div>
+                  </div>
+                </div>
               </div>
               <div class="card-body text-sm">
-
                 <div class="row">
                   <div class="col-12">
                     <div class="card card-primary">

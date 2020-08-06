@@ -46,7 +46,7 @@
               <div class="card-header">
                 <h4>
                   @if($type == 3)
-                    รายงานสินเชื่อ
+                    รายงานสินเชื่อ (Report Credit)
                   @elseif($type == 6)
                     รายงานสินเชื่อรถบ้าน
                   @elseif($type == 7)

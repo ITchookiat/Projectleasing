@@ -35,7 +35,7 @@
             <div class="card">
               <div class="card-header">
                 <h4 class="">
-                  รายการ อนุมัติโอนเงิน 
+                  รายการอนุมัติโอนเงิน (Approving transfers)
                 </h4>
               </div>
               <div class="card-body text-sm">
@@ -76,7 +76,6 @@
                           <th class="text-center" style="width: 50px">ลำดับ</th>
                           <th class="text-left">สาขา</th>
                           <th class="text-left">ทะเบียน</th>
-                          <th class="text-left">ยี่ห้อ</th>
                           <th class="text-left">ยอดจัด</th>
                           <th class="text-left">ผู้อนุมัติ</th>
                           <th class="text-center">สถานะ</th>
@@ -95,7 +94,6 @@
                               @endif
                               <i class="float-right fas fa-search-dollar"></i>
                             </td>
-                            <td class="text-left"> {{$row->Brand_car}} </td>
                             <td class="text-left"> {{number_format($row->Top_car)}} </td>
                             <td class="text-left">
                               @if ($row->ManagerApp_car != NULL)

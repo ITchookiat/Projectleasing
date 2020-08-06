@@ -111,7 +111,7 @@ class UserController extends Controller
 
     public function register()  //แสดง
     {
-      if(auth()->user()->type == 1){    // เช็คสิทธิ์ ในตาราง user
+      if(auth()->user()->type == "Admin"){    // เช็คสิทธิ์ ในตาราง user
         return view('maindata.register');
       }else{
         abort(404);

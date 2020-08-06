@@ -100,6 +100,7 @@
                             <option value="แผนก เร่งรัด"> แผนก เร่งรัด</option>
                             <option value="แผนก การเงินนอก"> แผนก การเงินนอก</option>
                             <option value="แผนก การเงินใน"> แผนก การเงินใน</option>
+                            <option value="แผนก บัญชี"> แผนก บัญชี</option>
                           </select>
                         </div>
 
