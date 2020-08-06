@@ -24,11 +24,33 @@ class DataCustomerController extends Controller
     public function index(Request $request, $type)
     {
         // dd($type);
+        $datenow = date('Y-m-d');
+        // $datenow = date('Y-m-d', strtotime('-1 days'));
         $newfdate = '';
         $newtdate = '';
-        $data = DB::table('data_customers')
-              ->orderBY('created_at', 'DESC')
-              ->get();
+        if ($request->has('Fromdate')) {
+            $newfdate = $request->get('Fromdate');
+          }
+        if ($request->has('Todate')) {
+        $tdate = \Carbon\Carbon::parse($request->get('Todate'));
+        $newtdate = $tdate->addDay();
+        }
+        
+        if ($request->has('Fromdate') == false and $request->has('Todate') == false) {
+            $data = DB::table('data_customers')
+                // ->where('created_at','like', $datenow.'%')
+                ->where('created_at','>', $datenow)
+                ->orderBY('created_at', 'DESC')
+                ->get();
+        }else {
+            $data = DB::table('data_customers')
+                ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+                        return $q->whereBetween('created_at',[$newfdate,$newtdate]);
+                    })
+                ->orderBY('created_at', 'DESC')
+                ->get();
+            }
+        $newtdate = $request->get('Todate');
         return view('datacustomer.view', compact('data','type','newfdate','newtdate'));
     }
 

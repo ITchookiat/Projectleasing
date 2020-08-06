@@ -75,7 +75,7 @@
                     <table class="table table-striped table-valign-middle" id="table1">
                       <thead>
                         <tr>
-                          <th class="text-center" style="width:10px;"></th>
+                          <th class="text-center" style="width:10px;">#</th>
                           <th class="text-center">ลำดับ</th>
                           <th class="text-center">วันที่ walkin</th>
                           <th class="text-center">ป้ายทะเบียน</th>
@@ -93,7 +93,7 @@
                               <form method="post" class="delete_form" action="{{ action('DataCustomerController@destroy',[$row->Customer_id]) }}" style="display:inline;">
                               {{csrf_field()}}
                                 <input type="hidden" name="_method" value="DELETE" />
-                                <button type="submit" data-name="" class="delete-modal btn-danger btn-xs AlertForm" title="ลบรายการ">
+                                <button type="submit" data-name="" class="delete-modal btn btn-xs AlertForm text-red" title="ลบรายการ">
                                   <i class="far fa-trash-alt"></i>
                                 </button>
                               </form>
