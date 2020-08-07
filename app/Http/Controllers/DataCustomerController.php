@@ -117,17 +117,32 @@ class DataCustomerController extends Controller
         $SetYear = date('Y') + 543;
         if($data->Branch_car == 'ปัตตานี'){
             $SetContract = '01-'.$SetYear.'/';
-        }elseif($data->Branch_car == 'ยะลา'){
+        }
+        elseif($data->Branch_car == 'ยะลา'){
             $SetContract = '03-'.$SetYear.'/';
-        }elseif($data->Branch_car == 'นราธิวาส'){
+        }
+        elseif($data->Branch_car == 'นราธิวาส'){
             $SetContract = '04-'.$SetYear.'/';
-        }elseif($data->Branch_car == 'สายบุรี'){
+        }
+        elseif($data->Branch_car == 'สายบุรี'){
             $SetContract = '05-'.$SetYear.'/';
-        }elseif($data->Branch_car == 'โกลก'){
+        }
+        elseif($data->Branch_car == 'โกลก'){
             $SetContract = '06-'.$SetYear.'/';
-        }elseif($data->Branch_car == 'เบตง'){
+        }
+        elseif($data->Branch_car == 'เบตง'){
             $SetContract = '07-'.$SetYear.'/';
-        }else{
+        }
+        elseif($data->Branch_car == 'โคกโพธิ์'){
+            $SetContract = '26-'.$SetYear.'/';
+        }
+        elseif($data->Branch_car == 'ระเเงะ'){
+            $SetContract = '27-'.$SetYear.'/';
+        }
+        elseif($data->Branch_car == 'บังนังสตา'){
+            $SetContract = '28-'.$SetYear.'/';
+        }
+        else{
             $SetContract = '00-'.$SetYear.'/';
         }
 
