@@ -1143,7 +1143,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">ยอดจัด : </label>
                                 <div class="col-sm-8">
-                                  <input type="text" id="Topcar" name="Topcar" class="form-control" maxlength="9" placeholder="กรอกยอดจัด" oninput="calculate();balance();percent();" />
+                                  <input type="text" id="Topcar" name="Topcar" class="form-control" maxlength="9" placeholder="กรอกยอดจัด" oninput="calculate();balance();percent();nobuy();"/>
                                   <input type="hidden" id="TopcarOri" name="TopcarOri" class="form-control" placeholder="กรอกยอดจัด" oninput="balance();" />
                                 </div>
                               </div>
@@ -1164,7 +1164,7 @@
                                 <label class="col-sm-3 col-form-label text-right">ระยะเวลาผ่อน : </label>
                                 <div class="col-sm-8">
                                   <input type="text" id="Year" class="form-control" readonly />
-                                  <select id="Timeslackencar" name="Timeslackencar" class="form-control" style="display:none;" onchange="calculate();">
+                                  <select id="Timeslackencar" name="Timeslackencar" class="form-control" style="display:none;" onchange="calculate();nobuy();">
                                     <option value="" selected>--- ระยะเวลาผ่อน ---</option>
                                     <option value="12">12</option>
                                     <option value="18">18</option>
@@ -1245,11 +1245,12 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">ประกันภัย : </label>
                                 <div class="col-sm-8">
-                                  <select id="Insurancecar" name="Insurancecar" class="form-control" onchange="calculate();">
+                                  <select id="Insurancecar" name="Insurancecar" class="form-control" onchange="nobuy();">
                                     <option value="" selected>--- ประกันภัย ---</option>
                                     <option value="แถม ป2+ 1ปี">แถม ป2+ 1ปี</option>
                                     <option value="มี ป2+ อยู่แล้ว">มี ป2+ อยู่แล้ว</option>
                                     <option value="ไม่แถม">ไม่แถม</option>
+                                    <option value="ไม่ซื้อ">ไม่ซื้อ</option>
                                     <option value="ซื้อ ป2+ 1ปี">ซื้อ ป2+ 1ปี</option>
                                     <option value="ซื้อ ป1 1ปี">ซื้อ ป1 1ปี</option>
                                     <option value="มี ป1 อยู่แล้ว">มี ป1 อยู่แล้ว</option>
@@ -1378,7 +1379,7 @@
 
                           <div class="row">
                             <div class="col-6">
-                              <div class="form-group row mb-1" id="ShowCom">
+                              <div class="form-group row mb-1" id="ShowCom" style="display:none;">
                                 <label class="col-sm-3 col-form-label text-right">ค่าคอม : </label>
                                 <div class="col-sm-8">
                                   <input type="text" id="Commissioncar" name="Commissioncar" class="form-control" placeholder="ค่าคอม" oninput="commission();"/>
@@ -1612,7 +1613,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">ซื้อ ป2+/ป1 : </label>
                                 <div class="col-sm-8">
-                                  <input type="text" id="P2Price" name="P2Price" class="form-control" value="0" placeholder="ซื้อ ป2+" oninput="balance();"/>
+                                  <input type="text" id="P2Price" name="P2Price" class="form-control" value="0" placeholder="ซื้อ ป2+" oninput="balance();nobuy();"/>
                                   <input type="hidden" id="P2PriceOri" name="P2PriceOri" class="form-control" value="0" placeholder="ซื้อ ป2+" onchange="calculate();balance();"/>
                                 </div>
                               </div>
