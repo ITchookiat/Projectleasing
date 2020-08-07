@@ -796,11 +796,34 @@
       var num2 = num22.replace(",","");
       var percentt = (num2/num1) * 100;
       var result1 = percentt;
-        if(!isNaN(result1)){
+      if(num1 != ''){
               document.form1.Percentcar.value = result1.toFixed(0);
               document.form1.Topcar.value = addCommas(num2);
+      }
     }
 
+    function nobuy(){
+      var Settopcar = document.getElementById('Topcar').value;
+      var Topcar = Settopcar.replace(",","");
+      var Timelack = document.getElementById('Timeslackencar').value;
+      var SetP2Price = document.getElementById('P2Price').value;
+      var P2Price = SetP2Price.replace(",","");
+      var Insurance = document.getElementById('Insurancecar').value;
+      if(Insurance == 'ไม่ซื้อ'){
+        if(Topcar >= 150000 && Timelack < 48){
+          var Newtopcar = parseFloat(Topcar) - parseFloat(P2Price);
+          var NewP2Price = parseFloat(P2Price) - parseFloat(P2Price);
+        }else{
+          var Newtopcar = parseFloat(Topcar);
+          var NewP2Price = parseFloat(P2Price);
+        }
+      }
+      if(Insurance != ''){
+        document.form1.Topcar.value = addCommas(Newtopcar);
+        document.form1.P2Price.value = addCommas(NewP2Price);
+      }else{
+        document.form1.Topcar.value = addCommas(Topcar);
+      }
     }
 
 
