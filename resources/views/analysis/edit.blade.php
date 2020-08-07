@@ -1657,9 +1657,9 @@
                                 <label class="col-sm-3 col-form-label text-right">ยอดจัด : </label>
                                 <div class="col-sm-8">
                                   @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                                    <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control"  placeholder="กรอกยอดจัด" oninput="calculate();balance();percent();" />
+                                    <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control"  placeholder="กรอกยอดจัด" oninput="calculate();balance();percent();nobuy();" />
                                   @else
-                                    <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control"  placeholder="กรอกยอดจัด" oninput="calculate();balance();percent();" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                    <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control"  placeholder="กรอกยอดจัด" oninput="calculate();balance();percent();nobuy();" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
                                   @endif
                                   <input type="hidden" id="TopcarOri" name="TopcarOri" class="form-control"  placeholder="กรอกยอดจัด" />
                                 </div>
@@ -1681,7 +1681,7 @@
                                 <label class="col-sm-3 col-form-label text-right">ระยะเวลาผ่อน : </label>
                                 <div class="col-sm-8">
                                   @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                                    <select id="Timeslackencar" name="Timeslackencar" class="form-control"  onchange="calculate();">
+                                    <select id="Timeslackencar" name="Timeslackencar" class="form-control"  onchange="calculate();nobuy();">
                                       <option value="" selected>--- ระยะเวลาผ่อน ---</option>
                                       @foreach ($Timeslackencarr as $key => $value)
                                         <option value="{{$key}}" {{ ($key == $data->Timeslacken_car) ? 'selected' : '' }}>{{$value}}</option>
@@ -1691,7 +1691,7 @@
                                     @if($GetDocComplete != Null)
                                       <input type="text" id="Timeslackencar" name="Timeslackencar" value="{{$data->Timeslacken_car}}" class="form-control"  placeholder="ระยะเวลาผ่อน" readonly />
                                     @else
-                                      <select id="Timeslackencar" name="Timeslackencar" class="form-control"  onchange="calculate();">
+                                      <select id="Timeslackencar" name="Timeslackencar" class="form-control"  onchange="calculate();nobuy();">
                                         <option value="" selected>--- ระยะเวลาผ่อน ---</option>
                                         @foreach ($Timeslackencarr as $key => $value)
                                           <option value="{{$key}}" {{ ($key == $data->Timeslacken_car) ? 'selected' : '' }}>{{$value}}</option>
@@ -1765,7 +1765,7 @@
                                 <label class="col-sm-3 col-form-label text-right">ประกันภัย : </label>
                                 <div class="col-sm-8">
                                   @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                                    <select id="Insurancecar" name="Insurancecar" class="form-control"  onchange="">
+                                    <select id="Insurancecar" name="Insurancecar" class="form-control"  onchange="nobuy();">
                                       <option value="" selected>--- ประกันภัย ---</option>
                                       @foreach ($Insurancecarr as $key => $value)
                                         <option value="{{$key}}" {{ ($key == $data->Insurance_car) ? 'selected' : '' }}>{{$value}}</option>
@@ -1775,7 +1775,7 @@
                                     @if($GetDocComplete != Null)
                                       <input type="text" id="Insurancecar" name="Insurancecar" value="{{$data->Insurance_car}}" class="form-control"  placeholder="ประกันภัย" readonly />
                                     @else
-                                      <select id="Insurancecar" name="Insurancecar" class="form-control"  onchange="">
+                                      <select id="Insurancecar" name="Insurancecar" class="form-control"  onchange="nobuy();">
                                         <option value="" selected>--- ประกันภัย ---</option>
                                         @foreach ($Insurancecarr as $key => $value)
                                           <option value="{{$key}}" {{ ($key == $data->Insurance_car) ? 'selected' : '' }}>{{$value}}</option>
@@ -2300,7 +2300,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">อากร : </label>
                                 <div class="col-sm-8">
-                                  <input type="text" id="dutyPrice" name="dutyPrice" value="{{$data->duty_Price}}" class="form-control" placeholder="อากร" onchange="balance();" readonly />
+                                  <input type="text" id="dutyPrice" name="dutyPrice" value="{{($data->duty_Price != Null) ? $data->duty_Price : '1,500'}}" class="form-control" placeholder="อากร" onchange="balance();" readonly/>
                                 </div>
                               </div>
                             </div>
@@ -2311,8 +2311,8 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">ค่าการตลาด : </label>
                                 <div class="col-sm-8">
-                                  <input type="text" id="marketingPrice" name="marketingPrice" value="{{ $data->marketing_Price }}" class="form-control" placeholder="การตลาด" onchange="balance();" readonly />
-                                </div>
+                                  <input type="text" id="marketingPrice" name="marketingPrice" value="{{ ($data->marketing_Price != Null) ? $data->marketing_Price : '1,500' }}" class="form-control" placeholder="การตลาด" onchange="balance();" readonly/>
+                                </div>                                                        
                               </div>
                             </div>
                             <div class="col-6">
