@@ -303,8 +303,8 @@
 
           <li class="nav-item has-treeview {{ Request::is('Treasury/*') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link active">
-              {{-- <span id="ShowData"></span> --}}
-              <span class="badge badge-danger navbar-badge">3</span>
+              <span id="ShowData"></span>
+              {{-- <span class="badge badge-danger navbar-badge">3</span> --}}
               <i class="nav-icon fas fa-hand-holding-usd"></i>
               <p>
                 แผนกการเงิน
