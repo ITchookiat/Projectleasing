@@ -683,6 +683,8 @@
           var total = result*num4;
           var total2 = durate2+tax2;
           document.form1.P2Price.value = addCommas(num5);
+          document.form1.Topcar.value = addCommas(num1);
+
         if(!isNaN(result)){
             document.form1.Paycar.value = addCommas(result.toFixed(2));
             document.form1.Topcar.value = addCommas(totaltopcar);

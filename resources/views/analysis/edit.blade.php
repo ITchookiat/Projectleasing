@@ -335,25 +335,25 @@
                             <span class="todo-wrap">
                               @if(auth::user()->type == "Admin" or auth::user()->position == "MASTER")
                                 @if($data->DocComplete_car != NULL)
-                                  <input type="checkbox" class="checkbox" name="doccomplete" id="4" value="{{ $data->DocComplete_car }}" {{ ($data->DocComplete_car !== NULL) ? 'checked' : '' }}>
+                                  <input type="checkbox" class="checkbox" name="doccomplete" id="5" value="{{ $data->DocComplete_car }}" {{ ($data->DocComplete_car !== NULL) ? 'checked' : '' }}>
                                 @else
-                                  <input type="checkbox" class="checkbox" name="doccomplete" id="4" value="{{ auth::user()->name }}">
+                                  <input type="checkbox" class="checkbox" name="doccomplete" id="5" value="{{ auth::user()->name }}">
                                 @endif
                               @else
                                 @if(auth::user()->position != "STAFF")
-                                  <input type="checkbox" class="checkbox" id="4" {{ ($data->DocComplete_car !== NULL) ? 'checked' : '' }} disabled>
+                                  <input type="checkbox" class="checkbox" id="5" {{ ($data->DocComplete_car !== NULL) ? 'checked' : '' }} disabled>
                                 @endif
                               @endif
 
                               @if(auth::user()->position == "STAFF")
                                 @if($data->DocComplete_car != NULL)
-                                  <input type="checkbox" class="checkbox" name="doccomplete" id="4" value="{{ $data->DocComplete_car }}" {{ ($data->DocComplete_car !== NULL) ? 'checked' : '' }} disabled>
+                                  <input type="checkbox" class="checkbox" name="doccomplete" id="5" value="{{ $data->DocComplete_car }}" {{ ($data->DocComplete_car !== NULL) ? 'checked' : '' }} disabled>
                                 @else
-                                  <input type="checkbox" class="checkbox" name="doccomplete" id="4" value="{{ auth::user()->name }}">
+                                  <input type="checkbox" class="checkbox" name="doccomplete" id="5" value="{{ auth::user()->name }}">
                                 @endif
                               @endif
 
-                              <label for="4" class="todo">
+                              <label for="5" class="todo">
                                 <i class="fa fa-check"></i>
                                 <font color="red">RESTRICT RIGHTS</font>
                               </label>
@@ -362,6 +362,7 @@
                               <input type="hidden" name="doccomplete" value="{{ $data->DocComplete_car }}">
                             @endif
 
+                            {{--
                             @if(auth::user()->position == "STAFF")
                               @if($data->DocComplete_car != NULL)
                                 <input type="hidden" name="doccomplete" value="{{ $data->DocComplete_car }}">
@@ -369,6 +370,7 @@
                                 <input type="hidden" name="doccomplete" value="{{ auth::user()->name }}">
                               @endif
                             @endif
+                            --}}
                           </div>  
                         </ol>
                       </div>
@@ -1852,11 +1854,11 @@
                                 <div class="col-sm-8">
                                   <span class="todo-wrap">
                                     @if($data->Salemethod_car != Null)
-                                      <input type="checkbox" id="4" name="Salemethod" value="{{ $data->Salemethod_car }}" checked="checked"/>
+                                      <input type="checkbox" id="5" name="Salemethod" value="{{ $data->Salemethod_car }}" checked="checked"/>
                                     @else
-                                      <input type="checkbox" id="4" name="Salemethod" value="on"/>
+                                      <input type="checkbox" id="5" name="Salemethod" value="on"/>
                                     @endif
-                                    <label for="4" class="todo">
+                                    <label for="5" class="todo">
                                       <i class="fa fa-check"></i>
                                       กรรมสิทธิ์ในแบบซื้อขาย
                                     </label>

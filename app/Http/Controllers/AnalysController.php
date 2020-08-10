@@ -1766,6 +1766,7 @@ class AnalysController extends Controller
         }
       }
 
+      dd($request->get('doccomplete'));
       if ($request->get('doccomplete') != Null) {
         $SetDocComplete = $request->get('doccomplete');
       }else {
