@@ -192,7 +192,7 @@
                                   <td class="text-left"> {{ $row->Year_car}} </td>
                                   <td class="text-right">
                                     @if($row->Top_car != Null)
-                                      {{ $row->Top_car}}
+                                      {{ number_format($row->Top_car)}}
                                     @else
                                       0
                                     @endif
