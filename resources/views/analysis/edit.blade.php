@@ -1689,7 +1689,7 @@
                                 <label class="col-sm-3 col-form-label text-right">ระยะเวลาผ่อน : </label>
                                 <div class="col-sm-8">
                                   @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                                    <select id="Timeslackencar" name="Timeslackencar" class="form-control"  onchange="calculate();">
+                                    <select id="Timeslackencar" name="Timeslackencar" class="form-control"  oninput="calculate();">
                                       <option value="" selected>--- ระยะเวลาผ่อน ---</option>
                                       @foreach ($Timeslackencarr as $key => $value)
                                         <option value="{{$key}}" {{ ($key == $data->Timeslacken_car) ? 'selected' : '' }}>{{$value}}</option>
@@ -1699,7 +1699,7 @@
                                     @if($GetDocComplete != Null)
                                       <input type="text" id="Timeslackencar" name="Timeslackencar" value="{{$data->Timeslacken_car}}" class="form-control"  placeholder="ระยะเวลาผ่อน" readonly />
                                     @else
-                                      <select id="Timeslackencar" name="Timeslackencar" class="form-control"  onchange="calculate();">
+                                      <select id="Timeslackencar" name="Timeslackencar" class="form-control"  oninput="calculate();">
                                         <option value="" selected>--- ระยะเวลาผ่อน ---</option>
                                         @foreach ($Timeslackencarr as $key => $value)
                                           <option value="{{$key}}" {{ ($key == $data->Timeslacken_car) ? 'selected' : '' }}>{{$value}}</option>

@@ -1143,7 +1143,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">ยอดจัด : </label>
                                 <div class="col-sm-8">
-                                  <input type="text" id="Topcar" name="Topcar" class="form-control" maxlength="9" placeholder="กรอกยอดจัด" oninput="calculate();balance();percent();nobuy();"/>
+                                  <input type="text" id="Topcar" name="Topcar" class="form-control" maxlength="9" placeholder="กรอกยอดจัด" oninput="calculate();balance();percent();"/>
                                   <input type="hidden" id="TopcarOri" name="TopcarOri" class="form-control" placeholder="กรอกยอดจัด" oninput="balance();" />
                                 </div>
                               </div>
@@ -1164,7 +1164,7 @@
                                 <label class="col-sm-3 col-form-label text-right">ระยะเวลาผ่อน : </label>
                                 <div class="col-sm-8">
                                   <input type="text" id="Year" class="form-control" readonly />
-                                  <select id="Timeslackencar" name="Timeslackencar" class="form-control" style="display:none;" onchange="calculate();nobuy();">
+                                  <select id="Timeslackencar" name="Timeslackencar" class="form-control" style="display:none;" onchange="calculate();">
                                     <option value="" selected>--- ระยะเวลาผ่อน ---</option>
                                     <option value="12">12</option>
                                     <option value="18">18</option>
