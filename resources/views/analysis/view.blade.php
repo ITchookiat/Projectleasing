@@ -192,7 +192,9 @@
                                   <td class="text-left"> {{ $row->Year_car}} </td>
                                   <td class="text-right">
                                     @if($row->Top_car != Null)
-                                      {{ $row->Top_car}}
+                                      {{ number_format($row->Top_car)}}
+                                    @elseif($row->Top_car == 'undified')
+                                      0
                                     @else
                                       0
                                     @endif
