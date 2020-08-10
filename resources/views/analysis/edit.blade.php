@@ -1665,9 +1665,9 @@
                                 <label class="col-sm-3 col-form-label text-right">ยอดจัด : </label>
                                 <div class="col-sm-8">
                                   @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                                    <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control"  placeholder="กรอกยอดจัด" oninput="calculate();balance();percent();nobuy();" />
+                                    <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control"  placeholder="กรอกยอดจัด" oninput="calculate();balance();percent();" />
                                   @else
-                                    <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control"  placeholder="กรอกยอดจัด" oninput="calculate();balance();percent();nobuy();" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                    <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control"  placeholder="กรอกยอดจัด" oninput="calculate();balance();percent();" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
                                   @endif
                                   <input type="hidden" id="TopcarOri" name="TopcarOri" class="form-control"  placeholder="กรอกยอดจัด" />
                                 </div>
@@ -1773,7 +1773,7 @@
                                 <label class="col-sm-3 col-form-label text-right">ประกันภัย : </label>
                                 <div class="col-sm-8">
                                   @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                                    <select id="Insurancecar" name="Insurancecar" class="form-control"  onchange="nobuy();">
+                                    <select id="Insurancecar" name="Insurancecar" class="form-control"  onchange="">
                                       <option value="" selected>--- ประกันภัย ---</option>
                                       @foreach ($Insurancecarr as $key => $value)
                                         <option value="{{$key}}" {{ ($key == $data->Insurance_car) ? 'selected' : '' }}>{{$value}}</option>
@@ -1783,7 +1783,7 @@
                                     @if($GetDocComplete != Null)
                                       <input type="text" id="Insurancecar" name="Insurancecar" value="{{$data->Insurance_car}}" class="form-control"  placeholder="ประกันภัย" readonly />
                                     @else
-                                      <select id="Insurancecar" name="Insurancecar" class="form-control"  onchange="nobuy();">
+                                      <select id="Insurancecar" name="Insurancecar" class="form-control"  onchange="">
                                         <option value="" selected>--- ประกันภัย ---</option>
                                         @foreach ($Insurancecarr as $key => $value)
                                           <option value="{{$key}}" {{ ($key == $data->Insurance_car) ? 'selected' : '' }}>{{$value}}</option>
