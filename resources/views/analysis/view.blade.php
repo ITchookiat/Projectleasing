@@ -193,8 +193,6 @@
                                   <td class="text-right">
                                     @if($row->Top_car != Null)
                                       {{ number_format($row->Top_car)}}
-                                    @elseif($row->Top_car == 'undified')
-                                      0
                                     @else
                                       0
                                     @endif

@@ -802,29 +802,29 @@
       }
     }
 
-    function nobuy(){
-      var Settopcar = document.getElementById('Topcar').value;
-      var Topcar = Settopcar.replace(",","");
-      var Timelack = document.getElementById('Timeslackencar').value;
-      var SetP2Price = document.getElementById('P2Price').value;
-      var P2Price = SetP2Price.replace(",","");
-      var Insurance = document.getElementById('Insurancecar').value;
-      if(Insurance == 'ไม่ซื้อ'){
-        if(Topcar >= 150000 && Timelack < 48){
-          var Newtopcar = parseFloat(Topcar) - parseFloat(P2Price);
-          var NewP2Price = parseFloat(P2Price) - parseFloat(P2Price);
-        }else{
-          var Newtopcar = parseFloat(Topcar);
-          var NewP2Price = parseFloat(P2Price);
-        }
-      }
-      if(Insurance != ''){
-        document.form1.Topcar.value = addCommas(Newtopcar);
-        document.form1.P2Price.value = addCommas(NewP2Price);
-      }else{
-        document.form1.Topcar.value = addCommas(Topcar);
-      }
-    }
+    // function nobuy(){
+    //   var Settopcar = document.getElementById('Topcar').value;
+    //   var Topcar = Settopcar.replace(",","");
+    //   var Timelack = document.getElementById('Timeslackencar').value;
+    //   var SetP2Price = document.getElementById('P2Price').value;
+    //   var P2Price = SetP2Price.replace(",","");
+    //   var Insurance = document.getElementById('Insurancecar').value;
+    //   if(Insurance == 'ไม่ซื้อ'){
+    //     if(Topcar >= 150000 && Timelack < 48){
+    //       var Newtopcar = parseFloat(Topcar) - parseFloat(P2Price);
+    //       var NewP2Price = parseFloat(P2Price) - parseFloat(P2Price);
+    //     }else{
+    //       var Newtopcar = parseFloat(Topcar);
+    //       var NewP2Price = parseFloat(P2Price);
+    //     }
+    //   }
+    //   if(Insurance != ''){
+    //     document.form1.Topcar.value = addCommas(Newtopcar);
+    //     document.form1.P2Price.value = addCommas(NewP2Price);
+    //   }else{
+    //     document.form1.Topcar.value = addCommas(Topcar);
+    //   }
+    // }
 
 
 </script>

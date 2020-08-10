@@ -1245,7 +1245,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">ประกันภัย : </label>
                                 <div class="col-sm-8">
-                                  <select id="Insurancecar" name="Insurancecar" class="form-control" onchange="nobuy();">
+                                  <select id="Insurancecar" name="Insurancecar" class="form-control" onchange="">
                                     <option value="" selected>--- ประกันภัย ---</option>
                                     <option value="แถม ป2+ 1ปี">แถม ป2+ 1ปี</option>
                                     <option value="มี ป2+ อยู่แล้ว">มี ป2+ อยู่แล้ว</option>
@@ -1613,7 +1613,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">ซื้อ ป2+/ป1 : </label>
                                 <div class="col-sm-8">
-                                  <input type="text" id="P2Price" name="P2Price" class="form-control" value="0" placeholder="ซื้อ ป2+" oninput="balance();nobuy();"/>
+                                  <input type="text" id="P2Price" name="P2Price" class="form-control" value="0" placeholder="ซื้อ ป2+" oninput="balance();"/>
                                   <input type="hidden" id="P2PriceOri" name="P2PriceOri" class="form-control" value="0" placeholder="ซื้อ ป2+" onchange="calculate();balance();"/>
                                 </div>
                               </div>
