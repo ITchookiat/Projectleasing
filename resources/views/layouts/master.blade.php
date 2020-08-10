@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>ชูเกียรติลิสซิ่ง</title>
+  <title>ชูเกียรติเช่าซื้อ</title>
   <link rel="icon" href="{{ asset('dist/img/leasingLogo.png') }}" type="image/ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
