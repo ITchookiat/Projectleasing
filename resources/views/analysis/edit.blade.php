@@ -1773,7 +1773,7 @@
                                 <label class="col-sm-3 col-form-label text-right">ประกันภัย : </label>
                                 <div class="col-sm-8">
                                   @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                                    <select id="Insurancecar" name="Insurancecar" class="form-control"  onchange="nobuy();">
+                                    <select id="Insurancecar" name="Insurancecar" class="form-control"  onchange="">
                                       <option value="" selected>--- ประกันภัย ---</option>
                                       @foreach ($Insurancecarr as $key => $value)
                                         <option value="{{$key}}" {{ ($key == $data->Insurance_car) ? 'selected' : '' }}>{{$value}}</option>
@@ -1783,7 +1783,7 @@
                                     @if($GetDocComplete != Null)
                                       <input type="text" id="Insurancecar" name="Insurancecar" value="{{$data->Insurance_car}}" class="form-control"  placeholder="ประกันภัย" readonly />
                                     @else
-                                      <select id="Insurancecar" name="Insurancecar" class="form-control"  onchange="nobuy();">
+                                      <select id="Insurancecar" name="Insurancecar" class="form-control"  onchange="">
                                         <option value="" selected>--- ประกันภัย ---</option>
                                         @foreach ($Insurancecarr as $key => $value)
                                           <option value="{{$key}}" {{ ($key == $data->Insurance_car) ? 'selected' : '' }}>{{$value}}</option>
