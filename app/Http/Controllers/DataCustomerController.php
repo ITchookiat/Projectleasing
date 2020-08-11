@@ -85,6 +85,7 @@ class DataCustomerController extends Controller
             'Top_car' => $SetTopcar,
             'Year_car' => $request->get('Yearcar'),
             'Name_buyer' => $request->get('Namebuyer'),
+            'Last_buyer' => $request->get('Lastbuyer'),
             'Phone_buyer' => $request->get('Phonebuyer'),
             'IDCard_buyer' => $request->get('IDCardbuyer'),
             'Name_agent' => $request->get('Nameagent'),
@@ -105,16 +106,6 @@ class DataCustomerController extends Controller
           $data->Status_leasing = $value;
         $data->update();
 
-        $Name_buyer = NULL;
-        $last_buyer = NULL;
-        if($data->Name_buyer != Null){
-            $SetStr = explode(" ",$data->Name_buyer);
-            $Name_buyer = $SetStr[0];
-            $last_buyer = $SetStr[1];
-        }else{
-            $Name_buyer = '';
-            $last_buyer = '';
-        }
         $DateDue = date('Y-m-d');
         $SetYear = date('Y') + 543;
         if($data->Branch_car == 'ปัตตานี'){
@@ -151,8 +142,8 @@ class DataCustomerController extends Controller
         $Buyerdb = new Buyer([
             'Contract_buyer' => $SetContract,
             'Date_Due' => $DateDue,
-            'Name_buyer' => $Name_buyer,
-            'last_buyer' => $last_buyer,
+            'Name_buyer' => $data->Name_buyer,
+            'last_buyer' => $data->Last_buyer,
             'Phone_buyer' => $data->Phone_buyer,
             'Idcard_buyer' => $data->IDCard_buyer,
           ]);
