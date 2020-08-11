@@ -1854,11 +1854,11 @@
                                 <div class="col-sm-8">
                                   <span class="todo-wrap">
                                     @if($data->Salemethod_car != Null)
-                                      <input type="checkbox" id="5" name="Salemethod" value="{{ $data->Salemethod_car }}" checked="checked"/>
+                                      <input type="checkbox" id="6" name="Salemethod" value="{{ $data->Salemethod_car }}" checked="checked"/>
                                     @else
-                                      <input type="checkbox" id="5" name="Salemethod" value="on"/>
+                                      <input type="checkbox" id="6" name="Salemethod" value="on"/>
                                     @endif
-                                    <label for="5" class="todo">
+                                    <label for="6" class="todo">
                                       <i class="fa fa-check"></i>
                                       กรรมสิทธิ์ในแบบซื้อขาย
                                     </label>
