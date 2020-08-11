@@ -1797,7 +1797,7 @@
                               </div>
                             </div>
                             <!-- สคริปไม่ซื้อประกัน -->
-                            <script>
+                            <!-- <script>
                               function nobuy(){
                                 var Settopcar = document.getElementById('Topcar').value;
                                 var Topcar = Settopcar.replace(",","");
@@ -1824,7 +1824,7 @@
                                   document.form1.Topcar.value = addCommas(Topcar);
                                 }
                               }
-                            </script>
+                            </script> -->
                             <div class="col-6">
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">เปอร์เซ็นจัดไฟแนนซ์ : </label>
