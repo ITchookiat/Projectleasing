@@ -103,16 +103,15 @@ class TreasController extends Controller
         elseif ($type == 3) {
             $data = DB::table('buyers')
                 ->leftJoin('cardetails','buyers.id','=','cardetails.Buyercar_id')
-                ->where('cardetails.Date_Appcar','>=',date('Y-m-d',strtotime('-1days')))
+                ->where('cardetails.Date_Appcar','=',date('Y-m-d'))
                 ->where('cardetails.UserCheckAc_car','=',Null)
                 ->get();
-            dump($data);
                 $countData = Count($data);
 
             if ($countData == 0) {
-            $countData = NULL;
+               $countData = NULL;
             }else {
-            $countData = '<span class="badge badge-danger navbar-badge">'.$countData.'</span>';
+               $countData = '<span class="badge badge-danger navbar-badge">'.$countData.'</span>';
             }
             
             echo $countData;
