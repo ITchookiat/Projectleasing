@@ -33,7 +33,7 @@
                 <h4 class="">
                   @if($type == 1)
                     สินเชื่อ
-                    @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->branch == 41)
+                    @if(auth::user()->type == 'Admin' or auth::user()->type == 'แผนก วิเคราะห์' or auth::user()->type == 'แผนก การเงินใน')
                       <button class="btn btn-gray float-right">
                         ค่าคอม: <font color="red">{{ number_format($SumCommitprice) }}</font> บาท
                       </button>
@@ -69,15 +69,21 @@
                         <li class="nav-item">
                           <a class="nav-link active" id="Tab-Main-1" href="{{ route('Analysis', 1) }}" >หน้าหลัก</a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                           <a class="nav-link" id="Tab-sub-1" href="{{ route('Analysis', 2) }}" >แบบฟอร์มผู้เช่าซื้อ</a>
-                        </li>
+                        </li> -->
                       @elseif($type == 4)
                         <li class="nav-item">
                           <a class="nav-link active" href="{{ route('Analysis', 4) }}">หน้าหลัก</a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" href="{{ route('Analysis', 5) }}">แบบฟอร์มผู้เช่าซื้อ</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#">แบบฟอร์มผู้ค้ำ</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#">แบบฟอร์มรถยนต์</a>
                         </li>
                       @elseif($type == 8)
                         <li class="nav-item">
@@ -86,6 +92,12 @@
                         <li class="nav-item">
                           <a class="nav-link" href="{{ route('Analysis',9) }}">แบบฟอร์มผู้เช่าซื้อ</a>
                         </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#">แบบฟอร์มผู้ค้ำ</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#">แบบฟอร์มรถยนต์</a>
+                        </li>
                       @elseif($type == 12)
                         <li class="nav-item active">
                           <a class="nav-link" href="{{ route('Analysis', 12) }}">หน้าหลัก</a>
@@ -93,9 +105,15 @@
                         <li class="nav-item">
                           <a class="nav-link" href="{{ route('Analysis', 13) }}">แบบฟอร์มผู้เช่าซื้อ</a>
                         </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#">แบบฟอร์มผู้ค้ำ</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#">แบบฟอร์มรถยนต์</a>
+                        </li>
                       @endif
 
-                      <li class="nav-item">
+                      <!-- <li class="nav-item">
                         <a class="nav-link" href="#">แบบฟอร์มผู้ค้ำ</a>
                       </li>
                       <li class="nav-item">
@@ -108,7 +126,7 @@
                         <li class="nav-item">
                           <a class="nav-link" href="#">Checker</a>
                         </li>
-                      @endif
+                      @endif -->
                     </ul>
                   </div>
                   
