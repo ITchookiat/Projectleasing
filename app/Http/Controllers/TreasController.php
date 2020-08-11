@@ -103,7 +103,7 @@ class TreasController extends Controller
         elseif ($type == 3) {
             $data = DB::table('buyers')
                 ->leftJoin('cardetails','buyers.id','=','cardetails.Buyercar_id')
-                ->where('cardetails.Date_Appcar','>=',date('Y-m-d'))
+                ->where('cardetails.Date_Appcar','>=',date('Y-m-d',strtotime('-1days')))
                 ->where('cardetails.UserCheckAc_car','=',Null)
                 ->get();
 
