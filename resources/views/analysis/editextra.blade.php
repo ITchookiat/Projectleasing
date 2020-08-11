@@ -198,7 +198,7 @@
       @endif
 
       <section class="content">
-        <form name="form1" method="post" action="{{ action('AnalysController@updaterestructure',[$id,$Gettype]) }}" enctype="multipart/form-data">
+        <form name="form1" method="post" action="{{ action('AnalysController@updaterestructure',[$id]) }}" enctype="multipart/form-data">
           @csrf
           @method('put')
 
