@@ -277,7 +277,7 @@
                               <div class="col-md-5">
                                 <div class="float-right form-inline">
                                   <label><font color="red">เลขที่สัญญา : </font></label>
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 4)
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MANAGER")
                                     <input type="text" name="Contract_buyer" class="form-control" style="width: 250px;" required/>
                                   @else
                                     <input type="text" name="Contract_buyer" class="form-control" style="width: 250px;" data-inputmask="&quot;mask&quot;:&quot;99-9999/&quot;" data-mask="" required/>
