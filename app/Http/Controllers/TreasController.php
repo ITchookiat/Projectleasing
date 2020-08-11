@@ -105,6 +105,8 @@ class TreasController extends Controller
                 ->leftJoin('cardetails','buyers.id','=','cardetails.Buyercar_id')
                 ->where('cardetails.Date_Appcar','>=',date('Y-m-d'))
                 ->where('cardetails.UserCheckAc_car','=',Null)
+                ->where('buyers.Contract_buyer','not like', '22%')
+                ->where('buyers.Contract_buyer','not like', '33%')
                 ->get();
                 $countData = Count($data);
 
