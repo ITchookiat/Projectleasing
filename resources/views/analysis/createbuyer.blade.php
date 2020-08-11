@@ -1245,7 +1245,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">ประกันภัย : </label>
                                 <div class="col-sm-8">
-                                  <select id="Insurancecar" name="Insurancecar" class="form-control" onchange="nobuy();">
+                                  <select id="Insurancecar" name="Insurancecar" class="form-control" onchange="">
                                     <option value="" selected>--- ประกันภัย ---</option>
                                     <option value="แถม ป2+ 1ปี">แถม ป2+ 1ปี</option>
                                     <option value="มี ป2+ อยู่แล้ว">มี ป2+ อยู่แล้ว</option>
@@ -1258,7 +1258,7 @@
                                 </div>
                               </div>
                             </div>
-                            <script>
+                            <!-- <script>
                               function nobuy(){
                                 var Settopcar = document.getElementById('Topcar').value;
                                 var Topcar = Settopcar.replace(",","");
@@ -1282,7 +1282,7 @@
                                   document.form1.Topcar.value = addCommas(Topcar);
                                 }
                               }
-                            </script>
+                            </script> -->
                             <div class="col-6">
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">เปอร์เซ็นจัดไฟแนนซ์ : </label>
