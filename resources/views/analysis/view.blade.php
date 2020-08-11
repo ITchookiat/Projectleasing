@@ -454,7 +454,7 @@
                           </select>
                         </div>
                       </form>
-                      <br><br>
+                      <br><br><hr>
 
                       <div class="table-responsive">
                         <table class="table table-bordered" id="table1">
@@ -468,7 +468,7 @@
                               <th class="text-center">ทะเบียน</th>
                               <th class="text-center">ปี</th>
                               <th class="text-center">ยอดจัด</th>
-                              <th class="text-center">เอกสาร/แก้ไข</th>
+                              <th class="text-center">เอกสาร</th>
                               <th class="text-center">ตรวจสอบ</th>
                               <th class="text-center">สถานะอนุมัติ</th>
                               <th class="text-center" style="width: 180px">ตัวเลือก</th>
@@ -494,15 +494,6 @@
                                 <td class="text-center">
                                   <label class="con">
                                   @if ( $row->DocComplete_car != Null)
-                                    <input type="checkbox" class="checkbox" name="Checkcar" id="" checked="checked" disabled>
-                                  @else
-                                    <input type="checkbox" class="checkbox" name="Checkcar" id="" disabled>
-                                  @endif
-                                  <span class="checkmark"></span>
-                                  </label>
-
-                                  <label class="con2">
-                                  @if ( $row->tran_Price != 0)
                                     <input type="checkbox" class="checkbox" name="Checkcar" id="" checked="checked" disabled>
                                   @else
                                     <input type="checkbox" class="checkbox" name="Checkcar" id="" disabled>
@@ -542,7 +533,7 @@
                                   </a>
                                   @endif
 
-                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MANAGER")
                                     @if($branch == "")
                                       @php $branch = 'Null'; @endphp
                                     @endif
@@ -578,7 +569,7 @@
                                     @endif
                                   @endif
 
-                                @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
+                                @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MANAGER")
                                   <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
                                   {{csrf_field()}}
                                     <input type="hidden" name="_method" value="DELETE" />

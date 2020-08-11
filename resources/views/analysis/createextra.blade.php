@@ -1197,7 +1197,7 @@
                         <div class="col-5">
                           <div class="float-right form-inline">
                             <label>ชำระต่องวด : </label>
-                            <input type="text" id="Paycar" name="Paycar" class="form-control" style="width: 250px;" readonly onchange="calculate();" />
+                            <input type="text" id="Paycar" name="Paycar" class="form-control" style="width: 250px;" readonly oninput="calculate();" />
                           </div>
                         </div>
                       </div>
@@ -1207,9 +1207,9 @@
                           <div class="float-right form-inline">
                             <label>ระยะเวลาผ่อน : </label>
                             @if($type == 9)
-                              <input type="text" id="Timeslackencar" name="Timeslackencar" class="form-control" style="width: 250px;" onchange="calculate();" />
+                              <input type="text" id="Timeslackencar" name="Timeslackencar" class="form-control" style="width: 250px;" oninput="calculate();" />
                             @elseif($type == 13)
-                              <input type="text" id="Timeslackencar" name="Timeslackencar" value="12" class="form-control" style="width: 250px;" onchange="calculate();" />
+                              <input type="text" id="Timeslackencar" name="Timeslackencar" value="12" class="form-control" style="width: 250px;" oninput="calculate();" />
                             @endif
                           </div>
                         </div>

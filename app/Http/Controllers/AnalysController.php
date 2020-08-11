@@ -2422,6 +2422,700 @@ class AnalysController extends Controller
       }
     }
 
+    public function updatehomecar(Request $request, $id, $type)
+    {
+        date_default_timezone_set('Asia/Bangkok');
+        $Currdate = date('2020-06-02');   //วันที่เช็ตค่า รูป
+
+        $newDateDue = \Carbon\Carbon::parse($request->DateDue)->format('Y') ."-". \Carbon\Carbon::parse($request->DateDue)->format('m')."-". \Carbon\Carbon::parse($request->DateDue)->format('d');
+        $SetPhonebuyer = str_replace ( "_","",$request->get('Phonebuyer'));
+
+        $Getcardetail = Cardetail::where('Buyercar_id',$id)->first();
+        $Gethomecardetail = homecardetail::where('Buyerhomecar_id',$id)->first();
+
+        if ($request->get('approversHC') != Null) {
+          if ($Gethomecardetail->dateapp_HC == Null) {
+            $Y = date('Y');
+            $m = date('m');
+            $d = date('d');
+
+            $newDateDue = $Y.'-'.$m.'-'.$d;
+          }
+        }
+
+        $user = Buyer::find($id);
+          $user->Contract_buyer = $request->get('Contract_buyer');
+          $user->Date_Due = $newDateDue;
+          $user->Name_buyer = $request->get('Namebuyer');
+          $user->last_buyer = $request->get('lastbuyer');
+          $user->Nick_buyer = $request->get('Nickbuyer');
+          $user->Status_buyer = $request->get('Statusbuyer');
+          $user->Phone_buyer = $SetPhonebuyer;
+          $user->Phone2_buyer = $request->get('Phone2buyer');
+          $user->Mate_buyer = $request->get('Matebuyer');
+          $user->Idcard_buyer = $request->get('Idcardbuyer');
+          $user->Address_buyer = $request->get('Addressbuyer');
+          $user->AddN_buyer = $request->get('AddNbuyer');
+          $user->StatusAdd_buyer = $request->get('StatusAddbuyer');
+          $user->Workplace_buyer = $request->get('Workplacebuyer');
+          $user->House_buyer = $request->get('Housebuyer');
+          $user->Driver_buyer = $request->get('Driverbuyer');
+          $user->HouseStyle_buyer = $request->get('HouseStylebuyer');
+          $user->Career_buyer = $request->get('Careerbuyer');
+          $user->Income_buyer = $request->get('Incomebuyer');
+          $user->Purchase_buyer = $request->get('Purchasebuyer');
+          $user->Support_buyer = $request->get('Supportbuyer');
+          $user->securities_buyer = $request->get('securitiesbuyer');
+          $user->deednumber_buyer = $request->get('deednumberbuyer');
+          $user->area_buyer = $request->get('areabuyer');
+          $user->BeforeIncome_buyer = str_replace(",","",$request->get('Beforeincome'));
+          $user->AfterIncome_buyer = str_replace(",","",$request->get('Afterincome'));
+          $user->Gradebuyer_car = $request->get('Gradebuyer');
+          $user->Objective_car = $request->get('objectivecar');
+        $user->update();
+
+        $SettelSP = str_replace ("_","",$request->get('telSP'));
+        $sponsor = Sponsor::where('Buyer_id',$id)->first();
+          $sponsor->name_SP = $request->get('nameSP');
+          $sponsor->lname_SP = $request->get('lnameSP');
+          $sponsor->nikname_SP = $request->get('niknameSP');
+          $sponsor->status_SP = $request->get('statusSP');
+          $sponsor->tel_SP = $SettelSP;
+          $sponsor->relation_SP = $request->get('relationSP');
+          $sponsor->mate_SP = $request->get('mateSP');
+          $sponsor->idcard_SP = $request->get('idcardSP');
+          $sponsor->add_SP = $request->get('addSP');
+          $sponsor->addnow_SP = $request->get('addnowSP');
+          $sponsor->statusadd_SP = $request->get('statusaddSP');
+          $sponsor->workplace_SP = $request->get('workplaceSP');
+          $sponsor->house_SP = $request->get('houseSP');
+          $sponsor->deednumber_SP = $request->get('deednumberSP');
+          $sponsor->area_SP = $request->get('areaSP');
+          $sponsor->housestyle_SP = $request->get('housestyleSP');
+          $sponsor->career_SP = $request->get('careerSP');
+          $sponsor->income_SP = $request->get('incomeSP');
+          $sponsor->puchase_SP = $request->get('puchaseSP');
+          $sponsor->support_SP = $request->get('supportSP');
+          $sponsor->securities_SP = $request->get('securitiesSP');
+        $sponsor->update();
+
+        $SettelSP2 = str_replace ("_","",$request->get('telSP2'));
+        $sponsor2 = Sponsor2::where('Buyer_id2',$id)->first();
+
+        if ($sponsor2 != Null) {
+            $sponsor2->name_SP2 = $request->get('nameSP2');
+            $sponsor2->lname_SP2 = $request->get('lnameSP2');
+            $sponsor2->nikname_SP2 = $request->get('niknameSP2');
+            $sponsor2->status_SP2 = $request->get('statusSP2');
+            $sponsor2->tel_SP2 = $SettelSP2;
+            $sponsor2->relation_SP2 = $request->get('relationSP2');
+            $sponsor2->mate_SP2 = $request->get('mateSP2');
+            $sponsor2->idcard_SP2 = $request->get('idcardSP2');
+            $sponsor2->add_SP2 = $request->get('addSP2');
+            $sponsor2->addnow_SP2 = $request->get('addnowSP2');
+            $sponsor2->statusadd_SP2 = $request->get('statusaddSP2');
+            $sponsor2->workplace_SP2 = $request->get('workplaceSP2');
+            $sponsor2->house_SP2 = $request->get('houseSP2');
+            $sponsor2->deednumber_SP2 = $request->get('deednumberSP2');
+            $sponsor2->area_SP2 = $request->get('areaSP2');
+            $sponsor2->housestyle_SP2 = $request->get('housestyleSP2');
+            $sponsor2->career_SP2 = $request->get('careerSP2');
+            $sponsor2->income_SP2 = $request->get('incomeSP2');
+            $sponsor2->puchase_SP2 = $request->get('puchaseSP2');
+            $sponsor2->support_SP2 = $request->get('supportSP2');
+            $sponsor2->securities_SP2 = $request->get('securitiesSP2');
+          $sponsor2->update();
+        }else {
+          $SettelSP2 = str_replace ("_","",$request->get('telSP2'));
+          $Sponsor2db = new Sponsor2([
+            'Buyer_id2' => $id,
+            'name_SP2' => $request->get('nameSP2'),
+            'lname_SP2' => $request->get('lnameSP2'),
+            'nikname_SP2' => $request->get('niknameSP2'),
+            'status_SP2' => $request->get('statusSP2'),
+            'tel_SP2' => $SettelSP2,
+            'relation_SP2' => $request->get('relationSP2'),
+            'mate_SP2' => $request->get('mateSP2'),
+            'idcard_SP2' => $request->get('idcardSP2'),
+            'add_SP2' => $request->get('addSP2'),
+            'addnow_SP2' => $request->get('addnowSP2'),
+            'statusadd_SP2' => $request->get('statusaddSP2'),
+            'workplace_SP2' => $request->get('workplaceSP2'),
+            'house_SP2' => $request->get('houseSP2'),
+            'deednumber_SP2' => $request->get('deednumberSP2'),
+            'area_SP2' => $request->get('areaSP2'),
+            'housestyle_SP2' => $request->get('housestyleSP2'),
+            'career_SP2' => $request->get('careerSP2'),
+            'income_SP2' => $request->get('incomeSP2'),
+            'puchase_SP2' => $request->get('puchaseSP2'),
+            'support_SP2' => $request->get('supportSP2'),
+            'securities_SP2' => $request->get('securitiesSP2'),
+          ]);
+          $Sponsor2db->save();
+        }
+
+        if ($type == 4) {   //สินเชื่อ รถบ้าน
+          if (auth()->user()->branch == 10 or auth()->user()->branch == 11 or auth()->user()->type == 4 or auth()->user()->type == 1) {
+            $Homecardetail = homecardetail::where('Buyerhomecar_id',$id)->first();
+              $Homecardetail->brand_HC = $request->get('brandHC');
+              $Homecardetail->year_HC = $request->get('yearHC');
+              $Homecardetail->colour_HC = $request->get('colourHC');
+              $Homecardetail->oldplate_HC = $request->get('oldplateHC');
+              $Homecardetail->newplate_HC = $request->get('newplateHC');
+              $Homecardetail->mile_HC = $request->get('mileHC');
+              $Homecardetail->model_HC = $request->get('modelHC');
+              $Homecardetail->type_HC = $request->get('typeHC');
+              $Homecardetail->price_HC = $request->get('priceHC');
+              $Homecardetail->downpay_HC = $request->get('downpayHC');
+              $Homecardetail->insurancefee_HC = $request->get('insurancefeeHC');
+              $Homecardetail->transfer_HC = $request->get('transferHC');
+              $Homecardetail->topprice_HC = $request->get('toppriceHC');
+              $Homecardetail->interest_HC = $request->get('interestHC');
+              $Homecardetail->vat_HC = $request->get('vatHC');
+              $Homecardetail->period_HC = $request->get('periodHC');
+              $Homecardetail->paypor_HC = $request->get('payporHC');
+              $Homecardetail->payment_HC = $request->get('paymentHC');
+              $Homecardetail->payperriod_HC = $request->get('payperriodHC');
+              $Homecardetail->tax_HC = $request->get('taxHC');
+              $Homecardetail->taxperriod_HC = $request->get('taxperriodHC');
+              $Homecardetail->totalinstalments_HC = $request->get('totalinstalmentsHC');
+              $Homecardetail->baab_HC = $request->get('baabHC');
+              $Homecardetail->guarantee_HC = $request->get('guaranteeHC');
+              $Homecardetail->insurance_HC = $request->get('insuranceHC');
+              $Homecardetail->agent_HC = $request->get('agentHC');
+              $Homecardetail->tel_HC = $request->get('telHC');
+              $Homecardetail->commit_HC = $request->get('commitHC');
+              $Homecardetail->purchhis_HC = $request->get('purchhisHC');
+              $Homecardetail->supporthis_HC = $request->get('supporthisHC');
+              $Homecardetail->other_HC = $request->get('otherHC');
+              $Homecardetail->sale_HC = $request->get('saleHC');
+
+              if ($request->get('approversHC') != Null) {
+                $SetStatusApp = 'อนุมัติ';
+
+                if ($Homecardetail->dateapp_HC == Null) {
+                  $Y = date('Y') +543;
+                  $Y2 = date('Y');
+                  $m = date('m', strtotime('+1 month'));
+                  $m2 = date('m');
+                  $d = date('d');
+                  $datefirst = $d.'-'.$m.'-'.$Y;
+                  $dateApp = $Y2.'-'.$m2.'-'.$d;
+
+                  $Homecardetail->firstpay_HC = $datefirst;
+                  $Homecardetail->dateapp_HC = $dateApp;
+                  $SetStatusApp = 'อนุมัติ';
+
+
+                  $branchType = Null;
+                  if ($Homecardetail->branchUS_HC == "รถบ้าน") {
+                      $branchType = 10;
+                  }elseif ($Homecardetail->branchUS_HC == "รถยืดขายผ่อน") {
+                      $branchType = 11;
+                  }
+
+                  if ($branchType != Null) {
+                    if ($branchType == 10) { //สาขารถบ้าน
+                      $connect = Buyer::where('Contract_buyer', 'like', '10%' )
+                                        ->orderBy('Contract_buyer', 'desc')->limit(1)
+                                        ->get();
+                    }elseif ($branchType == 11) { //สาขารถยืดขายผ่อน
+                      $connect = Buyer::where('Contract_buyer', 'like', '11%' )
+                                        ->orderBy('Contract_buyer', 'desc')->limit(1)
+                                        ->get();
+                    }
+
+                    $contract = $connect[0]->Contract_buyer;
+                    $SetStr = explode("/",$contract);
+                    $StrNum = $SetStr[1] + 1;
+
+                    $num = "1000";
+                    $SubStr = substr($num.$StrNum, -4);
+                    $StrConn = $SetStr[0]."/".$SubStr;
+
+                    $GetIdConn = Buyer::where('id',$id)->first();
+                      $GetIdConn->Contract_buyer = $StrConn;
+                    $GetIdConn->update();
+                  }
+                }
+              }else {
+                $SetStatusApp = 'รออนุมัติ';
+              }
+
+              $Homecardetail->approvers_HC = $request->get('approversHC');
+              $Homecardetail->totalinstalments1_HC = $request->get('totalinstalments1HC');
+              $Homecardetail->statusapp_HC = $SetStatusApp;
+            $Homecardetail->update();
+
+            $SetLicense = "";
+            if ($request->get('oldplateHC') != NULL) {
+              $SetLicense = $request->get('oldplateHC');
+            }
+
+          }
+        }
+
+      // รูปภาพประกอบ
+      if ($request->hasFile('file_image')) {
+        $image_array = $request->file('file_image');
+        $array_len = count($image_array);
+
+        for ($i=0; $i < $array_len; $i++) {
+          $image_size = $image_array[$i]->getClientSize();
+          $image_lastname = $image_array[$i]->getClientOriginalExtension();
+          $image_new_name = str_random(10).time(). '.' .$image_array[$i]->getClientOriginalExtension();
+
+          if(substr($user->created_at,0,10) < $Currdate){
+            $destination_path = public_path('/upload-image');
+            $image_array[$i]->move($destination_path,$image_new_name);
+          }
+          else{
+            $path = public_path().'/upload-image/'.$SetLicense;
+            Storage::makeDirectory($path, 0777, true, true);
+            $image_array[$i]->move($path,$image_new_name);
+          }
+
+          $Uploaddb = new UploadfileImage([
+            'Buyerfileimage_id' => $id,
+            'Type_fileimage' => 1,
+            'Name_fileimage' => $image_new_name,
+            'Size_fileimage' => $image_size,
+          ]);
+          $Uploaddb ->save();
+        }
+      }
+      
+
+      $fdate = $request->fdate;
+      $tdate = $request->tdate;
+      $branch = $request->branch;
+      $status = $request->status;
+
+      if ($branch == "Null") {
+        $branch = Null;
+      }
+      if ($status == "Null") {
+        $status = Null;
+      }
+
+      if ($type == 4) {
+        return redirect()->Route('Analysis',$type)->with(['fdate' => $fdate,'tdate' => $tdate,'branch' => $branch,'status' => $status,'success' => 'อัพเดตข้อมูลเรียบร้อย']);
+      }
+    }
+
+    public function updaterestructure(Request $request, $id, $type)
+    {
+        // dd($type);
+        date_default_timezone_set('Asia/Bangkok');
+        $Currdate = date('2020-06-02');   //วันที่เช็ตค่า รูป
+
+        $newDateDue = \Carbon\Carbon::parse($request->DateDue)->format('Y') ."-". \Carbon\Carbon::parse($request->DateDue)->format('m')."-". \Carbon\Carbon::parse($request->DateDue)->format('d');
+        $SetPhonebuyer = str_replace ( "_","",$request->get('Phonebuyer'));
+
+        $Getcardetail = Cardetail::where('Buyercar_id',$id)->first();
+        $Gethomecardetail = homecardetail::where('Buyerhomecar_id',$id)->first();
+
+        if ($request->get('Approverscar') != Null) {
+          if ($Getcardetail->Date_Appcar == Null) {
+            $Y = date('Y');
+            $m = date('m');
+            $d = date('d');
+
+            $newDateDue = $Y.'-'.$m.'-'.$d;
+          }
+        }
+
+        $user = Buyer::find($id);
+          $user->Contract_buyer = $request->get('Contract_buyer');
+          $user->Date_Due = $newDateDue;
+          $user->Name_buyer = $request->get('Namebuyer');
+          $user->last_buyer = $request->get('lastbuyer');
+          $user->Nick_buyer = $request->get('Nickbuyer');
+          $user->Status_buyer = $request->get('Statusbuyer');
+          $user->Phone_buyer = $SetPhonebuyer;
+          $user->Phone2_buyer = $request->get('Phone2buyer');
+          $user->Mate_buyer = $request->get('Matebuyer');
+          $user->Idcard_buyer = $request->get('Idcardbuyer');
+          $user->Address_buyer = $request->get('Addressbuyer');
+          $user->AddN_buyer = $request->get('AddNbuyer');
+          $user->StatusAdd_buyer = $request->get('StatusAddbuyer');
+          $user->Workplace_buyer = $request->get('Workplacebuyer');
+          $user->House_buyer = $request->get('Housebuyer');
+          $user->Driver_buyer = $request->get('Driverbuyer');
+          $user->HouseStyle_buyer = $request->get('HouseStylebuyer');
+          $user->Career_buyer = $request->get('Careerbuyer');
+          $user->Income_buyer = $request->get('Incomebuyer');
+          $user->Purchase_buyer = $request->get('Purchasebuyer');
+          $user->Support_buyer = $request->get('Supportbuyer');
+          $user->securities_buyer = $request->get('securitiesbuyer');
+          $user->deednumber_buyer = $request->get('deednumberbuyer');
+          $user->area_buyer = $request->get('areabuyer');
+          $user->BeforeIncome_buyer = str_replace(",","",$request->get('Beforeincome'));
+          $user->AfterIncome_buyer = str_replace(",","",$request->get('Afterincome'));
+          $user->Gradebuyer_car = $request->get('Gradebuyer');
+          $user->Objective_car = $request->get('objectivecar');
+        $user->update();
+
+        $SettelSP = str_replace ("_","",$request->get('telSP'));
+        $sponsor = Sponsor::where('Buyer_id',$id)->first();
+          $sponsor->name_SP = $request->get('nameSP');
+          $sponsor->lname_SP = $request->get('lnameSP');
+          $sponsor->nikname_SP = $request->get('niknameSP');
+          $sponsor->status_SP = $request->get('statusSP');
+          $sponsor->tel_SP = $SettelSP;
+          $sponsor->relation_SP = $request->get('relationSP');
+          $sponsor->mate_SP = $request->get('mateSP');
+          $sponsor->idcard_SP = $request->get('idcardSP');
+          $sponsor->add_SP = $request->get('addSP');
+          $sponsor->addnow_SP = $request->get('addnowSP');
+          $sponsor->statusadd_SP = $request->get('statusaddSP');
+          $sponsor->workplace_SP = $request->get('workplaceSP');
+          $sponsor->house_SP = $request->get('houseSP');
+          $sponsor->deednumber_SP = $request->get('deednumberSP');
+          $sponsor->area_SP = $request->get('areaSP');
+          $sponsor->housestyle_SP = $request->get('housestyleSP');
+          $sponsor->career_SP = $request->get('careerSP');
+          $sponsor->income_SP = $request->get('incomeSP');
+          $sponsor->puchase_SP = $request->get('puchaseSP');
+          $sponsor->support_SP = $request->get('supportSP');
+          $sponsor->securities_SP = $request->get('securitiesSP');
+        $sponsor->update();
+
+        $SettelSP2 = str_replace ("_","",$request->get('telSP2'));
+        $sponsor2 = Sponsor2::where('Buyer_id2',$id)->first();
+
+        if ($sponsor2 != Null) {
+            $sponsor2->name_SP2 = $request->get('nameSP2');
+            $sponsor2->lname_SP2 = $request->get('lnameSP2');
+            $sponsor2->nikname_SP2 = $request->get('niknameSP2');
+            $sponsor2->status_SP2 = $request->get('statusSP2');
+            $sponsor2->tel_SP2 = $SettelSP2;
+            $sponsor2->relation_SP2 = $request->get('relationSP2');
+            $sponsor2->mate_SP2 = $request->get('mateSP2');
+            $sponsor2->idcard_SP2 = $request->get('idcardSP2');
+            $sponsor2->add_SP2 = $request->get('addSP2');
+            $sponsor2->addnow_SP2 = $request->get('addnowSP2');
+            $sponsor2->statusadd_SP2 = $request->get('statusaddSP2');
+            $sponsor2->workplace_SP2 = $request->get('workplaceSP2');
+            $sponsor2->house_SP2 = $request->get('houseSP2');
+            $sponsor2->deednumber_SP2 = $request->get('deednumberSP2');
+            $sponsor2->area_SP2 = $request->get('areaSP2');
+            $sponsor2->housestyle_SP2 = $request->get('housestyleSP2');
+            $sponsor2->career_SP2 = $request->get('careerSP2');
+            $sponsor2->income_SP2 = $request->get('incomeSP2');
+            $sponsor2->puchase_SP2 = $request->get('puchaseSP2');
+            $sponsor2->support_SP2 = $request->get('supportSP2');
+            $sponsor2->securities_SP2 = $request->get('securitiesSP2');
+          $sponsor2->update();
+        }else {
+          $SettelSP2 = str_replace ("_","",$request->get('telSP2'));
+          $Sponsor2db = new Sponsor2([
+            'Buyer_id2' => $id,
+            'name_SP2' => $request->get('nameSP2'),
+            'lname_SP2' => $request->get('lnameSP2'),
+            'nikname_SP2' => $request->get('niknameSP2'),
+            'status_SP2' => $request->get('statusSP2'),
+            'tel_SP2' => $SettelSP2,
+            'relation_SP2' => $request->get('relationSP2'),
+            'mate_SP2' => $request->get('mateSP2'),
+            'idcard_SP2' => $request->get('idcardSP2'),
+            'add_SP2' => $request->get('addSP2'),
+            'addnow_SP2' => $request->get('addnowSP2'),
+            'statusadd_SP2' => $request->get('statusaddSP2'),
+            'workplace_SP2' => $request->get('workplaceSP2'),
+            'house_SP2' => $request->get('houseSP2'),
+            'deednumber_SP2' => $request->get('deednumberSP2'),
+            'area_SP2' => $request->get('areaSP2'),
+            'housestyle_SP2' => $request->get('housestyleSP2'),
+            'career_SP2' => $request->get('careerSP2'),
+            'income_SP2' => $request->get('incomeSP2'),
+            'puchase_SP2' => $request->get('puchaseSP2'),
+            'support_SP2' => $request->get('supportSP2'),
+            'securities_SP2' => $request->get('securitiesSP2'),
+          ]);
+          $Sponsor2db->save();
+        }
+
+          if ($request->get('Topcar') != Null) {
+            $SetTopcar = str_replace (",","",$request->get('Topcar'));
+          }else {
+            $SetTopcar = 0;
+          }
+
+          if ($request->get('Commissioncar') != Null) {
+            $SetCommissioncar = str_replace (",","",$request->get('Commissioncar'));
+          }else {
+            $SetCommissioncar = 0;
+          }
+
+          // ดึงค่า ป้ายทะเบียน
+          $SetLicense = "";
+          if ($request->get('Licensecar') != NULL) {
+            $SetLicense = $request->get('Licensecar');
+          }
+
+          $cardetail = Cardetail::where('Buyercar_id',$id)->first();
+            $cardetail->Brand_car = $request->get('Brandcar');
+            $cardetail->Year_car = $request->get('Yearcar');
+            $cardetail->Typecardetails = $request->get('Typecardetail');
+            $cardetail->Groupyear_car = $request->get('Groupyearcar');
+            $cardetail->Colour_car = $request->get('Colourcar');
+            $cardetail->License_car = $request->get('Licensecar');
+            $cardetail->Nowlicense_car = $request->get('Nowlicensecar');
+            $cardetail->Mile_car = $request->get('Milecar');
+            $cardetail->Midprice_car = $request->get('Midpricecar');
+            $cardetail->Model_car = $request->get('Modelcar');
+            $cardetail->Top_car = $SetTopcar;
+            $cardetail->Interest_car = $request->get('Interestcar');
+            $cardetail->Vat_car = $request->get('Vatcar');
+            $cardetail->Timeslacken_car = $request->get('Timeslackencar');
+            $cardetail->Pay_car = $request->get('Paycar');
+            $cardetail->Paymemt_car = $request->get('Paymemtcar');
+            $cardetail->Timepayment_car = $request->get('Timepaymentcar');
+            $cardetail->Tax_car = $request->get('Taxcar');
+            $cardetail->Taxpay_car = $request->get('Taxpaycar');
+            $cardetail->Totalpay1_car = $request->get('Totalpay1car');
+            $cardetail->Totalpay2_car = $request->get('Totalpay2car');
+            $cardetail->Insurance_key = $request->get('Insurancekey');
+            $cardetail->Salemethod_car = $request->get('Salemethod');
+
+            // สถานะ อนุมัติสัญญา
+            if ($request->get('Approverscar') != NULL) { //กรณี อนุมัติ
+              if ($cardetail->Approvers_car == NULL) {
+                $Y = date('Y') +543;
+                $Y2 = date('Y');
+                $m = date('m', strtotime('+1 month'));
+                $m2 = date('m');
+                $d = date('d');
+                $test = date('d-m-Y', strtotime('+1 month'));
+                $dateduebefore = \Carbon\Carbon::parse($test)->format('Y')+543 ."-". \Carbon\Carbon::parse($test)->format('m')."-". \Carbon\Carbon::parse($test)->format('d');
+                $dateduechange = date_create($dateduebefore);
+                $datefirst = date_format($dateduechange, 'd-m-Y');
+
+                $dateApp = $Y2.'-'.$m2.'-'.$d;
+
+                $cardetail->Dateduefirst_car = $datefirst;
+                $cardetail->Date_Appcar = $dateApp;
+                $SetStatusApp = 'อนุมัติ';
+                $SetNameApp =  $request->get('Approverscar');   //ดึงชื่อคน อนุมัติ
+
+                if ($cardetail->branch_car == "ปรับโครงสร้าง") {
+                    $branchType = 22;
+                }elseif ($cardetail->branch_car == "มาตรการช่วยเหลือ") {
+                    $branchType = 33;
+                }
+
+                if ($branchType != Null) {
+                  if ($branchType == 22) { //ปรับโครงสร้างหนี้
+                    $connect = Buyer::where('Contract_buyer', 'like', '22%' )
+                                      ->orderBy('Contract_buyer', 'desc')->limit(1)
+                                      ->get();
+                  }elseif ($branchType == 33) { //มาตรการช่วยเหลือ
+                    $connect = Buyer::where('Contract_buyer', 'like', '33%' )
+                                      ->orderBy('Contract_buyer', 'desc')->limit(1)
+                                      ->get();
+                  }
+
+                  // dd($connect);
+                  $contract = $connect[0]->Contract_buyer;
+                  $SetStr = explode("/",$contract);
+                  $StrNum = $SetStr[1] + 1;
+
+                  $num = "1000";
+                  $SubStr = substr($num.$StrNum, -4);
+                  $StrConn = $SetStr[0]."/".$SubStr;
+
+                  $GetIdConn = Buyer::where('id',$id)->first();
+                    $GetIdConn->Contract_buyer = $StrConn;
+                  $GetIdConn->update();
+
+                }
+              }else {
+                $SetStatusApp = 'อนุมัติ';
+                $SetNameApp = $cardetail->Approvers_car;   //ดึงชื่อคน อนุมัติ
+              }
+            }
+            else { //ยกเลิก หรือ ไม่อนุมัติ
+              if (auth()->user()->type == 1 or auth()->user()->type == 2) {
+                $SetStatusApp = 'รออนุมัติ';
+                $cardetail->Dateduefirst_car = NULL;
+                $cardetail->Date_Appcar = NULL;
+                $SetNameApp =  NULL;   //ดึงชื่อคน อนุมัติ
+
+                $branchType = NULL;
+                if ($cardetail->branch_car == "ปรับโครงสร้าง") {
+                    $branchType = 22;
+                }elseif ($cardetail->branch_car == "มาตรการช่วยเหลือ") {
+                    $branchType = 33;
+                }
+                if ($branchType != Null) {
+                  if ($branchType == 22) { //ปรับโครงสร้างหนี้
+                    $connect = Buyer::where('Contract_buyer', 'like', '22%' )
+                                      ->orderBy('Contract_buyer', 'desc')->limit(1)
+                                      ->get();
+                  }elseif ($branchType == 33) { //มาตรการช่วยเหลือ
+                    $connect = Buyer::where('Contract_buyer', 'like', '33%' )
+                                      ->orderBy('Contract_buyer', 'desc')->limit(1)
+                                      ->get();
+                  }
+
+                  $contract = $connect[0]->Contract_buyer;
+                  $SetStr = explode("/",$contract);
+                  $StrNum = $SetStr[0];
+
+                  $GetIdConn = Buyer::where('id',$id)->first();
+                    $GetIdConn->Contract_buyer = $StrNum;
+                  $GetIdConn->update();
+                }
+              }
+              else {
+                $SetStatusApp = 'รออนุมัติ';
+                $SetNameApp =  NULL;   //ดึงชื่อคน อนุมัติ
+              }
+            }
+
+            // เก็บชื่อ สถานะตรวจเอกสาร
+            if ($request->get('Checkcar') != NULL) {
+              if ($cardetail->Check_car == NULL) {
+                $cardetail->Check_car = $request->get('Checkcar');
+              }
+            }else {
+              if (auth()->user()->type == 1 or auth()->user()->type == 2) {
+                $cardetail->Check_car = NULL;
+              }
+            }
+
+            $cardetail->Insurance_car = $request->get('Insurancecar');
+            $cardetail->status_car = $request->get('statuscar');
+            $cardetail->Percent_car = $request->get('Percentcar');
+            $cardetail->Payee_car = $request->get('Payeecar');
+            $cardetail->Accountbrance_car = $request->get('Accountbrancecar');
+            $cardetail->Tellbrance_car = $request->get('Tellbrancecar');
+            $cardetail->Agent_car = $request->get('Agentcar');
+            $cardetail->Accountagent_car = $request->get('Accountagentcar');
+            $cardetail->Commission_car = $SetCommissioncar;
+            $cardetail->Tellagent_car = $request->get('Tellagentcar');
+            $cardetail->Purchasehistory_car = $request->get('Purchasehistorycar');
+            $cardetail->Supporthistory_car = $request->get('Supporthistorycar');
+            $cardetail->Approvers_car = $SetNameApp;
+            $cardetail->StatusApp_car = $SetStatusApp;
+            $cardetail->DocComplete_car = $request->get('doccomplete');
+            $cardetail->branchbrance_car = $request->get('branchbrancecar');
+            $cardetail->branchAgent_car = $request->get('branchAgentcar');
+            $cardetail->Note_car = $request->get('Notecar');
+            if($type == 8 or $type == 12){
+              $cardetail->Dateduefirst_car = $request->get('Dateduefirstcar');
+            }
+          $cardetail->update();
+
+          if ($request->get('tranPrice') != Null) {
+            $SettranPrice = str_replace (",","",$request->get('tranPrice'));
+          }else {
+            $SettranPrice = 0;
+          }
+          if ($request->get('otherPrice') != Null) {
+            $SetotherPrice = str_replace (",","",$request->get('otherPrice'));
+          }else {
+            $SetotherPrice = 0;
+          }
+          if ($request->get('totalkPrice') != Null) {
+            $SettotalkPrice = str_replace (",","",$request->get('totalkPrice'));
+          }else {
+            $SettotalkPrice = 0;
+          }
+          if ($request->get('balancePrice') != Null) {
+            $SetbalancePrice = str_replace (",","",$request->get('balancePrice'));
+          }else {
+            $SetbalancePrice = 0;
+          }
+          if ($request->get('commitPrice') != Null) {
+            $SetcommitPrice = str_replace (",","",$request->get('commitPrice'));
+          }else {
+            $SetcommitPrice = 0;
+          }
+          if ($request->get('actPrice') != Null) {
+            $SetactPrice = str_replace (",","",$request->get('actPrice'));
+          }else {
+            $SetactPrice = 0;
+          }
+          if ($request->get('closeAccountPrice') != Null) {
+            $SetcloseAccountPrice = str_replace (",","",$request->get('closeAccountPrice'));
+          }else {
+            $SetcloseAccountPrice = 0;
+          }
+          if ($request->get('P2Price') != Null) {
+            $SetP2Price = str_replace (",","",$request->get('P2Price'));
+          }else {
+            $SetP2Price = 0;
+          }
+
+          $expenses = Expenses::where('Buyerexpenses_id',$id)->first();
+            $expenses->act_Price = $SetactPrice;
+            $expenses->closeAccount_Price = $SetcloseAccountPrice;
+            $expenses->P2_Price = $SetP2Price;
+            $expenses->vat_Price = $request->get('vatPrice');
+            $expenses->tran_Price = $SettranPrice;
+            $expenses->other_Price = $SetotherPrice;
+            $expenses->evaluetion_Price = $request->get('evaluetionPrice');
+            $expenses->totalk_Price = $SettotalkPrice;
+            $expenses->balance_Price = $SetbalancePrice;
+            $expenses->commit_Price = $SetcommitPrice;
+            $expenses->marketing_Price = $request->get('marketingPrice');
+            $expenses->duty_Price = $request->get('dutyPrice');
+            $expenses->insurance_Price = $request->get('insurancePrice');
+            $expenses->note_Price = $request->get('notePrice');
+          $expenses->update();
+
+
+      // รูปภาพประกอบ
+      if ($request->hasFile('file_image')) {
+        $image_array = $request->file('file_image');
+        $array_len = count($image_array);
+
+        for ($i=0; $i < $array_len; $i++) {
+          $image_size = $image_array[$i]->getClientSize();
+          $image_lastname = $image_array[$i]->getClientOriginalExtension();
+          $image_new_name = str_random(10).time(). '.' .$image_array[$i]->getClientOriginalExtension();
+
+          if(substr($user->created_at,0,10) < $Currdate){
+            $destination_path = public_path('/upload-image');
+            $image_array[$i]->move($destination_path,$image_new_name);
+          }
+          else{
+            $path = public_path().'/upload-image/'.$SetLicense;
+            Storage::makeDirectory($path, 0777, true, true);
+            $image_array[$i]->move($path,$image_new_name);
+          }
+
+          $Uploaddb = new UploadfileImage([
+            'Buyerfileimage_id' => $id,
+            'Type_fileimage' => 1,
+            'Name_fileimage' => $image_new_name,
+            'Size_fileimage' => $image_size,
+          ]);
+          $Uploaddb ->save();
+        }
+      }
+
+      $fdate = $request->fdate;
+      $tdate = $request->tdate;
+      $branch = $request->branch;
+      $status = $request->status;
+
+      if ($branch == "Null") {
+        $branch = Null;
+      }
+      if ($status == "Null") {
+        $status = Null;
+      }
+
+      if ($type == 8) {
+        return redirect()->Route('Analysis',$type)->with(['fdate' => $fdate,'tdate' => $tdate,'branch' => $branch,'status' => $status,'success' => 'อัพเดตข้อมูลเรียบร้อย']);
+      }elseif ($type == 12) {
+        return redirect()->Route('Analysis',$type)->with(['fdate' => $fdate,'tdate' => $tdate,'branch' => $branch,'status' => $status,'success' => 'อัพเดตข้อมูลเรียบร้อย']);
+      }
+    }
+
     /**
      * Remove the specified resource from storage.
      *
