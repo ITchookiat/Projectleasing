@@ -2422,9 +2422,9 @@ class AnalysController extends Controller
       }
     }
 
-    public function updatehomecar(Request $request, $id, $type)
+    public function updatehomecar(Request $request, $id, $Gettype)
     {
-        dd($request);
+        // dd($request);
         date_default_timezone_set('Asia/Bangkok');
         $Currdate = date('2020-06-02');   //วันที่เช็ตค่า รูป
 
@@ -2555,8 +2555,8 @@ class AnalysController extends Controller
           $Sponsor2db->save();
         }
 
-        if ($type == 4) {   //สินเชื่อ รถบ้าน
-          if (auth()->user()->branch == 10 or auth()->user()->branch == 11 or auth()->user()->type == 4 or auth()->user()->type == 1) {
+        if ($Gettype == 4) {   //สินเชื่อ รถบ้าน
+         
             $Homecardetail = homecardetail::where('Buyerhomecar_id',$id)->first();
               $Homecardetail->brand_HC = $request->get('brandHC');
               $Homecardetail->year_HC = $request->get('yearHC');
@@ -2653,7 +2653,7 @@ class AnalysController extends Controller
               $SetLicense = $request->get('oldplateHC');
             }
 
-          }
+          
         }
 
       // รูปภาพประกอบ
@@ -2699,8 +2699,8 @@ class AnalysController extends Controller
         $status = Null;
       }
 
-      if ($type == 4) {
-        return redirect()->Route('Analysis',$type)->with(['fdate' => $fdate,'tdate' => $tdate,'branch' => $branch,'status' => $status,'success' => 'อัพเดตข้อมูลเรียบร้อย']);
+      if ($Gettype == 4) {
+        return redirect()->Route('Analysis',$Gettype)->with(['fdate' => $fdate,'tdate' => $tdate,'branch' => $branch,'status' => $status,'success' => 'อัพเดตข้อมูลเรียบร้อย']);
       }
     }
 

@@ -199,7 +199,7 @@
       @endif
 
       <section class="content">
-        <form name="form1" method="post" action="{{ action('AnalysController@update',[$id,$Gettype]) }}" enctype="multipart/form-data">
+        <form name="form1" method="post" action="{{ action('AnalysController@updatehomecar',[$id,$Gettype]) }}" enctype="multipart/form-data">
           @csrf
           @method('put')
           <div class="row">
@@ -216,7 +216,7 @@
                       <div class="row">
                         <div class="col-3"></div>
                         <div class="col-6">
-                          @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 4)
+                        @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MANAGER")
                             <div class="float-right form-inline">
                               <i class="fas fa-grip-vertical"></i>
                               <span class="todo-wrap">

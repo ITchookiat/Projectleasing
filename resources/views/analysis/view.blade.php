@@ -373,7 +373,7 @@
                                     <i class="fas fa-print"></i> พิมพ์
                                   </a>
 
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 4)
+                                  @if(auth::user()->type == 'Admin' or auth::user()->type == 'แผนก วิเคราะห์' or auth::user()->position == 'MANAGER')
                                     @php $branch = 'Null'; @endphp
                                     @if($status == "")
                                       @php $status = 'Null'; @endphp
@@ -393,7 +393,7 @@
                                     @endif
                                   @endif
 
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2 or auth::user()->type == 4)
+                                  @if(auth::user()->type == 'Admin' or auth::user()->type == 'แผนก วิเคราะห์' or auth::user()->position == 'MANAGER')
                                     <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
                                     {{csrf_field()}}
                                       <input type="hidden" name="_method" value="DELETE" />
@@ -424,7 +424,7 @@
                       <form method="get" action="{{ route('Analysis',8) }}">
                         <p></p>
                         <div class="float-right form-inline">
-                          @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
+                        @if(auth::user()->type == 'Admin' or auth::user()->type == 'แผนก วิเคราะห์' or auth::user()->position == 'MANAGER')
                             <label>เลขที่สัญญา : </label>
                             <input type="type" name="Contno" value="{{$contno}}" maxlength="12" class="form-control form-control-lg"/>
                             <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', 2) }}" class="btn bg-primary btn-app">
