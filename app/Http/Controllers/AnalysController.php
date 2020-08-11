@@ -2424,6 +2424,7 @@ class AnalysController extends Controller
 
     public function updatehomecar(Request $request, $id, $type)
     {
+        dd($request);
         date_default_timezone_set('Asia/Bangkok');
         $Currdate = date('2020-06-02');   //วันที่เช็ตค่า รูป
 
@@ -2703,9 +2704,9 @@ class AnalysController extends Controller
       }
     }
 
-    public function updaterestructure(Request $request, $id, $type)
+    public function updaterestructure(Request $request, $id, $Gettype)
     {
-        // dd($type);
+        // dd($Gettype);
         date_default_timezone_set('Asia/Bangkok');
         $Currdate = date('2020-06-02');   //วันที่เช็ตค่า รูป
 
@@ -3003,7 +3004,7 @@ class AnalysController extends Controller
             $cardetail->branchbrance_car = $request->get('branchbrancecar');
             $cardetail->branchAgent_car = $request->get('branchAgentcar');
             $cardetail->Note_car = $request->get('Notecar');
-            if($type == 8 or $type == 12){
+            if($Gettype == 8 or $Gettype == 12){
               $cardetail->Dateduefirst_car = $request->get('Dateduefirstcar');
             }
           $cardetail->update();
@@ -3109,10 +3110,10 @@ class AnalysController extends Controller
         $status = Null;
       }
 
-      if ($type == 8) {
-        return redirect()->Route('Analysis',$type)->with(['fdate' => $fdate,'tdate' => $tdate,'branch' => $branch,'status' => $status,'success' => 'อัพเดตข้อมูลเรียบร้อย']);
-      }elseif ($type == 12) {
-        return redirect()->Route('Analysis',$type)->with(['fdate' => $fdate,'tdate' => $tdate,'branch' => $branch,'status' => $status,'success' => 'อัพเดตข้อมูลเรียบร้อย']);
+      if ($Gettype == 8) {
+        return redirect()->Route('Analysis',$Gettype)->with(['fdate' => $fdate,'tdate' => $tdate,'branch' => $branch,'status' => $status,'success' => 'อัพเดตข้อมูลเรียบร้อย']);
+      }elseif ($Gettype == 12) {
+        return redirect()->Route('Analysis',$Gettype)->with(['fdate' => $fdate,'tdate' => $tdate,'branch' => $branch,'status' => $status,'success' => 'อัพเดตข้อมูลเรียบร้อย']);
       }
     }
 
