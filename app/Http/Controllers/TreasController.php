@@ -106,7 +106,7 @@ class TreasController extends Controller
                 ->where('cardetails.Date_Appcar','>=',date('Y-m-d',strtotime('-1days')))
                 ->where('cardetails.UserCheckAc_car','=',Null)
                 ->get();
-
+            dump($data);
                 $countData = Count($data);
 
             if ($countData == 0) {
