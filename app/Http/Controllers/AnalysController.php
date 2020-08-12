@@ -1697,6 +1697,7 @@ class AnalysController extends Controller
       }
       elseif ($type == 8 or $type == 12) {
         $type = $request->type;
+        $Gettype = $request->type;
         return view('Analysis.editextra',
             compact('type','data','id','dataImage','Statusby','Addby','Houseby','Driverby','HouseStyleby','Careerby','Incomeby',
             'HisCarby','StatusSPp','relationSPp','addSPp','housestyleSPp','Brandcarr','Interestcarr','Timeslackencarr',
@@ -2706,7 +2707,6 @@ class AnalysController extends Controller
 
     public function updaterestructure(Request $request, $id, $Gettype)
     {
-        // dd($Gettype);
         date_default_timezone_set('Asia/Bangkok');
         $Currdate = date('2020-06-02');   //วันที่เช็ตค่า รูป
 

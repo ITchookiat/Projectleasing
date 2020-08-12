@@ -79,10 +79,15 @@
                             <button type="submit" class="btn bg-warning btn-app">
                               <span class="fas fa-search"></span> Search
                             </button>
+
+                            <a href="#" class="btn bg-primary btn-app">
+                              <span class="fas fa-print"></span> Report
+                            </a>
                           </div>
                         </div>
                       </div>
                     </form>
+                    <hr>
                   @if($type == 1)
                     <div class="table-responsive">
                       <table class="table table-striped table-valign-middle" id="table1">
@@ -115,9 +120,9 @@
                               <td class="text-center">{{DateThai(substr($row->created_at,0,10))}}</td>
                               <td class="text-center">{{$row->License_car}}</td>
                               <td class="text-center">{{number_format($row->Top_car,2)}}</td>
-                              <td class="text-center">{{$row->Name_buyer}}</td>
-                              <td class="text-center">{{$row->Phone_buyer}}</td>
-                              <td class="text-center">{{$row->IDCard_buyer}}</td>
+                              <td class="text-center">{{($row->Name_buyer != Null) ? $row->Name_buyer : '-'}}   {{$row->Last_buyer}}</td>
+                              <td class="text-center">{{($row->Phone_buyer != Null) ? $row->Phone_buyer : '-'}}</td>
+                              <td class="text-center">{{($row->IDCard_buyer != Null) ? $row->IDCard_buyer : '-'}}</td>
                               <td class="text-center">
                                 @if($row->Status_leasing == 1) 
                                   <a href="{{ route('DataCustomer.savestatus', [2, $row->Customer_id]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
