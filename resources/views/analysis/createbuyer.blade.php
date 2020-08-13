@@ -768,17 +768,17 @@
                           <div class="row">
                             <div class="col-6">
                               <div class="form-group row mb-1">
-                                <label class="col-sm-3 col-form-label text-right">คู่สมรส : </label>
+                                <label class="col-sm-3 col-form-label text-right">เลขบัตรปชช.ผู้ค้ำ : </label>
                                 <div class="col-sm-8">
-                                  <input type="text" name="mateSP" class="form-control" placeholder="คู่สมรส" />
+                                  <input type="text" name="idcardSP" class="form-control" placeholder="เลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask="" />
                                 </div>
                               </div>
                             </div>
                             <div class="col-6">
                               <div class="form-group row mb-1">
-                                <label class="col-sm-3 col-form-label text-right">เลขบัตรประชาชน : </label>
+                                <label class="col-sm-3 col-form-label text-right">คู่สมรส : </label>
                                 <div class="col-sm-8">
-                                  <input type="text" name="idcardSP" class="form-control" placeholder="เลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask="" />
+                                  <input type="text" name="mateSP" class="form-control" placeholder="คู่สมรส" />
                                 </div>
                               </div>
                             </div>
