@@ -120,12 +120,12 @@ class LegislationController extends Controller
                   ->get();
 
         $dataPay = DB::table('legislations')
-               ->join('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
-               ->join('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+               ->leftJoin('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
+               ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
                ->where('legispayments.Flag_Payment', '=', 'Y')
                ->get();
 
-               // dd($dataPay);
+              //  dd($dataPay);
 
         if ($StateCourt == "ชั้นศาล") {
           $data = DB::table('legislations')
@@ -867,7 +867,6 @@ class LegislationController extends Controller
      */
     public function edit($id, $type)
     {
-
       if ($type == 2) {     //ข้อมูลผู้เช่าซื้อ
         $data = DB::table('legislations')
               ->where('legislations.id',$id)->first();
@@ -1233,6 +1232,7 @@ class LegislationController extends Controller
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
       }
       elseif ($type == 4) { //ประนอมหนี้-รายละเอียด
+        dd($request);
         $data = DB::table('Legiscompromises')
                   ->where('Legiscompromises.legisPromise_id', $id)->first();
 
@@ -1328,7 +1328,6 @@ class LegislationController extends Controller
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
       }
       elseif ($type == 7) { //ชั้นบังคับคดี
-
         // $file = $request->file('Upfile');
 
         // dump($file->getClientOriginalName());
