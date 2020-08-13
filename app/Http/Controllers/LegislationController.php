@@ -1232,7 +1232,6 @@ class LegislationController extends Controller
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
       }
       elseif ($type == 4) { //ประนอมหนี้-รายละเอียด
-        dd($request);
         $data = DB::table('Legiscompromises')
                   ->where('Legiscompromises.legisPromise_id', $id)->first();
 
