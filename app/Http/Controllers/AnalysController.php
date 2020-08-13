@@ -67,6 +67,12 @@ class AnalysController extends Controller
               ->orderBy('buyers.Contract_buyer', 'ASC')
               ->get();
         }else {
+          if($contno != ''){
+            $newfdate = '';
+            $newtdate = '';
+            $branch = '';
+            $status = '';
+          }
           $data = DB::table('buyers')
             ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
               ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
