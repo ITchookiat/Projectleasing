@@ -163,7 +163,7 @@ class DataCustomerController extends Controller
             'Typecardetails' => $data->Typecardetails,
             'License_car' => $data->License_car,
             'Top_car' => $data->Top_car,
-            'Commission_car' => $data->Name_agent,
+            'Agent_car' => $data->Name_agent,
             'Tellagent_car' => $data->Phone_agent,
             'StatusApp_car' => 'รออนุมัติ',
             'DocComplete_car' => $request->get('doccomplete'),
