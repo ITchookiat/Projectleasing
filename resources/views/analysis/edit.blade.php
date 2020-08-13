@@ -1165,24 +1165,24 @@
                           <div class="row">
                             <div class="col-6">
                               <div class="form-group row mb-1">
-                                <label class="col-sm-3 col-form-label text-right">คู่สมรส : </label>
+                                <label class="col-sm-3 col-form-label text-right">เลขบัตรปชช.ผู้ค้ำ : </label>
                                 <div class="col-sm-8">
                                   @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                                    <input type="text" name="mateSP" value="{{$data->mate_SP}}" class="form-control" placeholder="คู่สมรส" />
+                                    <input type="text" name="idcardSP" value="{{$data->idcard_SP}}" class="form-control" placeholder="เลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask=""/>
                                   @else
-                                    <input type="text" name="mateSP" value="{{$data->mate_SP}}" class="form-control" placeholder="คู่สมรส" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                    <input type="text" name="idcardSP" value="{{$data->idcard_SP}}" class="form-control" placeholder="เลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask="" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
                                   @endif
                                 </div>
                               </div>
                             </div>
                             <div class="col-6">
                               <div class="form-group row mb-1">
-                                <label class="col-sm-3 col-form-label text-right">เลขบัตรประชาชน : </label>
+                                <label class="col-sm-3 col-form-label text-right">คู่สมรส : </label>
                                 <div class="col-sm-8">
                                   @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                                    <input type="text" name="idcardSP" value="{{$data->idcard_SP}}" class="form-control" placeholder="เลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask=""/>
+                                    <input type="text" name="mateSP" value="{{$data->mate_SP}}" class="form-control" placeholder="คู่สมรส" />
                                   @else
-                                    <input type="text" name="idcardSP" value="{{$data->idcard_SP}}" class="form-control" placeholder="เลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask="" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                    <input type="text" name="mateSP" value="{{$data->mate_SP}}" class="form-control" placeholder="คู่สมรส" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
                                   @endif
                                 </div>
                               </div>
