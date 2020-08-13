@@ -110,7 +110,7 @@
                               </small>
                               <div class="form-inline">
                                 <label>สถานะ : </label>
-                                <select name="" class="form-control" style="width: 170px;">
+                                <select name="StatusCompro" class="form-control" style="width: 170px;">
                                   <option value="" selected>--------- status ----------</option>
                                   <option value="ปิดบัญชีประนอมหนี้" {{ ($data->Status_Promise === 'ปิดบัญชีประนอมหนี้') ? 'selected' : '' }}>ปิดบัญชีประนอมหนี้</option>
                                   <option value="จ่ายจบประนอมหนี้" {{ ($data->Status_Promise === 'จ่ายจบประนอมหนี้') ? 'selected' : '' }}>จ่ายจบประนอมหนี้</option>
@@ -361,8 +361,8 @@
                               </div>
                             </div>
 
-                <input type="hidden" name="_method" value="PATCH"/>
-              </form>
+                  <input type="hidden" name="_method" value="PATCH"/>
+                </form>
                             <div class="tab-pane fade" id="tabs-2" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
                               <div class="table-responsive">
                                 <table class="table table-bordered" id="table">
