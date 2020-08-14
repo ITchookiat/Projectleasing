@@ -70,8 +70,8 @@
         <tr>
           <th align="right" width="120px"> ที่อยู่ &nbsp;</th>
           <th class="text-center" width="240px" style="background-color: yellow;"> <b>{{$dataReport->Address_buyer}}</b></th>
-          <td align="right" width="85px"> วัตถุประสงค์สินเชื่อ</td>
-          <td width="95px"style="background-color: yellow;"> <b>{{$dataReport->Objective_car}}</b></td>
+          <td align="right" width="85px"> วัตถุประสงค์สินเชื่อ&nbsp;</td>
+          <td width="95px"style="background-color: yellow;"> <b style="font-size:10px;">{{$dataReport->Objective_car}}</b></td>
         </tr>
         <tr>
           <th align="right" width="120px"> ที่อยู่ปัจจุบัน/ส่งเอกสาร &nbsp;</th>

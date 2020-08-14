@@ -93,6 +93,7 @@ class DataCustomerController extends Controller
             'Resource_news' => $request->get('News'),
             'Branch_car' => $request->get('branchcar'),
             'Note_car' => $request->get('Notecar'),
+            'Name_user' => $request->get('NameUser'),
             // 'Type_leasing' => $request->get('TypeLeasing'),
             'Status_leasing' => 1,
           ]);
@@ -165,6 +166,7 @@ class DataCustomerController extends Controller
             'Top_car' => $data->Top_car,
             'Agent_car' => $data->Name_agent,
             'Tellagent_car' => $data->Phone_agent,
+            'Loanofficer_car' => $data->Name_user,
             'StatusApp_car' => 'รออนุมัติ',
             'DocComplete_car' => $request->get('doccomplete'),
             'branch_car' => $data->Branch_car,
@@ -219,6 +221,8 @@ class DataCustomerController extends Controller
      */
     public function destroy($id)
     {
-        dd($id);
+        $item1 = Data_customer::find($id);
+        $item1->Delete();
+        return redirect()->back()->with('success','ลบข้อมูลเรียบร้อย');
     }
 }
