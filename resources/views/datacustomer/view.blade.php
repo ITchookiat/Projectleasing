@@ -108,6 +108,7 @@
                           @foreach($data as $key => $row)
                             <tr>
                               <td class="text-center">
+                              @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                 <form method="post" class="delete_form" action="{{ action('DataCustomerController@destroy',[$row->Customer_id]) }}" style="display:inline;">
                                 {{csrf_field()}}
                                   <input type="hidden" name="_method" value="DELETE" />
@@ -115,6 +116,7 @@
                                     <i class="far fa-trash-alt"></i>
                                   </button>
                                 </form>
+                              @endif
                               </td>
                               <td class="text-center">{{$key+1}}</td>
                               <td class="text-center">{{DateThai(substr($row->created_at,0,10))}}</td>
@@ -517,6 +519,8 @@
                     </div>
                   </div>
               </div>
+
+              <input type="้hidden" name="NameUser" value="{{auth::user()->name}}"/>
 
               <div style="text-align: center;">
                   <button type="submit" class="btn btn-success text-center" style="border-radius: 50px;">บันทึก</button>
