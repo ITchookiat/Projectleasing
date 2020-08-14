@@ -7,16 +7,16 @@
     </li>
     @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก รถบ้าน")
       <li class="nav-item d-none d-sm-inline-block">
-      <a href="#" class="nav-link" onclick="on_login('http://192.168.200.9/ProjectHomeCar/public/login', '{{ Auth::user()->username }}', '{{ Auth::user()->password_token }}');">
-          {{-- <a href="#" class="nav-link" onclick="on_login('http://localhost/ProjectHomeCar/public/login', '{{ Auth::user()->username }}', '{{ Auth::user()->password_token }}');"> --}}
+      {{-- <a href="#" class="nav-link" onclick="on_login('http://192.168.200.9/ProjectHomeCar/public/login', '{{ Auth::user()->username }}', '{{ Auth::user()->password_token }}');">
+          <a href="#" class="nav-link" onclick="on_login('http://localhost/ProjectHomeCar/public/login', '{{ Auth::user()->username }}', '{{ Auth::user()->password_token }}');">
           <i class="fas fa-car"></i> ระบบรถบ้าน
-        </a>
+        </a> --}}
       </li>
     @endif
     <li class="nav-item d-none d-sm-inline-block">
-      <a class="nav-link" href="#">
+      {{-- <a class="nav-link" href="#">
         <i class="fab fa-accusoft"></i> ระบบขายฝาก
-      </a>
+      </a> --}}
     </li>
   </ul>
 
