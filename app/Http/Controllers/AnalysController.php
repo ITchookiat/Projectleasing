@@ -1773,12 +1773,25 @@ class AnalysController extends Controller
         }
       }
 
-      if ($request->get('doccomplete') != Null) {
-        $SetDocComplete = $request->get('doccomplete');
-      }else {
-        $SetDocComplete = NULL;
-      }
+        //เอกสารครบ
+        if ($request->get('doccomplete') != Null) {
+          $SetDocComplete = $request->get('doccomplete');
+        }else {
+          $SetDocComplete = NULL;
+        }
 
+        //เพิ่มค่าใช้จ่ายขนส่ง
+        if ($request->get('tranPrice') != 0) {
+          $expenses = Expenses::where('Buyerexpenses_id',$id)->first();
+          if ($expenses->tran_Price == 0 ) {
+            $SetStatusMas = NULL;
+          }elseif ($expenses->tran_Price != 0) {
+            $SetStatusMas = $request->get('MASTER');
+          }
+        }else {
+          $SetStatusMas = $request->get('MASTER');
+        }
+      
         $user = Buyer::find($id);
           $user->Contract_buyer = $request->get('Contract_buyer');
           $user->Date_Due = $newDateDue;
@@ -2218,7 +2231,7 @@ class AnalysController extends Controller
             $cardetail->Purchasehistory_car = $request->get('Purchasehistorycar');
             $cardetail->Supporthistory_car = $request->get('Supporthistorycar');
             $cardetail->DocComplete_car = $SetDocComplete;             //เอกสารครบ
-            $cardetail->Check_car = $request->get('MASTER');          //หัวหน้า
+            $cardetail->Check_car = $SetStatusMas;                     //หัวหน้า
             $cardetail->Approvers_car = $request->get('AUDIT');        //audit
             $cardetail->ManagerApp_car = $request->get('MANAGER');     //ผู้จัดการ
             $cardetail->branchbrance_car = $request->get('branchbrancecar');
@@ -2563,7 +2576,6 @@ class AnalysController extends Controller
         }
 
         if ($Gettype == 4) {   //สินเชื่อ รถบ้าน
-         
             $Homecardetail = homecardetail::where('Buyerhomecar_id',$id)->first();
               $Homecardetail->brand_HC = $request->get('brandHC');
               $Homecardetail->year_HC = $request->get('yearHC');

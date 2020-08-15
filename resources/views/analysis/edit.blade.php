@@ -362,15 +362,12 @@
                               <input type="hidden" name="doccomplete" value="{{ $data->DocComplete_car }}">
                             @endif
 
-                            {{--
                             @if(auth::user()->position == "STAFF")
                               @if($data->DocComplete_car != NULL)
                                 <input type="hidden" name="doccomplete" value="{{ $data->DocComplete_car }}">
-                              @else
-                                <input type="hidden" name="doccomplete" value="{{ auth::user()->name }}">
                               @endif
                             @endif
-                            --}}
+                           
                           </div>  
                         </ol>
                       </div>

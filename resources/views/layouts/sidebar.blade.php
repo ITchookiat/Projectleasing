@@ -74,7 +74,7 @@
                     </p>
                   </a>
                   <ul class="nav nav-treeview" style="margin-left: 15px;">
-                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก รถบ้าน" or auth::user()->type == "แผนก การเงินใน" or auth::user()->branch == 01 or auth::user()->branch == 03 or auth::user()->branch == 04 or auth::user()->branch == 05 or auth::user()->branch == 06 or auth::user()->branch == 07)
+                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์")
                         <li class="nav-item">
                           <a href="{{ route('DataCustomer',1) }}" class="nav-link {{ Request::is('DataCustomer/Home/1') ? 'active' : '' }}">
                             <i class="far fa-dot-circle nav-icon"></i>
@@ -99,7 +99,7 @@
                     </p>
                   </a>
                   <ul class="nav nav-treeview" style="margin-left: 15px;">
-                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก รถบ้าน" or auth::user()->type == "แผนก การเงินใน" or auth::user()->branch == 01 or auth::user()->branch == 03 or auth::user()->branch == 04 or auth::user()->branch == 05 or auth::user()->branch == 06 or auth::user()->branch == 07)
+                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์")
                         <li class="nav-item">
                           <a href="{{ route('Analysis',1) }}" class="nav-link {{ Request::is('Analysis/Home/1') ? 'active' : '' }} {{ Request::is('Analysis/Home/2') ? 'active' : '' }} {{ Request::is('Analysis/edit/1/*/*/*/*/*') ? 'active' : '' }}">
                             <i class="far fa-dot-circle nav-icon"></i>
@@ -111,7 +111,7 @@
                           </a>
                         </li>
                       @endif
-                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก รถบ้าน" or auth::user()->type == "แผนก การเงินใน")
+                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก รถบ้าน")
                         <li class="nav-item">
                           <a href="{{ route('Analysis',4) }}" class="nav-link {{ Request::is('Analysis/Home/4') ? 'active' : '' }} {{ Request::is('Analysis/Home/5') ? 'active' : '' }} {{ Request::is('Analysis/edit/4/*/*/*/*/*') ? 'active' : '' }}">
                             <i class="far fa-dot-circle nav-icon"></i>
@@ -121,10 +121,12 @@
                             <i class="far fa-dot-circle nav-icon"></i>
                             <p>รายงาน สินเชื่อรถบ้าน</p>
                           </a>
-                          <a href="{{ route('Analysis',7) }}" class="nav-link {{ Request::is('Analysis/Home/7') ? 'active' : '' }} ">
-                            <i class="far fa-dot-circle nav-icon"></i>
-                            <p>รายงาน การอนุมัติ</p>
-                          </a>
+                          @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
+                            <a href="{{ route('Analysis',7) }}" class="nav-link {{ Request::is('Analysis/Home/7') ? 'active' : '' }} ">
+                              <i class="far fa-dot-circle nav-icon"></i>
+                              <p>รายงาน การอนุมัติ</p>
+                            </a>
+                          @endif
                         </li>
                       @endif
                   </ul>

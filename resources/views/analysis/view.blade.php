@@ -196,8 +196,8 @@
                                 <th class="text-left">ทะเบียน</th>
                                 <th class="text-left">ปี</th>
                                 <th class="text-center">ยอดจัด</th>
-                                <th class="text-center">เอกสาร/แก้ไข</th>
-                                <th class="text-center" style="width: 250px">สถานะ</th>
+                                <th class="text-center"></th>
+                                <th class="text-left" style="width: 250px">สถานะ</th>
                                 <th class="text-center" style="width: 100px"></th>
                               </tr>
                             </thead>
@@ -218,23 +218,19 @@
                                     @endif
                                   </td>
                                   <td class="text-center">
-                                    <label class="con">
-                                    @if ( $row->DocComplete_car != Null)
-                                      <input type="checkbox" class="checkbox" name="Checkcar" id="" checked="checked" disabled>
-                                    @else
-                                      <input type="checkbox" class="checkbox" name="Checkcar" id="" disabled>
-                                    @endif
-                                    <span class="checkmark"></span>
-                                    </label>
+                                    <div class="float-right form-inline">
+                                      @if ( $row->DocComplete_car != Null)
+                                        <h5><span class="badge badge-danger">
+                                          <i class="fas fa-clipboard-check"></i>
+                                        </span></h5>&nbsp;
+                                      @endif
 
-                                    <label class="con2">
-                                    @if ( $row->tran_Price != 0)
-                                      <input type="checkbox" class="checkbox" name="Checkcar" id="" checked="checked" disabled>
-                                    @else
-                                      <input type="checkbox" class="checkbox" name="Checkcar" id="" disabled>
-                                    @endif
-                                    <span class="checkmark"></span>
-                                    </label>
+                                      @if ( $row->tran_Price != 0)
+                                        <h5><span class="badge badge-info">
+                                            <i class="fas fa-spell-check"></i>
+                                        </span></h5>
+                                      @endif
+                                    </div>
                                   </td>
                                   <td class="text-left">
                                     @if ( $row->Check_car != Null)
