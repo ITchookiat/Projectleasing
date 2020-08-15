@@ -645,7 +645,6 @@ class LegislationController extends Controller
       $d = date('d');
       $date = $Y.'-'.$m.'-'.$d;
       
-      
       if ($type == 1) {       //ลูกหนี้ปกติ
         $SetStrConn = $SetStr1."/".$SetStr2;
         $data = DB::connection('ibmi')
@@ -1714,6 +1713,7 @@ class LegislationController extends Controller
            'note_cheat' => Null,
          ]);
          $Legiscourtcase->save();
+        //  dd('sdf');
 
          return redirect()->Route('legislation',$type)->with('success','ส่งเรียบร้อย');
        }
