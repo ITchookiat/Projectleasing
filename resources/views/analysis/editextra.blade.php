@@ -1392,9 +1392,27 @@
                             </div>
                             <div class="col-5">
                               <div class="float-right form-inline">
-                                  <label>วันที่ชำระงวดแรก : </label>
-                                  <input type="date" name="Dateduefirstcar" value="{{$data->Dateduefirst_car}}" class="form-control" style="width: 250px;" placeholder="วันที่ชำระงวดแรก" />
-                                </div>
+                                <label>วันที่ชำระงวดแรก : </label>
+                                <input type="date" name="Dateduefirstcar" value="{{$data->Dateduefirst_car}}" class="form-control" style="width: 250px;" placeholder="วันที่ชำระงวดแรก" />
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-5">
+                              <div class="float-right form-inline">
+                                <label>เจ้าหน้าที่รับลูกค้า : </label>
+                                @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MANAGER")
+                                  <select name="Loanofficercar" class="form-control" style="width: 250px;">
+                                    <option value="" selected>--- เลือกเจ้าหน้า ---</option>
+                                    <option value="มาซีเตาะห์ แวสือนิ" {{ ($data->Loanofficer_car === 'มาซีเตาะห์ แวสือนิ') ? 'selected' : '' }}>มาซีเตาะห์ แวสือนิ</option>
+                                    <option value="ขวัญตา เหมือนพยอม" {{ ($data->Loanofficer_car === 'ขวัญตา เหมือนพยอม') ? 'selected' : '' }}>ขวัญตา เหมือนพยอม</option>
+                                    <option value="เจ๊ะฟารีด๊ะห์ เจ๊ะกาเดร์" {{ ($data->Loanofficer_car === 'เจ๊ะฟารีด๊ะห์ เจ๊ะกาเดร์') ? 'selected' : '' }}>เจ๊ะฟารีด๊ะห์ เจ๊ะกาเดร์</option>
+                                  </select>
+                                @else
+                                  <input type="text" name="Loanofficercar" value="{{$data->Loanofficer_car}}" class="form-control" style="width: 250px;" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                @endif
+                              </div>
                             </div>
                           </div>
 

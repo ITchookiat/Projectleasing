@@ -1396,12 +1396,13 @@
                       <div class="row">
                         <div class="col-6">
                           <div class="form-group row mb-1">
-                            <label class="col-sm-3 col-form-label text-right"><font color="red">เจ้าหน้าที่สินเชื่อ : </font></label>
+                            <label class="col-sm-3 col-form-label text-right"><font color="red">เจ้าหน้าที่รับลูกค้า : </font></label>
                             <div class="col-sm-8">
                               <select name="Loanofficercar" class="form-control form-control-sm" required>
-                                <option value="" selected>--- เลือกพนักงาน ---</option>
+                                <option value="" selected>--- เลือกเจ้าหน้า ---</option>
                                 <option value="มาซีเตาะห์ แวสือนิ">มาซีเตาะห์ แวสือนิ</option>
                                 <option value="ขวัญตา เหมือนพยอม">ขวัญตา เหมือนพยอม</option>
+                                <option value="เจ๊ะฟารีด๊ะห์ เจ๊ะกาเดร์">เจ๊ะฟารีด๊ะห์ เจ๊ะกาเดร์</option>
                               </select>
                             </div>
                           </div>
