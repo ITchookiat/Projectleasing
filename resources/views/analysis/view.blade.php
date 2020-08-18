@@ -32,7 +32,7 @@
               <div class="card-header">
                 <h4 class="">
                   @if($type == 1)
-                    สินเชื่อ
+                    สินเชื่อ (Instalment contracts)
                     @if(auth::user()->type == 'Admin' or auth::user()->type == 'แผนก วิเคราะห์' or auth::user()->type == 'แผนก การเงินใน')
                       <button class="btn btn-gray float-right">
                         ค่าคอม: <font color="red">{{ number_format($SumCommitprice) }}</font> บาท
@@ -57,6 +57,8 @@
                     ปรับโครงสร้างหนี้
                   @elseif($type == 12)
                     มาตรการ COVID-19
+                  @elseif($type == 15)
+                    Dashboard
                   @endif
                 </h4>
               </div>
@@ -65,13 +67,22 @@
                   <div class="card-header p-0 pt-1">
                     <ul class="nav nav-tabs">
 
-                      @if($type == 1)
-                        <li class="nav-item">
-                          <a class="nav-link active" id="Tab-Main-1" href="{{ route('Analysis', 1) }}" >หน้าหลัก</a>
-                        </li>
-                        <!-- <li class="nav-item">
-                          <a class="nav-link" id="Tab-sub-1" href="{{ route('Analysis', 2) }}" >แบบฟอร์มผู้เช่าซื้อ</a>
-                        </li> -->
+                      @if($type == 1 or $type == 15)
+                        @if($type == 1)
+                          <li class="nav-item">
+                            <a class="nav-link" id="Tab-Main-2" href="{{ route('Analysis', 15) }}" >Dashboard</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link active" id="Tab-Main-1" href="{{ route('Analysis', 1) }}" >สัญญาเช่าซื้อ</a>
+                          </li>
+                        @elseif($type == 15)
+                          <li class="nav-item">
+                            <a class="nav-link active" id="Tab-Main-2" href="{{ route('Analysis', 15) }}" >Dashboard</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" id="Tab-Main-1" href="{{ route('Analysis', 1) }}" >สัญญาเช่าซื้อ</a>
+                          </li>
+                        @endif
                       @elseif($type == 4)
                         <li class="nav-item">
                           <a class="nav-link active" href="{{ route('Analysis', 4) }}">หน้าหลัก</a>
@@ -614,131 +625,148 @@
                       </div>
                     </div>
                   @elseif($type == 12)
-                      <div class="col-md-12">
-                        <form method="get" action="{{ route('Analysis',12) }}">
-                          <p></p>
-                          <div class="float-right form-inline">
-                            @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
+                    <div class="col-md-12">
+                      <form method="get" action="{{ route('Analysis',12) }}">
+                        <p></p>
+                        <div class="float-right form-inline">
+                          @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
+                          <label>เลขที่สัญญา : </label>
+                          <input type="type" name="Contno" value="{{$contno}}" maxlength="12" class="form-control form-control-lg"/>
+                            <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', 3) }}" class="btn bg-primary btn-app">
+                              <span class="fas fa-print"></span> ปริ้นรายการ
+                            </a>
+                          @else
                             <label>เลขที่สัญญา : </label>
                             <input type="type" name="Contno" value="{{$contno}}" maxlength="12" class="form-control form-control-lg"/>
-                              <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', 3) }}" class="btn bg-primary btn-app">
-                                <span class="fas fa-print"></span> ปริ้นรายการ
-                              </a>
-                            @else
-                              <label>เลขที่สัญญา : </label>
-                              <input type="type" name="Contno" value="{{$contno}}" maxlength="12" class="form-control form-control-lg"/>
-                            @endif
+                          @endif
 
-                            <button type="submit" class="btn bg-warning btn-app">
-                              <span class="fas fa-search"></span> Search
-                            </button>
-                          </div>
-                          <br><br><br><p></p>
-                          <div class="float-right form-inline">
-                            <p></p>
-                            <label>จากวันที่ : </label>
-                            <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control" />
+                          <button type="submit" class="btn bg-warning btn-app">
+                            <span class="fas fa-search"></span> Search
+                          </button>
+                        </div>
+                        <br><br><br><p></p>
+                        <div class="float-right form-inline">
+                          <p></p>
+                          <label>จากวันที่ : </label>
+                          <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control" />
 
-                            <label>ถึงวันที่ : </label>
-                            <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control" />
+                          <label>ถึงวันที่ : </label>
+                          <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control" />
 
-                            <label for="text" class="mr-sm-2">สถานะ : </label>
-                            <select name="status" class="form-control" id="text">
-                              <option selected value="">---สถานะ---</option>
-                              <option value="อนุมัติ"{{ ($status == 'อนุมัติ') ? 'selected' : '' }}>อนุมัติ</otion>
-                              <option value="รออนุมัติ"{{ ($status == 'รออนุมัติ') ? 'selected' : '' }}>รออนุมัติ</otion>
-                            </select>
-                          </div>
-                        </form>
-                        <br><br>
-                        <div class="table-responsive">
-                          <table class="table table-bordered" id="table1">
-                              <thead class="thead-dark bg-gray-light" >
+                          <label for="text" class="mr-sm-2">สถานะ : </label>
+                          <select name="status" class="form-control" id="text">
+                            <option selected value="">---สถานะ---</option>
+                            <option value="อนุมัติ"{{ ($status == 'อนุมัติ') ? 'selected' : '' }}>อนุมัติ</otion>
+                            <option value="รออนุมัติ"{{ ($status == 'รออนุมัติ') ? 'selected' : '' }}>รออนุมัติ</otion>
+                          </select>
+                        </div>
+                      </form>
+                      <br><br>
+                      <div class="table-responsive">
+                        <table class="table table-bordered" id="table1">
+                            <thead class="thead-dark bg-gray-light" >
+                              <tr>
+                                <th class="text-center" style="width:100px;">สาขา</th>
+                                <th class="text-center">เลขที่สัญญา</th>
+                                <th class="text-center">แบบ</th>
+                                <th class="text-center">ยีห้อ</th>
+                                <th class="text-center">ทะเบียนเดิม</th>
+                                <th class="text-center">ปี</th>
+                                <th class="text-center">ยอดจัด</th>
+                                <th class="text-center">เอกสาร/แก้ไข</th>
+                                <th class="text-center">ตรวจสอบ</th>
+                                <th class="text-center">สถานะอนุมัติ</th>
+                                <th class="text-center" style="width: 180px">ตัวเลือก</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              @foreach($data as $row)
                                 <tr>
-                                  <th class="text-center" style="width:100px;">สาขา</th>
-                                  <th class="text-center">เลขที่สัญญา</th>
-                                  <th class="text-center">แบบ</th>
-                                  <th class="text-center">ยีห้อ</th>
-                                  <th class="text-center">ทะเบียนเดิม</th>
-                                  <th class="text-center">ปี</th>
-                                  <th class="text-center">ยอดจัด</th>
-                                  <th class="text-center">เอกสาร/แก้ไข</th>
-                                  <th class="text-center">ตรวจสอบ</th>
-                                  <th class="text-center">สถานะอนุมัติ</th>
-                                  <th class="text-center" style="width: 180px">ตัวเลือก</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                @foreach($data as $row)
-                                  <tr>
-                                    <td class="text-center">
-                                      {{ $row->branch_car}}<br/>
-                                      (<font color="blue" size="1px">{{ $row->Objective_car}}</font>)
-                                    </td>
-                                    <td class="text-center"> {{ $row->Contract_buyer}} </td>
-                                    <td class="text-center"> {{ $row->status_car}} </td>
-                                    <td class="text-center"> {{ $row->Brand_car}} </td>
-                                    <td class="text-center"> {{ $row->License_car}} </td>
-                                    <td class="text-center"> {{ $row->Year_car}} </td>
-                                    <td class="text-center">
-                                      @if($row->Top_car != Null)
-                                        {{ number_format($row->Top_car)}}
-                                      @else
-                                        0
-                                      @endif
-                                    </td>
-                                    <td class="text-center">
-                                      <label class="con">
-                                      @if ( $row->DocComplete_car != Null)
-                                        <input type="checkbox" class="checkbox" name="Checkcar" id="" checked="checked" disabled>
-                                      @else
-                                        <input type="checkbox" class="checkbox" name="Checkcar" id="" disabled>
-                                      @endif
-                                      <span class="checkmark"></span>
-                                      </label>
+                                  <td class="text-center">
+                                    {{ $row->branch_car}}<br/>
+                                    (<font color="blue" size="1px">{{ $row->Objective_car}}</font>)
+                                  </td>
+                                  <td class="text-center"> {{ $row->Contract_buyer}} </td>
+                                  <td class="text-center"> {{ $row->status_car}} </td>
+                                  <td class="text-center"> {{ $row->Brand_car}} </td>
+                                  <td class="text-center"> {{ $row->License_car}} </td>
+                                  <td class="text-center"> {{ $row->Year_car}} </td>
+                                  <td class="text-center">
+                                    @if($row->Top_car != Null)
+                                      {{ number_format($row->Top_car)}}
+                                    @else
+                                      0
+                                    @endif
+                                  </td>
+                                  <td class="text-center">
+                                    <label class="con">
+                                    @if ( $row->DocComplete_car != Null)
+                                      <input type="checkbox" class="checkbox" name="Checkcar" id="" checked="checked" disabled>
+                                    @else
+                                      <input type="checkbox" class="checkbox" name="Checkcar" id="" disabled>
+                                    @endif
+                                    <span class="checkmark"></span>
+                                    </label>
 
-                                      <label class="con2">
-                                      @if ( $row->tran_Price != 0)
-                                        <input type="checkbox" class="checkbox" name="Checkcar" id="" checked="checked" disabled>
-                                      @else
-                                        <input type="checkbox" class="checkbox" name="Checkcar" id="" disabled>
-                                      @endif
-                                      <span class="checkmark"></span>
-                                      </label>
-                                    </td>
-                                    <td class="text-center">
-                                      @if ( $row->Check_car != Null)
-                                          {{ $row->Check_car }}
-                                      @else
-                                          <font color="red">รอตรวจสอบ</font>
-                                      @endif
-                                    </td>
-                                    <td class="text-center">
-                                      @if ( $row->Approvers_car != Null)
-                                          {{ $row->Approvers_car }}
-                                      @else
-                                          <font color="red">รออนุมัติ</font>
-                                      @endif
-                                    </td>
-                                    <td class="text-left">
-                                      <a target="_blank" href="{{ action('ReportAnalysController@ReportPDFIndex',[$row->id,$type]) }}" class="btn btn-info btn-sm" title="พิมพ์">
-                                        <i class="fas fa-print"></i> พิมพ์
-                                      </a>
-                                      @if(auth::user()->type == 3 and $row->StatusApp_car == 'อนุมัติ')
-                                          @php $branch = 'Null'; @endphp
-                                          @php $status = 'Null'; @endphp
-                                          @if($newfdate == "")
-                                            @php $newfdate = date('Y-m-d'); @endphp
-                                          @endif
-                                          @if($newtdate == "")
-                                            @php $newtdate = date('Y-m-d'); @endphp
-                                          @endif
-                                      <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
-                                        <i class="fas fa-eye"></i> ดู
-                                      </a>
-                                      @endif
+                                    <label class="con2">
+                                    @if ( $row->tran_Price != 0)
+                                      <input type="checkbox" class="checkbox" name="Checkcar" id="" checked="checked" disabled>
+                                    @else
+                                      <input type="checkbox" class="checkbox" name="Checkcar" id="" disabled>
+                                    @endif
+                                    <span class="checkmark"></span>
+                                    </label>
+                                  </td>
+                                  <td class="text-center">
+                                    @if ( $row->Check_car != Null)
+                                        {{ $row->Check_car }}
+                                    @else
+                                        <font color="red">รอตรวจสอบ</font>
+                                    @endif
+                                  </td>
+                                  <td class="text-center">
+                                    @if ( $row->Approvers_car != Null)
+                                        {{ $row->Approvers_car }}
+                                    @else
+                                        <font color="red">รออนุมัติ</font>
+                                    @endif
+                                  </td>
+                                  <td class="text-left">
+                                    <a target="_blank" href="{{ action('ReportAnalysController@ReportPDFIndex',[$row->id,$type]) }}" class="btn btn-info btn-sm" title="พิมพ์">
+                                      <i class="fas fa-print"></i> พิมพ์
+                                    </a>
+                                    @if(auth::user()->type == 3 and $row->StatusApp_car == 'อนุมัติ')
+                                        @php $branch = 'Null'; @endphp
+                                        @php $status = 'Null'; @endphp
+                                        @if($newfdate == "")
+                                          @php $newfdate = date('Y-m-d'); @endphp
+                                        @endif
+                                        @if($newtdate == "")
+                                          @php $newtdate = date('Y-m-d'); @endphp
+                                        @endif
+                                    <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
+                                      <i class="fas fa-eye"></i> ดู
+                                    </a>
+                                    @endif
 
-                                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
+                                      @if($branch == "")
+                                        @php $branch = 'Null'; @endphp
+                                      @endif
+                                      @if($status == "")
+                                        @php $status = 'Null'; @endphp
+                                      @endif
+                                      @if($newfdate == "")
+                                        @php $newfdate = date('Y-m-d'); @endphp
+                                      @endif
+                                      @if($newtdate == "")
+                                        @php $newtdate = date('Y-m-d'); @endphp
+                                      @endif
+                                      <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
+                                        <i class="far fa-edit"></i> แก้ไข
+                                      </a>
+                                    @else
+                                      @if($row->Approvers_car == Null)
                                         @if($branch == "")
                                           @php $branch = 'Null'; @endphp
                                         @endif
@@ -754,54 +782,38 @@
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                           <i class="far fa-edit"></i> แก้ไข
                                         </a>
-                                      @else
-                                        @if($row->Approvers_car == Null)
-                                          @if($branch == "")
-                                            @php $branch = 'Null'; @endphp
-                                          @endif
-                                          @if($status == "")
-                                            @php $status = 'Null'; @endphp
-                                          @endif
-                                          @if($newfdate == "")
-                                            @php $newfdate = date('Y-m-d'); @endphp
-                                          @endif
-                                          @if($newtdate == "")
-                                            @php $newtdate = date('Y-m-d'); @endphp
-                                          @endif
-                                          <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
-                                            <i class="far fa-edit"></i> แก้ไข
-                                          </a>
-                                        @endif
-                                      @endif
-
-                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                                      <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
-                                      {{csrf_field()}}
-                                        <input type="hidden" name="_method" value="DELETE" />
-                                        <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
-                                          <i class="far fa-trash-alt"></i> ลบ
-                                        </button>
-                                      </form>
-                                    @else
-                                      @if($row->DocComplete_car == Null)
-                                        @if($row->StatusApp_car != 'อนุมัติ')
-                                          <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
-                                          {{csrf_field()}}
-                                            <input type="hidden" name="_method" value="DELETE" />
-                                            <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
-                                              <i class="far fa-trash-alt"></i> ลบ
-                                            </button>
-                                          </form>
-                                        @endif
                                       @endif
                                     @endif
-                                    </td>
-                                  </tr>
-                                @endforeach
-                              </tbody>
-                          </table>
-                        </div>
+
+                                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
+                                    <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
+                                    {{csrf_field()}}
+                                      <input type="hidden" name="_method" value="DELETE" />
+                                      <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
+                                        <i class="far fa-trash-alt"></i> ลบ
+                                      </button>
+                                    </form>
+                                  @else
+                                    @if($row->DocComplete_car == Null)
+                                      @if($row->StatusApp_car != 'อนุมัติ')
+                                        <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
+                                        {{csrf_field()}}
+                                          <input type="hidden" name="_method" value="DELETE" />
+                                          <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
+                                            <i class="far fa-trash-alt"></i> ลบ
+                                          </button>
+                                        </form>
+                                      @endif
+                                    @endif
+                                  @endif
+                                  </td>
+                                </tr>
+                              @endforeach
+                            </tbody>
+                        </table>
                       </div>
+                    </div>
+                  @elseif($type == 15)
                   @endif
 
                   <a id="button"></a>
