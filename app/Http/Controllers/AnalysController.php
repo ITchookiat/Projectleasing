@@ -3022,6 +3022,7 @@ class AnalysController extends Controller
             $cardetail->Tellagent_car = $request->get('Tellagentcar');
             $cardetail->Purchasehistory_car = $request->get('Purchasehistorycar');
             $cardetail->Supporthistory_car = $request->get('Supporthistorycar');
+            $cardetail->Loanofficer_car = $request->get('Loanofficercar');
             $cardetail->Approvers_car = $SetNameApp;
             $cardetail->StatusApp_car = $SetStatusApp;
             $cardetail->DocComplete_car = $request->get('doccomplete');

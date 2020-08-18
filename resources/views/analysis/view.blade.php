@@ -907,7 +907,7 @@
         "responsive": true,
         "autoWidth": false,
         "ordering": true,
-        "lengthChange": false,
+        "lengthChange": true,
         "order": [[ 1, "asc" ]],
       });
     });
