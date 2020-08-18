@@ -908,6 +908,12 @@ class AnalysController extends Controller
         $type = $request->type;
         return view('analysis.viewReport', compact('type', 'data','newfdate','newtdate','datadrop','agen','datedue','datayear','yearcar','datastatus','typecar','databranch','branch'));
       }
+      elseif ($request->type == 15) {
+        # code...
+
+        $type = $request->type;
+        return view('analysis.view', compact('type', 'data'));
+      }
     }
 
     /**

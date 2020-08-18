@@ -2126,7 +2126,7 @@
                                     </select>
                                   @else
                                     @if($GetDocComplete != Null)
-                                      <input type="text" name="Supporthistorycar" value="{{$data->Purchasehistory_car}}" class="form-control" placeholder="ค้ำ" readonly/>
+                                      <input type="text" name="Supporthistorycar" value="{{$data->Supporthistory_car}}" class="form-control" placeholder="ค้ำ" readonly/>
                                     @else
                                       <select name="Supporthistorycar" class="form-control">
                                         <option value="" selected>--- ค้ำ ---</option>
