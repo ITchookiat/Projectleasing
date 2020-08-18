@@ -371,272 +371,307 @@
                       <p></p>
 
                       <div class="row">
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label><font color="red">เลขที่สัญญา : </font></label>
-                            @if(auth::user()->type == 1 or auth::user()->type == 2)
-                              @if($type == 9)
-                                <input type="text" name="Contract_buyer" class="form-control" style="width: 250px;" value="22-{{$Y}}/" required/>
-                              @elseif($type == 13)
-                                <input type="text" name="Contract_buyer" class="form-control" style="width: 250px;" value="33-{{$Y}}/" required/>
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right"><font color="red">เลขที่สัญญา : </font></label>
+                            <div class="col-sm-8">
+                              @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                @if($type == 9)
+                                  <input type="text" name="Contract_buyer" class="form-control form-control-sm " value="22-{{$Y}}/" required/>
+                                @elseif($type == 13)
+                                  <input type="text" name="Contract_buyer" class="form-control form-control-sm" value="33-{{$Y}}/" required/>
+                                @endif
+                              @else
+                                @if($type == 9)
+                                  <input type="text" name="Contract_buyer" class="form-control form-control-sm" data-inputmask="&quot;mask&quot;:&quot;99-9999/&quot;" data-mask="" value="22-{{$Y}}/" readonly required/>
+                                @elseif($type == 13)
+                                <input type="text" name="Contract_buyer" class="form-control form-control-sm" data-inputmask="&quot;mask&quot;:&quot;99-9999/&quot;" data-mask="" value="33-{{$Y}}/" readonly required/>
+                                @endif
                               @endif
-                            @else
-                              @if($type == 9)
-                                <input type="text" name="Contract_buyer" class="form-control" style="width: 250px;" data-inputmask="&quot;mask&quot;:&quot;99-9999/&quot;" data-mask="" value="22-{{$Y}}/" readonly required/>
-                              @elseif($type == 13)
-                              <input type="text" name="Contract_buyer" class="form-control" style="width: 250px;" data-inputmask="&quot;mask&quot;:&quot;99-9999/&quot;" data-mask="" value="33-{{$Y}}/" readonly required/>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right"><font color="red">วันที่ทำสัญญา : </font></label>
+                            <div class="col-sm-8">
+                              <input type="date" name="DateDue" class="form-control form-control-sm" value="{{ date('Y-m-d') }}">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">ชื่อ :</label>
+                            <div class="col-sm-8">
+                              @if($data == null)
+                                <input type="text" name="Namebuyer" class="form-control form-control-sm" placeholder="ป้อนชื่อ" />
+                              @else
+                                <input type="text" name="Namebuyer" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->SNAM))}}{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->NAME1))}}" class="form-control form-control-sm" placeholder="ป้อนชื่อ" />
                               @endif
-                            @endif
-                          </div>
-                        </div>
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                              <label><font color="red">วันที่ทำสัญญา : </font></label>
-                              <input type="date" name="DateDue" class="form-control" style="width: 250px;" value="{{ date('Y-m-d') }}">
                             </div>
                           </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>ชื่อ : </label>
-                            @if($data == null)
-                              <input type="text" name="Namebuyer" class="form-control" style="width: 250px;" placeholder="ป้อนชื่อ" />
-                            @else
-                              <input type="text" name="Namebuyer" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->SNAM))}}{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->NAME1))}}" class="form-control" style="width: 250px;" placeholder="ป้อนชื่อ" />
-                            @endif
-                          </div>
                         </div>
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>นามสกุล : </label>
-                            @if($data == null)
-                              <input type="text" name="lastbuyer" class="form-control" style="width: 250px;" placeholder="ป้อนนามสกุล" />
-                            @else
-                              <input type="text" name="lastbuyer" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->NAME2))}}" class="form-control" style="width: 250px;"  placeholder="ป้อนนามสกุล" />
-                            @endif
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">นามสกุล :</label>
+                            <div class="col-sm-8">
+                              @if($data == null)
+                                <input type="text" name="lastbuyer" class="form-control form-control-sm" placeholder="ป้อนนามสกุล" />
+                              @else
+                                <input type="text" name="lastbuyer" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->NAME2))}}" class="form-control form-control-sm"  placeholder="ป้อนนามสกุล" />
+                              @endif
+                            </div>
                           </div>
                         </div>
                       </div>
 
                       <div class="row">
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>ชื่อเล่น : </label>
-                            @if($data == null)
-                              <input type="text" name="Nickbuyer" class="form-control" style="width: 250px;" placeholder="ป้อนชื่อเล่น" />
-                            @else
-                              <input type="text" name="Nickbuyer" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->NICKNM))}}" class="form-control" style="width: 250px;" placeholder="ป้อนชื่อเล่น" />
-                            @endif
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">ชื่อเล่น :</label>
+                            <div class="col-sm-8">
+                              @if($data == null)
+                                <input type="text" name="Nickbuyer" class="form-control form-control-sm" placeholder="ป้อนชื่อเล่น" />
+                              @else
+                                <input type="text" name="Nickbuyer" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->NICKNM))}}" class="form-control form-control-sm" placeholder="ป้อนชื่อเล่น" />
+                              @endif
+                            </div>
                           </div>
                         </div>
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>เลขบัตรประชาชน : </label>
-                            @if($data == null)
-                              <input type="text" name="Idcardbuyer" class="form-control" style="width: 250px;" placeholder="ป้อนเลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask="" />
-                            @else
-                              <input type="text" name="Idcardbuyer" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->IDNO))}}" class="form-control" style="width: 250px;" placeholder="ป้อนเลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask=""/>
-                            @endif
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>เบอร์โทรศัพท์ : </label>
-                            @if($data == null)
-                              <input type="text" name="Phonebuyer" class="form-control" style="width: 250px;" placeholder="ป้อนเบอร์โทรศัพท์" data-inputmask="&quot;mask&quot;:&quot;999-9999999,999-9999999&quot;" data-mask=""/>
-                            @else
-                              <input type="text" name="Phonebuyer" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->TELP))}}" class="form-control" style="width: 250px;" placeholder="ป้อนเบอร์โทรศัพท์" data-inputmask="&quot;mask&quot;:&quot;999-9999999,999-9999999&quot;" data-mask=""/>
-                            @endif
-                          </div>
-                        </div>
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>เบอร์โทรอื่นๆ : </label>
-                            @if($data == null)
-                              <input type="text" name="Phone2buyer" class="form-control" style="width: 250px;" placeholder="ป้อนเบอร์โทรอื่นๆ" />
-                            @else
-                              <input type="text" name="Phone2buyer" value="" class="form-control" style="width: 250px;" placeholder="ป้อนเบอร์โทรอื่นๆ" />
-                            @endif
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">เลขบัตรประชาชน :</label>
+                            <div class="col-sm-8">
+                              @if($data == null)
+                                <input type="text" name="Idcardbuyer" class="form-control form-control-sm" placeholder="ป้อนเลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask="" />
+                              @else
+                                <input type="text" name="Idcardbuyer" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->IDNO))}}" class="form-control form-control-sm" placeholder="ป้อนเลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask=""/>
+                              @endif
+                            </div>
                           </div>
                         </div>
                       </div>
 
                       <div class="row">
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>คู่สมรส : </label>
-                            @if($data == null)
-                              <input type="text" name="Matebuyer" class="form-control" style="width: 250px;" placeholder="ป้อนคู่สมรส" />
-                            @else
-                              <input type="text" name="Matebuyer" value="{{iconv('TIS-620', 'utf-8', $data->PARTNERNAME)}}" class="form-control" style="width: 250px;" placeholder="ป้อนคู่สมรส" />
-                            @endif
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">เบอร์โทรศัพท์ :</label>
+                            <div class="col-sm-8">
+                              @if($data == null)
+                                <input type="text" name="Phonebuyer" class="form-control form-control-sm" placeholder="ป้อนเบอร์โทรศัพท์" data-inputmask="&quot;mask&quot;:&quot;999-9999999,999-9999999&quot;" data-mask=""/>
+                              @else
+                                <input type="text" name="Phonebuyer" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->TELP))}}" class="form-control form-control-sm" placeholder="ป้อนเบอร์โทรศัพท์" data-inputmask="&quot;mask&quot;:&quot;999-9999999,999-9999999&quot;" data-mask=""/>
+                              @endif
+                            </div>
                           </div>
                         </div>
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>ที่อยู่ : </label>
-                            @if($data == null)
-                              <select name="Addressbuyer" class="form-control" style="width: 250px;">
-                                <option value="" selected>--- เลือกที่อยู่ ---</option>
-                                <option value="ตามทะเบียนบ้าน">ตามทะเบียนบ้าน</option>
-                              </select>
-                            @else
-                              <select name="Addressbuyer" class="form-control" style="width: 250px;">
-                                <option value="" selected>--- เลือกที่อยู่ ---</option>
-                                <option value="ตามทะเบียนบ้าน" selected>ตามทะเบียนบ้าน</option>
-                              </select>
-                            @endif
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>รายละเอียดที่อยู่ : </label>
-                            @if($data == null)
-                              <input type="text" name="StatusAddbuyer" class="form-control" style="width: 250px;" placeholder="ป้อนรายละเอียดที่อยู่" />
-                            @else
-                              <input type="text" name="StatusAddbuyer" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->ADDRES))}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->TUMB))}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->AUMPDES))}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->PROVDES))}}" class="form-control" style="width: 250px;" placeholder="ป้อนรายละเอียดที่อยู่" />
-                            @endif
-                          </div>
-                        </div>
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>ที่อยู่ปัจจุบัน/ส่งเอกสาร : </label>
-                            @if($data == null)
-                              <input type="text" name="AddNbuyer" class="form-control" style="width: 250px;" placeholder="ที่อยู่ปัจจุบัน/ส่งเอกสาร" />
-                            @else
-                              <input type="text" name="AddNbuyer" value="{{iconv('TIS-620', 'utf-8',$data->ADDRES)}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->TUMB))}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->AUMPDES))}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->PROVDES))}}" class="form-control" style="width: 250px;" placeholder="ที่อยู่ปัจจุบัน/ส่งเอกสาร" />
-                            @endif
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>อาชีพ : </label>
-                            <select name="Careerbuyer" class="form-control" style="width: 250px;">
-                              <option value="" selected>--- อาชีพ ---</option>
-                              <option value="ตำรวจ">ตำรวจ</option>
-                              <option value="ทหาร">ทหาร</option>
-                              <option value="ครู">ครู</option>
-                              <option value="ข้าราชการอื่นๆ">ข้าราชการอื่นๆ</option>
-                              <option value="ลูกจ้างเทศบาล">ลูกจ้างเทศบาล</option>
-                              <option value="ลูกจ้างประจำ">ลูกจ้างประจำ</option>
-                              <option value="สมาชิก อบต.">สมาชิก อบต.</option>
-                              <option value="ลูกจ้างชั่วคราว">ลูกจ้างชั่วคราว</option>
-                              <option value="รับจ้าง">รับจ้าง</option>
-                              <option value="พนักงานบริษัทเอกชน">พนักงานบริษัทเอกชน</option>
-                              <option value="อาชีพอิสระ">อาชีพอิสระ</option>
-                              <option value="กำนัน">กำนัน</option>
-                              <option value="ผู้ใหญ่บ้าน">ผู้ใหญ่บ้าน</option>
-                              <option value="ผู้ช่วยผู้ใหญ่บ้าน">ผู้ช่วยผู้ใหญ่บ้าน</option>
-                              <option value="นักการภารโรง">นักการภารโรง</option>
-                              <option value="มอเตอร์ไซร์รับจ้าง">มอเตอร์ไซร์รับจ้าง</option>
-                              <option value="ค้าขาย">ค้าขาย</option>
-                              <option value="เจ้าของธุรกิจ">เจ้าของธุรกิจ</option>
-                              <option value="เจ้าของอู่รถ">เจ้าของอู่รถ</option>
-                              <option value="ให้เช่ารถบรรทุก">ให้เช่ารถบรรทุก</option>
-                              <option value="ช่างตัดผม">ช่างตัดผม</option>
-                              <option value="ชาวนา">ชาวนา</option>
-                              <option value="ชาวไร่">ชาวไร่</option>
-                              <option value="แม่บ้าน">แม่บ้าน</option>
-                              <option value="รับเหมาก่อสร้าง">รับเหมาก่อสร้าง</option>
-                              <option value="ประมง">ประมง</option>
-                              <option value="ทนายความ">ทนายความ</option>
-                              <option value="พระ">พระ</option>
-                            </select>
-                          </div>
-                        </div>
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>สถานที่ทำงาน : </label>
-                            @if($data == null)
-                              <input type="text" name="Workplacebuyer" class="form-control" style="width: 250px;" placeholder="ป้อนสถานที่ทำงาน" />
-                            @else
-                              <input type="text" name="Workplacebuyer" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->OFFIC))}}" class="form-control" style="width: 250px;" placeholder="ป้อนสถานที่ทำงาน" />
-                            @endif
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">เบอร์โทรอื่นๆ :</label>
+                            <div class="col-sm-8">
+                              @if($data == null)
+                                <input type="text" name="Phone2buyer" class="form-control form-control-sm" placeholder="ป้อนเบอร์โทรอื่นๆ" />
+                              @else
+                                <input type="text" name="Phone2buyer" value="" class="form-control form-control-sm" placeholder="ป้อนเบอร์โทรอื่นๆ" />
+                              @endif
+                            </div>
                           </div>
                         </div>
                       </div>
 
                       <div class="row">
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>เลขที่โฉนด : </label>
-                            @if($data == null)
-                              <input type="text" name="deednumberbuyer" class="form-control" style="width: 250px;" placeholder="เลขที่โฉนด" />
-                            @else
-                              <input type="text" name="deednumberbuyer" value="" class="form-control" style="width: 250px;" placeholder="เลขที่โฉนด" />
-                            @endif
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">คู่สมรส :</label>
+                            <div class="col-sm-8">
+                              @if($data == null)
+                                <input type="text" name="Matebuyer" class="form-control form-control-sm" placeholder="ป้อนคู่สมรส" />
+                              @else
+                                <input type="text" name="Matebuyer" value="{{iconv('TIS-620', 'utf-8', $data->PARTNERNAME)}}" class="form-control form-control-sm" placeholder="ป้อนคู่สมรส" />
+                              @endif
+                            </div>
                           </div>
                         </div>
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>ประเภทหลักทรัพย์ : </label>
-                            <select name="securitiesbuyer" class="form-control" style="width: 250px;">
-                              <option value="" selected>--- ประเภทหลักทรัพย์ ---</option>
-                              <option value="โฉนด">โฉนด</option>
-                              <option value="นส.3">นส.3</option>
-                              <option value="นส.3 ก">นส.3 ก</option>
-                              <option value="นส.4">นส.4</option>
-                              <option value="นส.4 จ">นส.4 จ</option>
-                            </select>
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">ที่อยู่ :</label>
+                            <div class="col-sm-8">
+                              @if($data == null)
+                                <select name="Addressbuyer" class="form-control form-control-sm">
+                                  <option value="" selected>--- เลือกที่อยู่ ---</option>
+                                  <option value="ตามทะเบียนบ้าน">ตามทะเบียนบ้าน</option>
+                                </select>
+                              @else
+                                <select name="Addressbuyer" class="form-control form-control-sm">
+                                  <option value="" selected>--- เลือกที่อยู่ ---</option>
+                                  <option value="ตามทะเบียนบ้าน" selected>ตามทะเบียนบ้าน</option>
+                                </select>
+                              @endif
+                            </div>
                           </div>
                         </div>
                       </div>
 
                       <div class="row">
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>เนื่อที่ : </label>
-                            @if($data == null)
-                              <input type="text" name="areabuyer" class="form-control" style="width: 250px;" placeholder="เนื้อที่" data-inputmask="&quot;mask&quot;:&quot;99-9-99&quot;" data-mask=""/>
-                            @else
-                              <input type="text" name="areabuyer" value="" class="form-control" style="width: 250px;" placeholder="เนื้อที่" data-inputmask="&quot;mask&quot;:&quot;99-9-99&quot;" data-mask=""/>
-                            @endif
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">รายละเอียดที่อยู่ :</label>
+                            <div class="col-sm-8">
+                              @if($data == null)
+                                <input type="text" name="StatusAddbuyer" class="form-control form-control-sm" placeholder="ป้อนรายละเอียดที่อยู่" />
+                              @else
+                                <input type="text" name="StatusAddbuyer" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->ADDRES))}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->TUMB))}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->AUMPDES))}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->PROVDES))}}" class="form-control form-control-sm" placeholder="ป้อนรายละเอียดที่อยู่" />
+                              @endif
+                            </div>
                           </div>
                         </div>
-
-                        @if($type == 9)
-                          <div class="col-5">
-                            <div class="float-right form-inline">
-                              <label>วัตถุประสงค์ของสินเชื่อ : </label>
-                              <select id="objectivecar" name="objectivecar" class="form-control" style="width: 250px;" oninput="calculate();">
-                                <option value="" selected>--- วัตถุประสงค์ของสินเชื่อ ---</option>
-                                <option value="ลงทุนในธุรกิจ">ลงทุนในธุรกิจ</option>
-                                <option value="ขยายกิจการ">ขยายกิจการ</option>
-                                <option value="ซื้อรถยนต์">ซื้อรถยนต์</option>
-                                <option value="ใช้หนี้นอกระบบ">ใช้หนี้นอกระบบ</option>
-                                <option value="จ่ายค่าเทอม">จ่ายค่าเทอม</option>
-                                <option value="ซื้อของใช้ภายในบ้าน">ซื้อของใช้ภายในบ้าน</option>
-                                <option value="ซื้อวัว">ซื้อวัว</option>
-                                <option value="ซื้อที่ดิน">ซื้อที่ดิน</option>
-                                <option value="ซ่อมบ้าน">ซ่อมบ้าน</option>
-                                <option value="ขยายระยะเวลาชำระหนี้">ขยายระยะเวลาชำระหนี้</option>
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">ที่อยู่ปัจจุบัน/ส่งเอกสาร :</label>
+                            <div class="col-sm-8">
+                              @if($data == null)
+                                <input type="text" name="AddNbuyer" class="form-control form-control-sm" placeholder="ที่อยู่ปัจจุบัน/ส่งเอกสาร" />
+                              @else
+                                <input type="text" name="AddNbuyer" value="{{iconv('TIS-620', 'utf-8',$data->ADDRES)}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->TUMB))}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->AUMPDES))}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->PROVDES))}}" class="form-control form-control-sm" placeholder="ที่อยู่ปัจจุบัน/ส่งเอกสาร" />
+                              @endif
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="row">
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">อาชีพ :</label>
+                            <div class="col-sm-8">
+                              <select name="Careerbuyer" class="form-control form-control-sm">
+                                <option value="" selected>--- อาชีพ ---</option>
+                                <option value="ตำรวจ">ตำรวจ</option>
+                                <option value="ทหาร">ทหาร</option>
+                                <option value="ครู">ครู</option>
+                                <option value="ข้าราชการอื่นๆ">ข้าราชการอื่นๆ</option>
+                                <option value="ลูกจ้างเทศบาล">ลูกจ้างเทศบาล</option>
+                                <option value="ลูกจ้างประจำ">ลูกจ้างประจำ</option>
+                                <option value="สมาชิก อบต.">สมาชิก อบต.</option>
+                                <option value="ลูกจ้างชั่วคราว">ลูกจ้างชั่วคราว</option>
+                                <option value="รับจ้าง">รับจ้าง</option>
+                                <option value="พนักงานบริษัทเอกชน">พนักงานบริษัทเอกชน</option>
+                                <option value="อาชีพอิสระ">อาชีพอิสระ</option>
+                                <option value="กำนัน">กำนัน</option>
+                                <option value="ผู้ใหญ่บ้าน">ผู้ใหญ่บ้าน</option>
+                                <option value="ผู้ช่วยผู้ใหญ่บ้าน">ผู้ช่วยผู้ใหญ่บ้าน</option>
+                                <option value="นักการภารโรง">นักการภารโรง</option>
+                                <option value="มอเตอร์ไซร์รับจ้าง">มอเตอร์ไซร์รับจ้าง</option>
+                                <option value="ค้าขาย">ค้าขาย</option>
+                                <option value="เจ้าของธุรกิจ">เจ้าของธุรกิจ</option>
+                                <option value="เจ้าของอู่รถ">เจ้าของอู่รถ</option>
+                                <option value="ให้เช่ารถบรรทุก">ให้เช่ารถบรรทุก</option>
+                                <option value="ช่างตัดผม">ช่างตัดผม</option>
+                                <option value="ชาวนา">ชาวนา</option>
+                                <option value="ชาวไร่">ชาวไร่</option>
+                                <option value="แม่บ้าน">แม่บ้าน</option>
+                                <option value="รับเหมาก่อสร้าง">รับเหมาก่อสร้าง</option>
+                                <option value="ประมง">ประมง</option>
+                                <option value="ทนายความ">ทนายความ</option>
+                                <option value="พระ">พระ</option>
                               </select>
                             </div>
                           </div>
-                        @elseif($type == 13)
-                          <div class="col-5">
-                            <div class="float-right form-inline">
-                              <label>มาตรการช่วยเหลือ : </label>
-                              <select id="objectivecar" name="objectivecar" class="form-control" style="width: 250px;" oninput="calculate();" required>
-                                <option value="" selected>--- มาตรการช่วยเหลือ ---</option>
-                                <option value="ลดค่าธรรมเนียม">ลดค่าธรรมเนียม</option>
-                                <option value="ลดดอกเบี้ย สูงสุด 100 %">ลดดอกเบี้ย สูงสุด 100 %</option>
-                                <option value="พักชำระเงินต้น 3 เดือน">พักชำระเงินต้น 3 เดือน</option>
-                                <option value="พักชำระหนี้ 3 เดือน">พักชำระหนี้ 3 เดือน</option>
-                                <option value="ขยายระยะเวลาชำระหนี้" disabled>ขยายระยะเวลาชำระหนี้</option>
+                        </div>
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">สถานที่ทำงาน :</label>
+                            <div class="col-sm-8">
+                              @if($data == null)
+                                <input type="text" name="Workplacebuyer" class="form-control form-control-sm" placeholder="ป้อนสถานที่ทำงาน" />
+                              @else
+                                <input type="text" name="Workplacebuyer" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$data->OFFIC))}}" class="form-control form-control-sm" placeholder="ป้อนสถานที่ทำงาน" />
+                              @endif
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">เลขที่โฉนด :</label>
+                            <div class="col-sm-8">
+                              @if($data == null)
+                                <input type="text" name="deednumberbuyer" class="form-control form-control-sm" placeholder="เลขที่โฉนด" />
+                              @else
+                                <input type="text" name="deednumberbuyer" value="" class="form-control form-control-sm" placeholder="เลขที่โฉนด" />
+                              @endif
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">ประเภทหลักทรัพย์ :</label>
+                            <div class="col-sm-8">
+                              <select name="securitiesbuyer" class="form-control form-control-sm">
+                                <option value="" selected>--- ประเภทหลักทรัพย์ ---</option>
+                                <option value="โฉนด">โฉนด</option>
+                                <option value="นส.3">นส.3</option>
+                                <option value="นส.3 ก">นส.3 ก</option>
+                                <option value="นส.4">นส.4</option>
+                                <option value="นส.4 จ">นส.4 จ</option>
                               </select>
                             </div>
                           </div>
-                        @endif
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">เนื่อที่ :</label>
+                            <div class="col-sm-8">
+                              @if($data == null)
+                                <input type="text" name="areabuyer" class="form-control form-control-sm" placeholder="เนื้อที่" data-inputmask="&quot;mask&quot;:&quot;99-9-99&quot;" data-mask=""/>
+                              @else
+                                <input type="text" name="areabuyer" value="" class="form-control form-control-sm" placeholder="เนื้อที่" data-inputmask="&quot;mask&quot;:&quot;99-9-99&quot;" data-mask=""/>
+                              @endif
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            @if($type == 9)
+                              <label class="col-sm-3 col-form-label text-right">วัตถุประสงค์ของสินเชื่อ :</label>
+                              <div class="col-sm-8">
+                                <select id="objectivecar" name="objectivecar" class="form-control form-control-sm" oninput="calculate();">
+                                  <option value="" selected>--- วัตถุประสงค์ของสินเชื่อ ---</option>
+                                  <option value="ลงทุนในธุรกิจ">ลงทุนในธุรกิจ</option>
+                                  <option value="ขยายกิจการ">ขยายกิจการ</option>
+                                  <option value="ซื้อรถยนต์">ซื้อรถยนต์</option>
+                                  <option value="ใช้หนี้นอกระบบ">ใช้หนี้นอกระบบ</option>
+                                  <option value="จ่ายค่าเทอม">จ่ายค่าเทอม</option>
+                                  <option value="ซื้อของใช้ภายในบ้าน">ซื้อของใช้ภายในบ้าน</option>
+                                  <option value="ซื้อวัว">ซื้อวัว</option>
+                                  <option value="ซื้อที่ดิน">ซื้อที่ดิน</option>
+                                  <option value="ซ่อมบ้าน">ซ่อมบ้าน</option>
+                                  <option value="ขยายระยะเวลาชำระหนี้">ขยายระยะเวลาชำระหนี้</option>
+                                </select>
+                              </div>
+                            @elseif($type == 13)
+                              <label class="col-sm-3 col-form-label text-right">มาตรการช่วยเหลือ :</label>
+                              <div class="col-sm-8">
+                                <select id="objectivecar" name="objectivecar" class="form-control form-control-sm" oninput="calculate();" required>
+                                  <option value="" selected>--- มาตรการช่วยเหลือ ---</option>
+                                  <option value="ลดค่าธรรมเนียม">ลดค่าธรรมเนียม</option>
+                                  <option value="ลดดอกเบี้ย สูงสุด 100 %">ลดดอกเบี้ย สูงสุด 100 %</option>
+                                  <option value="พักชำระเงินต้น 3 เดือน">พักชำระเงินต้น 3 เดือน</option>
+                                  <option value="พักชำระหนี้ 3 เดือน">พักชำระหนี้ 3 เดือน</option>
+                                  <option value="ขยายระยะเวลาชำระหนี้" disabled>ขยายระยะเวลาชำระหนี้</option>
+                                </select>
+                              </div>
+                            @endif
+                          </div>
+                        </div>
                       </div>
 
                       <hr>
@@ -662,215 +697,243 @@
                       <br><br>
 
                       <div class="row">
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>ชื่อ : </label>
-                            @if($dataGT == null)
-                              <input type="text" name="nameSP" class="form-control" style="width: 250px;" placeholder="ชื่อ" />
-                            @else
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">ชื่อ :</label>
+                            <div class="col-sm-8">
+                              @if($dataGT == null)
+                                <input type="text" name="nameSP" class="form-control form-control-sm" placeholder="ชื่อ" />
+                              @else
+                                @php
+                                $StrCon = explode(" ",$dataGT->NAME);
+                                $Firstname = $StrCon[0];
+                              @endphp
+                                <input type="text" name="nameSP" value="{{iconv('TIS-620', 'utf-8',$Firstname)}}" class="form-control form-control-sm" placeholder="ชื่อ" />
+                              @endif
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">นามสกุล :</label>
+                            <div class="col-sm-8">
+                              @if($dataGT == null)
+                                <input type="text" name="lnameSP" class="form-control form-control-sm" placeholder="นามสกุล" />
+                              @else
                               @php
-                              $StrCon = explode(" ",$dataGT->NAME);
-                              $Firstname = $StrCon[0];
+                                $StrCon = explode("  ",$dataGT->NAME);
+                                $Lastname = $StrCon[1];
                               @endphp
-                              <input type="text" name="nameSP" value="{{iconv('TIS-620', 'utf-8',$Firstname)}}" class="form-control" style="width: 250px;" placeholder="ชื่อ" />
-                            @endif
-                          </div>
-                        </div>
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>นามสกุล : </label>
-                            @if($dataGT == null)
-                              <input type="text" name="lnameSP" class="form-control" style="width: 250px;" placeholder="นามสกุล" />
-                            @else
-                            @php
-                              $StrCon = explode("  ",$dataGT->NAME);
-                              $Lastname = $StrCon[1];
-                              @endphp
-                              <input type="text" name="lnameSP" value="{{iconv('TIS-620', 'utf-8',$Lastname)}}" class="form-control" style="width: 250px;" placeholder="นามสกุล" />
-                            @endif
+                                <input type="text" name="lnameSP" value="{{iconv('TIS-620', 'utf-8',$Lastname)}}" class="form-control form-control-sm" placeholder="นามสกุล" />
+                              @endif
+                            </div>
                           </div>
                         </div>
                       </div>
 
                       <div class="row">
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>ชื่อเล่น : </label>
-                            @if($dataGT == null)
-                              <input type="text" name="niknameSP" class="form-control" style="width: 250px;" placeholder="ชื่อเล่น" />
-                            @else
-                              <input type="text" name="niknameSP" value="{{iconv('TIS-620', 'utf-8',$dataGT->NICKNM)}}" class="form-control" style="width: 250px;" placeholder="ชื่อเล่น" />
-                            @endif
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">ชื่อเล่น :</label>
+                            <div class="col-sm-8">
+                              @if($dataGT == null)
+                                <input type="text" name="niknameSP" class="form-control form-control-sm" placeholder="ชื่อเล่น" />
+                              @else
+                                <input type="text" name="niknameSP" value="{{iconv('TIS-620', 'utf-8',$dataGT->NICKNM)}}" class="form-control form-control-sm" placeholder="ชื่อเล่น" />
+                              @endif
+                            </div>
                           </div>
                         </div>
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>เลขบัตรประชาชน : </label>
-                            @if($dataGT == null)
-                              <input type="text" name="idcardSP" class="form-control" style="width: 250px;" placeholder="เลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask="" />
-                            @else
-                              <input type="text" name="idcardSP" value="{{iconv('TIS-620', 'utf-8',$dataGT->IDNO)}}" class="form-control" style="width: 250px;" placeholder="เลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask=""/>
-                            @endif
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">เลขบัตรประชาชน :</label>
+                            <div class="col-sm-8">
+                              @if($dataGT == null)
+                                <input type="text" name="idcardSP" class="form-control form-control-sm" placeholder="เลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask="" />
+                              @else
+                                <input type="text" name="idcardSP" value="{{iconv('TIS-620', 'utf-8',$dataGT->IDNO)}}" class="form-control form-control-sm" placeholder="เลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask=""/>
+                              @endif
+                            </div>
                           </div>
                         </div>
                       </div>
 
                       <div class="row">
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>เบอร์โทร : </label>
-                            @if($dataGT == null)
-                              <input type="text" name="telSP" class="form-control" style="width: 250px;" placeholder="เบอร์โทร" data-inputmask="&quot;mask&quot;:&quot;999-9999999,999-9999999&quot;" data-mask=""/>
-                            @else
-                              <input type="text" name="telSP" value="{{iconv('TIS-620', 'utf-8',$dataGT->TELP)}}" class="form-control" style="width: 250px;" placeholder="เบอร์โทร" data-inputmask="&quot;mask&quot;:&quot;999-9999999,999-9999999&quot;" data-mask=""/>
-                            @endif
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">ชื่อเล่น :</label>
+                            <div class="col-sm-8">
+                              @if($dataGT == null)
+                                <input type="text" name="niknameSP" class="form-control form-control-sm" placeholder="ชื่อเล่น" />
+                              @else
+                                <input type="text" name="niknameSP" value="{{iconv('TIS-620', 'utf-8',$dataGT->NICKNM)}}" class="form-control form-control-sm" placeholder="ชื่อเล่น" />
+                              @endif
+                            </div>
                           </div>
                         </div>
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>ความสัมพันธ์ : </label>
-                            @if($dataGT == null)
-                              <select name="relationSP" class="form-control" style="width: 250px;">
-                                <option value="" selected>--- ความสัมพันธ์ ---</option>
-                                <option value="พี่น้อง">พี่น้อง</option>
-                                <option value="ญาติ">ญาติ</option>
-                                <option value="เพื่อน">เพื่อน</option>
-                                <option value="บิดา">บิดา</option>
-                                <option value="มารดา">มารดา</option>
-                                <option value="ตำบลเดี่ยวกัน">ตำบลเดี่ยวกัน</option>
-                                <option value="จ้างค้ำ(ไม่รู้จักกัน)">จ้างค้ำ(ไม่รู้จักกัน)</option>
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">ความสัมพันธ์ :</label>
+                            <div class="col-sm-8">
+                              @if($dataGT == null)
+                                <select name="relationSP" class="form-control form-control-sm">
+                                  <option value="" selected>--- ความสัมพันธ์ ---</option>
+                                  <option value="พี่น้อง">พี่น้อง</option>
+                                  <option value="ญาติ">ญาติ</option>
+                                  <option value="เพื่อน">เพื่อน</option>
+                                  <option value="บิดา">บิดา</option>
+                                  <option value="มารดา">มารดา</option>
+                                  <option value="ตำบลเดี่ยวกัน">ตำบลเดี่ยวกัน</option>
+                                  <option value="จ้างค้ำ(ไม่รู้จักกัน)">จ้างค้ำ(ไม่รู้จักกัน)</option>
+                                </select>
+                              @else
+                                <select name="relationSP" class="form-control form-control-sm">
+                                  <option value="" selected>--- ความสัมพันธ์ ---</option>
+                                  <option value="พี่น้อง" {{($NewRelate == 'พี่น้อง') ? 'selected' : ''}}>พี่น้อง</option>
+                                  <option value="ญาติ" {{($NewRelate == 'ญาติ') ? 'selected' : ''}}>ญาติ</option>
+                                  <option value="เพื่อน" {{($NewRelate == 'เพื่อน') ? 'selected' : ''}}>เพื่อน</option>
+                                  <option value="บิดา" {{($NewRelate == 'บิดา') ? 'selected' : ''}}>บิดา</option>
+                                  <option value="มารดา" {{($NewRelate == 'มารดา') ? 'selected' : ''}}>มารดา</option>
+                                  <option value="ตำบลเดี่ยวกัน" {{($NewRelate == 'ตำบลเดี่ยวกัน') ? 'selected' : ''}}>ตำบลเดี่ยวกัน</option>
+                                  <option value="จ้างค้ำ(ไม่รู้จักกัน)" {{($NewRelate == 'จ้างค้ำ(ไม่รู้จักกัน)') ? 'selected' : ''}}>จ้างค้ำ(ไม่รู้จักกัน)</option>
+                                </select>
+                              @endif
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">คู่สมรส :</label>
+                            <div class="col-sm-8">
+                              @if($dataGT == null)
+                                <input type="text" name="mateSP" class="form-control form-control-sm" placeholder="คู่สมรส" />
+                              @else
+                                <input type="text" name="mateSP" value="" class="form-control form-control-sm" placeholder="คู่สมรส" />
+                              @endif
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">ที่อยู่ :</label>
+                            <div class="col-sm-8">
+                              @if($dataGT == null)
+                                <select name="addSP" class="form-control form-control-sm">
+                                  <option value="" selected>--- ที่อยู่ ---</option>
+                                  <option value="ตามทะเบียนบ้าน">ตามทะเบียนบ้าน</option>
+                                </select>
+                              @else
+                                <select name="addSP" class="form-control form-control-sm">
+                                  <option value="" selected>--- ที่อยู่ ---</option>
+                                  <option value="ตามทะเบียนบ้าน" selected>ตามทะเบียนบ้าน</option>
+                                </select>
+                              @endif
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">รายละเอียดที่อยู่ :</label>
+                            <div class="col-sm-8">
+                              @if($dataGT == null)
+                                <input type="text" name="statusaddSP" class="form-control form-control-sm" placeholder="รายละเอียดที่อยู่" />
+                              @else
+                                <input type="text" name="statusaddSP" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$dataGT->ADDRES))}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$dataGT->TUMB))}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$dataGT->AUMPDES))}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$dataGT->PROVDES))}}" class="form-control form-control-sm" placeholder="รายละเอียดที่อยู่" />
+                              @endif
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">สถานที่ทำงาน :</label>
+                            <div class="col-sm-8">
+                              @if($dataGT == null)
+                                <input type="text" name="workplaceSP" class="form-control form-control-sm" placeholder="สถานที่ทำงาน" />
+                              @else
+                                <input type="text" name="workplaceSP" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$dataGT->OFFIC))}}" class="form-control form-control-sm" placeholder="สถานที่ทำงาน" />
+                              @endif
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">อาชีพ :</label>
+                            <div class="col-sm-8">
+                              <select name="careerSP" class="form-control form-control-sm">
+                                <option value="" selected>--- อาชีพ ---</option>
+                                <option value="ตำรวจ">ตำรวจ</option>
+                                <option value="ทหาร">ทหาร</option>
+                                <option value="ครู">ครู</option>
+                                <option value="ข้าราชการอื่น">ข้าราชการอื่น</option>
+                                <option value="ลูกจ้างเทศบาล">ลูกจ้างเทศบาล</option>
+                                <option value="ลูกจ้างประจำ">ลูกจ้างประจำ</option>
+                                <option value="สมาชิก อบต.">สมาชิก อบต.</option>
+                                <option value="ลูกจ้างชั่วคราว">ลูกจ้างชั่วคราว</option>
+                                <option value="รับจ้าง">รับจ้าง</option>
+                                <option value="พนักงานบริษัทเอกชน">พนักงานบริษัทเอกชน</option>
+                                <option value="อาชีพอิสระ">อาชีพอิสระ</option>
+                                <option value="กำนัน">กำนัน</option>
+                                <option value="ผู้ใหญ่บ้าน">ผู้ใหญ่บ้าน</option>
+                                <option value="ผู้ช่วยผู้ใหญ่บ้าน">ผู้ช่วยผู้ใหญ่บ้าน</option>
+                                <option value="นักการภารโรง">นักการภารโรง</option>
+                                <option value="มอเตอร์ไซร์รับจ้าง">มอเตอร์ไซร์รับจ้าง</option>
+                                <option value="ค้าขาย">ค้าขาย</option>
+                                <option value="เจ้าของธุรกิจ">เจ้าของธุรกิจ</option>
+                                <option value="เจ้าของอู่รถ">เจ้าของอู่รถ</option>
+                                <option value="ให้เช่ารถบรรทุก">ให้เช่ารถบรรทุก</option>
+                                <option value="ช่างตัดผม">ช่างตัดผม</option>
+                                <option value="ชาวนา">ชาวนา</option>
+                                <option value="ชาวไร่">ชาวไร่</option>
+                                <option value="แม่บ้าน">แม่บ้าน</option>
+                                <option value="รับเหมาก่อสร้าง">รับเหมาก่อสร้าง</option>
+                                <option value="ประมง">ประมง</option>
+                                <option value="ทนายความ">ทนายความ</option>
+                                <option value="พระ">พระ</option>
                               </select>
-                            @else
-                              <select name="relationSP" class="form-control" style="width: 250px;">
-                                <option value="" selected>--- ความสัมพันธ์ ---</option>
-                                <option value="พี่น้อง" {{($NewRelate == 'พี่น้อง') ? 'selected' : ''}}>พี่น้อง</option>
-                                <option value="ญาติ" {{($NewRelate == 'ญาติ') ? 'selected' : ''}}>ญาติ</option>
-                                <option value="เพื่อน" {{($NewRelate == 'เพื่อน') ? 'selected' : ''}}>เพื่อน</option>
-                                <option value="บิดา" {{($NewRelate == 'บิดา') ? 'selected' : ''}}>บิดา</option>
-                                <option value="มารดา" {{($NewRelate == 'มารดา') ? 'selected' : ''}}>มารดา</option>
-                                <option value="ตำบลเดี่ยวกัน" {{($NewRelate == 'ตำบลเดี่ยวกัน') ? 'selected' : ''}}>ตำบลเดี่ยวกัน</option>
-                                <option value="จ้างค้ำ(ไม่รู้จักกัน)" {{($NewRelate == 'จ้างค้ำ(ไม่รู้จักกัน)') ? 'selected' : ''}}>จ้างค้ำ(ไม่รู้จักกัน)</option>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">ประเภทหลักทรัพย์ :</label>
+                            <div class="col-sm-8">
+                              <select name="securitiesSP" class="form-control form-control-sm">
+                                <option value="" selected>--- ประเภทหลักทรัพย์ ---</option>
+                                <option value="โฉนด">โฉนด</option>
+                                <option value="นส.3">นส.3</option>
+                                <option value="นส.3 ก">นส.3 ก</option>
+                                <option value="นส.4">นส.4</option>
+                                <option value="นส.4 จ">นส.4 จ</option>
                               </select>
-                            @endif
+                            </div>
                           </div>
                         </div>
                       </div>
 
                       <div class="row">
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>คู่สมรส : </label>
-                            @if($dataGT == null)
-                              <input type="text" name="mateSP" class="form-control" style="width: 250px;" placeholder="คู่สมรส" />
-                            @else
-                              <input type="text" name="mateSP" value="" class="form-control" style="width: 250px;" placeholder="คู่สมรส" />
-                            @endif
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">เลขที่โฉนด :</label>
+                            <div class="col-sm-8">
+                              <input type="text" name="deednumberSP" class="form-control form-control-sm" placeholder="เลขที่โฉนด" />
+                            </div>
                           </div>
                         </div>
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>ที่อยู่ : </label>
-                            @if($dataGT == null)
-                              <select name="addSP" class="form-control" style="width: 250px;">
-                                <option value="" selected>--- ที่อยู่ ---</option>
-                                <option value="ตามทะเบียนบ้าน">ตามทะเบียนบ้าน</option>
-                              </select>
-                            @else
-                              <select name="addSP" class="form-control" style="width: 250px;">
-                                <option value="" selected>--- ที่อยู่ ---</option>
-                                <option value="ตามทะเบียนบ้าน" selected>ตามทะเบียนบ้าน</option>
-                              </select>
-                            @endif
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>รายละเอียดที่อยู่ : </label>
-                            @if($dataGT == null)
-                              <input type="text" name="statusaddSP" class="form-control" style="width: 250px;" placeholder="รายละเอียดที่อยู่" />
-                            @else
-                              <input type="text" name="statusaddSP" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$dataGT->ADDRES))}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$dataGT->TUMB))}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$dataGT->AUMPDES))}} {{iconv('TIS-620', 'utf-8',str_replace(" ","",$dataGT->PROVDES))}}" class="form-control" style="width: 250px;" placeholder="รายละเอียดที่อยู่" />
-                            @endif
-                          </div>
-                        </div>
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>สถานที่ทำงาน : </label>
-                            @if($dataGT == null)
-                              <input type="text" name="workplaceSP" class="form-control" style="width: 250px;" placeholder="สถานที่ทำงาน" />
-                            @else
-                              <input type="text" name="workplaceSP" value="{{iconv('TIS-620', 'utf-8',str_replace(" ","",$dataGT->OFFIC))}}" class="form-control" style="width: 250px;" placeholder="สถานที่ทำงาน" />
-                            @endif
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>อาชีพ : </label>
-                            <select name="careerSP" class="form-control" style="width: 250px;">
-                              <option value="" selected>--- อาชีพ ---</option>
-                              <option value="ตำรวจ">ตำรวจ</option>
-                              <option value="ทหาร">ทหาร</option>
-                              <option value="ครู">ครู</option>
-                              <option value="ข้าราชการอื่น">ข้าราชการอื่น</option>
-                              <option value="ลูกจ้างเทศบาล">ลูกจ้างเทศบาล</option>
-                              <option value="ลูกจ้างประจำ">ลูกจ้างประจำ</option>
-                              <option value="สมาชิก อบต.">สมาชิก อบต.</option>
-                              <option value="ลูกจ้างชั่วคราว">ลูกจ้างชั่วคราว</option>
-                              <option value="รับจ้าง">รับจ้าง</option>
-                              <option value="พนักงานบริษัทเอกชน">พนักงานบริษัทเอกชน</option>
-                              <option value="อาชีพอิสระ">อาชีพอิสระ</option>
-                              <option value="กำนัน">กำนัน</option>
-                              <option value="ผู้ใหญ่บ้าน">ผู้ใหญ่บ้าน</option>
-                              <option value="ผู้ช่วยผู้ใหญ่บ้าน">ผู้ช่วยผู้ใหญ่บ้าน</option>
-                              <option value="นักการภารโรง">นักการภารโรง</option>
-                              <option value="มอเตอร์ไซร์รับจ้าง">มอเตอร์ไซร์รับจ้าง</option>
-                              <option value="ค้าขาย">ค้าขาย</option>
-                              <option value="เจ้าของธุรกิจ">เจ้าของธุรกิจ</option>
-                              <option value="เจ้าของอู่รถ">เจ้าของอู่รถ</option>
-                              <option value="ให้เช่ารถบรรทุก">ให้เช่ารถบรรทุก</option>
-                              <option value="ช่างตัดผม">ช่างตัดผม</option>
-                              <option value="ชาวนา">ชาวนา</option>
-                              <option value="ชาวไร่">ชาวไร่</option>
-                              <option value="แม่บ้าน">แม่บ้าน</option>
-                              <option value="รับเหมาก่อสร้าง">รับเหมาก่อสร้าง</option>
-                              <option value="ประมง">ประมง</option>
-                              <option value="ทนายความ">ทนายความ</option>
-                              <option value="พระ">พระ</option>
-                            </select>
-                          </div>
-                        </div>
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>ประเภทหลักทรัพย์ : </label>
-                            <select name="securitiesSP" class="form-control" style="width: 250px;">
-                              <option value="" selected>--- ประเภทหลักทรัพย์ ---</option>
-                              <option value="โฉนด">โฉนด</option>
-                              <option value="นส.3">นส.3</option>
-                              <option value="นส.3 ก">นส.3 ก</option>
-                              <option value="นส.4">นส.4</option>
-                              <option value="นส.4 จ">นส.4 จ</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>เลขที่โฉนด : </label>
-                            <input type="text" name="deednumberSP" class="form-control" style="width: 250px;" placeholder="เลขที่โฉนด" />
-                          </div>
-                        </div>
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>เนื้อที่ : </label>
-                            <input type="text" name="areaSP" class="form-control" style="width: 250px;" placeholder="เนื้อที่" data-inputmask="&quot;mask&quot;:&quot;99-9-99&quot;" data-mask=""/>
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">เนื้อที่ :</label>
+                            <div class="col-sm-8">
+                              <input type="text" name="areaSP" class="form-control form-control-sm" placeholder="เนื้อที่" data-inputmask="&quot;mask&quot;:&quot;99-9-99&quot;" data-mask=""/>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -880,82 +943,90 @@
                       <p></p>
 
                       <div class="row">
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>ยี่ห้อ : </label>
-                            @if($data == null)
-                              <select name="Brandcar" class="form-control" style="width: 250px;">
-                                <option value="" selected>--- ยี่ห้อ ---</option>
-                                <option value="ISUZU">ISUZU</option>
-                                <option value="MITSUBISHI">MITSUBISHI</option>
-                                <option value="TOYOTA">TOYOTA</option>
-                                <option value="MAZDA">MAZDA</option>
-                                <option value="FORD">FORD</option>
-                                <option value="NISSAN">NISSAN</option>
-                                <option value="HONDA">HONDA</option>
-                                <option value="CHEVROLET">CHEVROLET</option>
-                                <option value="MG">MG</option>
-                                <option value="SUZUKI">SUZUKI</option>
-                              </select>
-                            @else
-                              <select name="Brandcar" class="form-control" style="width: 250px;">
-                                <option value="" selected>--- ยี่ห้อ ---</option>
-                                <option value="ISUZU" {{($NewBrand == 'อีซูซุ') ? 'selected' : ''}}>ISUZU</option>
-                                <option value="MITSUBISHI" {{($NewBrand == 'มิตซูบิชิ') ? 'selected' : ''}}>MITSUBISHI</option>
-                                <option value="TOYOTA" {{($NewBrand == 'โตโยต้า') ? 'selected' : ''}}>TOYOTA</option>
-                                <option value="MAZDA" {{($NewBrand == 'มาสด้า') ? 'selected' : ''}}>MAZDA</option>
-                                <option value="FORD" {{($NewBrand == 'ฟอร์ด') ? 'selected' : ''}}>FORD</option>
-                                <option value="NISSAN" {{($NewBrand == 'นิสสัน') ? 'selected' : ''}}>NISSAN</option>
-                                <option value="HONDA" {{($NewBrand == 'ฮอนด้า') ? 'selected' : ''}}>HONDA</option>
-                                <option value="CHEVROLET" {{($NewBrand == 'เชฟโรเล๊ต') ? 'selected' : ''}}>CHEVROLET</option>
-                                <option value="MG" {{($NewBrand == 'เอ็มจี') ? 'selected' : ''}}>MG</option>
-                                <option value="SUZUKI" {{($NewBrand == 'ซูซูกิ') ? 'selected' : ''}}>SUZUKI</option>
-                              </select>
-                            @endif
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">ยี่ห้อ :</label>
+                            <div class="col-sm-8">
+                              @if($data == null)
+                                <select name="Brandcar" class="form-control form-control-sm">
+                                  <option value="" selected>--- ยี่ห้อ ---</option>
+                                  <option value="ISUZU">ISUZU</option>
+                                  <option value="MITSUBISHI">MITSUBISHI</option>
+                                  <option value="TOYOTA">TOYOTA</option>
+                                  <option value="MAZDA">MAZDA</option>
+                                  <option value="FORD">FORD</option>
+                                  <option value="NISSAN">NISSAN</option>
+                                  <option value="HONDA">HONDA</option>
+                                  <option value="CHEVROLET">CHEVROLET</option>
+                                  <option value="MG">MG</option>
+                                  <option value="SUZUKI">SUZUKI</option>
+                                </select>
+                              @else
+                                <select name="Brandcar" class="form-control form-control-sm">
+                                  <option value="" selected>--- ยี่ห้อ ---</option>
+                                  <option value="ISUZU" {{($NewBrand == 'อีซูซุ') ? 'selected' : ''}}>ISUZU</option>
+                                  <option value="MITSUBISHI" {{($NewBrand == 'มิตซูบิชิ') ? 'selected' : ''}}>MITSUBISHI</option>
+                                  <option value="TOYOTA" {{($NewBrand == 'โตโยต้า') ? 'selected' : ''}}>TOYOTA</option>
+                                  <option value="MAZDA" {{($NewBrand == 'มาสด้า') ? 'selected' : ''}}>MAZDA</option>
+                                  <option value="FORD" {{($NewBrand == 'ฟอร์ด') ? 'selected' : ''}}>FORD</option>
+                                  <option value="NISSAN" {{($NewBrand == 'นิสสัน') ? 'selected' : ''}}>NISSAN</option>
+                                  <option value="HONDA" {{($NewBrand == 'ฮอนด้า') ? 'selected' : ''}}>HONDA</option>
+                                  <option value="CHEVROLET" {{($NewBrand == 'เชฟโรเล๊ต') ? 'selected' : ''}}>CHEVROLET</option>
+                                  <option value="MG" {{($NewBrand == 'เอ็มจี') ? 'selected' : ''}}>MG</option>
+                                  <option value="SUZUKI" {{($NewBrand == 'ซูซูกิ') ? 'selected' : ''}}>SUZUKI</option>
+                                </select>
+                              @endif
+                            </div>
                           </div>
                         </div>
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>ปี : </label>
-                            @if($data == null)
-                              <select id="Yearcar" name="Yearcar" class="form-control" style="width: 250px;">
-                                <option value="" selected>--- เลือกปี ---</option>
-                                @php
-                                  $Year = date('Y');
-                                @endphp
-                                @for ($i = 0; $i < 20; $i++)
-                                  <option value="{{ $Year }}">{{ $Year }}</option>
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">ปี :</label>
+                            <div class="col-sm-8">
+                              @if($data == null)
+                                <select id="Yearcar" name="Yearcar" class="form-control form-control-sm">
+                                  <option value="" selected>--- เลือกปี ---</option>
                                   @php
-                                    $Year -= 1;
+                                    $Year = date('Y');
                                   @endphp
-                                @endfor
-                              </select>
-                            @else
-                              <input type="text" name="Yearcar" value="{{iconv('Tis-620','utf-8',str_replace(" ","",$data->MANUYR))}}" class="form-control" style="width: 250px;" placeholder="ปี" />
-                            @endif
+                                  @for ($i = 0; $i < 20; $i++)
+                                    <option value="{{ $Year }}">{{ $Year }}</option>
+                                    @php
+                                      $Year -= 1;
+                                    @endphp
+                                  @endfor
+                                </select>
+                              @else
+                                <input type="text" name="Yearcar" value="{{iconv('Tis-620','utf-8',str_replace(" ","",$data->MANUYR))}}" class="form-control form-control-sm" placeholder="ปี" />
+                              @endif
+                            </div>
                           </div>
                         </div>
                       </div>
 
                       <div class="row">
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>สี : </label>
-                            @if($data == null)
-                              <input type="text" name="Colourcar" class="form-control" style="width: 250px;" placeholder="สี" />
-                            @else
-                              <input type="text" name="Colourcar" value="{{iconv('Tis-620','utf-8',str_replace(" ","",$data->COLOR))}}" class="form-control" style="width: 250px;" placeholder="สี" />
-                            @endif
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">สี :</label>
+                            <div class="col-sm-8">
+                              @if($data == null)
+                                <input type="text" name="Colourcar" class="form-control form-control-sm" placeholder="สี" />
+                              @else
+                                <input type="text" name="Colourcar" value="{{iconv('Tis-620','utf-8',str_replace(" ","",$data->COLOR))}}" class="form-control form-control-sm" placeholder="สี" />
+                              @endif
+                            </div>
                           </div>
                         </div>
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>ป้ายทะเบียน : </label>
-                            @if($data == null)
-                              <input type="text" name="Licensecar" class="form-control" style="width: 250px;" placeholder="ป้ายเดิม" required/>
-                            @else
-                              <input type="text" name="Licensecar"  value="{{iconv('Tis-620','utf-8',$data->REGNO)}}" class="form-control" style="width: 250px;" placeholder="ป้ายเดิม" />
-                            @endif
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">ป้ายทะเบียน :</label>
+                            <div class="col-sm-8">
+                              @if($data == null)
+                                <input type="text" name="Licensecar" class="form-control form-control-sm" placeholder="ป้ายเดิม" required/>
+                              @else
+                                <input type="text" name="Licensecar"  value="{{iconv('Tis-620','utf-8',$data->REGNO)}}" class="form-control form-control-sm" placeholder="ป้ายเดิม" />
+                              @endif
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -1188,137 +1259,173 @@
                       @endif
 
                       <div class="row">
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>ยอดจัด : </label>
-                            <input type="text" id="Topcar" name="Topcar" class="form-control" style="width: 250px;" maxlength="9" placeholder="กรอกยอดจัด" oninput="calculate();" />
-                          </div>
-                        </div>
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>ชำระต่องวด : </label>
-                            <input type="text" id="Paycar" name="Paycar" class="form-control" style="width: 250px;" readonly oninput="calculate();" />
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>ระยะเวลาผ่อน : </label>
-                            @if($type == 9)
-                              <input type="text" id="Timeslackencar" name="Timeslackencar" class="form-control" style="width: 250px;" oninput="calculate();" />
-                            @elseif($type == 13)
-                              <input type="text" id="Timeslackencar" name="Timeslackencar" value="12" class="form-control" style="width: 250px;" oninput="calculate();" />
-                            @endif
-                          </div>
-                        </div>
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>ภาษี / ระยะเวลาผ่อน : </label>
-                            <input type="text" id="Taxcar" name="Taxcar" class="form-control" style="width: 125px;" readonly />
-                            <input type="text" id="Taxpaycar" name="Taxpaycar" class="form-control" style="width: 125px;" readonly />
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>ดอกเบี้ย / ปี : </label>
-                            @if($data == null)
-                              @if($type == 9)
-                                <input type="text" id="Interestcar" name="Interestcar" class="form-control" style="width: 250px;" oninput="calculate();"/>
-                              @elseif($type == 13)
-                                <input type="text" id="Interestcar" name="Interestcar" class="form-control" style="width: 250px;" value="12" oninput="calculate();"/>
-                              @endif
-                            @else
-                              @if($type == 9)
-                                <input type="text" id="Interestcar" name="Interestcar" value="{{iconv('Tis-620','utf-8',str_replace(" ","",$data->EFRATE))}}" class="form-control" style="width: 250px;" placeholder="ดอกเบี้ย" oninput="calculate();"/>
-                              @elseif($type == 13)
-                                <input type="text" id="Interestcar" name="Interestcar" class="form-control" style="width: 250px;" value="12" oninput="calculate();"/>
-                              @endif
-                            @endif
-                          </div>
-                        </div>
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>ค่างวด / ระยะเวลาผ่อน : </label>
-                            <input type="text" id="Paymemtcar" name="Paymemtcar" class="form-control" style="width: 125px;" readonly />
-                            <input type="text" id="Timepaymentcar" name="Timepaymentcar" class="form-control" style="width: 125px;" readonly />
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>VAT : </label>
-                            @if($type == 9)
-                              <input type="text" id="Vatcar" name="Vatcar" value="7" class="form-control" style="width: 250px;background-color: white;" oninput="calculate()"/>
-                            @elseif($type == 13)
-                              <input type="text" id="Vatcar" name="Vatcar" class="form-control" style="width: 250px;background-color: white;" oninput="calculate()"/>
-                            @endif
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">ยอดจัด :</label>
+                            <div class="col-sm-8">
+                              <input type="text" id="Topcar" name="Topcar" class="form-control form-control-sm" maxlength="9" placeholder="กรอกยอดจัด" oninput="calculate();" />
                             </div>
+                          </div>
                         </div>
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>ยอดผ่อนชำระทั้งหมด : </label>
-                            <input type="text" id="Totalpay1car" name="Totalpay1car" class="form-control" style="width: 125px;" readonly />
-                            <input type="text" id="Totalpay2car" name="Totalpay2car" class="form-control" style="width: 125px;" readonly />
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">ชำระต่องวด :</label>
+                            <div class="col-sm-8">
+                              <input type="text" id="Paycar" name="Paycar" class="form-control form-control-sm" readonly oninput="calculate();" />
+                            </div>
                           </div>
                         </div>
                       </div>
 
                       <div class="row">
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>หมายเหตุ : </label>
-                            @if($data == null)
-                              <input type="text" name="Notecar" class="form-control" style="width: 250px;" placeholder="หมายเหตุ"/>
-                            @else
-                              <input type="text" name="Notecar" value="{{$data->CONTNO}}" class="form-control" style="width: 250px;" placeholder="หมายเหตุ"/>
-                            @endif
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">ระยะเวลาผ่อน :</label>
+                            <div class="col-sm-8">
+                              @if($type == 9)
+                                <input type="text" id="Timeslackencar" name="Timeslackencar" class="form-control form-control-sm" oninput="calculate();" />
+                              @elseif($type == 13)
+                                <input type="text" id="Timeslackencar" name="Timeslackencar" value="12" class="form-control form-control-sm" oninput="calculate();" />
+                              @endif
                             </div>
+                          </div>
                         </div>
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <label>วันที่ชำระงวดแรก : </label>
-                            <input type="text" name="Dateduefirstcar" class="form-control" style="width: 250px;" readonly placeholder="วันที่ชำระงวดแรก" />
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">ภาษี/ระยะเวลาผ่อน :</label>
+                            <div class="col-sm-4">
+                              <input type="text" id="Taxcar" name="Taxcar" class="form-control form-control-sm" readonly />
+                            </div>
+                            <div class="col-sm-4">
+                              <input type="text" id="Taxpaycar" name="Taxpaycar" class="form-control form-control-sm" readonly />
+                            </div>
                           </div>
                         </div>
                       </div>
+
+                      <div class="row">
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">ดอกเบี้ย/ปี :</label>
+                            <div class="col-sm-8">
+                              @if($data == null)
+                                @if($type == 9)
+                                  <input type="text" id="Interestcar" name="Interestcar" class="form-control form-control-sm" oninput="calculate();"/>
+                                @elseif($type == 13)
+                                  <input type="text" id="Interestcar" name="Interestcar" class="form-control form-control-sm" value="12" oninput="calculate();"/>
+                                @endif
+                              @else
+                                @if($type == 9)
+                                  <input type="text" id="Interestcar" name="Interestcar" value="{{iconv('Tis-620','utf-8',str_replace(" ","",$data->EFRATE))}}" class="form-control form-control-sm" placeholder="ดอกเบี้ย" oninput="calculate();"/>
+                                @elseif($type == 13)
+                                  <input type="text" id="Interestcar" name="Interestcar" class="form-control form-control-sm" value="12" oninput="calculate();"/>
+                                @endif
+                              @endif
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">ค่างวด/ระยะเวลาผ่อน :</label>
+                            <div class="col-sm-4">
+                              <input type="text" id="Paymemtcar" name="Paymemtcar" class="form-control form-control-sm" readonly />
+                            </div>
+                            <div class="col-sm-4">
+                              <input type="text" id="Timepaymentcar" name="Timepaymentcar" class="form-control form-control-sm" readonly />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">VAT :</label>
+                            <div class="col-sm-8">
+                              @if($type == 9)
+                                <input type="text" id="Vatcar" name="Vatcar" value="7" class="form-control form-control-sm" style="background-color: white;" oninput="calculate()"/>
+                              @elseif($type == 13)
+                                <input type="text" id="Vatcar" name="Vatcar" class="form-control form-control-sm" style="background-color: white;" oninput="calculate()"/>
+                              @endif
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">ยอดผ่อนชำระทั้งหมด :</label>
+                            <div class="col-sm-4">
+                              <input type="text" id="Totalpay1car" name="Totalpay1car" class="form-control form-control-sm" readonly />
+                            </div>
+                            <div class="col-sm-4">
+                              <input type="text" id="Totalpay2car" name="Totalpay2car" class="form-control form-control-sm" readonly />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">หมายเหตุ :</label>
+                            <div class="col-sm-8">
+                              @if($data == null)
+                                <input type="text" name="Notecar" class="form-control form-control-sm" placeholder="หมายเหตุ"/>
+                              @else
+                                <input type="text" name="Notecar" value="{{$data->CONTNO}}" class="form-control form-control-sm" placeholder="หมายเหตุ"/>
+                              @endif
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right">วันที่ชำระงวดแรก :</label>
+                            <div class="col-sm-8">
+                              <input type="text" name="Dateduefirstcar" class="form-control form-control-sm" readonly placeholder="วันที่ชำระงวดแรก" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
 
                       @if($data == null)
-                        <input type="hidden" name="statuscar" class="form-control" style="width: 250px;"/>
+                        <input type="hidden" name="statuscar" class="form-control form-control-sm"/>
                       @else
-                        <input type="hidden" name="statuscar" value="{{iconv('Tis-620','utf-8',$data->BAAB)}}" class="form-control" style="width: 250px;" />
+                        <input type="hidden" name="statuscar" value="{{iconv('Tis-620','utf-8',$data->BAAB)}}" class="form-control form-control-sm" />
                       @endif
 
                       <div class="row">
-                        <div class="col-5">
-                          <div class="float-right form-inline">
-                            <!-- <label><font color="red">เจ้าหน้าที่สินเชื่อ : </font></label> -->
-                            <input type="hidden" name="Loanofficercar" class="form-control" style="width: 250px;" value="{{ Auth::user()->name }}" readonly />
+                        <div class="col-6">
+                          <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label text-right"><font color="red">เจ้าหน้าที่สินเชื่อ : </font></label>
+                            <div class="col-sm-8">
+                              <select name="Loanofficercar" class="form-control form-control-sm" required>
+                                <option value="" selected>--- เลือกพนักงาน ---</option>
+                                <option value="มาซีเตาะห์ แวสือนิ">มาซีเตาะห์ แวสือนิ</option>
+                                <option value="ขวัญตา เหมือนพยอม">ขวัญตา เหมือนพยอม</option>
+                              </select>
+                            </div>
                           </div>
                         </div>
+                      </div>
+
+                      <div class="row">
                         <div class="col-5">
                           <div class="float-right form-inline">
                             <!-- <label><font color="red">สาขา : </font></label> -->
                             @if(Auth::user()->branch == 99)
-                              <input type="hidden" name="branchcar" class="form-control" style="width: 250px;" value="Admin" readonly />
+                              <input type="hidden" name="branchcar" class="form-control" value="Admin" readonly />
                             @elseif(Auth::user()->branch == 01)
-                              <input type="hidden" name="branchcar" class="form-control" style="width: 250px;" value="ปัตตานี" readonly />
+                              <input type="hidden" name="branchcar" class="form-control" value="ปัตตานี" readonly />
                             @elseif(Auth::user()->branch == 03)
-                              <input type="hidden" name="branchcar" class="form-control" style="width: 250px;" value="ยะลา" readonly />
+                              <input type="hidden" name="branchcar" class="form-control" value="ยะลา" readonly />
                             @elseif(Auth::user()->branch == 04)
-                              <input type="hidden" name="branchcar" class="form-control" style="width: 250px;" value="นราธิวาส" readonly />
+                              <input type="hidden" name="branchcar" class="form-control" value="นราธิวาส" readonly />
                             @elseif(Auth::user()->branch == 05)
-                              <input type="hidden" name="branchcar" class="form-control" style="width: 250px;" value="สายบุรี" readonly />
+                              <input type="hidden" name="branchcar" class="form-control" value="สายบุรี" readonly />
                             @elseif(Auth::user()->branch == 06)
-                              <input type="hidden" name="branchcar" class="form-control" style="width: 250px;" value="โกลก" readonly />
+                              <input type="hidden" name="branchcar" class="form-control" value="โกลก" readonly />
                             @elseif(Auth::user()->branch == 07)
-                              <input type="hidden" name="branchcar" class="form-control" style="width: 250px;" value="เบตง" readonly />
+                              <input type="hidden" name="branchcar" class="form-control" value="เบตง" readonly />
                             @endif
                           </div>
                         </div>
