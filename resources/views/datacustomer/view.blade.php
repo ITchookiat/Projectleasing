@@ -95,6 +95,7 @@
                           <tr>
                             <th class="text-center" style="width:10px;">#</th>
                             <th class="text-center">ลำดับ</th>
+                            <th class="text-center">สาขา</th>
                             <th class="text-center">วันที่ walkin</th>
                             <th class="text-center">ป้ายทะเบียน</th>
                             <th class="text-center">ยอดจัด</th>
@@ -119,6 +120,7 @@
                               @endif
                               </td>
                               <td class="text-center">{{$key+1}}</td>
+                              <td class="text-center">{{$row->Branch_car}}</td>
                               <td class="text-center">{{DateThai(substr($row->created_at,0,10))}}</td>
                               <td class="text-center">{{$row->License_car}}</td>
                               <td class="text-center">{{number_format($row->Top_car,2)}}</td>
@@ -402,7 +404,7 @@
                       <div class="form-group row mb-1">
                       <label class="col-sm-5 col-form-label text-right"><font color="red"> ยอดจัด : </font> </label>
                         <div class="col-sm-7">
-                          <input type="text" id="topcar" name="Topcar" class="form-control" placeholder="ป้อนยอดจัด" oninput="addcomma();" maxlength="9" />
+                          <input type="text" id="topcar" name="Topcar" class="form-control" placeholder="ป้อนยอดจัด" oninput="addcomma();" maxlength="9" required/>
                         </div>
                       </div>
                     </div>
@@ -474,7 +476,7 @@
                           <input type="text" name="IDCardbuyer" class="form-control" placeholder="ป้อนเลขบัตร ปชช" maxlength="13"/>
                         </div>
                         <br><br>
-                        <label class="col-sm-5 col-form-label text-right">ที่มาของลูกค้า :</label>
+                        <label class="col-sm-5 col-form-label text-right"><font color="red">ที่มาของลูกค้า :</font></label>
                         <div class="col-sm-7">
                         <!-- <select id="TypeLeasing" name="TypeLeasing" class="form-control" required>
                             <option value="" selected>--- เลือกประเภทสินเชื่อ ---</option>
@@ -520,7 +522,7 @@
                   </div>
               </div>
 
-              <input type="้hidden" name="NameUser" value="{{auth::user()->name}}"/>
+              <input type="hidden" name="NameUser" value="{{auth::user()->name}}"/>
 
               <div style="text-align: center;">
                   <button type="submit" class="btn btn-success text-center" style="border-radius: 50px;">บันทึก</button>

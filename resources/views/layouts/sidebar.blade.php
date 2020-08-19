@@ -191,7 +191,7 @@
 
             @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก เร่งรัด")
               <ul class="nav nav-treeview">
-                <li class="nav-item has-treeview {{ Request::is('Precipitate/Home/3') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/1') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/4') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/5') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/11') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/6') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/8') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/9') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/10') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/11') ? 'menu-open' : '' }} {{ Request::is('Analysis/edit/8/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/deleteImageEach/8/*') ? 'menu-open' : '' }}">
+                <li class="nav-item has-treeview {{ Request::is('Precipitate/Home/3') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/1') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/4') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/5') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/6') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/8') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/9') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/10') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/11') ? 'menu-open' : '' }} {{ Request::is('Analysis/edit/8/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/deleteImageEach/8/*') ? 'menu-open' : '' }}">
                   <a href="#" class="nav-link">
                     <i class="far fa-window-restore text-red nav-icon"></i>
                     <p>
@@ -223,7 +223,7 @@
               </ul>
 
               <ul class="nav nav-treeview">
-                <li class="nav-item has-treeview {{ Request::is('Precipitate/Home/2') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/7') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/8') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/9') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/10') ? 'menu-open' : '' }}">
+                <li class="nav-item has-treeview {{ Request::is('Precipitate/Home/2') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/7') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/8') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/9') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/10') ? 'menu-open' : '' }}{{ Request::is('Precipitate/Home/15') ? 'menu-open' : '' }}">
                   <a href="#" class="nav-link">
                     <i class="far fa-window-restore text-red nav-icon"></i>
                     <p>
@@ -252,6 +252,10 @@
                       <a href="{{ route('Precipitate',10) }}" class="nav-link {{ Request::is('Precipitate/Home/10') ? 'active' : '' }}">
                         <i class="far fa-dot-circle nav-icon"></i>
                         <p>รายงาน หนังสือขอยืนยัน</p>
+                      </a>
+                      <a href="{{ route('Precipitate',15) }}" class="nav-link {{ Request::is('Precipitate/Home/15') ? 'active' : '' }}">
+                        <i class="far fa-dot-circle nav-icon"></i>
+                        <p>รายงาน หนังสือทวงถาม</p>
                       </a>
                     </li>
                   </ul>

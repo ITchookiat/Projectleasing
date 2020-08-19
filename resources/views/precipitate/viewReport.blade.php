@@ -187,6 +187,8 @@
                     รายงาน ใบรับฝาก
                   @elseif($type == 10)
                     รายงาน หนังสือขอยืนยันบอกเลิกสัญญา
+                  @elseif($type == 15)
+                    รายงาน หนังสือจดหมายทวงถาม
                   @endif
                 </h4>
               </div>
@@ -280,6 +282,27 @@
                         </div>
                       </div>
                     </form>
+                @elseif($type == 15) {{-- ระบบ หนังสือทวงถาม --}}
+                    <form method="get" action="{{ route('Precipitate', 15) }}">
+                        <div class="float-right form-inline">
+                          <label>เลขที่สัญญา : </label>
+                          <input type="type" name="Contno" value="{{$contno}}" style="padding:5px;width:230px;border-radius: 5px 0 5px 5px; font-size:20px;"/>
+                          <button type="submit" class="btn bg-warning btn-app">
+                            <span class="fas fa-search"></span> Search
+                          </button>
+                          <a target="_blank" href="{{ route('Precipitate.report', 1)}}?Fromdate={{$fdate}}&Todate={{$tdate}}" class="btn bg-primary btn-app">
+                            <i class="fas fa-print"></i> ปริ้นรายการ
+                          </a>
+                        </div>
+                        <br><br><br><p></p>
+                        <div class="float-right form-inline">
+                          <label>จากวันที่ : </label>
+                          <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($fdate != '') ?$fdate: '' }}" class="form-control" />
+                          <label>ถึงวันที่ : </label>
+                          <input type="date" name="Todate" style="width: 180px;" value="{{ ($tdate != '') ?$tdate: '' }}" class="form-control" />
+                        </div>
+                    </form>
+                      <br><br>
                 @endif
 
                 <!-- ส่วนพื้นที่แสดงผล -->
@@ -929,6 +952,7 @@
                     </div>
                   </div>
                 @elseif($type == 10) {{-- ระบบ หนังสือบอกเลิก --}}
+                    <hr>
                     <div class="row">
                       <div class="col-md-12">
                         <div class="table-responsive">
@@ -971,6 +995,53 @@
                                       <i class="fa fa-edit"></i> เพิ่มข้อมูล
                                     </button>
                                   </td>
+                                </tr>
+                              @endforeach
+                            </tbody>
+                          </table>
+                        </div>
+                    </div>
+                  </div>
+                @elseif($type == 15) {{-- ระบบ หนังสือทวงถาม --}}
+                    <hr>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="table-responsive">
+                        <table class="table table-bordered" id="table">
+                            <thead class="thead-dark bg-gray-light" >
+                              <tr>
+                                <th class="text-center">ลำดับ</th>
+                                <th class="text-center">วันที่ปรับปรุง</th>
+                                <th class="text-center">เลขที่สัญญา</th>
+                                <th class="text-center">ชื่อ-สกุล</th>
+                                <th class="text-center">ราคาขาย</th>
+                                <th class="text-center">ชำระแล้ว</th>
+                                <th class="text-center">ยอดค้างชำระ</th>
+                                <th class="text-center">ค้างงวดจริง</th>
+                                <th class="text-center">สถานะ</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              @foreach($data as $key => $row)
+                                <tr>
+                                  <td class="text-center"> {{$key+1}} </td>
+                                  <td class="text-center">
+                                    @php
+                                    $StrCon = explode("/",$row->CONTNO);
+                                    $SetStr1 = $StrCon[0];
+                                    $SetStr2 = $StrCon[1];
+
+                                    $LASTUPDATE= date_create($row->LAST_UPDATE);
+                                    @endphp
+                                    {{ date_format($LASTUPDATE, 'd-m-Y')}}
+                                  </td>
+                                  <td class="text-center"> {{$row->CONTNO}}</td>
+                                  <td class="text-left"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->SNAM.$row->NAME1)."   ".str_replace(" ","",$row->NAME2))}} </td>
+                                  <td class="text-center text-danger"> {{number_format($row->KEYINPRC,2)}} </td>
+                                  <td class="text-center text-danger"> {{number_format($row->SMPAY,2)}} </td>
+                                  <td class="text-center text-danger"> {{number_format($row->EXP_AMT,2)}} </td>
+                                  <td class="text-center text-danger"> {{number_format($row->HLDNO,2)}} </td>
+                                  <td class="text-center"> {{iconv('Tis-620','utf-8', $row->OLD_STATUS)}} => {{iconv('Tis-620','utf-8', $row->CONTSTAT)}} </td>
                                 </tr>
                               @endforeach
                             </tbody>
