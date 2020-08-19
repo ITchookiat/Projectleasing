@@ -55,9 +55,6 @@ class DocumentController extends Controller
                 $file = $request->file('file');
                 $filesize = $file->getClientSize();
                 $filename = $request->title.date('dmY'). '.' .$file->getClientOriginalExtension();
-                // $filename = time().'.'.$file->getClientOriginalExtension();
-                // $destination_path = public_path('/file-documents');
-                // $request->file->move($destination_path.'/'.$filename);
                 $destination_path = public_path().'/file-documents/'.$request->folder;
                 Storage::makeDirectory($destination_path, 0777, true, true);
                 $request->file->move($destination_path, $filename);
@@ -145,10 +142,9 @@ class DocumentController extends Controller
         }
         return redirect()->back()->with('success','ลบข้อมูลเรียบร้อย');
     }
-    public function download($file)
+    public function download(Request $request,$file)
     {   
-        // dd($file);
-        $destination_path = public_path('/file-documents');
-        return response()->download($destination_path. '/' .$file);
+        $destination_path = public_path('file-documents');
+        return response()->download($destination_path. '/' .$request->foldername. '/' .$file);
     }
 }

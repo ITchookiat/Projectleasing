@@ -147,6 +147,7 @@ class DataCustomerController extends Controller
             'last_buyer' => $data->Last_buyer,
             'Phone_buyer' => $data->Phone_buyer,
             'Idcard_buyer' => $data->IDCard_buyer,
+            'Walkin_id' => $data->Customer_id,
           ]);
           $Buyerdb->save();
           $Sponsordb = new Sponsor([

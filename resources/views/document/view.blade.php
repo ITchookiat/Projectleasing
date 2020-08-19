@@ -106,7 +106,7 @@
                                   <i class="far fa-eye"></i>
                                 </a>
                               @endif
-                              <a href="{{ action('DocumentController@download',[$row->file_name]) }}" class="btn btn-info btn-sm" title="ดาวน์โหลดไฟล์">
+                              <a href="{{ action('DocumentController@download',[$row->file_name])}}?foldername={{$title}}" class="btn btn-info btn-sm" title="ดาวน์โหลดไฟล์">
                                 <i class="fas fa-download"></i>
                               </a>
                               @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
