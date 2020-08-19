@@ -42,13 +42,15 @@
                       </h5>
                     </div>
                   </div>
-                  <div class="col-6">
-                    <div class="card-tools d-inline float-right">
-                      <a class="btn bg-success btn-sm" data-toggle="modal" data-target="#modal-lg" data-backdrop="static">
-                        <span class="fas fa-plus"></span> อัพโหลด
-                      </a>
+                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
+                    <div class="col-6">
+                      <div class="card-tools d-inline float-right">
+                        <a class="btn bg-success btn-sm" data-toggle="modal" data-target="#modal-lg" data-backdrop="static">
+                          <span class="fas fa-plus"></span> อัพโหลด
+                        </a>
+                      </div>
                     </div>
-                  </div>
+                  @endif
                 </div>
               </div>
               <div class="card-body text-sm">
