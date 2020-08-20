@@ -42,8 +42,6 @@ Route::group(['middleware' => 'auth'], function()
     Route::get('/Analysis/ReportDueDate/{type}', 'ReportAnalysController@ReportDueDate');
     Route::get('/Analysis/ReportHomecar/{id}/{type}', 'ReportAnalysController@ReportHomecar');
 
-    Route::get('/call/viewdetail/{type}', 'CallController@viewdetail')->name('viewdetail');
-    Route::get('/call/{type}', 'CallController@index')->name('call');
     Route::get('/ExportExcel/{type}', 'ExcelController@excel');
 
     //------------------งานกฏหมาย--------------------//

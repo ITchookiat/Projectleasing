@@ -484,6 +484,154 @@ class PrecController extends Controller
           $type = $request->type;
           return view('precipitate.viewReport', compact('data','fdate','tdate','fstart','tend','type','contno'));
         }
+        elseif ($request->type == 11) {  //ปรับโครงสร้างหนี้
+          $contno = '';
+          $newfdate = '';
+          $newtdate = '';
+          $branch = '';
+          $status = '';
+  
+          if ($request->has('Fromdate')) {
+            $fdate = $request->get('Fromdate');
+            $newfdate = \Carbon\Carbon::parse($fdate)->format('Y') ."-". \Carbon\Carbon::parse($fdate)->format('m')."-". \Carbon\Carbon::parse($fdate)->format('d');
+          }
+          if (session()->has('fdate')){
+            $fdate = session('fdate');
+            $newfdate = \Carbon\Carbon::parse($fdate)->format('Y') ."-". \Carbon\Carbon::parse($fdate)->format('m')."-". \Carbon\Carbon::parse($fdate)->format('d');
+          }
+  
+          if ($request->has('Todate')) {
+            $tdate = $request->get('Todate');
+            $newtdate = \Carbon\Carbon::parse($tdate)->format('Y') ."-". \Carbon\Carbon::parse($tdate)->format('m')."-". \Carbon\Carbon::parse($tdate)->format('d');
+          }
+          if (session()->has('tdate')){
+            $tdate = session('tdate');
+            $newtdate = \Carbon\Carbon::parse($tdate)->format('Y') ."-". \Carbon\Carbon::parse($tdate)->format('m')."-". \Carbon\Carbon::parse($tdate)->format('d');
+          }
+  
+          if ($request->has('branch')) {
+            $branch = $request->get('branch');
+          }
+          if (session()->has('branch')){
+            $branch = session('branch');
+          }
+  
+          if ($request->has('status')) {
+            $status = $request->get('status');
+          }
+          if (session()->has('status')){
+            $status = session('status');
+          }
+  
+          if ($request->has('Contno')) {
+            $contno = $request->get('Contno');
+          }
+          if (session()->has('Contno')){
+            $contno = session('Contno');
+          }
+  
+          if ($request->has('Fromdate') == false and $request->has('Todate') == false) {
+            if (session()->has('fdate') != false or $request->has('tdate') != false) {
+              $data = DB::table('buyers')
+              ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
+              ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
+              ->join('expenses','buyers.id','=','expenses.Buyerexpenses_id')
+              ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+                return $q->whereBetween('buyers.Date_Due',[$newfdate,$newtdate]);
+              })
+              ->when(!empty($branch), function($q) use($branch){
+                return $q->where('cardetails.branch_car',$branch);
+              })
+              ->when(!empty($status), function($q) use($status){
+                return $q->where('cardetails.StatusApp_car','=',$status);
+              })
+              ->when(!empty($contno), function($q) use($contno){
+                return $q->where('buyers.Contract_buyer','=',$contno);
+              })
+              ->where('buyers.Contract_buyer','like', '22%')
+              ->orderBy('buyers.Contract_buyer', 'ASC')
+              ->get();
+  
+            }
+            else { //แสดงแรกเริ่มหน้า
+              $data = DB::table('buyers')
+              ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
+              ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
+              ->join('expenses','buyers.id','=','expenses.Buyerexpenses_id')
+              ->where('buyers.Contract_buyer','like', '22%')
+              ->where('cardetails.Approvers_car','=',Null)
+              ->orderBy('buyers.Contract_buyer', 'ASC')
+              ->get();
+            }
+          }else {
+              if($contno != ''){
+                $newfdate = '';
+                $newtdate = '';
+                $branch = '';
+                $status = '';
+              }
+  
+              $data = DB::table('buyers')
+              ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
+              ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
+              ->join('expenses','buyers.id','=','expenses.Buyerexpenses_id')
+              ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+                return $q->whereBetween('buyers.Date_Due',[$newfdate,$newtdate]);
+              })
+              ->when(!empty($branch), function($q) use($branch){
+                return $q->where('cardetails.branch_car',$branch);
+              })
+              ->when(!empty($status), function($q) use($status){
+                return $q->where('cardetails.StatusApp_car','=',$status);
+              })
+              ->when(!empty($contno), function($q) use($contno){
+                return $q->where('buyers.Contract_buyer','=',$contno);
+              })
+              ->where('buyers.Contract_buyer','like', '22%')
+              ->orderBy('buyers.Contract_buyer', 'ASC')
+              ->get();
+  
+          }
+  
+          $type = $request->type;
+          return view('precipitate.view', compact('type', 'data','branch','newfdate','newtdate','status','Setdate','SumTopcar','SumCommissioncar','SumCommitprice','contno','SetStrConn','SetStr1','SetStr2'));
+        }
+        elseif ($request->type == 12){   //เพิ่มปรับโครงสร้างหนี้
+          $Contno = '';
+          $NewBrand = '';
+          $NewRelate = '';
+          if ($request->Contno != '') {
+            $Contno = $request->Contno;
+          }
+          $data = DB::connection('ibmi')
+          ->table('SFHP.ARMAST')
+          ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
+          ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+          ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+          ->join('SFHP.CUSTMAST','SFHP.ARMAST.CUSCOD','=','SFHP.CUSTMAST.CUSCOD')
+          ->where('SFHP.ARMAST.CONTNO','=', $Contno)
+          ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+          ->first();
+          if($data != null){
+            $NewBrand = iconv('Tis-620','utf-8',str_replace(" ","",$data->TYPE));
+          }
+          $dataGT = DB::connection('ibmi')
+                    ->table('SFHP.VIEW_ARMGAR')
+                    ->where('SFHP.VIEW_ARMGAR.CONTNO','=', $Contno)
+                    ->first();
+          // dump($data,$dataGT);
+          if($dataGT != null){
+            $NewRelate = iconv('Tis-620','utf-8',str_replace(" ","",$dataGT->RELATN));
+          }
+          $dataPay = DB::connection('ibmi')
+          ->table('SFHP.ARPAY')
+          ->where('SFHP.ARPAY.CONTNO','=', $Contno)
+          ->orderBy('SFHP.ARPAY.CONTNO', 'ASC')
+          ->get();
+          $type = $request->type;
+          return view('analysis.createextra', compact('type','data','dataGT','NewBrand','NewRelate','dataPay'));
+        }
+
         elseif ($request->type == 15) { //รายงาน หนังสือทวงถาม
           $contno = '';
           $fdate = date('Y-m-d',strtotime('- 1 days'));
