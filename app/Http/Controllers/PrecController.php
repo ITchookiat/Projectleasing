@@ -634,6 +634,7 @@ class PrecController extends Controller
 
         elseif ($request->type == 15) { //รายงาน หนังสือทวงถาม
           $contno = '';
+          $dateset = date('Y-m-d',strtotime('- 1 days'));
           $fdate = date('Y-m-d',strtotime('- 1 days'));
           $tdate = date('Y-m-d',strtotime('- 1 days'));
           $fstart = '2.00';
@@ -661,16 +662,26 @@ class PrecController extends Controller
                 ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
                     return $q->whereBetween('SFHP.ARMAST.LAST_UPDATE',[$fdate,$tdate]);
                   })
+                ->where('SFHP.ARMAST.LPAYD','!=', $dateset)
                 ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
                 ->get();
                 // dd($dataQuery);
             $count3 = count($dataQuery);
+            for($k=0; $k<$count3; $k++){
+              $str4[] = str_replace(" ","",$dataQuery[$k]->CONTSTAT);
+              if ($str4[$k] == "K") {
+                $dataK[] = $dataQuery[$k];
+              }
+            }
             for($j=0; $j<$count3; $j++){
               $str3[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$dataQuery[$j]->CONTSTAT)));
               if ($str3[$j] == "จ") {
-                $data[] = $dataQuery[$j];
+                $dataJ[] = $dataQuery[$j];
               }
             }
+
+            $data = array_merge($dataK, $dataJ);
+
           }
           else{
             $data = DB::connection('ibmi')
@@ -1587,6 +1598,7 @@ class PrecController extends Controller
       $m = date('m');
       $d = date('d');
       $date = $d.'-'.$m.'-'.$Y;
+      $dateset = date('Y-m-d',strtotime('- 1 days'));
 
       if($type == 1){
           $fdate = date('Y-m-d',strtotime('- 1 days'));
@@ -1613,15 +1625,25 @@ class PrecController extends Controller
                 ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
                     return $q->whereBetween('SFHP.ARMAST.LAST_UPDATE',[$fdate,$tdate]);
                   })
+                ->where('SFHP.ARMAST.LPAYD','!=', $dateset)
                 ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
                 ->get();
-            $count3 = count($dataQuery);
-            for($j=0; $j<$count3; $j++){
-              $str3[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$dataQuery[$j]->CONTSTAT)));
-              if ($str3[$j] == "จ") {
-                $data[] = $dataQuery[$j];
-              }
+            
+          $count3 = count($dataQuery);
+          for($k=0; $k<$count3; $k++){
+            $str4[] = str_replace(" ","",$dataQuery[$k]->CONTSTAT);
+            if ($str4[$k] == "K") {
+              $dataK[] = $dataQuery[$k];
             }
+          }
+          for($j=0; $j<$count3; $j++){
+            $str3[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$dataQuery[$j]->CONTSTAT)));
+            if ($str3[$j] == "จ") {
+              $dataJ[] = $dataQuery[$j];
+            }
+          }
+
+          $data = array_merge($dataK, $dataJ);
       }
 
       $SetTopic = "AskLetter ".$date;
@@ -1635,7 +1657,7 @@ class PrecController extends Controller
       $pdf::SetFont('thsarabunpsk', '', 16, '', true);
       // $pdf::SetFont('freeserif','', 13, '', true);
       // $pdf::SetFont('angsananew', '', 16, '', true);
-      $pdf::SetAutoPageBreak(TRUE, 20);
+      $pdf::SetAutoPageBreak(TRUE, 21);
       $pdf::WriteHTML($html,true,false,true,false,'');
 
       $pdf::Output($SetTopic.'.pdf');

@@ -76,7 +76,7 @@
 
 
   </head>
-  @foreach($data as $data)
+    @foreach($data as $data)
         <h2 class="card-title p-3" style="line-height: 3px;"><b>บริษัท ชูเกียรติลิสซิ่ง จำกัด</b></h2>
         <h5 class="card-title p-3" style="letter-spacing: 0.3px;line-height: 3px;"><b>17/8 ม.4 ต.รูสะมิแล อ.เมือง จ.ปัตตานี 9400 โทรศัพท์ 073-450702-704 แฟกซ์ 073-450700</b></h5>
     <body>
