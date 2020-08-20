@@ -1782,8 +1782,6 @@ class AnalysController extends Controller
         }
       }
 
-      dd($newDateDue);
-
         //เอกสารครบ
         if ($request->get('doccomplete') != Null) {
           $SetDocComplete = $request->get('doccomplete');
