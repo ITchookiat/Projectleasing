@@ -457,7 +457,7 @@
                       <div class="form-group row mb-1">
                       <label class="col-sm-5 col-form-label text-right"><font color="red"> ยอดจัด : </font> </label>
                         <div class="col-sm-7">
-                          <input type="text" id="topcar" name="Topcar" class="form-control" placeholder="ป้อนยอดจัด" oninput="addcomma();" maxlength="9" />
+                          <input type="text" id="topcar" name="Topcar" class="form-control" placeholder="ป้อนยอดจัด" oninput="addcomma();" maxlength="9" required/>
                         </div>
                       </div>
                     </div>
@@ -529,7 +529,7 @@
                           <input type="text" name="IDCardbuyer" class="form-control" placeholder="ป้อนเลขบัตร ปชช" maxlength="13"/>
                         </div>
                         <br><br>
-                        <label class="col-sm-5 col-form-label text-right">ที่มาของลูกค้า :</label>
+                        <label class="col-sm-5 col-form-label text-right"><font color="red">ที่มาของลูกค้า :</font></label>
                         <div class="col-sm-7">
                         <!-- <select id="TypeLeasing" name="TypeLeasing" class="form-control" required>
                             <option value="" selected>--- เลือกประเภทสินเชื่อ ---</option>

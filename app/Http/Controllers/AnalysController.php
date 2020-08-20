@@ -15,6 +15,7 @@ use App\homecardetail;
 use App\UploadfileImage;
 use App\upload_lat_long;
 use App\Expenses;
+use App\Data_customer;
 use Carbon\Carbon;
 use Helper;
 
@@ -3224,7 +3225,11 @@ class AnalysController extends Controller
       if ($countData != 0) {
         $deleteItem = UploadfileImage::where('Buyerfileimage_id',$itemID);
         $deleteItem->Delete();
-      }  
+      } 
+      
+      $item9 = Data_customer::where('Customer_id',$item1->Walkin_id)->first();
+        $item9->Status_leasing = 1;
+      $item9->update();
 
       $item1->Delete();
       $item2->Delete();

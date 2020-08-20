@@ -61,6 +61,7 @@ Route::group(['middleware' => 'auth'], function()
     Route::get('/Precipitate/ReportPrecDue/{Str1}/{Str2}', 'PrecController@ReportPrecDue');
     Route::get('/PrecipitateExcel', 'PrecController@excel');
     Route::get('/Precipitate/edit/{id}/{type}', 'PrecController@edit')->name('Precipitate.edit');
+    Route::get('/Precipitate/report/{type}', 'PrecController@ReportLetter')->name('Precipitate.report');
     Route::patch('/Precipitate/update/{id}/{type}', 'PrecController@update')->name('Precipitate.update');
     Route::delete('/Precipitate/delete/{id}/{type}', 'PrecController@destroy')->name('Precipitate.destroy');
 

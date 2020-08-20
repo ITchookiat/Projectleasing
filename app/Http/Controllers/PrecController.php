@@ -632,6 +632,59 @@ class PrecController extends Controller
           return view('analysis.createextra', compact('type','data','dataGT','NewBrand','NewRelate','dataPay'));
         }
 
+        elseif ($request->type == 15) { //รายงาน หนังสือทวงถาม
+          $contno = '';
+          $fdate = date('Y-m-d',strtotime('- 1 days'));
+          $tdate = date('Y-m-d',strtotime('- 1 days'));
+          $fstart = '2.00';
+          $tend = '2.99';
+
+          if ($request->has('Contno')) {
+            $contno = $request->get('Contno');
+          }
+          if ($request->has('Fromdate')) {
+            $fdate = $request->get('Fromdate');
+          }
+          if ($request->has('Todate')) {
+            $tdate = $request->get('Todate');
+          }
+
+          if($contno == ''){
+            $dataQuery = DB::connection('ibmi')
+                ->table('SFHP.ARMAST')
+                ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+                ->Join('SFHP.VIEW_ARMGAR','SFHP.ARMAST.CONTNO','=','SFHP.VIEW_ARMGAR.CONTNO')
+                ->when(!empty($fstart)  && !empty($tend), function($q) use ($fstart, $tend) {
+                    return $q->whereBetween('SFHP.ARMAST.HLDNO',[$fstart,$tend]);
+                  })
+                ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+                    return $q->whereBetween('SFHP.ARMAST.LAST_UPDATE',[$fdate,$tdate]);
+                  })
+                ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                ->get();
+                // dd($dataQuery);
+            $count3 = count($dataQuery);
+            for($j=0; $j<$count3; $j++){
+              $str3[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$dataQuery[$j]->CONTSTAT)));
+              if ($str3[$j] == "จ") {
+                $data[] = $dataQuery[$j];
+              }
+            }
+          }
+          else{
+            $data = DB::connection('ibmi')
+            ->table('SFHP.ARMAST')
+            ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+            ->when(!empty($contno), function($q) use($contno){
+              return $q->where('SFHP.ARMAST.CONTNO','=',$contno);
+            })
+            ->get();
+          }
+          
+          $type = $request->type;
+          return view('precipitate.viewReport', compact('data','fdate','tdate','fstart','tend','type','contno'));
+        }
     }
 
     /**
@@ -652,7 +705,6 @@ class PrecController extends Controller
      */
     public function store(Request $request)
     {
-      // dd($request->type);
 
         if($request->type == 6) {
           if($request->get('Pricehold') == ''){
@@ -717,7 +769,7 @@ class PrecController extends Controller
           $type = 5;
           return redirect()->Route('Precipitate', $type)->with('success','บันทึกข้อมูลเรียบร้อย');
         }
-        elseif($request->type == 10){
+        elseif($request->type == 10){ //หนังสือขอยืนยัน
           $AcceptDate = $request->AcceptDate;
           $PayAmount = str_replace(",","",$request->PayAmount);
           $BalanceAmount = str_replace(",","",$request->BalanceAmount);
@@ -1527,6 +1579,66 @@ class PrecController extends Controller
         $pdf::WriteHTML($html,true,false,true,false,'');
         $pdf::Output('ReportInvoice.pdf');
       }
+    }
+
+    public function ReportLetter(Request $request, $type){
+      date_default_timezone_set('Asia/Bangkok');
+      $Y = date('Y')+543;
+      $m = date('m');
+      $d = date('d');
+      $date = $d.'-'.$m.'-'.$Y;
+
+      if($type == 1){
+          $fdate = date('Y-m-d',strtotime('- 1 days'));
+          $tdate = date('Y-m-d',strtotime('- 1 days'));
+          $fstart = '2';
+          $tend = '2.99';
+
+          if ($request->has('Fromdate')) {
+            $fdate = $request->get('Fromdate');
+          }
+          if ($request->has('Todate')) {
+            $tdate = $request->get('Todate');
+          }
+          
+            $dataQuery = DB::connection('ibmi')
+                ->table('SFHP.ARMAST')
+                ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+                ->Join('SFHP.VIEW_ARMGAR','SFHP.ARMAST.CONTNO','=','SFHP.VIEW_ARMGAR.CONTNO')
+                ->select('SFHP.ARMAST.*','SFHP.VIEW_CUSTMAIL.*','SFHP.INVTRAN.*','SFHP.VIEW_ARMGAR.NAME as NAMESP','SFHP.VIEW_ARMGAR.ADDRES as ADDRESSP','SFHP.VIEW_ARMGAR.TUMB as TUMBSP','SFHP.VIEW_ARMGAR.AUMPDES as AUMPDESSP','SFHP.VIEW_ARMGAR.PROVDES as PROVDESSP','SFHP.VIEW_ARMGAR.ZIP as ZIPSP')
+                ->when(!empty($fstart)  && !empty($tend), function($q) use ($fstart, $tend) {
+                    return $q->whereBetween('SFHP.ARMAST.HLDNO',[$fstart,$tend]);
+                  })
+                ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+                    return $q->whereBetween('SFHP.ARMAST.LAST_UPDATE',[$fdate,$tdate]);
+                  })
+                ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                ->get();
+            $count3 = count($dataQuery);
+            for($j=0; $j<$count3; $j++){
+              $str3[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$dataQuery[$j]->CONTSTAT)));
+              if ($str3[$j] == "จ") {
+                $data[] = $dataQuery[$j];
+              }
+            }
+      }
+
+      $SetTopic = "AskLetter ".$date;
+
+      $view = \View::make('precipitate.ReportLetter' ,compact('data','type'));
+      $html = $view->render();
+      $pdf = new PDF();
+      $pdf::SetTitle('หนังสือจดหมายทวงถาม');
+      $pdf::AddPage('P', 'A4');
+      $pdf::SetMargins(10, 5, 15);
+      $pdf::SetFont('thsarabunpsk', '', 16, '', true);
+      // $pdf::SetFont('freeserif','', 13, '', true);
+      // $pdf::SetFont('angsananew', '', 16, '', true);
+      $pdf::SetAutoPageBreak(TRUE, 20);
+      $pdf::WriteHTML($html,true,false,true,false,'');
+
+      $pdf::Output($SetTopic.'.pdf');
     }
 
     public function excel(Request $request)
