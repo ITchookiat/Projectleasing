@@ -1387,7 +1387,6 @@ class AnalysController extends Controller
           ->where('buyers.id',$id)->first();
                   
         $GetDocComplete = $data->DocComplete_car;
-
         $Gettype = $type;
 
       }
@@ -1733,7 +1732,6 @@ class AnalysController extends Controller
       $Getcardetail = Cardetail::where('Buyercar_id',$id)->first();
       $Gethomecardetail = homecardetail::where('Buyerhomecar_id',$id)->first();
 
-      $newDateDue = $request->DateDue;  //วันเริ่มทำสัญญา
       $SetPhonebuyer = str_replace ( "_","",$request->get('Phonebuyer'));
 
       if ($request->get('Topcar') != Null) {
@@ -1759,16 +1757,20 @@ class AnalysController extends Controller
       $newDateDue = $request->get('DateDue');
       if ($SetTopcar > 250000) {
         if ($request->get('MANAGER') != Null) {
+          if ($Getcardetail->Date_Appcar == Null) {
             $newDateDue = date('Y-m-d');
-            $StatusApp = "อนุมัติ";
+          }
+          $StatusApp = "อนุมัติ";
         }else {
           $newDateDue = $request->get('DateDue');
           $StatusApp = "รออนุมัติ";
         }
       }else {
         if ($request->get('AUDIT') != Null) {
+          if ($Getcardetail->Date_Appcar == Null) {
             $newDateDue = date('Y-m-d');
-            $StatusApp = "อนุมัติ";
+          }
+          $StatusApp = "อนุมัติ";
         }elseif ($request->get('MASTER') != Null) {
             $newDateDue = $request->get('DateDue');
             $StatusApp = "รออนุมัติ";
@@ -1778,6 +1780,8 @@ class AnalysController extends Controller
           }
         }
       }
+
+      dd($newDateDue);
 
         //เอกสารครบ
         if ($request->get('doccomplete') != Null) {

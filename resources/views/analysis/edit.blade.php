@@ -430,9 +430,9 @@
                                   <label class="col-sm-3 col-form-label text-right"><font color="red">วันที่ทำสัญญา : </font></label>
                                   <div class="col-sm-8">
                                   @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                                    <input type="date" name="DateDue" class="form-control" value="{{ $newDateDue }}">
+                                    <input type="date" name="DateDue" class="form-control" value="{{ $data->Date_Due }}">
                                   @else
-                                    <input type="date" name="DateDue" class="form-control" value="{{ $newDateDue }}" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}>
+                                    <input type="date" name="DateDue" class="form-control" value="{{ $data->Date_Due }}" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}>
                                   @endif
                                   </div>
                                 </div>
@@ -1587,7 +1587,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">ป้ายเดิม : </label>
                                 <div class="col-sm-8">
-                                  @if(auth::user()->type == 1)
+                                  @if(auth::user()->type == "Admin")
                                     <input type="text" name="Licensecar"  value="{{ $data->License_car}}" class="form-control"  placeholder="ป้ายเดิม"/>
                                   @else
                                     <input type="text" name="Licensecar"  value="{{ $data->License_car}}" class="form-control"  readonly/>
