@@ -368,13 +368,13 @@
                             <div class="col-md-4">
                               ยอดจัด
                               <div class="form-inline" align="left">
-                                <input type="text" name="Paylegis" class="form-control" style="width: 100%;" value="{{ number_format($data1->NCARCST ,2) }}" readonly/>
+                                <input type="text" name="Paylegis" class="form-control" style="width: 100%;" value="{{ number_format(($data1 == null)?$data1:$data->Pay_legis,2) }}" readonly/>
                               </div>
                             </div>
                             <div class="col-md-4">
                               ค่าผ่อน
                               <div class="form-inline" align="left">
-                                <input type="text" name="Periodlegis" class="form-control" style="width: 100%;" value="{{ number_format($data1->TOT_UPAY, 2) }}" readonly/>
+                                <input type="text" name="Periodlegis" class="form-control" style="width: 100%;" value="{{ number_format(($data1 == null)?$data1:$data->Period_legis,2) }}" readonly/>
                               </div>
                             </div>
                           </div>
@@ -383,19 +383,19 @@
                             <div class="col-md-4">
                               จำนวนงวดทั้งหมด
                               <div class="form-inline" align="left">
-                                <input type="text" name="Countperiodlegis" class="form-control" style="width: 100%;" value="{{$data1->T_NOPAY }}" readonly/>
+                                <input type="text" name="Countperiodlegis" class="form-control" style="width: 100%;" value="{{($data1 == null)?$data1:$data->Countperiod_legis}}" readonly/>
                               </div>
                             </div>
                             <div class="col-md-4">
                               ค้างจากงวดที่
                               <div class="form-inline" align="left">
-                                <input type="text" name="Beforeperiodlegis" class="form-control" style="width: 100%;" value="{{ $data1->EXP_FRM }}" readonly/>
+                                <input type="text" name="Beforeperiodlegis" class="form-control" style="width: 100%;" value="{{($data1 == null)?$data1:$data->Beforeperiod_legis}}" readonly/>
                               </div>
                             </div>
                             <div class="col-md-4">
                               ถึงงวดที่
                               <div class="form-inline" align="left">
-                                <input type="text" name="Remainperiodlegis" class="form-control" style="width: 100%;" value="{{ $data1->EXP_TO }}" readonly/>
+                                <input type="text" name="Remainperiodlegis" class="form-control" style="width: 100%;" value="{{($data1 == null)?$data1:$data->Remainperiod_legis }}" readonly/>
                               </div>
                             </div>
                           </div>
@@ -404,34 +404,34 @@
                             <div class="col-md-4">
                               ชำระแล้ว
                               <div class="form-inline" align="left">
-                                <input type="text" name="Beforemoeylegis" class="form-control" style="width: 100%;" value="{{ number_format($data1->SMPAY, 2) }}" readonly/>
+                                <input type="text" name="Beforemoeylegis" class="form-control" style="width: 100%;" value="{{ number_format(($data1 == null)?$data1:$data->Beforemoey_legis, 2) }}" readonly/>
                               </div>
                             </div>
                             <div class="col-md-4">
                               ค้าง&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ค้างงวดจริง
                               <div class="form-inline" align="left">
-                                <input type="text" class="form-control" style="width: 40%;" value="{{ number_format($data1->EXP_PRD, 0) }}" readonly/>
+                                <input type="text" class="form-control" style="width: 40%;" value="{{ number_format(($data1 == null)?$data1:$data->Remainperiod_legis, 0) }}" readonly/>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <input type="text" class="form-control" style="width: 40%;" value="{{ number_format($data1->HLDNO, 2) }}" readonly/>
+                                <input type="text" class="form-control" style="width: 40%;" value="{{ number_format(($data1 == null)?$data1:$data->Realperiod_legis, 2) }}" readonly/>
                               </div>
                             </div>
                             <div class="col-md-4">
                               ลูกหนี้คงเหลือ
                               <div class="form-inline" align="left">
-                                <input type="text" name="Sumperiodlegis" class="form-control" style="width: 100%;" value="{{ number_format($data1->BALANC - $data1->SMPAY, 2) }}" readonly/>
+                                <input type="text" name="Sumperiodlegis" class="form-control" style="width: 100%;" value="{{ number_format(($data1 == null)?$data1:$data->Sumperiod_legis, 2) }}" readonly/>
                               </div>
                             </div>
                           </div>
-                          <input type="hidden" name="Phonelegis" class="form-control" style="width: 100%;" value="{{ (iconv('TIS-620', 'utf-8', $data1->TELP)) }}" readonly/>
+                          <input type="hidden" name="Phonelegis" class="form-control" style="width: 100%;" value="{{ (iconv('TIS-620', 'utf-8', ($data1 == null)?$data1:$data->TELPhone_legisP)) }}" readonly/>
 
                           <div class="row">
                             <div class="col-md-4">
                               วันที่หยุด Vat
                               <div class="form-inline" align="left">
                                 @if($data->DateVAT_legis == Null)
-                                <input type="text" name="DateVATlegis" class="form-control" style="width: 100%;" value="{{ $data1->DTSTOPV }}" readonly/>
+                                <input type="text" name="DateVATlegis" class="form-control" style="width: 100%;" value="{{ ($data1 == null)?$data1:$data->DateVAT_legis }}" readonly/>
                                 @else
-                                <input type="text" name="DateVATlegis" class="form-control" style="width: 100%;" value="{{ DateThai($data1->DTSTOPV) }}" readonly/>
+                                <input type="text" name="DateVATlegis" class="form-control" style="width: 100%;" value="{{ DateThai(($data1 == null)?$data1:$data->DateVAT_legis) }}" readonly/>
                                 @endif
                               </div>
                             </div>
@@ -689,8 +689,10 @@
                       </div>
                     </div>
                   </div>
-
+                  
+                  @if($data1 != null)
                   <input type="hidden" name="Adreeslegis" class="form-control"  value="{{ iconv('TIS-620', 'utf-8', str_replace(" ","",$data1->ADDRES))." ต.".iconv('TIS-620', 'utf-8', str_replace(" ","",$data1->TUMB))." อ.".iconv('TIS-620', 'utf-8', str_replace(" ","",$data1->AUMPDES))." จ.".iconv('TIS-620', 'utf-8', str_replace(" ","",$data1->PROVDES))."  ".iconv('TIS-620', 'utf-8', str_replace(" ","",$data1->ZIP)) }}"/>
+                  @endif
                   @if($dataGT != Null)
                   <input type="hidden" name="AdreesGTlegis" class="form-control"  value="{{ iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->ADDRES))." ต.".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->TUMB))." อ.".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->AUMPDES))." จ.".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->PROVDES))."  ".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->ZIP)) }}"/>
                   @endif 
