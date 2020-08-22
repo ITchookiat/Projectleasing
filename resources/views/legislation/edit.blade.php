@@ -412,7 +412,7 @@
                               <div class="form-inline" align="left">
                                 <input type="text" class="form-control" style="width: 40%;" value="{{ number_format(($data1 == null)?$data1:$data->Remainperiod_legis, 0) }}" readonly/>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <input type="text" class="form-control" style="width: 40%;" value="{{ number_format(($data1 == null)?$data1:$data->Realperiod_legis, 2) }}" readonly/>
+                                <input type="text" class="form-control" style="width: 40%;" value="{{ ($data1 == null)?$data1:$data->Realperiod_legis }}" readonly/>
                               </div>
                             </div>
                             <div class="col-md-4">
