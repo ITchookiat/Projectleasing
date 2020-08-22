@@ -2104,7 +2104,8 @@ class LegislationController extends Controller
                 ->where('legislations.KeyCourts_id','!=', NULL)
                 ->where('legislations.Status_legis','=', NULL)
                 ->where('legislations.Flag_status','=', '2')
-                ->orderBy('legislations.id', 'DESC')
+                // ->orderBy('legislations.id', 'DESC')
+                ->orderBy('legiscourts.fillingdate_court', 'ASC')
                 ->get();
 
         }elseif ($status == "ลูกหนี้ยังไม่ฟ้อง") {
@@ -2134,6 +2135,7 @@ class LegislationController extends Controller
                 ->where('legislations.Status_legis','!=', NULL)
                 ->where('legislations.Flag_status','=', '2')
                 ->orderBy('legislations.id', 'DESC')
+                // ->orderBy('legiscourts.fillingdate_court', 'ASC')
                 ->get();
 
         }else {
@@ -2147,6 +2149,7 @@ class LegislationController extends Controller
                 })
                 ->where('legislations.Flag_status','=', '2')
                 ->orderBy('legislations.id', 'DESC')
+                // ->orderBy('legiscourts.fillingdate_court', 'ASC')
                 ->get();
 
                 $status = 'ลูกหนี้รวม';
