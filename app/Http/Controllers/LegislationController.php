@@ -2170,7 +2170,7 @@ class LegislationController extends Controller
                 $cells->setBackground('#FFCC00');
               });
               $row = 3;
-              $sheet->row($row, array('เลขที่สัญญา','ชื่อ-นามสกุล','ยอดคงเหลือ','ยอดตั้งฟ้อง','เบอร์โทร','วันถืองาน','วันที่ฟ้อง','ค่าฟ้อง','ระยะเวลา','สถานะลูกหนี้','สถานะทรัพย์','สถานะประนอมหนี้','วันที่ปิดงาน','ยอดชำระ','หมายเหตุ'));
+              $sheet->row($row, array('เลขที่สัญญา','ชื่อ-นามสกุล','ยอดคงเหลือ','ยอดตั้งฟ้อง','ค่าฟ้อง','เบอร์โทร','วันถืองาน','วันที่ฟ้อง','ระยะเวลา','สถานะลูกหนี้','สถานะทรัพย์','สถานะประนอมหนี้','วันที่ปิดงาน','ยอดชำระ','หมายเหตุ'));
               $Summperiod = 0;    //รวมยอดคงเหลือ
               $SumAmount = 0;
               $SumTextStatus = 0; //ยอดปิดบัญชี
@@ -2421,10 +2421,10 @@ class LegislationController extends Controller
                   $value->Name_legis,
                   number_format($value->Sumperiod_legis, 2),
                   number_format($SumCourt, 2),
+                  number_format($value->indictment_court, 2),
                   $value->Phone_legis,
                   $date_carry,
                   $SetDatefillingdate,
-                  $value->indictment_court,
                   $duration,
                   $SetText,
                   $SetTextAsset,
