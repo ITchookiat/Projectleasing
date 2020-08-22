@@ -422,7 +422,7 @@
                               </div>
                             </div>
                           </div>
-                          <input type="hidden" name="Phonelegis" class="form-control" style="width: 100%;" value="{{ (iconv('TIS-620', 'utf-8', ($data1 == null)?$data1:$data->Phone_legisP)) }}" readonly/>
+                          <input type="hidden" name="Phonelegis" class="form-control" style="width: 100%;" value="{{ (iconv('TIS-620', 'utf-8', ($data1 == null)?$data1:$data->Phone_legis)) }}" readonly/>
 
                           <div class="row">
                             <div class="col-md-4">
