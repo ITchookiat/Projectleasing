@@ -49,11 +49,19 @@
                     <div class="row">
                       <div class="col-9"></div>
                       <div class="col-3">
-                        <div class="card-tools d-inline float-right">
-                          <a href="{{ action('AnalysController@edit',[$type,$id,$fdate,$tdate,$branch,$status,$path]) }}" class="btn bg-danger">
-                            <i class="far fa-arrow-alt-circle-left"></i> ย้อนกลับ
-                            </a>
-                        </div>
+                        @if($type == 1)
+                          <div class="card-tools d-inline float-right">
+                            <a href="{{ action('AnalysController@edit',[$type,$id,$fdate,$tdate,$branch,$status,$path]) }}" class="btn bg-danger">
+                              <i class="far fa-arrow-alt-circle-left"></i> ย้อนกลับ
+                              </a>
+                          </div>
+                        @elseif($type == 11)
+                          <div class="card-tools d-inline float-right">
+                            <a href="{{ action('PrecController@DebtEdit',[$type,$id,$fdate,$tdate,$branch,$status,$path]) }}" class="btn bg-danger">
+                              <i class="far fa-arrow-alt-circle-left"></i> ย้อนกลับ
+                              </a>
+                          </div>
+                        @endif
                       </div>
                     </div>
                   </div>
