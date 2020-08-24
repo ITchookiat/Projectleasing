@@ -197,9 +197,10 @@
       @endif
 
       <section class="content">
-        <form name="form1" method="post" action="{{ action('AnalysController@updaterestructure',[$id,$Gettype]) }}" enctype="multipart/form-data">
+        <form name="form1" action="{{ route('MasterPrecipitate.update',[$id]) }}" method="post" enctype="multipart/form-data">
           @csrf
           @method('put')
+          <input type="hidden" name="type" value="11"/>
 
           <div class="row">
             <div class="col-12">
@@ -208,14 +209,8 @@
                   <div class="row">
                     <div class="col-6">
                       <div class="form-inline">
-                        @if($data->StatusApp_car != 'อนุมัติ')
-                          @if($type == 12)
-                            <h4>ข้อมูลสัญญา (มาตรการช่วยเหลือ)</h4>
-                          @endif
-                        @else
-                          @if($type == 12)
-                            <h4>ข้อมูลสัญญา (มาตรการช่วยเหลือ)</h4>
-                          @endif
+                        @if($type == 11)
+                          <h4>ข้อมูลสัญญา (ปรับโครงสร้างหนี้)</h4>
                         @endif
                       </div>
                     </div>
@@ -225,21 +220,17 @@
                           <button type="submit" class="delete-modal btn btn-success">
                             <i class="fas fa-save"></i> อัพเดท
                           </button>
-                          @if($type == 12)
-                            <a class="delete-modal btn btn-danger" href="{{ route('Analysis',12) }}">
-                              <i class="far fa-window-close"></i> ยกเลิก
-                            </a>
-                          @endif
+                          <a class="delete-modal btn btn-danger" href="{{ route('Precipitate', 11) }}">
+                            <i class="far fa-window-close"></i> ยกเลิก
+                          </a>
                         @else
                           @if($data->StatusApp_car != 'อนุมัติ')
                             <button type="submit" class="delete-modal btn btn-success">
                               <i class="fas fa-save"></i> อัพเดท
                             </button>
-                            @if($type == 12)
-                              <a class="delete-modal btn btn-danger" href="{{ route('Analysis',12) }}">
-                                <i class="far fa-window-close"></i> ยกเลิก
-                              </a>
-                            @endif
+                            <a class="delete-modal btn btn-danger" href="{{ route('Precipitate', 11) }}">
+                              <i class="far fa-window-close"></i> ยกเลิก
+                            </a>
                           @else
                             <a class="delete-modal btn btn-danger" href="{{ URL::previous() }}">
                               <i class="fas fa-undo"></i> ย้อนกลับ
@@ -326,9 +317,7 @@
                     <div class="card-header p-0 pt-1">
                       <ul class="nav nav-tabs" id="custom-tabs-five-tab" role="tablist">
                         <li class="nav-item">
-                          @if($type == 12)
-                            <a class="nav-link MainPage" href="{{ route('Analysis',12) }}">หน้าหลัก</a>
-                          @endif
+                          <a class="nav-link MainPage" href="{{ route('Precipitate', 11) }}">หน้าหลัก</a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link active" id="Sub-custom-tab1" data-toggle="pill" href="#Sub-tab1" role="tab" aria-controls="Sub-tab1" aria-selected="false">แบบฟอร์มผู้เช่าซื้อ</a>
@@ -374,9 +363,9 @@
                                 <label class="col-sm-3 col-form-label text-right"><font color="red">วันที่ทำสัญญา : </font></label>
                                 <div class="col-sm-8">
                                   @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MANAGER")
-                                    <input type="date" name="DateDue" class="form-control form-control-sm" value="{{ $newDateDue }}">
+                                    <input type="date" name="DateDue" class="form-control form-control-sm" value="{{ $data->Date_Due }}">
                                   @else
-                                    <input type="date" name="DateDue" class="form-control form-control-sm" value="{{ $newDateDue }}" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}>
+                                    <input type="date" name="DateDue" class="form-control form-control-sm" value="{{ $data->Date_Due }}" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}>
                                   @endif
                                 </div>
                               </div>
@@ -482,21 +471,17 @@
                                 <label class="col-sm-3 col-form-label text-right">ที่อยู่ : </label>
                                 <div class="col-sm-8">
                                   @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MANAGER")
-                                    <select name="Addressbuyer" class="form-control form-control-sm">
+                                    <select name="Addressbuyer" class="form-control" >
                                       <option value="" selected>--- เลือกที่อยู่ ---</option>
-                                      @foreach ($Addby as $key => $value)
-                                      <option value="{{$key}}" {{ ($key == $data->Address_buyer) ? 'selected' : '' }}>{{$value}}</option>
-                                      @endforeach
+                                      <option value="ตามทะเบียนบ้าน" {{ ($data->Address_buyer === 'ตามทะเบียนบ้าน') ? 'selected' : '' }}>ตามทะเบียนบ้าน</option>
                                     </select>
                                   @else
                                     @if($GetDocComplete != Null)
                                       <input type="text" name="Addressbuyer" value="{{ $data->Address_buyer }}" class="form-control form-control-sm" placeholder="เลือกที่อยู่" readonly/>
                                     @else
-                                      <select name="Addressbuyer" class="form-control form-control-sm">
-                                        <option value=""  selected>--- เลือกที่อยู่ ---</option>
-                                        @foreach ($Addby as $key => $value)
-                                        <option value="{{$key}}" {{ ($key == $data->Address_buyer) ? 'selected' : '' }}>{{$value}}</option>
-                                        @endforeach
+                                      <select name="Addressbuyer" class="form-control" >
+                                        <option value="" selected>--- เลือกที่อยู่ ---</option>
+                                        <option value="ตามทะเบียนบ้าน" {{ ($data->Address_buyer === 'ตามทะเบียนบ้าน') ? 'selected' : '' }}>ตามทะเบียนบ้าน</option>
                                       </select>
                                     @endif
                                   @endif
@@ -540,9 +525,34 @@
                                   @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MANAGER")
                                     <select name="Careerbuyer" class="form-control form-control-sm">
                                       <option value="" selected>--- อาชีพ ---</option>
-                                      @foreach ($Careerby as $key => $value)
-                                        <option value="{{$key}}" {{ ($key == $data->Career_buyer) ? 'selected' : '' }}>{{$value}}</option>
-                                      @endforeach
+                                      <option value="ตำรวจ" {{ ($data->Career_buyer === 'ตำรวจ') ? 'selected' : '' }}>ตำรวจ</option>
+                                      <option value="ทหาร" {{ ($data->Career_buyer === 'ทหาร') ? 'selected' : '' }}>ทหาร</option>
+                                      <option value="ครู" {{ ($data->Career_buyer === 'ครู') ? 'selected' : '' }}>ครู</option>
+                                      <option value="ข้าราชการอื่นๆ" {{ ($data->Career_buyer === 'ข้าราชการอื่นๆ') ? 'selected' : '' }}>ข้าราชการอื่นๆ</option>
+                                      <option value="ลูกจ้างเทศบาล" {{ ($data->Career_buyer === 'ลูกจ้างเทศบาล') ? 'selected' : '' }}>ลูกจ้างเทศบาล</option>
+                                      <option value="ลูกจ้างประจำ" {{ ($data->Career_buyer === 'ลูกจ้างประจำ') ? 'selected' : '' }}>ลูกจ้างประจำ</option>
+                                      <option value="สมาชิก อบต." {{ ($data->Career_buyer === 'สมาชิก อบต.') ? 'selected' : '' }}>สมาชิก อบต.</option>
+                                      <option value="ลูกจ้างชั่วคราว" {{ ($data->Career_buyer === 'ลูกจ้างชั่วคราว') ? 'selected' : '' }}>ลูกจ้างชั่วคราว</option>
+                                      <option value="รับจ้าง" {{ ($data->Career_buyer === 'รับจ้าง') ? 'selected' : '' }}>รับจ้าง</option>
+                                      <option value="พนักงานบริษัทเอกชน" {{ ($data->Career_buyer === 'พนักงานบริษัทเอกชน') ? 'selected' : '' }}>พนักงานบริษัทเอกชน</option>
+                                      <option value="อาชีพอิสระ" {{ ($data->Career_buyer === 'อาชีพอิสระ') ? 'selected' : '' }}>อาชีพอิสระ</option>
+                                      <option value="กำนัน" {{ ($data->Career_buyer === 'กำนัน') ? 'selected' : '' }}>กำนัน</option>
+                                      <option value="ผู้ใหญ่บ้าน" {{ ($data->Career_buyer === 'ผู้ใหญ่บ้าน') ? 'selected' : '' }}>ผู้ใหญ่บ้าน</option>
+                                      <option value="ผู้ช่วยผู้ใหญ่บ้าน" {{ ($data->Career_buyer === 'ผู้ช่วยผู้ใหญ่บ้าน') ? 'selected' : '' }}>ผู้ช่วยผู้ใหญ่บ้าน</option>
+                                      <option value="นักการภารโรง" {{ ($data->Career_buyer === 'นักการภารโรง') ? 'selected' : '' }}>นักการภารโรง</option>
+                                      <option value="มอเตอร์ไซร์รับจ้าง" {{ ($data->Career_buyer === 'มอเตอร์ไซร์รับจ้าง') ? 'selected' : '' }}>มอเตอร์ไซร์รับจ้าง</option>
+                                      <option value="ค้าขาย" {{ ($data->Career_buyer === 'ค้าขาย') ? 'selected' : '' }}>ค้าขาย</option>
+                                      <option value="เจ้าของธุรกิจ" {{ ($data->Career_buyer === 'เจ้าของธุรกิจ') ? 'selected' : '' }}>เจ้าของธุรกิจ</option>
+                                      <option value="เจ้าของอู่รถ" {{ ($data->Career_buyer === 'เจ้าของอู่รถ') ? 'selected' : '' }}>เจ้าของอู่รถ</option>
+                                      <option value="ให้เช่ารถบรรทุก" {{ ($data->Career_buyer === 'ให้เช่ารถบรรทุก') ? 'selected' : '' }}>ให้เช่ารถบรรทุก</option>
+                                      <option value="ช่างตัดผม" {{ ($data->Career_buyer === 'ช่างตัดผม') ? 'selected' : '' }}>ช่างตัดผม</option>
+                                      <option value="ชาวนา" {{ ($data->Career_buyer === 'ชาวนา') ? 'selected' : '' }}>ชาวนา</option>
+                                      <option value="ชาวไร่" {{ ($data->Career_buyer === 'ชาวไร่') ? 'selected' : '' }}>ชาวไร่</option>
+                                      <option value="แม่บ้าน" {{ ($data->Career_buyer === 'แม่บ้าน') ? 'selected' : '' }}>แม่บ้าน</option>
+                                      <option value="รับเหมาก่อสร้าง" {{ ($data->Career_buyer === 'รับเหมาก่อสร้าง') ? 'selected' : '' }}>รับเหมาก่อสร้าง</option>
+                                      <option value="ประมง" {{ ($data->Career_buyer === 'ประมง') ? 'selected' : '' }}>ประมง</option>
+                                      <option value="ทนายความ" {{ ($data->Career_buyer === 'ทนายความ') ? 'selected' : '' }}>ทนายความ</option>
+                                      <option value="พระ" {{ ($data->Career_buyer === 'พระ') ? 'selected' : '' }}>พระ</option>
                                     </select>
                                   @else
                                     @if($GetDocComplete != Null)
@@ -550,9 +560,34 @@
                                     @else
                                       <select name="Careerbuyer" class="form-control form-control-sm">
                                         <option value="" selected>--- อาชีพ ---</option>
-                                        @foreach ($Careerby as $key => $value)
-                                          <option value="{{$key}}" {{ ($key == $data->Career_buyer) ? 'selected' : '' }}>{{$value}}</option>
-                                        @endforeach
+                                        <option value="ตำรวจ" {{ ($data->Career_buyer === 'ตำรวจ') ? 'selected' : '' }}>ตำรวจ</option>
+                                        <option value="ทหาร" {{ ($data->Career_buyer === 'ทหาร') ? 'selected' : '' }}>ทหาร</option>
+                                        <option value="ครู" {{ ($data->Career_buyer === 'ครู') ? 'selected' : '' }}>ครู</option>
+                                        <option value="ข้าราชการอื่นๆ" {{ ($data->Career_buyer === 'ข้าราชการอื่นๆ') ? 'selected' : '' }}>ข้าราชการอื่นๆ</option>
+                                        <option value="ลูกจ้างเทศบาล" {{ ($data->Career_buyer === 'ลูกจ้างเทศบาล') ? 'selected' : '' }}>ลูกจ้างเทศบาล</option>
+                                        <option value="ลูกจ้างประจำ" {{ ($data->Career_buyer === 'ลูกจ้างประจำ') ? 'selected' : '' }}>ลูกจ้างประจำ</option>
+                                        <option value="สมาชิก อบต." {{ ($data->Career_buyer === 'สมาชิก อบต.') ? 'selected' : '' }}>สมาชิก อบต.</option>
+                                        <option value="ลูกจ้างชั่วคราว" {{ ($data->Career_buyer === 'ลูกจ้างชั่วคราว') ? 'selected' : '' }}>ลูกจ้างชั่วคราว</option>
+                                        <option value="รับจ้าง" {{ ($data->Career_buyer === 'รับจ้าง') ? 'selected' : '' }}>รับจ้าง</option>
+                                        <option value="พนักงานบริษัทเอกชน" {{ ($data->Career_buyer === 'พนักงานบริษัทเอกชน') ? 'selected' : '' }}>พนักงานบริษัทเอกชน</option>
+                                        <option value="อาชีพอิสระ" {{ ($data->Career_buyer === 'อาชีพอิสระ') ? 'selected' : '' }}>อาชีพอิสระ</option>
+                                        <option value="กำนัน" {{ ($data->Career_buyer === 'กำนัน') ? 'selected' : '' }}>กำนัน</option>
+                                        <option value="ผู้ใหญ่บ้าน" {{ ($data->Career_buyer === 'ผู้ใหญ่บ้าน') ? 'selected' : '' }}>ผู้ใหญ่บ้าน</option>
+                                        <option value="ผู้ช่วยผู้ใหญ่บ้าน" {{ ($data->Career_buyer === 'ผู้ช่วยผู้ใหญ่บ้าน') ? 'selected' : '' }}>ผู้ช่วยผู้ใหญ่บ้าน</option>
+                                        <option value="นักการภารโรง" {{ ($data->Career_buyer === 'นักการภารโรง') ? 'selected' : '' }}>นักการภารโรง</option>
+                                        <option value="มอเตอร์ไซร์รับจ้าง" {{ ($data->Career_buyer === 'มอเตอร์ไซร์รับจ้าง') ? 'selected' : '' }}>มอเตอร์ไซร์รับจ้าง</option>
+                                        <option value="ค้าขาย" {{ ($data->Career_buyer === 'ค้าขาย') ? 'selected' : '' }}>ค้าขาย</option>
+                                        <option value="เจ้าของธุรกิจ" {{ ($data->Career_buyer === 'เจ้าของธุรกิจ') ? 'selected' : '' }}>เจ้าของธุรกิจ</option>
+                                        <option value="เจ้าของอู่รถ" {{ ($data->Career_buyer === 'เจ้าของอู่รถ') ? 'selected' : '' }}>เจ้าของอู่รถ</option>
+                                        <option value="ให้เช่ารถบรรทุก" {{ ($data->Career_buyer === 'ให้เช่ารถบรรทุก') ? 'selected' : '' }}>ให้เช่ารถบรรทุก</option>
+                                        <option value="ช่างตัดผม" {{ ($data->Career_buyer === 'ช่างตัดผม') ? 'selected' : '' }}>ช่างตัดผม</option>
+                                        <option value="ชาวนา" {{ ($data->Career_buyer === 'ชาวนา') ? 'selected' : '' }}>ชาวนา</option>
+                                        <option value="ชาวไร่" {{ ($data->Career_buyer === 'ชาวไร่') ? 'selected' : '' }}>ชาวไร่</option>
+                                        <option value="แม่บ้าน" {{ ($data->Career_buyer === 'แม่บ้าน') ? 'selected' : '' }}>แม่บ้าน</option>
+                                        <option value="รับเหมาก่อสร้าง" {{ ($data->Career_buyer === 'รับเหมาก่อสร้าง') ? 'selected' : '' }}>รับเหมาก่อสร้าง</option>
+                                        <option value="ประมง" {{ ($data->Career_buyer === 'ประมง') ? 'selected' : '' }}>ประมง</option>
+                                        <option value="ทนายความ" {{ ($data->Career_buyer === 'ทนายความ') ? 'selected' : '' }}>ทนายความ</option>
+                                        <option value="พระ" {{ ($data->Career_buyer === 'พระ') ? 'selected' : '' }}>พระ</option>
                                       </select>
                                     @endif
                                   @endif
@@ -593,9 +628,11 @@
                                   @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MANAGER")
                                     <select name="securitiesbuyer" class="form-control form-control-sm">
                                       <option value="" selected>--- ประเภทหลักทรัพย์ ---</option>
-                                      @foreach ($securitiesSPp as $key => $value)
-                                        <option value="{{$key}}" {{ ($key == $data->securities_buyer) ? 'selected' : '' }}>{{$value}}</option>
-                                      @endforeach
+                                      <option value="โฉนด" {{ ($data->securities_buyer === 'โฉนด') ? 'selected' : '' }}>โฉนด</option>
+                                      <option value="นส.3" {{ ($data->securities_buyer === 'นส.3') ? 'selected' : '' }}>นส.3</option>
+                                      <option value="นส.3 ก" {{ ($data->securities_buyer === 'นส.3 ก') ? 'selected' : '' }}>นส.3 ก</option>
+                                      <option value="นส.4" {{ ($data->securities_buyer === 'นส.4') ? 'selected' : '' }}>นส.4</option>
+                                      <option value="นส.4 จ" {{ ($data->securities_buyer === 'นส.4 จ') ? 'selected' : '' }}>นส.4 จ</option>
                                     </select>
                                   @else
                                     @if($GetDocComplete != Null)
@@ -603,9 +640,11 @@
                                     @else
                                       <select name="securitiesbuyer" class="form-control form-control-sm">
                                         <option value="" selected>--- ประเภทหลักทรัพย์ ---</option>
-                                        @foreach ($securitiesSPp as $key => $value)
-                                          <option value="{{$key}}" {{ ($key == $data->securities_buyer) ? 'selected' : '' }}>{{$value}}</option>
-                                        @endforeach
+                                        <option value="โฉนด" {{ ($data->securities_buyer === 'โฉนด') ? 'selected' : '' }}>โฉนด</option>
+                                        <option value="นส.3" {{ ($data->securities_buyer === 'นส.3') ? 'selected' : '' }}>นส.3</option>
+                                        <option value="นส.3 ก" {{ ($data->securities_buyer === 'นส.3 ก') ? 'selected' : '' }}>นส.3 ก</option>
+                                        <option value="นส.4" {{ ($data->securities_buyer === 'นส.4') ? 'selected' : '' }}>นส.4</option>
+                                        <option value="นส.4 จ" {{ ($data->securities_buyer === 'นส.4 จ') ? 'selected' : '' }}>นส.4 จ</option>
                                       </select>
                                     @endif
                                   @endif
@@ -634,9 +673,20 @@
                                   @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MANAGER")
                                     <select id="objectivecar" name="objectivecar" class="form-control form-control-sm" oninput="calculate();">
                                       <option value="" selected>--- วัตถุประสงค์ของสินเชื่อ ---</option>
-                                      @foreach ($objectivecar as $key => $value)
-                                        <option value="{{$key}}" {{ ($key == $data->Objective_car) ? 'selected' : '' }}>{{$value}}</option>
-                                      @endforeach
+                                      <option value="ลงทุนในธุรกิจ" {{ ($data->Objective_car === 'ลงทุนในธุรกิจ') ? 'selected' : '' }}>ลงทุนในธุรกิจ</option>
+                                      <option value="ขยายกิจการ" {{ ($data->Objective_car === 'ขยายกิจการ') ? 'selected' : '' }}>ขยายกิจการ</option>
+                                      <option value="ซื้อรถยนต์" {{ ($data->Objective_car === 'ซื้อรถยนต์') ? 'selected' : '' }}>ซื้อรถยนต์</option>
+                                      <option value="ใช้หนี้นอกระบบ" {{ ($data->Objective_car === 'ใช้หนี้นอกระบบ') ? 'selected' : '' }}>ใช้หนี้นอกระบบ</option>
+                                      <option value="จ่ายค่าเทอม" {{ ($data->Objective_car === 'จ่ายค่าเทอม') ? 'selected' : '' }}>จ่ายค่าเทอม</option>
+                                      <option value="ซื้อของใช้ภายในบ้าน" {{ ($data->Objective_car === 'ซื้อของใช้ภายในบ้าน') ? 'selected' : '' }}>ซื้อของใช้ภายในบ้าน</option>
+                                      <option value="ซื้อวัว" {{ ($data->Objective_car === 'ซื้อวัว') ? 'selected' : '' }}>ซื้อวัว</option>
+                                      <option value="ซื้อที่ดิน" {{ ($data->Objective_car === 'ซื้อที่ดิน') ? 'selected' : '' }}>ซื้อที่ดิน</option>
+                                      <option value="ซ่อมบ้าน" {{ ($data->Objective_car === 'ซ่อมบ้าน') ? 'selected' : '' }}>ซ่อมบ้าน</option>
+                                      <option value="ลดค่าธรรมเนียม" {{ ($data->Objective_car === 'ลดค่าธรรมเนียม') ? 'selected' : '' }}>ลดค่าธรรมเนียม</option>
+                                      <option value="ลดดอกเบี้ย สูงสุด 100 %" {{ ($data->Objective_car === 'ลดดอกเบี้ย สูงสุด 100 %') ? 'selected' : '' }}>ลดดอกเบี้ย สูงสุด 100 %</option>
+                                      <option value="พักชำระเงินต้น 3 เดือน" {{ ($data->Objective_car === 'พักชำระเงินต้น 3 เดือน') ? 'selected' : '' }}>พักชำระเงินต้น 3 เดือน</option>
+                                      <option value="พักชำระหนี้ 3 เดือน" {{ ($data->Objective_car === 'พักชำระหนี้ 3 เดือน') ? 'selected' : '' }}>พักชำระหนี้ 3 เดือน</option>
+                                      <option value="ขยายระยะเวลาชำระหนี้" {{ ($data->Objective_car === 'ขยายระยะเวลาชำระหนี้') ? 'selected' : '' }}>ขยายระยะเวลาชำระหนี้</option>
                                     </select>
                                   @else
                                     @if($GetDocComplete != Null)
@@ -644,9 +694,20 @@
                                     @else
                                       <select id="objectivecar" name="objectivecar" class="form-control form-control-sm" oninput="calculate();">
                                         <option value="" selected>--- วัตถุประสงค์ของสินเชื่อ ---</option>
-                                        @foreach ($objectivecar as $key => $value)
-                                        <option value="{{$key}}" {{ ($key == $data->Objective_car) ? 'selected' : '' }}>{{$value}}</option>
-                                        @endforeach
+                                        <option value="ลงทุนในธุรกิจ" {{ ($data->Objective_car === 'ลงทุนในธุรกิจ') ? 'selected' : '' }}>ลงทุนในธุรกิจ</option>
+                                        <option value="ขยายกิจการ" {{ ($data->Objective_car === 'ขยายกิจการ') ? 'selected' : '' }}>ขยายกิจการ</option>
+                                        <option value="ซื้อรถยนต์" {{ ($data->Objective_car === 'ซื้อรถยนต์') ? 'selected' : '' }}>ซื้อรถยนต์</option>
+                                        <option value="ใช้หนี้นอกระบบ" {{ ($data->Objective_car === 'ใช้หนี้นอกระบบ') ? 'selected' : '' }}>ใช้หนี้นอกระบบ</option>
+                                        <option value="จ่ายค่าเทอม" {{ ($data->Objective_car === 'จ่ายค่าเทอม') ? 'selected' : '' }}>จ่ายค่าเทอม</option>
+                                        <option value="ซื้อของใช้ภายในบ้าน" {{ ($data->Objective_car === 'ซื้อของใช้ภายในบ้าน') ? 'selected' : '' }}>ซื้อของใช้ภายในบ้าน</option>
+                                        <option value="ซื้อวัว" {{ ($data->Objective_car === 'ซื้อวัว') ? 'selected' : '' }}>ซื้อวัว</option>
+                                        <option value="ซื้อที่ดิน" {{ ($data->Objective_car === 'ซื้อที่ดิน') ? 'selected' : '' }}>ซื้อที่ดิน</option>
+                                        <option value="ซ่อมบ้าน" {{ ($data->Objective_car === 'ซ่อมบ้าน') ? 'selected' : '' }}>ซ่อมบ้าน</option>
+                                        <option value="ลดค่าธรรมเนียม" {{ ($data->Objective_car === 'ลดค่าธรรมเนียม') ? 'selected' : '' }}>ลดค่าธรรมเนียม</option>
+                                        <option value="ลดดอกเบี้ย สูงสุด 100 %" {{ ($data->Objective_car === 'ลดดอกเบี้ย สูงสุด 100 %') ? 'selected' : '' }}>ลดดอกเบี้ย สูงสุด 100 %</option>
+                                        <option value="พักชำระเงินต้น 3 เดือน" {{ ($data->Objective_car === 'พักชำระเงินต้น 3 เดือน') ? 'selected' : '' }}>พักชำระเงินต้น 3 เดือน</option>
+                                        <option value="พักชำระหนี้ 3 เดือน" {{ ($data->Objective_car === 'พักชำระหนี้ 3 เดือน') ? 'selected' : '' }}>พักชำระหนี้ 3 เดือน</option>
+                                        <option value="ขยายระยะเวลาชำระหนี้" {{ ($data->Objective_car === 'ขยายระยะเวลาชำระหนี้') ? 'selected' : '' }}>ขยายระยะเวลาชำระหนี้</option>
                                       </select>
                                     @endif
                                   @endif
@@ -830,9 +891,13 @@
                                   @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MANAGER")
                                     <select name="relationSP" class="form-control form-control-sm">
                                       <option value="" selected>--- ความสัมพันธ์ ---</option>
-                                      @foreach ($relationSPp as $key => $value)
-                                      <option value="{{$key}}" {{ ($key == $data->relation_SP) ? 'selected' : '' }}>{{$value}}</option>
-                                      @endforeach
+                                      <option value="พี่น้อง" {{ ($data->relation_SP === 'พี่น้อง') ? 'selected' : '' }}>พี่น้อง</option>
+                                      <option value="ญาติ" {{ ($data->relation_SP === 'ญาติ') ? 'selected' : '' }}>ญาติ</option>
+                                      <option value="เพื่อน" {{ ($data->relation_SP === 'เพื่อน') ? 'selected' : '' }}>เพื่อน</option>
+                                      <option value="บิดา" {{ ($data->relation_SP === 'บิดา') ? 'selected' : '' }}>บิดา</option>
+                                      <option value="มารดา" {{ ($data->relation_SP === 'มารดา') ? 'selected' : '' }}>มารดา</option>
+                                      <option value="ตำบลเดี่ยวกัน" {{ ($data->relation_SP === 'ตำบลเดี่ยวกัน') ? 'selected' : '' }}>ตำบลเดี่ยวกัน</option>
+                                      <option value="จ้างค้ำ(ไม่รู้จักกัน)" {{ ($data->relation_SP === 'จ้างค้ำ(ไม่รู้จักกัน)') ? 'selected' : '' }}>จ้างค้ำ(ไม่รู้จักกัน)</option>
                                     </select>
                                   @else
                                     @if($GetDocComplete != Null)
@@ -840,9 +905,13 @@
                                     @else
                                       <select name="relationSP" class="form-control form-control-sm">
                                         <option value="" selected>--- ความสัมพันธ์ ---</option>
-                                        @foreach ($relationSPp as $key => $value)
-                                        <option value="{{$key}}" {{ ($key == $data->relation_SP) ? 'selected' : '' }}>{{$value}}</option>
-                                        @endforeach
+                                        <option value="พี่น้อง" {{ ($data->relation_SP === 'พี่น้อง') ? 'selected' : '' }}>พี่น้อง</option>
+                                        <option value="ญาติ" {{ ($data->relation_SP === 'ญาติ') ? 'selected' : '' }}>ญาติ</option>
+                                        <option value="เพื่อน" {{ ($data->relation_SP === 'เพื่อน') ? 'selected' : '' }}>เพื่อน</option>
+                                        <option value="บิดา" {{ ($data->relation_SP === 'บิดา') ? 'selected' : '' }}>บิดา</option>
+                                        <option value="มารดา" {{ ($data->relation_SP === 'มารดา') ? 'selected' : '' }}>มารดา</option>
+                                        <option value="ตำบลเดี่ยวกัน" {{ ($data->relation_SP === 'ตำบลเดี่ยวกัน') ? 'selected' : '' }}>ตำบลเดี่ยวกัน</option>
+                                        <option value="จ้างค้ำ(ไม่รู้จักกัน)" {{ ($data->relation_SP === 'จ้างค้ำ(ไม่รู้จักกัน)') ? 'selected' : '' }}>จ้างค้ำ(ไม่รู้จักกัน)</option>
                                       </select>
                                     @endif
                                   @endif
@@ -871,9 +940,7 @@
                                   @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MANAGER")
                                     <select name="addSP" class="form-control form-control-sm">
                                       <option value="" selected>--- ที่อยู่ ---</option>
-                                      @foreach ($Addby as $key => $value)
-                                      <option value="{{$key}}" {{ ($key == $data->add_SP) ? 'selected' : '' }}>{{$value}}</option>
-                                      @endforeach
+                                      <option value="ตามทะเบียนบ้าน" {{ ($data->add_SP === 'ตามทะเบียนบ้าน') ? 'selected' : '' }}>ตามทะเบียนบ้าน</option>
                                     </select>
                                   @else
                                     @if($GetDocComplete != Null)
@@ -881,9 +948,7 @@
                                     @else
                                       <select name="addSP" class="form-control form-control-sm">
                                         <option value="" selected>--- ที่อยู่ ---</option>
-                                        @foreach ($Addby as $key => $value)
-                                        <option value="{{$key}}" {{ ($key == $data->add_SP) ? 'selected' : '' }}>{{$value}}</option>
-                                        @endforeach
+                                        <option value="ตามทะเบียนบ้าน" {{ ($data->add_SP === 'ตามทะเบียนบ้าน') ? 'selected' : '' }}>ตามทะเบียนบ้าน</option>
                                       </select>
                                     @endif
                                   @endif
@@ -927,9 +992,34 @@
                                   @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MANAGER")
                                     <select name="careerSP" class="form-control form-control-sm">
                                       <option value="" selected>--- อาชีพ ---</option>
-                                      @foreach ($Careerby as $key => $value)
-                                        <option value="{{$key}}" {{ ($key == $data->career_SP) ? 'selected' : '' }}>{{$value}}</option>
-                                      @endforeach
+                                      <option value="ตำรวจ" {{ ($data->career_SP === 'ตำรวจ') ? 'selected' : '' }}>ตำรวจ</option>
+                                      <option value="ทหาร" {{ ($data->career_SP === 'ทหาร') ? 'selected' : '' }}>ทหาร</option>
+                                      <option value="ครู" {{ ($data->career_SP === 'ครู') ? 'selected' : '' }}>ครู</option>
+                                      <option value="ข้าราชการอื่นๆ" {{ ($data->career_SP === 'ข้าราชการอื่นๆ') ? 'selected' : '' }}>ข้าราชการอื่นๆ</option>
+                                      <option value="ลูกจ้างเทศบาล" {{ ($data->career_SP === 'ลูกจ้างเทศบาล') ? 'selected' : '' }}>ลูกจ้างเทศบาล</option>
+                                      <option value="ลูกจ้างประจำ" {{ ($data->career_SP === 'ลูกจ้างประจำ') ? 'selected' : '' }}>ลูกจ้างประจำ</option>
+                                      <option value="สมาชิก อบต." {{ ($data->career_SP === 'สมาชิก อบต.') ? 'selected' : '' }}>สมาชิก อบต.</option>
+                                      <option value="ลูกจ้างชั่วคราว" {{ ($data->career_SP === 'ลูกจ้างชั่วคราว') ? 'selected' : '' }}>ลูกจ้างชั่วคราว</option>
+                                      <option value="รับจ้าง" {{ ($data->career_SP === 'รับจ้าง') ? 'selected' : '' }}>รับจ้าง</option>
+                                      <option value="พนักงานบริษัทเอกชน" {{ ($data->career_SP === 'พนักงานบริษัทเอกชน') ? 'selected' : '' }}>พนักงานบริษัทเอกชน</option>
+                                      <option value="อาชีพอิสระ" {{ ($data->career_SP === 'อาชีพอิสระ') ? 'selected' : '' }}>อาชีพอิสระ</option>
+                                      <option value="กำนัน" {{ ($data->career_SP === 'กำนัน') ? 'selected' : '' }}>กำนัน</option>
+                                      <option value="ผู้ใหญ่บ้าน" {{ ($data->career_SP === 'ผู้ใหญ่บ้าน') ? 'selected' : '' }}>ผู้ใหญ่บ้าน</option>
+                                      <option value="ผู้ช่วยผู้ใหญ่บ้าน" {{ ($data->career_SP === 'ผู้ช่วยผู้ใหญ่บ้าน') ? 'selected' : '' }}>ผู้ช่วยผู้ใหญ่บ้าน</option>
+                                      <option value="นักการภารโรง" {{ ($data->career_SP === 'นักการภารโรง') ? 'selected' : '' }}>นักการภารโรง</option>
+                                      <option value="มอเตอร์ไซร์รับจ้าง" {{ ($data->career_SP === 'มอเตอร์ไซร์รับจ้าง') ? 'selected' : '' }}>มอเตอร์ไซร์รับจ้าง</option>
+                                      <option value="ค้าขาย" {{ ($data->career_SP === 'ค้าขาย') ? 'selected' : '' }}>ค้าขาย</option>
+                                      <option value="เจ้าของธุรกิจ" {{ ($data->career_SP === 'เจ้าของธุรกิจ') ? 'selected' : '' }}>เจ้าของธุรกิจ</option>
+                                      <option value="เจ้าของอู่รถ" {{ ($data->career_SP === 'เจ้าของอู่รถ') ? 'selected' : '' }}>เจ้าของอู่รถ</option>
+                                      <option value="ให้เช่ารถบรรทุก" {{ ($data->career_SP === 'ให้เช่ารถบรรทุก') ? 'selected' : '' }}>ให้เช่ารถบรรทุก</option>
+                                      <option value="ช่างตัดผม" {{ ($data->career_SP === 'ช่างตัดผม') ? 'selected' : '' }}>ช่างตัดผม</option>
+                                      <option value="ชาวนา" {{ ($data->career_SP === 'ชาวนา') ? 'selected' : '' }}>ชาวนา</option>
+                                      <option value="ชาวไร่" {{ ($data->career_SP === 'ชาวไร่') ? 'selected' : '' }}>ชาวไร่</option>
+                                      <option value="แม่บ้าน" {{ ($data->career_SP === 'แม่บ้าน') ? 'selected' : '' }}>แม่บ้าน</option>
+                                      <option value="รับเหมาก่อสร้าง" {{ ($data->career_SP === 'รับเหมาก่อสร้าง') ? 'selected' : '' }}>รับเหมาก่อสร้าง</option>
+                                      <option value="ประมง" {{ ($data->career_SP === 'ประมง') ? 'selected' : '' }}>ประมง</option>
+                                      <option value="ทนายความ" {{ ($data->career_SP === 'ทนายความ') ? 'selected' : '' }}>ทนายความ</option>
+                                      <option value="พระ" {{ ($data->career_SP === 'พระ') ? 'selected' : '' }}>พระ</option>
                                     </select>
                                   @else
                                     @if($GetDocComplete != Null)
@@ -937,9 +1027,34 @@
                                     @else
                                       <select name="careerSP" class="form-control form-control-sm">
                                         <option value="" selected>--- อาชีพ ---</option>
-                                        @foreach ($Careerby as $key => $value)
-                                          <option value="{{$key}}" {{ ($key == $data->career_SP) ? 'selected' : '' }}>{{$value}}</option>
-                                        @endforeach
+                                        <option value="ตำรวจ" {{ ($data->career_SP === 'ตำรวจ') ? 'selected' : '' }}>ตำรวจ</option>
+                                        <option value="ทหาร" {{ ($data->career_SP === 'ทหาร') ? 'selected' : '' }}>ทหาร</option>
+                                        <option value="ครู" {{ ($data->career_SP === 'ครู') ? 'selected' : '' }}>ครู</option>
+                                        <option value="ข้าราชการอื่นๆ" {{ ($data->career_SP === 'ข้าราชการอื่นๆ') ? 'selected' : '' }}>ข้าราชการอื่นๆ</option>
+                                        <option value="ลูกจ้างเทศบาล" {{ ($data->career_SP === 'ลูกจ้างเทศบาล') ? 'selected' : '' }}>ลูกจ้างเทศบาล</option>
+                                        <option value="ลูกจ้างประจำ" {{ ($data->career_SP === 'ลูกจ้างประจำ') ? 'selected' : '' }}>ลูกจ้างประจำ</option>
+                                        <option value="สมาชิก อบต." {{ ($data->career_SP === 'สมาชิก อบต.') ? 'selected' : '' }}>สมาชิก อบต.</option>
+                                        <option value="ลูกจ้างชั่วคราว" {{ ($data->career_SP === 'ลูกจ้างชั่วคราว') ? 'selected' : '' }}>ลูกจ้างชั่วคราว</option>
+                                        <option value="รับจ้าง" {{ ($data->career_SP === 'รับจ้าง') ? 'selected' : '' }}>รับจ้าง</option>
+                                        <option value="พนักงานบริษัทเอกชน" {{ ($data->career_SP === 'พนักงานบริษัทเอกชน') ? 'selected' : '' }}>พนักงานบริษัทเอกชน</option>
+                                        <option value="อาชีพอิสระ" {{ ($data->career_SP === 'อาชีพอิสระ') ? 'selected' : '' }}>อาชีพอิสระ</option>
+                                        <option value="กำนัน" {{ ($data->career_SP === 'กำนัน') ? 'selected' : '' }}>กำนัน</option>
+                                        <option value="ผู้ใหญ่บ้าน" {{ ($data->career_SP === 'ผู้ใหญ่บ้าน') ? 'selected' : '' }}>ผู้ใหญ่บ้าน</option>
+                                        <option value="ผู้ช่วยผู้ใหญ่บ้าน" {{ ($data->career_SP === 'ผู้ช่วยผู้ใหญ่บ้าน') ? 'selected' : '' }}>ผู้ช่วยผู้ใหญ่บ้าน</option>
+                                        <option value="นักการภารโรง" {{ ($data->career_SP === 'นักการภารโรง') ? 'selected' : '' }}>นักการภารโรง</option>
+                                        <option value="มอเตอร์ไซร์รับจ้าง" {{ ($data->career_SP === 'มอเตอร์ไซร์รับจ้าง') ? 'selected' : '' }}>มอเตอร์ไซร์รับจ้าง</option>
+                                        <option value="ค้าขาย" {{ ($data->career_SP === 'ค้าขาย') ? 'selected' : '' }}>ค้าขาย</option>
+                                        <option value="เจ้าของธุรกิจ" {{ ($data->career_SP === 'เจ้าของธุรกิจ') ? 'selected' : '' }}>เจ้าของธุรกิจ</option>
+                                        <option value="เจ้าของอู่รถ" {{ ($data->career_SP === 'เจ้าของอู่รถ') ? 'selected' : '' }}>เจ้าของอู่รถ</option>
+                                        <option value="ให้เช่ารถบรรทุก" {{ ($data->career_SP === 'ให้เช่ารถบรรทุก') ? 'selected' : '' }}>ให้เช่ารถบรรทุก</option>
+                                        <option value="ช่างตัดผม" {{ ($data->career_SP === 'ช่างตัดผม') ? 'selected' : '' }}>ช่างตัดผม</option>
+                                        <option value="ชาวนา" {{ ($data->career_SP === 'ชาวนา') ? 'selected' : '' }}>ชาวนา</option>
+                                        <option value="ชาวไร่" {{ ($data->career_SP === 'ชาวไร่') ? 'selected' : '' }}>ชาวไร่</option>
+                                        <option value="แม่บ้าน" {{ ($data->career_SP === 'แม่บ้าน') ? 'selected' : '' }}>แม่บ้าน</option>
+                                        <option value="รับเหมาก่อสร้าง" {{ ($data->career_SP === 'รับเหมาก่อสร้าง') ? 'selected' : '' }}>รับเหมาก่อสร้าง</option>
+                                        <option value="ประมง" {{ ($data->career_SP === 'ประมง') ? 'selected' : '' }}>ประมง</option>
+                                        <option value="ทนายความ" {{ ($data->career_SP === 'ทนายความ') ? 'selected' : '' }}>ทนายความ</option>
+                                        <option value="พระ" {{ ($data->career_SP === 'พระ') ? 'selected' : '' }}>พระ</option>
                                       </select>
                                     @endif
                                   @endif
@@ -953,9 +1068,11 @@
                                   @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MANAGER")
                                     <select name="securitiesSP" class="form-control form-control-sm">
                                       <option value="" selected>--- ประเภทหลักทรัพย์ ---</option>
-                                      @foreach ($securitiesSPp as $key => $value)
-                                        <option value="{{$key}}" {{ ($key == $data->securities_SP) ? 'selected' : '' }}>{{$value}}</option>
-                                      @endforeach
+                                      <option value="โฉนด" {{ ($data->securities_SP === 'โฉนด') ? 'selected' : '' }}>โฉนด</option>
+                                      <option value="นส.3" {{ ($data->securities_SP === 'นส.3') ? 'selected' : '' }}>นส.3</option>
+                                      <option value="นส.3 ก" {{ ($data->securities_SP === 'นส.3 ก') ? 'selected' : '' }}>นส.3 ก</option>
+                                      <option value="นส.4" {{ ($data->securities_SP === 'นส.4') ? 'selected' : '' }}>นส.4</option>
+                                      <option value="นส.4 จ" {{ ($data->securities_SP === 'นส.4 จ') ? 'selected' : '' }}>นส.4 จ</option>
                                     </select>
                                   @else
                                     @if($GetDocComplete != Null)
@@ -963,9 +1080,11 @@
                                     @else
                                       <select name="securitiesSP" class="form-control form-control-sm">
                                         <option value="" selected>--- ประเภทหลักทรัพย์ ---</option>
-                                        @foreach ($securitiesSPp as $key => $value)
-                                          <option value="{{$key}}" {{ ($key == $data->securities_SP) ? 'selected' : '' }}>{{$value}}</option>
-                                        @endforeach
+                                        <option value="โฉนด" {{ ($data->securities_SP === 'โฉนด') ? 'selected' : '' }}>โฉนด</option>
+                                        <option value="นส.3" {{ ($data->securities_SP === 'นส.3') ? 'selected' : '' }}>นส.3</option>
+                                        <option value="นส.3 ก" {{ ($data->securities_SP === 'นส.3 ก') ? 'selected' : '' }}>นส.3 ก</option>
+                                        <option value="นส.4" {{ ($data->securities_SP === 'นส.4') ? 'selected' : '' }}>นส.4</option>
+                                        <option value="นส.4 จ" {{ ($data->securities_SP === 'นส.4 จ') ? 'selected' : '' }}>นส.4 จ</option>
                                       </select>
                                     @endif
                                   @endif
@@ -1011,21 +1130,35 @@
                                 <label class="col-sm-3 col-form-label text-right">ยี่ห้อ : </label>
                                 <div class="col-sm-8">
                                   @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MANAGER")
-                                    <select name="Brandcar" class="form-control" style="width: 250px;">
+                                    <select name="Brandcar" class="form-control form-control-sm">
                                       <option value="" selected>--- ยี่ห้อ ---</option>
-                                      @foreach ($Brandcarr as $key => $value)
-                                        <option value="{{$key}}" {{ ($key == $data->Brand_car) ? 'selected' : '' }}>{{$value}}</option>
-                                      @endforeach
+                                      <option value="ISUZU" {{ ($data->Brand_car === 'ISUZU') ? 'selected' : '' }}>ISUZU</option>
+                                      <option value="MITSUBISHI" {{ ($data->Brand_car === 'MITSUBISHI') ? 'selected' : '' }}>MITSUBISHI</option>
+                                      <option value="TOYOTA" {{ ($data->Brand_car === 'TOYOTA') ? 'selected' : '' }}>TOYOTA</option>
+                                      <option value="MAZDA" {{ ($data->Brand_car === 'MAZDA') ? 'selected' : '' }}>MAZDA</option>
+                                      <option value="FORD" {{ ($data->Brand_car === 'FORD') ? 'selected' : '' }}>FORD</option>
+                                      <option value="NISSAN" {{ ($data->Brand_car === 'NISSAN') ? 'selected' : '' }}>NISSAN</option>
+                                      <option value="HONDA" {{ ($data->Brand_car === 'HONDA') ? 'selected' : '' }}>HONDA</option>
+                                      <option value="CHEVROLET" {{ ($data->Brand_car === 'CHEVROLET') ? 'selected' : '' }}>CHEVROLET</option>
+                                      <option value="MG" {{ ($data->Brand_car === 'MG') ? 'selected' : '' }}>MG</option>
+                                      <option value="SUZUKI" {{ ($data->Brand_car === 'SUZUKI') ? 'selected' : '' }}>SUZUKI</option>
                                     </select>
                                   @else
                                     @if($GetDocComplete != Null)
-                                      <input type="text" name="Brandcar" value="{{$data->Brand_car}}" class="form-control" style="width: 250px;" placeholder="ยี่ห้อ" readonly/>
+                                      <input type="text" name="Brandcar" value="{{$data->Brand_car}}" class="form-control form-control-sm" placeholder="ยี่ห้อ" readonly/>
                                     @else
-                                      <select name="Brandcar" class="form-control" style="width: 250px;">
+                                      <select name="Brandcar" class="form-control form-control-sm">
                                         <option value="" selected>--- ยี่ห้อ ---</option>
-                                        @foreach ($Brandcarr as $key => $value)
-                                          <option value="{{$key}}" {{ ($key == $data->Brand_car) ? 'selected' : '' }}>{{$value}}</option>
-                                        @endforeach
+                                        <option value="ISUZU" {{ ($data->Brand_car === 'ISUZU') ? 'selected' : '' }}>ISUZU</option>
+                                        <option value="MITSUBISHI" {{ ($data->Brand_car === 'MITSUBISHI') ? 'selected' : '' }}>MITSUBISHI</option>
+                                        <option value="TOYOTA" {{ ($data->Brand_car === 'TOYOTA') ? 'selected' : '' }}>TOYOTA</option>
+                                        <option value="MAZDA" {{ ($data->Brand_car === 'MAZDA') ? 'selected' : '' }}>MAZDA</option>
+                                        <option value="FORD" {{ ($data->Brand_car === 'FORD') ? 'selected' : '' }}>FORD</option>
+                                        <option value="NISSAN" {{ ($data->Brand_car === 'NISSAN') ? 'selected' : '' }}>NISSAN</option>
+                                        <option value="HONDA" {{ ($data->Brand_car === 'HONDA') ? 'selected' : '' }}>HONDA</option>
+                                        <option value="CHEVROLET" {{ ($data->Brand_car === 'CHEVROLET') ? 'selected' : '' }}>CHEVROLET</option>
+                                        <option value="MG" {{ ($data->Brand_car === 'MG') ? 'selected' : '' }}>MG</option>
+                                        <option value="SUZUKI" {{ ($data->Brand_car === 'SUZUKI') ? 'selected' : '' }}>SUZUKI</option>
                                       </select>
                                     @endif
                                   @endif
@@ -1037,7 +1170,7 @@
                                 <label class="col-sm-3 col-form-label text-right">ปี : </label>
                                 <div class="col-sm-8">
                                   @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MANAGER")
-                                    <select id="Yearcar" name="Yearcar" class="form-control" style="width: 250px;" onchange="calculate();">
+                                    <select id="Yearcar" name="Yearcar" class="form-control form-control-sm" onchange="calculate();">
                                       <option value="{{$data->Year_car}}" selected>{{$data->Year_car}}</option>
                                       <option value="">--------------------</option>
                                       @php
@@ -1052,9 +1185,9 @@
                                     </select>
                                   @else
                                     @if($GetDocComplete != Null)
-                                      <input type="text" name="Yearcar" value="{{$data->Year_car}}" class="form-control" style="width: 250px;" placeholder="ปี" readonly/>
+                                      <input type="text" name="Yearcar" value="{{$data->Year_car}}" class="form-control form-control-sm" placeholder="ปี" readonly/>
                                     @else
-                                      <select id="Yearcar" name="Yearcar" class="form-control" style="width: 250px;" onchange="calculate();">
+                                      <select id="Yearcar" name="Yearcar" class="form-control form-control-sm" onchange="calculate();">
                                         <option value="{{$data->Year_car}}" selected>{{$data->Year_car}}</option>
                                         <option value="">--------------------</option>
                                         @php
@@ -1251,39 +1384,62 @@
 
                                     }
                           </script>
-                          @if($type == 12)
+                          @if($type == 11)
                             <script>
                               function calculate(){
                                 var num11 = document.getElementById('Topcar').value;
                                 var num1 = num11.replace(",","");
-                                var num33 = document.getElementById('Vatcar').value;
-                                var num3 = num33.replace(",","");
-                                var num2 = document.getElementById('Interestcar').value;
                                 var num4 = document.getElementById('Timeslackencar').value;
-                                var num5 = document.getElementById('objectivecar').value;
-                                console.log(num5);
+                                var num2 = document.getElementById('Interestcar').value;
+                                var num3 = document.getElementById('Vatcar').value;
 
-                                if(num5 == 'พักชำระหนี้ 3 เดือน'){
-                                  var vatTop = 0;
-                                }else{
-                                  var vatTop = parseFloat(num1)*0.07;
-                                }
+                                  if(num4 == '12'){
+                                  var period = '1';
+                                  }else if(num4 == '18'){
+                                  var period = '1.5';
+                                  }else if(num4 == '24'){
+                                  var period = '2';
+                                  }else if(num4 == '30'){
+                                  var period = '2.5';
+                                  }else if(num4 == '36'){
+                                  var period = '3';
+                                  }else if(num4 == '42'){
+                                  var period = '3.5';
+                                  }else if(num4 == '48'){
+                                  var period = '4';
+                                  }else if(num4 == '54'){
+                                  var period = '4.5';
+                                  }else if(num4 == '60'){
+                                  var period = '5';
+                                  }else if(num4 == '66'){
+                                  var period = '5.5';
+                                  }else if(num4 == '72'){
+                                  var period = '6';
+                                  }else if(num4 == '78'){
+                                  var period = '6.5';
+                                  }else if(num4 == '84'){
+                                  var period = '7';
+                                  }else if(num4 == '90'){
+                                  var period = '7.5';
+                                  }else if(num4 == '96'){
+                                  var period = '8';
+                                  }
 
-                                // var vatTop = parseFloat(num1)*0.07;
-                                var newTop = parseFloat(num1)+vatTop;
-                                var vat = (100+parseFloat(num2))/100;
-                                var result = Math.round((newTop*vat)/12);
-                                var tax = vatTop/num4;
-                                var tax2 = tax.toFixed(2)*num4;
-                                var durate = result-tax;
+                                var totaltopcar = parseFloat(num1);
+                                var vat = (100+parseFloat(num3))/100;
+                                var a = (num2*period)+100;
+                                var b = (((totaltopcar*a)/100)*vat)/num4;
+                                var result = Math.ceil(b/10)*10;
+                                var durate = result/vat;
                                 var durate2 = durate.toFixed(2)*num4;
+                                var tax = result-durate;
+                                var tax2 = tax.toFixed(2)*num4;
                                 var total = result*num4;
                                 var total2 = durate2+tax2;
 
-                                if(!isNaN(vatTop)){
-                                  document.form1.Topcar.value = addCommas(num1);
-                                  document.form1.Vatcar.value = addCommas(vatTop.toFixed(0));
-                                  document.form1.Vatcar.value = addCommas(vatTop.toFixed(0));
+                                document.form1.Topcar.value = addCommas(totaltopcar);
+
+                                if(!isNaN(result) && num2 != ''){
                                   document.form1.Paycar.value = addCommas(result.toFixed(2));
                                   document.form1.Paymemtcar.value = addCommas(durate.toFixed(2));
                                   document.form1.Timepaymentcar.value = addCommas(durate2.toFixed(2));
@@ -1527,9 +1683,9 @@
                                     @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MANAGER")
                                       <select name="statusSP2" class="form-control" style="width: 200px;">
                                         <option value="" selected>--- สถานะ ---</option>
-                                        @foreach ($Statusby as $key => $value)
-                                          <option value="{{$key}}" {{ ($key == $data->status_SP2) ? 'selected' : '' }}>{{$value}}</option>
-                                        @endforeach
+                                        <option value="โสด" {{ ($data->status_SP2 === 'โสด') ? 'selected' : '' }}>โสด</option>
+                                        <option value="สมรส" {{ ($data->status_SP2 === 'สมรส') ? 'selected' : '' }}>สมรส</option>
+                                        <option value="หย่าร้าง" {{ ($data->status_SP2 === 'หย่าร้าง') ? 'selected' : '' }}>หย่าร้าง</option>
                                       </select>
                                     @else
                                       @if($GetDocComplete != Null)
@@ -1537,9 +1693,9 @@
                                       @else
                                         <select name="statusSP2" class="form-control" style="width: 200px;">
                                           <option value="" selected>--- สถานะ ---</option>
-                                          @foreach ($Statusby as $key => $value)
-                                            <option value="{{$key}}" {{ ($key == $data->status_SP2) ? 'selected' : '' }}>{{$value}}</option>
-                                          @endforeach
+                                          <option value="โสด" {{ ($data->status_SP2 === 'โสด') ? 'selected' : '' }}>โสด</option>
+                                          <option value="สมรส" {{ ($data->status_SP2 === 'สมรส') ? 'selected' : '' }}>สมรส</option>
+                                          <option value="หย่าร้าง" {{ ($data->status_SP2 === 'หย่าร้าง') ? 'selected' : '' }}>หย่าร้าง</option>
                                         </select>
                                       @endif
                                     @endif
@@ -1564,9 +1720,13 @@
                                     @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MANAGER")
                                       <select name="relationSP2" class="form-control" style="width: 200px;">
                                         <option value="" selected>--- ความสัมพันธ์ ---</option>
-                                        @foreach ($relationSPp as $key => $value)
-                                        <option value="{{$key}}" {{ ($key == $data->relation_SP2) ? 'selected' : '' }}>{{$value}}</option>
-                                        @endforeach
+                                        <option value="พี่น้อง" {{ ($data->relation_SP2 === 'พี่น้อง') ? 'selected' : '' }}>พี่น้อง</option>
+                                        <option value="ญาติ" {{ ($data->relation_SP2 === 'ญาติ') ? 'selected' : '' }}>ญาติ</option>
+                                        <option value="เพื่อน" {{ ($data->relation_SP2 === 'เพื่อน') ? 'selected' : '' }}>เพื่อน</option>
+                                        <option value="บิดา" {{ ($data->relation_SP2 === 'บิดา') ? 'selected' : '' }}>บิดา</option>
+                                        <option value="มารดา" {{ ($data->relation_SP2 === 'มารดา') ? 'selected' : '' }}>มารดา</option>
+                                        <option value="ตำบลเดี่ยวกัน" {{ ($data->relation_SP2 === 'ตำบลเดี่ยวกัน') ? 'selected' : '' }}>ตำบลเดี่ยวกัน</option>
+                                        <option value="จ้างค้ำ(ไม่รู้จักกัน)" {{ ($data->relation_SP2 === 'จ้างค้ำ(ไม่รู้จักกัน)') ? 'selected' : '' }}>จ้างค้ำ(ไม่รู้จักกัน)</option>
                                       </select>
                                     @else
                                       @if($GetDocComplete != Null)
@@ -1574,9 +1734,13 @@
                                       @else
                                         <select name="relationSP2" class="form-control" style="width: 200px;">
                                           <option value="" selected>--- ความสัมพันธ์ ---</option>
-                                          @foreach ($relationSPp as $key => $value)
-                                            <option value="{{$key}}" {{ ($key == $data->relation_SP2) ? 'selected' : '' }}>{{$value}}</option>
-                                          @endforeach
+                                          <option value="พี่น้อง" {{ ($data->relation_SP2 === 'พี่น้อง') ? 'selected' : '' }}>พี่น้อง</option>
+                                          <option value="ญาติ" {{ ($data->relation_SP2 === 'ญาติ') ? 'selected' : '' }}>ญาติ</option>
+                                          <option value="เพื่อน" {{ ($data->relation_SP2 === 'เพื่อน') ? 'selected' : '' }}>เพื่อน</option>
+                                          <option value="บิดา" {{ ($data->relation_SP2 === 'บิดา') ? 'selected' : '' }}>บิดา</option>
+                                          <option value="มารดา" {{ ($data->relation_SP2 === 'มารดา') ? 'selected' : '' }}>มารดา</option>
+                                          <option value="ตำบลเดี่ยวกัน" {{ ($data->relation_SP2 === 'ตำบลเดี่ยวกัน') ? 'selected' : '' }}>ตำบลเดี่ยวกัน</option>
+                                          <option value="จ้างค้ำ(ไม่รู้จักกัน)" {{ ($data->relation_SP2 === 'จ้างค้ำ(ไม่รู้จักกัน)') ? 'selected' : '' }}>จ้างค้ำ(ไม่รู้จักกัน)</option>
                                         </select>
                                       @endif
                                     @endif
@@ -1614,9 +1778,7 @@
                                     @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MANAGER")
                                       <select name="addSP2" class="form-control" style="width: 200px;">
                                         <option value="" selected>--- ที่อยู่ ---</option>
-                                        @foreach ($Addby as $key => $value)
-                                        <option value="{{$key}}" {{ ($key == $data->add_SP2) ? 'selected' : '' }}>{{$value}}</option>
-                                        @endforeach
+                                        <option value="ตามทะเบียนบ้าน" {{ ($data->add_SP2 === 'ตามทะเบียนบ้าน') ? 'selected' : '' }}>ตามทะเบียนบ้าน</option>
                                       </select>
                                     @else
                                       @if($GetDocComplete != Null)
@@ -1624,9 +1786,7 @@
                                       @else
                                         <select name="addSP2" class="form-control" style="width: 200px;">
                                           <option value="" selected>--- ที่อยู่ ---</option>
-                                          @foreach ($Addby as $key => $value)
-                                          <option value="{{$key}}" {{ ($key == $data->add_SP2) ? 'selected' : '' }}>{{$value}}</option>
-                                          @endforeach
+                                          <option value="ตามทะเบียนบ้าน" {{ ($data->add_SP2 === 'ตามทะเบียนบ้าน') ? 'selected' : '' }}>ตามทะเบียนบ้าน</option>
                                         </select>
                                       @endif
                                     @endif
@@ -1674,9 +1834,12 @@
                                     @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MANAGER")
                                       <select name="houseSP2" class="form-control" style="width: 200px;">
                                         <option value="" selected>--- เลือกลักษณะบ้าน ---</option>
-                                        @foreach ($Houseby as $key => $value)
-                                          <option value="{{$key}}" {{ ($key == $data->house_SP2) ? 'selected' : '' }}>{{$value}}</option>
-                                        @endforeach
+                                        <option value="บ้านตึก 1 ชั้น" {{ ($data->house_SP2 === 'บ้านตึก 1 ชั้น') ? 'selected' : '' }}>บ้านตึก 1 ชั้น</option>
+                                        <option value="บ้านตึก 2 ชั้น" {{ ($data->house_SP2 === 'บ้านตึก 2 ชั้น') ? 'selected' : '' }}>บ้านตึก 2 ชั้น</option>
+                                        <option value="บ้านไม้ 1 ชั้น" {{ ($data->house_SP2 === 'บ้านไม้ 1 ชั้น') ? 'selected' : '' }}>บ้านไม้ 1 ชั้น</option>
+                                        <option value="บ้านตึก 2 ชั้น" {{ ($data->house_SP2 === 'บ้านตึก 2 ชั้น') ? 'selected' : '' }}>บ้านตึก 2 ชั้น</option>
+                                        <option value="บ้านเดี่ยว" {{ ($data->house_SP2 === 'บ้านเดี่ยว') ? 'selected' : '' }}>บ้านเดี่ยว</option>
+                                        <option value="แฟลต" {{ ($data->house_SP2 === 'แฟลต') ? 'selected' : '' }}>แฟลต</option>
                                       </select>
                                     @else
                                       @if($GetDocComplete != Null)
@@ -1684,9 +1847,12 @@
                                       @else
                                         <select name="houseSP2" class="form-control" style="width: 200px;">
                                           <option value="" selected>--- เลือกลักษณะบ้าน ---</option>
-                                          @foreach ($Houseby as $key => $value)
-                                            <option value="{{$key}}" {{ ($key == $data->house_SP2) ? 'selected' : '' }}>{{$value}}</option>
-                                          @endforeach
+                                          <option value="บ้านตึก 1 ชั้น" {{ ($data->house_SP2 === 'บ้านตึก 1 ชั้น') ? 'selected' : '' }}>บ้านตึก 1 ชั้น</option>
+                                          <option value="บ้านตึก 2 ชั้น" {{ ($data->house_SP2 === 'บ้านตึก 2 ชั้น') ? 'selected' : '' }}>บ้านตึก 2 ชั้น</option>
+                                          <option value="บ้านไม้ 1 ชั้น" {{ ($data->house_SP2 === 'บ้านไม้ 1 ชั้น') ? 'selected' : '' }}>บ้านไม้ 1 ชั้น</option>
+                                          <option value="บ้านตึก 2 ชั้น" {{ ($data->house_SP2 === 'บ้านตึก 2 ชั้น') ? 'selected' : '' }}>บ้านตึก 2 ชั้น</option>
+                                          <option value="บ้านเดี่ยว" {{ ($data->house_SP2 === 'บ้านเดี่ยว') ? 'selected' : '' }}>บ้านเดี่ยว</option>
+                                          <option value="แฟลต" {{ ($data->house_SP2 === 'แฟลต') ? 'selected' : '' }}>แฟลต</option>
                                         </select>
                                       @endif
                                     @endif
@@ -1698,9 +1864,11 @@
                                     @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MANAGER")
                                       <select name="securitiesSP2" class="form-control" style="width: 200px;">
                                         <option value="" selected>--- ประเภทหลักทรัพย์ ---</option>
-                                        @foreach ($securitiesSPp as $key => $value)
-                                          <option value="{{$key}}" {{ ($key == $data->securities_SP2) ? 'selected' : '' }}>{{$value}}</option>
-                                        @endforeach
+                                        <option value="โฉนด" {{ ($data->securities_SP2 === 'โฉนด') ? 'selected' : '' }}>โฉนด</option>
+                                        <option value="นส.3" {{ ($data->securities_SP2 === 'นส.3') ? 'selected' : '' }}>นส.3</option>
+                                        <option value="นส.3 ก" {{ ($data->securities_SP2 === 'นส.3 ก') ? 'selected' : '' }}>นส.3 ก</option>
+                                        <option value="นส.4" {{ ($data->securities_SP2 === 'นส.4') ? 'selected' : '' }}>นส.4</option>
+                                        <option value="นส.4 จ" {{ ($data->securities_SP2 === 'นส.4 จ') ? 'selected' : '' }}>นส.4 จ</option>
                                       </select>
                                     @else
                                       @if($GetDocComplete != Null)
@@ -1708,9 +1876,11 @@
                                       @else
                                         <select name="securitiesSP2" class="form-control" style="width: 200px;">
                                           <option value="" selected>--- ประเภทหลักทรัพย์ ---</option>
-                                          @foreach ($securitiesSPp as $key => $value)
-                                            <option value="{{$key}}" {{ ($key == $data->securities_SP2) ? 'selected' : '' }}>{{$value}}</option>
-                                          @endforeach
+                                          <option value="โฉนด" {{ ($data->securities_SP2 === 'โฉนด') ? 'selected' : '' }}>โฉนด</option>
+                                          <option value="นส.3" {{ ($data->securities_SP2 === 'นส.3') ? 'selected' : '' }}>นส.3</option>
+                                          <option value="นส.3 ก" {{ ($data->securities_SP2 === 'นส.3 ก') ? 'selected' : '' }}>นส.3 ก</option>
+                                          <option value="นส.4" {{ ($data->securities_SP2 === 'นส.4') ? 'selected' : '' }}>นส.4</option>
+                                          <option value="นส.4 จ" {{ ($data->securities_SP2 === 'นส.4 จ') ? 'selected' : '' }}>นส.4 จ</option>
                                         </select>
                                       @endif
                                     @endif
@@ -1748,9 +1918,11 @@
                                     @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MANAGER")
                                       <select name="housestyleSP2" class="form-control" style="width: 200px;">
                                         <option value="" selected>--- ประเภทบ้าน ---</option>
-                                        @foreach ($HouseStyleby as $key => $value)
-                                          <option value="{{$key}}" {{ ($key == $data->housestyle_SP2) ? 'selected' : '' }}>{{$value}}</option>
-                                        @endforeach
+                                        <option value="ของตนเอง" {{ ($data->housestyle_SP2 === 'ของตนเอง') ? 'selected' : '' }}>ของตนเอง</option>
+                                        <option value="อาศัยบิดา-มารดา" {{ ($data->housestyle_SP2 === 'อาศัยบิดา-มารดา') ? 'selected' : '' }}>อาศัยบิดา-มารดา</option>
+                                        <option value="อาศัยผู้อื่น" {{ ($data->housestyle_SP2 === 'อาศัยผู้อื่น') ? 'selected' : '' }}>อาศัยผู้อื่น</option>
+                                        <option value="บ้านพักราชการ" {{ ($data->housestyle_SP2 === 'บ้านพักราชการ') ? 'selected' : '' }}>บ้านพักราชการ</option>
+                                        <option value="บ้านเช่า" {{ ($data->housestyle_SP2 === 'บ้านเช่า') ? 'selected' : '' }}>บ้านเช่า</option>
                                       </select>
                                     @else
                                       @if($GetDocComplete != Null)
@@ -1758,9 +1930,11 @@
                                       @else
                                         <select name="housestyleSP2" class="form-control" style="width: 200px;">
                                           <option value="" selected>--- ประเภทบ้าน ---</option>
-                                          @foreach ($HouseStyleby as $key => $value)
-                                            <option value="{{$key}}" {{ ($key == $data->housestyle_SP2) ? 'selected' : '' }}>{{$value}}</option>
-                                          @endforeach
+                                          <option value="ของตนเอง" {{ ($data->housestyle_SP2 === 'ของตนเอง') ? 'selected' : '' }}>ของตนเอง</option>
+                                          <option value="อาศัยบิดา-มารดา" {{ ($data->housestyle_SP2 === 'อาศัยบิดา-มารดา') ? 'selected' : '' }}>อาศัยบิดา-มารดา</option>
+                                          <option value="อาศัยผู้อื่น" {{ ($data->housestyle_SP2 === 'อาศัยผู้อื่น') ? 'selected' : '' }}>อาศัยผู้อื่น</option>
+                                          <option value="บ้านพักราชการ" {{ ($data->housestyle_SP2 === 'บ้านพักราชการ') ? 'selected' : '' }}>บ้านพักราชการ</option>
+                                          <option value="บ้านเช่า" {{ ($data->housestyle_SP2 === 'บ้านเช่า') ? 'selected' : '' }}>บ้านเช่า</option>
                                         </select>
                                       @endif
                                     @endif
@@ -1772,20 +1946,70 @@
                                     @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MANAGER")
                                       <select name="careerSP2" class="form-control" style="width: 200px;">
                                         <option value="" selected>--- อาชีพ ---</option>
-                                        @foreach ($Careerby as $key => $value)
-                                          <option value="{{$key}}" {{ ($key == $data->career_SP2) ? 'selected' : '' }}>{{$value}}</option>
-                                        @endforeach
+                                        <option value="ตำรวจ" {{ ($data->career_SP2 === 'ตำรวจ') ? 'selected' : '' }}>ตำรวจ</option>
+                                        <option value="ทหาร" {{ ($data->career_SP2 === 'ทหาร') ? 'selected' : '' }}>ทหาร</option>
+                                        <option value="ครู" {{ ($data->career_SP2 === 'ครู') ? 'selected' : '' }}>ครู</option>
+                                        <option value="ข้าราชการอื่นๆ" {{ ($data->career_SP2 === 'ข้าราชการอื่นๆ') ? 'selected' : '' }}>ข้าราชการอื่นๆ</option>
+                                        <option value="ลูกจ้างเทศบาล" {{ ($data->career_SP2 === 'ลูกจ้างเทศบาล') ? 'selected' : '' }}>ลูกจ้างเทศบาล</option>
+                                        <option value="ลูกจ้างประจำ" {{ ($data->career_SP2 === 'ลูกจ้างประจำ') ? 'selected' : '' }}>ลูกจ้างประจำ</option>
+                                        <option value="สมาชิก อบต." {{ ($data->career_SP2 === 'สมาชิก อบต.') ? 'selected' : '' }}>สมาชิก อบต.</option>
+                                        <option value="ลูกจ้างชั่วคราว" {{ ($data->career_SP2 === 'ลูกจ้างชั่วคราว') ? 'selected' : '' }}>ลูกจ้างชั่วคราว</option>
+                                        <option value="รับจ้าง" {{ ($data->career_SP2 === 'รับจ้าง') ? 'selected' : '' }}>รับจ้าง</option>
+                                        <option value="พนักงานบริษัทเอกชน" {{ ($data->career_SP2 === 'พนักงานบริษัทเอกชน') ? 'selected' : '' }}>พนักงานบริษัทเอกชน</option>
+                                        <option value="อาชีพอิสระ" {{ ($data->career_SP2 === 'อาชีพอิสระ') ? 'selected' : '' }}>อาชีพอิสระ</option>
+                                        <option value="กำนัน" {{ ($data->career_SP2 === 'กำนัน') ? 'selected' : '' }}>กำนัน</option>
+                                        <option value="ผู้ใหญ่บ้าน" {{ ($data->career_SP2 === 'ผู้ใหญ่บ้าน') ? 'selected' : '' }}>ผู้ใหญ่บ้าน</option>
+                                        <option value="ผู้ช่วยผู้ใหญ่บ้าน" {{ ($data->career_SP2 === 'ผู้ช่วยผู้ใหญ่บ้าน') ? 'selected' : '' }}>ผู้ช่วยผู้ใหญ่บ้าน</option>
+                                        <option value="นักการภารโรง" {{ ($data->career_SP2 === 'นักการภารโรง') ? 'selected' : '' }}>นักการภารโรง</option>
+                                        <option value="มอเตอร์ไซร์รับจ้าง" {{ ($data->career_SP2 === 'มอเตอร์ไซร์รับจ้าง') ? 'selected' : '' }}>มอเตอร์ไซร์รับจ้าง</option>
+                                        <option value="ค้าขาย" {{ ($data->career_SP2 === 'ค้าขาย') ? 'selected' : '' }}>ค้าขาย</option>
+                                        <option value="เจ้าของธุรกิจ" {{ ($data->career_SP2 === 'เจ้าของธุรกิจ') ? 'selected' : '' }}>เจ้าของธุรกิจ</option>
+                                        <option value="เจ้าของอู่รถ" {{ ($data->career_SP2 === 'เจ้าของอู่รถ') ? 'selected' : '' }}>เจ้าของอู่รถ</option>
+                                        <option value="ให้เช่ารถบรรทุก" {{ ($data->career_SP2 === 'ให้เช่ารถบรรทุก') ? 'selected' : '' }}>ให้เช่ารถบรรทุก</option>
+                                        <option value="ช่างตัดผม" {{ ($data->career_SP2 === 'ช่างตัดผม') ? 'selected' : '' }}>ช่างตัดผม</option>
+                                        <option value="ชาวนา" {{ ($data->career_SP2 === 'ชาวนา') ? 'selected' : '' }}>ชาวนา</option>
+                                        <option value="ชาวไร่" {{ ($data->career_SP2 === 'ชาวไร่') ? 'selected' : '' }}>ชาวไร่</option>
+                                        <option value="แม่บ้าน" {{ ($data->career_SP2 === 'แม่บ้าน') ? 'selected' : '' }}>แม่บ้าน</option>
+                                        <option value="รับเหมาก่อสร้าง" {{ ($data->career_SP2 === 'รับเหมาก่อสร้าง') ? 'selected' : '' }}>รับเหมาก่อสร้าง</option>
+                                        <option value="ประมง" {{ ($data->career_SP2 === 'ประมง') ? 'selected' : '' }}>ประมง</option>
+                                        <option value="ทนายความ" {{ ($data->career_SP2 === 'ทนายความ') ? 'selected' : '' }}>ทนายความ</option>
+                                        <option value="พระ" {{ ($data->career_SP2 === 'พระ') ? 'selected' : '' }}>พระ</option>
                                       </select>
                                     @else
                                       @if($GetDocComplete != Null)
-                                          <input type="text" name="careerSP2" value="{{$data->career_SP2}}" class="form-control" style="width: 200px;" placeholder="อาชีพ" readonly/>
+                                        <input type="text" name="careerSP2" value="{{$data->career_SP2}}" class="form-control" style="width: 200px;" placeholder="อาชีพ" readonly/>
                                       @else
                                         <select name="careerSP2" class="form-control" style="width: 200px;">
                                           <option value="" selected>--- อาชีพ ---</option>
-                                          @foreach ($Careerby as $key => $value)
-                                            <option value="{{$key}}" {{ ($key == $data->career_SP2) ? 'selected' : '' }}>{{$value}}</option>
-                                          @endforeach
-                                        </select>
+                                          <option value="ตำรวจ" {{ ($data->career_SP2 === 'ตำรวจ') ? 'selected' : '' }}>ตำรวจ</option>
+                                          <option value="ทหาร" {{ ($data->career_SP2 === 'ทหาร') ? 'selected' : '' }}>ทหาร</option>
+                                          <option value="ครู" {{ ($data->career_SP2 === 'ครู') ? 'selected' : '' }}>ครู</option>
+                                          <option value="ข้าราชการอื่นๆ" {{ ($data->career_SP2 === 'ข้าราชการอื่นๆ') ? 'selected' : '' }}>ข้าราชการอื่นๆ</option>
+                                          <option value="ลูกจ้างเทศบาล" {{ ($data->career_SP2 === 'ลูกจ้างเทศบาล') ? 'selected' : '' }}>ลูกจ้างเทศบาล</option>
+                                          <option value="ลูกจ้างประจำ" {{ ($data->career_SP2 === 'ลูกจ้างประจำ') ? 'selected' : '' }}>ลูกจ้างประจำ</option>
+                                          <option value="สมาชิก อบต." {{ ($data->career_SP2 === 'สมาชิก อบต.') ? 'selected' : '' }}>สมาชิก อบต.</option>
+                                          <option value="ลูกจ้างชั่วคราว" {{ ($data->career_SP2 === 'ลูกจ้างชั่วคราว') ? 'selected' : '' }}>ลูกจ้างชั่วคราว</option>
+                                          <option value="รับจ้าง" {{ ($data->career_SP2 === 'รับจ้าง') ? 'selected' : '' }}>รับจ้าง</option>
+                                          <option value="พนักงานบริษัทเอกชน" {{ ($data->career_SP2 === 'พนักงานบริษัทเอกชน') ? 'selected' : '' }}>พนักงานบริษัทเอกชน</option>
+                                          <option value="อาชีพอิสระ" {{ ($data->career_SP2 === 'อาชีพอิสระ') ? 'selected' : '' }}>อาชีพอิสระ</option>
+                                          <option value="กำนัน" {{ ($data->career_SP2 === 'กำนัน') ? 'selected' : '' }}>กำนัน</option>
+                                          <option value="ผู้ใหญ่บ้าน" {{ ($data->career_SP2 === 'ผู้ใหญ่บ้าน') ? 'selected' : '' }}>ผู้ใหญ่บ้าน</option>
+                                          <option value="ผู้ช่วยผู้ใหญ่บ้าน" {{ ($data->career_SP2 === 'ผู้ช่วยผู้ใหญ่บ้าน') ? 'selected' : '' }}>ผู้ช่วยผู้ใหญ่บ้าน</option>
+                                          <option value="นักการภารโรง" {{ ($data->career_SP2 === 'นักการภารโรง') ? 'selected' : '' }}>นักการภารโรง</option>
+                                          <option value="มอเตอร์ไซร์รับจ้าง" {{ ($data->career_SP2 === 'มอเตอร์ไซร์รับจ้าง') ? 'selected' : '' }}>มอเตอร์ไซร์รับจ้าง</option>
+                                          <option value="ค้าขาย" {{ ($data->career_SP2 === 'ค้าขาย') ? 'selected' : '' }}>ค้าขาย</option>
+                                          <option value="เจ้าของธุรกิจ" {{ ($data->career_SP2 === 'เจ้าของธุรกิจ') ? 'selected' : '' }}>เจ้าของธุรกิจ</option>
+                                          <option value="เจ้าของอู่รถ" {{ ($data->career_SP2 === 'เจ้าของอู่รถ') ? 'selected' : '' }}>เจ้าของอู่รถ</option>
+                                          <option value="ให้เช่ารถบรรทุก" {{ ($data->career_SP2 === 'ให้เช่ารถบรรทุก') ? 'selected' : '' }}>ให้เช่ารถบรรทุก</option>
+                                          <option value="ช่างตัดผม" {{ ($data->career_SP2 === 'ช่างตัดผม') ? 'selected' : '' }}>ช่างตัดผม</option>
+                                          <option value="ชาวนา" {{ ($data->career_SP2 === 'ชาวนา') ? 'selected' : '' }}>ชาวนา</option>
+                                          <option value="ชาวไร่" {{ ($data->career_SP2 === 'ชาวไร่') ? 'selected' : '' }}>ชาวไร่</option>
+                                          <option value="แม่บ้าน" {{ ($data->career_SP2 === 'แม่บ้าน') ? 'selected' : '' }}>แม่บ้าน</option>
+                                          <option value="รับเหมาก่อสร้าง" {{ ($data->career_SP2 === 'รับเหมาก่อสร้าง') ? 'selected' : '' }}>รับเหมาก่อสร้าง</option>
+                                          <option value="ประมง" {{ ($data->career_SP2 === 'ประมง') ? 'selected' : '' }}>ประมง</option>
+                                          <option value="ทนายความ" {{ ($data->career_SP2 === 'ทนายความ') ? 'selected' : '' }}>ทนายความ</option>
+                                          <option value="พระ" {{ ($data->career_SP2 === 'พระ') ? 'selected' : '' }}>พระ</option>
+                                        </select>2
                                       @endif
                                     @endif
                                   </div>
@@ -1799,9 +2023,10 @@
                                     @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MANAGER")
                                       <select name="incomeSP2" class="form-control" style="width: 200px;">
                                         <option value="" selected>--- รายได้ ---</option>
-                                        @foreach ($Incomeby as $key => $value)
-                                          <option value="{{$key}}" {{ ($key == $data->income_SP2) ? 'selected' : '' }}>{{$value}}</option>
-                                        @endforeach
+                                        <option value="5,000 - 10,000" {{ ($data->income_SP2 === '5,000 - 10,000') ? 'selected' : '' }}>5,000 - 10,000</option>
+                                        <option value="10,000 - 15,000" {{ ($data->income_SP2 === '10,000 - 15,000') ? 'selected' : '' }}>10,000 - 15,000</option>
+                                        <option value="15,000 - 20,000" {{ ($data->income_SP2 === '15,000 - 20,000') ? 'selected' : '' }}>15,000 - 20,000</option>
+                                        <option value="มากกว่า 20,000" {{ ($data->income_SP2 === 'มากกว่า 20,000') ? 'selected' : '' }}>มากกว่า 20,000</option>
                                       </select>
                                     @else
                                       @if($GetDocComplete != Null)
@@ -1809,9 +2034,10 @@
                                       @else
                                         <select name="incomeSP2" class="form-control" style="width: 200px;">
                                           <option value="" selected>--- รายได้ ---</option>
-                                          @foreach ($Incomeby as $key => $value)
-                                            <option value="{{$key}}" {{ ($key == $data->income_SP2) ? 'selected' : '' }}>{{$value}}</option>
-                                          @endforeach
+                                          <option value="5,000 - 10,000" {{ ($data->income_SP2 === '5,000 - 10,000') ? 'selected' : '' }}>5,000 - 10,000</option>
+                                          <option value="10,000 - 15,000" {{ ($data->income_SP2 === '10,000 - 15,000') ? 'selected' : '' }}>10,000 - 15,000</option>
+                                          <option value="15,000 - 20,000" {{ ($data->income_SP2 === '15,000 - 20,000') ? 'selected' : '' }}>15,000 - 20,000</option>
+                                          <option value="มากกว่า 20,000" {{ ($data->income_SP2 === 'มากกว่า 20,000') ? 'selected' : '' }}>มากกว่า 20,000</option>
                                         </select>
                                       @endif
                                     @endif
@@ -1823,9 +2049,27 @@
                                     @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MANAGER")
                                       <select name="puchaseSP2" class="form-control" style="width: 88px;">
                                         <option value="" selected>--- ซื้อ ---</option>
-                                        @foreach ($HisCarby as $key => $value)
-                                          <option value="{{$key}}" {{ ($key == $data->puchase_SP2) ? 'selected' : '' }}>{{$value}}</option>
-                                        @endforeach
+                                        <option value="0 คัน" {{ ($data->puchase_SP2 === '0 คัน') ? 'selected' : '' }}>0 คัน</option>
+                                        <option value="1 คัน" {{ ($data->puchase_SP2 === '1 คัน') ? 'selected' : '' }}>1 คัน</option>
+                                        <option value="2 คัน" {{ ($data->puchase_SP2 === '2 คัน') ? 'selected' : '' }}>2 คัน</option>
+                                        <option value="3 คัน" {{ ($data->puchase_SP2 === '3 คัน') ? 'selected' : '' }}>3 คัน</option>
+                                        <option value="4 คัน" {{ ($data->puchase_SP2 === '4 คัน') ? 'selected' : '' }}>4 คัน</option>
+                                        <option value="5 คัน" {{ ($data->puchase_SP2 === '5 คัน') ? 'selected' : '' }}>5 คัน</option>
+                                        <option value="6 คัน" {{ ($data->puchase_SP2 === '6 คัน') ? 'selected' : '' }}>6 คัน</option>
+                                        <option value="7 คัน" {{ ($data->puchase_SP2 === '7 คัน') ? 'selected' : '' }}>7 คัน</option>
+                                        <option value="8 คัน" {{ ($data->puchase_SP2 === '8 คัน') ? 'selected' : '' }}>8 คัน</option>
+                                        <option value="9 คัน" {{ ($data->puchase_SP2 === '9 คัน') ? 'selected' : '' }}>9 คัน</option>
+                                        <option value="10 คัน" {{ ($data->puchase_SP2 === '10 คัน') ? 'selected' : '' }}>10 คัน</option>
+                                        <option value="11 คัน" {{ ($data->puchase_SP2 === '11 คัน') ? 'selected' : '' }}>11 คัน</option>
+                                        <option value="12 คัน" {{ ($data->puchase_SP2 === '12 คัน') ? 'selected' : '' }}>12 คัน</option>
+                                        <option value="13 คัน" {{ ($data->puchase_SP2 === '13 คัน') ? 'selected' : '' }}>13 คัน</option>
+                                        <option value="14 คัน" {{ ($data->puchase_SP2 === '14 คัน') ? 'selected' : '' }}>14 คัน</option>
+                                        <option value="15 คัน" {{ ($data->puchase_SP2 === '15 คัน') ? 'selected' : '' }}>15 คัน</option>
+                                        <option value="16 คัน" {{ ($data->puchase_SP2 === '16 คัน') ? 'selected' : '' }}>16 คัน</option>
+                                        <option value="17 คัน" {{ ($data->puchase_SP2 === '17 คัน') ? 'selected' : '' }}>17 คัน</option>
+                                        <option value="18 คัน" {{ ($data->puchase_SP2 === '18 คัน') ? 'selected' : '' }}>18 คัน</option>
+                                        <option value="19 คัน" {{ ($data->puchase_SP2 === '19 คัน') ? 'selected' : '' }}>19 คัน</option>
+                                        <option value="20 คัน" {{ ($data->puchase_SP2 === '20 คัน') ? 'selected' : '' }}>20 คัน</option>
                                       </select>
                                     @else
                                       @if($GetDocComplete != Null)
@@ -1833,9 +2077,27 @@
                                       @else
                                         <select name="puchaseSP2" class="form-control" style="width: 88px;">
                                           <option value="" selected>--- ซื้อ ---</option>
-                                          @foreach ($HisCarby as $key => $value)
-                                            <option value="{{$key}}" {{ ($key == $data->puchase_SP2) ? 'selected' : '' }}>{{$value}}</option>
-                                          @endforeach
+                                          <option value="0 คัน" {{ ($data->puchase_SP2 === '0 คัน') ? 'selected' : '' }}>0 คัน</option>
+                                          <option value="1 คัน" {{ ($data->puchase_SP2 === '1 คัน') ? 'selected' : '' }}>1 คัน</option>
+                                          <option value="2 คัน" {{ ($data->puchase_SP2 === '2 คัน') ? 'selected' : '' }}>2 คัน</option>
+                                          <option value="3 คัน" {{ ($data->puchase_SP2 === '3 คัน') ? 'selected' : '' }}>3 คัน</option>
+                                          <option value="4 คัน" {{ ($data->puchase_SP2 === '4 คัน') ? 'selected' : '' }}>4 คัน</option>
+                                          <option value="5 คัน" {{ ($data->puchase_SP2 === '5 คัน') ? 'selected' : '' }}>5 คัน</option>
+                                          <option value="6 คัน" {{ ($data->puchase_SP2 === '6 คัน') ? 'selected' : '' }}>6 คัน</option>
+                                          <option value="7 คัน" {{ ($data->puchase_SP2 === '7 คัน') ? 'selected' : '' }}>7 คัน</option>
+                                          <option value="8 คัน" {{ ($data->puchase_SP2 === '8 คัน') ? 'selected' : '' }}>8 คัน</option>
+                                          <option value="9 คัน" {{ ($data->puchase_SP2 === '9 คัน') ? 'selected' : '' }}>9 คัน</option>
+                                          <option value="10 คัน" {{ ($data->puchase_SP2 === '10 คัน') ? 'selected' : '' }}>10 คัน</option>
+                                          <option value="11 คัน" {{ ($data->puchase_SP2 === '11 คัน') ? 'selected' : '' }}>11 คัน</option>
+                                          <option value="12 คัน" {{ ($data->puchase_SP2 === '12 คัน') ? 'selected' : '' }}>12 คัน</option>
+                                          <option value="13 คัน" {{ ($data->puchase_SP2 === '13 คัน') ? 'selected' : '' }}>13 คัน</option>
+                                          <option value="14 คัน" {{ ($data->puchase_SP2 === '14 คัน') ? 'selected' : '' }}>14 คัน</option>
+                                          <option value="15 คัน" {{ ($data->puchase_SP2 === '15 คัน') ? 'selected' : '' }}>15 คัน</option>
+                                          <option value="16 คัน" {{ ($data->puchase_SP2 === '16 คัน') ? 'selected' : '' }}>16 คัน</option>
+                                          <option value="17 คัน" {{ ($data->puchase_SP2 === '17 คัน') ? 'selected' : '' }}>17 คัน</option>
+                                          <option value="18 คัน" {{ ($data->puchase_SP2 === '18 คัน') ? 'selected' : '' }}>18 คัน</option>
+                                          <option value="19 คัน" {{ ($data->puchase_SP2 === '19 คัน') ? 'selected' : '' }}>19 คัน</option>
+                                          <option value="20 คัน" {{ ($data->puchase_SP2 === '20 คัน') ? 'selected' : '' }}>20 คัน</option>
                                         </select>
                                       @endif
                                     @endif
@@ -1844,9 +2106,27 @@
                                     @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MANAGER")
                                       <select name="supportSP2" class="form-control" style="width: 88px;">
                                         <option value="" selected>--- ค้ำ ---</option>
-                                        @foreach ($HisCarby as $key => $value)
-                                          <option value="{{$key}}" {{ ($key == $data->support_SP2) ? 'selected' : '' }}>{{$value}}</option>
-                                        @endforeach
+                                        <option value="0 คัน" {{ ($data->support_SP2 === '0 คัน') ? 'selected' : '' }}>0 คัน</option>
+                                        <option value="1 คัน" {{ ($data->support_SP2 === '1 คัน') ? 'selected' : '' }}>1 คัน</option>
+                                        <option value="2 คัน" {{ ($data->support_SP2 === '2 คัน') ? 'selected' : '' }}>2 คัน</option>
+                                        <option value="3 คัน" {{ ($data->support_SP2 === '3 คัน') ? 'selected' : '' }}>3 คัน</option>
+                                        <option value="4 คัน" {{ ($data->support_SP2 === '4 คัน') ? 'selected' : '' }}>4 คัน</option>
+                                        <option value="5 คัน" {{ ($data->support_SP2 === '5 คัน') ? 'selected' : '' }}>5 คัน</option>
+                                        <option value="6 คัน" {{ ($data->support_SP2 === '6 คัน') ? 'selected' : '' }}>6 คัน</option>
+                                        <option value="7 คัน" {{ ($data->support_SP2 === '7 คัน') ? 'selected' : '' }}>7 คัน</option>
+                                        <option value="8 คัน" {{ ($data->support_SP2 === '8 คัน') ? 'selected' : '' }}>8 คัน</option>
+                                        <option value="9 คัน" {{ ($data->support_SP2 === '9 คัน') ? 'selected' : '' }}>9 คัน</option>
+                                        <option value="10 คัน" {{ ($data->support_SP2 === '10 คัน') ? 'selected' : '' }}>10 คัน</option>
+                                        <option value="11 คัน" {{ ($data->support_SP2 === '11 คัน') ? 'selected' : '' }}>11 คัน</option>
+                                        <option value="12 คัน" {{ ($data->support_SP2 === '12 คัน') ? 'selected' : '' }}>12 คัน</option>
+                                        <option value="13 คัน" {{ ($data->support_SP2 === '13 คัน') ? 'selected' : '' }}>13 คัน</option>
+                                        <option value="14 คัน" {{ ($data->support_SP2 === '14 คัน') ? 'selected' : '' }}>14 คัน</option>
+                                        <option value="15 คัน" {{ ($data->support_SP2 === '15 คัน') ? 'selected' : '' }}>15 คัน</option>
+                                        <option value="16 คัน" {{ ($data->support_SP2 === '16 คัน') ? 'selected' : '' }}>16 คัน</option>
+                                        <option value="17 คัน" {{ ($data->support_SP2 === '17 คัน') ? 'selected' : '' }}>17 คัน</option>
+                                        <option value="18 คัน" {{ ($data->support_SP2 === '18 คัน') ? 'selected' : '' }}>18 คัน</option>
+                                        <option value="19 คัน" {{ ($data->support_SP2 === '19 คัน') ? 'selected' : '' }}>19 คัน</option>
+                                        <option value="20 คัน" {{ ($data->support_SP2 === '20 คัน') ? 'selected' : '' }}>20 คัน</option>
                                       </select>
                                     @else
                                       @if($GetDocComplete != Null)
@@ -1854,9 +2134,27 @@
                                       @else
                                         <select name="supportSP2" class="form-control" style="width: 88px;">
                                           <option value="" selected>--- ค้ำ ---</option>
-                                          @foreach ($HisCarby as $key => $value)
-                                            <option value="{{$key}}" {{ ($key == $data->support_SP2) ? 'selected' : '' }}>{{$value}}</option>
-                                          @endforeach
+                                          <option value="0 คัน" {{ ($data->support_SP2 === '0 คัน') ? 'selected' : '' }}>0 คัน</option>
+                                          <option value="1 คัน" {{ ($data->support_SP2 === '1 คัน') ? 'selected' : '' }}>1 คัน</option>
+                                          <option value="2 คัน" {{ ($data->support_SP2 === '2 คัน') ? 'selected' : '' }}>2 คัน</option>
+                                          <option value="3 คัน" {{ ($data->support_SP2 === '3 คัน') ? 'selected' : '' }}>3 คัน</option>
+                                          <option value="4 คัน" {{ ($data->support_SP2 === '4 คัน') ? 'selected' : '' }}>4 คัน</option>
+                                          <option value="5 คัน" {{ ($data->support_SP2 === '5 คัน') ? 'selected' : '' }}>5 คัน</option>
+                                          <option value="6 คัน" {{ ($data->support_SP2 === '6 คัน') ? 'selected' : '' }}>6 คัน</option>
+                                          <option value="7 คัน" {{ ($data->support_SP2 === '7 คัน') ? 'selected' : '' }}>7 คัน</option>
+                                          <option value="8 คัน" {{ ($data->support_SP2 === '8 คัน') ? 'selected' : '' }}>8 คัน</option>
+                                          <option value="9 คัน" {{ ($data->support_SP2 === '9 คัน') ? 'selected' : '' }}>9 คัน</option>
+                                          <option value="10 คัน" {{ ($data->support_SP2 === '10 คัน') ? 'selected' : '' }}>10 คัน</option>
+                                          <option value="11 คัน" {{ ($data->support_SP2 === '11 คัน') ? 'selected' : '' }}>11 คัน</option>
+                                          <option value="12 คัน" {{ ($data->support_SP2 === '12 คัน') ? 'selected' : '' }}>12 คัน</option>
+                                          <option value="13 คัน" {{ ($data->support_SP2 === '13 คัน') ? 'selected' : '' }}>13 คัน</option>
+                                          <option value="14 คัน" {{ ($data->support_SP2 === '14 คัน') ? 'selected' : '' }}>14 คัน</option>
+                                          <option value="15 คัน" {{ ($data->support_SP2 === '15 คัน') ? 'selected' : '' }}>15 คัน</option>
+                                          <option value="16 คัน" {{ ($data->support_SP2 === '16 คัน') ? 'selected' : '' }}>16 คัน</option>
+                                          <option value="17 คัน" {{ ($data->support_SP2 === '17 คัน') ? 'selected' : '' }}>17 คัน</option>
+                                          <option value="18 คัน" {{ ($data->support_SP2 === '18 คัน') ? 'selected' : '' }}>18 คัน</option>
+                                          <option value="19 คัน" {{ ($data->support_SP2 === '19 คัน') ? 'selected' : '' }}>19 คัน</option>
+                                          <option value="20 คัน" {{ ($data->support_SP2 === '20 คัน') ? 'selected' : '' }}>20 คัน</option>
                                         </select>
                                       @endif
                                     @endif

@@ -134,7 +134,7 @@
     </div>
   </section>
 
-  <!-- Pop up รายละเอียดค่าใช้จ่าย -->
+  <!-- Pop up ทะเบียน -->
   <div class="modal fade" id="modal-4">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -147,7 +147,7 @@
     </div>
   </div>
 
-  <!-- Pop up ตรวจสอบหน้าเล่ม -->
+  <!-- Pop up ตรวจสอบบัญชี -->
   <div class="modal fade" id="modal-5">
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
@@ -160,7 +160,7 @@
     </div>
   </div>
 
-  <!-- Pop up รายละเอียดค่าใช้จ่าย -->
+  <!-- Pop up รายงานอนุมัติประจำวัน -->
   <div class="modal fade" id="modal-6">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -173,7 +173,7 @@
     </div>
   </div>
 
-  <!-- Pop up รายละเอียดค่าใช้จ่าย -->
+  <!-- Pop up รายงานโอนเงินประจำวัน -->
   <div class="modal fade" id="modal-7">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">

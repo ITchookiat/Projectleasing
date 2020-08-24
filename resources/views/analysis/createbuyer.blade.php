@@ -1884,7 +1884,6 @@
                         </div>
                       </div>
                     </div>
-                    
 
                     <input type="hidden" name="patch_type" value="1">
                     <input type="hidden" name="_token" value="{{csrf_token()}}" />
@@ -2218,8 +2217,6 @@
                         </div>
                       </div>
                     </div>
-                    
-
                   </div>
                   
                 </div>

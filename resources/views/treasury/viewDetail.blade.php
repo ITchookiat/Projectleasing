@@ -276,7 +276,11 @@
           </div>
         </div>
       @elseif ($GetType == 2)
-        <form name="form1" action="{{ route('treasury.updateAnalysis' ,[1, $data->id]) }}" method="get" id="formimage" enctype="multipart/form-data">
+        <form name="form1" action="{{ route('MasterTreasury.update' ,[$data->id]) }}" method="post" id="formimage" enctype="multipart/form-data">
+          @csrf
+          @method('put')
+          <input type="hidden" name="type" value="1" />
+
           <div class="row">
             <div class="col-12">
               <div class="form-inline">
@@ -423,9 +427,7 @@
             </div>
           </div>
 
-          @php
-            $sumArcsum = 0;
-          @endphp
+          @php $sumArcsum = 0; @endphp
           @if($data->Payee_car == $data->Agent_car and $data->Accountbrance_car == $data->Accountagent_car)
             @php
               $sumArcsum = $data->balance_Price + $data->commit_Price;
@@ -441,7 +443,7 @@
                   </div>
                 @endif
               </div>
-            @if(auth::user()->type != 2)
+            @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก การเงินใน")
               <div class="col-5">
                 <div class="float-right form-inline">
                   <i class="fas fa-grip-vertical"></i>
@@ -466,8 +468,8 @@
               </div>
             @endif
           </div>
+          <input type="hidden" name="_method" value="PATCH"/>
         </form>
-
       @endif
 
     </div>

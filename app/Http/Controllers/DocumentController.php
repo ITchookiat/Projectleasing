@@ -40,16 +40,16 @@ class DocumentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $type)
+    public function store(Request $request)
     {
         // dd($request);
-        if($type == 1){
+        if($request->type == 1){
             $data = new Filefolder;
             $data->folder_name = $request->foldername;
             $data->folder_creator = $request->creator;
             $data->save();
         }
-        elseif($type == 2){
+        elseif($request->type == 2){
             $data = new Filedocument;
             if($request->file('file')){
                 $file = $request->file('file');
@@ -88,10 +88,10 @@ class DocumentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id,Request $request, $type)
+    public function edit(Request $request, $id)
     {
-        // dd($id);
-        if($type == 1){
+        // dd($request);
+        if($request->type == 1){
             $folder = Filefolder::find($id);
             $data = DB::table('filefolders')
                 ->join('filedocuments','filefolders.folder_id','=','filedocuments.folder_id')
@@ -101,7 +101,7 @@ class DocumentController extends Controller
             $title = $folder->folder_name;
             return view('document.view',compact('data','title','id'));
         }
-        elseif($type == 2){
+        elseif($request->type == 2){
             $folder_name = $request->foldername;
             $data = Filedocument::find($id);
             return view('document.preview',compact('data','folder_name'));
@@ -126,15 +126,15 @@ class DocumentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$id,$type)
+    public function destroy(Request $request, $id)
     {
-        if($type == 1){
+        if($request->type == 1){
             $item1 = Filefolder::find($id);
             $item1->Delete();
             $itemPath = public_path().'/file-documents/'.$request->foldername;
             File::deleteDirectory($itemPath);
         }
-        elseif($type == 2){
+        elseif($request->type == 2){
             $item1 = Filedocument::find($id);
             $itemPath = public_path().'/file-documents/'.$request->foldername.'/'.$item1->file_name;
             File::delete($itemPath);

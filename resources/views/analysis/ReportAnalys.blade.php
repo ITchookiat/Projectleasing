@@ -18,7 +18,7 @@
 
   </head>
     <label>วันที่ : {{$date}}</label>
-    @if($type == 8)
+    @if($type == 11)
       <h3 class="card-title p-3" align="center">แบบฟอร์มขออนุมัติปรับโครงสร้างหนี้</h3>
     @else
       <h3 class="card-title p-3" align="center">แบบฟอร์มขออนุมัติเช่าซื้อรถยนต์</h3>
@@ -503,7 +503,7 @@
           <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataReport->contrac_HC}}</b></th>
         </tr>
       </table>
-    @elseif($type == 8 or $type == 12)
+    @elseif($type == 11 or $type == 12)
         <table border="1">
           <thead>
             <tr align="center">
