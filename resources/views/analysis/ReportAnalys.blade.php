@@ -656,7 +656,7 @@
             <th align="right" width="120px"> ประวัติค้ำ &nbsp;</th>
             <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataReport->Supporthistory_car}}</b></th>
           </tr>
-          @elseif($type == 8)
+          @elseif($type == 11)
               <tr>
                 <th align="right" width="120px"> ค่างวดเดิม &nbsp;</th>
                 <th width="120px" style="background-color: yellow;"> <b>{{number_format($dataReport->other_Price,2)}} </b>&nbsp; </th>
@@ -670,7 +670,7 @@
           <tr>
             <th align="right" width="120px"> เจ้าหน้าที่สินเชื่อ &nbsp;</th>
             <th class="text-center" width="120px" style="background-color: yellow;"> <b>{{$dataReport->Loanofficer_car}}</b></th>
-          @if($type == 8)
+          @if($type == 11)
             <th align="right" width="120px"> สาขา &nbsp;</th>
             <th class="text-center" width="85px" style="background-color: yellow;"> <b>{{$dataReport->branch_car}}</b></th>
             <th align="right" width="35px"> คชจ. &nbsp;</th>
