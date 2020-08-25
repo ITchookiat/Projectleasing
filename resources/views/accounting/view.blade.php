@@ -52,10 +52,10 @@
                       <br><br><br><p></p>
                       <div class="float-right form-inline">
                         <label>จากวันที่ : </label>
-                        <input type="date" name="Fromdate" value="{{ date('Y-m-d') }}" class="form-control" />
+                        <input type="date" name="Fromdate"value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control" />
 
                         <label>ถึงวันที่ : </label>
-                        <input type="date" name="Todate" value="{{ date('Y-m-d') }}" class="form-control" />
+                        <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control" />
                       </div>
                     </form>
                     <br><br>
