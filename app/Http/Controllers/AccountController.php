@@ -10,6 +10,9 @@ class AccountController extends Controller
     public function index(Request $request)
     {
         if ($request->type == 1) {
+            $newfdate = '';
+            $newtdate = '';
+
             if ($request->has('Fromdate')){
                 $newfdate = $request->get('Fromdate');
             }
@@ -75,7 +78,7 @@ class AccountController extends Controller
                 }
             }
             
-            return view('accounting.view', compact('dataApp','dataTrans','SumApp','SumTrans'));
+            return view('accounting.view', compact('dataApp','dataTrans','SumApp','SumTrans','newfdate','newtdate'));
         }
         elseif ($request->type == 2) {
             $type = $request->type;

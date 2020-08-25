@@ -82,7 +82,6 @@ Route::group(['middleware' => 'auth'], function()
     route::resource('MasterDataCustomer','DataCustomerController');
     Route::get('/DataCustomer/Home/{type}', 'DataCustomerController@index')->name('DataCustomer');
     Route::get('/DataCustomer/Savestatus/{value}/{id}', 'DataCustomerController@savestatus')->name('DataCustomer.savestatus');
-    Route::delete('/DataCustomer/delete/{id}', 'DataCustomerController@destroy');
 
     //------------------LOCKER เอกสาร-----------------//
     route::resource('MasterDocument','DocumentController');

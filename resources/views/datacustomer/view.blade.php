@@ -110,7 +110,7 @@
                             <tr>
                               <td class="text-center">
                               @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                                <form method="post" class="delete_form" action="{{ action('DataCustomerController@destroy',[$row->Customer_id]) }}" style="display:inline;">
+                                <form method="post" class="delete_form" action="{{ route('MasterDataCustomer.destroy',[$row->Customer_id]) }}" style="display:inline;">
                                 {{csrf_field()}}
                                   <input type="hidden" name="_method" value="DELETE" />
                                   <button type="submit" data-name="" class="delete-modal btn btn-xs AlertForm text-red" title="ลบรายการ">
