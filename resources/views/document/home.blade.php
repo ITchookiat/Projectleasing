@@ -43,7 +43,7 @@
                   <div class="col-6">
                     <div class="card-tools d-inline float-right">
                       @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                        <a class="btn bg-success btn-sm" data-toggle="modal" data-target="#modal-lg" data-backdrop="static">
+                        <a class="btn bg-success btn-xs" data-toggle="modal" data-target="#modal-lg" data-backdrop="static">
                           <span class="fas fa-plus"></span> New Folder
                         </a>
                       @endif
@@ -58,7 +58,7 @@
                       <div class="card-body">
                         <div class="row">
                           @foreach($data as $row)
-                            <div class="col-sm-2">
+                            <div class="col-sm-1">
                             @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                               <form method="post" class="delete_form float-right" action="{{ route('MasterDocument.destroy',[$row->folder_id]) }}?type={{1}}" style="display:inline;">
                                 {{csrf_field()}}
@@ -120,6 +120,7 @@
                 </div>
                 <br/>
                 <input type="hidden" name="creator" value="{{auth::user()->name}}"/>
+                <input type="hidden" name="type" value="1"/>
             </div>
             <div style="text-align: center;">
                 <button type="submit" class="btn btn-success" style="border-radius:50px;">สร้าง</button>
@@ -132,20 +133,6 @@
         <!-- /.modal-dialog -->
     </div>
   </form>
-
-  <div class="modal fade" id="modal-preview">
-    <div class="modal-dialog modal-xl">
-      <div class="modal-content bg-default">
-        <div class="modal-body">
-          <p>One fine body…</p>
-        </div>
-        <div class="modal-footer">
-          <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
   {{-- button-to-top --}}
   <script>
