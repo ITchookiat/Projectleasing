@@ -137,15 +137,15 @@
                             <td class="text-left">{{DateThai(substr($row->created_at,0,10))}}</td>
                             <td class="text-right">
                               @if($extension == 'pdf' or $extension == 'jpg' or $extension == 'png' or $extension == 'txt' or $extension == 'mp4')
-                                  <a href="#" data-toggle="modal" data-target="#modal-preview" data-link="{{ action('DocumentController@edit',[$row->file_id,2]) }}?foldername={{$title1}}" class="btn btn-warning btn-sm" title="ดูไฟล์">
-                                    <i class="far fa-eye"></i>
-                                  </a>
+                                <a href="#" data-toggle="modal" data-target="#modal-preview" data-link="{{ route('MasterDocument.edit',[$row->file_id]) }}?type={{2}}&foldername={{$title}}" class="btn btn-warning btn-sm" title="ดูไฟล์">
+                                  <i class="far fa-eye"></i>
+                                </a>
                               @endif
                                 <a href="{{ action('DocumentController@download',[$row->file_name])}}?foldername={{$title1}}" class="btn btn-info btn-sm" title="ดาวน์โหลดไฟล์">
                                   <i class="fas fa-download"></i>
                                 </a>
                               @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                                <form method="post" class="delete_form" action="{{ action('DocumentController@destroy',[$row->file_id,2]) }}" style="display:inline;">
+                                <form method="post" class="delete_form" action="{{ route('MasterDocument.destroy',[$row->file_id]) }}?type={{2}}" style="display:inline;">
                                 {{csrf_field()}}
                                   <input type="hidden" name="_method" value="DELETE" />
                                   <input type="hidden" name="foldername" value="{{$title1}}" />
@@ -172,8 +172,10 @@
   </section>
 
   <!-- pop up เพิ่มไฟล์อัพโหลด -->
-  <form action="{{ route('document.store',2) }}" method="post" enctype="multipart/form-data">
+  <form action="{{ route('MasterDocument.store') }}" method="post" enctype="multipart/form-data">
     {{ csrf_field() }}
+    <input type="hidden" name="type" value="2">
+
     <div class="modal fade" id="modal-lg" aria-hidden="true" style="display: none;">
         <div class="modal-dialog">
           <div class="modal-content" style="border-radius:50px;">

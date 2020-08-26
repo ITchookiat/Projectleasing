@@ -32,8 +32,11 @@
       @endif
 
       <section class="content">
-        <form name="form1" action="{{ action('PrecController@update',[$id,$type]) }}" method="post" id="formimage" enctype="multipart/form-data">
+        <form name="form1" action="{{ route('MasterPrecipitate.update',[$id]) }}" method="post" id="formimage" enctype="multipart/form-data">
           @csrf
+          @method('put')
+          <input type="hidden" name="type" value="6" />
+
           <div class="row">
             <div class="col-12">
               <div class="card">
@@ -391,12 +394,7 @@
                             </div>
                           </div>
                         </div>
-      
-                        <input type="hidden" name="_token" value="{{csrf_token()}}" />
-                        <input type="hidden" name="type" value="6" />
-                        <input type="hidden" readonly name="Cartype" value="{{ $type }}" class="form-control" />
                         <input type="hidden" name="_method" value="PATCH"/>
-
                     </div>
                   </div>
 

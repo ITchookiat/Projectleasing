@@ -419,199 +419,6 @@ class AnalysController extends Controller
         $type = $request->type;
         return view('analysis.viewReport', compact('type', 'dataReport','approvedate','fdate','tdate'));
       }
-      elseif ($request->type == 8){ //ปรับโครงสร้างหนี้
-        $contno = '';
-        $newfdate = '';
-        $newtdate = '';
-        $branch = '';
-        $status = '';
-
-        if ($request->has('Fromdate')) {
-          $fdate = $request->get('Fromdate');
-          $newfdate = \Carbon\Carbon::parse($fdate)->format('Y') ."-". \Carbon\Carbon::parse($fdate)->format('m')."-". \Carbon\Carbon::parse($fdate)->format('d');
-        }
-        if (session()->has('fdate')){
-          $fdate = session('fdate');
-          $newfdate = \Carbon\Carbon::parse($fdate)->format('Y') ."-". \Carbon\Carbon::parse($fdate)->format('m')."-". \Carbon\Carbon::parse($fdate)->format('d');
-        }
-
-        if ($request->has('Todate')) {
-          $tdate = $request->get('Todate');
-          $newtdate = \Carbon\Carbon::parse($tdate)->format('Y') ."-". \Carbon\Carbon::parse($tdate)->format('m')."-". \Carbon\Carbon::parse($tdate)->format('d');
-        }
-        if (session()->has('tdate')){
-          $tdate = session('tdate');
-          $newtdate = \Carbon\Carbon::parse($tdate)->format('Y') ."-". \Carbon\Carbon::parse($tdate)->format('m')."-". \Carbon\Carbon::parse($tdate)->format('d');
-        }
-
-        if ($request->has('branch')) {
-          $branch = $request->get('branch');
-        }
-        if (session()->has('branch')){
-          $branch = session('branch');
-        }
-
-        if ($request->has('status')) {
-          $status = $request->get('status');
-        }
-        if (session()->has('status')){
-          $status = session('status');
-        }
-
-        if ($request->has('Contno')) {
-          $contno = $request->get('Contno');
-        }
-        if (session()->has('Contno')){
-          $contno = session('Contno');
-        }
-
-        if ($request->has('Fromdate') == false and $request->has('Todate') == false) {
-          if (session()->has('fdate') != false or $request->has('tdate') != false) {
-
-            $data = DB::table('buyers')
-            ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
-            ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
-            ->join('expenses','buyers.id','=','expenses.Buyerexpenses_id')
-            ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
-              return $q->whereBetween('buyers.Date_Due',[$newfdate,$newtdate]);
-            })
-            ->when(!empty($branch), function($q) use($branch){
-              return $q->where('cardetails.branch_car',$branch);
-            })
-            ->when(!empty($status), function($q) use($status){
-              return $q->where('cardetails.StatusApp_car','=',$status);
-            })
-            ->when(!empty($contno), function($q) use($contno){
-              return $q->where('buyers.Contract_buyer','=',$contno);
-            })
-            ->where('buyers.Contract_buyer','like', '22%')
-            ->orderBy('buyers.Contract_buyer', 'ASC')
-            ->get();
-
-          }
-          else { //แสดงแรกเริ่มหน้า
-            $data = DB::table('buyers')
-            ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
-            ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
-            ->join('expenses','buyers.id','=','expenses.Buyerexpenses_id')
-            ->where('buyers.Contract_buyer','like', '22%')
-            ->where('cardetails.Approvers_car','=',Null)
-            ->orderBy('buyers.Contract_buyer', 'ASC')
-            ->get();
-          }
-
-        }else {
-            if($contno != ''){
-              $newfdate = '';
-              $newtdate = '';
-              $branch = '';
-              $status = '';
-            }
-
-            $data = DB::table('buyers')
-            ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
-            ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
-            ->join('expenses','buyers.id','=','expenses.Buyerexpenses_id')
-            ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
-              return $q->whereBetween('buyers.Date_Due',[$newfdate,$newtdate]);
-            })
-            ->when(!empty($branch), function($q) use($branch){
-              return $q->where('cardetails.branch_car',$branch);
-            })
-            ->when(!empty($status), function($q) use($status){
-              return $q->where('cardetails.StatusApp_car','=',$status);
-            })
-            ->when(!empty($contno), function($q) use($contno){
-              return $q->where('buyers.Contract_buyer','=',$contno);
-            })
-            ->where('buyers.Contract_buyer','like', '22%')
-            ->orderBy('buyers.Contract_buyer', 'ASC')
-            ->get();
-
-        }
-
-        $type = $request->type;
-        return view('analysis.view', compact('type', 'data','branch','newfdate','newtdate','status','Setdate','SumTopcar','SumCommissioncar','SumCommitprice','contno','SetStrConn','SetStr1','SetStr2'));
-      }
-      elseif ($request->type == 9){ //เพิ่มปรับโครงสร้างหนี้
-        $Contno = '';
-        $NewBrand = '';
-        $NewRelate = '';
-        if ($request->Contno != '') {
-          $Contno = $request->Contno;
-        }
-        $data = DB::connection('ibmi')
-        ->table('SFHP.ARMAST')
-        ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
-        ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
-        ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
-        ->join('SFHP.CUSTMAST','SFHP.ARMAST.CUSCOD','=','SFHP.CUSTMAST.CUSCOD')
-        ->where('SFHP.ARMAST.CONTNO','=', $Contno)
-        ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
-        ->first();
-        if($data != null){
-          $NewBrand = iconv('Tis-620','utf-8',str_replace(" ","",$data->TYPE));
-        }
-        $dataGT = DB::connection('ibmi')
-                  ->table('SFHP.VIEW_ARMGAR')
-                  ->where('SFHP.VIEW_ARMGAR.CONTNO','=', $Contno)
-                  ->first();
-        // dump($data,$dataGT);
-        if($dataGT != null){
-          $NewRelate = iconv('Tis-620','utf-8',str_replace(" ","",$dataGT->RELATN));
-        }
-        $dataPay = DB::connection('ibmi')
-        ->table('SFHP.ARPAY')
-        ->where('SFHP.ARPAY.CONTNO','=', $Contno)
-        ->orderBy('SFHP.ARPAY.CONTNO', 'ASC')
-        ->get();
-        $type = $request->type;
-        return view('analysis.createextra', compact('type','data','dataGT','NewBrand','NewRelate','dataPay'));
-      }
-      elseif ($request->type == 10){ //เช็คสิทธิ์ลูกค้า
-        $Contno = '';
-        $data = '';
-        if ($request->Contno != '') {
-            $Contno = $request->Contno;
-            $data = DB::connection('ibmi')
-            ->table('SFHP.ARMAST')
-            ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
-            ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
-            ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
-            ->where('SFHP.ARMAST.CONTNO','=', $Contno)
-            ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
-            ->get();
-            $dataARPAYcount = count($data);
-            // dd($dataARPAYcount);
-            if($dataARPAYcount == 0){
-              $Contno = $request->Contno;
-              $percent = '';
-              $dataPAYcount = '';
-              $dataNOPAYcount = '';
-              $dataPay[] = '';
-              $dataNoPay[] = '';
-            }
-            else{
-              for ($i=0; $i < $dataARPAYcount; $i++) {
-                if($data[$i]->DATE1 != null){
-                  $dataPay[] = $data[$i]->DATE1;
-                }
-                elseif($data[$i]->DATE1 == null){
-                  $dataNoPay[] = $data[$i]->DATE1;
-                }
-              }
-              $T_Nopay = $data[0]->T_NOPAY;
-              $dataPAYcount = count($dataPay);
-              $dataNOPAYcount = count($dataNoPay);
-              $percent = ceil(($dataPAYcount/$T_Nopay)*100);
-              $newPeriod = ceil(($dataPAYcount/$T_Nopay)*100);
-            }
-            // dd($percent,$T_Nopay,$dataPAYcount,$dataNOPAYcount,$dataPay,$dataNoPay,$data);
-        }
-
-
-        return view('analysis.checkcustomer', compact('data','Contno','percent','dataPAYcount','dataNOPAYcount'));
-      }
       elseif ($request->type == 11){ //รายงาน ปรับโครงสร้างหนี้
         $newfdate = '';
         $newtdate = '';
@@ -1113,9 +920,7 @@ class AnalysController extends Controller
         }
       }
       else {
-        if($request->get('type') == 8){
-          $SetBranch = 'ปรับโครงสร้าง';
-        }else if($request->get('type') == 12){
+        if($request->get('type') == 12){
           $SetBranch = 'มาตรการช่วยเหลือ';
         }else{
           $SetBranch = $request->get('branchcar');
@@ -1255,9 +1060,7 @@ class AnalysController extends Controller
         ]);
         $Expensesdb ->save();
 
-        if($request->type == 8){
-          $type = 8;
-        }elseif($request->type == 12){
+        if($request->type == 12){
           $type = 12;
         }else{
           $type = 1;
@@ -1400,20 +1203,6 @@ class AnalysController extends Controller
                   ->where('buyers.id',$id)->first();
 
         $Gettype = $type;
-      }
-      elseif ($type == 8) {
-        $data = DB::table('buyers')
-                  ->leftJoin('sponsors','buyers.id','=','sponsors.Buyer_id')
-                  ->leftJoin('sponsor2s','buyers.id','=','sponsor2s.Buyer_id2')
-                  ->leftJoin('cardetails','Buyers.id','=','cardetails.Buyercar_id')
-                  ->leftJoin('expenses','Buyers.id','=','expenses.Buyerexpenses_id')
-                  ->leftJoin('upload_lat_longs','Buyers.id','=','upload_lat_longs.Use_id')
-                  ->select('buyers.*','sponsors.*','sponsor2s.*','cardetails.*','expenses.*','upload_lat_longs.*','buyers.created_at AS createdBuyers_at')
-                  ->where('buyers.id',$id)->first();
-
-                  $GetDocComplete = $data->DocComplete_car;
-                  $Gettype = $type;
-                  $data = $data;
       }
       elseif ($type == 12) {
         $data = DB::table('buyers')
@@ -1707,7 +1496,7 @@ class AnalysController extends Controller
             'Gettransfer','Getinterest','fdate','tdate','branch','status','Gettype','GetSale','GetypeHC','GetbaabHC',
             'GetguaranteeHC','relationSP','countImage','GradeBuyer','Typecardetail','objectivecar'));
       }
-      elseif ($type == 8 or $type == 12) {
+      elseif ($type == 12) {
         $type = $request->type;
         $Gettype = $request->type;
         return view('Analysis.editextra',
@@ -1913,7 +1702,7 @@ class AnalysController extends Controller
         }
 
         if ($type == 4) {   //สินเชื่อ รถบ้าน
-          if (auth()->user()->branch == 10 or auth()->user()->branch == 11 or auth()->user()->type == 4 or auth()->user()->type == 1) {
+          if (auth()->user()->type == "แผนก รถบ้าน" or auth()->user()->type == "Admin") {
             $Homecardetail = homecardetail::where('Buyerhomecar_id',$id)->first();
               $Homecardetail->brand_HC = $request->get('brandHC');
               $Homecardetail->year_HC = $request->get('yearHC');
@@ -2053,94 +1842,85 @@ class AnalysController extends Controller
 
                 $AccountImage->move($destination_path,$NameImage);
               }
-
               $cardetail->AccountImage_car = $NameImage;
             }
 
             // สถานะ อนุมัติสัญญา
             if ($StatusApp == "อนุมัติ") {
-              $Date = date('d-m-Y', strtotime('+1 month'));
-              $SetDate = \Carbon\Carbon::parse($Date)->format('Y')+543 ."-". \Carbon\Carbon::parse($Date)->format('m')."-". \Carbon\Carbon::parse($Date)->format('d');
-              $datedueBF = date_create($SetDate);
-              $DateDue = date_format($datedueBF, 'd-m-Y');
+              if ($cardetail->StatusApp_car == "รออนุมัติ") {
+                $Date = date('d-m-Y', strtotime('+1 month'));
+                $SetDate = \Carbon\Carbon::parse($Date)->format('Y')+543 ."-". \Carbon\Carbon::parse($Date)->format('m')."-". \Carbon\Carbon::parse($Date)->format('d');
+                $datedueBF = date_create($SetDate);
+                $DateDue = date_format($datedueBF, 'd-m-Y');
 
-              if ($cardetail->branch_car == "ปัตตานี") {
-                  $connect = Buyer::where('Contract_buyer', 'like', '01%' )
+                if ($cardetail->branch_car == "ปัตตานี") {
+                    $connect = Buyer::where('Contract_buyer', 'like', '01%' )
+                        ->orderBy('Contract_buyer', 'desc')->limit(1)
+                        ->get();
+                }
+                elseif ($cardetail->branch_car == "ยะลา") {
+                    $connect = Buyer::where('Contract_buyer', 'like', '03%' )
+                        ->orderBy('Contract_buyer', 'desc')->limit(1)
+                        ->get();
+                }
+                elseif ($cardetail->branch_car == "นราธิวาส") {
+                    $connect = Buyer::where('Contract_buyer', 'like', '04%' )
+                        ->orderBy('Contract_buyer', 'desc')->limit(1)
+                        ->get();
+                }
+                elseif ($cardetail->branch_car == "สายบุรี") {
+                    $connect = Buyer::where('Contract_buyer', 'like', '05%' )
+                        ->orderBy('Contract_buyer', 'desc')->limit(1)
+                        ->get();
+                }
+                elseif ($cardetail->branch_car == "โกลก") {
+                    $connect = Buyer::where('Contract_buyer', 'like', '06%' )
+                        ->orderBy('Contract_buyer', 'desc')->limit(1)
+                        ->get();
+                }
+                elseif ($cardetail->branch_car == "เบตง") {
+                    $connect = Buyer::where('Contract_buyer', 'like', '07%' )
+                        ->orderBy('Contract_buyer', 'desc')->limit(1)
+                        ->get();
+                }
+                elseif ($cardetail->branch_car == "รถบ้าน") {
+                    $connect = Buyer::where('Contract_buyer', 'like', '10%' )
+                        ->orderBy('Contract_buyer', 'desc')->limit(1)
+                        ->get();
+                }
+                elseif ($cardetail->branch_car == "รถยืดขายผ่อน") {
+                    $connect = Buyer::where('Contract_buyer', 'like', '11%' )
+                        ->orderBy('Contract_buyer', 'desc')->limit(1)
+                        ->get();
+                }
+                elseif ($cardetail->branch_car == "โคกโพธิ์") {
+                  $connect = Buyer::where('Contract_buyer', 'like', '26%' )
                       ->orderBy('Contract_buyer', 'desc')->limit(1)
                       ->get();
-              }
-              elseif ($cardetail->branch_car == "ยะลา") {
-                  $connect = Buyer::where('Contract_buyer', 'like', '03%' )
+                }
+                elseif ($cardetail->branch_car == "ระแงะ") {
+                  $connect = Buyer::where('Contract_buyer', 'like', '27%' )
                       ->orderBy('Contract_buyer', 'desc')->limit(1)
                       ->get();
-              }
-              elseif ($cardetail->branch_car == "นราธิวาส") {
-                  $connect = Buyer::where('Contract_buyer', 'like', '04%' )
+                }
+                elseif ($cardetail->branch_car == "บังนังสตา") {
+                  $connect = Buyer::where('Contract_buyer', 'like', '28%' )
                       ->orderBy('Contract_buyer', 'desc')->limit(1)
                       ->get();
-              }
-              elseif ($cardetail->branch_car == "สายบุรี") {
-                  $connect = Buyer::where('Contract_buyer', 'like', '05%' )
-                      ->orderBy('Contract_buyer', 'desc')->limit(1)
-                      ->get();
-              }
-              elseif ($cardetail->branch_car == "โกลก") {
-                  $connect = Buyer::where('Contract_buyer', 'like', '06%' )
-                      ->orderBy('Contract_buyer', 'desc')->limit(1)
-                      ->get();
-              }
-              elseif ($cardetail->branch_car == "เบตง") {
-                  $connect = Buyer::where('Contract_buyer', 'like', '07%' )
-                      ->orderBy('Contract_buyer', 'desc')->limit(1)
-                      ->get();
-              }
-              elseif ($cardetail->branch_car == "รถบ้าน") {
-                  $connect = Buyer::where('Contract_buyer', 'like', '10%' )
-                      ->orderBy('Contract_buyer', 'desc')->limit(1)
-                      ->get();
-              }
-              elseif ($cardetail->branch_car == "รถยืดขายผ่อน") {
-                  $connect = Buyer::where('Contract_buyer', 'like', '11%' )
-                      ->orderBy('Contract_buyer', 'desc')->limit(1)
-                      ->get();
-              }
-              elseif ($cardetail->branch_car == "ปรับโครงสร้าง") {
-                  $connect = Buyer::where('Contract_buyer', 'like', '22%' )
-                      ->orderBy('Contract_buyer', 'desc')->limit(1)
-                      ->get();
-              }
-              elseif ($cardetail->branch_car == "โคกโพธิ์") {
-                $connect = Buyer::where('Contract_buyer', 'like', '26%' )
-                    ->orderBy('Contract_buyer', 'desc')->limit(1)
-                    ->get();
-              }
-              elseif ($cardetail->branch_car == "ระแงะ") {
-                $connect = Buyer::where('Contract_buyer', 'like', '27%' )
-                    ->orderBy('Contract_buyer', 'desc')->limit(1)
-                    ->get();
-              }
-              elseif ($cardetail->branch_car == "บังนังสตา") {
-                $connect = Buyer::where('Contract_buyer', 'like', '28%' )
-                    ->orderBy('Contract_buyer', 'desc')->limit(1)
-                    ->get();
-              }
-              elseif ($cardetail->branch_car == "มาตรการช่วยเหลือ") {
-                  $connect = Buyer::where('Contract_buyer', 'like', '33%' )
-                      ->orderBy('Contract_buyer', 'desc')->limit(1)
-                      ->get();
-              }
+                }
 
-              $contract = $connect[0]->Contract_buyer;
-              $SetStr = explode("/",$contract);
-              $StrNum = $SetStr[1] + 1;
+                $contract = $connect[0]->Contract_buyer;
+                $SetStr = explode("/",$contract);
+                $StrNum = $SetStr[1] + 1;
 
-              $num = "1000";
-              $SubStr = substr($num.$StrNum, -4);
-              $StrConn = $SetStr[0]."/".$SubStr;
+                $num = "1000";
+                $SubStr = substr($num.$StrNum, -4);
+                $StrConn = $SetStr[0]."/".$SubStr;
 
-              $GetIdConn = Buyer::where('id',$id)->first();
-                $GetIdConn->Contract_buyer = $StrConn;
-              $GetIdConn->update();
+                $GetIdConn = Buyer::where('id',$id)->first();
+                  $GetIdConn->Contract_buyer = $StrConn;
+                $GetIdConn->update();
+              }
             }
             else { //รออนุมัติ
                 $DateDue = NULL;      //วันดิวงวดแรก
@@ -2246,9 +2026,6 @@ class AnalysController extends Controller
             $cardetail->branchbrance_car = $request->get('branchbrancecar');
             $cardetail->branchAgent_car = $request->get('branchAgentcar');
             $cardetail->Note_car = $request->get('Notecar');
-            if($type == 8 or $type == 12){    //ปรับโครงสร้าง && มาตกราช่วยเหลือ
-              $cardetail->Dateduefirst_car = $request->get('Dateduefirstcar');
-            }
           $cardetail->update();
 
           if ($request->get('tranPrice') != Null) {
@@ -2443,10 +2220,6 @@ class AnalysController extends Controller
       if ($type == 1) {
         return redirect()->Route('Analysis',$type)->with(['fdate' => $fdate,'tdate' => $tdate,'branch' => $branch,'status' => $status,'success' => 'อัพเดตข้อมูลเรียบร้อย']);
       }elseif ($type == 4) {
-        return redirect()->Route('Analysis',$type)->with(['fdate' => $fdate,'tdate' => $tdate,'branch' => $branch,'status' => $status,'success' => 'อัพเดตข้อมูลเรียบร้อย']);
-      }elseif ($type == 8) {
-        return redirect()->Route('Analysis',$type)->with(['fdate' => $fdate,'tdate' => $tdate,'branch' => $branch,'status' => $status,'success' => 'อัพเดตข้อมูลเรียบร้อย']);
-      }elseif ($type == 12) {
         return redirect()->Route('Analysis',$type)->with(['fdate' => $fdate,'tdate' => $tdate,'branch' => $branch,'status' => $status,'success' => 'อัพเดตข้อมูลเรียบร้อย']);
       }
     }
@@ -2927,21 +2700,15 @@ class AnalysController extends Controller
                 $SetStatusApp = 'อนุมัติ';
                 $SetNameApp =  $request->get('Approverscar');   //ดึงชื่อคน อนุมัติ
 
-                if ($cardetail->branch_car == "ปรับโครงสร้าง") {
-                    $branchType = 22;
-                }elseif ($cardetail->branch_car == "มาตรการช่วยเหลือ") {
-                    $branchType = 33;
+                if ($cardetail->branch_car == "มาตรการช่วยเหลือ") {
+                  $branchType = 33;
                 }
 
                 if ($branchType != Null) {
-                  if ($branchType == 22) { //ปรับโครงสร้างหนี้
-                    $connect = Buyer::where('Contract_buyer', 'like', '22%' )
-                                      ->orderBy('Contract_buyer', 'desc')->limit(1)
-                                      ->get();
-                  }elseif ($branchType == 33) { //มาตรการช่วยเหลือ
+                  if ($branchType == 33) { //มาตรการช่วยเหลือ
                     $connect = Buyer::where('Contract_buyer', 'like', '33%' )
-                                      ->orderBy('Contract_buyer', 'desc')->limit(1)
-                                      ->get();
+                        ->orderBy('Contract_buyer', 'desc')->limit(1)
+                        ->get();
                   }
 
                   // dd($connect);
@@ -2971,20 +2738,14 @@ class AnalysController extends Controller
                 $SetNameApp =  NULL;   //ดึงชื่อคน อนุมัติ
 
                 $branchType = NULL;
-                if ($cardetail->branch_car == "ปรับโครงสร้าง") {
-                    $branchType = 22;
-                }elseif ($cardetail->branch_car == "มาตรการช่วยเหลือ") {
+                if ($cardetail->branch_car == "มาตรการช่วยเหลือ") {
                     $branchType = 33;
                 }
                 if ($branchType != Null) {
-                  if ($branchType == 22) { //ปรับโครงสร้างหนี้
-                    $connect = Buyer::where('Contract_buyer', 'like', '22%' )
-                                      ->orderBy('Contract_buyer', 'desc')->limit(1)
-                                      ->get();
-                  }elseif ($branchType == 33) { //มาตรการช่วยเหลือ
+                  if ($branchType == 33) { //มาตรการช่วยเหลือ
                     $connect = Buyer::where('Contract_buyer', 'like', '33%' )
-                                      ->orderBy('Contract_buyer', 'desc')->limit(1)
-                                      ->get();
+                        ->orderBy('Contract_buyer', 'desc')->limit(1)
+                        ->get();
                   }
 
                   $contract = $connect[0]->Contract_buyer;
@@ -3167,7 +2928,7 @@ class AnalysController extends Controller
       $Currdate = date('2020-06-02');
       $created_at = '';
 
-      if($type == 1 or $type == 8 or $type == 12){
+      if($type == 1 or $type == 12){
         if($countData != 0){
           $dataold = Buyer::where('id','=',$id)->first();
           $datacarold = Cardetail::where('Buyercar_id',$id)->first();
@@ -3226,8 +2987,10 @@ class AnalysController extends Controller
       } 
       
       $item9 = Data_customer::where('Customer_id',$item1->Walkin_id)->first();
+      if ($item9 != NULL) {
         $item9->Status_leasing = 1;
-      $item9->update();
+        $item9->update();
+      }
 
       $item1->Delete();
       $item2->Delete();
@@ -3310,59 +3073,49 @@ class AnalysController extends Controller
 
     public function deleteImageEach($type,$id,$fdate,$tdate,$branch,$status,$path,Request $request)
     {
-      $id = $id;
-      $type = $type;
-      $fdate = $fdate;
-      $tdate = $tdate;
-      $branch = $branch;
-      $status = $status;
-      $path = $path;
-      $created_at = '';
-
-      $data = UploadfileImage::where('Buyerfileimage_id','=',$id)->where('Type_fileimage','=','1')->get();
-      $countData = count($data);
-      if($countData != 0){
-        $dataold = Buyer::where('id','=',$id)->first();
-        $created_at = substr($dataold->created_at,0,10);
+      if ($type == 1 or $type == 11) {       //สินเชื่อ(เงินกู้) && ปรับโครงสร้างหนี้
+        $created_at = '';
+        $data = UploadfileImage::where('Buyerfileimage_id','=',$id)->where('Type_fileimage','=','1')->get();
+        $countData = count($data);
+  
+        if($countData != 0){
+          $dataold = Buyer::where('id','=',$id)->first();
+          $created_at = substr($dataold->created_at,0,10);
+        }
+        
+        return view('analysis.viewimage', compact('data','countData','id','type','fdate','tdate','branch','status','path','created_at'));
       }
-
-      return view('analysis.viewimage', compact('data','countData','id','type','fdate','tdate','branch','status','path','created_at'));
     }
 
     public function destroyImage($type,$id,$fdate,$tdate,$branch,$status,$path,Request $request)
     {
-      $type = $type;
-      $id = $id;
-      $fdate = $fdate;
-      $tdate = $tdate;
-      $branch = $branch;
-      $status = $status;
-      $path = $path;
-      $mainid = $request->mainid;
-      $created_at = '';
-      $Currdate = date('2020-06-02');
+      if ($type == 1 or $type == 11) {       //สินเชื่อ(เงินกู้) && ปรับโครงสร้างหนี้
+        $mainid = $request->mainid;
+        $created_at = '';
+        $Currdate = date('2020-06-02');
 
-      $item1 = UploadfileImage::where('fileimage_id',$id);
-      $data = UploadfileImage::where('fileimage_id','=',$id)->get();
-      $countData = count($data);
-      if($countData != 0){
-        $dataold = Buyer::where('id','=',$mainid)->first();
-        $created_at = substr($dataold->created_at,0,10);
-      }
-      if($created_at < $Currdate){
-        foreach ($data as $key => $value) {
-          $itemPath = $value->Name_fileimage;
-          Storage::delete($itemPath);
+        $item1 = UploadfileImage::where('fileimage_id',$id);
+        $data = UploadfileImage::where('fileimage_id','=',$id)->get();
+        $countData = count($data);
+        if($countData != 0){
+          $dataold = Buyer::where('id','=',$mainid)->first();
+          $created_at = substr($dataold->created_at,0,10);
         }
-      }
-      else{
-        foreach ($data as $key => $value) {
-          $itemPath = public_path().'/upload-image/'.$path.'/'.$value->Name_fileimage;
-          File::delete($itemPath);
+        if($created_at < $Currdate){
+          foreach ($data as $key => $value) {
+            $itemPath = $value->Name_fileimage;
+            Storage::delete($itemPath);
+          }
         }
+        else{
+          foreach ($data as $key => $value) {
+            $itemPath = public_path().'/upload-image/'.$path.'/'.$value->Name_fileimage;
+            File::delete($itemPath);
+          }
+        }
+        $item1->Delete();
+        return redirect()->Route('deleteImageEach',[$type,$mainid,$fdate,$tdate,$branch,$status,$path])->with(['success' => 'ลบรูปสำเร็จ']);
       }
-      $item1->Delete();
-      return redirect()->Route('deleteImageEach',[$type,$mainid,$fdate,$tdate,$branch,$status,$path])->with(['success' => 'ลบรูปสำเร็จ']);
     }
 
 }

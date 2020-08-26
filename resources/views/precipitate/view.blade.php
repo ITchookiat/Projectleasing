@@ -478,10 +478,10 @@
                     <div class="card-header p-0 pt-1">
                       <ul class="nav nav-tabs">
                         <li class="nav-item">
-                          <a class="nav-link active" href="{{ route('Analysis', 8) }}">หน้าหลัก</a>
+                          <a class="nav-link active" href="{{ route('Precipitate', 11) }}">หน้าหลัก</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" href="{{ route('Analysis',9) }}">แบบฟอร์มผู้เช่าซื้อ</a>
+                          <a class="nav-link" href="{{ route('Precipitate', 12) }}">แบบฟอร์มผู้เช่าซื้อ</a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" href="#">แบบฟอร์มผู้ค้ำ</a>
@@ -591,7 +591,7 @@
                                   <a target="_blank" href="{{ action('ReportAnalysController@ReportPDFIndex',[$row->id,$type]) }}" class="btn btn-info btn-sm" title="พิมพ์">
                                     <i class="fas fa-print"></i> พิมพ์
                                   </a>
-                                  @if(auth::user()->type == 3 and $row->StatusApp_car == 'อนุมัติ')
+                                  {{-- @if(auth::user()->type == 3 and $row->StatusApp_car == 'อนุมัติ')
                                       @php $branch = 'Null'; @endphp
                                       @php $status = 'Null'; @endphp
                                       @if($newfdate == "")
@@ -600,49 +600,38 @@
                                       @if($newtdate == "")
                                         @php $newtdate = date('Y-m-d'); @endphp
                                       @endif
-                                  <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
-                                    <i class="fas fa-eye"></i> ดู
-                                  </a>
-                                  @endif
+                                    <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
+                                      <i class="fas fa-eye"></i> ดู
+                                    </a>
+                                  @endif --}}
 
+                                  @if($branch == "")
+                                    @php $branch = 'Null'; @endphp
+                                  @endif
+                                  @if($status == "")
+                                    @php $status = 'Null'; @endphp
+                                  @endif
+                                  @if($newfdate == "")
+                                    @php $newfdate = date('Y-m-d'); @endphp
+                                  @endif
+                                  @if($newtdate == "")
+                                    @php $newtdate = date('Y-m-d'); @endphp
+                                  @endif
+                                  
                                   @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MANAGER")
-                                    @if($branch == "")
-                                      @php $branch = 'Null'; @endphp
-                                    @endif
-                                    @if($status == "")
-                                      @php $status = 'Null'; @endphp
-                                    @endif
-                                    @if($newfdate == "")
-                                      @php $newfdate = date('Y-m-d'); @endphp
-                                    @endif
-                                    @if($newtdate == "")
-                                      @php $newtdate = date('Y-m-d'); @endphp
-                                    @endif
-                                    <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
+                                    <a href="{{ action('PrecController@DebtEdit',[11 ,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                       <i class="far fa-edit"></i> แก้ไข
                                     </a>
                                   @else
                                     @if($row->Approvers_car == Null)
-                                      @if($branch == "")
-                                        @php $branch = 'Null'; @endphp
-                                      @endif
-                                      @if($status == "")
-                                        @php $status = 'Null'; @endphp
-                                      @endif
-                                      @if($newfdate == "")
-                                        @php $newfdate = date('Y-m-d'); @endphp
-                                      @endif
-                                      @if($newtdate == "")
-                                        @php $newtdate = date('Y-m-d'); @endphp
-                                      @endif
-                                      <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
+                                      <a href="{{ action('PrecController@DebtEdit',[11 ,$row->id,$newfdate,$newtdate,$branch,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                         <i class="far fa-edit"></i> แก้ไข
                                       </a>
                                     @endif
                                   @endif
 
                                 @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MANAGER")
-                                  <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
+                                  <form method="post" class="delete_form" action="{{ route('MasterPrecipitate.destroy',[$row->id]) }}?type={{11}}" style="display:inline;">
                                   {{csrf_field()}}
                                     <input type="hidden" name="_method" value="DELETE" />
                                     <button type="submit" data-name="{{ $row->Contract_buyer }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
@@ -652,7 +641,7 @@
                                 @else
                                   @if($row->DocComplete_car == Null)
                                     @if($row->StatusApp_car != 'อนุมัติ')
-                                      <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
+                                      <form method="post" class="delete_form" action="{{ route('MasterPrecipitate.destroy',[$row->id]) }}?type={{11}}" style="display:inline;">
                                       {{csrf_field()}}
                                         <input type="hidden" name="_method" value="DELETE" />
                                         <button type="submit" data-name="{{ $row->Contract_buyer }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">

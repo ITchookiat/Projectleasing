@@ -7,9 +7,18 @@ use DB;
 use PDF;
 use Exporter;
 use Excel;
+use Helper;
+use Storage;
+use File;
+
 use Carbon\Carbon;
 use App\Holdcar;
-use Helper;
+use App\Buyer;
+use App\Cardetail;
+use App\Sponsor;
+use App\Sponsor2;
+use App\Expenses;
+use App\UploadfileImage;
 
 class PrecController extends Controller
 {
@@ -45,12 +54,6 @@ class PrecController extends Controller
             $new = Carbon::parse($tdate)->addDays(-1);
             $newtdate = \Carbon\Carbon::parse($new)->format('Y') ."-". \Carbon\Carbon::parse($new)->format('m')."-". \Carbon\Carbon::parse($new)->format('d');
           }
-          // if ($request->has('Fromstart')) {
-          //   $fstart = $request->get('Fromstart');
-          // }
-          // if ($request->has('Toend')) {
-          //   $tend = $request->get('Toend');
-          // }
 
           $data = DB::connection('ibmi')
                     ->table('SFHP.ARMAST')
@@ -596,7 +599,7 @@ class PrecController extends Controller
           $type = $request->type;
           return view('precipitate.view', compact('type', 'data','branch','newfdate','newtdate','status','Setdate','SumTopcar','SumCommissioncar','SumCommitprice','contno','SetStrConn','SetStr1','SetStr2'));
         }
-        elseif ($request->type == 12){   //เพิ่มปรับโครงสร้างหนี้
+        elseif ($request->type == 12) {  //เพิ่มปรับโครงสร้างหนี้
           $Contno = '';
           $NewBrand = '';
           $NewRelate = '';
@@ -604,34 +607,72 @@ class PrecController extends Controller
             $Contno = $request->Contno;
           }
           $data = DB::connection('ibmi')
-          ->table('SFHP.ARMAST')
-          ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
-          ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
-          ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
-          ->join('SFHP.CUSTMAST','SFHP.ARMAST.CUSCOD','=','SFHP.CUSTMAST.CUSCOD')
-          ->where('SFHP.ARMAST.CONTNO','=', $Contno)
-          ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
-          ->first();
-          if($data != null){
+              ->table('SFHP.ARMAST')
+              ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
+              ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+              ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+              ->join('SFHP.CUSTMAST','SFHP.ARMAST.CUSCOD','=','SFHP.CUSTMAST.CUSCOD')
+              ->where('SFHP.ARMAST.CONTNO','=', $Contno)
+              ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+              ->first();
+          
+            if($data != null){
             $NewBrand = iconv('Tis-620','utf-8',str_replace(" ","",$data->TYPE));
           }
           $dataGT = DB::connection('ibmi')
-                    ->table('SFHP.VIEW_ARMGAR')
-                    ->where('SFHP.VIEW_ARMGAR.CONTNO','=', $Contno)
-                    ->first();
-          // dump($data,$dataGT);
+              ->table('SFHP.VIEW_ARMGAR')
+              ->where('SFHP.VIEW_ARMGAR.CONTNO','=', $Contno)
+              ->first();
+
           if($dataGT != null){
             $NewRelate = iconv('Tis-620','utf-8',str_replace(" ","",$dataGT->RELATN));
           }
           $dataPay = DB::connection('ibmi')
-          ->table('SFHP.ARPAY')
-          ->where('SFHP.ARPAY.CONTNO','=', $Contno)
-          ->orderBy('SFHP.ARPAY.CONTNO', 'ASC')
-          ->get();
+              ->table('SFHP.ARPAY')
+              ->where('SFHP.ARPAY.CONTNO','=', $Contno)
+              ->orderBy('SFHP.ARPAY.CONTNO', 'ASC')
+              ->get();
+              
           $type = $request->type;
-          return view('analysis.createextra', compact('type','data','dataGT','NewBrand','NewRelate','dataPay'));
+          return view('Precipitate.createDebt', compact('type','data','dataGT','NewBrand','NewRelate','dataPay'));
         }
+        elseif ($request->type == 13) { //เพิ่มปรับโครงสร้างหนี้
+          $Contno = '';
+          $NewBrand = '';
+          $NewRelate = '';
+          if ($request->Contno != '') {
+            $Contno = $request->Contno;
+          }
+          $data = DB::connection('ibmi')
+              ->table('SFHP.ARMAST')
+              ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
+              ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+              ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+              ->join('SFHP.CUSTMAST','SFHP.ARMAST.CUSCOD','=','SFHP.CUSTMAST.CUSCOD')
+              ->where('SFHP.ARMAST.CONTNO','=', $Contno)
+              ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+              ->first();
 
+          if($data != null){
+            $NewBrand = iconv('Tis-620','utf-8',str_replace(" ","",$data->TYPE));
+          }
+          $dataGT = DB::connection('ibmi')
+              ->table('SFHP.VIEW_ARMGAR')
+              ->where('SFHP.VIEW_ARMGAR.CONTNO','=', $Contno)
+              ->first();
+
+          if($dataGT != null){
+            $NewRelate = iconv('Tis-620','utf-8',str_replace(" ","",$dataGT->RELATN));
+          }
+          $dataPay = DB::connection('ibmi')
+              ->table('SFHP.ARPAY')
+              ->where('SFHP.ARPAY.CONTNO','=', $Contno)
+              ->orderBy('SFHP.ARPAY.CONTNO', 'ASC')
+              ->get();
+
+          $type = $request->type;
+          return view('Precipitate.createDebt', compact('type','data','dataGT','NewBrand','NewRelate','dataPay'));
+        }
         elseif ($request->type == 15) { //รายงาน หนังสือทวงถาม
           $contno = '';
           $dateset = date('Y-m-d');
@@ -728,296 +769,559 @@ class PrecController extends Controller
      */
     public function store(Request $request)
     {
-
-        if($request->type == 6) {
-          if($request->get('Pricehold') == ''){
-            $SetPricehold = 0;
-          }else{
-            $SetPricehold = str_replace (",","",$request->get('Pricehold'));
-          }
-
-          if($request->get('Amounthold') == ''){
-            $SetAmounthold = 0;
-          }else{
-            $SetAmounthold = str_replace (",","",$request->get('Amounthold'));
-          }
-
-          if($request->get('Payhold') == ''){
-            $SetPayhold = 0;
-          }else{
-            $SetPayhold = str_replace (",","",$request->get('Payhold'));
-          }
-
-          if($request->get('CapitalAccount') == ''){
-            $SetCapitalAccount = 0;
-          }else{
-            $SetCapitalAccount = str_replace (",","",$request->get('CapitalAccount'));
-          }
-
-          if($request->get('CapitalTopprice') == ''){
-            $SetCapitalTopprice = 0;
-          }else{
-            $SetCapitalTopprice = str_replace (",","",$request->get('CapitalTopprice'));
-          }
-
-          $Holdcardb = new Holdcar([
-            'Contno_hold' => $request->get('Contno'),
-            'Name_hold' => $request->get('NameCustomer'),
-            'Brandcar_hold' => $request->get('Brandcar'),
-            'Number_Regist' => $request->get('Number_Regist'),
-            'Year_Product' => $request->get('Yearcar'),
-            'Date_hold' => $request->get('Datehold'),
-            'Dateupdate_hold' => date('Y-m-d'),
-            'Team_hold' => $request->get('Teamhold'),
-            'Price_hold' => $SetPricehold,
-            'Statuscar' => $request->get('Statuscar'),
-            'Note_hold' => $request->get('Note'),
-            'Date_came' => $request->get('Datecame'),
-            'Amount_hold' => $SetAmounthold,
-            'Pay_hold' => $SetPayhold,
-            'Datecheck_Capital' => $request->get('DatecheckCapital'),
-            'Datesend_Stockhome' => $request->get('DatesendStockhome'),
-            'Datesend_Letter' => $request->get('DatesendLetter'),
-            'Barcode_No' => $request->get('BarcodeNo'),
-            'Capital_Account' => $SetCapitalAccount,
-            'Capital_Topprice' => $SetCapitalTopprice,
-            'Note2_hold' => $request->get('Note2'),
-            'Letter_hold' => $request->get('Letter'),
-            'Date_send' => $request->get('Datesend'),
-            'Barcode2' => $request->get('Barcode2'),
-            'Accept_hold' => $request->get('Accept'),
-            'Soldout_hold' => $request->get('Soldout'),
-          ]);
-          $Holdcardb->save();
-          $type = 5;
-          return redirect()->Route('Precipitate', $type)->with('success','บันทึกข้อมูลเรียบร้อย');
+      if($request->type == 6) {
+        if($request->get('Pricehold') == ''){
+          $SetPricehold = 0;
+        }else{
+          $SetPricehold = str_replace (",","",$request->get('Pricehold'));
         }
-        elseif($request->type == 10){ //หนังสือขอยืนยัน
-          $AcceptDate = $request->AcceptDate;
-          $PayAmount = str_replace(",","",$request->PayAmount);
-          $BalanceAmount = str_replace(",","",$request->BalanceAmount);
-          $Contno = $request->contno;
-          // dd($AcceptDate,$PayAmount,$BalanceAmount,$Contno);
 
-          $data = DB::connection('ibmi')
-                    ->table('SFHP.ARMAST')
-                    ->leftJoin('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
-                    ->leftJoin('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
-                    ->leftJoin('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
-                    ->leftJoin('SFHP.VIEW_ARMGAR','SFHP.ARMAST.CONTNO','=','SFHP.VIEW_ARMGAR.CONTNO')
-                    ->leftJoin('SFHP.ARMGAR','SFHP.ARMAST.CONTNO','=','SFHP.ARMGAR.CONTNO')
-                    ->leftJoin('SFHP.TBROKER','SFHP.ARMAST.RECOMCOD','=','SFHP.TBROKER.MEMBERID')
-                    ->leftJoin('SFHP.CUSTMAST','SFHP.ARMAST.CUSCOD','=','SFHP.CUSTMAST.CUSCOD')
-                    ->select('SFHP.ARMAST.*','SFHP.VIEW_CUSTMAIL.*','SFHP.INVTRAN.*','SFHP.VIEW_ARMGAR.NAME','SFHP.VIEW_ARMGAR.NICKNM AS NICKARMGAR',
-                             'SFHP.ARMGAR.RELATN','SFHP.VIEW_ARMGAR.ADDRES as ADDARMGAR','SFHP.VIEW_ARMGAR.TUMB as TUMBARMGAR','SFHP.VIEW_ARMGAR.AUMPDES AS AUMARMGAR',
-                             'SFHP.VIEW_ARMGAR.PROVDES AS PROARMGAR','SFHP.VIEW_ARMGAR.OFFIC AS OFFICARMGAR','SFHP.VIEW_ARMGAR.TELP AS TELPARMGAR',
-                             'SFHP.CUSTMAST.OCCUP','SFHP.CUSTMAST.MEMO1 AS CUSMEMO','SFHP.CUSTMAST.OFFIC AS CUSOFFIC',
-                             'SFHP.TBROKER.FNAME','SFHP.TBROKER.LNAME','SFHP.TBROKER.MEMBERID','SFHP.TBROKER.ADDRESS','SFHP.TBROKER.TELP AS TELPTBROKER')
-                    ->where('SFHP.ARMAST.CONTNO','=',$Contno)
+        if($request->get('Amounthold') == ''){
+          $SetAmounthold = 0;
+        }else{
+          $SetAmounthold = str_replace (",","",$request->get('Amounthold'));
+        }
+
+        if($request->get('Payhold') == ''){
+          $SetPayhold = 0;
+        }else{
+          $SetPayhold = str_replace (",","",$request->get('Payhold'));
+        }
+
+        if($request->get('CapitalAccount') == ''){
+          $SetCapitalAccount = 0;
+        }else{
+          $SetCapitalAccount = str_replace (",","",$request->get('CapitalAccount'));
+        }
+
+        if($request->get('CapitalTopprice') == ''){
+          $SetCapitalTopprice = 0;
+        }else{
+          $SetCapitalTopprice = str_replace (",","",$request->get('CapitalTopprice'));
+        }
+
+        $Holdcardb = new Holdcar([
+          'Contno_hold' => $request->get('Contno'),
+          'Name_hold' => $request->get('NameCustomer'),
+          'Brandcar_hold' => $request->get('Brandcar'),
+          'Number_Regist' => $request->get('Number_Regist'),
+          'Year_Product' => $request->get('Yearcar'),
+          'Date_hold' => $request->get('Datehold'),
+          'Dateupdate_hold' => date('Y-m-d'),
+          'Team_hold' => $request->get('Teamhold'),
+          'Price_hold' => $SetPricehold,
+          'Statuscar' => $request->get('Statuscar'),
+          'Note_hold' => $request->get('Note'),
+          'Date_came' => $request->get('Datecame'),
+          'Amount_hold' => $SetAmounthold,
+          'Pay_hold' => $SetPayhold,
+          'Datecheck_Capital' => $request->get('DatecheckCapital'),
+          'Datesend_Stockhome' => $request->get('DatesendStockhome'),
+          'Datesend_Letter' => $request->get('DatesendLetter'),
+          'Barcode_No' => $request->get('BarcodeNo'),
+          'Capital_Account' => $SetCapitalAccount,
+          'Capital_Topprice' => $SetCapitalTopprice,
+          'Note2_hold' => $request->get('Note2'),
+          'Letter_hold' => $request->get('Letter'),
+          'Date_send' => $request->get('Datesend'),
+          'Barcode2' => $request->get('Barcode2'),
+          'Accept_hold' => $request->get('Accept'),
+          'Soldout_hold' => $request->get('Soldout'),
+        ]);
+        $Holdcardb->save();
+        $type = 5;
+        return redirect()->Route('Precipitate', $type)->with('success','บันทึกข้อมูลเรียบร้อย');
+      }
+      elseif($request->type == 10){   //หนังสือขอยืนยัน
+        $AcceptDate = $request->AcceptDate;
+        $PayAmount = str_replace(",","",$request->PayAmount);
+        $BalanceAmount = str_replace(",","",$request->BalanceAmount);
+        $Contno = $request->contno;
+        // dd($AcceptDate,$PayAmount,$BalanceAmount,$Contno);
+
+        $data = DB::connection('ibmi')
+                  ->table('SFHP.ARMAST')
+                  ->leftJoin('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                  ->leftJoin('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
+                  ->leftJoin('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+                  ->leftJoin('SFHP.VIEW_ARMGAR','SFHP.ARMAST.CONTNO','=','SFHP.VIEW_ARMGAR.CONTNO')
+                  ->leftJoin('SFHP.ARMGAR','SFHP.ARMAST.CONTNO','=','SFHP.ARMGAR.CONTNO')
+                  ->leftJoin('SFHP.TBROKER','SFHP.ARMAST.RECOMCOD','=','SFHP.TBROKER.MEMBERID')
+                  ->leftJoin('SFHP.CUSTMAST','SFHP.ARMAST.CUSCOD','=','SFHP.CUSTMAST.CUSCOD')
+                  ->select('SFHP.ARMAST.*','SFHP.VIEW_CUSTMAIL.*','SFHP.INVTRAN.*','SFHP.VIEW_ARMGAR.NAME','SFHP.VIEW_ARMGAR.NICKNM AS NICKARMGAR',
+                            'SFHP.ARMGAR.RELATN','SFHP.VIEW_ARMGAR.ADDRES as ADDARMGAR','SFHP.VIEW_ARMGAR.TUMB as TUMBARMGAR','SFHP.VIEW_ARMGAR.AUMPDES AS AUMARMGAR',
+                            'SFHP.VIEW_ARMGAR.PROVDES AS PROARMGAR','SFHP.VIEW_ARMGAR.OFFIC AS OFFICARMGAR','SFHP.VIEW_ARMGAR.TELP AS TELPARMGAR',
+                            'SFHP.CUSTMAST.OCCUP','SFHP.CUSTMAST.MEMO1 AS CUSMEMO','SFHP.CUSTMAST.OFFIC AS CUSOFFIC',
+                            'SFHP.TBROKER.FNAME','SFHP.TBROKER.LNAME','SFHP.TBROKER.MEMBERID','SFHP.TBROKER.ADDRESS','SFHP.TBROKER.TELP AS TELPTBROKER')
+                  ->where('SFHP.ARMAST.CONTNO','=',$Contno)
+                  ->first();
+
+          $data2 = DB::connection('ibmi')
+                    ->table('SFHP.ARPAY')
+                    ->where('SFHP.ARPAY.CONTNO','=',$Contno)
+                    ->get();
+          $count2 = count($data2);
+          for ($i=0; $i < $count2; $i++) {
+            if($data2[$i]->DAMT != $data2[$i]->PAYMENT){
+              $SetDate[] = $data2[$i]->DDATE;
+              $Datehold = $SetDate[0];
+            }
+          }
+          // dd($Datehold);
+          $data3 = DB::connection('ibmi')
+                    ->table('SFHP.AROTHR')
+                    ->where('SFHP.AROTHR.CONTNO','=',$Contno)
+                    ->where('SFHP.AROTHR.PAYFOR','=',600)
+                    ->orderBy('SFHP.AROTHR.ARDATE', 'DESC')
                     ->first();
+          $DatecancleContract = $data3->ARDATE;
 
-            $data2 = DB::connection('ibmi')
-                      ->table('SFHP.ARPAY')
-                      ->where('SFHP.ARPAY.CONTNO','=',$Contno)
-                      ->get();
-            $count2 = count($data2);
-            for ($i=0; $i < $count2; $i++) {
-              if($data2[$i]->DAMT != $data2[$i]->PAYMENT){
-                $SetDate[] = $data2[$i]->DDATE;
-                $Datehold = $SetDate[0];
-              }
-            }
-            // dd($Datehold);
-            $data3 = DB::connection('ibmi')
-                      ->table('SFHP.AROTHR')
-                      ->where('SFHP.AROTHR.CONTNO','=',$Contno)
-                      ->where('SFHP.AROTHR.PAYFOR','=',600)
-                      ->orderBy('SFHP.AROTHR.ARDATE', 'DESC')
-                      ->first();
-            $DatecancleContract = $data3->ARDATE;
+          $word = str_replace(" ", "",$data->STRNO);
+          $word2 = str_replace(" ", "",$data->ENGNO);
+          $test = strlen($word);
+          $test2 = strlen($word2);
 
-            $word = str_replace(" ", "",$data->STRNO);
-            $word2 = str_replace(" ", "",$data->ENGNO);
-            $test = strlen($word);
-            $test2 = strlen($word2);
-
-            for ($i=0; $i < $test; $i++) {
-              $string[] = substr($word, $i, 1);
-              if($string[$i] == 'A'){
-                $Newword[] = 'เอ';
-              }elseif($string[$i] == 'B'){
-                $Newword[] = 'บี';
-              }elseif($string[$i] == 'C'){
-                $Newword[] = 'ซี';
-              }elseif($string[$i] == 'D'){
-                $Newword[] = 'ดี';
-              }elseif($string[$i] == 'E'){
-                $Newword[] = 'อี';
-              }elseif($string[$i] == 'F'){
-                $Newword[] = 'เอฟ';
-              }elseif($string[$i] == 'G'){
-                $Newword[] = 'จี';
-              }elseif($string[$i] == 'H'){
-                $Newword[] = 'เฮช';
-              }elseif($string[$i] == 'I'){
-                $Newword[] = 'ไอ';
-              }elseif($string[$i] == 'J'){
-                $Newword[] = 'เจ';
-              }elseif($string[$i] == 'K'){
-                $Newword[] = 'เค';
-              }elseif($string[$i] == 'L'){
-                $Newword[] = 'แอล';
-              }elseif($string[$i] == 'M'){
-                $Newword[] = 'เอ็ม';
-              }elseif($string[$i] == 'N'){
-                $Newword[] = 'เอ็น';
-              }elseif($string[$i] == 'O'){
-                $Newword[] = 'โอ';
-              }elseif($string[$i] == 'P'){
-                $Newword[] = 'พี';
-              }elseif($string[$i] == 'Q'){
-                $Newword[] = 'คิว';
-              }elseif($string[$i] == 'R'){
-                $Newword[] = 'อาร์';
-              }elseif($string[$i] == 'S'){
-                $Newword[] = 'เอส';
-              }elseif($string[$i] == 'T'){
-                $Newword[] = 'ที';
-              }elseif($string[$i] == 'U'){
-                $Newword[] = 'ยู';
-              }elseif($string[$i] == 'V'){
-                $Newword[] = 'วี';
-              }elseif($string[$i] == 'W'){
-                $Newword[] = 'ดับเบิลยู';
-              }elseif($string[$i] == 'X'){
-                $Newword[] = 'เอ็กซ์';
-              }elseif($string[$i] == 'Y'){
-                $Newword[] = 'วาย';
-              }elseif($string[$i] == 'Z'){
-                $Newword[] = 'แซก์';
-              }
-
-              elseif($string[$i] == '1'){
-                $Newword[] = '1';
-              }elseif($string[$i] == '2'){
-                $Newword[] = '2';
-              }elseif($string[$i] == '3'){
-                $Newword[] = '3';
-              }elseif($string[$i] == '4'){
-                $Newword[] = '4';
-              }elseif($string[$i] == '5'){
-                $Newword[] = '5';
-              }elseif($string[$i] == '6'){
-                $Newword[] = '6';
-              }elseif($string[$i] == '7'){
-                $Newword[] = '7';
-              }elseif($string[$i] == '8'){
-                $Newword[] = '8';
-              }elseif($string[$i] == '9'){
-                $Newword[] = '9';
-              }elseif($string[$i] == '0'){
-                $Newword[] = '0';
-              }
+          for ($i=0; $i < $test; $i++) {
+            $string[] = substr($word, $i, 1);
+            if($string[$i] == 'A'){
+              $Newword[] = 'เอ';
+            }elseif($string[$i] == 'B'){
+              $Newword[] = 'บี';
+            }elseif($string[$i] == 'C'){
+              $Newword[] = 'ซี';
+            }elseif($string[$i] == 'D'){
+              $Newword[] = 'ดี';
+            }elseif($string[$i] == 'E'){
+              $Newword[] = 'อี';
+            }elseif($string[$i] == 'F'){
+              $Newword[] = 'เอฟ';
+            }elseif($string[$i] == 'G'){
+              $Newword[] = 'จี';
+            }elseif($string[$i] == 'H'){
+              $Newword[] = 'เฮช';
+            }elseif($string[$i] == 'I'){
+              $Newword[] = 'ไอ';
+            }elseif($string[$i] == 'J'){
+              $Newword[] = 'เจ';
+            }elseif($string[$i] == 'K'){
+              $Newword[] = 'เค';
+            }elseif($string[$i] == 'L'){
+              $Newword[] = 'แอล';
+            }elseif($string[$i] == 'M'){
+              $Newword[] = 'เอ็ม';
+            }elseif($string[$i] == 'N'){
+              $Newword[] = 'เอ็น';
+            }elseif($string[$i] == 'O'){
+              $Newword[] = 'โอ';
+            }elseif($string[$i] == 'P'){
+              $Newword[] = 'พี';
+            }elseif($string[$i] == 'Q'){
+              $Newword[] = 'คิว';
+            }elseif($string[$i] == 'R'){
+              $Newword[] = 'อาร์';
+            }elseif($string[$i] == 'S'){
+              $Newword[] = 'เอส';
+            }elseif($string[$i] == 'T'){
+              $Newword[] = 'ที';
+            }elseif($string[$i] == 'U'){
+              $Newword[] = 'ยู';
+            }elseif($string[$i] == 'V'){
+              $Newword[] = 'วี';
+            }elseif($string[$i] == 'W'){
+              $Newword[] = 'ดับเบิลยู';
+            }elseif($string[$i] == 'X'){
+              $Newword[] = 'เอ็กซ์';
+            }elseif($string[$i] == 'Y'){
+              $Newword[] = 'วาย';
+            }elseif($string[$i] == 'Z'){
+              $Newword[] = 'แซก์';
             }
 
-            for ($j=0; $j < $test2; $j++) {
-              $string2[] = substr($word2, $j, 1);
-              if($string2[$j] == 'A'){
-                $Newword2[] = 'เอ';
-              }elseif($string2[$j] == 'B'){
-                $Newword2[] = 'บี';
-              }elseif($string2[$j] == 'C'){
-                $Newword2[] = 'ซี';
-              }elseif($string2[$j] == 'D'){
-                $Newword2[] = 'ดี';
-              }elseif($string2[$j] == 'E'){
-                $Newword2[] = 'อี';
-              }elseif($string2[$j] == 'F'){
-                $Newword2[] = 'เอฟ';
-              }elseif($string2[$j] == 'G'){
-                $Newword2[] = 'จี';
-              }elseif($string2[$j] == 'H'){
-                $Newword2[] = 'เฮช';
-              }elseif($string2[$j] == 'I'){
-                $Newword2[] = 'ไอ';
-              }elseif($string2[$j] == 'J'){
-                $Newword2[] = 'เจ';
-              }elseif($string2[$j] == 'K'){
-                $Newword2[] = 'เค';
-              }elseif($string2[$j] == 'L'){
-                $Newword2[] = 'แอล';
-              }elseif($string2[$j] == 'M'){
-                $Newword2[] = 'เอ็ม';
-              }elseif($string2[$j] == 'N'){
-                $Newword2[] = 'เอ็น';
-              }elseif($string2[$j] == 'O'){
-                $Newword2[] = 'โอ';
-              }elseif($string2[$j] == 'P'){
-                $Newword2[] = 'พี';
-              }elseif($string2[$j] == 'Q'){
-                $Newword2[] = 'คิว';
-              }elseif($string2[$j] == 'R'){
-                $Newword2[] = 'อาร์';
-              }elseif($string2[$j] == 'S'){
-                $Newword2[] = 'เอส';
-              }elseif($string2[$j] == 'T'){
-                $Newword2[] = 'ที';
-              }elseif($string2[$j] == 'U'){
-                $Newword2[] = 'ยู';
-              }elseif($string2[$j] == 'V'){
-                $Newword2[] = 'วี';
-              }elseif($string2[$j] == 'W'){
-                $Newword2[] = 'ดับเบิลยู';
-              }elseif($string2[$j] == 'X'){
-                $Newword2[] = 'เอ็กซ์';
-              }elseif($string2[$j] == 'Y'){
-                $Newword2[] = 'วาย';
-              }elseif($string2[$j] == 'Z'){
-                $Newword2[] = 'แซก์';
-              }
+            elseif($string[$i] == '1'){
+              $Newword[] = '1';
+            }elseif($string[$i] == '2'){
+              $Newword[] = '2';
+            }elseif($string[$i] == '3'){
+              $Newword[] = '3';
+            }elseif($string[$i] == '4'){
+              $Newword[] = '4';
+            }elseif($string[$i] == '5'){
+              $Newword[] = '5';
+            }elseif($string[$i] == '6'){
+              $Newword[] = '6';
+            }elseif($string[$i] == '7'){
+              $Newword[] = '7';
+            }elseif($string[$i] == '8'){
+              $Newword[] = '8';
+            }elseif($string[$i] == '9'){
+              $Newword[] = '9';
+            }elseif($string[$i] == '0'){
+              $Newword[] = '0';
+            }
+          }
 
-              elseif($string2[$j] == '1'){
-                $Newword2[] = '1';
-              }elseif($string2[$j] == '2'){
-                $Newword2[] = '2';
-              }elseif($string2[$j] == '3'){
-                $Newword2[] = '3';
-              }elseif($string2[$j] == '4'){
-                $Newword2[] = '4';
-              }elseif($string2[$j] == '5'){
-                $Newword2[] = '5';
-              }elseif($string2[$j] == '6'){
-                $Newword2[] = '6';
-              }elseif($string2[$j] == '7'){
-                $Newword2[] = '7';
-              }elseif($string2[$j] == '8'){
-                $Newword2[] = '8';
-              }elseif($string2[$j] == '9'){
-                $Newword2[] = '9';
-              }elseif($string2[$j] == '0'){
-                $Newword2[] = '0';
-              }
+          for ($j=0; $j < $test2; $j++) {
+            $string2[] = substr($word2, $j, 1);
+            if($string2[$j] == 'A'){
+              $Newword2[] = 'เอ';
+            }elseif($string2[$j] == 'B'){
+              $Newword2[] = 'บี';
+            }elseif($string2[$j] == 'C'){
+              $Newword2[] = 'ซี';
+            }elseif($string2[$j] == 'D'){
+              $Newword2[] = 'ดี';
+            }elseif($string2[$j] == 'E'){
+              $Newword2[] = 'อี';
+            }elseif($string2[$j] == 'F'){
+              $Newword2[] = 'เอฟ';
+            }elseif($string2[$j] == 'G'){
+              $Newword2[] = 'จี';
+            }elseif($string2[$j] == 'H'){
+              $Newword2[] = 'เฮช';
+            }elseif($string2[$j] == 'I'){
+              $Newword2[] = 'ไอ';
+            }elseif($string2[$j] == 'J'){
+              $Newword2[] = 'เจ';
+            }elseif($string2[$j] == 'K'){
+              $Newword2[] = 'เค';
+            }elseif($string2[$j] == 'L'){
+              $Newword2[] = 'แอล';
+            }elseif($string2[$j] == 'M'){
+              $Newword2[] = 'เอ็ม';
+            }elseif($string2[$j] == 'N'){
+              $Newword2[] = 'เอ็น';
+            }elseif($string2[$j] == 'O'){
+              $Newword2[] = 'โอ';
+            }elseif($string2[$j] == 'P'){
+              $Newword2[] = 'พี';
+            }elseif($string2[$j] == 'Q'){
+              $Newword2[] = 'คิว';
+            }elseif($string2[$j] == 'R'){
+              $Newword2[] = 'อาร์';
+            }elseif($string2[$j] == 'S'){
+              $Newword2[] = 'เอส';
+            }elseif($string2[$j] == 'T'){
+              $Newword2[] = 'ที';
+            }elseif($string2[$j] == 'U'){
+              $Newword2[] = 'ยู';
+            }elseif($string2[$j] == 'V'){
+              $Newword2[] = 'วี';
+            }elseif($string2[$j] == 'W'){
+              $Newword2[] = 'ดับเบิลยู';
+            }elseif($string2[$j] == 'X'){
+              $Newword2[] = 'เอ็กซ์';
+            }elseif($string2[$j] == 'Y'){
+              $Newword2[] = 'วาย';
+            }elseif($string2[$j] == 'Z'){
+              $Newword2[] = 'แซก์';
             }
 
-            $New_STRNO = implode($Newword);
-            $New_ENGNO = implode($Newword2);
+            elseif($string2[$j] == '1'){
+              $Newword2[] = '1';
+            }elseif($string2[$j] == '2'){
+              $Newword2[] = '2';
+            }elseif($string2[$j] == '3'){
+              $Newword2[] = '3';
+            }elseif($string2[$j] == '4'){
+              $Newword2[] = '4';
+            }elseif($string2[$j] == '5'){
+              $Newword2[] = '5';
+            }elseif($string2[$j] == '6'){
+              $Newword2[] = '6';
+            }elseif($string2[$j] == '7'){
+              $Newword2[] = '7';
+            }elseif($string2[$j] == '8'){
+              $Newword2[] = '8';
+            }elseif($string2[$j] == '9'){
+              $Newword2[] = '9';
+            }elseif($string2[$j] == '0'){
+              $Newword2[] = '0';
+            }
+          }
 
-          $type = $request->type;
+          $New_STRNO = implode($Newword);
+          $New_ENGNO = implode($Newword2);
 
-          $view = \View::make('precipitate.ReportInvoice' ,compact('data','AcceptDate','PayAmount','BalanceAmount','Contno','type','Datehold','DatecancleContract','New_STRNO','New_ENGNO'));
-          $html = $view->render();
-          $pdf = new PDF();
-          $pdf::SetTitle('หนังสือบอกเลิกสัญญา');
-          $pdf::AddPage('P', 'A4');
-          $pdf::SetMargins(20, 5, 15);
-          $pdf::SetFont('thsarabunpsk', '', 16, '', true);
-          // $pdf::SetFont('angsananew', '', 16, '', true);
-          // $pdf::SetFont('mazdatypeth', '', 12, '', true);
-          $pdf::SetAutoPageBreak(TRUE, 25);
-          $pdf::WriteHTML($html,true,false,true,false,'');
-          $pdf::Output('CancelContractPaper.pdf');
+        $type = $request->type;
+
+        $view = \View::make('precipitate.ReportInvoice' ,compact('data','AcceptDate','PayAmount','BalanceAmount','Contno','type','Datehold','DatecancleContract','New_STRNO','New_ENGNO'));
+        $html = $view->render();
+        $pdf = new PDF();
+        $pdf::SetTitle('หนังสือบอกเลิกสัญญา');
+        $pdf::AddPage('P', 'A4');
+        $pdf::SetMargins(20, 5, 15);
+        $pdf::SetFont('thsarabunpsk', '', 16, '', true);
+        // $pdf::SetFont('angsananew', '', 16, '', true);
+        // $pdf::SetFont('mazdatypeth', '', 12, '', true);
+        $pdf::SetAutoPageBreak(TRUE, 25);
+        $pdf::WriteHTML($html,true,false,true,false,'');
+        $pdf::Output('CancelContractPaper.pdf');
+      }
+      elseif ($request->type == 12) { //เพิ่มปรับโครงสร้างหนี้
+        $BeforeIncome = str_replace (",","",$request->get('Beforeincome'));
+        $AfterIncome = str_replace (",","",$request->get('Afterincome'));
+        if($BeforeIncome == ''){
+          $BeforeIncome = '0';
+        }
+        if($AfterIncome == ''){
+          $AfterIncome = '0';
+        }
+        $SetPhonebuyer = str_replace ( "_","",$request->get('Phonebuyer'));
+
+        $Buyerdb = new Buyer([
+          'Contract_buyer' => $request->get('Contract_buyer'),
+          'Date_Due' => $request->get('DateDue'),
+          'Name_buyer' => $request->get('Namebuyer'),
+          'last_buyer' => $request->get('lastbuyer'),
+          'Nick_buyer' => $request->get('Nickbuyer'),
+          'Status_buyer' => $request->get('Statusbuyer'),
+          'Phone_buyer' => $SetPhonebuyer,
+          'Phone2_buyer' => $request->get('Phone2buyer'),
+          'Mate_buyer' => $request->get('Matebuyer'),
+          'Idcard_buyer' => $request->get('Idcardbuyer'),
+          'Address_buyer' => $request->get('Addressbuyer'),
+          'AddN_buyer' => $request->get('AddNbuyer'),
+          'StatusAdd_buyer' => $request->get('StatusAddbuyer'),
+          'Workplace_buyer' => $request->get('Workplacebuyer'),
+          'House_buyer' => $request->get('Housebuyer'),
+          'Driver_buyer' => $request->get('Driverbuyer'),
+          'HouseStyle_buyer' => $request->get('HouseStylebuyer'),
+          'Career_buyer' => $request->get('Careerbuyer'),
+          'Income_buyer' => $request->get('Incomebuyer'),
+          'Purchase_buyer' => $request->get('Purchasebuyer'),
+          'Support_buyer' => $request->get('Supportbuyer'),
+          'securities_buyer' => $request->get('securitiesbuyer'),
+          'deednumber_buyer' => $request->get('deednumberbuyer'),
+          'area_buyer' => $request->get('areabuyer'),
+          'BeforeIncome_buyer' => $BeforeIncome,
+          'AfterIncome_buyer' => $AfterIncome,
+          'Gradebuyer_car' => $request->get('Gradebuyer'),
+          'Objective_car' => $request->get('objectivecar'),
+        ]);
+        $Buyerdb->save();
+
+        $SettelSP = str_replace ("_","",$request->get('telSP'));
+        $Sponsordb = new Sponsor([
+          'Buyer_id' => $Buyerdb->id,
+          'name_SP' => $request->get('nameSP'),
+          'lname_SP' => $request->get('lnameSP'),
+          'nikname_SP' => $request->get('niknameSP'),
+          'status_SP' => $request->get('statusSP'),
+          'tel_SP' => $SettelSP,
+          'relation_SP' => $request->get('relationSP'),
+          'mate_SP' => $request->get('mateSP'),
+          'idcard_SP' => $request->get('idcardSP'),
+          'add_SP' => $request->get('addSP'),
+          'addnow_SP' => $request->get('addnowSP'),
+          'statusadd_SP' => $request->get('statusaddSP'),
+          'workplace_SP' => $request->get('workplaceSP'),
+          'house_SP' => $request->get('houseSP'),
+          'deednumber_SP' => $request->get('deednumberSP'),
+          'area_SP' => $request->get('areaSP'),
+          'housestyle_SP' => $request->get('housestyleSP'),
+          'career_SP' => $request->get('careerSP'),
+          'income_SP' => $request->get('incomeSP'),
+          'puchase_SP' => $request->get('puchaseSP'),
+          'support_SP' => $request->get('supportSP'),
+          'securities_SP' => $request->get('securitiesSP'),
+        ]);
+        $Sponsordb->save();
+
+        $SettelSP2 = str_replace ("_","",$request->get('telSP2'));
+        $Sponsor2db = new Sponsor2([
+          'Buyer_id2' => $Buyerdb->id,
+          'name_SP2' => $request->get('nameSP2'),
+          'lname_SP2' => $request->get('lnameSP2'),
+          'nikname_SP2' => $request->get('niknameSP2'),
+          'status_SP2' => $request->get('statusSP2'),
+          'tel_SP2' => $SettelSP2,
+          'relation_SP2' => $request->get('relationSP2'),
+          'mate_SP2' => $request->get('mateSP2'),
+          'idcard_SP2' => $request->get('idcardSP2'),
+          'add_SP2' => $request->get('addSP2'),
+          'addnow_SP2' => $request->get('addnowSP2'),
+          'statusadd_SP2' => $request->get('statusaddSP2'),
+          'workplace_SP2' => $request->get('workplaceSP2'),
+          'house_SP2' => $request->get('houseSP2'),
+          'deednumber_SP2' => $request->get('deednumberSP2'),
+          'area_SP2' => $request->get('areaSP2'),
+          'housestyle_SP2' => $request->get('housestyleSP2'),
+          'career_SP2' => $request->get('careerSP2'),
+          'income_SP2' => $request->get('incomeSP2'),
+          'puchase_SP2' => $request->get('puchaseSP2'),
+          'support_SP2' => $request->get('supportSP2'),
+          'securities_SP2' => $request->get('securitiesSP2'),
+        ]);
+        $Sponsor2db->save();
+
+        if ($request->get('Topcar') != Null) {
+          $SetTopcar = str_replace (",","",$request->get('Topcar'));
+        }else {
+          $SetTopcar = 0;
+        }
+        if ($request->get('Commissioncar') != Null) {
+          $SetCommissioncar = str_replace (",","",$request->get('Commissioncar'));
+        }else {
+          $SetCommissioncar = 0;
+        }
+        if($request->get('Agentcar') == Null){
+          $SetCommissioncar = 0;
+        }else{
+          $SetCommissioncar = $SetCommissioncar;
+        }     
+
+        $SetBranch = 'ปรับโครงสร้าง';
+        if($request->get('Dateduefirstcar') != null){
+          $dateFirst = date_create($request->get('Dateduefirstcar'));
+          $SetDatefirst = date_format($dateFirst, 'd-m-Y');
+        }else{
+          $SetDatefirst = NULL;
+        }
+        $SetLicense = "";
+        if ($request->get('Licensecar') != NULL) {
+          $SetLicense = $request->get('Licensecar');
         }
 
+        $Cardetaildb = new Cardetail([
+          'Buyercar_id' => $Buyerdb->id,
+          'Brand_car' => $request->get('Brandcar'),
+          'Year_car' => $request->get('Yearcar'),
+          'Typecardetails' => $request->get('Typecardetail'),
+          'Groupyear_car' => $request->get('Groupyearcar'),
+          'Colour_car' => $request->get('Colourcar'),
+          'License_car' => $request->get('Licensecar'),
+          'Nowlicense_car' => $request->get('Nowlicensecar'),
+          'Mile_car' => $request->get('Milecar'),
+          'Midprice_car' => $request->get('Midpricecar'),
+          'Model_car' => $request->get('Modelcar'),
+          'Top_car' => $SetTopcar,
+          'Interest_car' => $request->get('Interestcar'),
+          'Vat_car' => $request->get('Vatcar'),
+          'Timeslacken_car' => $request->get('Timeslackencar'),
+          'Pay_car' => $request->get('Paycar'),
+          'Paymemt_car' => $request->get('Paymemtcar'),
+          'Timepayment_car' => $request->get('Timepaymentcar'),
+          'Tax_car' => $request->get('Taxcar'),
+          'Taxpay_car' => $request->get('Taxpaycar'),
+          'Totalpay1_car' => $request->get('Totalpay1car'),
+          'Totalpay2_car' => $request->get('Totalpay2car'),
+          'Dateduefirst_car' => $SetDatefirst,
+          'Insurance_car' => $request->get('Insurancecar'),
+          'status_car' => $request->get('statuscar'),
+          'Percent_car' => $request->get('Percentcar'),
+          'Payee_car' => $request->get('Payeecar'),
+          'Accountbrance_car' => $request->get('Accountbrancecar'),
+          'Tellbrance_car' => $request->get('Tellbrancecar'),
+          'Agent_car' => $request->get('Agentcar'),
+          'Accountagent_car' => $request->get('Accountagentcar'),
+          'Commission_car' => $SetCommissioncar,
+          'Tellagent_car' => $request->get('Tellagentcar'),
+          'Purchasehistory_car' => $request->get('Purchasehistorycar'),
+          'Supporthistory_car' => $request->get('Supporthistorycar'),
+          'Loanofficer_car' => $request->get('Loanofficercar'),
+          'Approvers_car' => $request->get('Approverscar'),
+          'Date_Appcar' => Null,
+          'Check_car' => Null,
+          'StatusApp_car' => 'รออนุมัติ',
+          'DocComplete_car' => $request->get('doccomplete'),
+          'branch_car' => $SetBranch,
+          'branchbrance_car' => $request->get('branchbrancecar'),
+          'branchAgent_car' => $request->get('branchAgentcar'),
+          'Note_car' => $request->get('Notecar'),
+          'Insurance_key' => $request->get('Insurancekey'),
+          'Salemethod_car' => $request->get('Salemethod'),
+        ]);
+        $Cardetaildb ->save();
+
+        if ($request->get('tranPrice') != Null) {
+          $SettranPrice = str_replace (",","",$request->get('tranPrice'));
+        }else {
+          $SettranPrice = 0;
+        }
+        if ($request->get('otherPrice') != Null) {
+          $SetotherPrice = str_replace (",","",$request->get('otherPrice'));
+        }else {
+          $SetotherPrice = 0;
+        }
+        if ($request->get('totalkPrice') != Null) {
+          $SettotalkPrice = str_replace (",","",$request->get('totalkPrice'));
+        }else {
+          $SettotalkPrice = 0;
+        }
+        if ($request->get('balancePrice') != Null) {
+          $SetbalancePrice = str_replace (",","",$request->get('balancePrice'));
+        }else {
+          $SetbalancePrice = 0;
+        }
+        if ($request->get('commitPrice') != Null) {
+          $SetcommitPrice = str_replace (",","",$request->get('commitPrice'));
+        }else {
+          $SetcommitPrice = 0;
+        }
+        if ($request->get('actPrice') != Null) {
+          $SetactPrice = str_replace (",","",$request->get('actPrice'));
+        }else {
+          $SetactPrice = 0;
+        }
+        if ($request->get('closeAccountPrice') != Null) {
+          $SetcloseAccountPrice = str_replace (",","",$request->get('closeAccountPrice'));
+        }else {
+          $SetcloseAccountPrice = 0;
+        }
+        if ($request->get('P2Price') != Null) {
+          $SetP2Price = str_replace (",","",$request->get('P2Price'));
+        }else {
+          $SetP2Price = 0;
+        }
+
+        $Expensesdb = new Expenses([
+          'Buyerexpenses_id' => $Buyerdb->id,
+          'act_Price' => $SetactPrice,
+          'closeAccount_Price' => $SetcloseAccountPrice,
+          'P2_Price' => $SetP2Price,
+          'vat_Price' => $request->get('vatPrice'),
+          'tran_Price' => $SettranPrice,
+          'other_Price' => $SetotherPrice,
+          'evaluetion_Price' => $request->get('evaluetionPrice'),
+          'totalk_Price' => $SettotalkPrice,
+          'balance_Price' => $SetbalancePrice,
+          'commit_Price' => $SetcommitPrice,
+          'marketing_Price' => $request->get('marketingPrice'),
+          'duty_Price' => $request->get('dutyPrice'),
+          'insurance_Price' => $request->get('insurancePrice'),
+          'note_Price' => $request->get('notePrice'),
+        ]);
+        $Expensesdb ->save();
+
+        // รูปประกอบ
+        $image_new_name = "";
+        if ($request->hasFile('file_image')) {
+          $image_array = $request->file('file_image');
+          $array_len = count($image_array);
+
+          for ($i=0; $i < $array_len; $i++) {
+            $image_size = $image_array[$i]->getClientSize();
+            $image_lastname = $image_array[$i]->getClientOriginalExtension();
+            $image_new_name = str_random(10).time(). '.' .$image_array[$i]->getClientOriginalExtension();
+
+            $destination_path = public_path().'/upload-image/'.$SetLicense;
+            Storage::makeDirectory($destination_path, 0777, true, true);
+            
+            $image_array[$i]->move($destination_path,$image_new_name);
+
+            $SetType = 1; //ประเภทรูปภาพ รูปประกอบ
+            $Uploaddb = new UploadfileImage([
+              'Buyerfileimage_id' => $Buyerdb->id,
+              'Type_fileimage' => $SetType,
+              'Name_fileimage' => $image_new_name,
+              'Size_fileimage' => $image_size,
+            ]);
+            $Uploaddb ->save();
+          }
+        }
+
+        return redirect()->Route('Precipitate', 11)->with('success','บันทึกข้อมูลเรียบร้อย');
+      }
     }
 
     /**
@@ -1037,7 +1341,7 @@ class PrecController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id,Request $request)
+    public function edit(Request $request, $id)
     {
         if($request->type == 5) {
           // dd($id);
@@ -1089,6 +1393,26 @@ class PrecController extends Controller
         }
     }
 
+    public function DebtEdit($type,$id,$fdate,$tdate,$branch,$status, Request $request)
+    {
+      if ($type == 11) {
+        $data = DB::table('buyers')
+            ->leftJoin('sponsors','buyers.id','=','sponsors.Buyer_id')
+            ->leftJoin('sponsor2s','buyers.id','=','sponsor2s.Buyer_id2')
+            ->leftJoin('cardetails','Buyers.id','=','cardetails.Buyercar_id')
+            ->leftJoin('expenses','Buyers.id','=','expenses.Buyerexpenses_id')
+            ->select('buyers.*','sponsors.*','sponsor2s.*','cardetails.*','expenses.*','buyers.created_at AS createdBuyers_at')
+            ->where('buyers.id',$id)->first();
+
+        $dataImage = DB::table('uploadfile_images')->where('Buyerfileimage_id',$data->id)->get();
+        $countImage = count($dataImage);
+
+        // dd($data);
+        $GetDocComplete = $data->DocComplete_car;
+        return view('Precipitate.editDebt',compact('type','data','id','dataImage','fdate','tdate','branch','status','type','countImage','GetDocComplete'));
+      }
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -1096,56 +1420,438 @@ class PrecController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, $type)
-    {
+    public function update(Request $request, $id)
+    {    
+      // dd($request);
+      if($request->type == 5) {
         date_default_timezone_set('Asia/Bangkok');
         $date = date('Y-m-d', strtotime('+45 days'));
 
-        if($type == 5) {
-          $SetPricehold = str_replace (",","",$request->get('Pricehold'));
-          $SetAmounthold = str_replace (",","",$request->get('Amounthold'));
-          $SetPayhold = str_replace (",","",$request->get('Payhold'));
-          $SetCapitalAccount = str_replace (",","",$request->get('CapitalAccount'));
-          $SetCapitalTopprice = str_replace (",","",$request->get('CapitalTopprice'));
+        $SetPricehold = str_replace (",","",$request->get('Pricehold'));
+        $SetAmounthold = str_replace (",","",$request->get('Amounthold'));
+        $SetPayhold = str_replace (",","",$request->get('Payhold'));
+        $SetCapitalAccount = str_replace (",","",$request->get('CapitalAccount'));
+        $SetCapitalTopprice = str_replace (",","",$request->get('CapitalTopprice'));
 
-          $hold = Holdcar::where('Hold_id',$id)->first();
-            $hold->Contno_hold = $request->get('Contno');
-            $hold->Name_hold = $request->get('NameCustomer');
-            $hold->Brandcar_hold = $request->get('Brandcar');
-            $hold->Number_Regist = $request->get('Number_Regist');
-            $hold->Year_Product = $request->get('Yearcar');
-            $hold->Date_hold = $request->get('Datehold');
-            if($request->get('Datehold') != Null && $request->get('Datehold') != $hold->Dateupdate_hold){
-              $hold->Dateupdate_hold = date('Y-m-d');
-            }
-            $hold->Team_hold = $request->get('Teamhold');
-            $hold->Price_hold = $SetPricehold;
-            $hold->Statuscar = $request->get('Statuscar');
-            $hold->Note_hold = $request->get('Note');
-            // dd($hold->Note_hold);
-            $hold->Date_came = $request->get('Datecame');
-            $hold->Amount_hold = $SetAmounthold;
-            $hold->Pay_hold = $SetPayhold;
-            $hold->Datecheck_Capital = $request->get('DatecheckCapital');
-            $hold->Datesend_Stockhome = $request->get('DatesendStockhome');
-            $hold->Datesend_Letter = $request->get('DatesendLetter');
-            $hold->Barcode_No = $request->get('BarcodeNo');
-            $hold->Capital_Account = $SetCapitalAccount;
-            $hold->Capital_Topprice = $SetCapitalTopprice;
-            $hold->Note2_hold = $request->get('Note2');
-            $hold->Letter_hold = $request->get('Letter');
-            $hold->Date_send = $request->get('Datesend');
-            $hold->Barcode2 = $request->get('Barcode2');
-            $hold->Accept_hold = $request->get('Accept');
-            if($request->get('Accept') == 'ได้รับ'){
-            $hold->Date_accept_hold = $date;
-            }else{
-            $hold->Date_accept_hold = NULL;
-            }
-            $hold->Soldout_hold = $request->get('Soldout');
-          $hold->update();
-          return redirect()->Route('Precipitate', $type)->with('success','อัพเดทข้อมูลเรียบร้อย');
+        $hold = Holdcar::where('Hold_id',$id)->first();
+          $hold->Contno_hold = $request->get('Contno');
+          $hold->Name_hold = $request->get('NameCustomer');
+          $hold->Brandcar_hold = $request->get('Brandcar');
+          $hold->Number_Regist = $request->get('Number_Regist');
+          $hold->Year_Product = $request->get('Yearcar');
+          $hold->Date_hold = $request->get('Datehold');
+          if($request->get('Datehold') != Null && $request->get('Datehold') != $hold->Dateupdate_hold){
+            $hold->Dateupdate_hold = date('Y-m-d');
+          }
+          $hold->Team_hold = $request->get('Teamhold');
+          $hold->Price_hold = $SetPricehold;
+          $hold->Statuscar = $request->get('Statuscar');
+          $hold->Note_hold = $request->get('Note');
+          // dd($hold->Note_hold);
+          $hold->Date_came = $request->get('Datecame');
+          $hold->Amount_hold = $SetAmounthold;
+          $hold->Pay_hold = $SetPayhold;
+          $hold->Datecheck_Capital = $request->get('DatecheckCapital');
+          $hold->Datesend_Stockhome = $request->get('DatesendStockhome');
+          $hold->Datesend_Letter = $request->get('DatesendLetter');
+          $hold->Barcode_No = $request->get('BarcodeNo');
+          $hold->Capital_Account = $SetCapitalAccount;
+          $hold->Capital_Topprice = $SetCapitalTopprice;
+          $hold->Note2_hold = $request->get('Note2');
+          $hold->Letter_hold = $request->get('Letter');
+          $hold->Date_send = $request->get('Datesend');
+          $hold->Barcode2 = $request->get('Barcode2');
+          $hold->Accept_hold = $request->get('Accept');
+          if($request->get('Accept') == 'ได้รับ'){
+          $hold->Date_accept_hold = $date;
+          }else{
+          $hold->Date_accept_hold = NULL;
+          }
+          $hold->Soldout_hold = $request->get('Soldout');
+        $hold->update();
+        return redirect()->Route('Precipitate', $type)->with('success','อัพเดทข้อมูลเรียบร้อย');
+      }
+      elseif ($request->type == 11) { //ปรับโครงสร้างหนี้
+        date_default_timezone_set('Asia/Bangkok');
+        $Currdate = date('2020-06-02');   //วันที่เช็ตค่า รูป
+        $Getcardetail = Cardetail::where('Buyercar_id',$id)->first();
+
+        $SetPhonebuyer = str_replace ( "_","",$request->get('Phonebuyer'));
+        $newDateDue = $request->get('DateDue');
+        if ($request->get('Approverscar') != Null) {
+          if ($Getcardetail->Date_Appcar == Null) {
+            $newDateDue = date('Y-m-d');
+          }
         }
+
+        $user = Buyer::find($id);
+          $user->Contract_buyer = $request->get('Contract_buyer');
+          $user->Date_Due = $newDateDue;
+          $user->Name_buyer = $request->get('Namebuyer');
+          $user->last_buyer = $request->get('lastbuyer');
+          $user->Nick_buyer = $request->get('Nickbuyer');
+          $user->Status_buyer = $request->get('Statusbuyer');
+          $user->Phone_buyer = $SetPhonebuyer;
+          $user->Phone2_buyer = $request->get('Phone2buyer');
+          $user->Mate_buyer = $request->get('Matebuyer');
+          $user->Idcard_buyer = $request->get('Idcardbuyer');
+          $user->Address_buyer = $request->get('Addressbuyer');
+          $user->AddN_buyer = $request->get('AddNbuyer');
+          $user->StatusAdd_buyer = $request->get('StatusAddbuyer');
+          $user->Workplace_buyer = $request->get('Workplacebuyer');
+          $user->House_buyer = $request->get('Housebuyer');
+          $user->Driver_buyer = $request->get('Driverbuyer');
+          $user->HouseStyle_buyer = $request->get('HouseStylebuyer');
+          $user->Career_buyer = $request->get('Careerbuyer');
+          $user->Income_buyer = $request->get('Incomebuyer');
+          $user->Purchase_buyer = $request->get('Purchasebuyer');
+          $user->Support_buyer = $request->get('Supportbuyer');
+          $user->securities_buyer = $request->get('securitiesbuyer');
+          $user->deednumber_buyer = $request->get('deednumberbuyer');
+          $user->area_buyer = $request->get('areabuyer');
+          $user->BeforeIncome_buyer = str_replace(",","",$request->get('Beforeincome'));
+          $user->AfterIncome_buyer = str_replace(",","",$request->get('Afterincome'));
+          $user->Gradebuyer_car = $request->get('Gradebuyer');
+          $user->Objective_car = $request->get('objectivecar');
+        $user->update();
+
+        $SettelSP = str_replace ("_","",$request->get('telSP'));
+        $sponsor = Sponsor::where('Buyer_id',$id)->first();
+          $sponsor->name_SP = $request->get('nameSP');
+          $sponsor->lname_SP = $request->get('lnameSP');
+          $sponsor->nikname_SP = $request->get('niknameSP');
+          $sponsor->status_SP = $request->get('statusSP');
+          $sponsor->tel_SP = $SettelSP;
+          $sponsor->relation_SP = $request->get('relationSP');
+          $sponsor->mate_SP = $request->get('mateSP');
+          $sponsor->idcard_SP = $request->get('idcardSP');
+          $sponsor->add_SP = $request->get('addSP');
+          $sponsor->addnow_SP = $request->get('addnowSP');
+          $sponsor->statusadd_SP = $request->get('statusaddSP');
+          $sponsor->workplace_SP = $request->get('workplaceSP');
+          $sponsor->house_SP = $request->get('houseSP');
+          $sponsor->deednumber_SP = $request->get('deednumberSP');
+          $sponsor->area_SP = $request->get('areaSP');
+          $sponsor->housestyle_SP = $request->get('housestyleSP');
+          $sponsor->career_SP = $request->get('careerSP');
+          $sponsor->income_SP = $request->get('incomeSP');
+          $sponsor->puchase_SP = $request->get('puchaseSP');
+          $sponsor->support_SP = $request->get('supportSP');
+          $sponsor->securities_SP = $request->get('securitiesSP');
+        $sponsor->update();
+
+        $SettelSP2 = str_replace ("_","",$request->get('telSP2'));
+        $sponsor2 = Sponsor2::where('Buyer_id2',$id)->first();
+
+        if ($sponsor2 != Null) {
+            $sponsor2->name_SP2 = $request->get('nameSP2');
+            $sponsor2->lname_SP2 = $request->get('lnameSP2');
+            $sponsor2->nikname_SP2 = $request->get('niknameSP2');
+            $sponsor2->status_SP2 = $request->get('statusSP2');
+            $sponsor2->tel_SP2 = $SettelSP2;
+            $sponsor2->relation_SP2 = $request->get('relationSP2');
+            $sponsor2->mate_SP2 = $request->get('mateSP2');
+            $sponsor2->idcard_SP2 = $request->get('idcardSP2');
+            $sponsor2->add_SP2 = $request->get('addSP2');
+            $sponsor2->addnow_SP2 = $request->get('addnowSP2');
+            $sponsor2->statusadd_SP2 = $request->get('statusaddSP2');
+            $sponsor2->workplace_SP2 = $request->get('workplaceSP2');
+            $sponsor2->house_SP2 = $request->get('houseSP2');
+            $sponsor2->deednumber_SP2 = $request->get('deednumberSP2');
+            $sponsor2->area_SP2 = $request->get('areaSP2');
+            $sponsor2->housestyle_SP2 = $request->get('housestyleSP2');
+            $sponsor2->career_SP2 = $request->get('careerSP2');
+            $sponsor2->income_SP2 = $request->get('incomeSP2');
+            $sponsor2->puchase_SP2 = $request->get('puchaseSP2');
+            $sponsor2->support_SP2 = $request->get('supportSP2');
+            $sponsor2->securities_SP2 = $request->get('securitiesSP2');
+          $sponsor2->update();
+        }else {
+          $SettelSP2 = str_replace ("_","",$request->get('telSP2'));
+          $Sponsor2db = new Sponsor2([
+            'Buyer_id2' => $id,
+            'name_SP2' => $request->get('nameSP2'),
+            'lname_SP2' => $request->get('lnameSP2'),
+            'nikname_SP2' => $request->get('niknameSP2'),
+            'status_SP2' => $request->get('statusSP2'),
+            'tel_SP2' => $SettelSP2,
+            'relation_SP2' => $request->get('relationSP2'),
+            'mate_SP2' => $request->get('mateSP2'),
+            'idcard_SP2' => $request->get('idcardSP2'),
+            'add_SP2' => $request->get('addSP2'),
+            'addnow_SP2' => $request->get('addnowSP2'),
+            'statusadd_SP2' => $request->get('statusaddSP2'),
+            'workplace_SP2' => $request->get('workplaceSP2'),
+            'house_SP2' => $request->get('houseSP2'),
+            'deednumber_SP2' => $request->get('deednumberSP2'),
+            'area_SP2' => $request->get('areaSP2'),
+            'housestyle_SP2' => $request->get('housestyleSP2'),
+            'career_SP2' => $request->get('careerSP2'),
+            'income_SP2' => $request->get('incomeSP2'),
+            'puchase_SP2' => $request->get('puchaseSP2'),
+            'support_SP2' => $request->get('supportSP2'),
+            'securities_SP2' => $request->get('securitiesSP2'),
+          ]);
+          $Sponsor2db->save();
+        }
+
+          if ($request->get('Topcar') != Null) {
+            $SetTopcar = str_replace (",","",$request->get('Topcar'));
+          }else {
+            $SetTopcar = 0;
+          }
+          if ($request->get('Commissioncar') != Null) {
+            $SetCommissioncar = str_replace (",","",$request->get('Commissioncar'));
+          }else {
+            $SetCommissioncar = 0;
+          }
+          // ดึงค่า ป้ายทะเบียน
+          $SetLicense = "";
+          if ($request->get('Licensecar') != NULL) {
+            $SetLicense = $request->get('Licensecar');
+          }
+
+          $cardetail = Cardetail::where('Buyercar_id',$id)->first();
+            $cardetail->Brand_car = $request->get('Brandcar');
+            $cardetail->Year_car = $request->get('Yearcar');
+            $cardetail->Typecardetails = $request->get('Typecardetail');
+            $cardetail->Groupyear_car = $request->get('Groupyearcar');
+            $cardetail->Colour_car = $request->get('Colourcar');
+            $cardetail->License_car = $request->get('Licensecar');
+            $cardetail->Nowlicense_car = $request->get('Nowlicensecar');
+            $cardetail->Mile_car = $request->get('Milecar');
+            $cardetail->Midprice_car = $request->get('Midpricecar');
+            $cardetail->Model_car = $request->get('Modelcar');
+            $cardetail->Top_car = $SetTopcar;
+            $cardetail->Interest_car = $request->get('Interestcar');
+            $cardetail->Vat_car = $request->get('Vatcar');
+            $cardetail->Timeslacken_car = $request->get('Timeslackencar');
+            $cardetail->Pay_car = $request->get('Paycar');
+            $cardetail->Paymemt_car = $request->get('Paymemtcar');
+            $cardetail->Timepayment_car = $request->get('Timepaymentcar');
+            $cardetail->Tax_car = $request->get('Taxcar');
+            $cardetail->Taxpay_car = $request->get('Taxpaycar');
+            $cardetail->Totalpay1_car = $request->get('Totalpay1car');
+            $cardetail->Totalpay2_car = $request->get('Totalpay2car');
+            $cardetail->Insurance_key = $request->get('Insurancekey');
+            $cardetail->Salemethod_car = $request->get('Salemethod');
+
+            // สถานะ อนุมัติสัญญา
+            if ($request->get('Approverscar') != NULL) { //กรณี อนุมัติ
+              if ($cardetail->Approvers_car == NULL) {
+                $Y = date('Y') +543;
+                $Y2 = date('Y');
+                $m = date('m', strtotime('+1 month'));
+                $m2 = date('m');
+                $d = date('d');
+                $test = date('d-m-Y', strtotime('+1 month'));
+                $dateduebefore = \Carbon\Carbon::parse($test)->format('Y')+543 ."-". \Carbon\Carbon::parse($test)->format('m')."-". \Carbon\Carbon::parse($test)->format('d');
+                $dateduechange = date_create($dateduebefore);
+                $datefirst = date_format($dateduechange, 'd-m-Y');
+
+                $dateApp = $Y2.'-'.$m2.'-'.$d;
+
+                $cardetail->Dateduefirst_car = $datefirst;
+                $cardetail->Date_Appcar = $dateApp;
+                $SetStatusApp = 'อนุมัติ';
+                $SetNameApp =  $request->get('Approverscar');   //ดึงชื่อคน อนุมัติ
+
+                if ($cardetail->branch_car == "ปรับโครงสร้าง") {
+                    $branchType = 22;
+                }
+                if ($branchType != Null) {
+                  if ($branchType == 22) { //ปรับโครงสร้างหนี้
+                    $connect = Buyer::where('Contract_buyer', 'like', '22%' )
+                        ->orderBy('Contract_buyer', 'desc')->limit(1)
+                        ->get();
+                  }
+
+                  $contract = $connect[0]->Contract_buyer;
+                  $SetStr = explode("/",$contract);
+                  $StrNum = $SetStr[1] + 1;
+
+                  $num = "1000";
+                  $SubStr = substr($num.$StrNum, -4);
+                  $StrConn = $SetStr[0]."/".$SubStr;
+
+                  $GetIdConn = Buyer::where('id',$id)->first();
+                    $GetIdConn->Contract_buyer = $StrConn;
+                  $GetIdConn->update();
+
+                }
+              }else {
+                $SetStatusApp = 'อนุมัติ';
+                $SetNameApp = $cardetail->Approvers_car;   //ดึงชื่อคน อนุมัติ
+              }
+            }
+            else { //ยกเลิก หรือ ไม่อนุมัติ
+              if (auth()->user()->type == "Admin" or auth()->user()->type == "แผนก เร่งรัด") {
+                $SetStatusApp = 'รออนุมัติ';
+                $cardetail->Dateduefirst_car = NULL;
+                $cardetail->Date_Appcar = NULL;
+                $SetNameApp =  NULL;   //ดึงชื่อคน อนุมัติ
+
+                $branchType = NULL;
+                if ($cardetail->branch_car == "ปรับโครงสร้าง") {
+                    $branchType = 22;
+                }
+                if ($branchType != Null) {
+                  if ($branchType == 22) { //ปรับโครงสร้างหนี้
+                    $connect = Buyer::where('Contract_buyer', 'like', '22%' )
+                                      ->orderBy('Contract_buyer', 'desc')->limit(1)
+                                      ->get();
+                  }
+
+                  $contract = $connect[0]->Contract_buyer;
+                  $SetStr = explode("/",$contract);
+                  $StrNum = $SetStr[0];
+
+                  $GetIdConn = Buyer::where('id',$id)->first();
+                    $GetIdConn->Contract_buyer = $StrNum;
+                  $GetIdConn->update();
+                }
+              }
+              else {
+                $SetStatusApp = 'รออนุมัติ';
+                $SetNameApp =  NULL;   //ดึงชื่อคน อนุมัติ
+              }
+            }
+
+            // เก็บชื่อ สถานะตรวจเอกสาร
+            if ($request->get('Checkcar') != NULL) {
+              if ($cardetail->Check_car == NULL) {
+                $cardetail->Check_car = $request->get('Checkcar');
+              }
+            }else {
+              if (auth()->user()->type == 1 or auth()->user()->type == 2) {
+                $cardetail->Check_car = NULL;
+              }
+            }
+
+            $cardetail->Insurance_car = $request->get('Insurancecar');
+            $cardetail->status_car = $request->get('statuscar');
+            $cardetail->Percent_car = $request->get('Percentcar');
+            $cardetail->Payee_car = $request->get('Payeecar');
+            $cardetail->Accountbrance_car = $request->get('Accountbrancecar');
+            $cardetail->Tellbrance_car = $request->get('Tellbrancecar');
+            $cardetail->Agent_car = $request->get('Agentcar');
+            $cardetail->Accountagent_car = $request->get('Accountagentcar');
+            $cardetail->Commission_car = $SetCommissioncar;
+            $cardetail->Tellagent_car = $request->get('Tellagentcar');
+            $cardetail->Purchasehistory_car = $request->get('Purchasehistorycar');
+            $cardetail->Supporthistory_car = $request->get('Supporthistorycar');
+            $cardetail->Loanofficer_car = $request->get('Loanofficercar');
+            $cardetail->Approvers_car = $SetNameApp;
+            $cardetail->StatusApp_car = $SetStatusApp;
+            $cardetail->DocComplete_car = $request->get('doccomplete');
+            $cardetail->branchbrance_car = $request->get('branchbrancecar');
+            $cardetail->branchAgent_car = $request->get('branchAgentcar');
+            $cardetail->Note_car = $request->get('Notecar');
+            $cardetail->Dateduefirst_car = $request->get('Dateduefirstcar');
+          $cardetail->update();
+
+          if ($request->get('tranPrice') != Null) {
+            $SettranPrice = str_replace (",","",$request->get('tranPrice'));
+          }else {
+            $SettranPrice = 0;
+          }
+          if ($request->get('otherPrice') != Null) {
+            $SetotherPrice = str_replace (",","",$request->get('otherPrice'));
+          }else {
+            $SetotherPrice = 0;
+          }
+          if ($request->get('totalkPrice') != Null) {
+            $SettotalkPrice = str_replace (",","",$request->get('totalkPrice'));
+          }else {
+            $SettotalkPrice = 0;
+          }
+          if ($request->get('balancePrice') != Null) {
+            $SetbalancePrice = str_replace (",","",$request->get('balancePrice'));
+          }else {
+            $SetbalancePrice = 0;
+          }
+          if ($request->get('commitPrice') != Null) {
+            $SetcommitPrice = str_replace (",","",$request->get('commitPrice'));
+          }else {
+            $SetcommitPrice = 0;
+          }
+          if ($request->get('actPrice') != Null) {
+            $SetactPrice = str_replace (",","",$request->get('actPrice'));
+          }else {
+            $SetactPrice = 0;
+          }
+          if ($request->get('closeAccountPrice') != Null) {
+            $SetcloseAccountPrice = str_replace (",","",$request->get('closeAccountPrice'));
+          }else {
+            $SetcloseAccountPrice = 0;
+          }
+          if ($request->get('P2Price') != Null) {
+            $SetP2Price = str_replace (",","",$request->get('P2Price'));
+          }else {
+            $SetP2Price = 0;
+          }
+
+          $expenses = Expenses::where('Buyerexpenses_id',$id)->first();
+            $expenses->act_Price = $SetactPrice;
+            $expenses->closeAccount_Price = $SetcloseAccountPrice;
+            $expenses->P2_Price = $SetP2Price;
+            $expenses->vat_Price = $request->get('vatPrice');
+            $expenses->tran_Price = $SettranPrice;
+            $expenses->other_Price = $SetotherPrice;
+            $expenses->evaluetion_Price = $request->get('evaluetionPrice');
+            $expenses->totalk_Price = $SettotalkPrice;
+            $expenses->balance_Price = $SetbalancePrice;
+            $expenses->commit_Price = $SetcommitPrice;
+            $expenses->marketing_Price = $request->get('marketingPrice');
+            $expenses->duty_Price = $request->get('dutyPrice');
+            $expenses->insurance_Price = $request->get('insurancePrice');
+            $expenses->note_Price = $request->get('notePrice');
+          $expenses->update();
+
+          // รูปภาพประกอบ
+          if ($request->hasFile('file_image')) {
+            $image_array = $request->file('file_image');
+            $array_len = count($image_array);
+
+            for ($i=0; $i < $array_len; $i++) {
+              $image_size = $image_array[$i]->getClientSize();
+              $image_lastname = $image_array[$i]->getClientOriginalExtension();
+              $image_new_name = str_random(10).time(). '.' .$image_array[$i]->getClientOriginalExtension();
+
+              if(substr($user->created_at,0,10) < $Currdate){
+                $destination_path = public_path('/upload-image');
+                $image_array[$i]->move($destination_path,$image_new_name);
+              }
+              else{
+                $path = public_path().'/upload-image/'.$SetLicense;
+                Storage::makeDirectory($path, 0777, true, true);
+                $image_array[$i]->move($path,$image_new_name);
+              }
+
+              $Uploaddb = new UploadfileImage([
+                'Buyerfileimage_id' => $id,
+                'Type_fileimage' => 1,
+                'Name_fileimage' => $image_new_name,
+                'Size_fileimage' => $image_size,
+              ]);
+              $Uploaddb ->save();
+            }
+          }
+
+          $fdate = $request->fdate;
+          $tdate = $request->tdate;
+          $branch = $request->branch;
+          $status = $request->status;
+
+          if ($branch == "Null") {
+            $branch = Null;
+          }
+          if ($status == "Null") {
+            $status = Null;
+          }
+
+          return redirect()->Route('Precipitate', 11)->with(['fdate' => $fdate,'tdate' => $tdate,'branch' => $branch,'status' => $status,'success' => 'อัพเดตข้อมูลเรียบร้อย']);
+      }
     }
 
     /**
@@ -1154,11 +1860,69 @@ class PrecController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id, $type)
+    public function destroy(Request $request,$id)
     {
-      if($type == 5) {
+      if($request->type == 5) {
         $item1 = Holdcar::find($id);
         $item1->Delete();
+
+        return redirect()->back()->with('success','ลบข้อมูลเรียบร้อย');
+      }
+      elseif ($request->type == 11) {  //ลบปรับโครงสร้างหนี้
+        $item1 = Buyer::find($id);
+        $item2 = Sponsor::where('Buyer_id',$id);
+        $item3 = Cardetail::where('Buyercar_id',$id);
+        $item4 = Expenses::where('Buyerexpenses_id',$id);
+        $item5 = UploadfileImage::where('Buyerfileimage_id','=',$id)->get();
+        $item7 = Sponsor2::where('Buyer_id2',$id);
+
+        $countData = count($item5);
+
+        $Currdate = date('2020-06-02');
+        $created_at = '';
+
+        if($countData != 0){
+          $dataold = Buyer::where('id','=',$id)->first();
+          $datacarold = Cardetail::where('Buyercar_id',$id)->first();
+          $created_at = substr($dataold->created_at,0,10);
+          $path = $datacarold->License_car;
+        }
+        
+        if($created_at < $Currdate){
+          foreach ($item5 as $key => $value) {
+            $itemID = $value->Buyerfileimage_id;
+            $itemPath = $value->Name_fileimage;
+            Storage::delete($itemPath);
+          }
+
+          $ImageAccount = Cardetail::where('Buyercar_id','=',$id)->get();
+          if ($ImageAccount != NULL) {
+            Storage::delete($ImageAccount[0]->AccountImage_car);
+          }
+        }
+        else{
+          foreach ($item5 as $key => $value) {
+            $itemID = $value->Buyerfileimage_id;
+            $itemPath = public_path().'/upload-image/'.$path;
+            File::deleteDirectory($itemPath);
+          }
+          $ImageAccount = Cardetail::where('Buyercar_id','=',$id)->get();
+          if ($ImageAccount != NULL) {
+            File::delete($ImageAccount[0]->AccountImage_car);
+          }
+        }
+
+        if ($countData != 0) {
+          $deleteItem = UploadfileImage::where('Buyerfileimage_id',$itemID);
+          $deleteItem->Delete();
+        } 
+
+        $item1->Delete();
+        $item2->Delete();
+        $item3->Delete();
+        $item4->Delete();
+        $item7->Delete();
+
         return redirect()->back()->with('success','ลบข้อมูลเรียบร้อย');
       }
     }

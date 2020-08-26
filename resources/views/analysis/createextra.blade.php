@@ -273,9 +273,7 @@
               <div class="col-4">
                 <div class="form-inline">
                   <h4>
-                    @if($type == 9)
-                      ปรับโครงสร้างหนี้
-                    @elseif($type == 13)
+                    @if($type == 13)
                       มาตรการ COVID-19
                     @endif
                   </h4>
@@ -283,9 +281,7 @@
               </div>
               <div class="col-8">
                 <div class="card-tools d-inline float-right">
-                  @if($type == 9)
-                    <form method="get" action="{{ route('Analysis',9) }}">
-                  @elseif($type == 13)
+                  @if($type == 13)
                     <form method="get" action="{{ route('Analysis',13) }}">
                   @endif
                     <div class="float-right form-inline">
@@ -331,12 +327,7 @@
                           <i class="fas fa-save"></i> บันทึก
                         </button>
                         &nbsp;
-                        @if($type == 9)
-                          <a class="delete-modal btn btn-danger" href="{{ route('Analysis',8) }}">
-                            <i class="far fa-window-close"></i> ยกเลิก
-                          </a>
-                          <input type="hidden" name="type" value="8" />
-                        @elseif($type == 13)
+                        @if($type == 13)
                           <a class="delete-modal btn btn-danger" href="{{ route('Analysis',12) }}">
                             <i class="far fa-window-close"></i> ยกเลิก
                           </a>
@@ -352,9 +343,7 @@
                 <div class="card-header p-0 pt-1">
                   <ul class="nav nav-tabs" id="custom-tabs-five-tab" role="tablist">
                     <li class="nav-item">
-                      @if($type == 9)
-                        <a class="nav-link MainPage" href="{{ route('Analysis',8) }}">หน้าหลัก</a>
-                      @elseif($type == 13)
+                      @if($type == 13)
                         <a class="nav-link MainPage" href="{{ route('Analysis',12) }}">หน้าหลัก</a>
                       @endif
                     </li>
@@ -382,15 +371,11 @@
                             <label class="col-sm-3 col-form-label text-right"><font color="red">เลขที่สัญญา : </font></label>
                             <div class="col-sm-8">
                               @if(auth::user()->type == 1 or auth::user()->type == 2)
-                                @if($type == 9)
-                                  <input type="text" name="Contract_buyer" class="form-control form-control-sm " value="22-{{$Y}}/" required/>
-                                @elseif($type == 13)
+                                @if($type == 13)
                                   <input type="text" name="Contract_buyer" class="form-control form-control-sm" value="33-{{$Y}}/" required/>
                                 @endif
                               @else
-                                @if($type == 9)
-                                  <input type="text" name="Contract_buyer" class="form-control form-control-sm" data-inputmask="&quot;mask&quot;:&quot;99-9999/&quot;" data-mask="" value="22-{{$Y}}/" readonly required/>
-                                @elseif($type == 13)
+                                @if($type == 13)
                                 <input type="text" name="Contract_buyer" class="form-control form-control-sm" data-inputmask="&quot;mask&quot;:&quot;99-9999/&quot;" data-mask="" value="33-{{$Y}}/" readonly required/>
                                 @endif
                               @endif
@@ -646,24 +631,7 @@
                         </div>
                         <div class="col-6">
                           <div class="form-group row mb-1">
-                            @if($type == 9)
-                              <label class="col-sm-3 col-form-label text-right">วัตถุประสงค์ของสินเชื่อ :</label>
-                              <div class="col-sm-8">
-                                <select id="objectivecar" name="objectivecar" class="form-control form-control-sm" oninput="calculate();">
-                                  <option value="" selected>--- วัตถุประสงค์ของสินเชื่อ ---</option>
-                                  <option value="ลงทุนในธุรกิจ">ลงทุนในธุรกิจ</option>
-                                  <option value="ขยายกิจการ">ขยายกิจการ</option>
-                                  <option value="ซื้อรถยนต์">ซื้อรถยนต์</option>
-                                  <option value="ใช้หนี้นอกระบบ">ใช้หนี้นอกระบบ</option>
-                                  <option value="จ่ายค่าเทอม">จ่ายค่าเทอม</option>
-                                  <option value="ซื้อของใช้ภายในบ้าน">ซื้อของใช้ภายในบ้าน</option>
-                                  <option value="ซื้อวัว">ซื้อวัว</option>
-                                  <option value="ซื้อที่ดิน">ซื้อที่ดิน</option>
-                                  <option value="ซ่อมบ้าน">ซ่อมบ้าน</option>
-                                  <option value="ขยายระยะเวลาชำระหนี้">ขยายระยะเวลาชำระหนี้</option>
-                                </select>
-                              </div>
-                            @elseif($type == 13)
+                            @if($type == 13)
                               <label class="col-sm-3 col-form-label text-right">มาตรการช่วยเหลือ :</label>
                               <div class="col-sm-8">
                                 <select id="objectivecar" name="objectivecar" class="form-control form-control-sm" oninput="calculate();" required>
@@ -1155,73 +1123,7 @@
                         }
                       </script>
 
-                      @if($type == 9)
-                        <script>
-                          function calculate(){
-                            var num11 = document.getElementById('Topcar').value;
-                            var num1 = num11.replace(",","");
-                            var num4 = document.getElementById('Timeslackencar').value;
-                            var num2 = document.getElementById('Interestcar').value;
-                            var num3 = document.getElementById('Vatcar').value;
-
-                              if(num4 == '12'){
-                              var period = '1';
-                              }else if(num4 == '18'){
-                              var period = '1.5';
-                              }else if(num4 == '24'){
-                              var period = '2';
-                              }else if(num4 == '30'){
-                              var period = '2.5';
-                              }else if(num4 == '36'){
-                              var period = '3';
-                              }else if(num4 == '42'){
-                              var period = '3.5';
-                              }else if(num4 == '48'){
-                              var period = '4';
-                              }else if(num4 == '54'){
-                              var period = '4.5';
-                              }else if(num4 == '60'){
-                              var period = '5';
-                              }else if(num4 == '66'){
-                              var period = '5.5';
-                              }else if(num4 == '72'){
-                              var period = '6';
-                              }else if(num4 == '78'){
-                              var period = '6.5';
-                              }else if(num4 == '84'){
-                              var period = '7';
-                              }else if(num4 == '90'){
-                              var period = '7.5';
-                              }else if(num4 == '96'){
-                              var period = '8';
-                              }
-
-                            var totaltopcar = parseFloat(num1);
-                            var vat = (100+parseFloat(num3))/100;
-                            var a = (num2*period)+100;
-                            var b = (((totaltopcar*a)/100)*vat)/num4;
-                            var result = Math.ceil(b/10)*10;
-                            var durate = result/vat;
-                            var durate2 = durate.toFixed(2)*num4;
-                            var tax = result-durate;
-                            var tax2 = tax.toFixed(2)*num4;
-                            var total = result*num4;
-                            var total2 = durate2+tax2;
-
-                            document.form1.Topcar.value = addCommas(totaltopcar);
-
-                            if(!isNaN(result) && num2 != ''){
-                              document.form1.Paycar.value = addCommas(result.toFixed(2));
-                              document.form1.Paymemtcar.value = addCommas(durate.toFixed(2));
-                              document.form1.Timepaymentcar.value = addCommas(durate2.toFixed(2));
-                              document.form1.Taxcar.value = addCommas(tax.toFixed(2));
-                              document.form1.Taxpaycar.value = addCommas(tax2.toFixed(2));
-                              document.form1.Totalpay1car.value = addCommas(total.toFixed(2));
-                              document.form1.Totalpay2car.value = addCommas(total2.toFixed(2));
-                            }
-                          }
-                        </script>
-                      @elseif($type == 13)
+                      @if($type == 13)
                         <script>
                           function calculate(){
                             var num11 = document.getElementById('Topcar').value;
@@ -1288,9 +1190,7 @@
                           <div class="form-group row mb-1">
                             <label class="col-sm-3 col-form-label text-right">ระยะเวลาผ่อน :</label>
                             <div class="col-sm-8">
-                              @if($type == 9)
-                                <input type="text" id="Timeslackencar" name="Timeslackencar" class="form-control form-control-sm" oninput="calculate();" />
-                              @elseif($type == 13)
+                              @if($type == 13)
                                 <input type="text" id="Timeslackencar" name="Timeslackencar" value="12" class="form-control form-control-sm" oninput="calculate();" />
                               @endif
                             </div>
@@ -1315,15 +1215,11 @@
                             <label class="col-sm-3 col-form-label text-right">ดอกเบี้ย/ปี :</label>
                             <div class="col-sm-8">
                               @if($data == null)
-                                @if($type == 9)
-                                  <input type="text" id="Interestcar" name="Interestcar" class="form-control form-control-sm" oninput="calculate();"/>
-                                @elseif($type == 13)
+                                @if($type == 13)
                                   <input type="text" id="Interestcar" name="Interestcar" class="form-control form-control-sm" value="12" oninput="calculate();"/>
                                 @endif
                               @else
-                                @if($type == 9)
-                                  <input type="text" id="Interestcar" name="Interestcar" value="{{iconv('Tis-620','utf-8',str_replace(" ","",$data->EFRATE))}}" class="form-control form-control-sm" placeholder="ดอกเบี้ย" oninput="calculate();"/>
-                                @elseif($type == 13)
+                                @if($type == 13)
                                   <input type="text" id="Interestcar" name="Interestcar" class="form-control form-control-sm" value="12" oninput="calculate();"/>
                                 @endif
                               @endif
@@ -1348,9 +1244,7 @@
                           <div class="form-group row mb-1">
                             <label class="col-sm-3 col-form-label text-right">VAT :</label>
                             <div class="col-sm-8">
-                              @if($type == 9)
-                                <input type="text" id="Vatcar" name="Vatcar" value="7" class="form-control form-control-sm" style="background-color: white;" oninput="calculate()"/>
-                              @elseif($type == 13)
+                              @if($type == 13)
                                 <input type="text" id="Vatcar" name="Vatcar" class="form-control form-control-sm" style="background-color: white;" oninput="calculate()"/>
                               @endif
                             </div>
@@ -1442,9 +1336,7 @@
                 </div>
 
                 {{-- กำหนดประเภทค่า ในการเพิ่มข้อมูล --}}
-                @if($type == 9)
-                  <input type="hidden" name="patch_type" value="8">
-                @elseif($type == 13)
+                @if($type == 13)
                   <input type="hidden" name="patch_type" value="12">
                 @endif
 

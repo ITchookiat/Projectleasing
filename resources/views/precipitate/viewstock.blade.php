@@ -31,8 +31,6 @@
                 <h4 class="">
                   @if($type == 5)
                     ระบบสต็อกรถเร่งรัด
-                  @elseif($type == 11)
-                    ระบบปรับโครงสร้างหนี้
                   @endif
                 </h4>
               </div>
@@ -166,10 +164,10 @@
                               @endif
                             </td>
                             <td class="text-center">
-                              <a href="{{ action('PrecController@edit',[$row->Hold_id,$type]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
+                              <a href="{{ route('MasterPrecipitate.edit',[$row->Hold_id]) }}?type={{5}}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                 <i class="far fa-edit"></i> แก้ไข
                               </a>
-                              <form method="post" class="delete_form" action="{{ action('PrecController@destroy',[$row->Hold_id,$type]) }}" style="display:inline;">
+                              <form method="post" class="delete_form" action="{{ route('MasterPrecipitate.destroy',[$row->Hold_id]) }}?type={{5}}" style="display:inline;">
                               {{csrf_field()}}
                                 <input type="hidden" name="_method" value="DELETE" />
                                 <button type="submit" data-name="{{ $row->Contno_hold }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
@@ -182,29 +180,6 @@
                       </tbody>
                     </table>
                   </div>
-
-                @elseif($type == 11)
-                  <form method="get" action="{{ route('Precipitate', 11) }}">
-                    <div align="right" class="form-inline">
-                      <a href="{{ route('Precipitate', 12) }}" class="btn btn-primary btn-app">
-                        <span class="fa fa-plus"></span> เพิ่มข้อมูล
-                      </a>
-                      <!-- <a target="_blank" href="{{ action('PrecController@excel') }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{5}}" class="btn btn-success btn-app">
-                        <span class="fa fa-file-excel-o"></span> Excel
-                      </a>
-                      <a target="_blank" href="{{ action('PrecController@ReportPrecDue',[00,00]) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&type={{5}}&Statuscar={{$Statuscar}}" class="btn btn-danger btn-app">
-                        <span class="fa fa-file-pdf-o"></span> PDF
-                      </a> -->
-                      <button type="submit" class="btn btn-warning btn-app">
-                        <span class="glyphicon glyphicon-search"></span> Search
-                      </button >
-                      <p></p>
-                      <label>จากวันที่ : </label>
-                      <input type="date" name="Fromdate" style="width: 150px;" value="{{ ($fdate != '') ?$fdate: '' }}" class="form-control" />
-                      <label>ถึงวันที่ : </label>
-                      <input type="date" name="Todate" style="width: 150px;" value="{{ ($tdate != '') ?$tdate: '' }}" class="form-control" />
-                    </div>
-                  </form>
                 @endif
 
                 <a id="button"></a>

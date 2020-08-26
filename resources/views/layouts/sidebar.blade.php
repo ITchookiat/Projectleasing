@@ -54,7 +54,7 @@
             </li>
           @endif
 
-          <li class="nav-item has-treeview {{ Request::is('Analysis/*') ? 'menu-open' : '' }}{{ Request::is('DataCustomer/*') ? 'menu-open' : '' }}">
+          <li class="nav-item has-treeview {{ Request::is('Analysis/*') ? 'menu-open' : '' }} {{ Request::is('DataCustomer/*') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link active">
               <i class="nav-icon fa fa-sitemap"></i>
               <p>
@@ -99,7 +99,7 @@
                     </p>
                   </a>
                   <ul class="nav nav-treeview" style="margin-left: 15px;">
-                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์")
+                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์" or auth::user()->type == "แผนก การเงินใน")
                         <li class="nav-item">
                           <a href="{{ route('Analysis',15) }}" class="nav-link {{ Request::is('Analysis/Home/1') ? 'active' : '' }} {{ Request::is('Analysis/Home/2') ? 'active' : '' }} {{ Request::is('Analysis/edit/1/*/*/*/*/*') ? 'active' : '' }}">
                             <i class="far fa-dot-circle nav-icon"></i>
@@ -182,7 +182,7 @@
             @endif
           </li>
 
-          <li class="nav-item has-treeview {{ Request::is('Precipitate/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/8') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/9') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/10') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/11') ? 'menu-open' : '' }} {{ Request::is('Analysis/edit/8/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/deleteImageEach/8/*') ? 'menu-open' : '' }}">
+          <li class="nav-item has-treeview {{ Request::is('Precipitate/*') ? 'menu-open' : '' }}  {{ Request::is('Analysis/deleteImageEach/11/*') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link active">
               <i class="nav-icon far fa-handshake"></i>
               <p>
@@ -193,7 +193,7 @@
 
             @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก เร่งรัด")
               <ul class="nav nav-treeview">
-                <li class="nav-item has-treeview {{ Request::is('Precipitate/Home/3') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/1') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/4') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/5') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/6') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/8') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/9') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/10') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/11') ? 'menu-open' : '' }} {{ Request::is('Analysis/edit/8/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/deleteImageEach/8/*') ? 'menu-open' : '' }}">
+                <li class="nav-item has-treeview {{ Request::is('Precipitate/Home/3') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/1') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/4') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/5') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/6') ? 'menu-open' : '' }}  {{ Request::is('Precipitate/Home/11') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/12') ? 'menu-open' : '' }} {{ Request::is('Precipitate/DebtEdit/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/deleteImageEach/11/*') ? 'menu-open' : '' }}">
                   <a href="#" class="nav-link">
                     <i class="far fa-window-restore text-red nav-icon"></i>
                     <p>
@@ -215,7 +215,7 @@
                         <i class="far fa-dot-circle nav-icon"></i>
                         <p>ระบบสต็อกรถเร่งรัด</p>
                       </a>
-                      <a href="{{ route('Analysis',8) }}" class="nav-link {{ Request::is('Analysis/Home/8') ? 'active' : '' }} {{ Request::is('Analysis/Home/9') ? 'active' : '' }} {{ Request::is('Analysis/edit/8/*/*/*/*/*') ? 'active' : '' }}">
+                      <a href="{{ route('Precipitate',11) }}" class="nav-link {{ Request::is('Precipitate/Home/11') ? 'active' : '' }} {{ Request::is('Precipitate/Home/12') ? 'active' : '' }} {{ Request::is('Precipitate/DebtEdit/11/*/*/*/*/*') ? 'active' : '' }} {{ Request::is('Analysis/deleteImageEach/11/*/*/*/*/*/*') ? 'active' : '' }}">
                         <i class="far fa-dot-circle nav-icon"></i>
                         <p>ระบบปรับโครงสร้างหนี้</p>
                       </a>
@@ -225,7 +225,7 @@
               </ul>
 
               <ul class="nav nav-treeview">
-                <li class="nav-item has-treeview {{ Request::is('Precipitate/Home/2') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/7') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/8') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/9') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/10') ? 'menu-open' : '' }}{{ Request::is('Precipitate/Home/15') ? 'menu-open' : '' }}">
+                <li class="nav-item has-treeview {{ Request::is('Precipitate/Home/2') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/7') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/8') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/9') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/10') ? 'menu-open' : '' }}">
                   <a href="#" class="nav-link">
                     <i class="far fa-window-restore text-red nav-icon"></i>
                     <p>
@@ -254,10 +254,6 @@
                       <a href="{{ route('Precipitate',10) }}" class="nav-link {{ Request::is('Precipitate/Home/10') ? 'active' : '' }}">
                         <i class="far fa-dot-circle nav-icon"></i>
                         <p>รายงาน หนังสือขอยืนยัน</p>
-                      </a>
-                      <a href="{{ route('Precipitate',15) }}" class="nav-link {{ Request::is('Precipitate/Home/15') ? 'active' : '' }}">
-                        <i class="far fa-dot-circle nav-icon"></i>
-                        <p>รายงาน หนังสือทวงถาม</p>
                       </a>
                     </li>
                   </ul>

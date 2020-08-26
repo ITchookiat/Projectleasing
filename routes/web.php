@@ -34,14 +34,16 @@ Route::group(['middleware' => 'auth'], function()
     Route::patch('/Analysis/updaterestructure/{id}/{Gettype}', 'AnalysController@updaterestructure');
     Route::patch('/Analysis/updatehomecar/{id}/{Gettype}', 'AnalysController@updatehomecar');
     Route::delete('/Analysis/delete/{id}/{type}', 'AnalysController@destroy')->name('Analysis.destroy');
+    Route::get('/Analysis/ReportHomecar/{id}/{type}', 'ReportAnalysController@ReportHomecar');
+    
+    // ใช้ร่วมกับ แผนกอื่นๆ //
     Route::get('/Analysis/deleteImageAll/{id}/{path}', 'AnalysController@deleteImageAll');
-    Route::get('/Analysis/deleteImageEach/{type}/{id}/{fdate}/{tdate}/{branch}/{status}/{path}', 'AnalysController@deleteImageEach')->name('deleteImageEach');
     Route::get('/Analysis/destroyImage/{id}/{type}/{fdate}/{tdate}/{branch}/{status}/{path}', 'AnalysController@destroyImage');
-
+    Route::get('/Analysis/deleteImageEach/{type}/{id}/{fdate}/{tdate}/{branch}/{status}/{path}', 'AnalysController@deleteImageEach')->name('deleteImageEach');
     Route::get('/Analysis/Report/{id}/{type}', 'ReportAnalysController@ReportPDFIndex');
     Route::get('/Analysis/ReportDueDate/{type}', 'ReportAnalysController@ReportDueDate');
-    Route::get('/Analysis/ReportHomecar/{id}/{type}', 'ReportAnalysController@ReportHomecar');
-
+    //-------------------//-----------//
+    
     Route::get('/ExportExcel/{type}', 'ExcelController@excel');
 
     //------------------งานกฏหมาย--------------------//
@@ -58,17 +60,15 @@ Route::group(['middleware' => 'auth'], function()
     //------------------งานเร่งรัด----------------------//
     route::resource('MasterPrecipitate','PrecController');
     Route::get('/Precipitate/Home/{type}', 'PrecController@index')->name('Precipitate');
-    Route::get('/Precipitate/ReportPrecDue/{Str1}/{Str2}', 'PrecController@ReportPrecDue');
     Route::get('/PrecipitateExcel', 'PrecController@excel');
-    Route::get('/Precipitate/edit/{id}/{type}', 'PrecController@edit')->name('Precipitate.edit');
+    Route::get('/Precipitate/ReportPrecDue/{Str1}/{Str2}', 'PrecController@ReportPrecDue');
+    Route::get('/Precipitate/DebtEdit/{type}/{id}/{fdate}/{tdate}/{branch}/{status}', 'PrecController@DebtEdit')->name('Precipitate.DebtEdit');
     Route::get('/Precipitate/report/{type}', 'PrecController@ReportLetter')->name('Precipitate.report');
-    Route::patch('/Precipitate/update/{id}/{type}', 'PrecController@update')->name('Precipitate.update');
-    Route::delete('/Precipitate/delete/{id}/{type}', 'PrecController@destroy')->name('Precipitate.destroy');
 
     //------------------งานการเงิน---------------------//
+    route::resource('MasterTreasury','TreasController');
     Route::get('/Treasury/Home/{type}', 'TreasController@index')->name('treasury');
     Route::get('/Treasury/SearchData/{type}/{id}', 'TreasController@SearchData')->name('SearchData');
-    Route::get('/Treasury/update/{type}/{id}', 'TreasController@updateAnalysis')->name('treasury.updateAnalysis');
     Route::get('/Treasury/ReportDueDate/{type}', 'TreasController@ReportDueDate')->name('treasury.ReportDueDate');
 
     //------------------งานบัญชี----------------------//
@@ -82,14 +82,11 @@ Route::group(['middleware' => 'auth'], function()
     route::resource('MasterDataCustomer','DataCustomerController');
     Route::get('/DataCustomer/Home/{type}', 'DataCustomerController@index')->name('DataCustomer');
     Route::get('/DataCustomer/Savestatus/{value}/{id}', 'DataCustomerController@savestatus')->name('DataCustomer.savestatus');
-    Route::delete('/DataCustomer/delete/{id}', 'DataCustomerController@destroy');
 
-    //------------------LOCKER เอกสาร---------------------//
+    //------------------LOCKER เอกสาร-----------------//
+    route::resource('MasterDocument','DocumentController');
     Route::get('/Document/Home/{type}', 'DocumentController@index')->name('document');
-    Route::post('/Document/create/{type}', 'DocumentController@store')->name('document.store');
     Route::get('/Document/download/{file}', 'DocumentController@download');
-    Route::get('/Document/preview/{id}/{type}', 'DocumentController@edit');
-    Route::delete('/Document/delete/{id}/{type}', 'DocumentController@destroy');
 
     //---------------- logout --------------------//
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');

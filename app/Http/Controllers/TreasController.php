@@ -58,12 +58,10 @@ class TreasController extends Controller
         }
         elseif ($request->type == 2) {
             $type = $request->type;
-            
             return view('treasury.viewReport',compact('type'));
         }
         elseif ($request->type == 3) {
             $type = $request->type;
-            
             return view('treasury.viewReport',compact('type'));
         }
     }
@@ -120,9 +118,9 @@ class TreasController extends Controller
         }
     }
 
-    public function updateAnalysis(Request $request, $type, $id)
+    public function update(Request $request, $id)
     {
-        if ($type == 1) {
+        if ($request->type == 1) {      //update Analysis
             if ($request->has('checkAccount') != NULL) {
                 $user = Cardetail::find($id);
                     $user->UserCheckAc_car = $request->get('checkAccount');
@@ -130,7 +128,7 @@ class TreasController extends Controller
                 $user->update();
             }
         
-            return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
+            return redirect()->Route('treasury', 1)->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
         }
     }
 

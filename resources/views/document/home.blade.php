@@ -60,7 +60,7 @@
                           @foreach($data as $row)
                             <div class="col-sm-1">
                             @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                              <form method="post" class="delete_form float-center" action="{{ action('DocumentController@destroy',[$row->folder_id,1]) }}" style="display:inline;">
+                              <form method="post" class="delete_form float-right" action="{{ route('MasterDocument.destroy',[$row->folder_id]) }}?type={{1}}" style="display:inline;">
                                 {{csrf_field()}}
                                 <input type="hidden" name="_method" value="DELETE" />
                                 <input type="hidden" name="foldername" value="{{$row->folder_name}}" />
@@ -69,7 +69,7 @@
                                 </button>
                               </form>
                             @endif
-                              <a href="{{ action('DocumentController@edit',[$row->folder_id, 1]) }}">
+                            <a href="{{ route('MasterDocument.edit',[$row->folder_id]) }}?type={{1}}">
                                 <img src="{{ asset('dist/img/folder2.png') }}" class="img-fluid">
                               </a>
                               <p align="center"> {{$row->folder_name}}</p>
@@ -90,8 +90,10 @@
   </section>
 
   <!-- pop up create new folder -->
-  <form action="{{ route('document.store', 1) }}" method="post" enctype="multipart/form-data">
+  <form action="{{ route('MasterDocument.store') }}" method="post" enctype="multipart/form-data">
     {{ csrf_field() }}
+    <input type="hidden" name="type" value="1">
+
     <div class="modal fade" id="modal-lg" aria-hidden="true" style="display: none;">
         <div class="modal-dialog">
           <div class="modal-content" style="border-radius:50px;">
