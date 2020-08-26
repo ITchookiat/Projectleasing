@@ -75,7 +75,7 @@ class AnalysController extends Controller
             $status = '';
           }
           $data = DB::table('buyers')
-            ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
+              ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
               ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
               ->join('expenses','buyers.id','=','expenses.Buyerexpenses_id')
               ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {

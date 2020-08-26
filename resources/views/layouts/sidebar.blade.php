@@ -356,6 +356,28 @@
             @endif
           </li>
 
+          <li class="nav-item has-treeview {{ Request::is('Register/*') ? 'menu-open' : '' }}">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fab fa-buffer"></i>
+              <span id="ShowData"></span>
+              <p>
+                แผนกทะเบียน
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+
+            @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก ทะเบียน")
+              <ul class="nav nav-treeview" style="margin-left: 15px;">
+                <li class="nav-item">
+                  <a href="{{ route('Register', 1) }}" class="nav-link {{ Request::is('Register/Home/1') ? 'active' : '' }}">
+                    <i class="far fa-dot-circle nav-icon"></i>
+                    <p>รายการทะเบียนรถ</p>
+                  </a>
+                </li>
+              </ul>
+            @endif
+          </li>
+
           <li class="nav-header">Documents Part</li>
           {{-- <div class="user-panel mt-3 pb-1 mb-2 d-flex">
             <div class="info">

@@ -1022,28 +1022,28 @@
                               </tr>
                             </thead>
                             <tbody>
-                              @foreach($data as $key => $row)
-                                <tr>
-                                  <td class="text-center"> {{$key+1}} </td>
-                                  <td class="text-center">
-                                    @php
-                                    $StrCon = explode("/",$row->CONTNO);
-                                    $SetStr1 = $StrCon[0];
-                                    $SetStr2 = $StrCon[1];
+                                @foreach($data as $key => $row)
+                                  <tr>
+                                    <td class="text-center"> {{$key+1}} </td>
+                                    <td class="text-center">
+                                      @php
+                                      $StrCon = explode("/",$row->CONTNO);
+                                      $SetStr1 = $StrCon[0];
+                                      $SetStr2 = $StrCon[1];
 
-                                    $LASTUPDATE= date_create($row->LAST_UPDATE);
-                                    @endphp
-                                    {{ date_format($LASTUPDATE, 'd-m-Y')}}
-                                  </td>
-                                  <td class="text-center"> {{$row->CONTNO}}</td>
-                                  <td class="text-left"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->SNAM.$row->NAME1)."   ".str_replace(" ","",$row->NAME2))}} </td>
-                                  <td class="text-center text-danger"> {{number_format($row->KEYINPRC,2)}} </td>
-                                  <td class="text-center text-danger"> {{number_format($row->SMPAY,2)}} </td>
-                                  <td class="text-center text-danger"> {{number_format($row->EXP_AMT,2)}} </td>
-                                  <td class="text-center text-danger"> {{number_format($row->HLDNO,2)}} </td>
-                                  <td class="text-center"> {{iconv('Tis-620','utf-8', $row->OLD_STATUS)}} => {{iconv('Tis-620','utf-8', $row->CONTSTAT)}} </td>
-                                </tr>
-                              @endforeach
+                                      $LASTUPDATE= date_create($row->LAST_UPDATE);
+                                      @endphp
+                                      {{ date_format($LASTUPDATE, 'd-m-Y')}}
+                                    </td>
+                                    <td class="text-center"> {{$row->CONTNO}}</td>
+                                    <td class="text-left"> {{iconv('Tis-620','utf-8',str_replace(" ","",$row->SNAM.$row->NAME1)."   ".str_replace(" ","",$row->NAME2))}} </td>
+                                    <td class="text-center text-danger"> {{number_format($row->KEYINPRC,2)}} </td>
+                                    <td class="text-center text-danger"> {{number_format($row->SMPAY,2)}} </td>
+                                    <td class="text-center text-danger"> {{number_format($row->EXP_AMT,2)}} </td>
+                                    <td class="text-center text-danger"> {{number_format($row->HLDNO,2)}} </td>
+                                    <td class="text-center"> {{iconv('Tis-620','utf-8', $row->OLD_STATUS)}} => {{iconv('Tis-620','utf-8', $row->CONTSTAT)}} </td>
+                                  </tr>
+                                @endforeach
                             </tbody>
                           </table>
                         </div>

@@ -18,7 +18,9 @@ class DocumentController extends Controller
      */
     public function index(Request $request)
     {
+        // dd($request);
         $data = DB::table('filefolders')
+              ->where('folder_type','=', 1)
             //   ->orderBY('created_at', 'DESC')
               ->get();
         return view('document.home', compact('data','newfdate','newtdate'));
@@ -46,6 +48,8 @@ class DocumentController extends Controller
         if($type == 1){
             $data = new Filefolder;
             $data->folder_name = $request->foldername;
+            $data->folder_type = $request->type;
+            $data->folder_sub = $request->folderID;
             $data->folder_creator = $request->creator;
             $data->save();
         }
@@ -55,7 +59,7 @@ class DocumentController extends Controller
                 $file = $request->file('file');
                 $filesize = $file->getClientSize();
                 $filename = $request->title.date('dmY'). '.' .$file->getClientOriginalExtension();
-                $destination_path = public_path().'/file-documents/'.$request->folder;
+                $destination_path = public_path().'/file-documents/'.$request->foldername;
                 Storage::makeDirectory($destination_path, 0777, true, true);
                 $request->file->move($destination_path, $filename);
                 $data->file_name = $filename;
@@ -63,7 +67,7 @@ class DocumentController extends Controller
             }
             $data->folder_id = $request->folder_id;
             $data->file_title = $request->title;
-            $data->file_description = $request->description;
+            // $data->file_description = $request->description;
             $data->file_uploader = $request->uploader;
             $data->save();
         }
@@ -90,18 +94,38 @@ class DocumentController extends Controller
      */
     public function edit($id,Request $request, $type)
     {
-        // dd($id);
         if($type == 1){
+
+            if($request->sub_folder != null){
+              $Subfolder = $request->sub_folder;
+              $Maintitle = $request->main_folder;
+            }else{
+              $Subfolder = '';
+            }
+
             $folder = Filefolder::find($id);
+
             $data = DB::table('filefolders')
                 ->join('filedocuments','filefolders.folder_id','=','filedocuments.folder_id')
                 ->where('filedocuments.folder_id','=',$id)
                 ->orderBY('filedocuments.created_at', 'DESC')
                 ->get();
-            $title = $folder->folder_name;
-            return view('document.view',compact('data','title','id'));
+                
+            $dataF = DB::table('filefolders')
+                ->where('folder_type','=', 2)
+                ->where('folder_sub','=', $folder->folder_id)
+                ->get();
+            $countDataF = count($dataF);
+
+            $folderID = $folder->folder_id;
+            $sub_ID = $folder->folder_sub;
+            $title1 = $folder->folder_name;
+            $Hostname = 'http://'.$request->getHttpHost();
+
+            return view('document.view',compact('data','title1','title2','id','dataF','countDataF','folderID','Subfolder','sub_ID','Hostname','Maintitle'));
         }
         elseif($type == 2){
+            dd('aasd');
             $folder_name = $request->foldername;
             $data = Filedocument::find($id);
             return view('document.preview',compact('data','folder_name'));

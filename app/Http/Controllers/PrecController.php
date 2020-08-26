@@ -634,9 +634,9 @@ class PrecController extends Controller
 
         elseif ($request->type == 15) { //รายงาน หนังสือทวงถาม
           $contno = '';
-          $dateset = date('Y-m-d',strtotime('- 1 days'));
-          $fdate = date('Y-m-d',strtotime('- 1 days'));
-          $tdate = date('Y-m-d',strtotime('- 1 days'));
+          $dateset = date('Y-m-d');
+          $fdate = date('Y-m-d');
+          $tdate = date('Y-m-d');
           $fstart = '2.00';
           $tend = '2.99';
 
@@ -649,38 +649,50 @@ class PrecController extends Controller
           if ($request->has('Todate')) {
             $tdate = $request->get('Todate');
           }
-
           if($contno == ''){
             $dataQuery = DB::connection('ibmi')
-                ->table('SFHP.ARMAST')
-                ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
-                ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
-                ->Join('SFHP.VIEW_ARMGAR','SFHP.ARMAST.CONTNO','=','SFHP.VIEW_ARMGAR.CONTNO')
-                ->when(!empty($fstart)  && !empty($tend), function($q) use ($fstart, $tend) {
-                    return $q->whereBetween('SFHP.ARMAST.HLDNO',[$fstart,$tend]);
-                  })
-                ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
-                    return $q->whereBetween('SFHP.ARMAST.LAST_UPDATE',[$fdate,$tdate]);
-                  })
-                ->where('SFHP.ARMAST.LPAYD','!=', $dateset)
-                ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
-                ->get();
-                // dd($dataQuery);
+            ->table('SFHP.ARMAST')
+            ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+            ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+            ->Join('SFHP.VIEW_ARMGAR','SFHP.ARMAST.CONTNO','=','SFHP.VIEW_ARMGAR.CONTNO')
+            ->when(!empty($fstart)  && !empty($tend), function($q) use ($fstart, $tend) {
+              return $q->whereBetween('SFHP.ARMAST.HLDNO',[$fstart,$tend]);
+            })
+            ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+              return $q->whereBetween('SFHP.ARMAST.LAST_UPDATE',[$fdate,$tdate]);
+            })
+            ->where('SFHP.ARMAST.LPAYD','!=', $dateset)
+            ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+            ->get();
+            
             $count3 = count($dataQuery);
+
+            for($j=0; $j<$count3; $j++){
+              $str3[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$dataQuery[$j]->CONTSTAT)));
+              if($str3[$j] == "จ") {
+                $dataJ[] = $dataQuery[$j];
+                $J = 'true';
+              }else{
+                $J = 'false';
+                break;
+              }
+            }
+
             for($k=0; $k<$count3; $k++){
               $str4[] = str_replace(" ","",$dataQuery[$k]->CONTSTAT);
               if ($str4[$k] == "K") {
                 $dataK[] = $dataQuery[$k];
+                $k = 'true';
+              }else{
+                $k = 'false';
+                break;
               }
             }
-            for($j=0; $j<$count3; $j++){
-              $str3[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$dataQuery[$j]->CONTSTAT)));
-              if ($str3[$j] == "จ") {
-                $dataJ[] = $dataQuery[$j];
-              }
+            if($j == 'false' or $k == 'false'){
+              $data = $dataQuery;
+            }else{
+              $data = array_merge($dataK, $dataJ);
             }
-
-            $data = array_merge($dataK, $dataJ);
 
           }
           else{
@@ -691,7 +703,7 @@ class PrecController extends Controller
               return $q->where('SFHP.ARMAST.CONTNO','=',$contno);
             })
             ->get();
-          }
+          }       
           
           $type = $request->type;
           return view('precipitate.viewReport', compact('data','fdate','tdate','fstart','tend','type','contno'));
@@ -1598,11 +1610,11 @@ class PrecController extends Controller
       $m = date('m');
       $d = date('d');
       $date = $d.'-'.$m.'-'.$Y;
-      $dateset = date('Y-m-d',strtotime('- 1 days'));
+      $dateset = date('Y-m-d');
 
       if($type == 1){
-          $fdate = date('Y-m-d',strtotime('- 1 days'));
-          $tdate = date('Y-m-d',strtotime('- 1 days'));
+          $fdate = date('Y-m-d');
+          $tdate = date('Y-m-d');
           $fstart = '2';
           $tend = '2.99';
 
@@ -1630,20 +1642,33 @@ class PrecController extends Controller
                 ->get();
             
           $count3 = count($dataQuery);
+
+          for($j=0; $j<$count3; $j++){
+            $str3[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$dataQuery[$j]->CONTSTAT)));
+            if($str3[$j] == "จ") {
+              $dataJ[] = $dataQuery[$j];
+              $J = 'true';
+            }else{
+              $J = 'false';
+              break;
+            }
+          }
+
           for($k=0; $k<$count3; $k++){
             $str4[] = str_replace(" ","",$dataQuery[$k]->CONTSTAT);
             if ($str4[$k] == "K") {
               $dataK[] = $dataQuery[$k];
+              $k = 'true';
+            }else{
+              $k = 'false';
+              break;
             }
           }
-          for($j=0; $j<$count3; $j++){
-            $str3[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$dataQuery[$j]->CONTSTAT)));
-            if ($str3[$j] == "จ") {
-              $dataJ[] = $dataQuery[$j];
-            }
+          if($j == 'false' or $k == 'false'){
+            $data = $dataQuery;
+          }else{
+            $data = array_merge($dataK, $dataJ);
           }
-
-          $data = array_merge($dataK, $dataJ);
       }
 
       $SetTopic = "AskLetter ".$date;
