@@ -157,11 +157,11 @@
                             <td class="text-center new_register">{{($row->Nowlicense_car != '')?$row->Nowlicense_car:'-'}}</td>
                             <td class="text-left note"></td>
                             <td class="text-center act">
-                              <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal-view" title="ดูรายการ"
+                              <!-- <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal-view" title="ดูรายการ"
                                 data-backdrop="static" data-keyboard="false"
                                 data-link="{{ route('MasterRegister.edit',[$row->id]) }}?type={{1}}">
                                 <i class="far fa-eye"></i>
-                              </button>
+                              </button> -->
                               <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-edit" title="แก้ไขรายการ"
                                 data-backdrop="static" data-keyboard="false"
                                 data-link="{{ route('MasterRegister.edit',[$row->id]) }}?type={{2}}">

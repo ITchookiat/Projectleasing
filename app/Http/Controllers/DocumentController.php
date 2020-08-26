@@ -44,11 +44,10 @@ class DocumentController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
         if($request->type == 1){
             $data = new Filefolder;
             $data->folder_name = $request->foldername;
-            $data->folder_type = $request->type;
+            $data->folder_type = $request->foldertype;
             $data->folder_sub = $request->folderID;
             $data->folder_creator = $request->creator;
             $data->save();
@@ -94,7 +93,7 @@ class DocumentController extends Controller
      */
     public function edit(Request $request, $id)
     {
-        if($type == 1){
+        if($request->type == 1){
 
             if($request->sub_folder != null){
               $Subfolder = $request->sub_folder;

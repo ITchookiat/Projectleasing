@@ -41,7 +41,7 @@
                       @if($Subfolder == null)
                         <a href="{{ route('document', 1) }}">คลังข้อมูล </a> / {{$title1}} 
                       @else
-                        <a href="{{ route('document', 1) }}">คลังข้อมูล </a> / <a href="{{$Hostname}}/Projectleasing/public/Document/preview/{{$sub_ID}}/1">{{$Maintitle}}</a> / {{$Subfolder}}
+                        <a href="{{ route('document', 1) }}">คลังข้อมูล </a> / <a href="{{$Hostname}}/Projectleasing/public/MasterDocument/{{$sub_ID}}/edit?type=1">{{$Maintitle}}</a> / {{$Subfolder}}
                       @endif
                       </h5>
                     </div>
@@ -79,7 +79,7 @@
                           </button>
                         </form>
                       @endif
-                        <a href="{{ action('DocumentController@edit',[$row->folder_id, 1]) }}?main_folder={{$title1}}&sub_folder={{$row->folder_name}}">
+                        <a href="{{ route('MasterDocument.edit',[$row->folder_id]) }}?type={{1}}&main_folder={{$title1}}&sub_folder={{$row->folder_name}}">
                           <img src="{{ asset('dist/img/folder2.png') }}" class="img-fluid">
                         </a>
                         <p align="center"> {{$row->folder_name}}</p>
@@ -137,7 +137,7 @@
                             <td class="text-left">{{DateThai(substr($row->created_at,0,10))}}</td>
                             <td class="text-right">
                               @if($extension == 'pdf' or $extension == 'jpg' or $extension == 'png' or $extension == 'txt' or $extension == 'mp4')
-                                <a href="#" data-toggle="modal" data-target="#modal-preview" data-link="{{ route('MasterDocument.edit',[$row->file_id]) }}?type={{2}}&foldername={{$title}}" class="btn btn-warning btn-sm" title="ดูไฟล์">
+                                <a href="#" data-toggle="modal" data-target="#modal-preview" data-link="{{ route('MasterDocument.edit',[$row->file_id]) }}?type={{2}}&foldername={{$title1}}" class="btn btn-warning btn-sm" title="ดูไฟล์">
                                   <i class="far fa-eye"></i>
                                 </a>
                               @endif
@@ -252,7 +252,7 @@
   </form>
 
   <!-- pop up create new folder -->
-  <form action="{{ route('document.store', 1) }}" method="post" enctype="multipart/form-data">
+  <form action="{{ route('MasterDocument.store') }}" method="post" enctype="multipart/form-data">
     {{ csrf_field() }}
     <div class="modal fade" id="modal-newfolder" aria-hidden="true" style="display: none;">
         <div class="modal-dialog">
@@ -280,7 +280,8 @@
                 </div>
                 <br/>
                 <input type="hidden" name="creator" value="{{auth::user()->name}}"/>
-                <input type="hidden" name="type" value="2"/>
+                <input type="hidden" name="type" value="1"/>
+                <input type="hidden" name="foldertype" value="2"/>
                 <input type="hidden" name="folderID" value="{{$folderID}}"/>
             </div>
             <div style="text-align: center;">
