@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title','แผนกวิเคราะห์')
+@section('title','สินเชื่อ')
 @section('content')
 
 @php
@@ -69,12 +69,17 @@
 
                       @if($type == 1 or $type == 15)
                         @if($type == 1)
-                          <li class="nav-item">
+                          {{-- <li class="nav-item">
                             <a class="nav-link" id="Tab-Main-2" href="{{ route('Analysis', 15) }}" >Dashboard</a>
-                          </li>
+                          </li> --}}
                           <li class="nav-item">
-                            <a class="nav-link active" id="Tab-Main-1" href="{{ route('Analysis', 1) }}" >สัญญาเช่าซื้อ</a>
+                            <a class="nav-link active" id="Tab-Main-1" href="{{ route('Analysis', 1) }}" >หน้าหลัก</a>
                           </li>
+                          @if(auth::user()->type == 'Admin' or auth::user()->type == 'แผนก วิเคราะห์')
+                            <li class="nav-item">
+                              <a class="nav-link" id="Tab-Main-3" href="{{ route('Analysis', 2) }}" >แบบฟอร์มผู้เช่าซื้อ</a>
+                            </li>
+                          @endif
                         @elseif($type == 15)
                           <li class="nav-item">
                             <a class="nav-link active" id="Tab-Main-2" href="{{ route('Analysis', 15) }}" >Dashboard</a>

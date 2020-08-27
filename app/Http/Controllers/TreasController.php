@@ -54,7 +54,34 @@ class TreasController extends Controller
                         ->orderBy('buyers.Contract_buyer', 'ASC')
                         ->get();
             }
-            return view('treasury.view', compact('data','newfdate','newtdate'));
+
+            if ($newfdate == false and $newtdate == false) {
+                $newfdate = date('Y-m-d');
+                $newtdate = date('Y-m-d');
+            }
+
+            $topcar = DB::table('buyers')
+            ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
+            ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
+            ->join('expenses','buyers.id','=','expenses.Buyerexpenses_id')
+            ->whereBetween('buyers.Date_Due',[$newfdate,$newtdate])
+            ->get();
+            // dd($topcar);
+            $count = count($topcar);
+  
+            if($count != 0){
+                for ($i=0; $i < $count; $i++) {
+                @$SumTopcar += $topcar[$i]->Top_car; //รวมยอดจัดวันปัจจุบัน
+                @$SumCommissioncar += $topcar[$i]->Commission_car; //รวมค่าคอมก่อนหักวันปัจจุบัน
+                @$SumCommitprice += $topcar[$i]->commit_Price; //รวมค่าคอมหลังหักวันปัจจุบัน
+                }
+            }else{
+                $SumTopcar = 0;
+                $SumCommissioncar = 0;
+                $SumCommitprice = 0;
+            }
+
+            return view('treasury.view', compact('data','newfdate','newtdate','SumTopcar','SumCommissioncar','SumCommitprice'));
         }
         elseif ($request->type == 2) {
             $type = $request->type;
