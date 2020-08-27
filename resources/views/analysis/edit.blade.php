@@ -249,7 +249,7 @@
                 </div>
                 <div class="card-body text-sm">
                   <div class="container-fluid">
-                    <div class="row mb-2">
+                    <div class="row mb-1">
                       <div class="col-sm-3">
                         {{-- <h1 class="m-0 text-dark">Dashboard v2</h1> --}}
                       </div>

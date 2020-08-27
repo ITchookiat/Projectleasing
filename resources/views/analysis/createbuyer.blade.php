@@ -153,26 +153,6 @@
     line-height:35px;
     color:#0eb0b7;
     }
-    /* Delete Items */
-
-    .delete-item{
-    display:block;
-    position:absolute;
-    height:36px;
-    width:36px;
-    line-height:36px;
-    right:0;
-    top:0;
-    text-align:center;
-    color:#d8d8d8;
-    opacity:0;
-    }
-    .todo-wrap:hover .delete-item{
-    opacity:1;
-    }
-    .delete-item:hover{
-    color:#cd4400;
-    }
   </style>
 
   <section class="content">
@@ -193,7 +173,7 @@
                   <div class="row">
                     <div class="col-4">
                       <div class="form-inline">
-                        <h4>เพิ่มรายการเช่าซื้อ...</h4>
+                        <h5>เพิ่มรายการเช่าซื้อ</h5>
                       </div>
                     </div>
                     <div class="col-8">

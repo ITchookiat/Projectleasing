@@ -168,7 +168,7 @@
         <tbody>
           <tr style="line-height:150%;">
             <th width="80px" align="right"><b>งวดละ : </b></th>
-            <th width="150px" align="center">
+            <th width="160px" align="center">
               {{number_format($dataDB->DuePay_Promise,2)}} บาท
               {{--
               {{ $dataDB->Period_Payment }} - {{ $dataDB->Period_Payment }}
@@ -177,16 +177,16 @@
               @endif
               --}}
             </th>
-            <th width="150px" align="right"></th>
+            <th width="160px" align="right"></th>
           </tr>
           <tr style="line-height:150%;">
             <th width="80px" align="right"><b>ประเภทชำระ : </b></th>
-            <th width="150px" align="center"> {{ $dataDB->Type_Payment }}</th>
-            <th width="150px" align="right"></th>
+            <th width="160px" align="center"> {{ $dataDB->Type_Payment }}</th>
+            <th width="160px" align="right"></th>
           </tr>
           <tr style="line-height:150%;">
             <th width="80px" align="right"></th>
-            <th width="300px" align="right">
+            <th width="320px" align="right">
               @php
                 $SetPrice = ($dataDB->Gold_Payment / 1.07);
               @endphp
@@ -195,11 +195,11 @@
           </tr>
           <tr style="line-height:150%;">
             <th width="80px" align="right"></th>
-            <th width="300px" align="right">7%</th>
+            <th width="320px" align="right">7%</th>
           </tr>
           <tr style="line-height:150%;">
             <th width="80px" align="right"></th>
-            <th width="300px" align="right">
+            <th width="320px" align="right">
               @php
                 $SetVat = ($dataDB->Gold_Payment * 7) / 107;
               @endphp
@@ -211,16 +211,16 @@
           </tr>
           <tr style="line-height:150%;">
             <th width="80px" align="right"><b>ยอดสุทธิ : </b></th>
-            <th width="150px" align="center"><b> ( {{  $Pay_Amount  }} )</b></th>
-            <th width="150px" align="right">{{number_format($dataDB->Gold_Payment, 2)}}</th>
+            <th width="220px" align="center"><b> ( {{  $Pay_Amount  }} )</b></th>
+            <th width="100px" align="right">{{number_format($dataDB->Gold_Payment, 2)}}</th>
           </tr>
           <tr style="line-height:150%;">
             <th width="80px" align="right"><b>ส่วนลด : </b></th>
-            <th width="300px" align="right">{{number_format($dataDB->Discount_Promise, 2)}}</th>
+            <th width="320px" align="right">{{number_format($dataDB->Discount_Promise, 2)}}</th>
           </tr>
           <tr style="line-height:150%;">
             <th width="80px" align="right"><b>ยอดคงเหลือ : </b></th>
-            <th width="300px" align="right">{{number_format($dataDB->Sum_Promise, 2)}} บาท</th>
+            <th width="320px" align="right">{{number_format($dataDB->Sum_Promise, 2)}} บาท</th>
           </tr>
         </tbody>
       </table>

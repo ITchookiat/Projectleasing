@@ -99,7 +99,7 @@
                     </p>
                   </a>
                   <ul class="nav nav-treeview" style="margin-left: 15px;">
-                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์" or auth::user()->type == "แผนก การเงินใน")
+                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์")
                         <li class="nav-item">
                           <a href="{{ route('Analysis',15) }}" class="nav-link {{ Request::is('Analysis/Home/1') ? 'active' : '' }} {{ Request::is('Analysis/Home/2') ? 'active' : '' }} {{ Request::is('Analysis/edit/1/*/*/*/*/*') ? 'active' : '' }}">
                             <i class="far fa-dot-circle nav-icon"></i>
@@ -336,7 +336,7 @@
               </p>
             </a>
 
-            @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก บัญชี")
+            @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก บัญชี" or auth::user()->type == "แผนก วิเคราะห์")
               <ul class="nav nav-treeview" style="margin-left: 15px;">
                 <li class="nav-item">
                   <a href="{{ route('Accounting', 1) }}" class="nav-link {{ Request::is('Account/Home/1') ? 'active' : '' }}">
