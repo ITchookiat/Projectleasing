@@ -170,12 +170,6 @@
             <th width="80px" align="right"><b>งวดละ : </b></th>
             <th width="160px" align="center">
               {{number_format($dataDB->DuePay_Promise,2)}} บาท
-              {{--
-              {{ $dataDB->Period_Payment }} - {{ $dataDB->Period_Payment }}
-              @if($dataDB->Gold_Payment < $dataDB->DuePay_Promise)
-                *
-              @endif
-              --}}
             </th>
             <th width="160px" align="right"></th>
           </tr>
