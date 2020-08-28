@@ -143,7 +143,7 @@
                           <th class="text-center register">ป้ายทะเบียน</th>
                           <th class="text-center name">ชื่อ-สกุล</th>
                           <th class="text-center new_register">ป้ายใหม่</th>
-                          <th class="text-center note">หมายเหตุ</th>
+                          <th class="text-center note">รายละเอียด</th>
                           <th class="text-center act">ตัวเลือก</th>
                         </tr>
                       </thead>
@@ -155,7 +155,7 @@
                             <td class="text-center register">{{$row->License_car}}</td>
                             <td class="text-left name">{{$row->Name_buyer}}&nbsp;&nbsp;&nbsp;{{$row->last_buyer}}</td>
                             <td class="text-center new_register">{{($row->Nowlicense_car != '')?$row->Nowlicense_car:'-'}}</td>
-                            <td class="text-left note"></td>
+                            <td class="text-left note">{{$row->Desc_regis}}</td>
                             <td class="text-center act">
                               <!-- <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal-view" title="ดูรายการ"
                                 data-backdrop="static" data-keyboard="false"
