@@ -2368,7 +2368,8 @@ class PrecController extends Controller
       }
     }
 
-    public function ReportLetter(Request $request, $type){
+    public function ReportLetter(Request $request, $type)
+    {
       date_default_timezone_set('Asia/Bangkok');
       $Y = date('Y')+543;
       $m = date('m');
