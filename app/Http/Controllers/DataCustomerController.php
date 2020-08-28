@@ -200,39 +200,40 @@ class DataCustomerController extends Controller
      */
     public function show(Request $request,$id)
     {
-        if($request->Type == 1){ //PDF
-            $datenow = date('Y-m-d');
-            $newfdate = '';
-            $newtdate = '';
-            $status = '';
-            if ($request->has('Fromdate')) {
-                $newfdate = $request->get('Fromdate');
-            }
-            if ($request->has('Todate')) {
-                $tdate = \Carbon\Carbon::parse($request->get('Todate'));
-                $newtdate = $tdate->addDay();
-            }
-            if ($request->has('Status')) {
-                $status = $request->get('Status');
-            }
+        $datenow = date('Y-m-d');
+        $newfdate = '';
+        $newtdate = '';
+        $status = '';
+        if ($request->has('Fromdate')) {
+            $newfdate = $request->get('Fromdate');
+        }
+        if ($request->has('Todate')) {
+            $tdate = \Carbon\Carbon::parse($request->get('Todate'));
+            $newtdate = $tdate->addDay();
+        }
+        if ($request->has('Status')) {
+            $status = $request->get('Status');
+        }
 
-            if ($request->has('Fromdate') == false and $request->has('Todate') == false) {
-                $data = DB::table('data_customers')
-                ->where('created_at','>', $datenow)
-                ->orderBY('created_at', 'DESC')
-                ->get();
-            }else{
-                $data = DB::table('data_customers')
-                ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
-                    return $q->whereBetween('created_at',[$newfdate,$newtdate]);
-                })
-                ->when(!empty($status), function($q) use ($status) {
-                    return $q->where('Status_leasing','=', $status);
-                })
-                ->orderBY('created_at', 'ASC')
-                ->get();
-            }
-            $newtdate = $request->get('Todate');
+        if ($request->has('Fromdate') == false and $request->has('Todate') == false) {
+            $data = DB::table('data_customers')
+            ->where('created_at','>', $datenow)
+            ->orderBY('created_at', 'DESC')
+            ->get();
+        }else{
+            $data = DB::table('data_customers')
+            ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+                return $q->whereBetween('created_at',[$newfdate,$newtdate]);
+            })
+            ->when(!empty($status), function($q) use ($status) {
+                return $q->where('Status_leasing','=', $status);
+            })
+            ->orderBY('created_at', 'ASC')
+            ->get();
+        }
+        $newtdate = $request->get('Todate');
+
+        if($request->Type == 1){ //PDF
             $SetTopic = "WalkinPDFReport ".$datenow;
 
             $view = \View::make('datacustomer.reportWalkin' ,compact('data','type','newfdate','newtdate','status','datenow'));
@@ -248,39 +249,6 @@ class DataCustomerController extends Controller
                 
         }
         elseif($request->Type == 2){ //Excel
-            $datenow = date('Y-m-d');
-            $newfdate = '';
-            $newtdate = '';
-            $status = '';
-            if ($request->has('Fromdate')) {
-                $newfdate = $request->get('Fromdate');
-            }
-            if ($request->has('Todate')) {
-                $tdate = \Carbon\Carbon::parse($request->get('Todate'));
-                $newtdate = $tdate->addDay();
-            }
-            if ($request->has('Status')) {
-                $status = $request->get('Status');
-            }
-
-            if ($request->has('Fromdate') == false and $request->has('Todate') == false) {
-                $data = DB::table('data_customers')
-                ->where('created_at','>', $datenow)
-                ->orderBY('created_at', 'DESC')
-                ->get();
-            }else{
-                $data = DB::table('data_customers')
-                ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
-                    return $q->whereBetween('created_at',[$newfdate,$newtdate]);
-                })
-                ->when(!empty($status), function($q) use ($status) {
-                    return $q->where('Status_leasing','=', $status);
-                })
-                ->orderBY('created_at', 'ASC')
-                ->get();
-            }
-            $newtdate = $request->get('Todate');
-
             $data_array[] = array('ลำดับ','วันที่','สาขา','ทะเบียน','ยี่ห้อ','รุ่น','ประเภทรถ','ปี', 'ยอดจัด', 'ชื่อ-สกุล ลูกค้า','เบอร์ลูกค้า','เลขบัตรประชาชน', 'ชื่อ-สกุล นายหน้า', 'เบอร์นายหน้า', 'หมายเหตุ', 'ที่มาลูกค้า','ประเภทลูกค้า','เจ้าหน้าที่ผู้คีย์');
 
             foreach($data as $key => $row){
