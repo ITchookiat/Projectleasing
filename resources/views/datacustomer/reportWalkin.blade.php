@@ -71,7 +71,7 @@
             <td width="75px">{{$value->License_car}}</td>
             <td width="70px">{{($value->Brand_car != null)?$value->Brand_car: '-'}}</td>
             <td width="35px">{{($value->Year_car != null)?$value->Year_car: '-'}}</td>
-            <td width="70px" align="right">{{number_format($value->Top_car,2)}} &nbsp;</td>
+            <td width="70px" align="right">{{number_format($value->Top_car,0)}} &nbsp;</td>
             <td width="140px" align="left"> {{$value->Name_buyer}}&nbsp;{{$value->Last_buyer}}</td>
             <td width="70px">{{substr(($value->Phone_buyer != null)?$value->Phone_buyer: '-',0,11)}}</td>
             <td width="80px" align="left"> {{$value->Resource_news}}</td>
@@ -86,9 +86,9 @@
         @endforeach
         <br>
         <tr align="center" style="background-color: #BEBEBE; line-height:150%;">
-            <td width="80px">รวม {{$countlist}} ราย</td>
-            <td width="250px" align="right">รวมยอดจัด &nbsp;</td>
-            <td width="70px" align="right">{{number_format($sumtopcar,2)}} &nbsp;</td>
+            <td width="100px">รวม {{$countlist}} ราย</td>
+            <td width="230px" align="right">รวมยอดจัด &nbsp;</td>
+            <td width="70px" align="right">{{number_format($sumtopcar,0)}} &nbsp;</td>
             <td width="365px" align="left">&nbsp;บาท</td>
         </tr>
       </tbody>
