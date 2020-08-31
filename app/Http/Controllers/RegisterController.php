@@ -21,81 +21,63 @@ class RegisterController extends Controller
     public function index(Request $request)
     {
         if ($request->type == 1){ //รายการ
-            $contno = '';
-            $newfdate = '';
-            $newtdate = '';
-            $branch = '';
-            $status = '';
-    
-            if ($request->has('Fromdate')) {
-              $newfdate = $request->get('Fromdate');
-            }
-            if ($request->has('Todate')) {
-              $newtdate = $request->get('Todate');
-            }
-            if ($request->has('branch')) {
-              $branch = $request->get('branch');
-            }
-            if ($request->has('status')) {
-              $status = $request->get('status');
-            }
-            if ($request->has('Contno')) {
-              $contno = $request->get('Contno');
-            }
-    
-            if ($request->has('Fromdate') == false and $request->has('Todate') == false) {
-                $datemonth = date('m');
-                $dateyear = date('Y');
-                $data = DB::table('buyers')
-                  ->leftjoin('sponsors','buyers.id','=','sponsors.Buyer_id')
-                  ->leftjoin('cardetails','buyers.id','=','cardetails.Buyercar_id')
-                  ->leftjoin('expenses','buyers.id','=','expenses.Buyerexpenses_id')
-                  ->leftJoin('registers','Buyers.id','=','registers.Buyer_id')
-                //   ->where('cardetails.Date_Appcar','=',Null)
-                //   ->where('cardetails.Date_Appcar','!=', null)
-                  ->whereMonth('cardetails.Date_Appcar',$datemonth)
-                  ->whereYear('cardetails.Date_Appcar',$dateyear)
-                  ->where('buyers.Contract_buyer','not like', '22%')
-                  ->where('buyers.Contract_buyer','not like', '33%')
-                  ->orderBy('buyers.Contract_buyer', 'ASC')
-                  ->get();
-            }
-            else {
-              if($contno != ''){
-                $newfdate = '';
-                $newtdate = '';
-                $branch = '';
-                $status = '';
-              }
-              $data = DB::table('buyers')
-                  ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
-                  ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
-                  ->join('expenses','buyers.id','=','expenses.Buyerexpenses_id')
-                  ->leftJoin('registers','Buyers.id','=','registers.Buyer_id')
-                  ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
-                    return $q->whereBetween('buyers.Date_Due',[$newfdate,$newtdate]);
-                  })
-                  ->when(!empty($branch), function($q) use($branch){
-                    return $q->where('cardetails.branch_car',$branch);
-                  })
-                  ->when(!empty($status), function($q) use($status){
-                    return $q->where('cardetails.StatusApp_car','=',$status);
-                  })
-                  ->when(!empty($contno), function($q) use($contno){
-                    return $q->where('buyers.Contract_buyer','=',$contno);
-                  })
-                  // ->where('cardetails.Date_Appcar','!=', null)
-                  ->where('buyers.Contract_buyer','not like', '22%')
-                  ->where('buyers.Contract_buyer','not like', '33%')
-                  ->orderBy('buyers.Contract_buyer', 'ASC')
-                  ->get();
-    
-            }
-    
-            $type = $request->type;    
-            $countData = count($data);
-            return view('registration.view', compact('type','data','countData','branch','newfdate','newtdate','status','Setdate','contno','SetStrConn','SetStr1','SetStr2'));
+          $data = DB::table('buyers')
+              ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
+              ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
+              ->join('expenses','buyers.id','=','expenses.Buyerexpenses_id')
+              ->where('cardetails.Date_Appcar','=',Null)
+              ->where('buyers.Contract_buyer','not like', '22%')
+              ->where('buyers.Contract_buyer','not like', '33%')
+              ->orderBy('buyers.Contract_buyer', 'ASC')
+              ->get();
         }
+        elseif ($request->type == 2){ //รายการ
+          $datenow = date('Y-m-d');
+          $newfdate = '';
+          $newtdate = '';
+          $branch = '';
+          $status = '';
+  
+          if ($request->has('Fromdate')) {
+            $newfdate = $request->get('Fromdate');
+          }
+          if ($request->has('Todate')) {
+            $newtdate = $request->get('Todate');
+          }
+          if ($request->has('branch')) {
+            $branch = $request->get('branch');
+          }
+          if ($request->has('status')) {
+            $status = $request->get('status');
+          }
+          if ($request->has('Contno')) {
+            $contno = $request->get('Contno');
+          }
+  
+          if ($request->has('Fromdate') == false and $request->has('Todate') == false) {
+              $data = DB::table('registers')
+                ->where('registers.Date_regis',$datenow)
+                ->orderBy('registers.Date_regis', 'ASC')
+                ->get();
+          }
+          else {
+
+            $data = DB::table('registers')
+                ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+                  return $q->whereBetween('registers.Date_regis',[$newfdate,$newtdate]);
+                })
+                // ->when(!empty($status), function($q) use($status){
+                //   return $q->where('cardetails.StatusApp_car','=',$status);
+                // })
+                ->orderBy('registers.Date_regis', 'ASC')
+                ->get();
+  
+          }
+  
+          $countData = count($data);
+        }
+        $type = $request->type;    
+        return view('registration.view', compact('type','data','countData','branch','newfdate','newtdate','status','Setdate','contno','SetStrConn','SetStr1','SetStr2'));
     }
 
     /**
@@ -185,16 +167,17 @@ class RegisterController extends Controller
             'TechAmt_regis' => $request->get('Budgettecnique'),
             'CopyAmt_regis' => $request->get('Budgetcopy'),
 
-            // 'Income_buyer' => $request->get('Incomebuyer'),
-            // 'Purchase_buyer' => $request->get('Purchasebuyer'),
-            // 'Support_buyer' => $request->get('Supportbuyer'),
-            // 'securities_buyer' => $request->get('securitiesbuyer'),
-            // 'deednumber_buyer' => $request->get('deednumberbuyer'),
-            // 'area_buyer' => $request->get('areabuyer'),
-            // 'BeforeIncome_buyer' => $BeforeIncome,
-            // 'AfterIncome_buyer' => $AfterIncome,
-            // 'Gradebuyer_car' => $request->get('Gradebuyer'),
-            // 'Objective_car' => $request->get('objectivecar'),
+            'TransInAmt_regis' => $request->get('TransferinExtra'),
+            'TransAmt_regis' => $request->get('Transferextra'),
+            'NewCarAmt_regis' => $request->get('Newcarextra'),
+            'TaxAmt_regis' => $request->get('Taxextra'),
+            'RegAmt_regis' => $request->get('Regisextra'),
+            'DocAmt_regis' => $request->get('Docextra'),
+            'FixAmt_regis' => $request->get('Editextra'),
+            'CancelAmt_regis' => $request->get('Cancelextra'),
+            'OtherAmt_regis' => $request->get('Otherextra'),
+            'EMSAmt_regis' => $request->get('EMSfee'),
+            'Remainfee_regis' => $request->get('Remainfee'),
           ]);
           $Registerdb->save();
         }else{
@@ -208,7 +191,31 @@ class RegisterController extends Controller
             $user->DocChk_regis = $request->get('Doccheck');
             $user->KeyChk_regis = $request->get('Keycheck');
             $user->RecChk_regis = $request->get('Receiptcheck');
+
+            $user->CustAmt_regis = $request->get('Budgetamount');
+            $user->RecptAmt_regis = $request->get('Budgetreceipt');
+            $user->TechAmt_regis = $request->get('Budgettecnique');
+            $user->CopyAmt_regis = $request->get('Budgetcopy');
+
+            $user->TransInAmt_regis = $request->get('TransferinExtra');
+            $user->TransAmt_regis = $request->get('Transferextra');
+            $user->NewCarAmt_regis = $request->get('Newcarextra');
+            $user->TaxAmt_regis = $request->get('Taxextra');
+            $user->RegAmt_regis = $request->get('Regisextra');
+            $user->DocAmt_regis = $request->get('Docextra');
+            $user->FixAmt_regis = $request->get('Editextra');
+            $user->CancelAmt_regis = $request->get('Cancelextra');
+            $user->OtherAmt_regis = $request->get('Otherextra');
+            $user->EMSAmt_regis = $request->get('EMSfee');
+            $user->Remainfee_regis = $request->get('Remainfee');
           $user->update();
+
+          // $expenses = Expenses::where('Buyerexpenses_id',$id)->first();
+          //   $expenses->tran_Price = $SettranPrice;
+          //   $expenses->other_Price = $SetotherPrice;
+          // $expenses->update();
+
+
         }
         // dd($Getcardetail);
         return redirect()->back()->with('success','อัพเดทข้อมูลเรียบร้อย');

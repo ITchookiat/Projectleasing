@@ -46,6 +46,7 @@ class CreateRegistersTable extends Migration
             $table->string('RecChk_regis')->nullable();
             $table->date('DocrecDate_regis')->nullable();
             $table->string('Note_regis')->nullable();
+            $table->string('Remainfee_regis')->nullable();
             $table->timestamps();
         });
     }
