@@ -120,7 +120,8 @@
                 </div>
                 <br/>
                 <input type="hidden" name="creator" value="{{auth::user()->name}}"/>
-                <input type="hidden" name="type" value="1"/>
+                <input type="hidden" name="foldertype" value="1"/>
+                <input type="hidden" name="folderID" value=""/>
             </div>
             <div style="text-align: center;">
                 <button type="submit" class="btn btn-success" style="border-radius:50px;">สร้าง</button>

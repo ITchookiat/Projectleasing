@@ -81,7 +81,7 @@
                     <div class="form-inline">
                       <h4>
                         @if($type == 1)
-                          รายการทะเบียนลิสซิ่ง
+                          รายการลิสซิ่ง
                         @elseif($type == 2)
                           รายการทะเบียนรถ (Registration Car)
                         @endif
@@ -106,26 +106,22 @@
                         <thead>
                           <tr>
                             <th class="text-center">สาขา</th>
-                            <th class="text-left">เลขที่สัญญา</th>
-                            <th class="text-left">แบบ</th>
-                            <th class="text-left">ยีห้อ</th>
-                            <th class="text-left">ทะเบียน</th>
-                            <th class="text-left">ปี</th>
-                            <th class="text-center">ยอดจัด</th>
-                            <th class="text-left" style="width: 250px">สถานะ</th>
+                            <th class="text-center">ยีห้อ</th>
+                            <th class="text-center">ทะเบียน</th>
+                            <th class="text-center">รุ่น</th>
+                            <th class="text-center">ปี</th>
+                            <th class="text-center">สถานะ</th>
                           </tr>
                         </thead>
                         <tbody>
                           @foreach($data as $row)
                             <tr>
                               <td class="text-center"> {{ $row->branch_car}} </td>
-                              <td class="text-left"> {{ $row->Contract_buyer}} </td>
-                              <td class="text-left"> {{ $row->status_car}} </td>
-                              <td class="text-left"> {{ $row->Brand_car}} </td>
-                              <td class="text-left"> {{ $row->License_car}} </td>
-                              <td class="text-left"> {{ $row->Year_car}} </td>
-                              <td class="text-right"> </td>
-                              <td class="text-right"> </td>
+                              <td class="text-center"> {{ $row->Brand_car}} </td>
+                              <td class="text-center"> {{ $row->License_car}} </td>
+                              <td class="text-center"> {{ $row->Model_car}} </td>
+                              <td class="text-center"> {{ $row->Year_car}} </td>
+                              <td class="text-center"> </td>
                             </tr>
                           @endforeach
                         </tbody>

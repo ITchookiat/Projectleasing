@@ -21,7 +21,7 @@ class DocumentController extends Controller
         // dd($request);
         $data = DB::table('filefolders')
               ->where('folder_type','=', 1)
-            //   ->orderBY('created_at', 'DESC')
+              ->orderBY('created_at', 'ASC')
               ->get();
         return view('document.home', compact('data','newfdate','newtdate'));
     }
@@ -45,11 +45,13 @@ class DocumentController extends Controller
     public function store(Request $request)
     {
         if($request->type == 1){
-            $data = new Filefolder;
-            $data->folder_name = $request->foldername;
-            $data->folder_type = $request->foldertype;
-            $data->folder_sub = $request->folderID;
-            $data->folder_creator = $request->creator;
+            // dd($request->foldername,$request->foldertype,$request->folderID,$request->creator);
+            $data = new Filefolder([
+             'folder_name' => $request->foldername,
+             'folder_type' => $request->foldertype,
+             'folder_sub' => $request->folderID,
+             'folder_creator' => $request->creator,
+            ]);
             $data->save();
         }
         elseif($request->type == 2){
