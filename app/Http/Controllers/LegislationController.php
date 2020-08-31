@@ -2115,8 +2115,9 @@ class LegislationController extends Controller
                 ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
                 ->leftJoin('legisassets','legislations.id','=','legisassets.legisAsset_id')
                 ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
-                  return $q->whereBetween('legiscourts.fillingdate_court',[$newfdate,$newtdate]);
+                  return $q->whereBetween('legislations.Date_legis',[$newfdate,$newtdate]);
                 })
+                ->where('legiscourts.fillingdate_court','=', NULL)
                 ->where('legislations.KeyCourts_id','=', NULL)
                 ->where('legislations.Status_legis','=', NULL)
                 ->where('legislations.Flag_status','=', '2')
@@ -2162,8 +2163,6 @@ class LegislationController extends Controller
           $Fdate = "";
           $Tdate = "";
         }
-
-        // dd($data);
 
         Excel::create('รายงานลูกหนี้', function ($excel) use($data,$status,$date,$Fdate,$Tdate) {
           $excel->sheet($status, function ($sheet) use($data,$status,$date,$Fdate,$Tdate) {

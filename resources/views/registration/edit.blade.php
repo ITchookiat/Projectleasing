@@ -127,10 +127,10 @@
                 <li class="nav-item">
                   <a class="nav-link" id="custom-tabs-2" data-toggle="pill" href="#tabs-2" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false"><i class="fas fa-toggle-on"></i> ค่าโอนไฟแนนซ์</a>
                 </li>
-                <!-- <li class="nav-item" >
+                <li class="nav-item" >
                   <a class="nav-link" id="custom-tabs-3" data-toggle="pill" href="#tabs-3" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false"><i class="fas fa-toggle-on"></i> ค่าโอนออก</a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                   <a class="nav-link" id="custom-tabs-4" data-toggle="pill" href="#tabs-4" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false"><i class="fas fa-toggle-on"></i> ค่าอื่นๆ</a>
                 </li> -->
               </ul>
@@ -274,47 +274,47 @@
                   <div class="row">
                     <div class="col-md-4">
                       ค่าพิเศษย้ายเข้า
-                      <input type="text" id="TransferinExtra" name="TransferinExtra" class="form-control" value=""/>
+                      <input type="text" id="TransferinExtra" name="TransferinExtra" class="form-control" value="{{($data->TransInAmt_regis != null)?$data->TransInAmt_regis : 0}}" oninput="calculate();"/>
                     </div>
                     <div class="col-md-4">
                       ค่าพิเศษโอน
-                      <input type="text" id="Transferextra" name="Transferextra" class="form-control" value=""/>
+                      <input type="text" id="Transferextra" name="Transferextra" class="form-control" value="{{($data->TransAmt_regis != null)?$data->TransAmt_regis : 0}}" oninput="calculate();"/>
                     </div>
                     <div class="col-md-4">
                       ค่าพิเศษรถใหม่
-                      <input type="text" id="Newcarextra" name="Newcarextra" class="form-control" value=""/>
+                      <input type="text" id="Newcarextra" name="Newcarextra" class="form-control" value="{{($data->NewCarAmt_regis != null)?$data->NewCarAmt_regis : 0}}" oninput="calculate();"/>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-4">
                       ค่าพิเศษภาษี
-                      <input type="text" id="Taxextra" name="Taxextra" class="form-control" value=""/>
+                      <input type="text" id="Taxextra" name="Taxextra" class="form-control" value="{{($data->TaxAmt_regis != null)?$data->TaxAmt_regis : 0}}" oninput="calculate();"/>
                     </div>
                     <div class="col-md-4">
                       ค่าพิเศษป้าย
-                      <input type="text" id="Regisextra" name="Regisextra" class="form-control" value=""/>
+                      <input type="text" id="Regisextra" name="Regisextra" class="form-control" value="{{($data->RegAmt_regis != null)?$data->RegAmt_regis : 0}}" oninput="calculate();"/>
                     </div>
                     <div class="col-md-4">
                       ค่าพิเศษคู่มือ
-                      <input type="text" id="Docextra" name="Docextra" class="form-control" value=""/>
+                      <input type="text" id="Docextra" name="Docextra" class="form-control" value="{{($data->DocAmt_regis != null)?$data->DocAmt_regis : 0}}" oninput="calculate();"/>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-4">
                       ค่าพิเศษแก้ไข
-                      <input type="text" id="Editextra" name="Editextra" class="form-control" value=""/>
+                      <input type="text" id="Editextra" name="Editextra" class="form-control" value="{{($data->FixAmt_regis != null)?$data->FixAmt_regis : 0}}" oninput="calculate();"/>
                     </div>
                     <div class="col-md-4">
                       ค่าพิเศษยกเลิก
-                      <input type="text" id="Cancelextra" name="Cancelextra" class="form-control" value=""/>
+                      <input type="text" id="Cancelextra" name="Cancelextra" class="form-control" value="{{($data->CancelAmt_regis != null)?$data->CancelAmt_regis : 0}}" oninput="calculate();"/>
                     </div>
                     <div class="col-md-2">
                       ค่าพิเศษอื่น
-                      <input type="text" id="Otherextra" name="Otherextra" class="form-control" value=""/>
+                      <input type="text" id="Otherextra" name="Otherextra" class="form-control" value="{{($data->OtherAmt_regis != null)?$data->OtherAmt_regis : 0}}" oninput="calculate();"/>
                     </div>
                     <div class="col-md-2">
                       ค่า EMS
-                      <input type="text" id="EMSfee" name="EMSfee" class="form-control" value=""/>
+                      <input type="text" id="EMSfee" name="EMSfee" class="form-control" value="{{($data->EMSAmt_regis != null)?$data->EMSAmt_regis : 0}}" oninput="calculate();"/>
                     </div>
                   </div>
                 </div>
