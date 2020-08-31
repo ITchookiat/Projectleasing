@@ -20,12 +20,12 @@ class RegisterController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->type == 1){ //รายการ
+        if ($request->type == 1){ //รายการลิสซิ่ง
           $data = DB::table('buyers')
               ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
               ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
               ->join('expenses','buyers.id','=','expenses.Buyerexpenses_id')
-              ->where('cardetails.Date_Appcar','=',Null)
+              ->where('cardetails.Date_Appcar','!=',Null)
               ->where('buyers.Contract_buyer','not like', '22%')
               ->where('buyers.Contract_buyer','not like', '33%')
               ->orderBy('buyers.Contract_buyer', 'ASC')

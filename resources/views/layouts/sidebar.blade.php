@@ -367,7 +367,7 @@
                 <li class="nav-item">
                   <a href="{{ route('Register', 1) }}" class="nav-link {{ Request::is('Register/Home/1') ? 'active' : '' }}">
                     <i class="far fa-dot-circle nav-icon"></i>
-                    <p>รายการทะเบียนซิ่ง</p>
+                    <p>รายการลิสซิ่ง</p>
                   </a>
                 </li>
                 <li class="nav-item">
