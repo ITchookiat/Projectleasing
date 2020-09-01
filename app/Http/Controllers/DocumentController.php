@@ -45,7 +45,6 @@ class DocumentController extends Controller
     public function store(Request $request)
     {
         if($request->type == 1){
-            // dd($request->foldername,$request->foldertype,$request->folderID,$request->creator);
             $data = new Filefolder([
              'folder_name' => $request->foldername,
              'folder_type' => $request->foldertype,
@@ -68,7 +67,6 @@ class DocumentController extends Controller
             }
             $data->folder_id = $request->folder_id;
             $data->file_title = $request->title;
-            // $data->file_description = $request->description;
             $data->file_uploader = $request->uploader;
             $data->save();
         }
@@ -154,6 +152,7 @@ class DocumentController extends Controller
     {
         if($request->type == 1){
             $item1 = Filefolder::find($id);
+            // dd($request->foldername);
             $item1->Delete();
             $itemPath = public_path().'/file-documents/'.$request->foldername;
             File::deleteDirectory($itemPath);
