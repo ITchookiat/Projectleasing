@@ -59,7 +59,7 @@ class DocumentController extends Controller
             if($request->file('file')){
                 $file = $request->file('file');
                 $filesize = $file->getClientSize();
-                $filename = $request->title.date('dmY'). '.' .$file->getClientOriginalExtension();
+                $filename = $request->title. '.' .$file->getClientOriginalExtension();
                 $destination_path = public_path().'/file-documents/'.$request->foldername;
                 Storage::makeDirectory($destination_path, 0777, true, true);
                 $request->file->move($destination_path, $filename);

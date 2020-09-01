@@ -1469,6 +1469,7 @@ class PrecController extends Controller
           }
           $hold->Soldout_hold = $request->get('Soldout');
         $hold->update();
+        $type = $request->type;
         return redirect()->Route('Precipitate', $type)->with('success','อัพเดทข้อมูลเรียบร้อย');
       }
       elseif ($request->type == 11) { //ปรับโครงสร้างหนี้
