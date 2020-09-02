@@ -70,7 +70,7 @@
                     @foreach($dataF as $row)
                       <div class="col-sm-1">
                       @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                        <form method="post" class="delete_form float-center" action="{{ action('DocumentController@destroy',[$row->folder_id,1]) }}" style="display:inline;">
+                        <form method="post" class="delete_form float-center" action="{{ route('MasterDocument.destroy',[$row->folder_id]) }}?type={{1}}" style="display:inline;">
                           {{csrf_field()}}
                           <input type="hidden" name="_method" value="DELETE" />
                           <input type="hidden" name="foldername" value="{{$row->folder_name}}" />

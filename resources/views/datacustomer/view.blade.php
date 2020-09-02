@@ -65,29 +65,55 @@
                   </div>
                 </div>
                 <div class="card-body text-sm">
-                  <div class="col-md-12">
-                    <form method="get" action="{{ route('DataCustomer',1) }}">
-                      <div class="row">
-                        <div class="col-md-12">
-                          <div class="float-right form-inline">
-                            <label>จากวันที่ : </label>
-                            <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control" />
-
-                            <label>ถึงวันที่ : </label>
-                            <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control" />
-
-                            <button type="submit" class="btn bg-warning btn-app">
-                              <span class="fas fa-search"></span> Search
+                  <form method="get" action="{{ route('DataCustomer',1) }}">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="float-right form-inline">
+                          <div class="btn-group">
+                            <button type="button" class="btn bg-primary btn-app" data-toggle="dropdown">
+                              <span class="fas fa-print"></span> Print
                             </button>
-
-                            <a href="#" class="btn bg-primary btn-app">
-                              <span class="fas fa-print"></span> Report
-                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                              <li>
+                                <a target="_blank" class="dropdown-item" href="{{ route('MasterDataCustomer.show',[0]) }}?Fromdate={{$newfdate}}&Todate={{$newtdate}}&Status={{$status}}&Type={{1}}"> 
+                                  <i class="fas fa-file-pdf text-red"></i> Print PDF
+                                </a>
+                              </li>
+                              <li class="dropdown-divider"></li>
+                              <li>
+                                <a target="_blank" class="dropdown-item" href="{{ route('MasterDataCustomer.show',[0]) }}?Fromdate={{$newfdate}}&Todate={{$newtdate}}&Status={{$status}}&Type={{2}}"> 
+                                  <i class="fas fa-file-excel text-green"></i> Print Excel
+                                </a>
+                              </li>
+                            </ul>
                           </div>
+                          <button type="submit" class="btn bg-warning btn-app">
+                            <span class="fas fa-search"></span> Search
+                          </button>
                         </div>
                       </div>
-                    </form>
-                    <hr>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="float-right form-inline">
+                          <label>จากวันที่ : </label>
+                          <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control" />
+
+                          <label>ถึงวันที่ : </label>
+                          <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control" />
+                       
+                          <label>สถานะ : </label>
+                          <select name="Status" class="form-control">
+                            <option selected value="">--- เลือกสถานะ ---</option>
+                            <option value="ลูกค้าสอบถาม"{{ ($status == '1') ? 'selected' : '' }}>ลูกค้าสอบถาม</otion>
+                            <option value="ลูกค้าจัดสินเชื่อ"{{ ($status == '2') ? 'selected' : '' }}>ลูกค้าจัดสินเชื่อ</otion>
+                          </select>
+                       
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  <hr>
                   @if($type == 1)
                     <div class="table-responsive">
                       <table class="table table-striped table-valign-middle" id="table1">
@@ -407,32 +433,6 @@
   $(document).ready(function () {
     bsCustomFileInput.init();
   });
-</script>
-
-<script type="text/javascript">
-	$(document).ready(function(e) {
-	increaseNotify();
-    setInterval(increaseNotify, 3000);
-  });
-  function increaseNotify(){ // โหลดตัวเลขทั้งหมดที่ถูกส่งมาแสดง
-    $.ajax({
-      url: "increase.php",
-      type: 'GET',
-      success: function(obj) {
-        var obj = JSON.parse(obj);
-        $(".badge_number").text(obj.badge_number);
-      }
-    });
-  }
-  function decreaseNotify(){ // ลบตัวเลข badge number
-    $.ajax({
-      url: "decrease.php",
-      type: 'GET',
-      success: function(obj) {
-        
-      }
-    });
-  }
 </script>
 
 <script>

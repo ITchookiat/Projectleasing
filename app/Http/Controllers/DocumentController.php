@@ -21,7 +21,7 @@ class DocumentController extends Controller
         // dd($request);
         $data = DB::table('filefolders')
               ->where('folder_type','=', 1)
-            //   ->orderBY('created_at', 'DESC')
+              ->orderBY('created_at', 'ASC')
               ->get();
         return view('document.home', compact('data','newfdate','newtdate'));
     }
@@ -45,11 +45,12 @@ class DocumentController extends Controller
     public function store(Request $request)
     {
         if($request->type == 1){
-            $data = new Filefolder;
-            $data->folder_name = $request->foldername;
-            $data->folder_type = $request->foldertype;
-            $data->folder_sub = $request->folderID;
-            $data->folder_creator = $request->creator;
+            $data = new Filefolder([
+             'folder_name' => $request->foldername,
+             'folder_type' => $request->foldertype,
+             'folder_sub' => $request->folderID,
+             'folder_creator' => $request->creator,
+            ]);
             $data->save();
         }
         elseif($request->type == 2){
@@ -57,7 +58,7 @@ class DocumentController extends Controller
             if($request->file('file')){
                 $file = $request->file('file');
                 $filesize = $file->getClientSize();
-                $filename = $request->title.date('dmY'). '.' .$file->getClientOriginalExtension();
+                $filename = $request->title. '.' .$file->getClientOriginalExtension();
                 $destination_path = public_path().'/file-documents/'.$request->foldername;
                 Storage::makeDirectory($destination_path, 0777, true, true);
                 $request->file->move($destination_path, $filename);
@@ -66,7 +67,6 @@ class DocumentController extends Controller
             }
             $data->folder_id = $request->folder_id;
             $data->file_title = $request->title;
-            // $data->file_description = $request->description;
             $data->file_uploader = $request->uploader;
             $data->save();
         }
@@ -152,6 +152,7 @@ class DocumentController extends Controller
     {
         if($request->type == 1){
             $item1 = Filefolder::find($id);
+            // dd($request->foldername);
             $item1->Delete();
             $itemPath = public_path().'/file-documents/'.$request->foldername;
             File::deleteDirectory($itemPath);

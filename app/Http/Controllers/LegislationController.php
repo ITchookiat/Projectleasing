@@ -2126,6 +2126,7 @@ class LegislationController extends Controller
                 ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
                   return $q->whereBetween('legislations.Datesend_Flag',[$newfdate,$newtdate]);
                 })
+                ->where('legiscourts.fillingdate_court','=', NULL)
                 ->where('legislations.KeyCourts_id','=', NULL)
                 ->where('legislations.Status_legis','=', NULL)
                 ->where('legislations.Flag_status','=', '2')
