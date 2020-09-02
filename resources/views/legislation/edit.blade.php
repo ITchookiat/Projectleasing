@@ -14,163 +14,162 @@
     }
   @endphp
 
-  <style>
-    #todo-list{
-    width:100%;
-    margin:0 auto 50px auto;
-    padding:5px;
-    background:white;
-    position:relative;
-    /*box-shadow*/
-    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
-     -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
-          box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
-    /*border-radius*/
-    -webkit-border-radius:5px;
-     -moz-border-radius:5px;
-          border-radius:5px;
-    }
-    #todo-list:before{
-    content:"";
-    position:absolute;
-    z-index:-1;
-    /*box-shadow*/
-    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.4);
-     -moz-box-shadow:0 0 20px rgba(0,0,0,0.4);
-          box-shadow:0 0 20px rgba(0,0,0,0.4);
-    top:50%;
-    bottom:0;
-    left:10px;
-    right:10px;
-    /*border-radius*/
-    -webkit-border-radius:100px / 10px;
-     -moz-border-radius:100px / 10px;
-          border-radius:100px / 10px;
-    }
-    .todo-wrap{
-    display:block;
-    position:relative;
-    padding-left:35px;
-    /*box-shadow*/
-    -webkit-box-shadow:0 2px 0 -1px #ebebeb;
-     -moz-box-shadow:0 2px 0 -1px #ebebeb;
-          box-shadow:0 2px 0 -1px #ebebeb;
-    }
-    .todo-wrap:last-of-type{
-    /*box-shadow*/
-    -webkit-box-shadow:none;
-     -moz-box-shadow:none;
-          box-shadow:none;
-    }
-    input[type="checkbox"]{
-    position:absolute;
-    height:0;
-    width:0;
-    opacity:0;
-    /* top:-600px; */
-    }
-    .todo{
-    display:inline-block;
-    font-weight:200;
-    padding:10px 5px;
-    height:37px;
-    position:relative;
-    }
-    .todo:before{
-    content:'';
-    display:block;
-    position:absolute;
-    top:calc(50% + 2px);
-    left:0;
-    width:0%;
-    height:1px;
-    background:#cd4400;
-    /*transition*/
-    -webkit-transition:.25s ease-in-out;
-     -moz-transition:.25s ease-in-out;
-       -o-transition:.25s ease-in-out;
-          transition:.25s ease-in-out;
-    }
-    .todo:after{
-    content:'';
-    display:block;
-    position:absolute;
-    z-index:0;
-    height:18px;
-    width:18px;
-    top:9px;
-    left:-25px;
-    /*box-shadow*/
-    -webkit-box-shadow:inset 0 0 0 2px #d8d8d8;
-     -moz-box-shadow:inset 0 0 0 2px #d8d8d8;
-          box-shadow:inset 0 0 0 2px #d8d8d8;
-    /*transition*/
-    -webkit-transition:.25s ease-in-out;
-     -moz-transition:.25s ease-in-out;
-       -o-transition:.25s ease-in-out;
-          transition:.25s ease-in-out;
-    /*border-radius*/
-    -webkit-border-radius:4px;
-     -moz-border-radius:4px;
-          border-radius:4px;
-    }
-    .todo:hover:after{
-    /*box-shadow*/
-    -webkit-box-shadow:inset 0 0 0 2px #949494;
-     -moz-box-shadow:inset 0 0 0 2px #949494;
-          box-shadow:inset 0 0 0 2px #949494;
-    }
-    .todo .fa-check{
-    position:absolute;
-    z-index:1;
-    left:-31px;
-    top:0;
-    font-size:1px;
-    line-height:36px;
-    width:36px;
-    height:36px;
-    text-align:center;
-    color:transparent;
-    text-shadow:1px 1px 0 white, -1px -1px 0 white;
-    }
-    :checked + .todo{
-    color:#717171;
-    }
-    :checked + .todo:before{
-    width:100%;
-    }
-    :checked + .todo:after{
-    /*box-shadow*/
-    -webkit-box-shadow:inset 0 0 0 2px #0eb0b7;
-     -moz-box-shadow:inset 0 0 0 2px #0eb0b7;
-          box-shadow:inset 0 0 0 2px #0eb0b7;
-    }
-    :checked + .todo .fa-check{
-    font-size:20px;
-    line-height:35px;
-    color:#0eb0b7;
-    }
-    /* Delete Items */
+<style>
+  #todo-list{
+  width:100%;
+  margin:0 auto 50px auto;
+  padding:5px;
+  background:white;
+  position:relative;
+  /*box-shadow*/
+  -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
+        box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
+  /*border-radius*/
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+        border-radius:5px;}
+  #todo-list:before{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  /*box-shadow*/
+  -webkit-box-shadow:0 0 20px rgba(0,0,0,0.4);
+  -moz-box-shadow:0 0 20px rgba(0,0,0,0.4);
+        box-shadow:0 0 20px rgba(0,0,0,0.4);
+  top:50%;
+  bottom:0;
+  left:10px;
+  right:10px;
+  /*border-radius*/
+  -webkit-border-radius:100px / 10px;
+  -moz-border-radius:100px / 10px;
+        border-radius:100px / 10px;
+  }
+  .todo-wrap{
+  display:block;
+  position:relative;
+  padding-left:35px;
+  /*box-shadow*/
+  -webkit-box-shadow:0 2px 0 -1px #ebebeb;
+  -moz-box-shadow:0 2px 0 -1px #ebebeb;
+        box-shadow:0 2px 0 -1px #ebebeb;
+  }
+  .todo-wrap:last-of-type{
+  /*box-shadow*/
+  -webkit-box-shadow:none;
+  -moz-box-shadow:none;
+        box-shadow:none;
+  }
+  input[type="checkbox"]{
+  position:absolute;
+  height:0;
+  width:0;
+  opacity:0;
+  /* top:-600px; */
+  }
+  .todo{
+  display:inline-block;
+  font-weight:200;
+  padding:10px 5px;
+  height:37px;
+  position:relative;
+  }
+  .todo:before{
+  content:'';
+  display:block;
+  position:absolute;
+  top:calc(50% + 10px);
+  left:0;
+  width:0%;
+  height:1px;
+  background:#cd4400;
+  /*transition*/
+  -webkit-transition:.25s ease-in-out;
+  -moz-transition:.25s ease-in-out;
+    -o-transition:.25s ease-in-out;
+        transition:.25s ease-in-out;
+  }
+  .todo:after{
+  content:'';
+  display:block;
+  position:absolute;
+  z-index:0;
+  height:18px;
+  width:18px;
+  top:9px;
+  left:-25px;
+  /*box-shadow*/
+  -webkit-box-shadow:inset 0 0 0 2px #d8d8d8;
+  -moz-box-shadow:inset 0 0 0 2px #d8d8d8;
+        box-shadow:inset 0 0 0 2px #d8d8d8;
+  /*transition*/
+  -webkit-transition:.25s ease-in-out;
+  -moz-transition:.25s ease-in-out;
+    -o-transition:.25s ease-in-out;
+        transition:.25s ease-in-out;
+  /*border-radius*/
+  -webkit-border-radius:4px;
+  -moz-border-radius:4px;
+        border-radius:4px;
+  }
+  .todo:hover:after{
+  /*box-shadow*/
+  -webkit-box-shadow:inset 0 0 0 2px #949494;
+  -moz-box-shadow:inset 0 0 0 2px #949494;
+        box-shadow:inset 0 0 0 2px #949494;
+  }
+  .todo .fa-check{
+  position:absolute;
+  z-index:1;
+  left:-31px;
+  top:0;
+  font-size:1px;
+  line-height:36px;
+  width:36px;
+  height:36px;
+  text-align:center;
+  color:transparent;
+  text-shadow:1px 1px 0 white, -1px -1px 0 white;
+  }
+  :checked + .todo{
+  color:#717171;
+  }
+  :checked + .todo:before{
+  width:100%;
+  }
+  :checked + .todo:after{
+  /*box-shadow*/
+  -webkit-box-shadow:inset 0 0 0 2px #0eb0b7;
+  -moz-box-shadow:inset 0 0 0 2px #0eb0b7;
+        box-shadow:inset 0 0 0 2px #0eb0b7;
+  }
+  :checked + .todo .fa-check{
+  font-size:20px;
+  line-height:35px;
+  color:#0eb0b7;
+  }
+  /* Delete Items */
 
-    .delete-item{
-    display:block;
-    position:absolute;
-    height:36px;
-    width:36px;
-    line-height:36px;
-    right:0;
-    top:0;
-    text-align:center;
-    color:#d8d8d8;
-    opacity:0;
-    }
-    .todo-wrap:hover .delete-item{
-    opacity:1;
-    }
-    .delete-item:hover{
-    color:#cd4400;
-    }
-  </style>
+  .delete-item{
+  display:block;
+  position:absolute;
+  height:36px;
+  width:36px;
+  line-height:36px;
+  right:0;
+  top:0;
+  text-align:center;
+  color:#d8d8d8;
+  opacity:0;
+  }
+  .todo-wrap:hover .delete-item{
+  opacity:1;
+  }
+  .delete-item:hover{
+  color:#cd4400;
+  }
+</style>
 
   <!-- Main content -->
   <section class="content">

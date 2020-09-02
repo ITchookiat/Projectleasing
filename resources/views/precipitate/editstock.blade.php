@@ -35,7 +35,7 @@
         <form name="form1" action="{{ route('MasterPrecipitate.update',[$id]) }}" method="post" id="formimage" enctype="multipart/form-data">
           @csrf
           @method('put')
-          <input type="hidden" name="type" value="5"/>
+          <input type="hidden" name="type" value="5" />
 
           <div class="row">
             <div class="col-12">

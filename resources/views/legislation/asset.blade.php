@@ -148,7 +148,7 @@
                                 <button type="submit" class="btn btn-app" style="background-color:#189100; color:#FFFFFF;">
                                   <i class="fas fa-save"></i> Save
                                 </button>
-                                <a class="btn btn-app" href="{{ route('legislation',8) }}" style="background-color:#DB0000; color:#FFFFFF;">
+                                <a class="btn btn-app" href="{{ route('legislation', 8) }}" style="background-color:#DB0000; color:#FFFFFF;">
                                   <i class="fas fa-times"></i> ยกเลิก
                                 </a>
                               </div>

@@ -158,7 +158,11 @@
                               @elseif($row->Statuscar == 4)
                                 <font color="#001BFF">รับรถจากของกลาง</font>
                               @elseif($row->Statuscar == 5)
-                                <font color="#046817">ส่งรถบ้าน</font>
+                                @if($row->StatSold_Homecar != NULL)
+                                  <font color="#046817">ส่งรถบ้าน/ตัดขายแล้ว</font>
+                                @else
+                                  <font color="#046817">ส่งรถบ้าน</font>
+                                @endif
                               @elseif($row->Statuscar == 6)
                                 <font color="#068998">ลูกค้าส่งรถคืน</font>
                               @endif
