@@ -95,7 +95,7 @@
     <h3 class="card-title p-3" align="center">ใบเสร็จปิดบัญชี</h3>
     <hr>
   @elseif($type == 16)
-    <label align="right">ปริ้นวันที่ : <u>{{ date('d-m-Y') }}</u></label>
+    <label align="right">วันที่พิมพ์ : <u>{{ date('d-m-Y') }}</u></label>
     <h1 align="center" style="font-weight: bold;line-height:1px;"><b>ลูกหนี้ประนอมหนี้ @if($status != '')({{$status}})@endif</b></h1>
      @if($newfdate != '')
       <h3 align="center" style="font-weight: bold;"><b>ช่วงระหว่างวันที่ {{DateThai($newfdate)}} ถึงวันที่ {{DateThai($newtdate)}}</b></h3>
@@ -414,11 +414,12 @@
             <td align="center" style="width: 55px"> {{number_format($row->Sum_Promise,2)}} &nbsp;</td>
             <td align="center" style="width: 50px"> {{number_format($row->DuePay_Promise,2)}} &nbsp; </td>
             <td align="center" style="width: 65px">
-              @foreach($dataPay as $key => $value)
+              {{-- @foreach($dataPay as $key => $value)
                 @if($row->legisPromise_id == $value->legis_Com_Payment_id)
                       {{DateThai($value->Date_Payment)}}
                 @endif
-              @endforeach
+              @endforeach --}}
+              {{DateThai($row->Date_Payment)}}
             </td>
             <td align="center" style="width: 55px">
               @php
@@ -426,10 +427,10 @@
                 @$sumRemain += $row->Sum_Promise;
                 $lastday = date('Y-m-d', strtotime("-90 days"));
               @endphp
-              @if($row->Status_legis == "ปิดบัญชีประนอมหนี้" or $row->Status_legis == "ยึดรถหลังฟ้อง")
-                <button type="button" class="btn btn-success btn-sm" title="ปิดบัญชี">
-                  <span class="glyphicon glyphicon-ok prem"></span> ปิดบัญชี
-                </button>
+              @if($row->Status_Promise == "ปิดบัญชีประนอมหนี้")
+                <font color="green"> ปิดบัญชี </font>
+              @elseif($row->Status_Promise == "จ่ายจบประนอมหนี้")
+                <font color="green"> จ่ายจบ </font>
               @else
                 @foreach($dataPay as $key => $value)
                   @if($row->legisPromise_id == $value->legis_Com_Payment_id)

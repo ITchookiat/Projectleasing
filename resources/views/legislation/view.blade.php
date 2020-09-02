@@ -63,14 +63,13 @@
                 </h4>
               </div>
               <div class="card-body text-sm">
-
                 <div class="row">
                   @if($type == 1)   {{--รายชื่อ--}}
                     <div class="col-md-12">
                       <div class="tab-content">
                         <div class="table-responsive">
-                          <table class="table table-bordered" id="table">
-                            <thead class="thead-dark bg-gray-light" >
+                          <table class="table table-striped table-valign-middle" id="table">
+                            <thead>
                               <tr>
                                 <th class="text-center" style="width: 10px">ลำดับ</th>
                                 <th class="text-center">เลขที่สัญญา</th>
@@ -194,41 +193,36 @@
                               <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-4" data-link="{{ route('legislation', 17) }}"> รายงานลูกหนี้</a></li>
                               <li class="dropdown-divider"></li>
                               <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-5" data-link="{{ route('legislation', 18) }}"> รายงานลูกหนี้สืบพยาน</a></li>
+                              {{-- <li class="dropdown-divider"></li>
+                              <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-4" data-link="{{ route('legislation', 19) }}"> รายงานลูกหนี้สืบทรัพย์</a></li> --}}
                             </ul>
                           </div>
                           <button type="submit" class="btn bg-warning btn-app">
                             <span class="fas fa-search"></span> Search
                           </button>
                         </div>
-                        <br><br><br><p></p>
                         <div class="float-right form-inline">
                           <label for="text" class="mr-sm-2">สถานะปิดงาน : </label>
-                          <select name="StateLegis" class="form-control" id="text" style="width: 180px">
-                            <option selected value="">--- สถานะ ---</option>
-                            <option value="จ่ายจบก่อนฟ้อง" {{ ($StateLegis == 'จ่ายจบก่อนฟ้อง') ? 'selected' : '' }}>จ่ายจบก่อนฟ้อง</otion>
-                            <option value="ยึดรถก่อนฟ้อง" {{ ($StateLegis == 'ยึดรถก่อนฟ้อง') ? 'selected' : '' }}>ยึดรถก่อนฟ้อง</otion>
-                            <option value="ปิดบัญชีประนอมหนี้" {{ ($StateLegis == 'ปิดบัญชีประนอมหนี้') ? 'selected' : '' }}>ปิดบัญชีประนอมหนี้</otion>
-                            <option value="ยึดรถหลังฟ้อง" {{ ($StateLegis == 'ยึดรถหลังฟ้อง') ? 'selected' : '' }}>ยึดรถหลังฟ้อง</otion>
-                            <option value="หมดอายุความคดี" {{ ($StateLegis == 'หมดอายุความคดี') ? 'selected' : '' }}>หมดอายุความคดี</otion>
+                          <select name="StateLegis" class="form-control form-control-sm" id="text">
+                            <option selected value="">------ สถานะ ------</option>
+                            <option value="ปิดจบงานฟ้อง" {{ ($StateLegis == 'ปิดจบงานฟ้อง') ? 'selected' : '' }}>ปิดจบงานฟ้อง</option>
+                            <option value="ปิดจบงานประนอมหนี้" {{ ($StateLegis == 'ปิดจบงานประนอมหนี้') ? 'selected' : '' }}>ปิดจบงานประนอมหนี้</option>
+                            <option value="ลูกหนี้รอฟ้อง" {{ ($StateLegis == 'ลูกหนี้รอฟ้อง') ? 'selected' : '' }}>ลูกหนี้รอฟ้อง</option>
                           </select>
   
-                          <label for="text" class="mr-sm-2">สถานะ : </label>
-                          <select name="StateCourt" class="form-control" id="text" style="width: 180px">
-                            <option selected value="">--- สถานะ ---</option>
+                          {{-- <label for="text" class="mr-sm-2">สถานะ : </label>
+                          <select name="StateCourt" class="form-control" id="text">
+                            <option selected value="">-------- สถานะ --------</option>
                             <option value="ชั้นศาล" {{ ($StateCourt == 'ชั้นศาล') ? 'selected' : '' }}>ชั้นศาล</otion>
                             <option value="ชั้นบังคับคดี" {{ ($StateCourt == 'ชั้นบังคับคดี') ? 'selected' : '' }}>ชั้นบังคับคดี</otion>
-                          </select>
-                        </div>
-                        <br><br>
-                        <div class="float-right form-inline">
+                          </select> --}}
                           <label>จากวันที่ : </label>
-                          <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control" />
+                          <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control form-control-sm" />
   
                           <label>ถึงวันที่ : </label>
-                          <input type="date" name="Todate" style="width: 180px;" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control" />
+                          <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control form-control-sm" />
                         </div>
                       </form>
-                      <br><br>
                     </div>
                     <div class="col-md-12">
                       <div class="table-responsive">
@@ -237,12 +231,12 @@
                             <tr>
                               {{-- <th class="text-center">No.</th> --}}
                               <th class="text-center" style="width: 70px">Job.</th>
-                              <th class="text-center">ชื่อ-สกุล</th>
-                              <th class="text-center" style="width: 40px">วันถืองาน</th>
+                              <th class="text-center" style="width: 120px">ชื่อ-สกุล</th>
+                              <th class="text-center" style="width: 40px">ถืองาน</th>
                               <th class="text-center" style="width: 60px">วันฟ้อง</th>
-                              <th class="text-center" style="width: 40px">ระยะเวลา</th>
+                              <th class="text-center" style="width: 50px">ระยะเวลา</th>
                               <th class="text-center" style="width: 100px">สถานะลูกหนี้</th>
-                              <th class="text-center" style="width: 100px">สถานะทรัพย์</th>
+                              <th class="text-center" style="width: 90px">สถานะทรัพย์</th>
                               <th class="text-center" style="width: 100px">สถานะประนอม</th>
                               <th class="text-center" style="width: 70px">ผู้ส่งฟ้อง</th>
                               <th class="text-center" style="width: 50px">ตัวเลือก</th>
@@ -664,8 +658,8 @@
                   @elseif($type == 6)  {{--ลูกหนี้เตรียมฟ้อง--}}
                     <div class="col-md-12">
                       <div class="table-responsive">
-                        <table class="table table-bordered" id="table">
-                          <thead class="thead-dark bg-gray-light" >
+                        <table class="table table-striped table-valign-middle" id="table">
+                          <thead>
                             <tr>
                               <th class="text-center">ลำดับ</th>
                               <th class="text-center">เลขที่สัญญา</th>
@@ -691,16 +685,7 @@
                                      $SetStr1 = $StrCon[0];
                                      $SetStr2 = $StrCon[1];
                                   @endphp
-    
-                                  @foreach($result as $key => $row1)
-                                    @if($row->Contract_legis == $row1->CONTNO)
-                                      @if($row->Realperiod_legis < $row1->HLDNO)
-                                        {{$row1->HLDNO}}
-                                      @else
-                                        {{$row->Realperiod_legis}}
-                                      @endif
-                                    @endif
-                                  @endforeach
+                                  {{$row->Realperiod_legis}}
                                 </td>
                                 <td class="text-center"> {{ DateThai($row->Date_legis) }}</td>
                                 <td class="text-center">
@@ -767,7 +752,7 @@
                                 <li class="dropdown-divider"></li>
                                 <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-2" data-link="{{ route('legislation', 15) }}"> รายงานบันทึกชำะค่างวด</a></li>
                                 <li class="dropdown-divider"></li>
-                                <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-3" data-link="{{ route('legislation', 16) }}"> รายงานลูกหนี้ประนอม</a></li>
+                                <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-3" data-link="{{ route('legislation', 16) }}"> รายงานลูกหนี้ประนอมหนี้</a></li>
                                 <li class="dropdown-divider"></li>
                                 <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-6" data-link="{{ route('legislation', 20) }}"> รายงานตรวจสอบยอดชำระ</a></li>
                               </ul>
@@ -776,24 +761,22 @@
                             <span class="fas fa-search"></span> Search
                           </button>
                         </div>
-                        <br><br><br><p></p>
                         <div class="float-right form-inline">
+                          <label for="text" class="mr-sm-2">สถานะ : </label>
+                          <select name="status" class="form-control form-control-sm" id="text">
+                            <option selected value="">------ สถานะ ------</option>
+                            <option value="ชำระปกติ" {{($status == 'ชำระปกติ') ? 'selected' : '' }}>ชำระปกติ</option>
+                            <option value="ขาดชำระ" {{($status == 'ขาดชำระ') ? 'selected' : '' }}>ขาดชำระ</option>
+                            <option value="ปิดบัญชี" {{($status == 'ปิดบัญชี') ? 'selected' : '' }}>ปิดบัญชี</option>
+                          </select>
+
                           <label>จากวันที่ : </label>
-                          <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: '' }}" style="width: 180px;" class="form-control" />
+                          <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control form-control-sm" />
   
                           <label>ถึงวันที่ : </label>
-                          <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: '' }}" style="width: 180px;" class="form-control" />
-                        
-                          <label for="text" class="mr-sm-2">สถานะ : </label>
-                          <select name="status" class="form-control" id="text" style="width: 178px">
-                            <option selected value="">--- สถานะ ---</option>
-                            <option value="ชำระปกติ" {{($status == 'ชำระปกติ') ? 'selected' : '' }}>ชำระปกติ</otion>
-                            <option value="ขาดชำระ" {{($status == 'ขาดชำระ') ? 'selected' : '' }}>ขาดชำระ</otion>
-                            <option value="ปิดบัญชี" {{($status == 'ปิดบัญชี') ? 'selected' : '' }}>ปิดบัญชี</otion>
-                          </select>
+                          <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control form-control-sm" />
                         </div>
                      </form>
-                     <br><br>
                     </div>
     
                     <div class="col-md-12">
@@ -847,18 +830,19 @@
                                 </td>
                                 <td class="text-center"> {{number_format($row->Total_Promise,2)}}</td>
                                 <td class="text-center"> {{number_format($row->Sum_Promise,2)}}</td>
-                                <td class="text-center">{{ $row->User_Promise }}</td>
+                                <td class="text-center"> {{ $row->User_Promise }}</td>
                                 <td class="text-center">
                                   @php
                                     $lastday = date('Y-m-d', strtotime("-90 days"));
+                                    // dd($lastday);
                                   @endphp
     
                                   @if($row->Status_Promise == "ปิดบัญชีประนอมหนี้")
-                                    <button data-toggle="tooltip" type="button" class="btn btn-success btn-sm" title="ปิดบัญชี">
+                                    <button data-toggle="tooltip" type="button" class="btn btn-success btn-sm" title="{{ $row->Status_Promise }}">
                                       <span class="glyphicon glyphicon-ok prem"></span> ปิดบัญชี
                                     </button>
                                   @elseif($row->Status_Promise == "จ่ายจบประนอมหนี้")
-                                    <button data-toggle="tooltip" type="button" class="btn btn-success btn-sm" title="จ่ายจบ">
+                                    <button data-toggle="tooltip" type="button" class="btn btn-success btn-sm" title="{{ $row->Status_Promise }}">
                                       <span class="glyphicon glyphicon-ok prem"></span> จ่ายจบ
                                     </button>
                                   @else
@@ -1115,32 +1099,28 @@
                             <span class="fas fa-search"></span> Search
                           </button>
                         </div>
-
-                        <br><br><br><p></p>
-                        <div class="float-right form-inline">
-                          <label for="text" class="mr-sm-2">บอกเลิกสัญญา : </label>
-                          <select name="TerminateExhibit" class="form-control" id="text" style="width: 180px">
-                            <option selected value="">--- เลือกสถานะ ---</option>
-                            <option value="เร่งรัด" {{ ($terminateexhibit == 'เร่งรัด') ? 'selected' : '' }}>เร่งรัด</otion>
-                            <option value="ทนาย" {{ ($terminateexhibit == 'ทนาย') ? 'selected' : '' }}>ทนาย</otion>
-                          </select>
-                          <label for="text" class="mr-sm-2">&nbsp;ประเภท : </label>
-                          <select name="Typeexhibit" class="form-control" id="text" style="width: 177px">
-                            <option selected value="">---เลือกประเภท---</option>
-                            <option value="ของกลาง" {{ ($typeexhibit == 'ของกลาง') ? 'selected' : '' }}>ของกลาง</otion>
-                            <option value="ยึดตามมาตราการ(ปปส.)" {{ ($typeexhibit == 'ยึดตามมาตราการ(ปปส.)') ? 'selected' : '' }}>ยึดตามมาตราการ(ปปส.)</otion>
-                          </select>
-                        </div>
-
-                        <br><br>
                         <div class="float-right form-inline">
                           <label for="text" class="mr-sm-2">จากวันที่ : </label>
-                          <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($fdate != '') ?$fdate: '' }}" class="form-control" />
-                          <label for="text" class="mr-sm-2">&nbsp;&nbsp;ถึงวันที่ : </label>
-                          <input type="date" name="Todate" style="width: 177px;" value="{{ ($tdate != '') ?$tdate: '' }}" class="form-control" />
+                          <input type="date" name="Fromdate" value="{{ ($fdate != '') ?$fdate: '' }}" class="form-control form-control-sm" />
+                          <label for="text" class="mr-sm-2">ถึงวันที่ : </label>
+                          <input type="date" name="Todate" value="{{ ($tdate != '') ?$tdate: '' }}" class="form-control form-control-sm" />
+                        </div>
+                        <br><br>
+                        <div class="float-right form-inline">
+                          <label for="text" class="mr-sm-2">บอกเลิกสัญญา : </label>
+                          <select name="TerminateExhibit" class="form-control form-control-sm" id="text">
+                            <option selected value="">--- เลือกสถานะ ---</option>
+                            <option value="เร่งรัด" {{ ($terminateexhibit == 'เร่งรัด') ? 'selected' : '' }}>เร่งรัด</option>
+                            <option value="ทนาย" {{ ($terminateexhibit == 'ทนาย') ? 'selected' : '' }}>ทนาย</option>
+                          </select>
+                          <label for="text" class="mr-sm-2">&nbsp;ประเภท : </label>
+                          <select name="Typeexhibit" class="form-control form-control-sm" id="text">
+                            <option selected value="">--- เลือกประเภท ---</option>
+                            <option value="ของกลาง" {{ ($typeexhibit == 'ของกลาง') ? 'selected' : '' }}>ของกลาง</option>
+                            <option value="ยึดตามมาตราการ(ปปส.)" {{ ($typeexhibit == 'ยึดตามมาตราการ(ปปส.)') ? 'selected' : '' }}>ยึดตามมาตราการ(ปปส.)</option>
+                          </select>
                         </div>
                       </form>
-                      <br><br>
                     </div>
                     <div class="col-md-12">
                       <div class="table-responsive">
@@ -1404,7 +1384,7 @@
 
   <!-- Pop up รายงานลูกหนี้ประนอม -->
   <div class="modal fade" id="modal-3">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body">
           {{-- <p>One fine body…</p> --}}
@@ -1417,7 +1397,7 @@
 
   <!-- Pop up รายงานลูกหนี้ -->
   <div class="modal fade" id="modal-4">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body">
           {{-- <p>One fine body…</p> --}}
@@ -1430,7 +1410,7 @@
 
   <!-- Pop up รายงานลูกหนี้สืบพยาน -->
   <div class="modal fade" id="modal-5">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body">
           {{-- <p>One fine body…</p> --}}
@@ -1509,6 +1489,10 @@
   <script type="text/javascript">
     $(document).ready(function() {
       $('#table,#table1').DataTable( {
+        "responsive": true,
+        "autoWidth": false,
+        "ordering": true,
+        "lengthChange": true,
         "order": [[ 0, "asc" ]]
       });
     });

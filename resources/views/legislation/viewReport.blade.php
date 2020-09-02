@@ -96,7 +96,7 @@
         <span aria-hidden="true">×</span>
       </button>
     </div>
-    <div class="card-body">
+    <div class="card-body text-sm">
       @if($type == 9)
         <form name="form1" action="{{ route('legislation.report' ,[00, 1]) }}" target="_blank" method="get" id="formimage" enctype="multipart/form-data">
           @csrf
@@ -174,44 +174,67 @@
 
           <input type="hidden" name="_token" value="{{csrf_token()}}" />
         </form>
-      @elseif($type == 16)
+      @elseif($type == 16)  {{--รายงานประนอมหนี้--}}
         <form name="form1" action="{{ route('legislation.report' ,[00, 16]) }}" target="_blank" method="get" id="formimage" enctype="multipart/form-data">
-          <div class="row">
-            <div class="col-md-5">
-              <div class="float-right form-inline">
-                <label>จากวันที่ : </label>
-                <input type="date" name="Fromdate" class="form-control" style="width: 200px;"/>
-              </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label>จากวันที่</label>
+              <input type="date" name="Fromdate" value="{{ date('Y-m-d') }}" class="form-control"/>
             </div>
-            <div class="col-md-6">
-              <div class="float-right form-inline">
-                <label>ถึงวันที่ : </label>
-                <input type="date" name="Todate" class="form-control" style="width: 200px;"/>
-              </div>
+            <div class="form-group col-md-6">
+              <label for="inputPassword4">ถึงวันที่</label>
+              <input type="date" name="Todate" value="{{ date('Y-m-d') }}" class="form-control"/>
             </div>
           </div>
+          {{-- <div class="row">
+            <div class="col-6">
+              <div class="form-group row mb-1">
+                <label class="col-sm-3 col-form-label text-right">สถานะ : </label>
+                <div class="col-sm-9">
+                  <div class="form-check form-check-inline">
+                    <label>
+                      <input type="checkbox" id="test3" name="status" value="ชำระปกติ"/>
+                      <span>ชำระปกติ</span>
+                    </label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <label>
+                      <input type="checkbox" id="test4" name="status" value="ขาดชำระ"/>
+                      <span>ขาดชำระเกิน 3 งวด</span>
+                    </label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <label>
+                      <input type="checkbox" id="test5" name="status" value="ปิดบัญชี"/>
+                      <span>ปิดบัญชี</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> --}}
 
           <p></p>
           <div class="row">
             <div class="col-md-2">
-              <div class="" align="center">
-                <label>&nbsp;&nbsp;&nbsp;&nbsp;สถานะ : </label>
+              <div align="center">
+                <label>สถานะ : </label>
               </div>
             </div>
             <div class="col-md-10">
-              <div class="col-md-4">
+              <div class="form-check form-check-inline">
                 <label>
                   <input type="checkbox" id="test3" name="status" value="ชำระปกติ"/>
                   <span>ชำระปกติ</span>
                 </label>
               </div>
-              <div class="col-md-4">
+              <div class="form-check form-check-inline">
                 <label>
                   <input type="checkbox" id="test4" name="status" value="ขาดชำระ"/>
                   <span>ขาดชำระเกิน 3 งวด</span>
                 </label>
               </div>
-              <div class="col-md-4">
+              <div class="form-check form-check-inline">
                 <label>
                   <input type="checkbox" id="test5" name="status" value="ปิดบัญชี"/>
                   <span>ปิดบัญชี</span>
@@ -220,44 +243,31 @@
             </div>
           </div>
 
-          <p></p>
-          <div class="row">
-            <div class="col-md-4"></div>
-            <div class="col-md-8">
-              <div class="form-inline">
-                <button type="submit" class="btn bg-danger btn-app">
-                  <span class="fa fa-file-pdf-o"></span> PDF
-                </button>
-                <a class="btn btn-app bg-danger" href="{{ route('legislation',7) }}">
-                  <i class="fas fa-times"></i> ยกเลิก
-                </a>
-              </div>
-            </div>
+          <div class="card-footer text-center">
+            <button type="submit" class="btn bg-danger btn-app">
+              <span class="fa fa-file-pdf-o"></span> PDF
+            </button>
+            <a class="btn btn-app bg-danger" href="{{ route('legislation', 7) }}">
+              <i class="fas fa-times"></i> ยกเลิก
+            </a>
           </div>
-
-
         </form>
-      @elseif($type == 17)
+      @elseif($type == 17)  {{--รายงานลูกหนี้--}}
         <form name="form1" action="{{ route('legislation.report' ,[00, 17]) }}" target="_blank" method="get" id="formimage" enctype="multipart/form-data">
-          <div class="row">
-            <div class="col-md-5">
-              <div class="float-right form-inline">
-                <label>จากวันที่ : </label>
-                <input type="date" name="Fromdate" class="form-control" value="{{ date('Y-m-d') }}" style="width: 180px;"/>
-              </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label>จากวันที่</label>
+              <input type="date" name="Fromdate" value="{{ date('Y-m-d') }}" class="form-control"/>
             </div>
-            <div class="col-md-5">
-              <div class="float-right form-inline">
-                <label>ถึงวันที่ : </label>
-                <input type="date" name="Todate" class="form-control" value="{{ date('Y-m-d') }}" style="width: 180px;"/>
-              </div>
+            <div class="form-group col-md-6">
+              <label for="inputPassword4">ถึงวันที่</label>
+              <input type="date" name="Todate" value="{{ date('Y-m-d') }}" class="form-control"/>
             </div>
           </div>
-          <br>
 
           <div class="row">
             <div class="col-md-3">
-              <div class="" align="right">
+              <div class="" align="left">
                 <label>สถานะ : </label>
               </div>
             </div>
@@ -272,8 +282,8 @@
             <div class="col-md-4">
               <div class="" align="left">
                 <label>
-                  <input type="checkbox" id="test2" name="status" value="ลูกหนี้ยังไม่ฟ้อง"/>
-                  <span>ลูกหนี้ยังไม่ฟ้อง</span>
+                  <input type="checkbox" id="test2" name="status" value="ลูกหนี้รอฟ้อง"/>
+                  <span>ลูกหนี้รอฟ้อง</span>
                 </label>
               </div>
             </div>
@@ -295,80 +305,58 @@
           </div>
 
           <p></p>
-          <div class="row">
-            <div class="col-md-4">
-            </div>
-            <div class="col-md-8">
-              <div class="form-inline">
-                <button type="submit" class="btn bg-success btn-app">
-                  <i class="far fa-file-excel"></i> Excel
-                </button>
-                <a class="btn btn-app bg-danger" href="{{ route('legislation',2) }}">
-                  <i class="fas fa-times"></i> ยกเลิก
-                </a>
-              </div>
-            </div>
+          <div class="card-footer text-center">
+            <button type="submit" class="btn bg-success btn-app">
+              <i class="far fa-file-excel"></i> Excel
+            </button>
+            <a class="btn btn-app bg-danger" href="{{ route('legislation',2) }}">
+              <i class="fas fa-times"></i> ยกเลิก
+            </a>
           </div>
-
         </form>
-      @elseif($type == 18)
+      @elseif($type == 18)  {{--รายงานลูกหนี้สืบพยาน--}}
         <form name="form1" action="{{ route('legislation.report' ,[00, 18]) }}" target="_blank" method="get" id="formimage" enctype="multipart/form-data">
-          <div class="row">
-            <div class="col-md-5">
-              <div class="float-right form-inline">
-                <label>จากวันที่ : </label>
-                <input type="date" name="Fromdate" class="form-control" value="{{ date('Y-m-d') }}" style="width: 180px;" required/>
-              </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label>จากวันที่</label>
+              <input type="date" name="Fromdate" value="{{ date('Y-m-d') }}" class="form-control"/>
             </div>
-            <div class="col-md-5">
-              <div class="float-right form-inline">
-                <label>ถึงวันที่ : </label>
-                <input type="date" name="Todate" class="form-control" value="{{ date('Y-m-d') }}" style="width: 180px;" required/>
-              </div>
+            <div class="form-group col-md-6">
+              <label for="inputPassword4">ถึงวันที่</label>
+              <input type="date" name="Todate" value="{{ date('Y-m-d') }}" class="form-control"/>
             </div>
           </div>
 
-          <br>
-          <div class="row">
-            <div class="col-md-4">
-            </div>
-            <div class="col-md-8">
-              <div class="form-inline">
-                <button type="submit" class="btn bg-primary btn-app">
-                  <i class="fas fa-print"></i> ปริ้น
-                </button>
-                <a class="btn btn-app bg-danger" href="{{ route('legislation',2) }}">
-                  <i class="fas fa-times"></i> ยกเลิก
-                </a>
-              </div>
-            </div>
+          <p></p>
+          <div class="card-footer text-center">
+            <button type="submit" class="btn bg-primary btn-app">
+              <i class="fas fa-print"></i> ปริ้น
+            </button>
+            <a class="btn btn-app bg-danger" href="{{ route('legislation',2) }}">
+              <i class="fas fa-times"></i> ยกเลิก
+            </a>
           </div>
         </form>
-      @elseif($type == 19)
+      @elseif($type == 19)  {{--รายงานลูกหนี้สืบทรัพย์--}}
         <form name="form1" action="{{ route('legislation.report' ,[00, 19]) }}" target="_blank" method="get" id="formimage" enctype="multipart/form-data">
-          <div class="row">
-            <div class="col-md-5">
-              <div class="float-right form-inline">
-                <label>จากวันที่ : </label>
-                <input type="date" name="Fromdate" class="form-control" style="width: 180px;"/>
-              </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label>จากวันที่</label>
+              <input type="date" name="Fromdate" value="{{ date('Y-m-d') }}" class="form-control"/>
             </div>
-            <div class="col-md-5">
-              <div class="float-right form-inline">
-                <label>ถึงวันที่ : </label>
-                <input type="date" name="Todate" class="form-control" style="width: 180px;"/>
-              </div>
+            <div class="form-group col-md-6">
+              <label for="inputPassword4">ถึงวันที่</label>
+              <input type="date" name="Todate" value="{{ date('Y-m-d') }}" class="form-control"/>
             </div>
           </div>
-          <br>
 
           <div class="row">
-            <div class="col-md-3">
-              <div class="" align="right">
+            <div class="col-md-2">
+              <div class="" align="left">
                 <label>สถานะ : </label>
               </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
               <div class="" align="left">
                 <label>
                   <input type="checkbox" id="test1" name="status" value="Y"/>
@@ -386,66 +374,47 @@
             </div>
           </div>
 
-          <br>
-          <div class="row">
-            <div class="col-md-4">
-            </div>
-            <div class="col-md-8">
-              <div class="form-inline">
-                <button type="submit" class="btn bg-primary btn-app">
-                  <i class="fas fa-print"></i> ปริ้น
-                </button>
-                <a class="btn btn-app bg-danger" href="{{ route('legislation',8) }}">
-                  <i class="fas fa-times"></i> ยกเลิก
-                </a>
-              </div>
-            </div>
+          <p></p>
+          <div class="card-footer text-center">
+            <button type="submit" class="btn bg-primary btn-app">
+              <i class="fas fa-print"></i> ปริ้น
+            </button>
+            <a class="btn btn-app bg-danger" href="{{ route('legislation', 8) }}">
+              <i class="fas fa-times"></i> ยกเลิก
+            </a>
           </div>
         </form>
       @elseif($type == 20) {{--รายงานตรวจสอบยอดชำระ--}}
         <form name="form1" action="{{ route('legislation.report' ,[00, 20]) }}" target="_blank" method="get" id="formimage" enctype="multipart/form-data">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="float-right form-inline">
-                <label>จากวันที่ : </label>
-                <input type="date" name="Fromdate" class="form-control" style="width: 200px;"/>
-              </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label>จากวันที่</label>
+              <input type="date" name="Fromdate" value="{{ date('Y-m-d') }}" class="form-control"/>
             </div>
-            <div class="col-md-6">
-              <div class="float-right form-inline">
-                <label>ถึงวันที่ : </label>
-                <input type="date" name="Todate" class="form-control" style="width: 200px;"/>
-              </div>
+            <div class="form-group col-md-6">
+              <label for="inputPassword4">ถึงวันที่</label>
+              <input type="date" name="Todate" value="{{ date('Y-m-d') }}" class="form-control"/>
             </div>
           </div>
-          <br>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-inline">
-                <label>ผู้รับชำระ : </label>
-                <select name="CashReceiver" class="form-control" style="width: 100%;">
-                  <option value="" selected>--- เลือกผู้รับชำระ ---</option>
-                  @foreach ($dataDB as $key => $value)
-                  <option value="{{$value->name}}">{{$value->name}}</option>
-                  @endforeach
-                </select>
-              </div>
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label>ผู้รับชำระ : </label>
+              <select name="CashReceiver" class="form-control" style="width: 100%;">
+                <option value="" selected>--- เลือกผู้รับชำระ ---</option>
+                @foreach ($dataDB as $key => $value)
+                <option value="{{$value->name}}">{{$value->name}}</option>
+                @endforeach
+              </select>
             </div>
           </div>
-          <br>
-          <div class="row">
-            <div class="col-md-3">
-            </div>
-            <div class="col-md-9">
-              <div class="form-inline">
-                <button type="submit" class="btn bg-primary btn-app">
-                  <i class="fas fa-print"></i> ปริ้น
-                </button>
-                <a class="btn btn-app bg-danger" href="{{ route('legislation',7) }}">
-                  <i class="fas fa-times"></i> ยกเลิก
-                </a>
-              </div>
-            </div>
+
+          <div class="card-footer text-center">
+            <button type="submit" class="btn bg-primary btn-app">
+              <i class="fas fa-print"></i> ปริ้น
+            </button>
+            <a class="btn btn-app bg-danger" href="{{ route('legislation',7) }}">
+              <i class="fas fa-times"></i> ยกเลิก
+            </a>
           </div>
         </form>
       @endif

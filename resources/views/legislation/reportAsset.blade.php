@@ -41,7 +41,7 @@
             <th style="width: 95px">ชื่อ-นามสกุล(ผู้ค้ำ)</th>
             <th style="width: 160px">ที่อยู่(ผู้ค้ำ)</th>
             <th style="width: 55px">เลขประชาชน(ผู้ค้ำ)</th>
-            <th style="width: 65px">สถานะลูกหนี้</th>
+            <th style="width: 65px">สถานะลูกหนี้ฟ้อง</th>
           </tr>
           @foreach($data as $key => $row)
           <tr style="line-height: 200%;">

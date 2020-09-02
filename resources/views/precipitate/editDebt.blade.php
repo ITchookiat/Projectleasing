@@ -1591,6 +1591,14 @@
                                 </div>
                               </div>
                             </div>
+                            <div class="col-6">
+                              <div class="form-group row mb-1">
+                                <label class="col-sm-3 col-form-label text-right">ค่าดำเนินการ :</label>
+                                <div class="col-sm-8">
+                                  <input type="text" class="form-control form-control-sm" value="2,500" readonly/>
+                                </div>
+                              </div>
+                            </div>
                           </div>
 
                           <hr>

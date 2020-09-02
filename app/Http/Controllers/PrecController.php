@@ -1469,7 +1469,7 @@ class PrecController extends Controller
           }
           $hold->Soldout_hold = $request->get('Soldout');
         $hold->update();
-        return redirect()->Route('Precipitate', $type)->with('success','อัพเดทข้อมูลเรียบร้อย');
+        return redirect()->Route('Precipitate', 5)->with('success','อัพเดทข้อมูลเรียบร้อย');
       }
       elseif ($request->type == 11) { //ปรับโครงสร้างหนี้
         date_default_timezone_set('Asia/Bangkok');

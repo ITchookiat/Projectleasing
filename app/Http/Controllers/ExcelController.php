@@ -92,7 +92,7 @@ class ExcelController extends Controller
                     ->where('cardetails.Approvers_car','!=',Null)
                     ->where('buyers.Contract_buyer','not like', '22%')
                     ->where('buyers.Contract_buyer','not like', '33%')
-                    ->orderBy('buyers.Date_Due', 'ASC')
+                    ->orderBy('buyers.Contract_buyer', 'ASC')
                     ->get()
                     ->toArray();
         }else{
@@ -324,18 +324,6 @@ class ExcelController extends Controller
                     ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
                       return $q->whereBetween('buyers.Date_Due',[$newfdate,$newtdate]);
                     })
-                    // ->when(!empty($agen), function($q) use($agen){
-                    //   return $q->where('cardetails.Agent_car',$agen);
-                    // })
-                    // ->when(!empty($yearcar), function($q) use($yearcar){
-                    //   return $q->where('cardetails.Year_car',$yearcar);
-                    // })
-                    // ->when(!empty($typecar), function($q) use($typecar){
-                    //   return $q->where('cardetails.status_car',$typecar);
-                    // })
-                    // ->when(!empty($branch), function($q) use($branch){
-                    //   return $q->where('cardetails.branch_car',$branch);
-                    // })
                     ->where('buyers.Contract_buyer','like', '22%')
                     ->orderBy('buyers.Contract_buyer', 'ASC')
                     ->get()

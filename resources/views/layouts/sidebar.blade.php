@@ -282,7 +282,8 @@
                     <i class="far fa-dot-circle nav-icon"></i>
                     <p>ลูกหนี้เตรียมฟ้อง</p>
                   </a>
-                  <a href="{{ route('legislation',2) }}" class="nav-link {{ Request::is('Legislation/Home/2') ? 'active' : '' }} {{ Request::is('Legislation/edit/*/2') ? 'active' : '' }}">
+                  <a href="{{ route('legislation',2) }}" class="nav-link {{ Request::is('Legislation/Home/2') ? 'active' : '' }} {{ Request::is('Legislation/edit/*/2') ? 'active' : '' }} {{ Request::is('Legislation/edit/*/3') ? 'active' : '' }} {{ Request::is('Legislation/edit/*/7') ? 'active' : '' }} 
+                                                                         {{ Request::is('Legislation/edit/*/13') ? 'active' : '' }} {{ Request::is('Legislation/edit/*/11') ? 'active' : '' }} ">
                     <i class="far fa-dot-circle nav-icon"></i>
                     <p>ลูกหนี้ฟ้อง</p>
                   </a>

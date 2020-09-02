@@ -131,40 +131,40 @@ class AnalysController extends Controller
       }
       elseif ($request->type == 3){ //รายงาน สินเชื่อ
         $datadrop = DB::table('buyers')
-        ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
-        ->select('cardetails.Agent_car', DB::raw('count(*) as total'))
-        ->where('cardetails.Agent_car','<>',Null)
-        ->where('buyers.Contract_buyer','not like', '22%')
-        ->where('buyers.Contract_buyer','not like', '33%')
-        ->groupBy('cardetails.Agent_car')
-        ->get();
+            ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
+            ->select('cardetails.Agent_car', DB::raw('count(*) as total'))
+            ->where('cardetails.Agent_car','<>',Null)
+            ->where('buyers.Contract_buyer','not like', '22%')
+            ->where('buyers.Contract_buyer','not like', '33%')
+            ->groupBy('cardetails.Agent_car')
+            ->get();
 
         $datayear = DB::table('buyers')
-        ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
-        ->select('cardetails.Year_car', DB::raw('count(*) as total'))
-        ->where('cardetails.Year_car','<>',Null)
-        ->where('buyers.Contract_buyer','not like', '22%')
-        ->where('buyers.Contract_buyer','not like', '33%')
-        ->groupBy('cardetails.Year_car')
-        ->get();
+            ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
+            ->select('cardetails.Year_car', DB::raw('count(*) as total'))
+            ->where('cardetails.Year_car','<>',Null)
+            ->where('buyers.Contract_buyer','not like', '22%')
+            ->where('buyers.Contract_buyer','not like', '33%')
+            ->groupBy('cardetails.Year_car')
+            ->get();
 
         $datastatus = DB::table('buyers')
-        ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
-        ->select('cardetails.status_car', DB::raw('count(*) as total'))
-        ->where('cardetails.status_car','<>',Null)
-        ->where('buyers.Contract_buyer','not like', '22%')
-        ->where('buyers.Contract_buyer','not like', '33%')
-        ->groupBy('cardetails.status_car')
-        ->get();
+            ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
+            ->select('cardetails.status_car', DB::raw('count(*) as total'))
+            ->where('cardetails.status_car','<>',Null)
+            ->where('buyers.Contract_buyer','not like', '22%')
+            ->where('buyers.Contract_buyer','not like', '33%')
+            ->groupBy('cardetails.status_car')
+            ->get();
 
         $databranch = DB::table('buyers')
-        ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
-        ->select('cardetails.branch_car', DB::raw('count(*) as total'))
-        ->where('cardetails.branch_car','<>',Null)
-        ->where('buyers.Contract_buyer','not like', '22%')
-        ->where('buyers.Contract_buyer','not like', '33%')
-        ->groupBy('cardetails.branch_car')
-        ->get();
+            ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
+            ->select('cardetails.branch_car', DB::raw('count(*) as total'))
+            ->where('cardetails.branch_car','<>',Null)
+            ->where('buyers.Contract_buyer','not like', '22%')
+            ->where('buyers.Contract_buyer','not like', '33%')
+            ->groupBy('cardetails.branch_car')
+            ->get();
 
         $newfdate = '';
         $newtdate = '';
