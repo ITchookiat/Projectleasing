@@ -633,8 +633,6 @@
           }else if(num1 >= 150000 && num4 < 48){
             var num5 = '6500';
             var totaltopcar = parseFloat(num1)+parseFloat(num5);
-            // document.form1.Insurancecar.value = "ไม่แถม";
-            // document.getElementById("Insurancecar").value = "ไม่แถม";
           }else if(num1 > 300000){
             var num5 = '0';
             var totaltopcar = parseFloat(num1);

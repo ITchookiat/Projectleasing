@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use PDF;
 use Carbon\Carbon;
 
 use App\Buyer;
@@ -20,15 +21,18 @@ class RegisterController extends Controller
      */
     public function index(Request $request)
     {
+        $date = date('Y-m-d');
         if ($request->type == 1){ //รายการลิสซิ่ง
           $data = DB::table('buyers')
-              ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
-              ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
-              ->join('expenses','buyers.id','=','expenses.Buyerexpenses_id')
-              ->where('cardetails.Date_Appcar','!=',Null)
+              ->leftjoin('sponsors','buyers.id','=','sponsors.Buyer_id')
+              ->leftjoin('cardetails','buyers.id','=','cardetails.Buyercar_id')
+              ->leftjoin('expenses','buyers.id','=','expenses.Buyerexpenses_id')
+              // ->where('cardetails.Date_Appcar','!=',Null)
+              ->where('cardetails.Date_Appcar', $date)
+              ->where('cardetails.Approvers_car','<>','')
               ->where('buyers.Contract_buyer','not like', '22%')
               ->where('buyers.Contract_buyer','not like', '33%')
-              ->orderBy('buyers.Contract_buyer', 'ASC')
+              ->orderBy('buyers.id', 'ASC')
               ->get();
         }
         elseif ($request->type == 2){ //รายการ
@@ -57,7 +61,7 @@ class RegisterController extends Controller
           if ($request->has('Fromdate') == false and $request->has('Todate') == false) {
               $data = DB::table('registers')
                 ->where('registers.Date_regis',$datenow)
-                ->orderBy('registers.Date_regis', 'ASC')
+                ->orderBy('registers.Date_regis', 'DESC')
                 ->get();
           }
           else {
@@ -69,7 +73,7 @@ class RegisterController extends Controller
                 // ->when(!empty($status), function($q) use($status){
                 //   return $q->where('cardetails.StatusApp_car','=',$status);
                 // })
-                ->orderBy('registers.Date_regis', 'ASC')
+                ->orderBy('registers.Date_regis', 'DESC')
                 ->get();
   
           }
@@ -98,7 +102,32 @@ class RegisterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      if($request->type == 1){
+        $Register = new Register([
+          'Date_regis' => $request->get('dateaccept'),
+          'Regno_regis' => $request->get('licensecar'),
+          'NewReg_regis' => $request->get('Newlicensecar'),
+          'TypeofReg_regis' => $request->get('Typetransfer'),
+          'Comp_regis' => $request->get('Companyown'),
+          'CustName_regis' => $request->get('Namebuyer'),
+          'CustSurN_regis' => $request->get('Lastbuyer'),
+          'Brand_regis' => $request->get('Brandcar'),
+          'Model_regis' => $request->get('Modelcar'),
+          'Desc_regis' => $request->get('Describeregis'),
+          'CashoutDate_regis' => $request->get('Datetransport'),
+          'DocrecDate_regis' => $request->get('Dategetregis'),
+          'DocChk_regis' => $request->get('Doccheck'),
+          'KeyChk_regis' => $request->get('Keycheck'),
+          'RecChk_regis' => $request->get('Receiptcheck'),
+          'Flag_regis' => 'N',
+        ]);
+        $Register->save();
+      }
+      $type = 2; // 
+      $newfdate = '';
+      $newtdate = '';
+      $data = '';
+      return redirect()->Route('Register',$type)->with(['data' => $data,'newfdate' => $newfdate,'newtdate' => $newtdate,'success' => 'เพิ่มข้อมูลเรียบร้อย']);
     }
 
     /**
@@ -107,9 +136,25 @@ class RegisterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        //
+      if($request->type == 1){
+        $data = Register::where('Reg_id',$id)->first();
+        // dd($data);
+        $type = $request->type;
+        $SetTopic = "Receipt".date('Y-m-d');
+
+        $view = \View::make('registration.receipt' ,compact('data','type'));
+        $html = $view->render();
+        $pdf = new PDF();
+        $pdf::SetTitle('ใบเสร็จรับเงิน');
+        $pdf::AddPage('L', 'A5');
+        $pdf::SetMargins(15, 5, 15);
+        $pdf::SetFont('thsarabunpsk', '', 16, '', true);
+        $pdf::SetAutoPageBreak(TRUE, 21);
+        $pdf::WriteHTML($html,true,false,true,false,'');
+        $pdf::Output($SetTopic.'.pdf');
+      }
     }
 
     /**
@@ -120,17 +165,39 @@ class RegisterController extends Controller
      */
     public function edit(Request $request, $id)
     {
+      if($request->type == 1){
         $data = DB::table('buyers')
-            ->leftJoin('sponsors','buyers.id','=','sponsors.Buyer_id')
-            ->leftJoin('sponsor2s','buyers.id','=','sponsor2s.Buyer_id2')
-            ->leftJoin('cardetails','Buyers.id','=','cardetails.Buyercar_id')
-            ->leftJoin('expenses','Buyers.id','=','expenses.Buyerexpenses_id')
-            ->leftJoin('registers','Buyers.id','=','registers.Buyer_id')
-            // ->select('buyers.*','sponsors.*','sponsor2s.*','cardetails.*','expenses.*','registers.*','buyers.created_at AS createdBuyers_at')
-            ->where('buyers.id',$id)->first();
-
+          ->leftJoin('cardetails','Buyers.id','=','cardetails.Buyercar_id')
+          ->where('buyers.id',$id)->first();
+        $Getregister = Register::where('Buyer_id',$id)->first();
+          $Register = new Register([
+            'Buyer_id' => $id,
+            'Date_regis' => date('Y-m-d'),
+            'Regno_regis' => $data->License_car,
+            'NewReg_regis' => $data->Nowlicense_car,
+            'Brand_regis' => $data->Brand_car,
+            'Model_regis' => $data->Model_car,
+            'CustName_regis' => $data->Name_buyer,
+            'CustSurN_regis' => $data->last_buyer,
+            'Flag_regis' => 'T',
+          ]);
+          $Register->save();
+        $type = 2; // 
+        $newfdate = '';
+        $newtdate = '';
+        $data = DB::table('registers')
+              ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+                return $q->whereBetween('registers.Date_regis',[$newfdate,$newtdate]);
+              })
+              ->orderBy('registers.Date_regis', 'DESC')
+              ->get();
+        return redirect()->Route('Register',$type)->with(['data' => $data,'newfdate' => $newfdate,'newtdate' => $newtdate,'success' => 'เลือกข้อมูลเรียบร้อย']);
+      }elseif($request->type == 2){
+        $data = Register::where('Reg_id',$id)->first();
         $type = $request->type;
-        return view('registration.edit',compact('data','type'));
+        return view('registration.edit', compact('type','data'));
+
+      }
     }
 
     /**
@@ -142,49 +209,16 @@ class RegisterController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $Getcardetail = Cardetail::where('Buyercar_id',$id)->first();
-        $Getregister = Register::where('Buyer_id',$id)->first();
-
-        if($Getregister == null){
-          $Registerdb = new Register([
-            'Buyer_id' => $id,
-            'Date_regis' => date('Y-m-d'),
-            'Regno_regis' => $request->get('licensecar'),
-            'TypeofReg_regis' => $request->get('Typetransfer'),
-            'Comp_regis' => $request->get('Companyown'),
-            'CustName_regis' => $request->get('Namebuyer'),
-            'NewReg_regis' => $request->get('Newlicensecar'),
-            'Desc_regis' => $request->get('Describeregis'),
-
-            'CashoutDate_regis' => $request->get('Datetransport'), //วันที่เบิกขนส่ง
-            'DocrecDate_regis' => $request->get('Dategetregis'), //วันที่รับเล่ม
-            'DocChk_regis' => $request->get('Doccheck'),
-            'KeyChk_regis' => $request->get('Keycheck'),
-            'RecChk_regis' => $request->get('Receiptcheck'),
-
-            'CustAmt_regis' => $request->get('Budgetamount'),
-            'RecptAmt_regis' => $request->get('Budgetreceipt'),
-            'TechAmt_regis' => $request->get('Budgettecnique'),
-            'CopyAmt_regis' => $request->get('Budgetcopy'),
-
-            'TransInAmt_regis' => $request->get('TransferinExtra'),
-            'TransAmt_regis' => $request->get('Transferextra'),
-            'NewCarAmt_regis' => $request->get('Newcarextra'),
-            'TaxAmt_regis' => $request->get('Taxextra'),
-            'RegAmt_regis' => $request->get('Regisextra'),
-            'DocAmt_regis' => $request->get('Docextra'),
-            'FixAmt_regis' => $request->get('Editextra'),
-            'CancelAmt_regis' => $request->get('Cancelextra'),
-            'OtherAmt_regis' => $request->get('Otherextra'),
-            'EMSAmt_regis' => $request->get('EMSfee'),
-            'Remainfee_regis' => $request->get('Remainfee'),
-          ]);
-          $Registerdb->save();
-        }else{
-          $user = Register::where('Buyer_id',$id)->first();
+          $user = Register::where('Reg_id',$id)->first();
             $user->TypeofReg_regis = $request->get('Typetransfer');
             $user->Comp_regis = $request->get('Companyown');
             $user->Desc_regis = $request->get('Describeregis');
+            $user->Regno_regis = $request->get('licensecar');
+            $user->NewReg_regis = $request->get('Newlicensecar');
+            $user->Brand_regis = $request->get('Brandcar');
+            $user->Model_regis = $request->get('Modelcar');
+            $user->CustName_regis = $request->get('Namebuyer');
+            $user->CustSurN_regis = $request->get('Lastbuyer');
 
             $user->CashoutDate_regis = $request->get('Datetransport');
             $user->DocrecDate_regis = $request->get('Dategetregis');
@@ -215,8 +249,6 @@ class RegisterController extends Controller
           //   $expenses->other_Price = $SetotherPrice;
           // $expenses->update();
 
-
-        }
         // dd($Getcardetail);
         return redirect()->back()->with('success','อัพเดทข้อมูลเรียบร้อย');
     }
@@ -227,8 +259,12 @@ class RegisterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+      if($request->type == 1){
+        $item1 = Register::find($id);
+        $item1->Delete();
+      }
+      return redirect()->back()->with('success','ลบข้อมูลเรียบร้อย');
     }
 }
