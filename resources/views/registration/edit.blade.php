@@ -102,7 +102,7 @@
         <br>
       </div>
    @elseif($type == 2) {{--หน้าแก้ไข--}}
-      <form name="form1" action="{{ route('MasterRegister.update',[$data->id]) }}" method="post" id="formimage" enctype="multipart/form-data">
+      <form name="form1" action="{{ route('MasterRegister.update',[$data->Reg_id]) }}" method="post" id="formimage" enctype="multipart/form-data">
           @csrf
           @method('put')
           <input type="hidden" name="_method" value="PATCH"/>
@@ -122,48 +122,65 @@
             <div class="card-header p-0 pt-1">
               <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
                 <li class="nav-item">
-                  <a class="nav-link active" id="custom-tabs-1" data-toggle="pill" href="#tabs-1" role="tab" aria-controls="custom-tabs-one-home" aria-selected="false"><i class="fas fa-toggle-on"></i> ข้อมูลทั่วไป</a>
+                  <a class="nav-link active" id="custom-tabs-1" data-toggle="pill" href="#tabs-5" role="tab" aria-controls="custom-tabs-one-home" aria-selected="false"><i class="fas fa-toggle-on"></i> ข้อมูลทั่วไป</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" id="custom-tabs-2" data-toggle="pill" href="#tabs-2" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false"><i class="fas fa-toggle-on"></i> ค่าโอนไฟแนนซ์</a>
+                  <a class="nav-link" id="custom-tabs-2" data-toggle="pill" href="#tabs-6" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false"><i class="fas fa-toggle-on"></i> ค่าใช้จ่าย</a>
                 </li>
-                <li class="nav-item" >
-                  <a class="nav-link" id="custom-tabs-3" data-toggle="pill" href="#tabs-3" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false"><i class="fas fa-toggle-on"></i> ค่าโอนออก</a>
-                </li>
+                <!-- <li class="nav-item" >
+                  <a class="nav-link" id="custom-tabs-3" data-toggle="pill" href="#tabs-7" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false"><i class="fas fa-toggle-on"></i> ค่าโอนออก</a>
+                </li> -->
                 <!-- <li class="nav-item">
-                  <a class="nav-link" id="custom-tabs-4" data-toggle="pill" href="#tabs-4" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false"><i class="fas fa-toggle-on"></i> ค่าอื่นๆ</a>
+                  <a class="nav-link" id="custom-tabs-4" data-toggle="pill" href="#tabs-8" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false"><i class="fas fa-toggle-on"></i> ค่าอื่นๆ</a>
                 </li> -->
               </ul>
             </div>
             <div class="card-body">
               <div class="tab-content" id="custom-tabs-one-tabContent">
-                <div class="tab-pane fade active show" id="tabs-1" role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
+                <div class="tab-pane fade active show" id="tabs-5" role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
                   <div class="row">
                     <div class="col-md-6">
                       วันที่รับ
-                      <input type="date" name="dateaccept" class="form-control" value="{{$data->Date_Appcar}}" />
+                      <input type="date" name="dateaccept" class="form-control" value="{{$data->Date_regis}}" />
                     </div>
                     <div class="col-md-3">
                       ป้ายทะเบียนเดิม
-                      <input type="text" name="licensecar" class="form-control" value="{{$data->License_car}}" readonly/>
+                      <input type="text" name="licensecar" class="form-control" value="{{$data->Regno_regis}}"/>
                     </div>
                     <div class="col-md-3">
                       ป้ายทะเบียนใหม่
-                      <input type="text" name="Newlicensecar" class="form-control" value="{{($data->Nowlicense_car != '')?$data->Nowlicense_car:'-'}}" readonly/>
+                      <input type="text" name="Newlicensecar" class="form-control" value="{{($data->NewReg_regis != '')?$data->NewReg_regis:'-'}}"/>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-6">
-                      ชื่อ-สกุล
-                      <input type="text" name="Namebuyer" class="form-control" value="{{$data->Name_buyer}}&nbsp;&nbsp;&nbsp;{{$data->last_buyer}}" />
+                    <div class="col-md-3">
+                      ชื่อ
+                      <input type="text" name="Namebuyer" class="form-control" value="{{$data->CustName_regis}}" />
+                    </div>
+                    <div class="col-md-3">
+                      นามสกุล
+                      <input type="text" name="Lastbuyer" class="form-control" value="{{$data->CustSurN_regis}}" />
                     </div>
                     <div class="col-md-3">
                       ยี่ห้อรถ
-                      <input type="text" name="Brandcar" class="form-control" value="{{$data->Brand_car}}" readonly/>
+                      <!-- <input type="text" name="Brandcar" class="form-control" value="{{$data->Brand_regis}}"/> -->
+                      <select name="Brandcar" class="form-control">
+                        <option value="" selected>--- ยี่ห้อ ---</option>
+                        <option value="MAZDA" {{ ($data->Brand_regis === 'MAZDA') ? 'selected' : '' }}>MAZDA</option>
+                        <option value="FORD" {{ ($data->Brand_regis === 'FORD') ? 'selected' : '' }}>FORD</option>
+                        <option value="ISUZU" {{ ($data->Brand_regis === 'ISUZU') ? 'selected' : '' }}>ISUZU</option>
+                        <option value="MITSUBISHI" {{ ($data->Brand_regis === 'MITSUBISHI') ? 'selected' : '' }}>MITSUBISHI</option>
+                        <option value="TOYOTA" {{ ($data->Brand_regis === 'TOYOTA') ? 'selected' : '' }}>TOYOTA</option>
+                        <option value="NISSAN" {{ ($data->Brand_regis === 'NISSAN') ? 'selected' : '' }}>NISSAN</option>
+                        <option value="HONDA" {{ ($data->Brand_regis === 'HONDA') ? 'selected' : '' }}>HONDA</option>
+                        <option value="CHEVROLET" {{ ($data->Brand_regis === 'CHEVROLET') ? 'selected' : '' }}>CHEVROLET</option>
+                        <option value="MG" {{ ($data->Brand_regis === 'MG') ? 'selected' : '' }}>MG</option>
+                        <option value="SUZUKI" {{ ($data->Brand_regis === 'SUZUKI') ? 'selected' : '' }}>SUZUKI</option>
+                      </select>
                     </div>
                     <div class="col-md-3">
                       รุ่นรถ
-                      <input type="text" name="Modelcar" class="form-control" value="{{$data->Model_car}}" readonly/>
+                      <input type="text" name="Modelcar" class="form-control" value="{{($data->Model_regis != null)?$data->Model_regis:'-'}}"/>
                     </div>
                   </div>
                   <div class="row">
@@ -173,20 +190,9 @@
                         <option value="">---เลือกชนิดการโอน---</option>
                         <option value="โอนจัดไฟแนนซ์" {{ ($data->TypeofReg_regis === 'โอนจัดไฟแนนซ์') ? 'selected' : '' }}>โอนจัดไฟแนนซ์</option>
                         <option value="โอนออก" {{ ($data->TypeofReg_regis === 'โอนออก') ? 'selected' : '' }}>โอนออก</option>
+                        <option value="จดทะเบียนรถใหม่" {{ ($data->TypeofReg_regis === 'จดทะเบียนรถใหม่') ? 'selected' : '' }}>จดทะเบียนรถใหม่</option>
                         <option value="อื่นๆ" {{ ($data->TypeofReg_regis === 'อื่นๆ') ? 'selected' : '' }}>อื่นๆ</option>
                       </select>
-                    </div>
-                    <div class="col-md-3">
-                      ปีรถ
-                      <input type="text" name="Yearcar" class="form-control" value="{{$data->Year_car}}" readonly/>
-                    </div>
-                    <div class="col-md-3">
-                      ประเภทรถ
-                      <input type="text" name="Typecar" class="form-control" value="{{$data->Typecardetails}}" readonly/>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-6">
                       บริษัท
                       <select name="Companyown" class="form-control">
                         <option value="">---เลือกบริษัท---</option>
@@ -197,7 +203,7 @@
                     </div>
                     <div class="col-md-6">
                       รายละเอียด
-                      <textarea name="Describeregis" class="form-control" rows="1">{{$data->Desc_regis}}</textarea>
+                      <textarea name="Describeregis" class="form-control" rows="4">{{$data->Desc_regis}}</textarea>
                     </div>
                   </div>
                   <hr>
@@ -223,20 +229,20 @@
                           <tr>
                             <th class="text-center">
                               <div class="custom-control custom-checkbox">
-                                <input class="custom-control-input" id="customCheckbox1" type="checkbox" name="Doccheck" value="check" {{ ($data->DocChk_regis == "check") ? 'checked' : '' }}>
-                                <label class="custom-control-label" for="customCheckbox1"></label>
+                                <input class="custom-control-input" id="customCheckbox4" type="checkbox" name="Doccheck" value="check" {{ ($data->DocChk_regis == "check") ? 'checked' : '' }}>
+                                <label class="custom-control-label" for="customCheckbox4"></label>
                               </div>
                             </th>
                             <th class="text-center">
                               <div class="custom-control custom-checkbox">
-                                <input class="custom-control-input" id="customCheckbox2" type="checkbox" name="Keycheck" value="check" {{ ($data->KeyChk_regis == "check") ? 'checked' : '' }}>
-                                <label class="custom-control-label" for="customCheckbox2"></label>
+                                <input class="custom-control-input" id="customCheckbox5" type="checkbox" name="Keycheck" value="check" {{ ($data->KeyChk_regis == "check") ? 'checked' : '' }}>
+                                <label class="custom-control-label" for="customCheckbox5"></label>
                               </div>
                             </th>
                             <th class="text-center">
                               <div class="custom-control custom-checkbox">
-                                <input class="custom-control-input" id="customCheckbox3" type="checkbox" name="Receiptcheck" value="check" {{ ($data->RecChk_regis == "check") ? 'checked' : '' }}>
-                                <label class="custom-control-label" for="customCheckbox3"></label>
+                                <input class="custom-control-input" id="customCheckbox6" type="checkbox" name="Receiptcheck" value="check" {{ ($data->RecChk_regis == "check") ? 'checked' : '' }}>
+                                <label class="custom-control-label" for="customCheckbox6"></label>
                               </div>
                             </th>
                           </tr>
@@ -245,7 +251,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="tab-pane fade" id="tabs-2" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
+                <div class="tab-pane fade" id="tabs-6" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
                   <div class="row">
                     <div class="col-md-4">
                         เงินที่รับจากลูกค้า/บริษัท
@@ -265,7 +271,7 @@
                           <h3 class="card-title">คงเหลือ</h3>
                         </div>
                         <div class="card-body">
-                          <input type="text" id="Remainfee" name="Remainfee" class="form-control text-center text-red" value="0.00" style="border:none;"/>
+                          <input type="text" id="Remainfee" name="Remainfee" class="form-control text-center text-red" value="{{($data->Remainfee_regis != null)?$data->Remainfee_regis : '0.00'}}" style="border:none;"/>
                         </div>
                       </div>
                     </div>  
@@ -318,7 +324,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="tab-pane fade" id="tabs-3" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
+                <!-- <div class="tab-pane fade" id="tabs-7" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
                   <div class="row">
                     <div class="col-md-4">
                         เงินที่รับจากลูกค้า/บริษัท
@@ -391,7 +397,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="tab-pane fade" id="tabs-4" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
+                <div class="tab-pane fade" id="tabs-8" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
                   <div class="row">
                     <div class="col-md-4">
                         เงินที่รับจากลูกค้า/บริษัท
@@ -463,7 +469,7 @@
                       <input type="text" id="EMSfee3" name="EMSfee3" class="form-control" value=""/>
                     </div>
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>

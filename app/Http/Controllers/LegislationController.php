@@ -2183,12 +2183,14 @@ class LegislationController extends Controller
               $Summperiod = 0;    //รวมยอดคงเหลือ
               $SumAmount = 0;
               $SumTextStatus = 0; //ยอดปิดบัญชี
+              $SumIndictment = 0; //รวมค่าฟ้อง
 
               foreach ($data as $value) {
                 $SumCourt = ($value->capital_court + $value->indictment_court + $value->pricelawyer_court);
                 $Summperiod += $value->Sumperiod_legis;
                 $SumAmount += $SumCourt;
                 $SumTextStatus += $value->txtStatus_legis + ($value->Total_Promise - $value->Sum_Promise);
+                $SumIndictment += $value->indictment_court;
 
                 if ($value->txtStatus_legis != NULL) {
                   $TextStatus = $value->txtStatus_legis;
@@ -2447,7 +2449,7 @@ class LegislationController extends Controller
               $sheet->appendRow(function($rows) {
                 $rows->setBackground('#FFCC00');
               });
-              $sheet->appendRow(array('รวมทั้งหมด','',number_format($Summperiod,2).'  บาท',number_format($SumAmount,2).'  บาท','','','','','','','','',number_format($SumTextStatus,2).'  บาท'));
+              $sheet->appendRow(array('รวมทั้งหมด','',number_format($Summperiod,2).'  บาท',number_format($SumAmount,2).'  บาท',number_format($SumIndictment,2).'  บาท','','','','','','','',number_format($SumTextStatus,2).'  บาท'));
           });
         })->export('xlsx');
 

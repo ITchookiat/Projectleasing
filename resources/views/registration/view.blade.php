@@ -23,45 +23,6 @@
     $date2 = $Y.'-'.$m.'-'.$d;
   @endphp
 
-  <style>
-    span:hover {
-      color: blue;
-    }
-    .round {
-        width: 0.9em;
-        height: 0.9em;
-        background-color: white;
-        border-radius: 50%;
-        /* vertical-align: middle; */
-        border: 1px solid #000;
-        -webkit-appearance: none;
-        outline: none;
-        cursor: pointer;
-    }
-    .round:checked {
-        background-color: green;
-    }
-    .new_register{
-      display: none;
-    }
-  </style>
-
-  <script>
-      $(function () {
-          var $chk = $("#grpChkBox input:checkbox"); 
-          var $tbl = $("#table1");
-          var $tblhead = $("#table1 th");
-
-          // $chk.prop('checked', false); 
-
-          $chk.click(function () {
-              var colToHide = $tblhead.filter("." + $(this).attr("name"));
-              var index = $(colToHide).index();
-              $tbl.find('tr :nth-child(' + (index + 1) + ')').toggle();
-          });
-      });
-  </script>
-
   <!-- Main content -->
   <section class="content">
     <div class="content-header">
@@ -101,10 +62,11 @@
               </div>
               <div class="card-body text-sm">
                 <div class="col-md-12">
-                  @if($type == 1)
+                  @if($type == 1) {{-- รายการทะเบียนจากลิสซิ่ง --}}
                     <table class="table table-striped table-valign-middle" id="table1">
                         <thead>
                           <tr>
+                            <th class="text-center">ID</th>
                             <th class="text-center">สาขา</th>
                             <th class="text-center">ยีห้อ</th>
                             <th class="text-center">ทะเบียน</th>
@@ -116,27 +78,31 @@
                         <tbody>
                           @foreach($data as $row)
                             <tr>
+                              <td class="text-center"> {{ $row->id}} </td>
                               <td class="text-center"> {{ $row->branch_car}} </td>
                               <td class="text-center"> {{ $row->Brand_car}} </td>
                               <td class="text-center"> {{ $row->License_car}} </td>
-                              <td class="text-center"> {{ $row->Model_car}} </td>
+                              <td class="text-center"> {{ ($row->Model_car != null)?$row->Model_car: '-'}} </td>
                               <td class="text-center"> {{ $row->Year_car}} </td>
-                              <td class="text-center"> </td>
+                              <td class="text-center"> 
+                                <a href="{{ route('MasterRegister.edit',[$row->id])}}?type={{1}}" class="btn btn-danger btn-sm" title="จัดเตรียมเอกสาร">
+                                  <i class="fas fa-external-link-alt"></i> เลือก
+                                </a>                          
+                              </td>
                             </tr>
                           @endforeach
                         </tbody>
                     </table>
                   @elseif($type == 2)
-                  <form method="get" action="{{ route('Register',1) }}">
+                  <form method="get" action="{{ route('Register',2) }}">
                     <div class="row">
                       <div class="col-md-12">
                         <div class="float-right form-inline">
-                          <button type="submit" class="btn bg-warning btn-app">
-                            <span class="fas fa-search"></span> Search
-                          </button>
-
                           <button type="button" class="btn bg-primary btn-app">
                             <span class="fas fa-print"></span> Print
+                          </button>
+                          <button type="submit" class="btn bg-warning btn-app">
+                            <span class="fas fa-search"></span> Search
                           </button>
                         </div>
                       </div>
@@ -154,53 +120,42 @@
                     </div>
                   </form>
                   <hr>
-                  @if($countData != 0)
-                    <div class="float-right form-inline" id="grpChkBox">
-                      <p><input type="checkbox" name="no" class="round" checked/> ลำดับ</p>&nbsp;&nbsp;
-                      <p><input type="checkbox" name="date" class="round"/> วันที่</p>&nbsp;&nbsp;
-                      <!-- <p><input type="checkbox" name="register" class="round"/> ป้ายทะเบียน</p>&nbsp;&nbsp; -->
-                      <!-- <p><input type="checkbox" name="name" class="round"/> ยี่ห้อรถ</p>&nbsp;&nbsp; -->
-                      <p><input type="checkbox" name="new_register" class="round"/> ป้ายใหม่</p>&nbsp;&nbsp;
-                      <!-- <p><input type="checkbox" name="note" class="round"/> หมายเหตุ</p>&nbsp;&nbsp;&nbsp; -->
-                      <p><input type="checkbox" name="act" class="round" checked/> ตัวเลือก</p>&nbsp;&nbsp;&nbsp;
-                    </div>
-                  @endif
                   <div class="table-responsive">
                     <table class="table table-striped table-valign-middle table-bordered" id="table1">
                       <thead>
                         <tr>
-                          <th class="text-center no">ลำดับ</th>
-                          <th class="text-center date">วันที่รับลูกค้า</th>
-                          <th class="text-center register">ป้ายทะเบียน</th>
-                          <th class="text-center name">ชื่อ-สกุล</th>
-                          <th class="text-center new_register">ป้ายใหม่</th>
-                          <th class="text-center note">ชนิดการโอน</th>
-                          <!-- <th class="text-center note">รายละเอียด</th> -->
-                          <th class="text-center act">ตัวเลือก</th>
+                          <th class="text-center">ลำดับ</th>
+                          <th class="text-center">วันที่รับลูกค้า</th>
+                          <th class="text-center">ป้ายทะเบียน</th>
+                          <th class="text-center">ชื่อ-สกุล</th>
+                          <th class="text-center">ป้ายใหม่</th>
+                          <th class="text-center">ชนิดการโอน</th>
+                          <th class="text-center">บริษัท</th>
+                          <th class="text-center">คงเหลือ</th>
+                          <th class="text-center">ตัวเลือก</th>
                         </tr>
                       </thead>
                       <tbody>
                         @foreach($data as $key => $row)
                           <tr>
-                            <td class="text-center no">{{$key+1}}</td>
-                            <td class="text-center date">{{DateThai($row->Date_regis)}}</td>
-                            <td class="text-center register">{{$row->Regno_regis}}</td>
-                            <td class="text-left name">{{$row->CustName_regis}}&nbsp;&nbsp;&nbsp;{{$row->CustSurN_regis}}</td>
-                            <td class="text-center new_register">{{($row->NewReg_regis != '')?$row->NewReg_regis:'-'}}</td>
-                            <td class="text-center note">{{$row->TypeofReg_regis}}</td>
-                            <!-- <td class="text-left note">{{$row->Desc_regis}}</td> -->
-                            <td class="text-center act">
-                              <!-- <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal-view" title="ดูรายการ"
-                                data-backdrop="static" data-keyboard="false"
-                                data-link="{{ route('MasterRegister.edit',[$row->Reg_id]) }}?type={{1}}">
-                                <i class="far fa-eye"></i>
-                              </button> -->
+                            <td class="text-center">{{$key+1}}</td>
+                            <td class="text-center">{{DateThai($row->Date_regis)}}</td>
+                            <td class="text-center">{{$row->Regno_regis}}</td>
+                            <td class="text-left">{{$row->CustName_regis}}&nbsp;&nbsp;&nbsp;{{$row->CustSurN_regis}}</td>
+                            <td class="text-center">{{($row->NewReg_regis != '')?$row->NewReg_regis:'-'}}</td>
+                            <td class="text-center">{{($row->TypeofReg_regis != '')?$row->TypeofReg_regis:'-'}}</td>
+                            <td class="text-center">{{($row->Comp_regis != '')?$row->Comp_regis:'-'}}</td>
+                            <td class="text-center">{{($row->Remainfee_regis != '')?$row->Remainfee_regis:'0.00'}}</td>
+                            <td class="text-center">
+                              <a target="_blank" href="{{ route('MasterRegister.show',[$row->Reg_id]) }}?type={{1}}" class="btn btn-secondary btn-sm" title="พิมพ์ใบเสร็จ">
+                                <i class="fas fa-file-invoice-dollar"></i>
+                              </a>
                               <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-edit" title="แก้ไขรายการ"
                                 data-backdrop="static" data-keyboard="false"
                                 data-link="{{ route('MasterRegister.edit',[$row->Reg_id]) }}?type={{2}}">
                                 <i class="far fa-edit"></i>
                               </button>
-                              <form method="post" class="delete_form" action="" style="display:inline;">
+                              <form method="post" class="delete_form" action="{{ route('MasterRegister.destroy',[$row->Reg_id]) }}?type={{1}}" style="display:inline;">
                                 {{csrf_field()}}
                                 <input type="hidden" name="_method" value="DELETE" />
                                 <button type="submit" data-name="" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
@@ -291,137 +246,106 @@
               </div>
               <div class="modal-body">
                   <div class="row">
-                    <div class="col-6">
-                      <div class="form-group row mb-1">
-                        <label class="col-sm-5 col-form-label text-right"><font color="red">*** ป้ายทะเบียน :</font> </label>
-                        <div class="col-sm-7">
-                          <input type="text" name="Registercar" class="form-control" placeholder="ป้อนป้ายทะเบียน" required/>
-                        </div>
-                      </div>
+                    <div class="col-md-6">
+                      วันที่รับ
+                      <input type="date" name="dateaccept" class="form-control"/>
                     </div>
-                    <div class="col-6">
-                      <div class="form-group row mb-1">
-                      <label class="col-sm-4 col-form-label text-right">ยี่ห้อรถ : </label>
-                        <div class="col-sm-7">
-                          <select name="Brandcar" class="form-control">
-                            <option value="" selected>--- ยี่ห้อ ---</option>
-                            <option value="MAZDA">MAZDA</option>
-                            <option value="FORD">FORD</option>
-                            <!-- <option value="ISUZU">ISUZU</option> -->
-                            <!-- <option value="MITSUBISHI">MITSUBISHI</option> -->
-                            <!-- <option value="TOYOTA">TOYOTA</option> -->
-                            <!-- <option value="NISSAN">NISSAN</option> -->
-                            <option value="HONDA">HONDA</option>
-                            <!-- <option value="CHEVROLET">CHEVROLET</option> -->
-                            <!-- <option value="MG">MG</option> -->
-                            <!-- <option value="SUZUKI">SUZUKI</option> -->
-                          </select>
-                        </div>
-                      </div>
+                    <div class="col-md-3">
+                      ป้ายทะเบียนเดิม
+                      <input type="text" name="licensecar" class="form-control" placeholder="ป้อนป้ายทะเบียนเดิม"/>
+                    </div>
+                    <div class="col-md-3">
+                      ป้ายทะเบียนใหม่
+                      <input type="text" name="Newlicensecar" class="form-control" placeholder="ป้อนป้ายทะเบียนใหม่"/>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-6">
-                      <div class="form-group row mb-1">
-                      <label class="col-sm-5 col-form-label text-right">รุ่นรถ : </label>
-                        <div class="col-sm-7">
-                          <input type="text" name="Versioncar" class="form-control" placeholder="ป้อนรุ่นรถ" />
-                        </div>
-                      </div>
+                    <div class="col-md-3">
+                      ชื่อ
+                      <input type="text" name="Namebuyer" class="form-control" placeholder="ป้อนชื่อ"/>
                     </div>
-                    <div class="col-6">
-                      <div class="form-group row mb-1">
-                      <label class="col-sm-4 col-form-label text-right">ประเภทรถ : </label>
-                        <div class="col-sm-7">
-                          <select id="Typecar" name="Typecar" class="form-control">
-                            <option value="" selected>--- เลือกประเภทรถ ---</option>
-                            <option value="รถใช้งาน">รถใช้งาน</option>
-                            <option value="รถ Demo">รถ Demo</option>
-                          </select>
-                        </div>
-                      </div>
+                    <div class="col-md-3">
+                      นามสกุล
+                      <input type="text" name="Lastbuyer" class="form-control" placeholder="ป้อนนามสกุล"/>
+                    </div>
+                    <div class="col-md-3">
+                      ยี่ห้อรถ
+                      <select name="Brandcar" class="form-control">
+                        <option value="">---เลือกยี่ห้อรถ---</option>
+                        <option value="MAZDA">MAZDA</option>
+                        <option value="FORD">FORD</option>
+                      </select>
+                    </div>
+                    <div class="col-md-3">
+                      รุ่นรถ
+                      <input type="text" name="Modelcar" class="form-control" placeholder="ป้อนรุ่นรถ"/>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-6">
-                      <div class="form-group row mb-1">
-                      <label class="col-sm-5 col-form-label text-right">เลขตัวถัง :</label>
-                        <div class="col-sm-7">
-                          <input type="text" name="Engnocar" class="form-control" placeholder="ป้อนเลขตัวถัง"/>
-                        </div>
-                      </div>
+                    <div class="col-md-6">
+                      ชนิดการโอน
+                      <select name="Typetransfer" class="form-control">
+                        <option value="">---เลือกชนิดการโอน---</option>
+                        <option value="โอนจัดไฟแนนซ์">โอนจัดไฟแนนซ์</option>
+                        <option value="โอนออก">โอนออก</option>
+                        <option value="จดทะเบียนรถใหม่">จดทะเบียนรถใหม่</option>
+                        <option value="อื่นๆ">อื่นๆ</option>
+                      </select>
+                      บริษัท
+                      <select name="Companyown" class="form-control">
+                        <option value="">---เลือกบริษัท---</option>
+                        <option value="CKL">CKL - ชูเกียรติลิสซิ่ง</option>
+                        <option value="CKY">CKY - ชูเกียรติยนต์</option>
+                        <option value="CKC">CKC - ชูเกียรติคาร์</option>
+                      </select>
                     </div>
-                    <div class="col-6">
-                      <div class="form-group row mb-1">
-                      <label class="col-sm-4 col-form-label text-right">ปีรถ : </label>
-                        <div class="col-sm-7">
-                          <select id="Yearcar" name="Yearcar" class="form-control">
-                            <option value="" selected>--- เลือกปี ---</option>
-                              @php
-                                  $Year = date('Y');
-                              @endphp
-                              @for ($i = 0; $i < 15; $i++)
-                                <option value="{{ $Year }}">{{ $Year }}</option>
-                                @php
-                                    $Year -= 1;
-                                @endphp
-                              @endfor
-                          </select>
-                        </div>
-                      </div>
+                    <div class="col-md-6">
+                      รายละเอียด
+                      <textarea name="Describeregis" class="form-control" rows="4"></textarea>
                     </div>
                   </div>
                   <hr>
                   <div class="row">
-                    <div class="col-6">
-                      <div class="form-group row mb-1">
-                      <label class="col-sm-5 col-form-label text-right">วันหมดอายุทะเบียน :</label>
-                        <div class="col-sm-7">
-                          <input type="date" name="RegisterExpire" class="form-control"/>
-                        </div>
-                      </div>
-                      <div class="form-group row mb-1">
-                      <label class="col-sm-5 col-form-label text-right">วันหมดอายุประกัน :</label>
-                        <div class="col-sm-7">
-                          <input type="date" name="InsureExpire" class="form-control"/>
-                        </div>
-                      </div>
-                      <div class="form-group row mb-1">
-                      <label class="col-sm-5 col-form-label text-right">วันหมดอายุ พรบ. :</label>
-                        <div class="col-sm-7">
-                          <input type="date" name="ActExpire" class="form-control"/>
-                        </div>
-                      </div>
-                      <!-- <div class="form-group row mb-1">
-                      <label class="col-sm-5 col-form-label text-right">วันที่เช็คระยะ :</label>
-                        <div class="col-sm-7">
-                          <input type="date" name="Checkcar" class="form-control"/>
-                        </div>
-                      </div> -->
+                    <div class="col-md-3">
+                       วันที่เบิกไปขนส่ง
+                      <input type="date" name="Datetransport" class="form-control"/>
                     </div>
-                    <div class="col-6">
-                      <div class="form-group row mb-1">
-                        <label class="col-sm-4 col-form-label text-right">บริษัทประกัน :</label>
-                        <div class="col-sm-7">
-                          <input type="text" name="InsureCompany" class="form-control" placeholder="ป้อนบริษัทประกัน"/>
-                        </div>
-                      </div>
-                      <div class="form-group row mb-1">
-                        <label class="col-sm-4 col-form-label text-right">สถานที่ซ่อม :</label>
-                        <div class="col-sm-7">
-                          <select id="RepairPlace" name="RepairPlace" class="form-control">
-                            <option value="" selected>--- เลือกสถานที่ซ่อม ---</option>
-                            <option value="ซ่อมอู่">ซ่อมอู่</option>
-                            <option value="ซ่อมห้าง">ซ่อมห้าง</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="form-group row mb-1">
-                        <label class="col-sm-4 col-form-label text-right">หมายเหตุ :</label>
-                        <div class="col-sm-7">
-                          <textarea class="form-control" name="Notecar" rows="2" placeholder="ป้อนหมายเหตุ..."></textarea>
-                        </div>
-                      </div>
+                    <div class="col-md-3">
+                       วันที่รับเล่มจากขนส่ง
+                      <input type="date" name="Dategetregis" class="form-control"/>
+                    </div>
+                    <div class="col-md-6">
+                      <table class="table table-bordered" align="center">
+                        <thead>
+                          <tr style="line-height:5px;">
+                            <th class="text-center">เช็คเล่ม</th>
+                            <th class="text-center">เช็คกุญแจ</th>
+                            <th class="text-center">เช็คใบเสร็จ</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th class="text-center">
+                              <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input" id="customCheckbox4" type="checkbox" name="Doccheck" value="check">
+                                <label class="custom-control-label" for="customCheckbox4"></label>
+                              </div>
+                            </th>
+                            <th class="text-center">
+                              <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input" id="customCheckbox5" type="checkbox" name="Keycheck" value="check">
+                                <label class="custom-control-label" for="customCheckbox5"></label>
+                              </div>
+                            </th>
+                            <th class="text-center">
+                              <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input" id="customCheckbox6" type="checkbox" name="Receiptcheck" value="check">
+                                <label class="custom-control-label" for="customCheckbox6"></label>
+                              </div>
+                            </th>
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
               <hr>

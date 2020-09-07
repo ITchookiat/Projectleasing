@@ -18,6 +18,8 @@ class CreateRegistersTable extends Migration
             $table->string('Buyer_id')->nullable();
             $table->date('Date_regis')->nullable();
             $table->string('Regno_regis')->nullable();
+            $table->string('Brand_regis')->nullable();
+            $table->string('Model_regis')->nullable();
             $table->string('TypeofReg_regis')->nullable();
             $table->string('Comp_regis')->nullable();
             $table->string('CustName_regis')->nullable();
@@ -47,6 +49,7 @@ class CreateRegistersTable extends Migration
             $table->date('DocrecDate_regis')->nullable();
             $table->string('Note_regis')->nullable();
             $table->string('Remainfee_regis')->nullable();
+            $table->string('Flag_regis')->nullable();
             $table->timestamps();
         });
     }
