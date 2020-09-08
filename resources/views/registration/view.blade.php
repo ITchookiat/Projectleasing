@@ -64,7 +64,7 @@
                           </form>
                         @elseif($type == 2)
                           <a class="btn bg-success btn-sm" data-toggle="modal" data-target="#modal-new" data-backdrop="static" data-keyboard="false" style="border-radius: 40px;">
-                            <span class="fas fa-plus"></span> เพิ่มรายการใหม่
+                            <span class="fas fa-plus"></span> เพิ่มใหม่
                           </a>
                         @endif
                       @endif
