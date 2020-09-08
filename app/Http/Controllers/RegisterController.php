@@ -23,17 +23,25 @@ class RegisterController extends Controller
     {
         $date = date('Y-m-d');
         if ($request->type == 1){ //รายการลิสซิ่ง
-          $data = DB::table('buyers')
-              ->leftjoin('sponsors','buyers.id','=','sponsors.Buyer_id')
-              ->leftjoin('cardetails','buyers.id','=','cardetails.Buyercar_id')
-              ->leftjoin('expenses','buyers.id','=','expenses.Buyerexpenses_id')
-              // ->where('cardetails.Date_Appcar','!=',Null)
-              ->where('cardetails.Date_Appcar', $date)
-              ->where('cardetails.Approvers_car','<>','')
-              ->where('buyers.Contract_buyer','not like', '22%')
-              ->where('buyers.Contract_buyer','not like', '33%')
-              ->orderBy('buyers.id', 'ASC')
-              ->get();
+          $RegisterNo = $request->Regno;
+          if($RegisterNo == ''){
+            $data = DB::table('buyers')
+                ->leftjoin('sponsors','buyers.id','=','sponsors.Buyer_id')
+                ->leftjoin('cardetails','buyers.id','=','cardetails.Buyercar_id')
+                ->leftjoin('expenses','buyers.id','=','expenses.Buyerexpenses_id')
+                // ->where('cardetails.Date_Appcar','!=',Null)
+                ->where('cardetails.Date_Appcar', $date)
+                ->where('cardetails.Approvers_car','<>','')
+                ->where('buyers.Contract_buyer','not like', '22%')
+                ->where('buyers.Contract_buyer','not like', '33%')
+                ->orderBy('buyers.id', 'ASC')
+                ->get();
+          }else{
+            $data = DB::table('buyers')
+            ->leftjoin('cardetails','buyers.id','=','cardetails.Buyercar_id')
+            ->where('cardetails.License_car', $RegisterNo)
+            ->get();
+          }
         }
         elseif ($request->type == 2){ //รายการ
           $datenow = date('Y-m-d');
@@ -81,7 +89,7 @@ class RegisterController extends Controller
           $countData = count($data);
         }
         $type = $request->type;    
-        return view('registration.view', compact('type','data','countData','branch','newfdate','newtdate','status','Setdate','contno','SetStrConn','SetStr1','SetStr2'));
+        return view('registration.view', compact('type','data','countData','branch','newfdate','newtdate','status','Setdate','RegisterNo'));
     }
 
     /**
