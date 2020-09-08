@@ -35,7 +35,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           @if(auth::user()->type == "Admin")
-            <li class="nav-item has-treeview {{ Request::is('maindata/view*') ? 'menu-open' : '' }}">
+            <li class="nav-item has-treeview {{ Request::is('MasterMaindata') ? 'menu-open' : '' }}">
               <a href="#" class="nav-link active">
                 <i class="nav-icon fas fa-window-restore"></i>
                 <p>
@@ -45,7 +45,7 @@
               </a>
               <ul class="nav nav-treeview" style="margin-left: 15px;">
                 <li class="nav-item">
-                  <a href="{{ route('ViewMaindata') }}" class="nav-link active">
+                  <a href="{{ route('MasterMaindata.index') }}" class="nav-link active">
                     <i class="far fa-id-badge text-red nav-icon"></i>
                     <p>ข้อมูลผู้ใช้งานระบบ</p>
                   </a>
@@ -271,7 +271,7 @@
               </p>
             </a>
 
-            @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก กฏหมาย" or auth::user()->type == "แผนก เร่งรัด" or auth::user()->type == "แผนก การเงินนอก")
+            @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก กฏหมาย" or auth::user()->type == "แผนก เร่งรัด")
               <ul class="nav nav-treeview" style="margin-left: 15px;">
                 <li class="nav-item">
                   <a href="{{ route('legislation',1) }}" class="nav-link {{ Request::is('Legislation/Home/1') ? 'active' : '' }}">

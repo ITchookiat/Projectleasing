@@ -1564,19 +1564,25 @@
                               <div class="float-right form-inline">
                                 <!-- <label><font color="red">สาขา : </font></label> -->
                                 @if(Auth::user()->branch == 99)
-                                    <input type="hidden" name="branchcar" class="form-control" value="Admin" readonly />
+                                  <input type="hidden" name="branchcar" value="Admin" readonly />
                                 @elseif(Auth::user()->branch == 01)
-                                    <input type="hidden" name="branchcar" class="form-control" value="ปัตตานี" readonly />
+                                  <input type="hidden" name="branchcar" value="ปัตตานี" readonly />
                                 @elseif(Auth::user()->branch == 03)
-                                    <input type="hidden" name="branchcar" class="form-control" value="ยะลา" readonly />
+                                  <input type="hidden" name="branchcar" value="ยะลา" readonly />
                                 @elseif(Auth::user()->branch == 04)
-                                    <input type="hidden" name="branchcar" class="form-control" value="นราธิวาส" readonly />
+                                  <input type="hidden" name="branchcar" value="นราธิวาส" readonly />
                                 @elseif(Auth::user()->branch == 05)
-                                    <input type="hidden" name="branchcar" class="form-control" value="สายบุรี" readonly />
+                                  <input type="hidden" name="branchcar" value="สายบุรี" readonly />
                                 @elseif(Auth::user()->branch == 06)
-                                    <input type="hidden" name="branchcar" class="form-control" value="โกลก" readonly />
+                                  <input type="hidden" name="branchcar" value="โกลก" readonly />
                                 @elseif(Auth::user()->branch == 07)
-                                    <input type="hidden" name="branchcar" class="form-control" value="เบตง" readonly />
+                                  <input type="hidden" name="branchcar" value="เบตง" readonly />
+                                @elseif(Auth::user()->branch == 56)
+                                  <input type="hidden" name="branchcar" value="โคกโพธิ์" readonly />
+                                @elseif(Auth::user()->branch == 57)
+                                  <input type="hidden" name="branchcar" value="ตันหยงมัส" readonly />
+                                @elseif(Auth::user()->branch == 58)
+                                  <input type="hidden" name="branchcar" value="บันนังสตา" readonly />
                                 @endif
                               </div>
                             </div>
