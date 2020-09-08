@@ -6,11 +6,9 @@
   <section class="content">
     <div class="content-header">
       @if(session()->has('success'))
-        <div class="alert alert-success alert-dismissible" role="alert">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span></button>
-          <strong>สำเร็จ!</strong> {{ session()->get('success') }}
-        </div>
+        <script type="text/javascript">
+          toastr.success('{{ session()->get('success') }}')
+        </script>
       @endif
 
       <section class="content">
@@ -22,7 +20,7 @@
               </div>
               <div class="card-body">
                 <div class="float-right form-inline"> 
-                  <a href="{{ route('regist') }}" class="btn btn-success">
+                  <a href="{{ route('MasterMaindata.show',[1]) }}" class="btn btn-success">
                     <span class="glyphicon glyphicon-plus"></span> Register
                   </a>
                 </div>
@@ -54,14 +52,14 @@
                         <td class="text-center">{{ $row->type }}</td>
                         <td class="text-center">{{ $row->position }}</td>
                         <td class="text-center">
-                          <a href="{{ action('UserController@edit',[$row['id']]) }}" class="btn btn-warning btn-sm">
+                          <a href="{{ route('MasterMaindata.edit',[$row['id']]) }}" class="btn btn-warning btn-sm">
                             <span class="glyphicon glyphicon-edit"></span> Edit
                           </a>
 
-                          <form method="post" class="delete_form" action="{{ action('UserController@destroy',$row['id']) }}" style="display:inline;">
+                          <form method="post" class="delete_form" action="{{ route('MasterMaindata.destroy',$row['id']) }}" style="display:inline;">
                             {{csrf_field()}}
                             <input type="hidden" name="_method" value="DELETE" />
-                            <button type="submit" class="delete-modal btn btn-danger btn-sm" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
+                            <button type="submit" data-name="{{ $row->username }}" class="delete-modal btn btn-danger btn-sm AlertForm">
                               <span class="glyphicon glyphicon-trash"></span> Delete
                             </button>
                           </form>

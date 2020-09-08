@@ -1142,9 +1142,9 @@
                                   <label>พนักงานขาย : </label>
                                   <select name="saleHC" class="form-control" style="width: 250px;">
                                     <option value="" selected>--- พนักงานขาย ---</option>
-                                    @foreach ($GetSale as $key => $value)
-                                      <option value="{{$key}}" {{ ($key == $data->sale_HC) ? 'selected' : '' }}>{{$value}}</option>
-                                    @endforeach
+                                    <option value="มารุวัน หะยีเจะแม" {{ ($data->sale_HC === 'มารุวัน หะยีเจะแม') ? 'selected' : '' }}>มารุวัน หะยีเจะแม</option>
+                                    <option value="แวยูคิมสี อาแว" {{ ($data->sale_HC === 'แวยูคิมสี อาแว') ? 'selected' : '' }}>แวยูคิมสี อาแว</option>
+                                    <option value="จิราวรรณ คงพัฒน์" {{ ($data->sale_HC === 'จิราวรรณ คงพัฒน์') ? 'selected' : '' }}>จิราวรรณ คงพัฒน์</option>
                                   </select>
                                 </div>
                               </div>

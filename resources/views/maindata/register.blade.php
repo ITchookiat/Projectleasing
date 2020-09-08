@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('Saveregist') }}">
+                    <form method="POST" action="{{ route('MasterMaindata.store') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -81,6 +81,9 @@
                               <option value="05" > สาขา สายบุรี</option>
                               <option value="06" > สาขา โกลก</option>
                               <option value="07" > สาขา เบตง</option>
+                              <option value="56" > สาขา โคกโพธิ์</option>
+                              <option value="57" > สาขา ตันหยงมัส</option>
+                              <option value="58" > สาขา บันนังสตา</option>
                               <option value="10" > สาขา รถบ้าน</option>
                             </select>
                           </div>
@@ -124,7 +127,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Register') }}
                                 </button>
-                                <a class="delete-modal btn btn-danger" href="{{ route('ViewMaindata') }}">ยกเลิก</a>
+                                <a class="delete-modal btn btn-danger" href="{{ route('MasterMaindata.index') }}">ยกเลิก</a>
                             </div>
                         </div>
                     </form>

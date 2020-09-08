@@ -1430,13 +1430,6 @@ class AnalysController extends Controller
         '1.00' => '1.00',
         '1.20' => '1.20',
       ];
-      $GetSale = [
-        'มารูวัน หะยีเจะแม' => 'มารูวัน หะยีเจะแม',
-        'แวยูคิมสี อาแว' => 'แวยูคิมสี อาแว',
-        'อลิสา หิดาวรรณ' => 'อลิสา หิดาวรรณ',
-        'ธัญญ์วรา สีลาภเกื้อ' => 'ธัญญ์วรา สีลาภเกื้อ',
-        'ชูชาติ สังขวัตร' => 'ชูชาติ สังขวัตร',
-      ];
       $GetypeHC = [
         'รถเทิร์น' => 'รถเทิร์น',
         'รถยึด' => 'รถยึด',
@@ -1493,7 +1486,7 @@ class AnalysController extends Controller
             compact('data','id','dataImage','Statusby','Addby','Houseby','Driverby','HouseStyleby','Careerby','Incomeby',
             'HisCarby','StatusSPp','relationSPp','addSPp','housestyleSPp','Brandcarr','Interestcarr','Timeslackencarr',
             'Insurancecarr','statuscarr','newDateDue','evaluetionPricee','securitiesSPp','Getinsurance',
-            'Gettransfer','Getinterest','fdate','tdate','branch','status','Gettype','GetSale','GetypeHC','GetbaabHC',
+            'Gettransfer','Getinterest','fdate','tdate','branch','status','Gettype','GetypeHC','GetbaabHC',
             'GetguaranteeHC','relationSP','countImage','GradeBuyer','Typecardetail','objectivecar'));
       }
       elseif ($type == 12) {
@@ -1894,17 +1887,17 @@ class AnalysController extends Controller
                         ->get();
                 }
                 elseif ($cardetail->branch_car == "โคกโพธิ์") {
-                  $connect = Buyer::where('Contract_buyer', 'like', '26%' )
+                  $connect = Buyer::where('Contract_buyer', 'like', '56%' )
                       ->orderBy('Contract_buyer', 'desc')->limit(1)
                       ->get();
                 }
-                elseif ($cardetail->branch_car == "ระแงะ") {
-                  $connect = Buyer::where('Contract_buyer', 'like', '27%' )
+                elseif ($cardetail->branch_car == "ตันหยงมัส") {
+                  $connect = Buyer::where('Contract_buyer', 'like', '57%' )
                       ->orderBy('Contract_buyer', 'desc')->limit(1)
                       ->get();
                 }
                 elseif ($cardetail->branch_car == "บังนังสตา") {
-                  $connect = Buyer::where('Contract_buyer', 'like', '28%' )
+                  $connect = Buyer::where('Contract_buyer', 'like', '58%' )
                       ->orderBy('Contract_buyer', 'desc')->limit(1)
                       ->get();
                 }
@@ -1974,17 +1967,17 @@ class AnalysController extends Controller
                       ->get();
                 }
                 elseif ($cardetail->branch_car == "โคกโพธิ์") {
-                  $connect = Buyer::where('Contract_buyer', 'like', '26%' )
+                  $connect = Buyer::where('Contract_buyer', 'like', '56%' )
                       ->orderBy('Contract_buyer', 'desc')->limit(1)
                       ->get();
                 }
-                elseif ($cardetail->branch_car == "ระแงะ") {
-                  $connect = Buyer::where('Contract_buyer', 'like', '27%' )
+                elseif ($cardetail->branch_car == "ตันหยงมัส") {
+                  $connect = Buyer::where('Contract_buyer', 'like', '57%' )
                       ->orderBy('Contract_buyer', 'desc')->limit(1)
                       ->get();
                 }
                 elseif ($cardetail->branch_car == "บังนังสตา") {
-                  $connect = Buyer::where('Contract_buyer', 'like', '28%' )
+                  $connect = Buyer::where('Contract_buyer', 'like', '58%' )
                       ->orderBy('Contract_buyer', 'desc')->limit(1)
                       ->get();
                 }

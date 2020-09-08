@@ -26,7 +26,7 @@
 
                 <div class="row">
                   <div class="col-md-12"> <br />
-                    <form method="post" action="{{ action('UserController@update',$id) }}" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('MasterMaindata.update',$id) }}" enctype="multipart/form-data">
                       @csrf
                       @method('put')
 
@@ -34,7 +34,7 @@
                         <div class="col-8">
                           <div class="float-right form-inline">
                             <label>Username : </label>
-                            <input type="text" name="main_username" class="form-control" style="width: 400px;" placeholder="ป้อนชื่อผู้ใช้" value="{{$user->username}}" />
+                            <input type="text" name="main_username" class="form-control" style="width: 400px;" placeholder="ป้อนชื่อผู้ใช้" value="{{$user->username}}" required/>
                           </div>
                         </div>
                       </div>
@@ -44,7 +44,7 @@
                         <div class="col-8">
                           <div class="float-right form-inline">
                             <label>Name : </label>
-                            <input type="text" name="main_name" class="form-control" style="width: 400px;" placeholder="ป้อนชื่อ" value="{{$user->name}}" />
+                            <input type="text" name="main_name" class="form-control" style="width: 400px;" placeholder="ป้อนชื่อ" value="{{$user->name}}" required/>
                           </div>
                         </div>
                       </div>
@@ -54,7 +54,7 @@
                         <div class="col-8">
                           <div class="float-right form-inline">
                             <label>Enail : </label>
-                            <input type="text" name="main_email" class="form-control" style="width: 400px;" placeholder="ป้อนอีเมลล์" value="{{$user->email}}" />
+                            <input type="text" name="main_email" class="form-control" style="width: 400px;" placeholder="ป้อนอีเมลล์" value="{{$user->email}}" required/>
                           </div>
                         </div>
                       </div>
@@ -64,7 +64,7 @@
                         <div class="col-8">
                           <div class="float-right form-inline">
                             <label>สาขา : </label>
-                            <select name="branch" class="form-control" style="width: 400px;">
+                            <select name="branch" class="form-control" style="width: 400px;" required>
                               <option value="" selected>--------- สาขา ----------</option>
                               <option value="99" {{ ($user->branch === '99') ? 'selected' : '' }}>Admin</option>
                               <option value="01" {{ ($user->branch === '01') ? 'selected' : '' }}>สาขา ปัตตานี</option>
@@ -73,6 +73,9 @@
                               <option value="05" {{ ($user->branch === '05') ? 'selected' : '' }}>สาขา สายบุรี</option>
                               <option value="06" {{ ($user->branch === '06') ? 'selected' : '' }}>สาขา โกลก</option>
                               <option value="07" {{ ($user->branch === '07') ? 'selected' : '' }}>สาขา เบตง</option>
+                              <option value="56" {{ ($user->branch === '56') ? 'selected' : '' }}>สาขา โคกโพธิ์</option>
+                              <option value="57" {{ ($user->branch === '57') ? 'selected' : '' }}>สาขา ตันหยงมัส</option>
+                              <option value="58" {{ ($user->branch === '58') ? 'selected' : '' }}>สาขา บันนังสตา</option>
                               <option value="10" {{ ($user->branch === '10') ? 'selected' : '' }}>สาขา รถบ้าน</option>
                             </select>
                           </div>
@@ -84,7 +87,7 @@
                         <div class="col-8">
                           <div class="float-right form-inline">
                             <label>แผนก : </label>
-                            <select name="section_type" class="form-control" style="width: 400px;">
+                            <select name="section_type" class="form-control" style="width: 400px;" required>
                               <option value="" selected>--------- แผนก ----------</option>
                               <option value="Admin" {{ ($user->type === 'Admin') ? 'selected' : '' }}>Admin</option>
                               <option value="แผนก วิเคราะห์" {{ ($user->type === 'แผนก วิเคราะห์') ? 'selected' : '' }}>แผนก วิเคราะห์</option>
@@ -105,7 +108,7 @@
                         <div class="col-8">
                           <div class="float-right form-inline">
                             <label>ตำแหน่ง : </label>
-                            <select name="position" class="form-control" style="width: 400px;">
+                            <select name="position" class="form-control" style="width: 400px;" required>
                               <option value="" selected>--------- ตำแหน่ง ----------</option>
                               <option value="Admin" {{ ($user->position === 'Admin') ? 'selected' : '' }}>Admin</option>
                               <option value="MANAGER" {{ ($user->position === 'MANAGER') ? 'selected' : '' }}>MANAGER</option>
@@ -122,7 +125,7 @@
                         <button type="submit" class="delete-modal btn btn-success">
                           <span class="glyphicon glyphicon-floppy-save"></span> อัพเดท
                         </button>
-                        <a class="delete-modal btn btn-danger" href="{{ route('ViewMaindata') }}">ยกเลิก</a>
+                        <a class="delete-modal btn btn-danger" href="{{ route('MasterMaindata.index') }}">ยกเลิก</a>
                       </div>
                       <input type="hidden" name="_method" value="PATCH"/>
                     </form>

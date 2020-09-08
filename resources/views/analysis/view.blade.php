@@ -182,19 +182,22 @@
                               <label for="text" class="mr-sm-2">สาขา : </label>
                               <select name="branch" class="form-control">
                                 <option selected value="">---เลือกสาขา---</option>
-                                <option value="ปัตตานี" {{ ($branch == 'ปัตตานี') ? 'selected' : '' }}>ปัตตานี</otion>
-                                <option value="ยะลา" {{ ($branch == 'ยะลา') ? 'selected' : '' }}>ยะลา</otion>
-                                <option value="นราธิวาส" {{ ($branch == 'นราธิวาส') ? 'selected' : '' }}>นราธิวาส</otion>
-                                <option value="สายบุรี" {{ ($branch == 'สายบุรี') ? 'selected' : '' }}>สายบุรี</otion>
-                                <option value="โกลก" {{ ($branch == 'โกลก') ? 'selected' : '' }}>โกลก</otion>
-                                <option value="เบตง" {{ ($branch == 'เบตง') ? 'selected' : '' }}>เบตง</otion>
+                                <option value="ปัตตานี" {{ ($branch == 'ปัตตานี') ? 'selected' : '' }}>ปัตตานี</option>
+                                <option value="ยะลา" {{ ($branch == 'ยะลา') ? 'selected' : '' }}>ยะลา</option>
+                                <option value="นราธิวาส" {{ ($branch == 'นราธิวาส') ? 'selected' : '' }}>นราธิวาส</option>
+                                <option value="สายบุรี" {{ ($branch == 'สายบุรี') ? 'selected' : '' }}>สายบุรี</option>
+                                <option value="โกลก" {{ ($branch == 'โกลก') ? 'selected' : '' }}>โกลก</option>
+                                <option value="เบตง" {{ ($branch == 'เบตง') ? 'selected' : '' }}>เบตง</option>
+                                <option value="โคกโพธิ์" {{ ($branch == 'โคกโพธิ์') ? 'selected' : '' }}>โคกโพธิ์</option>
+                                <option value="ตันหยงมัส" {{ ($branch == 'ตันหยงมัส') ? 'selected' : '' }}>ตันหยงมัส</option>
+                                <option value="บันนังสตา" {{ ($branch == 'บันนังสตา') ? 'selected' : '' }}>บันนังสตา</option>
                               </select>
 
                               <label for="text" class="mr-sm-2">สถานะ : </label>
                               <select name="status" class="form-control">
                                 <option selected value="">---สถานะ---</option>
-                                <option value="อนุมัติ"{{ ($status == 'อนุมัติ') ? 'selected' : '' }}>อนุมัติ</otion>
-                                <option value="รออนุมัติ"{{ ($status == 'รออนุมัติ') ? 'selected' : '' }}>รออนุมัติ</otion>
+                                <option value="อนุมัติ"{{ ($status == 'อนุมัติ') ? 'selected' : '' }}>อนุมัติ</option>
+                                <option value="รออนุมัติ"{{ ($status == 'รออนุมัติ') ? 'selected' : '' }}>รออนุมัติ</option>
                               </select>
                             </div>
                           </div>
@@ -616,7 +619,7 @@
                                     <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
                                     {{csrf_field()}}
                                       <input type="hidden" name="_method" value="DELETE" />
-                                      <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
+                                      <button type="submit" data-name="{{ $row->Contract_buyer }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
                                         <i class="far fa-trash-alt"></i> ลบ
                                       </button>
                                     </form>
@@ -626,7 +629,7 @@
                                         <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
                                         {{csrf_field()}}
                                           <input type="hidden" name="_method" value="DELETE" />
-                                          <button type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ" onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่?')">
+                                          <button type="submit" data-name="{{ $row->Contract_buyer }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
                                             <i class="far fa-trash-alt"></i> ลบ
                                           </button>
                                         </form>
