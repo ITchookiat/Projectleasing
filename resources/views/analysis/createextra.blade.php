@@ -287,9 +287,9 @@
                     <div class="float-right form-inline">
                       <label>เลขที่สัญญา : </label>
                       @if($data == null)
-                        <input type="type" name="Contno" maxlength="12" style="width:120px;" class="form-control"/>
+                        <input type="text" name="Contno" maxlength="12" style="width:120px;" class="form-control"/>
                       @else
-                        <input type="type" name="Contno" value="{{$data->CONTNO}}" maxlength="12" style="width:120px;" class="form-control"/>
+                        <input type="text" name="Contno" value="{{$data->CONTNO}}" maxlength="12" style="width:120px;" class="form-control"/>
                       @endif
                       <button type="submit" class="btn btn-warning">
                         <i class="fas fa-search"></i>

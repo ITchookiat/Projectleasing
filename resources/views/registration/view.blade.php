@@ -52,9 +52,21 @@
                   <div class="col-4">
                     <div class="card-tools d-inline float-right">
                       @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก ทะเบียน")
-                        <a class="btn bg-success btn-sm" data-toggle="modal" data-target="#modal-new" data-backdrop="static" data-keyboard="false" style="border-radius: 40px;">
-                          <span class="fas fa-plus"></span> เพิ่มรายการใหม่
-                        </a>
+                        @if($type == 1)
+                          <form method="get" action="{{ route('Register', 1) }}">
+                            <div class="float-right form-inline">
+                              <label>ป้ายทะเบียน : </label>
+                              <input type="text" name="Regno" value="{{($RegisterNo != null)?$RegisterNo: ''}}" style="width:150px;" class="form-control"/>
+                              <button type="submit" class="btn btn-warning">
+                                <i class="fas fa-search"></i>
+                              </button>
+                            </div>
+                          </form>
+                        @elseif($type == 2)
+                          <a class="btn bg-success btn-sm" data-toggle="modal" data-target="#modal-new" data-backdrop="static" data-keyboard="false" style="border-radius: 40px;">
+                            <span class="fas fa-plus"></span> เพิ่มรายการใหม่
+                          </a>
+                        @endif
                       @endif
                     </div>
                   </div>
