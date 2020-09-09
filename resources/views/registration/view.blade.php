@@ -398,63 +398,65 @@
   </div>
 
   <!-- Pop up รายงาน -->
-  <form name="form2" target="_blank" action="{{ route('MasterRegister.show',[0]) }}" method="get" enctype="multipart/form-data">
-    <input type="hidden" name="type" value="1">
-    <div class="modal fade" id="modal-default">
-      <div class="modal-dialog">
-        <div class="modal-content" style="border-radius: 30px 30px 30px 30px;">
-          <div class="modal-header bg-primary" style="border-radius: 30px 30px 0px 0px;">
-            <div class="col text-center">
-              <h5 class="modal-title"> รายงานทะเบียน</h5>
+  @if($type == 2)
+    <form name="form2" target="_blank" action="{{ route('MasterRegister.show',[0]) }}" method="get" enctype="multipart/form-data">
+      <input type="hidden" name="type" value="1">
+      <div class="modal fade" id="modal-default">
+        <div class="modal-dialog">
+          <div class="modal-content" style="border-radius: 30px 30px 30px 30px;">
+            <div class="modal-header bg-primary" style="border-radius: 30px 30px 0px 0px;">
+              <div class="col text-center">
+                <h5 class="modal-title"> รายงานทะเบียน</h5>
+              </div>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
             </div>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="row">
-              <div class="col-md-6">
-               จากวันที่ :
-               <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control" />
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-6">
+                จากวันที่ :
+                <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                  ถึงวันที่ : 
+                  <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control" />
+                </div>
               </div>
-              <div class="col-md-6">
-                ถึงวันที่ : 
-                <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control" />
+              <br>
+              <div class="row">
+                <div class="col-md-6">
+                  ชนิดการโอน
+                  <select name="Typetransfer" class="form-control">
+                    <option value="">---เลือกชนิดการโอน---</option>
+                    <option value="โอนจัดไฟแนนซ์">โอนจัดไฟแนนซ์</option>
+                    <option value="โอนออก">โอนออก</option>
+                    <option value="จดทะเบียนรถใหม่">จดทะเบียนรถใหม่</option>
+                    <option value="อื่นๆ">อื่นๆ</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  บริษัท
+                  <select name="Companyown" class="form-control">
+                    <option value="">---เลือกบริษัท---</option>
+                    <option value="CKL">CKL - ชูเกียรติลิสซิ่ง</option>
+                    <option value="CKY">CKY - ชูเกียรติยนต์</option>
+                    <option value="CKC">CKC - ชูเกียรติคาร์</option>
+                  </select>
+                </div>
               </div>
+            <hr>
+            </div>
+            <div class="text-center">
+              <!-- <button type="button" class="btn btn-default" data-dismiss="modal"></button> -->
+              <button type="submit" class="btn btn-primary"><i class="fas fa-print"></i> ปริ้น</button>
             </div>
             <br>
-            <div class="row">
-              <div class="col-md-6">
-                ชนิดการโอน
-                <select name="Typetransfer" class="form-control">
-                  <option value="">---เลือกชนิดการโอน---</option>
-                  <option value="โอนจัดไฟแนนซ์">โอนจัดไฟแนนซ์</option>
-                  <option value="โอนออก">โอนออก</option>
-                  <option value="จดทะเบียนรถใหม่">จดทะเบียนรถใหม่</option>
-                  <option value="อื่นๆ">อื่นๆ</option>
-                </select>
-              </div>
-              <div class="col-md-6">
-                บริษัท
-                <select name="Companyown" class="form-control">
-                  <option value="">---เลือกบริษัท---</option>
-                  <option value="CKL">CKL - ชูเกียรติลิสซิ่ง</option>
-                  <option value="CKY">CKY - ชูเกียรติยนต์</option>
-                  <option value="CKC">CKC - ชูเกียรติคาร์</option>
-                </select>
-              </div>
-            </div>
-          <hr>
           </div>
-          <div class="text-center">
-            <!-- <button type="button" class="btn btn-default" data-dismiss="modal"></button> -->
-            <button type="submit" class="btn btn-primary"><i class="fas fa-print"></i> ปริ้น</button>
-          </div>
-          <br>
         </div>
       </div>
-    </div>
-  </form>
+    </form>
+  @endif
 
 
 @endsection
