@@ -25,10 +25,12 @@
   </head>
     <label align="right">วันที่ปริ้น : {{DateThai(date('Y-m-d'))}}</label>
     <h1 class="card-title p-3" align="center" style="line-height: 3px;">รายการทะเบียนรถ</h1>
-      @if($newfdate != null)
-        <h4 class="card-title p-3" align="center" style="font-weight: bold;line-height:10px;">ระหว่างวันที่ {{DateThai2($newfdate)}} ถึงวันที่ {{DateThai2($newtdate)}}</h4>
-      @else
-        <h4 style="font-weight: bold;line-height:10px;"> </h4>
+      @if($type == 1)
+        @if($newfdate != null)
+          <h4 class="card-title p-3" align="center" style="font-weight: bold;line-height:10px;">ระหว่างวันที่ {{DateThai2($newfdate)}} ถึงวันที่ {{DateThai2($newtdate)}}</h4>
+        @else
+          <h4 style="font-weight: bold;line-height:10px;"> </h4>
+        @endif
       @endif
     <hr>
   <body>

@@ -255,6 +255,10 @@
                         <i class="far fa-dot-circle nav-icon"></i>
                         <p>รายงาน หนังสือขอยืนยัน</p>
                       </a>
+                      <a href="{{ route('Precipitate',15) }}" class="nav-link {{ Request::is('Precipitate/Home/15') ? 'active' : '' }}">
+                        <i class="far fa-dot-circle nav-icon"></i>
+                        <p>รายงาน หนังสือทวงถาม</p>
+                      </a>
                     </li>
                   </ul>
                 </li>

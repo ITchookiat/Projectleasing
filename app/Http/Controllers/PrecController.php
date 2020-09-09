@@ -707,33 +707,33 @@ class PrecController extends Controller
             ->get();
             
             $count3 = count($dataQuery);
+            
+            // for($j=0; $j<$count3; $j++){
+            //   $str3[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$dataQuery[$j]->CONTSTAT)));
+            //   if($str3[$j] == "จ") {
+            //     $dataJ[] = $dataQuery[$j];
+            //     $titam = 'true';
+            //   }else{
+            //     $titam = 'false';
+            //   break;
+            //   }
+            // }
 
-            for($j=0; $j<$count3; $j++){
-              $str3[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$dataQuery[$j]->CONTSTAT)));
-              if($str3[$j] == "จ") {
-                $dataJ[] = $dataQuery[$j];
-                $J = 'true';
-              }else{
-                $J = 'false';
-                break;
-              }
-            }
-
-            for($k=0; $k<$count3; $k++){
-              $str4[] = str_replace(" ","",$dataQuery[$k]->CONTSTAT);
-              if ($str4[$k] == "K") {
-                $dataK[] = $dataQuery[$k];
-                $k = 'true';
-              }else{
-                $k = 'false';
-                break;
-              }
-            }
-            if($j == 'false' or $k == 'false'){
+            // for($k=0; $k<$count3; $k++){
+            //   $str4[] = str_replace(" ","",$dataQuery[$k]->CONTSTAT);
+            //   if ($str4[$k] == "K") {
+            //     $dataK[] = $dataQuery[$k];
+            //     $k = 'true';
+            //   }else{
+            //     $k = 'false';
+            //     break;
+            //   }
+            // }
+            // if($titam == 'false' or $k == 'false'){
               $data = $dataQuery;
-            }else{
-              $data = array_merge($dataK, $dataJ);
-            }
+            // }else{
+            //   $data = array_merge($dataK, $dataJ);
+            // }
 
           }
           else{
@@ -2368,7 +2368,7 @@ class PrecController extends Controller
       }
     }
 
-    public function ReportLetter(Request $request, $type)
+    public function ReportLetter(Request $request, $type) //รายงานจดหมายทวงถาม
     {
       date_default_timezone_set('Asia/Bangkok');
       $Y = date('Y')+543;
@@ -2419,21 +2419,21 @@ class PrecController extends Controller
             }
           }
 
-          for($k=0; $k<$count3; $k++){
-            $str4[] = str_replace(" ","",$dataQuery[$k]->CONTSTAT);
-            if ($str4[$k] == "K") {
-              $dataK[] = $dataQuery[$k];
-              $k = 'true';
-            }else{
-              $k = 'false';
-              break;
-            }
-          }
-          if($j == 'false' or $k == 'false'){
+          // for($k=0; $k<$count3; $k++){
+          //   $str4[] = str_replace(" ","",$dataQuery[$k]->CONTSTAT);
+          //   if ($str4[$k] == "K") {
+          //     $dataK[] = $dataQuery[$k];
+          //     $k = 'true';
+          //   }else{
+          //     $k = 'false';
+          //     break;
+          //   }
+          // }
+          // if($j == 'false' or $k == 'false'){
             $data = $dataQuery;
-          }else{
-            $data = array_merge($dataK, $dataJ);
-          }
+          // }else{
+          //   $data = array_merge($dataK, $dataJ);
+          // }
       }
 
       $SetTopic = "AskLetter ".$date;
