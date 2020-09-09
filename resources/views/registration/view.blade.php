@@ -88,18 +88,31 @@
                           </tr>
                         </thead>
                         <tbody>
-                          @foreach($data as $row)
+                          @foreach($data as $key => $row)
+                            @foreach($dataRegis as $key => $value)
+                              @if($row->id== $value->Buyer_id)
+                                @php
+                                  $Flag = "Y";
+                                @endphp
+                              @endif
+                            @endforeach
                             <tr>
-                              <td class="text-center"> {{ $row->id}} </td>
+                              <td class="text-center"> {{ $key+1 }} </td>
                               <td class="text-center"> {{ $row->branch_car}} </td>
                               <td class="text-center"> {{ $row->Brand_car}} </td>
                               <td class="text-center"> {{ $row->License_car}} </td>
                               <td class="text-center"> {{ ($row->Model_car != null)?$row->Model_car: '-'}} </td>
                               <td class="text-center"> {{ $row->Year_car}} </td>
-                              <td class="text-center"> 
+                              <td class="text-center">
+                                @if($Flag != "Y") 
                                 <a href="{{ route('MasterRegister.edit',[$row->id])}}?type={{1}}" class="btn btn-danger btn-sm" title="จัดเตรียมเอกสาร">
                                   <i class="fas fa-external-link-alt"></i> เลือก
-                                </a>                          
+                                </a>
+                                @else 
+                                <a href="{{ route('MasterRegister.edit',[$row->id])}}?type={{1}}" class="btn btn-success btn-sm" title="จัดเตรียมเอกสาร">
+                                  <i class="fas fa-external-link-alt"></i> เลือก
+                                </a>
+                                @endif                          
                               </td>
                             </tr>
                           @endforeach
