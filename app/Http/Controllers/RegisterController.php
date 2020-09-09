@@ -22,6 +22,7 @@ class RegisterController extends Controller
     public function index(Request $request)
     {
         $date = date('Y-m-d');
+        $dataRegis = DB::table('registers')->get();
         if ($request->type == 1){ //รายการลิสซิ่ง
           $RegisterNo = $request->Regno;
           if($RegisterNo == ''){
@@ -85,11 +86,10 @@ class RegisterController extends Controller
                 ->get();
   
           }
-  
-          $countData = count($data);
+
         }
         $type = $request->type;    
-        return view('registration.view', compact('type','data','countData','branch','newfdate','newtdate','status','Setdate','RegisterNo'));
+        return view('registration.view', compact('type','data','dataRegis','branch','newfdate','newtdate','status','Setdate','RegisterNo'));
     }
 
     /**
