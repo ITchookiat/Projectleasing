@@ -94,6 +94,10 @@
                                 @php
                                   $Flag = "Y";
                                 @endphp
+                              @else
+                                @php
+                                  $Flag = "N";
+                                @endphp
                               @endif
                             @endforeach
                             <tr>
