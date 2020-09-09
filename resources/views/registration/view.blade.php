@@ -110,8 +110,11 @@
                     <div class="row">
                       <div class="col-md-12">
                         <div class="float-right form-inline">
-                          <button type="button" class="btn bg-primary btn-app">
+                          <!-- <a target="_blank" href="{{ route('MasterRegister.show',[0]) }}?type={{1}}&Fromdate={{$newfdate}}&Todate={{$newtdate}}" class="btn bg-primary btn-app" title="พิมพ์รายงาน">
                             <span class="fas fa-print"></span> Print
+                          </a> -->
+                          <button type="button" class="btn bg-primary btn-app" data-toggle="modal" data-target="#modal-default">
+                            <span class="fas fa-print"></span> Report
                           </button>
                           <button type="submit" class="btn bg-warning btn-app">
                             <span class="fas fa-search"></span> Search
@@ -159,7 +162,7 @@
                             <td class="text-center">{{($row->Comp_regis != '')?$row->Comp_regis:'-'}}</td>
                             <td class="text-center">{{($row->Remainfee_regis != '')?$row->Remainfee_regis:'0.00'}}</td>
                             <td class="text-center">
-                              <a target="_blank" href="{{ route('MasterRegister.show',[$row->Reg_id]) }}?type={{1}}" class="btn btn-secondary btn-sm" title="พิมพ์ใบเสร็จ">
+                              <a target="_blank" href="{{ route('MasterRegister.show',[$row->Reg_id]) }}?type={{2}}" class="btn btn-secondary btn-sm" title="พิมพ์ใบเสร็จ">
                                 <i class="fas fa-file-invoice-dollar"></i>
                               </a>
                               <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-edit" title="แก้ไขรายการ"
@@ -393,6 +396,65 @@
       </div>
     </div>
   </div>
+
+  <!-- Pop up รายงาน -->
+  <form name="form2" target="_blank" action="{{ route('MasterRegister.show',[0]) }}" method="get" enctype="multipart/form-data">
+    <input type="hidden" name="type" value="1">
+    <div class="modal fade" id="modal-default">
+      <div class="modal-dialog">
+        <div class="modal-content" style="border-radius: 30px 30px 30px 30px;">
+          <div class="modal-header bg-primary" style="border-radius: 30px 30px 0px 0px;">
+            <div class="col text-center">
+              <h5 class="modal-title"> รายงานทะเบียน</h5>
+            </div>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-6">
+               จากวันที่ :
+               <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control" />
+              </div>
+              <div class="col-md-6">
+                ถึงวันที่ : 
+                <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control" />
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-md-6">
+                ชนิดการโอน
+                <select name="Typetransfer" class="form-control">
+                  <option value="">---เลือกชนิดการโอน---</option>
+                  <option value="โอนจัดไฟแนนซ์">โอนจัดไฟแนนซ์</option>
+                  <option value="โอนออก">โอนออก</option>
+                  <option value="จดทะเบียนรถใหม่">จดทะเบียนรถใหม่</option>
+                  <option value="อื่นๆ">อื่นๆ</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                บริษัท
+                <select name="Companyown" class="form-control">
+                  <option value="">---เลือกบริษัท---</option>
+                  <option value="CKL">CKL - ชูเกียรติลิสซิ่ง</option>
+                  <option value="CKY">CKY - ชูเกียรติยนต์</option>
+                  <option value="CKC">CKC - ชูเกียรติคาร์</option>
+                </select>
+              </div>
+            </div>
+          <hr>
+          </div>
+          <div class="text-center">
+            <!-- <button type="button" class="btn btn-default" data-dismiss="modal"></button> -->
+            <button type="submit" class="btn btn-primary"><i class="fas fa-print"></i> ปริ้น</button>
+          </div>
+          <br>
+        </div>
+      </div>
+    </div>
+  </form>
 
 
 @endsection

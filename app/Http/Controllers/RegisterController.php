@@ -147,22 +147,58 @@ class RegisterController extends Controller
     public function show(Request $request, $id)
     {
       if($request->type == 1){
+          $newfdate = '';
+          $newtdate = '';
+          $typetransfer = '';
+          $company = '';
+  
+          if ($request->has('Fromdate')) {
+            $newfdate = $request->get('Fromdate');
+          }
+          if ($request->has('Todate')) {
+            $newtdate = $request->get('Todate');
+          }
+          if ($request->has('Typetransfer')) {
+            $typetransfer = $request->get('Typetransfer');
+          }
+          if ($request->has('Companyown')) {
+            $company = $request->get('Companyown');
+          }
+          $data = DB::table('registers')
+                ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+                  return $q->whereBetween('registers.Date_regis',[$newfdate,$newtdate]);
+                })
+                ->when(!empty($typetransfer), function($q) use ($typetransfer) {
+                  return $q->where('registers.TypeofReg_regis',$typetransfer);
+                })
+                ->when(!empty($company), function($q) use ($company) {
+                  return $q->where('registers.Comp_regis',$company);
+                })
+                ->orderBy('registers.Date_regis', 'DESC')
+                ->get();
+          $type = $request->type;
+          $SetTopic = "Report".date('Y-m-d');
+          $pdf = new PDF();
+          $pdf::SetTitle('รายงานทะเบียน');
+          $pdf::AddPage('L', 'A4');
+      }
+      elseif($request->type == 2){
         $data = Register::where('Reg_id',$id)->first();
-        // dd($data);
         $type = $request->type;
         $SetTopic = "Receipt".date('Y-m-d');
-
-        $view = \View::make('registration.receipt' ,compact('data','type'));
-        $html = $view->render();
         $pdf = new PDF();
         $pdf::SetTitle('ใบเสร็จรับเงิน');
         $pdf::AddPage('L', 'A5');
-        $pdf::SetMargins(15, 5, 15);
-        $pdf::SetFont('thsarabunpsk', '', 16, '', true);
-        $pdf::SetAutoPageBreak(TRUE, 21);
-        $pdf::WriteHTML($html,true,false,true,false,'');
-        $pdf::Output($SetTopic.'.pdf');
+
       }
+      $view = \View::make('registration.reportRegis' ,compact('data','type','newfdate','newtdate'));
+      $html = $view->render();
+
+      $pdf::SetMargins(15, 5, 15);
+      $pdf::SetFont('thsarabunpsk', '', 16, '', true);
+      $pdf::SetAutoPageBreak(TRUE, 21);
+      $pdf::WriteHTML($html,true,false,true,false,'');
+      $pdf::Output($SetTopic.'.pdf');
     }
 
     /**
