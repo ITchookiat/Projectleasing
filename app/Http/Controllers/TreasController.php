@@ -31,28 +31,37 @@ class TreasController extends Controller
 
             if ($request->has('Fromdate') == false and $request->has('Todate') == false) {
                 $data = DB::table('buyers')
-                        ->join('cardetails','Buyers.id','=','cardetails.Buyercar_id')
-                        ->join('Expenses','Buyers.id','=','Expenses.Buyerexpenses_id')
-                        ->where('cardetails.Date_Appcar', $date)
-                        ->where('buyers.Contract_buyer','not like', '22%')
-                        ->where('buyers.Contract_buyer','not like', '33%')
-                        ->where('cardetails.Approvers_car','<>','')
-                        ->orderBy('buyers.Contract_buyer', 'ASC')
-                        ->get();
+                    ->join('cardetails','Buyers.id','=','cardetails.Buyercar_id')
+                    ->join('Expenses','Buyers.id','=','Expenses.Buyerexpenses_id')
+                    ->where('cardetails.Date_Appcar', $date)
+                    ->where('buyers.Contract_buyer','not like', '22%')
+                    ->where('buyers.Contract_buyer','not like', '33%')
+                    ->where('cardetails.Approvers_car','<>','')
+                    ->orderBy('buyers.Contract_buyer', 'ASC')
+                    ->get();
 
             }
             else {
                 $data = DB::table('buyers')
-                        ->join('cardetails','Buyers.id','=','cardetails.Buyercar_id')
-                        ->join('Expenses','Buyers.id','=','Expenses.Buyerexpenses_id')
-                        ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
-                            return $q->whereBetween('cardetails.Date_Appcar',[$newfdate,$newtdate]);
-                        })
-                        ->where('buyers.Contract_buyer','not like', '22%')
-                        ->where('buyers.Contract_buyer','not like', '33%')
-                        ->where('cardetails.Approvers_car','<>','')
-                        ->orderBy('buyers.Contract_buyer', 'ASC')
-                        ->get();
+                    ->join('cardetails','Buyers.id','=','cardetails.Buyercar_id')
+                    ->join('Expenses','Buyers.id','=','Expenses.Buyerexpenses_id')
+                    ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+                        return $q->whereBetween('cardetails.Date_Appcar',[$newfdate,$newtdate]);
+                    })
+                    ->where('buyers.Contract_buyer','not like', '22%')
+                    ->where('buyers.Contract_buyer','not like', '33%')
+                    ->where('cardetails.Approvers_car','<>','')
+                    ->orderBy('buyers.Contract_buyer', 'ASC')
+                    ->get();
+            }
+
+            $CountData = 0;
+            if ($data != NULL) {
+                foreach ($data as $key => $value) {
+                    if ($value->UserCheckAc_car == NULL) {
+                        $CountData += 1;
+                    }
+                }
             }
 
             if ($newfdate == false and $newtdate == false) {
@@ -61,12 +70,11 @@ class TreasController extends Controller
             }
 
             $topcar = DB::table('buyers')
-            ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
-            ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
-            ->join('expenses','buyers.id','=','expenses.Buyerexpenses_id')
-            ->whereBetween('buyers.Date_Due',[$newfdate,$newtdate])
-            ->get();
-            // dd($topcar);
+                ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
+                ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
+                ->join('expenses','buyers.id','=','expenses.Buyerexpenses_id')
+                ->whereBetween('buyers.Date_Due',[$newfdate,$newtdate])
+                ->get();
             $count = count($topcar);
   
             if($count != 0){
@@ -81,7 +89,7 @@ class TreasController extends Controller
                 $SumCommitprice = 0;
             }
 
-            return view('treasury.view', compact('data','newfdate','newtdate','SumTopcar','SumCommissioncar','SumCommitprice'));
+            return view('treasury.view', compact('data','newfdate','newtdate','SumTopcar','SumCommissioncar','SumCommitprice','CountData'));
         }
         elseif ($request->type == 2) {
             $type = $request->type;

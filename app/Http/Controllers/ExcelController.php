@@ -243,7 +243,7 @@ class ExcelController extends Controller
         // dd($data);
 
         $data_array[] = array('ลำดับ', 'วันที่โอน', 'สถานะ', 'ยี่ห้อ', 'รุ่น', 'ทะเบียนเดิม', 'ทะเบียนใหม่', 'เลขสัญญา', 'ปี', 'ยอดจัด', 'ระยะเวลาผ่อน',
-                              'ค่าคอม','นายหน้า', 'เบอร์โทรนายหน้า', 'ประกันภัย','ราคารถ','เงินดาวน์','ค่าโอน','ค่าประกัน');
+                              'ค่าคอม','นายหน้า', 'เบอร์โทรนายหน้า', 'ประกันภัย','ราคารถ','เงินดาวน์','ค่าโอน','ค่าประกัน','พนักงานขาย');
 
         foreach($data as $key => $row){
           $date = date_create($row->Date_Due);
@@ -269,7 +269,7 @@ class ExcelController extends Controller
            'เงินดาวน์' => $row->downpay_HC,
            'ค่าโอน' => $row->transfer_HC,
            'ค่าประกัน' => $row->insurancefee_HC,
-
+           'พนักงานขาย' => $row->sale_HC
           );
         }
         $data_array = collect($data_array);
