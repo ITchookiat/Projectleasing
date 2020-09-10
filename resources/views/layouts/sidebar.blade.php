@@ -191,7 +191,7 @@
               </p>
             </a>
 
-            @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก เร่งรัด")
+            @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก เร่งรัด" or auth::user()->type == "แผนก กฏหมาย")
               <ul class="nav nav-treeview">
                 <li class="nav-item has-treeview {{ Request::is('Precipitate/Home/3') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/1') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/4') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/5') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/6') ? 'menu-open' : '' }}  {{ Request::is('Precipitate/Home/11') ? 'menu-open' : '' }} {{ Request::is('Precipitate/Home/12') ? 'menu-open' : '' }} {{ Request::is('Precipitate/DebtEdit/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/deleteImageEach/11/*') ? 'menu-open' : '' }}">
                   <a href="#" class="nav-link">
