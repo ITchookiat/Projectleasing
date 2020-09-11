@@ -784,7 +784,7 @@
                         <table class="table table-bordered" id="table">
                           <thead class="thead-dark bg-gray-light" >
                             <tr>
-                              <th class="text-center">ลำดับ</th>
+                              <th class="text-center" style="width: 30px">No.</th>
                               <th class="text-center">เลขที่สัญญา</th>
                               <th class="text-center">ชื่อ-สกุล</th>
                               <th class="text-center">ประนอม</th>
@@ -803,7 +803,7 @@
                                 <td class="text-center">
                                   {{$row->Contract_legis}}
                                   @if($row->Flag == "C")
-                                    <span class="label label-warning">ประนอม</span>
+                                    <span class="badge bg-warning float-right">ประนอม</span>
                                   @endif
                                 </td>
                                 <td class="text-left"> {{$row->Name_legis}} </td>
@@ -834,7 +834,6 @@
                                 <td class="text-center">
                                   @php
                                     $lastday = date('Y-m-d', strtotime("-90 days"));
-                                    // dd($lastday);
                                   @endphp
     
                                   @if($row->Status_Promise == "ปิดบัญชีประนอมหนี้")
