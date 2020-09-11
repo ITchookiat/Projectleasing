@@ -274,7 +274,10 @@ class LegislationController extends Controller
                     return $q->where('legispayments.Date_Payment','<',$lastday);
                   })
                 ->where('legispayments.Flag_Payment', '=', 'Y')
+                ->where('Legiscompromises.Status_Promise','=', Null)
                 ->get();
+
+          // dd($data);
         }
         elseif($status == "ปิดบัญชี"){
           $data = DB::table('legislations')
@@ -660,25 +663,25 @@ class LegislationController extends Controller
       if ($type == 1) {       //ลูกหนี้ปกติ
         $SetStrConn = $SetStr1."/".$SetStr2;
         $data = DB::connection('ibmi')
-        ->table('SFHP.ARMAST')
-        ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
-        ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
-        ->where('SFHP.ARMAST.CONTNO','=', $SetStrConn)
-        ->first();
+            ->table('SFHP.ARMAST')
+            ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+            ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+            ->where('SFHP.ARMAST.CONTNO','=', $SetStrConn)
+            ->first();
 
         $dataGT = DB::connection('ibmi')
-                  ->table('SFHP.VIEW_ARMGAR')
-                  ->where('SFHP.VIEW_ARMGAR.CONTNO','=', $SetStrConn)
-                  ->first();
+            ->table('SFHP.VIEW_ARMGAR')
+            ->where('SFHP.VIEW_ARMGAR.CONTNO','=', $SetStrConn)
+            ->first();
 
         if ($dataGT == Null) {
-          $SetGTName = Null;
-          $SetGTIDNO = Null;
-          $SetGTAddress = Null;
+            $SetGTName = Null;
+            $SetGTIDNO = Null;
+            $SetGTAddress = Null;
         }else {
-          $SetGTName = (iconv('Tis-620','utf-8',$dataGT->NAME));
-          $SetGTIDNO = (str_replace(" ","",$dataGT->IDNO));
-          $SetGTAddress = (iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->ADDRES))." ต.".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->TUMB))." อ.".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->AUMPDES))." จ.".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->PROVDES))."  ".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->ZIP)));
+            $SetGTName = (iconv('Tis-620','utf-8',$dataGT->NAME));
+            $SetGTIDNO = (str_replace(" ","",$dataGT->IDNO));
+            $SetGTAddress = (iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->ADDRES))." ต.".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->TUMB))." อ.".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->AUMPDES))." จ.".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->PROVDES))."  ".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->ZIP)));
         }
 
         $LegisDB = new Legislation([
@@ -722,25 +725,23 @@ class LegislationController extends Controller
       elseif ($type == 2) {   //ลูกหนี้ประนอม
         $SetStrConn = $SetStr1."/".$SetStr2;
         $data = DB::connection('ibmi')
-                  ->table('ASFHP.ARMAST')
-                  ->join('ASFHP.INVTRAN','ASFHP.ARMAST.CONTNO','=','ASFHP.INVTRAN.CONTNO')
-                  ->join('ASFHP.VIEW_CUSTMAIL','ASFHP.ARMAST.CUSCOD','=','ASFHP.VIEW_CUSTMAIL.CUSCOD')
-                  ->where('ASFHP.ARMAST.CONTNO','=', $SetStrConn)
-                  ->first();
-
-                  // dd($data);
+            ->table('ASFHP.ARMAST')
+            ->join('ASFHP.INVTRAN','ASFHP.ARMAST.CONTNO','=','ASFHP.INVTRAN.CONTNO')
+            ->join('ASFHP.VIEW_CUSTMAIL','ASFHP.ARMAST.CUSCOD','=','ASFHP.VIEW_CUSTMAIL.CUSCOD')
+            ->where('ASFHP.ARMAST.CONTNO','=', $SetStrConn)
+            ->first();
 
         $dataGT = DB::connection('ibmi')
-                  ->table('ASFHP.VIEW_ARMGAR')
-                  ->where('ASFHP.VIEW_ARMGAR.CONTNO','=', $SetStrConn)
-                  ->first();
+            ->table('ASFHP.VIEW_ARMGAR')
+            ->where('ASFHP.VIEW_ARMGAR.CONTNO','=', $SetStrConn)
+            ->first();
 
         if ($dataGT == Null) {
-          $SetGTName = Null;
-          $SetGTIDNO = Null;
+            $SetGTName = Null;
+            $SetGTIDNO = Null;
         }else {
-          $SetGTName = (iconv('Tis-620','utf-8',$dataGT->NAME));
-          $SetGTIDNO = (str_replace(" ","",$dataGT->IDNO));
+            $SetGTName = (iconv('Tis-620','utf-8',$dataGT->NAME));
+            $SetGTIDNO = (str_replace(" ","",$dataGT->IDNO));
         }
 
         $LegisDB = new Legislation([
@@ -984,18 +985,19 @@ class LegislationController extends Controller
       }
       elseif ($type == 6) { //เพิ่มข้อมูลงาน วิเคราะห์
         $data = DB::table('legislations')
-        ->where('legislations.id',$id)->first();
+            ->where('legislations.id',$id)->first();
+
         $StrCon = explode("/",$data->Contract_legis);
         $SetStr1 = $StrCon[0];
         $SetStr2 = $StrCon[1];
         $SetStrConn = $SetStr1."/".$SetStr2;
 
         $data1 = DB::connection('ibmi')
-                  ->table('SFHP.ARMAST')
-                  ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
-                  ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
-                  ->where('SFHP.ARMAST.CONTNO','=', $SetStrConn)
-                  ->first();
+            ->table('SFHP.ARMAST')
+            ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+            ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+            ->where('SFHP.ARMAST.CONTNO','=', $SetStrConn)
+            ->first();
 
         // dd($data1);
         return view('legislation.editAnalyze',compact('data','data1','id','type'));
@@ -1649,80 +1651,80 @@ class LegislationController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function updateLegislation(Request $request, $id, $type)
-     {
-       if ($type == 6) {     //ข้อมูลผู้เช่าซื้อจากฝ่ายวิเคราะห์
-         $user = Legislation::find($id);
-               $user->Flag_status = $request->get('Flag');
-               $user->UserSend2_legis = auth()->user()->name;
-               $user->Datesend_Flag = date('Y-m-d');
-         $user->update();
+    public function updateLegislation(Request $request, $id, $type)
+    {
+      if ($type == 6) {     //ข้อมูลผู้เช่าซื้อจากฝ่ายวิเคราะห์
+        $user = Legislation::find($id);
+              $user->Flag_status = $request->get('Flag');
+              $user->UserSend2_legis = auth()->user()->name;
+              $user->Datesend_Flag = date('Y-m-d');
+        $user->update();
 
-         $Legiscourt = new Legiscourt([
-           'legislation_id' => $id,
-           'fillingdate_court' => Null,
-           'law_court' =>  Null,
-           'bnumber_court' =>  Null,
-           'rnumber_court' =>  Null,
-           'capital_court' =>  0,
-           'indictment_court' =>  0,
-           'pricelawyer_court' =>  0,
-           'examiday_court' =>  Null,
-           'fuzzy_court' =>  Null,
-           'examinote_court' =>  Null,
-           'orderday_court' =>  Null,
-           'ordersend_court' =>  Null,
-           'checkday_court' =>  Null,
-           'checksend_court' =>  Null,
-           'buyer_court' =>  Null,
-           'support_court' =>  Null,
-           'note_court' =>  Null,
-           'social_flag' =>  Null,
-           'setoffice_court' =>  Null,
-           'sendoffice_court' =>  Null,
-           'checkresults_court' =>  Null,
-           'sendcheckresults_court' =>  Null,
-           'received_court' =>  Null,
-           'telresults_court' =>  Null,
-           'dayresults_court' =>  Null,
-           'User_court' => NULL,
-           'latitude_court' =>  Null,
-           'longitude_court' =>  Null,
-         ]);
-         $Legiscourt->save();
+        $Legiscourt = new Legiscourt([
+          'legislation_id' => $id,
+          'fillingdate_court' => Null,
+          'law_court' =>  Null,
+          'bnumber_court' =>  Null,
+          'rnumber_court' =>  Null,
+          'capital_court' =>  0,
+          'indictment_court' =>  0,
+          'pricelawyer_court' =>  0,
+          'examiday_court' =>  Null,
+          'fuzzy_court' =>  Null,
+          'examinote_court' =>  Null,
+          'orderday_court' =>  Null,
+          'ordersend_court' =>  Null,
+          'checkday_court' =>  Null,
+          'checksend_court' =>  Null,
+          'buyer_court' =>  Null,
+          'support_court' =>  Null,
+          'note_court' =>  Null,
+          'social_flag' =>  Null,
+          'setoffice_court' =>  Null,
+          'sendoffice_court' =>  Null,
+          'checkresults_court' =>  Null,
+          'sendcheckresults_court' =>  Null,
+          'received_court' =>  Null,
+          'telresults_court' =>  Null,
+          'dayresults_court' =>  Null,
+          'User_court' => NULL,
+          'latitude_court' =>  Null,
+          'longitude_court' =>  Null,
+        ]);
+        $Legiscourt->save();
 
-         $Legiscourtcase = new Legiscourtcase([
-           'legislation_id' => $id,
-           'datepreparedoc_case' => Null,
-           'noteprepare_case' =>  Null,
-           'datesetsequester_case' =>  Null,
-           'resultsequester_case' =>  Null,
-           'notesequester_case' =>  Null,
-           'paidsequester_case' =>  Null,
-           'datenextsequester_case' =>  Null,
-           'resultsell_case' =>  Null,
-           'datesoldout_case' =>  Null,
-           'amountsequester_case' =>  Null,
-           'NumAmount_case' =>  Null,
-           'Status_case' =>  Null,
-           'DateStatus_case' =>  Null,
-           'txtStatus_case' =>  Null,
-           'Flag_case' =>  Null,
+        $Legiscourtcase = new Legiscourtcase([
+          'legislation_id' => $id,
+          'datepreparedoc_case' => Null,
+          'noteprepare_case' =>  Null,
+          'datesetsequester_case' =>  Null,
+          'resultsequester_case' =>  Null,
+          'notesequester_case' =>  Null,
+          'paidsequester_case' =>  Null,
+          'datenextsequester_case' =>  Null,
+          'resultsell_case' =>  Null,
+          'datesoldout_case' =>  Null,
+          'amountsequester_case' =>  Null,
+          'NumAmount_case' =>  Null,
+          'Status_case' =>  Null,
+          'DateStatus_case' =>  Null,
+          'txtStatus_case' =>  Null,
+          'Flag_case' =>  Null,
 
-           'DateNotice_cheat' => Null,
-           'Dateindictment_cheat' => Null,
-           'DateExamine_cheat' => Null,
-           'Datedeposition_cheat' => Null,
-           'Dateplantiff_cheat' => Null,
-           'Status_cheat' => Null,
-           'note_cheat' => Null,
-         ]);
-         $Legiscourtcase->save();
-        //  dd('sdf');
+          'DateNotice_cheat' => Null,
+          'Dateindictment_cheat' => Null,
+          'DateExamine_cheat' => Null,
+          'Datedeposition_cheat' => Null,
+          'Dateplantiff_cheat' => Null,
+          'Status_cheat' => Null,
+          'note_cheat' => Null,
+        ]);
+        $Legiscourtcase->save();
+      //  dd('sdf');
 
-         return redirect()->Route('legislation',$type)->with('success','ส่งเรียบร้อย');
-       }
-     }
+        return redirect()->Route('legislation',$type)->with('success','ส่งเรียบร้อย');
+      }
+    }
 
     public function destroy($id ,$type)
     {
@@ -1957,6 +1959,7 @@ class LegislationController extends Controller
                     return $q->where('legispayments.Date_Payment','<',$lastday);
                  })
                 ->where('legispayments.Flag_Payment', '=', 'Y')
+                ->where('Legiscompromises.Status_Promise','=', NULL)
                 ->get();
         }
         elseif($status == "ปิดบัญชี"){
@@ -1967,7 +1970,7 @@ class LegislationController extends Controller
             ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
               return $q->whereBetween('Legiscompromises.DateStatus_Promise',[$newfdate,$newtdate]);
             })
-            ->where('Legiscompromises.Status_Promise','!=', NULL )
+            ->where('Legiscompromises.Status_Promise','!=', NULL)
             ->where('legispayments.Flag_Payment', '=', 'Y')
             ->orderBy('legislations.Contract_legis', 'ASC')
             ->get();

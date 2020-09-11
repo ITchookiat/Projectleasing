@@ -848,12 +848,12 @@
                                   @else
                                     @foreach($dataPay as $key => $value)
                                       @if($row->legisPromise_id == $value->legis_Com_Payment_id)
-                                        @if(substr($value->CPayments_at,0,10) < $lastday)
-                                          <button data-toggle="tooltip" type="button" class="btn btn-danger btn-sm" title="วันชำระล่าสุด {{DateThai(substr($value->CPayments_at,0,10))}}">
+                                        @if($value->Date_Payment < $lastday)
+                                          <button data-toggle="tooltip" type="button" class="btn btn-danger btn-sm" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
                                             <i class="far fa-thumbs-down"></i> ขาดชำระ
                                           </button>
                                         @else
-                                          <button data-toggle="tooltip" type="button" class="btn btn-info btn-sm" title="วันชำระล่าสุด {{DateThai(substr($value->CPayments_at,0,10))}}">
+                                          <button data-toggle="tooltip" type="button" class="btn btn-info btn-sm" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
                                             <i class="far fa-thumbs-up"></i> ชำระปกติ
                                           </button>
                                         @endif

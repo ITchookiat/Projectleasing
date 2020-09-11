@@ -353,9 +353,6 @@
       </table>
     </body>
   @elseif($type == 16)
-    {{-- @php
-    dd($type,$data);
-  @endphp --}}
     <body>
       <br>
       <table border="1">
