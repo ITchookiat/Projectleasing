@@ -255,7 +255,7 @@ class LegislationController extends Controller
                     return $q->where('legispayments.Date_Payment','>=',$lastday);
                   })
                 ->where('legispayments.Flag_Payment', '=', 'Y')
-                ->where('legislations.Status_legis','=', Null)
+                ->where('Legiscompromises.Status_Promise','=', Null)
                 ->orderBy('legislations.Contract_legis', 'ASC')
                 ->get();
 
@@ -657,12 +657,6 @@ class LegislationController extends Controller
 
     public function Savestore(Request $request, $SetStr1, $SetStr2, $SetRealty, $type)
     {
-      date_default_timezone_set('Asia/Bangkok');
-      $Y = date('Y');
-      $m = date('m');
-      $d = date('d');
-      $date = $Y.'-'.$m.'-'.$d;
-      
       if ($type == 1) {       //ลูกหนี้ปกติ
         $SetStrConn = $SetStr1."/".$SetStr2;
         $data = DB::connection('ibmi')
@@ -688,7 +682,7 @@ class LegislationController extends Controller
         }
 
         $LegisDB = new Legislation([
-          'Date_legis' => $date,
+          'Date_legis' => date('Y-m-d'),
           'KeyCourts_id' => Null,
           'KeyCompro_id' => Null,
           'Contract_legis' => $data->CONTNO,
@@ -750,7 +744,7 @@ class LegislationController extends Controller
         }
 
         $LegisDB = new Legislation([
-          'Date_legis' => $date,
+          'Date_legis' => date('Y-m-d'),
           'KeyCourts_id' => Null,
           'KeyCompro_id' => Null,
           'Contract_legis' => $data->CONTNO,
@@ -785,7 +779,7 @@ class LegislationController extends Controller
         $LegisDB->save();
 
         $LegisPromise = new Legiscompromise([
-          'Date_Promise' => $date,
+          'Date_Promise' => date('Y-m-d'),
           'legisPromise_id' => $LegisDB->id,
           'KeyPay_id' => Null,
           'Flag_Promise' => Null,
@@ -1917,21 +1911,21 @@ class LegislationController extends Controller
         }
 
         $data = DB::table('legislations')
-                  ->leftjoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
-                  ->leftjoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
-                  ->where('legislations.Flag_status','!=', '1')
-                  ->where('Legiscompromises.Date_Promise','!=', null)
-                  ->orderBy('legislations.Contract_legis', 'ASC')
-                  ->get();
+            ->leftjoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+            ->leftjoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+            ->where('legislations.Flag_status','!=', '1')
+            ->where('Legiscompromises.Date_Promise','!=', null)
+            ->orderBy('legislations.Contract_legis', 'ASC')
+            ->get();
 
         $dataPay = DB::table('legislations')
-                ->join('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
-                ->join('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
-                ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
-                  return $q->whereBetween('legispayments.Date_Payment',[$newfdate,$newtdate]);
-                })
-                ->where('legispayments.Flag_Payment', '=', 'Y')
-                ->get();
+            ->join('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
+            ->join('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+            ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+              return $q->whereBetween('legispayments.Date_Payment',[$newfdate,$newtdate]);
+            })
+            ->where('legispayments.Flag_Payment', '=', 'Y')
+            ->get();
 
         if($status == "ชำระปกติ"){
           $data = DB::table('legislations')
@@ -1967,17 +1961,18 @@ class LegislationController extends Controller
         }
         elseif($status == "ปิดบัญชี"){
           $data = DB::table('legislations')
-                ->leftjoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
-                ->leftjoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
-                ->leftjoin('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
-                ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
-                  return $q->whereBetween('Legiscompromises.DateStatus_Promise',[$newfdate,$newtdate]);
-                })
-                ->where('Legiscompromises.Status_Promise','!=', NULL )
-                ->where('legispayments.Flag_Payment', '=', 'Y')
-                ->orderBy('legislations.Contract_legis', 'ASC')
-                ->get();
+            ->leftjoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+            ->leftjoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+            ->leftjoin('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
+            ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+              return $q->whereBetween('Legiscompromises.DateStatus_Promise',[$newfdate,$newtdate]);
+            })
+            ->where('Legiscompromises.Status_Promise','!=', NULL )
+            ->where('legispayments.Flag_Payment', '=', 'Y')
+            ->orderBy('legislations.Contract_legis', 'ASC')
+            ->get();
         }
+
 
         $dataSmart = DB::connection('ibmi')
             ->table('ASFHP.ARMAST')
