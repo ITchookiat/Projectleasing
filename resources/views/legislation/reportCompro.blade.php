@@ -117,7 +117,7 @@
     @endif
     <hr>
   @endif
-
+  
 <!-- ส่วนข้อมูล -->
   @if($type == 1 or $type == 2)
     <body style="margin-top: 0 0 0px;">
@@ -353,6 +353,9 @@
       </table>
     </body>
   @elseif($type == 16)
+    {{-- @php
+    dd($type,$data);
+  @endphp --}}
     <body>
       <br>
       <table border="1">
@@ -367,7 +370,9 @@
             <th style="width: 55px">ชำระแล้ว</th>
             <th style="width: 55px">ยอดคงเหลือ</th>
             <th style="width: 50px">งวดละ</th>
-            <th style="width: 65px">วันชำระล่าสุด</th>
+            @if($status != '')
+              <th style="width: 65px">วันชำระล่าสุด</th>
+            @endif
             <th style="width: 55px">สถานะ</th>
           </tr>
           @foreach($data as $key => $row)
@@ -413,14 +418,11 @@
             <td align="center" style="width: 55px"> {{number_format($row->Total_Promise - $row->Sum_Promise,2)}} &nbsp;</td>
             <td align="center" style="width: 55px"> {{number_format($row->Sum_Promise,2)}} &nbsp;</td>
             <td align="center" style="width: 50px"> {{number_format($row->DuePay_Promise,2)}} &nbsp; </td>
-            <td align="center" style="width: 65px">
-              {{-- @foreach($dataPay as $key => $value)
-                @if($row->legisPromise_id == $value->legis_Com_Payment_id)
-                      {{DateThai($value->Date_Payment)}}
-                @endif
-              @endforeach --}}
-              {{DateThai($row->Date_Payment)}}
-            </td>
+            @if($status != '')
+              <td align="center" style="width: 65px">
+                {{DateThai($row->Date_Payment)}}
+              </td>
+            @endif
             <td align="center" style="width: 55px">
               @php
                 @$sumTotal += $row->Total_Promise;
@@ -434,12 +436,12 @@
               @else
                 @foreach($dataPay as $key => $value)
                   @if($row->legisPromise_id == $value->legis_Com_Payment_id)
-                       @if($value->Date_Payment < $lastday)
+                      @if($value->Date_Payment < $lastday)
                         <font color="red"> ขาดชำระ </font>
-                       @else
+                      @else
                         <font color="green"> ชำระปกติ </font>
-                       @endif
-                     @endif
+                      @endif
+                    @endif
                 @endforeach
               @endif
             </td>
