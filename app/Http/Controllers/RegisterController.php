@@ -127,7 +127,24 @@ class RegisterController extends Controller
           'DocChk_regis' => $request->get('Doccheck'),
           'KeyChk_regis' => $request->get('Keycheck'),
           'RecChk_regis' => $request->get('Receiptcheck'),
-          'Flag_regis' => 'N',
+
+          'CustAmt_regis'=> $request->get('Budgetamount2'),
+          'RecptAmt_regis'=> $request->get('Budgetreceipt2'),
+          'TechAmt_regis'=> $request->get('Budgettecnique2'),
+          'CopyAmt_regis'=> $request->get('Budgetcopy2'),
+
+          'TransInAmt_regis'=> $request->get('TransferinExtra2'),
+          'TransAmt_regis'=> $request->get('Transferextra2'),
+          'NewCarAmt_regis'=> $request->get('Newcarextra2'),
+          'TaxAmt_regis'=> $request->get('Taxextra2'),
+          'RegAmt_regis'=> $request->get('Regisextra2'),
+          'DocAmt_regis'=> $request->get('Docextra2'),
+          'FixAmt_regis'=> $request->get('Editextra2'),
+          'CancelAmt_regis'=> $request->get('Cancelextra2'),
+          'OtherAmt_regis'=> $request->get('Otherextra2'),
+          'EMSAmt_regis'=> $request->get('EMSfee2'),
+          'Remainfee_regis' => str_replace(",","",$request->get('Remainfee2')),
+          'Flag_regis'=> 'N',
         ]);
         $Register->save();
       }
@@ -146,7 +163,7 @@ class RegisterController extends Controller
      */
     public function show(Request $request, $id)
     {
-      if($request->type == 1){
+      if($request->type == 1){ //รายงานทะเบียน
           $newfdate = '';
           $newtdate = '';
           $typetransfer = '';
@@ -182,7 +199,7 @@ class RegisterController extends Controller
           $pdf::SetTitle('รายงานทะเบียน');
           $pdf::AddPage('L', 'A4');
       }
-      elseif($request->type == 2){
+      elseif($request->type == 2){ //ใบเสร็จรับเงินแต่ละรายการ
         $data = Register::where('Reg_id',$id)->first();
         $type = $request->type;
         $SetTopic = "Receipt".date('Y-m-d');
@@ -191,11 +208,11 @@ class RegisterController extends Controller
         $pdf::AddPage('L', 'A5');
 
       }
-      $view = \View::make('registration.reportRegis' ,compact('data','type','newfdate','newtdate'));
+      $view = \View::make('registration.reportRegis' ,compact('data','type','newfdate','newtdate','company'));
       $html = $view->render();
 
-      $pdf::SetMargins(15, 5, 15);
-      $pdf::SetFont('thsarabunpsk', '', 16, '', true);
+      $pdf::SetMargins(5, 5, 5);
+      $pdf::SetFont('thsarabunpsk', '', 15, '', true);
       $pdf::SetAutoPageBreak(TRUE, 21);
       $pdf::WriteHTML($html,true,false,true,false,'');
       $pdf::Output($SetTopic.'.pdf');
@@ -285,7 +302,7 @@ class RegisterController extends Controller
             $user->CancelAmt_regis = $request->get('Cancelextra');
             $user->OtherAmt_regis = $request->get('Otherextra');
             $user->EMSAmt_regis = $request->get('EMSfee');
-            $user->Remainfee_regis = $request->get('Remainfee');
+            $user->Remainfee_regis = str_replace(",","",$request->get('Remainfee'));
           $user->update();
 
           // $expenses = Expenses::where('Buyerexpenses_id',$id)->first();

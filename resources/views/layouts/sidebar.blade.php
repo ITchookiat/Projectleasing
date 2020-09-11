@@ -369,12 +369,12 @@
 
             @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก ทะเบียน")
               <ul class="nav nav-treeview" style="margin-left: 15px;">
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                   <a href="{{ route('Register', 1) }}" class="nav-link {{ Request::is('Register/Home/1') ? 'active' : '' }}">
                     <i class="far fa-dot-circle nav-icon"></i>
                     <p>รายการลิสซิ่ง</p>
                   </a>
-                </li>
+                </li> -->
                 <li class="nav-item">
                   <a href="{{ route('Register', 2) }}" class="nav-link {{ Request::is('Register/Home/2') ? 'active' : '' }}">
                     <i class="far fa-dot-circle nav-icon"></i>

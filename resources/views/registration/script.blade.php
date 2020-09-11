@@ -14,11 +14,11 @@
 
     function calculate(){
       var SetAmount = document.getElementById('Budgetamount').value;
-      var Amount = SetAmount.replace(",","").replace(",","");
+      var Amount = SetAmount.replace(",","");
       var SetTechnique = document.getElementById('Budgettecnique').value;
       var Technique = SetTechnique.replace(",","");
       var SetReceipt = document.getElementById('Budgetreceipt').value;
-      var Receipt = SetReceipt.replace(",","").replace(",","");
+      var Receipt = SetReceipt.replace(",","");
       var SetCopy = document.getElementById('Budgetcopy').value;
       var Copy = SetCopy.replace(",","");
       var SetTransferinExtra = document.getElementById('TransferinExtra').value;
