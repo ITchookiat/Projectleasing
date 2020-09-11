@@ -204,7 +204,7 @@
                           <div class="col-6">
                             <div class="float-right form-inline">
                               @if($data->Flag_status == 1)
-                              <a class="btn btn-primary" href="{{ action('LegislationController@updateLegislation',[$id,$type]) }}?&Flag={{2}}" style="background-color:#031261; color:#FFFFFF;">
+                              <a class="btn btn-primary" href="{{ action('LegislationController@updateLegislation',[$id,$type]) }}" style="background-color:#031261; color:#FFFFFF;">
                                 <i class="fas fa-share-square"></i> ส่งทนาย
                               </a>
                               &nbsp;&nbsp;
