@@ -179,9 +179,9 @@
                               <td class="text-center">{{($row->Comp_regis != '')?$row->Comp_regis:'-'}}</td>
                               <td class="text-center">{{number_format(($row->Remainfee_regis != '')?$row->Remainfee_regis:'0.00',2)}}</td>
                               <td class="text-center">
-                                <a target="_blank" href="{{ route('MasterRegister.show',[$row->Reg_id]) }}?type={{2}}" class="btn btn-secondary btn-sm" title="พิมพ์ใบเสร็จ">
+                                <!-- <a target="_blank" href="{{ route('MasterRegister.show',[$row->Reg_id]) }}?type={{2}}" class="btn btn-secondary btn-sm" title="พิมพ์ใบเสร็จ">
                                   <i class="fas fa-file-invoice-dollar"></i>
-                                </a>
+                                </a> -->
                                 <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-edit" title="แก้ไขรายการ"
                                   data-backdrop="static" data-keyboard="false"
                                   data-link="{{ route('MasterRegister.edit',[$row->Reg_id]) }}?type={{2}}">
