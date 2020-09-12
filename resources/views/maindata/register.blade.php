@@ -104,6 +104,7 @@
                             <option value="แผนก การเงินนอก"> แผนก การเงินนอก</option>
                             <option value="แผนก การเงินใน"> แผนก การเงินใน</option>
                             <option value="แผนก บัญชี"> แผนก บัญชี</option>
+                            <option value="แผนก ทะเบียน"> แผนก ทะเบียน</option>
                           </select>
                         </div>
 

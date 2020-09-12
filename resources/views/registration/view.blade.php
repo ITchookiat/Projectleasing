@@ -266,7 +266,7 @@
     @csrf
       <input type="hidden" name="type" value="1"/>
       <div class="modal fade" id="modal-new" aria-hidden="true" style="display: none;">
-          <div class="modal-dialog modal-lg">
+          <div class="modal-dialog modal-xl">
             <div class="modal-content" style="border-radius: 30px 30px 30px 30px;">
               <div class="modal-header" style="border-radius: 30px 30px 0px 0px;">
                 <div class="col text-center">
@@ -570,7 +570,7 @@
 
   <!-- Pop up แก้ไข -->
   <div class="modal fade" id="modal-edit">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
       <div class="modal-content" style="border-radius: 30px 30px 30px 30px;">
         
       </div>
@@ -606,16 +606,6 @@
               <br>
               <div class="row">
                 <div class="col-md-6">
-                  ชนิดการโอน
-                  <select name="Typetransfer" class="form-control" required>
-                    <option value="">---เลือกชนิดการโอน---</option>
-                    <option value="โอนจัดไฟแนนซ์">โอนจัดไฟแนนซ์</option>
-                    <option value="โอนออก">โอนออก</option>
-                    <option value="จดทะเบียนรถใหม่">จดทะเบียนรถใหม่</option>
-                    <option value="อื่นๆ">อื่นๆ</option>
-                  </select>
-                </div>
-                <div class="col-md-6">
                   บริษัท
                   <select name="Companyown" class="form-control">
                     <option value="">---เลือกบริษัท---</option>
@@ -623,6 +613,38 @@
                     <option value="CKY">CKY - ชูเกียรติยนต์</option>
                     <option value="CKC">CKC - ชูเกียรติคาร์</option>
                   </select>
+                </div>
+                <div class="col-md-6">
+                  ต่อทะเบียน
+                  <input type="text" name="RegisterAmount" class="form-control" placeholder="จำนวนต่อทะเบียน"/>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-md-12">
+                  ชนิดการโอน
+                  <div class="form-inline" style="border: 1px solid #D0D0CB; border-radius: 5px; padding:10px;">
+                    &nbsp;
+                    <div class="custom-control custom-checkbox">
+                      <input class="custom-control-input" id="customCheckbox10" type="checkbox" name="Typetransfer[]" value="โอนจัดไฟแนนซ์">
+                      <label class="custom-control-label" for="customCheckbox10"></label> โอนจัดไฟแนนซ์
+                    </div>
+                    &nbsp;&nbsp;
+                    <div class="custom-control custom-checkbox">
+                      <input class="custom-control-input" id="customCheckbox11" type="checkbox" name="Typetransfer[]" value="โอนออก">
+                      <label class="custom-control-label" for="customCheckbox11"></label> โอนออก
+                    </div>
+                    &nbsp;&nbsp;
+                    <div class="custom-control custom-checkbox">
+                      <input class="custom-control-input" id="customCheckbox12" type="checkbox" name="Typetransfer[]" value="จดทะเบียนรถใหม่">
+                      <label class="custom-control-label" for="customCheckbox12"></label> จดทะเบียนรถใหม่
+                    </div>
+                    &nbsp;&nbsp;
+                    <div class="custom-control custom-checkbox">
+                      <input class="custom-control-input" id="customCheckbox13" type="checkbox" name="Typetransfer[]" value="อื่นๆ">
+                      <label class="custom-control-label" for="customCheckbox13"></label> อื่นๆ
+                    </div>
+                  </div>
                 </div>
               </div>
             <hr>
