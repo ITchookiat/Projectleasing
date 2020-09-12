@@ -181,18 +181,21 @@ class RegisterController extends Controller
           if ($request->has('Companyown')) {
             $company = $request->get('Companyown');
           }
+          $Amount = $request->get('RegisterAmount');
+          $CountAmount = count($typetransfer);
+
           $data = DB::table('registers')
-                ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
-                  return $q->whereBetween('registers.Date_regis',[$newfdate,$newtdate]);
-                })
-                ->when(!empty($typetransfer), function($q) use ($typetransfer) {
-                  return $q->where('registers.TypeofReg_regis',$typetransfer);
-                })
-                ->when(!empty($company), function($q) use ($company) {
-                  return $q->where('registers.Comp_regis',$company);
-                })
-                ->orderBy('registers.Date_regis', 'DESC')
-                ->get();
+          ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+            return $q->whereBetween('registers.Date_regis',[$newfdate,$newtdate]);
+          })
+          ->when(!empty($typetransfer), function($q) use ($typetransfer) {
+            return $q->whereIn('registers.TypeofReg_regis',$typetransfer);
+          })
+          ->when(!empty($company), function($q) use ($company) {
+            return $q->where('registers.Comp_regis',$company);
+          })
+          ->orderBy('registers.Date_regis', 'DESC')
+          ->get();
           $type = $request->type;
           $SetTopic = "Report".date('Y-m-d');
           $pdf = new PDF();
@@ -208,7 +211,7 @@ class RegisterController extends Controller
         $pdf::AddPage('L', 'A5');
 
       }
-      $view = \View::make('registration.reportRegis' ,compact('data','type','newfdate','newtdate','company'));
+      $view = \View::make('registration.reportRegis' ,compact('data','type','newfdate','newtdate','typetransfer','company','Amount','CountAmount'));
       $html = $view->render();
 
       $pdf::SetMargins(5, 5, 5);
