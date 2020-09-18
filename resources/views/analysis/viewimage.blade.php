@@ -51,13 +51,13 @@
                       <div class="col-3">
                         @if($type == 1)
                           <div class="card-tools d-inline float-right">
-                            <a href="{{ action('AnalysController@edit',[$type,$id,$fdate,$tdate,$branch,$status,$path]) }}" class="btn bg-danger">
+                            <a href="{{ action('AnalysController@edit',[$type,$id,$fdate,$tdate,$status,$path]) }}" class="btn bg-danger">
                               <i class="far fa-arrow-alt-circle-left"></i> ย้อนกลับ
                               </a>
                           </div>
                         @elseif($type == 11)
                           <div class="card-tools d-inline float-right">
-                            <a href="{{ action('PrecController@DebtEdit',[$type,$id,$fdate,$tdate,$branch,$status,$path]) }}" class="btn bg-danger">
+                            <a href="{{ action('PrecController@DebtEdit',[$type,$id,$fdate,$tdate,$status,$path]) }}" class="btn bg-danger">
                               <i class="far fa-arrow-alt-circle-left"></i> ย้อนกลับ
                               </a>
                           </div>
@@ -93,7 +93,7 @@
                           </a>
                         @endif
                         <div align="center">
-                          <a href="{{ action('AnalysController@destroyImage',[$type,$row->fileimage_id,$fdate,$tdate,$branch,$status,$path])}}?mainid={{$id}}" class="btn btn-danger btn-sm DeleteImage">
+                          <a href="{{ action('AnalysController@destroyImage',[$type,$row->fileimage_id,$fdate,$tdate,$status,$path])}}?mainid={{$id}}" class="btn btn-danger btn-sm DeleteImage">
                             <span class="glyphicon glyphicon-trash"></span> ลบ
                           </a>
                           <br><br>
