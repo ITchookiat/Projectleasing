@@ -17,7 +17,7 @@
 <style>
   #todo-list{
   width:100%;
-  margin:0 auto 50px auto;
+  /* margin:0 auto 50px auto; */
   padding:5px;
   background:white;
   position:relative;
@@ -691,6 +691,40 @@
                         </div>
                       </div>
                     </div>
+
+                    {{--<div class="col-md-6">
+                      <div class="card card-danger">
+                        <div class="card-header">
+                          <h3 class="card-title"><i class="fas fa-archive"></i> เอกสาร</h3>
+
+                          <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
+                            </button>
+                          </div>
+                        </div>
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-md-4">
+                                เลือกไฟล์ :
+                                  <!-- <input type="file" name="file" required/> -->
+                                  <div class="input-group">
+                                    <div class="custom-file">
+                                      <input type="file" name="filePDF" class="custom-file-input" id="exampleInputFile" value="{{($dataImages == null)?$dataImages: $dataImages->name_image}}">
+                                      <label class="custom-file-label" for="exampleInputFile">เลือกไฟล์อัพโหลด</label>
+                                    </div>
+                                  </div>
+                            </div>
+                            <div class="col-md-8">
+                              @if($dataImages != null)
+                                <iframe src="{{ asset('legislation/'.$dataImages->name_image) }}" width="100%" height="650vh" style="border:none;" scrolling="no"></iframe>
+                              @endif
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>--}}
                   </div>
                   
                   @if($data1 != null)
@@ -825,4 +859,5 @@
       location.reload(true);
     });
   </script>
+
 @endsection

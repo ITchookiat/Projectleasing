@@ -211,6 +211,7 @@
                   </div>          
                 </div>
               </div>
+              
               <div class="card-body text-sm">
                 <form name="form1" method="post" action="{{ action('LegislationController@update',[$id,$type]) }}" enctype="multipart/form-data">
                   @csrf

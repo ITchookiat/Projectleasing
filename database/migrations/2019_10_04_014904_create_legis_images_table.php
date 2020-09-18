@@ -18,6 +18,7 @@ class CreateLegisImagesTable extends Migration
             $table->integer('legisImage_id')->nullable();
             $table->string('name_image')->nullable();
             $table->string('size_image')->nullable();
+            $table->string('type_image')->nullable();
             $table->timestamps();
         });
     }
