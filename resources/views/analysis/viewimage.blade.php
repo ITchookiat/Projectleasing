@@ -71,7 +71,6 @@
 
                 <input type="hidden" name="fdate" value="{{ $fdate }}" />
                 <input type="hidden" name="tdate" value="{{ $tdate }}" />
-                <input type="hidden" name="branch" value="{{ $branch }}" />
                 <input type="hidden" name="status" value="{{ $status }}" />
                 <input type="hidden" name="status" value="{{ $path }}" />
 
