@@ -47,9 +47,6 @@ class AnalysController extends Controller
         if ($request->has('Todate')) {
           $newtdate = $request->get('Todate');
         }
-        if ($request->has('branch')) {
-          $branch = $request->get('branch');
-        }
         if ($request->has('status')) {
           $status = $request->get('status');
         }
@@ -71,7 +68,6 @@ class AnalysController extends Controller
           if($contno != ''){
             $newfdate = '';
             $newtdate = '';
-            $branch = '';
             $status = '';
           }
           $data = DB::table('buyers')
@@ -80,9 +76,6 @@ class AnalysController extends Controller
               ->join('expenses','buyers.id','=','expenses.Buyerexpenses_id')
               ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
                 return $q->whereBetween('buyers.Date_Due',[$newfdate,$newtdate]);
-              })
-              ->when(!empty($branch), function($q) use($branch){
-                return $q->where('cardetails.branch_car',$branch);
               })
               ->when(!empty($status), function($q) use($status){
                 return $q->where('cardetails.StatusApp_car','=',$status);
@@ -101,6 +94,42 @@ class AnalysController extends Controller
         $type = $request->type;
         $newfdate = \Carbon\Carbon::parse($newfdate)->format('Y') ."-". \Carbon\Carbon::parse($newfdate)->format('m')."-". \Carbon\Carbon::parse($newfdate)->format('d');
         $newtdate = \Carbon\Carbon::parse($newtdate)->format('Y') ."-". \Carbon\Carbon::parse($newtdate)->format('m')."-". \Carbon\Carbon::parse($newtdate)->format('d');
+
+        $Count01 = 0;
+        $Count03 = 0;
+        $Count04 = 0;
+        $Count05 = 0;
+        $Count06 = 0;
+        $Count07 = 0;
+        $Count56 = 0;
+        $Count57 = 0;
+        $Count58 = 0;
+        $SumAll = 0;
+
+        if ($data != NULL) {
+          foreach ($data as $key => $value) {
+            if ($value->branch_car == 'ปัตตานี') {
+              $Count01 += 1;
+            }elseif ($value->branch_car == 'ยะลา') {
+              $Count03 += 1;
+            }elseif ($value->branch_car == 'นราธิวาส') {
+              $Count04 += 1;
+            }elseif ($value->branch_car == 'สายบุรี') {
+              $Count05 += 1;
+            }elseif ($value->branch_car == 'โกลก') {
+              $Count06 += 1;
+            }elseif ($value->branch_car == 'เบตง') {
+              $Count07 += 1;
+            }elseif ($value->branch_car == 'โคกโพธิ์') {
+              $Count56 += 1;
+            }elseif ($value->branch_car == 'ตันหยงมัส') {
+              $Count57 += 1;
+            }elseif ($value->branch_car == 'บันนังสตา') {
+              $Count58 += 1;
+            }
+          }
+          $SumAll = $Count01 + $Count03 + $Count04 + $Count05 + $Count06 + $Count07 + $Count56 + $Count57 + $Count58;
+        }
 
         $topcar = DB::table('buyers')
           ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
@@ -124,7 +153,9 @@ class AnalysController extends Controller
             $SumCommitprice = 0;
         }
 
-        return view('analysis.view', compact('type', 'data','branch','newfdate','newtdate','status','Setdate','SumTopcar','SumCommissioncar','SumCommitprice','contno','SetStrConn','SetStr1','SetStr2'));
+        return view('analysis.view', compact('type', 'data','newfdate','newtdate','status','Setdate','SumTopcar','SumCommissioncar','SumCommitprice',
+                                             'contno','SetStrConn','SetStr1','SetStr2',
+                                             'Count01','Count03','Count04','Count05','Count06','Count07','Count56','Count57','Count58','SumAll'));
       }
       elseif ($request->type == 2){ //เพิ่มสินเชื่อ
         return view('analysis.createbuyer');
@@ -306,6 +337,21 @@ class AnalysController extends Controller
             ->get();
         }
 
+        $Count10 = 0;
+        $Count11 = 0;
+        $SumAll = 0;
+
+        if ($data != NULL) {
+          foreach ($data as $key => $value) {
+            if ($value->branchUS_HC == 'รถบ้าน') {
+              $Count10 += 1;
+            }elseif ($value->branchUS_HC == 'รถยืดขายผ่อน') {
+              $Count11 += 1;
+            }
+          }
+          $SumAll = $Count10 + $Count11;
+        }
+
         $type = $request->type;
         $SumTopcar = 0;
         $SumCommissioncar = 0;
@@ -314,7 +360,8 @@ class AnalysController extends Controller
         $newfdate = \Carbon\Carbon::parse($newfdate)->format('Y') ."-". \Carbon\Carbon::parse($newfdate)->format('m')."-". \Carbon\Carbon::parse($newfdate)->format('d');
         $newtdate = \Carbon\Carbon::parse($newtdate)->format('Y') ."-". \Carbon\Carbon::parse($newtdate)->format('m')."-". \Carbon\Carbon::parse($newtdate)->format('d');
 
-        return view('analysis.view', compact('type', 'data','newfdate','newtdate','status','SumTopcar','SumCommissioncar','SumCommitprice'));
+        return view('analysis.view', compact('type', 'data','newfdate','newtdate','status','SumTopcar','SumCommissioncar','SumCommitprice',
+                                             'Count10','Count11','SumAll'));
       }
       elseif ($request->type == 5){
         return view('analysis.createhomecar');
@@ -715,12 +762,6 @@ class AnalysController extends Controller
         }
         $type = $request->type;
         return view('analysis.viewReport', compact('type', 'data','newfdate','newtdate','datadrop','agen','datedue','datayear','yearcar','datastatus','typecar','databranch','branch'));
-      }
-      elseif ($request->type == 15) {
-        # code...
-
-        $type = $request->type;
-        return view('analysis.view', compact('type', 'data'));
       }
     }
 
@@ -1178,7 +1219,7 @@ class AnalysController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($type,$id,$fdate,$tdate,$branch,$status,Request $request)
+    public function edit($type,$id,$fdate,$tdate,$status,Request $request)
     {
       if ($type == 1) {
         $data = DB::table('buyers')
@@ -1220,8 +1261,8 @@ class AnalysController extends Controller
                   $data = $data;
       }
 
+      // dd($data);
       $dataImage = DB::table('uploadfile_images')->where('Buyerfileimage_id',$data->id)->get();
-      // dd($dataImage);
       
       $countImage = count($dataImage);
       $newDateDue = $data->Date_Due;
@@ -1479,14 +1520,14 @@ class AnalysController extends Controller
             compact('data','id','dataImage','Statusby','Addby','Houseby','Driverby','HouseStyleby','Careerby','Incomeby',
             'HisCarby','StatusSPp','relationSPp','addSPp','housestyleSPp','Brandcarr','Interestcarr','Timeslackencarr',
             'Insurancecarr','statuscarr','newDateDue','evaluetionPricee','securitiesSPp','GetDocComplete','Getinsurance',
-            'Gettransfer','Getinterest','fdate','tdate','branch','status','type','Gettype','countImage','GradeBuyer','Typecardetail','objectivecar'));
+            'Gettransfer','Getinterest','fdate','tdate','status','type','Gettype','countImage','GradeBuyer','Typecardetail','objectivecar'));
       }
       elseif ($type == 4) {
         return view('analysis.edithomecar',
             compact('data','id','dataImage','Statusby','Addby','Houseby','Driverby','HouseStyleby','Careerby','Incomeby',
             'HisCarby','StatusSPp','relationSPp','addSPp','housestyleSPp','Brandcarr','Interestcarr','Timeslackencarr',
             'Insurancecarr','statuscarr','newDateDue','evaluetionPricee','securitiesSPp','Getinsurance',
-            'Gettransfer','Getinterest','fdate','tdate','branch','status','Gettype','GetypeHC','GetbaabHC',
+            'Gettransfer','Getinterest','fdate','tdate','status','Gettype','GetypeHC','GetbaabHC',
             'GetguaranteeHC','relationSP','countImage','GradeBuyer','Typecardetail','objectivecar'));
       }
       elseif ($type == 12) {
@@ -1496,7 +1537,7 @@ class AnalysController extends Controller
             compact('type','data','id','dataImage','Statusby','Addby','Houseby','Driverby','HouseStyleby','Careerby','Incomeby',
             'HisCarby','StatusSPp','relationSPp','addSPp','housestyleSPp','Brandcarr','Interestcarr','Timeslackencarr',
             'Insurancecarr','statuscarr','newDateDue','evaluetionPricee','securitiesSPp','GetDocComplete','Getinsurance',
-            'Gettransfer','Getinterest','fdate','tdate','branch','status','type','Gettype','countImage','GradeBuyer','Typecardetail','objectivecar'));
+            'Gettransfer','Getinterest','fdate','tdate','status','type','Gettype','countImage','GradeBuyer','Typecardetail','objectivecar'));
       }
     }
 

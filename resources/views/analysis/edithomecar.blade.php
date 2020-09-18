@@ -37,8 +37,7 @@
     /*border-radius*/
     -webkit-border-radius:5px;
     -moz-border-radius:5px;
-          border-radius:5px;
-    }
+          border-radius:5px;}
     #todo-list:before{
     content:"";
     position:absolute;
@@ -89,7 +88,7 @@
     content:'';
     display:block;
     position:absolute;
-    top:calc(50% + 2px);
+    top:calc(50% + 10px);
     left:0;
     width:0%;
     height:1px;
@@ -188,15 +187,6 @@
           toastr.success('{{ session()->get('success') }}')
         </script>
       @endif
-      @if (count($errors) > 0)
-        <div class="alert alert-danger">
-          <ul>
-            @foreach($errors->all() as $error)
-              <li>กรุณากรอกข้อมูลอีกครั้ง ({{$error}}) </li>
-            @endforeach
-          </ul>
-        </div>
-      @endif
 
       <section class="content">
         <form name="form1" method="post" action="{{ action('AnalysController@updatehomecar',[$id,$Gettype]) }}" enctype="multipart/form-data">
@@ -209,14 +199,28 @@
                   <div class="row">
                     <div class="col-4">
                       <div class="form-inline">
-                        <h4>แก้ไขข้อมูลสินเชื่อรถบ้าน...</h4>
+                        <h4>แก้ไขรายการสินเชื่อรถบ้าน</h4>
                       </div>
                     </div>
                     <div class="col-8">
-                      <div class="row">
-                        <div class="col-3"></div>
-                        <div class="col-6">
-                        @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MANAGER")
+                      <div class="card-tools d-inline float-right">
+                        <button type="submit" class="delete-modal btn btn-success">
+                          <i class="fas fa-save"></i> อัพเดต
+                        </button>
+                        <a class="delete-modal btn btn-danger" href="{{ route('Analysis',4) }}">
+                          <i class="far fa-window-close"></i> ยกเลิก
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body text-sm">
+                  <div class="container-fluid">
+                    <div class="row mb-2">
+                      <div class="col-sm-3"></div>
+                      <div class="col-sm-9">
+                        <ol class="breadcrumb float-sm-right">
+                          @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MANAGER")
                             <div class="float-right form-inline">
                               <i class="fas fa-grip-vertical"></i>
                               <span class="todo-wrap">
@@ -228,22 +232,11 @@
                               </span>
                             </div>
                           @endif
-                        </div>
-                        <div class="col-3">
-                          <div class="card-tools d-inline float-right">
-                            <button type="submit" class="delete-modal btn btn-success">
-                              <i class="fas fa-save"></i> อัพเดต
-                            </button>
-                            <a class="delete-modal btn btn-danger" href="{{ route('Analysis',4) }}">
-                              <i class="far fa-window-close"></i> ยกเลิก
-                            </a>
-                          </div>
-                        </div>
+                        </ol>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="card-body text-sm">
+                  
                   <div class="card card-warning card-tabs">
                     <div class="card-header p-0 pt-1">
                       <ul class="nav nav-tabs" id="custom-tabs-five-tab" role="tablist">
@@ -270,228 +263,274 @@
                           <p></p>
                           <div>
                             <div class="row">
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label><font color="red">เลขที่สัญญา : </font></label>
-                                  <input type="text" name="Contract_buyer" class="form-control" style="width: 250px;" value="{{ $data->Contract_buyer }}" />
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right"><font color="red">เลขที่สัญญา : </font></label>
+                                  <div class="col-sm-8">
+                                    <input type="text" name="Contract_buyer" class="form-control form-control-sm" value="{{ $data->Contract_buyer }}" />
+                                  </div>
                                 </div>
                               </div>
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label><font color="red">วันที่ทำสัญญา : </font></label>
-                                  <input type="date" name="DateDue" class="form-control" style="width: 250px;" value="{{ $newDateDue }}">
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>ชื่อ : </label>
-                                  <input type="text" name="Namebuyer" value="{{ $data->Name_buyer }}" class="form-control" style="width: 250px;" placeholder="ป้อนชื่อ" />
-                                </div>
-                              </div>
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>นามสกุล : </label>
-                                  <input type="text" name="lastbuyer" value="{{ $data->last_buyer }}" class="form-control" style="width: 250px;"  placeholder="ป้อนนามสกุล" />
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right"><font color="red">วันที่ทำสัญญา : </font></label>
+                                  <div class="col-sm-8">
+                                    <input type="date" name="DateDue" class="form-control form-control-sm" value="{{ $newDateDue }}">
+                                  </div>
                                 </div>
                               </div>
                             </div>
 
                             <div class="row">
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>ชื่อเล่น : </label>
-                                  <input type="text" name="Nickbuyer" value="{{ $data->Nick_buyer }}" class="form-control" style="width: 250px;" placeholder="ป้อนชื่อเล่น" />
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">ชื่อ :</label>
+                                  <div class="col-sm-8">
+                                    <input type="text" name="Namebuyer" value="{{ $data->Name_buyer }}" class="form-control form-control-sm" placeholder="ป้อนชื่อ" />
+                                  </div>
                                 </div>
                               </div>
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>สถานะ : </label>
-                                  <select name="Statusbuyer" class="form-control" style="width: 250px;">
-                                    <option value="" selected>--- เลือกสถานะ ---</option>
-                                    @foreach ($Statusby as $key => $value)
-                                      <option value="{{$key}}" {{ ($key == $data->Status_buyer) ? 'selected' : '' }}>{{$value}}</option>
-                                    @endforeach
-                                  </select>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>เบอร์โทรศัพท์ : </label>
-                                  <input type="text" name="Phonebuyer" value="{{ $data->Phone_buyer }}" class="form-control" style="width: 250px;" placeholder="ป้อนเบอร์โทรศัพท์" data-inputmask="&quot;mask&quot;:&quot;999-9999999,999-9999999&quot;" data-mask=""/>
-                                </div>
-                              </div>
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>เบอร์โทรอื่นๆ : </label>
-                                  <input type="text" name="Phone2buyer" value="{{ $data->Phone2_buyer }}" class="form-control" style="width: 250px;" placeholder="ป้อนเบอร์โทรอื่นๆ" />
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">นามสกุล :</label>
+                                  <div class="col-sm-8">
+                                    <input type="text" name="lastbuyer" value="{{ $data->last_buyer }}" class="form-control form-control-sm"  placeholder="ป้อนนามสกุล" />
+                                  </div>
                                 </div>
                               </div>
                             </div>
 
                             <div class="row">
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>คู่สมรส : </label>
-                                  <input type="text" name="Matebuyer" value="{{ $data->Mate_buyer }}" class="form-control" style="width: 250px;" placeholder="ป้อนคู่สมรส" />
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">ชื่อเล่น :</label>
+                                  <div class="col-sm-8">
+                                    <input type="text" name="Nickbuyer" value="{{ $data->Nick_buyer }}" class="form-control form-control-sm" placeholder="ป้อนชื่อเล่น" />
+                                  </div>
                                 </div>
                               </div>
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>เลขบัตรประชาชน : </label>
-                                  <input type="text" name="Idcardbuyer" value="{{ $data->Idcard_buyer }}" class="form-control" style="width: 250px;" placeholder="ป้อนเลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask=""/>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>ที่อยู่ : </label>
-                                  <select name="Addressbuyer" class="form-control" style="width: 250px;">
-                                    <option value="" selected>--- เลือกที่อยู่ ---</option>
-                                    @foreach ($Addby as $key => $value)
-                                    <option value="{{$key}}" {{ ($key == $data->Address_buyer) ? 'selected' : '' }}>{{$value}}</option>
-                                    @endforeach
-                                  </select>
-                                </div>
-                              </div>
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>ที่อยู่ปัจจุบัน/ส่งเอกสาร : </label>
-                                  <input type="text" name="AddNbuyer" value="{{ $data->AddN_buyer }}" class="form-control" style="width: 250px;" placeholder="ที่อยู่ปัจจุบัน/ส่งเอกสาร" />
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">สถานะ :</label>
+                                  <div class="col-sm-8">
+                                    <select name="Statusbuyer" class="form-control form-control-sm">
+                                      <option value="" selected>--- เลือกสถานะ ---</option>
+                                      @foreach ($Statusby as $key => $value)
+                                        <option value="{{$key}}" {{ ($key == $data->Status_buyer) ? 'selected' : '' }}>{{$value}}</option>
+                                      @endforeach
+                                    </select>
+                                  </div>
                                 </div>
                               </div>
                             </div>
 
                             <div class="row">
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>รายละเอียดที่อยู่ : </label>
-                                  <input type="text" name="StatusAddbuyer" value="{{ $data->StatusAdd_buyer }}" class="form-control" style="width: 250px;" placeholder="ป้อนรายละเอียดที่อยู่" />
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">เบอร์โทรศัพท์ : </label>
+                                  <div class="col-sm-8">
+                                    <input type="text" name="Phonebuyer" value="{{ $data->Phone_buyer }}" class="form-control form-control-sm" placeholder="ป้อนเบอร์โทรศัพท์" data-inputmask="&quot;mask&quot;:&quot;999-9999999,999-9999999&quot;" data-mask=""/>
+                                  </div>
                                 </div>
                               </div>
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>สถานที่ทำงาน : </label>
-                                  <input type="text" name="Workplacebuyer" value="{{ $data->Workplace_buyer }}" class="form-control" style="width: 250px;" placeholder="ป้อนสถานที่ทำงาน" />
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>ลักษณะบ้าน : </label>
-                                  <select name="Housebuyer" class="form-control" style="width: 250px;">
-                                    <option value="" selected>--- เลือกลักษณะบ้าน ---</option>
-                                    @foreach ($Houseby as $key => $value)
-                                    <option value="{{$key}}" {{ ($key == $data->House_buyer) ? 'selected' : '' }}>{{$value}}</option>
-                                    @endforeach
-                                  </select>
-                                </div>
-                              </div>
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>ใบขับขี่ : </label>
-                                  <select name="Driverbuyer" class="form-control" style="width: 250px;">
-                                    <option value="" selected>--- เลือกใบขับขี่ ---</option>
-                                    @foreach ($Driverby as $key => $value)
-                                      <option value="{{$key}}" {{ ($key == $data->Driver_buyer) ? 'selected' : '' }}>{{$value}}</option>
-                                    @endforeach
-                                  </select>
+                              <div class="col-6"> 
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">เบอร์โทรอื่นๆ : </label>
+                                  <div class="col-sm-8">
+                                    <input type="text" name="Phone2buyer" value="{{ $data->Phone2_buyer }}" class="form-control form-control-sm" placeholder="ป้อนเบอร์โทรอื่นๆ" />
+                                  </div>
                                 </div>
                               </div>
                             </div>
 
                             <div class="row">
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>ประเภทบ้าน : </label>
-                                  <select name="HouseStylebuyer" class="form-control" style="width: 250px;">
-                                    <option value="" selected>--- ประเภทบ้าน ---</option>
-                                    @foreach ($HouseStyleby as $key => $value)
-                                      <option value="{{$key}}" {{ ($key == $data->HouseStyle_buyer) ? 'selected' : '' }}>{{$value}}</option>
-                                    @endforeach
-                                  </select>
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">คู่สมรส : </label>
+                                  <div class="col-sm-8">
+                                    <input type="text" name="Matebuyer" value="{{ $data->Mate_buyer }}" class="form-control form-control-sm" placeholder="ป้อนคู่สมรส" />
+                                  </div>
                                 </div>
                               </div>
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>อาชีพ : </label>
-                                  <select name="Careerbuyer" class="form-control" style="width: 250px;">
-                                    <option value="" selected>--- อาชีพ ---</option>
-                                    @foreach ($Careerby as $key => $value)
-                                      <option value="{{$key}}" {{ ($key == $data->Career_buyer) ? 'selected' : '' }}>{{$value}}</option>
-                                    @endforeach
-                                  </select>
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">เลขบัตรปชช.ผู้ซื้อ : </label>
+                                  <div class="col-sm-8">
+                                    <input type="text" name="Idcardbuyer" value="{{ $data->Idcard_buyer }}" class="form-control form-control-sm" placeholder="ป้อนเลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask=""/>
+                                  </div>
                                 </div>
                               </div>
                             </div>
 
                             <div class="row">
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>รายได้ : </label>
-                                  <select name="Incomebuyer" class="form-control" style="width: 250px;">
-                                    <option value="" selected>--- รายได้ ---</option>
-                                    @foreach ($Incomeby as $key => $value)
-                                      <option value="{{$key}}" {{ ($key == $data->Income_buyer) ? 'selected' : '' }}>{{$value}}</option>
-                                    @endforeach
-                                  </select>
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">ที่อยู่ : </label>
+                                  <div class="col-sm-8">
+                                    <select name="Addressbuyer" class="form-control form-control-sm">
+                                      <option value="" selected>--- เลือกที่อยู่ ---</option>
+                                      @foreach ($Addby as $key => $value)
+                                      <option value="{{$key}}" {{ ($key == $data->Address_buyer) ? 'selected' : '' }}>{{$value}}</option>
+                                      @endforeach
+                                    </select>
+                                  </div>
                                 </div>
                               </div>
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>ประวัติการซื้อ/ค้ำ : </label>
-                                  <select name="Purchasebuyer" class="form-control" style="width: 108px;">
-                                    <option value="" selected>--- ซื้อ ---</option>
-                                    @foreach ($HisCarby as $key => $value)
-                                      <option value="{{$key}}" {{ ($key == $data->Purchase_buyer) ? 'selected' : '' }}>{{$value}}</option>
-                                    @endforeach
-                                  </select>
-
-                                  <label>ค้ำ : </label>
-                                  <select name="Supportbuyer" class="form-control" style="width: 108px;">
-                                    <option value="" selected>--- ค้ำ ---</option>
-                                    @foreach ($HisCarby as $key => $value)
-                                      <option value="{{$key}}" {{ ($key == $data->Support_buyer) ? 'selected' : '' }}>{{$value}}</option>
-                                    @endforeach
-                                  </select>
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">ที่อยู่ปัจจุบัน/ส่งเอกสาร : </label>
+                                  <div class="col-sm-8">
+                                    <input type="text" name="AddNbuyer" value="{{ $data->AddN_buyer }}" class="form-control form-control-sm" placeholder="ที่อยู่ปัจจุบัน/ส่งเอกสาร" />
+                                  </div>
                                 </div>
                               </div>
                             </div>
 
                             <div class="row">
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>หักค่าใช้จ่าย : </label>
-                                  <input type="text" id="Beforeincome" name="Beforeincome" class="form-control" style="width: 250px;" value="{{number_format($data->BeforeIncome_buyer,0)}}" placeholder="ก่อนหักค่าใช้จ่าย" onchange="income();" />
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">รายละเอียดที่อยู่ : </label>
+                                  <div class="col-sm-8">
+                                    <input type="text" name="StatusAddbuyer" value="{{ $data->StatusAdd_buyer }}" class="form-control form-control-sm" placeholder="ป้อนรายละเอียดที่อยู่" />
+                                  </div>
                                 </div>
                               </div>
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>สถานะผู้เช่าซื้อ : </label>
-                                  <select name="Gradebuyer" class="form-control" style="width: 250px;">
-                                    <option value="" selected>--- สถานะผู้เช่าซื้อ ---</option>
-                                    @foreach ($GradeBuyer as $key => $value)
-                                      <option value="{{$key}}" {{ ($key == $data->Gradebuyer_car) ? 'selected' : '' }}>{{$value}}</option>
-                                    @endforeach
-                                  </select>
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">สถานที่ทำงาน : </label>
+                                  <div class="col-sm-8">
+                                    <input type="text" name="Workplacebuyer" value="{{ $data->Workplace_buyer }}" class="form-control form-control-sm" placeholder="ป้อนสถานที่ทำงาน" />
+                                  </div>
                                 </div>
                               </div>
                             </div>
 
                             <div class="row">
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>รายได้หลังหักค่าใช้จ่าย : </label>
-                                  <input type="text" id="Afterincome" name="Afterincome" class="form-control" style="width: 250px;" value="{{number_format($data->AfterIncome_buyer,0)}}" placeholder="หลังหักค่าใช้จ่าย" onchange="income();" />
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">ลักษณะบ้าน : </label>
+                                  <div class="col-sm-8">
+                                    <select name="Housebuyer" class="form-control form-control-sm">
+                                      <option value="" selected>--- เลือกลักษณะบ้าน ---</option>
+                                      @foreach ($Houseby as $key => $value)
+                                      <option value="{{$key}}" {{ ($key == $data->House_buyer) ? 'selected' : '' }}>{{$value}}</option>
+                                      @endforeach
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">ใบขับขี่ : </label>
+                                  <div class="col-sm-8">
+                                    <select name="Driverbuyer" class="form-control form-control-sm">
+                                      <option value="" selected>--- เลือกใบขับขี่ ---</option>
+                                      @foreach ($Driverby as $key => $value)
+                                        <option value="{{$key}}" {{ ($key == $data->Driver_buyer) ? 'selected' : '' }}>{{$value}}</option>
+                                      @endforeach
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">ประเภทบ้าน : </label>
+                                  <div class="col-sm-8">
+                                    <select name="HouseStylebuyer" class="form-control form-control-sm">
+                                      <option value="" selected>--- ประเภทบ้าน ---</option>
+                                      @foreach ($HouseStyleby as $key => $value)
+                                        <option value="{{$key}}" {{ ($key == $data->HouseStyle_buyer) ? 'selected' : '' }}>{{$value}}</option>
+                                      @endforeach
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">อาชีพ : </label>
+                                  <div class="col-sm-8">
+                                    <select name="Careerbuyer" class="form-control form-control-sm">
+                                      <option value="" selected>--- อาชีพ ---</option>
+                                      @foreach ($Careerby as $key => $value)
+                                        <option value="{{$key}}" {{ ($key == $data->Career_buyer) ? 'selected' : '' }}>{{$value}}</option>
+                                      @endforeach
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">รายได้ : </label>
+                                  <div class="col-sm-8">
+                                    <select name="Incomebuyer" class="form-control form-control-sm">
+                                      <option value="" selected>--- รายได้ ---</option>
+                                      @foreach ($Incomeby as $key => $value)
+                                        <option value="{{$key}}" {{ ($key == $data->Income_buyer) ? 'selected' : '' }}>{{$value}}</option>
+                                      @endforeach
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">ประวัติการซื้อ/ค้ำ : </label>
+                                  <div class="col-sm-4">
+                                    <select name="Purchasebuyer" class="form-control form-control-sm" style="width: 108px;">
+                                      <option value="" selected>--- ซื้อ ---</option>
+                                      @foreach ($HisCarby as $key => $value)
+                                        <option value="{{$key}}" {{ ($key == $data->Purchase_buyer) ? 'selected' : '' }}>{{$value}}</option>
+                                      @endforeach
+                                    </select>
+                                  </div>
+                                  <div class="col-sm-4">
+                                    <select name="Supportbuyer" class="form-control form-control-sm" style="width: 108px;">
+                                      <option value="" selected>--- ค้ำ ---</option>
+                                      @foreach ($HisCarby as $key => $value)
+                                        <option value="{{$key}}" {{ ($key == $data->Support_buyer) ? 'selected' : '' }}>{{$value}}</option>
+                                      @endforeach
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">หักค่าใช้จ่าย : </label>
+                                  <div class="col-sm-8">
+                                    <input type="text" id="Beforeincome" name="Beforeincome" class="form-control form-control-sm" value="{{number_format($data->BeforeIncome_buyer,0)}}" placeholder="ก่อนหักค่าใช้จ่าย" onchange="income();" />
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">สถานะผู้เช่าซื้อ : </label>
+                                  <div class="col-sm-8">
+                                    <select name="Gradebuyer" class="form-control form-control-sm">
+                                      <option value="" selected>--- สถานะผู้เช่าซื้อ ---</option>
+                                      @foreach ($GradeBuyer as $key => $value)
+                                        <option value="{{$key}}" {{ ($key == $data->Gradebuyer_car) ? 'selected' : '' }}>{{$value}}</option>
+                                      @endforeach
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">รายได้หลังหักค่าใช้จ่าย : </label>
+                                  <div class="col-sm-8">
+                                    <input type="text" id="Afterincome" name="Afterincome" class="form-control form-control-sm" value="{{number_format($data->AfterIncome_buyer,0)}}" placeholder="หลังหักค่าใช้จ่าย" onchange="income();" />
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -574,204 +613,244 @@
                           <br><br>
                           <div>
                             <div class="row">
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>ชื่อ : </label>
-                                  <input type="text" name="nameSP" value="{{$data->name_SP}}" class="form-control" style="width: 250px;" placeholder="ชื่อ" />
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">ชื่อ : </label>
+                                  <div class="col-sm-8">
+                                    <input type="text" name="nameSP" value="{{$data->name_SP}}" class="form-control form-control-sm" placeholder="ชื่อ" />
+                                  </div>
                                 </div>
                               </div>
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>นามสกุล : </label>
-                                  <input type="text" name="lnameSP" value="{{$data->lname_SP}}" class="form-control" style="width: 250px;" placeholder="นามสกุล" />
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>ชื่อเล่น : </label>
-                                  <input type="text" name="niknameSP" value="{{$data->nikname_SP}}" class="form-control" style="width: 250px;" placeholder="ชื่อเล่น" />
-                                </div>
-                              </div>
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>สถานะ : </label>
-                                  <select name="statusSP" class="form-control" style="width: 250px;">
-                                    <option value="" selected>--- สถานะ ---</option>
-                                    @foreach ($Statusby as $key => $value)
-                                    <option value="{{$key}}" {{ ($key == $data->status_SP) ? 'selected' : '' }}>{{$value}}</option>
-                                    @endforeach
-                                  </select>
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">นามสกุล : </label>
+                                  <div class="col-sm-8">
+                                    <input type="text" name="lnameSP" value="{{$data->lname_SP}}" class="form-control form-control-sm" placeholder="นามสกุล" />
+                                  </div>
                                 </div>
                               </div>
                             </div>
 
                             <div class="row">
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>เบอร์โทร : </label>
-                                  <input type="text" name="telSP" value="{{$data->tel_SP}}" class="form-control" style="width: 250px;" placeholder="เบอร์โทร" data-inputmask="&quot;mask&quot;:&quot;999-9999999,999-9999999&quot;" data-mask=""/>
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">ชื่อเล่น : </label>
+                                  <div class="col-sm-8">
+                                    <input type="text" name="niknameSP" value="{{$data->nikname_SP}}" class="form-control form-control-sm" placeholder="ชื่อเล่น" />
+                                  </div>
                                 </div>
                               </div>
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>ความสัมพันธ์ : </label>
-                                  <select name="relationSP" class="form-control" style="width: 250px;">
-                                    <option value="" selected>--- ความสัมพันธ์ ---</option>
-                                    @foreach ($relationSP as $key => $value)
-                                    <option value="{{$key}}" {{ ($key == $data->relation_SP) ? 'selected' : '' }}>{{$value}}</option>
-                                    @endforeach
-                                  </select>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>คู่สมรส : </label>
-                                  <input type="text" name="mateSP" value="{{$data->mate_SP}}" class="form-control" style="width: 250px;" placeholder="คู่สมรส" />
-                                </div>
-                              </div>
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>เลขบัตรประชาชน : </label>
-                                  <input type="text" name="idcardSP" value="{{$data->idcard_SP}}" class="form-control" style="width: 250px;" placeholder="เลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask=""/>
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">สถานะ : </label>
+                                  <div class="col-sm-8">
+                                    <select name="statusSP" class="form-control form-control-sm">
+                                      <option value="" selected>--- สถานะ ---</option>
+                                      @foreach ($Statusby as $key => $value)
+                                      <option value="{{$key}}" {{ ($key == $data->status_SP) ? 'selected' : '' }}>{{$value}}</option>
+                                      @endforeach
+                                    </select>
+                                  </div>
                                 </div>
                               </div>
                             </div>
 
                             <div class="row">
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>ที่อยู่ : </label>
-                                  <select name="addSP" class="form-control" style="width: 250px;">
-                                    <option value="" selected>--- ที่อยู่ ---</option>
-                                    @foreach ($Addby as $key => $value)
-                                    <option value="{{$key}}" {{ ($key == $data->add_SP) ? 'selected' : '' }}>{{$value}}</option>
-                                    @endforeach
-                                  </select>
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">เบอร์โทร : </label>
+                                  <div class="col-sm-8">
+                                    <input type="text" name="telSP" value="{{$data->tel_SP}}" class="form-control form-control-sm" placeholder="เบอร์โทร" data-inputmask="&quot;mask&quot;:&quot;999-9999999,999-9999999&quot;" data-mask=""/>
+                                  </div>
                                 </div>
                               </div>
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>ที่อยู่ปัจจุบัน/จัดส่งเอกสาร : </label>
-                                  <input type="text" name="addnowSP" value="{{$data->addnow_SP}}" class="form-control" style="width: 250px;" placeholder="ที่อยู่ปัจจุบัน/จัดส่งเอกสาร" />
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>รายละเอียดที่อยู่ : </label>
-                                  <input type="text" name="statusaddSP" value="{{$data->statusadd_SP}}" class="form-control" style="width: 250px;" placeholder="รายละเอียดที่อยู่" />
-                                </div>
-                              </div>
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>สถาที่ทำงาน : </label>
-                                  <input type="text" name="workplaceSP" value="{{$data->workplace_SP}}" class="form-control" style="width: 250px;" placeholder="สถาที่ทำงาน" />
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">ความสัมพันธ์ : </label>
+                                  <div class="col-sm-8">
+                                    <select name="relationSP" class="form-control form-control-sm">
+                                      <option value="" selected>--- ความสัมพันธ์ ---</option>
+                                      @foreach ($relationSP as $key => $value)
+                                      <option value="{{$key}}" {{ ($key == $data->relation_SP) ? 'selected' : '' }}>{{$value}}</option>
+                                      @endforeach
+                                    </select>
+                                  </div>
                                 </div>
                               </div>
                             </div>
 
                             <div class="row">
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>ลักษณะบ้าน : </label>
-                                  <select name="houseSP" class="form-control" style="width: 250px;">
-                                    <option value="" selected>--- เลือกลักษณะบ้าน ---</option>
-                                    @foreach ($Houseby as $key => $value)
-                                    <option value="{{$key}}" {{ ($key == $data->house_SP) ? 'selected' : '' }}>{{$value}}</option>
-                                    @endforeach
-                                  </select>
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">คู่สมรส : </label>
+                                  <div class="col-sm-8">
+                                    <input type="text" name="mateSP" value="{{$data->mate_SP}}" class="form-control form-control-sm" placeholder="คู่สมรส" />
+                                  </div>
                                 </div>
                               </div>
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>ประเภทหลักทรัพย์ : </label>
-                                  <select name="securitiesSP" class="form-control" style="width: 250px;">
-                                    <option value="" selected>--- ประเภทหลักทรัพย์ ---</option>
-                                    @foreach ($securitiesSPp as $key => $value)
-                                      <option value="{{$key}}" {{ ($key == $data->securities_SP) ? 'selected' : '' }}>{{$value}}</option>
-                                    @endforeach
-                                  </select>
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">เลขบัตรปชช.ผู้ค่ำ : </label>
+                                  <div class="col-sm-8">
+                                    <input type="text" name="idcardSP" value="{{$data->idcard_SP}}" class="form-control form-control-sm" placeholder="เลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask=""/>
+                                  </div>
                                 </div>
                               </div>
                             </div>
 
                             <div class="row">
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>เลขที่โฉนด : </label>
-                                  <input type="text" name="deednumberSP" value="{{$data->deednumber_SP}}" class="form-control" style="width: 250px;" placeholder="เลขที่โฉนด" />
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">ที่อยู่ : </label>
+                                  <div class="col-sm-8">
+                                    <select name="addSP" class="form-control form-control-sm">
+                                      <option value="" selected>--- ที่อยู่ ---</option>
+                                      @foreach ($Addby as $key => $value)
+                                      <option value="{{$key}}" {{ ($key == $data->add_SP) ? 'selected' : '' }}>{{$value}}</option>
+                                      @endforeach
+                                    </select>
+                                  </div>
                                 </div>
                               </div>
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>เนื้อที่ : </label>
-                                  <input type="text" name="areaSP" value="{{$data->area_SP}}" class="form-control" style="width: 250px;" placeholder="เนื้อที่" data-inputmask="&quot;mask&quot;:&quot;99-9-99&quot;" data-mask=""/>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>ประเภทบ้าน : </label>
-                                  <select name="housestyleSP" class="form-control" style="width: 250px;">
-                                    <option value="" selected>--- ประเภทบ้าน ---</option>
-                                    @foreach ($HouseStyleby as $key => $value)
-                                      <option value="{{$key}}" {{ ($key == $data->housestyle_SP) ? 'selected' : '' }}>{{$value}}</option>
-                                    @endforeach
-                                  </select>
-                                </div>
-                              </div>
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>อาชีพ : </label>
-                                  <select name="careerSP" class="form-control" style="width: 250px;">
-                                    <option value="" selected>--- อาชีพ ---</option>
-                                    @foreach ($Careerby as $key => $value)
-                                      <option value="{{$key}}" {{ ($key == $data->career_SP) ? 'selected' : '' }}>{{$value}}</option>
-                                    @endforeach
-                                  </select>
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">ที่อยู่ปัจจุบัน/จัดส่งเอกสาร : </label>
+                                  <div class="col-sm-8">
+                                    <input type="text" name="addnowSP" value="{{$data->addnow_SP}}" class="form-control form-control-sm" placeholder="ที่อยู่ปัจจุบัน/จัดส่งเอกสาร" />
+                                  </div>
                                 </div>
                               </div>
                             </div>
 
                             <div class="row">
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>รายได้ : </label>
-                                  <select name="incomeSP" class="form-control" style="width: 250px;">
-                                    <option value="" selected>--- รายได้ ---</option>
-                                    @foreach ($Incomeby as $key => $value)
-                                      <option value="{{$key}}" {{ ($key == $data->income_SP) ? 'selected' : '' }}>{{$value}}</option>
-                                    @endforeach
-                                  </select>
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">รายละเอียดที่อยู่ : </label>
+                                  <div class="col-sm-8">
+                                    <input type="text" name="statusaddSP" value="{{$data->statusadd_SP}}" class="form-control form-control-sm" placeholder="รายละเอียดที่อยู่" />
+                                  </div>
                                 </div>
                               </div>
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>ประวัติซื้อ/ค้ำ : </label>
-                                  <select name="puchaseSP" class="form-control" style="width: 108px;">
-                                    <option value="" selected>--- ซื้อ ---</option>
-                                    @foreach ($HisCarby as $key => $value)
-                                      <option value="{{$key}}" {{ ($key == $data->puchase_SP) ? 'selected' : '' }}>{{$value}}</option>
-                                    @endforeach
-                                  </select>
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">สถานที่ทำงาน : </label>
+                                  <div class="col-sm-8">
+                                    <input type="text" name="workplaceSP" value="{{$data->workplace_SP}}" class="form-control form-control-sm" placeholder="สถาที่ทำงาน" />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
 
-                                  <label>ค้ำ : </label>
-                                  <select name="supportSP" class="form-control" style="width: 108px;">
-                                    <option value="" selected>--- ค้ำ ---</option>
-                                    @foreach ($HisCarby as $key => $value)
-                                      <option value="{{$key}}" {{ ($key == $data->support_SP) ? 'selected' : '' }}>{{$value}}</option>
-                                    @endforeach
-                                  </select>
+                            <div class="row">
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">ลักษณะบ้าน : </label>
+                                  <div class="col-sm-8">
+                                    <select name="houseSP" class="form-control form-control-sm">
+                                      <option value="" selected>--- เลือกลักษณะบ้าน ---</option>
+                                      @foreach ($Houseby as $key => $value)
+                                      <option value="{{$key}}" {{ ($key == $data->house_SP) ? 'selected' : '' }}>{{$value}}</option>
+                                      @endforeach
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">ประเภทหลักทรัพย์ : </label>
+                                  <div class="col-sm-8">
+                                    <select name="securitiesSP" class="form-control form-control-sm">
+                                      <option value="" selected>--- ประเภทหลักทรัพย์ ---</option>
+                                      @foreach ($securitiesSPp as $key => $value)
+                                        <option value="{{$key}}" {{ ($key == $data->securities_SP) ? 'selected' : '' }}>{{$value}}</option>
+                                      @endforeach
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">เลขที่โฉนด : </label>
+                                  <div class="col-sm-8">
+                                    <input type="text" name="deednumberSP" value="{{$data->deednumber_SP}}" class="form-control form-control-sm" placeholder="เลขที่โฉนด" />
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">เนื้อที่ : </label>
+                                  <div class="col-sm-8">
+                                    <input type="text" name="areaSP" value="{{$data->area_SP}}" class="form-control form-control-sm" placeholder="เนื้อที่" data-inputmask="&quot;mask&quot;:&quot;99-9-99&quot;" data-mask=""/>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">ประเภทบ้าน : </label>
+                                  <div class="col-sm-8">
+                                    <select name="housestyleSP" class="form-control form-control-sm">
+                                      <option value="" selected>--- ประเภทบ้าน ---</option>
+                                      @foreach ($HouseStyleby as $key => $value)
+                                        <option value="{{$key}}" {{ ($key == $data->housestyle_SP) ? 'selected' : '' }}>{{$value}}</option>
+                                      @endforeach
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">อาชีพ : </label>
+                                  <div class="col-sm-8">
+                                    <select name="careerSP" class="form-control form-control-sm">
+                                      <option value="" selected>--- อาชีพ ---</option>
+                                      @foreach ($Careerby as $key => $value)
+                                        <option value="{{$key}}" {{ ($key == $data->career_SP) ? 'selected' : '' }}>{{$value}}</option>
+                                      @endforeach
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">รายได้ : </label>
+                                  <div class="col-sm-8">
+                                    <select name="incomeSP" class="form-control form-control-sm">
+                                      <option value="" selected>--- รายได้ ---</option>
+                                      @foreach ($Incomeby as $key => $value)
+                                        <option value="{{$key}}" {{ ($key == $data->income_SP) ? 'selected' : '' }}>{{$value}}</option>
+                                      @endforeach
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">ประวัติซื้อ/ค้ำ  : </label>
+                                  <div class="col-sm-4">
+                                    <select name="puchaseSP" class="form-control form-control-sm">
+                                      <option value="" selected>--- ซื้อ ---</option>
+                                      @foreach ($HisCarby as $key => $value)
+                                        <option value="{{$key}}" {{ ($key == $data->puchase_SP) ? 'selected' : '' }}>{{$value}}</option>
+                                      @endforeach
+                                    </select>
+                                  </div>
+                                  <div class="col-sm-4">
+                                    <select name="supportSP" class="form-control form-control-sm">
+                                      <option value="" selected>--- ค้ำ ---</option>
+                                      @foreach ($HisCarby as $key => $value)
+                                        <option value="{{$key}}" {{ ($key == $data->support_SP) ? 'selected' : '' }}>{{$value}}</option>
+                                      @endforeach
+                                    </select>
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -782,83 +861,99 @@
                           <p></p>
                           <div>
                             <div class="row">
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>ยี่ห้อ : </label>
-                                  <select name="brandHC" class="form-control" style="width: 250px;">
-                                    <option value="" selected>--- ยี่ห้อ ---</option>
-                                    @foreach ($Brandcarr as $key => $value)
-                                      <option value="{{$key}}" {{ ($key == $data->brand_HC) ? 'selected' : '' }}>{{$value}}</option>
-                                    @endforeach
-                                  </select>
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">ยี่ห้อ : </label>
+                                  <div class="col-sm-8">
+                                    <select name="brandHC" class="form-control form-control-sm">
+                                      <option value="" selected>--- ยี่ห้อ ---</option>
+                                      @foreach ($Brandcarr as $key => $value)
+                                        <option value="{{$key}}" {{ ($key == $data->brand_HC) ? 'selected' : '' }}>{{$value}}</option>
+                                      @endforeach
+                                    </select>
+                                  </div>
                                 </div>
                               </div>
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>ปี : </label>
-                                  <select name="yearHC" class="form-control" style="width: 250px;">
-                                    <option value="{{$data->year_HC}}" selected>{{$data->year_HC}}</option>
-                                    <option value="">--------------------</option>
-                                    @php
-                                      $Year = date('Y');
-                                    @endphp
-                                    @for ($i = 0; $i < 25; $i++)
-                                      <option value="{{ $Year }}">{{ $Year }}</option>
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">ปี : </label>
+                                  <div class="col-sm-8">
+                                    <select name="yearHC" class="form-control form-control-sm">
+                                      <option value="{{$data->year_HC}}" selected>{{$data->year_HC}}</option>
+                                      <option value="">--------------------</option>
                                       @php
-                                          $Year -= 1;
+                                        $Year = date('Y');
                                       @endphp
-                                    @endfor
-                                  </select>
+                                      @for ($i = 0; $i < 25; $i++)
+                                        <option value="{{ $Year }}">{{ $Year }}</option>
+                                        @php
+                                            $Year -= 1;
+                                        @endphp
+                                      @endfor
+                                    </select>
+                                  </div>
                                 </div>
                               </div>
                             </div>
 
                             <div class="row">
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>สี : </label>
-                                  <input type="text" name="colourHC" value="{{ $data->colour_HC }}" class="form-control" style="width: 250px;" placeholder="สี" />
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">สี : </label>
+                                  <div class="col-sm-8">
+                                    <input type="text" name="colourHC" value="{{ $data->colour_HC }}" class="form-control form-control-sm" placeholder="สี" />
+                                  </div>
                                 </div>
                               </div>
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>ป้ายเดิม : </label>
-                                  <input type="text" name="oldplateHC"  value="{{ $data->oldplate_HC}}" class="form-control" style="width: 250px;" readonly/>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>ป้ายใหม่ : </label>
-                                  <input type="text" name="newplateHC" value="{{$data->newplate_HC}}" class="form-control" style="width: 250px;" placeholder="ป้ายใหม่" />
-                                </div>
-                              </div>
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>เลขไมล์ : </label>
-                                  <input type="text" name="mileHC" value="{{$data->mile_HC}}" class="form-control" style="width: 250px;" placeholder="เลขไมล์" />
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">ป้ายเดิม : </label>
+                                  <div class="col-sm-8">
+                                    <input type="text" name="oldplateHC"  value="{{ $data->oldplate_HC}}" class="form-control form-control-sm" readonly/>
+                                  </div>
                                 </div>
                               </div>
                             </div>
 
                             <div class="row">
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>รุ่น : </label>
-                                  <input type="text" name="modelHC" value="{{$data->model_HC}}" class="form-control" style="width: 250px;" placeholder="รุ่น" />
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">ป้ายใหม่ : </label>
+                                  <div class="col-sm-8">
+                                    <input type="text" name="newplateHC" value="{{$data->newplate_HC}}" class="form-control form-control-sm" placeholder="ป้ายใหม่" />
+                                  </div>
                                 </div>
                               </div>
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>ประเภทรถ : </label>
-                                  <select name="typeHC" class="form-control" style="width: 250px;">
-                                    <option value="" selected>--- ประเภทรถ ---</option>
-                                    @foreach ($GetypeHC as $key => $value)
-                                      <option value="{{$key}}" {{ ($key == $data->type_HC) ? 'selected' : '' }}>{{$value}}</option>
-                                    @endforeach
-                                  </select>
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">เลขไมล์ : </label>
+                                  <div class="col-sm-8">
+                                    <input type="text" name="mileHC" value="{{$data->mile_HC}}" class="form-control form-control-sm" placeholder="เลขไมล์" />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">รุ่น : </label>
+                                  <div class="col-sm-8">>
+                                    <input type="text" name="modelHC" value="{{$data->model_HC}}" class="form-control form-control-sm" placeholder="รุ่น" />
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">ประเภทรถ : </label>
+                                  <div class="col-sm-8">
+                                    <select name="typeHC" class="form-control form-control-sm">
+                                      <option value="" selected>--- ประเภทรถ ---</option>
+                                      @foreach ($GetypeHC as $key => $value)
+                                        <option value="{{$key}}" {{ ($key == $data->type_HC) ? 'selected' : '' }}>{{$value}}</option>
+                                      @endforeach
+                                    </select>
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -932,220 +1027,269 @@
                             </script>
 
                             <div class="row">
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>ราคารถ : </label>
-                                  <input type="text" id="priceHC" name="priceHC" value="{{$data->price_HC}}" class="form-control" style="width: 250px;" placeholder="ราคารถ" oninput="priceHomecar()"/>
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">ราคารถ : </label>
+                                  <div class="col-sm-8">
+                                    <input type="text" id="priceHC" name="priceHC" value="{{$data->price_HC}}" class="form-control form-control-sm" placeholder="ราคารถ" oninput="priceHomecar()"/>
+                                  </div>
                                 </div>
                               </div>
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>เงินดาวน์ : </label>
-                                  <input type="text" id="downpayHC" name="downpayHC" value="{{$data->downpay_HC}}" class="form-control" style="width: 250px;" placeholder="เงินดาวน์" oninput="priceHomecar()"/>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>ค่าประกัน : </label>
-                                  <select id="insurancefeeHC" name="insurancefeeHC" class="form-control" style="width: 250px;" oninput="priceHomecar()">
-                                    <option value="" selected>--- ค่าประกัน ---</option>
-                                    @foreach ($Getinsurance as $key => $value)
-                                      <option value="{{$key}}" {{ ($key == $data->insurancefee_HC) ? 'selected' : '' }}>{{$value}}</option>
-                                    @endforeach
-                                  </select>
-                                </div>
-                              </div>
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>ค่าโอน : </label>
-                                  <select id="transferHC" name="transferHC" class="form-control" style="width: 250px;" oninput="priceHomecar()">
-                                    <option value="" selected>--- ค่าโอน ---</option>
-                                    @foreach ($Gettransfer as $key => $value)
-                                      <option value="{{$key}}" {{ ($key == $data->transfer_HC) ? 'selected' : '' }}>{{$value}}</option>
-                                    @endforeach
-                                  </select>
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">เงินดาวน์ : </label>
+                                  <div class="col-sm-8">
+                                    <input type="text" id="downpayHC" name="downpayHC" value="{{$data->downpay_HC}}" class="form-control form-control-sm" placeholder="เงินดาวน์" oninput="priceHomecar()"/>
+                                  </div>
                                 </div>
                               </div>
                             </div>
 
                             <div class="row">
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>ยอดจัด : </label>
-                                  <input type="text" id="toppriceHC" name="toppriceHC" value="{{$data->topprice_HC}}" class="form-control" style="width: 250px;" placeholder="กรอกยอดจัด" />
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">ค่าประกัน : </label>
+                                  <div class="col-sm-8">
+                                    <select id="insurancefeeHC" name="insurancefeeHC" class="form-control form-control-sm" oninput="priceHomecar()">
+                                      <option value="" selected>--- ค่าประกัน ---</option>
+                                      @foreach ($Getinsurance as $key => $value)
+                                        <option value="{{$key}}" {{ ($key == $data->insurancefee_HC) ? 'selected' : '' }}>{{$value}}</option>
+                                      @endforeach
+                                    </select>
+                                  </div>
                                 </div>
                               </div>
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>ดอกเบี้ย : </label>
-                                  <select id="interestHC" name="interestHC" class="form-control" style="width: 250px;" oninput="priceHomecar()">
-                                    <option value="" selected>--- ดอกเบี้ย ---</option>
-                                    @foreach ($Getinterest as $key => $value)
-                                      <option value="{{$key}}" {{ ($key == $data->interest_HC) ? 'selected' : '' }}>{{$value}}</option>
-                                    @endforeach
-                                  </select>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>VAT : </label>
-                                  <input type="text" id="vatHC" name="vatHC" value="{{$data->vat_HC}}" class="form-control" style="width: 250px;" value="7 %" readonly/>
-                                </div>
-                              </div>
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>ระยะเวลาผ่อน : </label>
-                                  <select id="periodHC" name="periodHC" class="form-control" style="width: 250px;" oninput="priceHomecar()">
-                                    <option value="" selected>--- ระยะเวลาผ่อน ---</option>
-                                    @foreach ($Timeslackencarr as $key => $value)
-                                      <option value="{{$key}}" {{ ($key == $data->period_HC) ? 'selected' : '' }}>{{$value}}</option>
-                                    @endforeach
-                                  </select>
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">ค่าโอน : </label>
+                                  <div class="col-sm-8">
+                                    <select id="transferHC" name="transferHC" class="form-control form-control-sm" oninput="priceHomecar()">
+                                      <option value="" selected>--- ค่าโอน ---</option>
+                                      @foreach ($Gettransfer as $key => $value)
+                                        <option value="{{$key}}" {{ ($key == $data->transfer_HC) ? 'selected' : '' }}>{{$value}}</option>
+                                      @endforeach
+                                    </select>
+                                  </div>
                                 </div>
                               </div>
                             </div>
 
                             <div class="row">
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>ชำระต่องวด : </label>
-                                  <input type="text" id="payporHC" name="payporHC" value="{{$data->paypor_HC}}" class="form-control" style="width: 250px;" readonly/>
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">ยอดจัด : </label>
+                                  <div class="col-sm-8">
+                                    <input type="text" id="toppriceHC" name="toppriceHC" value="{{$data->topprice_HC}}" class="form-control form-control-sm" placeholder="กรอกยอดจัด" />
+                                  </div>
                                 </div>
                               </div>
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>ค่างวด / ระยะเวลาผ่อน : </label>
-                                  <input type="text" id="paymentHC" name="paymentHC" value="{{$data->payment_HC}}" class="form-control" style="width: 123px;" readonly />
-                                  <input type="text" id="payperriodHC" name="payperriodHC" value="{{$data->payperriod_HC}}" class="form-control" style="width: 123px;" readonly />
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>ภาษี / ระยะเวลาผ่อน : </label>
-                                  <input type="text" id="taxHC" name="taxHC" value="{{$data->tax_HC}}" class="form-control" style="width: 123px;" readonly />
-                                  <input type="text" id="taxperriodHC" name="taxperriodHC" value="{{$data->taxperriod_HC}}" class="form-control" style="width: 123px;" readonly />
-                                </div>
-                              </div>
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>ยอดผ่อนชำระทั้งหมด : </label>
-                                  <input type="text" id="totalinstalmentsHC" name="totalinstalmentsHC" value="{{$data->totalinstalments_HC}}" class="form-control" style="width: 123px;" readonly />
-                                  <input type="text" id="totalinstalments1HC" name="totalinstalments1HC" value="{{$data->totalinstalments1_HC}}" class="form-control" style="width: 123px;" readonly />
-                                </div>
-                              </div>
-                            </div>
-
-                            <hr />
-                            <div class="row">
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>แบบ : </label>
-                                  <select name="baabHC" class="form-control" style="width: 250px;">
-                                    <option value="" selected>--- สถานะ ---</option>
-                                    @foreach ($GetbaabHC as $key => $value)
-                                      <option value="{{$key}}" {{ ($key == $data->baab_HC) ? 'selected' : '' }}>{{$value}}</option>
-                                    @endforeach
-                                  </select>
-                                </div>
-                              </div>
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>ค้ำประกัน : </label>
-                                  <select name="guaranteeHC" class="form-control" style="width: 250px;">
-                                    <option value="" selected>--- ค้ำประกัน ---</option>
-                                    @foreach ($GetguaranteeHC as $key => $value)
-                                      <option value="{{$key}}" {{ ($key == $data->guarantee_HC) ? 'selected' : '' }}>{{$value}}</option>
-                                    @endforeach
-                                  </select>
-                                  <!-- <input type="text" name="guaranteeHC" value="{{$data->guarantee_HC}}" class="form-control" style="width: 250px;" placeholder="ค้ำประกัน" /> -->
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">ดอกเบี้ย : </label>
+                                  <div class="col-sm-8">
+                                    <select id="interestHC" name="interestHC" class="form-control form-control-sm" oninput="priceHomecar()">
+                                      <option value="" selected>--- ดอกเบี้ย ---</option>
+                                      @foreach ($Getinterest as $key => $value)
+                                        <option value="{{$key}}" {{ ($key == $data->interest_HC) ? 'selected' : '' }}>{{$value}}</option>
+                                      @endforeach
+                                    </select>
+                                  </div>
                                 </div>
                               </div>
                             </div>
 
                             <div class="row">
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>วันที่ชำระงวดแรก : </label>
-                                  <input type="text" name="firstpayHC" value="{{$data->firstpay_HC}}" class="form-control" style="width: 250px;" readonly placeholder="วันที่ชำระงวดแรก" />
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">VAT : </label>
+                                  <div class="col-sm-8">
+                                    <input type="text" id="vatHC" name="vatHC" value="{{$data->vat_HC}}" class="form-control form-control-sm" value="7 %" readonly/>
+                                  </div>
                                 </div>
                               </div>
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>ประกันภัย : </label>
-                                  <input type="text" name="insuranceHC" value="{{$data->insurance_HC}}" class="form-control" style="width: 250px;" placeholder="ประกันภัย" />
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">ระยะเวลาผ่อน : </label>
+                                  <div class="col-sm-8">
+                                    <select id="periodHC" name="periodHC" class="form-control form-control-sm" oninput="priceHomecar()">
+                                      <option value="" selected>--- ระยะเวลาผ่อน ---</option>
+                                      @foreach ($Timeslackencarr as $key => $value)
+                                        <option value="{{$key}}" {{ ($key == $data->period_HC) ? 'selected' : '' }}>{{$value}}</option>
+                                      @endforeach
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">ชำระต่องวด : </label>
+                                  <div class="col-sm-8">
+                                    <input type="text" id="payporHC" name="payporHC" value="{{$data->paypor_HC}}" class="form-control form-control-sm" readonly/>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">ค่างวด/ระยะเวลาผ่อน : </label>
+                                  <div class="col-sm-4">
+                                    <input type="text" id="paymentHC" name="paymentHC" value="{{$data->payment_HC}}" class="form-control form-control-sm" readonly />
+                                  </div>
+                                  <div class="col-sm-4">
+                                    <input type="text" id="payperriodHC" name="payperriodHC" value="{{$data->payperriod_HC}}" class="form-control form-control-sm" readonly />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">ภาษี/ระยะเวลาผ่อน : </label>
+                                  <div class="col-sm-4">
+                                    <input type="text" id="taxHC" name="taxHC" value="{{$data->tax_HC}}" class="form-control form-control-sm" readonly />
+                                  </div>
+                                  <div class="col-sm-4">
+                                    <input type="text" id="taxperriodHC" name="taxperriodHC" value="{{$data->taxperriod_HC}}" class="form-control form-control-sm" readonly />
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">ยอดผ่อนชำระทั้งหมด : </label>
+                                  <div class="col-sm-4">
+                                    <input type="text" id="totalinstalmentsHC" name="totalinstalmentsHC" value="{{$data->totalinstalments_HC}}" class="form-control form-control-sm" readonly />
+                                  </div>
+                                  <div class="col-sm-4">
+                                    <input type="text" id="totalinstalments1HC" name="totalinstalments1HC" value="{{$data->totalinstalments1_HC}}" class="form-control form-control-sm" readonly />
+                                  </div>
                                 </div>
                               </div>
                             </div>
 
                             <hr />
                             <div class="row">
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>แนะนำ/นายหน้า : </label>
-                                  <input type="text" name="agentHC" value="{{$data->agent_HC}}" class="form-control" style="width: 250px;" placeholder="แนะนำ/นายหน้า" />
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">แบบ : </label>
+                                  <div class="col-sm-8">
+                                    <select name="baabHC" class="form-control form-control-sm">
+                                      <option value="" selected>--- สถานะ ---</option>
+                                      @foreach ($GetbaabHC as $key => $value)
+                                        <option value="{{$key}}" {{ ($key == $data->baab_HC) ? 'selected' : '' }}>{{$value}}</option>
+                                      @endforeach
+                                    </select>
+                                  </div>
                                 </div>
                               </div>
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>เบอร์โทรศัพท์ : </label>
-                                  <input type="text" name="telHC" value="{{$data->tel_HC}}" class="form-control" style="width: 250px;" placeholder="เบอร์โทรศัพท์" data-inputmask="&quot;mask&quot;:&quot;999-9999999&quot;" data-mask="" />
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>ค่าคอม : </label>
-                                  <input type="text" id="commitHC" name="commitHC" value="{{$data->commit_HC}}" class="form-control" style="width: 250px;" placeholder="ค่าคอม"/>
-                                </div>
-                              </div>
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>ประวัติการซื้อ/ค้ำ : </label>
-                                  <select name="purchhisHC" class="form-control" style="width: 108px;">
-                                    <option value="" selected>--- ซื้อ ---</option>
-                                    @foreach ($HisCarby as $key => $value)
-                                      <option value="{{$key}}" {{ ($key == $data->purchhis_HC) ? 'selected' : '' }}>{{$value}}</option>
-                                    @endforeach
-                                  </select>
-
-                                  <label>ค้ำ : </label>
-                                  <select name="supporthisHC" class="form-control" style="width: 108px;">
-                                    <option value="" selected>--- ค้ำ ---</option>
-                                    @foreach ($HisCarby as $key => $value)
-                                      <option value="{{$key}}" {{ ($key == $data->supporthis_HC) ? 'selected' : '' }}>{{$value}}</option>
-                                    @endforeach
-                                  </select>
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">ค้ำประกัน : </label>
+                                  <div class="col-sm-8">
+                                    <select name="guaranteeHC" class="form-control form-control-sm">
+                                      <option value="" selected>--- ค้ำประกัน ---</option>
+                                      @foreach ($GetguaranteeHC as $key => $value)
+                                        <option value="{{$key}}" {{ ($key == $data->guarantee_HC) ? 'selected' : '' }}>{{$value}}</option>
+                                      @endforeach
+                                    </select>
+                                  </div>
                                 </div>
                               </div>
                             </div>
 
                             <div class="row">
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>หมายเหตุ : </label>
-                                  <input type="text" name="otherHC" value="{{$data->other_HC}}" class="form-control" style="width: 250px;" placeholder="หมายเหตุ"/>
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">วันที่ชำระงวดแรก : </label>
+                                  <div class="col-sm-8">
+                                    <input type="text" name="firstpayHC" value="{{$data->firstpay_HC}}" class="form-control form-control-sm" readonly placeholder="วันที่ชำระงวดแรก" />
+                                  </div>
                                 </div>
                               </div>
-                              <div class="col-md-5">
-                                <div class="float-right form-inline">
-                                  <label>พนักงานขาย : </label>
-                                  <select name="saleHC" class="form-control" style="width: 250px;">
-                                    <option value="" selected>--- พนักงานขาย ---</option>
-                                    <option value="มารุวัน หะยีเจะแม" {{ ($data->sale_HC === 'มารุวัน หะยีเจะแม') ? 'selected' : '' }}>มารุวัน หะยีเจะแม</option>
-                                    <option value="แวยูคิมสี อาแว" {{ ($data->sale_HC === 'แวยูคิมสี อาแว') ? 'selected' : '' }}>แวยูคิมสี อาแว</option>
-                                    <option value="จิราวรรณ คงพัฒน์" {{ ($data->sale_HC === 'จิราวรรณ คงพัฒน์') ? 'selected' : '' }}>จิราวรรณ คงพัฒน์</option>
-                                  </select>
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">ประกันภัย : </label>
+                                  <div class="col-sm-8">
+                                    <input type="text" name="insuranceHC" value="{{$data->insurance_HC}}" class="form-control form-control-sm" placeholder="ประกันภัย" />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <hr />
+                            <div class="row">
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">แนะนำ/นายหน้า : </label>
+                                  <div class="col-sm-8">
+                                    <input type="text" name="agentHC" value="{{$data->agent_HC}}" class="form-control form-control-sm" placeholder="แนะนำ/นายหน้า" />
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">เบอร์โทรศัพท์ : </label>
+                                  <div class="col-sm-8">
+                                    <input type="text" name="telHC" value="{{$data->tel_HC}}" class="form-control form-control-sm" placeholder="เบอร์โทรศัพท์" data-inputmask="&quot;mask&quot;:&quot;999-9999999&quot;" data-mask="" />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">ค่าคอม : </label>
+                                  <div class="col-sm-8">
+                                    <input type="text" id="commitHC" name="commitHC" value="{{$data->commit_HC}}" class="form-control form-control-sm" placeholder="ค่าคอม"/>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">ประวัติการซื้อ/ค้ำ : </label>
+                                  <div class="col-sm-4">
+                                    <select name="purchhisHC" class="form-control form-control-sm">
+                                      <option value="" selected>--- ซื้อ ---</option>
+                                      @foreach ($HisCarby as $key => $value)
+                                        <option value="{{$key}}" {{ ($key == $data->purchhis_HC) ? 'selected' : '' }}>{{$value}}</option>
+                                      @endforeach
+                                    </select>
+                                  </div>
+                                  <div class="col-sm-4">
+                                    <select name="supporthisHC" class="form-control form-control-sm">
+                                      <option value="" selected>--- ค้ำ ---</option>
+                                      @foreach ($HisCarby as $key => $value)
+                                        <option value="{{$key}}" {{ ($key == $data->supporthis_HC) ? 'selected' : '' }}>{{$value}}</option>
+                                      @endforeach
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">หมายเหตุ : </label>
+                                  <div class="col-sm-8">
+                                    <input type="text" name="otherHC" value="{{$data->other_HC}}" class="form-control form-control-sm" placeholder="หมายเหตุ"/>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-6">
+                                <div class="form-group row mb-0">
+                                  <label class="col-sm-3 col-form-label text-right">พนักงานขาย : </label>
+                                  <div class="col-sm-8">
+                                    <select name="saleHC" class="form-control form-control-sm">
+                                      <option value="" selected>--- พนักงานขาย ---</option>
+                                      <option value="มารุวัน หะยีเจะแม" {{ ($data->sale_HC === 'มารุวัน หะยีเจะแม') ? 'selected' : '' }}>มารุวัน หะยีเจะแม</option>
+                                      <option value="แวยูคิมสี อาแว" {{ ($data->sale_HC === 'แวยูคิมสี อาแว') ? 'selected' : '' }}>แวยูคิมสี อาแว</option>
+                                      <option value="จิราวรรณ คงพัฒน์" {{ ($data->sale_HC === 'จิราวรรณ คงพัฒน์') ? 'selected' : '' }}>จิราวรรณ คงพัฒน์</option>
+                                    </select>
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -1157,7 +1301,7 @@
 
                     <input type="hidden" name="fdate" value="{{ $fdate }}" />
                     <input type="hidden" name="tdate" value="{{ $tdate }}" />
-                    <input type="hidden" name="branch" value="{{ $branch }}" />
+                    <input type="hidden" name="branch" value="{{ $data->branchUS_HC }}" />
                     <input type="hidden" name="status" value="{{ $status }}" />
                     
                     <input type="hidden" name="_method" value="PATCH"/>

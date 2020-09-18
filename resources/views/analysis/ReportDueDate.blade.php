@@ -204,7 +204,7 @@
             </tr>
             <tr align="center" style="line-height: 200%;">
               <td width="55px">
-                
+                {{-- เพิ่มเติม ว่าง --}}
               </td>
               <td width="110px">
                 @if($value->Accountbrance_car != Null)
