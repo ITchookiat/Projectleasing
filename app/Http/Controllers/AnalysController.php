@@ -3105,7 +3105,7 @@ class AnalysController extends Controller
       // return redirect()->Route('deleteImageEach',[$type,$mainid,$fdate,$tdate,$branch,$status])->with(['success' => 'ลบรูปสำเร็จเรียบร้อย']);
     }
 
-    public function deleteImageEach($type,$id,$fdate,$tdate,$branch,$status,$path,Request $request)
+    public function deleteImageEach($type,$id,$fdate,$tdate,$status,$path,Request $request)
     {
       if ($type == 1 or $type == 11) {       //สินเชื่อ(เงินกู้) && ปรับโครงสร้างหนี้
         $created_at = '';
@@ -3117,11 +3117,11 @@ class AnalysController extends Controller
           $created_at = substr($dataold->created_at,0,10);
         }
         
-        return view('analysis.viewimage', compact('data','countData','id','type','fdate','tdate','branch','status','path','created_at'));
+        return view('analysis.viewimage', compact('data','countData','id','type','fdate','tdate','status','path','created_at'));
       }
     }
 
-    public function destroyImage($type,$id,$fdate,$tdate,$branch,$status,$path,Request $request)
+    public function destroyImage($type,$id,$fdate,$tdate,$status,$path,Request $request)
     {
       if ($type == 1 or $type == 11) {       //สินเชื่อ(เงินกู้) && ปรับโครงสร้างหนี้
         $mainid = $request->mainid;
@@ -3148,7 +3148,7 @@ class AnalysController extends Controller
           }
         }
         $item1->Delete();
-        return redirect()->Route('deleteImageEach',[$type,$mainid,$fdate,$tdate,$branch,$status,$path])->with(['success' => 'ลบรูปสำเร็จ']);
+        return redirect()->Route('deleteImageEach',[$type,$mainid,$fdate,$tdate,$status,$path])->with(['success' => 'ลบรูปสำเร็จ']);
       }
     }
 
