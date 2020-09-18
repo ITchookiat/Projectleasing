@@ -69,7 +69,7 @@
                                 </button>
                               </form>
                             @endif
-                            <a href="{{ route('MasterDocument.edit',[$row->folder_id]) }}?type={{1}}">
+                              <a href="{{ route('MasterDocument.edit',[$row->folder_id]) }}?type={{1}}">
                                 <img src="{{ asset('dist/img/folder2.png') }}" class="img-fluid">
                               </a>
                               <p align="center"> {{$row->folder_name}}</p>

@@ -2,6 +2,18 @@
 @section('title','แผนกวิเคราะห์')
 @section('content')
 
+  @php
+    function DateThai($strDate){
+      $strYear = date("Y",strtotime($strDate))+543;
+      $strMonth= date("n",strtotime($strDate));
+      $strDay= date("d",strtotime($strDate));
+      $strMonthCut = Array("" , "ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค.");
+      $strMonthThai=$strMonthCut[$strMonth];
+      return "$strDay $strMonthThai $strYear";
+      //return "$strDay-$strMonthThai-$strYear";
+    }
+  @endphp
+
   <style>
     input[type="checkbox"] { position: absolute; opacity: 0; z-index: -1; }
     input[type="checkbox"]+span { font: 14pt sans-serif; color: #000; }
@@ -117,7 +129,7 @@
 
                   <h5 class="" align="left"><b>ขั้นตอนชั้นบังคับคดี</b></h5>
                   <div class="row">
-                    <div class="col-12">
+                    <div class="col-12 col-md-7">
                       <div class="card card-primary card-tabs">
                         <div class="card-header p-0 pt-1">
                           <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
@@ -411,10 +423,83 @@
                         </div>
                       </div>
                     </div>
+                    <div class="col-12 col-md-5">
+                      <div class="card card-primary">
+                        <div class="card-header">
+                          <h3 class="card-title"><i class="fas fa-archive"></i> อัพโหลดเอกสาร</h3>
+
+                          <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
+                            </button>
+                          </div>
+                        </div>
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-md-12">
+                                เลือกไฟล์ :
+                                  <!-- <input type="file" name="file" required/> -->
+                                  <div class="input-group">
+                                    <div class="custom-file">
+                                      <input type="file" name="filePDF" class="custom-file-input" id="exampleInputFile" value="">
+                                      <label class="custom-file-label" for="exampleInputFile">เลือกไฟล์อัพโหลด</label>
+                                    </div>
+                                  </div>
+                            </div>
+                          </div>
+                    <input type="hidden" name="_method" value="PATCH"/>
+                </form>
+                          @if($countDataImages != 0)
+                            <hr>
+                            <div class="row">
+                              <div class="table-responsive">
+                                <table class="table table-striped table-valign-middle" id="table1">
+                                  <thead>
+                                    <tr>
+                                      <th class="text-center"  style="width: 50px;">No.</th>
+                                      <th class="text-center">File Name</th>
+                                      <th class="text-center">Date Upload</th>
+                                      <th class="text-center">Action</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                      @foreach($dataImages as $key => $row)
+                                      <tr>
+                                        <td class="text-center"> {{$key+1}}</td>
+                                        <td class="text-left"> 
+                                            <i class="fas fa-file-pdf-o text-red"></i>
+                                          &nbsp;{{$row->name_image}}
+                                        </td>
+                                        <td class="text-left">{{DateThai(substr($row->created_at,0,10))}}</td>
+                                        <td class="text-right">
+                                            <a target="_blank" href="{{ action('LegislationController@edit',[$data->id,$type]) }}?preview={{1}}&file_id={{$row->image_id}}" class="btn btn-warning btn-xs" title="ดูไฟล์">
+                                              <i class="far fa-eye"></i>
+                                            </a>
+                                          @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
+                                            <form method="post" class="delete_form" action="{{ action('LegislationController@destroy',[$data->id ,5]) }}?file_id={{$row->image_id}}" style="display:inline;">
+                                            {{csrf_field()}}
+                                              <input type="hidden" name="_method" value="DELETE" />
+                                              <button type="submit" data-name="{{$row->name_image}}" class="delete-modal btn btn-danger btn-xs AlertForm" title="ลบไฟล์">
+                                                <i class="far fa-trash-alt"></i>
+                                              </button>
+                                            </form>
+                                          @endif
+                                        </td>
+                                      </tr>
+                                      @endforeach
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          @endif
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
-                  <input type="hidden" name="_method" value="PATCH"/>
-                </form>
+                  <!-- <input type="hidden" name="_method" value="PATCH"/>
+                </form> -->
               </div>
             </div>
           </div>
@@ -505,4 +590,34 @@
       </div>
     </div>
   </div>
+
+  <div class="modal fade" id="modal-preview">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content bg-default">
+        <div class="modal-body">
+          <p>One fine body…</p>
+        </div>
+        <div class="modal-footer">
+          <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      bsCustomFileInput.init();
+    });
+  </script>
+
+  <script>
+    $(function () {
+      $("#modal-preview").on("show.bs.modal", function (e) {
+        var link = $(e.relatedTarget).data("link");
+        $("#modal-preview .modal-body").load(link, function(){
+        });
+      });
+    });
+  </script>
 @endsection

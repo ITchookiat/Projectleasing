@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use PDF;
 use Storage;
+use File;
 use Carbon\Carbon;
 use Exporter;
 use Excel;
@@ -882,7 +883,7 @@ class LegislationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, $type)
+    public function edit(Request $request, $id, $type)
     {
       if ($type == 2) {     //ข้อมูลผู้เช่าซื้อ
         $data = DB::table('legislations')
@@ -1012,7 +1013,21 @@ class LegislationController extends Controller
                   ->leftJoin('legiscourtcases','legislations.id','=','legiscourtcases.legislation_id')
                   ->where('legiscourtcases.legislation_id',$id)->first();
 
-        return view('legislation.courtcase',compact('data','id','type'));
+        $dataImages = DB::table('legisimages')
+        ->where('legisimages.legisImage_id',$id)
+        ->orderBy('legisimages.image_id', 'ASC')
+        ->get();
+        $countDataImages = count($dataImages);
+        if($request->preview == 1){
+          $dataFile = DB::table('legisimages')
+          ->where('legisimages.image_id',$request->file_id)
+          ->where('legisimages.type_image',2)
+          ->orderBy('legisimages.image_id', 'ASC')
+          ->first();
+          return view('legislation.preview',compact('dataFile'));
+        }
+
+        return view('legislation.courtcase',compact('data','id','type','dataImages','countDataImages'));
       }
       elseif ($type == 8) { //สืบทรัพย์
         $data = DB::table('legislations')
@@ -1043,7 +1058,9 @@ class LegislationController extends Controller
                   ->where('legiscourts.legislation_id',$id)->first();
 
         $dataImages = DB::table('legisimages')
-                    ->where('legisimages.legisImage_id',$id)->get();
+                    ->where('legisimages.legisImage_id',$id)
+                    ->where('legisimages.type_image',1)
+                    ->get();
 
         $SumImage = count($dataImages);
         if($SumImage > 0){
@@ -1427,6 +1444,26 @@ class LegislationController extends Controller
           }
         $user->update();
 
+        if ($request->hasFile('filePDF')) {
+          $image_array = $request->file('filePDF');
+
+            $image_size = $image_array->getClientSize();
+            $image_lastname = $image_array->getClientOriginalExtension();
+            // $image_new_name = str_replace("/","",$user->Contract_legis). '.' .$image_array->getClientOriginalExtension();
+            $image_new_name = $image_array->getClientOriginalName();
+
+            $destination_path = public_path('/legislation');
+            $image_array->move($destination_path,$image_new_name);
+
+            $Uploaddb = new LegisImage([
+              'legisImage_id' => $id,
+              'name_image' => $image_new_name,
+              'size_image' => $image_size,
+              'type_image' => '2',
+            ]);
+            $Uploaddb ->save();
+        }
+
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
       }
       elseif ($type == 8) { //สืบทรัพย์
@@ -1537,6 +1574,7 @@ class LegislationController extends Controller
               'legisImage_id' => $id,
               'name_image' => $image_new_name,
               'size_image' => $image_size,
+              'type_image' => '1',
             ]);
             // dd($Uploaddb);
             $Uploaddb ->save();
@@ -1730,7 +1768,7 @@ class LegislationController extends Controller
       }
     }
 
-    public function destroy($id ,$type)
+    public function destroy(Request $request, $id ,$type)
     {
       if ($type == 1) { //ลบทั้งหมด
         $item = Legislation::find($id);
@@ -1780,6 +1818,13 @@ class LegislationController extends Controller
       elseif ($type == 4) { //ลบตาราง ขายฝาก Legisland
         $item = Legisland::where('legisland_id',$id);
         $item->Delete();
+      }
+      elseif ($type == 5) { //ลบไฟล์อัพโหลดเอกสาร
+        $item1 = LegisImage::where('image_id','=', $request->file_id)->first();
+        $itemPath = public_path().'/Legislation/'.$item1->name_image;
+        // dd($itemPath);
+        File::delete($itemPath);
+        $item1->Delete();
       }
       return redirect()->back()->with('success','ลบข้อมูลเรียบร้อย');
     }
