@@ -33,8 +33,8 @@ Route::group(['middleware' => 'auth'], function()
     
     // ใช้ร่วมกับ แผนกอื่นๆ //
     Route::get('/Analysis/deleteImageAll/{id}/{path}', 'AnalysController@deleteImageAll');
-    Route::get('/Analysis/destroyImage/{id}/{type}/{fdate}/{tdate}/{branch}/{status}/{path}', 'AnalysController@destroyImage');
-    Route::get('/Analysis/deleteImageEach/{type}/{id}/{fdate}/{tdate}/{branch}/{status}/{path}', 'AnalysController@deleteImageEach')->name('deleteImageEach');
+    Route::get('/Analysis/destroyImage/{id}/{type}/{fdate}/{tdate}/{status}/{path}', 'AnalysController@destroyImage');
+    Route::get('/Analysis/deleteImageEach/{type}/{id}/{fdate}/{tdate}/{status}/{path}', 'AnalysController@deleteImageEach')->name('deleteImageEach');
     Route::get('/Analysis/Report/{id}/{type}', 'ReportAnalysController@ReportPDFIndex');
     Route::get('/Analysis/ReportDueDate/{type}', 'ReportAnalysController@ReportDueDate');
     //-------------------//-----------//
