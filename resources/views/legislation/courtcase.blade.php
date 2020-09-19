@@ -476,7 +476,7 @@
                                             <a target="_blank" href="{{ action('LegislationController@edit',[$data->id,$type]) }}?preview={{1}}&file_id={{$row->image_id}}" class="btn btn-warning btn-xs" title="ดูไฟล์">
                                               <i class="far fa-eye"></i>
                                             </a>
-                                          @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
+                                          @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก กฎหมาย")
                                             <form method="post" class="delete_form" action="{{ action('LegislationController@destroy',[$data->id ,5]) }}?file_id={{$row->image_id}}" style="display:inline;">
                                             {{csrf_field()}}
                                               <input type="hidden" name="_method" value="DELETE" />
