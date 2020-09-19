@@ -61,6 +61,10 @@ class AnalysController extends Controller
           $contno = $request->get('Contno');
         }
 
+        if ($status == 'Null') {
+          $status = NULL;
+        }
+
         if ($newfdate == '' and $newtdate == '') {
           $data = DB::table('buyers')
               ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
@@ -297,6 +301,10 @@ class AnalysController extends Controller
           $status = $request->get('status');
         }elseif (session()->has('status')) {
           $status = session('status');
+        }
+
+        if ($status == 'Null') {
+          $status = NULL;
         }
 
         if ($newfdate == '' and $newtdate == '') {
@@ -1496,9 +1504,9 @@ class AnalysController extends Controller
         'รถเก๋ง/7ที่นั่ง' => 'รถเก๋ง/7ที่นั่ง',
       ];
 
-      if ($status == 'Null') {
-        $status = NULL;
-      }
+      // if ($status == 'Null') {
+      //   $status = NULL;
+      // }
 
       if ($type == 1) {
         return view('Analysis.edit',
