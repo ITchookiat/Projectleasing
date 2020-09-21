@@ -1543,7 +1543,6 @@ class AnalysController extends Controller
      */
     public function update(Request $request, $id, $type)
     {
-      // dd($request);
       date_default_timezone_set('Asia/Bangkok');
       $Currdate = date('2020-06-02');   //วันที่เช็ตค่า รูป
       $Getcardetail = Cardetail::where('Buyercar_id',$id)->first();
