@@ -81,9 +81,9 @@
                               <option value="05" > สาขา สายบุรี</option>
                               <option value="06" > สาขา โกลก</option>
                               <option value="07" > สาขา เบตง</option>
-                              <option value="56" > สาขา โคกโพธิ์</option>
-                              <option value="57" > สาขา ตันหยงมัส</option>
-                              <option value="58" > สาขา บันนังสตา</option>
+                              <option value="08" > สาขา โคกโพธิ์</option>
+                              <option value="09" > สาขา ตันหยงมัส</option>
+                              <option value="12" > สาขา บันนังสตา</option>
                               <option value="10" > สาขา รถบ้าน</option>
                             </select>
                           </div>

@@ -125,22 +125,22 @@
                     <span class="badge bg-primary float-right">{{$Count07}}</span>
                   @endif
                 </a>
-                <a class="nav-link" id="vert-tabs-56-tab" data-toggle="pill" href="#vert-tabs-56" role="tab" aria-controls="vert-tabs-56" aria-selected="false">
-                  <i class="fas fa-hdd"></i> สาขาโคกโพธิ์ (56)
-                  @if($Count56 != 0)
-                    <span class="badge bg-primary float-right">{{$Count56}}</span>
+                <a class="nav-link" id="vert-tabs-08-tab" data-toggle="pill" href="#vert-tabs-08" role="tab" aria-controls="vert-tabs-08" aria-selected="false">
+                  <i class="fas fa-hdd"></i> สาขาโคกโพธิ์ (08)
+                  @if($Count08 != 0)
+                    <span class="badge bg-primary float-right">{{$Count08}}</span>
                   @endif
                 </a>
-                <a class="nav-link" id="vert-tabs-57-tab" data-toggle="pill" href="#vert-tabs-57" role="tab" aria-controls="vert-tabs-57" aria-selected="false">
-                  <i class="fas fa-hdd"></i> สาขาตันหยงมัส (57)
-                  @if($Count57 != 0)
-                    <span class="badge bg-primary float-right">{{$Count57}}</span>
+                <a class="nav-link" id="vert-tabs-09-tab" data-toggle="pill" href="#vert-tabs-09" role="tab" aria-controls="vert-tabs-09" aria-selected="false">
+                  <i class="fas fa-hdd"></i> สาขาตันหยงมัส (09)
+                  @if($Count09 != 0)
+                    <span class="badge bg-primary float-right">{{$Count09}}</span>
                   @endif
                 </a>
-                <a class="nav-link" id="vert-tabs-58-tab" data-toggle="pill" href="#vert-tabs-58" role="tab" aria-controls="vert-tabs-58" aria-selected="false">
-                  <i class="fas fa-hdd"></i> สาขาบังนังสตา (58)
-                  @if($Count58 != 0)
-                    <span class="badge bg-primary float-right">{{$Count58}}</span>
+                <a class="nav-link" id="vert-tabs-12-tab" data-toggle="pill" href="#vert-tabs-12" role="tab" aria-controls="vert-tabs-12" aria-selected="false">
+                  <i class="fas fa-hdd"></i> สาขาบังนังสตา (12)
+                  @if($Count12 != 0)
+                    <span class="badge bg-primary float-right">{{$Count12}}</span>
                   @endif
                 </a>
               @elseif($type == 4)
@@ -1090,12 +1090,12 @@
                         </table>
                       </div>
                     </div>
-                    <div class="tab-pane fade" id="vert-tabs-56" role="tabpanel" aria-labelledby="vert-tabs-56-tab">
+                    <div class="tab-pane fade" id="vert-tabs-08" role="tabpanel" aria-labelledby="vert-tabs-08-tab">
                       <div class="card-header">
-                        <h3 class="card-title">สาขาโคกโพธิ์ (56)</h3>
+                        <h3 class="card-title">สาขาโคกโพธิ์ (08)</h3>
                       </div>
                       <div class="col-12">
-                        <table class="table table-striped table-valign-middle" id="table56">
+                        <table class="table table-striped table-valign-middle" id="table08">
                           <thead>
                             <tr>
                               {{-- <th class="text-center">สาขา</th> --}}
@@ -1228,12 +1228,12 @@
                         </table>
                       </div>
                     </div>
-                    <div class="tab-pane fade" id="vert-tabs-57" role="tabpanel" aria-labelledby="vert-tabs-57-tab">
+                    <div class="tab-pane fade" id="vert-tabs-09" role="tabpanel" aria-labelledby="vert-tabs-09-tab">
                       <div class="card-header">
-                        <h3 class="card-title">สาขาตันหยงมัส (57)</h3>
+                        <h3 class="card-title">สาขาตันหยงมัส (09)</h3>
                       </div>
                       <div class="col-12">
-                        <table class="table table-striped table-valign-middle" id="table57">
+                        <table class="table table-striped table-valign-middle" id="table09">
                           <thead>
                             <tr>
                               {{-- <th class="text-center">สาขา</th> --}}
@@ -1366,12 +1366,12 @@
                         </table>
                       </div>
                     </div>
-                    <div class="tab-pane fade" id="vert-tabs-58" role="tabpanel" aria-labelledby="vert-tabs-58-tab">
+                    <div class="tab-pane fade" id="vert-tabs-12" role="tabpanel" aria-labelledby="vert-tabs-12-tab">
                       <div class="card-header">
-                        <h3 class="card-title">สาขาบังนังสตา (58)</h3>
+                        <h3 class="card-title">สาขาบังนังสตา (12)</h3>
                       </div>
                       <div class="col-12">
-                        <table class="table table-striped table-valign-middle" id="table58">
+                        <table class="table table-striped table-valign-middle" id="table12">
                           <thead>
                             <tr>
                               {{-- <th class="text-center">สาขา</th> --}}
@@ -1790,7 +1790,7 @@
 
   <script>
     $(function () {
-      $("#table1,#table3,#table4,#table5,#table6,#table7,#table56,#table57,#table58").DataTable({
+      $("#table1,#table3,#table4,#table5,#table6,#table7,#table08,#table09,#table12").DataTable({
         "responsive": true,
         "autoWidth": false,
         "ordering": true,
