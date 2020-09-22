@@ -551,15 +551,15 @@
                         <div class="col-sm-7">
                           <select id="branchcar" name="branchcar" class="form-control" required>
                                 <option value="" selected>--- เลือกสาขา ---</option>
-                                <option value="ปัตตานี" {{ (auth::user()->branch == 01) ? 'selected' : '' }}>ปัตตานี</option>
-                                <option value="ยะลา" {{ (auth::user()->branch == 03) ? 'selected' : '' }}>ยะลา</option>
-                                <option value="นราธิวาส" {{ (auth::user()->branch == 04) ? 'selected' : '' }}>นราธิวาส</option>
-                                <option value="สายบุรี" {{ (auth::user()->branch == 05) ? 'selected' : '' }}>สายบุรี</option>
-                                <option value="โกลก" {{ (auth::user()->branch == 06) ? 'selected' : '' }}>โกลก</option>
-                                <option value="เบตง" {{ (auth::user()->branch == 07) ? 'selected' : '' }}>เบตง</option>
-                                <option value="โคกโพธิ์" {{ (auth::user()->branch == 08) ? 'selected' : '' }}>โคกโพธิ์</option>
-                                <option value="ตันหยงมัส" {{ (auth::user()->branch == 09) ? 'selected' : '' }}>ตันหยงมัส</option>
-                                <option value="บังนังสตา" {{ (auth::user()->branch == 12) ? 'selected' : '' }}>บังนังสตา</option>
+                                <option value="ปัตตานี" {{ (auth::user()->branch == '01') ? 'selected' : '' }}>ปัตตานี</option>
+                                <option value="ยะลา" {{ (auth::user()->branch == '03') ? 'selected' : '' }}>ยะลา</option>
+                                <option value="นราธิวาส" {{ (auth::user()->branch == '04') ? 'selected' : '' }}>นราธิวาส</option>
+                                <option value="สายบุรี" {{ (auth::user()->branch == '05') ? 'selected' : '' }}>สายบุรี</option>
+                                <option value="โกลก" {{ (auth::user()->branch == '06') ? 'selected' : '' }}>โกลก</option>
+                                <option value="เบตง" {{ (auth::user()->branch == '07') ? 'selected' : '' }}>เบตง</option>
+                                <option value="โคกโพธิ์" {{ (auth::user()->branch == '08') ? 'selected' : '' }}>โคกโพธิ์</option>
+                                <option value="ตันหยงมัส" {{ (auth::user()->branch == '09') ? 'selected' : '' }}>ตันหยงมัส</option>
+                                <option value="บังนังสตา" {{ (auth::user()->branch == '12') ? 'selected' : '' }}>บังนังสตา</option>
                           </select>
                         </div>
                       </div>
