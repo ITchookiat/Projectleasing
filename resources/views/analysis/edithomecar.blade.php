@@ -551,7 +551,7 @@
                                   @if(auth::user()->type == 1 or auth::user()->type == 2)
                                     <a href="{{ action('AnalysController@deleteImageAll',[$data->id,$path]) }}" class="btn btn-danger pull-left DeleteImage" title="ลบรูปภาพทั้งหมด"> ลบรูปภาพทั้งหมด..</a>
                                   @endif
-                                    <a href="{{ action('AnalysController@deleteImageEach',[$Gettype,$data->id,$fdate,$tdate,$branch,$status,$path]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
+                                    <a href="{{ action('AnalysController@deleteImageEach',[$Gettype,$data->id,$fdate,$tdate,$status,$path]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
                                     <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ..
                                     </a>
                                   @endif
