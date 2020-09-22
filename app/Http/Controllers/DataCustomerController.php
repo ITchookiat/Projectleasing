@@ -152,6 +152,26 @@ class DataCustomerController extends Controller
             $SetContract = '00-'.$SetYear.'/';
         }
 
+        if(auth::user()->branch == '01'){
+            $SetUserBranch = 'ปัตตานี';
+        }elseif(auth::user()->branch == '03'){
+            $SetUserBranch = 'ยะลา';
+        }elseif(auth::user()->branch == '04'){
+            $SetUserBranch = 'นราธิวาส';
+        }elseif(auth::user()->branch == '05'){
+            $SetUserBranch = 'สายบุรี';
+        }elseif(auth::user()->branch == '06'){
+            $SetUserBranch = 'สุไหงโกลก';
+        }elseif(auth::user()->branch == '07'){
+            $SetUserBranch = 'เบตง';
+        }elseif(auth::user()->branch == '08'){
+            $SetUserBranch = 'โคกโพธิ์';
+        }elseif(auth::user()->branch == '09'){
+            $SetUserBranch = 'ตันหยงมัส';
+        }elseif(auth::user()->branch == '12'){
+            $SetUserBranch = 'บังนังสตา';
+        }
+
         $Buyerdb = new Buyer([
             'Contract_buyer' => $SetContract,
             'Date_Due' => $DateDue,
@@ -160,6 +180,7 @@ class DataCustomerController extends Controller
             'Phone_buyer' => $data->Phone_buyer,
             'Idcard_buyer' => $data->IDCard_buyer,
             'Walkin_id' => $data->Customer_id,
+            'SendUse_Walkin' => $SetUserBranch,
           ]);
           $Buyerdb->save();
           $Sponsordb = new Sponsor([
