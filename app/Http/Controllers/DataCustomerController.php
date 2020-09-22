@@ -15,6 +15,7 @@ use App\Cardetail;
 use App\Expenses;
 use App\UploadfileImage;
 use App\upload_lat_long;
+use Helper;
 
 class DataCustomerController extends Controller
 {
@@ -152,24 +153,26 @@ class DataCustomerController extends Controller
             $SetContract = '00-'.$SetYear.'/';
         }
 
-        if(auth::user()->branch == '01'){
+        if(auth()->user()->branch == '01'){
             $SetUserBranch = 'ปัตตานี';
-        }elseif(auth::user()->branch == '03'){
+        }elseif(auth()->user()->branch == '03'){
             $SetUserBranch = 'ยะลา';
-        }elseif(auth::user()->branch == '04'){
+        }elseif(auth()->user()->branch == '04'){
             $SetUserBranch = 'นราธิวาส';
-        }elseif(auth::user()->branch == '05'){
+        }elseif(auth()->user()->branch == '05'){
             $SetUserBranch = 'สายบุรี';
-        }elseif(auth::user()->branch == '06'){
+        }elseif(auth()->user()->branch == '06'){
             $SetUserBranch = 'สุไหงโกลก';
-        }elseif(auth::user()->branch == '07'){
+        }elseif(auth()->user()->branch == '07'){
             $SetUserBranch = 'เบตง';
-        }elseif(auth::user()->branch == '08'){
+        }elseif(auth()->user()->branch == '08'){
             $SetUserBranch = 'โคกโพธิ์';
-        }elseif(auth::user()->branch == '09'){
+        }elseif(auth()->user()->branch == '09'){
             $SetUserBranch = 'ตันหยงมัส';
-        }elseif(auth::user()->branch == '12'){
+        }elseif(auth()->user()->branch == '12'){
             $SetUserBranch = 'บังนังสตา';
+        }else{
+            $SetUserBranch = 'แอดมิน';
         }
 
         $Buyerdb = new Buyer([
