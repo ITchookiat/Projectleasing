@@ -112,9 +112,9 @@ class AnalysController extends Controller
         $Count05 = 0;
         $Count06 = 0;
         $Count07 = 0;
-        $Count56 = 0;
-        $Count57 = 0;
-        $Count58 = 0;
+        $Count08 = 0;
+        $Count09 = 0;
+        $Count12 = 0;
         $SumAll = 0;
 
         if ($data != NULL) {
@@ -132,14 +132,14 @@ class AnalysController extends Controller
             }elseif ($value->branch_car == 'เบตง') {
               $Count07 += 1;
             }elseif ($value->branch_car == 'โคกโพธิ์') {
-              $Count56 += 1;
+              $Count08 += 1;
             }elseif ($value->branch_car == 'ตันหยงมัส') {
-              $Count57 += 1;
+              $Count09 += 1;
             }elseif ($value->branch_car == 'บันนังสตา') {
-              $Count58 += 1;
+              $Count12 += 1;
             }
           }
-          $SumAll = $Count01 + $Count03 + $Count04 + $Count05 + $Count06 + $Count07 + $Count56 + $Count57 + $Count58;
+          $SumAll = $Count01 + $Count03 + $Count04 + $Count05 + $Count06 + $Count07 + $Count08 + $Count09 + $Count12;
         }
 
         $topcar = DB::table('buyers')
@@ -166,7 +166,7 @@ class AnalysController extends Controller
 
         return view('analysis.view', compact('type', 'data','newfdate','newtdate','status','Setdate','SumTopcar','SumCommissioncar','SumCommitprice',
                                              'contno','SetStrConn','SetStr1','SetStr2',
-                                             'Count01','Count03','Count04','Count05','Count06','Count07','Count56','Count57','Count58','SumAll'));
+                                             'Count01','Count03','Count04','Count05','Count06','Count07','Count08','Count09','Count12','SumAll'));
       }
       elseif ($request->type == 2){ //เพิ่มสินเชื่อ
         return view('analysis.createbuyer');
@@ -1808,17 +1808,17 @@ class AnalysController extends Controller
                     ->get();
             }
             elseif ($cardetail->branch_car == "โคกโพธิ์") {
-              $connect = Buyer::where('Contract_buyer', 'like', '56%' )
+              $connect = Buyer::where('Contract_buyer', 'like', '08%' )
                   ->orderBy('Contract_buyer', 'desc')->limit(1)
                   ->get();
             }
             elseif ($cardetail->branch_car == "ตันหยงมัส") {
-              $connect = Buyer::where('Contract_buyer', 'like', '57%' )
+              $connect = Buyer::where('Contract_buyer', 'like', '09%' )
                   ->orderBy('Contract_buyer', 'desc')->limit(1)
                   ->get();
             }
             elseif ($cardetail->branch_car == "บังนังสตา") {
-              $connect = Buyer::where('Contract_buyer', 'like', '58%' )
+              $connect = Buyer::where('Contract_buyer', 'like', '12%' )
                   ->orderBy('Contract_buyer', 'desc')->limit(1)
                   ->get();
             }
@@ -1873,23 +1873,18 @@ class AnalysController extends Controller
                   ->orderBy('Contract_buyer', 'desc')->limit(1)
                   ->get();
             }
-            elseif ($cardetail->branch_car == "ปรับโครงสร้าง") {
-              $connect = Buyer::where('Contract_buyer', 'like', '22%' )
-                  ->orderBy('Contract_buyer', 'desc')->limit(1)
-                  ->get();
-            }
             elseif ($cardetail->branch_car == "โคกโพธิ์") {
-              $connect = Buyer::where('Contract_buyer', 'like', '56%' )
+              $connect = Buyer::where('Contract_buyer', 'like', '08%' )
                   ->orderBy('Contract_buyer', 'desc')->limit(1)
                   ->get();
             }
             elseif ($cardetail->branch_car == "ตันหยงมัส") {
-              $connect = Buyer::where('Contract_buyer', 'like', '57%' )
+              $connect = Buyer::where('Contract_buyer', 'like', '09%' )
                   ->orderBy('Contract_buyer', 'desc')->limit(1)
                   ->get();
             }
             elseif ($cardetail->branch_car == "บังนังสตา") {
-              $connect = Buyer::where('Contract_buyer', 'like', '58%' )
+              $connect = Buyer::where('Contract_buyer', 'like', '12%' )
                   ->orderBy('Contract_buyer', 'desc')->limit(1)
                   ->get();
             }
