@@ -206,7 +206,7 @@ class DataCustomerController extends Controller
             'Loanofficer_car' => $data->Name_user,
             'StatusApp_car' => 'รออนุมัติ',
             'DocComplete_car' => $request->get('doccomplete'),
-            'branch_car' => $data->Branch_car,
+            'branch_car' => $SetUserBranch,
           ]);
           $Cardetaildb ->save();
           $Expensesdb = new Expenses([
