@@ -273,6 +273,50 @@
                               </div>
                             </div>
 
+                            @if(Auth::user()->type == 'Admin' or Auth::user()->type == 'แผนก วิเคราะห์')
+                              <div class="row">
+                                <div class="col-6">
+                                  <div class="form-group row mb-0">
+                                    <label class="col-sm-3 col-form-label text-right"><font color="red">สาขา : </font></label>
+                                    <div class="col-sm-8">
+                                      <select name="branchcar" class="form-control form-control-sm">
+                                        <option value="" selected>--- เลือกสาขา ---</option>
+                                        <option value="ปัตตานี">ปัตตานี (01)</option>
+                                        <option value="ยะลา">ยะลา (03)</option>
+                                        <option value="นราธิวาส">นราธิวาส (04)</option>
+                                        <option value="สายบุรี">สายบุรี (05)</option>
+                                        <option value="โกลก">โกลก (06)</option>
+                                        <option value="เบตง">เบตง (07)</option>
+                                        <option value="โคกโพธิ์">โคกโพธิ์ (08)</option>
+                                        <option value="ตันหยงมัส">ตันหยงมัส (09)</option>
+                                        <option value="บันนังสตา">บันนังสตา (12)</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            @else
+                              @if(Auth::user()->branch == '01')
+                                <input type="hidden" name="branchcar" value="ปัตตานี" readonly />
+                              @elseif(Auth::user()->branch == '03')
+                                <input type="hidden" name="branchcar" value="ยะลา" readonly />
+                              @elseif(Auth::user()->branch == '04')
+                                <input type="hidden" name="branchcar" value="นราธิวาส" readonly />
+                              @elseif(Auth::user()->branch == '05')
+                                <input type="hidden" name="branchcar" value="สายบุรี" readonly />
+                              @elseif(Auth::user()->branch == '06')
+                                <input type="hidden" name="branchcar" value="โกลก" readonly />
+                              @elseif(Auth::user()->branch == '07')
+                                <input type="hidden" name="branchcar" value="เบตง" readonly />
+                              @elseif(Auth::user()->branch == '08')
+                                <input type="hidden" name="branchcar" value="โคกโพธิ์" readonly />
+                              @elseif(Auth::user()->branch == '09')
+                                <input type="hidden" name="branchcar" value="ตันหยงมัส" readonly />
+                              @elseif(Auth::user()->branch == '12')
+                                <input type="hidden" name="branchcar" value="บังนังสตา" readonly />
+                              @endif
+                            @endif
+
                             <div class="row">
                               <div class="col-6">
                                 <div class="form-group row mb-0">
@@ -1558,32 +1602,6 @@
                               <div class="float-right form-inline">
                                 <!-- <label><font color="red">เจ้าหน้าที่สินเชื่อ : </font></label> -->
                                 <input type="hidden" name="Loanofficercar" class="form-control form-control-sm" value="{{ Auth::user()->name }}" readonly />
-                              </div>
-                            </div>
-                            <div class="col-5">
-                              <div class="float-right form-inline">
-                                <!-- <label><font color="red">สาขา : </font></label> -->
-                                @if(Auth::user()->branch == 99)
-                                  <input type="hidden" name="branchcar" value="Admin" readonly />
-                                @elseif(Auth::user()->branch == 01)
-                                  <input type="hidden" name="branchcar" value="ปัตตานี" readonly />
-                                @elseif(Auth::user()->branch == 03)
-                                  <input type="hidden" name="branchcar" value="ยะลา" readonly />
-                                @elseif(Auth::user()->branch == 04)
-                                  <input type="hidden" name="branchcar" value="นราธิวาส" readonly />
-                                @elseif(Auth::user()->branch == 05)
-                                  <input type="hidden" name="branchcar" value="สายบุรี" readonly />
-                                @elseif(Auth::user()->branch == 06)
-                                  <input type="hidden" name="branchcar" value="โกลก" readonly />
-                                @elseif(Auth::user()->branch == 07)
-                                  <input type="hidden" name="branchcar" value="เบตง" readonly />
-                                @elseif(Auth::user()->branch == 56)
-                                  <input type="hidden" name="branchcar" value="โคกโพธิ์" readonly />
-                                @elseif(Auth::user()->branch == 57)
-                                  <input type="hidden" name="branchcar" value="ตันหยงมัส" readonly />
-                                @elseif(Auth::user()->branch == 58)
-                                  <input type="hidden" name="branchcar" value="บันนังสตา" readonly />
-                                @endif
                               </div>
                             </div>
                           </div>
