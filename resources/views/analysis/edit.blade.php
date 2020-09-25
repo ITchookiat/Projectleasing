@@ -968,7 +968,7 @@
                             <input type="hidden" name="status" value="{{ $status }}" />
 
                             <div class="row">
-                              <div class="col-md-8">
+                              <div class="col-md-6">
                                 <h5 class="text-center"><b>รูปภาพประกอบ</b></h5>
                                 @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                   <div class="file-loading">
@@ -1004,17 +1004,33 @@
                                   @endif
                                 </div> -->
                               </div>
-                              <div class="col-md-4">
-                                <h5 class="text-center"><b>รายละเอียดอาชีพ</b></h5>
-                                @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                                  <textarea class="form-control" name="CareerDetail" rows="12">{{$data->CareerDetail_buyer}}</textarea>
-                                @else
-                                    @if($GetDocComplete != Null)
-                                      <textarea class="form-control" name="CareerDetail" rows="12" readonly>{{$data->CareerDetail_buyer}}</textarea>
-                                    @else
+                              <div class="col-md-6">
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <h5 class="text-center"><b>รายละเอียดอาชีพ</b></h5>
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                       <textarea class="form-control" name="CareerDetail" rows="12">{{$data->CareerDetail_buyer}}</textarea>
+                                    @else
+                                        @if($GetDocComplete != Null)
+                                          <textarea class="form-control" name="CareerDetail" rows="12" readonly>{{$data->CareerDetail_buyer}}</textarea>
+                                        @else
+                                          <textarea class="form-control" name="CareerDetail" rows="12">{{$data->CareerDetail_buyer}}</textarea>
+                                        @endif
                                     @endif
-                                @endif
+                                  </div>
+                                  <div class="col-md-6">
+                                    <h5 class="text-center"><b>เหตุผลในการขออนุมัติ</b></h5>
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
+                                      <textarea class="form-control" name="ApproveDetail" rows="12">{{$data->ApproveDetail_buyer}}</textarea>
+                                    @else
+                                        @if($GetDocComplete != Null)
+                                          <textarea class="form-control" name="ApproveDetail" rows="12" readonly>{{$data->ApproveDetail_buyer}}</textarea>
+                                        @else
+                                          <textarea class="form-control" name="ApproveDetail" rows="12">{{$data->ApproveDetail_buyer}}</textarea>
+                                        @endif
+                                    @endif
+                                  </div>
+                                </div>
                               </div>
                             </div>
                             <div class="row">
