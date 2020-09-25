@@ -29,21 +29,23 @@
       <br>
       <table border="1">
           <tr align="center" style="background-color: yellow;line-height: 200%;font-weight:bold;">
-            <th style="width: 50px">ลำดับ</th>
+            <th style="width: 30px">ลำดับ</th>
             <th style="width: 80px">เลขที่สัญญา</th>
-            <th style="width: 150px">ชื่อ-นามสกุล</th>
-            <th style="width: 90px">วันที่สืบพยาน</th>
-            <th style="width: 90px">ศาล</th>
-            <th style="width: 90px">เลขคดีดำ</th>
+            <th style="width: 130px">ชื่อ-นามสกุล</th>
+            <th style="width: 80px">วันที่สืบพยาน</th>
+            <th style="width: 80px">ศาล</th>
+            <th style="width: 80px">เลขคดีดำ</th>
+            <th style="width: 80px">ชื่อผู้ส่งฟ้อง</th>
           </tr>
           @foreach($data as $key => $row)
           <tr style="line-height: 200%;">
-            <td align="center" style="width: 50px"> {{$key+1}}</td>
+            <td align="center" style="width: 30px"> {{$key+1}}</td>
             <td align="center" style="width: 80px"> {{$row->Contract_legis}}</td>
-            <td align="center" style="width: 150px"> {{$row->Name_legis}}</td>
-            <td align="center" style="width: 90px"> {{DateThai($row->examiday_court)}}</td>
-            <td align="center" style="width: 90px"> {{$row->law_court}}</td>
-            <td align="center" style="width: 90px"> {{$row->bnumber_court}}</td>
+            <td align="center" style="width: 130px"> {{$row->Name_legis}}</td>
+            <td align="center" style="width: 80px"> {{DateThai($row->examiday_court)}}</td>
+            <td align="center" style="width: 80px"> {{$row->law_court}}</td>
+            <td align="center" style="width: 80px"> {{$row->bnumber_court}}</td>
+            <td align="center" style="width: 80px"> {{$row->User_court}}</td>
           </tr>
           @endforeach
       </table>
