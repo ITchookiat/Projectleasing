@@ -1009,24 +1009,24 @@
                                   <div class="col-md-6">
                                     <h5 class="text-center"><b>รายละเอียดอาชีพ</b></h5>
                                     @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                                      <textarea class="form-control" name="CareerDetail" rows="12">{{$data->CareerDetail_buyer}}</textarea>
+                                      <textarea class="form-control" name="CareerDetail" rows="10" placeholder="ป้อนรายละเอียด">{{$data->CareerDetail_buyer}}</textarea>
                                     @else
                                         @if($GetDocComplete != Null)
-                                          <textarea class="form-control" name="CareerDetail" rows="12" readonly>{{$data->CareerDetail_buyer}}</textarea>
+                                          <textarea class="form-control" name="CareerDetail" rows="10" placeholder="ป้อนรายละเอียด" readonly>{{$data->CareerDetail_buyer}}</textarea>
                                         @else
-                                          <textarea class="form-control" name="CareerDetail" rows="12">{{$data->CareerDetail_buyer}}</textarea>
+                                          <textarea class="form-control" name="CareerDetail" rows="10" placeholder="ป้อนรายละเอียด">{{$data->CareerDetail_buyer}}</textarea>
                                         @endif
                                     @endif
                                   </div>
                                   <div class="col-md-6">
                                     <h5 class="text-center"><b>เหตุผลในการขออนุมัติ</b></h5>
                                     @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                                      <textarea class="form-control" name="ApproveDetail" rows="12">{{$data->ApproveDetail_buyer}}</textarea>
+                                      <textarea class="form-control" name="ApproveDetail" rows="10" placeholder="ป้อนเหตุผล">{{$data->ApproveDetail_buyer}}</textarea>
                                     @else
                                         @if($GetDocComplete != Null)
-                                          <textarea class="form-control" name="ApproveDetail" rows="12" readonly>{{$data->ApproveDetail_buyer}}</textarea>
+                                          <textarea class="form-control" name="ApproveDetail" rows="10" placeholder="ป้อนเหตุผล" readonly>{{$data->ApproveDetail_buyer}}</textarea>
                                         @else
-                                          <textarea class="form-control" name="ApproveDetail" rows="12">{{$data->ApproveDetail_buyer}}</textarea>
+                                          <textarea class="form-control" name="ApproveDetail" rows="10" placeholder="ป้อนเหตุผล">{{$data->ApproveDetail_buyer}}</textarea>
                                         @endif
                                     @endif
                                   </div>
