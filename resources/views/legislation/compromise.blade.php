@@ -234,128 +234,161 @@
                             </li>
                           </ul>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body text-sm">
                           <div class="tab-content" id="custom-tabs-one-tabContent">
                             <div class="tab-pane fade active show" id="tabs-1" role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
                               <div class="row">
                                 <div class="col-md-8">
                                   <div class="row">
-                                    <div class="col-md-6">
-                                      <div class="float-right form-inline">
-                                        <label>ยอดประนอมหนี้ : </label>
-                                        <input type="text" name="TotalPromise" id="TotalPromise" value="{{ number_format($data->Total_Promise,0) }}" class="form-control" style="width: 200px;" oninput="Comma();" required/>
+                                    <div class="col-6">
+                                      <div class="form-group row mb-0">
+                                        <label class="col-sm-4 col-form-label text-right">ยอดประนอมหนี้ : </label>
+                                        <div class="col-sm-8">
+                                          <input type="text" name="TotalPromise" id="TotalPromise" value="{{ number_format($data->Total_Promise,0) }}" class="form-control form-control-sm" oninput="Comma();" required/>
+                                        </div>
                                       </div>
                                     </div>
-                                    <div class="col-md-6">
-                                      <div class="float-right form-inline">
-                                        <script>
-                                          function income(){
-                                            console.log(document.getElementById("TypePromise").value);
-                                              var Getid = document.getElementById("TypePromise").value;
-                                              if (Getid == "ประนอมหลังยึดทรัพย์") {
-                                                $('#DateShow').show();
-                                              }else {
-                                                $('#DateShow').hide();
-                                              }
+
+                                    <script>
+                                      function income(){
+                                        console.log(document.getElementById("TypePromise").value);
+                                          var Getid = document.getElementById("TypePromise").value;
+                                          if (Getid == "ประนอมหลังยึดทรัพย์") {
+                                            $('#DateShow').show();
+                                          }else {
+                                            $('#DateShow').hide();
                                           }
-                                        </script>
+                                      }
+                                    </script>
 
-                                        <label>ประเภทประนอมหนี้ :</label>
-                                        <select id="TypePromise" name="TypePromise" class="form-control" style="width: 200px;" onchange="income();" required>
-                                          <option value="" selected>--- เลือกประนอม ---</option>
-                                          <option value="ประนอมที่ศาล" {{ ($data->Type_Promise === 'ประนอมที่ศาล') ? 'selected' : '' }}>ประนอมที่ศาล</option>
-                                          <option value="ประนอมที่บริษัท" {{ ($data->Type_Promise === 'ประนอมที่บริษัท') ? 'selected' : '' }}>ประนอมที่บริษัท</option>
-                                          <option value="ประนอมหลังยึดทรัพย์" {{ ($data->Type_Promise === 'ประนอมหลังยึดทรัพย์') ? 'selected' : '' }}>ประนอมหลังยึดทรัพย์</option>
-                                          <option value="ประนอมโกงเจ้าหนี้" {{ ($data->Type_Promise === 'ประนอมโกงเจ้าหนี้') ? 'selected' : '' }}>ประนอมโกงเจ้าหนี้</option>
-                                        </select>
-                                      </div>
-                                    </div>
-                                    <br><br><br>
-
-                                    @if($data->Type_Promise != "ประนอมหลังยึดทรัพย์")
-                                      <div id="DateShow" style="display:none">
-                                    @else
-                                      <div id="DateShow">
-                                    @endif
-                                      <div class="col-md-6">
-                                        <div class="float-right form-inline">
-                                          <label>วันงดขายเข้าตลาด :</label>
-                                          <input type="date" name="DateNsalePromise" value="{{ $data->DateNsale_Promise }}" class="form-control" style="width: 200px;"/>
+                                    <div class="col-6">
+                                      <div class="form-group row mb-0">
+                                        <label class="col-sm-4 col-form-label text-right">ประเภทประนอมหนี้ : </label>
+                                        <div class="col-sm-8">
+                                          <select id="TypePromise" name="TypePromise" class="form-control form-control-sm" onchange="income();" required>
+                                            <option value="" selected>--- เลือกประนอม ---</option>
+                                            <option value="ประนอมที่ศาล" {{ ($data->Type_Promise === 'ประนอมที่ศาล') ? 'selected' : '' }}>ประนอมที่ศาล</option>
+                                            <option value="ประนอมที่บริษัท" {{ ($data->Type_Promise === 'ประนอมที่บริษัท') ? 'selected' : '' }}>ประนอมที่บริษัท</option>
+                                            <option value="ประนอมหลังยึดทรัพย์" {{ ($data->Type_Promise === 'ประนอมหลังยึดทรัพย์') ? 'selected' : '' }}>ประนอมหลังยึดทรัพย์</option>
+                                            <option value="ประนอมโกงเจ้าหนี้" {{ ($data->Type_Promise === 'ประนอมโกงเจ้าหนี้') ? 'selected' : '' }}>ประนอมโกงเจ้าหนี้</option>
+                                          </select>
                                         </div>
-                                      </div>
-                                      <div class="col-md-6">
-                                        <div class="float-right form-inline">
-                                          <label>วันครบกำหนด :</label>
-                                          <input type="date" name="DatesetPromise" value="{{ $data->Dateset_Promise }}" class="form-control" style="width: 200px;"/>
-                                        </div>
-                                      </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                      <div class="float-right form-inline">
-                                        <label>ยอดที่ต้องชำระ :</label>
-                                        <input type="text" name="PayallPromise" id="PayallPromise" value="{{ $data->Payall_Promise }}" class="form-control" style="width: 200px;" oninput="Comma();"/>
-                                      </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                      <div class="float-right form-inline">
-                                        <label>ยอดคงเหลือ : </label>
-                                        <input type="text" id="SumPromise" name="SumPromise" value="{{ number_format($SumPay, 0) }}" class="form-control" style="width: 200px;" readonly/>
-                                        <input type="hidden" id="Sumhide" name="Sumhide" value="{{ $SumPay }}" class="form-control" style="width: 200px;"/>
-                                        <input type="hidden" id="SumPayAll" name="SumPayAll" value="{{ $SumAllPAy }}" class="form-control" style="width: 200px;"/>
-                                      </div>
-                                    </div>
-
-                                    <div class="col-md-6"></div>
-
-                                    <div class="col-md-6">
-                                      <div class="float-right form-inline">
-                                        <label>ส่วนลด :</label>
-                                        <input type="text" id="DiscountPromise" name="DiscountPromise" value="{{ number_format(($data->Discount_Promise != '') ?$data->Discount_Promise: 0) }}" class="form-control" style="width: 200px;" onkeyup="Discount();" />
-                                        <input type="hidden" id="Discounthide" name="Discounthide" value="{{ $data->Discount_Promise }}" class="form-control" style="width: 200px;" />
-                                      </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                      <div class="float-right form-inline">
-                                        <label>จำนวนงวด :</label>
-                                        <input type="text" name="DuePromise" id="DuePromise" value="{{ $data->Due_Promise }}" class="form-control" style="width: 200px;" readonly/>
-                                      </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                      <div class="float-right form-inline">
-                                        <label>งวดละ :</label>
-                                        <input type="text" name="DuePayPromise" id="DuePayPromise" value="{{ number_format(($data->DuePay_Promise != '') ?$data->DuePay_Promise: 0) }}" class="form-control" style="width: 200px;" oninput="DuePay();"/>
-                                      </div>
-                                    </div>
-
-                                    <br><br><br>
-                                    <div class="col-md-6">
-                                      <div class="float-right form-inline">
-                                        <label><font color="red">วันที่ชำระล่าสุด : </font></label>
-                                        @if($data->Date_Payment != Null)
-                                          <input type="text" name="DatelastPromise" value="{{ DateThai($data->Date_Payment) }}" class="form-control" style="width: 200px;" readonly/>
-                                        @else
-                                          <input type="text" name="DatelastPromise" class="form-control" style="width: 200px;" readonly/>
-                                        @endif
-                                      </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                      <div class="float-right form-inline">
-                                        <label><font color="red">ยอดชำระล่าสุด : </font></label>
-                                        <input type="text" name="SumAllPromise" id="SumAllPromise" value="{{ number_format($data->Gold_Payment, 2) }}" class="form-control" style="width: 200px;" oninput="Comma();" readonly/>
                                       </div>
                                     </div>
                                   </div>
+
+                                  @if($data->Type_Promise != "ประนอมหลังยึดทรัพย์")
+                                    <div id="DateShow" style="display:none">
+                                  @else
+                                    <div id="DateShow">
+                                  @endif
+                                    <div class="row">
+                                      <div class="col-6">
+                                        <div class="form-group row mb-0">
+                                          <label class="col-sm-4 col-form-label text-right">วันงดขายเข้าตลาด : </label>
+                                          <div class="col-sm-8">
+                                            <input type="date" name="DateNsalePromise" value="{{ $data->DateNsale_Promise }}" class="form-control form-control-sm"/>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                      <div class="col-6">
+                                        <div class="form-group row mb-0">
+                                          <label class="col-sm-4 col-form-label text-right">วันครบกำหนด : </label>
+                                          <div class="col-sm-8">
+                                            <input type="date" name="DatesetPromise" value="{{ $data->Dateset_Promise }}" class="form-control form-control-sm"/>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div class="row">
+                                    <div class="col-6">
+                                      <div class="form-group row mb-3">
+                                        <label class="col-sm-4 col-form-label text-right">ยอดเงินก้อนแรก : </label>
+                                        <div class="col-sm-8">
+                                          <input type="text" name="PayallPromise" id="PayallPromise" value="{{ $data->Payall_Promise }}" class="form-control form-control-sm" oninput="Comma();"/>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div class="row">
+                                    <div class="col-6">
+                                      <div class="form-group row mb-0">
+                                        <label class="col-sm-4 col-form-label text-right">จำนวนงวด : </label>
+                                        <div class="col-sm-8">
+                                          <input type="text" name="DuePromise" id="DuePromise" value="{{ $data->Due_Promise }}" class="form-control form-control-sm" readonly/>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-6">
+                                      <div class="form-group row mb-0">
+                                        <label class="col-sm-4 col-form-label text-right">งวดละ : </label>
+                                        <div class="col-sm-8">
+                                          <input type="text" name="DuePayPromise" id="DuePayPromise" value="{{ number_format(($data->DuePay_Promise != '') ?$data->DuePay_Promise: 0) }}" class="form-control form-control-sm" oninput="DuePay();"/>
+                                        </div>
+                                      </div>
+                                    </div>                  
+                                  </div>
+
+                                  <div class="row">
+                                    <div class="col-6"></div>
+                                    <div class="col-6">
+                                      <div class="form-group row mb-0">
+                                        <label class="col-sm-4 col-form-label text-right">ส่วนลด : </label>
+                                        <div class="col-sm-8">
+                                          <input type="text" id="DiscountPromise" name="DiscountPromise" value="{{ number_format(($data->Discount_Promise != '') ?$data->Discount_Promise: 0) }}" class="form-control form-control-sm" onkeyup="Discount();" />
+                                          <input type="hidden" id="Discounthide" name="Discounthide" value="{{ $data->Discount_Promise }}" class="form-control form-control-sm"/>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div class="row">
+                                    <div class="col-6"></div>
+                                    <div class="col-6">
+                                      <div class="form-group row mb-0">
+                                        <label class="col-sm-4 col-form-label text-right">ยอดคงเหลือ : </label>
+                                        <div class="col-sm-8">
+                                          <input type="text" id="SumPromise" name="SumPromise" value="{{ number_format($SumPay, 0) }}" class="form-control form-control-sm" readonly/>
+                                          <input type="hidden" id="Sumhide" name="Sumhide" value="{{ $SumPay }}" class="form-control form-control-sm"/>
+                                          <input type="hidden" id="SumPayAll" name="SumPayAll" value="{{ $SumAllPAy }}" class="form-control form-control-sm"/>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div class="row">
+                                    <div class="col-6">
+                                      <div class="form-group row mb-0">
+                                        <label class="col-sm-4 col-form-label text-right"><font color="red">วันที่ชำระล่าสุด : </font></label>
+                                        <div class="col-sm-8">
+                                          @if($data->Date_Payment != Null)
+                                            <input type="text" name="DatelastPromise" value="{{ DateThai($data->Date_Payment) }}" class="form-control form-control-sm" readonly/>
+                                          @else
+                                            <input type="text" name="DatelastPromise" class="form-control form-control-sm" readonly/>
+                                          @endif
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-6">
+                                      <div class="form-group row mb-0">
+                                        <label class="col-sm-4 col-form-label text-right"><font color="red">ยอดชำระล่าสุด : </font></label>
+                                        <div class="col-sm-8">
+                                        <input type="text" name="SumAllPromise" id="SumAllPromise" value="{{ number_format($data->Gold_Payment, 2) }}" class="form-control form-control-sm" oninput="Comma();" readonly/>
+                                        </div>
+                                      </div>
+                                    </div>                  
+                                  </div>
+
                                 </div>
 
                                 <div class="col-md-4">
                                   <div class="form-inline" align="right">
                                     <label>หมายเหตุ : </label>
-                                    <textarea name="NotePromise" rows="10" class="form-control" style="width: 100%">{{$data->Note_Promise}}</textarea>
+                                    <textarea name="NotePromise" rows="10" class="form-control form-control-sm" style="width: 100%">{{$data->Note_Promise}}</textarea>
                                   </div>
                                 </div>
                               </div>
@@ -365,26 +398,28 @@
                 </form>
                             <div class="tab-pane fade" id="tabs-2" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
                               <div class="table-responsive">
-                                <table class="table table-bordered" id="table">
+                                <table class="table table-striped" id="table">
                                     <thead class="thead-dark bg-gray-light" >
                                       <tr>
-                                        <th class="text-center" style="width:100px">ลำดับ</th>
-                                        <th class="text-center">วันที่</th>
+                                        <th class="text-center" style="width:40px">ลำดับ</th>
+                                        <th class="text-center">วันที่รับชำระ</th>
                                         <th class="text-center">ยอดชำระ</th>
                                         <th class="text-center">ประเภท</th>
                                         <th class="text-center">เลขที่ใบเสร็จ</th>
+                                        <th class="text-center">วันที่ดิวงวดถัดไป</th>
                                         <th class="text-center">ลงชื่อ</th>
-                                        <th class="text-center" style="width:150px">action</th>
+                                        <th class="text-center" style="width:100px">action</th>
                                       </tr>
                                     </thead>
                                     <tbody>
                                       @foreach($dataPay as $key => $row)
                                       <tr>
                                         <td class="text-center"> {{$key+1}} </td>
-                                        <td class="text-center"> {{ DateThai($row->Date_Payment) }}</td>
+                                        <td class="text-center"> {{ DateThai(substr($row->created_at,0,10)) }}</td>
                                         <td class="text-center"> {{ number_format($row->Gold_Payment, 2) }} </td>
                                         <td class="text-center"> {{$row->Type_Payment}} </td>
                                         <td class="text-center"> {{$row->Jobnumber_Payment}} </td>
+                                        <td class="text-center"> {{ DateThai($row->Date_Payment) }}</td>
                                         <td class="text-center"> {{$row->Adduser_Payment}} </td>
                                         <td class="text-center">
                                           <a target="_blank" href="{{ route('legislation.report' ,[$row->Payment_id, 2]) }}" class="btn btn-warning btn-sm" title="ปริ้นใบเสร็จ">
