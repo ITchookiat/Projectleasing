@@ -237,7 +237,7 @@
         </tr>
         <tr>
           <th align="right" width="120px"> VAT &nbsp;</th>
-          <th align="right" width="120px"> <b>{{$dataReport->Vat_car}}</b></th>
+          <th align="right" width="120px"> <b>{{($dataReport->Vat_car != null)?$dataReport->Vat_car: '7%'}}</b></th>
           <th align="right" width="120px"> ระยะเวลาผ่อน &nbsp;</th>
           <th class="text-center" width="180px" style="background-color: yellow;">
             <b>{{$dataReport->Timeslacken_car}} งวด </b>
