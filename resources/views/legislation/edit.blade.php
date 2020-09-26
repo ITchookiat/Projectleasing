@@ -756,6 +756,7 @@
                                             <form method="post" class="delete_form" action="{{ action('LegislationController@destroy',[$data->id ,5]) }}?file_id={{$row->image_id}}" style="display:inline;">
                                             {{csrf_field()}}
                                               <input type="hidden" name="_method" value="DELETE" />
+                                              <input type="hidden" name="contract" value="{{ $data->Contract_legis }}"> 
                                               <button type="submit" data-name="{{$row->name_image}}" class="delete-modal btn btn-danger btn-xs AlertForm" title="ลบไฟล์">
                                                 <i class="far fa-trash-alt"></i>
                                               </button>

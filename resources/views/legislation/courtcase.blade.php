@@ -129,7 +129,7 @@
 
                   <h5 class="" align="left"><b>ขั้นตอนชั้นบังคับคดี</b></h5>
                   <div class="row">
-                    <div class="col-12 col-md-12">
+                    <div class="col-12 col-md-7">
                       <div class="card card-primary card-tabs">
                         <div class="card-header p-0 pt-1">
                           <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
@@ -423,7 +423,10 @@
                         </div>
                       </div>
                     </div>
-                    <!-- <div class="col-12 col-md-5">
+                    <input type="hidden" name="_method" value="PATCH"/>
+                </form>
+
+                    <div class="col-12 col-md-5">
                       <div class="card card-primary">
                         <div class="card-header">
                           <h3 class="card-title"><i class="fas fa-archive"></i> อัพโหลดเอกสาร</h3>
@@ -445,6 +448,7 @@
                                       <label class="custom-file-label" for="exampleInputFile">เลือกไฟล์อัพโหลด</label>
                                     </div>
                                   </div>
+                                <input type="hidden" name="contract" value="{{ $data->Contract_legis }}">    
                             </div>
                           </div>
                     
@@ -471,13 +475,14 @@
                                         </td>
                                         <td class="text-left">{{DateThai(substr($row->created_at,0,10))}}</td>
                                         <td class="text-right">
-                                            <a target="_blank" href="{{ action('LegislationController@edit',[$data->id,$type]) }}?preview={{1}}&file_id={{$row->image_id}}" class="btn btn-warning btn-xs" title="ดูไฟล์">
+                                            <a target="_blank" href="{{ action('LegislationController@edit',[$data->id,$type]) }}?preview={{2}}&file_id={{$row->image_id}}" class="btn btn-warning btn-xs" title="ดูไฟล์">
                                               <i class="far fa-eye"></i>
                                             </a>
                                           @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก กฎหมาย")
                                             <form method="post" class="delete_form" action="{{ action('LegislationController@destroy',[$data->id ,5]) }}?file_id={{$row->image_id}}" style="display:inline;">
                                             {{csrf_field()}}
                                               <input type="hidden" name="_method" value="DELETE" />
+                                              <input type="hidden" name="contract" value="{{ $data->Contract_legis }}">    
                                               <button type="submit" data-name="{{$row->name_image}}" class="delete-modal btn btn-danger btn-xs AlertForm" title="ลบไฟล์">
                                                 <i class="far fa-trash-alt"></i>
                                               </button>
@@ -493,11 +498,11 @@
                           @endif
                         </div>
                       </div>
-                    </div> -->
+                    </div>
                   </div>
 
-                  <input type="hidden" name="_method" value="PATCH"/>
-                </form>
+                  <!-- <input type="hidden" name="_method" value="PATCH"/>
+                </form> -->
               </div>
             </div>
           </div>

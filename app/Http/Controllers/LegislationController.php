@@ -923,6 +923,7 @@ class LegislationController extends Controller
         }
         $dataImages = DB::table('legisimages')
         ->where('legisimages.legisImage_id',$id)
+        ->where('legisimages.type_image',2)
         ->orderBy('legisimages.image_id', 'ASC')
         ->get();
         $countDataImages = count($dataImages);
@@ -933,7 +934,7 @@ class LegislationController extends Controller
           ->orderBy('legisimages.image_id', 'ASC')
           ->first();
           $contractNo = str_replace("/","",$data->Contract_legis);
-          
+
           return view('legislation.preview',compact('dataFile','contractNo'));
         }
 
@@ -1031,16 +1032,19 @@ class LegislationController extends Controller
 
         $dataImages = DB::table('legisimages')
         ->where('legisimages.legisImage_id',$id)
+        ->where('legisimages.type_image',3)
         ->orderBy('legisimages.image_id', 'ASC')
         ->get();
         $countDataImages = count($dataImages);
-        if($request->preview == 1){
+        if($request->preview == 2){
           $dataFile = DB::table('legisimages')
           ->where('legisimages.image_id',$request->file_id)
-          ->where('legisimages.type_image',2)
+          ->where('legisimages.type_image',3)
           ->orderBy('legisimages.image_id', 'ASC')
           ->first();
-          return view('legislation.preview',compact('dataFile'));
+          $contractNo = str_replace("/","",$data->Contract_legis);
+
+          return view('legislation.preview',compact('dataFile','contractNo'));
         }
 
         return view('legislation.courtcase',compact('data','id','type','dataImages','countDataImages'));
@@ -1481,25 +1485,26 @@ class LegislationController extends Controller
           }
         $user->update();
 
-        // if ($request->hasFile('filePDF')) {
-        //   $image_array = $request->file('filePDF');
+        if ($request->hasFile('filePDF')) {
+          $image_array = $request->file('filePDF');
+          $contractNo = str_replace("/","",$request->contract);
 
-        //     $image_size = $image_array->getClientSize();
-        //     $image_lastname = $image_array->getClientOriginalExtension();
-        //     // $image_new_name = str_replace("/","",$user->Contract_legis). '.' .$image_array->getClientOriginalExtension();
-        //     $image_new_name = $image_array->getClientOriginalName();
+            $image_size = $image_array->getClientSize();
+            $image_lastname = $image_array->getClientOriginalExtension();
+            // $image_new_name = str_replace("/","",$user->Contract_legis). '.' .$image_array->getClientOriginalExtension();
+            $image_new_name = $image_array->getClientOriginalName();
 
-        //     $destination_path = public_path('/legislation');
-        //     $image_array->move($destination_path,$image_new_name);
+            $destination_path = public_path().'/legislation/'.$contractNo;
+            $image_array->move($destination_path,$image_new_name);
 
-        //     $Uploaddb = new LegisImage([
-        //       'legisImage_id' => $id,
-        //       'name_image' => $image_new_name,
-        //       'size_image' => $image_size,
-        //       'type_image' => '2',
-        //     ]);
-        //     $Uploaddb ->save();
-        // }
+            $Uploaddb = new LegisImage([
+              'legisImage_id' => $id,
+              'name_image' => $image_new_name,
+              'size_image' => $image_size,
+              'type_image' => '3',
+            ]);
+            $Uploaddb ->save();
+        }
 
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
       }
@@ -1857,8 +1862,9 @@ class LegislationController extends Controller
         $item->Delete();
       }
       elseif ($type == 5) { //ลบไฟล์อัพโหลดเอกสาร
+        $contractNo = str_replace("/","",$request->contract);
         $item1 = LegisImage::where('image_id','=', $request->file_id)->first();
-        $itemPath = public_path().'/Legislation/'.$item1->name_image;
+        $itemPath = public_path().'/Legislation/'.$contractNo.'/'.$item1->name_image;
         // dd($itemPath);
         File::delete($itemPath);
         $item1->Delete();
