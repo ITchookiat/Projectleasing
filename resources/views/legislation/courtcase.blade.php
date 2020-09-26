@@ -129,7 +129,7 @@
 
                   <h5 class="" align="left"><b>ขั้นตอนชั้นบังคับคดี</b></h5>
                   <div class="row">
-                    <div class="col-12 col-md-7">
+                    <div class="col-12 col-md-12">
                       <div class="card card-primary card-tabs">
                         <div class="card-header p-0 pt-1">
                           <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
@@ -423,7 +423,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-12 col-md-5">
+                    <!-- <div class="col-12 col-md-5">
                       <div class="card card-primary">
                         <div class="card-header">
                           <h3 class="card-title"><i class="fas fa-archive"></i> อัพโหลดเอกสาร</h3>
@@ -439,7 +439,6 @@
                           <div class="row">
                             <div class="col-md-12">
                                 เลือกไฟล์ :
-                                  <!-- <input type="file" name="file" required/> -->
                                   <div class="input-group">
                                     <div class="custom-file">
                                       <input type="file" name="filePDF" class="custom-file-input" id="exampleInputFile" value="">
@@ -448,8 +447,7 @@
                                   </div>
                             </div>
                           </div>
-                    <input type="hidden" name="_method" value="PATCH"/>
-                </form>
+                    
                           @if($countDataImages != 0)
                             <hr>
                             <div class="row">
@@ -495,11 +493,11 @@
                           @endif
                         </div>
                       </div>
-                    </div>
+                    </div> -->
                   </div>
 
-                  <!-- <input type="hidden" name="_method" value="PATCH"/>
-                </form> -->
+                  <input type="hidden" name="_method" value="PATCH"/>
+                </form>
               </div>
             </div>
           </div>

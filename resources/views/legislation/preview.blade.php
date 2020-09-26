@@ -9,7 +9,7 @@
     <table border="0" width="100%">
         <tr>
             <td>
-            <iframe src="{{ asset('legislation/'.$dataFile->name_image) }}" width="100%" height="700vh" style="border:none;" scrolling="no">
+            <iframe src="{{ asset('legislation/'.$contractNo.'/'.$dataFile->name_image) }}" width="100%" height="700vh" style="border:none;" scrolling="no">
             </td>
         </tr>
     </table>
