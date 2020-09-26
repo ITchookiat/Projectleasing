@@ -362,7 +362,7 @@
             <th style="width: 80px">ระยะเวลา</th>
             <th>เลขที่สัญญา</th>
             <th style="width: 125px">ชื่อ-สกุล</th>
-            <th style="width: 70px">เบอร์โทร</th>
+            <th style="width: 100px">เบอร์โทร</th>
             <th style="width: 60px">ยอดประนอม</th>
             <th style="width: 55px">ชำระแล้ว</th>
             <th style="width: 55px">ยอดคงเหลือ</th>
@@ -373,76 +373,66 @@
             <th style="width: 55px">สถานะ</th>
           </tr>
           @foreach($data as $key => $row)
-          <tr style="line-height: 150%;">
-            <td align="center" style="width: 30px">{{$key+1}}</td>
-            <td align="center" style="width: 65px">{{DateThai($row->Date_Promise)}}</td>
-            <td align="left" style="width: 80px">
-              @if($row->Status_legis == "ปิดบัญชีประนอมหนี้" or $row->Status_legis == "ยึดรถหลังฟ้อง")
-                @php
-                  $Cldate = date_create($row->Date_Promise);
-                  $nowCldate = date_create($row->DateUpState_legis);
-                  $ClDateDiff = date_diff($Cldate,$nowCldate);
-                  $duration = $ClDateDiff->format("%a วัน")
-                @endphp
-                <!-- <font color="green">{{$duration}}</font> -->
-                <font color="green">{{$ClDateDiff->y}} ปี {{$ClDateDiff->m}} เดือน {{$ClDateDiff->d}} วัน</font>
-              @else
-                @php
-                  $nowday = date('Y-m-d');
-                  $Cldate = date_create($row->Date_Promise);
-                  $nowCldate = date_create($nowday);
-                  $ClDateDiff = date_diff($Cldate,$nowCldate);
-                  $duration = $ClDateDiff->format("%a วัน")
-                @endphp
-                <!-- <font>{{$duration}}</font> -->
-                <font>{{$ClDateDiff->y}} ปี {{$ClDateDiff->m}} เดือน {{$ClDateDiff->d}} วัน</font>
-              @endif
-            </td>
-            <td align="center">{{$row->Contract_legis}}</td>
-            <td style="width: 125px"> {{$row->Name_legis}}</td>
-            <td align="left" style="width: 70px">
-              @if($countDatasmart != 0)
-                @foreach($SmartInfo as $key => $row1)
-                  @if($row1->CONTNO == $row->Contract_legis)
-                    {{ str_limit(iconv('Tis-620','utf-8',str_replace(" ","",$row1->TELP)),11)}}
-                  @endif
-                @endforeach
-              @else
-                -
-              @endif
-            </td>
-            <td align="center" style="width: 60px"> {{number_format($row->Total_Promise,2)}} &nbsp;</td>
-            <td align="center" style="width: 55px"> {{number_format($row->Total_Promise - $row->Sum_Promise,2)}} &nbsp;</td>
-            <td align="center" style="width: 55px"> {{number_format($row->Sum_Promise,2)}} &nbsp;</td>
-            <td align="center" style="width: 50px"> {{number_format($row->DuePay_Promise,2)}} &nbsp; </td>
-            @if($status != '')
-              <td align="center" style="width: 65px">
-                {{DateThai($row->Date_Payment)}}
+            <tr style="line-height: 150%;">
+              <td align="center" style="width: 30px">{{$key+1}}</td>
+              <td align="center" style="width: 65px">{{DateThai($row->Date_Promise)}}</td>
+              <td align="left" style="width: 80px">
+                @if($row->Status_legis == "ปิดบัญชีประนอมหนี้" or $row->Status_legis == "ยึดรถหลังฟ้อง")
+                  @php
+                    $Cldate = date_create($row->Date_Promise);
+                    $nowCldate = date_create($row->DateUpState_legis);
+                    $ClDateDiff = date_diff($Cldate,$nowCldate);
+                    $duration = $ClDateDiff->format("%a วัน")
+                  @endphp
+                  <!-- <font color="green">{{$duration}}</font> -->
+                  <font color="green">{{$ClDateDiff->y}} ปี {{$ClDateDiff->m}} เดือน {{$ClDateDiff->d}} วัน</font>
+                @else
+                  @php
+                    $nowday = date('Y-m-d');
+                    $Cldate = date_create($row->Date_Promise);
+                    $nowCldate = date_create($nowday);
+                    $ClDateDiff = date_diff($Cldate,$nowCldate);
+                    $duration = $ClDateDiff->format("%a วัน")
+                  @endphp
+                  <!-- <font>{{$duration}}</font> -->
+                  <font>{{$ClDateDiff->y}} ปี {{$ClDateDiff->m}} เดือน {{$ClDateDiff->d}} วัน</font>
+                @endif
               </td>
-            @endif
-            <td align="center" style="width: 55px">
-              @php
-                @$sumTotal += $row->Total_Promise;
-                @$sumRemain += $row->Sum_Promise;
-                $lastday = date('Y-m-d', strtotime("-90 days"));
-              @endphp
-              @if($row->Status_Promise == "ปิดบัญชีประนอมหนี้")
-                <font color="green"> ปิดบัญชี </font>
-              @elseif($row->Status_Promise == "จ่ายจบประนอมหนี้")
-                <font color="green"> จ่ายจบ </font>
-              @else
-                @foreach($dataPay as $key => $value)
-                  @if($row->legisPromise_id == $value->legis_Com_Payment_id)
-                      @if($value->Date_Payment < $lastday)
-                        <font color="red"> ขาดชำระ </font>
-                      @else
-                        <font color="green"> ชำระปกติ </font>
+              <td align="center">{{$row->Contract_legis}}</td>
+              <td style="width: 125px"> {{$row->Name_legis}}</td>
+              <td align="left" style="width: 100px">{{$row->Phone_legis}}</td>
+              <td align="center" style="width: 60px"> {{number_format($row->Total_Promise,2)}} &nbsp;</td>
+              <td align="center" style="width: 55px"> {{number_format($row->Total_Promise - $row->Sum_Promise,2)}} &nbsp;</td>
+              <td align="center" style="width: 55px"> {{number_format($row->Sum_Promise,2)}} &nbsp;</td>
+              <td align="center" style="width: 50px"> {{number_format($row->DuePay_Promise,2)}} &nbsp; </td>
+                @if($status != '')
+                  <td align="center" style="width: 65px">
+                    {{DateThai($row->Date_Payment)}}
+                  </td>
+                @endif
+              <td align="center" style="width: 55px">
+                @php
+                  @$sumTotal += $row->Total_Promise;
+                  @$sumRemain += $row->Sum_Promise;
+                  $lastday = date('Y-m-d', strtotime("-90 days"));
+                @endphp
+                @if($row->Status_Promise == "ปิดบัญชีประนอมหนี้")
+                  <font color="green"> ปิดบัญชี </font>
+                @elseif($row->Status_Promise == "จ่ายจบประนอมหนี้")
+                  <font color="green"> จ่ายจบ </font>
+                @else
+                  @foreach($dataPay as $key => $value)
+                    @if($row->legisPromise_id == $value->legis_Com_Payment_id)
+                        @if($value->Date_Payment < $lastday)
+                          <font color="red"> ขาดชำระ </font>
+                        @else
+                          <font color="green"> ชำระปกติ </font>
+                        @endif
                       @endif
-                    @endif
-                @endforeach
-              @endif
-            </td>
-          </tr>
+                  @endforeach
+                @endif
+              </td>
+            </tr>
           @endforeach
       </table>
       <table border="0" style="background-color:yellow;">

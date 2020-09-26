@@ -2015,9 +2015,6 @@ class LegislationController extends Controller
         $dataPay = DB::table('legislations')
             ->join('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
             ->join('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
-            // ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
-            //   return $q->whereBetween('legispayments.Date_Payment',[$newfdate,$newtdate]);
-            // })
             ->where('legispayments.Flag_Payment', '=', 'Y')
             ->get();
 
@@ -2085,6 +2082,7 @@ class LegislationController extends Controller
               }
             }
         }
+
 
         $pdf = new PDF();
         $pdf::SetTitle('รายงานลูกหนี้ประนอมหนี้');
@@ -2250,7 +2248,7 @@ class LegislationController extends Controller
                 ->get();
 
                 $status = 'ลูกหนี้รวม';
-              }
+        }
 
         if ($newfdate != NULL) {
           $Fdate = date('d-m-Y', strtotime($newfdate));
