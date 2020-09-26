@@ -384,7 +384,6 @@
                     $ClDateDiff = date_diff($Cldate,$nowCldate);
                     $duration = $ClDateDiff->format("%a วัน")
                   @endphp
-                  <!-- <font color="green">{{$duration}}</font> -->
                   <font color="green">{{$ClDateDiff->y}} ปี {{$ClDateDiff->m}} เดือน {{$ClDateDiff->d}} วัน</font>
                 @else
                   @php
@@ -394,7 +393,6 @@
                     $ClDateDiff = date_diff($Cldate,$nowCldate);
                     $duration = $ClDateDiff->format("%a วัน")
                   @endphp
-                  <!-- <font>{{$duration}}</font> -->
                   <font>{{$ClDateDiff->y}} ปี {{$ClDateDiff->m}} เดือน {{$ClDateDiff->d}} วัน</font>
                 @endif
               </td>
