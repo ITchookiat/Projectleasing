@@ -2028,26 +2028,13 @@ class LegislationController extends Controller
             ->orderBy('ASFHP.ARMAST.CONTNO', 'ASC')
             ->get();
 
-        $countDatasmart = count($dataSmart);
-        $countData = count($data);
-
-        for ($i=0; $i < $countData; $i++) {
-          $Contract_No[] = str_replace(" ", "",$data[$i]->Contract_legis);
-            for ($j=0; $j < $countDatasmart; $j++) {
-              if($data[$i]->Contract_legis == $dataSmart[$j]->CONTNO){
-                $SmartInfo[] = $dataSmart[$j];
-              }
-            }
-        }
-
-
         $pdf = new PDF();
         $pdf::SetTitle('รายงานลูกหนี้ประนอมหนี้');
         $pdf::AddPage('L', 'A4');
         $pdf::SetFont('thsarabunpsk', '', 12, '', true);
         $pdf::SetAutoPageBreak(TRUE, 20);
 
-        $view = \View::make('legislation.reportCompro' ,compact('data','dataPay','dataDB','type','dataCount','status','newfdate','newtdate','SmartInfo','countDatasmart'));
+        $view = \View::make('legislation.reportCompro' ,compact('data','dataPay','dataDB','type','status','newfdate','newtdate'));
         $html = $view->render();
         $pdf::WriteHTML($html,true,false,true,false,'');
         $pdf::Output('report.pdf');
