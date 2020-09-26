@@ -668,7 +668,7 @@
                       </div>
                     </div>
 
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                       <div class="card card-danger">
                         <div class="card-header">
                           <h3 class="card-title"><i class="fas fa-marker"></i> หมายเหตุ</h3>
@@ -691,6 +691,88 @@
                         </div>
                       </div>
                     </div>
+
+                    @if($data1 != null)
+                    <input type="hidden" name="Adreeslegis" class="form-control"  value="{{ iconv('TIS-620', 'utf-8', str_replace(" ","",$data1->ADDRES))." ต.".iconv('TIS-620', 'utf-8', str_replace(" ","",$data1->TUMB))." อ.".iconv('TIS-620', 'utf-8', str_replace(" ","",$data1->AUMPDES))." จ.".iconv('TIS-620', 'utf-8', str_replace(" ","",$data1->PROVDES))."  ".iconv('TIS-620', 'utf-8', str_replace(" ","",$data1->ZIP)) }}"/>
+                    @endif
+                    @if($dataGT != Null)
+                    <input type="hidden" name="AdreesGTlegis" class="form-control"  value="{{ iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->ADDRES))." ต.".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->TUMB))." อ.".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->AUMPDES))." จ.".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->PROVDES))."  ".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->ZIP)) }}"/>
+                    @endif 
+                    <input type="hidden" name="_method" value="PATCH"/>
+                  </form>
+
+                    <div class="col-12 col-md-6">
+                      <div class="card card-danger">
+                        <div class="card-header">
+                          <h3 class="card-title"><i class="fas fa-archive"></i> อัพโหลดเอกสาร</h3>
+
+                          <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
+                            </button>
+                          </div>
+                        </div>
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-md-12">
+                                เลือกไฟล์ :
+                                  <div class="input-group">
+                                    <div class="custom-file">
+                                      <input type="file" name="filePDF" class="custom-file-input" id="exampleInputFile" value="">
+                                      <label class="custom-file-label" for="exampleInputFile">เลือกไฟล์อัพโหลด</label>
+                                    </div>
+                                  </div>
+                                <input type="hidden" name="contract" value="{{ $data->Contract_legis }}">                              
+                            </div>
+                          </div>
+                          @if($countDataImages != 0)
+                            <hr>
+                            <div class="row">
+                              <div class="table-responsive">
+                                <table class="table table-striped table-valign-middle" id="table1">
+                                  <thead>
+                                    <tr>
+                                      <th class="text-center"  style="width: 50px;">No.</th>
+                                      <th class="text-center">File Name</th>
+                                      <th class="text-center">Date Upload</th>
+                                      <th class="text-center">Action</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                      @foreach($dataImages as $key => $row)
+                                      <tr>
+                                        <td class="text-center"> {{$key+1}}</td>
+                                        <td class="text-left"> 
+                                            <i class="fas fa-file-pdf-o text-red"></i>
+                                          &nbsp;{{$row->name_image}}
+                                        </td>
+                                        <td class="text-left">{{DateThai(substr($row->created_at,0,10))}}</td>
+                                        <td class="text-right">
+                                            <a target="_blank" href="{{ action('LegislationController@edit',[$data->id,$type]) }}?preview={{1}}&file_id={{$row->image_id}}" class="btn btn-warning btn-xs" title="ดูไฟล์">
+                                              <i class="far fa-eye"></i>
+                                            </a>
+                                          @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก กฎหมาย")
+                                            <form method="post" class="delete_form" action="{{ action('LegislationController@destroy',[$data->id ,5]) }}?file_id={{$row->image_id}}" style="display:inline;">
+                                            {{csrf_field()}}
+                                              <input type="hidden" name="_method" value="DELETE" />
+                                              <button type="submit" data-name="{{$row->name_image}}" class="delete-modal btn btn-danger btn-xs AlertForm" title="ลบไฟล์">
+                                                <i class="far fa-trash-alt"></i>
+                                              </button>
+                                            </form>
+                                          @endif
+                                        </td>
+                                      </tr>
+                                      @endforeach
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          @endif
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
                     {{--<div class="col-md-6">
                       <div class="card card-danger">
@@ -727,14 +809,7 @@
                     </div>--}}
                   </div>
                   
-                  @if($data1 != null)
-                  <input type="hidden" name="Adreeslegis" class="form-control"  value="{{ iconv('TIS-620', 'utf-8', str_replace(" ","",$data1->ADDRES))." ต.".iconv('TIS-620', 'utf-8', str_replace(" ","",$data1->TUMB))." อ.".iconv('TIS-620', 'utf-8', str_replace(" ","",$data1->AUMPDES))." จ.".iconv('TIS-620', 'utf-8', str_replace(" ","",$data1->PROVDES))."  ".iconv('TIS-620', 'utf-8', str_replace(" ","",$data1->ZIP)) }}"/>
-                  @endif
-                  @if($dataGT != Null)
-                  <input type="hidden" name="AdreesGTlegis" class="form-control"  value="{{ iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->ADDRES))." ต.".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->TUMB))." อ.".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->AUMPDES))." จ.".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->PROVDES))."  ".iconv('TIS-620', 'utf-8', str_replace(" ","",$dataGT->ZIP)) }}"/>
-                  @endif 
-                  <input type="hidden" name="_method" value="PATCH"/>
-                </form>
+                 
 
                 <a id="button"></a>
 
@@ -857,6 +932,22 @@
     $("#submit").click(function () {
       $("#modal-printinfo").modal('toggle');
       location.reload(true);
+    });
+  </script>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      bsCustomFileInput.init();
+    });
+  </script>
+
+  <script>
+    $(function () {
+      $("#modal-preview").on("show.bs.modal", function (e) {
+        var link = $(e.relatedTarget).data("link");
+        $("#modal-preview .modal-body").load(link, function(){
+        });
+      });
     });
   </script>
 

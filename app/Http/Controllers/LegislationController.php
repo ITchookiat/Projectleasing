@@ -893,6 +893,7 @@ class LegislationController extends Controller
         $SetStr1 = $StrCon[0];
         $SetStr2 = $StrCon[1];
         $SetStrConn = $SetStr1."/".$SetStr2;
+        $contractNo = str_replace("/","",$data->Contract_legis);
 
         if ($data->Flag == "C") {
           $data1 = DB::connection('ibmi')
@@ -920,8 +921,23 @@ class LegislationController extends Controller
                 ->where('SFHP.VIEW_ARMGAR.CONTNO','=', $SetStrConn)
                 ->first();
         }
+        $dataImages = DB::table('legisimages')
+        ->where('legisimages.legisImage_id',$id)
+        ->orderBy('legisimages.image_id', 'ASC')
+        ->get();
+        $countDataImages = count($dataImages);
+        if($request->preview == 1){
+          $dataFile = DB::table('legisimages')
+          ->where('legisimages.image_id',$request->file_id)
+          ->where('legisimages.type_image',2)
+          ->orderBy('legisimages.image_id', 'ASC')
+          ->first();
+          $contractNo = str_replace("/","",$data->Contract_legis);
+          
+          return view('legislation.preview',compact('dataFile','contractNo'));
+        }
 
-        return view('legislation.edit',compact('data','data1','dataGT','id','type'));
+        return view('legislation.edit',compact('data','data1','dataGT','id','type','dataImages','countDataImages'));
       }
       elseif ($type == 3){  //ชั้นศาล
         $data = DB::table('legislations')
@@ -1189,6 +1205,27 @@ class LegislationController extends Controller
           $user->Phone_legis = $request->get('Phonelegis');
         $user->update();
 
+        if ($request->hasFile('filePDF')) {
+          $image_array = $request->file('filePDF');
+          $contractNo = str_replace("/","",$request->contract);
+
+            $image_size = $image_array->getClientSize();
+            $image_lastname = $image_array->getClientOriginalExtension();
+            // $image_new_name = str_replace("/","",$user->Contract_legis). '.' .$image_array->getClientOriginalExtension();
+            $image_new_name = $image_array->getClientOriginalName();
+
+            $destination_path = public_path().'/legislation/'.$contractNo;
+            $image_array->move($destination_path,$image_new_name);
+
+            $Uploaddb = new LegisImage([
+              'legisImage_id' => $id,
+              'name_image' => $image_new_name,
+              'size_image' => $image_size,
+              'type_image' => '2',
+            ]);
+            $Uploaddb ->save();
+        }
+
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
       }
       elseif ($type == 3) { //ชั้นศาล
@@ -1444,25 +1481,25 @@ class LegislationController extends Controller
           }
         $user->update();
 
-        if ($request->hasFile('filePDF')) {
-          $image_array = $request->file('filePDF');
+        // if ($request->hasFile('filePDF')) {
+        //   $image_array = $request->file('filePDF');
 
-            $image_size = $image_array->getClientSize();
-            $image_lastname = $image_array->getClientOriginalExtension();
-            // $image_new_name = str_replace("/","",$user->Contract_legis). '.' .$image_array->getClientOriginalExtension();
-            $image_new_name = $image_array->getClientOriginalName();
+        //     $image_size = $image_array->getClientSize();
+        //     $image_lastname = $image_array->getClientOriginalExtension();
+        //     // $image_new_name = str_replace("/","",$user->Contract_legis). '.' .$image_array->getClientOriginalExtension();
+        //     $image_new_name = $image_array->getClientOriginalName();
 
-            $destination_path = public_path('/legislation');
-            $image_array->move($destination_path,$image_new_name);
+        //     $destination_path = public_path('/legislation');
+        //     $image_array->move($destination_path,$image_new_name);
 
-            $Uploaddb = new LegisImage([
-              'legisImage_id' => $id,
-              'name_image' => $image_new_name,
-              'size_image' => $image_size,
-              'type_image' => '2',
-            ]);
-            $Uploaddb ->save();
-        }
+        //     $Uploaddb = new LegisImage([
+        //       'legisImage_id' => $id,
+        //       'name_image' => $image_new_name,
+        //       'size_image' => $image_size,
+        //       'type_image' => '2',
+        //     ]);
+        //     $Uploaddb ->save();
+        // }
 
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
       }
