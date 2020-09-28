@@ -399,20 +399,20 @@
                             <div class="tab-pane fade" id="tabs-2" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
                               <div class="table-responsive">
                                 <table class="table table-striped" id="table">
-                                    <thead class="thead-dark bg-gray-light" >
-                                      <tr>
-                                        <th class="text-center" style="width:40px">ลำดับ</th>
-                                        <th class="text-center">วันที่รับชำระ</th>
-                                        <th class="text-center">ยอดชำระ</th>
-                                        <th class="text-center">ประเภท</th>
-                                        <th class="text-center">เลขที่ใบเสร็จ</th>
-                                        <th class="text-center">วันที่ดิวงวดถัดไป</th>
-                                        <th class="text-center">ลงชื่อ</th>
-                                        <th class="text-center" style="width:100px">action</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      @foreach($dataPay as $key => $row)
+                                  <thead class="thead-dark bg-gray-light" >
+                                    <tr>
+                                      <th class="text-center" style="width:40px">ลำดับ</th>
+                                      <th class="text-center">วันที่รับชำระ</th>
+                                      <th class="text-center">ยอดชำระ</th>
+                                      <th class="text-center">ประเภท</th>
+                                      <th class="text-center">เลขที่ใบเสร็จ</th>
+                                      <th class="text-center">วันที่ดิวถัดไป</th>
+                                      <th class="text-center">ลงชื่อ</th>
+                                      <th class="text-center" style="width:100px">action</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    @foreach($dataPay as $key => $row)
                                       <tr>
                                         <td class="text-center"> {{$key+1}} </td>
                                         <td class="text-center"> {{ DateThai(substr($row->created_at,0,10)) }}</td>
@@ -434,8 +434,8 @@
                                           </form>
                                         </td>
                                       </tr>
-                                      @endforeach
-                                    </tbody>
+                                    @endforeach
+                                  </tbody>
                                 </table>
 
                                 <div class="form-inline" align="center">
