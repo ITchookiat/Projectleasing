@@ -162,7 +162,7 @@ class DataCustomerController extends Controller
         }elseif(auth()->user()->branch == '05'){
             $SetUserBranch = 'สายบุรี';
         }elseif(auth()->user()->branch == '06'){
-            $SetUserBranch = 'สุไหงโกลก';
+            $SetUserBranch = 'โกลก';
         }elseif(auth()->user()->branch == '07'){
             $SetUserBranch = 'เบตง';
         }elseif(auth()->user()->branch == '08'){
