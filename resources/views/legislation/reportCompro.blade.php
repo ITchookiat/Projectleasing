@@ -79,9 +79,9 @@
       <tbody>
         <tr>
           <th width="10px"></th>
-          <th width="200px" align="left">วันที่ชำระ : {{ DateThai($dataDB->Date_Payment) }}</th>
+          <th width="200px" align="left">วันที่ชำระ : {{ DateThai(substr($dataDB->created_at,0,10)) }}</th>
           <th width="230px" align="left"></th>
-          <th width="110px" align="right">พิมพ์วันที่ : {{ DateThai(date('d-m-Y')) }}</th>
+          {{-- <th width="110px" align="right">พิมพ์วันที่ : {{ DateThai(date('d-m-Y')) }}</th> --}}
         </tr>
         <tr>
           <th width="10px"></th>

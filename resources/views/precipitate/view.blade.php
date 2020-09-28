@@ -499,15 +499,15 @@
                           @if(auth::user()->type == 'Admin' or auth::user()->type == 'แผนก วิเคราะห์' or auth::user()->position == 'MANAGER')
                             <label>เลขที่สัญญา : </label>
                             <input type="type" name="Contno" value="{{$contno}}" maxlength="12" class="form-control form-control-lg"/>
-                            <button type="submit" class="btn bg-warning btn-app">
-                              <span class="fas fa-search"></span> Search
-                            </button>
-                            <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', 2) }}" class="btn bg-primary btn-app">
-                              <span class="fas fa-print"></span> ปริ้นรายการ
-                            </a>
                             <a target="_blank" href="{{ action('ExcelController@excel',$type) }}?&Fromdate={{$newfdate}}&Todate={{$newtdate}}&status={{$status}}" class="btn bg-success btn-app">
                               <span class="fas fa-file-excel"></span> Excel
                             </a>
+                            <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', 2) }}" class="btn bg-primary btn-app">
+                              <span class="fas fa-print"></span> ปริ้นรายการ
+                            </a>
+                            <button type="submit" class="btn bg-warning btn-app">
+                              <span class="fas fa-search"></span> Search
+                            </button>
                           @else
                             <label>เลขที่สัญญา : </label>
                             <input type="type" name="Contno" value="{{$contno}}" maxlength="12" class="form-control form-control-lg"/>
