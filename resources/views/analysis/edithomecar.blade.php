@@ -938,7 +938,7 @@
                               <div class="col-6">
                                 <div class="form-group row mb-0">
                                   <label class="col-sm-3 col-form-label text-right">รุ่น : </label>
-                                  <div class="col-sm-8">>
+                                  <div class="col-sm-8">
                                     <input type="text" name="modelHC" value="{{$data->model_HC}}" class="form-control form-control-sm" placeholder="รุ่น" />
                                   </div>
                                 </div>

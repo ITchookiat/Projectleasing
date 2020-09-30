@@ -305,6 +305,15 @@
                   </a>
                 </li>
               </ul>
+            @elseif(auth::user()->type == "แผนก การเงินนอก")
+              <ul class="nav nav-treeview" style="margin-left: 15px;">
+                <li class="nav-item">
+                  <a href="{{ route('legislation',7) }}" class="nav-link {{ Request::is('Legislation/Home/7') ? 'active' : '' }} {{ Request::is('Legislation/edit/*/4') ? 'active' : '' }}">
+                    <i class="far fa-dot-circle nav-icon"></i>
+                    <p>ลูกหนี้ประนอมหนี้</p>
+                  </a>
+                </li>
+              </ul>
             @endif
           </li>
 
