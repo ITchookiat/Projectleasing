@@ -1795,7 +1795,7 @@
         "autoWidth": false,
         "ordering": true,
         "lengthChange": true,
-        "order": [[ 1, "asc" ]],
+        "order": [[ 0, "asc" ]],
         "pageLength": 5,
       });
     });
