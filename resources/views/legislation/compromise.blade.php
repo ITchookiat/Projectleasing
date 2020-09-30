@@ -27,99 +27,115 @@
         <div class="row justify-content-center">
           <div class="col-12 table-responsive">
             <div class="card">
-              <div class="card-header">
-                <h4 class="">
-                  @if ($data->Flag == "C")
-                    ลูกหนี้ประนอมหนี้ (ประนอมเก่า)
-                  @else
-                    ลูกหนี้ประนอมหนี้
-                  @endif
-                </h4>                  
-                <div class="card card-warning card-tabs">
-                  <div class="card-header p-0 pt-1">
-                    <div class="container-fluid">
-                      <div class="row mb-2">
-                        @if ($data->Flag == "C")
-                          <div class="col-sm-6">
-                            <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
-                              <li class="nav-item">
-                                <a class="nav-link" href="{{ route('legislation',7) }}">หน้าหลัก</a>
-                              </li>
-                              <li class="nav-item">
-                                <a class="nav-link active" href="{{ action('LegislationController@edit',[$id, 4]) }}">ประนอมหนี้</a>
-                              </li>
-                            </ul>
-                          </div>
-                        @else
-                          <div class="col-sm-6">
-                            <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
-                              <li class="nav-item">
-                                <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 2]) }}">ข้อมูลผู้เช่าซื้อ</a>
-                              </li>
-                              <li class="nav-item">
-                                <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 3]) }}">ชั้นศาล</a>
-                              </li>
-                              <li class="nav-item">
-                                <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 7]) }}">ชั้นบังคับคดี</a>
-                              </li>
-                              <li class="nav-item">
-                                <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 13]) }}">โกงเจ้าหนี้</a>
-                              </li>
-                            </ul>
-                          </div>
-                          <div class="col-sm-6">
-                            <div class="float-right form-inline">
-                              <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
-                                <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 8]) }}">สืบทรัพย์</a>
-                                <a class="nav-link active" href="{{ action('LegislationController@edit',[$id, 4]) }}">ประนอมหนี้</a>
-                                <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 11]) }}">รูปและแผนที่</a>
-                              </ul>
-                            </div>
-                          </div>
-                        @endif
+              <form name="form1" method="post" action="{{ action('LegislationController@update',[$id,$type]) }}" enctype="multipart/form-data">
+                @csrf
+                @method('put')
+                  <div class="card-header">
+                    <div class="row mb-1">
+                      <div class="col-4">
+                        <div class="form-inline">
+                          <h4 class="">
+                            @if ($data->Flag == "C")
+                              ลูกหนี้ประนอมหนี้ (ประนอมเก่า)
+                            @else
+                              ลูกหนี้ประนอมหนี้
+                            @endif
+                          </h4>   
+                        </div>
+                      </div>
+                      <div class="col-8">
+                        <div class="card-tools d-inline float-right">
+                          @if($dataPranom != 0)
+                            <button type="button" class="delete-modal btn btn-info" data-toggle="modal" data-target="#modal-default" data-link="{{ action('LegislationController@edit',[$id, 5]) }}">
+                              <i class="fas fa-plus"></i> เพิ่มชำระ
+                            </button>
+                          @else
+                            <a class="delete-modal btn" style="background-color:#CCCCCC; color:#FFFFFF;">
+                              <i class="fas fa-plus"></i> เพิ่มชำระ
+                            </a>
+                          @endif
+                          <button type="submit" class="delete-modal btn btn-success">
+                            <i class="fas fa-save"></i> บันทึก
+                          </button>
+                          <a class="delete-modal btn btn-danger" href="{{ route('legislation',7) }}">
+                            <i class="far fa-window-close"></i> ยกเลิก
+                          </a>
+                        </div>
                       </div>
                     </div>
-                  </div>          
-                </div>
-              </div>
-              <div class="card-body text-sm">
-                <form name="form1" method="post" action="{{ action('LegislationController@update',[$id,$type]) }}" enctype="multipart/form-data">
-                  @csrf
-                  @method('put')
+                    <div class="card card-warning card-tabs">
+                      <div class="card-header p-0 pt-1">
+                        <div class="container-fluid">
+                          <div class="row mb-2">
+                            @if ($data->Flag == "C")
+                              <div class="col-sm-6">
+                                <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+                                  <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('legislation',7) }}">หน้าหลัก</a>
+                                  </li>
+                                  <li class="nav-item">
+                                    <a class="nav-link active" href="{{ action('LegislationController@edit',[$id, 4]) }}">ประนอมหนี้</a>
+                                  </li>
+                                </ul>
+                              </div>
+                            @else
+                              <div class="col-sm-6">
+                                <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+                                  <li class="nav-item">
+                                    <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 2]) }}">ข้อมูลผู้เช่าซื้อ</a>
+                                  </li>
+                                  <li class="nav-item">
+                                    <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 3]) }}">ชั้นศาล</a>
+                                  </li>
+                                  <li class="nav-item">
+                                    <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 7]) }}">ชั้นบังคับคดี</a>
+                                  </li>
+                                  <li class="nav-item">
+                                    <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 13]) }}">โกงเจ้าหนี้</a>
+                                  </li>
+                                </ul>
+                              </div>
+                              <div class="col-sm-6">
+                                <div class="float-right form-inline">
+                                  <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+                                    <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 8]) }}">สืบทรัพย์</a>
+                                    <a class="nav-link active" href="{{ action('LegislationController@edit',[$id, 4]) }}">ประนอมหนี้</a>
+                                    <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 11]) }}">รูปและแผนที่</a>
+                                  </ul>
+                                </div>
+                              </div>
+                            @endif
+                          </div>
+                        </div>
+                      </div>          
+                    </div>
+                  </div>
+                  <div class="card-body text-sm">
+                  
 
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="info-box">
-                        <span class="info-box-icon bg-danger"><i class="far fa-id-badge fa-2x"></i></span>
-          
-                        <div class="info-box-content">
-                          <div class="form-inline">
-                            <div class="col-md-3">
-                              <span class="info-box-number"><font style="font-size: 30px;">{{ $data->Contract_legis }}</font></span>
-                              <span class="info-box-text"><font style="font-size: 20px;">{{ $data->Name_legis }}</font></span>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="info-box">
+                          <span class="info-box-icon bg-danger"><i class="far fa-id-badge fa-2x"></i></span>
+                            <div class="info-box-content">
+                              <h5>{{ $data->Contract_legis }}</h5>
+                              <span class="info-box-number" style="font-size: 20px;">{{ $data->Name_legis }}</span>
                             </div>
 
-                            <div class="col-md-5">
-                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                              <small class="badge badge-danger" style="font-size: 25px;">
-                                <i class="fas fa-child"></i>&nbsp; สถานะ :
-                                @if($data->Status_Promise != Null)
-                                  {{$data->Status_Promise}}
-                                @endif
-                              </small>
-                              <div class="form-inline">
-                                <label>สถานะ : </label>
-                                <select name="StatusCompro" class="form-control" style="width: 170px;">
-                                  <option value="" selected>--------- status ----------</option>
-                                  <option value="ปิดบัญชีประนอมหนี้" {{ ($data->Status_Promise === 'ปิดบัญชีประนอมหนี้') ? 'selected' : '' }}>ปิดบัญชีประนอมหนี้</option>
-                                  <option value="จ่ายจบประนอมหนี้" {{ ($data->Status_Promise === 'จ่ายจบประนอมหนี้') ? 'selected' : '' }}>จ่ายจบประนอมหนี้</option>
-                                </select>
-                                <input type="date" name="" class="form-control" style="width: 170px;" value="" disabled>
+                            <div class="info-box-content">
+                              <div class="form-inline float-right">
+                                <small class="badge badge-danger" style="font-size: 20px;">
+                                  <i class="fas fa-sign"></i>&nbsp; สถานะ :
+                                  <select name="StatusCompro" class="form-control">
+                                    <option value="" selected>--------- status ----------</option>
+                                    <option value="ปิดบัญชีประนอมหนี้" {{ ($data->Status_Promise === 'ปิดบัญชีประนอมหนี้') ? 'selected' : '' }}>ปิดบัญชีประนอมหนี้</option>
+                                    <option value="จ่ายจบประนอมหนี้" {{ ($data->Status_Promise === 'จ่ายจบประนอมหนี้') ? 'selected' : '' }}>จ่ายจบประนอมหนี้</option>
+                                  </select>
+                                </small>
                               </div>
                             </div>
-                            
-                            <div class="col-md-4">
+                              
+                            {{-- <div class="col-md-4">
                               <div class="float-right form-inline">
                                 @if($dataPranom != 0)
                                   <button type="button"class="btn btn-app" style="background-color:blue; color:#FFFFFF;" 
@@ -138,87 +154,85 @@
                                   <i class="fas fa-times"></i> ยกเลิก
                                 </a>
                               </div>
-                            </div>
-                          </div>
+                            </div> --}}
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  <script>
-                    function addCommas(nStr){
-                        nStr += '';
-                        x = nStr.split('.');
-                        x1 = x[0];
-                        x2 = x.length > 1 ? '.' + x[1] : '';
-                        var rgx = /(\d+)(\d{3})/;
-                        while (rgx.test(x1)) {
-                          x1 = x1.replace(rgx, '$1' + ',' + '$2');
-                        }
-                      return x1 + x2;
-                    }
-                    function Comma(){
-                      var num11 = document.getElementById('TotalPromise').value;
-                      var num1 = num11.replace(",","");
-                      var num22 = document.getElementById('PayallPromise').value;
-                      var num2 = num22.replace(",","");
-                      var num66 = document.getElementById('SumPromise').value;
-                      var num6 = num66.replace(",","");
-                      var num88 = document.getElementById('SumAllPromise').value;
-                      var num8 = num88.replace(",","");
+                    <script>
+                      function addCommas(nStr){
+                          nStr += '';
+                          x = nStr.split('.');
+                          x1 = x[0];
+                          x2 = x.length > 1 ? '.' + x[1] : '';
+                          var rgx = /(\d+)(\d{3})/;
+                          while (rgx.test(x1)) {
+                            x1 = x1.replace(rgx, '$1' + ',' + '$2');
+                          }
+                        return x1 + x2;
+                      }
+                      function Comma(){
+                        var num11 = document.getElementById('TotalPromise').value;
+                        var num1 = num11.replace(",","");
+                        var num22 = document.getElementById('PayallPromise').value;
+                        var num2 = num22.replace(",","");
+                        var num66 = document.getElementById('SumPromise').value;
+                        var num6 = num66.replace(",","");
+                        var num88 = document.getElementById('SumAllPromise').value;
+                        var num8 = num88.replace(",","");
 
-                      document.form1.TotalPromise.value = addCommas(num1);
-                      document.form1.PayallPromise.value = addCommas(num2);
-                      document.form1.SumPromise.value = addCommas(num6);
-                      document.form1.SumAllPromise.value = addCommas(num8);
-                    }
-                    function Discount() {
-                        var txtSum = document.getElementById('SumPromise').value;
-                        var txtDis = document.getElementById('DiscountPromise').value;
-                        var txtComma = txtDis.replace(",","");
-                        var txtSumhide = document.getElementById('Sumhide').value;
-                        var txtDishide = document.getElementById('Discounthide').value;
+                        document.form1.TotalPromise.value = addCommas(num1);
+                        document.form1.PayallPromise.value = addCommas(num2);
+                        document.form1.SumPromise.value = addCommas(num6);
+                        document.form1.SumAllPromise.value = addCommas(num8);
+                      }
+                      function Discount() {
+                          var txtSum = document.getElementById('SumPromise').value;
+                          var txtDis = document.getElementById('DiscountPromise').value;
+                          var txtComma = txtDis.replace(",","");
+                          var txtSumhide = document.getElementById('Sumhide').value;
+                          var txtDishide = document.getElementById('Discounthide').value;
 
-                        // if (txtSetPay1 != 0 || txtSetPay2 != 0 || txtSetPay3 != 0) {
-                        //   var result = parseFloat(txtSumhide) - parseFloat(txtSetPay1) - parseFloat(txtSetPay2) - parseFloat(txtSetPay3);
-                        //   console.log(result);
+                          // if (txtSetPay1 != 0 || txtSetPay2 != 0 || txtSetPay3 != 0) {
+                          //   var result = parseFloat(txtSumhide) - parseFloat(txtSetPay1) - parseFloat(txtSetPay2) - parseFloat(txtSetPay3);
+                          //   console.log(result);
 
-                        if (txtDis != txtDishide) {
-                          var SetDiscount = parseFloat(txtDis) - parseFloat(txtDishide);
-                          // var result = parseFloat(result) - parseFloat(SetDiscount);
-                          var result = parseFloat(txtSumhide) - parseFloat(SetDiscount);
-                        }else if (txtDis == 0) {
-                          console.log(txtDis);
-                          var result = parseFloat(txtSumhide);
-                        }
+                          if (txtDis != txtDishide) {
+                            var SetDiscount = parseFloat(txtDis) - parseFloat(txtDishide);
+                            // var result = parseFloat(result) - parseFloat(SetDiscount);
+                            var result = parseFloat(txtSumhide) - parseFloat(SetDiscount);
+                          }else if (txtDis == 0) {
+                            console.log(txtDis);
+                            var result = parseFloat(txtSumhide);
+                          }
 
-                        if (!isNaN(result)) {
-                          document.form1.SumPromise.value = addCommas(result);
-                        }
-                    }
-                    function DuePay() {
-                        var SumPayAll = document.getElementById('SumPayAll').value;
-                        var txtSumPayAll = SumPayAll.replace(",","");
-                        var txtDuepay = document.getElementById('DuePayPromise').value;
-                        var txtSetDue = txtDuepay.replace(",","");
+                          if (!isNaN(result)) {
+                            document.form1.SumPromise.value = addCommas(result);
+                          }
+                      }
+                      function DuePay() {
+                          var SumPayAll = document.getElementById('SumPayAll').value;
+                          var txtSumPayAll = SumPayAll.replace(",","");
+                          var txtDuepay = document.getElementById('DuePayPromise').value;
+                          var txtSetDue = txtDuepay.replace(",","");
 
-                        var Sum = (parseFloat(txtSumPayAll) / parseFloat(txtSetDue));
-                        var result = Math.floor(Sum);
+                          var Sum = (parseFloat(txtSumPayAll) / parseFloat(txtSetDue));
+                          var result = Math.floor(Sum);
 
-                        if (txtSetDue == 0) {
-                          console.log(txtSetDue);
-                          var result = 0;
-                        }
+                          if (txtSetDue == 0) {
+                            console.log(txtSetDue);
+                            var result = 0;
+                          }
 
-                        if (!isNaN(result)) {
-                          document.form1.DuePromise.value = result;
-                          document.form1.DuePayPromise.value = numberWithCommas(txtSetDue);
-                        }
-                    }
-                    function numberWithCommas(x) {
-                        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                    }
-                  </script>
+                          if (!isNaN(result)) {
+                            document.form1.DuePromise.value = result;
+                            document.form1.DuePayPromise.value = numberWithCommas(txtSetDue);
+                          }
+                      }
+                      function numberWithCommas(x) {
+                          return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                      }
+                    </script>
 
                   <h5 class="" align="left"><b>รายละเอียดประนอมหนี้</b></h5>
                   <div class="row">
@@ -394,71 +408,71 @@
                               </div>
                             </div>
 
-                  <input type="hidden" name="_method" value="PATCH"/>
-                </form>
-                            <div class="tab-pane fade" id="tabs-2" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
-                              <div class="table-responsive">
-                                <table class="table table-striped" id="table">
-                                  <thead class="thead-dark bg-gray-light" >
+                <input type="hidden" name="_method" value="PATCH"/>
+              </form>
+                          <div class="tab-pane fade" id="tabs-2" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
+                            <div class="table-responsive">
+                              <table class="table table-striped" id="table">
+                                <thead class="thead-dark bg-gray-light" >
+                                  <tr>
+                                    <th class="text-center" style="width:40px">ลำดับ</th>
+                                    <th class="text-center">วันที่รับชำระ</th>
+                                    <th class="text-center">ยอดชำระ</th>
+                                    <th class="text-center">ประเภท</th>
+                                    <th class="text-center">เลขที่ใบเสร็จ</th>
+                                    <th class="text-center">วันที่ดิวถัดไป</th>
+                                    <th class="text-center">ลงชื่อ</th>
+                                    <th class="text-center" style="width:100px">action</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  @foreach($dataPay as $key => $row)
                                     <tr>
-                                      <th class="text-center" style="width:40px">ลำดับ</th>
-                                      <th class="text-center">วันที่รับชำระ</th>
-                                      <th class="text-center">ยอดชำระ</th>
-                                      <th class="text-center">ประเภท</th>
-                                      <th class="text-center">เลขที่ใบเสร็จ</th>
-                                      <th class="text-center">วันที่ดิวถัดไป</th>
-                                      <th class="text-center">ลงชื่อ</th>
-                                      <th class="text-center" style="width:100px">action</th>
+                                      <td class="text-center"> {{$key+1}} </td>
+                                      <td class="text-center"> {{ DateThai(substr($row->created_at,0,10)) }}</td>
+                                      <td class="text-center"> {{ number_format($row->Gold_Payment, 2) }} </td>
+                                      <td class="text-center"> {{$row->Type_Payment}} </td>
+                                      <td class="text-center"> {{$row->Jobnumber_Payment}} </td>
+                                      <td class="text-center"> {{ DateThai($row->Date_Payment) }}</td>
+                                      <td class="text-center"> {{$row->Adduser_Payment}} </td>
+                                      <td class="text-center">
+                                        <a target="_blank" href="{{ route('legislation.report' ,[$row->Payment_id, 2]) }}" class="btn btn-warning btn-sm" title="ปริ้นใบเสร็จ">
+                                          <i class="fas fa-print"></i> ปริ้น
+                                        </a>
+                                        <form method="post" class="delete_form" action="{{ action('LegislationController@destroy',[$row->Payment_id, 2]) }}" style="display:inline;">
+                                        {{csrf_field()}}
+                                          <input type="hidden" name="_method" value="DELETE" />
+                                          <button type="submit" data-name="{{ $row->Jobnumber_Payment }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
+                                            <i class="far fa-trash-alt"></i> ลบ
+                                          </button>
+                                        </form>
+                                      </td>
                                     </tr>
-                                  </thead>
-                                  <tbody>
-                                    @foreach($dataPay as $key => $row)
-                                      <tr>
-                                        <td class="text-center"> {{$key+1}} </td>
-                                        <td class="text-center"> {{ DateThai(substr($row->created_at,0,10)) }}</td>
-                                        <td class="text-center"> {{ number_format($row->Gold_Payment, 2) }} </td>
-                                        <td class="text-center"> {{$row->Type_Payment}} </td>
-                                        <td class="text-center"> {{$row->Jobnumber_Payment}} </td>
-                                        <td class="text-center"> {{ DateThai($row->Date_Payment) }}</td>
-                                        <td class="text-center"> {{$row->Adduser_Payment}} </td>
-                                        <td class="text-center">
-                                          <a target="_blank" href="{{ route('legislation.report' ,[$row->Payment_id, 2]) }}" class="btn btn-warning btn-sm" title="ปริ้นใบเสร็จ">
-                                            <i class="fas fa-print"></i> ปริ้น
-                                          </a>
-                                          <form method="post" class="delete_form" action="{{ action('LegislationController@destroy',[$row->Payment_id, 2]) }}" style="display:inline;">
-                                          {{csrf_field()}}
-                                            <input type="hidden" name="_method" value="DELETE" />
-                                            <button type="submit" data-name="{{ $row->Jobnumber_Payment }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
-                                              <i class="far fa-trash-alt"></i> ลบ
-                                            </button>
-                                          </form>
-                                        </td>
-                                      </tr>
-                                    @endforeach
-                                  </tbody>
-                                </table>
+                                  @endforeach
+                                </tbody>
+                              </table>
 
-                                <div class="form-inline" align="center">
-                                  <label><font color="red">ค่างวดทั้งหมด : </font></label>
-                                  <input type="text" value="{{ number_format($Getdata, 2) }}" class="form-control" style="width: 100px;" readonly/>
+                              <div class="form-inline" align="center">
+                                <label><font color="red">ค่างวดทั้งหมด : </font></label>
+                                <input type="text" value="{{ number_format($Getdata, 2) }}" class="form-control" style="width: 100px;" readonly/>
 
-                                  <label><font color="red">ยอดชำระ : </font></label>
-                                  <input type="text" value="{{ number_format($SumCount, 2) }}" class="form-control" style="width: 100px;" readonly/>
+                                <label><font color="red">ยอดชำระ : </font></label>
+                                <input type="text" value="{{ number_format($SumCount, 2) }}" class="form-control" style="width: 100px;" readonly/>
 
-                                  <label><font color="red">ส่วนลด : </font></label>
-                                  <input type="text" value="{{ number_format($data->Discount_Promise, 2) }}" class="form-control" style="width: 100px;" readonly/>
+                                <label><font color="red">ส่วนลด : </font></label>
+                                <input type="text" value="{{ number_format($data->Discount_Promise, 2) }}" class="form-control" style="width: 100px;" readonly/>
 
-                                  <label><font color="red">ยอดคงเหลือ : </font></label>
-                                  <input type="text" value="{{ number_format($Getdata - ($SumCount + $data->Discount_Promise), 2) }}" class="form-control" style="width: 100px;" readonly/>
-                                </div>
-
+                                <label><font color="red">ยอดคงเหลือ : </font></label>
+                                <input type="text" value="{{ number_format($Getdata - ($SumCount + $data->Discount_Promise), 2) }}" class="form-control" style="width: 100px;" readonly/>
                               </div>
+
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
+                </div>
                   
 
               </div>

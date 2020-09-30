@@ -866,13 +866,15 @@
                                     <i class="far fa-edit"></i>
                                   </a>
                                   @if($row->Flag == "C")
-                                    <form method="post" class="delete_form" action="{{ action('LegislationController@destroy',[$row->id ,1]) }}" style="display:inline;">
-                                    {{csrf_field()}}
-                                      <input type="hidden" name="_method" value="DELETE" />
-                                      <button type="submit" data-name="{{ $row->Contract_legis }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
-                                        <i class="far fa-trash-alt"></i>
-                                      </button>
-                                    </form>
+                                    @if(auth::user()->type != "แผนก การเงินนอก")
+                                      <form method="post" class="delete_form" action="{{ action('LegislationController@destroy',[$row->id ,1]) }}" style="display:inline;">
+                                      {{csrf_field()}}
+                                        <input type="hidden" name="_method" value="DELETE" />
+                                        <button type="submit" data-name="{{ $row->Contract_legis }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
+                                          <i class="far fa-trash-alt"></i>
+                                        </button>
+                                      </form>
+                                    @endif
                                   @endif
                                 </td>
                               </tr>
