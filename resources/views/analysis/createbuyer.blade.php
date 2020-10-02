@@ -554,13 +554,7 @@
                                 <div class="form-group row mb-0">
                                   <label class="col-sm-3 col-form-label text-right">รายได้ : </label>
                                   <div class="col-sm-8">
-                                    <select name="Incomebuyer" class="form-control form-control-sm">
-                                      <option value="" selected>--- รายได้ ---</option>
-                                      <option value="5,000 - 10,000">5,000 - 10,000</option>
-                                      <option value="10,000 - 15,000">10,000 - 15,000</option>
-                                      <option value="15,000 - 20,000">15,000 - 20,000</option>
-                                      <option value="มากกว่า 20,000">มากกว่า 20,000</option>
-                                    </select>
+                                    <input type="text" id="Incomebuyer" name="Incomebuyer" class="form-control form-control-sm" placeholder="ป้อนรายได้" oninput="income();"/>
                                   </div>
                                 </div>
                               </div>
@@ -964,13 +958,7 @@
                               <div class="form-group row mb-0">
                                 <label class="col-sm-3 col-form-label text-right">รายได้ : </label>
                                 <div class="col-sm-8">
-                                  <select name="incomeSP" class="form-control form-control-sm">
-                                    <option value="" selected>--- รายได้ ---</option>
-                                    <option value="5,000 - 10,000">5,000 - 10,000</option>
-                                    <option value="10,000 - 15,000">10,000 - 15,000</option>
-                                    <option value="15,000 - 20,000">15,000 - 20,000</option>
-                                    <option value="มากกว่า 20,000">มากกว่า 20,000</option>
-                                  </select>
+                                  <input type="text" id="incomeSP" name="incomeSP" class="form-control form-control-sm" placeholder="ป้อนรายได้" oninput="income();" />
                                 </div>
                               </div>
                             </div>
@@ -2145,13 +2133,7 @@
                                   <div class="form-group row mb-1">
                                     <label class="col-sm-3 col-form-label text-right">รายได้ : </label>
                                     <div class="col-sm-8">
-                                      <select name="incomeSP2" class="form-control">
-                                        <option value="" selected>--- รายได้ ---</option>
-                                        <option value="5,000 - 10,000">5,000 - 10,000</option>
-                                        <option value="10,000 - 15,000">10,000 - 15,000</option>
-                                        <option value="15,000 - 20,000">15,000 - 20,000</option>
-                                        <option value="มากกว่า 20,000">มากกว่า 20,000</option>
-                                      </select>
+                                      <input type="text" id="incomeSP2" name="incomeSP2" class="form-control" placeholder="ป้อนรายได้" oninput="income();"/>
                                     </div>
                                   </div>
                                 </div>

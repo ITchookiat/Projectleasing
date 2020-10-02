@@ -772,22 +772,12 @@
                                   <label class="col-sm-3 col-form-label text-right">รายได้ : </label>
                                   <div class="col-sm-8">
                                     @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                                      <select name="Incomebuyer" class="form-control form-control-sm" >
-                                        <option value="" selected>--- รายได้ ---</option>
-                                        @foreach ($Incomeby as $key => $value)
-                                          <option value="{{$key}}" {{ ($key == $data->Income_buyer) ? 'selected' : '' }}>{{$value}}</option>
-                                        @endforeach
-                                      </select>
+                                      <input type="text" id="Incomebuyer" name="Incomebuyer" value="{{ $data->Income_buyer }}" class="form-control form-control-sm" oninput="income();"/>
                                     @else
                                       @if($GetDocComplete != Null)
-                                        <input type="text" name="Incomebuyer" value="{{ $data->Income_buyer }}" class="form-control form-control-sm"  placeholder="เลือกรายได้" readonly/>
+                                        <input type="text" name="Incomebuyer" value="{{ $data->Income_buyer }}" class="form-control form-control-sm" readonly/>
                                       @else
-                                        <select name="Incomebuyer" class="form-control form-control-sm" >
-                                          <option value="" selected>--- รายได้ ---</option>
-                                          @foreach ($Incomeby as $key => $value)
-                                            <option value="{{$key}}" {{ ($key == $data->Income_buyer) ? 'selected' : '' }}>{{$value}}</option>
-                                          @endforeach
-                                        </select>
+                                        <input type="text" id="Incomebuyer" name="Incomebuyer" value="{{ $data->Income_buyer }}" class="form-control form-control-sm" oninput="income();"/>
                                       @endif
                                     @endif
                                   </div>
@@ -1459,22 +1449,12 @@
                                 <label class="col-sm-3 col-form-label text-right">รายได้ : </label>
                                 <div class="col-sm-8">
                                   @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                                    <select name="incomeSP" class="form-control form-control-sm">
-                                      <option value="" selected>--- รายได้ ---</option>
-                                      @foreach ($Incomeby as $key => $value)
-                                        <option value="{{$key}}" {{ ($key == $data->income_SP) ? 'selected' : '' }}>{{$value}}</option>
-                                      @endforeach
-                                    </select>
+                                    <input type="text" id="incomeSP" name="incomeSP" value="{{$data->income_SP}}" class="form-control form-control-sm" oninput="income();"/>
                                   @else
                                     @if($GetDocComplete != Null)
-                                        <input type="text" name="incomeSP" value="{{$data->income_SP}}" class="form-control form-control-sm" placeholder="รายได้" readonly/>
+                                        <input type="text" name="incomeSP" value="{{$data->income_SP}}" class="form-control form-control-sm" readonly/>
                                     @else
-                                      <select name="incomeSP" class="form-control form-control-sm">
-                                        <option value="" selected>--- รายได้ ---</option>
-                                        @foreach ($Incomeby as $key => $value)
-                                          <option value="{{$key}}" {{ ($key == $data->income_SP) ? 'selected' : '' }}>{{$value}}</option>
-                                        @endforeach
-                                      </select>
+                                      <input type="text" id="incomeSP" name="incomeSP" value="{{$data->income_SP}}" class="form-control form-control-sm" oninput="income();"/>
                                     @endif
                                   @endif
                                 </div>
@@ -3007,22 +2987,12 @@
                                     <label class="col-sm-3 col-form-label text-right">รายได้ : </label>
                                     <div class="col-sm-8">
                                       @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                                        <select name="incomeSP2" class="form-control">
-                                          <option value="" selected>--- รายได้ ---</option>
-                                          @foreach ($Incomeby as $key => $value)
-                                            <option value="{{$key}}" {{ ($key == $data->income_SP2) ? 'selected' : '' }}>{{$value}}</option>
-                                          @endforeach
-                                        </select>
+                                        <input type="text" id="incomeSP2" name="incomeSP2" value="{{$data->income_SP2}}" class="form-control" oninput="income();"/>
                                       @else
                                         @if($GetDocComplete != Null)
-                                          <input type="text" name="incomeSP2" value="{{$data->income_SP2}}" class="form-control" placeholder="รายได้" readonly/>
+                                          <input type="text" name="incomeSP2" value="{{$data->income_SP2}}" class="form-control" readonly/>
                                         @else
-                                          <select name="incomeSP2" class="form-control" style="width: 200px;">
-                                            <option value="" selected>--- รายได้ ---</option>
-                                            @foreach ($Incomeby as $key => $value)
-                                              <option value="{{$key}}" {{ ($key == $data->income_SP2) ? 'selected' : '' }}>{{$value}}</option>
-                                            @endforeach
-                                          </select>
+                                          <input type="text" id="incomeSP2" name="incomeSP2" value="{{$data->income_SP2}}" class="form-control" oninput="income();"/>
                                         @endif
                                       @endif
                                     </div>
