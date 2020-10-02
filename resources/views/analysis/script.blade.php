@@ -17,8 +17,17 @@
       var num1 = num11.replace(",","");
       var num22 = document.getElementById('Afterincome').value;
       var num2 = num22.replace(",","");
+      var num33 = document.getElementById('incomeSP').value;
+      var num3 = num33.replace(",","");
+      var num44 = document.getElementById('Incomebuyer').value;
+      var num4 = num44.replace(",","");
+      var num55 = document.getElementById('incomeSP2').value;
+      var num5 = num55.replace(",","");
       document.form1.Beforeincome.value = addCommas(num1);
       document.form1.Afterincome.value = addCommas(num2);
+      document.form1.incomeSP.value = addCommas(num3);
+      document.form1.Incomebuyer.value = addCommas(num4);
+      document.form1.incomeSP2.value = addCommas(num5);
     }
 
     function mile(){
