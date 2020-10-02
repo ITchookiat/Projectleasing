@@ -309,7 +309,7 @@
                           <div class="float-right form-inline">
                             <i class="fas fa-grip-vertical"></i>
                             <span class="todo-wrap">
-                              @if(auth::user()->type == "Admin" or auth::user()->position == "MASTER")
+                              @if(auth::user()->type == "Admin" or auth::user()->position == "MASTER" or auth::user()->position == "MANAGER")
                                 @if($data->Check_car != NULL)
                                   <input type="checkbox" class="checkbox" name="MASTER" id="3" value="{{ $data->Check_car }}" {{ ($data->Check_car !== NULL) ? 'checked' : '' }}>
                                 @else
@@ -1019,7 +1019,7 @@
                                     @endif
                                   </div>
                                   <div class="col-md-6">
-                                    <h5 class="text-center"><b>เหตุผลในการขออนุมัติ</b></h5>
+                                    <h5 class="text-center"><b>ผลการประเมินลูกค้า</b></h5>
                                     @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                       <textarea class="form-control" name="ApproveDetail" rows="10" placeholder="ป้อนเหตุผล">{{$data->ApproveDetail_buyer}}</textarea>
                                     @else
