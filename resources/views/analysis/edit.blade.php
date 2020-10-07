@@ -1026,15 +1026,7 @@
                                 <div class="row">
                                   <div class="col-md-12">
                                     <h5 class="text-left"><b>ผลการโทรหาลูกค้า</b></h5>
-                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                       <textarea class="form-control" name="Memo" rows="4" placeholder="ป้อนเหตุผล">{{$data->Memo_buyer}}</textarea>
-                                    @else
-                                        @if($GetDocComplete != Null)
-                                          <textarea class="form-control" name="Memo" rows="4" placeholder="ป้อนเหตุผล" readonly>{{$data->Memo_buyer}}</textarea>
-                                        @else
-                                          <textarea class="form-control" name="Memo" rows="4" placeholder="ป้อนเหตุผล">{{$data->Memo_buyer}}</textarea>
-                                        @endif
-                                    @endif
                                   </div>
                                 </div>
                                 @endif
