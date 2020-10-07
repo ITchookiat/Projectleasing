@@ -343,7 +343,7 @@
         </tr>
         <tr>
           <th align="right" width="120px"> ค่าคอม &nbsp;</th>
-          <th class="text-center" width="120px" style="background-color: yellow;"> <b>{{number_format($dataReport->Commission_car)}}</b> บาท</th>
+          <th class="text-center" width="120px" style="background-color: yellow;">@if($dataReport->Agent_car != null) <b>{{number_format($dataReport->Commission_car)}}</b> บาท @endif</th>
           <th align="right" width="120px"> เบอร์โทรศัพท์ &nbsp;</th>
           <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataReport->Tellagent_car}}</b></th>
         </tr>
@@ -482,7 +482,7 @@
         </tr>
         <tr>
           <th align="right" width="120px"> ค่าคอม &nbsp;</th>
-          <th class="text-center" width="420" style="background-color: yellow;"> <b>{{($dataReport->commit_HC)}}</b> บาท</th>
+          <th class="text-center" width="420" style="background-color: yellow;"> @if($dataReport->agent_HC != null) <b>{{($dataReport->commit_HC)}}</b> บาท @endif</th>
         </tr>
         <tr>
           <th align="right" width="120px"> ประวัติซื้อ &nbsp;</th>
@@ -646,7 +646,7 @@
           </tr>
           <tr>
             <th align="right" width="120px"> ค่าคอม &nbsp;</th>
-            <th class="text-center" width="120px" style="background-color: yellow;"> <b>{{number_format($dataReport->Commission_car)}}</b> บาท</th>
+            <th class="text-center" width="120px" style="background-color: yellow;"> @if($dataReport->Agent_car != null)<b>{{number_format($dataReport->Commission_car)}}</b> บาท @endif</th>
             <th align="right" width="120px"> เบอร์โทรศัพท์ &nbsp;</th>
             <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataReport->Tellagent_car}}</b></th>
           </tr>
