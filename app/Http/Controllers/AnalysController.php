@@ -1612,7 +1612,6 @@ class AnalysController extends Controller
         $SetStatusMas = $request->get('MASTER');
       }
     
-      // dd($Getcardetail);
       $user = Buyer::find($id);
         $user->Contract_buyer = $request->get('Contract_buyer');
         if ($Getcardetail->Date_Appcar == NULL) { //เช็คอนุมัติ
