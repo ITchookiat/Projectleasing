@@ -1029,6 +1029,8 @@
                                       <textarea class="form-control" name="Memo" rows="4" placeholder="ป้อนเหตุผล">{{$data->Memo_buyer}}</textarea>
                                   </div>
                                 </div>
+                                @else
+                                  <input type="hidden" name="Memo" value="{{$data->Memo_buyer}}" class="form-control form-control-sm"/>
                                 @endif
                               </div>
                             </div>
