@@ -302,7 +302,7 @@
                     </script>
 
                   <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                       <div class="card card-danger">
                         <div class="card-header">
                           <h3 class="card-title"><i class="fas fa-user-tag"></i> ข้อมูลผู้เช่าซื้อ</h3>
@@ -407,11 +407,14 @@
                               </div>
                             </div>
                             <div class="col-md-4">
-                              ค้าง&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ค้างงวดจริง
+                              ค้าง
+                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                              ค้างงวดจริง
                               <div class="form-inline" align="left">
-                                <input type="text" class="form-control" style="width: 40%;" value="{{ number_format(($data1 == null)?$data1:$data->Remainperiod_legis, 0) }}" readonly/>
+                                <input type="text" class="form-control" style="width: 47%;" value="{{ number_format(($data1 == null)?$data1:$data->Remainperiod_legis, 0) }}" readonly/>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <input type="text" class="form-control" style="width: 40%;" value="{{ ($data1 == null)?$data1:$data->Realperiod_legis }}" readonly/>
+                                <input type="text" class="form-control" style="width: 47%;" value="{{ ($data1 == null)?$data1:$data->Realperiod_legis }}" readonly/>
                               </div>
                             </div>
                             <div class="col-md-4">
@@ -456,7 +459,7 @@
                       </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                       <div class="card card-danger">
                         <div class="card-header">
                           <h3 class="card-title"><i class="fas fa-tasks"></i> เอกสาร</h3>
@@ -471,96 +474,7 @@
                         <div class="card-body">
                           <div class="col-md-12">
                             <div class="row">
-                              <div class="col-md-6">
-                                <div class="" id="todo-list">
-                                  <span class="todo-wrap">
-                                    @if($data->Certificate_list != Null)
-                                    <input type="checkbox" id="1" name="Certificatelist" value="{{ $data->Certificate_list }}" checked="checked"/>
-                                    @else
-                                    <input type="checkbox" id="1" name="Certificatelist" value="on"/>
-                                    @endif
-                                    <label for="1" class="todo">
-                                      <i class="fa fa-check"></i>
-                                      หนังสือรับรอง
-                                    </label>
-                                    <span class="delete-item" title="remove">
-                                      <i class="fa fa-times-circle"></i>
-                                    </span>
-                                  </span>
-                                  <span class="todo-wrap">
-                                    @if($data->Authorize_list != Null)
-                                    <input type="checkbox" id="2" name="Authorizelist" value="{{ $data->Authorize_list }}" checked="checked"/>
-                                    @else
-                                    <input type="checkbox" id="2" name="Authorizelist" value="on"/>
-                                    @endif
-                                    <label for="2" class="todo">
-                                      <i class="fa fa-check"></i>
-                                      หนังสือมอบอำนาจ
-                                    </label>
-                                    <span class="delete-item" title="remove">
-                                      <i class="fa fa-times-circle"></i>
-                                    </span>
-                                  </span>
-                                  <span class="todo-wrap">
-                                    @if($data->Authorizecase_list != Null)
-                                    <input type="checkbox" id="3" name="Authorizecaselist" value="{{ $data->Authorizecase_list }}" checked="checked"/>
-                                    @else
-                                    <input type="checkbox" id="3" name="Authorizecaselist" value="on"/>
-                                    @endif
-                                    <label for="3" class="todo">
-                                      <i class="fa fa-check"></i>
-                                      หนังสือมอบอำนาจช่วงคดี
-                                    </label>
-                                    <span class="delete-item" title="remove">
-                                      <i class="fa fa-times-circle"></i>
-                                    </span>
-                                  </span>
-                                  <span class="todo-wrap">
-                                    @if($data->Purchase_list != Null)
-                                    <input type="checkbox" id="4" name="Purchaselist" value="{{ $data->Purchase_list }}" checked="checked"/>
-                                    @else
-                                    <input type="checkbox" id="4" name="Purchaselist" value="on"/>
-                                    @endif
-                                    <label for="4" class="todo">
-                                      <i class="fa fa-check"></i>
-                                      สัญญาเช่าซื้อ
-                                    </label>
-                                    <span class="delete-item" title="remove">
-                                      <i class="fa fa-times-circle"></i>
-                                    </span>
-                                  </span>
-                                  <span class="todo-wrap">
-                                    @if($data->Promise_list != Null)
-                                    <input type="checkbox" id="5" name="Promiselist" value="{{ $data->Promise_list }}" checked="checked"/>
-                                    @else
-                                    <input type="checkbox" id="5" name="Promiselist" value="on"/>
-                                    @endif
-                                    <label for="5" class="todo">
-                                      <i class="fa fa-check"></i>
-                                      สัญญาค่ำ
-                                    </label>
-                                    <span class="delete-item" title="remove">
-                                      <i class="fa fa-times-circle"></i>
-                                    </span>
-                                  </span>
-                                  <span class="todo-wrap">
-                                    @if($data->Titledeed_list != Null)
-                                    <input type="checkbox" id="6" name="Titledeedlist" value="{{ $data->Titledeed_list }}" checked="checked"/>
-                                    @else
-                                    <input type="checkbox" id="6" name="Titledeedlist" value="on"/>
-                                    @endif
-                                    <label for="6" class="todo">
-                                      <i class="fa fa-check"></i>
-                                      โฉนดที่ดิน
-                                    </label>
-                                    <span class="delete-item" title="remove">
-                                      <i class="fa fa-times-circle"></i>
-                                    </span>
-                                  </span>
-                                </div>
-                              </div>
-
-                              <div class="col-md-6">
+                              <div class="col-md-12">
                                 <div class="" id="todo-list">
                                   <span class="todo-wrap">
                                     @if($data->Terminatebuyer_list != Null)
