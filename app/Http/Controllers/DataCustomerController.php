@@ -141,13 +141,13 @@ class DataCustomerController extends Controller
             $SetContract = '07-'.$SetYear.'/';
         }
         elseif($data->Branch_car == 'โคกโพธิ์'){
-            $SetContract = '56-'.$SetYear.'/';
+            $SetContract = '08-'.$SetYear.'/';
         }
         elseif($data->Branch_car == 'ตันหยงมัส'){
-            $SetContract = '57-'.$SetYear.'/';
+            $SetContract = '09-'.$SetYear.'/';
         }
         elseif($data->Branch_car == 'บังนังสตา'){
-            $SetContract = '58-'.$SetYear.'/';
+            $SetContract = '12-'.$SetYear.'/';
         }
         else{
             $SetContract = '00-'.$SetYear.'/';
