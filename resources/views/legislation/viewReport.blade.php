@@ -71,7 +71,6 @@
   }
 </style>
 
-
 <section class="content">
   <div class="card card-warning">
     <div class="card-header">
@@ -89,7 +88,7 @@
         @elseif($type == 19)
           รายงานลูกหนี้สืบทรัพย์
         @elseif($type == 20)
-        รายงานตรวจสอบยอดชำระ
+          รายงานตรวจสอบยอดชำระ
         @endif
       </h4>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">

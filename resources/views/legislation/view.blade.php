@@ -30,6 +30,144 @@
   }
 @endphp
 
+<style>
+  #todo-list{
+  width:100%;
+  margin:0 auto 50px auto;
+  padding:5px;
+  background:white;
+  position:relative;
+  /*box-shadow*/
+  -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
+        box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
+  /*border-radius*/
+  -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+        border-radius:5px;
+  }
+  #todo-list:before{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  /*box-shadow*/
+  -webkit-box-shadow:0 0 20px rgba(0,0,0,0.4);
+    -moz-box-shadow:0 0 20px rgba(0,0,0,0.4);
+        box-shadow:0 0 20px rgba(0,0,0,0.4);
+  top:50%;
+  bottom:0;
+  left:10px;
+  right:10px;
+  /*border-radius*/
+  -webkit-border-radius:100px / 10px;
+    -moz-border-radius:100px / 10px;
+        border-radius:100px / 10px;
+  }
+  .todo-wrap{
+  display:block;
+  position:relative;
+  padding-left:35px;
+  /*box-shadow*/
+  -webkit-box-shadow:0 2px 0 -1px #ebebeb;
+    -moz-box-shadow:0 2px 0 -1px #ebebeb;
+        box-shadow:0 2px 0 -1px #ebebeb;
+  }
+  .todo-wrap:last-of-type{
+  /*box-shadow*/
+  -webkit-box-shadow:none;
+    -moz-box-shadow:none;
+        box-shadow:none;
+  }
+  input[type="checkbox"]{
+  position:absolute;
+  height:0;
+  width:0;
+  opacity:0;
+  /* top:-600px; */
+  }
+  .todo{
+  display:inline-block;
+  font-weight:200;
+  padding:10px 5px;
+  height:3px;
+  position:relative;
+  }
+  .todo:before{
+  content:'';
+  display:block;
+  position:absolute;
+  top:calc(50% + 2px);
+  left:0;
+  width:0%;
+  height:1px;
+  background:#cd4400;
+  /*transition*/
+  -webkit-transition:.25s ease-in-out;
+    -moz-transition:.25s ease-in-out;
+      -o-transition:.25s ease-in-out;
+        transition:.25s ease-in-out;
+  }
+  .todo:after{
+  content:'';
+  display:block;
+  position:absolute;
+  z-index:0;
+  height:18px;
+  width:18px;
+  top:9px;
+  left:-25px;
+  /*box-shadow*/
+  -webkit-box-shadow:inset 0 0 0 2px #d8d8d8;
+    -moz-box-shadow:inset 0 0 0 2px #d8d8d8;
+        box-shadow:inset 0 0 0 2px #d8d8d8;
+  /*transition*/
+  -webkit-transition:.25s ease-in-out;
+    -moz-transition:.25s ease-in-out;
+      -o-transition:.25s ease-in-out;
+        transition:.25s ease-in-out;
+  /*border-radius*/
+  -webkit-border-radius:4px;
+    -moz-border-radius:4px;
+        border-radius:4px;
+  }
+  .todo:hover:after{
+  /*box-shadow*/
+  -webkit-box-shadow:inset 0 0 0 2px #949494;
+    -moz-box-shadow:inset 0 0 0 2px #949494;
+        box-shadow:inset 0 0 0 2px #949494;
+  }
+  .todo .fa-check{
+  position:absolute;
+  z-index:1;
+  left:-31px;
+  top:0;
+  font-size:1px;
+  line-height:36px;
+  width:36px;
+  height:36px;
+  text-align:center;
+  color:transparent;
+  text-shadow:1px 1px 0 white, -1px -1px 0 white;
+  }
+  :checked + .todo{
+  color:#717171;
+  }
+  :checked + .todo:before{
+  width:100%;
+  }
+  :checked + .todo:after{
+  /*box-shadow*/
+  -webkit-box-shadow:inset 0 0 0 2px #0eb0b7;
+    -moz-box-shadow:inset 0 0 0 2px #0eb0b7;
+        box-shadow:inset 0 0 0 2px #0eb0b7;
+  }
+  :checked + .todo .fa-check{
+  font-size:20px;
+  line-height:35px;
+  color:#0eb0b7;
+  }
+</style>
+
   <!-- Main content -->
   <section class="content">
     <div class="content-header">
@@ -44,144 +182,32 @@
           <div class="col-12 table-responsive">
             <div class="card">
               <div class="card-header">
-                <h4 class="">
-                  @if($type == 1)
-                    รายชื่อส่งฟ้อง
-                  @elseif($type == 2)
-                    ลูกหนี้ฟ้อง
-                  @elseif($type == 6)
-                    ลูกหนี้เตรียมฟ้อง
-                  @elseif($type == 7)
-                    ลูกหนี้ประนอมหนี้
-                  @elseif($type == 8)
-                    ลูกหนี้สืบทรัพย์
-                  @elseif($type == 10)
-                    ลูกหนี้ของกลาง
-                  @elseif($type == 12)
-                    ลูกหนี้ขายฝาก
-                  @endif
-                </h4>
+                <div class="row">
+                  <div class="col-6">
+                    <div class="form-inline">
+                      <h4 class="">
+                        @if($type == 2)
+                          ลูกหนี้ฟ้อง
+                        @elseif($type == 6)
+                          ลูกหนี้เตรียมฟ้อง
+                        @elseif($type == 7)
+                          ลูกหนี้ประนอมหนี้
+                        @elseif($type == 8)
+                          ลูกหนี้สืบทรัพย์
+                        @elseif($type == 10)
+                          ลูกหนี้ของกลาง
+                        @elseif($type == 12)
+                          ลูกหนี้ขายฝาก
+                        @endif
+                      </h4>
+                    </div>
+                  </div>
+                  <div class="col-6"></div>
+                </div>
               </div>
               <div class="card-body text-sm">
                 <div class="row">
-                  @if($type == 1)   {{--รายชื่อ--}}
-                    <div class="col-md-12">
-                      <div class="tab-content">
-                        <div class="table-responsive">
-                          <table class="table table-striped table-valign-middle" id="table">
-                            <thead>
-                              <tr>
-                                <th class="text-center" style="width: 10px">ลำดับ</th>
-                                <th class="text-center">เลขที่สัญญา</th>
-                                <th class="text-center">ชื่อ-สกุล</th>
-                                <th class="text-center">วันที่ทำสัญญา</th>
-                                <th class="text-center">ยอดคงเหลือ</th>
-                                <th class="text-center">สถานะ</th>
-                                <th class="text-center">ค้างงวดจริง</th>
-                                <th class="text-center" style="width: 130px">ตัวเลือก</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              @foreach($arrayMerge as $key => $row)
-                                <tr>
-                                  <td class="text-center"> {{$key+1}} </td>
-                                  <td class="text-center">
-                                    {{$row->CONTNO}}
-                                    @php
-                                      $StatusCheck = (iconv('TIS-620', 'utf-8', str_replace(" ","",$row->CONTSTAT)));
-                                    @endphp
-                                    @if($StatusCheck == "ป")
-                                      <span class="label label-warning">ประนอม</span>
-                                    @endif
-                                  </td>
-                                  <td class="text-left">{{iconv('Tis-620','utf-8',str_replace(" ","",$row->SNAM.$row->NAME1)."   ".str_replace(" ","",$row->NAME2))}}</td>
-                                  <td class="text-center"> {{ DateThai($row->FDATE) }} </td>
-                                  <td class="text-center"> {{ number_format($row->BALANC - $row->SMPAY, 2) }} </td>
-                                  <td class="text-center">
-                                    @php
-                                      $Flag = "N";
-                                      $SetBaab = iconv('Tis-620','utf-8',str_replace(" ","",$row->BAAB));
-                                    @endphp
-
-                                    @foreach($result2 as $key => $value)
-                                      @if($row->CONTNO == $value->CONTNO)
-                                        มีหลักพรัทย์
-                                        @php
-                                          $Flag = "Y";
-                                          $Realty = "มีหลักพรัทย์";
-                                        @endphp
-                                      @endif
-                                    @endforeach
-
-                                    @if($Flag == "N")
-                                      @if($SetBaab == "มีหลักพรัทย์")
-                                        มีหลักพรัทย์
-                                        @php
-                                          $Realty = "มีหลักพรัทย์";
-                                        @endphp
-                                      @else
-                                        ไม่มีหลักพรัทย์
-                                        @php
-                                          $Realty = "ไม่มีหลักพรัทย์";
-                                        @endphp
-                                      @endif
-                                    @endif
-                                  </td>
-                                  <td class="text-center"> {{$row->HLDNO}} </td>
-                                  <td class="text-center">
-                                    @php
-                                      $StrCon = explode("/",$row->CONTNO);
-                                      $SetStr1 = $StrCon[0];
-                                      $SetStr2 = $StrCon[1];
-
-                                      $Tax = "N";
-                                      $TaxStat = "N";
-                                    @endphp
-
-                                    @foreach($dataDB as $key => $row1)
-                                      @if($row->CONTNO == $row1->Contract_legis)
-                                          @if($row1->Flag_status == 1)
-                                            <button class="btn btn-warning btn-sm" title="จัดเตรียมฟ้อง">
-                                              <i class="fas fa-check-square"></i> เตรียมฟ้อง
-                                            </button>
-                                          @elseif($row1->Flag_status == 3)
-                                            <button class="btn btn-success btn-sm" title="ลูกหนี้ประนอมหนี้">
-                                              <i class="fas fa-balance-scale"></i> ประนอมหนี้
-                                            </button>
-                                          @else
-                                            <button class="btn btn-success btn-sm" title="ขั้นตอนการฟ้อง">
-                                              <i class="fas fa-gavel"></i> ลูกหนี้ฟ้อง
-                                            </button>
-                                          @endif
-                                        @php
-                                          $Tax = "Y";
-                                          $TaxStat = "Y";
-                                        @endphp
-                                      @endif
-                                    @endforeach
-
-                                    @if($StatusCheck != "ป")
-                                      @if($Tax == "N")
-                                        <a href="{{ route('legislation.Savestore', [$SetStr1,$SetStr2,$Realty,1]) }}" id="edit" class="btn btn-danger btn-sm" title="จัดเตรียมเอกสาร">
-                                          <i class="fas fa-external-link-alt"></i> ส่งเอกสาร
-                                        </a>
-                                      @endif
-                                    @else
-                                      @if($TaxStat == "N")
-                                        <a href="{{ route('legislation.Savestore', [$SetStr1,$SetStr2,$Realty,2]) }}" id="edit" class="btn btn-info btn-sm" title="ประนอมหนี้">
-                                          <i class="fas fa-external-link-alt"></i> ส่งประนอม
-                                        </a>
-                                      @endif
-                                    @endif
-                                  </td>
-                                </tr>
-                              @endforeach
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
-                  @elseif($type == 2)  {{--ลูกหนี้ฟ้อง--}}
+                  @if($type == 2)  {{--ลูกหนี้ฟ้อง--}}
                     <div class="col-md-12">
                       <form method="get" action="{{ route('legislation', 2) }}">
                         <div class="float-right form-inline">

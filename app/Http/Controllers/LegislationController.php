@@ -32,63 +32,8 @@ class LegislationController extends Controller
     public function index(Request $request)
     {
       if($request->type == 1) {        //รายชื่อส่งฟ้อง
-              // ข้อมูลฟ้องจาก ตารางปกติ
-        $data = DB::connection('ibmi')
-            ->table('SFHP.ARMAST')
-            ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
-            ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
-            ->whereBetween('SFHP.ARMAST.HLDNO',[6.7,99.99])
-            ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
-            ->get();
-
-        $count = count($data);
-
-        for($i=0; $i<$count; $i++){
-          $str[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$data[$i]->CONTSTAT)));
-          if ($str[$i] == "ฟ") {
-            $result[] = $data[$i];
-          }
-        }
-
-        $Countresult1 = count($result);
-
-        $dataAro = DB::connection('ibmi')
-                ->table('SFHP.ARMAST')
-                ->join('SFHP.AROTHGAR','SFHP.ARMAST.CONTNO','=','SFHP.AROTHGAR.CONTNO')
-                ->whereBetween('SFHP.ARMAST.HLDNO',[6.7,99.99])
-                ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
-                ->get();
-
-        $count2 = count($dataAro);
-        for($j=0; $j<$count2; $j++){
-          $str2[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$dataAro[$j]->CONTSTAT)));
-          if ($str2[$j] == "ฟ") {
-            $result2[] = $dataAro[$j];
-          }
-        }
-
-        $dataSMT = DB::connection('ibmi')
-                ->table('ASFHP.ARMAST')
-                ->join('ASFHP.INVTRAN','ASFHP.ARMAST.CONTNO','=','ASFHP.INVTRAN.CONTNO')
-                ->join('ASFHP.VIEW_CUSTMAIL','ASFHP.ARMAST.CUSCOD','=','ASFHP.VIEW_CUSTMAIL.CUSCOD')
-                ->orderBy('ASFHP.ARMAST.CONTNO', 'ASC')
-                ->get();
-
-        $count3 = count($dataSMT);
-        for($j=0; $j<$count3; $j++){
-          $str3[] = (iconv('TIS-620', 'utf-8', str_replace(" ","",$dataSMT[$j]->CONTSTAT)));
-          if ($str3[$j] == "ป") {
-            $result3[] = $dataSMT[$j];
-          }
-        }
-        $arrayMerge = array_merge($result, $result3);
-
-        $dataDB = DB::table('legislations')
-                  ->orderBy('Contract_legis', 'ASC')
-                  ->get();
         $type = $request->type;
-        return view('legislation.view', compact('type','data','result','dataDB','result3','result2','arrayMerge'));
-
+        return view('legislation.PopUp',compact('type'));
       }
       elseif ($request->type == 2) {   //งานฟ้อง
         $newfdate = '';
@@ -479,6 +424,154 @@ class LegislationController extends Controller
         //
     }
 
+    public function SearchData(Request $request, $type)
+    {
+      if ($type == 1) {
+        $DB_type = $request->get('DB_type');
+        $Contract = $request->get('Contno');
+
+        if ($DB_type == 1) {       //ลูกหนี้ปกติ
+          $data = DB::connection('ibmi')
+              ->table('SFHP.ARMAST')
+              ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+              ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+              ->where('SFHP.ARMAST.CONTNO','=', $Contract)
+              ->first();
+          
+          $dataGT = DB::connection('ibmi')
+              ->table('SFHP.VIEW_ARMGAR')
+              ->where('SFHP.VIEW_ARMGAR.CONTNO','=', $Contract)
+              ->first();
+
+          // query ทรัพย์
+          $dataAro = DB::connection('ibmi')
+              ->table('SFHP.ARMAST')
+              ->join('SFHP.AROTHGAR','SFHP.ARMAST.CONTNO','=','SFHP.AROTHGAR.CONTNO')
+              ->where('SFHP.ARMAST.CONTNO','=', $Contract)
+              ->first();
+          
+          if ($dataAro != NULL) {
+            $SetRealty = 'มีทรัพย์';
+          }else {
+            $SetRealty = 'ไม่มีทรัพย์';
+          }
+        }
+        elseif ($DB_type == 2) {   //ลูกหนี้ประนอม
+          $data = DB::connection('ibmi')
+              ->table('ASFHP.ARMAST')
+              ->join('ASFHP.INVTRAN','ASFHP.ARMAST.CONTNO','=','ASFHP.INVTRAN.CONTNO')
+              ->join('ASFHP.VIEW_CUSTMAIL','ASFHP.ARMAST.CUSCOD','=','ASFHP.VIEW_CUSTMAIL.CUSCOD')
+              ->where('ASFHP.ARMAST.CONTNO','=', $Contract)
+              ->first();
+
+                    // query ทรัพย์
+          $dataAro = DB::connection('ibmi')
+              ->table('SFHP.ARMAST')
+              ->join('SFHP.AROTHGAR','SFHP.ARMAST.CONTNO','=','SFHP.AROTHGAR.CONTNO')
+              ->where('SFHP.ARMAST.CONTNO','=', $Contract)
+              ->first();
+          
+          if ($dataAro != NULL) {
+            $SetRealty = 'มีทรัพย์';
+          }else {
+            $SetRealty = 'ไม่มีทรัพย์';
+          }
+        }
+
+        $datalegis = DB::table('legislations')
+                  ->where('legislations.Contract_legis',$Contract)->first();
+
+        if ($data != NULL) {
+          $output ='<div class="card">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-12 col-sm-12 col-md-12">
+                          <div class="info-box mb-3">
+                            <span class="info-box-icon bg-warning elevation-1"><i class="far fa-id-card fa-lg"></i></span>
+  
+                            <div class="info-box-content">
+                              <h6 style="color: red">'.$data->CONTNO.'</h6>
+                              <span class="info-box-number" style="font-size: 17px; color: blue">'.(iconv('TIS-620', 'utf-8', str_replace(" ","",$data->SNAM)))." ".(iconv('TIS-620', 'utf-8', str_replace(" ","",$data->NAME1)))." ".(iconv('TIS-620', 'utf-8', str_replace(" ","",$data->NAME2))).'</span>
+                            </div>
+  
+                            <div class="info-box-content">
+                              <div class="card-tools d-inline float-right">
+                                <form name="form1" method="get" action="'.action('LegislationController@Savestore').'" enctype="multipart/form-data">
+                                  <input type="hidden" name="type" value="'.$DB_type.'"/>
+                                  <input type="hidden" name="Contno" value="'.$Contract.'"/>';
+
+                                  if ($datalegis != NULL) {
+                            $output.='<button type="button" class="btn btn-block btn-outline-danger">
+                                        <i class="fas fa-user-check"></i> ลูกหนี้อยู่ในระบบแล้ว
+                                      </button>';
+                                  }else {
+                            $output.='<button type="submit" class="btn btn-block btn-outline-success">
+                                        <i class="fas fa-user-plus"></i> บันทึก
+                                      </button>';
+                                  }
+  
+                        $output.='<input type="hidden" name="_method" value="PATCH"/>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>';
+
+            $output.='<div class="row text-sm">
+                        <div class="col-6">
+                          <div class="form-group row mb-0">
+                            <label class="col-sm-4 col-form-label text-right">วันทำสัญญา: </label>
+                            <div class="col-sm-8">';
+                      $output.='<input type="text" class="form-control form-control-sm" value="'.date('d-m-Y', strtotime($data->FDATE)).'"readonly>';
+                  $output.='</div>
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="form-group row mb-0">
+                            <label class="col-sm-3 col-form-label text-right">ค้างงวด : </label>
+                            <div class="col-sm-8">';
+                      $output.='<input type="text" class="form-control form-control-sm" value="'.$data->HLDNO.'"readonly>';
+                  $output.='</div>
+                          </div>
+                        </div>
+                      </div>';
+
+                      $priceCus = $data->BALANC - $data->SMPAY;
+
+            $output.='<div class="row text-sm">
+                      <div class="col-6">
+                        <div class="form-group row mb-0">
+                          <label class="col-sm-4 col-form-label text-right">ยอดคงเหลือ: </label>
+                          <div class="col-sm-8">';
+                    $output.='<input type="text" class="form-control form-control-sm" value="'.number_format($priceCus, 2).'"readonly>';
+                $output.='</div>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <div class="form-group row mb-0">
+                          <label class="col-sm-3 col-form-label text-right">สถานะ : </label>
+                          <div class="col-sm-8">';
+                    $output.='<input type="text" class="form-control form-control-sm" value="'.$SetRealty.'"readonly>';
+                $output.='</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </div>';
+  
+          echo $output;
+        }else {
+          $output ='<div class="alert alert-danger alert-dismissible">
+                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h5><i class="icon fas fa-exclamation-triangle"></i> Alert!</h5>
+                      ไม่พบข้อมูล. โปรดตรวจสอบเลขที่สัญญา หรือฐานข้อมูล.
+                    </div>';
+          echo $output;
+        }
+      }
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -663,16 +756,32 @@ class LegislationController extends Controller
       }
     }
 
-    public function Savestore(Request $request, $SetStr1, $SetStr2, $SetRealty, $type)
+    public function Savestore(Request $request)
     {
-      if ($type == 1) {       //ลูกหนี้ปกติ
-        $SetStrConn = $SetStr1."/".$SetStr2;
+      if ($request->Contno != '') {
+        $SetStrConn = $request->Contno;
+      }
+      
+      if ($request->type == 1) {       //ลูกหนี้ปกติ
         $data = DB::connection('ibmi')
+          ->table('SFHP.ARMAST')
+          ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+          ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+          ->where('SFHP.ARMAST.CONTNO','=', $SetStrConn)
+          ->first();
+
+        // query ทรัพย์
+        $dataAro = DB::connection('ibmi')
             ->table('SFHP.ARMAST')
-            ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
-            ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+            ->join('SFHP.AROTHGAR','SFHP.ARMAST.CONTNO','=','SFHP.AROTHGAR.CONTNO')
             ->where('SFHP.ARMAST.CONTNO','=', $SetStrConn)
             ->first();
+        
+        if ($dataAro != NULL) {
+          $SetRealty = 'มีทรัพย์';
+        }else {
+          $SetRealty = 'ไม่มีทรัพย์';
+        }
 
         $dataGT = DB::connection('ibmi')
             ->table('SFHP.VIEW_ARMGAR')
@@ -724,17 +833,29 @@ class LegislationController extends Controller
           'UserSend1_legis' => auth()->user()->name,
         ]);
         $LegisDB->save();
-        $tab = 1;
-        return redirect()->Route('legislation', $type)->with(['tab'=>$tab,'success'=>'รับเรื่องเรียบร้อย']);
+
+        return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
       }
-      elseif ($type == 2) {   //ลูกหนี้ประนอม
-        $SetStrConn = $SetStr1."/".$SetStr2;
+      elseif ($request->type == 2) {   //ลูกหนี้ประนอม
         $data = DB::connection('ibmi')
             ->table('ASFHP.ARMAST')
             ->join('ASFHP.INVTRAN','ASFHP.ARMAST.CONTNO','=','ASFHP.INVTRAN.CONTNO')
             ->join('ASFHP.VIEW_CUSTMAIL','ASFHP.ARMAST.CUSCOD','=','ASFHP.VIEW_CUSTMAIL.CUSCOD')
             ->where('ASFHP.ARMAST.CONTNO','=', $SetStrConn)
             ->first();
+
+        // query ทรัพย์
+        $dataAro = DB::connection('ibmi')
+            ->table('SFHP.ARMAST')
+            ->join('SFHP.AROTHGAR','SFHP.ARMAST.CONTNO','=','SFHP.AROTHGAR.CONTNO')
+            ->where('SFHP.ARMAST.CONTNO','=', $SetStrConn)
+            ->first();
+        
+        if ($dataAro != NULL) {
+          $SetRealty = 'มีทรัพย์';
+        }else {
+          $SetRealty = 'ไม่มีทรัพย์';
+        }
 
         $dataGT = DB::connection('ibmi')
             ->table('ASFHP.VIEW_ARMGAR')
@@ -809,60 +930,59 @@ class LegislationController extends Controller
           $Legislation->KeyCompro_id = $LegisPromise->legisPromise_id;
         $Legislation->update();
 
-        $type = 1;
-        return redirect()->Route('legislation', $type)->with('success','รับเรื่องเรียบร้อย');
+        return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
       }
       elseif ($type == 3) {  //ลูกหนี้ขายฝาก
-        $SetStrConn = $SetStr1."/".$SetStr2;
-        $data = DB::connection('ibmi')
-                  ->table('LSFHP.ARMAST')
-                  ->join('LSFHP.INVTRAN','LSFHP.ARMAST.CONTNO','=','LSFHP.INVTRAN.CONTNO')
-                  ->join('LSFHP.VIEW_CUSTMAIL','LSFHP.ARMAST.CUSCOD','=','LSFHP.VIEW_CUSTMAIL.CUSCOD')
-                  ->where('LSFHP.ARMAST.CONTNO','=', $SetStrConn)
-                  ->first();
-        $dataGT = DB::connection('ibmi')
-                  ->table('LSFHP.VIEW_ARMGAR')
-                  ->where('LSFHP.VIEW_ARMGAR.CONTNO','=', $SetStrConn)
-                  ->first();
+        // $SetStrConn = $SetStr1."/".$SetStr2;
+        // $data = DB::connection('ibmi')
+        //           ->table('LSFHP.ARMAST')
+        //           ->join('LSFHP.INVTRAN','LSFHP.ARMAST.CONTNO','=','LSFHP.INVTRAN.CONTNO')
+        //           ->join('LSFHP.VIEW_CUSTMAIL','LSFHP.ARMAST.CUSCOD','=','LSFHP.VIEW_CUSTMAIL.CUSCOD')
+        //           ->where('LSFHP.ARMAST.CONTNO','=', $SetStrConn)
+        //           ->first();
+        // $dataGT = DB::connection('ibmi')
+        //           ->table('LSFHP.VIEW_ARMGAR')
+        //           ->where('LSFHP.VIEW_ARMGAR.CONTNO','=', $SetStrConn)
+        //           ->first();
 
-        if ($dataGT == Null) {
-          $SetGTName = Null;
-          $SetGTIDNO = Null;
-        }else {
-          $SetGTName = (iconv('Tis-620','utf-8',$dataGT->NAME));
-          $SetGTIDNO = (str_replace(" ","",$dataGT->IDNO));
-        }
+        // if ($dataGT == Null) {
+        //   $SetGTName = Null;
+        //   $SetGTIDNO = Null;
+        // }else {
+        //   $SetGTName = (iconv('Tis-620','utf-8',$dataGT->NAME));
+        //   $SetGTIDNO = (str_replace(" ","",$dataGT->IDNO));
+        // }
 
-        $LegisLand = new Legisland([
-          'Date_legis' => $date,
-          'ContractNo_legis' => $data->CONTNO,
-          'Name_legis' => (iconv('TIS-620', 'utf-8', str_replace(" ","",$data->SNAM).str_replace(" ","",$data->NAME1)."  ".str_replace(" ","",$data->NAME2))),
-          'Idcard_legis' => (str_replace(" ","",$data->IDNO)),
-          'BrandCar_legis' => (iconv('Tis-620','utf-8',str_replace(" ","",$data->TYPE))),
-          'register_legis' => (iconv('Tis-620','utf-8',str_replace(" ","",$data->REGNO))),
-          'YearCar_legis' => $data->MANUYR,
-          'Category_legis' => (iconv('Tis-620','utf-8',str_replace(" ","",$data->BAAB))),
-          'DateDue_legis' => $data->SDATE,
-          'Pay_legis' => $data->NCARCST,
-          'DateVAT_legis' => $data->DTSTOPV,
-          'NameGT_legis' => $SetGTName,
-          'IdcardGT_legis' => $SetGTIDNO,
-          'Realty_legis' => $SetRealty,
-          'Period_legis' => $data->TOT_UPAY,
-          'Countperiod_legis' => $data->T_NOPAY,
-          'Beforeperiod_legis' => $data->EXP_FRM,
-          'Beforemoney_legis' => $data->SMPAY,
-          'Sumperiod_legis' => $data->BALANC - $data->SMPAY,
-          'Remainperiod_legis' => $data->EXP_TO,
-          'Staleperiod_legis' => $data->EXP_PRD, //ค้าง
-          'Realperiod_legis' => $data->HLDNO, //ค้างงวดจริง
-          'StatusContract_legis' => (iconv('Tis-620','utf-8',$data->CONTSTAT)),
-          'Flag' => 'Y',
-        ]);
-        $LegisLand->save();
-        $tab = 2;
-        $type = 1;
-        return redirect()->Route('legislation', $type)->with(['tab' => $tab , 'success' => '่ส่งดำเนินเรื่องเรียบร้อย']);
+        // $LegisLand = new Legisland([
+        //   'Date_legis' => $date,
+        //   'ContractNo_legis' => $data->CONTNO,
+        //   'Name_legis' => (iconv('TIS-620', 'utf-8', str_replace(" ","",$data->SNAM).str_replace(" ","",$data->NAME1)."  ".str_replace(" ","",$data->NAME2))),
+        //   'Idcard_legis' => (str_replace(" ","",$data->IDNO)),
+        //   'BrandCar_legis' => (iconv('Tis-620','utf-8',str_replace(" ","",$data->TYPE))),
+        //   'register_legis' => (iconv('Tis-620','utf-8',str_replace(" ","",$data->REGNO))),
+        //   'YearCar_legis' => $data->MANUYR,
+        //   'Category_legis' => (iconv('Tis-620','utf-8',str_replace(" ","",$data->BAAB))),
+        //   'DateDue_legis' => $data->SDATE,
+        //   'Pay_legis' => $data->NCARCST,
+        //   'DateVAT_legis' => $data->DTSTOPV,
+        //   'NameGT_legis' => $SetGTName,
+        //   'IdcardGT_legis' => $SetGTIDNO,
+        //   'Realty_legis' => $SetRealty,
+        //   'Period_legis' => $data->TOT_UPAY,
+        //   'Countperiod_legis' => $data->T_NOPAY,
+        //   'Beforeperiod_legis' => $data->EXP_FRM,
+        //   'Beforemoney_legis' => $data->SMPAY,
+        //   'Sumperiod_legis' => $data->BALANC - $data->SMPAY,
+        //   'Remainperiod_legis' => $data->EXP_TO,
+        //   'Staleperiod_legis' => $data->EXP_PRD, //ค้าง
+        //   'Realperiod_legis' => $data->HLDNO, //ค้างงวดจริง
+        //   'StatusContract_legis' => (iconv('Tis-620','utf-8',$data->CONTSTAT)),
+        //   'Flag' => 'Y',
+        // ]);
+        // $LegisLand->save();
+        // $tab = 2;
+        // $type = 1;
+        // return redirect()->Route('legislation', $type)->with(['tab' => $tab , 'success' => '่ส่งดำเนินเรื่องเรียบร้อย']);
       }
     }
 
