@@ -278,7 +278,8 @@
             @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก กฏหมาย" or auth::user()->type == "แผนก เร่งรัด")
               <ul class="nav nav-treeview" style="margin-left: 15px;">
                 <li class="nav-item">
-                  <a href="{{ route('legislation',1) }}" class="nav-link {{ Request::is('Legislation/Home/1') ? 'active' : '' }}">
+                  {{-- <li><a target="_blnk" class="dropdown-item" data-toggle="modal" data-target="#modal-1" data-link="{{ route('legislation', 9) }}"> ใบเสร็จรับชำระ</a></li> --}}
+                  <a data-toggle="modal" data-target="#modal-1" data-link="{{ route('legislation', 1) }}" class="nav-link {{ Request::is('Legislation/Home/1') ? 'active' : '' }}">
                     <i class="far fa-dot-circle nav-icon"></i>
                     <p>รายชื่อส่งฟ้อง</p>
                   </a>
@@ -421,9 +422,33 @@
         </ul>
       </nav>
 
-
     </div>
   </aside>
+
+  <!-- Pop up  -->
+  <div class="modal fade" id="modal-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content" style="background-color:#EAEDED">
+        <div class="modal-body">
+          {{-- <p>One fine body…</p> --}}
+        </div>
+        <div class="modal-footer justify-content-between">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{-- Popup --}}
+  <script>
+    $(function () {
+      $("#modal-1").on("show.bs.modal", function (e) {
+        var link = $(e.relatedTarget).data("link");
+        $("#modal-1 .modal-body").load(link, function(){
+        });
+      });
+    });
+  </script>
+
 
   <script type="text/javascript">
     SearchData(); //เรียกใช้งานทันที

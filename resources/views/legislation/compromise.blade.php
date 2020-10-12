@@ -112,7 +112,6 @@
                   </div>
                   <div class="card-body text-sm">
                   
-
                     <div class="row">
                       <div class="col-md-12">
                         <div class="info-box">

@@ -24,7 +24,6 @@
   <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
   <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
 
-
   <style>
     .a1 {color: #E6E6FA;}
     .a2 {color: #4A0B52;}
@@ -353,6 +352,8 @@
   <script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
   <script src="{{ asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
   <script src="{{ asset('plugins/filterizr/jquery.filterizr.min.js') }}"></script>
+  <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}" wfd-invisible="true"></script>
+
 
   <script>
     $.widget.bridge('uibutton', $.ui.button)
