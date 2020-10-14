@@ -143,15 +143,44 @@ class LegislationController extends Controller
         return view('legislation.view', compact('type', 'data','dataPay','newfdate','newtdate','StateCourt','StateLegis'));
       }
       elseif ($request->type == 6) {   //ลูกหนี้เตรียมฟ้อง
+        $newfdate = '';
+        $newtdate = '';
+        $FlagStatus = '';
+
+        if ($request->has('Fromdate')){
+          $newfdate = $request->get('Fromdate');
+        }
+        if ($request->has('Todate')){
+          $newtdate = $request->get('Todate');
+        }
+        if ($request->get('FlagStatus')){
+          $FlagStatus = $request->get('FlagStatus');
+        }
+
         $data = DB::table('legislations')
-                  ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
-                  ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
-                  ->where('legislations.Flag_status','!=', '3')
-                  ->orderBy('legislations.id', 'DESC')
-                  ->get();
+            ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+            ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+            ->where('legislations.Flag_status','=', '1')
+            ->orderBy('legislations.id', 'DESC')
+            ->get();
+        
+        if ($request->has('Fromdate') != false and $request->has('Todate') != false) {
+          $data = DB::table('legislations')
+              ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+              ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+              ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+                return $q->whereBetween('legislations.Date_legis',[$newfdate,$newtdate]);
+              })
+              ->when(!empty($FlagStatus), function($q) use($FlagStatus){
+                return $q->where('legislations.Flag_status',$FlagStatus);
+              })
+              ->orderBy('legislations.id', 'DESC')
+              ->get();
+        }
+
 
         $type = $request->type;
-        return view('legislation.view', compact('type', 'data'));
+        return view('legislation.view', compact('type', 'data','newfdate','newtdate','FlagStatus'));
       }
       elseif ($request->type == 7) {   //งานประนอมหนี้
         $lastday = date('Y-m-d', strtotime("-90 days"));
@@ -829,7 +858,7 @@ class LegislationController extends Controller
           'Sumperiod_legis' => $data->BALANC - $data->SMPAY,
           'Flag' => 'Y',
           'Phone_legis' => (iconv('Tis-620','utf-8',$data->TELP)),
-          'Flag_status' => '1',
+          'Flag_status' => '1',  //ลูกหนี้ปกติ
           'UserSend1_legis' => auth()->user()->name,
         ]);
         $LegisDB->save();
@@ -899,7 +928,7 @@ class LegislationController extends Controller
           'Sumperiod_legis' => $data->BALANC - $data->SMPAY,
           'Flag' => 'C',
           'Phone_legis' => (iconv('Tis-620','utf-8',$data->TELP)),
-          'Flag_status' => '3',
+          'Flag_status' => '3',  //ลูกหนี้ประนอม
           'UserSend1_legis' => auth()->user()->name,
 
         ]);

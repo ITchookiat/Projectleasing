@@ -683,6 +683,29 @@
                     </div>
                   @elseif($type == 6)  {{--ลูกหนี้เตรียมฟ้อง--}}
                     <div class="col-md-12">
+                      <form method="get" action="{{ route('legislation', 6) }}">
+                        <div class="float-right form-inline">
+                          <button type="submit" class="btn bg-warning btn-app">
+                            <span class="fas fa-search"></span> Search
+                          </button>
+                        </div>
+                        <div class="float-right form-inline">
+                          <label>จากวันที่ : </label>
+                          <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control form-control-sm" />
+  
+                          <label>ถึงวันที่ : </label>
+                          <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control form-control-sm" />
+                          
+                          <label for="text" class="mr-sm-2">สถานะ : </label>
+                          <select name="FlagStatus" class="form-control form-control-sm" id="text">
+                            <option selected value="">------ สถานะ ------</option>
+                            <option value="1" {{ ($FlagStatus == '1') ? 'selected' : '' }}>ลูกหนี้ส่งฟ้อง</option>
+                            <option value="2" {{ ($FlagStatus == '2') ? 'selected' : '' }}>ลูกหนี้เตรียมฟ้อง</option>
+                          </select>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="col-md-12">
                       <div class="table-responsive">
                         <table class="table table-striped table-valign-middle" id="table">
                           <thead>
@@ -696,7 +719,7 @@
                               <th class="text-center">ผู้จัดเตรียม</th>
                               <th class="text-center">หมายเหตุ</th>
                               <th class="text-center" style="width: 80px">สถานะ</th>
-                              <th class="text-center" style="width: 110px">ตัวเลือก</th>
+                              <th class="text-center" style="width: 80px">ตัวเลือก</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -735,27 +758,27 @@
                                   @endif
                                 </td>
                                 <td class="text-center"> {{ $row->UserSend2_legis }}</td>
-                                <td class="text-left" style="width:200px;"> {{ $row->Noteby_legis }} </td>
+                                <td class="text-left" style="width: 200px;"> {{ $row->Noteby_legis }} </td>
                                 <td class="text-center">
                                   @if($row->Flag_status == '1')
-                                  <button type="button" class="btn btn-danger btn-sm" title="เตรียมเอกสาร">
-                                    <i class="far fa-calendar-check"></i> เตรียม
-                                  </button>
+                                    <button type="button" class="btn btn-danger btn-sm" title="เตรียมเอกสาร">
+                                      <i class="far fa-calendar-check"></i> เตรียม
+                                    </button>
                                   @else
-                                  <button type="button" class="btn btn-success btn-sm" title="วันส่งทนาย {{ DateThai($row->Datesend_Flag) }}">
-                                    <i class="far fa-calendar-check"></i> ส่งทนาย
-                                  </button>
+                                    <button type="button" class="btn btn-success btn-sm" title="วันส่งทนาย {{ DateThai($row->Datesend_Flag) }}">
+                                      <i class="far fa-calendar-check"></i> ส่งทนาย
+                                    </button>
                                   @endif
                                 </td>
                                 <td class="text-center">
                                   <a href="{{ action('LegislationController@edit',[$row->id,$type]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
-                                    <i class="far fa-edit"></i> แก้ไข
+                                    <i class="far fa-edit"></i>
                                   </a>
                                   <form method="post" class="delete_form" action="{{ action('LegislationController@destroy',[$row->id ,1]) }}" style="display:inline;">
                                   {{csrf_field()}}
                                     <input type="hidden" name="_method" value="DELETE" />
                                     <button type="submit"  data-name="{{ $row->Contract_legis }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
-                                      <i class="far fa-trash-alt"></i> ลบ
+                                      <i class="far fa-trash-alt"></i>
                                     </button>
                                   </form>
                                 </td>
