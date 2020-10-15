@@ -307,7 +307,7 @@
           <th class="text-center" width="540px"></th>
           @endif
         </tr>
-        <tr>
+        <!-- <tr>
           <th align="right" width="120px"> ผู้รับเงิน &nbsp;</th>
           <th class="text-center" width="120px" style="background-color: yellow;"> <b>{{$dataReport->Payee_car}}</b></th>
           <th align="right" width="120px"> เลขที่บัญชี/สาขา &nbsp;</th>
@@ -318,15 +318,30 @@
             @endif
             </b>
           </th>
+        </tr> -->
+        <tr>
+          <th align="right" width="120px"> ผู้รับเงิน &nbsp;</th>
+          <th class="text-center" width="420px" style="background-color: yellow;"> <b>{{$dataReport->Payee_car}}</b></th>
+        </tr>
+        <tr>
+          <th align="right" width="120px"> เลขที่บัญชี/สาขา &nbsp;</th>
+          <th class="text-center" width="420px" style="background-color: yellow;"> 
+          <b>
+            @if($dataReport->Accountbrance_car != Null)
+              {{$dataReport->Accountbrance_car}} / {{$dataReport->branchbrance_car}}
+            @else
+            @endif
+          </b>
+          </th>
         </tr>
         <tr>
           <th class="text-center" width="240px"></th>
           <th align="right" width="120px"> เบอร์โทรศัพท์ &nbsp;</th>
           <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataReport->Tellbrance_car}}</b></th>
         </tr>
-        <tr>
+        <!-- <tr>
           <th class="text-center" width="540px"></th>
-        </tr>
+        </tr> -->
         <tr>
           <th align="right" width="120px"> แนะนำ/นายหน้า &nbsp;</th>
           <th class="text-center" width="120px" style="background-color: yellow;"> <b>{{$dataReport->Agent_car}}</b></th>
