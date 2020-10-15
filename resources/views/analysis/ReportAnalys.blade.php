@@ -350,7 +350,7 @@
         </tr>
         <tr>
           <th align="right" width="120px"> เลขที่บัญชี/สาขา &nbsp;</th>
-          <th align="right" width="420px" style="background-color: yellow;">
+          <th align="left" width="420px" style="background-color: yellow;">
               @if($dataReport->Accountagent_car != Null)
                 <b>{{$dataReport->Accountagent_car}} / {{$dataReport->branchAgent_car}}</b>
               @else
