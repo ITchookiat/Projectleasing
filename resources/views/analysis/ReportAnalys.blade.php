@@ -325,13 +325,11 @@
         </tr>
         <tr>
           <th align="right" width="120px"> เลขที่บัญชี/สาขา &nbsp;</th>
-          <th class="text-center" width="420px" style="background-color: yellow;"> 
-          <b>
+          <th align="left" width="420px" style="background-color: yellow;"> 
             @if($dataReport->Accountbrance_car != Null)
-              {{$dataReport->Accountbrance_car}} / {{$dataReport->branchbrance_car}}
+            <b>{{$dataReport->Accountbrance_car}} / {{$dataReport->branchbrance_car}}</b>
             @else
             @endif
-          </b>
           </th>
         </tr>
         <tr>
@@ -352,14 +350,12 @@
         </tr>
         <tr>
           <th align="right" width="120px"> เลขที่บัญชี/สาขา &nbsp;</th>
-          <th class="text-center" width="420px" style="background-color: yellow;">
-            <b>
+          <th align="right" width="420px" style="background-color: yellow;">
               @if($dataReport->Accountagent_car != Null)
-              {{$dataReport->Accountagent_car}} / {{$dataReport->branchAgent_car}}
+                <b>{{$dataReport->Accountagent_car}} / {{$dataReport->branchAgent_car}}</b>
               @else
 
               @endif
-            </b>
           </th>
         </tr>
         <tr>
