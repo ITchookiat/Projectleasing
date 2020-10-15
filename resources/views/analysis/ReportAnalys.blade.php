@@ -19,9 +19,9 @@
   </head>
     <label>วันที่ : {{$date}}</label>
     @if($type == 11)
-      <h3 class="card-title p-3" align="center">แบบฟอร์มขออนุมัติปรับโครงสร้างหนี้</h3>
+      <h3 class="card-title p-3" align="center" style="line-height: 3px;">แบบฟอร์มขออนุมัติปรับโครงสร้างหนี้</h3>
     @else
-      <h3 class="card-title p-3" align="center">แบบฟอร์มขออนุมัติเช่าซื้อรถยนต์</h3>
+      <h3 class="card-title p-3" align="center" style="line-height: 3px;">แบบฟอร์มขออนุมัติเช่าซื้อรถยนต์</h3>
     @endif
     <hr>
 
@@ -335,18 +335,24 @@
           </th>
         </tr>
         <tr>
+          <th align="right" width="120px"> เบอร์โทรศัพท์ &nbsp;</th>
+          <th class="text-center" width="420px" style="background-color: yellow;"> <b>{{$dataReport->Tellbrance_car}}</b></th>
+        </tr>
+        <!-- <tr>
           <th class="text-center" width="240px"></th>
           <th align="right" width="120px"> เบอร์โทรศัพท์ &nbsp;</th>
           <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataReport->Tellbrance_car}}</b></th>
-        </tr>
-        <!-- <tr>
-          <th class="text-center" width="540px"></th>
         </tr> -->
         <tr>
+          <th class="text-center" width="540px"></th>
+        </tr>
+        <tr>
           <th align="right" width="120px"> แนะนำ/นายหน้า &nbsp;</th>
-          <th class="text-center" width="120px" style="background-color: yellow;"> <b>{{$dataReport->Agent_car}}</b></th>
+          <th class="text-center" width="420px" style="background-color: yellow;"> <b>{{$dataReport->Agent_car}}</b></th>
+        </tr>
+        <tr>
           <th align="right" width="120px"> เลขที่บัญชี/สาขา &nbsp;</th>
-          <th class="text-center" width="180px" style="background-color: yellow;">
+          <th class="text-center" width="420px" style="background-color: yellow;">
             <b>
               @if($dataReport->Accountagent_car != Null)
               {{$dataReport->Accountagent_car}} / {{$dataReport->branchAgent_car}}
@@ -367,6 +373,9 @@
           <th class="text-center" width="120px" style="background-color: yellow;"> <b>{{$dataReport->Purchasehistory_car}}</b></th>
           <th align="right" width="120px"> ประวัติค้ำ &nbsp;</th>
           <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataReport->Supporthistory_car}}</b></th>
+        </tr>
+        <tr>
+          <th class="text-center" width="540px"></th>
         </tr>
         <tr>
           <th align="right" width="120px"> เจ้าหน้าที่สินเชื่อ &nbsp;</th>
