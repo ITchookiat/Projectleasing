@@ -350,7 +350,7 @@ class ExcelController extends Controller
              'ลำดับ' => $key+1,
              'วันทำสัญญา' => $Date_Due,
              'เลขสัญญา' => $row->Contract_buyer,
-             'ชื่อ-สกุล' => $row->Name_buyer.' '.$row->Last_buyer,
+             'ชื่อ-สกุล' => $row->Name_buyer.' '.$row->last_buyer,
              'สถานะ' => $row->status_car,
              'ยี่ห้อ' => $row->Brand_car,
              'สี' => $row->Colour_car,
