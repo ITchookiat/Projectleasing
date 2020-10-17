@@ -366,7 +366,7 @@ class ExcelController extends Controller
              'ค่างวดเดิม' => $row->other_Price,
              'ระยะเวลาผ่อนเดิม' => $row->note_Price,
              'คชจ. ปรับโครงสร้าง' => 2500,
-             'เจ้าหน้าที่รับลูกค้า' => $row->Loanofficercar,
+             'เจ้าหน้าที่รับลูกค้า' => $row->Loanofficer_car,
             );
           }
         $data_array = collect($data_array);
