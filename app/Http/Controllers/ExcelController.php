@@ -340,8 +340,7 @@ class ExcelController extends Controller
         }
         // dd($data);
 
-        $data_array[] = array('ลำดับ', 'วันที่โอน', 'สถานะ', 'ยี่ห้อ', 'รุ่น', 'ทะเบียนเดิม', 'ทะเบียนใหม่', 'เลขสัญญา', 'ปี', 'ยอดจัด', 'พรบ.','ยอดปิดบัญชี','ซื้อประกัน', '%ยอดจัด', 'งวดผ่อน(เดือน)', 'ค่าใช้จ่ายขนส่ง', 'อื่นๆ', 'ค่าประเมิน',
-                        'ค่าการตลาด', 'อากร','รวม คชจ', 'คงเหลือ', 'ค่าคอมก่อนหัก3%', 'ค่าคอมหลังหัก3%', 'เอกสารผู้ค้ำ', 'ผู้รับเงิน', 'เลขที่บัญชี', 'เบอร์โทรผู้รับเงิน', 'ผู้รับค่าคอม', 'เลขที่บัญชี', 'เบอร์โทรผู้แนะนำ', 'ใบขับขี่', 'แถมประกัน','สถานะผู้เช่าซื้อ','คชจ. ปรับโครงสร้าง');
+        $data_array[] = array('ลำดับ', 'วันทำสัญญา', 'เลขสัญญา', 'ชื่อ-สกุล', 'สถานะ', 'ยี่ห้อ', 'สี', 'ปี', 'ป้ายทะเบียน', 'ยอดจัด', 'ชำระต่องวด','ระยะเวลาผ่อน','ดอกเบี้ย', 'วันที่ชำระงวดแรก', 'ยอดผ่อนชำระทั้งหมด ', 'เลขสัญญาเดิม', 'ค่างวดเดิม', 'ระยะเวลาผ่อนเดิม', 'คชจ. ปรับโครงสร้าง', 'เจ้าหน้าที่รับลูกค้า');
 
           foreach($data as $key => $row){
             $date = date_create($row->Date_Due);
@@ -349,46 +348,31 @@ class ExcelController extends Controller
 
             $data_array[] = array(
              'ลำดับ' => $key+1,
-             'วันที่โอน' => $Date_Due,
+             'วันทำสัญญา' => $Date_Due,
+             'เลขสัญญา' => $row->Contract_buyer,
+             'ชื่อ-สกุล' => $row->Name_buyer.' '.$row->Last_buyer,
              'สถานะ' => $row->status_car,
              'ยี่ห้อ' => $row->Brand_car,
-             'รุ่น' => $row->Model_car,
-             'ทะเบียนเดิม' => $row->License_car,
-             'ทะเบียนใหม่' => $row->Nowlicense_car,
-             'เลขสัญญา' => $row->Contract_buyer,
+             'สี' => $row->Colour_car,
              'ปี' => $row->Year_car,
+             'ป้ายทะเบียน' => $row->License_car,
              'ยอดจัด' => $row->Top_car,
-             'พรบ.' => $row->act_Price,
-             'ยอดปิดบัญชี' => $row->closeAccount_Price,
-             'ซื้อประกัน' => $row->P2_Price,
-             'ดอกเบี้ย' => $row->Percent_car,
-             'งวดผ่อน(เดือน)' => $row->Timeslacken_car,
-             'ค่าใช้จ่ายขนส่ง' => $row->tran_Price,
-             'อื่นๆ' => $row->other_Price,
-             'ค่าประเมิน' => $row->evaluetion_Price,
-             'ค่าการตลาด' => $row->marketing_Price,
-             'อากร' => $row->duty_Price,
-             'รวม คชจ.' => $row->totalk_Price,
-             'คงเหลือ' => $row->balance_Price,
-             'ค่าคอมก่อนหัก3%' => $row->Commission_car,
-             'ค่าคอมหลังหัก3%' => $row->commit_Price,
-             'เอกสารผู้ค้ำ' => $row->deednumber_SP,
-             'ผู้รับเงิน' => $row->Payee_car,
-             'เลขที่บัญช(ผู้รับเงิน)' => $row->Accountbrance_car,
-             'เบอร์โทร(ผู้รับเงิน)' => $row->Tellbrance_car,
-             'ผู้รับค่าคอม' => $row->Agent_car,
-             'เลขที่บัญชี(รับคอม)' => $row->Accountagent_car,
-             'เบอร์โทรผู้แนะนำ' => $row->Tellagent_car,
-             'ใบขับขี่' => $row->Driver_buyer,
-             'แถมประกัน' => $row->Insurance_car,
-             'สถานะผู้เช่าซื้อ' => $row->Gradebuyer_car,
+             'ชำระต่องวด' => $row->Pay_car,
+             'ระยะเวลาผ่อน' => $row->Timeslacken_car,
+             'ดอกเบี้ย' => $row->Interest_car,
+             'วันที่ชำระงวดแรก' => $row->Dateduefirst_car,
+             'ยอดผ่อนชำระทั้งหมด' => $row->Totalpay1_car,
+             'เลขสัญญาเดิม' => $row->Note_car,
+             'ค่างวดเดิม' => $row->other_Price,
+             'ระยะเวลาผ่อนเดิม' => $row->note_Price,
              'คชจ. ปรับโครงสร้าง' => 2500,
+             'เจ้าหน้าที่รับลูกค้า' => $row->Loanofficercar,
             );
           }
         $data_array = collect($data_array);
         $excel = Exporter::make('Excel');
         $excel->load($data_array);
-        return $excel->stream('reportapprove.xlsx');
+        return $excel->stream('reportrestructure.xlsx');
       }
       elseif($request->type == 14){  //รายงานมาตรการช่วยเหลือ
         date_default_timezone_set('Asia/Bangkok');
