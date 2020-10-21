@@ -199,7 +199,7 @@ class TreasController extends Controller
                     ->orderBy('buyers.Contract_buyer', 'ASC')
                     ->get();
 
-            $view = \View::make('analysis.ReportDueDate' ,compact('dataReport','date2'));
+            $view = \View::make('analysis.ReportDueDate' ,compact('dataReport','date2','type'));
             $html = $view->render();
             $pdf = new PDF();
             $pdf::SetTitle('รายงานนำเสนอ');
