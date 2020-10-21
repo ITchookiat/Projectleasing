@@ -4,7 +4,7 @@
     <div class="card-header">
       <h4 class="card-title">
         @if($type == 2)
-          รายงานอนุมัติประจำวัน
+          รายงานขออนุมัติประจำวัน
         @elseif($type == 3)
           รายงานโอนเงินประจำวัน
         @endif
