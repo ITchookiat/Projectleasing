@@ -185,33 +185,6 @@
               <input type="date" name="Todate" value="{{ date('Y-m-d') }}" class="form-control"/>
             </div>
           </div>
-          {{-- <div class="row">
-            <div class="col-6">
-              <div class="form-group row mb-1">
-                <label class="col-sm-3 col-form-label text-right">สถานะ : </label>
-                <div class="col-sm-9">
-                  <div class="form-check form-check-inline">
-                    <label>
-                      <input type="checkbox" id="test3" name="status" value="ชำระปกติ"/>
-                      <span>ชำระปกติ</span>
-                    </label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <label>
-                      <input type="checkbox" id="test4" name="status" value="ขาดชำระ"/>
-                      <span>ขาดชำระเกิน 3 งวด</span>
-                    </label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <label>
-                      <input type="checkbox" id="test5" name="status" value="ปิดบัญชี"/>
-                      <span>ปิดบัญชี</span>
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> --}}
 
           <p></p>
           <div class="row">

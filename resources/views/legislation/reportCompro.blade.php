@@ -359,10 +359,10 @@
           <tr align="center" style="background-color: yellow;line-height: 200%;font-weight:bold;">
             <th style="width: 30px">ลำดับ</th>
             <th style="width: 65px">วันที่ประนอม</th>
-            <th style="width: 80px">ระยะเวลา</th>
+            {{-- <th style="width: 80px">ระยะเวลา</th> --}}
             <th>เลขที่สัญญา</th>
             <th style="width: 125px">ชื่อ-สกุล</th>
-            <th style="width: 100px">เบอร์โทร</th>
+            <th style="width: 150px">เบอร์โทร</th>
             <th style="width: 60px">ยอดประนอม</th>
             <th style="width: 55px">ชำระแล้ว</th>
             <th style="width: 55px">ยอดคงเหลือ</th>
@@ -370,13 +370,13 @@
             @if($status != '')
               <th style="width: 65px">วันชำระล่าสุด</th>
             @endif
-            <th style="width: 55px">สถานะ</th>
+            <th style="width: 70px">สถานะ</th>
           </tr>
           @foreach($data as $key => $row)
             <tr style="line-height: 150%;">
               <td align="center" style="width: 30px">{{$key+1}}</td>
               <td align="center" style="width: 65px">{{DateThai($row->Date_Promise)}}</td>
-              <td align="left" style="width: 80px">
+              {{-- <td align="left" style="width: 80px">
                 @if($row->Status_legis == "ปิดบัญชีประนอมหนี้" or $row->Status_legis == "ยึดรถหลังฟ้อง")
                   @php
                     $Cldate = date_create($row->Date_Promise);
@@ -395,10 +395,10 @@
                   @endphp
                   <font>{{$ClDateDiff->y}} ปี {{$ClDateDiff->m}} เดือน {{$ClDateDiff->d}} วัน</font>
                 @endif
-              </td>
+              </td> --}}
               <td align="center">{{$row->Contract_legis}}</td>
               <td style="width: 125px"> {{$row->Name_legis}}</td>
-              <td align="left" style="width: 100px">{{$row->Phone_legis}}</td>
+              <td align="left" style="width: 150px">{{$row->Phone_legis}}</td>
               <td align="center" style="width: 60px"> {{number_format($row->Total_Promise,2)}} &nbsp;</td>
               <td align="center" style="width: 55px"> {{number_format($row->Total_Promise - $row->Sum_Promise,2)}} &nbsp;</td>
               <td align="center" style="width: 55px"> {{number_format($row->Sum_Promise,2)}} &nbsp;</td>
@@ -408,7 +408,7 @@
                     {{DateThai($row->Date_Payment)}}
                   </td>
                 @endif
-              <td align="center" style="width: 55px">
+              <td align="center" style="width: 70px">
                 @php
                   @$sumTotal += $row->Total_Promise;
                   @$sumRemain += $row->Sum_Promise;
@@ -419,15 +419,11 @@
                 @elseif($row->Status_Promise == "จ่ายจบประนอมหนี้")
                   <font color="green"> จ่ายจบ </font>
                 @else
-                  @foreach($dataPay as $key => $value)
-                    @if($row->legisPromise_id == $value->legis_Com_Payment_id)
-                        @if($value->Date_Payment < $lastday)
-                          <font color="red"> ขาดชำระ </font>
-                        @else
-                          <font color="green"> ชำระปกติ </font>
-                        @endif
-                      @endif
-                  @endforeach
+                  @if($row->Date_Payment < $lastday)
+                    <font color="red"> ขาดชำระ </font>
+                  @else
+                    <font color="green"> ชำระปกติ </font>
+                  @endif
                 @endif
               </td>
             </tr>
@@ -435,9 +431,9 @@
       </table>
       <table border="0" style="background-color:yellow;">
         <tr>
-          <td align="center" style="width: 261px">รวมยอดประนอมหนี้ {{number_format(@$sumTotal,2)}} บาท&nbsp;</td>
+          <td align="center" style="width: 260px">รวมยอดประนอมหนี้ {{number_format(@$sumTotal,2)}} บาท&nbsp;</td>
           <td align="center" style="width: 250px">รวมยอดชำระแล้ว  {{number_format(@$sumTotal - @$sumRemain,2)}} บาท&nbsp;</td>
-          <td align="center" style="width: 265px">รวมยอดคงเหลือ  {{number_format(@$sumRemain,2)}} บาท&nbsp;</td>
+          <td align="center" style="width: 260px">รวมยอดคงเหลือ  {{number_format(@$sumRemain,2)}} บาท&nbsp;</td>
         </tr>
       </table>
     </body>

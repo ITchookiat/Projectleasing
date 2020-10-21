@@ -2153,19 +2153,19 @@ class LegislationController extends Controller
           $status = $request->get('status');
         }
 
-        $data = DB::table('legislations')
-            ->leftjoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
-            ->leftjoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
-            ->where('legislations.Flag_status','!=', '1')
-            ->where('Legiscompromises.Date_Promise','!=', null)
-            ->orderBy('legislations.Contract_legis', 'ASC')
-            ->get();
+        // $data = DB::table('legislations')
+        //     ->leftjoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+        //     ->leftjoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+        //     ->where('legislations.Flag_status','!=', '1')
+        //     ->where('Legiscompromises.Date_Promise','!=', null)
+        //     ->orderBy('legislations.Contract_legis', 'ASC')
+        //     ->get();
 
-        $dataPay = DB::table('legislations')
-            ->join('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
-            ->join('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
-            ->where('legispayments.Flag_Payment', '=', 'Y')
-            ->get();
+        // $dataPay = DB::table('legislations')
+        //     ->join('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
+        //     ->join('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+        //     ->where('legispayments.Flag_Payment', '=', 'Y')
+        //     ->get();
 
         if($status == "ชำระปกติ"){
           $data = DB::table('legislations')
@@ -2180,7 +2180,6 @@ class LegislationController extends Controller
                     return $q->where('legispayments.Date_Payment','>=',$lastday);
                   })
                 ->where('Legiscompromises.Status_Promise','=', Null)
-                // ->where('legispayments.Flag_Payment', '=', 'Y')
                 ->orderBy('legislations.Contract_legis', 'ASC')
                 ->get();
         }
@@ -2212,13 +2211,20 @@ class LegislationController extends Controller
             ->where('legispayments.Flag_Payment', '=', 'Y')
             ->orderBy('legislations.Contract_legis', 'ASC')
             ->get();
+        }else {
+          $data = DB::table('legislations')
+              ->leftjoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+              ->leftjoin('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
+              ->leftjoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+              ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+                return $q->whereBetween('Legiscompromises.Date_Promise',[$newfdate,$newtdate]);
+              })
+              ->where('legislations.Flag_status','!=', '1')
+              ->where('Legiscompromises.Date_Promise','!=', null)
+              ->where('legispayments.Flag_Payment', '=', 'Y')
+              ->orderBy('legislations.Contract_legis', 'ASC')
+              ->get();
         }
-
-        $dataSmart = DB::connection('ibmi')
-            ->table('ASFHP.ARMAST')
-            ->join('ASFHP.VIEW_CUSTMAIL','ASFHP.ARMAST.CUSCOD','=','ASFHP.VIEW_CUSTMAIL.CUSCOD')
-            ->orderBy('ASFHP.ARMAST.CONTNO', 'ASC')
-            ->get();
 
         $pdf = new PDF();
         $pdf::SetTitle('รายงานลูกหนี้ประนอมหนี้');
