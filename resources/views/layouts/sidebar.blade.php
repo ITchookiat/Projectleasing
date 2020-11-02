@@ -263,6 +263,15 @@
                   </ul>
                 </li>
               </ul>
+            @elseif(auth::user()->type == "แผนก การเงินนอก")
+              <ul class="nav nav-treeview" style="margin-left: 15px;">
+                <li class="nav-item">
+                  <a href="{{ route('Precipitate',11) }}" class="nav-link {{ Request::is('Precipitate/Home/11') ? 'active' : '' }} {{ Request::is('Precipitate/Home/12') ? 'active' : '' }} {{ Request::is('Precipitate/DebtEdit/11/*/*/*/*/*') ? 'active' : '' }} {{ Request::is('Analysis/deleteImageEach/11/*/*/*/*/*/*') ? 'active' : '' }}">
+                    <i class="far fa-dot-circle nav-icon"></i>
+                    <p>ระบบปรับโครงสร้างหนี้</p>
+                  </a>
+                </li>
+              </ul>
             @endif
           </li>
 
