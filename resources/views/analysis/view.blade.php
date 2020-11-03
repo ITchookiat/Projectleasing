@@ -1716,13 +1716,13 @@
                   @elseif($type == 12)
                     <div class="tab-pane fade active show" id="vert-tabs-33" role="tabpanel" aria-labelledby="vert-tabs-33-tab">
                       <div class="card-header">
-                        <h3 class="card-title">พักชำระหนี้ (33)</h3>
+                        <h3 class="card-title">มาตรการช่วยเหลือ (33)</h3>
                       </div>
                       <div class="col-12">
                         <table class="table table-striped table-valign-middle" id="table12">
                           <thead>
                             <tr>
-                              <th class="text-center">สาขา</th>
+                              {{--<th class="text-center">สาขา</th>--}}
                               <th class="text-left">เลขที่สัญญา</th>
                               <th class="text-left">แบบ</th>
                               <th class="text-left">ยีห้อ</th>
@@ -1737,7 +1737,7 @@
                           <tbody>
                             @foreach($data as $row)
                                 <tr>
-                                  <td class="text-center"> {{ $row->branch_car}} </td>
+                                  {{--<td class="text-center"> {{ $row->branch_car}} </td>--}}
                                   <td class="text-left"> {{ $row->Contract_buyer}} </td>
                                   <td class="text-left"> {{ $row->status_car}} </td>
                                   <td class="text-left"> {{ $row->Brand_car}} </td>
