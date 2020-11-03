@@ -643,6 +643,7 @@ class AnalysController extends Controller
         }
         $SumAll = count($data);
         $type = $request->type;
+        dump($data);
         return view('analysis.view', compact('type', 'data','branch','newfdate','newtdate','status','Setdate','SumTopcar','SumCommissioncar','SumCommitprice','contno','SetStrConn','SetStr1','SetStr2','SumAll'));
       }
       elseif ($request->type == 13){ //เพิ่มพักชำระหนี้

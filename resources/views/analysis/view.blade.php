@@ -1736,7 +1736,6 @@
                           </thead>
                           <tbody>
                             @foreach($data as $row)
-                              @if($row->branch_car == 'บังนังสตา')
                                 <tr>
                                   <td class="text-center"> {{ $row->branch_car}} </td>
                                   <td class="text-left"> {{ $row->Contract_buyer}} </td>
@@ -1846,7 +1845,7 @@
                                     @endif
                                   </td>
                                 </tr>
-                              @endif
+                              
                             @endforeach
                           </tbody>
                         </table>
