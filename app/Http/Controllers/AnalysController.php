@@ -641,9 +641,9 @@ class AnalysController extends Controller
             ->get();
 
         }
-
+        $SumAll = count($data);
         $type = $request->type;
-        return view('analysis.view', compact('type', 'data','branch','newfdate','newtdate','status','Setdate','SumTopcar','SumCommissioncar','SumCommitprice','contno','SetStrConn','SetStr1','SetStr2'));
+        return view('analysis.view', compact('type', 'data','branch','newfdate','newtdate','status','Setdate','SumTopcar','SumCommissioncar','SumCommitprice','contno','SetStrConn','SetStr1','SetStr2','SumAll'));
       }
       elseif ($request->type == 13){ //เพิ่มพักชำระหนี้
         $Contno = '';
