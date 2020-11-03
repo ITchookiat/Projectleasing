@@ -1719,7 +1719,7 @@
                         <h3 class="card-title">มาตรการช่วยเหลือ (33)</h3>
                       </div>
                       <div class="col-12">
-                        <table class="table table-striped table-valign-middle" id="table12">
+                        <table class="table table-striped table-valign-middle" id="table33">
                           <thead>
                             <tr>
                               {{--<th class="text-center">สาขา</th>--}}
@@ -1941,7 +1941,7 @@
 
   <script>
     $(function () {
-      $("#table1,#table3,#table4,#table5,#table6,#table7,#table08,#table09,#table12").DataTable({
+      $("#table1,#table3,#table4,#table5,#table6,#table7,#table08,#table09,#table12,#table33").DataTable({
         "responsive": true,
         "autoWidth": false,
         "ordering": true,
