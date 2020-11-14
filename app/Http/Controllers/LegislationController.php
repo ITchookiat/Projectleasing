@@ -2679,7 +2679,7 @@ class LegislationController extends Controller
               $sheet->appendRow(function($rows) {
                 $rows->setBackground('#FFCC00');
               });
-              $sheet->appendRow(array('รวมทั้งหมด','',number_format($Summperiod,2).'  บาท',number_format($SumAmount,2).'  บาท',number_format($SumIndictment,2).'  บาท','','','','','','','','',number_format($SumTextStatus,2).'  บาท'));
+              $sheet->appendRow(array('รวมทั้งหมด','',number_format($Summperiod,2).'  บาท',number_format($SumAmount,2).'  บาท',number_format($SumIndictment,2).'  บาท','','','','','','','','','',number_format($SumTextStatus,2).'  บาท'));
           });
         })->export('xlsx');
 
