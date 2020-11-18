@@ -211,6 +211,8 @@ class DataCustomerController extends Controller
           $Cardetaildb ->save();
           $Expensesdb = new Expenses([
             'Buyerexpenses_id' => $Buyerdb->id,
+            'balance_Price' => 0,
+            'commit_Price' => 0,
           ]);
           $Expensesdb ->save();
           return redirect()->back()->with('success','บันทึกเรียบร้อยแล้ว');

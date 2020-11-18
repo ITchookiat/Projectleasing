@@ -641,9 +641,9 @@ class AnalysController extends Controller
             ->get();
 
         }
-
+        $SumAll = count($data);
         $type = $request->type;
-        return view('analysis.view', compact('type', 'data','branch','newfdate','newtdate','status','Setdate','SumTopcar','SumCommissioncar','SumCommitprice','contno','SetStrConn','SetStr1','SetStr2'));
+        return view('analysis.view', compact('type', 'data','branch','newfdate','newtdate','status','Setdate','SumTopcar','SumCommissioncar','SumCommitprice','contno','SetStrConn','SetStr1','SetStr2','SumAll'));
       }
       elseif ($request->type == 13){ //เพิ่มพักชำระหนี้
         $Contno = '';
@@ -1646,7 +1646,9 @@ class AnalysController extends Controller
         $user->Gradebuyer_car = $request->get('Gradebuyer');
         $user->Objective_car = $request->get('objectivecar');
         $user->Memo_buyer = $request->get('Memo');
+        $user->Prefer_buyer = $request->get('Buyerprefer');
         $user->Memo_broker = $request->get('Memobroker');
+        $user->Prefer_broker = $request->get('Brokerprefer');
       $user->update();
 
       $SettelSP = str_replace ("_","",$request->get('telSP'));

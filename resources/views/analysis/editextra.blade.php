@@ -658,7 +658,7 @@
                           <hr>
                           <input type="hidden" name="fdate" value="{{ $fdate }}" />
                           <input type="hidden" name="tdate" value="{{ $tdate }}" />
-                          <input type="hidden" name="branch" value="{{ $branch }}" />
+                          {{--<input type="hidden" name="branch" value="{{ $branch }}" />--}}
                           <input type="hidden" name="status" value="{{ $status }}" />
 
                           <div class="row">
@@ -685,13 +685,13 @@
                                 <div class="form-group">
                                   @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MANAGER")
                                     <a href="{{ action('AnalysController@deleteImageAll',[$data->id,$path]) }}" class="btn btn-danger pull-left DeleteImage" title="ลบรูปภาพทั้งหมด"> ลบรูปภาพทั้งหมด..</a>
-                                    <a href="{{ action('AnalysController@deleteImageEach',[$type,$data->id,$fdate,$tdate,$branch,$status,$path]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
+                                    <a href="{{ action('AnalysController@deleteImageEach',[$type,$data->id,$fdate,$tdate,$status,$path]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
                                       <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ..
                                     </a>
                                   @else
                                     @if($data->Approvers_car == Null)
                                       @if($GetDocComplete == Null)
-                                      <a href="{{ action('AnalysController@deleteImageEach',[$type,$data->id,$fdate,$tdate,$branch,$status,$path]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
+                                      <a href="{{ action('AnalysController@deleteImageEach',[$type,$data->id,$fdate,$tdate,$status,$path]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
                                         <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ..
                                       </a>
                                       @endif
@@ -1011,7 +1011,7 @@
                                 <label class="col-sm-3 col-form-label text-right">ยี่ห้อ : </label>
                                 <div class="col-sm-8">
                                   @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MANAGER")
-                                    <select name="Brandcar" class="form-control" style="width: 250px;">
+                                    <select name="Brandcar" class="form-control" >
                                       <option value="" selected>--- ยี่ห้อ ---</option>
                                       @foreach ($Brandcarr as $key => $value)
                                         <option value="{{$key}}" {{ ($key == $data->Brand_car) ? 'selected' : '' }}>{{$value}}</option>
@@ -1021,7 +1021,7 @@
                                     @if($GetDocComplete != Null)
                                       <input type="text" name="Brandcar" value="{{$data->Brand_car}}" class="form-control" style="width: 250px;" placeholder="ยี่ห้อ" readonly/>
                                     @else
-                                      <select name="Brandcar" class="form-control" style="width: 250px;">
+                                      <select name="Brandcar" class="form-control" >
                                         <option value="" selected>--- ยี่ห้อ ---</option>
                                         @foreach ($Brandcarr as $key => $value)
                                           <option value="{{$key}}" {{ ($key == $data->Brand_car) ? 'selected' : '' }}>{{$value}}</option>
@@ -1037,7 +1037,7 @@
                                 <label class="col-sm-3 col-form-label text-right">ปี : </label>
                                 <div class="col-sm-8">
                                   @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MANAGER")
-                                    <select id="Yearcar" name="Yearcar" class="form-control" style="width: 250px;" onchange="calculate();">
+                                    <select id="Yearcar" name="Yearcar" class="form-control" onchange="calculate();">
                                       <option value="{{$data->Year_car}}" selected>{{$data->Year_car}}</option>
                                       <option value="">--------------------</option>
                                       @php
@@ -1377,7 +1377,7 @@
                               <div class="form-group row mb-1">
                                 <label class="col-sm-3 col-form-label text-right">VAT : </label>
                                 <div class="col-sm-8">
-                                  <input type="text" id="Vatcar" name="Vatcar" value="{{$data->Vat_car}}" class="form-control form-control-sm" style="width: 250px;background-color: white;" onchange="calculate();"/>
+                                  <input type="text" id="Vatcar" name="Vatcar" value="{{$data->Vat_car}}" class="form-control form-control-sm" onchange="calculate();"/>
                                 </div>
                               </div>
                             </div>

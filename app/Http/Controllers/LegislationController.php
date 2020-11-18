@@ -2404,11 +2404,11 @@ class LegislationController extends Controller
           $excel->sheet($status, function ($sheet) use($data,$status,$date,$Fdate,$Tdate) {
               $sheet->prependRow(1, array("บริษัท ชูเกียรติลิสซิ่ง จำกัด"));
               $sheet->prependRow(2, array("จากวันที่  ".$Fdate,"ถึงวันที่  ".$Tdate));
-              $sheet->cells('A3:M3', function($cells) {
+              $sheet->cells('A3:P3', function($cells) {
                 $cells->setBackground('#FFCC00');
               });
               $row = 3;
-              $sheet->row($row, array('เลขที่สัญญา','ชื่อ-นามสกุล','ยอดคงเหลือ','ยอดตั้งฟ้อง','ค่าฟ้อง','เบอร์โทร','วันถืองาน','วันที่ฟ้อง','ระยะเวลา','สถานะลูกหนี้','สถานะทรัพย์','สถานะประนอมหนี้','วันที่ปิดงาน','ยอดชำระ','หมายเหตุ'));
+              $sheet->row($row, array('เลขที่สัญญา','ชื่อ-นามสกุล','ยอดคงเหลือ','ยอดตั้งฟ้อง','ค่าฟ้อง','เบอร์โทร','ผู้ส่งฟ้อง','วันถืองาน','วันที่ฟ้อง','ระยะเวลา','สถานะลูกหนี้','สถานะทรัพย์','สถานะประนอมหนี้','วันที่ปิดงาน','ยอดชำระ','หมายเหตุ'));
               $Summperiod = 0;    //รวมยอดคงเหลือ
               $SumAmount = 0;
               $SumTextStatus = 0; //ยอดปิดบัญชี
@@ -2663,6 +2663,7 @@ class LegislationController extends Controller
                   number_format($SumCourt, 2),
                   number_format($value->indictment_court, 2),
                   $value->Phone_legis,
+                  $value->User_court,
                   $date_carry,
                   $SetDatefillingdate,
                   $duration,
@@ -2678,7 +2679,7 @@ class LegislationController extends Controller
               $sheet->appendRow(function($rows) {
                 $rows->setBackground('#FFCC00');
               });
-              $sheet->appendRow(array('รวมทั้งหมด','',number_format($Summperiod,2).'  บาท',number_format($SumAmount,2).'  บาท',number_format($SumIndictment,2).'  บาท','','','','','','','',number_format($SumTextStatus,2).'  บาท'));
+              $sheet->appendRow(array('รวมทั้งหมด','',number_format($Summperiod,2).'  บาท',number_format($SumAmount,2).'  บาท',number_format($SumIndictment,2).'  บาท','','','','','','','','','',number_format($SumTextStatus,2).'  บาท'));
           });
         })->export('xlsx');
 

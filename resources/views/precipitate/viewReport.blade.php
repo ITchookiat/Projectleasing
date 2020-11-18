@@ -525,7 +525,7 @@
                                     @php
                                       $summary102 += $value->TOTAMT;
                                     @endphp
-                                    @if($value->CANDATE != "")
+                                    @if($value->CANDATE != "" OR $value->PAYCODE == "")
                                       @php
                                         $summary102 -= $value->TOTAMT;
                                       @endphp
@@ -573,7 +573,7 @@
                                     @php
                                       $summary104 += $value->TOTAMT;
                                     @endphp
-                                    @if($value->CANDATE != "")
+                                    @if($value->CANDATE != "" OR $value->PAYCODE == "")
                                       @php
                                         $summary104 -= $value->TOTAMT;
                                       @endphp
@@ -621,7 +621,7 @@
                                     @php
                                       $summary105 += $value->TOTAMT;
                                     @endphp
-                                    @if($value->CANDATE != "")
+                                    @if($value->CANDATE != "" OR $value->PAYCODE == "")
                                       @php
                                         $summary105 -= $value->TOTAMT;
                                       @endphp
@@ -671,7 +671,7 @@
                                     @php
                                       $summary113 += $value->TOTAMT;
                                     @endphp
-                                    @if($value->CANDATE != "")
+                                    @if($value->CANDATE != "" OR $value->PAYCODE == "")
                                       @php
                                         $summary113 -= $value->TOTAMT;
                                       @endphp
@@ -719,7 +719,7 @@
                                     @php
                                       $summary112 += $value->TOTAMT;
                                     @endphp
-                                    @if($value->CANDATE != "")
+                                    @if($value->CANDATE != "" OR $value->PAYCODE == "")
                                       @php
                                         $summary112 -= $value->TOTAMT;
                                       @endphp
@@ -767,7 +767,7 @@
                                     @php
                                       $summary114 += $value->TOTAMT;
                                     @endphp
-                                    @if($value->CANDATE != "")
+                                    @if($value->CANDATE != "" OR $value->PAYCODE == "")
                                       @php
                                         $summary114 -= $value->TOTAMT;
                                       @endphp
@@ -817,7 +817,7 @@
                                     @php
                                       $summaryCKL += $value->TOTAMT;
                                     @endphp
-                                    @if($value->CANDATE != "")
+                                    @if($value->CANDATE != "" OR $value->PAYCODE == "")
                                       @php
                                         $summaryCKL -= $value->TOTAMT;
                                       @endphp

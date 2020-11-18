@@ -130,30 +130,32 @@
                     @endif
                   </ul>
                 </li>
-              </ul> --}}
-              <!-- <ul class="nav nav-treeview">
-                <li class="nav-item has-treeview {{ Request::is('Analysis/Home/12') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/13') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/14') ? 'menu-open' : '' }} {{ Request::is('Analysis/edit/9/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/edit/12/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/deleteImageEach/9/*') ? 'menu-open' : '' }}">
-                  <a href="#" class="nav-link">
-                    <i class="far fa-window-restore text-red nav-icon"></i>
-                    <p>
-                      มาตรการ COVID-19
-                      <i class="right fas fa-angle-left"></i>
-                    </p>
-                  </a>
-                  <ul class="nav nav-treeview" style="margin-left: 15px;">
-                    <li class="nav-item">
-                      <a href="{{ route('Analysis',12) }}" class="nav-link {{ Request::is('Analysis/Home/12') ? 'active' : '' }} {{ Request::is('Analysis/Home/13') ? 'active' : '' }} {{ Request::is('Analysis/edit/12/*/*/*/*/*') ? 'active' : '' }}">
-                        <i class="far fa-dot-circle nav-icon"></i>
-                        <p>มาตรการช่วยเหลือ</p>
-                      </a>
-                      <a href="{{ route('Analysis',14) }}" class="nav-link {{ Request::is('Analysis/Home/14') ? 'active' : '' }}">
-                        <i class="far fa-dot-circle nav-icon"></i>
-                        <p>รายงาน มาตรการช่วยเหลือ</p>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
               </ul> -->
+              @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
+                <ul class="nav nav-treeview">
+                  <li class="nav-item has-treeview {{ Request::is('Analysis/Home/12') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/13') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/14') ? 'menu-open' : '' }} {{ Request::is('Analysis/edit/9/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/edit/12/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/deleteImageEach/9/*') ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link">
+                      <i class="far fa-window-restore text-red nav-icon"></i>
+                      <p>
+                        มาตรการ COVID-19
+                        <i class="right fas fa-angle-left"></i>
+                      </p>
+                    </a>
+                    <ul class="nav nav-treeview" style="margin-left: 15px;">
+                      <li class="nav-item">
+                        <a href="{{ route('Analysis',12) }}" class="nav-link {{ Request::is('Analysis/Home/12') ? 'active' : '' }} {{ Request::is('Analysis/Home/13') ? 'active' : '' }} {{ Request::is('Analysis/edit/12/*/*/*/*/*') ? 'active' : '' }}">
+                          <i class="far fa-dot-circle nav-icon"></i>
+                          <p>มาตรการช่วยเหลือ</p>
+                        </a>
+                        <a href="{{ route('Analysis',14) }}" class="nav-link {{ Request::is('Analysis/Home/14') ? 'active' : '' }}">
+                          <i class="far fa-dot-circle nav-icon"></i>
+                          <p>รายงาน มาตรการช่วยเหลือ</p>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              @endif
             @endif
           </li>
 
@@ -236,6 +238,15 @@
                       </a>
                     </li>
                   </ul>
+                </li>
+              </ul>
+            @elseif(auth::user()->type == "แผนก การเงินนอก")
+              <ul class="nav nav-treeview" style="margin-left: 15px;">
+                <li class="nav-item">
+                  <a href="{{ route('Precipitate',11) }}" class="nav-link {{ Request::is('Precipitate/Home/11') ? 'active' : '' }} {{ Request::is('Precipitate/Home/12') ? 'active' : '' }} {{ Request::is('Precipitate/DebtEdit/11/*/*/*/*/*') ? 'active' : '' }} {{ Request::is('Analysis/deleteImageEach/11/*/*/*/*/*/*') ? 'active' : '' }}">
+                    <i class="far fa-dot-circle nav-icon"></i>
+                    <p>ระบบปรับโครงสร้างหนี้</p>
+                  </a>
                 </li>
               </ul>
             @endif

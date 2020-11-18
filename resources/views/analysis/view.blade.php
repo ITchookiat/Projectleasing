@@ -158,6 +158,12 @@
                   @endif
                 </a>
               @elseif($type == 12)
+                <a class="nav-link" id="vert-tabs-33-tab" data-toggle="pill" href="#vert-tabs-33" role="tab" aria-controls="vert-tabs-33" aria-selected="false">
+                  <i class="fas fa-hdd"></i> พักชำระหนี้ (33)
+                  @if($SumAll != 0)
+                    <span class="badge bg-primary float-right">{{$SumAll}}</span>
+                  @endif
+                </a>
               @endif
             </div>
           </div>
@@ -1708,6 +1714,143 @@
                       </div>
                     </div>
                   @elseif($type == 12)
+                    <div class="tab-pane fade active show" id="vert-tabs-33" role="tabpanel" aria-labelledby="vert-tabs-33-tab">
+                      <div class="card-header">
+                        <h3 class="card-title">มาตรการช่วยเหลือ (33)</h3>
+                      </div>
+                      <div class="col-12">
+                        <table class="table table-striped table-valign-middle" id="table33">
+                          <thead>
+                            <tr>
+                              {{--<th class="text-center">สาขา</th>--}}
+                              <th class="text-left">เลขที่สัญญา</th>
+                              <th class="text-left">แบบ</th>
+                              <th class="text-left">ยีห้อ</th>
+                              <th class="text-left">ทะเบียน</th>
+                              <th class="text-left">ปี</th>
+                              <th class="text-center">ยอดจัด</th>
+                              <th class="text-center"></th>
+                              <th class="text-left" style="width: 100px">สถานะ</th>
+                              <th class="text-center" style="width: 105px"></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            @foreach($data as $row)
+                                <tr>
+                                  {{--<td class="text-center"> {{ $row->branch_car}} </td>--}}
+                                  <td class="text-left"> {{ $row->Contract_buyer}} </td>
+                                  <td class="text-left"> {{ $row->status_car}} </td>
+                                  <td class="text-left"> {{ $row->Brand_car}} </td>
+                                  <td class="text-left"> {{ $row->License_car}} </td>
+                                  <td class="text-left"> {{ $row->Year_car}} </td>
+                                  <td class="text-right">
+                                    @if($row->Top_car != Null)
+                                      {{ number_format($row->Top_car)}}
+                                    @else
+                                      0
+                                    @endif
+                                  </td>
+                                  <td class="text-center">
+                                    <div class="float-right form-inline">
+                                      @if ( $row->DocComplete_car != Null)
+                                        <h5><span class="badge badge-danger">
+                                          <i class="fas fa-clipboard-check"></i>
+                                        </span></h5>&nbsp;
+                                      @endif
+
+                                      @if ( $row->tran_Price != 0)
+                                        <h5><span class="badge badge-info">
+                                            <i class="fas fa-spell-check"></i>
+                                        </span></h5>
+                                      @endif
+                                    </div>
+                                  </td>
+                                  <td class="text-left">
+                                    @if ( $row->Check_car != Null)
+                                      <button type="button" class="btn btn-success btn-xs">
+                                        <i class="fas fa-user-check prem"></i>
+                                      </button>
+                                    @else
+                                      <button type="button" class="btn btn-warning btn-xs">
+                                        <i class="fas fa-user-check prem"></i>
+                                      </button>
+                                    @endif
+
+                                    @if ( $row->Approvers_car != Null)
+                                      <button type="button" class="btn btn-success btn-xs">
+                                        <i class="fas fa-user-tie prem"></i>
+                                      </button>
+                                    @else
+                                      <button type="button" class="btn btn-warning btn-xs">
+                                        <i class="fas fa-user-tie prem"></i>
+                                      </button>
+                                    @endif
+
+                                    @if($row->Top_car > 250000)
+                                      @if ($row->ManagerApp_car != Null)
+                                        <button type="button" class="btn btn-success btn-xs">
+                                          <i class="fas fa-user-lock prem"></i>
+                                        </button>
+                                      @else
+                                        <button type="button" class="btn btn-warning btn-xs">
+                                          <i class="fas fa-user-lock prem"></i>
+                                        </button>
+                                      @endif
+                                    @endif
+                                  </td>
+                                  <td class="text-right">
+                                    <a target="_blank" href="{{ action('ReportAnalysController@ReportPDFIndex',[$row->id,$type]) }}" class="btn btn-info btn-sm" title="พิมพ์">
+                                      <i class="fas fa-print"></i>
+                                    </a>
+
+                                    @if($status == "")
+                                      @php $status = 'Null'; @endphp
+                                    @endif
+
+                                    {{-- แก้ไข / ดูรายการ --}}
+                                    @if(auth::user()->type == "Admin")
+                                      <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
+                                        <i class="far fa-edit"></i>
+                                      </a>
+                                    @elseif(auth::user()->position == "MANAGER" or auth::user()->position == "AUDIT" or auth::user()->position == "MASTER" or auth::user()->position == "STAFF")
+                                      @if($row->StatusApp_car == 'อนุมัติ')
+                                        <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
+                                          <i class="fas fa-eye"></i>
+                                        </a>
+                                      @else
+                                        <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
+                                          <i class="far fa-edit"></i>
+                                        </a>
+                                      @endif
+                                    @endif
+
+                                    @if(auth::user()->type == "Admin") 
+                                      <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
+                                        {{csrf_field()}}
+                                        <input type="hidden" name="_method" value="DELETE" />
+                                        <button type="submit" data-name="{{ $row->Contract_buyer }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
+                                          <i class="far fa-trash-alt"></i>
+                                        </button>
+                                      </form>
+                                    @elseif(auth::user()->position == "MASTER" or auth::user()->position == "STAFF")
+                                      @if($row->StatusApp_car != 'อนุมัติ')
+                                        <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
+                                          {{csrf_field()}}
+                                          <input type="hidden" name="_method" value="DELETE" />
+                                          <button type="submit" data-name="{{ $row->Contract_buyer }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
+                                            <i class="far fa-trash-alt"></i>
+                                          </button>
+                                        </form>
+                                      @endif
+                                    @endif
+                                  </td>
+                                </tr>
+                              
+                            @endforeach
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
                   @endif
                 </div>
               </div>
@@ -1798,7 +1941,7 @@
 
   <script>
     $(function () {
-      $("#table1,#table3,#table4,#table5,#table6,#table7,#table08,#table09,#table12").DataTable({
+      $("#table1,#table3,#table4,#table5,#table6,#table7,#table08,#table09,#table12,#table33").DataTable({
         "responsive": true,
         "autoWidth": false,
         "ordering": true,
