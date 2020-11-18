@@ -165,6 +165,7 @@ return [
         Elibyy\TCPDF\ServiceProvider::class,
         Cyberduck\LaravelExcel\ExcelServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        MaddHatter\LaravelFullcalendar\ServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -233,6 +234,7 @@ return [
         'PDF' => Elibyy\TCPDF\Facades\TCPDF::class,
         'Helper' => App\Helpers\Helper::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Calendar' => MaddHatter\LaravelFullcalendar\Facades\Calendar::class,
 
     ],
 

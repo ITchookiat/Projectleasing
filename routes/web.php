@@ -84,6 +84,14 @@ Route::group(['middleware' => 'auth'], function()
     Route::get('/Document/Home/{type}', 'DocumentController@index')->name('document');
     Route::get('/Document/download/{file}', 'DocumentController@download');
 
+    //------------------Infomation-----------------//
+    route::resource('MasterInfo','InfoController');
+
+     //------------------Events-----------------//
+    route::resource('MasterEvents','EventController');
+    Route::get('/MasterEvents/ShowEvent/{type}', 'EventController@ShowEvent')->name('Events.ShowEvent');
+    Route::get('/MasterEvents/DeleteImages/{id}/{path}', 'EventController@DeleteImages');
+
     //---------------- logout --------------------//
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
     Route::get('/{name}', 'HomeController@index')->name('index');

@@ -178,6 +178,17 @@
     }
   </style>
 
+  <style>
+    #myImg {
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+      width: 150px;
+      height: 200px;
+    }
+    #myImg:hover {opacity: 0.7;}
+  </style>
+
   <section class="content">
     <div class="content-header">
       @if(session()->has('success'))
@@ -1162,7 +1173,7 @@
                                           @if($images->Type_fileimage == "1")
                                             <div class="col-sm-3">
                                               <a href="{{ asset('upload-image/'.$images->Name_fileimage) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true">
-                                                <img src="{{ asset('upload-image/'.$images->Name_fileimage) }}" style="width: 300px; height: 280px;">
+                                                <img id="myImg" src="{{ asset('upload-image/'.$images->Name_fileimage) }}">
                                               </a>
                                             </div>
                                           @endif
@@ -1172,7 +1183,7 @@
                                           @if($images->Type_fileimage == "1")
                                             <div class="col-sm-3">
                                               <a href="{{ asset('upload-image/'.$Setlisence .'/'.$images->Name_fileimage) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true">
-                                                <img src="{{ asset('upload-image/'.$Setlisence .'/'.$images->Name_fileimage) }}" style="width: 300px; height: 280px;">
+                                                <img id="myImg" src="{{ asset('upload-image/'.$Setlisence .'/'.$images->Name_fileimage) }}">
                                               </a>
                                             </div>
                                           @endif
