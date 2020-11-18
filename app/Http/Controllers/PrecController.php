@@ -562,7 +562,7 @@ class PrecController extends Controller
               ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
               ->join('expenses','buyers.id','=','expenses.Buyerexpenses_id')
               ->where('buyers.Contract_buyer','like', '22%')
-              ->where('cardetails.Approvers_car','=',Null)
+              // ->where('cardetails.Approvers_car','=',Null)
               ->orderBy('buyers.Contract_buyer', 'ASC')
               ->get();
             }

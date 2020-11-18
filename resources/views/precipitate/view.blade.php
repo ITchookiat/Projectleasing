@@ -388,19 +388,18 @@
                         <span class="fas fa-search"></span> Search
                       </button>
                     </div>
-                    <br><br><br><p></p>
                     <div class="float-right form-inline">
-                      <label>จากงวดที่ : </label>
-                      <input type="text" name="Fromstart" style="width: 165px;" value="{{ ($fstart != '') ?$fstart: '' }}" class="form-control" />
-                      <label>ถึงงวดที่ : </label>
-                      <input type="text" name="Toend" style="width: 165px;" value="{{ ($tend != '') ?$tend: '' }}" class="form-control" />
+                      <label>จากวันที่ : </label>
+                      <input type="date" name="Fromdate" value="{{ ($fdate != '') ?$fdate: '' }}" class="form-control" />
+                      <label>&nbsp;&nbsp;ถึงวันที่ : </label>
+                      <input type="date" name="Todate" value="{{ ($tdate != '') ?$tdate: '' }}" class="form-control" />
                     </div>
                     <br><br>
                     <div class="float-right form-inline">
-                      <label>จากวันที่ : </label>
-                      <input type="date" name="Fromdate" style="width: 165px;" value="{{ ($fdate != '') ?$fdate: '' }}" class="form-control" />
-                      <label>&nbsp;&nbsp;ถึงวันที่ : </label>
-                      <input type="date" name="Todate" style="width: 165px;" value="{{ ($tdate != '') ?$tdate: '' }}" class="form-control" />
+                      <label>จากงวดที่ : </label>
+                      <input type="text" name="Fromstart" value="{{ ($fstart != '') ?$fstart: '' }}" class="form-control form-control-sm" />
+                      <label>ถึงงวดที่ : </label>
+                      <input type="text" name="Toend" value="{{ ($tend != '') ?$tend: '' }}" class="form-control form-control-sm" />
                     </div>
                   </form>
                   <br><br>

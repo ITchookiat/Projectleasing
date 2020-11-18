@@ -32,29 +32,7 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column text-sm" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-          @if(auth::user()->type == "Admin")
-            <li class="nav-item has-treeview {{ Request::is('MasterMaindata') ? 'menu-open' : '' }}">
-              <a href="#" class="nav-link active">
-                <i class="nav-icon fas fa-window-restore"></i>
-                <p>
-                  ข้อมูลหลัก
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview" style="margin-left: 15px;">
-                <li class="nav-item">
-                  <a href="{{ route('MasterMaindata.index') }}" class="nav-link active">
-                    <i class="far fa-id-badge text-red nav-icon"></i>
-                    <p>ข้อมูลผู้ใช้งานระบบ</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-          @endif
-
-          <li class="nav-item has-treeview {{ Request::is('Analysis/*') ? 'menu-open' : '' }} {{ Request::is('DataCustomer/*') ? 'menu-open' : '' }}">
+          <li class="nav-item has-treeview {{ Request::is('Analysis/*') ? 'menu-open' : '' }} {{ Request::is('DataCustomer/*') ? 'menu-open' : '' }} {{ Request::is('MasterEvents') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link active">
               <i class="nav-icon fa fa-sitemap"></i>
               <p>
@@ -132,30 +110,27 @@
                   </ul>
                 </li>
               </ul>
-
-              <!-- <ul class="nav nav-treeview">
-                <li class="nav-item has-treeview {{ Request::is('Analysis/Home/8') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/9') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/10') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/11') ? 'menu-open' : '' }} {{ Request::is('Analysis/edit/8/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/deleteImageEach/8/*') ? 'menu-open' : '' }}">
+              {{-- <ul class="nav nav-treeview">
+                <li class="nav-item has-treeview {{ Request::is('MasterEvents') ? 'menu-open' : '' }}">
                   <a href="#" class="nav-link">
                     <i class="far fa-window-restore text-red nav-icon"></i>
                     <p>
-                      ปรับโครงสร้างหนี้
+                      กิจกรรมและข่าวสาร
                       <i class="right fas fa-angle-left"></i>
                     </p>
                   </a>
                   <ul class="nav nav-treeview" style="margin-left: 15px;">
-                    <li class="nav-item">
-                      <a href="{{ route('Analysis',8) }}" class="nav-link {{ Request::is('Analysis/Home/8') ? 'active' : '' }} {{ Request::is('Analysis/Home/9') ? 'active' : '' }} {{ Request::is('Analysis/edit/8/*/*/*/*/*') ? 'active' : '' }}">
-                        <i class="far fa-dot-circle nav-icon"></i>
-                        <p>ปรับโครงสร้าง</p>
-                      </a>
-                      <a href="{{ route('Analysis',11) }}" class="nav-link {{ Request::is('Analysis/Home/11') ? 'active' : '' }}">
-                        <i class="far fa-dot-circle nav-icon"></i>
-                        <p>รายงาน ปรับโครงสร้าง</p>
-                      </a>
-                    </li>
+                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์")
+                      <li class="nav-item">
+                        <a href="{{ route('MasterEvents.index') }}" class="nav-link {{ Request::is('MasterEvents') ? 'active' : '' }}">
+                          <i class="far fa-dot-circle nav-icon"></i>
+                          <p>New Information</p>
+                        </a>
+                      </li>
+                    @endif
                   </ul>
                 </li>
-              </ul> -->
+              </ul> --}}
               <!-- <ul class="nav nav-treeview">
                 <li class="nav-item has-treeview {{ Request::is('Analysis/Home/12') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/13') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/14') ? 'menu-open' : '' }} {{ Request::is('Analysis/edit/9/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/edit/12/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/deleteImageEach/9/*') ? 'menu-open' : '' }}">
                   <a href="#" class="nav-link">
@@ -448,7 +423,6 @@
       });
     });
   </script>
-
 
   <script type="text/javascript">
     SearchData(); //เรียกใช้งานทันที

@@ -354,12 +354,18 @@
   <script src="{{ asset('plugins/filterizr/jquery.filterizr.min.js') }}"></script>
   <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}" wfd-invisible="true"></script>
 
-
+  {{-- frame Upload image --}}
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/js/fileinput.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/themes/fa/theme.js" type="text/javascript"></script>
+  
+  {{-- Date Rang --}}
+  <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
+  <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
+  
   <script>
     $.widget.bridge('uibutton', $.ui.button)
   </script>
-
-
 </head>
 
 <body  class="sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed sidebar-collapse" style="height: auto;">
