@@ -178,11 +178,11 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label>จากวันที่</label>
-              <input type="date" name="Fromdate" value="{{ date('Y-m-d') }}" class="form-control"/>
+              <input type="date" name="Fromdate" value="{{ date('Y-m-d') }}" class="form-control form-control-sm"/>
             </div>
             <div class="form-group col-md-6">
               <label for="inputPassword4">ถึงวันที่</label>
-              <input type="date" name="Todate" value="{{ date('Y-m-d') }}" class="form-control"/>
+              <input type="date" name="Todate" value="{{ date('Y-m-d') }}" class="form-control form-control-sm"/>
             </div>
           </div>
 

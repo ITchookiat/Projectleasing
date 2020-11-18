@@ -803,7 +803,7 @@
                                 <li class="dropdown-divider"></li>
                                 <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-3" data-link="{{ route('legislation', 16) }}"> รายงานลูกหนี้ประนอมหนี้</a></li>
                                 <li class="dropdown-divider"></li>
-                                <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-6" data-link="{{ route('legislation', 20) }}"> รายงานตรวจสอบยอดชำระ</a></li>
+                                <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-6" data-link="{{ route('legislation', 20) }}"> รายงานตรวจสอบยอดรับเงิน</a></li>
                               </ul>
                           </div>
                           <button type="submit" class="btn bg-warning btn-app">
@@ -836,7 +836,7 @@
                               <th class="text-center" style="width: 30px">No.</th>
                               <th class="text-center">เลขที่สัญญา</th>
                               <th class="text-center">ชื่อ-สกุล</th>
-                              <th class="text-center">ประนอม</th>
+                              <th class="text-center">เริ่มประนอม</th>
                               <th class="text-center">ระยะเวลา</th>
                               <th class="text-center">ยอดประนอม</th>
                               <th class="text-center">ยอดคงเหลือ</th>
@@ -849,10 +849,10 @@
                             @foreach($data as $key => $row)
                               <tr>
                                 <td class="text-center"> {{$key+1}} </td>
-                                <td class="text-center">
+                                <td class="text-left">
                                   {{$row->Contract_legis}}
                                   @if($row->Flag == "C")
-                                    <span class="badge bg-warning float-right">ประนอม</span>
+                                    <span class="badge bg-warning">ประนอม</span>
                                   @endif
                                 </td>
                                 <td class="text-left"> {{$row->Name_legis}} </td>
@@ -877,8 +877,8 @@
                                     <span data-toggle="tooltip" title="{{$ClDateDiff->y}} ปี {{$ClDateDiff->m}} เดือน {{$ClDateDiff->d}} วัน"><font color="red">{{$duration}}</font></span>
                                   @endif
                                 </td>
-                                <td class="text-center"> {{number_format($row->Total_Promise,2)}}</td>
-                                <td class="text-center"> {{number_format($row->Sum_Promise,2)}}</td>
+                                <td class="text-right"> {{number_format($row->Total_Promise, 2)}}</td>
+                                <td class="text-right"> {{number_format($row->Sum_Promise, 2)}}</td>
                                 <td class="text-center"> {{ $row->User_Promise }}</td>
                                 <td class="text-center">
                                   @php
