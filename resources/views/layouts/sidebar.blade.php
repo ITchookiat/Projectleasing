@@ -130,7 +130,7 @@
                     @endif
                   </ul>
                 </li>
-              </ul> -->
+              </ul> --}}
               @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                 <ul class="nav nav-treeview">
                   <li class="nav-item has-treeview {{ Request::is('Analysis/Home/12') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/13') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/14') ? 'menu-open' : '' }} {{ Request::is('Analysis/edit/9/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/edit/12/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/deleteImageEach/9/*') ? 'menu-open' : '' }}">
