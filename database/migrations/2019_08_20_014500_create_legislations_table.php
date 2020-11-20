@@ -48,13 +48,12 @@ class CreateLegislationsTable extends Migration
             $table->string('Phone_legis')->nullable();
 
             $table->string('Status_legis')->nullable();       //สถานะ
-            $table->string('UserStatus_legis')->nullable();   //ชื่อคนเลือกสถานะ
-            $table->string('DateStatus_legis')->nullable();   //วันที่สถานะ
+            $table->string('UserStatus_legis')->nullable();   //User เลือกสถานะ
+            $table->string('DateStatus_legis')->nullable();   //วันที่ปิดบัญชี
             $table->string('PriceStatus_legis')->nullable();  //ยอดตั้งต้น
             $table->string('txtStatus_legis')->nullable();    //ยอดชำระ
             $table->string('Discount_legis')->nullable();     //ส่วนลด
-            $table->string('DateUpState_legis')->nullable();  //วันที่เลือกสถานะ
-            $table->string('DateCarState_legis')->nullable();  //วันที่ยึดรถ
+            $table->string('DateUpState_legis')->nullable();  //วันที่ลงสถานะ
 
             $table->string('Flag_status')->nullable();
             $table->string('Datesend_Flag')->nullable(); //วันที่ส่งงานให้ทีมทนาย

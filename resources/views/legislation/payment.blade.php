@@ -11,18 +11,17 @@
 @endphp
 
 <section class="content">
-  <div class="card card-warning">
+  <div class="card card-warning text-sm">
     <div class="card-header">
-      <h4 class="card-title"><b>เพิ่มข้อมูลชำระ</b></h4>
+      <h5 class="card-title">เพิ่มรายการชำระ (New Payment)</h5>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">×</span>
       </button>
     </div>
 
-    <div class="card-body">
-      <form name="form2" action="{{ route('legislation.store',[$id, $type]) }}" method="post" id="formimage" enctype="multipart/form-data">
-        @csrf
-
+    <form name="form2" action="{{ route('legislation.store',[$id, $type]) }}" method="post" id="formimage" enctype="multipart/form-data">
+      @csrf
+      <div class="card-body">
         <script>
           function adds(nStr){
               nStr += '';
@@ -83,52 +82,68 @@
         </script>
 
         @if($data != NULL)
-          <input type="hidden" id="Datepay" name="Datepay" class="form-control" value="{{ $data->Date_Payment }}"/>
-          <input type="hidden" id="DuePrice" name="DuePrice" class="form-control" value="{{ $data->DuePay_Promise }}"/>
+          <input type="hidden" id="Datepay" name="Datepay" class="form-control form-control-sm" value="{{ $data->Date_Payment }}"/>
+          <input type="hidden" id="DuePrice" name="DuePrice" class="form-control form-control-sm" value="{{ $data->DuePay_Promise }}"/>
         @endif
-        
-        <div class="row">
-          <div class="col-md-8">
-            <div class="row">
-              <div class="col-md-6">
-                <label>วันที่ : </label>
-                <input type="date" id="DatePayment" name="DatePayment" class="form-control" value="{{ date('Y-m-d') }}" style="width: 200px;"/>
-                
-                <label>ยอดชำระ :</label>
-                <input type="text" name="GoldPayment" id="GoldPayment" class="form-control" value="" style="width: 200px;"  onchange="sperate();" maxlength="7"/>
-              </div>
 
-              <div class="col-md-6">
-                <label>ประเภทชำระ : </label>
-                <select name="TypePayment" class="form-control" style="width: 200px;" required>
+        <div class="row">
+          <div class="col-6">
+            <div class="form-group row mb-0">
+              <label class="col-sm-3 col-form-label text-right">วันที่ : </label>
+              <div class="col-sm-8">
+                <input type="date" id="DatePayment" name="DatePayment" class="form-control form-control-sm" value="{{ date('Y-m-d') }}"/>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="form-group row mb-0">
+              <label class="col-sm-4 col-form-label text-right">ประเภทชำระ : </label>
+              <div class="col-sm-8">
+                <select name="TypePayment" class="form-control form-control-sm" required>
                   <option value="" selected>--- ประเภทชำระ ---</option>
                   <option value="ชำระเงินสด">ชำระเงินสด</option>
                   <option value="ชำระผ่านโอน">ชำระผ่านโอน</option>
+                  <option value="ชำระผ่านธนานัติ">ชำระผ่านธนานัติ</option>
                   <option value="เงินก้อนแรก">เงินก้อนแรก</option>
                 </select>
+              </div>
+            </div>
+          </div>
+        </div>
 
-                <label>หมายเหตุ :</label>
-                <input type="text" name="NotePayment" class="form-control" value="" style="width: 200px;"/>
-                <input type="hidden" name="AdduserPayment" class="form-control" style="width: 200px;" value="{{ Auth::user()->name }}"/>
-                <input type="hidden" name="FlagPayment" class="form-control" value="Y"/>
+        <div class="row">
+          <div class="col-6">
+            <div class="form-group row mb-0">
+              <label class="col-sm-3 col-form-label text-right">ยอดชำระ : </label>
+              <div class="col-sm-8">
+                <input type="text" name="GoldPayment" id="GoldPayment" class="form-control form-control-sm" onchange="sperate();" maxlength="7"/>
               </div>
             </div>
           </div>
 
-          <div class="col-md-4">
-            <br>
-            <div class="form-inline">
-              <button type="submit" class="btn btn-app" style="background-color:#189100; color:#FFFFFF;">
-                <i class="fas fa-save"></i> Save
-              </button>
-              <a class="btn btn-app" href="{{ action('LegislationController@edit',[$id, 4]) }}" style="background-color:#DB0000; color:#FFFFFF;">
-                <i class="fas fa-times"></i> ยกเลิก
-              </a>
+          <div class="col-6">
+            <div class="form-group row mb-0">
+              <label class="col-sm-4 col-form-label text-right">หมายเหตุ : </label>
+              <div class="col-sm-8">
+                <input type="text" name="NotePayment" class="form-control form-control-sm"/>
+                <input type="hidden" name="AdduserPayment" class="form-control form-control-sm" value="{{ Auth::user()->name }}"/>
+                <input type="hidden" name="FlagPayment" class="form-control form-control-sm" value="Y"/>
+              </div>
             </div>
           </div>
         </div>
-        <input type="hidden" name="_token" value="{{csrf_token()}}" />
-      </form>
-    </div>
+      </div>
+
+      <div class="card-footer text-center">
+        <button type="submit" class="btn btn-app" style="background-color:#189100; color:#FFFFFF;">
+          <i class="fas fa-save"></i> Save
+        </button>
+        <a class="btn btn-app" href="{{ action('LegislationController@edit',[$id, 4]) }}" style="background-color:#DB0000; color:#FFFFFF;">
+          <i class="fas fa-times"></i> ยกเลิก
+        </a>
+      </div>
+      <input type="hidden" name="_token" value="{{csrf_token()}}" />
+    </form>
   </div>
 </section>
