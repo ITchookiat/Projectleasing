@@ -637,7 +637,7 @@ class LegislationController extends Controller
         $pdf::WriteHTML($html,true,false,true,false,'');
         $pdf::Output('report.pdf');
       }
-      if ($type == 5) { //เพิ่มข้อมูลชำระ
+      if ($type == 5) { //เพิ่มรายการชำระ-payment
         $Payment = legispayment ::find($id);
           if ($Payment != Null) {
             DB::table('legispayments')
@@ -1057,18 +1057,21 @@ class LegislationController extends Controller
                 ->where('SFHP.VIEW_ARMGAR.CONTNO','=', $SetStrConn)
                 ->first();
         }
+
         $dataImages = DB::table('legisimages')
-        ->where('legisimages.legisImage_id',$id)
-        ->where('legisimages.type_image',2)
-        ->orderBy('legisimages.image_id', 'ASC')
-        ->get();
+            ->where('legisimages.legisImage_id',$id)
+            ->where('legisimages.type_image',2)
+            ->orderBy('legisimages.image_id', 'ASC')
+            ->get();
+
         $countDataImages = count($dataImages);
         if($request->preview == 1){
           $dataFile = DB::table('legisimages')
-          ->where('legisimages.image_id',$request->file_id)
-          ->where('legisimages.type_image',2)
-          ->orderBy('legisimages.image_id', 'ASC')
-          ->first();
+            ->where('legisimages.image_id',$request->file_id)
+            ->where('legisimages.type_image',2)
+            ->orderBy('legisimages.image_id', 'ASC')
+            ->first();
+
           $contractNo = str_replace("/","",$data->Contract_legis);
 
           return view('legislation.preview',compact('dataFile','contractNo'));
@@ -1079,7 +1082,6 @@ class LegislationController extends Controller
       elseif ($type == 3){  //ชั้นศาล
         $data = DB::table('legislations')
                   ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
-                  ->leftJoin('legisassets','legislations.id','=','legisassets.legisAsset_id')
                   ->where('legiscourts.legislation_id',$id)->first();
 
         return view('legislation.court',compact('data','id','type'));
@@ -1137,8 +1139,6 @@ class LegislationController extends Controller
               ->where('legispayments.legis_Com_Payment_id', $id)
               ->orderBy('legispayments.Period_Payment', 'desc')->limit(1)
               ->first();
-
-          // dd($data);
 
         return view('legislation.payment',compact('data','id','type'));
       }
@@ -1206,9 +1206,6 @@ class LegislationController extends Controller
         return view('legislation.editmore',compact('data','data1','id','type'));
       }
       elseif ($type == 11){ //รูปและแผนที
-        // $data = DB::table('legiscourts')
-        //       ->where('legiscourts.legislation_id',$id)->first();
-
         $data = DB::table('legislations')
                   ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
                   ->where('legiscourts.legislation_id',$id)->first();
@@ -1259,13 +1256,6 @@ class LegislationController extends Controller
               ->leftJoin('legiscourtcases','legislations.id','=','legiscourtcases.legislation_id')
               ->where('legiscourtcases.legislation_id',$id)->first();
 
-        // if ($data->Flag_case != Null) {
-        //   $SetDateCourt = $data->datepreparedoc_case;
-        //   $DateNew = date ("Y-m-d", strtotime("+60 days", strtotime($SetDateCourt)));
-        // }else {
-        //   $DateNew = Null;
-        // }
-
         return view('legislation.cheat',compact('data','id','type'));
       }
     }
@@ -1285,17 +1275,15 @@ class LegislationController extends Controller
       $d = date('d');
       $date = $Y.'-'.$m.'-'.$d;
 
-      // dd($request, $type);
-
       if ($type == 2) {     //ข้อมูลผู้เช่าซื้อ
         $user = Legislation::find($id);
           // เพิ่มสถานะจบงาน
           if ($request->get('Statuslegis') != Null) {
             $user->Status_legis = $request->get('Statuslegis');
             $user->UserStatus_legis = auth()->user()->name;
-            $user->DateUpState_legis = date('Y-m-d');
-            $user->DateCarState_legis = $request->get('DateStatuslegis');
+            $user->DateUpState_legis = $request->get('DateStatuslegis');
 
+            //ปิดบัญชี
             $user->DateStatus_legis = $request->get('DateCloseAccount');
             $user->PriceStatus_legis = $request->get('PriceAccount');
             $user->txtStatus_legis = $request->get('TopCloseAccount');
@@ -1304,12 +1292,12 @@ class LegislationController extends Controller
           elseif ($request->get('Statuslegis') == Null) {
             $user->Status_legis = NULL;
             $user->UserStatus_legis = NULL;
+            $user->DateUpState_legis = NULL;
+
             $user->DateStatus_legis = NULL;
             $user->PriceStatus_legis = NULL;
             $user->txtStatus_legis = NULL;
             $user->Discount_legis = NULL;
-            $user->DateUpState_legis = NULL;
-            $user->DateCarState_legis = NULL;
           }
 
           //หน้าทีมทนาย
@@ -1365,7 +1353,6 @@ class LegislationController extends Controller
             ]);
             $Uploaddb ->save();
         }
-
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
       }
       elseif ($type == 3) { //ชั้นศาล
@@ -1373,10 +1360,9 @@ class LegislationController extends Controller
           if ($request->get('Statuslegis') != Null) {
             $user->Status_legis = $request->get('Statuslegis');
             $user->UserStatus_legis = auth()->user()->name;
-            $user->DateUpState_legis = date('Y-m-d');
-            $SettxtStatus = $request->get('DateStatuslegis');
-            $SetDateUp = date('Y-m-d');
+            $user->DateUpState_legis = $request->get('DateStatuslegis');
 
+            //ปิดบัญชี
             $user->DateStatus_legis = $request->get('DateCloseAccount');
             $user->PriceStatus_legis = $request->get('PriceAccount');
             $user->txtStatus_legis = $request->get('TopCloseAccount');
@@ -1386,10 +1372,12 @@ class LegislationController extends Controller
             $user->Status_legis = NULL;
             $user->UserStatus_legis = NULL;
             $user->DateUpState_legis = NULL;
-            $SettxtStatus = NULL;
 
-            $SetDateUp = NULL;
-            $SettxtStatus = NULL;
+            $user->DateStatus_legis = NULL;
+            $user->PriceStatus_legis = NULL;
+            $user->txtStatus_legis = NULL;
+            $user->Discount_legis = NULL;
+
           }
         $user->update();
 
@@ -1423,10 +1411,6 @@ class LegislationController extends Controller
           $Legiscourt->received_court = $request->get('radio-receivedflag');
           $Legiscourt->telresults_court = $request->get('telresultscourt');
           $Legiscourt->dayresults_court = $request->get('dayresultscourt');
-
-          $Legiscourt->Status_court = $request->get('Statuslegis');
-          $Legiscourt->DateStatus_court = $SetDateUp;
-          $Legiscourt->txtStatus_court = $SettxtStatus;
 
           if ($Legiscourt->DateComplete_court == NULL) {
             if ($request->get('fillingdatecourt') != NULL) {
@@ -1513,7 +1497,7 @@ class LegislationController extends Controller
 
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อย');
       }
-      elseif ($type == 6) { //เตรียมเอกสารฝ่ายวิเคราะห์
+      elseif ($type == 6) { //เตรียมฟ้อง
         $user = Legislation::find($id);
           $user->Pay_legis = str_replace(",","",$request->get('Paylegis'));
           $user->Period_legis = str_replace(",","",$request->get('Periodlegis'));
@@ -1572,8 +1556,8 @@ class LegislationController extends Controller
           $SettxtStatus = NULL;
           $SetDateStatus = date('Y-m-d');
         }else {
-          $SettxtStatus = NULL;
-          $SetDateStatus = NULL;
+          $SettxtStatus = $request->get('StatusCase');
+          $SetDateStatus = $request->get('DateStatuslegis');
         }
 
         $Legiscourtcase = Legiscourtcase::where('legislation_id',$id)->first();
@@ -1641,7 +1625,6 @@ class LegislationController extends Controller
             ]);
             $Uploaddb ->save();
         }
-
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
       }
       elseif ($type == 8) { //สืบทรัพย์

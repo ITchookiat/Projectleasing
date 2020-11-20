@@ -1,18 +1,18 @@
 @extends('layouts.master')
-@section('title','แผนกวิเคราะห์')
+@section('title','กฏหมาย/เตรียมเอกสาร')
 @section('content')
 
-@php
-  function DateThai($strDate){
-    $strYear = date("Y",strtotime($strDate))+543;
-    $strMonth= date("n",strtotime($strDate));
-    $strDay= date("d",strtotime($strDate));
-    $strMonthCut = Array("" , "ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค.");
-    $strMonthThai=$strMonthCut[$strMonth];
-    return "$strDay $strMonthThai $strYear";
-    //return "$strDay-$strMonthThai-$strYear";
-  }
-@endphp
+  @php
+    function DateThai($strDate){
+      $strYear = date("Y",strtotime($strDate))+543;
+      $strMonth= date("n",strtotime($strDate));
+      $strDay= date("d",strtotime($strDate));
+      $strMonthCut = Array("" , "ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค.");
+      $strMonthThai=$strMonthCut[$strMonth];
+      return "$strDay $strMonthThai $strYear";
+      //return "$strDay-$strMonthThai-$strYear";
+    }
+  @endphp
 
   <style>
     #todo-list{
@@ -189,46 +189,34 @@
               <div class="col-12 table-responsive">
                 <div class="card">
                   <div class="card-header">
-                    <div class="row">
-                      <div class="col-4">
+                    <div class="row mb-1">
+                      <div class="col-6">
                         <div class="form-inline">
-                          <h4>ข้อมูลเตรียมเอกสาร...</h4>
+                          <h5>ข้อมูลเตรียมเอกสาร</h5>
                         </div>
                       </div>
-                      <div class="col-8">
-                        <div class="row">
-                          <div class="col-3">
-                          </div>
-                          <div class="col-3">
-                          </div>
-                          <div class="col-6">
-                            <div class="float-right form-inline">
-                              @if($data->Flag_status == 1)
-                              <a class="btn btn-primary" href="{{ action('LegislationController@updateLegislation',[$id,$type]) }}" style="background-color:#031261; color:#FFFFFF;">
-                                <i class="fas fa-share-square"></i> ส่งทนาย
-                              </a>
-                              &nbsp;&nbsp;
-                              @else
-                              <a class="btn btn-primary" style="background-color:#CCCCCC; color:#FFFFFF;">
-                                <i class="fas fa-share-square"></i> ส่งทนาย
-                              </a>
-                              &nbsp;&nbsp;
-                              @endif
-                              <button type="submit" class="btn btn-success" style="background-color:#189100; color:#FFFFFF;">
-                                <i class="fas fa-save"></i> บันทึก
-                              </button>
-                              &nbsp;&nbsp;
-                              <a class="btn btn-danger" href="{{ route('legislation',6) }}" style="background-color:#DB0000; color:#FFFFFF;">
-                                <i class="far fa-window-close"></i> ยกเลิก
-                              </a>
-                            </div>
-                          </div>
+                      <div class="col-6">
+                        <div class="card-tools d-inline float-right">
+                          @if($data->Flag_status == 1)
+                            <a class="btn btn-primary btn-sm" href="{{ action('LegislationController@updateLegislation',[$id,$type]) }}" style="background-color:#031261; color:#FFFFFF;">
+                              <i class="fas fa-share-square"></i> ส่งทนาย
+                            </a>
+                          @else
+                            <a class="btn btn-primary btn-sm" style="background-color:#CCCCCC; color:#FFFFFF;">
+                              <i class="fas fa-share-square"></i> ส่งทนาย
+                            </a>
+                          @endif
+                          <button type="submit" class="btn btn-success btn-sm" style="background-color:#189100; color:#FFFFFF;">
+                            <i class="fas fa-save"></i> บันทึก
+                          </button>
+                          <a class="btn btn-danger btn-sm" href="{{ route('legislation',6) }}" style="background-color:#DB0000; color:#FFFFFF;">
+                            <i class="far fa-window-close"></i> ยกเลิก
+                          </a>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div class="card-body text-sm">
-
                     <div class="row">
                       <div class="col-md-6">
                         <div class="card card-warning">
@@ -244,19 +232,19 @@
                                <div class="col-md-4">
                                  เลขที่สัญญา
                                 <div class="form-inline" align="left">
-                                  <input type="text" class="form-control" style="width: 100%;" value="{{ $data->Contract_legis }}" readonly/>
+                                  <input type="text" class="form-control form-control-sm" style="width: 100%;" value="{{ $data->Contract_legis }}" readonly/>
                                 </div>
                               </div>
                               <div class="col-md-4">
                                 ชื่อ - นามสกุล
                                 <div class="form-inline" align="left">
-                                  <input type="text" class="form-control" style="width: 100%;" value="{{ $data->Name_legis }}" readonly/>
+                                  <input type="text" class="form-control form-control-sm" style="width: 100%;" value="{{ $data->Name_legis }}" readonly/>
                                 </div>
                               </div>
                               <div class="col-md-4">
                                 เลขบัตรประชาชน
                                 <div class="form-inline" align="left">
-                                  <input type="text" class="form-control" style="width: 100%;" value="{{ $data->Idcard_legis }}" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask="" readonly/>
+                                  <input type="text" class="form-control form-control-sm" style="width: 100%;" value="{{ $data->Idcard_legis }}" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask="" readonly/>
                                 </div>
                               </div>
                             </div>
@@ -265,19 +253,19 @@
                                <div class="col-md-4">
                                  ป้ายทะเบียน
                                 <div class="form-inline" align="left">
-                                  <input type="text" class="form-control" style="width: 100%;" value="{{ $data->register_legis }}" readonly/>
+                                  <input type="text" class="form-control form-control-sm" style="width: 100%;" value="{{ $data->register_legis }}" readonly/>
                                 </div>
                               </div>
                               <div class="col-md-4">
                                 ยี่ห้อ
                                 <div class="form-inline" align="left">
-                                  <input type="text" class="form-control" style="width: 100%;" value="{{ $data->BrandCar_legis }}" readonly/>
+                                  <input type="text" class="form-control form-control-sm" style="width: 100%;" value="{{ $data->BrandCar_legis }}" readonly/>
                                 </div>
                               </div>
                               <div class="col-md-4">
                                 ปีรถ
                                 <div class="form-inline" align="left">
-                                  <input type="text" class="form-control" style="width: 100%;" value="{{ $data->YearCar_legis }}" readonly/>
+                                  <input type="text" class="form-control form-control-sm" style="width: 100%;" value="{{ $data->YearCar_legis }}" readonly/>
                                 </div>
                               </div>
                             </div>
@@ -286,19 +274,19 @@
                                <div class="col-md-4">
                                  ประเภทรถ
                                 <div class="form-inline" align="left">
-                                  <input type="text" class="form-control" style="width: 100%;" value="{{ $data->Category_legis }}" readonly/>
+                                  <input type="text" class="form-control form-control-sm" style="width: 100%;" value="{{ $data->Category_legis }}" readonly/>
                                 </div>
                               </div>
                               <div class="col-md-4">
                                 เลขไมล์
                                 <div class="form-inline" align="left">
-                                  <input type="text" class="form-control" style="width: 100%;" value="{{ number_format($data->Mile_legis, 2) }}" readonly/>
+                                  <input type="text" class="form-control form-control-sm" style="width: 100%;" value="{{ number_format($data->Mile_legis, 2) }}" readonly/>
                                 </div>
                               </div>
                               <div class="col-md-4">
                                 วันที่ทำสัญญา
                                 <div class="form-inline" align="left">
-                                  <input type="text" class="form-control" style="width: 100%;" value="{{ DateThai($data->DateDue_legis) }}" readonly/>
+                                  <input type="text" class="form-control form-control-sm" style="width: 100%;" value="{{ DateThai($data->DateDue_legis) }}" readonly/>
                                 </div>
                               </div>
                             </div>
@@ -307,19 +295,19 @@
                               <div class="col-md-4">
                                 ยอดจัด
                                 <div class="form-inline" align="left">
-                                  <input type="text" name="Paylegis" class="form-control" style="width: 100%;" value="{{ number_format($data1->NCARCST ,2) }}" readonly/>
+                                  <input type="text" name="Paylegis" class="form-control form-control-sm" style="width: 100%;" value="{{ number_format($data1->NCARCST ,2) }}" readonly/>
                                 </div>
                               </div>
                               <div class="col-md-4">
                                 ค่าผ่อน
                                 <div class="form-inline" align="left">
-                                  <input type="text" name="Periodlegis" class="form-control" style="width: 100%;" value="{{ number_format($data1->TOT_UPAY, 2) }}" readonly/>
+                                  <input type="text" name="Periodlegis" class="form-control form-control-sm" style="width: 100%;" value="{{ number_format($data1->TOT_UPAY, 2) }}" readonly/>
                                 </div>
                               </div>
                                <div class="col-md-4">
                                  จำนวนงวดทั้งหมด
                                 <div class="form-inline" align="left">
-                                  <input type="text" name="Countperiodlegis" class="form-control" style="width: 100%;" value="{{$data1->T_NOPAY }}" readonly/>
+                                  <input type="text" name="Countperiodlegis" class="form-control form-control-sm" style="width: 100%;" value="{{$data1->T_NOPAY }}" readonly/>
                                 </div>
                               </div>
                             </div>
@@ -328,19 +316,19 @@
                               <div class="col-md-4">
                                 ค้างจากงวดที่
                                 <div class="form-inline" align="left">
-                                  <input type="text" name="Beforeperiodlegis" class="form-control" style="width: 100%;" value="{{ $data1->EXP_FRM }}" readonly/>
+                                  <input type="text" name="Beforeperiodlegis" class="form-control form-control-sm" style="width: 100%;" value="{{ $data1->EXP_FRM }}" readonly/>
                                 </div>
                               </div>
                               <div class="col-md-4">
                                 ถึงงวดที่
                                 <div class="form-inline" align="left">
-                                  <input type="text" name="Remainperiodlegis" class="form-control" style="width: 100%;" value="{{ $data1->EXP_TO }}" readonly/>
+                                  <input type="text" name="Remainperiodlegis" class="form-control form-control-sm" style="width: 100%;" value="{{ $data1->EXP_TO }}" readonly/>
                                 </div>
                               </div>
                               <div class="col-md-4">
                                 ชำระแล้ว
                                 <div class="form-inline" align="left">
-                                  <input type="text" name="Beforemoeylegis" class="form-control" style="width: 100%;" value="{{ number_format($data1->SMPAY, 2) }}" readonly/>
+                                  <input type="text" name="Beforemoeylegis" class="form-control form-control-sm" style="width: 100%;" value="{{ number_format($data1->SMPAY, 2) }}" readonly/>
                                 </div>
                               </div>
                             </div>
@@ -349,19 +337,19 @@
                               <div class="col-md-4">
                                 ค้าง
                                 <div class="form-inline" align="left">
-                                  <input type="text" name="Staleperiodlegis" class="form-control" style="width: 100%;" value="{{ number_format($data1->EXP_PRD, 0) }}" readonly/>
+                                  <input type="text" name="Staleperiodlegis" class="form-control form-control-sm" style="width: 100%;" value="{{ number_format($data1->EXP_PRD, 0) }}" readonly/>
                                 </div>
                               </div>
                               <div class="col-md-4">
                                 ค้างงวดจริง
                                 <div class="form-inline" align="left">
-                                  <input type="text" name="Realperiod_legis" class="form-control" style="width: 100%;" value="{{ number_format($data1->HLDNO, 2) }}" readonly/>
+                                  <input type="text" name="Realperiod_legis" class="form-control form-control-sm" style="width: 100%;" value="{{ number_format($data1->HLDNO, 2) }}" readonly/>
                                 </div>
                               </div>
                               <div class="col-md-4">
                                 ลูกหนี้คงเหลือ
                                 <div class="form-inline" align="left">
-                                  <input type="text" name="Sumperiodlegis" class="form-control" style="width: 100%;" value="{{ number_format($data1->BALANC - $data1->SMPAY, 2) }}" readonly/>
+                                  <input type="text" name="Sumperiodlegis" class="form-control form-control-sm" style="width: 100%;" value="{{ number_format($data1->BALANC - $data1->SMPAY, 2) }}" readonly/>
                                 </div>
                               </div>
                             </div>
@@ -371,28 +359,28 @@
                                 วันที่หยุด Vat
                                 <div class="form-inline" align="left">
                                   @if($data->DateVAT_legis == Null)
-                                    <input type="text" name="DateVATlegis" class="form-control" style="width: 100%;" value="{{ $data1->DTSTOPV }}" readonly/>
+                                    <input type="text" name="DateVATlegis" class="form-control form-control-sm" style="width: 100%;" value="{{ $data1->DTSTOPV }}" readonly/>
                                   @else
-                                    <input type="text" name="DateVATlegis" class="form-control" style="width: 100%;" value="{{ DateThai($data1->DTSTOPV) }}" readonly/>
+                                    <input type="text" name="DateVATlegis" class="form-control form-control-sm" style="width: 100%;" value="{{ DateThai($data1->DTSTOPV) }}" readonly/>
                                   @endif
                                 </div>
                               </div>
                               <div class="col-md-4">
                                 ชื่อผู้ค้ำ
                                 <div class="form-inline" align="left">
-                                  <input type="text" class="form-control" style="width: 100%;" value="{{ $data->NameGT_legis }}" readonly/>
+                                  <input type="text" class="form-control form-control-sm" style="width: 100%;" value="{{ $data->NameGT_legis }}" readonly/>
                                 </div>
                               </div>
                                <div class="col-md-4">
                                  เลขบัตรประชาชน
                                 <div class="form-inline" align="left">
-                                  <input type="text" class="form-control" style="width: 100%;" value="{{ $data->IdcardGT_legis }}" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask="" readonly/>
+                                  <input type="text" class="form-control form-control-sm" style="width: 100%;" value="{{ $data->IdcardGT_legis }}" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask="" readonly/>
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                      <input type="hidden" name="Phonelegis" class="form-control" style="width: 100%;" value="{{ (iconv('TIS-620', 'utf-8', $data1->TELP)) }}" readonly/>
+                        <input type="hidden" name="Phonelegis" class="form-control form-control-sm" style="width: 100%;" value="{{ (iconv('TIS-620', 'utf-8', $data1->TELP)) }}" readonly/>
                       </div>
 
                       <div class="col-md-3">
@@ -527,9 +515,7 @@
                           </div>
                         </div>
                       </div>
-
                     </div>
-
                   </div>
                 </div>
               </div>
