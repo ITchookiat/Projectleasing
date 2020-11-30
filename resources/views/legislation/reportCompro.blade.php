@@ -94,9 +94,9 @@
   @elseif($type == 3)
     <h3 class="card-title p-3" align="center">ใบเสร็จปิดบัญชี</h3>
     <hr>
-  @elseif($type == 16)
-    <label align="right">วันที่พิมพ์ : <u>{{ date('d-m-Y') }}</u></label>
-    <h1 align="center" style="font-weight: bold;line-height:1px;"><b>ลูกหนี้ประนอมหนี้ @if($status != '')({{$status}})@endif</b></h1>
+  @elseif($type == 16)  <!-- รายงานลูกหนี้ประนอมหนี้ -->
+    <label align="right">พิมพ์ : <u>{{ date('d-m-Y') }}</u></label>
+    <h1 align="center" style="font-weight: bold;line-height:1px;"><b>รายชื่อลูกหนี้ประนอมหนี้ @if($status != '')({{$status}})@endif</b></h1>
      @if($newfdate != '')
       <h3 align="center" style="font-weight: bold;"><b>ช่วงระหว่างวันที่ {{DateThai($newfdate)}} ถึงวันที่ {{DateThai($newtdate)}}</b></h3>
      @endif
@@ -352,14 +352,13 @@
         </tbody>
       </table>
     </body>
-  @elseif($type == 16)
+  @elseif($type == 16)    <!-- รายงานลูกหนี้ประนอมหนี้ -->
     <body>
       <br>
       <table border="1">
           <tr align="center" style="background-color: yellow;line-height: 200%;font-weight:bold;">
             <th style="width: 30px">ลำดับ</th>
             <th style="width: 65px">วันที่ประนอม</th>
-            {{-- <th style="width: 80px">ระยะเวลา</th> --}}
             <th>เลขที่สัญญา</th>
             <th style="width: 125px">ชื่อ-สกุล</th>
             <th style="width: 150px">เบอร์โทร</th>
@@ -367,35 +366,13 @@
             <th style="width: 55px">ชำระแล้ว</th>
             <th style="width: 55px">ยอดคงเหลือ</th>
             <th style="width: 50px">งวดละ</th>
-            @if($status != '')
-              <th style="width: 65px">วันชำระล่าสุด</th>
-            @endif
+            <th style="width: 65px">วันชำระล่าสุด</th>
             <th style="width: 70px">สถานะ</th>
           </tr>
           @foreach($data as $key => $row)
             <tr style="line-height: 150%;">
               <td align="center" style="width: 30px">{{$key+1}}</td>
               <td align="center" style="width: 65px">{{DateThai($row->Date_Promise)}}</td>
-              {{-- <td align="left" style="width: 80px">
-                @if($row->Status_legis == "ปิดบัญชีประนอมหนี้" or $row->Status_legis == "ยึดรถหลังฟ้อง")
-                  @php
-                    $Cldate = date_create($row->Date_Promise);
-                    $nowCldate = date_create($row->DateUpState_legis);
-                    $ClDateDiff = date_diff($Cldate,$nowCldate);
-                    $duration = $ClDateDiff->format("%a วัน")
-                  @endphp
-                  <font color="green">{{$ClDateDiff->y}} ปี {{$ClDateDiff->m}} เดือน {{$ClDateDiff->d}} วัน</font>
-                @else
-                  @php
-                    $nowday = date('Y-m-d');
-                    $Cldate = date_create($row->Date_Promise);
-                    $nowCldate = date_create($nowday);
-                    $ClDateDiff = date_diff($Cldate,$nowCldate);
-                    $duration = $ClDateDiff->format("%a วัน")
-                  @endphp
-                  <font>{{$ClDateDiff->y}} ปี {{$ClDateDiff->m}} เดือน {{$ClDateDiff->d}} วัน</font>
-                @endif
-              </td> --}}
               <td align="center">{{$row->Contract_legis}}</td>
               <td style="width: 125px"> {{$row->Name_legis}}</td>
               <td align="left" style="width: 150px">{{$row->Phone_legis}}</td>
@@ -403,11 +380,9 @@
               <td align="center" style="width: 55px"> {{number_format($row->Total_Promise - $row->Sum_Promise,2)}} &nbsp;</td>
               <td align="center" style="width: 55px"> {{number_format($row->Sum_Promise,2)}} &nbsp;</td>
               <td align="center" style="width: 50px"> {{number_format($row->DuePay_Promise,2)}} &nbsp; </td>
-                @if($status != '')
-                  <td align="center" style="width: 65px">
-                    {{DateThai($row->Date_Payment)}}
-                  </td>
-                @endif
+              <td align="center" style="width: 65px">
+                {{DateThai($row->Date_Payment)}}
+              </td>
               <td align="center" style="width: 70px">
                 @php
                   @$sumTotal += $row->Total_Promise;

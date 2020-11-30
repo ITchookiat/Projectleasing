@@ -191,7 +191,7 @@
                         @elseif($type == 6)
                           ลูกหนี้เตรียมฟ้อง
                         @elseif($type == 7)
-                          ลูกหนี้ประนอมหนี้
+                          ลูกหนี้ประนอมหนี้ (Compounding Debt)
                         @elseif($type == 8)
                           ลูกหนี้สืบทรัพย์
                         @elseif($type == 10)
@@ -219,8 +219,6 @@
                               <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-4" data-link="{{ route('legislation', 17) }}"> รายงานลูกหนี้</a></li>
                               <li class="dropdown-divider"></li>
                               <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-5" data-link="{{ route('legislation', 18) }}"> รายงานลูกหนี้สืบพยาน</a></li>
-                              {{-- <li class="dropdown-divider"></li>
-                              <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-4" data-link="{{ route('legislation', 19) }}"> รายงานลูกหนี้สืบทรัพย์</a></li> --}}
                             </ul>
                           </div>
                           <button type="submit" class="btn bg-warning btn-app">
@@ -235,7 +233,6 @@
                             <option value="ปิดจบงานประนอมหนี้" {{ ($StateLegis == 'ปิดจบงานประนอมหนี้') ? 'selected' : '' }}>ปิดจบงานประนอมหนี้</option>
                             <option value="ลูกหนี้รอฟ้อง" {{ ($StateLegis == 'ลูกหนี้รอฟ้อง') ? 'selected' : '' }}>ลูกหนี้รอฟ้อง</option>
                           </select>
-  
                           {{-- <label for="text" class="mr-sm-2">สถานะ : </label>
                           <select name="StateCourt" class="form-control" id="text">
                             <option selected value="">-------- สถานะ --------</option>
@@ -250,12 +247,11 @@
                         </div>
                       </form>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-12 text-sm">
                       <div class="table-responsive">
-                        <table class="table table-bordered" id="table">
-                          <thead class="thead-dark bg-gray-light" >
+                        <table class="table table-hover" id="table">
+                          <thead>
                             <tr>
-                              {{-- <th class="text-center">No.</th> --}}
                               <th class="text-center" style="width: 70px">Job.</th>
                               <th class="text-center" style="width: 120px">ชื่อ-สกุล</th>
                               <th class="text-center" style="width: 40px">ถืองาน</th>
@@ -271,7 +267,6 @@
                           <tbody>
                             @foreach($data as $key => $row)
                               <tr>
-                                {{-- <td class="text-center"> {{$key+1}} </td> --}}
                                 <td class="text-center"> {{$row->Contract_legis}}</a></td>
                                 <td class="text-left"> {{$row->Name_legis}} </td>
                                 <td class="text-center">  <!-- วันถืองาน -->
@@ -707,7 +702,7 @@
                     </div>
                     <div class="col-md-12">
                       <div class="table-responsive">
-                        <table class="table table-striped table-valign-middle" id="table">
+                        <table class="table table-hover" id="table">
                           <thead>
                             <tr>
                               <th class="text-center">ลำดับ</th>
@@ -803,7 +798,7 @@
                                 <li class="dropdown-divider"></li>
                                 <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-3" data-link="{{ route('legislation', 16) }}"> รายงานลูกหนี้ประนอมหนี้</a></li>
                                 <li class="dropdown-divider"></li>
-                                <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-6" data-link="{{ route('legislation', 20) }}"> รายงานตรวจสอบยอดชำระ</a></li>
+                                <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-6" data-link="{{ route('legislation', 20) }}"> รายงานตรวจสอบยอดรับเงิน</a></li>
                               </ul>
                           </div>
                           <button type="submit" class="btn bg-warning btn-app">
@@ -814,15 +809,15 @@
                           <label for="text" class="mr-sm-2">สถานะ : </label>
                           <select name="status" class="form-control form-control-sm" id="text">
                             <option selected value="">------ สถานะ ------</option>
-                            <option value="ชำระปกติ" {{($status == 'ชำระปกติ') ? 'selected' : '' }}>ชำระปกติ</option>
-                            <option value="ขาดชำระ" {{($status == 'ขาดชำระ') ? 'selected' : '' }}>ขาดชำระ</option>
-                            <option value="ปิดบัญชี" {{($status == 'ปิดบัญชี') ? 'selected' : '' }}>ปิดบัญชี</option>
+                            <option value="ชำระปกติ" {{($status == 'ชำระปกติ') ? 'selected' : '' }}>ลูกหนี้ชำระปกติ</option>
+                            <option value="ขาดชำระ" {{($status == 'ขาดชำระ') ? 'selected' : '' }}>ลูกหนี้ขาดชำระ</option>
+                            <option value="ปิดบัญชี" {{($status == 'ปิดบัญชี') ? 'selected' : '' }}>ลูกหนี้ปิดบัญชี</option>
                           </select>
 
-                          <label>จากวันที่ : </label>
+                          <label class="mr-sm-2">จากวันที่ : </label>
                           <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control form-control-sm" />
   
-                          <label>ถึงวันที่ : </label>
+                          <label class="mr-sm-2">ถึงวันที่ : </label>
                           <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control form-control-sm" />
                         </div>
                      </form>
@@ -830,13 +825,13 @@
     
                     <div class="col-md-12">
                       <div class="table-responsive">
-                        <table class="table table-bordered" id="table">
-                          <thead class="thead-dark bg-gray-light" >
+                        <table class="table table-hover" id="table">
+                          <thead>
                             <tr>
                               <th class="text-center" style="width: 30px">No.</th>
                               <th class="text-center">เลขที่สัญญา</th>
                               <th class="text-center">ชื่อ-สกุล</th>
-                              <th class="text-center">ประนอม</th>
+                              <th class="text-center">เริ่มประนอม</th>
                               <th class="text-center">ระยะเวลา</th>
                               <th class="text-center">ยอดประนอม</th>
                               <th class="text-center">ยอดคงเหลือ</th>
@@ -849,10 +844,10 @@
                             @foreach($data as $key => $row)
                               <tr>
                                 <td class="text-center"> {{$key+1}} </td>
-                                <td class="text-center">
+                                <td class="text-left">
                                   {{$row->Contract_legis}}
                                   @if($row->Flag == "C")
-                                    <span class="badge bg-warning float-right">ประนอม</span>
+                                    <span class="badge bg-warning prem">ประนอม</span>
                                   @endif
                                 </td>
                                 <td class="text-left"> {{$row->Name_legis}} </td>
@@ -877,8 +872,8 @@
                                     <span data-toggle="tooltip" title="{{$ClDateDiff->y}} ปี {{$ClDateDiff->m}} เดือน {{$ClDateDiff->d}} วัน"><font color="red">{{$duration}}</font></span>
                                   @endif
                                 </td>
-                                <td class="text-center"> {{number_format($row->Total_Promise,2)}}</td>
-                                <td class="text-center"> {{number_format($row->Sum_Promise,2)}}</td>
+                                <td class="text-right"> {{number_format($row->Total_Promise, 2)}}</td>
+                                <td class="text-right"> {{number_format($row->Sum_Promise, 2)}}</td>
                                 <td class="text-center"> {{ $row->User_Promise }}</td>
                                 <td class="text-center">
                                   @php
