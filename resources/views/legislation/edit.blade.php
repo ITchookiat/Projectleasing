@@ -734,10 +734,10 @@
     </div>
   </section>
 
+<form name="form2" method="post" action="{{ route('legislation.store',[$id, 2]) }}" target="_blank" id="formimage" enctype="multipart/form-data">
   <div class="modal fade" id="modal-printinfo">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
-        <form name="form2" method="post" action="{{ route('legislation.store',[$id, 2]) }}" target="_blank" id="formimage" enctype="multipart/form-data">
           @csrf
           <div class="card card-warning">
             <div class="card-header">
@@ -812,10 +812,10 @@
             <br>
           </div>
 
-      </form>
       </div>
     </div>
   </div>
+</form>
 
   {{-- back-to-top --}}
   <script>

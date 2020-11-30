@@ -92,10 +92,10 @@
             <div class="row">
               <div class="col-md-6">
                 <label>วันที่ : </label>
-                <input type="date" id="DatePayment" name="DatePayment" class="form-control" value="{{ date('Y-m-d') }}" style="width: 200px;"/>
+                <input type="date" id="DatePayment" name="DatePayment" class="form-control" value="{{ date('Y-m-d') }}" style="width: 200px;" readonly/>
                 
                 <label>ยอดชำระ :</label>
-                <input type="text" name="GoldPayment" id="GoldPayment" class="form-control" value="" style="width: 200px;"  onchange="sperate();" maxlength="7"/>
+                <input type="text" name="GoldPayment" id="GoldPayment" class="form-control" value="" style="width: 200px;"  oninput="sperate();" maxlength="7"/>
               </div>
 
               <div class="col-md-6">
