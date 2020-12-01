@@ -354,7 +354,7 @@
                                     <label class="col-sm-4 col-form-label text-right"><font color="red">วันที่ชำระล่าสุด : </font></label>
                                     <div class="col-sm-8">
                                       @if($data->Date_Payment != Null)
-                                        <input type="text" name="DatelastPromise" value="{{ DateThai($data->Date_Payment) }}" class="form-control form-control-sm" readonly/>
+                                        <input type="text" name="DatelastPromise" value="{{ DateThai(substr($data->created_at,0,10)) }}" class="form-control form-control-sm" readonly/>
                                       @else
                                         <input type="text" name="DatelastPromise" class="form-control form-control-sm" readonly/>
                                       @endif
