@@ -66,61 +66,60 @@
 
       <section class="content">
         <div class="card">
-          <div class="card-header">
-            <div class="row mb-1">
-              <div class="col-6">
-                <h5>ลูกหนี้สืบทรัพย์</h5>   
-              </div>
-              <div class="col-6">
-                <div class="card-tools d-inline float-right">
-                  <button type="submit" class="btn btn-success btn-sm">
-                    <i class="fas fa-save"></i> Save
-                  </button>
-                  <a class="btn btn-danger btn-sm" href="{{ route('legislation', 8) }}">
-                    <i class="far fa-window-close"></i> Close
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="card-warning card-tabs text-sm">
-              <div class="card-header p-0 pt-1">
-                <div class="container-fluid">
-                  <div class="row mb-1">
-                    <div class="col-sm-6">
-                      <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
-                        <li class="nav-item">
-                          <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 2]) }}">ข้อมูลลูกหนี้</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 3]) }}">ชั้นศาล</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 7]) }}">ชั้นบังคับคดี</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 13]) }}">โกงเจ้าหนี้</a>
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="col-sm-6">
-                      <div class="float-right form-inline">
-                        <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
-                          <a class="nav-link active" href="{{ action('LegislationController@edit',[$id, 8]) }}">สืบทรัพย์</a>
-                          <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 4]) }}">ประนอมหนี้</a>
-                          <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 11]) }}">รูปและแผนที่</a>
-                        </ul>
-                      </div>
+          <form name="form1" method="post" action="{{ action('LegislationController@update',[$id,$type]) }}" enctype="multipart/form-data">
+            @csrf
+            @method('put')
+              <div class="card-header">
+                <div class="row mb-1">
+                  <div class="col-6">
+                    <h5>ลูกหนี้สืบทรัพย์</h5>   
+                  </div>
+                  <div class="col-6">
+                    <div class="card-tools d-inline float-right">
+                      <button type="submit" class="btn btn-success btn-sm">
+                        <i class="fas fa-save"></i> Save
+                      </button>
+                      <a class="btn btn-danger btn-sm" href="{{ route('legislation', 8) }}">
+                        <i class="far fa-window-close"></i> Close
+                      </a>
                     </div>
                   </div>
                 </div>
-              </div>          
-            </div>
-          </div>
-          <div class="card-body text-sm">
-            <form name="form1" method="post" action="{{ action('LegislationController@update',[$id,$type]) }}" enctype="multipart/form-data">
-              @csrf
-              @method('put')
-
+                <div class="card-warning card-tabs text-sm">
+                  <div class="card-header p-0 pt-1">
+                    <div class="container-fluid">
+                      <div class="row mb-1">
+                        <div class="col-sm-6">
+                          <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+                            <li class="nav-item">
+                              <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 2]) }}">ข้อมูลลูกหนี้</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 3]) }}">ชั้นศาล</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 7]) }}">ชั้นบังคับคดี</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 13]) }}">โกงเจ้าหนี้</a>
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="col-sm-6">
+                          <div class="float-right form-inline">
+                            <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+                              <a class="nav-link active" href="{{ action('LegislationController@edit',[$id, 8]) }}">สืบทรัพย์</a>
+                              <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 4]) }}">ประนอมหนี้</a>
+                              <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 11]) }}">รูปและแผนที่</a>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>          
+                </div>
+              </div>
+            <div class="card-body text-sm">
               <div class="row">
                 <div class="col-md-12">
                   <div class="info-box">
@@ -260,10 +259,9 @@
                   </div>
                 </div>
               </div>
-
-              <input type="hidden" name="_method" value="PATCH"/>
-            </form>
-          </div>
+            </div>
+            <input type="hidden" name="_method" value="PATCH"/>
+          </form>
         </div>
       </section>
     </div>
