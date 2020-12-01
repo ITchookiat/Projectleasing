@@ -15,8 +15,8 @@
     <div class="card">
       <div class="card-header ui-sortable-handle">
         <h3 class="card-title">
-          <i class="far fa-newspaper"></i>
-          <strong>New Informations</strong>
+          <i class="far fa-newspaper fa-lg pr-2" style="color: rgb(252, 113, 0)"></i>
+          <strong>ข่าวสารใหม่ (New Informations)</strong>
         </h3>
         <div class="card-tools">
           @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
@@ -27,6 +27,7 @@
             <form method="post" class="delete_form" action="{{ route('MasterInfo.destroy',$item->Info_id) }}" style="display:inline;">
               {{csrf_field()}}
               <input type="hidden" name="_method" value="DELETE" />
+              <input type="hidden" name="type" value="1" />
               <button type="submit" data-name="{{ $item->name_info }}" class="btn btn-danger btn-sm AlertForm" title="ลบรายการ">
                 <i class="far fa-trash-alt"></i> Delete
               </button>

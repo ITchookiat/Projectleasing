@@ -67,17 +67,29 @@
       <section class="content">
         <div class="card">
           <div class="card-header">
-            <h4 class="">
-              ลูกหนี้สืบทรัพย์
-            </h4>                  
-            <div class="card card-warning card-tabs">
+            <div class="row mb-1">
+              <div class="col-6">
+                <h5>ลูกหนี้สืบทรัพย์</h5>   
+              </div>
+              <div class="col-6">
+                <div class="card-tools d-inline float-right">
+                  <button type="submit" class="btn btn-success btn-sm">
+                    <i class="fas fa-save"></i> Save
+                  </button>
+                  <a class="btn btn-danger btn-sm" href="{{ route('legislation', 8) }}">
+                    <i class="far fa-window-close"></i> Close
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="card-warning card-tabs text-sm">
               <div class="card-header p-0 pt-1">
                 <div class="container-fluid">
-                  <div class="row mb-2">
+                  <div class="row mb-1">
                     <div class="col-sm-6">
                       <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
                         <li class="nav-item">
-                          <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 2]) }}">ข้อมูลผู้เช่าซื้อ</a>
+                          <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 2]) }}">ข้อมูลลูกหนี้</a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 3]) }}">ชั้นศาล</a>
@@ -113,44 +125,23 @@
                 <div class="col-md-12">
                   <div class="info-box">
                     <span class="info-box-icon bg-danger"><i class="far fa-id-badge fa-2x"></i></span>
-      
                     <div class="info-box-content">
-                      <div class="form-inline">
-                        <div class="col-md-3">
-                          <span class="info-box-number"><font style="font-size: 30px;">{{ $data->Contract_legis }}</font></span>
-                          <span class="info-box-text"><font style="font-size: 20px;">{{ $data->Name_legis }}</font></span>
-                        </div>
+                      <h5>{{ $data->Contract_legis }}</h5>
+                      <span class="info-box-number" style="font-size: 20px;">{{ $data->Name_legis }}</span>
+                    </div>
 
-                        <div class="col-md-5">
-                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                          <small class="badge badge-success" style="font-size: 25px;">
-                            <i class="fas fa-map-pin"></i>&nbsp; สถานะ :
-                            @if($data->sendsequester_asset != Null)
-                              {{ $data->sendsequester_asset }}
-                            @elseif($data->propertied_asset == "Y")
-                              มีทรัพย์
-                            @endif
-                          </small>
-                          <div class="form-inline">
-                            <label>สถานะ : </label>
-                            <select name="" class="form-control" style="width: 170px;" disabled>
-                              <option value="" selected>--------- status ----------</option>
-                            </select>
-                            <input type="date" name="" class="form-control" style="width: 170px;" value="" disabled>
-                          </div>
-                        </div>
-                        
-                        <div class="col-md-4">
-                          <div class="float-right form-inline">
-                            <button type="submit" class="btn btn-app" style="background-color:#189100; color:#FFFFFF;">
-                              <i class="fas fa-save"></i> Save
-                            </button>
-                            <a class="btn btn-app" href="{{ route('legislation', 8) }}" style="background-color:#DB0000; color:#FFFFFF;">
-                              <i class="fas fa-times"></i> ยกเลิก
-                            </a>
-                          </div>
-                        </div>
+                    <div class="info-box-content">
+                      <div class="form-inline float-right">
+                        <small class="badge badge-danger" style="font-size: 18px;">
+                          <i class="fas fa-sign"></i>&nbsp; สถานะ :
+                          @if($data->Status_legis != Null)
+                            <input type="text" name="StatusCase" class="form-control form-control-sm" value="{{$data->Status_legis}}" readonly>
+                            <input type="date" name="DateStatuslegis" class="form-control form-control-sm" value="{{ $data->DateUpState_legis }}" readonly>
+                          @else
+                            <input type="text" class="form-control form-control-sm" value="--------- status ----------" readonly>
+                            <input type="date" class="form-control form-control-sm" readonly>
+                          @endif
+                        </small>
                       </div>
                     </div>
                   </div>
@@ -177,7 +168,7 @@
                 }
               </script>
 
-              <h5 class="" align="left"><b>ขั้นตอนสืบทรัพย์</b></h5>
+              <h5 class="" align="left">ขั้นตอนสืบทรัพย์</h5>
               <div class="row">
                 <div class="col-12">
                   <div class="card card-success card-tabs">
@@ -192,48 +183,75 @@
                       <div class="tab-content" id="custom-tabs-one-tabContent">
                         <div class="tab-pane fade active show" id="tabs-1" role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
                           <div class="row">
-                            <div class="col-md-3" align="center">
-                              <input type="radio" id="test1" name="radio_propertied" value="Y" {{ ($data->propertied_asset === 'Y') ? 'checked' : '' }} />
-                              <label for="test1">มีทรัพย์</label>
-                            </div>
-                            <div class="col-md-3" align="center">
-                              <input type="radio" id="test2" name="radio_propertied" value="N" {{ ($data->propertied_asset === 'N') ? 'checked' : '' }}/>
-                              <label for="test2">ไม่มีทรัพย์</label>
-                            </div>
-                            <div class="col-md-6">
-                              <div class="form-inline">
-                              <label>สถานะสืบ : </label>
-                                <select id="statusasset" name="statusasset" class="form-control" style="width: 85%">
-                                  <option value="" selected>--- สถานะสืบ ---</option>
-                                  <option value="สืบทรัพย์ชั้นศาล" {{ ($data->Status_asset === 'สืบทรัพย์ชั้นศาล') ? 'selected' : '' }}>สืบทรัพย์ชั้นศาล</option>
-                                  <option value="สืบทรัพย์ชั้นบังคับคดี" {{ ($data->Status_asset === 'สืบทรัพย์ชั้นบังคับคดี') ? 'selected' : '' }}>สืบทรัพย์ชั้นบังคับคดี</option>
-                                </select>
+                            <div class="col-6">
+                              <div class="form-group row mb-0">
+                                <label class="col-sm-3 col-form-label text-right">สถานะทรัพย์ : </label>
+                                <div class="col-sm-9">
+                                  <input type="radio" id="test1" name="radio_propertied" value="Y" {{ ($data->propertied_asset === 'Y') ? 'checked' : '' }} />
+                                  <label for="test1" class="mr-sm-5">มีทรัพย์</label>
+                                  <input type="radio" id="test2" name="radio_propertied" value="N" {{ ($data->propertied_asset === 'N') ? 'checked' : '' }}/>
+                                  <label for="test2" class="mr-sm-5">ไม่มีทรัพย์</label>
+                                </div>
+                              </div>
+                              
+                              <div class="form-group row mb-0">
+                                <label class="col-sm-3 col-form-label text-right">วันสืบทรัพย์ : </label>
+                                <div class="col-sm-9">
+                                  <input type="date" id="Dateasset" name="Dateasset" class="form-control form-control-sm" value="{{ ($data->Date_asset != Null) ? $data->Date_asset : date('Y-m-d') }}" readonly/>
+                                </div>
+                              </div>
+
+                              <div class="form-group row mb-0">
+                                <label class="col-sm-3 col-form-label text-right">วันสืบทรัพย์ครั้งแรก : </label>
+                                <div class="col-sm-9">
+                                  <input type="date" id="sequesterasset" name="sequesterasset" class="form-control form-control-sm" value="{{ $data->sequester_asset }}"/>
+                                </div>
+                              </div>
+
+                              <div class="form-group row mb-0">
+                                <label class="col-sm-3 col-form-label text-right">ผลสืบ : </label>
+                                <div class="col-sm-9">
+                                  <select id="sendsequesterasset" name="sendsequesterasset" class="form-control form-control-sm">
+                                    <option value="" selected>--- เลือกผล ---</option>
+                                    <option value="สืบทรัพย์เจอ" {{ ($data->sendsequester_asset === 'สืบทรัพย์เจอ') ? 'selected' : '' }}>สืบทรัพย์เจอ</option>
+                                    <option value="สืบทรัพย์ไม่เจอ" {{ ($data->sendsequester_asset === 'สืบทรัพย์ไม่เจอ') ? 'selected' : '' }}>สืบทรัพย์ไม่เจอ</option>
+                                    <option value="หมดอายุความคดี" {{ ($data->sendsequester_asset === 'หมดอายุความคดี') ? 'selected' : '' }}>หมดอายุความคดี</option>
+                                    <option value="จบงานสืบทรัพย์" {{ ($data->sendsequester_asset === 'จบงานสืบทรัพย์') ? 'selected' : '' }}>จบงานสืบทรัพย์</option>
+                                  </select>
+                                </div>
+                              </div>
+
+                              <div class="form-group row mb-0">
+                                <label class="col-sm-3 col-form-label text-right">ค่าใช้จ่าย : </label>
+                                <div class="col-sm-9">
+                                  <input type="text" id="Priceasset" name="Priceasset" class="form-control form-control-sm" value="{{ number_format($data->Price_asset) }}" oninput="Comma();"/>
+                                </div>
+                              </div>
+
+                              <div class="form-group row mb-0">
+                                <label class="col-sm-3 col-form-label text-right">วันที่สืบทรัพย์ใหม่ : </label>
+                                <div class="col-sm-9">
+                                  <input type="date" id="NewpursueDateasset" name="NewpursueDateasset" class="form-control form-control-sm" value="{{ $data->NewpursueDate_asset }}"/>
+                                </div>
                               </div>
                             </div>
-                          </div>
-
-                          <div class="row">
-                            <div class="col-md-6">
-                              วันสืบทรัพย์
-                              <input type="date" id="Dateasset" name="Dateasset" class="form-control" value="{{ ($data->Date_asset != Null) ? $data->Date_asset : date('Y-m-d') }}" readonly/>
-                              วันสืบทรัพย์ครั้งแรก
-                              <input type="date" id="sequesterasset" name="sequesterasset" class="form-control" value="{{ $data->sequester_asset }}"/>
-                              ผลสืบ :
-                              <select id="sendsequesterasset" name="sendsequesterasset" class="form-control">
-                                <option value="" selected>--- เลือกผล ---</option>
-                                <option value="สืบทรัพย์เจอ" {{ ($data->sendsequester_asset === 'สืบทรัพย์เจอ') ? 'selected' : '' }}>สืบทรัพย์เจอ</option>
-                                <option value="สืบทรัพย์ไม่เจอ" {{ ($data->sendsequester_asset === 'สืบทรัพย์ไม่เจอ') ? 'selected' : '' }}>สืบทรัพย์ไม่เจอ</option>
-                                <option value="หมดอายุความคดี" {{ ($data->sendsequester_asset === 'หมดอายุความคดี') ? 'selected' : '' }}>หมดอายุความคดี</option>
-                                <option value="จบงานสืบทรัพย์" {{ ($data->sendsequester_asset === 'จบงานสืบทรัพย์') ? 'selected' : '' }}>จบงานสืบทรัพย์</option>
-                              </select>
-                              ค่าใช้จ่าย
-                              <input type="text" id="Priceasset" name="Priceasset" class="form-control" value="{{ number_format($data->Price_asset) }}" oninput="Comma();"/>
-                              วันที่สืบทรัพย์ใหม่
-                              <input type="date" id="NewpursueDateasset" name="NewpursueDateasset" class="form-control" value="{{ $data->NewpursueDate_asset }}"/>
-                            </div>
-                            <div class="col-md-6">
-                              หมายเหตุ
-                              <textarea name="Notepursueasset" class="form-control" rows="11">{{ $data->Notepursue_asset }}</textarea>
+                            <div class="col-6">
+                              <div class="form-group row mb-0">
+                                <label class="col-sm-2 col-form-label text-right">สถานะสืบ : </label>
+                                <div class="col-sm-10">
+                                  <select id="statusasset" name="statusasset" class="form-control form-control-sm">
+                                    <option value="" selected>--- สถานะสืบ ---</option>
+                                    <option value="สืบทรัพย์ชั้นศาล" {{ ($data->Status_asset === 'สืบทรัพย์ชั้นศาล') ? 'selected' : '' }}>สืบทรัพย์ชั้นศาล</option>
+                                    <option value="สืบทรัพย์ชั้นบังคับคดี" {{ ($data->Status_asset === 'สืบทรัพย์ชั้นบังคับคดี') ? 'selected' : '' }}>สืบทรัพย์ชั้นบังคับคดี</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="form-group row mb-0">
+                                <label class="col-sm-2 col-form-label text-right">หมายเหตุ : </label>
+                                <div class="col-sm-10">
+                                  <textarea name="Notepursueasset" class="form-control form-control-sm" rows="8">{{ $data->Notepursue_asset }}</textarea>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>

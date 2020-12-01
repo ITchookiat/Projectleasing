@@ -23,7 +23,7 @@
       <div class="container-fluid">
         <div class="row mb-0">
           <div class="col-sm-6">
-            <h4>กิจกรรมและข่าวสาร (New Information)</h4>
+            <h4>กิจกรรมและข่าวสาร (Events and Information)</h4>
           </div>
           <div class="col-sm-6">
 
@@ -38,8 +38,8 @@
             <h3 class="card-title">New Information</h3>
 
             <div class="card-tools">
-              <a href="{{ route('MasterInfo.index') }}" class="btn btn-warning btn-tool" title="เพิ่มข่าวสาร">
-                <i class="fas fa-pager"></i>&nbsp; New
+              <a href="{{ route('MasterInfo.create') }}" class="btn btn-warning btn-tool" title="เพิ่มข่าวสาร">
+                <i class="fas fa-pager pr-1"></i> New
               </a>
             </div>
           </div>
@@ -52,7 +52,7 @@
                   </div>
                   <div class="product-info">
                     <a href="{{ route('MasterInfo.show',$row->Info_id) }}" class="product-title">{{$row->name_info}}
-                      <span class="badge badge-warning float-right">$1800</span></a>
+                      <span class="badge badge-danger float-right prem">New</span></a>
                     <span class="product-description text-sm">
                       {{$row->Notes_info}}
                     </span>
@@ -62,7 +62,7 @@
             </div>
           @endforeach
           <div class="card-footer text-center">
-            <a href="javascript:void(0)" class="uppercase">View All Products</a>
+            <a href="{{ route('MasterInfo.index') }}" class="uppercase">View All Informations</a>
           </div>
         </div>
       </div>
@@ -97,8 +97,7 @@
               <div class="card card-warning">
                 <div class="card-header">
                   <h4 class="card-title">
-                    <i class="fas fa-calendar-day"></i>&nbsp;
-                    New Events
+                    <i class="fas fa-calendar-day pr-2" style="color: rgba(245, 58, 58, 0.966)"></i> New Events
                   </h4>
                   <div class="card-tools">
                     <button type="submit" class="btn btn-success btn-tool">
@@ -265,5 +264,13 @@
         format: 'YYYY-MM-DD'
       }
     })
+  </script>
+
+  <script>
+    function blinker() {
+    $('.prem').fadeOut(1500);
+    $('.prem').fadeIn(1500);
+    }
+    setInterval(blinker, 1500);
   </script>
 @endsection

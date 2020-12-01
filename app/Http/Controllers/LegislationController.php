@@ -38,7 +38,6 @@ class LegislationController extends Controller
       elseif ($request->type == 2) {   //งานฟ้อง
         $newfdate = '';
         $newtdate = '';
-        $StateCourt = '';
         $StateLegis = '';
 
         if ($request->has('Fromdate')){
@@ -47,57 +46,27 @@ class LegislationController extends Controller
         if ($request->has('Todate')){
           $newtdate = $request->get('Todate');
         }
-        if ($request->get('StateCourt')){
-          $StateCourt = $request->get('StateCourt');
-        }
         if ($request->get('StateLegis')){
           $StateLegis = $request->get('StateLegis');
         }
 
         $data = DB::table('legislations')
-                  ->leftJoin('Legiscourtcases','legislations.id','=','Legiscourtcases.legislation_id')
-                  ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
-                  ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
-                  ->leftJoin('legisassets','legislations.id','=','legisassets.legisAsset_id')
-                  ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
-                    return $q->whereBetween('legislations.Datesend_Flag',[$newfdate,$newtdate]);
-                  })
-                  ->where('legislations.Flag_status','=', '2')
-                  ->orderBy('legislations.id', 'DESC')
-                  ->get();
+            ->leftJoin('Legiscourtcases','legislations.id','=','Legiscourtcases.legislation_id')
+            ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+            ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+            ->leftJoin('legisassets','legislations.id','=','legisassets.legisAsset_id')
+            ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+              return $q->whereBetween('legislations.Datesend_Flag',[$newfdate,$newtdate]);
+            })
+            ->where('legislations.Flag_status','=', '2')
+            ->orderBy('legislations.id', 'DESC')
+            ->get();
 
         $dataPay = DB::table('legislations')
-               ->leftJoin('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
-               ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
-               ->where('legispayments.Flag_Payment', '=', 'Y')
-               ->get();
-
-        if ($StateCourt == "ชั้นศาล") {
-          $data = DB::table('legislations')
-                ->leftJoin('Legiscourtcases','legislations.id','=','Legiscourtcases.legislation_id')
-                ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
-                ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
-                ->leftJoin('legisassets','legislations.id','=','legisassets.legisAsset_id')
-                ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
-                  return $q->whereBetween('legislations.Datesend_Flag',[$newfdate,$newtdate]);
-                })
-                ->where('legiscourts.fillingdate_court','!=', Null)
-                ->orderBy('legislations.id', 'DESC')
-                ->get();
-        }
-        elseif ($StateCourt == "ชั้นบังคับคดี") {
-          $data = DB::table('legislations')
-                ->leftJoin('Legiscourtcases','legislations.id','=','Legiscourtcases.legislation_id')
-                ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
-                ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
-                ->leftJoin('legisassets','legislations.id','=','legisassets.legisAsset_id')
-                ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
-                  return $q->whereBetween('legislations.Datesend_Flag',[$newfdate,$newtdate]);
-                })
-                ->where('Legiscourtcases.datepreparedoc_case','!=', Null)
-                ->orderBy('legislations.id', 'DESC')
-                ->get();
-        }
+            ->leftJoin('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
+            ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+            ->where('legispayments.Flag_Payment', '=', 'Y')
+            ->get();
 
         if ($StateLegis == "ปิดจบงานฟ้อง") {
           $data = DB::table('legislations')
@@ -139,8 +108,9 @@ class LegislationController extends Controller
               ->orderBy('legislations.id', 'DESC')
               ->get();
         }
+
         $type = $request->type;
-        return view('legislation.view', compact('type', 'data','dataPay','newfdate','newtdate','StateCourt','StateLegis'));
+        return view('legislation.view', compact('type', 'data','dataPay','newfdate','newtdate','StateLegis'));
       }
       elseif ($request->type == 6) {   //ลูกหนี้เตรียมฟ้อง
         $newfdate = '';

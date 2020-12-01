@@ -86,11 +86,12 @@ Route::group(['middleware' => 'auth'], function()
 
     //------------------Infomation-----------------//
     route::resource('MasterInfo','InfoController');
+    Route::get('/MasterInfo/ShowInfo/{type}/{id}', 'InfoController@ShowInfo')->name('ShowInfo');
 
      //------------------Events-----------------//
     route::resource('MasterEvents','EventController');
     Route::get('/MasterEvents/ShowEvent/{type}', 'EventController@ShowEvent')->name('Events.ShowEvent');
-    Route::get('/MasterEvents/DeleteImages/{id}/{path}', 'EventController@DeleteImages');
+    Route::get('/MasterEvents/DeleteEvents/{id}/{path}/{type}', 'EventController@DeleteEvents');
 
     //---------------- logout --------------------//
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');

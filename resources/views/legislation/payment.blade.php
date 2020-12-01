@@ -117,7 +117,7 @@
             <div class="form-group row mb-0">
               <label class="col-sm-3 col-form-label text-right">ยอดชำระ : </label>
               <div class="col-sm-8">
-                <input type="text" name="GoldPayment" id="GoldPayment" class="form-control form-control-sm" onchange="sperate();" maxlength="7"/>
+                <input type="text" name="GoldPayment" id="GoldPayment" class="form-control form-control-sm" oninput="sperate();" maxlength="7"/>
               </div>
             </div>
           </div>

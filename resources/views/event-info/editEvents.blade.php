@@ -23,14 +23,16 @@
     <div class="card card-warning">
       <div class="card-header">
         <h4 class="card-title">
-          <i class="fas fa-calendar-day"></i>&nbsp;
-          New Events
+          <i class="fas fa-calendar-day pr-2" style="color: rgba(245, 58, 58, 0.966)"></i>New Events
         </h4>
         <div class="card-tools">
+          <a href="{{ action('EventController@DeleteEvents',[$data->events_id, $data->title, 1]) }}" data-name="{{ $data->title }}" class="btn btn-danger btn-tool AlertForm" title="ลบรายการ">
+            <i class="far fa-trash-alt"></i>
+          </a>
           <button type="submit" class="btn btn-success btn-tool">
             <i class="fas fa-save"></i> Save
           </button>
-          <a class="btn btn-danger btn-tool" href="{{ route('MasterEvents.index') }}">
+          <a class="btn btn-warning btn-tool" href="{{ route('MasterEvents.index') }}">
             <i class="far fa-window-close"></i> Close
           </a>
         </div>
@@ -100,7 +102,7 @@
               รูปภาพผู้เช่าซื้อ
             </div>
             <div class="card-tools">
-              <button href="{{ action('EventController@DeleteImages',[$data->events_id,$data->title]) }}" data-name="{{ $data->title }}" style="color: white;" class="btn btn-primary btn-tool DeleteImage" title="ลบรูปภาพทั้งหมด">
+              <button href="{{ action('EventController@DeleteEvents',[$data->events_id, $data->title, 2]) }}" data-name="{{ $data->title }}" style="color: white;" class="btn btn-primary btn-tool DeleteImage" title="ลบรูปภาพทั้งหมด">
                 <i class="far fa-trash-alt"></i>
               </button>
             </div>
@@ -146,25 +148,48 @@
 <script type="text/javascript">
  $(document).ready(function () {
     $('.DeleteImage').click(function (evt) {
-         var form = $(this).closest("form");
-         var _this = $(this)
+        var form = $(this).closest("form");
+        var _this = $(this)
 
-         evt.preventDefault();
-         swal({
-            icon: "error",
-            title: "ต้องการลบรูปภาพทั้งหมดหรือไม่ ?",
-            text: "หากลบแล้วจะไม่สามารถดึงข้อมูลกลับมาได้อีก !",
-            buttons: true,
-            dangerMode: true
-         }).then((willDelete)=>{
-            if (willDelete) {
-                swal("ลบข้อมูลสำเร็จ !", {
-                    icon: "success",
-                    timer: 3000,
-                })
-               window.location.href = _this.attr('href')
-            }
-        });
+        evt.preventDefault();
+        swal({
+          icon: "error",
+          title: "ต้องการลบรูปภาพทั้งหมดหรือไม่ ?",
+          text: "หากลบแล้วจะไม่สามารถดึงข้อมูลกลับมาได้อีก !",
+          buttons: true,
+          dangerMode: true
+        }).then((willDelete)=>{
+          if (willDelete) {
+              swal("ลบข้อมูลสำเร็จ !", {
+                  icon: "success",
+                  timer: 3000,
+              })
+              window.location.href = _this.attr('href')
+          }
+      });
+    });
+
+    $('.AlertForm').click(function (evt) {
+      var Contract_buyer = $(this).data("name");
+      var form = $(this).closest("form");
+      var _this = $(this)
+      
+      evt.preventDefault();
+      swal({
+          title: `${Contract_buyer}`,
+          icon: "warning",
+          text: "คุณต้องการยืนยันการลบหรือไม่ ?",
+          buttons: true,
+          dangerMode: true,
+      }).then((isConfirm)=>{
+          if (isConfirm) {
+              swal("ลบข้อมูลสำเร็จ !", {
+                  icon: "success",
+                  timer: 3000,
+              })
+              window.location.href = _this.attr('href')
+          }
+      });
     });
  });
 </script>
