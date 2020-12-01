@@ -1139,8 +1139,12 @@ class LegislationController extends Controller
               ->where('legispayments.legis_Com_Payment_id', $id)
               ->orderBy('legispayments.Period_Payment', 'desc')->limit(1)
               ->first();
+        $dataPranom = DB::table('legislations')
+        ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+        ->where('legislations.id', $id)
+        ->first();
 
-        return view('legislation.payment',compact('data','id','type'));
+        return view('legislation.payment',compact('data','dataPranom','id','type'));
       }
       elseif ($type == 6) { //เพิ่มข้อมูลงาน วิเคราะห์
         $data = DB::table('legislations')
