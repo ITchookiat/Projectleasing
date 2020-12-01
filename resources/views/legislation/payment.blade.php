@@ -84,6 +84,9 @@
         @if($data != NULL)
           <input type="hidden" id="Datepay" name="Datepay" class="form-control form-control-sm" value="{{ $data->Date_Payment }}"/>
           <input type="hidden" id="DuePrice" name="DuePrice" class="form-control form-control-sm" value="{{ $data->DuePay_Promise }}"/>
+        @else
+          <input type="hidden" id="Datepay" name="Datepay" class="form-control form-control-sm" value="{{ date('Y-m-d') }}"/>
+          <input type="hidden" id="DuePrice" name="DuePrice" class="form-control form-control-sm" value="{{$dataPranom->DuePay_Promise}}"/>
         @endif
 
         <div class="row">

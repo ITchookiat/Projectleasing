@@ -289,7 +289,9 @@
                                 </div>
                               </div>
 
-                              <div class="row">
+                              <hr>
+
+                              {{--<div class="row">
                                 <div class="col-6">
                                   <div class="form-group row mb-3">
                                     <label class="col-sm-4 col-form-label text-right">ยอดเงินก้อนแรก : </label>
@@ -298,7 +300,7 @@
                                     </div>
                                   </div>
                                 </div>
-                              </div>
+                              </div>--}}
 
                               <div class="row">
                                 <div class="col-6">
