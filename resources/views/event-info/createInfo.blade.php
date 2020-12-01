@@ -28,7 +28,7 @@
         <div class="card card-warning">
           <div class="card-header">
             <h3 class="card-title">
-              <i class="fas fa-pager"></i>
+              <i class="fas fa-pager pr-1" style="color: rgb(252, 113, 0)"></i>
               Create Contents
             </h3>
             <div class="card-tools">

@@ -69,6 +69,7 @@ class EventController extends Controller
             'Note_events' => $request->get('Note'),
             'User_generate' => auth()->user()->name,
             'Date_generate' => date('Y-m-d'),
+            'Branch_user' => auth()->user()->branch,
           ]);
         $Events->save();
 
@@ -202,20 +203,39 @@ class EventController extends Controller
         //
     }
 
-    public function DeleteImages($id, $path)
+    public function DeleteEvents($id, $path, $type)
     {
-        $item = UploadfileImage::where('Buyerfileimage_id','=',$id)->get();
+        if ($type == 1) {
+            $item1 = Event::find($id);
+            $image = UploadfileImage::where('Buyerfileimage_id','=',$id)->get();
 
-        if ($item != NULL) {
-            foreach ($item as $key => $value) {
-              $itemPath = public_path().'/upload-Events/'.$path.'/'.$value->Name_fileimage;
-              File::delete($itemPath);
-  
-              $deleteItem = UploadfileImage::where('fileimage_id',$value->fileimage_id);
-              $deleteItem->Delete();
+            if ($image != NULL) {
+                foreach ($image as $key => $value) {
+                    $itemID = $value->Buyerfileimage_id;
+                    $itemPath = public_path().'/upload-Events/'.$path;
+                    File::deleteDirectory($itemPath);
+
+                    $deleteItem = UploadfileImage::where('fileimage_id',$value->fileimage_id);
+                    $deleteItem->Delete();
+                }
             }
-          }
-  
-        return redirect()->back()->with('success','ลบรูปทั้งหมดเรียบร้อยแล้ว');
+            $item1->Delete();
+
+            return redirect()->Route('MasterEvents.index')->with('success','ลบข้อมูลเรียบร้อย');
+        }
+        elseif ($type == 2) {
+            $item = UploadfileImage::where('Buyerfileimage_id','=',$id)->get();
+            if ($item != NULL) {
+                foreach ($item as $key => $value) {
+                  $itemPath = public_path().'/upload-Events/'.$path.'/'.$value->Name_fileimage;
+                  File::delete($itemPath);
+      
+                  $deleteItem = UploadfileImage::where('fileimage_id',$value->fileimage_id);
+                  $deleteItem->Delete();
+                }
+              }
+      
+            return redirect()->Route('MasterEvents.index')->with('success','ลบรูปทั้งหมดเรียบร้อยแล้ว');
+        }
     }
 }

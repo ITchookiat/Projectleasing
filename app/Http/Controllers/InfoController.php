@@ -15,9 +15,9 @@ class InfoController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Informations::all();
+        $data = Informations::orderBy('Info_id', 'DESC')->get();
 
-        return view('event-info.createInfo');
+        return view('event-info.DetaInfo', compact('data'));
     }
 
     /**
@@ -27,7 +27,8 @@ class InfoController extends Controller
      */
     public function create()
     {
-        //
+        // $data = Informations::all();
+        return view('event-info.createInfo');
     }
 
     /**
@@ -80,6 +81,22 @@ class InfoController extends Controller
         return view('event-info.showInfo', compact('item'));
     }
 
+    public function ShowInfo(Request $request, $type, $id)
+    {
+        $data = DB::table('informations')
+            ->where('SDate_info','=',date('Y-m-d'))
+            ->get();
+
+        $countData = Count($data);
+        if ($countData == 0) {
+            $countData = NULL;
+        }else {
+            $countData = '<span class="badge badge-danger navbar-badge">'.$countData.'</span>';
+        }
+        
+        echo $countData;
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -129,11 +146,15 @@ class InfoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $item1 = Informations::find($id);
         $item1->Delete();
 
-        return redirect()->Route('MasterEvents.index')->with('success','ลบข้อมูลเรียบร้อย');
+        if ($request->type == 1) {
+            return redirect()->Route('MasterEvents.index')->with('success','ลบข้อมูลเรียบร้อย');
+        }else {
+            return redirect()->back()->with('success','ลบข้อมูลเรียบร้อย');
+        }
     }
 }

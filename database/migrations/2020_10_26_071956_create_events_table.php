@@ -22,6 +22,7 @@ class CreateEventsTable extends Migration
             $table->string('Note_events')->nullable();
             $table->string('User_generate')->nullable();
             $table->string('Date_generate')->nullable();
+            $table->string('Branch_user')->nullable();
             $table->timestamps();
         });
     }

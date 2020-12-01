@@ -187,7 +187,7 @@
                     <div class="form-inline">
                       <h4 class="">
                         @if($type == 2)
-                          ลูกหนี้ฟ้อง
+                          ลูกหนี้ฟ้อง (Debtor Sued)
                         @elseif($type == 6)
                           ลูกหนี้เตรียมฟ้อง
                         @elseif($type == 7)
@@ -233,12 +233,6 @@
                             <option value="ปิดจบงานประนอมหนี้" {{ ($StateLegis == 'ปิดจบงานประนอมหนี้') ? 'selected' : '' }}>ปิดจบงานประนอมหนี้</option>
                             <option value="ลูกหนี้รอฟ้อง" {{ ($StateLegis == 'ลูกหนี้รอฟ้อง') ? 'selected' : '' }}>ลูกหนี้รอฟ้อง</option>
                           </select>
-                          {{-- <label for="text" class="mr-sm-2">สถานะ : </label>
-                          <select name="StateCourt" class="form-control" id="text">
-                            <option selected value="">-------- สถานะ --------</option>
-                            <option value="ชั้นศาล" {{ ($StateCourt == 'ชั้นศาล') ? 'selected' : '' }}>ชั้นศาล</otion>
-                            <option value="ชั้นบังคับคดี" {{ ($StateCourt == 'ชั้นบังคับคดี') ? 'selected' : '' }}>ชั้นบังคับคดี</otion>
-                          </select> --}}
                           <label>จากวันที่ : </label>
                           <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control form-control-sm" />
   
@@ -267,7 +261,7 @@
                           <tbody>
                             @foreach($data as $key => $row)
                               <tr>
-                                <td class="text-center"> {{$row->Contract_legis}}</a></td>
+                                <td class="text-center"> {{$row->Contract_legis}}</td>
                                 <td class="text-left"> {{$row->Name_legis}} </td>
                                 <td class="text-center">  <!-- วันถืองาน -->
                                   @if($row->DateComplete_court != Null)
@@ -297,9 +291,7 @@
                                   @endif
                                 </td>
                                 <td class="text-center">  <!-- วันฟ้อง -->
-                                  @if($row->fillingdate_court != NUll)
-                                    {{ DateThai($row->fillingdate_court) }}
-                                  @endif
+                                  {{ DateThai($row->fillingdate_court) }}
                                 </td>
                                 <td class="text-center">  <!-- ระยะเวลา -->
                                   @if($row->Status_legis != Null)

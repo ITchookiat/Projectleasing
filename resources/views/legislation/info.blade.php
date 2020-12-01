@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title','แผนกวิเคราะห์')
+@section('title','กฏหมาย/รูปและแผนที')
 @section('content')
 
   <link type="text/css" rel="stylesheet" href="{{ asset('css/magiczoomplus.css') }}"/>
@@ -157,191 +157,205 @@
       @endif
 
       <section class="content">
-        <div class="row justify-content-center">
-          <div class="col-12 table-responsive">
-            <div class="card">
-              <div class="card-header">
-                <h4 class="">
-                  รูปและแผนที่
-                </h4>                  
-                <div class="card card-warning card-tabs">
-                  <div class="card-header p-0 pt-1">
-                    <div class="container-fluid">
-                      <div class="row mb-2">
-                        @if ($data->Flag == "C")
-                          <div class="col-sm-6">
-                            <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
-                              <li class="nav-item">
-                                <a class="nav-link" href="{{ route('legislation',7) }}">หน้าหลัก</a>
-                              </li>
-                              <li class="nav-item">
-                                <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 4]) }}">ประนอมหนี้</a>
-                              </li>
-                            </ul>
-                          </div>
-                        @else
-                          <div class="col-sm-6">
-                            <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
-                              <li class="nav-item">
-                                <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 2]) }}">ข้อมูลผู้เช่าซื้อ</a>
-                              </li>
-                              <li class="nav-item">
-                                <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 3]) }}">ชั้นศาล</a>
-                              </li>
-                              <li class="nav-item">
-                                <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 7]) }}">ชั้นบังคับคดี</a>
-                              </li>
-                              <li class="nav-item">
-                                <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 13]) }}">โกงเจ้าหนี้</a>
-                              </li>
-                            </ul>
-                          </div>
-                          <div class="col-sm-6">
-                            <div class="float-right form-inline">
-                              <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
-                                <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 8]) }}">สืบทรัพย์</a>
-                                <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 4]) }}">ประนอมหนี้</a>
-                                <a class="nav-link active" href="{{ action('LegislationController@edit',[$id, 11]) }}">รูปและแผนที่</a>
-                              </ul>
-                            </div>
-                          </div>
-                        @endif
-                      </div>
-                    </div>
-                  </div>          
+        <div class="card">
+          <form name="form1" method="post" action="{{ action('LegislationController@update',[$id,$type]) }}" enctype="multipart/form-data">
+            @csrf
+            @method('put')
+
+            <div class="card-header">
+              <div class="row mb-1">
+                <div class="col-6">
+                  <h5>รูปและแผนที่</h5>   
+                </div>
+                <div class="col-6">
+                  <div class="card-tools d-inline float-right">
+                    <button type="submit" class="btn btn-success btn-sm">
+                      <i class="fas fa-save"></i> Save
+                    </button>
+                    <a class="btn btn-danger btn-sm" href="{{ route('legislation',2) }}">
+                      <i class="far fa-window-close"></i> Close
+                    </a>
+                  </div>
                 </div>
               </div>
-              
-              <div class="card-body text-sm">
-                <form name="form1" method="post" action="{{ action('LegislationController@update',[$id,$type]) }}" enctype="multipart/form-data">
-                  @csrf
-                  @method('put')
-
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="tab-content">
-                        <div class="form-group" align="right">
-                          <button type="submit" class="delete-modal btn btn-success">
-                            <span class="glyphicon glyphicon-floppy-save"></span> อัพเดท
-                          </button>
-                          <a class="delete-modal btn btn-danger" href="{{ route('legislation',2) }}">
-                            <span class="glyphicon glyphicon-remove"></span> ยกเลิก
-                          </a>
+              <div class="card-warning card-tabs text-sm">
+                <div class="card-header p-0 pt-1">
+                  <div class="container-fluid">
+                    <div class="row mb-1">
+                      @if ($data->Flag == "C")
+                        <div class="col-sm-6">
+                          <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+                            <li class="nav-item">
+                              <a class="nav-link" href="{{ route('legislation',7) }}">หน้าหลัก</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 4]) }}">ประนอมหนี้</a>
+                            </li>
+                          </ul>
                         </div>
+                      @else
+                        <div class="col-sm-6">
+                          <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+                            <li class="nav-item">
+                              <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 2]) }}">ข้อมูลลูกหนี้</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 3]) }}">ชั้นศาล</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 7]) }}">ชั้นบังคับคดี</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 13]) }}">โกงเจ้าหนี้</a>
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="col-sm-6">
+                          <div class="float-right form-inline">
+                            <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+                              <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 8]) }}">สืบทรัพย์</a>
+                              <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 4]) }}">ประนอมหนี้</a>
+                              <a class="nav-link active" href="{{ action('LegislationController@edit',[$id, 11]) }}">รูปและแผนที่</a>
+                            </ul>
+                          </div>
+                        </div>
+                      @endif
+                    </div>
+                  </div>
+                </div>          
+              </div>
+            </div>
+          
+            <div class="card-body text-sm">
+              <div class="info-box">
+                <span class="info-box-icon bg-danger"><i class="far fa-id-badge fa-2x"></i></span>
+                <div class="info-box-content">
+                  <h5>{{ $data->Contract_legis }}</h5>
+                  <span class="info-box-number" style="font-size: 20px;">{{ $data->Name_legis }}</span>
+                </div>
 
-                        <div class="row">
-                          <div class="col-md-12">
-                            <div class="row">
-                              <div class="col-md-6">
-                                <div class="card card-danger">
-                                  <div class="card-header">
-                                    <h3 class="card-title">
-                                      รูปภาพ
-                                      @if($SumImage != 0)
-                                        ({{$SumImage}})
-                                      @endif
-                                    </h3>
-                    
-                                    <div class="card-tools">
-                                      @if($SumImage != 0)
-                                        <a href="{{ action('LegislationController@deleteImageAll',$id) }}" title="ลบรูปทั้งหมด" onclick="return confirm('คุณต้องการลบรูปทั้งหมดหรือไม่?')" class="btn btn-box-tool">
-                                          <i class="fa fa-trash"></i>
-                                        </a>
-                                      @endif
-                                      <button type="button" class="btn btn-tool" onclick="showImg()" title="แสดงที่เพิ่มรูป"><i class="fa fa-eye"></i></button>
-                                      <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-                                      <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
-                                    </div>
-                                  </div>
-                                  <div class="card-body">
-                                    @if($SumImage == 0)
-                                      <div id="myImg">
-                                    @else
-                                      <div id="myImg" style="display:none;">
-                                    @endif
-                                      <div class="form-group">
-                                        <div class="file-loading">
-                                          <input id="image-file" type="file" name="file_image[]" accept="image/*" data-min-file-count="1" multiple>
-                                        </div>
-                                      </div>
-                                      <br><hr>
-                                    </div>
+                <div class="info-box-content">
+                  <div class="form-inline float-right">
+                    <small class="badge badge-danger" style="font-size: 18px;">
+                      <i class="fas fa-sign"></i>&nbsp; สถานะ :
+                      @if($data->Status_legis != Null)
+                        <input type="text" name="StatusCase" class="form-control form-control-sm" value="{{$data->Status_legis}}" readonly>
+                        <input type="date" name="DateStatuslegis" class="form-control form-control-sm" value="{{ $data->DateUpState_legis }}" readonly>
+                      @else
+                        <input type="text" class="form-control form-control-sm" value="--------- status ----------" readonly>
+                        <input type="date" class="form-control form-control-sm" readonly>
+                      @endif
+                    </small>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="card card-danger">
+                    <div class="card-header">
+                      <h3 class="card-title">
+                        รูปภาพ
+                        @if($SumImage != 0)
+                          ({{$SumImage}})
+                        @endif
+                      </h3>
+      
+                      <div class="card-tools">
+                        @if($SumImage != 0)
+                          <a href="{{ action('LegislationController@deleteImageAll',$id) }}" title="ลบรูปทั้งหมด" onclick="return confirm('คุณต้องการลบรูปทั้งหมดหรือไม่?')" class="btn btn-box-tool">
+                            <i class="fa fa-trash"></i>
+                          </a>
+                        @endif
+                        <button type="button" class="btn btn-tool" onclick="showImg()" title="แสดงที่เพิ่มรูป"><i class="fa fa-eye"></i></button>
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                        <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      @if($SumImage == 0)
+                        <div id="myImg">
+                      @else
+                        <div id="myImg" style="display:none;">
+                      @endif
+                        <div class="form-group">
+                          <div class="file-loading">
+                            <input id="image-file" type="file" name="file_image[]" accept="image/*" data-min-file-count="1" multiple>
+                          </div>
+                        </div>
+                        <br><hr>
+                      </div>
 
-                                    @if($SumImage > 0)
-                                      <div class="container1">
-                                        @foreach($dataImages as $key => $images)
-                                          <div class="mySlides">
-                                            <div class="numbertext">{{$key+1}} / {{$SumImage}}</div>
-                                            <img class="img-responsive" src="{{ asset('upload-image/'.$images->name_image) }}" style="width:675px; height:400px;">
-                                          </div>
-                                        @endforeach
-                                        <a class="prev" onclick="plusSlides(-1)">❮</a>
-                                        <a class="next" onclick="plusSlides(1)">❯</a>
+                      @if($SumImage > 0)
+                        <div class="container1">
+                          @foreach($dataImages as $key => $images)
+                            <div class="mySlides">
+                              <div class="numbertext">{{$key+1}} / {{$SumImage}}</div>
+                              <img class="img-responsive" src="{{ asset('upload-image/'.$images->name_image) }}" style="width:675px; height:400px;">
+                            </div>
+                          @endforeach
+                          <a class="prev" onclick="plusSlides(-1)">❮</a>
+                          <a class="next" onclick="plusSlides(1)">❯</a>
 
-                                        <div class="caption-container">
-                                          <p id="caption"></p>
-                                        </div>
+                          <div class="caption-container">
+                            <p id="caption"></p>
+                          </div>
 
-                                        <div class="row" style="margin-left:1px;">
-                                          @foreach($dataImages as $images)
-                                          <div class="column">
-                                            <img class="demo cursor" src="{{ asset('upload-image/'.$images->name_image) }}" style="width:100%;height:100px;" onclick="currentSlide(1)" alt="{{ $images->name_image }}">
-                                          </div>
-                                          @endforeach
-                                        </div>
-                                      </div>
-                                    @endif
-                                  </div>
-                                </div>
-                              </div>
+                          <div class="row" style="margin-left:1px;">
+                            @foreach($dataImages as $images)
+                            <div class="column">
+                              <img class="demo cursor" src="{{ asset('upload-image/'.$images->name_image) }}" style="width:100%;height:100px;" onclick="currentSlide(1)" alt="{{ $images->name_image }}">
+                            </div>
+                            @endforeach
+                          </div>
+                        </div>
+                      @endif
+                    </div>
+                  </div>
+                </div>
 
-                              <div class="col-md-6">
-                                <div class="card card-danger">
-                                  <div class="card-header">
-                                    <h3 class="card-title">แผนที่</h3>
-                    
-                                    <div class="card-tools">
-                                      <button type="button" class="btn btn-tool" onclick="showMap()" title="แสดงละติจูดและลองจิจูด"><i class="fa fa-eye"></i></button>
-                                      <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                                      <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
-                                    </div>
-                                  </div>
-                                  <div class="card-body">
-                                    <div class="row">
-                                      <div class="col-md-12">
-                                        <div id="myLat" style="display:none;">
-                                          <div class="form-inline" align="center">
-                                            <label>ละติจูด : </label> <input type="text" name="latitude" class="form-control" style="width:175px" value="{{ $lat }}"/>
-                                            <label>ลองจิจูด : </label> <input type="text" name="longitude" class="form-control" style="width:175px" value="{{ $long }}"/>
-                                          </div>
-                                          <br><br>
-                                        </div>
-                                        <div id="map" style="width:100%;height:63vh"></div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
+                <div class="col-md-6">
+                  <div class="card card-danger">
+                    <div class="card-header">
+                      <h3 class="card-title">แผนที่</h3>
+      
+                      <div class="card-tools">
+                        <button type="button" class="btn btn-tool" onclick="showMap()" title="แสดงละติจูดและลองจิจูด"><i class="fa fa-eye"></i></button>
+                        <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div id="myLat" style="display:none;">
+                            <div class="form-group row mb-0">
+                              <label class="col-sm-4 col-form-label text-right">ละติจูด : </label>
+                              <div class="col-sm-8">
+                                <input type="text" name="latitude" class="form-control form-control-sm" value="{{ $lat }}"/>
                               </div>
                             </div>
-
+                            <div class="form-group row mb-0">
+                              <label class="col-sm-4 col-form-label text-right">ลองจิจูด : </label>
+                              <div class="col-sm-8">
+                                </label> <input type="text" name="longitude" class="form-control form-control-sm" value="{{ $long }}"/>
+                              </div>
+                            </div>
                           </div>
+                          <div id="map" style="width:100%;height:63vh"></div>
                         </div>
                       </div>
                     </div>
-
-                    <input type="hidden" name="_method" value="PATCH"/>
                   </div>
-                </form>
-                  
-
+                </div>
               </div>
             </div>
-          </div>
+
+            <input type="hidden" name="_method" value="PATCH"/>
+          </form>
         </div>
       </section>
     </div>
   </section>
-
 
   <script type="text/javascript">
     $("#image-file").fileinput({

@@ -32,7 +32,7 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column text-sm" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-item has-treeview {{ Request::is('Analysis/*') ? 'menu-open' : '' }} {{ Request::is('DataCustomer/*') ? 'menu-open' : '' }} {{ Request::is('MasterEvents') ? 'menu-open' : '' }}">
+          <li class="nav-item has-treeview {{ Request::is('Analysis/*') ? 'menu-open' : '' }} {{ Request::is('DataCustomer/*') ? 'menu-open' : '' }} {{ Request::is('MasterEvents') ? 'menu-open' : '' }} {{ Request::is('MasterInfo/*') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link active">
               <i class="nav-icon fa fa-sitemap"></i>
               <p>
@@ -42,6 +42,28 @@
             </a>
             
             @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์" or auth::user()->type == "แผนก รถบ้าน" or auth::user()->type == "แผนก การเงินใน")
+              <ul class="nav nav-treeview">
+                <li class="nav-item has-treeview {{ Request::is('MasterEvents') ? 'menu-open' : '' }} {{ Request::is('MasterInfo/*') ? 'menu-open' : '' }}">
+                  <a href="#" class="nav-link">
+                    <i class="far fa-window-restore text-red nav-icon"></i>
+                    <span id="Info"></span>
+                    <p>
+                      กิจกรรมและข่าวสาร
+                      <i class="right fas fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview" style="margin-left: 15px;">
+                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์")
+                      <li class="nav-item">
+                        <a href="{{ route('MasterEvents.index') }}" class="nav-link {{ Request::is('MasterEvents') ? 'active' : '' }} {{ Request::is('MasterInfo/*') ? 'active' : '' }}">
+                          <i class="far fa-dot-circle nav-icon"></i>
+                          <p>New Information</p>
+                        </a>
+                      </li>
+                    @endif
+                  </ul>
+                </li>
+              </ul>
               <ul class="nav nav-treeview">
                 <li class="nav-item has-treeview {{ Request::is('DataCustomer/Home/1') ? 'menu-open' : '' }} {{ Request::is('DataCustomer/Home/2') ? 'menu-open' : '' }}">
                   <a href="#" class="nav-link">
@@ -107,27 +129,6 @@
                           @endif
                         </li>
                       @endif
-                  </ul>
-                </li>
-              </ul>
-              <ul class="nav nav-treeview">
-                <li class="nav-item has-treeview {{ Request::is('MasterEvents') ? 'menu-open' : '' }}">
-                  <a href="#" class="nav-link">
-                    <i class="far fa-window-restore text-red nav-icon"></i>
-                    <p>
-                      กิจกรรมและข่าวสาร
-                      <i class="right fas fa-angle-left"></i>
-                    </p>
-                  </a>
-                  <ul class="nav nav-treeview" style="margin-left: 15px;">
-                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์")
-                      <li class="nav-item">
-                        <a href="{{ route('MasterEvents.index') }}" class="nav-link {{ Request::is('MasterEvents') ? 'active' : '' }}">
-                          <i class="far fa-dot-circle nav-icon"></i>
-                          <p>New Information</p>
-                        </a>
-                      </li>
-                    @endif
                   </ul>
                 </li>
               </ul>
@@ -382,12 +383,6 @@
           </li>
 
           <li class="nav-header">Documents Part</li>
-          {{-- <div class="user-panel mt-3 pb-1 mb-2 d-flex">
-            <div class="info">
-              <a href="#" class="d-block"> Documents Part </a>
-            </div>
-          </div> --}}
-
           <li class="nav-item has-treeview {{ Request::is('Document/*') ? 'menu-open' : '' }}">
             <a href="{{ route('document', 1) }}" class="nav-link active bg-yellow">
               <i class="nav-icon fas fa-archive"></i>
@@ -435,6 +430,7 @@
     });
   </script>
 
+  {{-- แจ้งเตือนอนุมัติ การเงิน --}}
   <script type="text/javascript">
     SearchData(); //เรียกใช้งานทันที
     var Data = setInterval(() => {SearchData()}, 10000);
@@ -450,6 +446,27 @@
     
         success:function(result){ //เสร็จแล้วทำอะไรต่อ
           $('#ShowData').html(result);
+        }
+      });
+    };
+  </script>
+
+  {{-- แจ้งเตือนข่าวสาร --}}
+  <script type="text/javascript">
+    ShowInfo(); //เรียกใช้งานทันที
+    var Data1 = setInterval(() => {ShowInfo()}, 10000);
+
+    function ShowInfo(){ 
+      $.ajax({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+        url:"{{ route('ShowInfo', [3, 0]) }}",
+        method:"GET",
+        data:{},
+    
+        success:function(result){ //เสร็จแล้วทำอะไรต่อ
+          $('#Info').html(result);
         }
       });
     };
