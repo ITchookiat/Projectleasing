@@ -461,7 +461,8 @@
         <div class="modal-body">
           <p>One fine body…</p>
         </div>
-        <div class="modal-footer justify-content-between">
+        <div class="modal-footer">
+        <p align="right" class="text-sm text-gray">*** วันที่ดิวถัดไป : {{DateThai($data->Date_Payment)}}</p>
         </div>
       </div>
     </div>

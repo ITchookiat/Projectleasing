@@ -40,44 +40,57 @@
                 inputCut = input.replace(",",""),
                 def = document.getElementById('DuePrice').value,        //ค่างวดจากระบบ
                 state = 0;
-                round = Math.floor(input/def);
+                round = Math.floor(inputCut/def);
             
             for (var i = 1; i <= round; i++) {
               input -= def;
-              state = 30 * i;
-              console.log(i, def, state);
+              state = 31 * i;
+              // console.log(i, def, state);
             }
             if (round == 0) {
               if (input > 0) {
-                state += 30;
-                console.log(i, input, state);
+                state += 31;
+                // console.log(i, input, state);
               }
               
             }
 
             var DatePay = document.getElementById('Datepay').value,
                 Setdate = new Date(DatePay);
+                NewDatePay = DatePay.substring(DatePay.length - 2, DatePay.length)
+            // console.log(inputCut);   
 
             Setdate.setDate(Setdate.getDate() + state);
-            var dd = Setdate.getDate(),
-                mm = Setdate.getMonth() + 1,
-                yyyy = Setdate.getFullYear();
 
-                if (dd < 10) {
-                  var Newdd = '0' + dd;
-                }else {
-                  var Newdd = dd;
-                }
+              var dd = Setdate.getDate(),
+                  mm = Setdate.getMonth() + 1,
+                  yyyy = Setdate.getFullYear();
+
+
+                // if (dd < 10) {
+                //   var Newdd = '0' + dd;
+                // }else {
+                //   var Newdd = dd;
+                // }
+                var Newdd = NewDatePay;
                 if (mm < 10) {
                   var Newmm = '0' + mm;
                 }else {
                   var Newmm = mm;
                 }
             var result = yyyy + '-' + Newmm + '-' + Newdd;
-            console.log(result);
+            // console.log(result);
+
+            var SetTypePayment = document.getElementById('TypePayment').value;
+            console.log(SetTypePayment);
+
 
             document.form2.GoldPayment.value = adds(inputCut);
-            document.getElementById('DatePayment').value = result;
+            if(SetTypePayment == "เงินก้อนแรก(เงินสด)" || SetTypePayment == "เงินก้อนแรก(เงินโอน)"){
+              document.getElementById('DatePayment').value = DatePay;
+            }else{
+              document.getElementById('DatePayment').value = result;
+            }
           }
         </script>
 
@@ -103,12 +116,13 @@
             <div class="form-group row mb-0">
               <label class="col-sm-4 col-form-label text-right">ประเภทชำระ : </label>
               <div class="col-sm-8">
-                <select name="TypePayment" class="form-control form-control-sm" required>
+                <select id="TypePayment" name="TypePayment" class="form-control form-control-sm" oninput="sperate();" required>
                   <option value="" selected>--- ประเภทชำระ ---</option>
                   <option value="ชำระเงินสด">ชำระเงินสด</option>
                   <option value="ชำระผ่านโอน">ชำระผ่านโอน</option>
                   <option value="ชำระผ่านธนานัติ">ชำระผ่านธนานัติ</option>
-                  <option value="เงินก้อนแรก">เงินก้อนแรก</option>
+                  <option value="เงินก้อนแรก(เงินสด)">เงินก้อนแรก(เงินสด)</option>
+                  <option value="เงินก้อนแรก(เงินโอน)">เงินก้อนแรก(เงินโอน)</option>
                 </select>
               </div>
             </div>
