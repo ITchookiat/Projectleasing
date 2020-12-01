@@ -969,7 +969,7 @@
                             <input type="hidden" name="status" value="{{ $status }}" />
 
                             <div class="row">
-                              <div class="col-md-6">
+                              <div class="col-md-3">
                                 <h5 class="text-center"><b>รูปภาพประกอบ</b></h5>
                                 @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                   <div class="file-loading">
@@ -1005,7 +1005,7 @@
                                   @endif
                                 </div> -->
                               </div>
-                              <div class="col-md-6">
+                              <div class="col-md-7">
                                 <div class="row">
                                   <div class="col-md-6">
                                     <h5 class="text-center"><b>รายละเอียดอาชีพ</b></h5>
@@ -1122,6 +1122,18 @@
                                   <input type="hidden" name="Buyerprefer" value="{{$data->Prefer_buyer}}" />
                                   <input type="hidden" name="Memobroker" value="{{$data->Memo_broker}}" />
                                   <input type="hidden" name="Brokerprefer" value="{{$data->Prefer_broker}}" />
+                                @endif
+                              </div>
+                              <div class="col-md-2">
+                                <h5 class="text-center text-red"><b>หมายเหตุ / กรณีพิเศษ</b></h5>
+                                @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
+                                    <textarea class="form-control" name="Notecar" rows="12" placeholder="ป้อนหมายเหตุ">{{$data->Note_car}}</textarea>
+                                @else
+                                    @if($GetDocComplete != Null)
+                                      <textarea class="form-control" name="Notecar" rows="10" placeholder="ป้อนหมายเหตุ" readonly>{{$data->Note_car}}</textarea>
+                                    @else
+                                      <textarea class="form-control" name="Notecar" rows="10" placeholder="ป้อนหมายเหตุ">{{$data->Note_car}}</textarea>
+                                    @endif
                                 @endif
                               </div>
                             </div>
@@ -2269,7 +2281,7 @@
                             </div>
                           </div>
 
-                          <div class="row">
+                          {{--<div class="row">
                             <div class="col-6">
                               <div class="form-group row mb-0">
                                 <label class="col-sm-3 col-form-label text-right">หมายเหตุ : </label>
@@ -2282,7 +2294,7 @@
                                 </div>
                               </div>
                             </div>
-                          </div>
+                          </div>--}}
 
                           <hr>
                           <div class="row">
