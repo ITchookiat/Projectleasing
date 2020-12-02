@@ -462,7 +462,9 @@
           <p>One fine body…</p>
         </div>
         <div class="modal-footer">
-        <p align="right" class="text-sm text-gray">*** วันที่ดิวถัดไป : {{DateThai($data->Date_Payment)}}</p>
+        @if($data->Date_Payment != null)
+          <p align="right" class="text-sm text-gray">*** วันที่ดิวถัดไป : {{DateThai($data->Date_Payment)}}</p>
+        @endif
         </div>
       </div>
     </div>
