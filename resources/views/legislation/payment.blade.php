@@ -36,6 +36,9 @@
           }
 
           function sperate(){
+            var SetTypePayment = document.getElementById('TypePayment').value;
+            var DatePay = document.getElementById('Datepay').value;
+
             var input = document.getElementById('GoldPayment').value,   //ค่างวดรับชำระ
                 inputCut = input.replace(",",""),
                 def = document.getElementById('DuePrice').value,        //ค่างวดจากระบบ
@@ -45,53 +48,39 @@
             for (var i = 1; i <= round; i++) {
               input -= def;
               state = 31 * i;
-              // console.log(i, def, state);
             }
             if (round == 0) {
-              if (input > 0) {
+              if (inputCut > 0) {
                 state += 31;
-                // console.log(i, input, state);
               }
-              
             }
 
-            var DatePay = document.getElementById('Datepay').value,
-                Setdate = new Date(DatePay);
-                NewDatePay = DatePay.substring(DatePay.length - 2, DatePay.length);
-            // console.log(inputCut);   
+            if(SetTypePayment == "เงินก้อนแรก(เงินสด)" || SetTypePayment == "เงินก้อนแรก(เงินโอน)"){
+              document.getElementById('DatePayment').value = DatePay;
+            }else{
+              var Setdate = new Date(DatePay);
+              var NewDatePay = DatePay.substring(DatePay.length - 2, DatePay.length);
 
-            Setdate.setDate(Setdate.getDate() + state);
-
+              Setdate.setDate(Setdate.getDate() + state);
               var dd = Setdate.getDate(),
                   mm = Setdate.getMonth() + 1,
                   yyyy = Setdate.getFullYear();
 
               var Newdd = NewDatePay;
 
-                // if (dd < 10) {
-                //   var Newdd = '0' + dd;
-                // }else {
-                //   var Newdd = dd;
-                // }
-              if (mm < 10) {
-                var Newmm = '0' + mm;
-              }else {
-                var Newmm = mm;
-              }
-              var result = yyyy + '-' + Newmm + '-' + Newdd;
+                  // if (dd < 10) {
+                  //   var Newdd = '0' + dd;
+                  // }else {
+                  //   var Newdd = dd;
+                  // }
+                if (mm < 10) {
+                  var Newmm = '0' + mm;
+                }else {
+                  var Newmm = mm;
+                }
+                var result = yyyy + '-' + Newmm + '-' + Newdd;
 
-            document.form2.GoldPayment.value = adds(inputCut);
-            document.getElementById('DatePayment').value = result;
-            
-          }
-        </script>
-        <script>
-          function TypeChange(){
-            var SetTypePayment = document.getElementById('TypePayment').value;
-            var DatePay = document.getElementById('Datepay').value;
-            if(SetTypePayment === "เงินก้อนแรก(เงินสด)" || SetTypePayment === "เงินก้อนแรก(เงินโอน)"){
-              document.getElementById('DatePayment').value = DatePay;
-            }else{
+              document.form2.GoldPayment.value = adds(inputCut);
               document.getElementById('DatePayment').value = result;
             }
           }
@@ -119,7 +108,7 @@
             <div class="form-group row mb-0">
               <label class="col-sm-4 col-form-label text-right">ประเภทชำระ : </label>
               <div class="col-sm-8">
-                <select id="TypePayment" name="TypePayment" class="form-control form-control-sm" oninput="sperate();TypeChange();" required>
+                <select id="TypePayment" name="TypePayment" class="form-control form-control-sm" oninput="sperate();" required>
                   <option value="" selected>--- ประเภทชำระ ---</option>
                   <option value="ชำระเงินสด">ชำระเงินสด</option>
                   <option value="ชำระผ่านโอน">ชำระผ่านโอน</option>
