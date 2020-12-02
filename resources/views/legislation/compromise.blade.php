@@ -395,8 +395,8 @@
                                 <th class="text-center">ประเภท</th>
                                 <th class="text-center">เลขที่ใบเสร็จ</th>
                                 <th class="text-center">วันที่ดิวถัดไป</th>
-                                <th class="text-center">ลงชื่อ</th>
-                                <th class="text-center" style="width:100px">action</th>
+                                <th class="text-center">พนักงานรับเงิน</th>
+                                <th class="text-center" style="width:50px"></th>
                               </tr>
                             </thead>
                             <tbody>
@@ -404,20 +404,25 @@
                                 <tr>
                                   <td class="text-center"> {{$key+1}} </td>
                                   <td class="text-center"> {{ DateThai(substr($row->created_at,0,10)) }}</td>
-                                  <td class="text-center"> {{ number_format($row->Gold_Payment, 2) }} </td>
+                                  <td class="text-center"> 
+                                    {{ number_format($row->Gold_Payment, 2) }} 
+                                    @if($row->Gold_Payment < $data->DuePay_Promise)
+                                      <span class="badge bg-danger prem">ต่ำกว่าค่างวด</span>
+                                    @endif
+                                  </td>
                                   <td class="text-center"> {{$row->Type_Payment}} </td>
-                                  <td class="text-center"> {{$row->Jobnumber_Payment}} </td>
+                                  <td class="text-left"> {{$row->Jobnumber_Payment}} </td>
                                   <td class="text-center"> {{ DateThai($row->Date_Payment) }}</td>
                                   <td class="text-center"> {{$row->Adduser_Payment}} </td>
                                   <td class="text-center">
                                     <a target="_blank" href="{{ route('legislation.report' ,[$row->Payment_id, 2]) }}" class="btn btn-warning btn-sm" title="ปริ้นใบเสร็จ">
-                                      <i class="fas fa-print"></i> ปริ้น
+                                      <i class="fas fa-print"></i>
                                     </a>
                                     <form method="post" class="delete_form" action="{{ action('LegislationController@destroy',[$row->Payment_id, 2]) }}" style="display:inline;">
                                     {{csrf_field()}}
                                       <input type="hidden" name="_method" value="DELETE" />
                                       <button type="submit" data-name="{{ $row->Jobnumber_Payment }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
-                                        <i class="far fa-trash-alt"></i> ลบ
+                                        <i class="far fa-trash-alt"></i>
                                       </button>
                                     </form>
                                   </td>
@@ -488,5 +493,13 @@
         "pageLength": 5,
       } );
     } );
+  </script>
+
+  <script>
+    function blinker() {
+    $('.prem').fadeOut(1500);
+    $('.prem').fadeIn(1500);
+    }
+    setInterval(blinker, 1500);
   </script>
 @endsection
