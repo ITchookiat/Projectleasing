@@ -380,18 +380,18 @@
           <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataReport->branch_car}}</b></th>
         </tr>
         <tr>
-          <th align="right" width="120px"> หมายเหตุ &nbsp;</th>
-          <th class="text-center" width="420px" style="background-color: yellow;"> <b>{{$dataReport->Note_car}}</b></th>
-        </tr>
-        <tr>
           <th align="right" width="120px"> ผู้อนุมัติ &nbsp;</th>
           <th class="text-center" width="420px" style="background-color: yellow;"> <b>{{$dataReport->Approvers_car}}</b></th>
-        </tr>
+        </tr>        
       </table>
       <br/><br/><br/><br/>
       <h4 align="left"><u>รายละเอียดเพิ่มเติม</u></h4>
       <table border="1">
         <tbody>
+          <tr>
+            <th align="right" width="120px"> หมายเหตุ/กรณีพิเศษ &nbsp;</th>
+            <th class="text-center" width="420px" style="background-color: yellow;"> <b>{{$dataReport->Note_car}}</b></th>
+          </tr>
           <tr>
             <th align="right" width="120px"> รายละเอียดอาชีพ &nbsp;</th>
             <th class="text-center" width="420px" style="background-color: yellow;"> <b>{{$dataReport->CareerDetail_buyer}}</b></th>
