@@ -19,12 +19,7 @@
           <strong>ข่าวสาร (Informations)</strong>
         </h3>
         <div class="card-tools">
-          @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-            <button type="button" class="btn btn-warning btn-sm" onclick="myFunction()">
-              <i class="fas fa-edit"></i> Edit
-            </button>
-          @endif
-          <a class="btn btn-primary btn-sm" href="{{ route('MasterEvents.index') }}">
+          <a class="btn btn-primary btn-sm" href="{{ route('MasterEvents.index') }}?type={{1}}">
             <i class="fas fa-caret-square-left"></i> Back
           </a>
         </div>
@@ -67,7 +62,7 @@
                               <i class="fas fa-bullhorn"></i>
                             </button>
                           @endif
-                          <a href="{{ route('MasterInfo.show',$row->Info_id) }}" class="btn btn-primary btn-sm" title="ดูรายการ">
+                          <a href="{{ route('MasterInfo.show',$row->Info_id) }}?type={{2}}" class="btn btn-primary btn-sm" title="ดูรายการ">
                             <i class="far fa-eye"></i>
                           </a>
                           <form method="post" class="delete_form" action="{{ route('MasterInfo.destroy',$row->Info_id) }}" style="display:inline;">

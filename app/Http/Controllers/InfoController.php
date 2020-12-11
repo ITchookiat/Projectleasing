@@ -16,7 +16,7 @@ class InfoController extends Controller
     public function index(Request $request)
     {
         $data = Informations::orderBy('Info_id', 'DESC')->get();
-
+        
         return view('event-info.DetaInfo', compact('data'));
     }
 
@@ -72,19 +72,23 @@ class InfoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $item = DB::table('informations')
             ->where('informations.Info_id',$id)
             ->first();
-
-        return view('event-info.showInfo', compact('item'));
+        $type = $request->type;
+        
+        return view('event-info.showInfo', compact('item','type'));
     }
 
     public function ShowInfo(Request $request, $type, $id)
     {
         $data = DB::table('informations')
-            ->where('SDate_info','=',date('Y-m-d'))
+            ->where('EDate_info','>=',date('Y-m-d'))
+            // ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+            //     return $q->whereBetween('SDate_info',[$newfdate,$newtdate]);
+            //   })
             ->get();
 
         $countData = Count($data);

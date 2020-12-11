@@ -32,7 +32,7 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column text-sm" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-item has-treeview {{ Request::is('Analysis/*') ? 'menu-open' : '' }} {{ Request::is('DataCustomer/*') ? 'menu-open' : '' }} {{ Request::is('MasterEvents') ? 'menu-open' : '' }} {{ Request::is('MasterInfo/*') ? 'menu-open' : '' }}">
+          <li class="nav-item has-treeview {{ Request::is('Analysis/*') ? 'menu-open' : '' }} {{ Request::is('DataCustomer/*') ? 'menu-open' : '' }} {{ Request::is('MasterEvents') ? 'menu-open' : '' }} {{ Request::is('MasterInfo') ? 'menu-open' : '' }} {{ Request::is('MasterInfo/*') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link active">
               <i class="nav-icon fa fa-sitemap"></i>
               <p>
@@ -43,7 +43,7 @@
             
             @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์" or auth::user()->type == "แผนก รถบ้าน" or auth::user()->type == "แผนก การเงินใน")
               <ul class="nav nav-treeview">
-                <li class="nav-item has-treeview {{ Request::is('MasterEvents') ? 'menu-open' : '' }} {{ Request::is('MasterInfo/*') ? 'menu-open' : '' }}">
+                <li class="nav-item has-treeview {{ Request::is('MasterEvents') ? 'menu-open' : '' }} {{ Request::is('MasterInfo') ? 'menu-open' : '' }} {{ Request::is('MasterInfo/*') ? 'menu-open' : '' }}">
                   <a href="#" class="nav-link">
                     <i class="far fa-window-restore text-red nav-icon"></i>
                     <span id="Info"></span>
@@ -55,7 +55,7 @@
                   <ul class="nav nav-treeview" style="margin-left: 15px;">
                     @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์")
                       <li class="nav-item">
-                        <a href="{{ route('MasterEvents.index') }}" class="nav-link {{ Request::is('MasterEvents') ? 'active' : '' }} {{ Request::is('MasterInfo/*') ? 'active' : '' }}">
+                        <a href="{{ route('MasterEvents.index') }}?type={{1}}" class="nav-link {{ Request::is('MasterEvents') ? 'active' : '' }} {{ Request::is('MasterInfo') ? 'active' : '' }} {{ Request::is('MasterInfo/*') ? 'active' : '' }}">
                           <i class="far fa-dot-circle nav-icon"></i>
                           <p>New Information</p>
                         </a>

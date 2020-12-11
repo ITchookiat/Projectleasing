@@ -51,7 +51,7 @@
                     <img src="{{ asset('dist/img/info.png') }}" alt="Product Image" class="img-size-50">
                   </div>
                   <div class="product-info">
-                    <a href="{{ route('MasterInfo.show',$row->Info_id) }}" class="product-title">{{$row->name_info}}
+                    <a href="{{ route('MasterInfo.show',$row->Info_id) }}?type={{1}}" class="product-title">{{$row->name_info}}
                       <span class="badge badge-danger float-right prem">New</span></a>
                     <span class="product-description text-sm">
                       {{$row->Notes_info}}
@@ -103,7 +103,7 @@
                     <button type="submit" class="btn btn-success btn-tool">
                       <i class="fas fa-save"></i> Save
                     </button>
-                    <a class="btn btn-danger btn-tool" href="{{ route('MasterEvents.index') }}">
+                    <a class="btn btn-danger btn-tool" href="{{ route('MasterEvents.index') }}?type={{1}}">
                       <i class="far fa-window-close"></i> Close
                     </a>
                   </div>

@@ -2887,5 +2887,62 @@ class LegislationController extends Controller
         $pdf::Output('report.pdf');
 
       }
+      elseif ($type == 21) {
+        $data = DB::table('legislations')
+            ->leftjoin('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
+            ->leftjoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+            ->where('Legiscompromises.Date_Promise','!=', null)
+            ->where('legispayments.Flag_Payment', '=', 'Y')
+            ->orderBy('legislations.Contract_legis', 'ASC')
+            ->get();
+
+        $status = 'ลูกหนี้รวม';
+        Excel::create('รายงานลูกหนี้ประนอมหนี้', function ($excel) use($data,$status) {
+          $excel->sheet($status, function ($sheet) use($data,$status) {
+              $sheet->prependRow(1, array("บริษัท ชูเกียรติลิสซิ่ง จำกัด"));
+              $sheet->cells('A3:P3', function($cells) {
+                $cells->setBackground('#FFCC00');
+              });
+              $row = 3;
+              $sheet->row($row, array('ลำดับ', 'เลขที่สัญญา', 'ชื่อ-สกุล','เริ่มประนอมหนี้', 'สถานะ', 
+                  'ยอดประนอมหนี้', 'จำนวนงวด', 'งวดละ','ยอดชำระรวม', 'ยอดคงเหลือ', 
+                  'วันที่ชำระล่าสุด', 'ยอดชำระ', 'ประเภทชำระ', 'วันที่ดิวถัดไป','หมายเหตุ'));
+
+              foreach ($data as $key => $value) {
+                if ($value->Status_Promise == NULL) {
+                  $lastday = date('Y-m-d', strtotime("-90 days"));
+      
+                  if($value->Date_Payment < $lastday){
+                    $SetStatus = "ขาดชำระ";
+                  }else {
+                    $SetStatus = "ชำระปกติ";
+                  }
+                }else {
+                  $SetStatus = $value->Status_Promise;
+                }
+
+                $sheet->row(++$row, array(
+                  $key+1,
+                  $value->Contract_legis,
+                  $value->Name_legis,
+                  $value->Date_Promise,
+                  $SetStatus,
+                  number_format($value->Total_Promise, 2),
+                  $value->Due_Promise,
+                  number_format($value->DuePay_Promise, 0),
+                  number_format($value->Sum_Promise, 2),
+                  number_format($value->Total_Promise - $value->Sum_Promise, 2),
+                  substr($value->created_at,0,10),
+                  number_format($value->Gold_Payment, 2),
+                  $value->Type_Payment,
+                  $value->Date_Payment,
+                  $value->Note_Promise,
+                ));
+
+              }
+          });
+        })->export('xlsx');
+
+      }
     }
 }

@@ -33,9 +33,16 @@
               </button>
             </form>
           @endif
-          <a class="btn btn-primary btn-sm" href="{{ route('MasterEvents.index') }}">
-            <i class="fas fa-caret-square-left"></i> Back
-          </a>
+
+          @if($type == 1)
+            <a class="btn btn-primary btn-sm" href="{{ route('MasterEvents.index') }}?type={{1}}">
+              <i class="fas fa-caret-square-left"></i> Back
+            </a>
+          @elseif($type == 2)
+            <a class="btn btn-primary btn-sm" href="{{ route('MasterEvents.index') }}?type={{2}}">
+              <i class="fas fa-caret-square-left"></i> Back
+            </a>
+          @endif
         </div>
       </div>
       <div class="card-body">

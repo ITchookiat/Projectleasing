@@ -288,7 +288,6 @@
                                   </div>
                                 </div>
                               </div>
-
                               <hr>
 
                               {{--<div class="row">
@@ -322,7 +321,6 @@
                               </div>
 
                               <div class="row">
-                                <div class="col-6"></div>
                                 <div class="col-6">
                                   <div class="form-group row mb-0">
                                     <label class="col-sm-4 col-form-label text-right">ส่วนลด : </label>
@@ -332,19 +330,42 @@
                                     </div>
                                   </div>
                                 </div>
-                              </div>
-
-                              <div class="row">
-                                <div class="col-6"></div>
                                 <div class="col-6">
                                   <div class="form-group row mb-0">
-                                    <label class="col-sm-4 col-form-label text-right">ยอดคงเหลือ : </label>
+                                    <label class="col-sm-4 col-form-label text-right"><font color="red">ยอดคงเหลือ : </font></label>
                                     <div class="col-sm-8">
                                       <input type="text" id="SumPromise" name="SumPromise" value="{{ number_format($SumPay, 0) }}" class="form-control form-control-sm" readonly/>
                                       <input type="hidden" id="Sumhide" name="Sumhide" value="{{ $SumPay }}" class="form-control form-control-sm"/>
                                       <input type="hidden" id="SumPayAll" name="SumPayAll" value="{{ $SumAllPAy }}" class="form-control form-control-sm"/>
                                     </div>
+                                  </div>                              
+                                </div>
+                              </div>
+
+                              <hr>
+                              <div class="row">
+                                <div class="col-6">
+                                  <div class="form-group row mb-0">
+                                    <label class="col-sm-4 col-form-label text-right"><font color="red">วันดิวงวดถัดไป : </font></label>
+                                    <div class="col-sm-8">
+                                      <input type="text" value="{{ DateThai($data->Date_Payment) }}" class="form-control form-control-sm" readonly/>
+                                    </div>
                                   </div>
+                                </div>
+                                <div class="col-6">
+                                  @php
+                                    $DateDue = date_create($data->Date_Payment);
+                                    $DateNew = date_create(date('Y-m-d'));
+                                    $Datediff = date_diff($DateDue,$DateNew);
+                                  @endphp
+                                  @if($DateDue < $DateNew)
+                                    <div class="form-group row mb-0">
+                                      <label class="col-sm-4 col-form-label text-right"><font color="red">ขาดชำระดิว : </font></label>
+                                      <div class="col-sm-8">
+                                        <input type="text" value="{{ $Datediff->m }}" class="form-control form-control-sm" readonly/>
+                                      </div>
+                                    </div>
+                                  @endif
                                 </div>
                               </div>
 
@@ -370,7 +391,6 @@
                                   </div>
                                 </div>                  
                               </div>
-
                             </div>
 
                             <div class="col-md-4">
