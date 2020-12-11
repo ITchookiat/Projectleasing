@@ -21,19 +21,26 @@ class EventController extends Controller
 
     public function index(Request $request)
     {
-        $events = Event::selectRaw('title, start_date AS start, end_date AS [end], color, events_id')
-                ->get();
-
-        $Info = DB::table('informations')            
-                ->orderBy('Info_id', 'desc')   
-                ->take(5)                         // Take the first 5
-                ->get();
-        
-        foreach ($events as $key => $value) {
-            $value->end = date('Y-m-d', strtotime("+1 day", strtotime($value->end)));
+        if ($request->type == 1) {
+            $events = Event::selectRaw('title, start_date AS start, end_date AS [end], color, events_id')
+                    ->get();
+    
+            $Info = DB::table('informations')            
+                    ->orderBy('Info_id', 'desc')   
+                    ->take(5)                         // Take the first 5
+                    ->get();
+            
+            foreach ($events as $key => $value) {
+                $value->end = date('Y-m-d', strtotime("+1 day", strtotime($value->end)));
+            }
+    
+            return view('event-info.view', compact('calendar','events','Info'));
         }
-
-        return view('event-info.view', compact('calendar','events','Info'));
+        elseif ($request->type == 2) {
+            $data = Informations::orderBy('Info_id', 'DESC')->get();
+        
+            return view('event-info.DetaInfo', compact('data'));
+        }
     }
 
     /**

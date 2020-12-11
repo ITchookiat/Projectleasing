@@ -32,7 +32,7 @@
           <button type="submit" class="btn btn-success btn-tool">
             <i class="fas fa-save"></i> Save
           </button>
-          <a class="btn btn-warning btn-tool" href="{{ route('MasterEvents.index') }}">
+          <a class="btn btn-warning btn-tool" href="{{ route('MasterEvents.index') }}?type={{1}}">
             <i class="far fa-window-close"></i> Close
           </a>
         </div>

@@ -380,9 +380,7 @@
               <td align="center" style="width: 55px"> {{number_format($row->Total_Promise - $row->Sum_Promise,2)}} &nbsp;</td>
               <td align="center" style="width: 55px"> {{number_format($row->Sum_Promise,2)}} &nbsp;</td>
               <td align="center" style="width: 50px"> {{number_format($row->DuePay_Promise,2)}} &nbsp; </td>
-              <td align="center" style="width: 65px">
-                {{DateThai($row->Date_Payment)}}
-              </td>
+              <td align="center" style="width: 65px"> {{DateThai($row->Date_Payment)}} </td>
               <td align="center" style="width: 70px">
                 @php
                   @$sumTotal += $row->Total_Promise;

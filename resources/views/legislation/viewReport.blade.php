@@ -216,6 +216,9 @@
           </div>
 
           <div class="card-footer text-center">
+            <a class="btn bg-success btn-app" href="{{ route('legislation.report' ,[00, 21]) }}">
+              <span class="far fa-file-excel"></span> Excel
+            </a>
             <button type="submit" class="btn bg-danger btn-app">
               <span class="fa fa-file-pdf-o"></span> PDF
             </button>
