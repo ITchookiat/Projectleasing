@@ -64,7 +64,7 @@
                   </ul>
                 </li>
               </ul>
-              <ul class="nav nav-treeview">
+              {{-- <ul class="nav nav-treeview">
                 <li class="nav-item has-treeview {{ Request::is('DataCustomer/Home/1') ? 'menu-open' : '' }} {{ Request::is('DataCustomer/Home/2') ? 'menu-open' : '' }}">
                   <a href="#" class="nav-link">
                     <i class="far fa-window-restore text-red nav-icon"></i>
@@ -80,15 +80,15 @@
                             <i class="far fa-dot-circle nav-icon"></i>
                             <p>Customer Walk-in</p>
                           </a>
-                          {{-- <a href="{{ route('DataCustomer',2) }}" class="nav-link {{ Request::is('DataCustomer/Home/2') ? 'active' : '' }}">
+                          <a href="{{ route('DataCustomer',2) }}" class="nav-link {{ Request::is('DataCustomer/Home/2') ? 'active' : '' }}">
                             <i class="far fa-dot-circle nav-icon"></i>
                             <p>Report Walk-in</p>
-                          </a> --}}
+                          </a>
                         </li>
                       @endif
                   </ul>
                 </li>
-              </ul>
+              </ul> --}}
               <ul class="nav nav-treeview">
                 <li class="nav-item has-treeview {{ Request::is('Analysis/Home/1') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/2') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/3') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/4') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/5') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/6') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/7') ? 'menu-open' : '' }} {{ Request::is('Analysis/edit/1/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/edit/4/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/deleteImageEach/1/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/deleteImageEach/4/*') ? 'menu-open' : '' }}">
                   <a href="#" class="nav-link">

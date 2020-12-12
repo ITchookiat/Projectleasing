@@ -63,7 +63,7 @@ class InfoController extends Controller
         $summernote->save();
 
         // return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
-        return redirect()->Route('MasterEvents.index')->with('success','บันทึกข้อมูลเรียบร้อย');
+        return redirect()->Route('MasterEvents.index',['type' => 1])->with('success','บันทึกข้อมูลเรียบร้อย');
     }
 
     /**
@@ -156,7 +156,7 @@ class InfoController extends Controller
         $item1->Delete();
 
         if ($request->type == 1) {
-            return redirect()->Route('MasterEvents.index')->with('success','ลบข้อมูลเรียบร้อย');
+            return redirect()->Route('MasterEvents.index',['type' => 1])->with('success','ลบข้อมูลเรียบร้อย');
         }else {
             return redirect()->back()->with('success','ลบข้อมูลเรียบร้อย');
         }

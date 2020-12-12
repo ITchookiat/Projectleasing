@@ -357,10 +357,11 @@
                                     $DateDue = date_create($data->Date_Payment);
                                     $DateNew = date_create(date('Y-m-d'));
                                     $Datediff = date_diff($DateDue,$DateNew);
+                                    // dump($DateDue,$DateNew,$Datediff);
                                   @endphp
                                   @if($DateDue < $DateNew)
                                     <div class="form-group row mb-0">
-                                      <label class="col-sm-4 col-form-label text-right"><font color="red">ขาดชำระดิว : </font></label>
+                                      <label class="col-sm-4 col-form-label text-right"><font color="red">ขาดชำระดิว/งวด : </font></label>
                                       <div class="col-sm-8">
                                         <input type="text" value="{{ $Datediff->m }}" class="form-control form-control-sm" readonly/>
                                       </div>
@@ -487,9 +488,7 @@
           <p>One fine body…</p>
         </div>
         <div class="modal-footer">
-        @if($data->Date_Payment != null)
-          <p align="right" class="text-sm text-gray">*** วันที่ดิวถัดไป : {{DateThai($data->Date_Payment)}}</p>
-        @endif
+        <p align="right" class="text-sm text-gray">*** วันที่ดิวถัดไป : {{DateThai($data->Date_Payment)}}</p>
         </div>
       </div>
     </div>

@@ -19,7 +19,7 @@
           <strong>ข่าวสารใหม่ (New Informations)</strong>
         </h3>
         <div class="card-tools">
-          @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
+          @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
             <button type="button" class="btn btn-warning btn-sm" onclick="myFunction()">
               <i class="fas fa-edit"></i> Edit
             </button>
@@ -62,7 +62,7 @@
           {!! str_replace('i-hear-too/', asset(''), $item->content_info) !!}
         </div>
 
-        @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
+        @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
           <div id="ShowPrivate" style="display: none;">
             <form name="form1" method="post" action="{{ route('MasterInfo.update',$item->Info_id) }}" enctype="multipart/form-data" >
               @csrf
