@@ -26,7 +26,11 @@
             <h4>กิจกรรมและข่าวสาร (Events and Information)</h4>
           </div>
           <div class="col-sm-6">
-
+            <div class="card-tools d-inline float-right">
+              <a href="{{ route('DataCustomer', 1) }}" class="btn bg-warning btn-sm" style="border-radius: 40px;">
+                <span class="fas fa-users prem pr-1"></span> New Walk-in
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -36,12 +40,17 @@
         <div class="card card-warning">
           <div class="card-header">
             <h3 class="card-title">New Information</h3>
-
-            <div class="card-tools">
-              <a href="{{ route('MasterInfo.create') }}" class="btn btn-warning btn-tool" title="เพิ่มข่าวสาร">
-                <i class="fas fa-pager pr-1"></i> New
-              </a>
-            </div>
+              <div class="card-tools">
+                @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
+                  <a href="{{ route('MasterInfo.create') }}" class="btn btn-warning btn-tool" title="เพิ่มข่าวสาร">
+                    <i class="fas fa-pager pr-1"></i> New
+                  </a>
+                @else
+                  <a href="#" class="btn btn-warning btn-tool" title="เพิ่มข่าวสาร">
+                    <i class="fas fa-pager pr-1"></i> New
+                  </a>
+                @endif
+              </div>
           </div>
           @foreach($Info as $row)
             <div class="card-body p-0">
@@ -51,8 +60,12 @@
                     <img src="{{ asset('dist/img/info.png') }}" alt="Product Image" class="img-size-50">
                   </div>
                   <div class="product-info">
+                    @php
+                      $SetSDate = date('d-m-Y', strtotime($row->SDate_info));
+                      $SetEDate = date('d-m-Y', strtotime($row->EDate_info));
+                    @endphp
                     <a href="{{ route('MasterInfo.show',$row->Info_id) }}?type={{1}}" class="product-title">{{$row->name_info}}
-                      <span class="badge badge-danger float-right prem">New</span></a>
+                      <span class="badge badge-danger float-right prem" title="{{$SetSDate}} - {{$SetEDate}}">New</span></a>
                     <span class="product-description text-sm">
                       {{$row->Notes_info}}
                     </span>
@@ -72,11 +85,16 @@
           <div class="card card-danger">
             <div class="card-header">
               <h3 class="card-title">Events Chookiat Leasing</h3>
-
               <div class="card-tools">
-                <button type="button" class="btn btn-danger btn-tool" data-toggle="modal" data-target="#modal-AddEvent" data-backdrop="static" data-keyboard="false">
-                  <i class="fas fa-calendar-plus"></i>&nbsp; New Events
-                </button>
+                @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER" or auth::user()->position == "MASTER")
+                  <button type="button" class="btn btn-danger btn-tool" data-toggle="modal" data-target="#modal-AddEvent" data-backdrop="static" data-keyboard="false">
+                    <i class="fas fa-calendar-plus pr-1"></i> New Events
+                  </button>
+                @else
+                  <button type="button" class="btn btn-danger btn-tool">
+                    <i class="fas fa-calendar-plus pr-1"></i> New Events
+                  </button>
+                @endif
               </div>
             </div>
             <div class="card-body">

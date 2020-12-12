@@ -29,7 +29,7 @@ class EventController extends Controller
                     ->orderBy('Info_id', 'desc')   
                     ->take(5)                         // Take the first 5
                     ->get();
-            
+
             foreach ($events as $key => $value) {
                 $value->end = date('Y-m-d', strtotime("+1 day", strtotime($value->end)));
             }
@@ -228,7 +228,7 @@ class EventController extends Controller
             }
             $item1->Delete();
 
-            return redirect()->Route('MasterEvents.index')->with('success','ลบข้อมูลเรียบร้อย');
+            return redirect()->Route('MasterEvents.index',['type' => 1])->with('success','ลบข้อมูลเรียบร้อย');
         }
         elseif ($type == 2) {
             $item = UploadfileImage::where('Buyerfileimage_id','=',$id)->get();
@@ -242,7 +242,7 @@ class EventController extends Controller
                 }
               }
       
-            return redirect()->Route('MasterEvents.index')->with('success','ลบรูปทั้งหมดเรียบร้อยแล้ว');
+            return redirect()->route('MasterEvents.index',['type' => 1])->with('success','ลบรูปทั้งหมดเรียบร้อยแล้ว');
         }
     }
 }

@@ -65,14 +65,16 @@
                           <a href="{{ route('MasterInfo.show',$row->Info_id) }}?type={{2}}" class="btn btn-primary btn-sm" title="ดูรายการ">
                             <i class="far fa-eye"></i>
                           </a>
-                          <form method="post" class="delete_form" action="{{ route('MasterInfo.destroy',$row->Info_id) }}" style="display:inline;">
-                            {{csrf_field()}}
-                            <input type="hidden" name="_method" value="DELETE" />
-                            <input type="hidden" name="type" value="2" />
-                            <button type="submit" data-name="{{ $row->name_info }}" class="btn btn-danger btn-sm AlertForm" title="ลบรายการ">
-                              <i class="far fa-trash-alt"></i>
-                            </button>
-                          </form>
+                          @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
+                            <form method="post" class="delete_form" action="{{ route('MasterInfo.destroy',$row->Info_id) }}" style="display:inline;">
+                              {{csrf_field()}}
+                              <input type="hidden" name="_method" value="DELETE" />
+                              <input type="hidden" name="type" value="2" />
+                              <button type="submit" data-name="{{ $row->name_info }}" class="btn btn-danger btn-sm AlertForm" title="ลบรายการ">
+                                <i class="far fa-trash-alt"></i>
+                              </button>
+                            </form>
+                          @endif
                         </td>
                       </tr>
                     @endforeach

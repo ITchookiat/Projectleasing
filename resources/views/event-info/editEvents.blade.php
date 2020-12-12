@@ -26,13 +26,15 @@
           <i class="fas fa-calendar-day pr-2" style="color: rgba(245, 58, 58, 0.966)"></i>New Events
         </h4>
         <div class="card-tools">
-          <a href="{{ action('EventController@DeleteEvents',[$data->events_id, $data->title, 1]) }}" data-name="{{ $data->title }}" class="btn btn-danger btn-tool AlertForm" title="ลบรายการ">
-            <i class="far fa-trash-alt"></i>
-          </a>
-          <button type="submit" class="btn btn-success btn-tool">
-            <i class="fas fa-save"></i> Save
-          </button>
-          <a class="btn btn-warning btn-tool" href="{{ route('MasterEvents.index') }}?type={{1}}">
+          @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER" or auth::user()->position == "MASTER")
+            <a href="{{ action('EventController@DeleteEvents',[$data->events_id, $data->title, 1]) }}" data-name="{{ $data->title }}" class="btn btn-danger btn-tool AlertForm" title="ลบรายการ">
+              <i class="far fa-trash-alt"></i>
+            </a>
+            <button type="submit" class="btn btn-success btn-tool">
+              <i class="fas fa-save"></i> Save
+            </button>
+          @endif
+            <a class="btn btn-warning btn-tool" href="{{ route('MasterEvents.index') }}?type={{1}}">
             <i class="far fa-window-close"></i> Close
           </a>
         </div>
@@ -102,9 +104,11 @@
               รูปภาพผู้เช่าซื้อ
             </div>
             <div class="card-tools">
-              <button href="{{ action('EventController@DeleteEvents',[$data->events_id, $data->title, 2]) }}" data-name="{{ $data->title }}" style="color: white;" class="btn btn-primary btn-tool DeleteImage" title="ลบรูปภาพทั้งหมด">
-                <i class="far fa-trash-alt"></i>
-              </button>
+              @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER" or auth::user()->position == "MASTER")
+                <button href="{{ action('EventController@DeleteEvents',[$data->events_id, $data->title, 2]) }}" data-name="{{ $data->title }}" style="color: white;" class="btn btn-primary btn-tool DeleteImage" title="ลบรูปภาพทั้งหมด">
+                  <i class="far fa-trash-alt"></i>
+                </button>
+              @endif
             </div>
           </div>
           
