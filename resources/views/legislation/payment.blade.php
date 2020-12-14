@@ -38,6 +38,7 @@
           function sperate(){
             var SetTypePayment = document.getElementById('TypePayment').value;
             var DatePay = document.getElementById('Datepay').value;
+            var DateCurr = document.getElementById('DateCurrent').value;
 
             var input = document.getElementById('GoldPayment').value,   //ค่างวดรับชำระ
                 inputCut = input.replace(",",""),
@@ -56,7 +57,8 @@
             }
 
             if(SetTypePayment == "เงินก้อนแรก(เงินสด)" || SetTypePayment == "เงินก้อนแรก(เงินโอน)"){
-              document.getElementById('DatePayment').value = DatePay;
+              // document.getElementById('DatePayment').value = DatePay;
+              document.getElementById('DatePayment').value = DateCurr;
             }else{
               var Setdate = new Date(DatePay);
               var NewDatePay = DatePay.substring(DatePay.length - 2, DatePay.length);
@@ -93,6 +95,7 @@
           <input type="hidden" id="Datepay" name="Datepay" class="form-control form-control-sm" value="{{ date('Y-m-d') }}"/>
           <input type="hidden" id="DuePrice" name="DuePrice" class="form-control form-control-sm" value="{{$dataPranom->DuePay_Promise}}"/>
         @endif
+          <input type="hidden" id="DateCurrent" name="DateCurrent" class="form-control form-control-sm" value="{{ date('Y-m-d') }}"/>
 
         <div class="row">
           <div class="col-6">
