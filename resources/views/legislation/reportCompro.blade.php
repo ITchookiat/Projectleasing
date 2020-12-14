@@ -575,7 +575,7 @@
             <th style="width: 150px">ชื่อ - สกุล</th>
             <th style="width: 70px">วันที่รับชำระ</th>
             <th style="width: 70px">ยอดชำระ</th>
-            <th style="width: 65px">ประเภทชำระ</th>
+            <th style="width: 90px">ประเภทชำระ</th>
             <th style="width: 75px">เลขที่ใบเสร็จ</th>
             <th style="width: 130px">ผู้รับชำระ</th>
             <th style="width: 120px">หมายเหตุ</th>
@@ -591,7 +591,7 @@
             <td align="left" style="width: 150px">&nbsp;{{$row->Name_legis}}</td>
             <td align="center" style="width: 70px">{{DateThai(substr($row->created_at,0,10))}}</td>
             <td align="right" style="width: 70px">{{number_format($row->Gold_Payment,2)}} &nbsp;</td>
-            <td align="center" style="width: 65px">{{$row->Type_Payment}}</td>
+            <td align="center" style="width: 90px">{{$row->Type_Payment}}</td>
             <td align="center" style="width: 75px">{{$row->Jobnumber_Payment}}</td>
             <td align="left" style="width: 130px">&nbsp; {{$row->Adduser_Payment}}</td>
             <td align="left" style="width: 120px">&nbsp; {{$row->Note_Payment}}</td>
@@ -603,7 +603,7 @@
           <td align="center" style="width: 100px"><b>รวม {{@$sumTotal}} รายการ</b></td>
           <td align="right" style="width: 220px"><b>รวมยอดชำระ </b></td>
           <td align="right" style="width: 70px"><b>{{number_format(@$sumPayment,2)}} </b></td>
-          <td align="left" style="width: 390px"><b>บาท</b></td>
+          <td align="left" style="width: 415px"><b>บาท</b></td>
         </tr>
       </table>
     </body>
