@@ -329,14 +329,14 @@
                                         $DateEx = date_diff($Newdate,$Tab1);
                                       @endphp
     
-                                      @if($row->fuzzy_court != Null)  <!-- วันที่ส่งจริง/ส่งคำบังคับ -->
+                                      @if($row->fuzzy_court != Null)  <!-- วันที่เลือน/สืบพยาน -->
                                         @php
                                           $Tab1 = date_create($row->fuzzy_court);
                                           $DateEx = date_diff($Newdate,$Tab1);
                                         @endphp
                                       @endif
     
-                                      @if($row->ordersend_court != Null)  <!-- วันที่ตรวจผลหมายจริง -->
+                                      @if($row->ordersend_court != Null)  <!-- วันที่ส่งจริง/ส่งคำบังคับ -->
                                         @php
                                           $Tab2 = date_create($row->ordersend_court);
                                           $DateEx2 = date_diff($Newdate,$Tab2);
@@ -345,7 +345,7 @@
                                         @php
                                           $Tab2 = date_create($row->orderday_court);
                                           $DateEx2 = date_diff($Newdate,$Tab2);
-                                        @endphp
+                                          @endphp
                                       @endif
     
                                       @if($row->checkday_court != Null) <!-- วันที่ตรวจผลหมาย -->
@@ -415,6 +415,7 @@
                                         @endphp
                                       @endif
     
+                                      {{-- แสดงสถานะ --}}
                                       @if($Newdate <= $Tab1)
                                         @if($DateEx->days <= 7)
                                           <button type="button" class="btn btn-danger btn-sm prem" title="วันสืบพยาน {{ DateThai($Tab1->format('Y-m-d')) }}">
@@ -425,7 +426,7 @@
                                             <i class="fas fa-clock prem"></i> รอสืบพยาน
                                           </button>
                                         @endif
-                                      @elseif($Newdate <= $Tab2)
+                                      @elseif($Newdate <= $Tab2)  {{-- ส่งคำบังคับ --}}
                                         @if($DateEx2->days <= 7)
                                           <button type="button" class="btn btn-danger btn-sm prem" title="วันส่งคำบังคับ {{ DateThai($Tab2->format('Y-m-d')) }}">
                                             <i class="fas fa-bell"></i> ส่งคำบังคับ {{ $DateEx2->days }} วัน</span>
@@ -435,7 +436,7 @@
                                             <i class="fas fa-clock prem"></i> รอส่งคำบังคับ
                                           </button>
                                         @endif
-                                      @elseif($Newdate <= $Tab3)
+                                      @elseif($Newdate <= $Tab3)  {{-- ตรวจผลหมาย --}}
                                         @if($DateEx3->days <= 7)
                                           <button type="button" class="btn btn-danger btn-sm prem" title="วันตรวจผลหมาย {{ DateThai($Tab3->format('Y-m-d')) }}">
                                             <i class="fas fa-bell"></i> ตรวจผลหมาย {{ $DateEx3->days }} วัน</span>
@@ -445,7 +446,7 @@
                                             <i class="fas fa-clock prem"></i> รอตรวจผลหมาย
                                           </button>
                                         @endif
-                                      @elseif($Newdate <= $Tab4)
+                                      @elseif($Newdate <= $Tab4)  {{-- ตั้งเจ้าพนักงาน --}}
                                         @if($row->checksend_court != Null)
                                           @if($DateEx4->days <= 7)
                                             <button type="button" class="btn btn-danger btn-sm" title="วันตั้งเจ้าพนักงาน {{ DateThai($Tab4->format('Y-m-d')) }}">
@@ -457,8 +458,11 @@
                                             </button>
                                           @endif
                                         @else
-                                          <button type="button" class="btn btn-warning btn-sm" title="วันตั้งเจ้าพนักงาน {{ DateThai($Tab4->format('Y-m-d')) }}">
+                                          {{-- <button type="button" class="btn btn-warning btn-sm" title="วันตั้งเจ้าพนักงาน {{ DateThai($Tab4->format('Y-m-d')) }}">
                                             <i class="fas fa-clock prem"></i> รอผลตรวจหมายจริง
+                                          </button> --}}
+                                          <button type="button" class="btn btn-warning btn-sm" title="รอส่งคำบังคับจริง">
+                                            <i class="fas fa-clock prem"></i> รอส่งคำบังคับจริง
                                           </button>
                                         @endif
                                       @elseif($Newdate <= $Tab5)

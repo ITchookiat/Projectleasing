@@ -23,7 +23,8 @@ class CreateLegiscompromisesTable extends Migration
             $table->string('Type_Promise')->nullable();
             $table->string('DateNsale_Promise')->nullable();
             $table->string('Dateset_Promise')->nullable();
-            $table->string('Payall_Promise')->nullable();
+            $table->string('Payall_Promise')->nullable();     //เงินก้อนแรก
+            $table->string('DateFirst_Promise')->nullable();     //นัดชำระก้อนแรก
             $table->string('Sum_Promise')->nullable();
             $table->string('Discount_Promise')->nullable();
             $table->string('Due_Promise')->nullable();
