@@ -900,7 +900,8 @@ class LegislationController extends Controller
           'Type_Promise' =>  Null,
           'DateNsale_Promise' =>  Null,
           'Dateset_Promise' =>  Null,
-          'Payall_Promise' =>  Null,
+          'Payall_Promise' =>  0,
+          'DateFirst_Promise' => NULL,
           'Sum_Promise' =>  Null,
           'Discount_Promise' =>  Null,
           'Due_Promise' =>  Null,
@@ -1072,7 +1073,7 @@ class LegislationController extends Controller
                   ->where('legisPromise_id', $id)
                   ->count();
 
-        // dd($dataPranom);
+        // dd($data);
 
         $SumCount = 0;  //ค่าผ่อนชำระทั้งหมด
         $SumPay = 0;    //ค่าชำระ
@@ -1080,7 +1081,7 @@ class LegislationController extends Controller
 
         foreach ($dataPay as $key => $value) {
           $GetPay = str_replace (",","",$value->Gold_Payment);
-          if ($value->Type_Payment == "เงินก้อนแรก") {
+          if ($value->Type_Payment == "เงินก้อนแรก(เงินสด)" or $value->Type_Payment == "เงินก้อนแรก(เงินโอน)") {
             $SumPayDue = $SumPayDue + $GetPay;
           }
           $SumCount = $SumCount + $GetPay;
@@ -1100,7 +1101,7 @@ class LegislationController extends Controller
           $Getdata = 0;
         }
 
-        return view('legislation.compromise',compact('data','id','type','dataPay','SumPay','SumAllPAy','Getdata','SumCount','dataPranom'));
+        return view('legislation.compromise',compact('data','id','type','dataPay','SumPay','SumAllPAy','Getdata','SumCount','dataPranom','SumPayDue'));
       }
       elseif ($type == 5) { //เพิ่มข้อมูลชำระ
         $data = DB::table('legislations')
@@ -1422,6 +1423,7 @@ class LegislationController extends Controller
               'DateNsale_Promise' =>  $request->get('DateNsalePromise'),
               'Dateset_Promise' =>  $request->get('DatesetPromise'),
               'Payall_Promise' =>  $SetPayallPromise,
+              'DateFirst_Promise' => $request->get('DateFirstPromise'),
               'Sum_Promise' =>  $SetSumPromise,
               'Discount_Promise' =>  $SetDiscount,
               'Due_Promise' =>  $request->get('DuePromise'),
@@ -1440,6 +1442,7 @@ class LegislationController extends Controller
             $LegisPromise->DateNsale_Promise = $request->get('DateNsalePromise');
             $LegisPromise->Dateset_Promise = $request->get('DatesetPromise');
             $LegisPromise->Payall_Promise = $request->get('PayallPromise');
+            $LegisPromise->DateFirst_Promise = $request->get('DateFirstPromise');
             $LegisPromise->Sum_Promise = $SetSumPromise;
             $LegisPromise->Discount_Promise = $SetDiscount;
             $LegisPromise->Due_Promise = $request->get('DuePromise');
