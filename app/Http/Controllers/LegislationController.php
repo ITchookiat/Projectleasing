@@ -169,22 +169,27 @@ class LegislationController extends Controller
         }
 
         $data = DB::table('legislations')
-                ->leftjoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
-                ->leftjoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
-                ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
-                  return $q->whereBetween('Legiscompromises.Date_Promise',[$newfdate,$newtdate]);
-                })
-                ->where('legislations.Flag_status','!=', '1')
-                ->where('Legiscompromises.Date_Promise','!=', null)
-                ->orderBy('legislations.Contract_legis', 'ASC')
-                ->get();
+          ->leftjoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+          ->leftjoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+          ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+            return $q->whereBetween('Legiscompromises.Date_Promise',[$newfdate,$newtdate]);
+          })
+          ->where('legislations.Flag_status','!=', '1')
+          ->where('Legiscompromises.Date_Promise','!=', null)
+          ->orderBy('legislations.Contract_legis', 'ASC')
+          ->get();
 
         $dataPay = DB::table('legislations')
-                ->join('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
-                ->join('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
-                ->select('legislations.*','legispayments.*','Legiscompromises.*','legispayments.created_at AS CPayments_at')
-                ->where('legispayments.Flag_Payment', '=', 'Y')
-                ->get();
+          ->join('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
+          ->join('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+          ->select('legislations.*','legispayments.*','Legiscompromises.*','legispayments.created_at AS CPayments_at')
+          ->where('legispayments.Flag_Payment', '=', 'Y')
+          ->get();
+
+        $dataType = DB::table('legispayments')
+          ->where('legispayments.Type_Payment', '=', 'เงินก้อนแรก(เงินสด)')
+          ->orwhere('legispayments.Type_Payment','=', 'เงินก้อนแรก(เงินโอน)')
+          ->get();
 
         if($status == "ชำระปกติ"){
           $data = DB::table('legislations')
@@ -228,7 +233,7 @@ class LegislationController extends Controller
         }
 
         $type = $request->type;
-        return view('legislation.view', compact('type', 'data','result','newfdate','newtdate','status','dataPay'));
+        return view('legislation.view', compact('type', 'data','result','newfdate','newtdate','status','dataPay','dataType'));
       }
       elseif ($request->type == 8) {   //สืบทรัพย์
         $newfdate = '';
@@ -1073,11 +1078,11 @@ class LegislationController extends Controller
                   ->where('legisPromise_id', $id)
                   ->count();
 
-        // dd($data);
-
         $SumCount = 0;  //ค่าผ่อนชำระทั้งหมด
         $SumPay = 0;    //ค่าชำระ
         $SumPayDue = 0; //ค่าเงินก้อนแรก
+        // $DatePayDue = NULL;
+        // $CountDate = 0;
 
         foreach ($dataPay as $key => $value) {
           $GetPay = str_replace (",","",$value->Gold_Payment);
@@ -2881,7 +2886,7 @@ class LegislationController extends Controller
         $pdf::SetTitle('รายงานตรวจสอบยอดชำระ');
         $pdf::AddPage('L', 'A4');
         $pdf::SetFont('thsarabunpsk', '', 16, '', true);
-        $pdf::SetMargins(5, 5, 5, 5);
+        $pdf::SetMargins(10, 5, 5, 5);
         $pdf::SetAutoPageBreak(TRUE, 18);
 
         $view = \View::make('legislation.reportCompro' ,compact('data','type','dataCount','CashReceiver','newfdate','newtdate'));

@@ -26,64 +26,55 @@
       </div>
       <div class="card-body text-sm">
         <div class="container">
-          <div class="row">
-            <div class="col-12">
-              <div class="card-body table-responsive p-0">
-                <table class="table table-hover" id="table">
-                  <thead>
-                    <tr>
-                      <th class="text-center" style="width: 20px">No.</th>
-                      <th class="text-center" style="width: 120px">Contents</th>
-                      <th class="text-center" style="width: 50px">Duration</th>
-                      <th class="text-center" style="width: 120px">Notes</th>
-                      <th style="width: 30px"></th>
-                      <th style="width: 30px"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    @foreach($data as $key => $row)
-                      @php
-                        $SetSDate = date('d-m-Y', strtotime($row->SDate_info));
-                        $SetEDate = date('d-m-Y', strtotime($row->EDate_info));
-                      @endphp
-                      <tr>
-                        <td class="text-center"> {{$key+1}} </td>
-                        <td class="text-left"> 
-                          <a href="{{ route('MasterInfo.show',$row->Info_id) }}" class="product-title">
-                            {{$row->name_info}} 
-                          </a>
-                        </td>
-                        <td class="text-center"> {{$SetSDate}} - {{$SetEDate}} </td>
-                        <td class="text-left"> {{$row->Notes_info}} </td>
-                        <td class="text-left"> {{$row->User_generate}} </td>
-                        <td class="text-right">
-                          @if($SetSDate >= date('d-m-Y'))
-                            <button type="button" class="btn btn-warning btn-sm prem" title="แจ้งเตือน">
-                              <i class="fas fa-bullhorn"></i>
-                            </button>
-                          @endif
-                          <a href="{{ route('MasterInfo.show',$row->Info_id) }}?type={{2}}" class="btn btn-primary btn-sm" title="ดูรายการ">
-                            <i class="far fa-eye"></i>
-                          </a>
-                          @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
-                            <form method="post" class="delete_form" action="{{ route('MasterInfo.destroy',$row->Info_id) }}" style="display:inline;">
-                              {{csrf_field()}}
-                              <input type="hidden" name="_method" value="DELETE" />
-                              <input type="hidden" name="type" value="2" />
-                              <button type="submit" data-name="{{ $row->name_info }}" class="btn btn-danger btn-sm AlertForm" title="ลบรายการ">
-                                <i class="far fa-trash-alt"></i>
-                              </button>
-                            </form>
-                          @endif
-                        </td>
-                      </tr>
-                    @endforeach
-                  </tbody>
-                </table>
-              </div>
-            </div>
+          <div class="card-body table-responsive p-0">
+            <table class="table table-hover" id="table">
+              <thead>
+                <tr>
+                  <th class="text-center" style="width: 10px">No.</th>
+                  <th class="text-center" style="width: 120px">Contents</th>
+                  <th class="text-center" style="width: 80px">Duration</th>
+                  <th class="text-center" style="width: 120px">Notes</th>
+                  <th style="width: 80px"></th>
+                  <th style="width: 80px"></th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach($data as $key => $row)
+                  <tr>
+                    <td class="text-center"> {{$key+1}} </td>
+                    <td class="text-left"> 
+                      <a href="{{ route('MasterInfo.show',$row->Info_id) }}" class="product-title">
+                        {{$row->name_info}} 
+                      </a>
+                    </td>
+                    <td class="text-center"> {{date('d-m-Y', strtotime($row->SDate_info))}} - {{date('d-m-Y', strtotime($row->EDate_info))}} </td>
+                    <td class="text-left"> {{$row->Notes_info}} </td>
+                    <td class="text-left"> {{$row->User_generate}} </td>
+                    <td class="text-right">
+                      @if($row->Status_info != NULL)
+                        <button type="button" class="btn btn-warning btn-sm prem" title="แจ้งเตือน">
+                          <i class="fas fa-bullhorn"></i>
+                        </button>
+                      @endif
+                      <a href="{{ route('MasterInfo.show',$row->Info_id) }}?type={{2}}" class="btn btn-primary btn-sm" title="ดูรายการ">
+                        <i class="far fa-eye"></i>
+                      </a>
+                      @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
+                        <form method="post" class="delete_form" action="{{ route('MasterInfo.destroy',$row->Info_id) }}" style="display:inline;">
+                          {{csrf_field()}}
+                          <input type="hidden" name="_method" value="DELETE" />
+                          <input type="hidden" name="type" value="2" />
+                          <button type="submit" data-name="{{ $row->name_info }}" class="btn btn-danger btn-sm AlertForm" title="ลบรายการ">
+                            <i class="far fa-trash-alt"></i>
+                          </button>
+                        </form>
+                      @endif
+                    </td>
+                  </tr>
+                @endforeach
+              </tbody>
+            </table>
           </div>
-         
         </div>
       </div>
     </div>

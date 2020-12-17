@@ -52,6 +52,35 @@
                 @endif
               </div>
           </div>
+
+          {{-- <div class="card-body">
+            <div class="direct-chat-messages">
+              <div class="direct-chat-msg">
+                @foreach($Info as $row)
+                  <div class="card-body p-0">
+                    <ul class="products-list product-list-in-card pl-0 pr-0">
+                      <li class="item">
+                        <div class="product-img">
+                          <img src="{{ asset('dist/img/info.png') }}" alt="Product Image" class="img-size-50">
+                        </div>
+                        <div class="product-info">
+                          @php
+                            $SetSDate = date('d-m-Y', strtotime($row->SDate_info));
+                            $SetEDate = date('d-m-Y', strtotime($row->EDate_info));
+                          @endphp
+                          <a href="{{ route('MasterInfo.show',$row->Info_id) }}?type={{1}}" class="product-title">{{$row->name_info}}
+                            <span class="badge badge-danger float-right prem" title="{{$SetSDate}} - {{$SetEDate}}">New</span></a>
+                          <span class="product-description text-sm">
+                            {{$row->Notes_info}}
+                          </span>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                @endforeach
+              </div>
+            </div>
+          </div> --}}
           @foreach($Info as $row)
             <div class="card-body p-0">
               <ul class="products-list product-list-in-card pl-2 pr-2">

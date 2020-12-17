@@ -89,12 +89,15 @@
         </script>
 
         @if($data != NULL)
-          <input type="hidden" id="Datepay" name="Datepay" class="form-control form-control-sm" value="{{ $data->Date_Payment }}"/>
-          <input type="hidden" id="DuePrice" name="DuePrice" class="form-control form-control-sm" value="{{ $data->DuePay_Promise }}"/>
+          @if($data->Type_Payment != "เงินก้อนแรก(เงินสด)" and $data->Type_Payment != "เงินก้อนแรก(เงินโอน)")
+            <input type="hidden" id="Datepay" name="Datepay" class="form-control form-control-sm" value="{{ $data->Date_Payment }}"/>
+          @else
+            <input type="hidden" id="Datepay" name="Datepay" class="form-control form-control-sm" value="{{ date('Y-m-d') }}"/>
+          @endif
         @else
           <input type="hidden" id="Datepay" name="Datepay" class="form-control form-control-sm" value="{{ date('Y-m-d') }}"/>
-          <input type="hidden" id="DuePrice" name="DuePrice" class="form-control form-control-sm" value="{{$dataPranom->DuePay_Promise}}"/>
         @endif
+          <input type="hidden" id="DuePrice" name="DuePrice" class="form-control form-control-sm" value="{{$dataPranom->DuePay_Promise}}"/>
           <input type="hidden" id="DateCurrent" name="DateCurrent" class="form-control form-control-sm" value="{{ date('Y-m-d') }}"/>
 
         <div class="row">
