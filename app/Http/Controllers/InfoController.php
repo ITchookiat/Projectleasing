@@ -16,7 +16,11 @@ class InfoController extends Controller
     public function index(Request $request)
     {
         $data = Informations::orderBy('Info_id', 'DESC')->get();
-        
+
+        // $Info = DB::table('informations')            
+        //         ->orderBy('Info_id', 'desc')   
+        //         ->take(5)                         // Take the first 5
+        //         ->get();
         return view('event-info.DetaInfo', compact('data'));
     }
 
@@ -58,6 +62,7 @@ class InfoController extends Controller
             $summernote->EDate_info = $DateEnd;
             $summernote->Notes_info = $request->get('Note');
             $summernote->content_info = $detail;
+            $summernote->Status_info = $request->get('Status');
             $summernote->User_generate = auth()->user()->name;
             $summernote->Date_generate = date('Y-m-d');
         $summernote->save();
@@ -85,7 +90,7 @@ class InfoController extends Controller
     public function ShowInfo(Request $request, $type, $id)
     {
         $data = DB::table('informations')
-            ->where('EDate_info','>=',date('Y-m-d'))
+            ->where('informations.Status_info','=','Public')
             // ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
             //     return $q->whereBetween('SDate_info',[$newfdate,$newtdate]);
             //   })
@@ -137,10 +142,10 @@ class InfoController extends Controller
                 $Info->EDate_info = $DateEnd;
                 $Info->Notes_info = $request->get('Note');
                 $Info->content_info = $request->get('messageInput');
+                $Info->Status_info = $request->get('Status');
             $Info->update();
 
             return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
-            // return redirect()->Route('MasterEvents.index')->with('success','บันทึกข้อมูลเรียบร้อย');
         }
     }
 

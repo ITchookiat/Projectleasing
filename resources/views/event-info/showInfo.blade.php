@@ -2,6 +2,9 @@
 @section('title','infomation')
 @section('content')
 
+<link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap-switch-button@1.1.0/css/bootstrap-switch-button.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap-switch-button@1.1.0/dist/bootstrap-switch-button.min.js"></script>
+
   <!-- Main content -->
   <section class="content">
     <div class="content-header p-1">
@@ -78,7 +81,7 @@
                   </div>
                   <div class="card-body text-sm p-2">
                     <div class="row">
-                      <div class="col-6">
+                      <div class="col-10">
                         <div class="form-group mb-1">
                           <label>Name Contents :</label>
                           <div class="input-group">
@@ -90,8 +93,6 @@
                             <input type="text" name="nameContents" class="form-control float-right form-control-sm" value="{{$item->name_info}}"/>
                           </div>
                         </div>
-                      </div>
-                      <div class="col-6">
                         <div class="form-group mb-1">
                           <label>Start and End :</label>
                           <div class="input-group">
@@ -101,6 +102,18 @@
                               </span>
                             </div>
                             <input type="text" name="dateRangInfo" class="form-control float-right form-control-sm" id="dateRangInfo" value="{{$item->SDate_info}} - {{$item->EDate_info}}">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-2">
+                        <div class="form-group mb-1">
+                          <label>Status :</label>
+                          <div class="input-group">
+                            @if($item->Status_info != NULL)
+                              <input type="checkbox" name="Status" value="{{$item->Status_info}}" checked data-toggle="switchbutton" data-size="sm" data-onlabel="<i class='fas fa-book-reader'></i>" data-offlabel="<i class='fas fa-bell-slash'></i>" data-onstyle="success" data-offstyle="danger">
+                            @else
+                              <input type="checkbox" name="Status" value="Public" data-toggle="switchbutton" data-size="sm" data-onlabel="<i class='fas fa-book-reader'></i>" data-offlabel="<i class='fas fa-bell-slash'></i>" data-onstyle="success" data-offstyle="danger">
+                            @endif
                           </div>
                         </div>
                       </div>
