@@ -345,7 +345,7 @@
                                         @php
                                           $Tab2 = date_create($row->orderday_court);
                                           $DateEx2 = date_diff($Newdate,$Tab2);
-                                          @endphp
+                                        @endphp
                                       @endif
     
                                       @if($row->checkday_court != Null) <!-- วันที่ตรวจผลหมาย -->
@@ -436,6 +436,10 @@
                                             <i class="fas fa-clock prem"></i> รอส่งคำบังคับ
                                           </button>
                                         @endif
+                                      @elseif($row->ordersend_court == Null)  {{-- เช็ควันส่งคำบังคับจริง --}}
+                                        <button type="button" class="btn btn-warning btn-sm" title="รอลงวันที่ส่งคำบังคับจริง">
+                                          <i class="fas fa-clock prem"></i> รอส่งคำบังคับจริง
+                                        </button>
                                       @elseif($Newdate <= $Tab3)  {{-- ตรวจผลหมาย --}}
                                         @if($DateEx3->days <= 7)
                                           <button type="button" class="btn btn-danger btn-sm prem" title="วันตรวจผลหมาย {{ DateThai($Tab3->format('Y-m-d')) }}">
@@ -458,11 +462,8 @@
                                             </button>
                                           @endif
                                         @else
-                                          {{-- <button type="button" class="btn btn-warning btn-sm" title="วันตั้งเจ้าพนักงาน {{ DateThai($Tab4->format('Y-m-d')) }}">
+                                          <button type="button" class="btn btn-warning btn-sm" title="รอลงวันที่ผลตรวจหมายจริง">
                                             <i class="fas fa-clock prem"></i> รอผลตรวจหมายจริง
-                                          </button> --}}
-                                          <button type="button" class="btn btn-warning btn-sm" title="รอส่งคำบังคับจริง">
-                                            <i class="fas fa-clock prem"></i> รอส่งคำบังคับจริง
                                           </button>
                                         @endif
                                       @elseif($Newdate <= $Tab5)
@@ -828,12 +829,12 @@
                               <th class="text-center">เลขที่สัญญา</th>
                               <th class="text-center">ชื่อ-สกุล</th>
                               <th class="text-center">เริ่มประนอม</th>
-                              <th class="text-center">ระยะเวลา</th>
+                              {{-- <th class="text-center">ระยะเวลา</th> --}}
                               <th class="text-center">ยอดประนอม</th>
                               <th class="text-center">ยอดคงเหลือ</th>
-                              <th class="text-center">ผู้ส่งประนอม</th>
+                              {{-- <th class="text-center">ผู้ส่งประนอม</th> --}}
                               <th class="text-center">สถานะ</th>
-                              <th class="text-center" style="width: 50px">ตัวเลือก</th>
+                              <th class="text-left" style="width: 50px"></th>
                             </tr>
                           </thead>
                           <tbody>
@@ -848,7 +849,7 @@
                                 </td>
                                 <td class="text-left"> {{$row->Name_legis}} </td>
                                 <td class="text-center"> {{DateThai($row->Date_Promise)}}</td>
-                                <td class="text-center">
+                                {{-- <td class="text-center">
                                   @if($row->Status_Promise == "ปิดบัญชีประนอมหนี้" or $row->Status_Promise == "จ่ายจบประนอมหนี้")
                                     @php
                                       $Cldate = date_create($row->Date_Promise);
@@ -867,41 +868,53 @@
                                     @endphp
                                     <span data-toggle="tooltip" title="{{$ClDateDiff->y}} ปี {{$ClDateDiff->m}} เดือน {{$ClDateDiff->d}} วัน"><font color="red">{{$duration}}</font></span>
                                   @endif
-                                </td>
+                                </td> --}}
                                 <td class="text-right"> {{number_format($row->Total_Promise, 2)}}</td>
                                 <td class="text-right"> {{number_format($row->Sum_Promise, 2)}}</td>
-                                <td class="text-center"> {{ $row->User_Promise }}</td>
-                                <td class="text-center">
+                                {{-- <td class="text-center"> {{ $row->User_Promise }}</td> --}}
+                                <td class="text-right">
                                   @php
                                     $lastday = date('Y-m-d', strtotime("-90 days"));
+                                    $SetPayAll = str_replace (",","",$row->Payall_Promise);
                                   @endphp
+
+                                  @if($row->Payall_Promise != NULL)
+                                    @foreach($dataType as $key => $value)
+                                      @if($row->legisPromise_id == $value->id)
+                                        @if($SetPayAll == $value->total)
+                                          <button data-toggle="tooltip" type="button" class="btn btn-success btn-sm" title="ครบชำระเงินก้อนแรก">
+                                            <i class="fas fa-hands-helping prem"></i>
+                                          </button>
+                                        @else
+                                          <button data-toggle="tooltip" type="button" class="btn btn-danger btn-sm" title="นัดชำระก้อนแรกทุกๆวัน {{date('d', strtotime($value->DateFirst_Promise))}}">
+                                            <i class="fas fa-hand-holding-usd prem"></i>
+                                          </button>
+                                        @endif
+                                      @endif
+                                    @endforeach
+                                  @endif
     
-                                  @if($row->Status_Promise == "ปิดบัญชีประนอมหนี้")
+                                  @if($row->Status_Promise == "ปิดบัญชีประนอมหนี้" or $row->Status_Promise == "จ่ายจบประนอมหนี้")
                                     <button data-toggle="tooltip" type="button" class="btn btn-success btn-sm" title="{{ $row->Status_Promise }}">
-                                      <span class="glyphicon glyphicon-ok prem"></span> ปิดบัญชี
-                                    </button>
-                                  @elseif($row->Status_Promise == "จ่ายจบประนอมหนี้")
-                                    <button data-toggle="tooltip" type="button" class="btn btn-success btn-sm" title="{{ $row->Status_Promise }}">
-                                      <span class="glyphicon glyphicon-ok prem"></span> จ่ายจบ
+                                      <i class="fas fa-user-check prem"></i>
                                     </button>
                                   @else
                                     @foreach($dataPay as $key => $value)
                                       @if($row->legisPromise_id == $value->legis_Com_Payment_id)
                                         @if($value->Date_Payment < $lastday)
-                                          <button data-toggle="tooltip" type="button" class="btn btn-danger btn-sm" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
-                                            <i class="far fa-thumbs-down"></i> ขาดชำระ
+                                          <button data-toggle="tooltip" type="button" class="btn btn-danger btn-sm" title="วันดิวงวดถัดไป {{DateThai($value->Date_Payment)}}">
+                                            <i class="far fa-thumbs-down prem"></i> 
                                           </button>
                                         @else
-                                          <button data-toggle="tooltip" type="button" class="btn btn-info btn-sm" title="วันชำระล่าสุด {{DateThai($value->Date_Payment)}}">
-                                            <i class="far fa-thumbs-up"></i> ชำระปกติ
+                                          <button data-toggle="tooltip" type="button" class="btn btn-info btn-sm" title="วันดิวงวดถัดไป {{DateThai($value->Date_Payment)}}">
+                                            <i class="far fa-thumbs-up prem"></i>
                                           </button>
                                         @endif
                                       @endif
                                     @endforeach
-                                   @endif
-    
+                                  @endif
                                 </td>
-                                <td class="text-center">
+                                <td class="text-left">
                                   <a href="{{ action('LegislationController@edit',[$row->id, 4]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                     <i class="far fa-edit"></i>
                                   </a>
