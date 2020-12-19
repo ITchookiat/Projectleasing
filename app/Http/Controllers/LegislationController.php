@@ -178,7 +178,7 @@ class LegislationController extends Controller
           ->where('Legiscompromises.Date_Promise','!=', null)
           ->orderBy('legislations.Contract_legis', 'ASC')
           ->get();
-
+        
         $dataPay = DB::table('legislations')
           ->join('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
           ->join('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
@@ -186,9 +186,13 @@ class LegislationController extends Controller
           ->where('legispayments.Flag_Payment', '=', 'Y')
           ->get();
 
-        $dataType = DB::table('legispayments')
+        $dataType = DB::table('legislations')
+          ->join('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
+          ->join('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+          ->select('legislations.id','Legiscompromises.DateFirst_Promise', DB::raw('sum(legispayments.Gold_Payment) as total'))
           ->where('legispayments.Type_Payment', '=', 'เงินก้อนแรก(เงินสด)')
           ->orwhere('legispayments.Type_Payment','=', 'เงินก้อนแรก(เงินโอน)')
+          ->groupBy('legislations.id','Legiscompromises.DateFirst_Promise')
           ->get();
 
         if($status == "ชำระปกติ"){

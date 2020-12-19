@@ -17,7 +17,7 @@ class CreateLegispaymentsTable extends Migration
             $table->bigIncrements('Payment_id');
             $table->integer('legis_Com_Payment_id')->nullable();
             $table->string('Date_Payment')->nullable();
-            $table->string('Gold_Payment')->nullable();
+            $table->integer('Gold_Payment')->nullable();
             $table->string('Type_Payment')->nullable();
             $table->string('Adduser_Payment')->nullable();
             $table->string('Note_Payment')->nullable();
