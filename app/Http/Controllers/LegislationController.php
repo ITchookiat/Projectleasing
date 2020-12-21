@@ -1117,7 +1117,8 @@ class LegislationController extends Controller
               ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
               ->leftJoin('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
               ->where('legispayments.legis_Com_Payment_id', $id)
-              ->orderBy('legispayments.Period_Payment', 'desc')->limit(1)
+              ->where('legispayments.Flag_Payment', '=', 'Y')
+              //->orderBy('legispayments.Period_Payment', 'desc')->limit(1)
               ->first();
         $dataPranom = DB::table('legislations')
         ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
