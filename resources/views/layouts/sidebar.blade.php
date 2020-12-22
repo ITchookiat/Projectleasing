@@ -253,7 +253,7 @@
             @endif
           </li>
 
-          <li class="nav-item has-treeview {{ Request::is('Legislation/*') ? 'menu-open' : '' }} {{ Request::is('Legislation/edit/*') ? 'menu-open' : '' }}">
+          <li class="nav-item has-treeview {{ Request::is('Legislation/*') ? 'menu-open' : '' }} {{ Request::is('Legislation/edit/*') ? 'menu-open' : '' }} {{ Request::is('MasterCompro') ? 'menu-open' : '' }} {{ Request::is('MasterCompro/*/*') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-gavel"></i>
               <p>
@@ -283,7 +283,7 @@
                     <i class="far fa-dot-circle nav-icon"></i>
                     <p>ลูกหนี้สืบทรัพย์</p>
                   </a>
-                  <a href="{{ route('legislation',7) }}" class="nav-link {{ Request::is('Legislation/Home/7') ? 'active' : '' }} {{ Request::is('Legislation/edit/*/4') ? 'active' : '' }}">
+                  <a href="{{ route('MasterCompro.index') }}?type={{1}}" class="nav-link {{ Request::is('MasterCompro') ? 'active' : '' }} {{ Request::is('MasterCompro/*/*') ? 'active' : '' }}">
                     <i class="far fa-dot-circle nav-icon"></i>
                     <p>ลูกหนี้ประนอมหนี้</p>
                   </a>
