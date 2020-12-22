@@ -190,8 +190,6 @@
                           ลูกหนี้ฟ้อง (Debtor Sued)
                         @elseif($type == 6)
                           ลูกหนี้เตรียมฟ้อง
-                        @elseif($type == 7)
-                          ลูกหนี้ประนอมหนี้ (Compounding Debt)
                         @elseif($type == 8)
                           ลูกหนี้สืบทรัพย์
                         @elseif($type == 10)
@@ -780,162 +778,6 @@
                         </table>
                       </div>
                     </div>
-                  @elseif($type == 7)  {{--ลูกหนี้ประนอมหนี้--}}
-                    <div class="col-md-12">
-                      <form method="get" >
-                        <div class="float-right form-inline">
-                          <div class="btn-group">
-                            <button type="button" class="btn bg-primary btn-app" data-toggle="dropdown">
-                              <span class="fas fa-print"></span> ปริ้นรายงาน
-                            </button>
-                              <ul class="dropdown-menu" role="menu">
-                                <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-1" data-link="{{ route('legislation', 9) }}"> ใบเสร็จรับชำระ</a></li>
-                                <li class="dropdown-divider"></li>
-                                <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-2" data-link="{{ route('legislation', 15) }}"> รายงานบันทึกชำะค่างวด</a></li>
-                                <li class="dropdown-divider"></li>
-                                <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-3" data-link="{{ route('legislation', 16) }}"> รายงานลูกหนี้ประนอมหนี้</a></li>
-                                <li class="dropdown-divider"></li>
-                                <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-6" data-link="{{ route('legislation', 20) }}"> รายงานตรวจสอบยอดรับเงิน</a></li>
-                              </ul>
-                          </div>
-                          <button type="submit" class="btn bg-warning btn-app">
-                            <span class="fas fa-search"></span> Search
-                          </button>
-                        </div>
-                        <div class="float-right form-inline">
-                          <label for="text" class="mr-sm-2">สถานะ : </label>
-                          <select name="status" class="form-control form-control-sm" id="text">
-                            <option selected value="">------ สถานะ ------</option>
-                            <option value="ชำระปกติ" {{($status == 'ชำระปกติ') ? 'selected' : '' }}>ลูกหนี้ชำระปกติ</option>
-                            <option value="ขาดชำระ" {{($status == 'ขาดชำระ') ? 'selected' : '' }}>ลูกหนี้ขาดชำระ</option>
-                            <option value="ปิดบัญชี" {{($status == 'ปิดบัญชี') ? 'selected' : '' }}>ลูกหนี้ปิดบัญชี</option>
-                          </select>
-
-                          <label class="mr-sm-2">จากวันที่ : </label>
-                          <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control form-control-sm" />
-  
-                          <label class="mr-sm-2">ถึงวันที่ : </label>
-                          <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control form-control-sm" />
-                        </div>
-                     </form>
-                    </div>
-    
-                    <div class="col-md-12">
-                      <div class="table-responsive">
-                        <table class="table table-hover" id="table">
-                          <thead>
-                            <tr>
-                              <th class="text-center" style="width: 30px">No.</th>
-                              <th class="text-center">เลขที่สัญญา</th>
-                              <th class="text-center">ชื่อ-สกุล</th>
-                              <th class="text-center">เริ่มประนอม</th>
-                              {{-- <th class="text-center">ระยะเวลา</th> --}}
-                              <th class="text-center">ยอดประนอม</th>
-                              <th class="text-center">ยอดคงเหลือ</th>
-                              {{-- <th class="text-center">ผู้ส่งประนอม</th> --}}
-                              <th class="text-center">สถานะ</th>
-                              <th class="text-left" style="width: 50px"></th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            @foreach($data as $key => $row)
-                              <tr>
-                                <td class="text-center"> {{$key+1}} </td>
-                                <td class="text-left">
-                                  {{$row->Contract_legis}}
-                                  @if($row->Flag == "C")
-                                    <span class="badge bg-warning prem">ประนอม</span>
-                                  @endif
-                                </td>
-                                <td class="text-left"> {{$row->Name_legis}} </td>
-                                <td class="text-center"> {{DateThai($row->Date_Promise)}}</td>
-                                {{-- <td class="text-center">
-                                  @if($row->Status_Promise == "ปิดบัญชีประนอมหนี้" or $row->Status_Promise == "จ่ายจบประนอมหนี้")
-                                    @php
-                                      $Cldate = date_create($row->Date_Promise);
-                                      $nowCldate = date_create($row->DateStatus_Promise);
-                                      $ClDateDiff = date_diff($Cldate,$nowCldate);
-                                      $duration = $ClDateDiff->format("%a วัน")
-                                    @endphp
-                                    <span data-toggle="tooltip" title="{{$ClDateDiff->y}} ปี {{$ClDateDiff->m}} เดือน {{$ClDateDiff->d}} วัน"><font color="green" title="test">{{$duration}}</font></span>
-                                  @else
-                                    @php
-                                      $nowday = date('Y-m-d');
-                                      $Cldate = date_create($row->Date_Promise);
-                                      $nowCldate = date_create($nowday);
-                                      $ClDateDiff = date_diff($Cldate,$nowCldate);
-                                      $duration = $ClDateDiff->format("%a วัน")
-                                    @endphp
-                                    <span data-toggle="tooltip" title="{{$ClDateDiff->y}} ปี {{$ClDateDiff->m}} เดือน {{$ClDateDiff->d}} วัน"><font color="red">{{$duration}}</font></span>
-                                  @endif
-                                </td> --}}
-                                <td class="text-right"> {{number_format($row->Total_Promise, 2)}}</td>
-                                <td class="text-right"> {{number_format($row->Sum_Promise, 2)}}</td>
-                                {{-- <td class="text-center"> {{ $row->User_Promise }}</td> --}}
-                                <td class="text-right">
-                                  @php
-                                    $lastday = date('Y-m-d', strtotime("-90 days"));
-                                    $SetPayAll = str_replace (",","",$row->Payall_Promise);
-                                  @endphp
-
-                                  @if($row->Payall_Promise != NULL)
-                                    @foreach($dataType as $key => $value)
-                                      @if($row->legisPromise_id == $value->id)
-                                        @if($SetPayAll == $value->total)
-                                          <button data-toggle="tooltip" type="button" class="btn btn-success btn-sm" title="ครบชำระเงินก้อนแรก">
-                                            <i class="fas fa-hands-helping prem"></i>
-                                          </button>
-                                        @else
-                                          <button data-toggle="tooltip" type="button" class="btn btn-danger btn-sm" title="นัดชำระก้อนแรกทุกๆวัน {{date('d', strtotime($value->DateFirst_Promise))}}">
-                                            <i class="fas fa-hand-holding-usd prem"></i>
-                                          </button>
-                                        @endif
-                                      @endif
-                                    @endforeach
-                                  @endif
-    
-                                  @if($row->Status_Promise == "ปิดบัญชีประนอมหนี้" or $row->Status_Promise == "จ่ายจบประนอมหนี้")
-                                    <button data-toggle="tooltip" type="button" class="btn btn-success btn-sm" title="{{ $row->Status_Promise }}">
-                                      <i class="fas fa-user-check prem"></i>
-                                    </button>
-                                  @else
-                                    @foreach($dataPay as $key => $value)
-                                      @if($row->legisPromise_id == $value->legis_Com_Payment_id)
-                                        @if($value->Date_Payment < $lastday)
-                                          <button data-toggle="tooltip" type="button" class="btn btn-danger btn-sm" title="วันดิวงวดถัดไป {{DateThai($value->Date_Payment)}}">
-                                            <i class="far fa-thumbs-down prem"></i> 
-                                          </button>
-                                        @else
-                                          <button data-toggle="tooltip" type="button" class="btn btn-info btn-sm" title="วันดิวงวดถัดไป {{DateThai($value->Date_Payment)}}">
-                                            <i class="far fa-thumbs-up prem"></i>
-                                          </button>
-                                        @endif
-                                      @endif
-                                    @endforeach
-                                  @endif
-                                </td>
-                                <td class="text-left">
-                                  <a href="{{ action('LegislationController@edit',[$row->id, 4]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
-                                    <i class="far fa-edit"></i>
-                                  </a>
-                                  @if($row->Flag == "C")
-                                    @if(auth::user()->type != "แผนก การเงินนอก")
-                                      <form method="post" class="delete_form" action="{{ action('LegislationController@destroy',[$row->id ,1]) }}" style="display:inline;">
-                                      {{csrf_field()}}
-                                        <input type="hidden" name="_method" value="DELETE" />
-                                        <button type="submit" data-name="{{ $row->Contract_legis }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
-                                          <i class="far fa-trash-alt"></i>
-                                        </button>
-                                      </form>
-                                    @endif
-                                  @endif
-                                </td>
-                              </tr>
-                            @endforeach
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
                   @elseif($type == 8)  {{--ลูกหนี้สืบทรัพย์--}}
                     <div class="col-md-12">
                       <form method="get" action="{{ route('legislation', 8) }}">
@@ -1410,45 +1252,6 @@
     </div>
   </section>
 
-  <!-- Pop up ปริ้นใบเสร็จ -->
-  <div class="modal fade" id="modal-1">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-body">
-          {{-- <p>One fine body…</p> --}}
-        </div>
-        <div class="modal-footer justify-content-between">
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Pop up รายงานบันทึกชำะค่างวด -->
-  <div class="modal fade" id="modal-2">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-body">
-          {{-- <p>One fine body…</p> --}}
-        </div>
-        <div class="modal-footer justify-content-between">
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Pop up รายงานลูกหนี้ประนอม -->
-  <div class="modal fade" id="modal-3">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-body">
-          {{-- <p>One fine body…</p> --}}
-        </div>
-        <div class="modal-footer justify-content-between">
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- Pop up รายงานลูกหนี้ -->
   <div class="modal fade" id="modal-4">
     <div class="modal-dialog">
@@ -1475,16 +1278,21 @@
     </div>
   </div>
 
-  <!-- Pop up รายงานตรวจสอบยอดชำระ -->
-  <div class="modal fade" id="modal-6">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-body">
-          {{-- <p>One fine body…</p> --}}
-        </div>
-      </div>
-    </div>
-  </div>
+  {{-- Popup --}}
+  <script>
+    $(function () {
+      $("#modal-4").on("show.bs.modal", function (e) {
+        var link = $(e.relatedTarget).data("link");
+        $("#modal-4 .modal-body").load(link, function(){
+        });
+      });
+      $("#modal-5").on("show.bs.modal", function (e) {
+        var link = $(e.relatedTarget).data("link");
+        $("#modal-5 .modal-body").load(link, function(){
+        });
+      });
+    });
+  </script>
 
   {{-- button-to-top --}}
   <script>
@@ -1501,42 +1309,6 @@
     btn.on('click', function(e) {
       e.preventDefault();
       $('html, body').animate({scrollTop:0}, '300');
-    });
-  </script>
-
-  {{-- Popup --}}
-  <script>
-    $(function () {
-      $("#modal-1").on("show.bs.modal", function (e) {
-        var link = $(e.relatedTarget).data("link");
-        $("#modal-1 .modal-body").load(link, function(){
-        });
-      });
-      $("#modal-2").on("show.bs.modal", function (e) {
-        var link = $(e.relatedTarget).data("link");
-        $("#modal-2 .modal-body").load(link, function(){
-        });
-      });
-      $("#modal-3").on("show.bs.modal", function (e) {
-        var link = $(e.relatedTarget).data("link");
-        $("#modal-3 .modal-body").load(link, function(){
-        });
-      });
-      $("#modal-4").on("show.bs.modal", function (e) {
-        var link = $(e.relatedTarget).data("link");
-        $("#modal-4 .modal-body").load(link, function(){
-        });
-      });
-      $("#modal-5").on("show.bs.modal", function (e) {
-        var link = $(e.relatedTarget).data("link");
-        $("#modal-5 .modal-body").load(link, function(){
-        });
-      });
-      $("#modal-6").on("show.bs.modal", function (e) {
-        var link = $(e.relatedTarget).data("link");
-        $("#modal-6 .modal-body").load(link, function(){
-        });
-      });
     });
   </script>
 

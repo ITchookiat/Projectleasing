@@ -53,6 +53,9 @@ Route::group(['middleware' => 'auth'], function()
     Route::get('/Legislation/deleteImageAll/{id}', 'LegislationController@deleteImageAll');
     Route::get('/Legislation/Report/{id}/{type}', 'LegislationController@ReportReceipt')->name('legislation.report');
 
+    route::resource('MasterCompro','LegisComproController');
+    Route::get('/LegisCompro/report/{type}', 'LegisComproController@ReportCompro')->name('LegisCompro.ReportCompro');
+
     //------------------งานเร่งรัด----------------------//
     route::resource('MasterPrecipitate','PrecController');
     Route::get('/Precipitate/Home/{type}', 'PrecController@index')->name('Precipitate');

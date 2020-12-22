@@ -25,7 +25,7 @@
 
       <section class="content">
         <div class="card">
-          <form name="form1" method="post" action="{{ action('LegislationController@update',[$id,$type]) }}" enctype="multipart/form-data">
+          <form name="form1" method="post" action="{{ route('MasterCompro.update',[$data->id]) }}" enctype="multipart/form-data">
             @csrf
             @method('put')
               <div class="card-header">
@@ -42,7 +42,7 @@
                   <div class="col-6">
                     <div class="card-tools d-inline float-right">
                       @if($dataPranom != 0)
-                        <button type="button" class="delete-modal btn btn-info btn-sm" data-toggle="modal" data-target="#modal-default" data-link="{{ action('LegislationController@edit',[$id, 5]) }}">
+                        <button type="button" class="delete-modal btn btn-info btn-sm" data-toggle="modal" data-target="#modal-default" data-link="{{ route('MasterCompro.edit',[$data->id]) }}?type={{5}}">
                           <i class="fas fa-plus"></i> New
                         </button>
                       @else
@@ -53,7 +53,7 @@
                       <button type="submit" class="delete-modal btn btn-success btn-sm">
                         <i class="fas fa-save"></i> Save
                       </button>
-                      <a class="delete-modal btn btn-danger btn-sm" href="{{ route('legislation',7) }}">
+                      <a class="delete-modal btn btn-danger btn-sm" href="{{ route('MasterCompro.index') }}?type={{$type}}">
                         <i class="far fa-window-close"></i> Close
                       </a>
                     </div>
@@ -67,10 +67,10 @@
                           <div class="col-sm-6">
                             <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
                               <li class="nav-item">
-                                <a class="nav-link" href="{{ route('legislation',7) }}">หน้าหลัก</a>
+                                <a class="nav-link" href="{{ route('MasterCompro.index') }}?type={{$type}}">หน้าหลัก</a>
                               </li>
                               <li class="nav-item">
-                                <a class="nav-link active" href="{{ action('LegislationController@edit',[$id, 4]) }}">ประนอมหนี้</a>
+                                <a class="nav-link active" href="{{ route('MasterCompro.edit',[$id]) }}?type={{$type}}">ประนอมหนี้</a>
                               </li>
                             </ul>
                           </div>
@@ -95,7 +95,7 @@
                             <div class="float-right form-inline">
                               <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
                                 <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 8]) }}">สืบทรัพย์</a>
-                                <a class="nav-link active" href="{{ action('LegislationController@edit',[$id, 4]) }}">ประนอมหนี้</a>
+                                <a class="nav-link active" href="{{ route('MasterCompro.edit',[$id]) }}?type={{$type}}">ประนอมหนี้</a>
                                 <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 11]) }}">รูปและแผนที่</a>
                               </ul>
                             </div>
@@ -344,7 +344,7 @@
                                     <div class="col-sm-8">
                                       <input type="text" id="SumPromise" name="SumPromise" value="{{ number_format($SumPay, 0) }}" class="form-control form-control-sm" readonly/>
                                       <input type="hidden" id="Sumhide" name="Sumhide" value="{{ $SumPay }}" class="form-control form-control-sm"/>
-                                      <input type="hidden" id="SumPayAll" name="SumPayAll" value="{{ $SumAllPAy }}" class="form-control form-control-sm"/>
+                                      <input type="hidden" id="SumPayAll" name="SumPayAll" value="{{ $data->Sum_FirstPromise }}" class="form-control form-control-sm"/>
                                     </div>
                                   </div>                              
                                 </div>
@@ -352,15 +352,18 @@
 
                               <hr>
                               <div class="row">
-                                @if($data->Type_Payment != "เงินก้อนแรก(เงินสด)" and $data->Type_Payment != "เงินก้อนแรก(เงินโอน)")
-                                  <div class="col-6">
-                                    <div class="form-group row mb-0">
-                                      <label class="col-sm-4 col-form-label text-right"><font color="red">วันดิวงวดถัดไป : </font></label>
-                                      <div class="col-sm-8">
-                                        <input type="text" value="{{ DateThai($data->Date_Payment) }}" class="form-control form-control-sm" readonly/>
+                                @if($data->Date_Payment != Null)
+                                  @if($data->Type_Payment != "เงินก้อนแรก(เงินสด)" and $data->Type_Payment != "เงินก้อนแรก(เงินโอน)")
+                                    <div class="col-6">
+                                      <div class="form-group row mb-0">
+                                        <label class="col-sm-4 col-form-label text-right"><font color="red">วันดิวงวดถัดไป : </font></label>
+                                        <div class="col-sm-8">
+                                          <input type="text" value="{{ DateThai($data->Date_Payment) }}" class="form-control form-control-sm" readonly/>
+                                          <input type="hidden" name="DatehidePayment" value="{{ $data->Date_Payment }}"/>
+                                        </div>
                                       </div>
                                     </div>
-                                  </div>
+                                  @endif
                                 @endif
                                 <div class="col-6">
                                   @php
@@ -388,9 +391,9 @@
                                     <label class="col-sm-4 col-form-label text-right"><font color="red">วันที่ชำระล่าสุด : </font></label>
                                     <div class="col-sm-8">
                                       @if($data->Date_Payment != Null)
-                                        <input type="text" name="DatelastPromise" value="{{ DateThai(substr($data->created_at,0,10)) }}" class="form-control form-control-sm" readonly/>
+                                        <input type="text" name="DatePayment" value="{{ DateThai(substr($data->created_at,0,10)) }}" class="form-control form-control-sm" readonly/>
                                       @else
-                                        <input type="text" name="DatelastPromise" class="form-control form-control-sm" readonly/>
+                                        <input type="text" name="DatePayment" class="form-control form-control-sm" readonly/>
                                       @endif
                                     </div>
                                   </div>
@@ -399,7 +402,8 @@
                                   <div class="form-group row mb-0">
                                     <label class="col-sm-4 col-form-label text-right"><font color="red">ยอดชำระล่าสุด : </font></label>
                                     <div class="col-sm-8">
-                                    <input type="text" name="SumAllPromise" id="SumAllPromise" value="{{ number_format($data->Gold_Payment, 2) }}" class="form-control form-control-sm" oninput="Comma();" readonly/>
+                                      <input type="text" name="SumAllPromise" id="SumAllPromise" value="{{ number_format($data->Gold_Payment, 2) }}" class="form-control form-control-sm" oninput="Comma();" readonly/>
+                                      <input type="hidden" name="GoldPayment" value="{{ $data->Gold_Payment }}"/>
                                     </div>
                                   </div>
                                 </div>                  
@@ -415,6 +419,9 @@
                           </div>
                         </div>
 
+            <input type="hidden" name="SumFirst" value="{{$SumFirst}}"/>
+            <input type="hidden" name="SumPayDue" value="{{$SumPayDue}}"/>
+            
             <input type="hidden" name="_method" value="PATCH"/>
           </form>
                       <div class="tab-pane fade" id="tabs-2" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
@@ -451,7 +458,7 @@
                                     <a target="_blank" href="{{ route('legislation.report' ,[$row->Payment_id, 2]) }}" class="btn btn-warning btn-sm" title="ปริ้นใบเสร็จ">
                                       <i class="fas fa-print"></i>
                                     </a>
-                                    <form method="post" class="delete_form" action="{{ action('LegislationController@destroy',[$row->Payment_id, 2]) }}" style="display:inline;">
+                                    <form method="post" class="delete_form" action="{{ route('MasterCompro.destroy',[$row->Payment_id]) }}?type={{2}}" style="display:inline;">
                                     {{csrf_field()}}
                                       <input type="hidden" name="_method" value="DELETE" />
                                       <button type="submit" data-name="{{ $row->Jobnumber_Payment }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
@@ -466,16 +473,16 @@
 
                           <div class="form-inline" align="center">
                             <label><font color="red">ค่างวดทั้งหมด : </font></label>
-                            <input type="text" value="{{ number_format($Getdata, 2) }}" class="form-control" style="width: 100px;" readonly/>
+                            <input type="text" value="{{ number_format($data->Total_Promise, 2) }}" class="form-control" style="width: 100px;" readonly/>
 
                             <label><font color="red">ยอดชำระ : </font></label>
-                            <input type="text" value="{{ number_format($SumCount, 2) }}" class="form-control" style="width: 100px;" readonly/>
+                            <input type="text" value="{{ number_format($data->Sum_FirstPromise + $data->Sum_DuePayPromise, 2) }}" class="form-control" style="width: 100px;" readonly/>
 
                             <label><font color="red">ส่วนลด : </font></label>
                             <input type="text" value="{{ number_format($data->Discount_Promise, 2) }}" class="form-control" style="width: 100px;" readonly/>
 
                             <label><font color="red">ยอดคงเหลือ : </font></label>
-                            <input type="text" value="{{ number_format($Getdata - ($SumCount + $data->Discount_Promise), 2) }}" class="form-control" style="width: 100px;" readonly/>
+                            <input type="text" value="{{ number_format($SumPay, 2) }}" class="form-control" style="width: 100px;" readonly/>
                           </div>
 
                         </div>

@@ -228,7 +228,7 @@
                         <div class="float-right form-inline">
                           <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
                             <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 8]) }}">สืบทรัพย์</a>
-                            <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 4]) }}">ประนอมหนี้</a>
+                            <a class="nav-link" href="{{ route('MasterCompro.edit',[$id]) }}?type={{2}}}">ประนอมหนี้</a>
                             <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 11]) }}">รูปและแผนที่</a>
                           </ul>
                         </div>

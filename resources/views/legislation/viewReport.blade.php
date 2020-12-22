@@ -75,20 +75,20 @@
   <div class="card card-warning">
     <div class="card-header">
       <h4 class="card-title">
-        @if($type == 9)
-          ใบเสร็จชำระค่างวด
-        @elseif($type == 15)
-          รายงานบันทึกชำะค่างวด
+        @if($type == 15)
+          รายงาน ชำะค่างวด(บุคคล)
         @elseif($type == 16)
-          รายงานลูกหนี้ประนอมหนี้
+          รายงาน ลูกหนี้ประนอมหนี้
         @elseif($type == 17)
-          รายงานลูกหนี้
+          รายงาน ลูกหนี้
         @elseif($type == 18)
-          รายงานลูกหนี้สืบพยาน
+          รายงาน ลูกหนี้สืบพยาน
         @elseif($type == 19)
-          รายงานลูกหนี้สืบทรัพย์
+          รายงาน ลูกหนี้สืบทรัพย์
         @elseif($type == 20)
-          รายงานตรวจสอบยอดชำระ
+          รายงาน ตรวจสอบยอดชำระ
+        @elseif($type == 4)
+          รายงาน ลูกหนี้ประนอมหนี้
         @endif
       </h4>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -96,62 +96,7 @@
       </button>
     </div>
     <div class="card-body text-sm">
-      @if($type == 9)
-        <form name="form1" action="{{ route('legislation.report' ,[00, 1]) }}" target="_blank" method="get" id="formimage" enctype="multipart/form-data">
-          @csrf
-          
-          <div class="row">
-            <div class="col-md-5">
-              <div class="float-right form-inline">
-                <label><font color="red">เลขที่สัญญา :</font></label>
-                <input type="text" name="Contract" class="form-control" style="width: 170px;" data-inputmask="&quot;mask&quot;:&quot;99-9999/9999&quot;" data-mask="" required/>
-              </div>
-            </div>
-
-            <div class="col-md-6">
-              <div class="float-right form-inline">
-                <label>เลขที่ใบเสร็จ :</label>
-                <input type="text" name="NumberBill" class="form-control" style="width: 170px;"/>
-              </div>
-            </div>
-          </div>
-          <p></p>
-
-          <div class="row">
-            <div class="col-md-5">
-              <div class="float-right form-inline">
-                <label>จากวันที่ : </label>
-                <input type="date" name="Fdate" class="form-control" style="width: 170px;"/>
-              </div>
-            </div>
-
-            <div class="col-md-6">
-              <div class="float-right form-inline">
-                <label>ถึงวันที่ : </label>
-                <input type="date" name="Tdate" class="form-control" style="width: 170px;"/>
-              </div>
-            </div>
-          </div>
-
-          <p></p>
-          <div class="row">
-            <div class="col-md-4">
-            </div>
-            <div class="col-md-8">
-              <div class="form-inline">
-                <button type="submit" class="btn bg-primary btn-app">
-                  <i class="fas fa-print"></i> ปริ้น
-                </button>
-                <a class="btn btn-app bg-danger" href="{{ route('legislation',7) }}">
-                  <i class="fas fa-times"></i> ยกเลิก
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <input type="hidden" name="_token" value="{{csrf_token()}}" />
-        </form>
-      @elseif($type == 15)
+      @if($type == 15)
         <form name="form1" action="{{ route('legislation.report' ,[00, 15]) }}" target="_blank" method="get" id="formimage" enctype="multipart/form-data">
           @csrf
           
@@ -216,9 +161,6 @@
           </div>
 
           <div class="card-footer text-center">
-            <a class="btn bg-success btn-app" href="{{ route('legislation.report' ,[00, 21]) }}">
-              <span class="far fa-file-excel"></span> Excel
-            </a>
             <button type="submit" class="btn bg-danger btn-app">
               <span class="fa fa-file-pdf-o"></span> PDF
             </button>

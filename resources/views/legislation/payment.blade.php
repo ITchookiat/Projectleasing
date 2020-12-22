@@ -19,9 +19,11 @@
       </button>
     </div>
 
-    <form name="form2" action="{{ route('legislation.store',[$id, $type]) }}" method="post" id="formimage" enctype="multipart/form-data">
+    <form name="form2" action="{{ route('MasterCompro.store') }}" method="post" id="formimage" enctype="multipart/form-data">
       @csrf
+      <input type="hidden" name="id" value="{{$id}}">
       <div class="card-body">
+
         <script>
           function adds(nStr){
               nStr += '';
@@ -154,7 +156,7 @@
         <button type="submit" class="btn btn-app" style="background-color:#189100; color:#FFFFFF;">
           <i class="fas fa-save"></i> Save
         </button>
-        <a class="btn btn-app" href="{{ action('LegislationController@edit',[$id, 4]) }}" style="background-color:#DB0000; color:#FFFFFF;">
+        <a class="btn btn-app" href="{{ URL::previous() }}" style="background-color:#DB0000; color:#FFFFFF;">
           <i class="fas fa-times"></i> ยกเลิก
         </a>
       </div>
