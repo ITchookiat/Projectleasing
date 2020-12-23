@@ -380,7 +380,7 @@ class LegisComproController extends Controller
           $LegisPromise->Type_Promise = $request->get('TypePromise');
           $LegisPromise->DateNsale_Promise = $request->get('DateNsalePromise');
           $LegisPromise->Dateset_Promise = $request->get('DatesetPromise');
-          $LegisPromise->Payall_Promise = $request->get('PayallPromise');
+          $LegisPromise->Payall_Promise = $SetPayallPromise;
           $LegisPromise->DateFirst_Promise = $request->get('DateFirstPromise');
           $LegisPromise->Sum_Promise = $SetSumPromise;
           $LegisPromise->Discount_Promise = $SetDiscount;
