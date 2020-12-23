@@ -144,9 +144,23 @@ class InfoController extends Controller
                 $Info->content_info = $request->get('messageInput');
                 $Info->Status_info = $request->get('Status');
             $Info->update();
-
-            return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
         }
+        elseif($request->type == 2){
+            $Info1 = Informations::find($id);
+            if($request->get('PNUserNoted') != null){
+                $Info1->UserPN_Noted = $request->get('PNUserNoted');
+            }
+            if($request->get('YLUserNoted') != null){
+                $Info1->UserYL_Noted = $request->get('YLUserNoted');
+            }else{
+                $Info1->UserYL_Noted = null;
+            }
+            if($request->get('NRUserNoted') != null){
+                $Info1->UserNR_Noted = $request->get('NRUserNoted');
+            }
+            $Info1->update();
+        }
+        return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
     }
 
     /**
