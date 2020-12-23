@@ -165,13 +165,8 @@
                       var txtSumhide = document.getElementById('Sumhide').value;
                       var txtDishide = document.getElementById('Discounthide').value;
 
-                      // if (txtSetPay1 != 0 || txtSetPay2 != 0 || txtSetPay3 != 0) {
-                      //   var result = parseFloat(txtSumhide) - parseFloat(txtSetPay1) - parseFloat(txtSetPay2) - parseFloat(txtSetPay3);
-                      //   console.log(result);
-
                       if (txtDis != txtDishide) {
                         var SetDiscount = parseFloat(txtDis) - parseFloat(txtDishide);
-                        // var result = parseFloat(result) - parseFloat(SetDiscount);
                         var result = parseFloat(txtSumhide) - parseFloat(SetDiscount);
                       }else if (txtDis == 0) {
                         console.log(txtDis);
@@ -192,9 +187,9 @@
                       var result = Math.floor(Sum);
 
                       if (txtSetDue == 0) {
-                        console.log(txtSetDue);
                         var result = 0;
                       }
+                        console.log(txtSumPayAll,txtSetDue);
 
                       if (!isNaN(result)) {
                         document.form1.DuePromise.value = result;
@@ -268,7 +263,7 @@
                                   <div class="form-group row mb-3">
                                     <label class="col-sm-4 col-form-label text-right">ยอดเงินก้อนแรก : </label>
                                     <div class="col-sm-8">
-                                      <input type="text" name="PayallPromise" id="PayallPromise" value="{{ $data->Payall_Promise }}" class="form-control form-control-sm" oninput="Comma();"/>
+                                      <input type="text" name="PayallPromise" id="PayallPromise" value="{{ number_format($data->Payall_Promise,2) }}" class="form-control form-control-sm" oninput="Comma();"/>
                                     </div>
                                   </div>
                                 </div>
@@ -344,7 +339,7 @@
                                     <div class="col-sm-8">
                                       <input type="text" id="SumPromise" name="SumPromise" value="{{ number_format($SumPay, 0) }}" class="form-control form-control-sm" readonly/>
                                       <input type="hidden" id="Sumhide" name="Sumhide" value="{{ $SumPay }}" class="form-control form-control-sm"/>
-                                      <input type="hidden" id="SumPayAll" name="SumPayAll" value="{{ $data->Sum_FirstPromise }}" class="form-control form-control-sm"/>
+                                      <input type="hidden" id="SumPayAll" name="SumPayAll" value="{{ $SumPay }}" class="form-control form-control-sm"/>
                                     </div>
                                   </div>                              
                                 </div>
