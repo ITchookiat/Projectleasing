@@ -281,7 +281,8 @@ class LegisComproController extends Controller
             ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
             ->leftJoin('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
             ->where('legislations.id', $id)
-            ->orderBy('legispayments.Period_Payment', 'desc')->limit(1)
+            // ->orderBy('legispayments.Period_Payment', 'desc')->limit(1)
+            ->where('legispayments.Flag_Payment', '=', 'Y')
             ->first();
                 
         $dataPranom = DB::table('Legiscompromises')
