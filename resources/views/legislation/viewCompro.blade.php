@@ -197,7 +197,7 @@
                                         </button>
                                       @endif
                                     @else
-                                      <button data-toggle="tooltip" type="button" class="btn btn-warning btn-sm" title="ยังไม่มีการชำระ">
+                                      <button data-toggle="tooltip" type="button" class="btn btn-warning btn-sm" title="ยังไม่มีการชำระค่างวด">
                                         <i class="far fa-thumbs-down prem"></i> 
                                       </button>
                                     @endif
@@ -316,7 +316,7 @@
                                         </button>
                                       @endif
                                     @else
-                                      <button data-toggle="tooltip" type="button" class="btn btn-warning btn-sm" title="ยังไม่มีการชำระ">
+                                      <button data-toggle="tooltip" type="button" class="btn btn-warning btn-sm" title="ยังไม่มีการชำระค่างวด">
                                         <i class="far fa-thumbs-down prem"></i> 
                                       </button>
                                     @endif
