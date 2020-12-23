@@ -219,7 +219,7 @@
           <input type="hidden" name="_method" value="PATCH"/>
             <div class="float-right form-inline">
 
-            @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER" or auth::user()->position == "MASTER" or auth::user()->branch == "01")
+            @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER" or auth::user()->position == "MASTER" and auth::user()->branch == "01")
               <i class="fas fa-grip-vertical"></i>
               <span class="todo-wrap">
                 @if($item->UserPN_Noted != NULL)
@@ -239,7 +239,7 @@
               &nbsp;
             @endif
 
-            @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER" or auth::user()->position == "MASTER" or auth::user()->branch == "03")
+            @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER" or auth::user()->position == "MASTER" and auth::user()->branch == "03")
               <i class="fas fa-grip-vertical"></i>
               <span class="todo-wrap">
 
@@ -261,7 +261,7 @@
               &nbsp;
             @endif
 
-            @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER" or auth::user()->position == "MASTER" or auth::user()->branch == "04")
+            @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER" or auth::user()->position == "MASTER" and auth::user()->branch == "04")
               <i class="fas fa-grip-vertical"></i>
               <span class="todo-wrap">
                 @if($item->UserNR_Noted != NULL)
