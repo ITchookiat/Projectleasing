@@ -23,6 +23,9 @@ class CreateInformationsTable extends Migration
             $table->string('Status_info')->nullable();
             $table->string('User_generate')->nullable();
             $table->string('Date_generate')->nullable();
+            $table->string('UserPN_Noted')->nullable();
+            $table->string('UserYL_Noted')->nullable();
+            $table->string('UserNR_Noted')->nullable();
             $table->timestamps();
         });
     }
