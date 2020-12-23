@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Excel;
+use PDF;
+use Carbon\Carbon;
 
 use App\Legislation;
 use App\Legiscompromise;
@@ -263,8 +265,16 @@ class LegisComproController extends Controller
     public function show($id)
     {
       $type = $id;
-      if ($id == 1 or $id == 2 or $id == 3) {   //หน้า ประนอมหนี้
+      if ($id == 1 or $id == 2) {   //ติดตามประนอมหนี้ + การชำระค่างวด(บุคคล)
         return view('legislation.viewReport',compact('type'));
+      }
+      elseif ($id == 3) {           //ตรวจสอบการรับชำระ
+        $dataDB = DB::table('users')
+          ->where('users.type','=', "แผนก การเงินนอก")
+          ->orwhere('users.type','=', "แผนก เร่งรัด")
+          ->get();
+
+        return view('legislation.viewReport',compact('type','dataDB'));
       }
     }
 
@@ -345,7 +355,7 @@ class LegisComproController extends Controller
 
       if ($data == Null) {
           $LegisPromise = new Legiscompromise([
-            'Date_Promise' => $date,
+            'Date_Promise' => date('Y-m-d'),
             'legisPromise_id' => $id,
             'KeyPay_id' => Null,
             'Flag_Promise' => $request->get('FlagPromise'),
@@ -459,7 +469,7 @@ class LegisComproController extends Controller
 
     public function ReportCompro(Request $request, $type)
     {
-      if ($type == 2) {
+      if ($type == 2) {       //รายงาน Excel ลูกหนี้ใหม่
         $data = DB::table('legislations')
           ->leftjoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
           ->leftjoin('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
@@ -524,7 +534,8 @@ class LegisComproController extends Controller
               }
           });
         })->export('xlsx');
-      }elseif ($type == 3) {
+      }
+      elseif ($type == 3) {   //รายงาน Excel ลูกหนี้เก่า
         $data = DB::table('legislations')
           ->leftjoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
           ->leftjoin('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
@@ -589,5 +600,86 @@ class LegisComproController extends Controller
           });
         })->export('xlsx');
       }
+      elseif ($type == 4) {   //รายงาน ตรวจสอบการรับชำระ
+        $newfdate = '';
+        $newtdate = '';
+        $CashReceiver = '';
+
+        if ($request->has('Fromdate')) {
+          $newfdate = $request->get('Fromdate');
+        }
+        if ($request->has('Todate')) {
+          $tdate = $request->get('Todate');
+          $newtdate = Carbon::parse($tdate)->addDays(+1);
+        }
+        if ($request->has('CashReceiver')) {
+          $CashReceiver = $request->get('CashReceiver');
+        }
+
+        $data = DB::table('legislations')
+          ->leftJoin('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
+          ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+            return $q->whereBetween('legispayments.created_at',[$newfdate,$newtdate]);
+          })
+          ->when(!empty($CashReceiver), function($q) use($CashReceiver){
+              return $q->where('legispayments.Adduser_Payment','=',$CashReceiver);
+            })
+          ->orderBy('legispayments.created_at','ASC')
+          ->get();
+
+        $newtdate = Carbon::parse($tdate);
+
+        $pdf = new PDF();
+        $pdf::SetTitle('รายงานตรวจสอบยอดชำระ');
+        $pdf::AddPage('L', 'A4');
+        $pdf::SetFont('thsarabunpsk', '', 14, '', true);
+        $pdf::SetMargins(5, 5, 5, 0);
+        $pdf::SetAutoPageBreak(TRUE, 18);
+
+        $view = \View::make('legislation.reportCompro' ,compact('data','type','dataCount','CashReceiver','newfdate','newtdate'));
+        $html = $view->render();
+        $pdf::WriteHTML($html,true,false,true,false,'');
+        $pdf::Output('report.pdf');
+      }
+      elseif ($type == 5) {   //รายงาน การชำระค่างวด(บุคคล)
+        $dataDB = DB::table('legislations')
+          ->join('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+          ->join('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
+          ->where('legislations.Contract_legis', '=', $request->Contract)
+          ->get();
+
+        $dataCount = count($dataDB);
+
+        if ($dataCount != 0) {
+          if ($dataDB[0]->Flag == "C") {
+            $data = DB::connection('ibmi')
+              ->table('ASFHP.ARMAST')
+              ->join('ASFHP.INVTRAN','ASFHP.ARMAST.CONTNO','=','ASFHP.INVTRAN.CONTNO')
+              ->join('ASFHP.VIEW_CUSTMAIL','ASFHP.ARMAST.CUSCOD','=','ASFHP.VIEW_CUSTMAIL.CUSCOD')
+              ->where('ASFHP.ARMAST.CONTNO','=', $dataDB[0]->Contract_legis)
+              ->first();
+          }else {
+            $data = DB::connection('ibmi')
+              ->table('SFHP.ARMAST')
+              ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+              ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+              ->where('SFHP.ARMAST.CONTNO','=', $dataDB[0]->Contract_legis)
+              ->first();
+          }
+        }else {
+          dd('ไม่มีเลขที่สัญญานี้ไม่ระบบประนอมหนี้');
+        }
+
+        $pdf = new PDF();
+        $pdf::SetTitle('รายงาน การชำระค่างวด(บุคคล)');
+        $pdf::AddPage('P', 'A4');
+        $pdf::SetMargins(5, 5, 5, 5);
+        $pdf::SetFont('freeserif', '', 8, '', true);
+
+        $view = \View::make('legislation.reportCompro' ,compact('data','dataDB','type','dataCount','status','newfdate','newtdate'));
+        $html = $view->render();
+        $pdf::WriteHTML($html,true,false,true,false,'');
+        $pdf::Output('report.pdf');
+              }
     }
 }

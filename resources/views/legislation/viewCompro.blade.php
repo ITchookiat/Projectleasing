@@ -57,9 +57,9 @@
                               <ul class="dropdown-menu" role="menu">
                                 <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-1" data-link="{{ route('MasterCompro.show', 1) }}"> รายงาน ติดตามประนอมหนี้</a></li>
                                 <li class="dropdown-divider"></li>
-                                <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-2" data-link="{{ route('MasterCompro.show', 2) }}"> รายงาน ชำะค่างวด(บุคคล)</a></li>
+                                <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-2" data-link="{{ route('MasterCompro.show', 2) }}"> รายงาน การชำระค่างวด(บุคคล)</a></li>
                                 <li class="dropdown-divider"></li>
-                                <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-3" data-link="{{ route('MasterCompro.show', 3) }}"> รายงาน ตรวจสอบยอดรับเงิน</a></li>
+                                <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-3" data-link="{{ route('MasterCompro.show', 3) }}"> รายงาน ตรวจสอบการรับชำระ</a></li>
                               </ul>
                           </div>
                         </div>
@@ -165,13 +165,19 @@
                                     $SetPayAll = str_replace (",","",$row->Total_Promise);
                                   @endphp
 
-                                  @if($row->Sum_FirstPromise == $SetPayAll)
-                                    <button data-toggle="tooltip" type="button" class="btn btn-success btn-sm" title="ครบชำระเงินก้อนแรก">
-                                      <i class="fas fa-hands-helping prem"></i>
-                                    </button>
+                                  @if($row->DateFirst_Promise != NULL)
+                                    @if($row->Sum_FirstPromise == $SetPayAll)
+                                      <button data-toggle="tooltip" type="button" class="btn btn-success btn-sm" title="ครบชำระเงินก้อนแรก">
+                                        <i class="fas fa-hands-helping prem"></i>
+                                      </button>
+                                    @else
+                                      <button data-toggle="tooltip" type="button" class="btn btn-danger btn-sm" title="ขาดชำระเงินก้อนแรก">
+                                        <i class="fas fa-hand-holding-usd prem"></i>
+                                      </button>
+                                    @endif
                                   @else
-                                    <button data-toggle="tooltip" type="button" class="btn btn-danger btn-sm" title="ขาดชำระเงินก้อนแรก">
-                                      <i class="fas fa-hand-holding-usd prem"></i>
+                                    <button data-toggle="tooltip" type="button" class="btn btn-warning btn-sm" title="ยังไม่คีย์เงินก้อนแรก">
+                                      <i class="fas fa-comment-dollar prem"></i>
                                     </button>
                                   @endif
 
@@ -288,6 +294,10 @@
                                         <i class="fas fa-hand-holding-usd prem"></i>
                                       </button>
                                     @endif
+                                  @else
+                                    <button data-toggle="tooltip" type="button" class="btn btn-warning btn-sm" title="ยังไม่คีย์เงินก้อนแรก">
+                                      <i class="fas fa-comment-dollar prem"></i>
+                                    </button>
                                   @endif
 
                                   @if($row->Status_Promise == "ปิดบัญชีประนอมหนี้" or $row->Status_Promise == "จ่ายจบประนอมหนี้")
@@ -382,7 +392,7 @@
 
     <!-- Pop up รายงานตรวจสอบยอดชำระ -->
     <div class="modal fade" id="modal-3">
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-body">
             {{-- <p>One fine body…</p> --}}
