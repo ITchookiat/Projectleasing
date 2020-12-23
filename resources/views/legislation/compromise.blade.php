@@ -354,11 +354,11 @@
                                         <label class="col-sm-4 col-form-label text-right"><font color="red">วันดิวงวดถัดไป : </font></label>
                                         <div class="col-sm-8">
                                           <input type="text" value="{{ DateThai($data->Date_Payment) }}" class="form-control form-control-sm" readonly/>
-                                          <input type="hidden" name="DatehidePayment" value="{{ $data->Date_Payment }}"/>
                                         </div>
                                       </div>
                                     </div>
                                   @endif
+                                  <input type="hidden" name="DatehidePayment" value="{{ $data->Date_Payment }}"/>
                                 @endif
                                 <div class="col-6">
                                   @php
