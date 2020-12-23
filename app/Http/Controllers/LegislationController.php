@@ -253,15 +253,6 @@ class LegislationController extends Controller
         $type = $request->type;
         return view('legislation.viewReport',compact('type'));
       }
-      elseif ($request->type == 20) {   //รายงานตรวจสอบยอดชำระ
-        $dataDB = DB::table('users')
-                  ->where('users.type','=', "แผนก การเงินนอก")
-                  ->orwhere('users.type','=', "แผนก เร่งรัด")
-                  ->get();
-        $type = $request->type;
-
-        return view('legislation.viewReport',compact('type','dataDB'));
-      }
       elseif ($request->type == 100) {   //Dashboard
         $dataprepare = DB::table('legislations')
                   ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
@@ -1760,45 +1751,6 @@ class LegislationController extends Controller
         $pdf::WriteHTML($html,true,false,true,false,'');
         $pdf::Output('report.pdf');
       }
-      elseif ($type == 15) { //รายงานบันทึกชำะค่างวด
-        $dataDB = DB::table('legislations')
-                ->join('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
-                ->join('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
-                ->where('legislations.Contract_legis', '=', $request->Contract)
-                ->get();
-
-                $dataCount = count($dataDB);
-
-        if ($dataCount != 0) {
-          if ($dataDB[0]->Flag != "C") {
-            $data = DB::connection('ibmi')
-                  ->table('ASFHP.ARMAST')
-                  ->join('ASFHP.INVTRAN','ASFHP.ARMAST.CONTNO','=','ASFHP.INVTRAN.CONTNO')
-                  ->join('ASFHP.VIEW_CUSTMAIL','ASFHP.ARMAST.CUSCOD','=','ASFHP.VIEW_CUSTMAIL.CUSCOD')
-                  ->where('ASFHP.ARMAST.CONTNO','=', $dataDB[0]->Contract_legis)
-                  ->first();
-          }else {
-            $data = DB::connection('ibmi')
-                  ->table('SFHP.ARMAST')
-                  ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
-                  ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
-                  ->where('SFHP.ARMAST.CONTNO','=', $dataDB[0]->Contract_legis)
-                  ->first();
-          }
-        }else {
-          dd('ไม่มีเลขที่สัญญานี้ไม่ระบบประนอมหนี้');
-        }
-        $pdf = new PDF();
-        $pdf::SetTitle('รายงานบันทึกชำะค่างวด');
-        $pdf::AddPage('P', 'A4');
-        $pdf::SetMargins(5, 5, 5, 5);
-        $pdf::SetFont('freeserif', '', 8, '', true);
-
-        $view = \View::make('legislation.reportCompro' ,compact('data','dataDB','type','dataCount','status','newfdate','newtdate'));
-        $html = $view->render();
-        $pdf::WriteHTML($html,true,false,true,false,'');
-        $pdf::Output('report.pdf');
-      }
       elseif ($type == 17) { //รายงานลูกหนี้
         $newfdate = '';
         $newtdate = '';
@@ -2403,49 +2355,6 @@ class LegislationController extends Controller
         $html = $view->render();
         $pdf::WriteHTML($html,true,false,true,false,'');
         $pdf::Output('report.pdf');
-      }
-      elseif ($type == 20) { //รายงานตรวจสอบยอดชำระ
-        $newfdate = '';
-        $newtdate = '';
-        $CashReceiver = '';
-
-        if ($request->has('Fromdate')) {
-          $newfdate = $request->get('Fromdate');
-        }
-        if ($request->has('Todate')) {
-          $tdate = $request->get('Todate');
-          $newtdate = Carbon::parse($tdate)->addDays(+1);
-        }
-        if ($request->has('CashReceiver')) {
-          $CashReceiver = $request->get('CashReceiver');
-        }
-        // dd($newfdate,$newtdate,$CashReceiver);
-
-        $data = DB::table('legislations')
-              ->leftJoin('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
-              ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
-                return $q->whereBetween('legispayments.created_at',[$newfdate,$newtdate]);
-              })
-              ->when(!empty($CashReceiver), function($q) use($CashReceiver){
-                  return $q->where('legispayments.Adduser_Payment','=',$CashReceiver);
-                })
-              ->orderBy('legispayments.created_at','ASC')
-              ->get();
-
-        $newtdate = Carbon::parse($tdate);
-
-        $pdf = new PDF();
-        $pdf::SetTitle('รายงานตรวจสอบยอดชำระ');
-        $pdf::AddPage('L', 'A4');
-        $pdf::SetFont('thsarabunpsk', '', 16, '', true);
-        $pdf::SetMargins(10, 5, 5, 5);
-        $pdf::SetAutoPageBreak(TRUE, 18);
-
-        $view = \View::make('legislation.reportCompro' ,compact('data','type','dataCount','CashReceiver','newfdate','newtdate'));
-        $html = $view->render();
-        $pdf::WriteHTML($html,true,false,true,false,'');
-        $pdf::Output('report.pdf');
-
       }
     }
 }
