@@ -64,6 +64,7 @@
       var _token = $('input[name="_token"]').val();
 
     if (Contno != '') {
+      console.log(DB_type,Contno);
       $.ajax({
         url:"{{ route('legislation.SearchData', 1) }}",
         method:"POST",

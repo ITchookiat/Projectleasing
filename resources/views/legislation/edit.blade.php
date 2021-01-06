@@ -182,9 +182,11 @@
 
       <section class="content">
         <div class="card">
-          <form name="form1" method="post" action="{{ action('LegislationController@update',[$id,$type]) }}" enctype="multipart/form-data">
+          <form name="form1" method="post" action="{{ route('MasterLegis.update',[$id]) }}" enctype="multipart/form-data">
             @csrf
             @method('put')
+            <input type="hidden" name="type" value="2"/>
+
             <div class="card-header">
               <div class="row mb-1">
                 <div class="col-6">
@@ -198,7 +200,7 @@
                     <button type="submit" class="btn btn-success btn-sm">
                       <i class="fas fa-save"></i> Save
                     </button>
-                    <a class="btn btn-danger btn-sm" href="{{ route('legislation',2) }}">
+                    <a class="btn btn-danger btn-sm" href="{{ route('MasterLegis.index') }}?type={{20}}">
                       <i class="far fa-window-close"></i> Close
                     </a>
                   </div>
@@ -211,25 +213,25 @@
                       <div class="col-sm-6">
                         <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
                           <li class="nav-item">
-                            <a class="nav-link active" href="{{ action('LegislationController@edit',[$id, 2]) }}">ข้อมูลลูกหนี้</a>
+                            <a class="nav-link active" href="{{ route('MasterLegis.edit',[$id]) }}?type={{2}}">ข้อมูลลูกหนี้</a>
                           </li>
                           <li class="nav-item">
-                            <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 3]) }}">ชั้นศาล</a>
+                            <a class="nav-link" href="{{ route('MasterLegis.edit',[$id]) }}?type={{3}}">ชั้นศาล</a>
                           </li>
                           <li class="nav-item">
-                            <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 7]) }}">ชั้นบังคับคดี</a>
+                            <a class="nav-link" href="{{ route('MasterLegis.edit',[$id]) }}?type={{7}}">ชั้นบังคับคดี</a>
                           </li>
                           <li class="nav-item">
-                            <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 13]) }}">โกงเจ้าหนี้</a>
+                            <a class="nav-link" href="{{ route('MasterLegis.edit',[$id]) }}?type={{13}}">โกงเจ้าหนี้</a>
                           </li>
                         </ul>
                       </div>
                       <div class="col-sm-6">
                         <div class="float-right form-inline">
                           <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
-                            <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 8]) }}">สืบทรัพย์</a>
+                            <a class="nav-link" href="{{ route('MasterLegis.edit',[$id]) }}?type={{8}}">สืบทรัพย์</a>
                             <a class="nav-link" href="{{ route('MasterCompro.edit',[$id]) }}?type={{2}}">ประนอมหนี้</a>
-                            <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 11]) }}">รูปและแผนที่</a>
+                            <a class="nav-link" href="{{ route('MasterLegis.edit',[$id]) }}?type={{11}}">รูปและแผนที่</a>
                           </ul>
                         </div>
                       </div>
@@ -464,9 +466,9 @@
                             <div class="" id="todo-list">
                               <span class="todo-wrap">
                                 @if($data->Terminatebuyer_list != Null)
-                                <input type="checkbox" id="7" name="Terminatebuyerlist" value="{{ $data->Terminatebuyer_list }}" checked="checked"/>
+                                  <input type="checkbox" id="7" name="Terminatebuyerlist" value="{{ $data->Terminatebuyer_list }}" checked="checked"/>
                                 @else
-                                <input type="checkbox" id="7" name="Terminatebuyerlist" value="on"/>
+                                  <input type="checkbox" id="7" name="Terminatebuyerlist" value="on"/>
                                 @endif
                                 <label for="7" class="todo">
                                   <i class="fa fa-check"></i>
@@ -478,9 +480,9 @@
                               </span>
                               <span class="todo-wrap">
                                 @if($data->Terminatesupport_list != Null)
-                                <input type="checkbox" id="8" name="Terminatesupportlist" value="{{ $data->Terminatesupport_list }}" checked="checked"/>
+                                  <input type="checkbox" id="8" name="Terminatesupportlist" value="{{ $data->Terminatesupport_list }}" checked="checked"/>
                                 @else
-                                <input type="checkbox" id="8" name="Terminatesupportlist" value="on"/>
+                                  <input type="checkbox" id="8" name="Terminatesupportlist" value="on"/>
                                 @endif
                                 <label for="8" class="todo">
                                   <i class="fa fa-check"></i>
@@ -492,9 +494,9 @@
                               </span>
                               <span class="todo-wrap">
                                 @if($data->Acceptbuyerandsup_list != Null)
-                                <input type="checkbox" id="9" name="Acceptbuyerandsuplist" value="{{ $data->Acceptbuyerandsup_list }}" checked="checked"/>
+                                  <input type="checkbox" id="9" name="Acceptbuyerandsuplist" value="{{ $data->Acceptbuyerandsup_list }}" checked="checked"/>
                                 @else
-                                <input type="checkbox" id="9" name="Acceptbuyerandsuplist" value="on"/>
+                                  <input type="checkbox" id="9" name="Acceptbuyerandsuplist" value="on"/>
                                 @endif
                                 <label for="9" class="todo">
                                   <i class="fa fa-check"></i>
@@ -506,9 +508,9 @@
                               </span>
                               <span class="todo-wrap">
                                 @if($data->Twodue_list != Null)
-                                <input type="checkbox" id="10" name="Twoduelist" value="{{ $data->Twodue_list }}" checked="checked"/>
+                                  <input type="checkbox" id="10" name="Twoduelist" value="{{ $data->Twodue_list }}" checked="checked"/>
                                 @else
-                                <input type="checkbox" id="10" name="Twoduelist" value="on"/>
+                                  <input type="checkbox" id="10" name="Twoduelist" value="on"/>
                                 @endif
                                 <label for="10" class="todo">
                                   <i class="fa fa-check"></i>
@@ -520,9 +522,9 @@
                               </span>
                               <span class="todo-wrap">
                                 @if($data->AcceptTwodue_list != Null)
-                                <input type="checkbox" id="11" name="AcceptTwoduelist" value="{{ $data->AcceptTwodue_list }}" checked="checked"/>
+                                  <input type="checkbox" id="11" name="AcceptTwoduelist" value="{{ $data->AcceptTwodue_list }}" checked="checked"/>
                                 @else
-                                <input type="checkbox" id="11" name="AcceptTwoduelist" value="on"/>
+                                  <input type="checkbox" id="11" name="AcceptTwoduelist" value="on"/>
                                 @endif
                                 <label for="11" class="todo">
                                   <i class="fa fa-check"></i>
@@ -534,9 +536,9 @@
                               </span>
                               <span class="todo-wrap">
                                 @if($data->Confirm_list != Null)
-                                <input type="checkbox" id="12" name="Confirmlist" value="{{ $data->Confirm_list }}" checked="checked"/>
+                                  <input type="checkbox" id="12" name="Confirmlist" value="{{ $data->Confirm_list }}" checked="checked"/>
                                 @else
-                                <input type="checkbox" id="12" name="Confirmlist" value="on"/>
+                                  <input type="checkbox" id="12" name="Confirmlist" value="on"/>
                                 @endif
                                 <label for="12" class="todo">
                                   <i class="fa fa-check"></i>
@@ -548,9 +550,9 @@
                               </span>
                               <span class="todo-wrap">
                                 @if($data->Accept_list != Null)
-                                <input type="checkbox" id="13" name="Acceptlist" value="{{ $data->Accept_list }}" checked="checked"/>
+                                  <input type="checkbox" id="13" name="Acceptlist" value="{{ $data->Accept_list }}" checked="checked"/>
                                 @else
-                                <input type="checkbox" id="13" name="Acceptlist" value="on"/>
+                                  <input type="checkbox" id="13" name="Acceptlist" value="on"/>
                                 @endif
                                 <label for="13" class="todo">
                                   <i class="fa fa-check"></i>
@@ -651,14 +653,17 @@
                                     </td>
                                     <td class="text-left">{{DateThai(substr($row->created_at,0,10))}}</td>
                                     <td class="text-right">
-                                        <a target="_blank" href="{{ action('LegislationController@edit',[$data->id,$type]) }}?preview={{1}}&file_id={{$row->image_id}}" class="btn btn-warning btn-xs" title="ดูไฟล์">
+                                        <a target="_blank" href="{{ route('MasterLegis.edit',[$data->id]) }}?type={{$type}}&preview={{1}}&file_id={{$row->image_id}}" class="btn btn-warning btn-xs" title="ดูไฟล์">
                                           <i class="far fa-eye"></i>
                                         </a>
                                       @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก กฎหมาย")
-                                        <form method="post" class="delete_form" action="{{ action('LegislationController@destroy',[$data->id ,5]) }}?file_id={{$row->image_id}}" style="display:inline;">
+                                        <form method="post" class="delete_form" action="{{ route('MasterLegis.destroy',$data->id) }}" style="display:inline;">
                                         {{csrf_field()}}
-                                          <input type="hidden" name="_method" value="DELETE" />
+                                          <input type="hidden" name="type" value="5" />
+                                          <input type="hidden" name="file_id" value="{{$row->image_id}}" />
                                           <input type="hidden" name="contract" value="{{ $data->Contract_legis }}"> 
+
+                                          <input type="hidden" name="_method" value="DELETE" />
                                           <button type="submit" data-name="{{$row->name_image}}" class="delete-modal btn btn-danger btn-xs AlertForm" title="ลบไฟล์">
                                             <i class="far fa-trash-alt"></i>
                                           </button>
@@ -683,12 +688,14 @@
     </div>
   </section>
 
-<form name="form2" method="post" action="{{ route('legislation.store',[$id, 2]) }}" target="_blank" id="formimage" enctype="multipart/form-data">
   <div class="modal fade" id="modal-printinfo">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
-        <form name="form2" target="_blank" method="post" action="{{ route('legislation.store',[$id, 2]) }}" id="formimage" enctype="multipart/form-data">
+        <form name="form2" method="post" action="{{ route('MasterLegis.store') }}" id="formimage" enctype="multipart/form-data">
           @csrf
+          <input type="hidden" name="id" value="{{$id}}"/>
+          <input type="hidden" name="type" value="2"/>
+
           <div class="card card-warning">
             <div class="card-header">
               <h4 class="card-title">ป้อนข้อมูลปิดบัญชี</h4>
@@ -767,7 +774,9 @@
               </div>
             </div>
             <div align="center">
-              <button id="submit" type="submit" class="btn btn-primary"><span class="fa fa-id-card-o"></span> พิมพ์</button>
+              <button id="submit" type="submit" class="btn btn-primary">
+                <span class="fa fa-id-card-o"></span> พิมพ์
+              </button>
             </div>
             <br>
           </div>
@@ -775,7 +784,6 @@
       </div>
     </div>
   </div>
-</form>
 
   {{-- back-to-top --}}
   <script>
@@ -823,5 +831,4 @@
       });
     });
   </script>
-
 @endsection

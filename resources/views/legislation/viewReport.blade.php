@@ -75,10 +75,10 @@
   <div class="card card-warning">
     <div class="card-header">
       <h4 class="card-title">
-        @if($type == 2)
-          รายงาน การชำระค่างวด(บุคคล)
-        @elseif($type == 1)
+        @if($type == 1)
           รายงาน ลูกหนี้ประนอมหนี้
+        @elseif($type == 2)
+          รายงาน การชำระค่างวด(บุคคล)
         @elseif($type == 17)
           รายงาน ลูกหนี้
         @elseif($type == 18)
@@ -110,7 +110,7 @@
               <button type="submit" class="btn bg-primary btn-app">
                 <i class="fas fa-print"></i> ปริ้น
               </button>
-              <a class="btn btn-app bg-danger" href="{{ route('legislation',7) }}">
+              <a class="btn btn-app bg-danger" href="{{ route('MasterCompro.index') }}?type={{1}}">
                 <i class="fas fa-times"></i> ยกเลิก
               </a>
             </div>
@@ -164,7 +164,7 @@
             <button type="submit" class="btn bg-danger btn-app">
               <span class="fa fa-file-pdf-o"></span> PDF
             </button>
-            <a class="btn btn-app bg-danger" href="{{ route('legislation', 7) }}">
+            <a class="btn btn-app bg-danger" href="{{ route('MasterCompro.index') }}?type={{1}}">
               <i class="fas fa-times"></i> ยกเลิก
             </a>
           </div>

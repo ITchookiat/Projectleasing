@@ -347,18 +347,20 @@
 
                               <hr>
                               <div class="row">
-                                @if($data->Date_Payment != Null)
-                                  @if($data->Type_Payment != "เงินก้อนแรก(เงินสด)" and $data->Type_Payment != "เงินก้อนแรก(เงินโอน)")
-                                    <div class="col-6">
-                                      <div class="form-group row mb-0">
-                                        <label class="col-sm-4 col-form-label text-right"><font color="red">วันดิวงวดถัดไป : </font></label>
-                                        <div class="col-sm-8">
-                                          <input type="text" value="{{ DateThai($data->Date_Payment) }}" class="form-control form-control-sm" readonly/>
+                                @if($data->Status_Promise = NULL)
+                                  @if($data->Date_Payment != Null)
+                                    @if($data->Type_Payment != "เงินก้อนแรก(เงินสด)" and $data->Type_Payment != "เงินก้อนแรก(เงินโอน)")
+                                      <div class="col-6">
+                                        <div class="form-group row mb-0">
+                                          <label class="col-sm-4 col-form-label text-right"><font color="red">วันดิวงวดถัดไป : </font></label>
+                                          <div class="col-sm-8">
+                                            <input type="text" value="{{ DateThai($data->Date_Payment) }}" class="form-control form-control-sm" readonly/>
+                                          </div>
                                         </div>
                                       </div>
-                                    </div>
+                                    @endif
+                                    <input type="hidden" name="DatehidePayment" value="{{ $data->Date_Payment }}"/>
                                   @endif
-                                  <input type="hidden" name="DatehidePayment" value="{{ $data->Date_Payment }}"/>
                                 @endif
                                 <div class="col-6">
                                   @php
@@ -367,14 +369,16 @@
                                     $Datediff = date_diff($DateDue,$DateNew);
                                     // dump($DateDue,$DateNew,$Datediff);
                                   @endphp
-                                  @if($data->Type_Payment != "เงินก้อนแรก(เงินสด)" and $data->Type_Payment != "เงินก้อนแรก(เงินโอน)")
-                                    @if($DateDue < $DateNew)
-                                      <div class="form-group row mb-0">
-                                        <label class="col-sm-4 col-form-label text-right"><font color="red">ขาดชำระดิว/งวด : </font></label>
-                                        <div class="col-sm-8">
-                                          <input type="text" value="{{ $Datediff->m }}" class="form-control form-control-sm" readonly/>
+                                  @if($data->Status_Promise = NULL)
+                                    @if($data->Type_Payment != "เงินก้อนแรก(เงินสด)" and $data->Type_Payment != "เงินก้อนแรก(เงินโอน)")
+                                      @if($DateDue < $DateNew)
+                                        <div class="form-group row mb-0">
+                                          <label class="col-sm-4 col-form-label text-right"><font color="red">ขาดชำระดิว/งวด : </font></label>
+                                          <div class="col-sm-8">
+                                            <input type="text" value="{{ $Datediff->m }}" class="form-control form-control-sm" readonly/>
+                                          </div>
                                         </div>
-                                      </div>
+                                      @endif
                                     @endif
                                   @endif
                                 </div>
