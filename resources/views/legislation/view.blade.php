@@ -72,15 +72,14 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-lg-6 col-6">
+                  <div class="col-lg-4 col-4">
                     <div class="small-box bg-warning">
                       <div class="inner">
                         <h3>{{$data3 - $data4 - $data5}}</h3>
         
                         <p>ลูกหนี้ ชั้นศาล</p>
-                        <a href="#" class="btn btn-outline-danger btn-sm float-left"><i class="fas fa-file-excel pr-1"></i> Download</a>
                       </div>
-                      <div class="icon p-3">
+                      <div class="icon p-0">
                         <i class="fas fa-balance-scale"></i>
                       </div>
                       <a href="{{ route('MasterLegis.index') }}?type={{22}}" class="small-box-footer">
@@ -89,15 +88,14 @@
                     </div>
                   </div>
 
-                  <div class="col-lg-6 col-6">
+                  <div class="col-lg-4 col-4">
                     <div class="small-box bg-info">
                       <div class="inner">
                         <h3>{{$data4}}</h3>
         
                         <p>ลูกหนี้ ชั้นบังคับคดี</p>
-                        <a href="#" class="btn btn-outline-warning btn-sm float-left"><i class="fas fa-file-excel pr-1"></i> Download</a>
                       </div>
-                      <div class="icon p-3">
+                      <div class="icon p-0">
                         <i class="fas fa-gavel"></i>
                       </div>
                       <a href="{{ route('MasterLegis.index') }}?type={{23}}" class="small-box-footer">
@@ -105,20 +103,35 @@
                       </a>
                     </div>
                   </div>
-                </div>
-                <div class="row">
-                  <div class="col-lg-6 col-6">
+
+                  <div class="col-lg-4 col-4">
                     <div class="small-box bg-danger">
                       <div class="inner">
                         <h3>{{$data5}}</h3>
         
                         <p>ลูกหนี้ โกงเจ้าหนี้</p>
-                        <a href="#" class="btn btn-outline-warning btn-sm float-left"><i class="fas fa-file-excel pr-1"></i> Download</a>
                       </div>
-                      <div class="icon p-3">
+                      <div class="icon p-0">
                         <i class="fas fa-people-arrows"></i>
                       </div>
                       <a href="{{ route('MasterLegis.index') }}?type={{24}}" class="small-box-footer">
+                        เพิ่มเติม <i class="fas fa-arrow-circle-right"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6 col-6">
+                    <div class="small-box bg-olive">
+                      <div class="inner">
+                        <h3>{{$data7}}</h3>
+        
+                        <p>ลูกหนี้ ปิดจบงาน</p>
+                      </div>
+                      <div class="icon p-0">
+                        <i class="fas fa-user-check"></i>
+                      </div>
+                      <a href="{{ route('MasterLegis.index') }}?type={{25}}" class="small-box-footer">
                         เพิ่มเติม <i class="fas fa-arrow-circle-right"></i>
                       </a>
                     </div>
@@ -130,9 +143,8 @@
                         <h3>{{$data6}}</h3>
         
                         <p>ลูกหนี้สืบทรัพย์ (Debtor investigate)</p>
-                        <a href="#" class="btn btn-outline-warning btn-sm float-left"><i class="fas fa-file-excel pr-1"></i> Download</a>
                       </div>
-                      <div class="icon p-3">
+                      <div class="icon p-0">
                         <i class="fas fa-map-marked-alt"></i>
                       </div>
                       <a href="{{ route('MasterLegis.index') }}?type={{8}}" class="small-box-footer">
