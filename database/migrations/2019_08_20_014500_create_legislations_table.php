@@ -55,25 +55,26 @@ class CreateLegislationsTable extends Migration
             $table->string('Discount_legis')->nullable();     //ส่วนลด
             $table->string('DateUpState_legis')->nullable();  //วันที่ลงสถานะ
 
+            $table->string('Flag_Class')->nullable();           //สถานะลูกหนี้ตามชั้นต่างๆ
             $table->string('Flag_status')->nullable();
-            $table->string('Datesend_Flag')->nullable(); //วันที่ส่งงานให้ทีมทนาย
-            $table->string('Noteby_legis')->nullable(); //หมายเหตุจากทีมวิวิเคราะห์
-            $table->string('UserSend1_legis')->nullable(); //ชื่อ user ส่งฟ้อง
-            $table->string('UserSend2_legis')->nullable(); //ชื่อ user เตรียมฟ้อง
+            $table->string('Datesend_Flag')->nullable();        //วันที่ส่งงานให้ทีมทนาย
+            $table->string('Noteby_legis')->nullable();         //หมายเหตุจากทีมวิวิเคราะห์
+            $table->string('UserSend1_legis')->nullable();      //ชื่อ user ส่งฟ้อง
+            $table->string('UserSend2_legis')->nullable();      //ชื่อ user เตรียมฟ้อง
 
-            $table->string('Certificate_list')->nullable();
-            $table->string('Authorize_list')->nullable();
-            $table->string('Authorizecase_list')->nullable();
-            $table->string('Purchase_list')->nullable();
-            $table->string('Promise_list')->nullable();
-            $table->string('Titledeed_list')->nullable();
-            $table->string('Terminatebuyer_list')->nullable();
-            $table->string('Terminatesupport_list')->nullable();
-            $table->string('Acceptbuyerandsup_list')->nullable();
-            $table->string('Twodue_list')->nullable();
-            $table->string('AcceptTwodue_list')->nullable();
-            $table->string('Confirm_list')->nullable();
-            $table->string('Accept_list')->nullable();
+            // $table->string('Certificate_list')->nullable();
+            // $table->string('Authorize_list')->nullable();
+            // $table->string('Authorizecase_list')->nullable();
+            // $table->string('Purchase_list')->nullable();
+            // $table->string('Promise_list')->nullable();
+            // $table->string('Titledeed_list')->nullable();
+            $table->string('Terminatebuyer_list')->nullable();      //สัญญาบอกเลิกผู้ซื้อ
+            $table->string('Terminatesupport_list')->nullable();    //สัญญาบอกเลิกผู้ค้ำ
+            $table->string('Acceptbuyerandsup_list')->nullable();   //ใบตอบรับผู้ซื้อ - ผู้ค้ำ
+            $table->string('Twodue_list')->nullable();              //หนังสือ 2 งวด
+            $table->string('AcceptTwodue_list')->nullable();        //ใบตอบรับหนังสือ 2 งวด
+            $table->string('Confirm_list')->nullable();             //หนังสือยืนยันการบอกเลิก
+            $table->string('Accept_list')->nullable();              //ใบตอบรับ
             $table->timestamps();
         });
     }

@@ -15,6 +15,163 @@
   @endphp
 
   <style>
+    #todo-list{
+    width:100%;
+    /* margin:0 auto 50px auto; */
+    padding:5px;
+    background:white;
+    position:relative;
+    /*box-shadow*/
+    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
+          box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
+    /*border-radius*/
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+          border-radius:5px;}
+    #todo-list:before{
+    content:"";
+    position:absolute;
+    z-index:-1;
+    /*box-shadow*/
+    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.4);
+    -moz-box-shadow:0 0 20px rgba(0,0,0,0.4);
+          box-shadow:0 0 20px rgba(0,0,0,0.4);
+    top:50%;
+    bottom:0;
+    left:10px;
+    right:10px;
+    /*border-radius*/
+    -webkit-border-radius:100px / 10px;
+    -moz-border-radius:100px / 10px;
+          border-radius:100px / 10px;
+    }
+    .todo-wrap{
+    display:block;
+    position:relative;
+    padding-left:35px;
+    /*box-shadow*/
+    -webkit-box-shadow:0 2px 0 -1px #ebebeb;
+    -moz-box-shadow:0 2px 0 -1px #ebebeb;
+          box-shadow:0 2px 0 -1px #ebebeb;
+    }
+    .todo-wrap:last-of-type{
+    /*box-shadow*/
+    -webkit-box-shadow:none;
+    -moz-box-shadow:none;
+          box-shadow:none;
+    }
+    input[type="checkbox"]{
+    position:absolute;
+    height:0;
+    width:0;
+    opacity:0;
+    /* top:-600px; */
+    }
+    .todo{
+    display:inline-block;
+    font-weight:200;
+    padding:10px 5px;
+    height:37px;
+    position:relative;
+    }
+    .todo:before{
+    content:'';
+    display:block;
+    position:absolute;
+    top:calc(50% + 10px);
+    left:0;
+    width:0%;
+    height:1px;
+    background:#cd4400;
+    /*transition*/
+    -webkit-transition:.25s ease-in-out;
+    -moz-transition:.25s ease-in-out;
+      -o-transition:.25s ease-in-out;
+          transition:.25s ease-in-out;
+    }
+    .todo:after{
+    content:'';
+    display:block;
+    position:absolute;
+    z-index:0;
+    height:18px;
+    width:18px;
+    top:9px;
+    left:-25px;
+    /*box-shadow*/
+    -webkit-box-shadow:inset 0 0 0 2px #d8d8d8;
+    -moz-box-shadow:inset 0 0 0 2px #d8d8d8;
+          box-shadow:inset 0 0 0 2px #d8d8d8;
+    /*transition*/
+    -webkit-transition:.25s ease-in-out;
+    -moz-transition:.25s ease-in-out;
+      -o-transition:.25s ease-in-out;
+          transition:.25s ease-in-out;
+    /*border-radius*/
+    -webkit-border-radius:4px;
+    -moz-border-radius:4px;
+          border-radius:4px;
+    }
+    .todo:hover:after{
+    /*box-shadow*/
+    -webkit-box-shadow:inset 0 0 0 2px #949494;
+    -moz-box-shadow:inset 0 0 0 2px #949494;
+          box-shadow:inset 0 0 0 2px #949494;
+    }
+    .todo .fa-check{
+    position:absolute;
+    z-index:1;
+    left:-31px;
+    top:0;
+    font-size:1px;
+    line-height:36px;
+    width:36px;
+    height:36px;
+    text-align:center;
+    color:transparent;
+    text-shadow:1px 1px 0 white, -1px -1px 0 white;
+    }
+    :checked + .todo{
+    color:#717171;
+    }
+    :checked + .todo:before{
+    width:100%;
+    }
+    :checked + .todo:after{
+    /*box-shadow*/
+    -webkit-box-shadow:inset 0 0 0 2px #0eb0b7;
+    -moz-box-shadow:inset 0 0 0 2px #0eb0b7;
+          box-shadow:inset 0 0 0 2px #0eb0b7;
+    }
+    :checked + .todo .fa-check{
+    font-size:20px;
+    line-height:35px;
+    color:#0eb0b7;
+    }
+    /* Delete Items */
+
+    .delete-item{
+    display:block;
+    position:absolute;
+    height:36px;
+    width:36px;
+    line-height:36px;
+    right:0;
+    top:0;
+    text-align:center;
+    color:#d8d8d8;
+    opacity:0;
+    }
+    .todo-wrap:hover .delete-item{
+    opacity:1;
+    }
+    .delete-item:hover{
+    color:#cd4400;
+    }
+  </style>
+
+  <style>
     input[type="checkbox"] { position: absolute; opacity: 0; z-index: -1; }
     input[type="checkbox"]+span { font: 14pt sans-serif; color: #000; }
     input[type="checkbox"]+span:before { font: 14pt FontAwesome; content: '\00f096'; display: inline-block; width: 14pt; padding: 2px 0 0 3px; margin-right: 0.5em; }
@@ -33,9 +190,11 @@
 
       <section class="content">
         <div class="card">
-          <form name="form1" method="post" action="{{ action('LegislationController@update',[$id,$type]) }}" enctype="multipart/form-data">
+          <form name="form1" method="post" action="{{ route('MasterLegis.update',[$id]) }}" enctype="multipart/form-data">
             @csrf
             @method('put')
+            <input type="hidden" name="type" value="7"/>
+
               <div class="card-header">
                 <div class="row mb-1">
                   <div class="col-6">
@@ -49,7 +208,7 @@
                       <button type="submit" class="btn btn-success btn-sm">
                         <i class="fas fa-save"></i> Save
                       </button>
-                      <a class="btn btn-danger btn-sm" href="{{ route('legislation',2) }}">
+                      <a class="btn btn-danger btn-sm" href="{{ route('MasterLegis.index') }}?type={{20}}">
                         <i class="far fa-window-close"></i> Close
                       </a>
                     </div>
@@ -62,25 +221,25 @@
                         <div class="col-sm-6">
                           <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
                             <li class="nav-item">
-                              <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 2]) }}">ข้อมูลลูกหนี้</a>
+                              <a class="nav-link" href="{{ route('MasterLegis.edit',[$id]) }}?type={{2}}">ข้อมูลลูกหนี้</a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 3]) }}">ชั้นศาล</a>
+                              <a class="nav-link" href="{{ route('MasterLegis.edit',[$id]) }}?type={{3}}">ชั้นศาล</a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link active" href="{{ action('LegislationController@edit',[$id, 7]) }}">ชั้นบังคับคดี</a>
+                              <a class="nav-link active" href="{{ route('MasterLegis.edit',[$id]) }}?type={{7}}">ชั้นบังคับคดี</a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 13]) }}">โกงเจ้าหนี้</a>
+                              <a class="nav-link" href="{{ route('MasterLegis.edit',[$id]) }}?type={{13}}">โกงเจ้าหนี้</a>
                             </li>
                           </ul>
                         </div>
                         <div class="col-sm-6">
                           <div class="float-right form-inline">
                             <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
-                              <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 8]) }}">สืบทรัพย์</a>
+                              <a class="nav-link" href="{{ route('MasterLegis.edit',[$id]) }}?type={{8}}">สืบทรัพย์</a>
                               <a class="nav-link" href="{{ route('MasterCompro.edit',[$id]) }}?type={{2}}">ประนอมหนี้</a>
-                              <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 11]) }}">รูปและแผนที่</a>
+                              <a class="nav-link" href="{{ route('MasterLegis.edit',[$id]) }}?type={{11}}">รูปและแผนที่</a>
                             </ul>
                           </div>
                         </div>
@@ -135,23 +294,57 @@
                         <div class="tab-content" id="custom-tabs-one-tabContent">
                           <div class="tab-pane fade active show" id="tabs-1" role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
                             <div class="row">
-                              <div class="col-md-6">
-                                วันที่คัดฉโหนด
-                                <input type="date" id="datepreparedoc" name="datepreparedoc" class="form-control form-control-sm" value="{{$data->datepreparedoc_case}}" onchange="CourtcaseDate();" />
-                                <br>
-                                <label>
-                                  <input type="checkbox" name="Flagcase" value="Y" {{ ($data->Flag_case === 'Y') ? 'checked' : '' }}/>
-                                  <span><font color="red">โกงเจ้าหนี้</font></span>
-                                </label>
+                              <div class="col-md-7">
+                                <div class="row">
+                                  วันที่คัดฉโหนด
+                                  <input type="date" id="datepreparedoc" name="datepreparedoc" class="form-control form-control-sm" value="{{$data->datepreparedoc_case}}" onchange="CourtcaseDate();" />
+                                  หมายเหตุ
+                                  <textarea name="noteprepare" class="form-control form-control-sm" rows="3">{{$data->noteprepare_case}}</textarea>
+                                </div>
                               </div>
-                              <div class="col-md-6">
-                                หมายเหตุ
-                                <textarea name="noteprepare" class="form-control form-control-sm" rows="3">{{$data->noteprepare_case}}</textarea>
+
+                              <div class="col-md-5">
+                                <div class="card card-danger">
+                                  <div class="card-header">
+                                    <h3 class="card-title"><i class="fas fa-tasks"></i> สถานะ</h3>
+                                  </div>
+                                  <div class="card-body">
+                                    <div class="col-md-12">
+                                      <div class="" id="todo-list">
+                                        <span class="todo-wrap">
+                                          <input type="checkbox" id="12" name="FlagClass" value="สถานะส่งยึดทรัพย์" {{ ($data->Flag_Class === 'สถานะส่งยึดทรัพย์') ? 'checked' : '' }}/>
+                                          <label for="12" class="todo">
+                                            <i class="fa fa-check"></i>
+                                            Prosecute (สถานะส่งยึดทรัพย์)
+                                          </label>
+                                        </span>
+                                        <span class="todo-wrap">
+                                          <input type="checkbox" id="13" name="Flagcase" value="Y" {{ ($data->Flag_case === 'Y') ? 'checked' : '' }}/>
+                                          <label for="13" class="todo">
+                                            <i class="fa fa-check"></i>
+                                            โกงเจ้าหนี้
+                                          </label>
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
                           <div class="tab-pane fade" id="tabs-2" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
                             <div class="row">
+                              {{-- <div class="col-md-6">
+                                <div class="" id="todo-list">
+                                  <span class="todo-wrap">
+                                    <input type="checkbox" id="14" name="FlagClass" value="สถานะยึดทรัพย์" {{ ($data->Flag_Class === 'สถานะยึดทรัพย์') ? 'checked' : '' }}/>
+                                    <label for="14" class="todo">
+                                      <i class="fa fa-check"></i>
+                                      Prosecute 
+                                    </label>
+                                  </span>
+                                </div>
+                              </div> --}}
                               <div class="col-md-6">
                                 วันที่ตั้งเรื่องยึดทรัพย์แรกเริ่ม
                                 <input type="date" id="DatesetSequester" name="DatesetSequester" class="form-control form-control-sm" value="{{ $data->datesetsequester_case }}" />
@@ -457,14 +650,17 @@
                                     </td>
                                     <td class="text-left">{{DateThai(substr($row->created_at,0,10))}}</td>
                                     <td class="text-right">
-                                        <a target="_blank" href="{{ action('LegislationController@edit',[$data->id,$type]) }}?preview={{2}}&file_id={{$row->image_id}}" class="btn btn-warning btn-xs" title="ดูไฟล์">
+                                        <a target="_blank" href="{{ route('MasterLegis.edit',[$data->id]) }}?type={{$type}}&preview={{2}}&file_id={{$row->image_id}}" class="btn btn-warning btn-xs" title="ดูไฟล์">
                                           <i class="far fa-eye"></i>
                                         </a>
                                       @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก กฎหมาย")
-                                        <form method="post" class="delete_form" action="{{ action('LegislationController@destroy',[$data->id ,5]) }}?file_id={{$row->image_id}}" style="display:inline;">
+                                        <form method="post" class="delete_form" action="{{ route('MasterLegis.destroy',$data->id) }}" style="display:inline;">
                                         {{csrf_field()}}
+                                          <input type="hidden" name="type" value="5" />
+                                          <input type="hidden" name="file_id" value="{{$row->image_id}}" />
+                                          <input type="hidden" name="contract" value="{{ $data->Contract_legis }}"> 
+
                                           <input type="hidden" name="_method" value="DELETE" />
-                                          <input type="hidden" name="contract" value="{{ $data->Contract_legis }}">    
                                           <button type="submit" data-name="{{$row->name_image}}" class="delete-modal btn btn-danger btn-xs AlertForm" title="ลบไฟล์">
                                             <i class="far fa-trash-alt"></i>
                                           </button>
@@ -482,7 +678,6 @@
                   </div>
                 </div>
               </div>
-
               <!-- <input type="hidden" name="_method" value="PATCH"/>
             </form> -->
           </div>
@@ -494,8 +689,11 @@
   <div class="modal fade" id="modal-printinfo">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
-        <form name="form2" method="post" action="{{ route('legislation.store',[$id, 2]) }}" target="_blank" id="formimage" enctype="multipart/form-data">
+        <form name="form2" method="post" action="{{ route('MasterLegis.store') }}" target="_blank" id="formimage" enctype="multipart/form-data">
           @csrf
+          <input type="hidden" name="id" value="{{$id}}"/>
+          <input type="hidden" name="type" value="2"/>
+          
           <div class="card card-warning">
             <div class="card-header">
               <h4 class="card-title">ป้อนข้อมูลปิดบัญชี</h4>

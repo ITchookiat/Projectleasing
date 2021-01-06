@@ -13,26 +13,25 @@
   <style>
     #todo-list{
     width:100%;
-    margin:0 auto 50px auto;
+    /* margin:0 auto 50px auto; */
     padding:5px;
     background:white;
     position:relative;
     /*box-shadow*/
     -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
-     -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
           box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
     /*border-radius*/
     -webkit-border-radius:5px;
-     -moz-border-radius:5px;
-          border-radius:5px;
-    }
+    -moz-border-radius:5px;
+          border-radius:5px;}
     #todo-list:before{
     content:"";
     position:absolute;
     z-index:-1;
     /*box-shadow*/
     -webkit-box-shadow:0 0 20px rgba(0,0,0,0.4);
-     -moz-box-shadow:0 0 20px rgba(0,0,0,0.4);
+    -moz-box-shadow:0 0 20px rgba(0,0,0,0.4);
           box-shadow:0 0 20px rgba(0,0,0,0.4);
     top:50%;
     bottom:0;
@@ -40,7 +39,7 @@
     right:10px;
     /*border-radius*/
     -webkit-border-radius:100px / 10px;
-     -moz-border-radius:100px / 10px;
+    -moz-border-radius:100px / 10px;
           border-radius:100px / 10px;
     }
     .todo-wrap{
@@ -49,13 +48,13 @@
     padding-left:35px;
     /*box-shadow*/
     -webkit-box-shadow:0 2px 0 -1px #ebebeb;
-     -moz-box-shadow:0 2px 0 -1px #ebebeb;
+    -moz-box-shadow:0 2px 0 -1px #ebebeb;
           box-shadow:0 2px 0 -1px #ebebeb;
     }
     .todo-wrap:last-of-type{
     /*box-shadow*/
     -webkit-box-shadow:none;
-     -moz-box-shadow:none;
+    -moz-box-shadow:none;
           box-shadow:none;
     }
     input[type="checkbox"]{
@@ -76,15 +75,15 @@
     content:'';
     display:block;
     position:absolute;
-    top:calc(50% + 2px);
+    top:calc(50% + 10px);
     left:0;
     width:0%;
     height:1px;
     background:#cd4400;
     /*transition*/
     -webkit-transition:.25s ease-in-out;
-     -moz-transition:.25s ease-in-out;
-       -o-transition:.25s ease-in-out;
+    -moz-transition:.25s ease-in-out;
+      -o-transition:.25s ease-in-out;
           transition:.25s ease-in-out;
     }
     .todo:after{
@@ -98,22 +97,22 @@
     left:-25px;
     /*box-shadow*/
     -webkit-box-shadow:inset 0 0 0 2px #d8d8d8;
-     -moz-box-shadow:inset 0 0 0 2px #d8d8d8;
+    -moz-box-shadow:inset 0 0 0 2px #d8d8d8;
           box-shadow:inset 0 0 0 2px #d8d8d8;
     /*transition*/
     -webkit-transition:.25s ease-in-out;
-     -moz-transition:.25s ease-in-out;
-       -o-transition:.25s ease-in-out;
+    -moz-transition:.25s ease-in-out;
+      -o-transition:.25s ease-in-out;
           transition:.25s ease-in-out;
     /*border-radius*/
     -webkit-border-radius:4px;
-     -moz-border-radius:4px;
+    -moz-border-radius:4px;
           border-radius:4px;
     }
     .todo:hover:after{
     /*box-shadow*/
     -webkit-box-shadow:inset 0 0 0 2px #949494;
-     -moz-box-shadow:inset 0 0 0 2px #949494;
+    -moz-box-shadow:inset 0 0 0 2px #949494;
           box-shadow:inset 0 0 0 2px #949494;
     }
     .todo .fa-check{
@@ -138,7 +137,7 @@
     :checked + .todo:after{
     /*box-shadow*/
     -webkit-box-shadow:inset 0 0 0 2px #0eb0b7;
-     -moz-box-shadow:inset 0 0 0 2px #0eb0b7;
+    -moz-box-shadow:inset 0 0 0 2px #0eb0b7;
           box-shadow:inset 0 0 0 2px #0eb0b7;
     }
     :checked + .todo .fa-check{
@@ -146,8 +145,28 @@
     line-height:35px;
     color:#0eb0b7;
     }
-  </style>
+    /* Delete Items */
 
+    .delete-item{
+    display:block;
+    position:absolute;
+    height:36px;
+    width:36px;
+    line-height:36px;
+    right:0;
+    top:0;
+    text-align:center;
+    color:#d8d8d8;
+    opacity:0;
+    }
+    .todo-wrap:hover .delete-item{
+    opacity:1;
+    }
+    .delete-item:hover{
+    color:#cd4400;
+    }
+  </style>
+  
   <style>
     [type="radio"]:checked,
     [type="radio"]:not(:checked) {
@@ -212,9 +231,11 @@
 
       <section class="content">
         <div class="card">
-          <form name="form1" method="post" action="{{ action('LegislationController@update',[$id,$type]) }}" enctype="multipart/form-data">
+          <form name="form1" method="post" action="{{ route('MasterLegis.update',[$id]) }}" enctype="multipart/form-data">
             @csrf
             @method('put')
+            <input type="hidden" name="type" value="3"/>
+
               <div class="card-header">
                 <div class="row mb-1">
                   <div class="col-6">
@@ -228,7 +249,7 @@
                       <button type="submit" class="btn btn-success btn-sm">
                         <i class="fas fa-save"></i> Save
                       </button>
-                      <a class="btn btn-danger btn-sm" href="{{ route('legislation',2) }}">
+                      <a class="btn btn-danger btn-sm" href="{{ route('MasterLegis.index') }}?type={{20}}">
                         <i class="far fa-window-close"></i> Close
                       </a>
                     </div>
@@ -241,25 +262,25 @@
                         <div class="col-sm-6">
                           <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
                             <li class="nav-item">
-                              <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 2]) }}">ข้อมูลลูกหนี้</a>
+                              <a class="nav-link" href="{{ route('MasterLegis.edit',[$id]) }}?type={{2}}">ข้อมูลลูกหนี้</a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link active" href="{{ action('LegislationController@edit',[$id, 3]) }}">ชั้นศาล</a>
+                              <a class="nav-link active" href="{{ route('MasterLegis.edit',[$id]) }}?type={{3}}">ชั้นศาล</a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 7]) }}">ชั้นบังคับคดี</a>
+                              <a class="nav-link" href="{{ route('MasterLegis.edit',[$id]) }}?type={{7}}">ชั้นบังคับคดี</a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 13]) }}">โกงเจ้าหนี้</a>
+                              <a class="nav-link" href="{{ route('MasterLegis.edit',[$id]) }}?type={{13}}">โกงเจ้าหนี้</a>
                             </li>
                           </ul>
                         </div>
                         <div class="col-sm-6">
                           <div class="float-right form-inline">
                             <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
-                              <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 8]) }}">สืบทรัพย์</a>
+                              <a class="nav-link" href="{{ route('MasterLegis.edit',[$id]) }}?type={{8}}">สืบทรัพย์</a>
                               <a class="nav-link" href="{{ route('MasterCompro.edit',[$id]) }}?type={{2}}">ประนอมหนี้</a>
-                              <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 11]) }}">รูปและแผนที่</a>
+                              <a class="nav-link" href="{{ route('MasterLegis.edit',[$id]) }}?type={{11}}">รูปและแผนที่</a>
                             </ul>
                           </div>
                         </div>
@@ -636,180 +657,321 @@
                         <div class="tab-content" id="custom-tabs-one-tabContent">
                           <div class="tab-pane fade active show" id="tabs-1" role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
                             <div class="row">
-                              <div class="col-md-3">
-                                วันที่ฟ้อง
-                                <input type="date" id="fillingdatecourt" name="fillingdatecourt" class="form-control form-control-sm" value="{{ ($data->fillingdate_court) }}" required/>
+                              <div class="col-md-9">
+                                <div class="row">
+                                  <div class="col-md-3">
+                                    วันที่ฟ้อง
+                                    <input type="date" id="fillingdatecourt" name="fillingdatecourt" class="form-control form-control-sm" value="{{ ($data->fillingdate_court) }}" required/>
+                                  </div>
+                                  <div class="col-md-3">
+                                    ศาล
+                                    <select name="lawcourt" class="form-control form-control-sm">
+                                      <option value="" selected>--- ศาล ---</option>
+                                      <option value="ศาลปัตตานี" {{ ($data->law_court === 'ศาลปัตตานี') ? 'selected' : '' }}>ศาลปัตตานี</option>
+                                      <option value="ศาลยะลา" {{ ($data->law_court === 'ศาลยะลา') ? 'selected' : '' }}>ศาลยะลา</option>
+                                      <option value="ศาลนราธิวาส" {{ ($data->law_court === 'ศาลนราธิวาส') ? 'selected' : '' }}>ศาลนราธิวาส</option>
+                                      <option value="ศาลเบตง" {{ ($data->law_court === 'ศาลเบตง') ? 'selected' : '' }}>ศาลเบตง</option>
+                                      <option value="ศาลนาทวี" {{ ($data->law_court === 'ศาลนาทวี') ? 'selected' : '' }}>ศาลนาทวี</option>
+                                    </select>
+                                  </div>
+                                  <div class="col-md-3">
+                                    เลขคดีดำ
+                                    <input type="text" name="bnumbercourt" class="form-control form-control-sm" value="{{ ($data->bnumber_court) }}" />
+                                  </div>
+                                  <div class="col-md-3">
+                                    เลขคดีแดง
+                                    <input type="text" name="rnumbercourt" class="form-control form-control-sm" value="{{ ($data->rnumber_court) }}"  />
+                                  </div>
+                                  <div class="col-md-3">
+                                    ทุนทรัพย์
+                                    <input type="text" id="capitalcourt" name="capitalcourt" class="form-control form-control-sm" value="{{ number_format($data->capital_court, 2) }}" oninput="CalculateCap();"/>
+                                  </div>
+                                  <div class="col-md-3">
+                                    ค่าฟ้อง
+                                    <input type="text" id="indictmentcourt" name="indictmentcourt" class="form-control form-control-sm" value="{{ number_format($data->indictment_court, 2) }}" oninput="CalculateCap();"/>
+                                  </div>
+                                  <div class="col-md-3">
+                                    ค่าทนาย
+                                    <input type="text" id="pricelawyercourt" name="pricelawyercourt" class="form-control form-control-sm" value="{{ number_format($data->pricelawyer_court, 2) }}" readonly/>
+                                  </div>
+                                </div>
                               </div>
+
                               <div class="col-md-3">
-                                ศาล
-                                <select name="lawcourt" class="form-control form-control-sm">
-                                  <option value="" selected>--- ศาล ---</option>
-                                  <option value="ศาลปัตตานี" {{ ($data->law_court === 'ศาลปัตตานี') ? 'selected' : '' }}>ศาลปัตตานี</option>
-                                  <option value="ศาลยะลา" {{ ($data->law_court === 'ศาลยะลา') ? 'selected' : '' }}>ศาลยะลา</option>
-                                  <option value="ศาลนราธิวาส" {{ ($data->law_court === 'ศาลนราธิวาส') ? 'selected' : '' }}>ศาลนราธิวาส</option>
-                                  <option value="ศาลเบตง" {{ ($data->law_court === 'ศาลเบตง') ? 'selected' : '' }}>ศาลเบตง</option>
-                                  <option value="ศาลนาทวี" {{ ($data->law_court === 'ศาลนาทวี') ? 'selected' : '' }}>ศาลนาทวี</option>
-                                </select>
-                              </div>
-                              <div class="col-md-3">
-                                เลขคดีดำ
-                                <input type="text" name="bnumbercourt" class="form-control form-control-sm" value="{{ ($data->bnumber_court) }}" />
-                              </div>
-                              <div class="col-md-3">
-                                เลขคดีแดง
-                                <input type="text" name="rnumbercourt" class="form-control form-control-sm" value="{{ ($data->rnumber_court) }}"  />
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col-md-3">
-                                ทุนทรัพย์
-                                <input type="text" id="capitalcourt" name="capitalcourt" class="form-control form-control-sm" value="{{ number_format($data->capital_court, 2) }}" oninput="CalculateCap();"/>
-                              </div>
-                              <div class="col-md-3">
-                                ค่าฟ้อง
-                                <input type="text" id="indictmentcourt" name="indictmentcourt" class="form-control form-control-sm" value="{{ number_format($data->indictment_court, 2) }}" oninput="CalculateCap();"/>
-                              </div>
-                              <div class="col-md-3">
-                                ค่าทนาย
-                                <input type="text" id="pricelawyercourt" name="pricelawyercourt" class="form-control form-control-sm" value="{{ number_format($data->pricelawyer_court, 2) }}" readonly/>
+                                <div class="card card-danger">
+                                  <div class="card-header">
+                                    <h3 class="card-title"><i class="fas fa-tasks"></i> สถานะ</h3>
+                                  </div>
+                                  <div class="card-body">
+                                    <div class="col-md-12">
+                                      <div class="" id="todo-list">
+                                        <span class="todo-wrap">
+                                          <input type="checkbox" id="11" name="FlagClass" value="สถานะส่งสืบพยาน" {{ ($data->Flag_Class === 'สถานะส่งสืบพยาน') ? 'checked' : '' }}/>
+                                          <label for="11" class="todo">
+                                            <i class="fa fa-check"></i>
+                                            Prosecute (ส่งสืบพยาน)
+                                          </label>
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
                           <div class="tab-pane fade" id="tabs-2" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
                             <div class="row">
-                              <div class="col-md-6">
-                                วันที่สืบพยาน
-                                <input type="date" id="examidaycourt" name="examidaycourt" class="form-control form-control-sm" value="{{ ($data->examiday_court) }}" oninput="CourtDate();" />
+                              <div class="col-md-9">
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    วันที่สืบพยาน
+                                    <input type="date" id="examidaycourt" name="examidaycourt" class="form-control form-control-sm" value="{{ ($data->examiday_court) }}" oninput="CourtDate();" />
+                                  </div>
+                                  <div class="col-md-6">
+                                    วันที่เลือน
+                                    <input type="date" id="fuzzycourt" name="fuzzycourt" class="form-control form-control-sm" value="{{ ($data->fuzzy_court) }}" oninput="CourtDate();" />
+                                  </div>
+                                  <div class="col-md-12">
+                                    หมายเหตุ
+                                    <textarea name="examinotecourt" class="form-control form-control-sm" rows="5">{{ ($data->examinote_court) }}</textarea>
+                                  </div>
+                                </div>
                               </div>
-                              <div class="col-md-6">
-                                วันที่เลือน
-                                <input type="date" id="fuzzycourt" name="fuzzycourt" class="form-control form-control-sm" value="{{ ($data->fuzzy_court) }}" oninput="CourtDate();" />
+
+                              <div class="col-md-3">
+                                <div class="card card-danger">
+                                  <div class="card-header">
+                                    <h3 class="card-title"><i class="fas fa-tasks"></i> สถานะ</h3>
+                                  </div>
+                                  <div class="card-body">
+                                    <div class="col-md-12">
+                                      <div class="" id="todo-list">
+                                        <span class="todo-wrap">
+                                          <input type="checkbox" id="12" name="FlagClass" value="สถานะส่งคำบังคับ" {{ ($data->Flag_Class === 'สถานะส่งคำบังคับ') ? 'checked' : '' }}/>
+                                          <label for="12" class="todo">
+                                            <i class="fa fa-check"></i>
+                                            Prosecute (ส่งคำบังคับ)
+                                          </label>
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
                             </div>
-                            หมายเหตุ
-                            <textarea name="examinotecourt" class="form-control form-control-sm" rows="5">{{ ($data->examinote_court) }}</textarea>
                           </div>
                           <div class="tab-pane fade" id="tabs-3" role="tabpanel" aria-labelledby="custom-tabs-one-messages-tab">
                             <div class="row">
-                              <div class="col-md-6">
-                                วันที่ดึงจากระบบ
-                                <input type="date" id="orderdaycourt" name="orderdaycourt" class="form-control form-control-sm" value="{{ ($data->orderday_court) }}" readonly/>
+                              <div class="col-md-9">
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    วันที่ดึงจากระบบ
+                                    <input type="date" id="orderdaycourt" name="orderdaycourt" class="form-control form-control-sm" value="{{ ($data->orderday_court) }}" readonly/>
+                                  </div>
+                                  <div class="col-md-6">
+                                    วันที่ส่งจริง
+                                    <input type="date" id="ordersendcourt" name="ordersendcourt" class="form-control form-control-sm" value="{{ ($data->ordersend_court) }}" oninput="CourtDate();" />
+                                  </div>
+                                </div>
                               </div>
-                              <div class="col-md-6">
-                                วันที่ส่งจริง
-                                <input type="date" id="ordersendcourt" name="ordersendcourt" class="form-control form-control-sm" value="{{ ($data->ordersend_court) }}" oninput="CourtDate();" />
+
+                              <div class="col-md-3">
+                                <div class="card card-danger">
+                                  <div class="card-header">
+                                    <h3 class="card-title"><i class="fas fa-tasks"></i> สถานะ</h3>
+                                  </div>
+                                  <div class="card-body">
+                                    <div class="col-md-12">
+                                      <div class="" id="todo-list">
+                                        <span class="todo-wrap">
+                                          <input type="checkbox" id="13" name="FlagClass" value="สถานะส่งตรวจผลหมาย" {{ ($data->Flag_Class === 'สถานะส่งตรวจผลหมาย') ? 'checked' : '' }}/>
+                                          <label for="13" class="todo">
+                                            <i class="fa fa-check"></i>
+                                            Prosecute (ส่งตรวจผลหมาย)
+                                          </label>
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
                           <div class="tab-pane fade" id="tabs-4" role="tabpanel" aria-labelledby="custom-tabs-one-settings-tab">
                             <div class="row">
-                              <div class="col-md-3">
-                                วันที่ตรวจผลหมาย
-                                <input type="date" id="checkdaycourt" name="checkdaycourt" class="form-control form-control-sm" value="{{ ($data->checkday_court) }}" oninput="CourtDate2();" readonly/>
-                              </div>
-                              <div class="col-md-3">
-                                วันทีผู้เช่าซื้อได้รับ
-                                <input type="date" id="buyercourt" name="buyercourt" class="form-control form-control-sm" value="{{ ($data->buyer_court) }}" oninput="CheckMessege();"/>
-                              </div>
-                              <div class="col-md-3">
-                                วันทีผู้ค้ำได้รับ
-                                <input type="date" id="supportcourt" name="supportcourt" class="form-control form-control-sm" value="{{ ($data->support_court) }}" oninput="CheckMessege();"/>
-                              </div>
-                              <div class="col-md-3">
-                                วันที่ตรวจผลหมายจริง
-                                <input type="date" id="checksendcourt" name="checksendcourt" class="form-control form-control-sm" value="{{ ($data->checksend_court) }}" onchange="CourtDate2();" />
-                              </div>
-                            </div>
-
-                            <div class="row">
                               <div class="col-md-9">
-                                หมายเหตุ
-                                <textarea name="notecourt" class="form-control form-control-sm" value="" rows="4" >{{ ($data->note_court) }}</textarea>
+                                <div class="row">
+                                  <div class="col-md-3">
+                                    วันที่ตรวจผลหมาย
+                                    <input type="date" id="checkdaycourt" name="checkdaycourt" class="form-control form-control-sm" value="{{ ($data->checkday_court) }}" oninput="CourtDate2();" readonly/>
+                                  </div>
+                                  <div class="col-md-3">
+                                    วันทีผู้เช่าซื้อได้รับ
+                                    <input type="date" id="buyercourt" name="buyercourt" class="form-control form-control-sm" value="{{ ($data->buyer_court) }}" oninput="CheckMessege();"/>
+                                  </div>
+                                  <div class="col-md-3">
+                                    วันทีผู้ค้ำได้รับ
+                                    <input type="date" id="supportcourt" name="supportcourt" class="form-control form-control-sm" value="{{ ($data->support_court) }}" oninput="CheckMessege();"/>
+                                  </div>
+                                  <div class="col-md-3">
+                                    วันที่ตรวจผลหมายจริง
+                                    <input type="date" id="checksendcourt" name="checksendcourt" class="form-control form-control-sm" value="{{ ($data->checksend_court) }}" onchange="CourtDate2();" />
+                                  </div>
+                                  <div class="col-md-12">
+                                    หมายเหตุ
+                                    <textarea name="notecourt" class="form-control form-control-sm" value="" rows="6" >{{ ($data->note_court) }}</textarea>
+                                  </div>
+                                </div>
                               </div>
-                              <div class="col-md-3">
-                                <p></p>
-                                <span class="todo-wrap">
-                                  @if($data->social_flag == "infomation")
-                                    <input type="checkbox" id="1" name="socialflag" value="{{ $data->social_flag }}" checked="checked"/>
-                                  @else
-                                    <input type="checkbox" id="1" name="socialflag" value="infomation" onclick="CourtDate2()"/>
-                                  @endif
-                                  <label for="1" class="todo">
-                                    <i class="fa fa-check"></i>
-                                    ประกาศสื่ออิเล็กทรอนิกส์
-                                  </label>
-                                </span>
 
-                                <span class="todo-wrap">
-                                  @if($data->social_flag == "success")
-                                    <input type="checkbox" id="4" name="socialflag" value="{{ $data->social_flag }}" checked="checked"/>
-                                  @else
-                                    <input type="checkbox" id="4" name="socialflag" value="success" onclick="CourtDate2()"/>
-                                  @endif
-                                  <label for="4" class="todo">
-                                    <i class="fa fa-check"></i>
-                                    ได้รับผลหมายทั้งคู่
-                                  </label>
-                                </span>
+                              <div class="col-md-3">
+                                <div class="card card-danger">
+                                  <div class="card-header">
+                                    <h3 class="card-title"><i class="fas fa-tasks"></i> สถานะ</h3>
+                                  </div>
+                                  <div class="card-body">
+                                    <div class="col-md-12">
+                                      <div class="" id="todo-list">
+                                        <span class="todo-wrap">
+                                          @if($data->social_flag == "infomation")
+                                            <input type="checkbox" id="1" name="socialflag" value="{{ $data->social_flag }}" checked="checked"/>
+                                          @else
+                                            <input type="checkbox" id="1" name="socialflag" value="infomation" onclick="CourtDate2()"/>
+                                          @endif
+                                          <label for="1" class="todo">
+                                            <i class="fa fa-check"></i>
+                                            ประกาศสื่ออิเล็กทรอนิกส์
+                                          </label>
+                                        </span>
+        
+                                        <span class="todo-wrap">
+                                          @if($data->social_flag == "success")
+                                            <input type="checkbox" id="4" name="socialflag" value="{{ $data->social_flag }}" checked="checked"/>
+                                          @else
+                                            <input type="checkbox" id="4" name="socialflag" value="success" onclick="CourtDate2()"/>
+                                          @endif
+                                          <label for="4" class="todo">
+                                            <i class="fa fa-check"></i>
+                                            ได้รับผลหมายทั้งคู่
+                                          </label>
+                                        </span>
+
+                                        <span class="todo-wrap">
+                                          <input type="checkbox" id="14" name="FlagClass" value="สถานะส่งตั้งเจ้าพนักงาน" {{ ($data->Flag_Class === 'สถานะส่งตั้งเจ้าพนักงาน') ? 'checked' : '' }}/>
+                                          <label for="14" class="todo">
+                                            <i class="fa fa-check"></i>
+                                            Prosecute (ส่งตั้งเจ้าพนักงาน)
+                                          </label>
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
                           <div class="tab-pane fade" id="tabs-5" role="tabpanel" aria-labelledby="custom-tabs-one-settings-tab">
                             <div class="row">
-                              <div class="col-md-6">
-                                วันทีตั้งเจ้าพนักงาน
-                                <input type="date" id="setofficecourt" name="setofficecourt" class="form-control form-control-sm" value="{{ $data->setoffice_court }}" readonly/>
+                              <div class="col-md-9">
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    วันทีตั้งเจ้าพนักงาน
+                                    <input type="date" id="setofficecourt" name="setofficecourt" class="form-control form-control-sm" value="{{ $data->setoffice_court }}" readonly/>
+                                  </div>
+                                  <div class="col-md-6">
+                                    วันที่ส่งจริง
+                                    <input type="date" id="sendofficecourt" name="sendofficecourt" class="form-control form-control-sm" value="{{ $data->sendoffice_court }}" oninput="CheckMessege();CourtDate2();"/>
+                                  </div>
+                                </div>
                               </div>
-                              <div class="col-md-6">
-                                วันที่ส่งจริง
-                                <input type="date" id="sendofficecourt" name="sendofficecourt" class="form-control form-control-sm" value="{{ $data->sendoffice_court }}" oninput="CheckMessege();CourtDate2();"/>
+
+                              <div class="col-md-3">
+                                <div class="card card-danger">
+                                  <div class="card-header">
+                                    <h3 class="card-title"><i class="fas fa-tasks"></i> สถานะ</h3>
+                                  </div>
+                                  <div class="card-body">
+                                    <div class="col-md-12">
+                                      <div class="" id="todo-list">
+                                        <span class="todo-wrap">
+                                          <input type="checkbox" id="15" name="FlagClass" value="สถานะส่งตรวจผลหมายตั้ง" {{ ($data->Flag_Class === 'สถานะส่งตรวจผลหมายตั้ง') ? 'checked' : '' }}/>
+                                          <label for="15" class="todo">
+                                            <i class="fa fa-check"></i>
+                                            Prosecute (ส่งตรวจผลหมายตั้ง)
+                                          </label>
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
                           <div class="tab-pane fade" id="tabs-6" role="tabpanel" aria-labelledby="custom-tabs-one-settings-tab">
                             <div class="row">
-                              <div class="col-md-3">
-                                วันที่ตรวจผลหมายตั้ง
-                                <input type="date" id="checkresultscourt" name="checkresultscourt" class="form-control form-control-sm" value="{{ $data->checkresults_court }}" readonly/>
-                              </div>
-                              <div class="col-md-3">
-                                วันที่ตรวจจริง
-                                <input type="date" id="sendcheckresultscourt" name="sendcheckresultscourt" class="form-control form-control-sm" value="{{ $data->sendcheckresults_court }}" oninput="Datesuccess();"/>
-                              </div>
-                              <div class="col-md-6">
-                                <div class="row"  align="center">
-                                  <br>
-                                  <div class="col-md-6">
-                                    <input type="radio" id="test3" name="radio-receivedflag" value="Y" onclick="Functionhidden2()" {{ ($data->received_court === 'Y') ? 'checked' : '' }} />
-                                    <label for="test3">ได้รับ</label>
+                              <div class="col-md-9">
+                                <div class="row">
+                                  <div class="col-md-3">
+                                    วันที่ตรวจผลหมายตั้ง
+                                    <input type="date" id="checkresultscourt" name="checkresultscourt" class="form-control form-control-sm" value="{{ $data->checkresults_court }}" readonly/>
+                                  </div>
+                                  <div class="col-md-3">
+                                    วันที่ตรวจจริง
+                                    <input type="date" id="sendcheckresultscourt" name="sendcheckresultscourt" class="form-control form-control-sm" value="{{ $data->sendcheckresults_court }}" oninput="Datesuccess();"/>
                                   </div>
                                   <div class="col-md-6">
-                                    <input type="radio" id="test4" name="radio-receivedflag" value="N" onclick="FunctionRadio2()" {{ ($data->received_court === 'N') ? 'checked' : '' }} />
-                                    <label for="test4">ไม่ได้รับ</label>
+                                    <br>
+                                    <div class="row" align="center">
+                                      <div class="col-md-6">
+                                        <input type="radio" id="test3" name="radio-receivedflag" value="Y" onclick="Functionhidden2()" {{ ($data->received_court === 'Y') ? 'checked' : '' }} />
+                                        <label for="test3">ได้รับ</label>
+                                      </div>
+                                      <div class="col-md-6">
+                                        <input type="radio" id="test4" name="radio-receivedflag" value="N" onclick="FunctionRadio2()" {{ ($data->received_court === 'N') ? 'checked' : '' }} />
+                                        <label for="test4">ไม่ได้รับ</label>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    @if($data->received_court == "Y" or $data->received_court == Null)
+                                      <div id="myDIV" style="display:none;">
+                                    @else
+                                      <div id="myDIV">
+                                    @endif
+                                      วันทีโทร
+                                      <input type="date" id="telresultscourt" name="telresultscourt" class="form-control form-control-sm" value="{{ $data->telresults_court }}" />
+                                      วันทีไปรับ
+                                      <input type="date" id="dayresultscourt" name="dayresultscourt" class="form-control form-control-sm" value="{{ $data->dayresults_court }}" oninput="Datesuccess()"/>
+                                      </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="col-md-3">
+                                <div class="card card-danger">
+                                  <div class="card-header">
+                                    <h3 class="card-title"><i class="fas fa-tasks"></i> สถานะ</h3>
+                                  </div>
+                                  <div class="card-body">
+                                    <div class="col-md-12">
+                                      <div class="" id="todo-list">
+                                        <span class="todo-wrap">
+                                          <input type="checkbox" id="16" name="FlagClass" value="สถานะส่งคัดโฉนด" {{ ($data->Flag_Class === 'สถานะส่งคัดโฉนด') ? 'checked' : '' }}/>
+                                          <label for="16" class="todo">
+                                            <i class="fa fa-check"></i>
+                                            Prosecute (ส่งคัดโฉนด/ชั้นบังคับคดี)
+                                          </label>
+                                        </span>
+                                      </div>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
                             
-                            <div class="row">
-                                  <div class="col-md-7"></div>
-                                  <div class="col-md-5">
-                                      @if($data->received_court == "Y" or $data->received_court == Null)
-                                        <div id="myDIV" style="display:none;">
-                                      @else
-                                      <div id="myDIV">
-                                      @endif
-
-                                        วันทีโทร
-                                        <input type="date" id="telresultscourt" name="telresultscourt" class="form-control form-control-sm" value="{{ $data->telresults_court }}" />
-                                        วันทีไปรับ
-                                        <input type="date" id="dayresultscourt" name="dayresultscourt" class="form-control form-control-sm" value="{{ $data->dayresults_court }}" oninput="Datesuccess()"/>
-
-                                      </div>
-                                    </div>
-                                  </div>
-
-
                           </div>
                         </div>
                       </div>
@@ -827,8 +989,11 @@
   <div class="modal fade" id="modal-printinfo">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
-        <form name="form2" method="post" action="{{ route('legislation.store',[$id, 2]) }}" target="_blank" id="formimage" enctype="multipart/form-data">
+        <form name="form2" method="post" action="{{ route('MasterLegis.store') }}" id="formimage" enctype="multipart/form-data">
           @csrf
+          <input type="hidden" name="id" value="{{$id}}"/>
+          <input type="hidden" name="type" value="2"/>
+
           <div class="card card-warning">
             <div class="card-header">
               <h4 class="card-title">ป้อนข้อมูลปิดบัญชี</h4>

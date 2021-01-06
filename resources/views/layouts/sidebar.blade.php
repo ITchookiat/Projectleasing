@@ -253,7 +253,8 @@
             @endif
           </li>
 
-          <li class="nav-item has-treeview {{ Request::is('Legislation/*') ? 'menu-open' : '' }} {{ Request::is('Legislation/edit/*') ? 'menu-open' : '' }} {{ Request::is('MasterCompro') ? 'menu-open' : '' }} {{ Request::is('MasterCompro/*/*') ? 'menu-open' : '' }}">
+          <li class="nav-item has-treeview {{ Request::is('Legislation/*') ? 'menu-open' : '' }} {{ Request::is('Legislation/edit/*') ? 'menu-open' : '' }} {{ Request::is('MasterCompro') ? 'menu-open' : '' }} {{ Request::is('MasterCompro/*/*') ? 'menu-open' : '' }} 
+                                           {{ Request::is('MasterLegis/*/*') ? 'menu-open' : '' }} {{ Request::is('MasterLegis') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-gavel"></i>
               <p>
@@ -265,29 +266,19 @@
             @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก กฏหมาย" or auth::user()->type == "แผนก เร่งรัด")
               <ul class="nav nav-treeview" style="margin-left: 15px;">
                 <li class="nav-item">
-                  {{-- <li><a target="_blnk" class="dropdown-item" data-toggle="modal" data-target="#modal-1" data-link="{{ route('legislation', 9) }}"> ใบเสร็จรับชำระ</a></li> --}}
-                  <a data-toggle="modal" data-target="#modal-1" data-link="{{ route('legislation', 1) }}" class="nav-link {{ Request::is('Legislation/Home/1') ? 'active' : '' }}">
+                  <a data-toggle="modal" data-target="#modal-1" data-link="{{ route('MasterLegis.index') }}?type={{1}}" class="nav-link {{ Request::is('Legislation/Home/1') ? 'active' : '' }}">
                     <i class="far fa-dot-circle nav-icon"></i>
                     <p>รายชื่อส่งฟ้อง</p>
                   </a>
-                  <a href="{{ route('legislation',6) }}" class="nav-link {{ Request::is('Legislation/Home/6') ? 'active' : '' }} {{ Request::is('Legislation/edit/*/6') ? 'active' : '' }}">
-                    <i class="far fa-dot-circle nav-icon"></i>
-                    <p>ลูกหนี้เตรียมฟ้อง</p>
-                  </a>
-                  <a href="{{ route('legislation',2) }}" class="nav-link {{ Request::is('Legislation/Home/2') ? 'active' : '' }} {{ Request::is('Legislation/edit/*/2') ? 'active' : '' }} {{ Request::is('Legislation/edit/*/3') ? 'active' : '' }} {{ Request::is('Legislation/edit/*/7') ? 'active' : '' }} 
-                                                                         {{ Request::is('Legislation/edit/*/13') ? 'active' : '' }} {{ Request::is('Legislation/edit/*/11') ? 'active' : '' }} ">
+                  <a href="{{ route('MasterLegis.index') }}?type={{20}}" class="nav-link {{ Request::is('MasterLegis') ? 'active' : '' }} {{ Request::is('MasterLegis/*/*') ? 'active' : '' }}">
                     <i class="far fa-dot-circle nav-icon"></i>
                     <p>ลูกหนี้ฟ้อง</p>
-                  </a>
-                  <a href="{{ route('legislation',8) }}" class="nav-link {{ Request::is('Legislation/Home/8') ? 'active' : '' }} {{ Request::is('Legislation/edit/*/8') ? 'active' : '' }}">
-                    <i class="far fa-dot-circle nav-icon"></i>
-                    <p>ลูกหนี้สืบทรัพย์</p>
                   </a>
                   <a href="{{ route('MasterCompro.index') }}?type={{1}}" class="nav-link {{ Request::is('MasterCompro') ? 'active' : '' }} {{ Request::is('MasterCompro/*/*') ? 'active' : '' }}">
                     <i class="far fa-dot-circle nav-icon"></i>
                     <p>ลูกหนี้ประนอมหนี้</p>
                   </a>
-                  <a href="{{ route('legislation',10) }}" class="nav-link {{ Request::is('Legislation/Home/10') ? 'active' : '' }} {{ Request::is('Legislation/edit/*/10') ? 'active' : '' }}">
+                  <a href="#" class="nav-link">
                     <i class="far fa-dot-circle nav-icon"></i>
                     <p>ลูกหนี้ของกลาง</p>
                   </a>

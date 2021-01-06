@@ -127,7 +127,7 @@
           <tr style="line-height:150%;">
             <th width="80px" align="right"><b>ชื่อ - นามสกุล : </b></th>
             <th width="10px"></th>
-            <th width="150px" align="left">{{ iconv('Tis-620','utf-8',str_replace(" ","",$data->SNAM.$data->NAME1)."   ".str_replace(" ","",$data->NAME2)) }}</th>
+            <th width="150px" align="left">{{ $dataDB->Name_legis }}</th>
           </tr>
           <tr style="line-height:150%;">
             <th width="80px" align="right"><b>เลขที่สัญญา :</b></th>
@@ -137,28 +137,23 @@
           <tr style="line-height:150%;">
             <th width="80px" align="right"><b>ที่อยู่ :</b></th>
             <th width="10px"></th>
-            <th width="300px" align="left">
-              {{
-                iconv('Tis-620','utf-8',str_replace(" ","",$data->ADDRES))." ต.".iconv('Tis-620','utf-8',str_replace(" ","",$data->TUMB))." อ.".iconv('Tis-620','utf-8',str_replace(" ","",$data->AUMPDES))
-                ." จ.".iconv('Tis-620','utf-8',str_replace(" ","",$data->PROVDES))."  ". $data->ZIP
-              }}
-            </th>
+            <th width="300px" align="left">{{ $dataDB->Address_legis }}</th>
           </tr>
           <tr style="line-height:200%;">
             <th width="80px" align="right"><b>ยี่ห้อ :</b></th>
             <th width="10px"></th>
-            <th width="150px">{{iconv('Tis-620','utf-8',str_replace(" ","",$data->TYPE))}}</th>
+            <th width="150px">{{ $dataDB->BrandCar_legis }}</th>
             <th width="80px" align="right"><b>ป้ายทะเบียน :</b></th>
             <th width="10px"></th>
-            <th width="150px">{{iconv('Tis-620','utf-8',str_replace(" ","",$data->REGNO))}}</th>
+            <th width="150px">{{ $dataDB->register_legis }}</th>
           </tr>
           <tr style="line-height:200%;">
             <th width="80px" align="right"><b>แบบ :</b></th>
             <th width="10px"></th>
-            <th width="150px">{{iconv('Tis-620','utf-8',str_replace(" ","",$data->BAAB))}}</th>
-            <th width="80px" align="right"><b>สี :</b></th>
+            <th width="150px">{{ $dataDB->Category_legis }}</th>
+            <th width="80px" align="right"><b>ปี :</b></th>
             <th width="10px"></th>
-            <th width="150px">{{iconv('Tis-620','utf-8',str_replace(" ","",$data->COLOR))}}</th>
+            <th width="150px">{{ $dataDB->YearCar_legis }}</th>
           </tr>
         </tbody>
       </table>
@@ -580,29 +575,33 @@
             <th style="width: 130px">ผู้รับชำระ</th>
             <th style="width: 120px">หมายเหตุ</th>
           </tr>
+          @php
+            $sumTotal = 0;
+            $sumPayment = 0;
+          @endphp
           @foreach($data as $key => $row)
             @php
-              @$sumTotal = $key+1;
-              @$sumPayment += $row->Gold_Payment;
+              $sumTotal = $key+1;
+              $sumPayment += $row->Gold_Payment;
             @endphp
-          <tr style="line-height: 110%;">
-            <td align="center" style="width: 30px">{{$key+1}}</td>
-            <td align="center" style="width: 80px">{{$row->Contract_legis}}</td>
-            <td align="left" style="width: 150px">&nbsp;{{$row->Name_legis}}</td>
-            <td align="center" style="width: 70px">{{DateThai(substr($row->created_at,0,10))}}</td>
-            <td align="right" style="width: 60px">{{number_format($row->Gold_Payment,2)}} &nbsp;</td>
-            <td align="center" style="width: 90px">{{$row->Type_Payment}}</td>
-            <td align="center" style="width: 75px">{{$row->Jobnumber_Payment}}</td>
-            <td align="left" style="width: 130px">&nbsp; {{$row->Adduser_Payment}}</td>
-            <td align="left" style="width: 120px">&nbsp; {{$row->Note_Payment}}</td>
-          </tr>
+            <tr style="line-height: 110%;">
+              <td align="center" style="width: 30px">{{$key+1}}</td>
+              <td align="center" style="width: 80px">{{$row->Contract_legis}}</td>
+              <td align="left" style="width: 150px">&nbsp;{{$row->Name_legis}}</td>
+              <td align="center" style="width: 70px">{{DateThai(substr($row->created_at,0,10))}}</td>
+              <td align="right" style="width: 60px">{{number_format($row->Gold_Payment,2)}} &nbsp;</td>
+              <td align="center" style="width: 90px">{{$row->Type_Payment}}</td>
+              <td align="center" style="width: 75px">{{$row->Jobnumber_Payment}}</td>
+              <td align="left" style="width: 130px">&nbsp; {{$row->Adduser_Payment}}</td>
+              <td align="left" style="width: 120px">&nbsp; {{$row->Note_Payment}}</td>
+            </tr>
           @endforeach
       </table>
       <table border="1" style="background-color:#F6FEA1;">
         <tr>
-          <td align="center" style="width: 110px"><b>รวม {{@$sumTotal}} รายการ</b></td>
+          <td align="center" style="width: 110px"><b>รวม {{$sumTotal}} รายการ</b></td>
           <td align="right" style="width: 220px"><b>รวมยอดชำระ </b></td>
-          <td align="right" style="width: 60px"><b>{{number_format(@$sumPayment,2)}} </b></td>
+          <td align="right" style="width: 60px"><b>{{number_format($sumPayment,2)}} </b></td>
           <td align="left" style="width: 415px"><b>บาท</b></td>
         </tr>
       </table>
