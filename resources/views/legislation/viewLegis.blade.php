@@ -332,16 +332,9 @@
                     </div>
                   @elseif($type == 8)  <!--Main ลูกหนี้สืบทรัพย์-->
                     <div class="col-md-12">
-                      {{-- <form method="get" action="{{ route('legislation', 8) }}">
+                      <form method="get" action="{{ route('MasterLegis.index') }}">
+                        <input type="hidden" name="type" value="8" />
                         <div class="float-right form-inline">
-                          <div class="btn-group">
-                            <button type="button" class="btn bg-primary btn-app" data-toggle="dropdown">
-                              <span class="fas fa-print"></span> ปริ้นรายงาน
-                            </button>
-                              <ul class="dropdown-menu" role="menu">
-                                <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-4" data-link="{{ route('legislation', 19) }}"> รายงานสืบทรัพย์</a></li>
-                              </ul>
-                          </div>
                           <button type="submit" class="btn bg-warning btn-app">
                             <span class="fas fa-search"></span> Search
                           </button>
@@ -356,13 +349,13 @@
                           <label for="text" class="mr-sm-2">สถานะ : </label>
                           <select name="status" class="form-control form-control-sm" id="text" style="width: 177px">
                             <option selected value="">--- สถานะ ---</option>
-                            <option value="Y" {{ ($SetSelect == 'Y') ? 'selected' : '' }}>มีทรัพย์</otion>
-                            <option value="N" {{ ($SetSelect == 'N') ? 'selected' : '' }}>ไม่มีทรัพย์</otion>
-                            <option value="หมดอายุความ" {{ ($SetSelect == 'หมดอายุความ') ? 'selected' : '' }}>หมดอายุความ</otion>
-                            <option value="จบงานสืบทรัพย์" {{ ($SetSelect == 'จบงานสืบทรัพย์') ? 'selected' : '' }}>จบงานสืบทรัพย์</otion>
+                            <option value="Y" {{ ($SetSelect == 'Y') ? 'selected' : '' }}>ลูกหนี้มีทรัพย์</otion>
+                            <option value="N" {{ ($SetSelect == 'N') ? 'selected' : '' }}>ลูกหนี้ไม่มีทรัพย์</otion>
+                            {{-- <option value="หมดอายุความ" {{ ($SetSelect == 'หมดอายุความ') ? 'selected' : '' }}>หมดอายุความ</otion>
+                            <option value="จบงานสืบทรัพย์" {{ ($SetSelect == 'จบงานสืบทรัพย์') ? 'selected' : '' }}>จบงานสืบทรัพย์</otion> --}}
                           </select>
                         </div>
-                      </form> --}}
+                      </form>
                     </div>
                     <div class="col-md-12">
                       <div class="table-responsive">
@@ -436,26 +429,26 @@
                                     @endphp
     
                                     @if($row->sendsequester_asset == "สืบทรัพย์ไม่เจอ")
-                                        @php
-                                          $Getdate = date_create($row->NewpursueDate_asset);
-                                          $DateEx = date_diff($Newdate,$Getdate);
-                                        @endphp
-    
-                                        @if($Newdate <= $Getdate)
-                                          @if($DateEx->days <= 7)
-                                            <button type="button" class="btn btn-danger btn-sm" title="วันสืบทรัพย์ {{DateThai($row->NewpursueDate_asset)}}">
-                                              <span class="fa fa-bell prem"> สืบทรัพย์ใหม่ {{ $DateEx->days }} วัน</span>
-                                            </button>
-                                          @else
-                                            <button type="button" class="btn btn-warning btn-sm" title="รอสืบทรัพย์ {{DateThai($row->NewpursueDate_asset)}}">
-                                              <i class="fa fa-clock-o prem"></i> รอสืบทรัพย์
-                                            </button>
-                                          @endif
+                                      @php
+                                        $Getdate = date_create($row->NewpursueDate_asset);
+                                        $DateEx = date_diff($Newdate,$Getdate);
+                                      @endphp
+  
+                                      @if($Newdate <= $Getdate)
+                                        @if($DateEx->days <= 7)
+                                          <button type="button" class="btn btn-danger btn-sm" title="วันสืบทรัพย์ {{DateThai($row->NewpursueDate_asset)}}">
+                                            <span class="fa fa-bell prem"> สืบทรัพย์ใหม่ {{ $DateEx->days }} วัน</span>
+                                          </button>
                                         @else
-                                          <button type="button" class="btn btn-gray btn-sm prem" title="วันสืบทรัพย์ล่าสุด {{DateThai($row->NewpursueDate_asset)}}">
-                                            <span class="fa fa-hourglass-half active"> ไม่มีการอัพเดต </span>
+                                          <button type="button" class="btn btn-warning btn-sm" title="รอสืบทรัพย์ {{DateThai($row->NewpursueDate_asset)}}">
+                                            <i class="fa fa-clock-o prem"></i> รอสืบทรัพย์
                                           </button>
                                         @endif
+                                      @else
+                                        <button type="button" class="btn btn-gray btn-sm prem" title="วันสืบทรัพย์ล่าสุด {{DateThai($row->NewpursueDate_asset)}}">
+                                          <span class="fa fa-hourglass-half active"> ไม่มีการอัพเดต </span>
+                                        </button>
+                                      @endif
                                     @elseif($row->sendsequester_asset == "สืบทรัพย์เจอ")
                                       <button type="button" class="btn btn-success btn-sm" title="สืบทรัพย์เจอ">
                                         <i class="fa fa-check-square-o prem"></i> สืบทรัพย์เจอ
@@ -502,11 +495,12 @@
                                 </td>
                                 <td class="text-center"> {{ $row->User_asset }}</td>
                                 <td class="text-right">
-                                  <a href="{{ action('LegislationController@edit',[$row->id,$type]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
+                                  <a href="{{ route('MasterLegis.edit',[$row->id]) }}?type={{8}}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                     <i class="far fa-edit"></i>
                                   </a>
-                                  <form method="post" class="delete_form" action="{{ action('LegislationController@destroy',[$row->id ,1]) }}"  style="display:inline;">
-                                  {{csrf_field()}}
+                                  <form method="post" class="delete_form" action="{{ route('MasterLegis.destroy',[$row->id]) }}"  style="display:inline;">
+                                    {{csrf_field()}}
+                                    <input type="hidden" name="type" value="1" />
                                     <input type="hidden" name="_method" value="DELETE" />
                                     <button disabled type="submit" class="delete-modal btn btn-danger btn-sm" title="ลบรายการ">
                                       <i class="far fa-trash-alt"></i>
@@ -918,7 +912,7 @@
                                               <th class="text-center">ชื่อ-สกุล</th>
                                               <th class="text-center">วันฟ้อง</th>
                                               <th class="text-center">ผู้ส่งฟ้อง</th>
-                                              <th class="text-center"></th>
+                                              <th class="text-center">สถานะ</th>
                                               <th class="text-center" style="width: 70px"></th>
                                             </tr>
                                           </thead>
@@ -929,7 +923,19 @@
                                                 <td class="text-left"> {{$row->Name_legis}} </td>
                                                 <td class="text-center"> {{ DateThai($row->fillingdate_court) }} </td>
                                                 <td class="text-left"> {{$row->User_court}} </td>
-                                                <td class="text-left">  </td>
+                                                <td class="text-center">
+                                                  @if($row->Status_Promise != NULL)
+                                                    <button data-toggle="tooltip" type="button" class="btn btn-success btn-sm" title="{{$row->Status_Promise}}">
+                                                      <i class="fas fa-user-check pr-1 prem"></i>{{$row->Status_Promise}}
+                                                    </button>
+                                                  @else
+                                                    @if($row->Date_Promise != NULL)
+                                                      <button data-toggle="tooltip" type="button" class="btn btn-warning btn-sm" title="อยู่ระหว่างประนอมหนี้">
+                                                        <i class="fas fa-hand-holding-usd pr-1 prem"></i>ประนอมหนี้
+                                                      </button>
+                                                    @endif
+                                                  @endif
+                                                </td>
                                                 <td class="text-right">
                                                   <a href="{{ route('MasterLegis.edit',[$row->id]) }}?type={{3}}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                                     <i class="far fa-edit"></i>
@@ -964,7 +970,7 @@
                                               <th class="text-center">ชื่อ-สกุล</th>
                                               <th class="text-center">วันฟ้อง</th>
                                               <th class="text-center">ผู้ส่งฟ้อง</th>
-                                              <th class="text-center"></th>
+                                              <th class="text-center">สถานะ</th>
                                               <th class="text-center" style="width: 70px"></th>
                                             </tr>
                                           </thead>
@@ -975,7 +981,19 @@
                                                 <td class="text-left"> {{$row->Name_legis}} </td>
                                                 <td class="text-center"> {{ DateThai($row->fillingdate_court) }} </td>
                                                 <td class="text-left"> {{$row->User_court}} </td>
-                                                <td class="text-left">  </td>
+                                                <td class="text-center">  
+                                                  @if($row->Status_Promise != NULL)
+                                                    <button data-toggle="tooltip" type="button" class="btn btn-success btn-sm" title="{{$row->Status_Promise}}">
+                                                      <i class="fas fa-user-check pr-1 prem"></i>
+                                                    </button>
+                                                  @else
+                                                    @if($row->Date_Promise != NULL)
+                                                      <button data-toggle="tooltip" type="button" class="btn btn-warning btn-sm" title="อยู่ระหว่างประนอมหนี้">
+                                                        <i class="fas fa-hand-holding-usd pr-1 prem"></i>ประนอมหนี้
+                                                      </button>
+                                                    @endif
+                                                  @endif
+                                                </td>
                                                 <td class="text-right">
                                                   <a href="{{ route('MasterLegis.edit',[$row->id]) }}?type={{3}}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                                     <i class="far fa-edit"></i>
@@ -1010,7 +1028,7 @@
                                               <th class="text-center">ชื่อ-สกุล</th>
                                               <th class="text-center">วันฟ้อง</th>
                                               <th class="text-center">ผู้ส่งฟ้อง</th>
-                                              <th class="text-center"></th>
+                                              <th class="text-center">สถานะ</th>
                                               <th class="text-center" style="width: 70px"></th>
                                             </tr>
                                           </thead>
@@ -1021,7 +1039,19 @@
                                                 <td class="text-left"> {{$row->Name_legis}} </td>
                                                 <td class="text-center"> {{ DateThai($row->fillingdate_court) }} </td>
                                                 <td class="text-left"> {{$row->User_court}} </td>
-                                                <td class="text-left">  </td>
+                                                <td class="text-center">  
+                                                  @if($row->Status_Promise != NULL)
+                                                    <button data-toggle="tooltip" type="button" class="btn btn-success btn-sm" title="{{$row->Status_Promise}}">
+                                                      <i class="fas fa-user-check pr-1 prem"></i>
+                                                    </button>
+                                                  @else
+                                                    @if($row->Date_Promise != NULL)
+                                                      <button data-toggle="tooltip" type="button" class="btn btn-warning btn-sm" title="อยู่ระหว่างประนอมหนี้">
+                                                        <i class="fas fa-hand-holding-usd pr-1 prem"></i>ประนอมหนี้
+                                                      </button>
+                                                    @endif
+                                                  @endif
+                                                </td>
                                                 <td class="text-right">
                                                   <a href="{{ route('MasterLegis.edit',[$row->id]) }}?type={{3}}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                                     <i class="far fa-edit"></i>
@@ -1056,7 +1086,7 @@
                                               <th class="text-center">ชื่อ-สกุล</th>
                                               <th class="text-center">วันฟ้อง</th>
                                               <th class="text-center">ผู้ส่งฟ้อง</th>
-                                              <th class="text-center"></th>
+                                              <th class="text-center">สถานะ</th>
                                               <th class="text-center" style="width: 70px"></th>
                                             </tr>
                                           </thead>
@@ -1067,7 +1097,19 @@
                                                 <td class="text-left"> {{$row->Name_legis}} </td>
                                                 <td class="text-center"> {{ DateThai($row->fillingdate_court) }} </td>
                                                 <td class="text-left"> {{$row->User_court}} </td>
-                                                <td class="text-left">  </td>
+                                                <td class="text-center"> 
+                                                  @if($row->Status_Promise != NULL)
+                                                    <button data-toggle="tooltip" type="button" class="btn btn-success btn-sm" title="{{$row->Status_Promise}}">
+                                                      <i class="fas fa-user-check pr-1 prem"></i>
+                                                    </button>
+                                                  @else
+                                                    @if($row->Date_Promise != NULL)
+                                                      <button data-toggle="tooltip" type="button" class="btn btn-warning btn-sm" title="อยู่ระหว่างประนอมหนี้">
+                                                        <i class="fas fa-hand-holding-usd pr-1 prem"></i>ประนอมหนี้
+                                                      </button>
+                                                    @endif
+                                                  @endif
+                                                </td>
                                                 <td class="text-right">
                                                   <a href="{{ route('MasterLegis.edit',[$row->id]) }}?type={{3}}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                                     <i class="far fa-edit"></i>
@@ -1102,7 +1144,7 @@
                                               <th class="text-center">ชื่อ-สกุล</th>
                                               <th class="text-center">วันฟ้อง</th>
                                               <th class="text-center">ผู้ส่งฟ้อง</th>
-                                              <th class="text-center"></th>
+                                              <th class="text-center">สถานะ</th>
                                               <th class="text-center" style="width: 70px"></th>
                                             </tr>
                                           </thead>
@@ -1113,7 +1155,19 @@
                                                 <td class="text-left"> {{$row->Name_legis}} </td>
                                                 <td class="text-center"> {{ DateThai($row->fillingdate_court) }} </td>
                                                 <td class="text-left"> {{$row->User_court}} </td>
-                                                <td class="text-left">  </td>
+                                                <td class="text-center"> 
+                                                  @if($row->Status_Promise != NULL)
+                                                    <button data-toggle="tooltip" type="button" class="btn btn-success btn-sm" title="{{$row->Status_Promise}}">
+                                                      <i class="fas fa-user-check pr-1 prem"></i>
+                                                    </button>
+                                                  @else
+                                                    @if($row->Date_Promise != NULL)
+                                                      <button data-toggle="tooltip" type="button" class="btn btn-warning btn-sm" title="อยู่ระหว่างประนอมหนี้">
+                                                        <i class="fas fa-hand-holding-usd pr-1 prem"></i>ประนอมหนี้
+                                                      </button>
+                                                    @endif
+                                                  @endif
+                                                </td>
                                                 <td class="text-right">
                                                   <a href="{{ route('MasterLegis.edit',[$row->id]) }}?type={{3}}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                                     <i class="far fa-edit"></i>
@@ -1354,6 +1408,51 @@
                                       <i class="far fa-trash-alt"></i>
                                     </button>
                                   </form> --}}
+                                </td>
+                              </tr>
+                            @endforeach
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  @elseif($type == 25)   <!-- Main ลูกหนี้ปิดจบงาน -->
+                    <div class="col-md-12">
+                      <div class="table-responsive">
+                        <table class="table table-hover" id="table21">
+                          <thead>
+                            <tr>
+                              <th class="text-center" style="width: 50px">ลำดับ</th>
+                              <th class="text-center">เลขที่สัญญา</th>
+                              <th class="text-center">ชื่อ-สกุล</th>
+                              <th class="text-center">สถานะ</th>
+                              <th class="text-center">วันที่ปิดงาน</th>
+                              <th class="text-left" style="width: 50px"></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            @foreach($data as $key => $row)
+                              <tr>
+                                <td class="text-center"> {{$key+1}}</td>
+                                <td class="text-center"> {{$row->Contract_legis}}</td>
+                                <td class="text-left"> {{$row->Name_legis}}</td>
+                                <td class="text-center">
+                                  <button data-toggle="tooltip" type="button" class="btn btn-warning btn-sm" title="{{$row->Status_legis}}">
+                                    <i class="fas fa-user-check pr-1 prem"></i>{{$row->Status_legis}}
+                                  </button>
+                                </td>
+                                <td class="text-center"> {{DateThai($row->DateUpState_legis)}}</td>
+                                <td class="text-left">
+                                  <a href="{{ route('MasterLegis.edit',[$row->id]) }}?type={{3}}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
+                                    <i class="far fa-edit"></i>
+                                  </a>
+                                  <form method="post" class="delete_form" action="{{ route('MasterLegis.destroy',[$row->id]) }}" style="display:inline;">
+                                  {{csrf_field()}}
+                                    <input type="hidden" name="type" value="1" />
+                                    <input type="hidden" name="_method" value="DELETE" />
+                                    <button type="submit"  data-name="{{ $row->Contract_legis }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
+                                      <i class="far fa-trash-alt"></i>
+                                    </button>
+                                  </form>
                                 </td>
                               </tr>
                             @endforeach
