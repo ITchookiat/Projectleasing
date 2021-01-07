@@ -78,25 +78,25 @@
                           <div class="col-sm-6">
                             <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
                               <li class="nav-item">
-                                <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 2]) }}">ข้อมูลผู้เช่าซื้อ</a>
+                                <a class="nav-link" href="{{ route('MasterLegis.edit',[$id]) }}?type={{2}}">ข้อมูลลูกหนี้</a>
                               </li>
                               <li class="nav-item">
-                                <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 3]) }}">ชั้นศาล</a>
+                                <a class="nav-link " href="{{ route('MasterLegis.edit',[$id]) }}?type={{3}}">ชั้นศาล</a>
                               </li>
                               <li class="nav-item">
-                                <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 7]) }}">ชั้นบังคับคดี</a>
+                                <a class="nav-link" href="{{ route('MasterLegis.edit',[$id]) }}?type={{7}}">ชั้นบังคับคดี</a>
                               </li>
                               <li class="nav-item">
-                                <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 13]) }}">โกงเจ้าหนี้</a>
+                                <a class="nav-link" href="{{ route('MasterLegis.edit',[$id]) }}?type={{13}}">โกงเจ้าหนี้</a>
                               </li>
                             </ul>
                           </div>
                           <div class="col-sm-6">
                             <div class="float-right form-inline">
                               <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
-                                <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 8]) }}">สืบทรัพย์</a>
-                                <a class="nav-link active" href="{{ route('MasterCompro.edit',[$id]) }}?type={{$type}}">ประนอมหนี้</a>
-                                <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 11]) }}">รูปและแผนที่</a>
+                                <a class="nav-link" href="{{ route('MasterLegis.edit',[$id]) }}?type={{8}}">สืบทรัพย์</a>
+                                <a class="nav-link active" href="{{ route('MasterCompro.edit',[$id]) }}?type={{2}}">ประนอมหนี้</a>
+                                <a class="nav-link" href="{{ route('MasterLegis.edit',[$id]) }}?type={{11}}">รูปและแผนที่</a>
                               </ul>
                             </div>
                           </div>

@@ -28,7 +28,7 @@
             <div class="card">
               <div class="card-header">
                 <div class="row">
-                  <div class="col-12">
+                  <div class="col-8">
                     <div class="form-inline">
                       <h4 class="">
                         @if($type == 1)
@@ -41,7 +41,17 @@
                       </h4>
                     </div>
                   </div>
-                  {{-- <div class="col-6"></div> --}}
+                  <div class="col-4">
+                    @if($type == 2 or $type == 3)
+                      <div class="card-tools">
+                        <div class="float-right form-inline">
+                          <a class="btn btn-primary btn-sm" href="{{ route('MasterCompro.index') }}?type={{1}}">
+                            <i class="fas fa-caret-square-left"></i> Back
+                          </a>
+                        </div>
+                      </div>
+                    @endif
+                  </div>
                 </div>
               </div>
               <div class="card-body text-sm">
@@ -55,8 +65,8 @@
                               <span class="fas fa-print"></span> ปริ้นรายงาน
                             </button>
                               <ul class="dropdown-menu" role="menu">
-                                <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-1" data-link="{{ route('MasterCompro.show', 1) }}"> รายงาน ติดตามประนอมหนี้</a></li>
-                                <li class="dropdown-divider"></li>
+                                {{-- <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-1" data-link="{{ route('MasterCompro.show', 1) }}"> รายงาน ติดตามประนอมหนี้</a></li>
+                                <li class="dropdown-divider"></li> --}}
                                 <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-2" data-link="{{ route('MasterCompro.show', 2) }}"> รายงาน การชำระค่างวด(บุคคล)</a></li>
                                 <li class="dropdown-divider"></li>
                                 <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-3" data-link="{{ route('MasterCompro.show', 3) }}"> รายงาน ตรวจสอบการรับชำระ</a></li>
