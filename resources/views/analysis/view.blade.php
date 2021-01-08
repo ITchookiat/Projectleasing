@@ -1978,4 +1978,17 @@
     setInterval(blinker, 1500);
   </script>
 
+<script>
+    $(function () {
+      $("#table").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "ordering": true,
+        "lengthChange": true,
+        "order": [[ 0, "asc" ]],
+        "pageLength": 5,
+      });
+    });
+  </script>
+
 @endsection
