@@ -312,8 +312,8 @@ class LegislationController extends Controller
           ->where('legislations.Status_legis','!=', NULL)
           ->get();
 
-      $type = $request->type;
-      return view('legislation.viewLegis', compact('type','data'));
+        $type = $request->type;
+        return view('legislation.viewLegis', compact('type','data'));
       }
     }
 
@@ -362,12 +362,12 @@ class LegislationController extends Controller
         elseif ($DB_type == 2) {   //ลูกหนี้ประนอม
           $data = DB::connection('ibmi')
               ->table('ASFHP.ARMAST')
-              ->join('ASFHP.INVTRAN','ASFHP.ARMAST.CONTNO','=','ASFHP.INVTRAN.CONTNO')
-              ->join('ASFHP.VIEW_CUSTMAIL','ASFHP.ARMAST.CUSCOD','=','ASFHP.VIEW_CUSTMAIL.CUSCOD')
+              ->leftjoin('ASFHP.INVTRAN','ASFHP.ARMAST.CONTNO','=','ASFHP.INVTRAN.CONTNO')
+              ->leftjoin('ASFHP.VIEW_CUSTMAIL','ASFHP.ARMAST.CUSCOD','=','ASFHP.VIEW_CUSTMAIL.CUSCOD')
               ->where('ASFHP.ARMAST.CONTNO','=', $Contract)
               ->first();
 
-                    // query ทรัพย์
+          // query ทรัพย์
           $dataAro = DB::connection('ibmi')
               ->table('SFHP.ARMAST')
               ->join('SFHP.AROTHGAR','SFHP.ARMAST.CONTNO','=','SFHP.AROTHGAR.CONTNO')
@@ -651,8 +651,8 @@ class LegislationController extends Controller
       elseif ($request->type == 2) {   //ลูกหนี้ประนอมหนี้
         $data = DB::connection('ibmi')
             ->table('ASFHP.ARMAST')
-            ->join('ASFHP.INVTRAN','ASFHP.ARMAST.CONTNO','=','ASFHP.INVTRAN.CONTNO')
-            ->join('ASFHP.VIEW_CUSTMAIL','ASFHP.ARMAST.CUSCOD','=','ASFHP.VIEW_CUSTMAIL.CUSCOD')
+            ->leftjoin('ASFHP.INVTRAN','ASFHP.ARMAST.CONTNO','=','ASFHP.INVTRAN.CONTNO')
+            ->leftjoin('ASFHP.VIEW_CUSTMAIL','ASFHP.ARMAST.CUSCOD','=','ASFHP.VIEW_CUSTMAIL.CUSCOD')
             ->where('ASFHP.ARMAST.CONTNO','=', $SetStrConn)
             ->first();
 
@@ -699,7 +699,6 @@ class LegislationController extends Controller
           'NameGT_legis' => $SetGTName,
           'IdcardGT_legis' => $SetGTIDNO,
           'Realty_legis' => $SetRealty,
-
           'Mile_legis' => $data->MILERT,
           'Period_legis' => $data->TOT_UPAY,
           'Countperiod_legis' => $data->T_NOPAY,
@@ -713,7 +712,6 @@ class LegislationController extends Controller
           'Phone_legis' => (iconv('Tis-620','utf-8',$data->TELP)),
           'Flag_status' => '3',  //ลูกหนี้ประนอม
           'UserSend1_legis' => auth()->user()->name,
-
         ]);
         $LegisDB->save();
 
@@ -2310,7 +2308,7 @@ class LegislationController extends Controller
         $pdf::WriteHTML($html,true,false,true,false,'');
         $pdf::Output('report.pdf');
       }
-      elseif ($type == 20) {
+      elseif ($type == 20) {  //Main ลูกหนี้ฟ้องทั้งหมด
         $data = DB::table('legislations')
           ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
           ->leftJoin('Legiscourtcases','legislations.id','=','Legiscourtcases.legislation_id')
@@ -2330,9 +2328,45 @@ class LegislationController extends Controller
               $row = 3;
               $sheet->row($row, array('ลำดับ', 'เลขที่สัญญา', 'ชื่อ-สกุล', 'เบอร์ติดต่อ',
                   'ผู้ส่งฟ้อง', 'วันที่ฟ้อง', 'ยอดคงเหลือ', 'ยอดตั้งฟ้อง', 'ยอดค่าฟ้อง',
+                  'วันสืบพยาน', 'วันส่งคำบังคับ', 'วันตรวจผลหมาย', 'วันตั้งเจ้าพนักงาน', 'วันตรวจผลหมายตั้ง',
                   'สถานะลูกหนี้', 'สถานะทรัพย์', 'สถานะประนอมหนี้', 'หมายเหตุ'));
 
               foreach ($data as $key => $value) {
+
+                //วันสืบพยาน
+                if ($value->fuzzy_court != NULL) {
+                  $Setexamiday = $value->fuzzy_court;
+                }else {
+                  $Setexamiday = $value->examiday_court;
+                }
+
+                //วันส่งคำบังคับ
+                if ($value->ordersend_court != NULL) {
+                  $Setordersend = $value->ordersend_court;
+                }else {
+                  $Setordersend = $value->orderday_court;
+                }
+
+                //วันตรวจผลหมาย
+                if ($value->checksend_court != NULL) {
+                  $Setchecksend = $value->checksend_court;
+                }else {
+                  $Setchecksend = $value->checkday_court;
+                }
+                
+                //วันตั้งเจ้าพนักงาน
+                if ($value->sendoffice_court != NULL) {
+                  $Setsendoffice = $value->sendoffice_court;
+                }else {
+                  $Setsendoffice = $value->setoffice_court;
+                }
+
+                //วันตรวจผลหมายตั้ง
+                if ($value->sendcheckresults_court != NULL) {
+                  $Setsendcheckresults = $value->sendcheckresults_court;
+                }else {
+                  $Setsendcheckresults = $value->checkresults_court;
+                }
 
                 //สถานะลูกหนี้
                 if ($value->Status_legis != NULL) {
@@ -2375,6 +2409,11 @@ class LegislationController extends Controller
                   number_format($value->Sumperiod_legis, 2),
                   number_format($value->capital_court + $value->indictment_court + $value->pricelawyer_court, 2),
                   number_format($value->indictment_court, 2),
+                  $Setexamiday,
+                  $Setordersend,
+                  $Setchecksend,
+                  $Setsendoffice,
+                  $Setsendcheckresults,
                   $SetStatus,
                   $SetTextAsset,
                   $SetTextCompro,

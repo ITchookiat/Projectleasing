@@ -221,7 +221,7 @@
 
                                   @if($row->DateFirst_Promise != NULL)
                                     @if($row->Sum_FirstPromise == $SetPayAll)
-                                      <button data-toggle="tooltip" type="button" class="btn btn-success btn-sm" title="รอฟ้อง">
+                                      <button data-toggle="tooltip" type="button" class="btn btn-success btn-sm" title="ครบชำระเงินก้อนแรก">
                                         <i class="fas fa-hands-helping prem"></i>
                                       </button>
                                     @else
