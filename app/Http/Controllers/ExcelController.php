@@ -86,10 +86,10 @@ class ExcelController extends Controller
 
         if ($request->get('Fromdate') == Null and $request->get('Todate') == Null) {
           $data = DB::table('buyers')
-                    ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
-                    ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
-                    ->join('expenses','buyers.id','=','expenses.Buyerexpenses_id')
-                    ->join('upload_lat_longs','buyers.id','=','upload_lat_longs.Use_id')
+                    ->leftjoin('sponsors','buyers.id','=','sponsors.Buyer_id')
+                    ->leftjoin('cardetails','buyers.id','=','cardetails.Buyercar_id')
+                    ->leftjoin('expenses','buyers.id','=','expenses.Buyerexpenses_id')
+                    ->leftjoin('upload_lat_longs','buyers.id','=','upload_lat_longs.Use_id')
                     ->where('cardetails.Approvers_car','!=',Null)
                     ->where('buyers.Contract_buyer','not like', '22%')
                     ->where('buyers.Contract_buyer','not like', '33%')
@@ -98,10 +98,10 @@ class ExcelController extends Controller
                     ->toArray();
         }else{
           $data = DB::table('buyers')
-                    ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
-                    ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
-                    ->join('expenses','buyers.id','=','expenses.Buyerexpenses_id')
-                    ->join('upload_lat_longs','buyers.id','=','upload_lat_longs.Use_id')
+                    ->leftjoin('sponsors','buyers.id','=','sponsors.Buyer_id')
+                    ->leftjoin('cardetails','buyers.id','=','cardetails.Buyercar_id')
+                    ->leftjoin('expenses','buyers.id','=','expenses.Buyerexpenses_id')
+                    ->leftjoin('upload_lat_longs','buyers.id','=','upload_lat_longs.Use_id')
                     ->where('cardetails.Approvers_car','!=',Null)
                     ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
                       return $q->whereBetween('buyers.Date_Due',[$newfdate,$newtdate]);
