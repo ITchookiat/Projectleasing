@@ -12,6 +12,8 @@
     </div>
     <div class="card-body text-sm">
       @if($type == 1)
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+
         <div class="row">
           <div class="col-6">
             <div class="form-group row mb-0">
@@ -65,6 +67,11 @@
 
     if (Contno != '') {
       console.log(DB_type,Contno);
+      $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
       $.ajax({
         url:"{{ route('legislation.SearchData', 1) }}",
         method:"POST",
