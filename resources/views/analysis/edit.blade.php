@@ -319,14 +319,8 @@
 
                           
                           {{-- หัวหน้าสาขา --}}
-                          @php
-                            $today= date('Y-m-d');
-                            $timeNow = date('H:i');
-                            $timeDenyStart = '11:00';
-                            $timeDenyEnd = '08:00';
-                          @endphp
+
                           <div class="float-right form-inline">
-                           @if($data->Date_Due > $today) {{-- เปรียบเทียบ วันที่สัญญา กับวันที่ปัจจุบัน --}}
                             <i class="fas fa-grip-vertical"></i>
                               <span class="todo-wrap">
                                 @if(auth::user()->type == "Admin" or auth::user()->position == "MASTER" or auth::user()->position == "MANAGER" or auth::user()->position == "AUDIT")
@@ -348,36 +342,6 @@
                                   <input type="hidden" name="MASTER" value="{{ $data->Check_car }}">
                                 @endif
                               @endif
-                            @else
-                              @if($timeNow > $timeDenyEnd and $timeNow < $timeDenyStart) {{-- เปรียบเทียบ เวลาปัจจุบันกับเวลาที่กำหนด 11.00 - 08.00 --}}
-                                  <i class="fas fa-grip-vertical"></i>
-                                  <span class="todo-wrap">
-                                    @if(auth::user()->type == "Admin" or auth::user()->position == "MASTER" or auth::user()->position == "MANAGER" or auth::user()->position == "AUDIT")
-                                      @if($data->Check_car != NULL)
-                                        <input type="checkbox" class="checkbox" name="MASTER" id="3" value="{{ $data->Check_car }}" {{ ($data->Check_car !== NULL) ? 'checked' : '' }}>
-                                      @else
-                                        <input type="checkbox" class="checkbox" name="MASTER" id="3" value="{{ auth::user()->name }}">
-                                      @endif
-                                    @else
-                                      <input type="checkbox" class="checkbox" id="3" {{ ($data->Check_car !== NULL) ? 'checked' : '' }} disabled>
-                                    @endif
-                                    <label for="3" class="todo">
-                                      <i class="fa fa-check"></i>
-                                      <font color="red">MASTER &nbsp;&nbsp;</font>
-                                    </label>
-                                  </span>
-                                  @if(auth::user()->type != "Admin" and auth::user()->position != "MASTER" and auth::user()->position != "AUDIT")
-                                    @if($data->Check_car != NULL)
-                                      <input type="hidden" name="MASTER" value="{{ $data->Check_car }}">
-                                    @endif
-                                  @endif
-                              @else
-                                <button type="button" class="delete-modal btn btn-xs btn-danger">
-                                  <i class="fa fa-hand-paper-o"></i> Time Out
-                                </button>
-                                &nbsp;&nbsp;
-                              @endif
-                           @endif
                           </div>
 
                           {{-- ปิดสิทธ์แก้ไข / เอกสารครบ --}}
