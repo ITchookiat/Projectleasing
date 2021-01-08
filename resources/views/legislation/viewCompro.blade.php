@@ -28,7 +28,7 @@
             <div class="card">
               <div class="card-header">
                 <div class="row">
-                  <div class="col-6">
+                  <div class="col-8">
                     <div class="form-inline">
                       <h4 class="">
                         @if($type == 1)
@@ -41,7 +41,17 @@
                       </h4>
                     </div>
                   </div>
-                  <div class="col-6"></div>
+                  <div class="col-4">
+                    @if($type == 2 or $type == 3)
+                      <div class="card-tools">
+                        <div class="float-right form-inline">
+                          <a class="btn btn-primary btn-sm" href="{{ route('MasterCompro.index') }}?type={{1}}">
+                            <i class="fas fa-caret-square-left"></i> Back
+                          </a>
+                        </div>
+                      </div>
+                    @endif
+                  </div>
                 </div>
               </div>
               <div class="card-body text-sm">
@@ -55,11 +65,11 @@
                               <span class="fas fa-print"></span> ปริ้นรายงาน
                             </button>
                               <ul class="dropdown-menu" role="menu">
-                                <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-1" data-link="{{ route('MasterCompro.show', 1) }}"> รายงาน ติดตามประนอมหนี้</a></li>
+                                {{-- <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-1" data-link="{{ route('MasterCompro.show', 1) }}"> รายงาน ติดตามประนอมหนี้</a></li>
+                                <li class="dropdown-divider"></li> --}}
+                                <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-2" data-link="{{ route('MasterCompro.show', 2) }}"> รายงาน การชำระค่างวด(บุคคล)</a></li>
                                 <li class="dropdown-divider"></li>
-                                <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-2" data-link="{{ route('MasterCompro.show', 2) }}"> รายงาน ชำะค่างวด(บุคคล)</a></li>
-                                <li class="dropdown-divider"></li>
-                                <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-3" data-link="{{ route('MasterCompro.show', 3) }}"> รายงาน ตรวจสอบยอดรับเงิน</a></li>
+                                <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-3" data-link="{{ route('MasterCompro.show', 3) }}"> รายงาน ตรวจสอบการรับชำระ</a></li>
                               </ul>
                           </div>
                         </div>
@@ -68,13 +78,35 @@
                     <div class="col-lg-6 col-6">
                       <div class="small-box bg-warning">
                         <div class="inner">
-                          <h3>{{$dataNew}}</h3>
+                          <h3>{{$data1}}</h3>
           
                           <p>ลูกหนี้ประนอมใหม่ (New Compounding Debt)</p>
                           <a href="{{ route('LegisCompro.ReportCompro',[2]) }}" class="btn btn-outline-success btn-sm float-left"><i class="fas fa-file-excel pr-1"></i> Download</a>
                         </div>
                         <div class="icon p-3">
-                          <i class="fas fa-coins"></i>
+                          <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <div class="icon p-3">
+                          <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                              <h6 style="color: black">ยอดประนอมรวม :</h6>
+                              <input type="text" class="form-control form-control-sm" style="text-align:right;" value="{{ number_format($Sum1, 2)}}"/>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                              <h6 style="color: black">ยอดชำระรวม :</h6>
+                              <input type="text" class="form-control form-control-sm" style="text-align:right;" value="{{ number_format($SumPrice1, 2)}}"/>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                              <h6 style="color: black">ยอดส่วนลดรวม :</h6>
+                              <input type="text" class="form-control form-control-sm" style="text-align:right;" value="{{ number_format($SumDiscount1, 2)}}"/>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                              <h6 style="color: black">ยอดคงเหลือรวม :</h6>
+                              <input type="text" class="form-control form-control-sm" style="text-align:right;" value="{{ number_format($Sum2, 2)}}"/>
+                            </div>
+                          </div>
                         </div>
                         <a href="{{ route('MasterCompro.index') }}?type={{2}}" class="small-box-footer">เพิ่มเติม <i class="fas fa-arrow-circle-right"></i></a>
                       </div>
@@ -83,14 +115,36 @@
                     <div class="col-lg-6 col-6">
                       <div class="small-box bg-danger">
                         <div class="inner">
-                          <h3>{{$dataOld}}</h3>
+                          <h3>{{$data2}}</h3>
           
                           <p>ลูกหนี้ประนอมเก่า (Compounding Debt)</p>
                           <a href="{{ route('LegisCompro.ReportCompro',[3]) }}" class="btn btn-outline-warning btn-sm float-left"><i class="fas fa-file-excel pr-1"></i> Download</a>
 
                         </div>
                         <div class="icon p-3">
-                          <i class="fas fa-coins"></i>
+                          <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <div class="icon p-3">
+                          <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                              <h6 style="color: white">ยอดประนอมรวม :</h6>
+                              <input type="text" class="form-control form-control-sm" style="text-align:right;" value="{{ number_format($Sum3, 2)}}"/>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                              <h6 style="color: white">ยอดชำระรวม :</h6>
+                              <input type="text" class="form-control form-control-sm" style="text-align:right;" value="{{ number_format($SumPrice2, 2)}}"/>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                              <h6 style="color: white">ยอดส่วนลดรวม :</h6>
+                              <input type="text" class="form-control form-control-sm" style="text-align:right;" value="{{ number_format($SumDiscount2, 2)}}"/>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                              <h6 style="color: white">ยอดคงเหลือรวม :</h6>
+                              <input type="text" class="form-control form-control-sm" style="text-align:right;" value="{{ number_format($Sum4, 2)}}"/>
+                            </div>
+                          </div>
                         </div>
                         <a href="{{ route('MasterCompro.index') }}?type={{3}}" class="small-box-footer">เพิ่มเติม <i class="fas fa-arrow-circle-right"></i></a>
                       </div>
@@ -162,16 +216,22 @@
                                 <td class="text-right">
                                   @php
                                     $lastday = date('Y-m-d', strtotime("-90 days"));
-                                    $SetPayAll = str_replace (",","",$row->Total_Promise);
+                                    $SetPayAll = str_replace (",","",$row->Payall_Promise);
                                   @endphp
 
-                                  @if($row->Sum_FirstPromise == $SetPayAll)
-                                    <button data-toggle="tooltip" type="button" class="btn btn-success btn-sm" title="ครบชำระเงินก้อนแรก">
-                                      <i class="fas fa-hands-helping prem"></i>
-                                    </button>
+                                  @if($row->DateFirst_Promise != NULL)
+                                    @if($row->Sum_FirstPromise == $SetPayAll)
+                                      <button data-toggle="tooltip" type="button" class="btn btn-success btn-sm" title="รอฟ้อง">
+                                        <i class="fas fa-hands-helping prem"></i>
+                                      </button>
+                                    @else
+                                      <button data-toggle="tooltip" type="button" class="btn btn-danger btn-sm" title="ขาดชำระเงินก้อนแรก">
+                                        <i class="fas fa-hand-holding-usd prem"></i>
+                                      </button>
+                                    @endif
                                   @else
-                                    <button data-toggle="tooltip" type="button" class="btn btn-danger btn-sm" title="ขาดชำระเงินก้อนแรก">
-                                      <i class="fas fa-hand-holding-usd prem"></i>
+                                    <button data-toggle="tooltip" type="button" class="btn btn-warning btn-sm" title="ยังไม่คีย์เงินก้อนแรก">
+                                      <i class="fas fa-comment-dollar prem"></i>
                                     </button>
                                   @endif
 
@@ -191,7 +251,7 @@
                                         </button>
                                       @endif
                                     @else
-                                      <button data-toggle="tooltip" type="button" class="btn btn-warning btn-sm" title="ยังไม่มีการชำระ">
+                                      <button data-toggle="tooltip" type="button" class="btn btn-warning btn-sm" title="ยังไม่มีการชำระค่างวด">
                                         <i class="far fa-thumbs-down prem"></i> 
                                       </button>
                                     @endif
@@ -275,7 +335,7 @@
                                 <td class="text-right">
                                   @php
                                     $lastday = date('Y-m-d', strtotime("-90 days"));
-                                    $SetPayAll = str_replace (",","",$row->Total_Promise);
+                                    $SetPayAll = str_replace (",","",$row->Payall_Promise);
                                   @endphp
 
                                   @if($row->DateFirst_Promise != NULL)
@@ -288,6 +348,10 @@
                                         <i class="fas fa-hand-holding-usd prem"></i>
                                       </button>
                                     @endif
+                                  @else
+                                    <button data-toggle="tooltip" type="button" class="btn btn-warning btn-sm" title="ยังไม่คีย์เงินก้อนแรก">
+                                      <i class="fas fa-comment-dollar prem"></i>
+                                    </button>
                                   @endif
 
                                   @if($row->Status_Promise == "ปิดบัญชีประนอมหนี้" or $row->Status_Promise == "จ่ายจบประนอมหนี้")
@@ -306,7 +370,7 @@
                                         </button>
                                       @endif
                                     @else
-                                      <button data-toggle="tooltip" type="button" class="btn btn-warning btn-sm" title="ยังไม่มีการชำระ">
+                                      <button data-toggle="tooltip" type="button" class="btn btn-warning btn-sm" title="ยังไม่มีการชำระค่างวด">
                                         <i class="far fa-thumbs-down prem"></i> 
                                       </button>
                                     @endif
@@ -382,7 +446,7 @@
 
     <!-- Pop up รายงานตรวจสอบยอดชำระ -->
     <div class="modal fade" id="modal-3">
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-body">
             {{-- <p>One fine body…</p> --}}

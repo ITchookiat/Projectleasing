@@ -75,18 +75,18 @@
   <div class="card card-warning">
     <div class="card-header">
       <h4 class="card-title">
-        @if($type == 15)
-          รายงาน ชำะค่างวด(บุคคล)
-        @elseif($type == 16)
+        @if($type == 1)
           รายงาน ลูกหนี้ประนอมหนี้
+        @elseif($type == 2)
+          รายงาน การชำระค่างวด(บุคคล)
         @elseif($type == 17)
           รายงาน ลูกหนี้
         @elseif($type == 18)
           รายงาน ลูกหนี้สืบพยาน
         @elseif($type == 19)
           รายงาน ลูกหนี้สืบทรัพย์
-        @elseif($type == 20)
-          รายงาน ตรวจสอบยอดชำระ
+        @elseif($type == 3)
+          รายงาน ตรวจสอบการรับชำระ
         @elseif($type == 4)
           รายงาน ลูกหนี้ประนอมหนี้
         @endif
@@ -96,8 +96,8 @@
       </button>
     </div>
     <div class="card-body text-sm">
-      @if($type == 15)
-        <form name="form1" action="{{ route('legislation.report' ,[00, 15]) }}" target="_blank" method="get" id="formimage" enctype="multipart/form-data">
+      @if($type == 2)   {{--การชำระค่างวด(บุคคล)--}}
+        <form name="form1" action="{{ route('LegisCompro.ReportCompro',[5]) }}" target="_blank" method="get" id="formimage" enctype="multipart/form-data">
           @csrf
           
           <div class="row">
@@ -110,7 +110,7 @@
               <button type="submit" class="btn bg-primary btn-app">
                 <i class="fas fa-print"></i> ปริ้น
               </button>
-              <a class="btn btn-app bg-danger" href="{{ route('legislation',7) }}">
+              <a class="btn btn-app bg-danger" href="{{ route('MasterCompro.index') }}?type={{1}}">
                 <i class="fas fa-times"></i> ยกเลิก
               </a>
             </div>
@@ -118,7 +118,7 @@
 
           <input type="hidden" name="_token" value="{{csrf_token()}}" />
         </form>
-      @elseif($type == 16)  {{--รายงานประนอมหนี้--}}
+      @elseif($type == 1)  {{--รายงานประนอมหนี้--}}
         <form name="form1" action="{{ route('legislation.report' ,[00, 16]) }}" target="_blank" method="get" id="formimage" enctype="multipart/form-data">
           <div class="form-row">
             <div class="form-group col-md-6">
@@ -164,7 +164,7 @@
             <button type="submit" class="btn bg-danger btn-app">
               <span class="fa fa-file-pdf-o"></span> PDF
             </button>
-            <a class="btn btn-app bg-danger" href="{{ route('legislation', 7) }}">
+            <a class="btn btn-app bg-danger" href="{{ route('MasterCompro.index') }}?type={{1}}">
               <i class="fas fa-times"></i> ยกเลิก
             </a>
           </div>
@@ -301,25 +301,25 @@
             </a>
           </div>
         </form>
-      @elseif($type == 20) {{--รายงานตรวจสอบยอดชำระ--}}
-        <form name="form1" action="{{ route('legislation.report' ,[00, 20]) }}" target="_blank" method="get" id="formimage" enctype="multipart/form-data">
+      @elseif($type == 3) {{--ตรวจสอบการรับชำระ--}}
+        <form name="form1" action="{{ route('LegisCompro.ReportCompro',[4]) }}" target="_blank" method="get" id="formimage" enctype="multipart/form-data">
           <div class="form-row">
             <div class="form-group col-md-6">
               <label>จากวันที่</label>
-              <input type="date" name="Fromdate" value="{{ date('Y-m-d') }}" class="form-control"/>
+              <input type="date" name="Fromdate" value="{{ date('Y-m-d') }}" class="form-control form-control-sm"/>
             </div>
             <div class="form-group col-md-6">
               <label for="inputPassword4">ถึงวันที่</label>
-              <input type="date" name="Todate" value="{{ date('Y-m-d') }}" class="form-control"/>
+              <input type="date" name="Todate" value="{{ date('Y-m-d') }}" class="form-control form-control-sm"/>
             </div>
           </div>
           <div class="form-row">
             <div class="form-group col-md-12">
               <label>ผู้รับชำระ : </label>
-              <select name="CashReceiver" class="form-control" style="width: 100%;">
+              <select name="CashReceiver" class="form-control form-control-sm" style="width: 100%;">
                 <option value="" selected>--- เลือกผู้รับชำระ ---</option>
                 @foreach ($dataDB as $key => $value)
-                <option value="{{$value->name}}">{{$value->name}}</option>
+                  <option value="{{$value->name}}">{{$value->name}}</option>
                 @endforeach
               </select>
             </div>
@@ -329,7 +329,7 @@
             <button type="submit" class="btn bg-primary btn-app">
               <i class="fas fa-print"></i> ปริ้น
             </button>
-            <a class="btn btn-app bg-danger" href="{{ route('legislation',7) }}">
+            <a class="btn btn-app bg-danger" href="{{ route('MasterCompro.index') }}?type={{1}}">
               <i class="fas fa-times"></i> ยกเลิก
             </a>
           </div>

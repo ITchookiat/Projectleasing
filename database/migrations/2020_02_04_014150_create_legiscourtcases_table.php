@@ -31,15 +31,6 @@ class CreateLegiscourtcasesTable extends Migration
             $table->string('DateStatus_case')->nullable();
             $table->string('txtStatus_case')->nullable();
             $table->string('Flag_case')->nullable();
-
-            $table->string('DateNotice_cheat')->nullable();
-            $table->string('Dateindictment_cheat')->nullable();
-            $table->string('DateExamine_cheat')->nullable();
-            $table->string('Datedeposition_cheat')->nullable();
-            $table->string('Dateplantiff_cheat')->nullable();
-            $table->string('Status_cheat')->nullable();
-            $table->string('DateStatus_cheat')->nullable();
-            $table->string('note_cheat')->nullable();
             $table->timestamps();
         });
     }

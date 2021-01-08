@@ -12,7 +12,7 @@ class Legislation extends Model
                         'NameGT_legis','IdcardGT_legis','AddressGT_legis','Realty_legis','Mile_legis','Period_legis','Countperiod_legis',
                         'Beforeperiod_legis','Beforemoey_legis','Remainperiod_legis','Staleperiod_legis','Realperiod_legis','Sumperiod_legis','Note','Flag','Phone_legis',
                         'Status_legis','UserStatus_legis','DateStatus_legis','PriceStatus_legis','txtStatus_legis','Discount_legis','DateUpState_legis',
-                        'Flag_status','Datesend_Flag','Noteby_legis','UserSend1_legis','UserSend2_legis','Certificate_list','Authorize_list','Authorizecase_list','Purchase_list','Promise_list','Titledeed_list',
+                        'Flag_Class','Flag_status','Datesend_Flag','Noteby_legis','UserSend1_legis','UserSend2_legis',
                         'Terminatebuyer_list','Terminatesupport_list','Acceptbuyerandsup_list','Twodue_list','AcceptTwodue_list',
                         'Confirm_list','Accept_list'];
 
@@ -32,5 +32,9 @@ class Legislation extends Model
   public function Legisasset()
   {
     return $this->hasMany(legisasset::class);
+  }
+  public function Legischeat()
+  {
+    return $this->hasMany(legischeat::class);
   }
 }

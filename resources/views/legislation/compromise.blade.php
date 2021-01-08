@@ -78,25 +78,25 @@
                           <div class="col-sm-6">
                             <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
                               <li class="nav-item">
-                                <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 2]) }}">ข้อมูลผู้เช่าซื้อ</a>
+                                <a class="nav-link" href="{{ route('MasterLegis.edit',[$id]) }}?type={{2}}">ข้อมูลลูกหนี้</a>
                               </li>
                               <li class="nav-item">
-                                <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 3]) }}">ชั้นศาล</a>
+                                <a class="nav-link " href="{{ route('MasterLegis.edit',[$id]) }}?type={{3}}">ชั้นศาล</a>
                               </li>
                               <li class="nav-item">
-                                <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 7]) }}">ชั้นบังคับคดี</a>
+                                <a class="nav-link" href="{{ route('MasterLegis.edit',[$id]) }}?type={{7}}">ชั้นบังคับคดี</a>
                               </li>
                               <li class="nav-item">
-                                <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 13]) }}">โกงเจ้าหนี้</a>
+                                <a class="nav-link" href="{{ route('MasterLegis.edit',[$id]) }}?type={{13}}">โกงเจ้าหนี้</a>
                               </li>
                             </ul>
                           </div>
                           <div class="col-sm-6">
                             <div class="float-right form-inline">
                               <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
-                                <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 8]) }}">สืบทรัพย์</a>
-                                <a class="nav-link active" href="{{ route('MasterCompro.edit',[$id]) }}?type={{$type}}">ประนอมหนี้</a>
-                                <a class="nav-link" href="{{ action('LegislationController@edit',[$id, 11]) }}">รูปและแผนที่</a>
+                                <a class="nav-link" href="{{ route('MasterLegis.edit',[$id]) }}?type={{8}}">สืบทรัพย์</a>
+                                <a class="nav-link active" href="{{ route('MasterCompro.edit',[$id]) }}?type={{2}}">ประนอมหนี้</a>
+                                <a class="nav-link" href="{{ route('MasterLegis.edit',[$id]) }}?type={{11}}">รูปและแผนที่</a>
                               </ul>
                             </div>
                           </div>
@@ -165,13 +165,8 @@
                       var txtSumhide = document.getElementById('Sumhide').value;
                       var txtDishide = document.getElementById('Discounthide').value;
 
-                      // if (txtSetPay1 != 0 || txtSetPay2 != 0 || txtSetPay3 != 0) {
-                      //   var result = parseFloat(txtSumhide) - parseFloat(txtSetPay1) - parseFloat(txtSetPay2) - parseFloat(txtSetPay3);
-                      //   console.log(result);
-
                       if (txtDis != txtDishide) {
                         var SetDiscount = parseFloat(txtDis) - parseFloat(txtDishide);
-                        // var result = parseFloat(result) - parseFloat(SetDiscount);
                         var result = parseFloat(txtSumhide) - parseFloat(SetDiscount);
                       }else if (txtDis == 0) {
                         console.log(txtDis);
@@ -192,9 +187,9 @@
                       var result = Math.floor(Sum);
 
                       if (txtSetDue == 0) {
-                        console.log(txtSetDue);
                         var result = 0;
                       }
+                        console.log(txtSumPayAll,txtSetDue);
 
                       if (!isNaN(result)) {
                         document.form1.DuePromise.value = result;
@@ -268,7 +263,7 @@
                                   <div class="form-group row mb-3">
                                     <label class="col-sm-4 col-form-label text-right">ยอดเงินก้อนแรก : </label>
                                     <div class="col-sm-8">
-                                      <input type="text" name="PayallPromise" id="PayallPromise" value="{{ $data->Payall_Promise }}" class="form-control form-control-sm" oninput="Comma();"/>
+                                      <input type="text" name="PayallPromise" id="PayallPromise" value="{{ number_format($data->Payall_Promise,2) }}" class="form-control form-control-sm" oninput="Comma();"/>
                                     </div>
                                   </div>
                                 </div>
@@ -344,7 +339,7 @@
                                     <div class="col-sm-8">
                                       <input type="text" id="SumPromise" name="SumPromise" value="{{ number_format($SumPay, 0) }}" class="form-control form-control-sm" readonly/>
                                       <input type="hidden" id="Sumhide" name="Sumhide" value="{{ $SumPay }}" class="form-control form-control-sm"/>
-                                      <input type="hidden" id="SumPayAll" name="SumPayAll" value="{{ $data->Sum_FirstPromise }}" class="form-control form-control-sm"/>
+                                      <input type="hidden" id="SumPayAll" name="SumPayAll" value="{{ $SumPay }}" class="form-control form-control-sm"/>
                                     </div>
                                   </div>                              
                                 </div>
@@ -352,17 +347,19 @@
 
                               <hr>
                               <div class="row">
-                                @if($data->Date_Payment != Null)
-                                  @if($data->Type_Payment != "เงินก้อนแรก(เงินสด)" and $data->Type_Payment != "เงินก้อนแรก(เงินโอน)")
-                                    <div class="col-6">
-                                      <div class="form-group row mb-0">
-                                        <label class="col-sm-4 col-form-label text-right"><font color="red">วันดิวงวดถัดไป : </font></label>
-                                        <div class="col-sm-8">
-                                          <input type="text" value="{{ DateThai($data->Date_Payment) }}" class="form-control form-control-sm" readonly/>
-                                          <input type="hidden" name="DatehidePayment" value="{{ $data->Date_Payment }}"/>
+                                @if($data->Status_Promise = NULL)
+                                  @if($data->Date_Payment != Null)
+                                    @if($data->Type_Payment != "เงินก้อนแรก(เงินสด)" and $data->Type_Payment != "เงินก้อนแรก(เงินโอน)")
+                                      <div class="col-6">
+                                        <div class="form-group row mb-0">
+                                          <label class="col-sm-4 col-form-label text-right"><font color="red">วันดิวงวดถัดไป : </font></label>
+                                          <div class="col-sm-8">
+                                            <input type="text" value="{{ DateThai($data->Date_Payment) }}" class="form-control form-control-sm" readonly/>
+                                          </div>
                                         </div>
                                       </div>
-                                    </div>
+                                    @endif
+                                    <input type="hidden" name="DatehidePayment" value="{{ $data->Date_Payment }}"/>
                                   @endif
                                 @endif
                                 <div class="col-6">
@@ -372,14 +369,16 @@
                                     $Datediff = date_diff($DateDue,$DateNew);
                                     // dump($DateDue,$DateNew,$Datediff);
                                   @endphp
-                                  @if($data->Type_Payment != "เงินก้อนแรก(เงินสด)" and $data->Type_Payment != "เงินก้อนแรก(เงินโอน)")
-                                    @if($DateDue < $DateNew)
-                                      <div class="form-group row mb-0">
-                                        <label class="col-sm-4 col-form-label text-right"><font color="red">ขาดชำระดิว/งวด : </font></label>
-                                        <div class="col-sm-8">
-                                          <input type="text" value="{{ $Datediff->m }}" class="form-control form-control-sm" readonly/>
+                                  @if($data->Status_Promise = NULL)
+                                    @if($data->Type_Payment != "เงินก้อนแรก(เงินสด)" and $data->Type_Payment != "เงินก้อนแรก(เงินโอน)")
+                                      @if($DateDue < $DateNew)
+                                        <div class="form-group row mb-0">
+                                          <label class="col-sm-4 col-form-label text-right"><font color="red">ขาดชำระดิว/งวด : </font></label>
+                                          <div class="col-sm-8">
+                                            <input type="text" value="{{ $Datediff->m }}" class="form-control form-control-sm" readonly/>
+                                          </div>
                                         </div>
-                                      </div>
+                                      @endif
                                     @endif
                                   @endif
                                 </div>

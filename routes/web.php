@@ -42,14 +42,9 @@ Route::group(['middleware' => 'auth'], function()
     Route::get('/ExportExcel/{type}', 'ExcelController@excel');
 
     //------------------งานกฏหมาย--------------------//
-    Route::post('/Legislation/store/{id}/{type}', 'LegislationController@store')->name('legislation.store');
+    route::resource('MasterLegis','LegislationController');
     Route::get('/Legislation/Savestore', 'LegislationController@Savestore')->name('legislation.Savestore');
-    Route::get('/Legislation/Home/{type}', 'LegislationController@index')->name('legislation');
-    Route::get('/Legislation/edit/{id}/{type}', 'LegislationController@edit')->name('legislation.edit');
-    Route::patch('/Legislation/update/{id}/{type}', 'LegislationController@update')->name('legislation.update');
-    Route::delete('/Legislation/delete/{id}/{type}', 'LegislationController@destroy')->name('legislation.destroy');
     Route::post('/Legislation/SearchData/{type}', 'LegislationController@SearchData')->name('legislation.SearchData');
-    Route::get('/Updateanalysis/{id}/{type}', 'LegislationController@updateLegislation');
     Route::get('/Legislation/deleteImageAll/{id}', 'LegislationController@deleteImageAll');
     Route::get('/Legislation/Report/{id}/{type}', 'LegislationController@ReportReceipt')->name('legislation.report');
 
