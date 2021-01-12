@@ -2329,7 +2329,7 @@ class LegislationController extends Controller
               $sheet->row($row, array('ลำดับ', 'เลขที่สัญญา', 'ชื่อ-สกุล', 'เบอร์ติดต่อ',
                   'ผู้ส่งฟ้อง', 'วันที่ฟ้อง', 'ยอดคงเหลือ', 'ยอดตั้งฟ้อง', 'ยอดค่าฟ้อง',
                   'วันสืบพยาน', 'วันส่งคำบังคับ', 'วันตรวจผลหมาย', 'วันตั้งเจ้าพนักงาน', 'วันตรวจผลหมายตั้ง',
-                  'สถานะลูกหนี้', 'สถานะทรัพย์', 'สถานะประนอมหนี้', 'หมายเหตุ'));
+                  'สถานะลูกหนี้', 'วันที่สืบทรัพย์', 'สถานะทรัพย์', 'สถานะประนอมหนี้', 'หมายเหตุ'));
 
               foreach ($data as $key => $value) {
 
@@ -2415,6 +2415,7 @@ class LegislationController extends Controller
                   $Setsendoffice,
                   $Setsendcheckresults,
                   $SetStatus,
+                  $value->Date_asset,
                   $SetTextAsset,
                   $SetTextCompro,
                   $value->Note,
