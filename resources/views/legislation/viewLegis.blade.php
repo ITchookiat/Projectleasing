@@ -857,6 +857,12 @@
                         </div>
                         <div class="card-body p-0">
                           <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
+                            <a class="nav-link {{ (request()->is($Flag === '1')) ? 'active' : '' }}" name="test1" href="{{ route('MasterLegis.index') }}?type={{22}}&Flag={{1}}">
+                              <i class="fas fa-hdd"></i> ลูกหนี้ สถานะส่งฟ้อง
+                              @if($Count1 != 0)
+                                <span class="badge bg-danger float-right">{{$Count1}}</span>
+                              @endif
+                            </a>
                             <a class="nav-link {{ (request()->is($Flag === '2')) ? 'active' : '' }}" name="test2" href="{{ route('MasterLegis.index') }}?type={{22}}&Flag={{2}}">
                               <i class="fas fa-hdd"></i> ลูกหนี้ สถานะสืบพยาน
                               @if($Count2 != 0)
@@ -898,7 +904,65 @@
                           <div class="row">
                             <div class="col-12 col-sm-12">
                               <div class="tab-content" id="vert-tabs-tabContent">
-                                @if($Flag === '2')
+                                @if($Flag === '1')
+                                <div class="tab-pane text-left fade active show" role="tabpanel" aria-labelledby="vert-tabs1-tab">
+                                  <div class="card-header">
+                                    <h3 class="card-title">ลูกหนี้ชั้นศาล - ลูกหนี้ส่งฟ้อง</h3>
+                                  </div>
+                                  <div class="col-12">
+                                    <div class="table-responsive">
+                                      <table class="table table-hover" id="table1">
+                                        <thead>
+                                          <tr>
+                                            <th class="text-center">เลขที่สัญญา</th>
+                                            <th class="text-center">ชื่อ-สกุล</th>
+                                            <th class="text-center">วันฟ้อง</th>
+                                            <th class="text-center">ผู้ส่งฟ้อง</th>
+                                            <th class="text-center">สถานะ</th>
+                                            <th class="text-center" style="width: 70px"></th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          @foreach($data1 as $key => $row)
+                                            <tr>
+                                              <td class="text-left"> {{$row->Contract_legis}}</td>
+                                              <td class="text-left"> {{$row->Name_legis}} </td>
+                                              <td class="text-center"> {{ DateThai($row->fillingdate_court) }} </td>
+                                              <td class="text-left"> {{$row->User_court}} </td>
+                                              <td class="text-center">
+                                                @if($row->Status_Promise != NULL)
+                                                  <button data-toggle="tooltip" type="button" class="btn btn-success btn-sm" title="{{$row->Status_Promise}}">
+                                                    <i class="fas fa-user-check pr-1 prem"></i>{{$row->Status_Promise}}
+                                                  </button>
+                                                @else
+                                                  @if($row->Date_Promise != NULL)
+                                                    <button data-toggle="tooltip" type="button" class="btn btn-warning btn-sm" title="อยู่ระหว่างประนอมหนี้">
+                                                      <i class="fas fa-hand-holding-usd pr-1 prem"></i>ประนอมหนี้
+                                                    </button>
+                                                  @endif
+                                                @endif
+                                              </td>
+                                              <td class="text-right">
+                                                <a href="{{ route('MasterLegis.edit',[$row->id]) }}?type={{3}}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
+                                                  <i class="far fa-edit"></i>
+                                                </a>
+                                                <form method="post" class="delete_form" action="{{ route('MasterLegis.destroy',[$row->id]) }}" style="display:inline;">
+                                                {{csrf_field()}}
+                                                  <input type="hidden" name="type" value="1" />
+                                                  <input type="hidden" name="_method" value="DELETE" />
+                                                  <button type="submit"  data-name="{{ $row->Contract_legis }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
+                                                    <i class="far fa-trash-alt"></i>
+                                                  </button>
+                                                </form>
+                                              </td>
+                                            </tr>
+                                          @endforeach
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                  </div>
+                                </div>
+                                @elseif($Flag === '2')
                                   <div class="tab-pane text-left fade active show" role="tabpanel" aria-labelledby="vert-tabs2-tab">
                                     <div class="card-header">
                                       <h3 class="card-title">ลูกหนี้ชั้นศาล - ลูกหนี้สืบพยาน</h3>
