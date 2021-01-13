@@ -165,7 +165,7 @@ class LegislationController extends Controller
           ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
           ->where('legislations.Status_legis','=', NULL)
           ->where('legislations.Flag_status','=', '2')
-          ->where('legiscourts.fillingdate_court','=', NULL)
+          ->where('legislations.Flag_Class','=', 'ลูกหนี้รอฟ้อง')
           ->count();
 
         //ลูกหนี้ชั้นศาล
@@ -216,7 +216,7 @@ class LegislationController extends Controller
           })
           ->where('legislations.Flag_status','=', '2')
           ->where('legislations.Status_legis','=', NULL)
-          ->where('legiscourts.fillingdate_court','=', Null)
+          ->where('legislations.Flag_Class','=', 'ลูกหนี้รอฟ้อง')
           ->orderBy('legislations.id', 'DESC')
           ->get();
 
@@ -230,6 +230,13 @@ class LegislationController extends Controller
           ->where('legislations.Status_legis','=', NULL)
           ->where('legiscourts.fillingdate_court','!=', NULL)
           ->count();
+
+        $data1 = DB::table('legislations')
+          ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+          ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+          ->where('legislations.Status_legis','=', NULL)
+          ->where('legislations.Flag_Class','=', 'สถานะส่งฟ้อง')
+          ->get();
 
         $data2 = DB::table('legislations')
           ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
@@ -266,6 +273,7 @@ class LegislationController extends Controller
           ->where('legislations.Flag_Class','=', 'สถานะส่งตรวจผลหมายตั้ง')
           ->get();
 
+        $Count1  = count($data1);
         $Count2  = count($data2);
         $Count3  = count($data3);
         $Count4  = count($data4);
@@ -274,7 +282,7 @@ class LegislationController extends Controller
         
         $type = $request->type;
         $Flag = $request->Flag;
-        return view('legislation.viewLegis', compact('type','Flag','data','data2','data3','data4','data5','data6',
+        return view('legislation.viewLegis', compact('type','Flag','data','data1','data2','data3','data4','data5','data6',
                                                      'Count1','Count2','Count3','Count4','Count5','Count6'));
       }
       elseif ($request->type == 23) {   //Main ลูกหนี้ชั้นบังคับคดี
@@ -793,6 +801,7 @@ class LegislationController extends Controller
       if ($request->type == 1) {  //ส่งทนาย(ลูกหนี้เตรียมฟ้อง)
         $user = Legislation::find($id);
           $user->Flag_status = 2;
+          $user->Flag_Class = "ลูกหนี้รอฟ้อง";
           $user->UserSend2_legis = auth()->user()->name;
           $user->Datesend_Flag = date('Y-m-d');
         $user->update();
@@ -1151,10 +1160,20 @@ class LegislationController extends Controller
           }
         $Legiscourt->update();
 
+        if ($request->get('FlagClass') == NULL) {
+          if ($request->get('fillingdatecourt') != NULL) {
+            $SetFlagClass = 'สถานะส่งฟ้อง';
+          }else {
+            $SetFlagClass = 'ลูกหนี้รอฟ้อง';
+          }
+        }else {
+          $SetFlagClass = $request->get('FlagClass');
+        }
+
         // update key ลูก
         $Legislation = Legislation::find($id);
           $Legislation->KeyCourts_id = $Legiscourt->court_id;
-          $Legislation->Flag_Class = $request->get('FlagClass');
+          $Legislation->Flag_Class = $SetFlagClass;
         $Legislation->update();
 
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
@@ -2374,8 +2393,6 @@ class LegislationController extends Controller
                 }else {
                   if ($value->Flag_Class != NULL) {
                     $SetStatus = $value->Flag_Class;
-                  }else {
-                    $SetStatus = "ลูกหนี้รอฟ้อง";
                   }
                 }
 

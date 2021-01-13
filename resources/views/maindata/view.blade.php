@@ -111,5 +111,4 @@
       $(".alert").alert('close');
     });;
   </script>
-
 @endsection
