@@ -515,11 +515,12 @@
                     </div>
                   @elseif($type == 10) {{--ลูกหนี้ของกลาง--}}
                     <div class="col-md-12">
-                      <form method="get" action="{{ route('legislation', 10) }}">
+                      <form method="get" action="{{ route('MasterLegis.index') }}">
+                        <input type="hidden" name="type" value="10" />
                         <div class="float-right form-inline">
-                            <a href="{{ route('legislation', 11) }}" class="btn bg-success btn-app">
-                              <i class="fas fa-plus"></i> เพิ่มข้อมูล
-                            </a>
+                            <button type="button" class="btn bg-success btn-app" data-toggle="modal" data-target="#modal-6" data-link="{{ route('MasterLegis.show', 0) }}?&type={{11}}">
+                              <i class="fas fa-plus"></i> New
+                            </button>
                             <div class="btn-group">
                               <button type="button" class="btn bg-primary btn-app" data-toggle="dropdown">
                                 <span class="fas fa-print"></span> ปริ้นรายงาน
@@ -649,11 +650,12 @@
                                 @endif
                               </td>
                               <td class="text-center">
-                                <a href="{{ action('LegislationController@edit',[$row->Legisexhibit_id, 10]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
+                                <a href="{{ route('MasterLegis.edit',$row->Legisexhibit_id) }}?type={{10}}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                   <i class="far fa-edit"></i>
                                 </a>
-                                <form method="post" class="delete_form" action="{{ action('LegislationController@destroy',[$row->Legisexhibit_id ,3]) }}"  style="display:inline;">
+                                <form method="post" class="delete_form" action="{{ route('MasterLegis.destroy',[$row->Legisexhibit_id]) }}"  style="display:inline;">
                                 {{csrf_field()}}
+                                  <input type="hidden" name="type" value="3" />
                                   <input type="hidden" name="_method" value="DELETE" />
                                   <button type="submit" data-name="{{ $row->Contract_legis }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
                                     <i class="far fa-trash-alt"></i>
@@ -1562,6 +1564,19 @@
     </div>
   </div>
 
+  <!-- Pop up เพิ่มรายการของกลาง -->
+  <div class="modal fade" id="modal-6">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-body">
+          {{-- <p>One fine body…</p> --}}
+        </div>
+        <div class="modal-footer justify-content-between">
+        </div>
+      </div>
+    </div>
+  </div>
+
   {{-- Popup --}}
   <script>
     $(function () {
@@ -1573,6 +1588,11 @@
       $("#modal-5").on("show.bs.modal", function (e) {
         var link = $(e.relatedTarget).data("link");
         $("#modal-5 .modal-body").load(link, function(){
+        });
+      });
+      $("#modal-6").on("show.bs.modal", function (e) {
+        var link = $(e.relatedTarget).data("link");
+        $("#modal-6 .modal-body").load(link, function(){
         });
       });
     });

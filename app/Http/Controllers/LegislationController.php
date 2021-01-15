@@ -117,6 +117,7 @@ class LegislationController extends Controller
         $tdate = '';
         $terminateexhibit = '';
         $typeexhibit = '';
+
         if ($request->has('Fromdate')){
           $fdate = $request->get('Fromdate');
         }
@@ -129,23 +130,21 @@ class LegislationController extends Controller
         if ($request->has('Typeexhibit')) {
           $typeexhibit = $request->get('Typeexhibit');
         }
+
         $data = DB::table('legisexhibits')
-                  ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
-                    return $q->whereBetween('Dateaccept_legis',[$fdate,$tdate]);
-                  })
-                  ->when(!empty($terminateexhibit), function($q) use($terminateexhibit){
-                    return $q->where('Terminate_legis',$terminateexhibit);
-                  })
-                  ->when(!empty($typeexhibit), function($q) use($typeexhibit){
-                    return $q->where('Typeexhibit_legis',$typeexhibit);
-                  })
-                  ->get();
+          ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+            return $q->whereBetween('Dateaccept_legis',[$fdate,$tdate]);
+          })
+          ->when(!empty($terminateexhibit), function($q) use($terminateexhibit){
+            return $q->where('Terminate_legis',$terminateexhibit);
+          })
+          ->when(!empty($typeexhibit), function($q) use($typeexhibit){
+            return $q->where('Typeexhibit_legis',$typeexhibit);
+          })
+          ->get();
+
         $type = $request->type;
-        return view('legislation.view', compact('type','data','fdate','tdate','terminateexhibit','typeexhibit'));
-      }
-      elseif ($request->type == 11) {   //หน้าเพิ่มข้อมูลใหม่ของกลาง
-        $type = $request->type;
-        return view('legislation.createexhibit',compact('type'));
+        return view('legislation.viewLegis', compact('type','data','fdate','tdate','terminateexhibit','typeexhibit'));
       }
       elseif ($request->type == 12) {   //ขายฝาก
         $dataLand = DB::table('legislands')
@@ -533,7 +532,7 @@ class LegislationController extends Controller
         $pdf::WriteHTML($html,true,false,true,false,'');
         $pdf::Output('report.pdf');
       }
-      elseif ($request->type == 11){ //เพิ่มข้อของกลาง
+      elseif ($request->type == 10){ //เพิ่มข้อของกลาง
         $Dateresult = NULL;
         if($request->get('DategetResult1') != Null){
           $Dateresult = $request->get('DategetResult1');
@@ -569,10 +568,9 @@ class LegislationController extends Controller
           'Processexhibit1_legis' =>  $request->get('ProcessExhibit2'),
           'Dategetresult_legis' =>  $Dateresult,
         ]);
-        // dd($LegisExhibit);
         $LegisExhibit->save();
-        $type = 10;
-        return redirect()->Route('legislation',$type)->with('success','บันทึกข้อมูลเรียบร้อย');
+
+        return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
       }
     }
 
@@ -736,7 +734,7 @@ class LegislationController extends Controller
 
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
       }
-      elseif ($type == 3) {  //ลูกหนี้ขายฝาก
+      elseif ($request->type == 3) {  //ลูกหนี้ขายฝาก
         // $SetStrConn = $SetStr1."/".$SetStr2;
         // $data = DB::connection('ibmi')
         //           ->table('LSFHP.ARMAST')
@@ -798,7 +796,7 @@ class LegislationController extends Controller
      */
     public function show(Request $request,$id)
     {
-      if ($request->type == 1) {  //ส่งทนาย(ลูกหนี้เตรียมฟ้อง)
+      if ($request->type == 1) {    //ส่งทนาย(ลูกหนี้เตรียมฟ้อง)
         $user = Legislation::find($id);
           $user->Flag_status = 2;
           $user->Flag_Class = "ลูกหนี้รอฟ้อง";
@@ -817,6 +815,10 @@ class LegislationController extends Controller
         $Legiscourtcase->save();
 
         return redirect()->back()->with('success','ส่งให้ทนายเรียบร้อย');
+      }
+      elseif ($request->type == 11) {  //ลูกหนี้ของกลาง
+        $type = $request->type;
+        return view('legislation.createexhibit',compact('type'));
       }
     }
 
@@ -958,6 +960,7 @@ class LegislationController extends Controller
               ->where('SFHP.ARMAST.CONTNO','=', $data->Contract_legis)
               ->first();
 
+        $type = $request->type;
         return view('legislation.editmore',compact('data','data1','id','type'));
       }
       elseif ($request->type == 11){ //รูปและแผนที
@@ -1404,6 +1407,7 @@ class LegislationController extends Controller
             $LegisExhibit->Processexhibit2_legis =  $request->get('ProcessExhibit2');
             $LegisExhibit->Dategetresult_legis =  $Dateresult;
           $LegisExhibit->update();
+
           return redirect()->back()->with('success','อัพเดทข้อมูลเรียบร้อย');
       }
       elseif ($request->type == 11) { //รูปและแผนที่
