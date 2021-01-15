@@ -8,6 +8,7 @@
   }
 @endphp
 
+
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -266,11 +267,20 @@
             @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก กฏหมาย" or auth::user()->type == "แผนก เร่งรัด")
               <ul class="nav nav-treeview" style="margin-left: 15px;">
                 <li class="nav-item">
+                  @php
+                    if (isset($_GET['type'])) {
+                      if ($_GET['type'] == 20 || $_GET['type'] == 6 || $_GET['type'] == 21 || $_GET['type'] == 22 || $_GET['type'] == 23 || $_GET['type'] == 24 || $_GET['type'] == 25 || $_GET['type'] == 8 || Request::is('MasterLegis/*/*')) {
+                        $SetActive20 = true;
+                      }else {
+                        $SetActive10 = true;
+                      }
+                    }
+                  @endphp
                   <a data-toggle="modal" data-target="#modal-1" data-link="{{ route('MasterLegis.index') }}?type={{1}}" class="nav-link {{ Request::is('Legislation/Home/1') ? 'active' : '' }}">
                     <i class="far fa-dot-circle nav-icon"></i>
                     <p>รายชื่อส่งฟ้อง</p>
                   </a>
-                  <a href="{{ route('MasterLegis.index') }}?type={{20}}" class="nav-link {{ Request::is('MasterLegis') ? 'active' : '' }} {{ Request::is('MasterLegis/*/*') ? 'active' : '' }}">
+                  <a href="{{ route('MasterLegis.index') }}?type={{20}}" class="nav-link @if(isset($SetActive20)) {{($SetActive20 == true) ? 'active' : '' }} @endif">
                     <i class="far fa-dot-circle nav-icon"></i>
                     <p>ลูกหนี้ฟ้อง</p>
                   </a>
@@ -278,7 +288,7 @@
                     <i class="far fa-dot-circle nav-icon"></i>
                     <p>ลูกหนี้ประนอมหนี้</p>
                   </a>
-                  <a href="#" class="nav-link">
+                  <a href="{{ route('MasterLegis.index') }}?type={{10}}" class="nav-link @if(isset($SetActive10)) {{($SetActive10 == true) ? 'active' : '' }} @endif">
                     <i class="far fa-dot-circle nav-icon"></i>
                     <p>ลูกหนี้ของกลาง</p>
                   </a>
