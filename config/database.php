@@ -55,6 +55,27 @@ return [
         ],
         ],
 
+        'ibmi2' => [
+            'driver'               => 'db2_ibmi_odbc',
+            'driverName'           => '{IBM DB2 ODBC DRIVER}',
+             // General settings
+            'host'                 => '203.150.34.16',
+            'protocol'             => 'TCPIP',
+            'username'             => 'sfhp',
+            'password'             => 'Soft@2K7',
+            //Server settings
+            'database'             => 'DBMSCKKB',
+            'prefix'               => '',
+            'schema'               => 'information_schema',
+            'port'                 => '50000',
+            // charset
+            'toolkit' => [
+            'plugSize' => '512K',
+            'encoding' => "UTF-8",
+            'ccsid' => "874/1208",
+        ],
+        ],
+
         'sqlite' => [
             'driver' => 'sqlite',
             'url' => env('DATABASE_URL'),

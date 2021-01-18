@@ -271,7 +271,7 @@
                     if (isset($_GET['type'])) {
                       if ($_GET['type'] == 20 || $_GET['type'] == 6 || $_GET['type'] == 21 || $_GET['type'] == 22 || $_GET['type'] == 23 || $_GET['type'] == 24 || $_GET['type'] == 25 || $_GET['type'] == 8 || Request::is('MasterLegis/*/*')) {
                         $SetActive20 = true;
-                      }else {
+                      }elseif ($_GET['type'] == 10) {
                         $SetActive10 = true;
                       }
                     }
