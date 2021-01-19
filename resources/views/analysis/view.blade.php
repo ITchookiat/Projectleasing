@@ -69,12 +69,13 @@
         @if($type == 1)
           @if(auth::user()->type == 'Admin' or auth::user()->type == 'แผนก วิเคราะห์')
             <a href="{{ route('Analysis', 2) }}" class="btn btn-success btn-block mb-3">Compose</a>
+            <a href="{{ route('DataCustomer', 1) }}" class="btn btn-danger btn-block mb-3">New Walk-in</a>
           @else
-            <a href="#" class="btn btn-success btn-block mb-3">Compose</a>
+            <a href="{{ route('DataCustomer', 1) }}" class="btn btn-danger btn-block mb-3">New Walk-in</a>
           @endif
-        @elseif($type == 4)
+        @elseif($type == 4)   <!-- รถบ้าน -->
           <a href="{{ route('Analysis', 5) }}" class="btn btn-success btn-block mb-3">Compose</a>
-        @elseif($type == 12)
+        @elseif($type == 12)  <!-- โควิด 19 -->
           <a href="{{ route('Analysis', 13) }}" class="btn btn-success btn-block mb-3">Compose</a>
         @endif
 

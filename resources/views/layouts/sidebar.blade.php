@@ -33,7 +33,26 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column text-sm" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-item has-treeview {{ Request::is('Analysis/*') ? 'menu-open' : '' }} {{ Request::is('DataCustomer/*') ? 'menu-open' : '' }} {{ Request::is('MasterEvents') ? 'menu-open' : '' }} {{ Request::is('MasterInfo') ? 'menu-open' : '' }} {{ Request::is('MasterInfo/*') ? 'menu-open' : '' }}">
+          <li class="nav-item has-treeview {{ Request::is('MasterEvents') ? 'menu-open' : '' }} {{ Request::is('MasterInfo') ? 'menu-open' : '' }} {{ Request::is('MasterInfo/*') ? 'menu-open' : '' }}">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fab fa-audible"></i>
+              <span id="ShowData"></span>
+              <p>
+                Events and Information
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview" style="margin-left: 15px;">
+              <li class="nav-item">
+                <a href="{{ route('MasterEvents.index') }}?type={{1}}" class="nav-link {{ Request::is('MasterEvents') ? 'active' : '' }} {{ Request::is('MasterInfo') ? 'active' : '' }} {{ Request::is('MasterInfo/*') ? 'active' : '' }}">
+                  <i class="far fa-dot-circle nav-icon"></i>
+                  <p>New Events and Infor</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item has-treeview {{ Request::is('Analysis/*') ? 'menu-open' : '' }} {{ Request::is('DataCustomer/*') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link active">
               <i class="nav-icon fa fa-sitemap"></i>
               <p>
@@ -42,29 +61,7 @@
               </p>
             </a>
             
-            @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์" or auth::user()->type == "แผนก รถบ้าน" or auth::user()->type == "แผนก การเงินใน")
-              <ul class="nav nav-treeview">
-                <li class="nav-item has-treeview {{ Request::is('MasterEvents') ? 'menu-open' : '' }} {{ Request::is('MasterInfo') ? 'menu-open' : '' }} {{ Request::is('MasterInfo/*') ? 'menu-open' : '' }}">
-                  <a href="#" class="nav-link">
-                    <i class="far fa-window-restore text-red nav-icon"></i>
-                    <span id="Info"></span>
-                    <p>
-                      กิจกรรมและข่าวสาร
-                      <i class="right fas fa-angle-left"></i>
-                    </p>
-                  </a>
-                  <ul class="nav nav-treeview" style="margin-left: 15px;">
-                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์")
-                      <li class="nav-item">
-                        <a href="{{ route('MasterEvents.index') }}?type={{1}}" class="nav-link {{ Request::is('MasterEvents') ? 'active' : '' }} {{ Request::is('MasterInfo') ? 'active' : '' }} {{ Request::is('MasterInfo/*') ? 'active' : '' }}">
-                          <i class="far fa-dot-circle nav-icon"></i>
-                          <p>New Information</p>
-                        </a>
-                      </li>
-                    @endif
-                  </ul>
-                </li>
-              </ul>
+            @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์" or auth::user()->type == "แผนก รถบ้าน" or auth::user()->type == "แผนก การเงินใน" or auth::user()->type == "แผนก กฏหมาย")
               {{-- <ul class="nav nav-treeview">
                 <li class="nav-item has-treeview {{ Request::is('DataCustomer/Home/1') ? 'menu-open' : '' }} {{ Request::is('DataCustomer/Home/2') ? 'menu-open' : '' }}">
                   <a href="#" class="nav-link">
@@ -91,7 +88,8 @@
                 </li>
               </ul> --}}
               <ul class="nav nav-treeview">
-                <li class="nav-item has-treeview {{ Request::is('Analysis/Home/1') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/2') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/3') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/4') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/5') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/6') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/7') ? 'menu-open' : '' }} {{ Request::is('Analysis/edit/1/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/edit/4/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/deleteImageEach/1/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/deleteImageEach/4/*') ? 'menu-open' : '' }}">
+                <li class="nav-item has-treeview {{ Request::is('Analysis/Home/1') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/2') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/3') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/4') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/5') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/6') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/7') ? 'menu-open' : '' }} {{ Request::is('Analysis/edit/1/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/edit/4/*') ? 'menu-open' : '' }} 
+                                                 {{ Request::is('Analysis/deleteImageEach/1/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/deleteImageEach/4/*') ? 'menu-open' : '' }} {{ Request::is('DataCustomer/*') ? 'menu-open' : '' }}">
                   <a href="#" class="nav-link">
                     <i class="far fa-window-restore text-red nav-icon"></i>
                     <p>
@@ -100,36 +98,37 @@
                     </p>
                   </a>
                   <ul class="nav nav-treeview" style="margin-left: 15px;">
-                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์" or auth::user()->type == "แผนก การเงินใน")
-                        <li class="nav-item">
-                          <a href="{{ route('Analysis', 1) }}" class="nav-link {{ Request::is('Analysis/Home/1') ? 'active' : '' }} {{ Request::is('Analysis/Home/2') ? 'active' : '' }} {{ Request::is('Analysis/edit/1/*/*/*/*/*') ? 'active' : '' }}">
+                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์" or auth::user()->type == "แผนก การเงินใน" or auth::user()->type == "แผนก กฏหมาย")
+                      <li class="nav-item">
+                        <a href="{{ route('Analysis', 1) }}" class="nav-link {{ Request::is('Analysis/Home/1') ? 'active' : '' }} {{ Request::is('Analysis/Home/2') ? 'active' : '' }} {{ Request::is('Analysis/edit/1/*/*/*/*/*') ? 'active' : '' }}
+                                                                              {{ Request::is('DataCustomer/*/*') ? 'active' : '' }}">
+                          <i class="far fa-dot-circle nav-icon"></i>
+                          <p>สินเชื่อ</p>
+                        </a>
+                        <a href="{{ route('Analysis',3) }}" class="nav-link {{ Request::is('Analysis/Home/3') ? 'active' : '' }}">
+                          <i class="far fa-dot-circle nav-icon"></i>
+                          <p>รายงาน สินเชื่อ</p>
+                        </a>
+                      </li>
+                    @endif
+                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก รถบ้าน")
+                      <li class="nav-item">
+                        <a href="{{ route('Analysis',4) }}" class="nav-link {{ Request::is('Analysis/Home/4') ? 'active' : '' }} {{ Request::is('Analysis/Home/5') ? 'active' : '' }} {{ Request::is('Analysis/edit/4/*/*/*/*/*') ? 'active' : '' }}">
+                          <i class="far fa-dot-circle nav-icon"></i>
+                          <p>รถบ้าน</p>
+                        </a>
+                        <a href="{{ route('Analysis',6) }}" class="nav-link {{ Request::is('Analysis/Home/6') ? 'active' : '' }} ">
+                          <i class="far fa-dot-circle nav-icon"></i>
+                          <p>รายงาน สินเชื่อรถบ้าน</p>
+                        </a>
+                        @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
+                          <a href="{{ route('Analysis',7) }}" class="nav-link {{ Request::is('Analysis/Home/7') ? 'active' : '' }} ">
                             <i class="far fa-dot-circle nav-icon"></i>
-                            <p>สินเชื่อ</p>
+                            <p>รายงาน การอนุมัติ</p>
                           </a>
-                          <a href="{{ route('Analysis',3) }}" class="nav-link {{ Request::is('Analysis/Home/3') ? 'active' : '' }}">
-                            <i class="far fa-dot-circle nav-icon"></i>
-                            <p>รายงาน สินเชื่อ</p>
-                          </a>
-                        </li>
-                      @endif
-                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก รถบ้าน")
-                        <li class="nav-item">
-                          <a href="{{ route('Analysis',4) }}" class="nav-link {{ Request::is('Analysis/Home/4') ? 'active' : '' }} {{ Request::is('Analysis/Home/5') ? 'active' : '' }} {{ Request::is('Analysis/edit/4/*/*/*/*/*') ? 'active' : '' }}">
-                            <i class="far fa-dot-circle nav-icon"></i>
-                            <p>รถบ้าน</p>
-                          </a>
-                          <a href="{{ route('Analysis',6) }}" class="nav-link {{ Request::is('Analysis/Home/6') ? 'active' : '' }} ">
-                            <i class="far fa-dot-circle nav-icon"></i>
-                            <p>รายงาน สินเชื่อรถบ้าน</p>
-                          </a>
-                          @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                            <a href="{{ route('Analysis',7) }}" class="nav-link {{ Request::is('Analysis/Home/7') ? 'active' : '' }} ">
-                              <i class="far fa-dot-circle nav-icon"></i>
-                              <p>รายงาน การอนุมัติ</p>
-                            </a>
-                          @endif
-                        </li>
-                      @endif
+                        @endif
+                      </li>
+                    @endif
                   </ul>
                 </li>
               </ul>
