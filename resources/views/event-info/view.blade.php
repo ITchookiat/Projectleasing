@@ -25,13 +25,7 @@
           <div class="col-sm-6">
             <h4>กิจกรรมและข่าวสาร (Events and Information)</h4>
           </div>
-          <div class="col-sm-6">
-            <div class="card-tools d-inline float-right">
-              <a href="{{ route('DataCustomer', 1) }}" class="btn bg-warning btn-sm" style="border-radius: 40px;">
-                <span class="fas fa-users prem pr-1"></span> New Walk-in
-              </a>
-            </div>
-          </div>
+          <div class="col-sm-6"></div>
         </div>
       </div>
     </div>
