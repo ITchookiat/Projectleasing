@@ -140,7 +140,7 @@
                   @endif
                 </a>
                 <a class="nav-link" id="vert-tabs-12-tab" data-toggle="pill" href="#vert-tabs-12" role="tab" aria-controls="vert-tabs-12" aria-selected="false">
-                  <i class="fas fa-hdd"></i> สาขาบังนังสตา (12)
+                  <i class="fas fa-hdd"></i> สาขารือเสาะ (12)
                   @if($Count12 != 0)
                     <span class="badge bg-primary float-right">{{$Count12}}</span>
                   @endif
@@ -1399,7 +1399,7 @@
                     </div>
                     <div class="tab-pane fade" id="vert-tabs-12" role="tabpanel" aria-labelledby="vert-tabs-12-tab">
                       <div class="card-header">
-                        <h3 class="card-title">สาขาบังนังสตา (12)</h3>
+                        <h3 class="card-title">สาขารือเสาะ (12)</h3>
                       </div>
                       <div class="col-12">
                         <table class="table table-striped table-valign-middle" id="table12">
@@ -1420,7 +1420,7 @@
                           </thead>
                           <tbody>
                             @foreach($data as $row)
-                              @if($row->branch_car == 'บังนังสตา')
+                              @if($row->branch_car == 'รือเสาะ')
                                 <tr>
                                   {{-- <td class="text-center"> {{ $row->branch_car}} </td> --}}
                                   <td class="text-left"> {{ $row->Contract_buyer}} </td>
