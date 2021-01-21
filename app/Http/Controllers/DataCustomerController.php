@@ -170,7 +170,7 @@ class DataCustomerController extends Controller
         }elseif(auth()->user()->branch == '09'){
             $SetUserBranch = 'ตันหยงมัส';
         }elseif(auth()->user()->branch == '12'){
-            $SetUserBranch = 'บังนังสตา';
+            $SetUserBranch = 'รือเสาะ';
         }else{
             $SetUserBranch = 'แอดมิน';
         }
