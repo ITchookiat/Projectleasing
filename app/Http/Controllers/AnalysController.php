@@ -1826,7 +1826,7 @@ class AnalysController extends Controller
                   ->orderBy('Contract_buyer', 'desc')->limit(1)
                   ->get();
             }
-            elseif ($cardetail->branch_car == "บังนังสตา") {
+            elseif ($cardetail->branch_car == "รือเสาะ") {
               $connect = Buyer::where('Contract_buyer', 'like', '12%' )
                   ->orderBy('Contract_buyer', 'desc')->limit(1)
                   ->get();
@@ -1892,7 +1892,7 @@ class AnalysController extends Controller
                   ->orderBy('Contract_buyer', 'desc')->limit(1)
                   ->get();
             }
-            elseif ($cardetail->branch_car == "บังนังสตา") {
+            elseif ($cardetail->branch_car == "รือเสาะ") {
               $connect = Buyer::where('Contract_buyer', 'like', '12%' )
                   ->orderBy('Contract_buyer', 'desc')->limit(1)
                   ->get();
