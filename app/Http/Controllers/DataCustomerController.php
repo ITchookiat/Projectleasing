@@ -146,7 +146,7 @@ class DataCustomerController extends Controller
         elseif($data->Branch_car == 'ตันหยงมัส'){
             $SetContract = '09-'.$SetYear.'/';
         }
-        elseif($data->Branch_car == 'บังนังสตา'){
+        elseif($data->Branch_car == 'รือเสาะ'){
             $SetContract = '12-'.$SetYear.'/';
         }
         else{
