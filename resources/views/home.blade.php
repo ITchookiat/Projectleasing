@@ -1,46 +1,30 @@
 @extends('layouts.master')
 @section('title','Home')
 @section('content')
+  <style>
+    i:hover {
+      color: blue;
+    }
+  </style>
 
-<style>
-  i:hover {
-    color: blue;
-  }
-</style>
+  @if(session()->has('success'))
+    <script type="text/javascript">
+      toastr.success('{{ session()->get('success') }}')
+    </script>
+  @endif
 
-<div class="content-header">
-  <div class="row justify-content-center">
-    <div class="col-md-12 table-responsive">
-      <div class="card">
-        <div class="card-body">
-          @if(session()->has('success'))
-            <script type="text/javascript">
-              toastr.success('{{ session()->get('success') }}')
-            </script>
-          @endif
-
-
-          <div class="row mb-0">
-            <div class="col-sm-6">
-              <h1 class="m-0 text-dark">LAB Leasing</h1>
-            </div>
-            <div class="col-sm-6">
-              @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์" or auth::user()->type == "แผนก รถบ้าน")
-                <a class="btn bg-warning btn-app float-right" data-toggle="modal" data-target="#modal-walkin" data-backdrop="static" data-keyboard="false" style="border-radius: 40px;">
-                  <span class="fas fa-users prem fa-5x"></span> <label class="prem">WALK IN</label>
-                </a>
-              @endif
-            </div>
-          </div>
-
-          <div align="center">
-            <a href="{{ route('Analysis', 1) }}"><img class="img-responsive" src="{{ asset('dist/img/leasing02.png') }}" alt="User Image" style = "width: 43%"></a>
-          </div>
-        </div>
-      </div>
+  <div class="pricing-header px-3 py-3 pt-md-3 pb-md-0 mx-auto text-center">
+    <div class="card-tools">
+      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์" or auth::user()->type == "แผนก รถบ้าน")
+        <a class="btn bg-warning btn-app float-right btn-tool" data-toggle="modal" data-target="#modal-walkin" data-backdrop="static" data-keyboard="false" style="border-radius: 10px;">
+          <span class="fas fa-users prem fa-5x"></span> <label class="prem">WALK IN</label>
+        </a>
+      @endif
+    </div>
+    <div align="center">
+      <a href="{{ route('Analysis', 1) }}"><img class="img-responsive" src="{{ asset('dist/img/leasing02.png') }}" alt="User Image" style = "width: 53%"></a>
     </div>
   </div>
-</div>
 
   <!-- Walkin modal -->
   <form name="form2" action="{{ route('MasterDataCustomer.store') }}" method="post" enctype="multipart/form-data">

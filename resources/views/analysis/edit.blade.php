@@ -267,31 +267,30 @@
                       <div class="col-sm-9">
                         <ol class="breadcrumb float-sm-right">
                           {{-- ผู้จัดการ --}}
-                          @if($data->Top_car > 250000)
-                            <div class="float-right form-inline">
-                              <i class="fas fa-grip-vertical"></i>
-                              <span class="todo-wrap">
-                                @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
-                                  @if ($data->ManagerApp_car != NULL)
-                                    <input type="checkbox" class="checkbox" name="MANAGER" id="1" value="{{ $data->ManagerApp_car }}" {{ ($data->ManagerApp_car !== NULL) ? 'checked' : '' }}>
-                                  @else
-                                    <input type="checkbox" class="checkbox" name="MANAGER" id="1" value="{{ auth::user()->name }}">
-                                  @endif
+                          <div class="float-right form-inline">
+                            <i class="fas fa-grip-vertical"></i>
+                            <span class="todo-wrap">
+                              @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
+                                @if ($data->ManagerApp_car != NULL)
+                                  <input type="checkbox" class="checkbox" name="MANAGER" id="1" value="{{ $data->ManagerApp_car }}" {{ ($data->ManagerApp_car !== NULL) ? 'checked' : '' }}>
                                 @else
-                                  <input type="checkbox" class="checkbox" id="1" {{ ($data->ManagerApp_car !== NULL) ? 'checked' : '' }} disabled>
+                                  <input type="checkbox" class="checkbox" name="MANAGER" id="1" value="{{ auth::user()->name }}">
                                 @endif
-                                <label for="1" class="todo">
-                                  <i class="fa fa-check"></i>
-                                  <font color="red">MANAGER &nbsp;&nbsp;</font>
-                                </label>
-                              </span> 
-                              @if(auth::user()->type != "Admin" and auth::user()->position != "MANAGER")
-                                @if($data->ManagerApp_car != NULL)
-                                  <input type="hidden" name="MANAGER" value="{{ $data->ManagerApp_car }}">
-                                @endif
-                              @endif  
-                            </div>
-                          @endif
+                              @else
+                                <input type="checkbox" class="checkbox" id="1" {{ ($data->ManagerApp_car !== NULL) ? 'checked' : '' }} disabled>
+                              @endif
+                              <label for="1" class="todo">
+                                <i class="fa fa-check"></i>
+                                <font color="red">MANAGER &nbsp;&nbsp;</font>
+                              </label>
+                            </span> 
+                            @if(auth::user()->type != "Admin" and auth::user()->position != "MANAGER")
+                              @if($data->ManagerApp_car != NULL)
+                                <input type="hidden" name="MANAGER" value="{{ $data->ManagerApp_car }}">
+                              @endif
+                            @endif  
+                          </div>
+
                           {{-- audit --}}
                           <div class="float-right form-inline">
                             <i class="fas fa-grip-vertical"></i>
@@ -317,13 +316,11 @@
                             @endif
                           </div>
 
-                          
                           {{-- หัวหน้าสาขา --}}
-
                           <div class="float-right form-inline">
                             <i class="fas fa-grip-vertical"></i>
                               <span class="todo-wrap">
-                                @if(auth::user()->type == "Admin" or auth::user()->position == "MASTER" or auth::user()->position == "MANAGER" or auth::user()->position == "AUDIT")
+                                @if(auth::user()->type == "Admin" or auth::user()->position == "MASTER" or auth::user()->position == "AUDIT")
                                   @if($data->Check_car != NULL)
                                     <input type="checkbox" class="checkbox" name="MASTER" id="3" value="{{ $data->Check_car }}" {{ ($data->Check_car !== NULL) ? 'checked' : '' }}>
                                   @else

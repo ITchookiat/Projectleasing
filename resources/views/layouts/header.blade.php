@@ -60,7 +60,7 @@
 
     <li class="nav-item dropdown user user-menu">
       <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-        <img src="{{ asset('dist/img/avatar5.png') }}" class="user-image img-circle elevation-2 alt="User Image">
+        <img src="{{ asset('dist/img/avatar5.png') }}" class="user-image img-circle elevation-2" alt="User Image">
         <span class="hidden-xs">{{ Auth::user()->name }}</span>
       </a>
       <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
