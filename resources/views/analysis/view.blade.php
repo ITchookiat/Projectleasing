@@ -352,16 +352,14 @@
                                       </button>
                                     @endif
 
-                                    @if($row->Top_car > 250000)
-                                      @if ($row->ManagerApp_car != Null)
-                                        <button type="button" class="btn btn-success btn-xs">
-                                          <i class="fas fa-user-lock prem"></i>
-                                        </button>
-                                      @else
-                                        <button type="button" class="btn btn-warning btn-xs">
-                                          <i class="fas fa-user-lock prem"></i>
-                                        </button>
-                                      @endif
+                                    @if ($row->ManagerApp_car != Null)
+                                      <button type="button" class="btn btn-success btn-xs">
+                                        <i class="fas fa-user-lock prem"></i>
+                                      </button>
+                                    @else
+                                      <button type="button" class="btn btn-warning btn-xs">
+                                        <i class="fas fa-user-lock prem"></i>
+                                      </button>
                                     @endif
                                   </td>
                                   <td class="text-right">
@@ -492,16 +490,14 @@
                                       </button>
                                     @endif
 
-                                    @if($row->Top_car > 250000)
-                                      @if ($row->ManagerApp_car != Null)
-                                        <button type="button" class="btn btn-success btn-xs">
-                                          <i class="fas fa-user-lock prem"></i>
-                                        </button>
-                                      @else
-                                        <button type="button" class="btn btn-warning btn-xs">
-                                          <i class="fas fa-user-lock prem"></i>
-                                        </button>
-                                      @endif
+                                    @if ($row->ManagerApp_car != Null)
+                                      <button type="button" class="btn btn-success btn-xs">
+                                        <i class="fas fa-user-lock prem"></i>
+                                      </button>
+                                    @else
+                                      <button type="button" class="btn btn-warning btn-xs">
+                                        <i class="fas fa-user-lock prem"></i>
+                                      </button>
                                     @endif
                                   </td>
                                   <td class="text-right">
@@ -632,16 +628,14 @@
                                       </button>
                                     @endif
 
-                                    @if($row->Top_car > 250000)
-                                      @if ($row->ManagerApp_car != Null)
-                                        <button type="button" class="btn btn-success btn-xs">
-                                          <i class="fas fa-user-lock prem"></i>
-                                        </button>
-                                      @else
-                                        <button type="button" class="btn btn-warning btn-xs">
-                                          <i class="fas fa-user-lock prem"></i>
-                                        </button>
-                                      @endif
+                                    @if ($row->ManagerApp_car != Null)
+                                      <button type="button" class="btn btn-success btn-xs">
+                                        <i class="fas fa-user-lock prem"></i>
+                                      </button>
+                                    @else
+                                      <button type="button" class="btn btn-warning btn-xs">
+                                        <i class="fas fa-user-lock prem"></i>
+                                      </button>
                                     @endif
                                   </td>
                                   <td class="text-right">
@@ -772,16 +766,14 @@
                                       </button>
                                     @endif
 
-                                    @if($row->Top_car > 250000)
-                                      @if ($row->ManagerApp_car != Null)
-                                        <button type="button" class="btn btn-success btn-xs">
-                                          <i class="fas fa-user-lock prem"></i>
-                                        </button>
-                                      @else
-                                        <button type="button" class="btn btn-warning btn-xs">
-                                          <i class="fas fa-user-lock prem"></i>
-                                        </button>
-                                      @endif
+                                    @if ($row->ManagerApp_car != Null)
+                                      <button type="button" class="btn btn-success btn-xs">
+                                        <i class="fas fa-user-lock prem"></i>
+                                      </button>
+                                    @else
+                                      <button type="button" class="btn btn-warning btn-xs">
+                                        <i class="fas fa-user-lock prem"></i>
+                                      </button>
                                     @endif
                                   </td>
                                   <td class="text-right">
@@ -912,16 +904,14 @@
                                       </button>
                                     @endif
 
-                                    @if($row->Top_car > 250000)
-                                      @if ($row->ManagerApp_car != Null)
-                                        <button type="button" class="btn btn-success btn-xs">
-                                          <i class="fas fa-user-lock prem"></i>
-                                        </button>
-                                      @else
-                                        <button type="button" class="btn btn-warning btn-xs">
-                                          <i class="fas fa-user-lock prem"></i>
-                                        </button>
-                                      @endif
+                                    @if ($row->ManagerApp_car != Null)
+                                      <button type="button" class="btn btn-success btn-xs">
+                                        <i class="fas fa-user-lock prem"></i>
+                                      </button>
+                                    @else
+                                      <button type="button" class="btn btn-warning btn-xs">
+                                        <i class="fas fa-user-lock prem"></i>
+                                      </button>
                                     @endif
                                   </td>
                                   <td class="text-right">
@@ -1052,16 +1042,14 @@
                                       </button>
                                     @endif
 
-                                    @if($row->Top_car > 250000)
-                                      @if ($row->ManagerApp_car != Null)
-                                        <button type="button" class="btn btn-success btn-xs">
-                                          <i class="fas fa-user-lock prem"></i>
-                                        </button>
-                                      @else
-                                        <button type="button" class="btn btn-warning btn-xs">
-                                          <i class="fas fa-user-lock prem"></i>
-                                        </button>
-                                      @endif
+                                    @if ($row->ManagerApp_car != Null)
+                                      <button type="button" class="btn btn-success btn-xs">
+                                        <i class="fas fa-user-lock prem"></i>
+                                      </button>
+                                    @else
+                                      <button type="button" class="btn btn-warning btn-xs">
+                                        <i class="fas fa-user-lock prem"></i>
+                                      </button>
                                     @endif
                                   </td>
                                   <td class="text-right">
@@ -1192,16 +1180,14 @@
                                       </button>
                                     @endif
 
-                                    @if($row->Top_car > 250000)
-                                      @if ($row->ManagerApp_car != Null)
-                                        <button type="button" class="btn btn-success btn-xs">
-                                          <i class="fas fa-user-lock prem"></i>
-                                        </button>
-                                      @else
-                                        <button type="button" class="btn btn-warning btn-xs">
-                                          <i class="fas fa-user-lock prem"></i>
-                                        </button>
-                                      @endif
+                                    @if ($row->ManagerApp_car != Null)
+                                      <button type="button" class="btn btn-success btn-xs">
+                                        <i class="fas fa-user-lock prem"></i>
+                                      </button>
+                                    @else
+                                      <button type="button" class="btn btn-warning btn-xs">
+                                        <i class="fas fa-user-lock prem"></i>
+                                      </button>
                                     @endif
                                   </td>
                                   <td class="text-right">
@@ -1332,16 +1318,14 @@
                                       </button>
                                     @endif
 
-                                    @if($row->Top_car > 250000)
-                                      @if ($row->ManagerApp_car != Null)
-                                        <button type="button" class="btn btn-success btn-xs">
-                                          <i class="fas fa-user-lock prem"></i>
-                                        </button>
-                                      @else
-                                        <button type="button" class="btn btn-warning btn-xs">
-                                          <i class="fas fa-user-lock prem"></i>
-                                        </button>
-                                      @endif
+                                    @if ($row->ManagerApp_car != Null)
+                                      <button type="button" class="btn btn-success btn-xs">
+                                        <i class="fas fa-user-lock prem"></i>
+                                      </button>
+                                    @else
+                                      <button type="button" class="btn btn-warning btn-xs">
+                                        <i class="fas fa-user-lock prem"></i>
+                                      </button>
                                     @endif
                                   </td>
                                   <td class="text-right">
@@ -1472,16 +1456,14 @@
                                       </button>
                                     @endif
 
-                                    @if($row->Top_car > 250000)
-                                      @if ($row->ManagerApp_car != Null)
-                                        <button type="button" class="btn btn-success btn-xs">
-                                          <i class="fas fa-user-lock prem"></i>
-                                        </button>
-                                      @else
-                                        <button type="button" class="btn btn-warning btn-xs">
-                                          <i class="fas fa-user-lock prem"></i>
-                                        </button>
-                                      @endif
+                                    @if ($row->ManagerApp_car != Null)
+                                      <button type="button" class="btn btn-success btn-xs">
+                                        <i class="fas fa-user-lock prem"></i>
+                                      </button>
+                                    @else
+                                      <button type="button" class="btn btn-warning btn-xs">
+                                        <i class="fas fa-user-lock prem"></i>
+                                      </button>
                                     @endif
                                   </td>
                                   <td class="text-right">
@@ -1805,16 +1787,14 @@
                                       </button>
                                     @endif
 
-                                    @if($row->Top_car > 250000)
-                                      @if ($row->ManagerApp_car != Null)
-                                        <button type="button" class="btn btn-success btn-xs">
-                                          <i class="fas fa-user-lock prem"></i>
-                                        </button>
-                                      @else
-                                        <button type="button" class="btn btn-warning btn-xs">
-                                          <i class="fas fa-user-lock prem"></i>
-                                        </button>
-                                      @endif
+                                    @if ($row->ManagerApp_car != Null)
+                                      <button type="button" class="btn btn-success btn-xs">
+                                        <i class="fas fa-user-lock prem"></i>
+                                      </button>
+                                    @else
+                                      <button type="button" class="btn btn-warning btn-xs">
+                                        <i class="fas fa-user-lock prem"></i>
+                                      </button>
                                     @endif
                                   </td>
                                   <td class="text-right">
