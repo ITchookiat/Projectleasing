@@ -1508,10 +1508,6 @@ class AnalysController extends Controller
         'รถเก๋ง/7ที่นั่ง' => 'รถเก๋ง/7ที่นั่ง',
       ];
 
-      // if ($status == 'Null') {
-      //   $status = NULL;
-      // }
-
       if ($type == 1) {
         return view('Analysis.edit',
             compact('data','id','dataImage','Statusby','Addby','Houseby','Driverby','HouseStyleby','Careerby','Incomeby',
@@ -1547,6 +1543,8 @@ class AnalysController extends Controller
      */
     public function update(Request $request, $id, $type)
     {
+      // dd($request);
+
       date_default_timezone_set('Asia/Bangkok');
       $Currdate = date('2020-06-02');   //วันที่เช็ตค่า รูป
       $Getcardetail = Cardetail::where('Buyercar_id',$id)->first();
@@ -1574,27 +1572,37 @@ class AnalysController extends Controller
       $StatusApp = "รออนุมัติ";
       if ($Getcardetail->Date_Appcar == NULL) { //เช็คอนุมัติ
         $newDateDue = $request->get('DateDue');
-        if ($SetTopcar > 250000) {
-          if ($request->get('MANAGER') != Null) {
-            if ($Getcardetail->Date_Appcar == Null) {
-              $newDateDue = date('Y-m-d');
-            }
-            $StatusApp = "อนุมัติ";
-          }else {
-            $newDateDue = $request->get('DateDue');
-            $StatusApp = "รออนุมัติ";
+        if ($request->get('MANAGER') != Null) {
+          if ($Getcardetail->Date_Appcar == Null) {
+            $newDateDue = date('Y-m-d');
           }
+          $StatusApp = "อนุมัติ";
         }else {
-          if ($request->get('AUDIT') != Null) {
-            if ($Getcardetail->Date_Appcar == Null) {
-              $newDateDue = date('Y-m-d');
-            }
-            $StatusApp = "อนุมัติ";
-          }elseif ($request->get('MASTER') != Null) {
-              $newDateDue = $request->get('DateDue');
-              $StatusApp = "รออนุมัติ";
-          }
+          $newDateDue = $request->get('DateDue');
+          $StatusApp = "รออนุมัติ";
         }
+
+        // if ($SetTopcar > 250000) {
+        //   if ($request->get('MANAGER') != Null) {
+        //     if ($Getcardetail->Date_Appcar == Null) {
+        //       $newDateDue = date('Y-m-d');
+        //     }
+        //     $StatusApp = "อนุมัติ";
+        //   }else {
+        //     $newDateDue = $request->get('DateDue');
+        //     $StatusApp = "รออนุมัติ";
+        //   }
+        // }else {
+        //   if ($request->get('AUDIT') != Null) {
+        //     if ($Getcardetail->Date_Appcar == Null) {
+        //       $newDateDue = date('Y-m-d');
+        //     }
+        //     $StatusApp = "อนุมัติ";
+        //   }elseif ($request->get('MASTER') != Null) {
+        //       $newDateDue = $request->get('DateDue');
+        //       $StatusApp = "รออนุมัติ";
+        //   }
+        // }
       }
 
       //เอกสารครบ

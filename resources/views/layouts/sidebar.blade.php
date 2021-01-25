@@ -36,7 +36,7 @@
           <li class="nav-item has-treeview {{ Request::is('MasterEvents') ? 'menu-open' : '' }} {{ Request::is('MasterInfo') ? 'menu-open' : '' }} {{ Request::is('MasterInfo/*') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link active">
               <i class="nav-icon fab fa-audible"></i>
-              <span id="ShowData"></span>
+              <span id="Info"></span>
               <p>
                 Events and Information
                 <i class="right fas fa-angle-left"></i>
