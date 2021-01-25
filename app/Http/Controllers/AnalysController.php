@@ -45,7 +45,6 @@ class AnalysController extends Controller
         }elseif (session()->has('newfdate')) {
           $newfdate = session('newfdate');
         }
-
         if ($request->has('Todate')) {
           $newtdate = $request->get('Todate');
         }elseif (session()->has('newtdate')) {
@@ -56,7 +55,6 @@ class AnalysController extends Controller
         }elseif (session()->has('status')) {
           $status = session('status');
         }
-
         if ($request->has('Contno')) {
           $contno = $request->get('Contno');
         }
@@ -284,6 +282,7 @@ class AnalysController extends Controller
         return view('analysis.viewReport', compact('type', 'data','newfdate','newtdate','datadrop','agen','datedue','datayear','yearcar','datastatus','typecar','databranch','branch'));
       }
       elseif ($request->type == 4){ //รถบ้าน
+        $contno = '';
         $newfdate = '';
         $newtdate = '';
         $status = '';
@@ -293,7 +292,6 @@ class AnalysController extends Controller
         }elseif (session()->has('newfdate')) {
           $newfdate = session('newfdate');
         }
-
         if ($request->has('Todate')) {
           $newtdate = $request->get('Todate');
         }elseif (session()->has('newtdate')) {
@@ -304,6 +302,10 @@ class AnalysController extends Controller
         }elseif (session()->has('status')) {
           $status = session('status');
         }
+        if ($request->has('Contno')) {
+          $contno = $request->get('Contno');
+        }
+
 
         if ($status == 'Null') {
           $status = NULL;
@@ -317,6 +319,11 @@ class AnalysController extends Controller
               ->orderBy('buyers.Contract_buyer', 'ASC')
               ->get();
         }else {
+          if($contno != ''){
+            $newfdate = '';
+            $newtdate = '';
+            $status = '';
+          }
             $data = DB::table('buyers')
             ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
             ->join('homecardetails','buyers.id','=','homecardetails.Buyerhomecar_id')
@@ -325,6 +332,9 @@ class AnalysController extends Controller
             })
             ->when(!empty($status), function($q) use($status){
               return $q->where('homecardetails.statusapp_HC','=',$status);
+            })
+            ->when(!empty($contno), function($q) use($contno){
+              return $q->where('buyers.Contract_buyer','=',$contno);
             })
             ->orderBy('buyers.Contract_buyer', 'ASC')
             ->get();
@@ -354,7 +364,7 @@ class AnalysController extends Controller
         $newtdate = \Carbon\Carbon::parse($newtdate)->format('Y') ."-". \Carbon\Carbon::parse($newtdate)->format('m')."-". \Carbon\Carbon::parse($newtdate)->format('d');
 
         return view('analysis.view', compact('type', 'data','newfdate','newtdate','status','SumTopcar','SumCommissioncar','SumCommitprice',
-                                             'Count10','Count11','SumAll'));
+                                             'contno','Count10','Count11','SumAll'));
       }
       elseif ($request->type == 5){
         return view('analysis.createhomecar');
