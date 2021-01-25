@@ -197,21 +197,21 @@
                 </div>
                 <div class="float-right form-inline">
                   <label class="mr-sm-2">เลขที่สัญญา : </label>
-                  <input type="type" name="Contno" value="{{$contno}}" maxlength="12" class="form-control"/>
+                  <input type="type" name="Contno" value="{{$contno}}" maxlength="12" class="form-control form-control-sm"/>
 
-                  <label class="mr-sm-2">จากวันที่ : </label>
-                  <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control" />
-
-                  <label class="mr-sm-2">ถึงวันที่ : </label>
-                  <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control" />
-                </div>
-                <div class="float-right form-inline">
                   <label for="text" class="mr-sm-2">สถานะ : </label>
-                  <select name="status" class="form-control">
+                  <select name="status" class="form-control form-control-sm">
                     <option selected value="">---------สถานะ--------</option>
                     <option value="อนุมัติ"{{ ($status == 'อนุมัติ') ? 'selected' : '' }}>อนุมัติ</option>
                     <option value="รออนุมัติ"{{ ($status == 'รออนุมัติ') ? 'selected' : '' }}>รออนุมัติ</option>
                   </select>
+                </div>
+                <div class="float-right form-inline">
+                  <label class="mr-sm-2">จากวันที่ : </label>
+                  <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control form-control-sm" />
+
+                  <label class="mr-sm-2">ถึงวันที่ : </label>
+                  <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control form-control-sm" />
                 </div>
               </form>
             @elseif($type == 4)
@@ -222,18 +222,24 @@
                   </button>
                 </div>
                 <div class="float-right form-inline">
+                  <label class="mr-sm-2">เลขที่สัญญา : </label>
+                  <input type="type" name="Contno" value="{{$contno}}" maxlength="12" class="form-control form-control-sm"/>
+
+                  <label for="text" class="mr-sm-1">สถานะ : </label>
+                  <select name="status" class="form-control form-control-sm" id="text" >
+                    <option selected disabled value="">--------สถานะ---------</option>
+                    <option value="อนุมัติ"{{ ($status == 'อนุมัติ') ? 'selected' : '' }}>อนุมัติ</option>
+                    <option value="รออนุมัติ"{{ ($status == 'รออนุมัติ') ? 'selected' : '' }}>รออนุมัติ</option>
+                  </select>
+                </div>
+                <br>
+                <br>
+                <div class="float-right form-inline">
                   <label>จากวันที่ : </label>
-                  <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control" />
+                  <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control form-control-sm" />
 
                   <label>ถึงวันที่ : </label>
-                  <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control" />
-
-                  <label for="text" class="mr-sm-2">สถานะ : </label>
-                  <select name="status" class="form-control" id="text" >
-                    <option selected disabled value="">-------สถานะ-------</option>
-                    <option value="อนุมัติ"{{ ($status == 'อนุมัติ') ? 'selected' : '' }}>อนุมัติ</otion>
-                    <option value="รออนุมัติ"{{ ($status == 'รออนุมัติ') ? 'selected' : '' }}>รออนุมัติ</otion>
-                  </select>
+                  <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control form-control-sm" />
                 </div>
               </form>
             @elseif($type == 12)

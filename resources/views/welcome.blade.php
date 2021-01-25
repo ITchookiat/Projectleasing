@@ -203,7 +203,7 @@
                             <div class="card-flyer">
                                 <div class="text-box">
                                     <div class="image-box">
-                                       <img src="{{ asset('dist/img/homecar2.jpg') }}" alt="" />
+                                       <img src="{{ asset('dist/img/leasing04.png') }}" alt="" />
                                     </div>
         
                                     <div class="text-container">
