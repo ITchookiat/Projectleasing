@@ -199,7 +199,7 @@
                         </a>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-                        <a href="http://203.150.34.16/ProjectHomeCar/public/login">
+                        <a href="http://192.168.200.9/ProjectHomeCar/public/login">
                             <div class="card-flyer">
                                 <div class="text-box">
                                     <div class="image-box">
