@@ -1020,6 +1020,7 @@ class AnalysController extends Controller
           'status_car' => $request->get('statuscar'),
           'Percent_car' => $request->get('Percentcar'),
           'Payee_car' => $request->get('Payeecar'),
+          'IDcardPayee_car' => $request->get('IDcardPayeecar'),
           'Accountbrance_car' => $request->get('Accountbrancecar'),
           'Tellbrance_car' => $request->get('Tellbrancecar'),
           'Agent_car' => $request->get('Agentcar'),
@@ -1941,6 +1942,7 @@ class AnalysController extends Controller
         $cardetail->status_car = $request->get('statuscar');
         $cardetail->Percent_car = $request->get('Percentcar');
         $cardetail->Payee_car = $request->get('Payeecar');
+        $cardetail->IDcardPayee_car = $request->get('IDcardPayeecar');
         $cardetail->Accountbrance_car = $request->get('Accountbrancecar');
         $cardetail->Tellbrance_car = $request->get('Tellbrancecar');
         $cardetail->Agent_car = $request->get('Agentcar');
@@ -2696,6 +2698,7 @@ class AnalysController extends Controller
           $cardetail->status_car = $request->get('statuscar');
           $cardetail->Percent_car = $request->get('Percentcar');
           $cardetail->Payee_car = $request->get('Payeecar');
+          $cardetail->IDcardPayee_car = $request->get('IDcardPayeecar');
           $cardetail->Accountbrance_car = $request->get('Accountbrancecar');
           $cardetail->Tellbrance_car = $request->get('Tellbrancecar');
           $cardetail->Agent_car = $request->get('Agentcar');
