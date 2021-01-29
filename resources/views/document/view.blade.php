@@ -46,20 +46,18 @@
                       </h5>
                     </div>
                   </div>
-                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                    <div class="col-6">
-                      <div class="card-tools d-inline float-right">
-                        @if($Subfolder == null)
-                        <a class="btn bg-success btn-xs" data-toggle="modal" data-target="#modal-newfolder" data-backdrop="static">
-                          <span class="fas fa-plus"></span> New Folder
-                        </a>
-                        @endif
-                        <a class="btn bg-success btn-xs" data-toggle="modal" data-target="#modal-lg" data-backdrop="static">
-                          <span class="fas fa-plus"></span> New file
-                        </a>
-                      </div>
+                  <div class="col-6">
+                    <div class="card-tools d-inline float-right">
+                      @if($Subfolder == null)
+                      <a class="btn bg-success btn-xs" data-toggle="modal" data-target="#modal-newfolder" data-backdrop="static">
+                        <span class="fas fa-plus"></span> New Folder
+                      </a>
+                      @endif
+                      <a class="btn bg-success btn-xs" data-toggle="modal" data-target="#modal-lg" data-backdrop="static">
+                        <span class="fas fa-plus"></span> New file
+                      </a>
                     </div>
-                  @endif
+                  </div>
                 </div>
               </div>
               <div class="card-body text-sm">
@@ -69,7 +67,6 @@
                   <div class="row">
                     @foreach($dataF as $row)
                       <div class="col-sm-1">
-                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                         <form method="post" class="delete_form float-center" action="{{ route('MasterDocument.destroy',[$row->folder_id]) }}?type={{1}}" style="display:inline;">
                           {{csrf_field()}}
                           <input type="hidden" name="_method" value="DELETE" />
@@ -78,7 +75,6 @@
                             <i class="far fa-trash-alt"></i>
                           </button>
                         </form>
-                      @endif
                         <a href="{{ route('MasterDocument.edit',[$row->folder_id]) }}?type={{1}}&main_folder={{$title1}}&sub_folder={{$row->folder_name}}">
                           <img src="{{ asset('dist/img/folder2.png') }}" class="img-fluid">
                         </a>
@@ -144,7 +140,6 @@
                                 <a href="{{ action('DocumentController@download',[$row->file_name])}}?foldername={{$title1}}" class="btn btn-info btn-sm" title="ดาวน์โหลดไฟล์">
                                   <i class="fas fa-download"></i>
                                 </a>
-                              @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                 <form method="post" class="delete_form" action="{{ route('MasterDocument.destroy',[$row->file_id]) }}?type={{2}}" style="display:inline;">
                                 {{csrf_field()}}
                                   <input type="hidden" name="_method" value="DELETE" />
@@ -153,7 +148,6 @@
                                     <i class="far fa-trash-alt"></i>
                                   </button>
                                 </form>
-                              @endif
                             </td>
                           </tr>
                           @endforeach
