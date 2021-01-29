@@ -3085,7 +3085,8 @@ class AnalysController extends Controller
 
     public function deleteImageEach($type,$id,$fdate,$tdate,$status,$path,Request $request)
     {
-      if ($type == 1 or $type == 11) {       //สินเชื่อ(เงินกู้) && ปรับโครงสร้างหนี้
+      // dd($type,$id,$fdate,$tdate,$status,$path);
+      if ($type == 1 or $type == 11 or $type == 4) {       //สินเชื่อ(เงินกู้) && ปรับโครงสร้างหนี้
         $created_at = '';
         $data = UploadfileImage::where('Buyerfileimage_id','=',$id)->where('Type_fileimage','=','1')->get();
         $countData = count($data);
@@ -3101,7 +3102,7 @@ class AnalysController extends Controller
 
     public function destroyImage($type,$id,$fdate,$tdate,$status,$path,Request $request)
     {
-      if ($type == 1 or $type == 11) {       //สินเชื่อ(เงินกู้) && ปรับโครงสร้างหนี้
+      if ($type == 1 or $type == 11 or $type == 4) {       //สินเชื่อ(เงินกู้) && ปรับโครงสร้างหนี้
         $mainid = $request->mainid;
         $created_at = '';
         $Currdate = date('2020-06-02');
