@@ -180,6 +180,17 @@
     }
   </style>
 
+  <style>
+    #myImg {
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+      width: 150px;
+      height: 200px;
+    }
+    #myImg:hover {opacity: 0.7;}
+  </style>
+
   <section class="content">
     <div class="content-header">
       @if(session()->has('success'))
@@ -204,10 +215,10 @@
                     </div>
                     <div class="col-8">
                       <div class="card-tools d-inline float-right">
-                        <button type="submit" class="delete-modal btn btn-success">
+                        <button type="submit" class="delete-modal btn btn-success btn-sm">
                           <i class="fas fa-save"></i> อัพเดต
                         </button>
-                        <a class="delete-modal btn btn-danger" href="{{ route('Analysis',4) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
+                        <a class="delete-modal btn btn-danger btn-sm" href="{{ route('Analysis',4) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
                           <i class="far fa-window-close"></i> ยกเลิก
                         </a>
                       </div>
@@ -580,7 +591,7 @@
                                           @if($images->Type_fileimage == "1")
                                             <div class="col-sm-3">
                                               <a href="{{ asset('upload-image/'.$images->Name_fileimage) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true">
-                                                <img src="{{ asset('upload-image/'.$images->Name_fileimage) }}" style="width: 300px; height: 280px;">
+                                                <img id="myImg" src="{{ asset('upload-image/'.$images->Name_fileimage) }}" style="width: 300px; height: 280px;">
                                               </a>
                                             </div>
                                           @endif
@@ -590,7 +601,7 @@
                                           @if($images->Type_fileimage == "1")
                                             <div class="col-sm-3">
                                               <a href="{{ asset('upload-image/'.$Setlisence .'/'.$images->Name_fileimage) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true">
-                                                <img src="{{ asset('upload-image/'.$Setlisence .'/'.$images->Name_fileimage) }}" style="width: 300px; height: 280px;">
+                                                <img id="myImg" src="{{ asset('upload-image/'.$Setlisence .'/'.$images->Name_fileimage) }}" style="width: 300px; height: 280px;">
                                               </a>
                                             </div>
                                           @endif
