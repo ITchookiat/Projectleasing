@@ -755,51 +755,6 @@
                               </div>
                               <div class="col-6">
                                 <div class="form-group row mb-0">
-                                  <label class="col-sm-3 col-form-label text-right">อาชีพ : </label>
-                                  <div class="col-sm-8">
-                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                                      <select name="Careerbuyer" class="form-control form-control-sm" >
-                                        <option value="" selected>--- อาชีพ ---</option>
-                                        @foreach ($Careerby as $key => $value)
-                                          <option value="{{$key}}" {{ ($key == $data->Career_buyer) ? 'selected' : '' }}>{{$value}}</option>
-                                        @endforeach
-                                      </select>
-                                    @else
-                                      @if($GetDocComplete != Null)
-                                        <input type="text" name="Careerbuyer" value="{{ $data->Career_buyer }}" class="form-control form-control-sm"  placeholder="เลือกอาชีพ" readonly/>
-                                      @else
-                                        <select name="Careerbuyer" class="form-control form-control-sm" >
-                                          <option value="" selected>--- อาชีพ ---</option>
-                                          @foreach ($Careerby as $key => $value)
-                                            <option value="{{$key}}" {{ ($key == $data->Career_buyer) ? 'selected' : '' }}>{{$value}}</option>
-                                          @endforeach
-                                        </select>
-                                      @endif
-                                    @endif
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                              <div class="col-6">
-                                <div class="form-group row mb-0">
-                                  <label class="col-sm-3 col-form-label text-right">รายได้ : </label>
-                                  <div class="col-sm-8">
-                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                                      <input type="text" id="Incomebuyer" name="Incomebuyer" value="{{ $data->Income_buyer }}" class="form-control form-control-sm" oninput="income();"/>
-                                    @else
-                                      @if($GetDocComplete != Null)
-                                        <input type="text" name="Incomebuyer" value="{{ $data->Income_buyer }}" class="form-control form-control-sm" readonly/>
-                                      @else
-                                        <input type="text" id="Incomebuyer" name="Incomebuyer" value="{{ $data->Income_buyer }}" class="form-control form-control-sm" oninput="income();"/>
-                                      @endif
-                                    @endif
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-6">
-                                <div class="form-group row mb-0">
                                   <label class="col-sm-3 col-form-label text-right">ใบขับขี่ : </label>
                                   <div class="col-sm-8">
                                     @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
@@ -827,18 +782,6 @@
                             </div>
 
                             <div class="row">
-                              <div class="col-6">
-                                <div class="form-group row mb-0">
-                                  <label class="col-sm-3 col-form-label text-right">หักค่าใช้จ่าย : </label>
-                                  <div class="col-sm-8">
-                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                                      <input type="text" id="Beforeincome" name="Beforeincome" value="{{ number_format($data->BeforeIncome_buyer,0) }}" class="form-control form-control-sm"  placeholder="ก่อนหักค่าใช้จ่าย" onchange="income();" />
-                                    @else
-                                      <input type="text" id="Beforeincome" name="Beforeincome" value="{{ number_format($data->BeforeIncome_buyer,0) }}" class="form-control form-control-sm"  placeholder="ก่อนหักค่าใช้จ่าย" onchange="income();" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }} />
-                                    @endif
-                                  </div>
-                                </div>
-                              </div>
                               <div class="col-6">
                                 <div class="form-group row mb-0">
                                   <label class="col-sm-3 col-form-label text-right">ประวัติการซื้อ/ค้ำ : </label>
@@ -886,21 +829,6 @@
                                   </div>
                                 </div>
                               </div>
-                            </div>
-
-                            <div class="row">
-                              <div class="col-6">
-                                <div class="form-group row mb-0">
-                                  <label class="col-sm-3 col-form-label text-right">รายได้หลังหักค่าใช้จ่าย : </label>
-                                  <div class="col-sm-8">
-                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                                      <input type="text" id="Afterincome" name="Afterincome" value="{{ number_format($data->AfterIncome_buyer,0) }}" class="form-control form-control-sm"  placeholder="ก่อนหักค่าใช้จ่าย" onchange="income();" />
-                                    @else
-                                      <input type="text" id="Afterincome" name="Afterincome" value="{{ number_format($data->AfterIncome_buyer,0) }}" class="form-control form-control-sm"  placeholder="ก่อนหักค่าใช้จ่าย" onchange="income();" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }} />
-                                    @endif
-                                  </div>
-                                </div>
-                              </div>
                               <div class="col-6">
                                 <div class="form-group row mb-0">
                                   <label class="col-sm-3 col-form-label text-right">สถานะผู้เช่าซื้อ : </label>
@@ -932,39 +860,17 @@
                             <div class="row">
                               <div class="col-6">
                                 <div class="form-group row mb-0">
-                                  <label class="col-sm-3 col-form-label text-right">วัตถุประสงค์ของสินเชื่อ : </label>
+                                  <label class="col-sm-3 col-form-label text-right">สาขาที่รับลูกค้า : </label>
                                   <div class="col-sm-8">
-                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                                      <select name="objectivecar" class="form-control form-control-sm" >
-                                        <option value="" selected>--- วัตถุประสงค์ของสินเชื่อ ---</option>
-                                        @foreach ($objectivecar as $key => $value)
-                                          <option value="{{$key}}" {{ ($key == $data->Objective_car) ? 'selected' : '' }}>{{$value}}</option>
-                                        @endforeach
-                                      </select>
-                                    @else
-                                      @if($GetDocComplete != Null)
-                                        <input type="text" name="objectivecar" value="{{ $data->Objective_car }}" class="form-control form-control-sm"  placeholder="เลือกวัตถุประสงค์ของสินเชื่อ" readonly/>
-                                      @else
-                                        <select name="objectivecar" class="form-control form-control-sm" >
-                                          <option value="" selected>--- วัตถุประสงค์ของสินเชื่อ ---</option>
-                                          @foreach ($objectivecar as $key => $value)
-                                          <option value="{{$key}}" {{ ($key == $data->Objective_car) ? 'selected' : '' }}>{{$value}}</option>
-                                          @endforeach
-                                        </select>
-                                      @endif
-                                    @endif
+                                    <input type="text" class="form-control" value="{{$data->SendUse_Walkin}}" readonly/>
                                   </div>
                                 </div>
                               </div>
                               <div class="col-6">
                                 <div class="form-group row mb-0">
-                                  <label class="col-sm-3 col-form-label text-right">สาขาที่รับลูกค้า : </label>
-                                  <div class="col-sm-3">
-                                  <input type="text" class="form-control" value="{{$data->SendUse_Walkin}}" readonly/>
-                                  </div>
-                                  <label class="col-sm-2 col-form-label text-right">ที่มาของลูกค้า : </label>
-                                  <div class="col-sm-3">
-                                  <input type="text" class="form-control" value="{{$data->Resource_news}}" readonly/>
+                                  <label class="col-sm-3 col-form-label text-right">ที่มาของลูกค้า : </label>
+                                  <div class="col-sm-8">
+                                    <input type="text" class="form-control" value="{{$data->Resource_news}}" readonly/>
                                   </div>
                                 </div>
                               </div>
@@ -2781,11 +2687,108 @@
                                   <h3 class="card-title">รายได้ผู้เช่าซื้อ</h3>
                   
                                   <div class="card-tools">
-                                    <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                                    <!-- <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button> -->
                                   </div>
                                 </div>
                                 <div class="card-body">
                                   <div class="form-group">
+                                    <div class="form-group row mb-0">
+                                      <label class="col-sm-4 col-form-label text-right">อาชีพ : </label>
+                                      <div class="col-sm-8">
+                                        @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
+                                          <select name="Careerbuyer" class="form-control form-control-sm" >
+                                            <option value="" selected>--- อาชีพ ---</option>
+                                            @foreach ($Careerby as $key => $value)
+                                              <option value="{{$key}}" {{ ($key == $data->Career_buyer) ? 'selected' : '' }}>{{$value}}</option>
+                                            @endforeach
+                                          </select>
+                                        @else
+                                          @if($GetDocComplete != Null)
+                                            <input type="text" name="Careerbuyer" value="{{ $data->Career_buyer }}" class="form-control form-control-sm"  placeholder="เลือกอาชีพ" readonly/>
+                                          @else
+                                            <select name="Careerbuyer" class="form-control form-control-sm" >
+                                              <option value="" selected>--- อาชีพ ---</option>
+                                              @foreach ($Careerby as $key => $value)
+                                                <option value="{{$key}}" {{ ($key == $data->Career_buyer) ? 'selected' : '' }}>{{$value}}</option>
+                                              @endforeach
+                                            </select>
+                                          @endif
+                                        @endif
+                                      </div>
+                                    </div>
+                                    <div class="form-group row mb-0">
+                                      <label class="col-sm-4 col-form-label text-right">รายได้ : </label>
+                                      <div class="col-sm-8">
+                                        @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
+                                          <input type="text" id="Incomebuyer" name="Incomebuyer" value="{{ $data->Income_buyer }}" class="form-control form-control-sm" oninput="income();"/>
+                                        @else
+                                          @if($GetDocComplete != Null)
+                                            <input type="text" name="Incomebuyer" value="{{ $data->Income_buyer }}" class="form-control form-control-sm" readonly/>
+                                          @else
+                                            <input type="text" id="Incomebuyer" name="Incomebuyer" value="{{ $data->Income_buyer }}" class="form-control form-control-sm" oninput="income();"/>
+                                          @endif
+                                        @endif
+                                      </div>
+                                    </div>
+                                    <div class="form-group row mb-0">
+                                      <label class="col-sm-4 col-form-label text-right">หักค่าใช้จ่าย : </label>
+                                      <div class="col-sm-8">
+                                        @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
+                                          <input type="text" id="Beforeincome" name="Beforeincome" value="{{ number_format($data->BeforeIncome_buyer,0) }}" class="form-control form-control-sm"  placeholder="ก่อนหักค่าใช้จ่าย" onchange="income();" />
+                                        @else
+                                          <input type="text" id="Beforeincome" name="Beforeincome" value="{{ number_format($data->BeforeIncome_buyer,0) }}" class="form-control form-control-sm"  placeholder="ก่อนหักค่าใช้จ่าย" onchange="income();" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }} />
+                                        @endif
+                                      </div>
+                                    </div>
+                                    <div class="form-group row mb-0">
+                                      <label class="col-sm-4 col-form-label text-right">รายได้หลังหักค่าใช้จ่าย : </label>
+                                      <div class="col-sm-8">
+                                        @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
+                                          <input type="text" id="Afterincome" name="Afterincome" value="{{ number_format($data->AfterIncome_buyer,0) }}" class="form-control form-control-sm"  placeholder="ก่อนหักค่าใช้จ่าย" onchange="income();" />
+                                        @else
+                                          <input type="text" id="Afterincome" name="Afterincome" value="{{ number_format($data->AfterIncome_buyer,0) }}" class="form-control form-control-sm"  placeholder="ก่อนหักค่าใช้จ่าย" onchange="income();" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }} />
+                                        @endif
+                                      </div>
+                                    </div>
+                                    <div class="form-group row mb-0">
+                                      <label class="col-sm-4 col-form-label text-right">วัตถุประสงค์ของสินเชื่อ : </label>
+                                      <div class="col-sm-8">
+                                        @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
+                                          <select name="objectivecar" class="form-control form-control-sm" >
+                                            <option value="" selected>--- วัตถุประสงค์ของสินเชื่อ ---</option>
+                                            @foreach ($objectivecar as $key => $value)
+                                              <option value="{{$key}}" {{ ($key == $data->Objective_car) ? 'selected' : '' }}>{{$value}}</option>
+                                            @endforeach
+                                          </select>
+                                        @else
+                                          @if($GetDocComplete != Null)
+                                            <input type="text" name="objectivecar" value="{{ $data->Objective_car }}" class="form-control form-control-sm"  placeholder="เลือกวัตถุประสงค์ของสินเชื่อ" readonly/>
+                                          @else
+                                            <select name="objectivecar" class="form-control form-control-sm" >
+                                              <option value="" selected>--- วัตถุประสงค์ของสินเชื่อ ---</option>
+                                              @foreach ($objectivecar as $key => $value)
+                                              <option value="{{$key}}" {{ ($key == $data->Objective_car) ? 'selected' : '' }}>{{$value}}</option>
+                                              @endforeach
+                                            </select>
+                                          @endif
+                                        @endif
+                                      </div>
+                                    </div>
+                                    <div class="form-group row mb-3">
+                                      <label class="col-sm-4 col-form-label text-right">หมายเหตุ : </label>
+                                      <div class="col-sm-8">
+                                        @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
+                                          <textarea class="form-control form-control-sm" name="BuyerIncomeNote" rows="3" placeholder="ป้อนหมายเหตุ...">{{$data->MemoIncome_buyer}}</textarea>
+                                        @else
+                                          @if($GetDocComplete != Null)
+                                            <textarea class="form-control form-control-sm" name="BuyerIncomeNote" rows="3" placeholder="ป้อนหมายเหตุ..." readonly>{{$data->MemoIncome_buyer}}</textarea>
+                                          @else
+                                            <textarea class="form-control form-control-sm" name="BuyerIncomeNote" rows="3" placeholder="ป้อนหมายเหตุ...">{{$data->MemoIncome_buyer}}</textarea>
+                                          @endif
+                                        @endif
+                                      </div>
+                                    </div>
+
                                     <div class="file-loading">
                                       <input id="image_income_1" type="file" name="image_income_1[]" accept="image/*" data-min-file-count="1" multiple>
                                     </div>
@@ -2825,26 +2828,6 @@
                                     </div>
                                   </div>
 
-                                  <div class="card card-danger">
-                                    <div class="card-header">
-                                      <h3 class="card-title">หมายเหตุรายได้ผู้เช่าซื้อ</h3>
-                      
-                                      <div class="card-tools">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-                                        <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
-                                      </div>
-                                    </div>
-                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                                      <textarea class="form-control form-control-sm" name="BuyerIncomeNote" rows="3" placeholder="ป้อนหมายเหตุ...">{{$data->MemoIncome_buyer}}</textarea>
-                                    @else
-                                      @if($GetDocComplete != Null)
-                                        <textarea class="form-control form-control-sm" name="BuyerIncomeNote" rows="3" placeholder="ป้อนหมายเหตุ..." readonly>{{$data->MemoIncome_buyer}}</textarea>
-                                      @else
-                                        <textarea class="form-control form-control-sm" name="BuyerIncomeNote" rows="3" placeholder="ป้อนหมายเหตุ...">{{$data->MemoIncome_buyer}}</textarea>
-                                      @endif
-                                    @endif
-                                  </div>
-
                                 </div> 
                                  
                               </div>
@@ -2856,11 +2839,64 @@
                                   <h3 class="card-title">รายได้ผู้ค้ำ</h3>
                   
                                   <div class="card-tools">
-                                    <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                                    <!-- <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button> -->
                                   </div>
                                 </div>
                                 <div class="card-body">
                                   <div class="form-group">
+                                    <div class="form-group row mb-0">
+                                      <label class="col-sm-4 col-form-label text-right">อาชีพ : </label>
+                                      <div class="col-sm-8">
+                                        @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
+                                          <select name="careerSP" class="form-control form-control-sm">
+                                            <option value="" selected>--- อาชีพ ---</option>
+                                            @foreach ($Careerby as $key => $value)
+                                              <option value="{{$key}}" {{ ($key == $data->career_SP) ? 'selected' : '' }}>{{$value}}</option>
+                                            @endforeach
+                                          </select>
+                                        @else
+                                          @if($GetDocComplete != Null)
+                                            <input type="text" name="careerSP" value="{{$data->career_SP}}" class="form-control form-control-sm" placeholder="อาชีพ" readonly/>
+                                          @else
+                                            <select name="careerSP" class="form-control form-control-sm">
+                                              <option value="" selected>--- อาชีพ ---</option>
+                                              @foreach ($Careerby as $key => $value)
+                                                <option value="{{$key}}" {{ ($key == $data->career_SP) ? 'selected' : '' }}>{{$value}}</option>
+                                              @endforeach
+                                            </select>
+                                          @endif
+                                        @endif
+                                      </div>
+                                    </div>
+                                    <div class="form-group row mb-0">
+                                      <label class="col-sm-4 col-form-label text-right">รายได้ : </label>
+                                      <div class="col-sm-8">
+                                        @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
+                                          <input type="text" id="incomeSP" name="incomeSP" value="{{$data->income_SP}}" class="form-control form-control-sm" oninput="income();"/>
+                                        @else
+                                          @if($GetDocComplete != Null)
+                                              <input type="text" name="incomeSP" value="{{$data->income_SP}}" class="form-control form-control-sm" readonly/>
+                                          @else
+                                            <input type="text" id="incomeSP" name="incomeSP" value="{{$data->income_SP}}" class="form-control form-control-sm" oninput="income();"/>
+                                          @endif
+                                        @endif
+                                      </div>
+                                    </div>
+                                    <div class="form-group row mb-3">
+                                      <label class="col-sm-4 col-form-label text-right">หมายเหตุ : </label>
+                                      <div class="col-sm-8">
+                                        @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
+                                          <textarea class="form-control form-control-sm" name="SupportIncomeNote" rows="3" placeholder="ป้อนหมายเหตุ...">{{$data->MemoIncome_SP}}</textarea>
+                                        @else
+                                          @if($GetDocComplete != Null)
+                                            <textarea class="form-control form-control-sm" name="SupportIncomeNote" rows="3" placeholder="ป้อนหมายเหตุ..." readonly>{{$data->MemoIncome_SP}}</textarea>
+                                          @else
+                                            <textarea class="form-control form-control-sm" name="SupportIncomeNote" rows="3" placeholder="ป้อนหมายเหตุ...">{{$data->MemoIncome_SP}}</textarea>
+                                          @endif
+                                        @endif
+                                      </div>
+                                    </div>
+                                    <br><br><br><br><br>
                                     <div class="file-loading">
                                       <input id="image_income_2" type="file" name="image_income_2[]" accept="image/*" data-min-file-count="1" multiple>
                                     </div>
@@ -2898,26 +2934,6 @@
                                         @endforeach
                                       </div>
                                     </div>
-                                  </div>
-
-                                  <div class="card card-danger">
-                                    <div class="card-header">
-                                      <h3 class="card-title">หมายเหตุรายได้ผู้ค้ำ</h3>
-                      
-                                      <div class="card-tools">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-                                        <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
-                                      </div>
-                                    </div>
-                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                                      <textarea class="form-control form-control-sm" name="SupportIncomeNote" rows="3" placeholder="ป้อนหมายเหตุ...">{{$data->MemoIncome_SP}}</textarea>
-                                    @else
-                                      @if($GetDocComplete != Null)
-                                        <textarea class="form-control form-control-sm" name="SupportIncomeNote" rows="3" placeholder="ป้อนหมายเหตุ..." readonly>{{$data->MemoIncome_SP}}</textarea>
-                                      @else
-                                        <textarea class="form-control form-control-sm" name="SupportIncomeNote" rows="3" placeholder="ป้อนหมายเหตุ...">{{$data->MemoIncome_SP}}</textarea>
-                                      @endif
-                                    @endif
                                   </div>
 
                                 </div>  
