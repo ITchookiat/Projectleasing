@@ -682,7 +682,7 @@ class LegisComproController extends Controller
               })
             ->orderBy('legispayments.created_at','ASC')
             ->get();
-
+            
             $SetFdate = date('d-m-Y', strtotime($newfdate));
             $SetTdate = date('d-m-Y', strtotime($tdate));
 
@@ -695,15 +695,22 @@ class LegisComproController extends Controller
                     $cells->setBackground('#FFCC00');
                   });
                   $row = 3;
-                  $sheet->row($row, array('ลำดับ', 'เลขที่สัญญา', 'ชื่อ-สกุล', 'วันที่รับชำระ', 'ยอดชำระ', 'ประเภทชำระ',
+                  $sheet->row($row, array('ลำดับ', 'เลขที่สัญญา', 'ประเภทลูกหนี้', 'ชื่อ-สกุล', 'วันที่รับชำระ', 'ยอดชำระ', 'ประเภทชำระ',
                                           'เลขที่ใบเสร็จ', 'ผูุ้รับชำระ', 'หมายเหตุ'));
                   foreach ($data as $key => $value) {
+                    if ($value->Flag == 'C') {
+                      $SetStatus = "ลูกหนี้ประนอมเก่า";
+                    }else {
+                      $SetStatus = "ลูกหนี้ประนอมใหม่";
+                    }
+    
                     $sheet->row(++$row, array(
                       $key+1,
                       $value->Contract_legis,
+                      $SetStatus,
                       $value->Name_legis,
                       substr($value->created_at,0,10),
-                      number_format($value->Gold_Payment,2),
+                      number_format($value->Gold_Payment, 2),
                       $value->Type_Payment,
                       $value->Jobnumber_Payment,
                       $value->Adduser_Payment,
