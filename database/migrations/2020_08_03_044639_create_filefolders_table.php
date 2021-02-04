@@ -16,6 +16,8 @@ class CreateFilefoldersTable extends Migration
         Schema::create('filefolders', function (Blueprint $table) {
             $table->bigIncrements('folder_id');
             $table->string('folder_name')->nullable();
+            $table->string('folder_type')->nullable();
+            $table->string('folder_sub')->nullable();
             $table->string('folder_creator')->nullable();
             $table->timestamps();
         });

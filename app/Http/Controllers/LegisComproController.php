@@ -645,30 +645,74 @@ class LegisComproController extends Controller
           $CashReceiver = $request->get('CashReceiver');
         }
 
-        $data = DB::table('legislations')
-          ->leftJoin('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
-          ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
-            return $q->whereBetween('legispayments.created_at',[$newfdate,$newtdate]);
-          })
-          ->when(!empty($CashReceiver), function($q) use($CashReceiver){
-              return $q->where('legispayments.Adduser_Payment','=',$CashReceiver);
+        if ($request->Flag == 1) {
+          $data = DB::table('legislations')
+            ->leftJoin('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
+            ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+              return $q->whereBetween('legispayments.created_at',[$newfdate,$newtdate]);
             })
-          ->orderBy('legispayments.created_at','ASC')
-          ->get();
+            ->when(!empty($CashReceiver), function($q) use($CashReceiver){
+                return $q->where('legispayments.Adduser_Payment','=',$CashReceiver);
+              })
+            ->orderBy('legispayments.created_at','ASC')
+            ->get();
 
-        $newtdate = Carbon::parse($tdate);
+          $newtdate = Carbon::parse($tdate);
 
-        $pdf = new PDF();
-        $pdf::SetTitle('รายงานตรวจสอบยอดชำระ');
-        $pdf::AddPage('L', 'A4');
-        $pdf::SetFont('thsarabunpsk', '', 14, '', true);
-        $pdf::SetMargins(5, 5, 5, 0);
-        $pdf::SetAutoPageBreak(TRUE, 18);
+          $pdf = new PDF();
+          $pdf::SetTitle('รายงานตรวจสอบยอดชำระ');
+          $pdf::AddPage('L', 'A4');
+          $pdf::SetFont('thsarabunpsk', '', 14, '', true);
+          $pdf::SetMargins(5, 5, 5, 0);
+          $pdf::SetAutoPageBreak(TRUE, 18);
 
-        $view = \View::make('legislation.reportCompro' ,compact('data','type','dataCount','CashReceiver','newfdate','newtdate'));
-        $html = $view->render();
-        $pdf::WriteHTML($html,true,false,true,false,'');
-        $pdf::Output('report.pdf');
+          $view = \View::make('legislation.reportCompro' ,compact('data','type','dataCount','CashReceiver','newfdate','newtdate'));
+          $html = $view->render();
+          $pdf::WriteHTML($html,true,false,true,false,'');
+          $pdf::Output('report.pdf');
+        }
+        elseif ($request->Flag == 2) {
+          $data = DB::table('legislations')
+            ->leftJoin('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
+            ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+              return $q->whereBetween('legispayments.created_at',[$newfdate,$newtdate]);
+            })
+            ->when(!empty($CashReceiver), function($q) use($CashReceiver){
+                return $q->where('legispayments.Adduser_Payment','=',$CashReceiver);
+              })
+            ->orderBy('legispayments.created_at','ASC')
+            ->get();
+
+            $SetFdate = date('d-m-Y', strtotime($newfdate));
+            $SetTdate = date('d-m-Y', strtotime($tdate));
+
+            $status = 'รายงานตรวจสอบการรับชำระ';
+            Excel::create('รายงานตรวจสอบการรับชำระ', function ($excel) use($data,$status,$SetFdate,$SetTdate) {
+              $excel->sheet($status, function ($sheet) use($data,$status,$SetFdate,$SetTdate) {
+                  $sheet->prependRow(1, array("บริษัท ชูเกียรติลิสซิ่ง จำกัด"));
+                  $sheet->prependRow(2, array($status.'  จากวันที่ '.$SetFdate.' ถึงวันที่ '.$SetTdate));
+                  $sheet->cells('A3:I3', function($cells) {
+                    $cells->setBackground('#FFCC00');
+                  });
+                  $row = 3;
+                  $sheet->row($row, array('ลำดับ', 'เลขที่สัญญา', 'ชื่อ-สกุล', 'วันที่รับชำระ', 'ยอดชำระ', 'ประเภทชำระ',
+                                          'เลขที่ใบเสร็จ', 'ผูุ้รับชำระ', 'หมายเหตุ'));
+                  foreach ($data as $key => $value) {
+                    $sheet->row(++$row, array(
+                      $key+1,
+                      $value->Contract_legis,
+                      $value->Name_legis,
+                      substr($value->created_at,0,10),
+                      number_format($value->Gold_Payment,2),
+                      $value->Type_Payment,
+                      $value->Jobnumber_Payment,
+                      $value->Adduser_Payment,
+                      $value->Note_Payment,
+                    ));
+                  }
+              });
+            })->export('xlsx');
+        }
       }
       elseif ($type == 5) {   //รายงาน การชำระค่างวด(บุคคล)
         $dataDB = DB::table('legislations')
@@ -709,6 +753,6 @@ class LegisComproController extends Controller
         $html = $view->render();
         $pdf::WriteHTML($html,true,false,true,false,'');
         $pdf::Output('report.pdf');
-              }
+      }
     }
 }
