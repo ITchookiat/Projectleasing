@@ -314,13 +314,21 @@
             </div>
           </div>
           <div class="form-row">
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-6">
               <label>ผู้รับชำระ : </label>
               <select name="CashReceiver" class="form-control form-control-sm" style="width: 100%;">
                 <option value="" selected>--- เลือกผู้รับชำระ ---</option>
                 @foreach ($dataDB as $key => $value)
                   <option value="{{$value->name}}">{{$value->name}}</option>
                 @endforeach
+              </select>
+            </div>
+            <div class="form-group col-md-6">
+              <label>รูปแบบเอกสาร : </label>
+              <select name="Flag" class="form-control form-control-sm" style="width: 100%;" required>
+                <option value="" selected>--- เลือกแบบเอกสาร ---</option>
+                <option value="1">.PDF</option>
+                <option value="2">.Excel</option>
               </select>
             </div>
           </div>
