@@ -289,7 +289,9 @@
                                         <option value="เบตง">เบตง (07)</option>
                                         <option value="โคกโพธิ์">โคกโพธิ์ (08)</option>
                                         <option value="ตันหยงมัส">ตันหยงมัส (09)</option>
-                                        <option value="บันนังสตา">บันนังสตา (12)</option>
+                                        <option value="รือเสาะ">รือเสาะ (12)</option>
+                                        <option value="บังนังสตา">บังนังสตา (13)</option>
+                                        <option value="ยะหา">ยะหา (14)</option>
                                       </select>
                                     </div>
                                   </div>

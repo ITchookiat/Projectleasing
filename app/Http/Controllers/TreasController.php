@@ -95,10 +95,6 @@ class TreasController extends Controller
             $type = $request->type;
             return view('treasury.viewReport',compact('type'));
         }
-        elseif ($request->type == 3) {
-            $type = $request->type;
-            return view('treasury.viewReport',compact('type'));
-        }
     }
 
     public function SearchData(Request $request, $type, $id)
@@ -188,18 +184,20 @@ class TreasController extends Controller
 
         if ($type == 2) {
             $dataReport = DB::table('buyers')
-                    ->join('cardetails','Buyers.id','=','cardetails.Buyercar_id')
-                    ->join('Expenses','Buyers.id','=','Expenses.Buyerexpenses_id')
-                    ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
-                        return $q->whereBetween('cardetails.Date_Appcar',[$newfdate,$newtdate]);
-                    })
-                    ->where('buyers.Contract_buyer','not like', '22%')
-                    ->where('buyers.Contract_buyer','not like', '33%')
-                    ->where('cardetails.Approvers_car','<>','')
-                    ->orderBy('buyers.Contract_buyer', 'ASC')
-                    ->get();
+                ->join('cardetails','Buyers.id','=','cardetails.Buyercar_id')
+                ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
+                ->join('Expenses','Buyers.id','=','Expenses.Buyerexpenses_id')
+                ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+                    return $q->whereBetween('cardetails.Date_Appcar',[$newfdate,$newtdate]);
+                })
+                ->where('buyers.Contract_buyer','not like', '22%')
+                ->where('buyers.Contract_buyer','not like', '33%')
+                ->orderBy('buyers.Contract_buyer', 'ASC')
+                ->get();
 
-            $view = \View::make('analysis.ReportDueDate' ,compact('dataReport','date2','type'));
+            $type =1;   //เซ็ตค่าเพื่อเรียกใช้ reportAnalysis
+
+            $view = \View::make('analysis.ReportDueDate' ,compact('dataReport','date2','type','newfdate','newtdate'));
             $html = $view->render();
             $pdf = new PDF();
             $pdf::SetTitle('รายงานนำเสนอ');
@@ -211,30 +209,30 @@ class TreasController extends Controller
             $pdf::WriteHTML($html,true,false,true,false,'');
             $pdf::Output('report.pdf');
         }
-        elseif ($type == 3) {
-            $dataReport = DB::table('buyers')
-            ->join('cardetails','Buyers.id','=','cardetails.Buyercar_id')
-            ->join('Expenses','Buyers.id','=','Expenses.Buyerexpenses_id')
-            ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
-                return $q->whereBetween('cardetails.DateCheckAc_car',[$newfdate,$newtdate]);
-            })
-            ->where('cardetails.UserCheckAc_car','<>',NULL)
-            ->orderBy('buyers.Contract_buyer', 'ASC')
-            ->get();
+        // elseif ($type == 3) {
+        //     $dataReport = DB::table('buyers')
+        //     ->join('cardetails','Buyers.id','=','cardetails.Buyercar_id')
+        //     ->join('Expenses','Buyers.id','=','Expenses.Buyerexpenses_id')
+        //     ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+        //         return $q->whereBetween('cardetails.DateCheckAc_car',[$newfdate,$newtdate]);
+        //     })
+        //     ->where('cardetails.UserCheckAc_car','<>',NULL)
+        //     ->orderBy('buyers.Contract_buyer', 'ASC')
+        //     ->get();
 
-            dd('ยังไม่เปิดให้ใช้งาน');
+        //     dd('ยังไม่เปิดให้ใช้งาน');
 
-            $view = \View::make('treasury.reportTreas' ,compact('dataReport','type','newfdate','newtdate'));
-            $html = $view->render();
-            $pdf = new PDF();
-            $pdf::SetTitle('รายงานแผนกการเงิน');
-            $pdf::AddPage('L', 'A4');
-            $pdf::SetMargins(5, 5, 5, 0);
-            $pdf::SetFont('freeserif', '', 8, '', true);
-            $pdf::SetAutoPageBreak(TRUE, 25);
+        //     $view = \View::make('treasury.reportTreas' ,compact('dataReport','type','newfdate','newtdate'));
+        //     $html = $view->render();
+        //     $pdf = new PDF();
+        //     $pdf::SetTitle('รายงานแผนกการเงิน');
+        //     $pdf::AddPage('L', 'A4');
+        //     $pdf::SetMargins(5, 5, 5, 0);
+        //     $pdf::SetFont('freeserif', '', 8, '', true);
+        //     $pdf::SetAutoPageBreak(TRUE, 25);
 
-            $pdf::WriteHTML($html,true,false,true,false,'');
-            $pdf::Output('report.pdf');
-        }
+        //     $pdf::WriteHTML($html,true,false,true,false,'');
+        //     $pdf::Output('report.pdf');
+        // }
     }
 }
