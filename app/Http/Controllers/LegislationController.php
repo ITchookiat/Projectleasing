@@ -527,7 +527,8 @@ class LegislationController extends Controller
             }
             elseif ($dataSearch->Flag_Class != NULL) {
               $SetStatus = $dataSearch->Flag_Class;
-              if ($dataSearch->Flag_status != '1') {
+
+              if ($dataSearch->Flag_Class != 'ลูกหนี้รอฟ้อง' and $dataSearch->Flag_Class != NULL) {
                 $SetDate1 = date('d-m-Y', strtotime($dataSearch->fillingdate_court));
               }else {
                 $SetDate1 = NULL;
