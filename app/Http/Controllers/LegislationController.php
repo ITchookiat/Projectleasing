@@ -169,7 +169,7 @@ class LegislationController extends Controller
 
         //ลูกหนี้ชั้นศาล
         $data3 = DB::table('legislations')
-        ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+          ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
           ->where('legislations.Status_legis','=', NULL)
           ->where('legiscourts.fillingdate_court','!=', NULL)
           ->count();
@@ -194,8 +194,18 @@ class LegislationController extends Controller
           ->where('legislations.Status_legis','!=', NULL)
           ->count();
 
+        $dataSearch = DB::table('legislations')
+          ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+          ->leftJoin('Legiscourtcases','legislations.id','=','Legiscourtcases.legislation_id')
+          ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+          ->leftJoin('legisassets','legislations.id','=','legisassets.legisAsset_id')
+          ->where('legislations.Contract_legis',$request->contract)
+          ->first();
+          
+
         $type = $request->type;
-        return view('legislation.view', compact('type','data1','data2','data3','data4','data5','data6','data7'));
+        return view('legislation.view', compact('type','data1','data2','data3','data4','data5','data6','data7',
+                                                'dataSearch'));
       }
       elseif ($request->type == 21) {   //Main ลูกหนี้รอฟ้อง
         $newfdate = '';
@@ -329,9 +339,20 @@ class LegislationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+      if ($request->type == 2) {  //ค้นหา - ลูกหนี้ฟ้อง
+        $data = DB::table('legislations')
+          ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+          ->leftJoin('Legiscourtcases','legislations.id','=','Legiscourtcases.legislation_id')
+          ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+          ->leftJoin('legisassets','legislations.id','=','legisassets.legisAsset_id')
+          ->where('legislations.Contract_legis',$request->contract)
+          ->first();
+
+        $type = $request->type;
+        return view('legislation.PopUp1',compact('type','data'));
+      }
     }
 
     public function SearchData(Request $request, $type)
@@ -479,6 +500,95 @@ class LegislationController extends Controller
                     </div>';
           echo $output;
         }
+      }
+      elseif ($type == 2) {
+        $Contract = $request->get('Contno');
+
+        $dataSearch = DB::table('legislations')
+          ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
+          ->leftJoin('Legiscourtcases','legislations.id','=','Legiscourtcases.legislation_id')
+          ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
+          ->leftJoin('legisassets','legislations.id','=','legisassets.legisAsset_id')
+          ->where('legislations.Contract_legis',$Contract)
+          ->first();
+
+          dd($dataSearch);
+          
+
+          if ($dataSearch != NULL) {
+            if ($dataSearch->Flag == 'Y') {
+              $SetState = 'ลูกหนี้ใหม่';
+            }else {
+              $SetState = 'ลูกหนี้ประนอมเก่า';
+            }
+
+            if ($dataSearch->Status_legis != NULL) {
+              $SetStatus = $dataSearch->Status_legis;
+            }
+            elseif ($dataSearch->Flag_Class != NULL) {
+              $SetStatus = $dataSearch->Flag_Class;
+            }
+            else {
+              $SetStatus = NULL;
+            }
+
+            if ($dataSearch->KeyCompro_id != NULL) {
+              $SetCompro = 'ลูกหนี้ประนอมหนี้';
+            }else {
+              $SetCompro = NULL;
+            }
+
+            if ($dataSearch->propertied_asset != NULL) {
+              if ($dataSearch->propertied_asset == 'Y') {
+                $Setasset = 'ลูกหนี้มีทรัพย์';
+              }else {
+                $Setasset = 'ลูกหนี้ไม่มีทรัพย์';
+              }
+            }else {
+              $Setasset = NULL;
+            }
+            
+            $output ='<div class="card card-widget widget-user-2">
+                        <div class="widget-user-header bg-warning">
+                          <div class="widget-user-image">
+                            <div class="row">
+                              <div class="col-sm-1">
+                                <span class="info-box-icon elevation-1">
+                                <i class="far fa-id-card fa-5x"></i>
+                                </span>
+                              </div>
+                              <div class="col-sm-11">
+                                <h4 class="widget-user-username">'.$dataSearch->Name_legis.'&nbsp;&nbsp;&nbsp;<small class="badge badge-danger">('.$SetState.')</small></h4>
+                                <h5 class="widget-user-desc pr-5">'.$dataSearch->Contract_legis.'</h5>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card-footer">
+                          <div class="row">
+                            <div class="col-sm-4 border-right">
+                              <div class="description-block">
+                                <h3 class="description-header p-3"><font color="red">สถานะลูกหนี้</font></h3>
+                                <span class="description-text btn btn-sm btn-info">'.$SetStatus.'</span>
+                              </div>
+                            </div>
+                            <div class="col-sm-4 border-right">
+                              <div class="description-block">
+                                <h3 class="description-header p-3"><font color="red">สถานะประนอมหนี้</font></h3>
+                                <span class="description-text btn btn-sm btn-info">'.$SetCompro.'</span>
+                              </div>
+                            </div>
+                            <div class="col-sm-4">
+                              <div class="description-block">
+                                <h3 class="description-header p-3"><font color="red">สถานะทรัพย์</font></h3>
+                                <span class="description-text btn btn-sm btn-info">'.$Setasset.'</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>';
+          echo $output;
+          }
       }
     }
 
