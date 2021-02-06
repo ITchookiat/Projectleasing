@@ -512,6 +512,8 @@ class LegislationController extends Controller
           ->where('legislations.Contract_legis',$Contract)
           ->first();
 
+          // dd($dataSearch);
+
           if ($dataSearch != NULL) {
             if ($dataSearch->Flag == 'Y') {
               $SetState = 'ลูกหนี้ใหม่';
@@ -521,28 +523,40 @@ class LegislationController extends Controller
 
             if ($dataSearch->Status_legis != NULL) {
               $SetStatus = $dataSearch->Status_legis;
+              $SetDate1 = date('d-m-Y', strtotime($dataSearch->DateUpState_legis));
             }
             elseif ($dataSearch->Flag_Class != NULL) {
               $SetStatus = $dataSearch->Flag_Class;
+              if ($dataSearch->Flag_status == '3') {
+                $SetDate1 = date('d-m-Y', strtotime($dataSearch->fillingdate_court));
+              }else {
+                $SetDate1 = NULL;
+              }
             }
             else {
               $SetStatus = NULL;
+              $SetDate1 = NULL;
             }
 
             if ($dataSearch->KeyCompro_id != NULL) {
               $SetCompro = 'ลูกหนี้ประนอมหนี้';
+              $SetDate2 = date('d-m-Y', strtotime($dataSearch->Date_Promise));
             }else {
               $SetCompro = NULL;
+              $SetDate2 = NULL;
             }
 
             if ($dataSearch->propertied_asset != NULL) {
               if ($dataSearch->propertied_asset == 'Y') {
                 $Setasset = 'ลูกหนี้มีทรัพย์';
+                $SetDate3 = date('d-m-Y', strtotime($dataSearch->Date_asset));
               }else {
                 $Setasset = 'ลูกหนี้ไม่มีทรัพย์';
+                $SetDate3 = NULL;
               }
             }else {
               $Setasset = NULL;
+              $SetDate3 = NULL;
             }
             
             $output ='<div class="card card-widget widget-user-2">
@@ -567,18 +581,24 @@ class LegislationController extends Controller
                               <div class="description-block">
                                 <h3 class="description-header p-3"><font color="red">สถานะลูกหนี้</font></h3>
                                 <span class="description-text btn btn-sm btn-info">'.$SetStatus.'</span>
+                                <br><p></p>
+                                <button class="description-text btn btn-sm btn-warning">วันที่เริ่มฟ้อง : '.$SetDate1.'</button>
                               </div>
                             </div>
                             <div class="col-sm-4 border-right">
                               <div class="description-block">
                                 <h3 class="description-header p-3"><font color="red">สถานะประนอมหนี้</font></h3>
                                 <span class="description-text btn btn-sm btn-info">'.$SetCompro.'</span>
+                                <br><p></p>
+                                <span class="description-text btn btn-sm btn-warning">วันที่เริ่มประนอม : '.$SetDate2.'</span>
                               </div>
                             </div>
                             <div class="col-sm-4">
                               <div class="description-block">
                                 <h3 class="description-header p-3"><font color="red">สถานะทรัพย์</font></h3>
                                 <span class="description-text btn btn-sm btn-info">'.$Setasset.'</span>
+                                <br><p></p>
+                                <span class="description-text btn btn-sm btn-warning">วันที่เริ่มสืบทรัพย์ : '.$SetDate3.'</span>
                               </div>
                             </div>
                           </div>
