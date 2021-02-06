@@ -512,9 +512,6 @@ class LegislationController extends Controller
           ->where('legislations.Contract_legis',$Contract)
           ->first();
 
-          dd($dataSearch);
-          
-
           if ($dataSearch != NULL) {
             if ($dataSearch->Flag == 'Y') {
               $SetState = 'ลูกหนี้ใหม่';
@@ -587,7 +584,23 @@ class LegislationController extends Controller
                           </div>
                         </div>
                       </div>';
-          echo $output;
+            echo $output;
+          }
+          else {
+            $output ='<div class="card card-widget widget-user-2">
+                        <div class="widget-user-header bg-warning">
+                          <div class="widget-user-image">
+                            <div class="row text-center">
+                              <div class="col-sm-12">
+                                <span class="info-box-icon elevation-1">
+                                <h1"><font color="black" style="font-size: 20px;">ไม่มีเลขที่สัญญานี้ ในระบบกฏหมาย</font></h1>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>';
+            echo $output;
           }
       }
     }
