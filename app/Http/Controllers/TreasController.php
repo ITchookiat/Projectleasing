@@ -188,7 +188,7 @@ class TreasController extends Controller
                 ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
                 ->join('Expenses','Buyers.id','=','Expenses.Buyerexpenses_id')
                 ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
-                    return $q->whereBetween('cardetails.Date_Appcar',[$newfdate,$newtdate]);
+                    return $q->whereBetween('buyers.Date_Due',[$newfdate,$newtdate]);
                 })
                 ->where('buyers.Contract_buyer','not like', '22%')
                 ->where('buyers.Contract_buyer','not like', '33%')
