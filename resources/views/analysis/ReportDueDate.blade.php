@@ -257,7 +257,7 @@
                   @endif
                 </td>
                 <td width="50px" style="background-color: #00FF89;">
-                  @if($value->ManagerApp != NULL)
+                  @if($value->ManagerApp_car != NULL)
                     อนุมัติแล้ว
                   @endif
                 </td>
