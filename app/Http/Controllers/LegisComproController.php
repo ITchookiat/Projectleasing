@@ -500,6 +500,7 @@ class LegisComproController extends Controller
     {
       if ($type == 2) {       //รายงาน Excel ลูกหนี้ใหม่
         $data = DB::table('legislations')
+          ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
           ->leftjoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
           ->leftjoin('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
           ->where('legislations.Flag','!=', 'C')
@@ -517,7 +518,7 @@ class LegisComproController extends Controller
                 $cells->setBackground('#FFCC00');
               });
               $row = 3;
-              $sheet->row($row, array('ลำดับ', 'เลขที่สัญญา', 'ชื่อ-สกุล','เริ่มประนอมหนี้', 'สถานะลูกหนี้', 
+              $sheet->row($row, array('ลำดับ', 'เลขที่สัญญา', 'ชื่อ-สกุล','วันที่ฟ้อง','เริ่มประนอมหนี้', 'สถานะลูกหนี้', 
                   'ยอดประนอมหนี้', 'เงินก้อนแรก','สถานะก้อนแรก','จำนวนงวด', 'งวดละ','ยอดชำระรวม', 'ยอดคงเหลือ', 
                   'วันที่ชำระล่าสุด', 'ยอดชำระล่าสุด', 'ประเภทชำระ', 'วันที่ดิวถัดไป','หมายเหตุ'));
 
@@ -545,6 +546,7 @@ class LegisComproController extends Controller
                   $value->Contract_legis,
                   $value->Name_legis,
                   $value->Date_Promise,
+                  $value->fillingdate_court,
                   $SetStatus,
                   number_format($value->Total_Promise, 2),
                   $value->Payall_Promise,
