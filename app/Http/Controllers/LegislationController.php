@@ -650,13 +650,6 @@ class LegislationController extends Controller
           $user->Discount_legis = $SetTDiscountAcc;
         $user->update();
 
-        $data = DB::connection('ibmi')
-              ->table('SFHP.ARMAST')
-              ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
-              ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
-              ->where('SFHP.ARMAST.CONTNO','=', $request->ContractNo)
-              ->first();
-
         $dataDB = DB::table('legislations')
               ->leftJoin('legiscourts','legislations.id','=','legiscourts.legislation_id')
               ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')

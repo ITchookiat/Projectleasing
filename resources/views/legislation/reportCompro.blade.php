@@ -238,7 +238,7 @@
           <tr style="line-height:180%;">
             <th width="80px" align="right"><b>ชื่อ - นามสกุล : </b></th>
             <th width="10px"></th>
-            <th width="150px" align="left">{{ iconv('Tis-620','utf-8',str_replace(" ","",$data->SNAM.$data->NAME1)."   ".str_replace(" ","",$data->NAME2)) }}</th>
+            <th width="150px" align="left"> {{ $dataDB->Name_legis }} </th>
           </tr>
           <tr style="line-height:180%;">
             <th width="80px" align="right"><b>เลขที่สัญญา :</b></th>
@@ -248,28 +248,23 @@
           <tr style="line-height:180%;">
             <th width="80px" align="right"><b>ที่อยู่ :</b></th>
             <th width="10px"></th>
-            <th width="300px" align="left">
-              {{
-                iconv('Tis-620','utf-8',str_replace(" ","",$data->ADDRES))." ต.".iconv('Tis-620','utf-8',str_replace(" ","",$data->TUMB))." อ.".iconv('Tis-620','utf-8',str_replace(" ","",$data->AUMPDES))
-                ." จ.".iconv('Tis-620','utf-8',str_replace(" ","",$data->PROVDES))."  ". $data->ZIP
-              }}
-            </th>
+            <th width="300px" align="left"> {{ $dataDB->Address_legis }} </th>
           </tr>
           <tr style="line-height:180%;">
             <th width="80px" align="right"><b>ยี่ห้อ :</b></th>
             <th width="10px"></th>
-            <th width="150px">{{iconv('Tis-620','utf-8',str_replace(" ","",$data->TYPE))}}</th>
+            <th width="150px">{{ $dataDB->BrandCar_legis }}</th>
             <th width="80px" align="right"><b>ป้ายทะเบียน :</b></th>
             <th width="10px"></th>
-            <th width="150px">{{iconv('Tis-620','utf-8',str_replace(" ","",$data->REGNO))}}</th>
+            <th width="150px">{{ $dataDB->register_legis }}</th>
           </tr>
           <tr style="line-height:180%;">
             <th width="80px" align="right"><b>แบบ :</b></th>
             <th width="10px"></th>
-            <th width="150px">{{iconv('Tis-620','utf-8',str_replace(" ","",$data->BAAB))}}</th>
-            <th width="80px" align="right"><b>สี :</b></th>
+            <th width="150px">{{ $dataDB->Category_legis }}</th>
+            <th width="80px" align="right"><b>ปี :</b></th>
             <th width="10px"></th>
-            <th width="150px">{{iconv('Tis-620','utf-8',str_replace(" ","",$data->COLOR))}}</th>
+            <th width="150px">{{ $dataDB->YearCar_legis }}</th>
           </tr>
         </tbody>
       </table>

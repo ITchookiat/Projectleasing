@@ -28,10 +28,10 @@
                               <button type="button" class="popup btn btn-outline-success btn-sm mr-sm-2">
                                 <i class="fas fa-search"></i>
                               </button>
-                              <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="dropdown">
-                                <span class="fas fa-print pr-1"></span> ปริ้น
-                              </button>
                             </div>
+                            <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="dropdown">
+                              <span class="fas fa-print pr-1"></span> ปริ้น
+                            </button>
 
                               <ul class="dropdown-menu" role="menu">
                                 <li><a href="{{ route('legislation.report',[0,20]) }}" class="dropdown-item"> รายงาน ติดตามลูกหนี้ฟ้อง</a></li>
