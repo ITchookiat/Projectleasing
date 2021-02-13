@@ -37,6 +37,15 @@ class LegislationController extends Controller
         $type = $request->type;
         return view('legislation.PopUp',compact('type'));
       }
+      elseif ($request->type == 2) {
+        $Conn = $request->id;
+
+        $result = DB::table('legislations')
+          ->where('legislations.Contract_legis',$Conn)
+          ->first();
+
+        return response()->json($result);
+      }
       elseif ($request->type == 6) {   //Main ลูกหนี้เตรียมฟ้อง
         $newfdate = '';
         $newtdate = '';
@@ -2477,19 +2486,21 @@ class LegislationController extends Controller
           ->where('legislations.Flag_status','=', '2')
           ->get();
 
-        $status = 'ลูกหนี้ฟ้องทั้งหมด';
-        Excel::create('รายงานติดตามลูกหนี้ฟ้องทั้งหมด', function ($excel) use($data,$status) {
+        $status = 'ลูกหนี้ฟ้อง';
+
+        Excel::create('รายงานติดตามลูกหนี้ฟ้อง', function ($excel) use($data,$status) {
           $excel->sheet($status, function ($sheet) use($data,$status) {
               $sheet->prependRow(1, array("บริษัท ชูเกียรติลิสซิ่ง จำกัด"));
               $sheet->prependRow(2, array($status));
-              $sheet->cells('A3:P3', function($cells) {
+              $sheet->cells('A3:W3', function($cells) {
                 $cells->setBackground('#FFCC00');
               });
               $row = 3;
               $sheet->row($row, array('ลำดับ', 'เลขที่สัญญา', 'ชื่อ-สกุล', 'เบอร์ติดต่อ',
                   'ผู้ส่งฟ้อง', 'วันที่ฟ้อง', 'ยอดคงเหลือ', 'ยอดตั้งฟ้อง', 'ยอดค่าฟ้อง',
                   'วันสืบพยาน', 'วันส่งคำบังคับ', 'วันตรวจผลหมาย', 'วันตั้งเจ้าพนักงาน', 'วันตรวจผลหมายตั้ง',
-                  'สถานะลูกหนี้', 'วันที่สืบทรัพย์', 'สถานะทรัพย์', 'สถานะประนอมหนี้', 'หมายเหตุ'));
+                  'สถานะลูกหนี้', 'วันที่สืบทรัพย์', 'สถานะทรัพย์', 'สถานะประนอมหนี้', 
+                  'วันที่ปิดบัญชี','ยอดปิดบัญชี','ยอดชำระ','ส่วนลด','หมายเหตุ'));
 
               foreach ($data as $key => $value) {
 
@@ -2576,6 +2587,10 @@ class LegislationController extends Controller
                   $value->Date_asset,
                   $SetTextAsset,
                   $SetTextCompro,
+                  $value->DateStatus_legis,
+                  number_format($value->PriceStatus_legis, 2),
+                  number_format($value->txtStatus_legis, 2),
+                  number_format($value->Discount_legis, 2),
                   $value->Note,
                 ));
               }
