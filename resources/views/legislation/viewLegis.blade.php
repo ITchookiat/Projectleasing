@@ -185,7 +185,7 @@
                 <div class="row">
                   <div class="col-8">
                     <div class="form-inline">
-                      <h4 class="">
+                      <h5 class="">
                         @if($type == 2)
                           ลูกหนี้ฟ้อง (Debtor Sued)
                         @elseif($type == 6)
@@ -205,7 +205,7 @@
                         @elseif($type == 24)
                           ลูกหนี้ชั้นโกงเจ้าหนี้
                         @endif
-                      </h4>
+                      </h5>
                     </div>
                   </div>
                   <div class="col-4">
