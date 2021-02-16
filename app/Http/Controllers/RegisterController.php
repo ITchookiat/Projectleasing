@@ -21,75 +21,11 @@ class RegisterController extends Controller
      */
     public function index(Request $request)
     {
-        $date = date('Y-m-d');
-        $dataRegis = DB::table('registers')->get();
-        if ($request->type == 1){ //รายการลิสซิ่ง
-          $RegisterNo = $request->Regno;
-          if($RegisterNo == ''){
-            $data = DB::table('buyers')
-                ->leftjoin('sponsors','buyers.id','=','sponsors.Buyer_id')
-                ->leftjoin('cardetails','buyers.id','=','cardetails.Buyercar_id')
-                ->leftjoin('expenses','buyers.id','=','expenses.Buyerexpenses_id')
-                // ->where('cardetails.Date_Appcar','!=',Null)
-                ->where('cardetails.Date_Appcar', $date)
-                ->where('cardetails.Approvers_car','<>','')
-                ->where('buyers.Contract_buyer','not like', '22%')
-                ->where('buyers.Contract_buyer','not like', '33%')
-                ->orderBy('buyers.id', 'ASC')
-                ->get();
-          }else{
-            $data = DB::table('buyers')
-            ->leftjoin('cardetails','buyers.id','=','cardetails.Buyercar_id')
-            ->where('cardetails.License_car', $RegisterNo)
-            ->get();
-          }
-        }
-        elseif ($request->type == 2){ //รายการ
-          $datenow = date('Y-m-d');
-          $newfdate = '';
-          $newtdate = '';
-          $branch = '';
-          $status = '';
-  
-          if ($request->has('Fromdate')) {
-            $newfdate = $request->get('Fromdate');
-          }
-          if ($request->has('Todate')) {
-            $newtdate = $request->get('Todate');
-          }
-          if ($request->has('branch')) {
-            $branch = $request->get('branch');
-          }
-          if ($request->has('status')) {
-            $status = $request->get('status');
-          }
-          if ($request->has('Contno')) {
-            $contno = $request->get('Contno');
-          }
-  
-          if ($request->has('Fromdate') == false and $request->has('Todate') == false) {
-              $data = DB::table('registers')
-                ->where('registers.Date_regis',$datenow)
-                ->orderBy('registers.Date_regis', 'DESC')
-                ->get();
-          }
-          else {
+        if ($request->type == 1) {
 
-            $data = DB::table('registers')
-                ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
-                  return $q->whereBetween('registers.Date_regis',[$newfdate,$newtdate]);
-                })
-                // ->when(!empty($status), function($q) use($status){
-                //   return $q->where('cardetails.StatusApp_car','=',$status);
-                // })
-                ->orderBy('registers.Date_regis', 'DESC')
-                ->get();
-  
-          }
-
+          $type = $request->type;
+          return view('registration.view', compact('type'));
         }
-        $type = $request->type;    
-        return view('registration.view', compact('type','data','dataRegis','branch','newfdate','newtdate','status','Setdate','RegisterNo'));
     }
 
     /**

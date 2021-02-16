@@ -71,7 +71,6 @@ Route::group(['middleware' => 'auth'], function()
 
     //------------------งานทะเบียน--------------------//
     route::resource('MasterRegister','RegisterController');
-    Route::get('/Register/Home/{type}', 'RegisterController@index')->name('Register');
 
     //------------------ลูกค้า walkin------------------//
     route::resource('MasterDataCustomer','DataCustomerController');
