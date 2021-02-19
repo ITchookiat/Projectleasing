@@ -423,9 +423,14 @@ class LegisComproController extends Controller
           if ($request->get('StatusCompro') != NULL) {
             $LegisPromise->Status_Promise = $request->get('StatusCompro');
             $LegisPromise->DateStatus_Promise = date('Y-m-d');
+
+            $SetStatuslegis = $request->get('StatusCompro');
+            $SetDateStatuslegis = date('Y-m-d');
           }else {
             $LegisPromise->Status_Promise = NULL;
             $LegisPromise->DateStatus_Promise = NULL;
+            $SetStatuslegis = NULL;
+            $SetDateStatuslegis = NULL;
           }
         $LegisPromise->update();
       }
@@ -439,6 +444,8 @@ class LegisComproController extends Controller
       // update key ลูก
       $Legislation = Legislation::find($id);
         $Legislation->KeyCompro_id = $data->Promise_id;
+        $Legislation->Status_legis = $SetStatuslegis;
+        $Legislation->DateUpState_legis = $SetDateStatuslegis;
       $Legislation->update();
 
       return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อย');

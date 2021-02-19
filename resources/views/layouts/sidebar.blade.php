@@ -230,43 +230,46 @@
               </p>
             </a>
 
-            @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก กฏหมาย" or auth::user()->type == "แผนก เร่งรัด")
+            @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก กฏหมาย" or auth::user()->type == "แผนก เร่งรัด" or auth::user()->type == "แผนก การเงินนอก")
               <ul class="nav nav-treeview" style="margin-left: 15px;">
                 <li class="nav-item">
                   @php
                     if (isset($_GET['type'])) {
-                      if ($_GET['type'] == 20 || $_GET['type'] == 6 || $_GET['type'] == 21 || $_GET['type'] == 22 || $_GET['type'] == 23 || $_GET['type'] == 24 || $_GET['type'] == 25 || $_GET['type'] == 8 || Request::is('MasterLegis/*/*')) {
+                      if ($_GET['type'] == 20 || $_GET['type'] == 6 || $_GET['type'] == 21 || $_GET['type'] == 22 || $_GET['type'] == 23 || $_GET['type'] == 24 || $_GET['type'] == 25 || $_GET['type'] == 8 || Request::is('MasterLegis/*/*') || $_GET['type'] == 1 || $_GET['type'] == 2 || $_GET['type'] == 3) {
                         $SetActive20 = true;
                       }elseif ($_GET['type'] == 10) {
                         $SetActive10 = true;
                       }
                     }
                   @endphp
-                  <a data-toggle="modal" data-target="#modal-1" data-link="{{ route('MasterLegis.index') }}?type={{1}}" class="nav-link {{ Request::is('Legislation/Home/1') ? 'active' : '' }}">
-                    <i class="far fa-dot-circle nav-icon"></i>
-                    <p>รายชื่อส่งฟ้อง</p>
-                  </a>
-                  <a href="{{ route('MasterLegis.index') }}?type={{20}}" class="nav-link @if(isset($SetActive20)) {{($SetActive20 == true) ? 'active' : '' }} @endif">
-                    <i class="far fa-dot-circle nav-icon"></i>
-                    <p>ลูกหนี้ฟ้อง</p>
-                  </a>
-                  <a href="{{ route('MasterCompro.index') }}?type={{1}}" class="nav-link {{ Request::is('MasterCompro') ? 'active' : '' }} {{ Request::is('MasterCompro/*/*') ? 'active' : '' }}">
-                    <i class="far fa-dot-circle nav-icon"></i>
-                    <p>ลูกหนี้ประนอมหนี้</p>
-                  </a>
-                  <a href="{{ route('MasterLegis.index') }}?type={{10}}" class="nav-link @if(isset($SetActive10)) {{($SetActive10 == true) ? 'active' : '' }} @endif">
-                    <i class="far fa-dot-circle nav-icon"></i>
-                    <p>ลูกหนี้ของกลาง</p>
-                  </a>
-                </li>
-              </ul>
-            @elseif(auth::user()->type == "แผนก การเงินนอก")
-              <ul class="nav nav-treeview" style="margin-left: 15px;">
-                <li class="nav-item">
-                  <a href="{{ route('MasterCompro.index') }}?type={{1}}" class="nav-link {{ Request::is('MasterCompro') ? 'active' : '' }} {{ Request::is('MasterCompro/*/*') ? 'active' : '' }}">
-                    <i class="far fa-dot-circle nav-icon"></i>
-                    <p>ลูกหนี้ประนอมหนี้</p>
-                  </a>
+                  @if (auth::user()->type == "แผนก การเงินนอก")
+                    <a class="nav-link {{ Request::is('Legislation/Home/1') ? 'active' : '' }}">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>รายชื่อลูกหนี้</p>
+                    </a>
+                    <a href="{{ route('MasterLegis.index') }}?type={{20}}" class="nav-link @if(isset($SetActive20)) {{($SetActive20 == true) ? 'active' : '' }} @endif">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>ระบบลูกหนี้กฎหมาย</p>
+                    </a>
+                    <a href="#" class="nav-link @if(isset($SetActive10)) {{($SetActive10 == true) ? 'active' : '' }} @endif">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>ระบบลูกหนี้ของกลาง</p>
+                    </a>
+                  @else
+                    <a data-toggle="modal" data-target="#modal-1" data-link="{{ route('MasterLegis.index') }}?type={{1}}" class="nav-link {{ Request::is('Legislation/Home/1') ? 'active' : '' }}">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>รายชื่อลูกหนี้</p>
+                    </a>
+                    <a href="{{ route('MasterLegis.index') }}?type={{20}}" class="nav-link @if(isset($SetActive20)) {{($SetActive20 == true) ? 'active' : '' }} @endif">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>ระบบลูกหนี้กฎหมาย</p>
+                    </a>
+                    <a href="{{ route('MasterLegis.index') }}?type={{10}}" class="nav-link @if(isset($SetActive10)) {{($SetActive10 == true) ? 'active' : '' }} @endif">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>ระบบลูกหนี้ของกลาง</p>
+                    </a>
+                  @endif
+                 
                 </li>
               </ul>
             @endif
@@ -331,7 +334,7 @@
               </p>
             </a>
 
-            {{-- @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก ทะเบียน")
+            @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก ทะเบียน")
               <ul class="nav nav-treeview" style="margin-left: 15px;">
                 <li class="nav-item">
                   <a href="{{ route('MasterRegister.index') }}?type={{1}}" class="nav-link">
@@ -340,7 +343,7 @@
                   </a>
                 </li>
               </ul>
-            @endif --}}
+            @endif
           </li>
 
           <li class="nav-header">Documents Part</li>
