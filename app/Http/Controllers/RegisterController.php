@@ -26,6 +26,24 @@ class RegisterController extends Controller
           $type = $request->type;
           return view('registration.view', compact('type'));
         }
+        elseif ($request->type == 2) {
+          $Contract = $request->id;
+          // $data = DB::connection('ibmi')
+          //   ->table('SFHP.ARMAST')
+          //   ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+          //   ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+          //   ->where('SFHP.INVTRAN.REGNO','like', 'บต-8849%')
+          //   ->first();
+
+            $data = DB::connection('ibmi')
+            ->table('SFHP.INVTRAN')
+            ->where('SFHP.INVTRAN.REGNO','like', '%-8849%')
+            ->first();
+
+          dd($data);
+
+          return response()->view('registration.showModal', compact('data'));
+        }
     }
 
     /**

@@ -261,9 +261,19 @@
                               <div class="row">
                                 <div class="col-6">
                                   <div class="form-group row mb-3">
-                                    <label class="col-sm-4 col-form-label text-right">ยอดเงินก้อนแรก : </label>
+                                    <label class="col-sm-4 col-form-label text-right">
+                                      @if($data->Payall_Promise == $data->Sum_FirstPromise)
+                                        <font color="green">ยอดเงินก้อนแรก : </font>
+                                      @else
+                                        <font color="red">ยอดเงินก้อนแรก : </font>
+                                      @endif
+                                    </label>
                                     <div class="col-sm-8">
-                                      <input type="text" name="PayallPromise" id="PayallPromise" value="{{ number_format($data->Payall_Promise,2) }}" class="form-control form-control-sm" oninput="Comma();"/>
+                                      @if($data->Payall_Promise == $data->Sum_FirstPromise)
+                                        <input type="text" name="PayallPromise" id="PayallPromise" value="{{ number_format($data->Payall_Promise,2) }}" class="form-control form-control-sm" oninput="Comma();" readonly/>
+                                      @else
+                                        <input type="text" name="PayallPromise" id="PayallPromise" value="{{ number_format($data->Payall_Promise,2) }}" class="form-control form-control-sm" oninput="Comma();"/>
+                                      @endif
                                     </div>
                                   </div>
                                 </div>
@@ -335,7 +345,13 @@
                                 </div>
                                 <div class="col-6">
                                   <div class="form-group row mb-0">
-                                    <label class="col-sm-4 col-form-label text-right"><font color="red">ยอดคงเหลือ : </font></label>
+                                    <label class="col-sm-4 col-form-label text-right">
+                                      @if($SumPay == 0)
+                                        <font color="green">ยอดคงเหลือ : </font>
+                                      @else
+                                        <font color="red">ยอดคงเหลือ : </font>
+                                      @endif
+                                    </label>
                                     <div class="col-sm-8">
                                       <input type="text" id="SumPromise" name="SumPromise" value="{{ number_format($SumPay, 0) }}" class="form-control form-control-sm" readonly/>
                                       <input type="hidden" id="Sumhide" name="Sumhide" value="{{ $SumPay }}" class="form-control form-control-sm"/>
@@ -348,7 +364,7 @@
                               <hr>
                               <div class="row">
                                 @if($data->Status_Promise == NULL)
-                                  @if($data->Date_Payment != Null)
+                                  @if($data->Date_Payment != NULL)
                                     @if($data->Type_Payment != "เงินก้อนแรก(เงินสด)" and $data->Type_Payment != "เงินก้อนแรก(เงินโอน)")
                                       <div class="col-6">
                                         <div class="form-group row mb-0">
@@ -359,9 +375,9 @@
                                         </div>
                                       </div>
                                     @endif
-                                    <input type="hidden" name="DatehidePayment" value="{{ $data->Date_Payment }}"/>
                                   @endif
                                 @endif
+                                <input type="hidden" name="DatehidePayment" value="{{ $data->Date_Payment }}"/>
                                 <div class="col-6">
                                   @php
                                     $DateDue = date_create($data->Date_Payment);

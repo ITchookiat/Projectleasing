@@ -30,7 +30,7 @@
                 <div class="row">
                   <div class="col-8">
                     <div class="form-inline">
-                      <h4 class="">
+                      <h5 class="">
                         @if($type == 1)
                           ลูกหนี้ประนอมหนี้ (Compounding Debt)
                         @elseif($type == 2)
@@ -38,7 +38,7 @@
                         @elseif($type == 3)
                           ลูกหนี้ประนอมหนี้เก่า (Old Compounding Debt)
                         @endif
-                      </h4>
+                      </h5>
                     </div>
                   </div>
                   <div class="col-4">
@@ -61,6 +61,7 @@
                       <div class="row mb-0">
                         <div class="col-sm-12">
                           <div class="card-tools d-inline float-right">
+                            <!--
                             <button type="button" class="btn bg-primary btn-app" data-toggle="dropdown">
                               <span class="fas fa-print"></span> ปริ้นรายงาน
                             </button>
@@ -71,6 +72,7 @@
                                 <li class="dropdown-divider"></li>
                                 <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-3" data-link="{{ route('MasterCompro.show', 3) }}"> รายงาน ตรวจสอบการรับชำระ</a></li>
                               </ul>
+                            -->
                           </div>
                         </div>
                       </div>

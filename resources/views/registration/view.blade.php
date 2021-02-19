@@ -265,6 +265,7 @@
                           <i class="fa fa-search"></i>
                         </button>
                       </div>
+
                       <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="dropdown">
                         <span class="fas fa-print pr-1"></span> ปริ้น
                       </button>
@@ -276,7 +277,7 @@
                 </div>
             </div>
             <div class="row feature-box">
-                <div class="col-md-4 col-sm-6">
+                <div class="col-md-3 col-sm-6">
                     <div class="feature-item">
                         <span class="feature__number">01</span>
                         <span class="feature__icon">
@@ -291,11 +292,26 @@
                         </p>
                     </div><!-- end feature-item -->
                 </div><!-- end col-md-4 -->
-                <div class="col-md-4 col-sm-6">
+                <div class="col-md-3 col-sm-6">
                     <div class="feature-item">
                         <span class="feature__number">02</span>
                         <span class="feature__icon">
-                            <img src="{{ asset('dist/img/registration/02.png') }}" alt="Personal development" class="img-fluid">
+                            <img src="{{ asset('dist/img/registration/002.png') }}" alt="Personal development" class="img-fluid">
+                        </span>
+                        <h3 class="feature__title">
+                            <a href="#">Chookiat Homecar.</a>
+                        </h3>
+                        <p class="feature__desc">
+                            sed quia lipsum dolor sit atur adipiscing elit is nunc quis
+                            tellus sed ligula porta ultricies quis nec neulla.
+                        </p>
+                    </div><!-- end feature-item -->
+                </div><!-- end col-md-4 -->
+                <div class="col-md-3 col-sm-6">
+                    <div class="feature-item">
+                        <span class="feature__number">03</span>
+                        <span class="feature__icon">
+                            <img src="{{ asset('dist/img/registration/003.png') }}" alt="Personal development" class="img-fluid">
                         </span>
                         <h3 class="feature__title">
                             <a href="#">Chookiat Yont.</a>
@@ -306,11 +322,11 @@
                         </p>
                     </div><!-- end feature-item -->
                 </div><!-- end col-md-4 -->
-                <div class="col-md-4 col-sm-6">
+                <div class="col-md-3 col-sm-6">
                     <div class="feature-item">
-                        <span class="feature__number">03</span>
+                        <span class="feature__number">04</span>
                         <span class="feature__icon">
-                            <img src="{{ asset('dist/img/registration/03.png') }}" alt="Personal development" class="img-fluid">
+                            <img src="{{ asset('dist/img/registration/04.png') }}" alt="Personal development" class="img-fluid">
                         </span>
                         <h3 class="feature__title">
                             <a href="#">Chookiat Car.</a>
@@ -322,6 +338,30 @@
                     </div><!-- end feature-item -->
                 </div><!-- end col-md-4 -->
             </div><!-- end row -->
-        </div><!-- end container -->
+        </div>
     </section>
+
+    <div class="modal fade" id="modal-Show">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-body" id="modal-body-event">
+                    <p>One fine body…</p>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <div id="ShowEvents"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $("#button-id").click(function(e){
+        e.preventDefault();
+            var id = $('#ID').val();
+            $("#modal-Show .modal-body").load("{{ route('MasterRegister.index')}}?type=2&id="+id, function(){
+                $('#modal-Show').modal('show');
+            });
+        });
+    </script> 
+
 @endsection
