@@ -235,7 +235,7 @@
                                 <i class="far fa-window-close"></i> ยกเลิก
                               </a>
                             @else
-                              <a class="delete-modal btn btn-danger" href="{{ URL::previous() }}">
+                              <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
                                 <i class="fas fa-undo"></i> ย้อนกลับ
                               </a>
                             @endif
@@ -249,7 +249,7 @@
                               <i class="far fa-window-close"></i> ยกเลิก
                             </a>
                           @else
-                            <a class="delete-modal btn btn-danger" href="{{ URL::previous() }}">
+                            <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
                               <i class="fas fa-undo"></i> ย้อนกลับ
                             </a>
                           @endif
