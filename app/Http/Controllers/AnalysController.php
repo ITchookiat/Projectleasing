@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use Storage;
 use File;
+use Image;
 
 use App\Buyer;
 use App\Sponsor;
@@ -947,10 +948,14 @@ class AnalysController extends Controller
           $image_lastname = $image_array[$i]->getClientOriginalExtension();
           $image_new_name = str_random(10).time(). '.' .$image_array[$i]->getClientOriginalExtension();
 
-          $destination_path = public_path().'/upload-image/'.$SetLicense;
-          Storage::makeDirectory($destination_path, 0777, true, true);
-          
-          $image_array[$i]->move($destination_path,$image_new_name);
+          // $destination_path = public_path().'/upload-image/'.$SetLicense;
+          // Storage::makeDirectory($destination_path, 0777, true, true);
+          // $image_array[$i]->move($destination_path,$image_new_name);
+
+          //resize Image
+          $image_resize = Image::make($image_array[$i]->getRealPath());
+          $image_resize->resize(1000, 1000);
+          $image_resize->save(public_path().'/upload-image/'.$SetLicense.'/'.$image_new_name);
 
           $SetType = 1; //ประเภทรูปภาพ รูปประกอบ
           $Uploaddb = new UploadfileImage([
@@ -1614,10 +1619,16 @@ class AnalysController extends Controller
             $AccountImage->move($destination_path,$NameImage);
           }
           else {
-            $destination_path = public_path().'/upload-image/'.$SetLicense;
-            Storage::makeDirectory($destination_path, 0777, true, true);
-
-            $AccountImage->move($destination_path,$NameImage);
+            // $destination_path = public_path().'/upload-image/'.$SetLicense;
+            // Storage::makeDirectory($destination_path, 0777, true, true);
+            // $AccountImage->move($destination_path,$NameImage);
+            $path = public_path().'/upload-image/'.$SetLicense;
+            File::makeDirectory($path, $mode = 0777, true, true);
+            
+            //resize Image
+            $image_resize = Image::make($AccountImage->getRealPath());
+            $image_resize->resize(1000, 1000);
+            $image_resize->save(public_path().'/upload-image/'.$SetLicense.'/'.$NameImage);
           }
           $cardetail->AccountImage_car = $NameImage;
         }
@@ -1881,8 +1892,14 @@ class AnalysController extends Controller
           }
           else{
             $path = public_path().'/upload-image/'.$SetLicense;
-            Storage::makeDirectory($path, 0777, true, true);
-            $image_array[$i]->move($path,$image_new_name);
+            File::makeDirectory($path, $mode = 0777, true, true);
+            // Storage::makeDirectory($path, 0777, true, true);
+            // $image_array[$i]->move($path,$image_new_name);
+
+             //resize Image
+            $image_resize = Image::make($image_array[$i]->getRealPath());
+            $image_resize->resize(1000, 1000);
+            $image_resize->save(public_path().'/upload-image/'.$SetLicense.'/'.$image_new_name);
           }
 
           $Uploaddb = new UploadfileImage([
@@ -1910,8 +1927,14 @@ class AnalysController extends Controller
           }
           else{
             $path = public_path().'/upload-image/'.$SetLicense;
-            Storage::makeDirectory($path, 0777, true, true);
-            $image_array[$i]->move($path,$image_new_name);
+            File::makeDirectory($path, $mode = 0777, true, true);
+            // Storage::makeDirectory($path, 0777, true, true);
+            // $image_array[$i]->move($path,$image_new_name);
+
+            //resize Image
+            $image_resize = Image::make($image_array[$i]->getRealPath());
+            $image_resize->resize(1000, 1000);
+            $image_resize->save(public_path().'/upload-image/'.$SetLicense.'/'.$image_new_name);
           }
 
           $Uploaddb = new UploadfileImage([
@@ -1939,8 +1962,14 @@ class AnalysController extends Controller
           }
           else{
             $path = public_path().'/upload-image/'.$SetLicense;
-            Storage::makeDirectory($path, 0777, true, true);
-            $image_array[$i]->move($path,$image_new_name);
+            File::makeDirectory($path, $mode = 0777, true, true);
+            // Storage::makeDirectory($path, 0777, true, true);
+            // $image_array[$i]->move($path,$image_new_name);
+
+            //resize Image
+            $image_resize = Image::make($image_array[$i]->getRealPath());
+            $image_resize->resize(1000, 1000);
+            $image_resize->save(public_path().'/upload-image/'.$SetLicense.'/'.$image_new_name);
           }
 
           $Uploaddb = new UploadfileImage([
@@ -2008,8 +2037,14 @@ class AnalysController extends Controller
           }
           else{
             $path = public_path().'/upload-image/'.$SetLicense;
-            Storage::makeDirectory($path, 0777, true, true);
-            $image_array[$i]->move($path,$image_new_name);
+            File::makeDirectory($path, $mode = 0777, true, true);
+            // Storage::makeDirectory($path, 0777, true, true);
+            // $image_array[$i]->move($path,$image_new_name);
+
+            //resize Image
+            $image_resize = Image::make($image_array[$i]->getRealPath());
+            $image_resize->resize(1000, 1000);
+            $image_resize->save(public_path().'/upload-image/'.$SetLicense.'/'.$image_new_name);
           }
 
           $Uploaddb = new UploadfileImage([
@@ -2037,8 +2072,14 @@ class AnalysController extends Controller
           }
           else{
             $path = public_path().'/upload-image/'.$SetLicense;
-            Storage::makeDirectory($path, 0777, true, true);
-            $image_array[$i]->move($path,$image_new_name);
+            File::makeDirectory($path, $mode = 0777, true, true);
+            // Storage::makeDirectory($path, 0777, true, true);
+            // $image_array[$i]->move($path,$image_new_name);
+
+            //resize Image
+            $image_resize = Image::make($image_array[$i]->getRealPath());
+            $image_resize->resize(1000, 1000);
+            $image_resize->save(public_path().'/upload-image/'.$SetLicense.'/'.$image_new_name);
           }
 
           $Uploaddb = new UploadfileImage([
@@ -2303,9 +2344,14 @@ class AnalysController extends Controller
               $image_array[$i]->move($destination_path,$image_new_name);
             }
             else{
-              $path = public_path().'/upload-image/'.$SetLicense;
-              Storage::makeDirectory($path, 0777, true, true);
-              $image_array[$i]->move($path,$image_new_name);
+              // $path = public_path().'/upload-image/'.$SetLicense;
+              // Storage::makeDirectory($path, 0777, true, true);
+              // $image_array[$i]->move($path,$image_new_name);
+
+              //resize Image
+              $image_resize = Image::make($image_array[$i]->getRealPath());
+              $image_resize->resize(1000, 1000);
+              $image_resize->save(public_path().'/upload-image/'.$SetLicense.'/'.$image_new_name);
             }
 
             $Uploaddb = new UploadfileImage([
@@ -2914,8 +2960,9 @@ class AnalysController extends Controller
         else{
           foreach ($item as $key => $value) {
             $itemID = $value->Buyerfileimage_id;
-            $itemPath = public_path().'/upload-image/'.$path.'/'.$value->Name_fileimage;
-            File::delete($itemPath);
+            // $itemPath = public_path().'/upload-image/'.$path.'/'.$value->Name_fileimage;
+            $itemPath = public_path().'/upload-image/'.$path;
+            File::deleteDirectory($itemPath);
           }
         }
         $deleteItem = UploadfileImage::where('Buyerfileimage_id',$itemID);
