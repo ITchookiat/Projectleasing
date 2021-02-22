@@ -1083,7 +1083,7 @@
                                       $path = $data->License_car;
                                     @endphp
                                     <p></p>
-                                    @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
+                                    @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER" or auth::user()->position == "AUDIT" or auth::user()->position == "MASTER" or auth::user()->position == "STAFF")
                                       <a href="{{ action('AnalysController@deleteImageAll',[$data->id,$path]) }}" class="btn btn-danger pull-left DeleteImage" title="ลบรูปภาพทั้งหมด"> ลบรูปภาพทั้งหมด..</a>
                                       <a href="{{ action('AnalysController@deleteImageEach',[$type,$data->id,$fdate,$tdate,$status,$path]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
                                         <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ..
@@ -1682,9 +1682,13 @@
                                 <label class="col-sm-3 col-form-label text-right">ป้ายเดิม : </label>
                                 <div class="col-sm-8">
                                   @if(auth::user()->type == "Admin")
-                                    <input type="text" name="Licensecar"  value="{{ $data->License_car}}" class="form-control form-control-sm"  placeholder="ป้ายเดิม"/>
+                                    <input type="text" name="Licensecar"  value="{{ $data->License_car}}" class="form-control form-control-sm"  placeholder="ป้ายเดิม" required/>
                                   @else
-                                    <input type="text" name="Licensecar"  value="{{ $data->License_car}}" class="form-control form-control-sm"  readonly/>
+                                    @if($countImage == 0)
+                                      <input type="text" name="Licensecar"  value="{{ $data->License_car}}" class="form-control form-control-sm"/>
+                                    @else
+                                      <input type="text" name="Licensecar"  value="{{ $data->License_car}}" class="form-control form-control-sm"  readonly/>
+                                    @endif
                                   @endif
                                 </div>
                               </div>
@@ -2858,7 +2862,7 @@
                             </div>
 
                             <div class="col-md-6">
-                              <div class="card card-info">
+                              <div class="card card-danger">
                                 <div class="card-header">
                                   <h3 class="card-title">รายได้ผู้ค้ำ</h3>
                   
@@ -2928,7 +2932,7 @@
                                 </div>
 
                                 <div class="col-12">
-                                  <div class="card card-primary">
+                                  <div class="card card-danger">
                                     <div class="card-header">
                                       <div class="card-title">
                                         รูปภาพรายได้ผู้ค้ำ
