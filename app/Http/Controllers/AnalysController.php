@@ -2344,6 +2344,8 @@ class AnalysController extends Controller
               $image_array[$i]->move($destination_path,$image_new_name);
             }
             else{
+              $path = public_path().'/upload-image/'.$SetLicense;
+              File::makeDirectory($path, $mode = 0777, true, true);
               // $path = public_path().'/upload-image/'.$SetLicense;
               // Storage::makeDirectory($path, 0777, true, true);
               // $image_array[$i]->move($path,$image_new_name);
@@ -2373,7 +2375,8 @@ class AnalysController extends Controller
         }
 
         if ($Gettype == 4) {
-          return redirect()->Route('Analysis', 4)->with(['newfdate' => $fdate,'newtdate' => $tdate,'status' => $status,'success' => 'อัพเดตข้อมูลเรียบร้อย']);
+          // return redirect()->Route('Analysis', 4)->with(['newfdate' => $fdate,'newtdate' => $tdate,'status' => $status,'success' => 'อัพเดตข้อมูลเรียบร้อย']);
+          return redirect()->back()->with(['newfdate' => $fdate,'newtdate' => $tdate,'status' => $status,'success' => 'อัพเดตข้อมูลเรียบร้อย']);
         }
     }
 
