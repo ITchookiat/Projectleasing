@@ -954,7 +954,7 @@ class AnalysController extends Controller
 
           //resize Image
           $image_resize = Image::make($image_array[$i]->getRealPath());
-          $image_resize->resize(1000, 1000);
+          $image_resize->resize(1500, 1000);
           $image_resize->save(public_path().'/upload-image/'.$SetLicense.'/'.$image_new_name);
 
           $SetType = 1; //ประเภทรูปภาพ รูปประกอบ
@@ -1385,7 +1385,7 @@ class AnalysController extends Controller
       // dd($request);
 
       date_default_timezone_set('Asia/Bangkok');
-      $Currdate = date('2020-06-02');   //วันที่เช็ตค่า รูป
+      $Currdate = date('2021-01-01');   //วันที่เช็ตค่า รูป
       $Getcardetail = Cardetail::where('Buyercar_id',$id)->first();
       $SetPhonebuyer = str_replace ( "_","",$request->get('Phonebuyer'));
 
@@ -1627,7 +1627,7 @@ class AnalysController extends Controller
             
             //resize Image
             $image_resize = Image::make($AccountImage->getRealPath());
-            $image_resize->resize(1000, 1000);
+            $image_resize->resize(1500, 1000);
             $image_resize->save(public_path().'/upload-image/'.$SetLicense.'/'.$NameImage);
           }
           $cardetail->AccountImage_car = $NameImage;
@@ -1887,8 +1887,14 @@ class AnalysController extends Controller
           $image_new_name = str_random(10).time(). '.' .$image_array[$i]->getClientOriginalExtension();
 
           if(substr($user->created_at,0,10) < $Currdate){
-            $destination_path = public_path('/upload-image');
-            $image_array[$i]->move($destination_path,$image_new_name);
+            // $destination_path = public_path('/upload-image');
+            // $image_array[$i]->move($destination_path,$image_new_name);
+            $path = public_path().'/upload-image/';
+            File::makeDirectory($path, $mode = 0777, true, true);
+            //resize Image
+            $image_resize = Image::make($image_array[$i]->getRealPath());
+            $image_resize->resize(1500, 1000);
+            $image_resize->save(public_path().'/upload-image/'.$image_new_name);
           }
           else{
             $path = public_path().'/upload-image/'.$SetLicense;
@@ -1898,7 +1904,7 @@ class AnalysController extends Controller
 
              //resize Image
             $image_resize = Image::make($image_array[$i]->getRealPath());
-            $image_resize->resize(1000, 1000);
+            $image_resize->resize(1500, 1000);
             $image_resize->save(public_path().'/upload-image/'.$SetLicense.'/'.$image_new_name);
           }
 
@@ -1933,7 +1939,7 @@ class AnalysController extends Controller
 
             //resize Image
             $image_resize = Image::make($image_array[$i]->getRealPath());
-            $image_resize->resize(1000, 1000);
+            $image_resize->resize(1500, 1000);
             $image_resize->save(public_path().'/upload-image/'.$SetLicense.'/'.$image_new_name);
           }
 
@@ -1968,7 +1974,7 @@ class AnalysController extends Controller
 
             //resize Image
             $image_resize = Image::make($image_array[$i]->getRealPath());
-            $image_resize->resize(1000, 1000);
+            $image_resize->resize(1500, 1000);
             $image_resize->save(public_path().'/upload-image/'.$SetLicense.'/'.$image_new_name);
           }
 
@@ -2043,7 +2049,7 @@ class AnalysController extends Controller
 
             //resize Image
             $image_resize = Image::make($image_array[$i]->getRealPath());
-            $image_resize->resize(1000, 1000);
+            $image_resize->resize(1500, 1000);
             $image_resize->save(public_path().'/upload-image/'.$SetLicense.'/'.$image_new_name);
           }
 
@@ -2078,7 +2084,7 @@ class AnalysController extends Controller
 
             //resize Image
             $image_resize = Image::make($image_array[$i]->getRealPath());
-            $image_resize->resize(1000, 1000);
+            $image_resize->resize(1500, 1000);
             $image_resize->save(public_path().'/upload-image/'.$SetLicense.'/'.$image_new_name);
           }
 
@@ -2102,7 +2108,7 @@ class AnalysController extends Controller
     {
         // dd($request);
         date_default_timezone_set('Asia/Bangkok');
-        $Currdate = date('2020-06-02');   //วันที่เช็ตค่า รูป
+        $Currdate = date('2021-01-01');   //วันที่เช็ตค่า รูป
 
         $newDateDue = \Carbon\Carbon::parse($request->DateDue)->format('Y') ."-". \Carbon\Carbon::parse($request->DateDue)->format('m')."-". \Carbon\Carbon::parse($request->DateDue)->format('d');
         $SetPhonebuyer = str_replace ( "_","",$request->get('Phonebuyer'));
@@ -2352,7 +2358,7 @@ class AnalysController extends Controller
 
               //resize Image
               $image_resize = Image::make($image_array[$i]->getRealPath());
-              $image_resize->resize(1000, 1000);
+              $image_resize->resize(1500, 1000);
               $image_resize->save(public_path().'/upload-image/'.$SetLicense.'/'.$image_new_name);
             }
 
@@ -2383,7 +2389,7 @@ class AnalysController extends Controller
     public function updaterestructure(Request $request, $id, $Gettype)
     {
         date_default_timezone_set('Asia/Bangkok');
-        $Currdate = date('2020-06-02');   //วันที่เช็ตค่า รูป
+        $Currdate = date('2021-01-01');   //วันที่เช็ตค่า รูป
 
         $newDateDue = \Carbon\Carbon::parse($request->DateDue)->format('Y') ."-". \Carbon\Carbon::parse($request->DateDue)->format('m')."-". \Carbon\Carbon::parse($request->DateDue)->format('d');
         $SetPhonebuyer = str_replace ( "_","",$request->get('Phonebuyer'));
@@ -2795,7 +2801,7 @@ class AnalysController extends Controller
       $item5 = UploadfileImage::where('Buyerfileimage_id','=',$id)->get();
       $countData = count($item5);
 
-      $Currdate = date('2020-06-02');
+      $Currdate = date('2021-01-01');
       $created_at = '';
 
       if($type == 1 or $type == 12){
@@ -2875,7 +2881,7 @@ class AnalysController extends Controller
 
     public function deleteImageAll($id,$path,Request $request)
     {
-      $Currdate = date('2020-06-02');
+      $Currdate = date('2021-01-01');
       $created_at = '';
       if ($request->type == 2) {
         $item = DB::table('uploadfile_images')
@@ -2998,7 +3004,7 @@ class AnalysController extends Controller
       if ($type == 1 or $type == 11 or $type == 4) {       //สินเชื่อ(เงินกู้) && ปรับโครงสร้างหนี้
         $mainid = $request->mainid;
         $created_at = '';
-        $Currdate = date('2020-06-02');
+        $Currdate = date('2021-01-01');
 
         $item1 = UploadfileImage::where('fileimage_id',$id);
         $data = UploadfileImage::where('fileimage_id','=',$id)->get();
