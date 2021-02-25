@@ -23,18 +23,27 @@
     <div class="card card-warning">
       <div class="card-header">
         <h4 class="card-title">
-          <i class="fas fa-calendar-day pr-2" style="color: rgba(245, 58, 58, 0.966)"></i>New Events
+          <i class="fas fa-calendar-day pr-2" style="color: rgba(245, 58, 58, 0.966)"></i>Update Events
         </h4>
         <div class="card-tools">
-          @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER" or auth::user()->position == "MASTER")
+          @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
             <a href="{{ action('EventController@DeleteEvents',[$data->events_id, $data->title, 1]) }}" data-name="{{ $data->title }}" class="btn btn-danger btn-tool AlertForm" title="ลบรายการ">
-              <i class="far fa-trash-alt"></i>
+              <i class="far fa-trash-alt text-danger"></i>
             </a>
             <button type="submit" class="btn btn-success btn-tool">
-              <i class="fas fa-save"></i> Save
+              <i class="fas fa-save"></i> Update
             </button>
+          @elseif(auth::user()->position == "MASTER")
+            @if($data->Branch_user == auth::user()->branch)
+            <a href="{{ action('EventController@DeleteEvents',[$data->events_id, $data->title, 1]) }}" data-name="{{ $data->title }}" class="btn btn-danger btn-tool AlertForm" title="ลบรายการ">
+              <i class="far fa-trash-alt text-danger"></i>
+            </a>
+            <button type="submit" class="btn btn-success btn-tool">
+              <i class="fas fa-save"></i> Update
+            </button>
+            @endif
           @endif
-            <a class="btn btn-warning btn-tool" href="{{ route('MasterEvents.index') }}?type={{1}}">
+            <a class="btn btn-danger btn-tool" href="{{ route('MasterEvents.index') }}?type={{1}}">
             <i class="far fa-window-close"></i> Close
           </a>
         </div>
@@ -75,7 +84,18 @@
                     <i class="fas fa-palette"></i>
                   </span>
                 </div>
+                @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                 <input type="color" name="color" value="{{$data->color}}" class="form-control float-right form-control-sm" required/>
+                @else
+                  <input type="color" value="{{$data->color}}" class="form-control float-right form-control-sm" disabled/>
+                  @if(auth::user()->position == "MASTER" and auth::user()->branch == "01")
+                    <input type="hidden" name="color" value="{{$data->color}}"/>
+                  @elseif(auth::user()->position == "MASTER" and auth::user()->branch == "03")
+                    <input type="hidden" name="color" value="{{$data->color}}"/>
+                  @elseif(auth::user()->position == "MASTER" and auth::user()->branch == "04")
+                    <input type="hidden" name="color" value="{{$data->color}}"/>
+                  @endif
+                @endif
               </div>
             </div>
           </div>

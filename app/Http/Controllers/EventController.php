@@ -68,6 +68,16 @@ class EventController extends Controller
             $DateEnd = substr($request->get('DateRage'),13,19);
         }
 
+        // if(auth()->user()->position == 'MASTER' and auth()->user()->branch == '01'){
+        //     $setColor = "#034C12";
+        // }elseif(auth()->user()->position == 'MASTER' and auth()->user()->branch == '03'){
+        //     $setColor = "#00015B";
+        // }elseif(auth()->user()->position == 'MASTER' and auth()->user()->branch == '04'){
+        //     $setColor = "#D11809";
+        // }else{
+        //     $setColor = $request->get('color');
+        // }
+
         $Events = new Event([
             'title' => $request->get('title'),
             'color' => $request->get('color'),

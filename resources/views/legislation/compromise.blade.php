@@ -473,13 +473,15 @@
                                     <a target="_blank" href="{{ route('legislation.report' ,[$row->Payment_id, 2]) }}" class="btn btn-warning btn-sm" title="ปริ้นใบเสร็จ">
                                       <i class="fas fa-print"></i>
                                     </a>
-                                    <form method="post" class="delete_form" action="{{ route('MasterCompro.destroy',[$row->Payment_id]) }}?type={{2}}" style="display:inline;">
-                                    {{csrf_field()}}
-                                      <input type="hidden" name="_method" value="DELETE" />
-                                      <button type="submit" data-name="{{ $row->Jobnumber_Payment }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
-                                        <i class="far fa-trash-alt"></i>
-                                      </button>
-                                    </form>
+                                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
+                                      <form method="post" class="delete_form" action="{{ route('MasterCompro.destroy',[$row->Payment_id]) }}?type={{2}}" style="display:inline;">
+                                      {{csrf_field()}}
+                                        <input type="hidden" name="_method" value="DELETE" />
+                                        <button type="submit" data-name="{{ $row->Jobnumber_Payment }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
+                                          <i class="far fa-trash-alt"></i>
+                                        </button>
+                                      </form>
+                                    @endif
                                   </td>
                                 </tr>
                               @endforeach
