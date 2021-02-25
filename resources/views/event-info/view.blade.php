@@ -35,7 +35,7 @@
           <div class="card-header">
             <h3 class="card-title">New Information</h3>
               <div class="card-tools">
-                @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
+                @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER" or auth::user()->position == "MASTER")
                   <a href="{{ route('MasterInfo.create') }}" class="btn btn-warning btn-tool" title="เพิ่มข่าวสาร">
                     <i class="fas fa-pager pr-1"></i> New
                   </a>
@@ -185,7 +185,18 @@
                               <i class="fas fa-palette"></i>
                             </span>
                           </div>
-                          <input type="color" name="color" class="form-control float-right form-control-sm" required/>
+                          @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
+                            <input type="color" name="color" class="form-control float-right form-control-sm" required/>
+                          @elseif(auth::user()->position == "MASTER" and auth::user()->branch == "01")
+                            <input type="color" value="#A2F876" class="form-control float-right form-control-sm" disabled/>
+                            <input type="hidden" name="color" value="#A2F876"/>
+                          @elseif(auth::user()->position == "MASTER" and auth::user()->branch == "03")
+                            <input type="color" value="#76F3F8" class="form-control float-right form-control-sm" disabled/>
+                            <input type="hidden" name="color" value="#76F3F8"/>
+                          @elseif(auth::user()->position == "MASTER" and auth::user()->branch == "04")
+                            <input type="color" value="#F8E876" class="form-control float-right form-control-sm" disabled/>
+                            <input type="hidden" name="color" value="#F8E876"/>
+                          @endif
                         </div>
                       </div>
                     </div>
@@ -276,6 +287,7 @@
           //   }
           // })
         }
+        
       });
     });
   </script>
