@@ -635,20 +635,20 @@
             }
           });
 
-          if(num1 < 150000){
-            // var num5 = '6500';
-            var num5 = '0';
-            var totaltopcar = parseFloat(num1);
-          }else if(num1 >= 150000 && num4 < 48){
-            var num5 = '6500';
-            var totaltopcar = parseFloat(num1)+parseFloat(num5);
-          }else if(num1 > 300000){
-            var num5 = '0';
-            var totaltopcar = parseFloat(num1);
-          }else {
-            var num5 ='0';
-            var totaltopcar = parseFloat(num1);
-          }
+          //กรณียอดจัดเกิน 150000 และจัดน้อยกว่า 4 ปี
+          // if(num1 < 150000){
+          //   var num5 = '0';
+          //   var totaltopcar = parseFloat(num1);
+          // }else if(num1 >= 150000 && num4 < 48){
+          //   var num5 = '6500';
+          //   var totaltopcar = parseFloat(num1)+parseFloat(num5);
+          // }else if(num1 > 300000){
+          //   var num5 = '0';
+          //   var totaltopcar = parseFloat(num1);
+          // }else {
+          //   var num5 ='0';
+          //   var totaltopcar = parseFloat(num1);
+          // }
           // console.log(num5);
 
           if(num4 == '12'){
