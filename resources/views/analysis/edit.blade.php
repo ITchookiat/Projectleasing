@@ -2435,7 +2435,7 @@
                               <div class="form-group row mb-0">
                                 <label class="col-sm-3 col-form-label text-right">อากร : </label>
                                 <div class="col-sm-8">
-                                  <input type="text" id="dutyPrice" name="dutyPrice" value="{{($data->duty_Price != Null) ? $data->duty_Price : '1,500'}}" class="form-control form-control-sm" placeholder="อากร" onchange="balance();"/>
+                                  <input type="text" id="dutyPrice" name="dutyPrice" value="{{($data->duty_Price != Null) ? $data->duty_Price : '1,500'}}" class="form-control form-control-sm" placeholder="อากร" onchange="balance();" readonly/>
                                 </div>
                               </div>
                             </div>
@@ -2446,7 +2446,7 @@
                               <div class="form-group row mb-0">
                                 <label class="col-sm-3 col-form-label text-right">ค่าการตลาด : </label>
                                 <div class="col-sm-8">
-                                  <input type="text" id="marketingPrice" name="marketingPrice" value="{{ ($data->marketing_Price != Null) ? $data->marketing_Price : '1,500' }}" class="form-control form-control-sm" placeholder="การตลาด" onchange="balance();"/>
+                                  <input type="text" id="marketingPrice" name="marketingPrice" value="{{ ($data->marketing_Price != Null) ? $data->marketing_Price : '1,500' }}" class="form-control form-control-sm" placeholder="การตลาด" onchange="balance();" readonly/>
                                 </div>                                                        
                               </div>
                             </div>
