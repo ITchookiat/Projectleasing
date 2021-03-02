@@ -954,7 +954,10 @@ class AnalysController extends Controller
 
           //resize Image
           $image_resize = Image::make($image_array[$i]->getRealPath());
-          $image_resize->resize(1500, 1000);
+          // $image_resize->resize(1500, 1000);
+          $image_resize->resize(1200, null, function ($constraint) {
+            $constraint->aspectRatio();
+          });
           $image_resize->save(public_path().'/upload-image/'.$SetLicense.'/'.$image_new_name);
 
           $SetType = 1; //ประเภทรูปภาพ รูปประกอบ
@@ -1627,7 +1630,10 @@ class AnalysController extends Controller
             
             //resize Image
             $image_resize = Image::make($AccountImage->getRealPath());
-            $image_resize->resize(1500, 1000);
+            // $image_resize->resize(1500, 1000);
+            $image_resize->resize(1200, null, function ($constraint) {
+              $constraint->aspectRatio();
+            });
             $image_resize->save(public_path().'/upload-image/'.$SetLicense.'/'.$NameImage);
           }
           $cardetail->AccountImage_car = $NameImage;
@@ -1893,7 +1899,10 @@ class AnalysController extends Controller
             File::makeDirectory($path, $mode = 0777, true, true);
             //resize Image
             $image_resize = Image::make($image_array[$i]->getRealPath());
-            $image_resize->resize(1500, 1000);
+            // $image_resize->resize(1500, 1000);
+            $image_resize->resize(1200, null, function ($constraint) {
+              $constraint->aspectRatio();
+            });
             $image_resize->save(public_path().'/upload-image/'.$image_new_name);
           }
           else{
@@ -1904,7 +1913,10 @@ class AnalysController extends Controller
 
              //resize Image
             $image_resize = Image::make($image_array[$i]->getRealPath());
-            $image_resize->resize(1500, 1000);
+            // $image_resize->resize(1500, 1000);
+            $image_resize->resize(1200, null, function ($constraint) {
+              $constraint->aspectRatio();
+            });
             $image_resize->save(public_path().'/upload-image/'.$SetLicense.'/'.$image_new_name);
           }
 
@@ -1939,7 +1951,10 @@ class AnalysController extends Controller
 
             //resize Image
             $image_resize = Image::make($image_array[$i]->getRealPath());
-            $image_resize->resize(1500, 1000);
+            // $image_resize->resize(1500, 1000);
+            $image_resize->resize(1200, null, function ($constraint) {
+              $constraint->aspectRatio();
+            });
             $image_resize->save(public_path().'/upload-image/'.$SetLicense.'/'.$image_new_name);
           }
 
@@ -1974,7 +1989,10 @@ class AnalysController extends Controller
 
             //resize Image
             $image_resize = Image::make($image_array[$i]->getRealPath());
-            $image_resize->resize(1500, 1000);
+            // $image_resize->resize(1500, 1000);
+            $image_resize->resize(1200, null, function ($constraint) {
+              $constraint->aspectRatio();
+            });
             $image_resize->save(public_path().'/upload-image/'.$SetLicense.'/'.$image_new_name);
           }
 
@@ -2049,7 +2067,10 @@ class AnalysController extends Controller
 
             //resize Image
             $image_resize = Image::make($image_array[$i]->getRealPath());
-            $image_resize->resize(1500, 1000);
+            // $image_resize->resize(1500, 1000);
+            $image_resize->resize(1200, null, function ($constraint) {
+              $constraint->aspectRatio();
+            });
             $image_resize->save(public_path().'/upload-image/'.$SetLicense.'/'.$image_new_name);
           }
 
@@ -2084,7 +2105,10 @@ class AnalysController extends Controller
 
             //resize Image
             $image_resize = Image::make($image_array[$i]->getRealPath());
-            $image_resize->resize(1500, 1000);
+            // $image_resize->resize(1500, 1000);
+            $image_resize->resize(1200, null, function ($constraint) {
+              $constraint->aspectRatio();
+            });
             $image_resize->save(public_path().'/upload-image/'.$SetLicense.'/'.$image_new_name);
           }
 
@@ -2358,7 +2382,10 @@ class AnalysController extends Controller
 
               //resize Image
               $image_resize = Image::make($image_array[$i]->getRealPath());
-              $image_resize->resize(1500, 1000);
+              // $image_resize->resize(1500, 1000);
+              $image_resize->resize(1200, null, function ($constraint) {
+                $constraint->aspectRatio();
+              });
               $image_resize->save(public_path().'/upload-image/'.$SetLicense.'/'.$image_new_name);
             }
 
