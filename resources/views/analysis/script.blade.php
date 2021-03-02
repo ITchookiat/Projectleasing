@@ -650,6 +650,7 @@
           //   var totaltopcar = parseFloat(num1);
           // }
           // console.log(num5);
+          var totaltopcar = parseFloat(num1);
 
           if(num4 == '12'){
              var period = '1';
