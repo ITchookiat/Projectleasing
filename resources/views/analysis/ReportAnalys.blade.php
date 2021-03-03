@@ -69,9 +69,9 @@
         </tr>
         <tr>
           <th align="right" width="120px"> ที่อยู่ &nbsp;</th>
-          <th class="text-center" width="240px" style="background-color: yellow;"> <b>{{$dataReport->Address_buyer}}</b></th>
-          <td align="right" width="85px"> วัตถุประสงค์สินเชื่อ&nbsp;</td>
-          <td width="95px"style="background-color: yellow;"> <b style="font-size:10px;">{{$dataReport->Objective_car}}</b></td>
+          <th class="text-center" width="420px" style="background-color: yellow;"> <b>{{$dataReport->Address_buyer}}</b></th>
+          <!-- <td align="right" width="85px"> วัตถุประสงค์สินเชื่อ&nbsp;</td>
+          <td width="95px"style="background-color: yellow;"> <b style="font-size:10px;">{{$dataReport->Objective_car}}</b></td> -->
         </tr>
         <tr>
           <th align="right" width="120px"> ที่อยู่ปัจจุบัน/ส่งเอกสาร &nbsp;</th>
@@ -381,7 +381,7 @@
         </tr>
         <tr>
           <th align="right" width="120px"> ผู้อนุมัติ &nbsp;</th>
-          <th class="text-center" width="420px" style="background-color: yellow;"> <b>{{$dataReport->Approvers_car}}</b></th>
+          <th class="text-center" width="420px" style="background-color: yellow;"> <b>{{$dataReport->?ManagerApp_car}}</b></th>
         </tr>        
       </table>
       <br/><br/><br/><br/>
@@ -403,6 +403,10 @@
           <tr>
             <th align="right" width="120px"> แหล่งที่มาของลูกค้า &nbsp;</th>
             <th class="text-center" width="420px" style="background-color: yellow;"> <b>{{$dataReport->Resource_news}}</b></th>
+          </tr>
+          <tr>
+            <th align="right" width="120px"> วัตถุประสงค์สินเชื่อ &nbsp;</th>
+            <th class="text-center" width="420px" style="background-color: yellow;"> <b>{{$dataReport->Objective_car}}</b></th>
           </tr>
           <tr>
             <th class="text-center" width="540px"></th>
