@@ -381,7 +381,7 @@
         </tr>
         <tr>
           <th align="right" width="120px"> ผู้อนุมัติ &nbsp;</th>
-          <th class="text-center" width="420px" style="background-color: yellow;"> <b>{{$dataReport->?ManagerApp_car}}</b></th>
+          <th class="text-center" width="420px" style="background-color: yellow;"> <b>{{$dataReport->ManagerApp_car}}</b></th>
         </tr>        
       </table>
       <br/><br/><br/><br/>
