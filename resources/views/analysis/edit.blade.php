@@ -1965,7 +1965,7 @@
                           </div>
 
                           <!-- สคริปคิดค่าคอม -->
-                          <script>
+                          {{--<script>
                             $('#statuscar').change(function(){
                               var value = document.getElementById('statuscar').value;
                               var Year = document.getElementById('Yearcar').value;
@@ -2010,7 +2010,7 @@
                                     $('#Commissioncar').val(addCommas(ResultPrice.toFixed(2)));
                                 }
                             });
-                          </script>
+                          </script>--}}
 
                           <!-- สคริปค่าประเมิณ -->
                           <script>
