@@ -1781,8 +1781,11 @@
   </section>
 
   {{-- Modal รายงาน --}}
-  <form action="{{ action('ReportAnalysController@ReportDueDate', 2) }}" method="get">
+  <form action="{{ action('MPController@ReportPDFIndex',[00]) }}" method="get">
     @csrf
+    <input type="hidden" name="type" value="2">
+    <input type="hidden" name="Flagtype" value="2">
+
     @if($type == 1)
       <input type="hidden" name="Flag" value="1">
     @elseif($type == 3)

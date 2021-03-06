@@ -1353,10 +1353,9 @@ class MPController extends Controller
       }
     }
 
-    //ใบเหลือง
     public function ReportPDFIndex(Request $request, $id)
     {
-      if ($request->type == 1) {
+      if ($request->type == 1) {      //ใบเหลือง
         $dataReport = DB::table('MP_Datas')
           ->leftJoin('MP_Datacars','MP_Datas.id','=','MP_Datacars.MP_id')
           ->leftJoin('MP_Sponsors','MP_Datas.id','=','MP_Sponsors.MP_id')
@@ -1397,7 +1396,7 @@ class MPController extends Controller
         
         $newfdate = date('Y-m-d');
         $newtdate = date('Y-m-d');
-        if($request->Flagtype == 1){  //รายงานขออนุมัติประจำวัน
+        if($request->Flagtype == 1){   //รายงานขออนุมัติประจำวัน
 
           if ($request->Flag == 1) {       //P03
             $dataReport = DB::table('MP_Datas')
@@ -1476,7 +1475,7 @@ class MPController extends Controller
           $pdf::WriteHTML($html,true,false,true,false,'');
           $pdf::Output('report.pdf');
         }
-        elseif ($request->Flagtype == 2) {  //Excel P03
+        elseif ($request->Flagtype == 2) {  //รายงาน สัญญาเงินกู้
           $newfdate = '';
           $newtdate = '';
   
@@ -1486,8 +1485,8 @@ class MPController extends Controller
           if ($request->has('Todate')){
               $newtdate = $request->get('Todate');
           }
-  
-          if ($request->Flag == 1) {
+
+          if ($request->Flag == 1) {      //P03
             $data = DB::table('buyers')
               ->leftJoin('sponsors','buyers.id','=','sponsors.Buyer_id')
               ->leftJoin('cardetails','buyers.id','=','cardetails.Buyercar_id')
@@ -1503,7 +1502,7 @@ class MPController extends Controller
   
             $status = 'สัญญาเงินกู้รถยนต์ P03';
           }
-          elseif ($request->Flag == 2) {
+          elseif ($request->Flag == 2) {  //P04
             $data = DB::table('buyers')
               ->leftJoin('sponsors','buyers.id','=','sponsors.Buyer_id')
               ->leftJoin('cardetails','buyers.id','=','cardetails.Buyercar_id')
@@ -1519,7 +1518,7 @@ class MPController extends Controller
   
             $status = 'สัญญาเงินกู้รถจักรยานยนต์ P04';
           }
-          elseif ($request->Flag == 3) {
+          elseif ($request->Flag == 3) {  //P06
             $data = DB::table('buyers')
               ->leftJoin('sponsors','buyers.id','=','sponsors.Buyer_id')
               ->leftJoin('cardetails','buyers.id','=','cardetails.Buyercar_id')
@@ -1535,7 +1534,7 @@ class MPController extends Controller
   
             $status = 'สัญญาเงินกู้รถยนต์ P06';
           }
-          elseif ($request->Flag == 4) {
+          elseif ($request->Flag == 4) {  //P07
             $data = DB::table('buyers')
               ->leftJoin('sponsors','buyers.id','=','sponsors.Buyer_id')
               ->leftJoin('cardetails','buyers.id','=','cardetails.Buyercar_id')

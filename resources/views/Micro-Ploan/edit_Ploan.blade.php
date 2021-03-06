@@ -2615,9 +2615,9 @@
                                       <label class="col-sm-4 col-form-label text-right">อาชีพ : </label>
                                       <div class="col-sm-8">
                                         @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                                          <input type="text" name="Careerbuyer" value="{{ $data->Career_MP }}" class="form-control form-control-sm"  placeholder="เลือกอาชีพ"/>
+                                          <input type="text" name="CareerMP" value="{{ $data->Career_MP }}" class="form-control form-control-sm"  placeholder="เลือกอาชีพ"/>
                                         @else
-                                          <input type="text" name="Careerbuyer" value="{{ $data->Career_MP }}" class="form-control form-control-sm"  placeholder="เลือกอาชีพ" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                          <input type="text" name="CareerMP" value="{{ $data->Career_MP }}" class="form-control form-control-sm"  placeholder="เลือกอาชีพ" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
                                         @endif
                                       </div>
                                     </div>
@@ -2625,9 +2625,9 @@
                                       <label class="col-sm-4 col-form-label text-right">รายได้ : </label>
                                       <div class="col-sm-8">
                                         @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                                          <input type="text" id="Incomebuyer" name="Incomebuyer" value="{{ $data->Income_MP }}" class="form-control form-control-sm"  placeholder="เลือกรายได้" />
+                                          <input type="text" id="IncomeMP" name="IncomeMP" value="{{ $data->Income_MP }}" class="form-control form-control-sm"  placeholder="เลือกรายได้" oninput="income();"/>
                                         @else
-                                          <input type="text" id="Incomebuyer" name="Incomebuyer" value="{{ $data->Income_MP }}" class="form-control form-control-sm"  placeholder="เลือกรายได้"  {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                          <input type="text" id="IncomeMP" name="IncomeMP" value="{{ $data->Income_MP }}" class="form-control form-control-sm"  placeholder="เลือกรายได้"  {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }} oninput="income();"/>
                                         @endif
                                       </div>
                                     </div>
