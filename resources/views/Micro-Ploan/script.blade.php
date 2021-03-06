@@ -21,10 +21,13 @@
       var num3 = num33.replace(",","");
       var num44 = document.getElementById('incomeSP').value;
       var num4 = num44.replace(",","");
+      var num55 = document.getElementById('IncomeMP').value;
+      var num5 = num55.replace(",","");
       document.form1.Beforeincome.value = addCommas(num1);
       document.form1.Afterincome.value = addCommas(num2);
       document.form1.incomeSP2.value = addCommas(num3);
       document.form1.incomeSP.value = addCommas(num4);
+      document.form1.IncomeMP.value = addCommas(num5);
     }
 
     function mile(){

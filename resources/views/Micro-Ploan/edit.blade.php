@@ -2881,9 +2881,9 @@
                                       <label class="col-sm-4 col-form-label text-right">รายได้ : </label>
                                       <div class="col-sm-8">
                                         @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
-                                          <input type="text" id="IncomeMP" name="IncomeMP" value="{{ $data->Income_MP }}" class="form-control form-control-sm"  placeholder="เลือกรายได้" />
+                                          <input type="text" id="IncomeMP" name="IncomeMP" value="{{ $data->Income_MP }}" class="form-control form-control-sm"  placeholder="เลือกรายได้" oninput="income();"/>
                                         @else
-                                          <input type="text" id="IncomeMP" name="IncomeMP" value="{{ $data->Income_MP }}" class="form-control form-control-sm"  placeholder="เลือกรายได้"  {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                          <input type="text" id="IncomeMP" name="IncomeMP" value="{{ $data->Income_MP }}" class="form-control form-control-sm"  placeholder="เลือกรายได้"  {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }} oninput="income();"/>
                                         @endif
                                       </div>
                                     </div>
