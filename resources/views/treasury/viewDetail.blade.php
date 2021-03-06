@@ -166,10 +166,10 @@
   <div class="card card-warning">
     <div class="card-header">
       <h4 class="card-title">
-        @if ($GetType == 1)
+        @if ($GetType == 1 or $GetType == 4)
           <i class="fas fa-search-dollar"></i>&nbsp;
           รายละเอียดค่าใช้จ่าย
-        @elseif ($GetType == 2)
+        @elseif ($GetType == 2 or $GetType == 5)
           <i class="far fa-address-card"></i>&nbsp;
           ตรวจสอบบัญชีหน้าเล่ม
         @endif
@@ -180,7 +180,7 @@
     </div>
 
     <div class="card-body text-sm">
-      @if ($GetType == 1)
+      @if ($GetType == 1 or $GetType == 4)
         <div class="row">
           <div class="col-md-5">
             <div class="float-right form-inline">
@@ -275,11 +275,15 @@
             </div>
           </div>
         </div>
-      @elseif ($GetType == 2)
+      @elseif ($GetType == 2 or $GetType == 5)
         <form name="form1" action="{{ route('MasterTreasury.update' ,[$data->id]) }}" method="post" id="formimage" enctype="multipart/form-data">
           @csrf
           @method('put')
-          <input type="hidden" name="type" value="1" />
+          @if ($GetType == 2)
+            <input type="hidden" name="type" value="1" />
+          @elseif($GetType == 5)
+            <input type="hidden" name="type" value="2" />
+          @endif
 
           <div class="row">
             <div class="col-12">

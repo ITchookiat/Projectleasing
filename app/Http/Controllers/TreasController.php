@@ -13,6 +13,7 @@ use App\Cardetail;
 use App\Expenses;
 
 use App\Micro_Ploan;
+use App\MP_Datacar;
 
 class TreasController extends Controller
 {
@@ -179,7 +180,7 @@ class TreasController extends Controller
 
     public function SearchData(Request $request, $type, $id)
     {
-        if ($type == 1 or $type == 2) {
+        if ($type == 1 or $type == 2) {     //F01
             $data = DB::table('buyers')
                     ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
                     ->join('cardetails','Buyers.id','=','cardetails.Buyercar_id')
@@ -209,7 +210,7 @@ class TreasController extends Controller
             $GetType = $type;
             return view('treasury.viewDetail', compact('data','GetType','SetAccount','SetTell','SetAccountGT','SetTellGT'));
         }
-        elseif ($type == 3) {
+        elseif ($type == 3) {       //แจ้งเตือนรายการ sidebar
             $data = DB::table('buyers')
                 ->leftJoin('cardetails','buyers.id','=','cardetails.Buyercar_id')
                 ->where('cardetails.Date_Appcar','>=',date('Y-m-d'))
@@ -235,13 +236,50 @@ class TreasController extends Controller
             
             echo $countData;
         }
+        elseif ($type == 4 or $type == 5) { //MP
+            $data = DB::table('MP_Datas')
+                ->leftJoin('MP_Sponsors','MP_Datas.id','=','MP_Sponsors.MP_id')
+                ->leftJoin('MP_Datacars','MP_Datas.id','=','MP_Datacars.MP_id')
+                ->leftJoin('MP_Expenses','MP_Datas.id','=','MP_Expenses.MP_id')
+                ->select('MP_Datas.*','MP_Sponsors.*','MP_Datacars.*','MP_Expenses.*','MP_Datas.created_at AS createdBuyers_at')
+                ->where('MP_Datas.id', $id)
+                ->first();
+
+            if ($data->Payee_car != NULL) {
+                $SetAccount = str_replace ("-","",$data->Accountbrance_car);
+                $SetTell = str_replace ("-","",$data->Tellbrance_car);
+            }else {
+                $SetAccount = "";
+                $SetTell = "";
+            }
+
+            if ($data->Payee_car != NULL) {
+                $SetAccountGT = str_replace ("-","",$data->Accountagent_car);
+                $SetTellGT = str_replace ("-","",$data->Tellagent_car);
+            }else {
+                $SetAccountGT = "";
+                $SetTellGT = "";
+            }
+
+            $GetType = $type;
+            return view('treasury.viewDetail', compact('data','GetType','SetAccount','SetTell','SetAccountGT','SetTellGT'));
+        }
     }
 
     public function update(Request $request, $id)
     {
         if ($request->type == 1) {      //update Analysis
             if ($request->has('checkAccount') != NULL) {
-                $user = Cardetail::find($id);
+                $user = Cardetail::where('Buyercar_id',$id)->first();
+                    $user->UserCheckAc_car = $request->get('checkAccount');
+                    $user->DateCheckAc_car = date('Y-m-d');
+                $user->update();
+            }
+            return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
+        }
+        elseif ($request->type == 2) {  //update MP
+            if ($request->has('checkAccount') != NULL) {
+                $user = MP_Datacar::where('MP_id',$id)->first();
                     $user->UserCheckAc_car = $request->get('checkAccount');
                     $user->DateCheckAc_car = date('Y-m-d');
                 $user->update();

@@ -208,7 +208,7 @@
                     <div class="form-group row mb-1">
                     <label class="col-sm-4 col-form-label text-right">ยี่ห้อรถ : </label>
                       <div class="col-sm-7">
-                        <select name="Brandcar" class="form-control form-control-sm" required>
+                        <select name="Brandcar" class="form-control form-control-sm">
                           <option value="" selected style="color:red">--- ยี่ห้อรถยนต์ ------</option>
                           <option value="ISUZU">ISUZU</option>
                           <option value="MITSUBISHI">MITSUBISHI</option>
