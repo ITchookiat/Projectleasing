@@ -2,21 +2,21 @@
 <section class="content">
   <div class="card card-warning">
     <div class="card-header">
-      <h4 class="card-title">
-        @if($type == 2)
+      <h5 class="card-title">
+        @if($type == 1)
           รายงานขออนุมัติประจำวัน
         @elseif($type == 3)
           รายงานโอนเงินประจำวัน
         @endif
-      </h4>
+      </h5>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">×</span>
       </button>
     </div>
 
-    <div class="card-body">
-      @if ($type == 2)
-        <form name="form1" action="{{ route('treasury.ReportDueDate' , 2) }}" target="_blank" method="get" id="formimage" enctype="multipart/form-data">
+    <div class="card-body text-sm">
+      @if ($type == 1)
+        <form name="form1" action="{{ route('treasury.ReportDueDate' , $Flag) }}" target="_blank" method="get" id="formimage" enctype="multipart/form-data">
           @csrf
           <div class="row">
             <div class="col-12">
@@ -37,13 +37,14 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary text-center">
+            <button type="submit" class="btn btn-sm btn-primary text-center">
               <i class="fas fa-print"></i> ปริ้น
             </button>
-            <a type="button" class="btn btn-danger" href="{{ URL::previous() }}">
+            <a type="button" class="btn btn-sm btn-danger" href="{{ URL::previous() }}">
               <i class="fas fa-times"></i> ยกเลิก
             </a>
           </div>
+
           <input type="hidden" name="_token" value="{{csrf_token()}}" />
         </form>
       @elseif ($type == 3)

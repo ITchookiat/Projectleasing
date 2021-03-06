@@ -98,7 +98,7 @@
             -o-transition:all .9s ease;
             -ms-transition:all .9s ease; 
             width: 100%;
-            height: 200px;
+            height: 250px;
             }
             #cards_landscape_wrap-2 .card-flyer:hover .image-box img{
             opacity: 0.7;
@@ -160,7 +160,7 @@
     </head>
     <body>
         <br>
-        <div class="pricing-header px-3 py-3 pt-md-3 pb-md-0 mx-auto text-center">
+        <div class="pricing-header px-0 py-0 pt-md-0 pb-md-0 mx-auto text-center">
             <h1 class="display-4">CHOOKIAT GROUP</h1>
             <p style="font-family: 'Prompt', sans-serif;">“ มุ่งมั่นในเรื่องของการดูแลลูกค้า ดูแลทีมงานให้เหมือนคนในครอบครัว ตั้งใจด้วยความซื่อสัตย์ ดูแลด้วยความจริงใจ ”</p>
         </div>
@@ -168,7 +168,7 @@
         <div id="cards_landscape_wrap-2">
             <div class="container">
                 <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
                         <a href="{{ route('login') }}">
                             <div class="card-flyer">
                                 <div class="text-box">
@@ -178,12 +178,13 @@
                                     <div class="text-container">
                                         <h6>chookiat Leasing</h6>
                                         <p style="font-family: 'Prompt', sans-serif;">อาชีพไหนๆก็ได้กู้ ง่ายๆ คนใต้ด้วยกัน เราพร้อมเคียงข้างทุกความสำเร็จของคุณ</p>
+                                        <br>
                                     </div>
                                 </div>
                             </div>
                         </a>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    {{-- <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
                         <a href="http://192.168.200.9/ProjectLabPM/public/login">
                             <div class="card-flyer">
                                 <div class="text-box">
@@ -197,8 +198,8 @@
                                 </div>
                             </div>
                         </a>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    </div> --}}
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
                         <a href="http://192.168.200.9/ProjectHomeCar/public/login">
                             <div class="card-flyer">
                                 <div class="text-box">
@@ -209,12 +210,13 @@
                                     <div class="text-container">
                                         <h6>chookiat HomeCar</h6>
                                         <p style="font-family: 'Prompt', sans-serif;">ศูนย์รวมรถยนต์มือสอง อันดับ 1 ในสามจังหวัดชายแดนภาคใต้ สาขาปัตตานี</p>
+                                        <br>
                                     </div>
                                 </div>
                             </div>
                         </a>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
                         <a href="#">
                             <div class="card-flyer">
                                 <div class="text-box">

@@ -3,31 +3,6 @@
 @section('content')
 
   <style>
-    .main {
-        width: 50%;
-        margin: 50px auto;
-    }
-
-    /* Bootstrap 4 text input with search icon */
-
-    .has-search .form-control {
-        padding-left: 2.375rem;
-    }
-
-    .has-search .form-control-feedback {
-        position: absolute;
-        z-index: 2;
-        display: block;
-        width: 2.375rem;
-        height: 2.375rem;
-        line-height: 2.375rem;
-        text-align: center;
-        pointer-events: none;
-        color: #aaa;
-    }
-  </style>
-
-  <style>
     .card-content{
         padding: 1px 20px 20px;
         text-align: left;
@@ -59,122 +34,6 @@
         line-height: 0.9;
         font-family: 'Open Sans', sans-serif;
         padding-top: 7px;
-    }
-  </style>
-
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Marcellus&display=swap');
-    .card {
-        border-radius: 10px;
-        color: #5c647c;
-        font-weight: 500
-    }
-
-    .div1 {
-        background-color: #f7f6fb;
-        border-radius: 10px 10px 0 0
-    }
-
-    .div2 {
-        background-color: #ffffff border-radius: 0 0 10px 10px
-    }
-
-    .form-check-input {
-        position: absolute;
-        left: 55px;
-        border-radius: 3px
-    }
-
-    .form-check-label,
-    p {
-        font-size: 13px
-    }
-
-    #btn-save {
-        background-color: #415aeb;
-        border-radius: 30px
-    }
-
-    .modal-content {
-        border-radius: 1rem
-    }
-
-    .modal-content:hover {
-        box-shadow: 2px 2px 2px rgb(128, 128, 127)
-    }
-
-    *:focus {
-        outline: none
-    }
-
-    .option-input {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        -ms-appearance: none;
-        -o-appearance: none;
-        appearance: none;
-        height: 21px;
-        width: 21px;
-        transition: all 0.15s ease-out 0s;
-        background-color: #f9f8fe;
-        border: 2px solid #a6b0e6;
-        border-radius: 25px;
-        color: #e6edf7;
-        cursor: pointer;
-        display: inline-block;
-        outline: none;
-        z-index: 1000
-    }
-
-    .option-input:checked {
-        background-color: #415aeb
-    }
-
-    .option-input:checked::before {
-        padding-left: 5px;
-        position: absolute;
-        font-family: "Font Awesome 5 Free";
-        display: inline-block;
-        font-size: 15px;
-        text-align: center
-    }
-
-    .option-input:checked::after+label:after {
-        -webkit-animation: click-wave 0.15s;
-        -moz-animation: click-wave 0.15s;
-        animation: click-wave 0.15s;
-        background: #E91E63;
-        content: '';
-        display: block;
-        position: relative;
-        z-index: 100
-    }
-
-    .option-input.radio {
-        border-radius: 80%
-    }
-
-    .option-input.radio::after {
-        border-radius: 30px
-    }
-
-    .checkbox input[type="checkbox"],
-    .checkbox-inline input[type="checkbox"] {
-        float: left;
-        margin-left: -4px !important
-    }
-
-    input[type="checkbox"]:focus {
-        outline: thin dotted #333;
-        outline: 0px auto -webkit-focus-ring-color;
-        outline-offset: 0px
-    }
-
-    label {
-        font-weight: 400;
-        font-size: 15px;
-        font-family: 'Manrope', sans-serif;
-        margin-top: 7px
     }
   </style>
 
@@ -420,6 +279,7 @@
       </form>
     </div>
   </div>
+
   <!-- รายงานชำะค่างวด -->
   <div class="modal fade" id="modal-2">
     <div class="modal-dialog">
@@ -432,6 +292,7 @@
       </div>
     </div>
   </div>
+
   <!-- รายงานตรวจสอบยอดชำระ -->
   <div class="modal fade" id="modal-3">
     <div class="modal-dialog modal-lg">
@@ -442,6 +303,7 @@
       </div>
     </div>
   </div>
+
   {{-- Pup up ค้นหา --}}
   <div class="modal fade" id="modal-Show">
     <div class="modal-dialog modal-lg">
@@ -478,6 +340,7 @@
       FunctionGetUser(url);
     });
   </script>  --}}
+  
   <script>
     $("#button-id").click(function(e){
     e.preventDefault();

@@ -39,9 +39,14 @@ Route::group(['middleware' => 'auth'], function()
     Route::get('/Analysis/Report/{id}/{type}', 'ReportAnalysController@ReportPDFIndex');
     Route::get('/Analysis/ReportDueDate/{type}', 'ReportAnalysController@ReportDueDate');
     //-------------------//-----------//
-    
+
     Route::get('/ExportExcel/{type}', 'ExcelController@excel');
 
+    //------------------Micro-Ploan--------------------//
+    route::resource('MasterMicroPloan','MPController');
+    Route::get('/MicroPloan/destroyImage/{id}', 'MPController@destroyImage');
+    Route::get('/MicroPloan/Report/{id}', 'MPController@ReportPDFIndex');
+    
     //------------------งานกฏหมาย--------------------//
     route::resource('MasterLegis','LegislationController');
     Route::get('/Legislation/Savestore', 'LegislationController@Savestore')->name('legislation.Savestore');
@@ -62,7 +67,6 @@ Route::group(['middleware' => 'auth'], function()
 
     //------------------งานการเงิน---------------------//
     route::resource('MasterTreasury','TreasController');
-    Route::get('/Treasury/Home/{type}', 'TreasController@index')->name('treasury');
     Route::get('/Treasury/SearchData/{type}/{id}', 'TreasController@SearchData')->name('SearchData');
     Route::get('/Treasury/ReportDueDate/{type}', 'TreasController@ReportDueDate')->name('treasury.ReportDueDate');
 

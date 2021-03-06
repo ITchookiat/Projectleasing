@@ -185,13 +185,13 @@
           <div class="col-md-5">
             <div class="float-right form-inline">
               <label>ยอดจัด : </label>
-            <input type="text" class="form-control text-right" style="width: 200px;" value="{{number_format($data->Top_car)}}" readonly/>
+            <input type="text" class="form-control form-control-sm mb-1 text-right" style="width: 200px;" value="{{number_format($data->Top_car)}}" readonly/>
             </div>
           </div>
           <div class="col-md-6">
             <div class="float-right form-inline">
               <label>พรบ. : </label>
-              <input type="text" class="form-control text-right" style="width: 200px;" value="{{number_format($data->act_Price)}}" readonly/>
+              <input type="text" class="form-control form-control-sm mb-1 text-right" style="width: 200px;" value="{{number_format($data->act_Price)}}" readonly/>
             </div>
           </div>
         </div>
@@ -200,7 +200,7 @@
           <div class="col-md-5">
             <div class="float-right form-inline">
               <label>ยอดปิดบัญชี : </label>
-              <input type="text" class="form-control text-right" style="width: 200px;" value="{{number_format($data->closeAccount_Price)}}" readonly/>
+              <input type="text" class="form-control form-control-sm mb-1 text-right" style="width: 200px;" value="{{number_format($data->closeAccount_Price)}}" readonly/>
             </div>
           </div>
           <div class="col-md-6">
@@ -210,7 +210,7 @@
               @else
                 <label>ซื้อป1 : </label>
               @endif
-              <input type="text" class="form-control text-right" style="width: 200px;" value="{{number_format($data->P2_Price)}}" readonly/>
+              <input type="text" class="form-control form-control-sm mb-1 text-right" style="width: 200px;" value="{{number_format($data->P2_Price)}}" readonly/>
             </div>
           </div>
         </div>
@@ -220,13 +220,13 @@
           <div class="col-md-5">
             <div class="float-right form-inline">
               <label>คจช.ขนส่ง : </label>
-            <input type="text" class="form-control text-right" style="width: 200px;" value="{{number_format($data->tran_Price, 2)}}" readonly/>
+            <input type="text" class="form-control form-control-sm mb-1 text-right" style="width: 200px;" value="{{number_format($data->tran_Price, 2)}}" readonly/>
             </div>
           </div>
           <div class="col-md-6">
             <div class="float-right form-inline">
               <label>อื้นๆ : </label>
-              <input type="text" class="form-control text-right" style="width: 200px;" value="{{number_format($data->other_Price, 2)}}" readonly/>
+              <input type="text" class="form-control form-control-sm mb-1 text-right" style="width: 200px;" value="{{number_format($data->other_Price, 2)}}" readonly/>
             </div>
           </div>
         </div>
@@ -235,13 +235,13 @@
           <div class="col-md-5">
             <div class="float-right form-inline">
               <label>ค่าประเมิน : </label>
-              <input type="text" class="form-control text-right" style="width: 200px;" value="{{$data->evaluetion_Price}}" readonly/>
+              <input type="text" class="form-control form-control-sm mb-1 text-right" style="width: 200px;" value="{{$data->evaluetion_Price}}" readonly/>
             </div>
           </div>
           <div class="col-md-6">
             <div class="float-right form-inline">
               <label>อากร : </label>
-              <input type="text" class="form-control text-right" style="width: 200px;" value="{{$data->duty_Price}}" readonly/>
+              <input type="text" class="form-control form-control-sm mb-1 text-right" style="width: 200px;" value="{{$data->duty_Price}}" readonly/>
             </div>
           </div>
         </div>
@@ -250,13 +250,13 @@
           <div class="col-md-5">
             <div class="float-right form-inline">
               <label>การตลาด : </label>
-              <input type="text" class="form-control text-right" style="width: 200px;" value="{{$data->marketing_Price}}" readonly/>
+              <input type="text" class="form-control form-control-sm mb-1 text-right" style="width: 200px;" value="{{$data->marketing_Price}}" readonly/>
             </div>
           </div>
           <div class="col-md-6">
             <div class="float-right form-inline">
               <label>รวมค่าใช้จ่าย : </label>
-              <input type="text" class="form-control text-right" style="width: 200px;" value="{{number_format($data->totalk_Price, 2)}}" readonly/>
+              <input type="text" class="form-control form-control-sm mb-1 text-right" style="width: 200px;" value="{{number_format($data->totalk_Price, 2)}}" readonly/>
             </div>
           </div>
         </div>
@@ -265,13 +265,13 @@
           <div class="col-md-5">
             <div class="float-right form-inline">
               <label>คงเหลือ : </label>
-              <input type="text" class="form-control text-right" style="width: 200px;" value="{{number_format($data->balance_Price, 2)}}" readonly/>
+              <input type="text" class="form-control form-control-sm mb-1 text-right" style="width: 200px;" value="{{number_format($data->balance_Price, 2)}}" readonly/>
             </div>
           </div>
           <div class="col-md-6">
             <div class="float-right form-inline">
               <label>หัก 3% : </label>
-              <input type="text" class="form-control text-right" style="width: 200px;" value="{{number_format($data->commit_Price, 2)}}" readonly/>
+              <input type="text" class="form-control form-control-sm mb-1 text-right" style="width: 200px;" value="{{number_format($data->commit_Price, 2)}}" readonly/>
             </div>
           </div>
         </div>
@@ -299,13 +299,13 @@
                         <div class="col-md-6">
                           <div class="form-group">
                             <label>ชื่อ : </label>
-                            <input type="text" class="form-control text-right" style="width: 220px;" value="{{$data->Payee_car}}" readonly/>
+                            <input type="text" class="form-control form-control-sm mb-1 text-right" style="width: 220px;" value="{{$data->Payee_car}}" readonly/>
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
                             <label>บัญชี : </label>
-                            <input type="text" class="form-control text-right" style="width: 220px;" value="{{$SetAccount}}" readonly/>
+                            <input type="text" class="form-control form-control-sm mb-1 text-right" style="width: 220px;" value="{{$SetAccount}}" readonly/>
                           </div>
                         </div>
                       </div>
@@ -314,13 +314,13 @@
                         <div class="col-md-6">
                           <div class="form-group">
                             <label>สาขา : </label>
-                          <input type="text" class="form-control text-right" style="width: 220px;" value="{{$data->branchbrance_car}}" readonly/>
+                          <input type="text" class="form-control form-control-sm mb-1 text-right" style="width: 220px;" value="{{$data->branchbrance_car}}" readonly/>
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
                             <label>โทรศัพท์ : </label>
-                            <input type="text" class="form-control text-right" style="width: 220px;" value="{{$SetTell}}" readonly/>
+                            <input type="text" class="form-control form-control-sm mb-1 text-right" style="width: 220px;" value="{{$SetTell}}" readonly/>
                           </div>
                         </div>
                       </div>
@@ -333,7 +333,7 @@
                             @else
                               <label><font color="red">ยอดโอนรถ : </font></label>
                             @endif
-                          <input type="text" class="form-control text-right" style="width: 220px; background-color: red; color: white" value="{{number_format($data->balance_Price, 2)}}" readonly/>
+                          <input type="text" class="form-control form-control-sm mb-1 text-right" style="width: 220px; background-color: red; color: white" value="{{number_format($data->balance_Price, 2)}}" readonly/>
                           </div>
                         </div>
                         <div class="col-md-6">
@@ -358,13 +358,13 @@
                         <div class="col-md-6">
                           <div class="form-group">
                             <label>ชื่อ : </label>
-                            <input type="text" class="form-control text-right" style="width: 220px;" value="{{$data->Agent_car}}" readonly/>
+                            <input type="text" class="form-control form-control-sm mb-1 text-right" style="width: 220px;" value="{{$data->Agent_car}}" readonly/>
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
                             <label>บัญชี : </label>
-                            <input type="text" class="form-control text-right" style="width: 220px;" value="{{$SetAccountGT}}" readonly/>
+                            <input type="text" class="form-control form-control-sm mb-1 text-right" style="width: 220px;" value="{{$SetAccountGT}}" readonly/>
                           </div>
                         </div>
                       </div>
@@ -373,13 +373,13 @@
                         <div class="col-md-6">
                           <div class="form-group">
                             <label>สาขา : </label>
-                          <input type="text" class="form-control text-right" style="width: 220px;" value="{{$data->branchAgent_car}}" readonly/>
+                          <input type="text" class="form-control form-control-sm mb-1 text-right" style="width: 220px;" value="{{$data->branchAgent_car}}" readonly/>
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
                             <label>โทรศัพท์ : </label>
-                            <input type="text" class="form-control text-right" style="width: 220px;" value="{{$SetTellGT}}" readonly/>
+                            <input type="text" class="form-control form-control-sm mb-1 text-right" style="width: 220px;" value="{{$SetTellGT}}" readonly/>
                           </div>
                         </div>
                       </div>
@@ -392,7 +392,7 @@
                           @else
                             <label><font color="red">ยอดโอนค่าคอม : </font></label>
                           @endif
-                          <input type="text" class="form-control text-right" style="width: 220px; background-color: red; color: white" value="{{number_format($data->commit_Price, 2)}}" readonly/>
+                          <input type="text" class="form-control form-control-sm mb-1 text-right" style="width: 220px; background-color: red; color: white" value="{{number_format($data->commit_Price, 2)}}" readonly/>
                           </div>
                         </div>
                         <div class="col-md-6">
@@ -439,7 +439,7 @@
                 @if($data->Payee_car == $data->Agent_car and $data->Accountbrance_car == $data->Accountagent_car)
                   <div class="float-right form-inline">
                     <label><font color="red">* ยอดโอนรวม : </font></label>
-                    <input type="text" class="form-control text-right" style="width: 220px; background-color: red; color: white" value="{{ number_format($sumArcsum, 2) }}" readonly/>
+                    <input type="text" class="form-control form-control-sm mb-1 text-right" style="width: 220px; background-color: red; color: white" value="{{ number_format($sumArcsum, 2) }}" readonly/>
                   </div>
                 @endif
               </div>
@@ -458,10 +458,10 @@
               </div>
               <div class="col-2">
                 <div class="card-tools d-inline float-right">
-                  <button type="submit" class="delete-modal btn btn-success">
+                  <button type="submit" class="delete-modal btn btn-sm btn-success">
                     <i class="fas fa-save"></i> บันทึก
                   </button>
-                  <a class="delete-modal btn btn-danger" href="{{ URL::previous() }}">
+                  <a class="delete-modal btn btn-sm btn-danger" href="{{ URL::previous() }}">
                     <i class="far fa-window-close"></i> ยกเลิก
                   </a>
                 </div>
