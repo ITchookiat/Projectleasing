@@ -161,11 +161,10 @@ class ReportAnalysController extends Controller
       $d = date('d');
       $date = $Y.'-'.$m.'-'.$d;
       $date2 = $d.'-'.$m.'-'.$Y2;
-
+      
+      $newfdate = date('Y-m-d');
+      $newtdate = date('Y-m-d');
       if($request->type == 1){  //รายงานอนุมัติประจำวัน
-        $newfdate = date('Y-m-d');
-        $newtdate = date('Y-m-d');
-        
         if ($request->Flag == 1) {
           $dataReport = DB::table('buyers')
             ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
@@ -180,7 +179,6 @@ class ReportAnalysController extends Controller
 
           $type = 1;
         }
-        
         $view = \View::make('analysis.ReportDueDate' ,compact('dataReport','date2','type','newfdate','newtdate'));
         $html = $view->render();
         $pdf = new PDF();
