@@ -2690,15 +2690,18 @@
                                           @if($images->Type_fileimage == "4")
                                             @if(substr($data->createdBuyers_at,0,10) < $Currdate)
                                               <div class="col-sm-4">
-                                                <a href="{{ asset('upload-image-MP/'.$Setlisence.'/'.$images->Name_fileimage) }}" data-toggle="lightbox" data-title="ภาพผู้เช่าซื้อ">
-                                                  <img src="{{ asset('upload-image-MP/'.$Setlisence.'/'.$images->Name_fileimage) }}" class="img-fluid mb-2" alt="white sample">
+                                                <a href="{{ asset('upload-image-MP/'.$Setlisence.'/'.$images->Name_fileimage) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true">
+                                                  <img src="{{ asset('upload-image-MP/'.$Setlisence.'/'.$images->Name_fileimage) }}">
                                                 </a>
                                               </div>
                                             @else
                                               <div class="col-sm-4">
-                                                <a href="{{ asset('upload-image-MP/'.$SetTypecon.'/'.$Setlisence.'/'.$images->Name_fileimage) }}" data-toggle="lightbox" data-title="ภาพผู้เช่าซื้อ">
-                                                  <img src="{{ asset('upload-image-MP/'.$SetTypecon.'/'.$Setlisence.'/'.$images->Name_fileimage) }}" class="img-fluid mb-2" alt="white sample">
+                                                <a href="{{ asset('upload-image-MP/'.$SetTypecon.'/'.$Setlisence.'/'.$images->Name_fileimage) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true">
+                                                  <img src="{{ asset('upload-image-MP/'.$SetTypecon.'/'.$Setlisence.'/'.$images->Name_fileimage) }}">
                                                 </a>
+                                                {{-- <a href="{{ asset('upload-image-MP/'.$SetTypecon.'/'.$Setlisence.'/'.$images->Name_fileimage) }}" data-toggle="lightbox" data-title="ภาพผู้เช่าซื้อ">
+                                                  <img src="{{ asset('upload-image-MP/'.$SetTypecon.'/'.$Setlisence.'/'.$images->Name_fileimage) }}" class="img-fluid mb-2" alt="white sample">
+                                                </a> --}}
                                               </div>
                                             @endif
                                           @endif
@@ -2786,14 +2789,14 @@
                                           @if($images->Type_fileimage == "5")
                                             @if(substr($data->createdBuyers_at,0,10) < $Currdate)
                                               <div class="col-sm-4">
-                                                <a href="{{ asset('upload-image-MP/'.$Setlisence.'/'.$images->Name_fileimage) }}" data-toggle="lightbox" data-title="ภาพผู้เช่าซื้อ">
-                                                  <img src="{{ asset('upload-image-MP/'.$Setlisence.'/'.$images->Name_fileimage) }}" class="img-fluid mb-2" alt="white sample">
+                                                <a href="{{ asset('upload-image-MP/'.$Setlisence.'/'.$images->Name_fileimage) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true">
+                                                  <img src="{{ asset('upload-image-MP/'.$Setlisence.'/'.$images->Name_fileimage) }}">
                                                 </a>
                                               </div>
                                             @else
                                               <div class="col-sm-4">
-                                                <a href="{{ asset('upload-image-MP/'.$SetTypecon.'/'.$Setlisence.'/'.$images->Name_fileimage) }}" data-toggle="lightbox" data-title="ภาพผู้เช่าซื้อ">
-                                                  <img src="{{ asset('upload-image-MP/'.$SetTypecon.'/'.$Setlisence.'/'.$images->Name_fileimage) }}" class="img-fluid mb-2" alt="white sample">
+                                                <a href="{{ asset('upload-image-MP/'.$SetTypecon.'/'.$Setlisence.'/'.$images->Name_fileimage) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true">
+                                                  <img src="{{ asset('upload-image-MP/'.$SetTypecon.'/'.$Setlisence.'/'.$images->Name_fileimage) }}">
                                                 </a>
                                               </div>
                                             @endif
