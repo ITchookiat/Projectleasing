@@ -223,7 +223,7 @@
                             <tr>
                               <td class="text-center"> {{$key+1}} </td>
                               <td class="text-left"> {{$row->branch_car}} </td>
-                              <td class="text-left" data-toggle="modal" data-target="#modal-4" data-link="{{ route('SearchData', [1, $row->id]) }}" style="cursor: pointer;"> 
+                              <td class="text-left" data-toggle="modal" data-target="#modal-4" data-link="{{ route('SearchData', [4, $row->id]) }}" style="cursor: pointer;"> 
                                 <span>{{$row->License_car}}</span>
                                 @if ($row->Date_Appcar == date('Y-m-d'))
                                   <span class="badge bg-danger prem">NEW</span>
@@ -250,7 +250,7 @@
                                 @endif
                               </td>
                               <td class="text-center">
-                                <a data-toggle="modal" data-target="#modal-5" data-link="{{ route('SearchData', [2, $row->id]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
+                                <a data-toggle="modal" data-target="#modal-5" data-link="{{ route('SearchData', [5, $row->id]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                   <i class="far fa-edit"> ตรวจสอบบัญชี</i>
                                 </a>
                               </td>
@@ -283,7 +283,7 @@
                               <tr>
                                 <td class="text-center"> {{$key+1}} </td>
                                 <td class="text-left"> {{$row->branch_car}} </td>
-                                <td class="text-left" data-toggle="modal" data-target="#modal-4" data-link="{{ route('SearchData', [1, $row->id]) }}" style="cursor: pointer;"> 
+                                <td class="text-left" data-toggle="modal" data-target="#modal-4" data-link="{{ route('SearchData', [4, $row->id]) }}" style="cursor: pointer;"> 
                                   <span>{{$row->License_car}}</span>
                                   @if ($row->Date_Appcar == date('Y-m-d'))
                                     <span class="badge bg-danger prem">NEW</span>
@@ -310,7 +310,7 @@
                                   @endif
                                 </td>
                                 <td class="text-center">
-                                  <a data-toggle="modal" data-target="#modal-5" data-link="{{ route('SearchData', [2, $row->id]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
+                                  <a data-toggle="modal" data-target="#modal-5" data-link="{{ route('SearchData', [5, $row->id]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                     <i class="far fa-edit"> ตรวจสอบบัญชี</i>
                                   </a>
                                 </td>
