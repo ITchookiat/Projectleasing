@@ -77,19 +77,19 @@
           </div>
           <div class="card-body p-0">
             <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
-              <a class="nav-link {{ (request()->is($Flag === '2')) ? 'active' : '' }}" name="F01" href="{{ route('MasterTreasury.index') }}?type={{2}}&Flag={{2}}">
+              <a class="nav-link {{ (request()->is($Flag === '2')) ? 'active' : '' }}" name="F01" href="{{ route('MasterTreasury.index') }}?type={{2}}&Flag={{2}}&newfdate={{$newfdate}}&newtdate={{$newtdate}}">
                 <i class="fas fa-hdd"></i> สัญญาเงินกู้ เช่าซื้อ
                 @if($CountData != 0)
                   <span class="badge bg-danger float-right prem">{{$CountData}}</span>
                 @endif
               </a>
-              <a class="nav-link {{ (request()->is($Flag === '3')) ? 'active' : '' }}" name="PLoan" href="{{ route('MasterTreasury.index') }}?type={{2}}&Flag={{3}}">
+              <a class="nav-link {{ (request()->is($Flag === '3')) ? 'active' : '' }}" name="PLoan" href="{{ route('MasterTreasury.index') }}?type={{2}}&Flag={{3}}&newfdate={{$newfdate}}&newtdate={{$newtdate}}">
                 <i class="fas fa-hdd"></i> สัญญาเงินกู้ PLoan
                 @if($CountPloan != 0)
                   <span class="badge bg-danger float-right prem">{{$CountPloan}}</span>
                 @endif
               </a>
-              <a class="nav-link {{ (request()->is($Flag === '4')) ? 'active' : '' }}" name="Micro" href="{{ route('MasterTreasury.index') }}?type={{2}}&Flag={{4}}">
+              <a class="nav-link {{ (request()->is($Flag === '4')) ? 'active' : '' }}" name="Micro" href="{{ route('MasterTreasury.index') }}?type={{2}}&Flag={{4}}&newfdate={{$newfdate}}&newtdate={{$newtdate}}">
                 <i class="fas fa-hdd"></i> สัญญาเงินกู้ Micro
                 @if($CountMicro != 0)
                   <span class="badge bg-danger float-right prem">{{$CountMicro}}</span>

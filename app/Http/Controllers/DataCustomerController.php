@@ -224,7 +224,7 @@ class DataCustomerController extends Controller
         }elseif(auth()->user()->branch == '12'){
             $SetUserBranch = 'รือเสาะ';
         }elseif(auth()->user()->branch == '13'){
-            $SetUserBranch = 'บังนังสตา';
+            $SetUserBranch = 'บันนังสตา';
         }elseif(auth()->user()->branch == '14'){
             $SetUserBranch = 'ยะหา';
         }else{

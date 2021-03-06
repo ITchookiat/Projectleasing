@@ -24,19 +24,22 @@ class TreasController extends Controller
         if ($request->has('Fromdate')){
             $newfdate = $request->get('Fromdate');
         }
+        elseif ($request->newfdate != '') {
+            $newfdate = $request->newfdate;
+        }
         if ($request->has('Todate')){
             $newtdate = $request->get('Todate');
+        } elseif ($request->newtdate != '') {
+            $newtdate = $request->newtdate;
         }
-        
+
         if ($request->type == 1) {      //รายงาน
             $type = $request->type;
             $Flag = $request->Flag;
             return view('treasury.viewReport',compact('type','Flag'));
         }
         elseif ($request->type == 2) {  //view index
-            // dd($request->Flag);
-
-            if ($request->has('Fromdate') == false and $request->has('Todate') == false) {
+            if ($newfdate == NULL and $newtdate == NULL) {
                 $data = DB::table('buyers')
                     ->join('cardetails','Buyers.id','=','cardetails.Buyercar_id')
                     ->join('Expenses','Buyers.id','=','Expenses.Buyerexpenses_id')
@@ -142,6 +145,14 @@ class TreasController extends Controller
                     ->get();
                 $count = count($topcar);
 
+                $SumTopcar = 0;
+                $SumCommissioncar = 0;
+                $SumCommitprice = 0;
+                $SumTopcarP = 0;
+                $SumCommitpriceP = 0;
+                $SumTopcarM = 0;
+                $SumCommitpriceM = 0;
+
                 if($count != 0){
                     for ($i=0; $i < $count; $i++) {
                         if ($topcar[$i]->Type_Con == 'P03' or $topcar[$i]->Type_Con == 'P04') {
@@ -151,14 +162,10 @@ class TreasController extends Controller
                         }
                         elseif ($topcar[$i]->Type_Con == 'P06' or $topcar[$i]->Type_Con == 'P007') {
                             @$SumTopcarM += $topcar[$i]->Top_car; //รวมยอดจัดวันปัจจุบัน
-                            @$SumCommissionM += $topcar[$i]->Commission_car; //รวมค่าคอมก่อนหักวันปัจจุบัน
+                            @$SumCommissionM+= $topcar[$i]->Commission_car; //รวมค่าคอมก่อนหักวันปัจจุบัน
                             @$SumCommitpriceM+= $topcar[$i]->commit_Price; //รวมค่าคอมหลังหักวันปัจจุบัน
                         }
                     }
-                }else{
-                    $SumTopcar = 0;
-                    $SumCommissioncar = 0;
-                    $SumCommitprice = 0;
                 }
             }
 
