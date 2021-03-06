@@ -246,8 +246,7 @@ class TreasController extends Controller
                     $user->DateCheckAc_car = date('Y-m-d');
                 $user->update();
             }
-        
-            return redirect()->Route('treasury', 1)->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
+            return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
         }
     }
 
