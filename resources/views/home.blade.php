@@ -16,9 +16,9 @@
   <div class="pricing-header px-3 py-3 pt-md-3 pb-md-0 mx-auto text-center">
     <div class="card-tools">
       @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์" or auth::user()->type == "แผนก รถบ้าน")
-        <a class="btn bg-warning btn-app float-right btn-tool" data-toggle="modal" data-target="#modal-walkin" data-backdrop="static" data-keyboard="false" style="border-radius: 10px;">
+        {{-- <a class="btn bg-warning btn-app float-right btn-tool" data-toggle="modal" data-target="#modal-walkin" data-backdrop="static" data-keyboard="false" style="border-radius: 10px;">
           <span class="fas fa-users prem fa-5x"></span> <label class="prem">WALK IN</label>
-        </a>
+        </a> --}}
       @endif
     </div>
     <div align="center">

@@ -10,7 +10,7 @@
 
 
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <aside class="main-sidebar sidebar-dark-primary elevation-4 sidebar-dark-warning">
     <!-- Brand Logo -->
     <a href="{{ route('index','home') }}" class="brand-link">
       <img src="{{ asset('dist/img/leasingLogo1.jpg') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
@@ -52,7 +52,7 @@
             </ul>
           </li>
 
-          <li class="nav-item has-treeview {{ Request::is('Analysis/*') ? 'menu-open' : '' }} {{ Request::is('DataCustomer/*') ? 'menu-open' : '' }}">
+          <li class="nav-item has-treeview {{ Request::is('Analysis/*') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link active">
               <i class="nav-icon fa fa-sitemap"></i>
               <p>
@@ -64,7 +64,7 @@
             @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์" or auth::user()->type == "แผนก รถบ้าน" or auth::user()->type == "แผนก การเงินใน" or auth::user()->type == "แผนก กฏหมาย")
               <ul class="nav nav-treeview">
                 <li class="nav-item has-treeview {{ Request::is('Analysis/Home/1') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/2') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/3') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/4') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/5') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/6') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/7') ? 'menu-open' : '' }} {{ Request::is('Analysis/edit/1/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/edit/4/*') ? 'menu-open' : '' }} 
-                                                 {{ Request::is('Analysis/deleteImageEach/1/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/deleteImageEach/4/*') ? 'menu-open' : '' }} {{ Request::is('DataCustomer/*') ? 'menu-open' : '' }}">
+                                                 {{ Request::is('Analysis/deleteImageEach/1/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/deleteImageEach/4/*') ? 'menu-open' : '' }}">
                   <a href="#" class="nav-link">
                     <i class="far fa-window-restore text-red nav-icon"></i>
                     <p>
@@ -124,6 +124,88 @@
                   </li>
                 </ul>
               @endif
+            @endif
+          </li>
+
+          @php
+            if (isset($_GET['type'])) {
+              if ($_GET['type'] == 1) {
+                $ActivePloan = true;
+                $ActiveP03 = true;
+              }elseif ($_GET['type'] == 3) {
+                $ActivePloan = true;
+                $ActiveP04 = true;
+              }elseif ($_GET['type'] == 4) {
+                $ActiveMicro = true;
+                $ActiveP07 = true;
+              }elseif ($_GET['type'] == 5) {
+                $ActiveMicro = true;
+                $ActiveP06 = true;
+              }
+            }
+          @endphp
+          <li class="nav-item has-treeview {{ Request::is('MasterMicroPloan') ? 'menu-open' : '' }} {{ Request::is('MasterMicroPloan/*/*') ? 'menu-open' : '' }}">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-layer-group"></i>
+              <p>
+                ระบบเงินกู้
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์" or auth::user()->type == "แผนก การเงินใน")
+              <ul class="nav nav-treeview">
+                <li class="nav-item has-treeview @if(isset($ActivePloan)) {{($ActivePloan == true) ? 'menu-open' : '' }} @endif">
+                  <a href="#" class="nav-link">
+                    <i class="far fa-window-restore text-red nav-icon"></i>
+                    <p>
+                      สัญญาเงินกู้ PLoan
+                      <i class="right fas fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview" style="margin-left: 15px;">
+                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์" or auth::user()->type == "แผนก การเงินใน")
+                        <li class="nav-item">
+                          <a href="{{ route('MasterMicroPloan.index') }}?type={{1}}" class="nav-link @if(isset($ActiveP03)) {{($ActiveP03 == true) ? 'active' : '' }} @endif">
+                            <i class="fas fa-car nav-icon"></i>
+                            <p>เงินกู้รถยนต์ (P03)</p>
+                          </a>
+                          <a href="{{ route('MasterMicroPloan.index') }}?type={{3}}" class="nav-link @if(isset($ActiveP04)) {{($ActiveP04 == true) ? 'active' : '' }} @endif">
+                            <i class="fas fa-biking nav-icon"></i>
+                            <p>เงินกู้จักรยานยนต์ (P04)</p>
+                          </a>
+                        </li>
+                      @endif
+                  </ul>
+                </li>
+              </ul>
+            @endif
+         
+            @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์" or auth::user()->type == "แผนก การเงินใน")
+              <ul class="nav nav-treeview">
+                <li class="nav-item has-treeview @if(isset($ActiveMicro)) {{($ActiveMicro == true) ? 'menu-open' : '' }} @endif">
+                  <a href="#" class="nav-link">
+                    <i class="far fa-window-restore text-red nav-icon"></i>
+                    <p>
+                      สัญญาเงินกู้ Micro
+                      <i class="right fas fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview" style="margin-left: 15px;">
+                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์" or auth::user()->type == "แผนก การเงินใน")
+                        <li class="nav-item">
+                          <a href="{{ route('MasterMicroPloan.index') }}?type={{5}}" class="nav-link @if(isset($ActiveP06)) {{($ActiveP06 == true) ? 'active' : '' }} @endif">
+                            <i class="fas fa-car nav-icon"></i>
+                            <p>เงินกู้รถยนต์ (P06)</p>
+                          </a>
+                          <a href="{{ route('MasterMicroPloan.index') }}?type={{4}}" class="nav-link @if(isset($ActiveP07)) {{($ActiveP07 == true) ? 'active' : '' }} @endif">
+                            <i class="fas fa-user nav-icon"></i>
+                            <p>เงินกู้พนักงาน (P07)</p>
+                          </a>
+                        </li>
+                      @endif
+                  </ul>
+                </li>
+              </ul>
             @endif
           </li>
 
@@ -275,7 +357,7 @@
             @endif
           </li>
 
-          <li class="nav-item has-treeview {{ Request::is('Treasury/*') ? 'menu-open' : '' }}">
+          <li class="nav-item has-treeview {{ Request::is('MasterTreasury') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link active">
               <span id="ShowData"></span>
               {{-- <span class="badge badge-danger navbar-badge">3</span> --}}
@@ -289,7 +371,7 @@
             @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก การเงินใน")
               <ul class="nav nav-treeview" style="margin-left: 15px;">
                 <li class="nav-item">
-                  <a href="{{ route('treasury', 1) }}" class="nav-link {{ Request::is('Treasury/Home/1') ? 'active' : '' }}">
+                  <a href="{{ route('MasterTreasury.index') }}?type={{2}}" class="nav-link {{ Request::is('MasterTreasury') ? 'active' : '' }}">
                     <i class="far fa-dot-circle nav-icon"></i>
                     <p>Approving Transfers</p>
                   </a>
@@ -394,7 +476,7 @@
     });
   </script>
 
-  {{-- แจ้งเตือนอนุมัติ การเงิน --}}
+  {{-- แจ้งเตือนอนุมัติ แผนกการเงิน --}}
   <script type="text/javascript">
     SearchData(); //เรียกใช้งานทันที
     var Data = setInterval(() => {SearchData()}, 10000);

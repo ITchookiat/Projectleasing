@@ -3,19 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Data_customer;
 use DB;
 use PDF;
 use Exporter;
+use Helper;
 
+use App\Data_customer;
 use App\Buyer;
+use App\Cardetail;
 use App\Sponsor;
 use App\Sponsor2;
-use App\Cardetail;
 use App\Expenses;
 use App\UploadfileImage;
 use App\upload_lat_long;
-use Helper;
+
+use App\Micro_Ploan;
+use App\MP_Datacar;
+use App\MP_Sponsor;
+use App\MP_Sponsor2;
+use App\MP_Expense;
+use App\MP_upload_lat_long;
+use App\MP_uploadfile_image;
 
 class DataCustomerController extends Controller
 {
@@ -26,9 +34,7 @@ class DataCustomerController extends Controller
      */
     public function index(Request $request, $type)
     {
-        // dd($type);
         $datenow = date('Y-m-d');
-        // $datenow = date('Y-m-d', strtotime('-1 days'));
         $newfdate = '';
         $newtdate = '';
         $status = '';
@@ -48,7 +54,6 @@ class DataCustomerController extends Controller
         }
         if ($request->has('Fromdate') == false and $request->has('Todate') == false) {
             $data = DB::table('data_customers')
-            // ->where('created_at','like', $datenow.'%')
             ->where('created_at','>', $datenow)
             ->orderBY('created_at', 'DESC')
             ->get();
@@ -90,6 +95,7 @@ class DataCustomerController extends Controller
         }else {
             $SetTopcar = 0;
         }
+
         $Customerdb = new Data_customer([
             'License_car' => $request->get('Licensecar'),
             'Brand_car' => $request->get('Brandcar'),
@@ -107,7 +113,7 @@ class DataCustomerController extends Controller
             'Branch_car' => $request->get('branchcar'),
             'Note_car' => $request->get('Notecar'),
             'Name_user' => $request->get('NameUser'),
-            // 'Type_leasing' => $request->get('TypeLeasing'),
+            'Type_leasing' => $request->get('TypeLeasing'),
             'Status_leasing' => 1,
           ]);
           $Customerdb->save();
@@ -122,41 +128,81 @@ class DataCustomerController extends Controller
 
         $DateDue = date('Y-m-d');
         $SetYear = date('Y') + 543;
-        if($data->Branch_car == 'ปัตตานี'){
-            $SetContract = '01-'.$SetYear.'/';
-        }
-        elseif($data->Branch_car == 'ยะลา'){
-            $SetContract = '03-'.$SetYear.'/';
-        }
-        elseif($data->Branch_car == 'นราธิวาส'){
-            $SetContract = '04-'.$SetYear.'/';
-        }
-        elseif($data->Branch_car == 'สายบุรี'){
-            $SetContract = '05-'.$SetYear.'/';
-        }
-        elseif($data->Branch_car == 'โกลก'){
-            $SetContract = '06-'.$SetYear.'/';
-        }
-        elseif($data->Branch_car == 'เบตง'){
-            $SetContract = '07-'.$SetYear.'/';
-        }
-        elseif($data->Branch_car == 'โคกโพธิ์'){
-            $SetContract = '08-'.$SetYear.'/';
-        }
-        elseif($data->Branch_car == 'ตันหยงมัส'){
-            $SetContract = '09-'.$SetYear.'/';
-        }
-        elseif($data->Branch_car == 'รือเสาะ'){
-            $SetContract = '12-'.$SetYear.'/';
-        }
-         elseif($data->Branch_car == 'บังนังสตา'){
-            $SetContract = '13-'.$SetYear.'/';
-        }
-        elseif($data->Branch_car == 'ยะหา'){
-            $SetContract = '14-'.$SetYear.'/';
-        }
-        else{
-            $SetContract = '00-'.$SetYear.'/';
+
+        if ($data->Type_leasing == 'F01') {
+            if($data->Branch_car == 'ปัตตานี'){
+                $SetContract = '01-'.$SetYear.'/';
+            }
+            elseif($data->Branch_car == 'ยะลา'){
+                $SetContract = '03-'.$SetYear.'/';
+            }
+            elseif($data->Branch_car == 'นราธิวาส'){
+                $SetContract = '04-'.$SetYear.'/';
+            }
+            elseif($data->Branch_car == 'สายบุรี'){
+                $SetContract = '05-'.$SetYear.'/';
+            }
+            elseif($data->Branch_car == 'โกลก'){
+                $SetContract = '06-'.$SetYear.'/';
+            }
+            elseif($data->Branch_car == 'เบตง'){
+                $SetContract = '07-'.$SetYear.'/';
+            }
+            elseif($data->Branch_car == 'โคกโพธิ์'){
+                $SetContract = '08-'.$SetYear.'/';
+            }
+            elseif($data->Branch_car == 'ตันหยงมัส'){
+                $SetContract = '09-'.$SetYear.'/';
+            }
+            elseif($data->Branch_car == 'รือเสาะ'){
+                $SetContract = '12-'.$SetYear.'/';
+            }
+             elseif($data->Branch_car == 'บังนังสตา'){
+                $SetContract = '13-'.$SetYear.'/';
+            }
+            elseif($data->Branch_car == 'ยะหา'){
+                $SetContract = '14-'.$SetYear.'/';
+            }
+            else{
+                $SetContract = '00-'.$SetYear.'/';
+            }
+        }else {
+            if($data->Branch_car == 'ปัตตานี'){
+            $SetContract = $data->Type_leasing.'-'.$SetYear.'50';
+            }
+            elseif($data->Branch_car == 'ยะลา'){
+                $SetContract = $data->Type_leasing.'-'.$SetYear.'51';
+            }
+            elseif($data->Branch_car == 'นราธิวาส'){
+                $SetContract = $data->Type_leasing.'-'.$SetYear.'52';
+            }
+            elseif($data->Branch_car == 'สายบุรี'){
+                $SetContract = $data->Type_leasing.'-'.$SetYear.'53';
+            }
+            elseif($data->Branch_car == 'โกลก'){
+                $SetContract = $data->Type_leasing.'-'.$SetYear.'54';
+            }
+            elseif($data->Branch_car == 'เบตง'){
+                $SetContract = $data->Type_leasing.'-'.$SetYear.'55';
+            }
+            elseif($data->Branch_car == 'โคกโพธิ์'){
+                $SetContract = $data->Type_leasing.'-'.$SetYear.'56';
+            }
+            elseif($data->Branch_car == 'ตันหยงมัส'){
+                $SetContract = $data->Type_leasing.'-'.$SetYear.'57';
+            }
+            elseif($data->Branch_car == 'รือเสาะ'){
+                $SetContract = $data->Type_leasing.'-'.$SetYear.'58';
+            }
+            elseif($data->Branch_car == 'บันนังสตา'){
+                $SetContract = $data->Type_leasing.'-'.$SetYear.'59';
+            }
+            elseif($data->Branch_car == 'ยะหา'){
+                $SetContract = $data->Type_leasing.'-'.$SetYear.'60';
+            }
+            else{
+                $SetContract = $data->Type_leasing.'-'.$SetYear.'00';
+            }
         }
 
         if(auth()->user()->branch == '01'){
@@ -185,47 +231,85 @@ class DataCustomerController extends Controller
             $SetUserBranch = 'แอดมิน';
         }
 
-        $Buyerdb = new Buyer([
-            'Contract_buyer' => $SetContract,
-            'Date_Due' => $DateDue,
-            'Name_buyer' => $data->Name_buyer,
-            'last_buyer' => $data->Last_buyer,
-            'Phone_buyer' => $data->Phone_buyer,
-            'Idcard_buyer' => $data->IDCard_buyer,
-            'Walkin_id' => $data->Customer_id,
-            'SendUse_Walkin' => $SetUserBranch,
-          ]);
-          $Buyerdb->save();
-          $Sponsordb = new Sponsor([
-            'Buyer_id' => $Buyerdb->id,
-          ]);
-          $Sponsordb->save();
-          $Sponsor2db = new Sponsor2([
-            'Buyer_id2' => $Buyerdb->id,
-          ]);
-          $Sponsor2db->save();
-          $Cardetaildb = new Cardetail([
-            'Buyercar_id' => $Buyerdb->id,
-            'Brand_car' => $data->Brand_car,
-            'Year_car' => $data->Year_car,
-            'Typecardetails' => $data->Typecardetails,
-            'License_car' => $data->License_car,
-            'Top_car' => $data->Top_car,
-            'Agent_car' => $data->Name_agent,
-            'Tellagent_car' => $data->Phone_agent,
-            'Loanofficer_car' => $data->Name_user,
-            'StatusApp_car' => 'รออนุมัติ',
-            'DocComplete_car' => $request->get('doccomplete'),
-            'branch_car' => $SetUserBranch,
-          ]);
-          $Cardetaildb ->save();
-          $Expensesdb = new Expenses([
-            'Buyerexpenses_id' => $Buyerdb->id,
-            'balance_Price' => 0,
-            'commit_Price' => 0,
-          ]);
-          $Expensesdb ->save();
-          return redirect()->back()->with('success','บันทึกเรียบร้อยแล้ว');
+        //Save ลูกค้าเช่าซื้อ && Save ลูกค้า PM
+        if ($data->Type_leasing == 'F01') {
+            $Buyerdb = new Buyer([
+                'Contract_buyer' => $SetContract,
+                'Date_Due' => $DateDue,
+                'Name_buyer' => $data->Name_buyer,
+                'last_buyer' => $data->Last_buyer,
+                'Phone_buyer' => $data->Phone_buyer,
+                'Idcard_buyer' => $data->IDCard_buyer,
+                'Walkin_id' => $data->Customer_id,
+                'SendUse_Walkin' => $SetUserBranch,
+            ]);
+            $Buyerdb->save();
+            $Sponsordb = new Sponsor([
+                'Buyer_id' => $Buyerdb->id,
+            ]);
+            $Sponsordb->save();
+            $Cardetaildb = new Cardetail([
+                'Buyercar_id' => $Buyerdb->id,
+                'Brand_car' => $data->Brand_car,
+                'Year_car' => $data->Year_car,
+                'Typecardetails' => $data->Typecardetails,
+                'License_car' => $data->License_car,
+                'Top_car' => $data->Top_car,
+                'Agent_car' => $data->Name_agent,
+                'Tellagent_car' => $data->Phone_agent,
+                'Loanofficer_car' => $data->Name_user,
+                'StatusApp_car' => 'รออนุมัติ',
+                'DocComplete_car' => $request->get('doccomplete'),
+                'branch_car' => $SetUserBranch,
+            ]);
+            $Cardetaildb ->save();
+            $Expensesdb = new Expenses([
+                'Buyerexpenses_id' => $Buyerdb->id,
+                'balance_Price' => 0,
+                'commit_Price' => 0,
+            ]);
+            $Expensesdb ->save();
+        }else {
+            $Micro_Ploan = new Micro_Ploan([
+                'Contract_MP' => $SetContract,
+                'Type_Con' => $data->Type_leasing,
+                'Date_Due' => $DateDue,
+                'Name_MP' => $data->Name_buyer,
+                'last_MP' => $data->Last_buyer,
+                'Phone_MP' => $data->Phone_buyer,
+                'Idcard_MP' => $data->IDCard_buyer,
+                'Walkin_id' => $data->Customer_id,
+                'SendUse_Walkin' => $SetUserBranch,
+            ]);
+            $Micro_Ploan->save();
+            $MP_Datacar = new MP_Datacar([
+                'MP_id' => $Micro_Ploan->id,
+                'Brand_car' => $data->Brand_car,
+                'Year_car' => $data->Year_car,
+                'Typecardetails' => $data->Typecardetails,
+                'License_car' => $data->License_car,
+                'Top_car' => $data->Top_car,
+                'Agent_car' => $data->Name_agent,
+                'Tellagent_car' => $data->Phone_agent,
+                'Loanofficer_car' => $data->Name_user,
+                'StatusApp_car' => 'รออนุมัติ',
+                'DocComplete_car' => $request->get('doccomplete'),
+                'branch_car' => $SetUserBranch,
+            ]);
+            $MP_Datacar ->save();
+            $MP_Sponsor = new MP_Sponsor([
+                'MP_id' => $Micro_Ploan->id,
+            ]);
+            $MP_Sponsor->save();
+            $MP_Expense = new MP_Expense([
+                'MP_id' => $Micro_Ploan->id,
+                'balance_Price' => 0,
+                'commit_Price' => 0,
+            ]);
+            $MP_Expense ->save();
+        }
+
+        return redirect()->back()->with('success','บันทึกเรียบร้อยแล้ว');
     }
 
     /**
