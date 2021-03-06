@@ -1394,10 +1394,10 @@ class MPController extends Controller
         $d = date('d');
         $date = $Y.'-'.$m.'-'.$d;
         $date2 = $d.'-'.$m.'-'.$Y2;
-  
+        
+        $newfdate = date('Y-m-d');
+        $newtdate = date('Y-m-d');
         if($request->Flagtype == 1){  //รายงานขออนุมัติประจำวัน
-          $newfdate = date('Y-m-d');
-          $newtdate = date('Y-m-d');
 
           if ($request->Flag == 1) {       //P03
             $dataReport = DB::table('MP_Datas')
