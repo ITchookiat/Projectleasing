@@ -8,6 +8,7 @@ use Storage;
 use File;
 use Image;
 use PDF;
+use Excel;
 
 use App\Micro_Ploan;
 use App\MP_Datacar;
@@ -1487,67 +1488,67 @@ class MPController extends Controller
           }
 
           if ($request->Flag == 1) {      //P03
-            $data = DB::table('buyers')
-              ->leftJoin('sponsors','buyers.id','=','sponsors.Buyer_id')
-              ->leftJoin('cardetails','buyers.id','=','cardetails.Buyercar_id')
-              ->leftJoin('expenses','buyers.id','=','expenses.Buyerexpenses_id')
-              ->leftjoin('upload_lat_longs','buyers.id','=','upload_lat_longs.Use_id')
+            $data = DB::table('MP_Datas')
+              ->leftJoin('MP_Datacars','MP_Datas.id','=','MP_Datacars.MP_id')
+              ->leftJoin('MP_Sponsors','MP_Datas.id','=','MP_Sponsors.MP_id')
+              ->leftJoin('MP_Expenses','MP_Datas.id','=','MP_Expenses.MP_id')
+              ->leftJoin('MP_Upload_lat_longs','MP_Datas.id','=','MP_Upload_lat_longs.MP_id')
               ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
-                return $q->whereBetween('buyers.Date_Due',[$newfdate,$newtdate]);
+                return $q->whereBetween('MP_Datas.Date_Due',[$newfdate,$newtdate]);
               })
-              ->where('buyers.Type_Con','=','P03')
-              ->where('cardetails.Approvers_car','!=',Null)
-              ->orderBy('buyers.Contract_buyer', 'ASC')
+              ->where('MP_Datas.Type_Con','=','P03')
+              ->where('MP_Datacars.Approvers_car','!=',Null)
+              ->orderBy('MP_Datas.Contract_MP', 'ASC')
               ->get();
   
             $status = 'สัญญาเงินกู้รถยนต์ P03';
           }
           elseif ($request->Flag == 2) {  //P04
-            $data = DB::table('buyers')
-              ->leftJoin('sponsors','buyers.id','=','sponsors.Buyer_id')
-              ->leftJoin('cardetails','buyers.id','=','cardetails.Buyercar_id')
-              ->leftJoin('expenses','buyers.id','=','expenses.Buyerexpenses_id')
-              ->leftjoin('upload_lat_longs','buyers.id','=','upload_lat_longs.Use_id')
+            $data = DB::table('MP_Datas')
+              ->leftJoin('MP_Datacars','MP_Datas.id','=','MP_Datacars.MP_id')
+              ->leftJoin('MP_Sponsors','MP_Datas.id','=','MP_Sponsors.MP_id')
+              ->leftJoin('MP_Expenses','MP_Datas.id','=','MP_Expenses.MP_id')
+              ->leftJoin('MP_Upload_lat_longs','MP_Datas.id','=','MP_Upload_lat_longs.MP_id')
               ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
-                return $q->whereBetween('buyers.Date_Due',[$newfdate,$newtdate]);
+                return $q->whereBetween('MP_Datas.Date_Due',[$newfdate,$newtdate]);
               })
-              ->where('buyers.Type_Con','=','P04')
-              ->where('cardetails.Approvers_car','!=',Null)
-              ->orderBy('buyers.Contract_buyer', 'ASC')
+              ->where('MP_Datas.Type_Con','=','P04')
+              ->where('MP_Datacars.Approvers_car','!=',Null)
+              ->orderBy('MP_Datas.Contract_MP', 'ASC')
               ->get();
-  
+
             $status = 'สัญญาเงินกู้รถจักรยานยนต์ P04';
           }
           elseif ($request->Flag == 3) {  //P06
-            $data = DB::table('buyers')
-              ->leftJoin('sponsors','buyers.id','=','sponsors.Buyer_id')
-              ->leftJoin('cardetails','buyers.id','=','cardetails.Buyercar_id')
-              ->leftJoin('expenses','buyers.id','=','expenses.Buyerexpenses_id')
-              ->leftjoin('upload_lat_longs','buyers.id','=','upload_lat_longs.Use_id')
+            $data = DB::table('MP_Datas')
+              ->leftJoin('MP_Datacars','MP_Datas.id','=','MP_Datacars.MP_id')
+              ->leftJoin('MP_Sponsors','MP_Datas.id','=','MP_Sponsors.MP_id')
+              ->leftJoin('MP_Expenses','MP_Datas.id','=','MP_Expenses.MP_id')
+              ->leftJoin('MP_Upload_lat_longs','MP_Datas.id','=','MP_Upload_lat_longs.MP_id')
               ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
-                return $q->whereBetween('buyers.Date_Due',[$newfdate,$newtdate]);
+                return $q->whereBetween('MP_Datas.Date_Due',[$newfdate,$newtdate]);
               })
-              ->where('buyers.Type_Con','=','P06')
-              ->where('cardetails.Approvers_car','!=',Null)
-              ->orderBy('buyers.Contract_buyer', 'ASC')
+              ->where('MP_Datas.Type_Con','=','P06')
+              ->where('MP_Datacars.Approvers_car','!=',Null)
+              ->orderBy('MP_Datas.Contract_MP', 'ASC')
               ->get();
-  
+
             $status = 'สัญญาเงินกู้รถยนต์ P06';
           }
           elseif ($request->Flag == 4) {  //P07
-            $data = DB::table('buyers')
-              ->leftJoin('sponsors','buyers.id','=','sponsors.Buyer_id')
-              ->leftJoin('cardetails','buyers.id','=','cardetails.Buyercar_id')
-              ->leftJoin('expenses','buyers.id','=','expenses.Buyerexpenses_id')
-              ->leftjoin('upload_lat_longs','buyers.id','=','upload_lat_longs.Use_id')
-              ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
-                return $q->whereBetween('buyers.Date_Due',[$newfdate,$newtdate]);
-              })
-              ->where('buyers.Type_Con','=','P07')
-              ->where('cardetails.Approvers_car','!=',Null)
-              ->orderBy('buyers.Contract_buyer', 'ASC')
-              ->get();
-  
+            $data = DB::table('MP_Datas')
+            ->leftJoin('MP_Datacars','MP_Datas.id','=','MP_Datacars.MP_id')
+            ->leftJoin('MP_Sponsors','MP_Datas.id','=','MP_Sponsors.MP_id')
+            ->leftJoin('MP_Expenses','MP_Datas.id','=','MP_Expenses.MP_id')
+            ->leftJoin('MP_Upload_lat_longs','MP_Datas.id','=','MP_Upload_lat_longs.MP_id')
+            ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+              return $q->whereBetween('MP_Datas.Date_Due',[$newfdate,$newtdate]);
+            })
+            ->where('MP_Datas.Type_Con','=','P07')
+            ->where('MP_Datacars.Approvers_car','!=',Null)
+            ->orderBy('MP_Datas.Contract_MP', 'ASC')
+            ->get();
+
             $status = 'สัญญาเงินกู้พนักงาน P07';
           }
   
