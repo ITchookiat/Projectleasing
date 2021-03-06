@@ -210,9 +210,9 @@
                     <div class="col-4">
                       <div class="form-inline">
                         @if($data->StatusApp_car != 'อนุมัติ')
-                          <h4>แก้ไขข้อมูลสัญญา...</h4>
+                          <h5>แก้ไขข้อมูลสัญญา...</h5>
                         @else
-                          <h4>รายละเอียดข้อมูลสัญญา...</h4>
+                          <h5>รายละเอียดข้อมูลสัญญา...</h5>
                         @endif
                       </div>
                     </div>
@@ -220,22 +220,22 @@
                       <div class="card-tools d-inline float-right">
                         @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                           @if(auth::user()->type == "Admin")
-                            <button type="submit" class="delete-modal btn btn-success">
+                            <button type="submit" class="delete-modal btn btn-sm btn-success">
                               <i class="fas fa-save"></i> อัพเดท
                             </button>
-                            <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
+                            <a class="delete-modal btn btn-sm btn-danger" href="{{ route('Analysis',1) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
                               <i class="far fa-window-close"></i> ยกเลิก
                             </a>
                           @elseif(auth::user()->position == "MANAGER")
                             @if($data->StatusApp_car != 'อนุมัติ')
-                              <button type="submit" class="delete-modal btn btn-success">
+                              <button type="submit" class="delete-modal btn btn-sm btn-success">
                                 <i class="fas fa-save"></i> อัพเดท
                               </button>
-                              <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
+                              <a class="delete-modal btn btn-sm btn-danger" href="{{ route('Analysis',1) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
                                 <i class="far fa-window-close"></i> ยกเลิก
                               </a>
                             @else
-                              <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
+                              <a class="delete-modal btn btn-sm btn-danger" href="{{ route('Analysis',1) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
                                 <i class="fas fa-undo"></i> ย้อนกลับ
                               </a>
                             @endif
@@ -245,11 +245,11 @@
                             <button type="submit" class="delete-modal btn btn-success">
                               <i class="fas fa-save"></i> อัพเดท
                             </button>
-                            <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
+                            <a class="delete-modal btn btn-sm btn-danger" href="{{ route('Analysis',1) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
                               <i class="far fa-window-close"></i> ยกเลิก
                             </a>
                           @else
-                            <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
+                            <a class="delete-modal btn btn-sm btn-danger" href="{{ route('Analysis',1) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
                               <i class="fas fa-undo"></i> ย้อนกลับ
                             </a>
                           @endif
