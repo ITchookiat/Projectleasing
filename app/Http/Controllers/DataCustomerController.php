@@ -361,8 +361,8 @@ class DataCustomerController extends Controller
             $pdf = new PDF();
             $pdf::SetTitle('รายงานลูกค้า Walk in');
             $pdf::AddPage('L', 'A4');
-            $pdf::SetMargins(15, 5, 15);
-            $pdf::SetFont('thsarabunpsk', '', 16, '', true);
+            $pdf::SetMargins(5, 5, 5, 0);
+            $pdf::SetFont('thsarabunpsk', '', 14, '', true);
             $pdf::SetAutoPageBreak(TRUE, 21);
             $pdf::WriteHTML($html,true,false,true,false,'');
             $pdf::Output($SetTopic.'.pdf');
