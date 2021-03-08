@@ -43,6 +43,7 @@
           <th width="30px" align="center" style="background-color: #FFFF00;"><b>ลำดับ</b></th>
           <th width="70px" align="center" style="background-color: #FFFF00;"><b>วันที่</b></th>
           <th width="50px" align="center" style="background-color: #FFFF00;"><b>สาขา</b></th>
+          <th width="50px" align="center" style="background-color: #FFFF00;"><b>ประเภท</b></th>
           <th width="75px" align="center" style="background-color: #FFFF00;"><b>ทะเบียน</b></th>
           <th width="70px" align="center" style="background-color: #FFFF00;"><b>ยี่ห้อรถ</b></th>
           <th width="35px" align="center" style="background-color: #FFFF00;"><b>ปีรถ</b></th>
@@ -68,6 +69,7 @@
             <td width="30px">{{$key+1}}</td>
             <td width="70px">{{DateThai(substr($value->created_at,0,10))}}</td>
             <td width="50px">{{$value->Branch_car}}</td>
+            <td width="50px">{{$value->Type_leasing}}</td>
             <td width="75px">{{$value->License_car}}</td>
             <td width="70px">{{($value->Brand_car != null)?$value->Brand_car: '-'}}</td>
             <td width="35px">{{($value->Year_car != null)?$value->Year_car: '-'}}</td>
@@ -87,7 +89,7 @@
         <br>
         <tr align="center" style="background-color: #BEBEBE; line-height:150%;">
             <td width="100px">รวม {{$countlist}} ราย</td>
-            <td width="230px" align="right">รวมยอดจัด &nbsp;</td>
+            <td width="280px" align="right">รวมยอดจัด &nbsp;</td>
             <td width="70px" align="right">{{number_format($sumtopcar,0)}} &nbsp;</td>
             <td width="365px" align="left">&nbsp;บาท</td>
         </tr>
