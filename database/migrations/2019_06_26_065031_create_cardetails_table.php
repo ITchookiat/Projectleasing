@@ -25,6 +25,12 @@ class CreateCardetailsTable extends Migration
             $table->string('Nowlicense_car')->nullable();
             $table->string('Mile_car')->nullable();
             $table->string('Midprice_car')->nullable();
+            $table->date('DateFInsurance_car')->nullable();     //วันที่ทำประกัน         
+            $table->date('DateLInsurance_car')->nullable();
+            $table->date('DateFAct_car')->nullable();           //วันที่ทำ พ.ร.บ
+            $table->date('DateLAct_car')->nullable();
+            $table->date('DateFRegister_car')->nullable();      //วันที่ทำภาษี
+            $table->date('DateLRegister_car')->nullable();
             $table->string('Model_car')->nullable();
             $table->string('Top_car')->nullable();
             $table->string('Interest_car')->nullable();

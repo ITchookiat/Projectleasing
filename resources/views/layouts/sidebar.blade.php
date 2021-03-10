@@ -406,28 +406,6 @@
             @endif
           </li>
 
-          <li class="nav-item has-treeview {{ Request::is('MasterRegister') ? 'menu-open' : '' }}">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fab fa-buffer"></i>
-              <span id="ShowData"></span>
-              <p>
-                แผนกทะเบียน
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-
-            @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก ทะเบียน")
-              <ul class="nav nav-treeview" style="margin-left: 15px;">
-                <li class="nav-item">
-                  <a href="{{ route('MasterRegister.index') }}?type={{1}}" class="nav-link">
-                    <i class="far fa-dot-circle nav-icon"></i>
-                    <p>ระบบทะเบียน</p>
-                  </a>
-                </li>
-              </ul>
-            @endif
-          </li>
-
           <li class="nav-header">Documents Part</li>
           <li class="nav-item has-treeview {{ Request::is('Document/*') ? 'menu-open' : '' }}">
             <a href="{{ route('document', 1) }}" class="nav-link active bg-yellow">

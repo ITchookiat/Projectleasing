@@ -1753,6 +1753,87 @@
                             </div>
                           </div>
 
+                          <div class="row">
+                            <div class="col-6">
+                              <div class="form-group row mb-0">
+                                <label class="col-sm-3 col-form-label text-right">วันที่ทำประกัน : </label>
+                                <div class="col-sm-8">
+                                  @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
+                                    <input type="date" name="DateFInsurance" value="{{$data->DateFInsurance_car}}" class="form-control form-control-sm"  placeholder="วันที่ทำประกัน" />
+                                  @else
+                                    <input type="date" name="DateFInsurance" value="{{$data->DateFInsurance_car}}" class="form-control form-control-sm"  placeholder="วันที่ทำประกัน" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                  @endif
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-6">
+                              <div class="form-group row mb-0">
+                                <label class="col-sm-3 col-form-label text-right">วันที่หมดประกัน : </label>
+                                <div class="col-sm-8">
+                                  @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
+                                    <input type="date" name="DateLInsurance" value="{{$data->DateLInsurance_car}}" class="form-control form-control-sm"  placeholder="วันที่หมดประกัน"/>
+                                  @else
+                                    <input type="date" name="DateLInsurance" value="{{$data->DateLInsurance_car}}" class="form-control form-control-sm"  placeholder="วันที่หมดประกัน" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                  @endif
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-6">
+                              <div class="form-group row mb-0">
+                                <label class="col-sm-3 col-form-label text-right">วันที่ทำ พ.ร.บ : </label>
+                                <div class="col-sm-8">
+                                  @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
+                                    <input type="date" name="DateFAct" value="{{$data->DateFAct_car}}" class="form-control form-control-sm"  placeholder="วันที่ทำ พ.ร.บ" />
+                                  @else
+                                    <input type="date" name="DateFAct" value="{{$data->DateFAct_car}}" class="form-control form-control-sm"  placeholder="วันที่ทำ พ.ร.บ" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                  @endif
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-6">
+                              <div class="form-group row mb-0">
+                                <label class="col-sm-3 col-form-label text-right">วันที่หมด พ.ร.บ : </label>
+                                <div class="col-sm-8">
+                                  @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
+                                    <input type="date" name="DateLAct" value="{{$data->DateLAct_car}}" class="form-control form-control-sm"  placeholder="วันที่หมด พ.ร.บ"/>
+                                  @else
+                                    <input type="date" name="DateLAct" value="{{$data->DateLAct_car}}" class="form-control form-control-sm"  placeholder="วันที่หมด พ.ร.บ" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                  @endif
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-6">
+                              <div class="form-group row mb-0">
+                                <label class="col-sm-3 col-form-label text-right">วันที่ทำต่อทะเบียน : </label>
+                                <div class="col-sm-8">
+                                  @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
+                                    <input type="date" name="DateFRegister" value="{{$data->DateFRegister_car}}" class="form-control form-control-sm"  placeholder="วันที่ทำต่อทะเบียน" />
+                                  @else
+                                    <input type="date" name="DateFRegister" value="{{$data->DateFRegister_car}}" class="form-control form-control-sm"  placeholder="วันที่ทำต่อทะเบียน" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                  @endif
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-6">
+                              <div class="form-group row mb-0">
+                                <label class="col-sm-3 col-form-label text-right">วันที่หมดทะเบียน : </label>
+                                <div class="col-sm-8">
+                                  @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
+                                    <input type="date" name="DateLRegister" value="{{$data->DateLRegister_car}}" class="form-control form-control-sm"  placeholder="วันที่หมดทะเบียน"/>
+                                  @else
+                                    <input type="date" name="DateLRegister" value="{{$data->DateLRegister_car}}" class="form-control form-control-sm"  placeholder="วันที่หมดทะเบียน" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                  @endif
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
                           <hr />
                           @include('analysis.script')
 
