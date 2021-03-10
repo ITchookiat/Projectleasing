@@ -974,7 +974,7 @@
                                 <div class="form-group row mb-0">
                                   <label class="col-sm-3 col-form-label text-right">วันที่ทำประกัน : </label>
                                   <div class="col-sm-8">
-                                    <input type="text" name="DateFInsurance" value="{{$data->DateFInsurance_HC}}" class="form-control form-control-sm" placeholder="วันที่ทำประกัน" />
+                                    <input type="date" name="DateFInsurance" value="{{$data->DateFInsurance_HC}}" class="form-control form-control-sm" placeholder="วันที่ทำประกัน" />
                                   </div>
                                 </div>
                               </div>
@@ -982,7 +982,7 @@
                                 <div class="form-group row mb-0">
                                   <label class="col-sm-3 col-form-label text-right">วันที่หมดประกัน : </label>
                                   <div class="col-sm-8">
-                                    <input type="text" name="DateLInsurance" value="{{$data->DateLInsurance_HC}}" class="form-control form-control-sm" placeholder="วันที่หมดประกัน" />
+                                    <input type="date" name="DateLInsurance" value="{{$data->DateLInsurance_HC}}" class="form-control form-control-sm" placeholder="วันที่หมดประกัน" />
                                   </div>
                                 </div>
                               </div>
@@ -993,7 +993,7 @@
                                 <div class="form-group row mb-0">
                                   <label class="col-sm-3 col-form-label text-right">วันที่ทำ พ.ร.บ : </label>
                                   <div class="col-sm-8">
-                                    <input type="text" name="DateFAct" value="{{$data->DateFAct_HC}}" class="form-control form-control-sm" placeholder="วันที่ทำ พ.ร.บ" />
+                                    <input type="date" name="DateFAct" value="{{$data->DateFAct_HC}}" class="form-control form-control-sm" placeholder="วันที่ทำ พ.ร.บ" />
                                   </div>
                                 </div>
                               </div>
@@ -1001,7 +1001,7 @@
                                 <div class="form-group row mb-0">
                                   <label class="col-sm-3 col-form-label text-right">วันที่หมด พ.ร.บ : </label>
                                   <div class="col-sm-8">
-                                    <input type="text" name="DateLAct" value="{{$data->DateLAct_HC}}" class="form-control form-control-sm" placeholder="วันที่หมด พ.ร.บ" />
+                                    <input type="date" name="DateLAct" value="{{$data->DateLAct_HC}}" class="form-control form-control-sm" placeholder="วันที่หมด พ.ร.บ" />
                                   </div>
                                 </div>
                               </div>
@@ -1012,7 +1012,7 @@
                                 <div class="form-group row mb-0">
                                   <label class="col-sm-3 col-form-label text-right">วันที่ทำต่อทะเบียน : </label>
                                   <div class="col-sm-8">
-                                    <input type="text" name="DateFRegister" value="{{$data->DateFRegister_HC}}" class="form-control form-control-sm" placeholder="วันที่ทำต่อทะเบียน" />
+                                    <input type="date" name="DateFRegister" value="{{$data->DateFRegister_HC}}" class="form-control form-control-sm" placeholder="วันที่ทำต่อทะเบียน" />
                                   </div>
                                 </div>
                               </div>
@@ -1020,7 +1020,7 @@
                                 <div class="form-group row mb-0">
                                   <label class="col-sm-3 col-form-label text-right">วันที่หมดทะเบียน : </label>
                                   <div class="col-sm-8">
-                                    <input type="text" name="DateLRegister" value="{{$data->DateLRegister_HC}}" class="form-control form-control-sm" placeholder="วันที่หมดทะเบียน" />
+                                    <input type="date" name="DateLRegister" value="{{$data->DateLRegister_HC}}" class="form-control form-control-sm" placeholder="วันที่หมดทะเบียน" />
                                   </div>
                                 </div>
                               </div>
