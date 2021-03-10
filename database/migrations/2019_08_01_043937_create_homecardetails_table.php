@@ -24,6 +24,12 @@ class CreateHomecardetailsTable extends Migration
             $table->string('mile_HC')->nullable();
             $table->string('model_HC')->nullable();
             $table->string('type_HC')->nullable();
+            $table->date('DateFInsurance_HC')->nullable();     //วันที่ทำประกัน         
+            $table->date('DateLInsurance_HC')->nullable();
+            $table->date('DateFAct_HC')->nullable();           //วันที่ทำ พ.ร.บ
+            $table->date('DateLAct_HC')->nullable();
+            $table->date('DateFRegister_HC')->nullable();      //วันที่ทำภาษี
+            $table->date('DateLRegister_HC')->nullable();
             $table->string('price_HC')->nullable();
             $table->string('downpay_HC')->nullable();
             $table->string('insurancefee_HC')->nullable();
