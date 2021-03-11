@@ -217,7 +217,7 @@
                         </a>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-                        <a href="#">
+                        <a href="http://192.168.200.9/ProjectLabBP/public/login">
                             <div class="card-flyer">
                                 <div class="text-box">
                                     <div class="image-box">

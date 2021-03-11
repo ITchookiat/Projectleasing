@@ -95,6 +95,9 @@ Route::group(['middleware' => 'auth'], function()
     Route::get('/MasterEvents/ShowEvent/{type}', 'EventController@ShowEvent')->name('Events.ShowEvent');
     Route::get('/MasterEvents/DeleteEvents/{id}/{path}/{type}', 'EventController@DeleteEvents');
 
+      //------------------Settings-----------------//
+    route::resource('MasterSetting','MainsettingController');
+
     //---------------- logout --------------------//
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
     Route::get('/{name}', 'HomeController@index')->name('index');
