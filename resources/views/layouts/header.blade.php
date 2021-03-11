@@ -124,10 +124,28 @@
       <div class="os-viewport os-viewport-native-scrollbars-invisible" style="">
         <div class="os-content" style="padding: 16px; height: 100%; width: 100%;">
           <h5>เมนูตั้งค่า (Menu Setting)</h5><hr class="mb-2">
-          @if(auth::user()->type == "Admin")
+          @if(auth::user()->position == "Admin")
             <div class="mb-2">
               <a href="{{ route('MasterMaindata.index') }}">
                 <i class="far fa-id-badge text-red mr-1"></i> ข้อมูลผู้ใช้งานระบบ
+              </a>
+            </div>
+          @endif
+          @if(auth::user()->position == "Admin" or auth::user()->position == "MANAGER")
+            <div class="mb-2">
+              <a data-toggle="modal" data-target="#modal-setting" title="ดูรายการ"
+                 data-backdrop="static" data-keyboard="false"
+                 data-link="{{ route('MasterSetting.create') }}?type={{1}}">
+                <i class="fa fa-gears text-red mr-1"></i> ตั้งค่าข้อมูลสินเชื่อ
+              </a>
+            </div>
+          @endif
+          @if(auth::user()->position == "Admin" or auth::user()->position == "MANAGER" or auth::user()->position == "STAFF")
+            <div class="mb-2">
+              <a data-toggle="modal" data-target="#modal-program" title="ดูรายการ"
+                 data-backdrop="static" data-keyboard="false"
+                 data-link="{{ route('MasterSetting.create') }}?type={{2}}">
+                <i class="fa fa-calculator text-red mr-1"></i> โปรแกรมคำนวณค่างวด
               </a>
             </div>
           @endif
@@ -148,6 +166,93 @@
   </div>
 </aside>
 
+<form name="form2" action="{{ route('MasterSetting.update',[1]) }}" method="post" enctype="multipart/form-data">
+  @csrf
+  @method('put')
+  <input type="hidden" name="_method" value="PATCH"/>
+  <div class="modal fade" id="modal-default" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">ตั้งค่าข้อมูลสินเชื่อ</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group row mb-1">
+                <label class="col-sm-4 col-form-label text-right">ค่าอากร :</label>
+                <div class="col-sm-6">
+                  <input type="number" name="Dutyvalue" class="form-control form-control" placeholder="ป้อนค่าอากร" required/>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group row mb-1">
+                <label class="col-sm-4 col-form-label text-right">ค่าการตลาด :</label>
+                <div class="col-sm-6">
+                  <input type="number" name="Marketvalue" class="form-control form-control" placeholder="ป้อนค่าการตลาด" required/>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group row mb-1">
+                <label class="col-sm-4 col-form-label text-right">ค่าคอมหลังหัก :</label>
+                <div class="col-sm-6">
+                  <input type="number" name="ComAgenttvalue" class="form-control form-control" placeholder="ป้อนค่าคอมหลังหัก" required/>
+                </div>
+                <label class="col-sm-1 col-form-label text-left">%</label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group row mb-1">
+                <label class="col-sm-4 col-form-label text-right">ภาษี :</label>
+                <div class="col-sm-6">
+                  <input type="number" name="Taxvalue" class="form-control form-control" placeholder="ป้อนภาษี" required/>
+                </div>
+                <label class="col-sm-1 col-form-label text-left">%</label>
+              </div>
+            </div>
+          </div>
+          <hr>
+        </div>
+          <input type="hidden" name="Settype" value="เช่าซื้อ"/>
+          <input type="hidden" name="NameUser" value="{{auth::user()->name}}"/>
+          <div style="text-align: center;">
+              <button type="submit" class="btn btn-success text-center"> <i class="fa fa-save"></i> บันทึก</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>
+          </div>
+          <br>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+</form>
+
+<div class="modal fade" id="modal-setting">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modal-program">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      
+    </div>
+  </div>
+</div>
 
 {{-- ฟังชัน login ข้ามโปรแกรม --}}
 <script>
@@ -156,4 +261,19 @@
           location.href = link;
       });
   }
+</script>
+
+<script>
+  $(function () {
+    $("#modal-setting").on("show.bs.modal", function (e) {
+      var link = $(e.relatedTarget).data("link");
+      $("#modal-setting .modal-content").load(link, function(){
+      });
+    });
+    $("#modal-program").on("show.bs.modal", function (e) {
+      var link = $(e.relatedTarget).data("link");
+      $("#modal-program .modal-content").load(link, function(){
+      });
+    });
+  });
 </script>

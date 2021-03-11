@@ -43,8 +43,8 @@
       var typedetail = document.getElementById('Typecardetail').value;
       var year = document.getElementById('Yearcar').value;
 
-        if(year >= 2015 && year <= 2020){
-          var groupyear = '2015 - 2020';
+        if(year >= 2015 && year <= 2021){
+          var groupyear = '2015 - 2021';
         }
         else if(year >= 2013 && year <= 2014){
           if(typedetail == 'รถกระบะ' || typedetail == 'รถเก๋ง/7ที่นั่ง'){
@@ -125,6 +125,8 @@
         }
 
       document.form1.Groupyearcar.value = groupyear;
+
+{{--
       var timelack = document.getElementById('Timeslackencar').value;
         if(typedetail == 'รถกระบะ' && groupyear == '2015 - 2020'){
           // $("#Timeslackencar").append("<option value='1'>12</option><option value='1.5'>18</option><option value='2'>24</option><option value='2.5'>30</option><option value='3'>36</option><option value='3.5'>42</option><option value='4'>48</option><option value='4.5'>54</option><option value='5'>60</option><option value='5.5'>66</option><option value='6'>72</option><option value='6.5'>78</option><option value='7'>84</option>");
@@ -376,11 +378,252 @@
           }
         }
 
+        $('#Typecardetail,#Yearcar').change(function(){
+          $('#Year').hide();
+          $('#Timeslackencar').show();
+          if(year > 2014 && year <= 2020 ){
+            if(typedetail == 'รถตอนเดียว'){
+              $("#Timeslackencar option[value='12']").show();
+              $("#Timeslackencar option[value='18']").show();
+              $("#Timeslackencar option[value='24']").show();
+              $("#Timeslackencar option[value='30']").show();
+              $("#Timeslackencar option[value='36']").show();
+              $("#Timeslackencar option[value='42']").show();
+              $("#Timeslackencar option[value='48']").show();
+              $("#Timeslackencar option[value='54']").show();
+              $("#Timeslackencar option[value='60']").show();
+              $("#Timeslackencar option[value='66']").hide();
+              $("#Timeslackencar option[value='72']").hide();
+              $("#Timeslackencar option[value='78']").hide();
+              $("#Timeslackencar option[value='84']").hide();
+            }else{
+              $("#Timeslackencar option[value='12']").show();
+              $("#Timeslackencar option[value='18']").show();
+              $("#Timeslackencar option[value='24']").show();
+              $("#Timeslackencar option[value='30']").show();
+              $("#Timeslackencar option[value='36']").show();
+              $("#Timeslackencar option[value='42']").show();
+              $("#Timeslackencar option[value='48']").show();
+              $("#Timeslackencar option[value='54']").show();
+              $("#Timeslackencar option[value='60']").show();
+              $("#Timeslackencar option[value='66']").show();
+              $("#Timeslackencar option[value='72']").show();
+              $("#Timeslackencar option[value='78']").show();
+              $("#Timeslackencar option[value='84']").show();
+            }
+            }
+          else if(year > 2009 && year <= 2014 ){
+            if(typedetail == 'รถตอนเดียว'){
+              $("#Timeslackencar option[value='12']").show();
+              $("#Timeslackencar option[value='18']").show();
+              $("#Timeslackencar option[value='24']").show();
+              $("#Timeslackencar option[value='30']").show();
+              $("#Timeslackencar option[value='36']").show();
+              $("#Timeslackencar option[value='42']").show();
+              $("#Timeslackencar option[value='48']").show();
+              $("#Timeslackencar option[value='54']").show();
+              $("#Timeslackencar option[value='60']").show();
+              $("#Timeslackencar option[value='66']").hide();
+              $("#Timeslackencar option[value='72']").hide();
+              $("#Timeslackencar option[value='78']").hide();
+              $("#Timeslackencar option[value='84']").hide();
+            }else{
+              $("#Timeslackencar option[value='12']").show();
+              $("#Timeslackencar option[value='18']").show();
+              $("#Timeslackencar option[value='24']").show();
+              $("#Timeslackencar option[value='30']").show();
+              $("#Timeslackencar option[value='36']").show();
+              $("#Timeslackencar option[value='42']").show();
+              $("#Timeslackencar option[value='48']").show();
+              $("#Timeslackencar option[value='54']").show();
+              $("#Timeslackencar option[value='60']").show();
+              $("#Timeslackencar option[value='66']").show();
+              $("#Timeslackencar option[value='72']").show();
+              $("#Timeslackencar option[value='78']").hide();
+              $("#Timeslackencar option[value='84']").hide();
+            }
+            }
+          else if(year > 2007 && year <= 2009 ){
+              if(typedetail == 'รถตอนเดียว'){
+                $("#Timeslackencar option[value='12']").show();
+                $("#Timeslackencar option[value='18']").show();
+                $("#Timeslackencar option[value='24']").show();
+                $("#Timeslackencar option[value='30']").show();
+                $("#Timeslackencar option[value='36']").show();
+                $("#Timeslackencar option[value='42']").show();
+                $("#Timeslackencar option[value='48']").show();
+                $("#Timeslackencar option[value='54']").hide();
+                $("#Timeslackencar option[value='60']").hide();
+                $("#Timeslackencar option[value='66']").hide();
+                $("#Timeslackencar option[value='72']").hide();
+                $("#Timeslackencar option[value='78']").hide();
+                $("#Timeslackencar option[value='84']").hide();
+              }else{
+                $("#Timeslackencar option[value='12']").show();
+                $("#Timeslackencar option[value='18']").show();
+                $("#Timeslackencar option[value='24']").show();
+                $("#Timeslackencar option[value='30']").show();
+                $("#Timeslackencar option[value='36']").show();
+                $("#Timeslackencar option[value='42']").show();
+                $("#Timeslackencar option[value='48']").show();
+                $("#Timeslackencar option[value='54']").show();
+                $("#Timeslackencar option[value='60']").show();
+                $("#Timeslackencar option[value='66']").show();
+                $("#Timeslackencar option[value='72']").show();
+                $("#Timeslackencar option[value='78']").hide();
+                $("#Timeslackencar option[value='84']").hide();
+              }
+            }
+          else if(year > 2005 && year <= 2007 ){
+              if(typedetail == 'รถตอนเดียว'){
+                $("#Timeslackencar option[value='12']").show();
+                $("#Timeslackencar option[value='18']").show();
+                $("#Timeslackencar option[value='24']").show();
+                $("#Timeslackencar option[value='30']").show();
+                $("#Timeslackencar option[value='36']").show();
+                $("#Timeslackencar option[value='42']").show();
+                $("#Timeslackencar option[value='48']").show();
+                $("#Timeslackencar option[value='54']").hide();
+                $("#Timeslackencar option[value='60']").hide();
+                $("#Timeslackencar option[value='66']").hide();
+                $("#Timeslackencar option[value='72']").hide();
+                $("#Timeslackencar option[value='78']").hide();
+                $("#Timeslackencar option[value='84']").hide();
+              }else{
+                $("#Timeslackencar option[value='12']").show();
+                $("#Timeslackencar option[value='18']").show();
+                $("#Timeslackencar option[value='24']").show();
+                $("#Timeslackencar option[value='30']").show();
+                $("#Timeslackencar option[value='36']").show();
+                $("#Timeslackencar option[value='42']").show();
+                $("#Timeslackencar option[value='48']").show();
+                $("#Timeslackencar option[value='54']").show();
+                $("#Timeslackencar option[value='60']").show();
+                $("#Timeslackencar option[value='66']").hide();
+                $("#Timeslackencar option[value='72']").hide();
+                $("#Timeslackencar option[value='78']").hide();
+                $("#Timeslackencar option[value='84']").hide();
+              }
+            }
+          else if(year > 2003 && year <= 2005 ){
+              if(typedetail == 'รถตอนเดียว'){
+                $("#Timeslackencar option[value='12']").show();
+                $("#Timeslackencar option[value='18']").show();
+                $("#Timeslackencar option[value='24']").show();
+                $("#Timeslackencar option[value='30']").show();
+                $("#Timeslackencar option[value='36']").show();
+                $("#Timeslackencar option[value='42']").hide();
+                $("#Timeslackencar option[value='48']").hide();
+                $("#Timeslackencar option[value='54']").hide();
+                $("#Timeslackencar option[value='60']").hide();
+                $("#Timeslackencar option[value='66']").hide();
+                $("#Timeslackencar option[value='72']").hide();
+                $("#Timeslackencar option[value='78']").hide();
+                $("#Timeslackencar option[value='84']").hide();
+              }else{
+                $("#Timeslackencar option[value='12']").show();
+                $("#Timeslackencar option[value='18']").show();
+                $("#Timeslackencar option[value='24']").show();
+                $("#Timeslackencar option[value='30']").show();
+                $("#Timeslackencar option[value='36']").show();
+                $("#Timeslackencar option[value='42']").show();
+                $("#Timeslackencar option[value='48']").show();
+                $("#Timeslackencar option[value='54']").hide();
+                $("#Timeslackencar option[value='60']").hide();
+                $("#Timeslackencar option[value='66']").hide();
+                $("#Timeslackencar option[value='72']").hide();
+                $("#Timeslackencar option[value='78']").hide();
+                $("#Timeslackencar option[value='84']").hide();
+              }
+            }
+          else if(year > 2003 && year <= 2005 ){
+              if(typedetail == 'รถตอนเดียว'){
+                $("#Timeslackencar option[value='12']").show();
+                $("#Timeslackencar option[value='18']").show();
+                $("#Timeslackencar option[value='24']").show();
+                $("#Timeslackencar option[value='30']").show();
+                $("#Timeslackencar option[value='36']").show();
+                $("#Timeslackencar option[value='42']").hide();
+                $("#Timeslackencar option[value='48']").hide();
+                $("#Timeslackencar option[value='54']").hide();
+                $("#Timeslackencar option[value='60']").hide();
+                $("#Timeslackencar option[value='66']").hide();
+                $("#Timeslackencar option[value='72']").hide();
+                $("#Timeslackencar option[value='78']").hide();
+                $("#Timeslackencar option[value='84']").hide();
+              }else if(typedetail == 'รถตอนเดียว' && year <= 2005){
+
+              }else{
+                $("#Timeslackencar option[value='12']").show();
+                $("#Timeslackencar option[value='18']").show();
+                $("#Timeslackencar option[value='24']").show();
+                $("#Timeslackencar option[value='30']").show();
+                $("#Timeslackencar option[value='36']").show();
+                $("#Timeslackencar option[value='42']").show();
+                $("#Timeslackencar option[value='48']").show();
+                $("#Timeslackencar option[value='54']").hide();
+                $("#Timeslackencar option[value='60']").hide();
+                $("#Timeslackencar option[value='66']").hide();
+                $("#Timeslackencar option[value='72']").hide();
+                $("#Timeslackencar option[value='78']").hide();
+                $("#Timeslackencar option[value='84']").hide();
+              }
+            }
+          else if(year > 2002 && year <= 2003 ){
+              if(typedetail == 'รถตอนเดียว'){
+                $("#Timeslackencar option[value='12']").hide();
+                $("#Timeslackencar option[value='18']").hide();
+                $("#Timeslackencar option[value='24']").hide();
+                $("#Timeslackencar option[value='30']").hide();
+                $("#Timeslackencar option[value='36']").hide();
+                $("#Timeslackencar option[value='42']").hide();
+                $("#Timeslackencar option[value='48']").hide();
+                $("#Timeslackencar option[value='54']").hide();
+                $("#Timeslackencar option[value='60']").hide();
+                $("#Timeslackencar option[value='66']").hide();
+                $("#Timeslackencar option[value='72']").hide();
+                $("#Timeslackencar option[value='78']").hide();
+                $("#Timeslackencar option[value='84']").hide();
+              }else{
+                $("#Timeslackencar option[value='12']").show();
+                $("#Timeslackencar option[value='18']").show();
+                $("#Timeslackencar option[value='24']").show();
+                $("#Timeslackencar option[value='30']").show();
+                $("#Timeslackencar option[value='36']").show();
+                $("#Timeslackencar option[value='42']").show();
+                $("#Timeslackencar option[value='48']").show();
+                $("#Timeslackencar option[value='54']").hide();
+                $("#Timeslackencar option[value='60']").hide();
+                $("#Timeslackencar option[value='66']").hide();
+                $("#Timeslackencar option[value='72']").hide();
+                $("#Timeslackencar option[value='78']").hide();
+                $("#Timeslackencar option[value='84']").hide();
+              }
+            }
+          else{
+            $("#Timeslackencar option[value='12']").hide();
+            $("#Timeslackencar option[value='18']").hide();
+            $("#Timeslackencar option[value='24']").hide();
+            $("#Timeslackencar option[value='30']").hide();
+            $("#Timeslackencar option[value='36']").hide();
+            $("#Timeslackencar option[value='42']").hide();
+            $("#Timeslackencar option[value='48']").hide();
+            $("#Timeslackencar option[value='54']").hide();
+            $("#Timeslackencar option[value='60']").hide();
+            $("#Timeslackencar option[value='66']").hide();
+            $("#Timeslackencar option[value='72']").hide();
+            $("#Timeslackencar option[value='78']").hide();
+            $("#Timeslackencar option[value='84']").hide();
+          }
+        });
+--}}
 
         var num11 = document.getElementById('Topcar').value;
         var num1 = num11.replace(",","");
-        var num4 = document.getElementById('Timeslackencar').value;
-        var num2 = document.getElementById('Interestcar').value;
+        // var num4 = document.getElementById('Timeslackencar').value;
+        // var num2 = document.getElementById('Interestcar').value;
+        var num4 = document.getElementById('NewTimeslackencar').value;
+        var num2 = document.getElementById('NewInterestcar').value;
         var num3 = document.getElementById('Vatcar').value;
         var num55 = document.getElementById('P2Price').value;
         var num5 = num55.replace(",","");
@@ -394,246 +637,7 @@
           //    $('#P2Price').val('0');
           //  }
           // });
-           // console.log(num1);
-
-          $('#Typecardetail,#Yearcar').change(function(){
-            $('#Year').hide();
-            $('#Timeslackencar').show();
-            if(year > 2014 && year <= 2020 ){
-              if(typedetail == 'รถตอนเดียว'){
-                $("#Timeslackencar option[value='12']").show();
-                $("#Timeslackencar option[value='18']").show();
-                $("#Timeslackencar option[value='24']").show();
-                $("#Timeslackencar option[value='30']").show();
-                $("#Timeslackencar option[value='36']").show();
-                $("#Timeslackencar option[value='42']").show();
-                $("#Timeslackencar option[value='48']").show();
-                $("#Timeslackencar option[value='54']").show();
-                $("#Timeslackencar option[value='60']").show();
-                $("#Timeslackencar option[value='66']").hide();
-                $("#Timeslackencar option[value='72']").hide();
-                $("#Timeslackencar option[value='78']").hide();
-                $("#Timeslackencar option[value='84']").hide();
-              }else{
-                $("#Timeslackencar option[value='12']").show();
-                $("#Timeslackencar option[value='18']").show();
-                $("#Timeslackencar option[value='24']").show();
-                $("#Timeslackencar option[value='30']").show();
-                $("#Timeslackencar option[value='36']").show();
-                $("#Timeslackencar option[value='42']").show();
-                $("#Timeslackencar option[value='48']").show();
-                $("#Timeslackencar option[value='54']").show();
-                $("#Timeslackencar option[value='60']").show();
-                $("#Timeslackencar option[value='66']").show();
-                $("#Timeslackencar option[value='72']").show();
-                $("#Timeslackencar option[value='78']").show();
-                $("#Timeslackencar option[value='84']").show();
-              }
-             }
-            else if(year > 2009 && year <= 2014 ){
-              if(typedetail == 'รถตอนเดียว'){
-                $("#Timeslackencar option[value='12']").show();
-                $("#Timeslackencar option[value='18']").show();
-                $("#Timeslackencar option[value='24']").show();
-                $("#Timeslackencar option[value='30']").show();
-                $("#Timeslackencar option[value='36']").show();
-                $("#Timeslackencar option[value='42']").show();
-                $("#Timeslackencar option[value='48']").show();
-                $("#Timeslackencar option[value='54']").show();
-                $("#Timeslackencar option[value='60']").show();
-                $("#Timeslackencar option[value='66']").hide();
-                $("#Timeslackencar option[value='72']").hide();
-                $("#Timeslackencar option[value='78']").hide();
-                $("#Timeslackencar option[value='84']").hide();
-              }else{
-                $("#Timeslackencar option[value='12']").show();
-                $("#Timeslackencar option[value='18']").show();
-                $("#Timeslackencar option[value='24']").show();
-                $("#Timeslackencar option[value='30']").show();
-                $("#Timeslackencar option[value='36']").show();
-                $("#Timeslackencar option[value='42']").show();
-                $("#Timeslackencar option[value='48']").show();
-                $("#Timeslackencar option[value='54']").show();
-                $("#Timeslackencar option[value='60']").show();
-                $("#Timeslackencar option[value='66']").show();
-                $("#Timeslackencar option[value='72']").show();
-                $("#Timeslackencar option[value='78']").hide();
-                $("#Timeslackencar option[value='84']").hide();
-              }
-             }
-            else if(year > 2007 && year <= 2009 ){
-               if(typedetail == 'รถตอนเดียว'){
-                 $("#Timeslackencar option[value='12']").show();
-                 $("#Timeslackencar option[value='18']").show();
-                 $("#Timeslackencar option[value='24']").show();
-                 $("#Timeslackencar option[value='30']").show();
-                 $("#Timeslackencar option[value='36']").show();
-                 $("#Timeslackencar option[value='42']").show();
-                 $("#Timeslackencar option[value='48']").show();
-                 $("#Timeslackencar option[value='54']").hide();
-                 $("#Timeslackencar option[value='60']").hide();
-                 $("#Timeslackencar option[value='66']").hide();
-                 $("#Timeslackencar option[value='72']").hide();
-                 $("#Timeslackencar option[value='78']").hide();
-                 $("#Timeslackencar option[value='84']").hide();
-               }else{
-                 $("#Timeslackencar option[value='12']").show();
-                 $("#Timeslackencar option[value='18']").show();
-                 $("#Timeslackencar option[value='24']").show();
-                 $("#Timeslackencar option[value='30']").show();
-                 $("#Timeslackencar option[value='36']").show();
-                 $("#Timeslackencar option[value='42']").show();
-                 $("#Timeslackencar option[value='48']").show();
-                 $("#Timeslackencar option[value='54']").show();
-                 $("#Timeslackencar option[value='60']").show();
-                 $("#Timeslackencar option[value='66']").show();
-                 $("#Timeslackencar option[value='72']").show();
-                 $("#Timeslackencar option[value='78']").hide();
-                 $("#Timeslackencar option[value='84']").hide();
-               }
-              }
-            else if(year > 2005 && year <= 2007 ){
-               if(typedetail == 'รถตอนเดียว'){
-                 $("#Timeslackencar option[value='12']").show();
-                 $("#Timeslackencar option[value='18']").show();
-                 $("#Timeslackencar option[value='24']").show();
-                 $("#Timeslackencar option[value='30']").show();
-                 $("#Timeslackencar option[value='36']").show();
-                 $("#Timeslackencar option[value='42']").show();
-                 $("#Timeslackencar option[value='48']").show();
-                 $("#Timeslackencar option[value='54']").hide();
-                 $("#Timeslackencar option[value='60']").hide();
-                 $("#Timeslackencar option[value='66']").hide();
-                 $("#Timeslackencar option[value='72']").hide();
-                 $("#Timeslackencar option[value='78']").hide();
-                 $("#Timeslackencar option[value='84']").hide();
-               }else{
-                 $("#Timeslackencar option[value='12']").show();
-                 $("#Timeslackencar option[value='18']").show();
-                 $("#Timeslackencar option[value='24']").show();
-                 $("#Timeslackencar option[value='30']").show();
-                 $("#Timeslackencar option[value='36']").show();
-                 $("#Timeslackencar option[value='42']").show();
-                 $("#Timeslackencar option[value='48']").show();
-                 $("#Timeslackencar option[value='54']").show();
-                 $("#Timeslackencar option[value='60']").show();
-                 $("#Timeslackencar option[value='66']").hide();
-                 $("#Timeslackencar option[value='72']").hide();
-                 $("#Timeslackencar option[value='78']").hide();
-                 $("#Timeslackencar option[value='84']").hide();
-               }
-              }
-            else if(year > 2003 && year <= 2005 ){
-               if(typedetail == 'รถตอนเดียว'){
-                 $("#Timeslackencar option[value='12']").show();
-                 $("#Timeslackencar option[value='18']").show();
-                 $("#Timeslackencar option[value='24']").show();
-                 $("#Timeslackencar option[value='30']").show();
-                 $("#Timeslackencar option[value='36']").show();
-                 $("#Timeslackencar option[value='42']").hide();
-                 $("#Timeslackencar option[value='48']").hide();
-                 $("#Timeslackencar option[value='54']").hide();
-                 $("#Timeslackencar option[value='60']").hide();
-                 $("#Timeslackencar option[value='66']").hide();
-                 $("#Timeslackencar option[value='72']").hide();
-                 $("#Timeslackencar option[value='78']").hide();
-                 $("#Timeslackencar option[value='84']").hide();
-               }else{
-                 $("#Timeslackencar option[value='12']").show();
-                 $("#Timeslackencar option[value='18']").show();
-                 $("#Timeslackencar option[value='24']").show();
-                 $("#Timeslackencar option[value='30']").show();
-                 $("#Timeslackencar option[value='36']").show();
-                 $("#Timeslackencar option[value='42']").show();
-                 $("#Timeslackencar option[value='48']").show();
-                 $("#Timeslackencar option[value='54']").hide();
-                 $("#Timeslackencar option[value='60']").hide();
-                 $("#Timeslackencar option[value='66']").hide();
-                 $("#Timeslackencar option[value='72']").hide();
-                 $("#Timeslackencar option[value='78']").hide();
-                 $("#Timeslackencar option[value='84']").hide();
-               }
-              }
-            else if(year > 2003 && year <= 2005 ){
-               if(typedetail == 'รถตอนเดียว'){
-                 $("#Timeslackencar option[value='12']").show();
-                 $("#Timeslackencar option[value='18']").show();
-                 $("#Timeslackencar option[value='24']").show();
-                 $("#Timeslackencar option[value='30']").show();
-                 $("#Timeslackencar option[value='36']").show();
-                 $("#Timeslackencar option[value='42']").hide();
-                 $("#Timeslackencar option[value='48']").hide();
-                 $("#Timeslackencar option[value='54']").hide();
-                 $("#Timeslackencar option[value='60']").hide();
-                 $("#Timeslackencar option[value='66']").hide();
-                 $("#Timeslackencar option[value='72']").hide();
-                 $("#Timeslackencar option[value='78']").hide();
-                 $("#Timeslackencar option[value='84']").hide();
-               }else if(typedetail == 'รถตอนเดียว' && year <= 2005){
-
-               }else{
-                 $("#Timeslackencar option[value='12']").show();
-                 $("#Timeslackencar option[value='18']").show();
-                 $("#Timeslackencar option[value='24']").show();
-                 $("#Timeslackencar option[value='30']").show();
-                 $("#Timeslackencar option[value='36']").show();
-                 $("#Timeslackencar option[value='42']").show();
-                 $("#Timeslackencar option[value='48']").show();
-                 $("#Timeslackencar option[value='54']").hide();
-                 $("#Timeslackencar option[value='60']").hide();
-                 $("#Timeslackencar option[value='66']").hide();
-                 $("#Timeslackencar option[value='72']").hide();
-                 $("#Timeslackencar option[value='78']").hide();
-                 $("#Timeslackencar option[value='84']").hide();
-               }
-              }
-            else if(year > 2002 && year <= 2003 ){
-               if(typedetail == 'รถตอนเดียว'){
-                 $("#Timeslackencar option[value='12']").hide();
-                 $("#Timeslackencar option[value='18']").hide();
-                 $("#Timeslackencar option[value='24']").hide();
-                 $("#Timeslackencar option[value='30']").hide();
-                 $("#Timeslackencar option[value='36']").hide();
-                 $("#Timeslackencar option[value='42']").hide();
-                 $("#Timeslackencar option[value='48']").hide();
-                 $("#Timeslackencar option[value='54']").hide();
-                 $("#Timeslackencar option[value='60']").hide();
-                 $("#Timeslackencar option[value='66']").hide();
-                 $("#Timeslackencar option[value='72']").hide();
-                 $("#Timeslackencar option[value='78']").hide();
-                 $("#Timeslackencar option[value='84']").hide();
-               }else{
-                 $("#Timeslackencar option[value='12']").show();
-                 $("#Timeslackencar option[value='18']").show();
-                 $("#Timeslackencar option[value='24']").show();
-                 $("#Timeslackencar option[value='30']").show();
-                 $("#Timeslackencar option[value='36']").show();
-                 $("#Timeslackencar option[value='42']").show();
-                 $("#Timeslackencar option[value='48']").show();
-                 $("#Timeslackencar option[value='54']").hide();
-                 $("#Timeslackencar option[value='60']").hide();
-                 $("#Timeslackencar option[value='66']").hide();
-                 $("#Timeslackencar option[value='72']").hide();
-                 $("#Timeslackencar option[value='78']").hide();
-                 $("#Timeslackencar option[value='84']").hide();
-               }
-              }
-            else{
-              $("#Timeslackencar option[value='12']").hide();
-              $("#Timeslackencar option[value='18']").hide();
-              $("#Timeslackencar option[value='24']").hide();
-              $("#Timeslackencar option[value='30']").hide();
-              $("#Timeslackencar option[value='36']").hide();
-              $("#Timeslackencar option[value='42']").hide();
-              $("#Timeslackencar option[value='48']").hide();
-              $("#Timeslackencar option[value='54']").hide();
-              $("#Timeslackencar option[value='60']").hide();
-              $("#Timeslackencar option[value='66']").hide();
-              $("#Timeslackencar option[value='72']").hide();
-              $("#Timeslackencar option[value='78']").hide();
-              $("#Timeslackencar option[value='84']").hide();
-            }
-          });
+          //  console.log(num4);
 
           //กรณียอดจัดเกิน 150000 และจัดน้อยกว่า 4 ปี
           // if(num1 < 150000){
@@ -681,14 +685,14 @@
           }
 
 
-          var a = (num2*period)+100;
-          var b = (((totaltopcar*a)/100)*1.07)/num4;
-          var result = Math.ceil(b/10)*10;
-          var durate = result/1.07;
+          var a = (num2 * period) + 100;
+          var b = (((totaltopcar * a) / 100) * (({{$SettingValue->Taxvalue_set}}/100) + 1)) / num4;
+          var result = Math.ceil(b/10) * 10;
+          var durate = result / (({{$SettingValue->Taxvalue_set}}/100) + 1);
           var durate2 = durate.toFixed(2)*num4;
           var tax = result-durate;
-          var tax2 = tax.toFixed(2)*num4;
-          var total = result*num4;
+          var tax2 = tax.toFixed(2) * num4;
+          var total = result * num4;
           var total2 = durate2+tax2;
           document.form1.P2Price.value = addCommas(num5);
           document.form1.Topcar.value = addCommas(num1);
@@ -722,7 +726,7 @@
               if(num11 == ''){
                 var num11 = 0;
               }else{
-                var sumCom = (num1*0.03);
+                var sumCom = num1 * ({{$SettingValue->Comagent_set}}/100);
                 var result = num1 - sumCom;
               }
             }else{

@@ -17,6 +17,7 @@ use App\UploadfileImage;
 use App\upload_lat_long;
 use App\Expenses;
 use App\Data_customer;
+use App\Mainsetting;
 use Carbon\Carbon;
 use Helper;
 
@@ -1350,12 +1351,16 @@ class AnalysController extends Controller
         'รถเก๋ง/7ที่นั่ง' => 'รถเก๋ง/7ที่นั่ง',
       ];
 
+      $SettingValue = DB::table('mainsettings')
+            ->where('Settype_set','=','เช่าซื้อ')
+            ->first();
+
       if ($type == 1) {
         return view('Analysis.edit',
             compact('data','id','dataImage','Statusby','Addby','Houseby','Driverby','HouseStyleby','Careerby','Incomeby',
             'HisCarby','StatusSPp','relationSPp','addSPp','housestyleSPp','Brandcarr','Interestcarr','Timeslackencarr',
             'Insurancecarr','statuscarr','newDateDue','evaluetionPricee','securitiesSPp','GetDocComplete','Getinsurance',
-            'Gettransfer','Getinterest','fdate','tdate','status','type','Gettype','countImage','GradeBuyer','Typecardetail','objectivecar'));
+            'Gettransfer','Getinterest','fdate','tdate','status','type','Gettype','countImage','GradeBuyer','Typecardetail','objectivecar','SettingValue'));
       }
       elseif ($type == 4) {
         return view('analysis.edithomecar',
