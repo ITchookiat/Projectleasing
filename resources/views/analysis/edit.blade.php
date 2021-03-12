@@ -1931,7 +1931,7 @@
                               <div class="form-group row mb-0">
                                 <label class="col-sm-3 col-form-label text-right">VAT : </label>
                                 <div class="col-sm-8">
-                                  <input type="text" id="Vatcar" name="Vatcar" value="{{($data->Vat_car != Null) ? $data->Vat_car : $SettingValue->Taxvalue_set}} %" class="form-control form-control-sm" readonly onchange="calculate()"/>
+                                  <input type="text" id="Vatcar" name="Vatcar" placeholder="{{$SettingValue->Taxvalue_set}} %" class="form-control form-control-sm" readonly onchange="calculate()"/>
                                 </div>
                               </div>
                             </div>
