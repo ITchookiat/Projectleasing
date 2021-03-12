@@ -140,7 +140,6 @@
               </a>
             </div>
           @endif
-          @if(auth::user()->position == "Admin" or auth::user()->position == "MANAGER" or auth::user()->position == "STAFF")
             <div class="mb-2">
               <a data-toggle="modal" data-target="#modal-program" title="ดูรายการ"
                  data-backdrop="static" data-keyboard="false"
@@ -148,7 +147,6 @@
                 <i class="fa fa-calculator text-red mr-1"></i> โปรแกรมคำนวณค่างวด
               </a>
             </div>
-          @endif
         </div>
       </div>
     </div>
@@ -269,11 +267,13 @@
       var link = $(e.relatedTarget).data("link");
       $("#modal-setting .modal-content").load(link, function(){
       });
+      $(".control-sidebar").toggle();
     });
     $("#modal-program").on("show.bs.modal", function (e) {
       var link = $(e.relatedTarget).data("link");
       $("#modal-program .modal-content").load(link, function(){
       });
+      $(".control-sidebar").toggle();
     });
   });
 </script>
