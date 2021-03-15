@@ -333,7 +333,7 @@
                                             <div class="col-sm-6 mb-1">
                                                 <input type="text" id="demotopcar" name="demotopcar" maxlength="7" class="form-control form-control" placeholder="ป้อนยอดจัด" required/>
                                             </div>
-                                            <label class="col-sm-4 col-form-label text-right">ดอกเบี้ย/ปี :</label>
+                                            <label class="col-sm-4 col-form-label text-right">ดอกเบี้ย/เดือน :</label>
                                             <div class="col-sm-6">
                                                 <input type="text" id="demointerest" name="demointerest" class="form-control form-control" placeholder="ป้อนดอกเบี้ย" required/>
                                             </div>
@@ -414,7 +414,7 @@
                                             <div class="col-sm-6 mb-1">
                                                 <input type="text" id="demotopcarP" name="demotopcar" maxlength="7" class="form-control form-control" placeholder="ป้อนเงินต้น" required/>
                                             </div>
-                                            <label class="col-sm-4 col-form-label text-right">ดอกเบี้ย/ปี :</label>
+                                            <label class="col-sm-4 col-form-label text-right">ดอกเบี้ย/เดือน :</label>
                                             <div class="col-sm-6">
                                                 <input type="text" id="demointerestP" name="demointerest" class="form-control form-control" placeholder="ป้อนดอกเบี้ย" required/>
                                             </div>
@@ -516,7 +516,8 @@
         $("#demotopcar").val(addCommas(Topcar));
 
         if(Topcar != '' && Getinterest != ''){
-            var Interest12 = (Getinterest * 1) + 100;
+            // var Getinterest12 = Getinterest * 12;
+            var Interest12 = (Getinterest12 * 1) + 100;
             var Period12 = Math.ceil(((((Topcar * Interest12) / 100) * 1.07) / 12) /10) * 10;
             $("#Period12").text(addCommas(Period12));
 
@@ -580,8 +581,8 @@
         $("#demotopcarP").val(addCommas(TopcarP));
 
         if(TopcarP != '' && GetinterestP != ''){
-            // var InterestP = ((GetinterestP / 100) / 1) * 12; //กรณีจะคำนวณดอกเบี้ยต่อเดือน
-            var InterestP = ((GetinterestP / 100) / 1); //กรณีจะคำนวณดอกเบี้ยต่อปี
+            var InterestP = ((GetinterestP / 100) / 1) * 12; //กรณีจะคำนวณดอกเบี้ยต่อเดือน
+            // var InterestP = ((GetinterestP / 100) / 1); //กรณีจะคำนวณดอกเบี้ยต่อปี
 
             var Process12P = (parseFloat(TopcarP) + (parseFloat(TopcarP) * parseFloat(InterestP) * (12 / 12))) / 12;
             var str12 = Process12P.toString();
