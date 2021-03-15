@@ -521,7 +521,7 @@ class MPController extends Controller
           compact('data','id','dataImage','GetDocComplete','fdate','tdate','status','type','countImage','SubStr','SettingValue'));
       }elseif ($type == 3) {  //P04 (จักรยานยนต์)
         return view('Micro-Ploan.edit_Ploan',
-          compact('data','id','dataImage','GetDocComplete','fdate','tdate','status','type','countImage','SubStr'));
+          compact('data','id','dataImage','GetDocComplete','fdate','tdate','status','type','countImage','SubStr','SettingValue'));
       }
     }
 
