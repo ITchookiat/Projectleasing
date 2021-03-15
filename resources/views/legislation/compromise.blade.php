@@ -262,17 +262,25 @@
                                 <div class="col-6">
                                   <div class="form-group row mb-3">
                                     <label class="col-sm-4 col-form-label text-right">
-                                      @if($data->Payall_Promise == $data->Sum_FirstPromise)
-                                        <font color="green">ยอดเงินก้อนแรก : </font>
-                                      @else
+                                      @if($data->Payall_Promise == NULL)
                                         <font color="red">ยอดเงินก้อนแรก : </font>
+                                      @else
+                                        @if($data->Payall_Promise == $data->Sum_FirstPromise)
+                                          <font color="green">ยอดเงินก้อนแรก : </font>
+                                        @else
+                                          <font color="red">ยอดเงินก้อนแรก : </font>
+                                        @endif
                                       @endif
                                     </label>
                                     <div class="col-sm-8">
-                                      @if($data->Payall_Promise == $data->Sum_FirstPromise)
-                                        <input type="text" name="PayallPromise" id="PayallPromise" value="{{ number_format($data->Payall_Promise,2) }}" class="form-control form-control-sm" oninput="Comma();" readonly/>
-                                      @else
+                                      @if($data->Payall_Promise == NULL)
                                         <input type="text" name="PayallPromise" id="PayallPromise" value="{{ number_format($data->Payall_Promise,2) }}" class="form-control form-control-sm" oninput="Comma();"/>
+                                      @else
+                                        @if($data->Payall_Promise == $data->Sum_FirstPromise)
+                                          <input type="text" name="PayallPromise" id="PayallPromise" value="{{ number_format($data->Payall_Promise,2) }}" class="form-control form-control-sm" oninput="Comma();" readonly/>
+                                        @else
+                                          <input type="text" name="PayallPromise" id="PayallPromise" value="{{ number_format($data->Payall_Promise,2) }}" class="form-control form-control-sm" oninput="Comma();"/>
+                                        @endif
                                       @endif
                                     </div>
                                   </div>
