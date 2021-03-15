@@ -1,69 +1,306 @@
+<link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 <section class="content">
-    @if($type == 1) {{-- หน้าตั้งค่าข้อมูลสินเชื่อ--}}
-        <form name="form2" action="{{ route('MasterSetting.update',[0]) }}?type={{1}}" method="post" enctype="multipart/form-data">
-            @csrf
-            @method('put')
-            <input type="hidden" name="_method" value="PATCH"/>
-            <div class="modal-header">
-                <h4 class="modal-title">ตั้งค่าข้อมูลสินเชื่อ</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="form-group row mb-1">
-                        <label class="col-sm-4 col-form-label text-right">ค่าอากร :</label>
-                            <div class="col-sm-6">
-                                <input type="text" name="Dutyvalue" value="{{($data != null)?$data->Dutyvalue_set:''}}" class="form-control form-control" placeholder="ป้อนค่าอากร" required/>
+    @if($type == 1){{-- หน้าตั้งค่าข้อมูลสินเชื่อ--}}
+        <!-- <div class="modal-header">
+            <h4 class="modal-title">ตั้งค่าข้อมูลสินเชื่อ</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+            </button>
+        </div> -->
+        <div class="modal-body">
+            <div class="col-12">
+                <div class="card card-warning card-tabs">
+                    <div class="card-header p-0 pt-1">
+                        <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="custom-tabs-home-tab" data-toggle="pill" href="#custom-tabs-home" role="tab" aria-controls="custom-tabs-home" aria-selected="false">ตั้งค่าข้อมูลเช่าซื้อ</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="custom-tabs-profile-tab" data-toggle="pill" href="#custom-tabs-profile" role="tab" aria-controls="custom-tabs-profile" aria-selected="true">ตั้งค่าข้อมูลเงินกู้</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content" id="custom-tabs-one-tabContent">
+                          {{--ตั้งค่าเช่าซื้อ--}}
+                            <div class="tab-pane fade active show" id="custom-tabs-home" role="tabpanel" aria-labelledby="custom-tabs-home-tab">
+                                <form name="form2" action="{{ route('MasterSetting.update',[0]) }}?type={{1}}" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('put')
+                                    <input type="hidden" name="_method" value="PATCH"/>  
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group row mb-1">
+                                            <label class="col-sm-4 col-form-label text-right">ค่าอากร :</label>
+                                                <div class="col-sm-6">
+                                                    <input type="text" name="Dutyvalue" value="{{($data != null)?$data->Dutyvalue_set:''}}" class="form-control form-control" placeholder="ป้อนค่าอากร" required/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group row mb-1">
+                                            <label class="col-sm-4 col-form-label text-right">ค่าการตลาด :</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" name="Marketvalue" value="{{($data != null)?$data->Marketvalue_set:''}}" class="form-control form-control" placeholder="ป้อนค่าการตลาด" required/>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group row mb-1">
+                                            <label class="col-sm-4 col-form-label text-right">ค่าคอมหลังหัก :</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" name="ComAgenttvalue" value="{{($data != null)?$data->Comagent_set:''}}" class="form-control form-control" placeholder="ป้อนค่าคอมหลังหัก" required/>
+                                            </div>
+                                            <label class="col-sm-1 col-form-label text-left">%</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group row mb-1">
+                                            <label class="col-sm-4 col-form-label text-right">ภาษี :</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" name="Taxvalue" value="{{($data != null)?$data->Taxvalue_set:''}}" class="form-control form-control" placeholder="ป้อนภาษี" required/>
+                                            </div>
+                                            <label class="col-sm-1 col-form-label text-left">%</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group row mb-1">
+                                                <label class="col-sm-8 col-form-label text-right">แท็บ แบบฟอร์มผู้เช่าซื้อ :</label>
+                                                <div class="col-sm-4">
+                                                    @if($data != null)
+                                                        @if($data->Tabbuyer_set != null)
+                                                            <input type="checkbox" name="TabBuyer" value="{{$data->Tabbuyer_set}}" checked data-toggle="toggle" data-on="เปิด" data-off="ปิด" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                                        @else
+                                                            <input type="checkbox" name="TabBuyer" value="on" data-toggle="toggle" data-on="เปิด" data-off="ปิด" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                                        @endif
+                                                    @else
+                                                        <input type="checkbox" name="TabBuyer" value="on" data-toggle="toggle" data-on="เปิด" data-off="ปิด" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-1">
+                                                <label class="col-sm-8 col-form-label text-right">แท็บ แบบฟอร์มผู้ค้ำ :</label>
+                                                <div class="col-sm-4">
+                                                    @if($data != null)
+                                                        @if($data->Tabsponser_set != null)
+                                                            <input type="checkbox" name="TabSponser" value="{{$data->Tabsponser_set}}" checked data-toggle="toggle" data-on="เปิด" data-off="ปิด" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                                        @else
+                                                            <input type="checkbox" name="TabSponser" value="on" data-toggle="toggle" data-on="เปิด" data-off="ปิด" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                                        @endif
+                                                    @else
+                                                        <input type="checkbox" name="TabSponser" value="on" data-toggle="toggle" data-on="เปิด" data-off="ปิด" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-1">
+                                                <label class="col-sm-8 col-form-label text-right">แท็บ แบบฟอร์มรถยนต์ :</label>
+                                                <div class="col-sm-4">
+                                                    @if($data != null)
+                                                        @if($data->Tabcardetail_set != null)
+                                                            <input type="checkbox" name="TabCardetail" value="{{$data->Tabcardetail_set}}" checked data-toggle="toggle" data-on="เปิด" data-off="ปิด" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                                        @else
+                                                            <input type="checkbox" name="TabCardetail" value="on" data-toggle="toggle" data-on="เปิด" data-off="ปิด" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                                        @endif
+                                                    @else
+                                                        <input type="checkbox" name="TabCardetail" value="on" data-toggle="toggle" data-on="เปิด" data-off="ปิด" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-1">
+                                                <label class="col-sm-8 col-form-label text-right">แท็บ แบบฟอร์มค่าใช้จ่าย :</label>
+                                                <div class="col-sm-4">
+                                                    @if($data != null)
+                                                        @if($data->Tabexpense_set != null)
+                                                            <input type="checkbox" name="TabExpense" value="{{$data->Tabexpense_set}}" checked data-toggle="toggle" data-on="เปิด" data-off="ปิด" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                                        @else
+                                                            <input type="checkbox" name="TabExpense" value="on" data-toggle="toggle" data-on="เปิด" data-off="ปิด" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                                        @endif
+                                                    @else
+                                                        <input type="checkbox" name="TabExpense" value="on" data-toggle="toggle" data-on="เปิด" data-off="ปิด" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-1">
+                                                <label class="col-sm-8 col-form-label text-right">แท็บ checker :</label>
+                                                <div class="col-sm-4">
+                                                    @if($data != null)
+                                                        @if($data->Tabchecker_set != null)
+                                                            <input type="checkbox" name="TabChecker" value="{{$data->Tabchecker_set}}" checked data-toggle="toggle" data-on="เปิด" data-off="ปิด" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                                        @else
+                                                            <input type="checkbox" name="TabChecker" value="on" data-toggle="toggle" data-on="เปิด" data-off="ปิด" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                                        @endif
+                                                    @else
+                                                        <input type="checkbox" name="TabChecker" value="on" data-toggle="toggle" data-on="เปิด" data-off="ปิด" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-1">
+                                                <label class="col-sm-8 col-form-label text-right">แท็บ ที่มารายได้ :</label>
+                                                <div class="col-sm-4">
+                                                    @if($data != null)
+                                                        @if($data->Tabincome_set != null)
+                                                            <input type="checkbox" name="TabIncome" value="{{$data->Tabincome_set}}" checked data-toggle="toggle" data-on="เปิด" data-off="ปิด" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                                        @else
+                                                            <input type="checkbox" name="TabIncome" value="on" data-toggle="toggle" data-on="เปิด" data-off="ปิด" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                                        @endif
+                                                    @else
+                                                        <input type="checkbox" name="TabIncome" value="on" data-toggle="toggle" data-on="เปิด" data-off="ปิด" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <input type="hidden" name="SetID" value="{{($data != null)?$data->Set_id:''}}"/>
+                                    <input type="hidden" name="NameUser" value="{{auth::user()->name}}"/>
+                                    <div style="text-align: center;">
+                                        <button type="submit" class="btn btn-success text-center"> <i class="fa fa-save"></i> บันทึก</button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>
+                                    </div>
+                                </form>
+                            </div>
+                          {{--ตั้งค่าเงินกู้--}}
+                            <div class="tab-pane fade" id="custom-tabs-profile" role="tabpanel" aria-labelledby="custom-tabs-profile-tab">
+                                <form name="form2" action="{{ route('MasterSetting.update',[0]) }}?type={{2}}" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('put')
+                                    <input type="hidden" name="_method" value="PATCH"/>  
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group row mb-1">
+                                            <label class="col-sm-4 col-form-label text-right">ค่าคอมหลังหัก :</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" name="ComAgenttvalue" value="{{($data2 != null)?$data2->Comagent_set:''}}" class="form-control form-control" placeholder="ป้อนค่าคอมหลังหัก" required/>
+                                            </div>
+                                            <label class="col-sm-1 col-form-label text-left">%</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{--<div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group row mb-1">
+                                            <label class="col-sm-4 col-form-label text-right">ภาษี :</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" name="Taxvalue" value="{{($data2 != null)?$data2->Taxvalue_set:''}}" class="form-control form-control" placeholder="ป้อนภาษี" required/>
+                                            </div>
+                                            <label class="col-sm-1 col-form-label text-left">%</label>
+                                            </div>
+                                        </div>
+                                    </div>--}}
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group row mb-1">
+                                                <label class="col-sm-8 col-form-label text-right">แท็บ แบบฟอร์มผู้เช่าซื้อ :</label>
+                                                <div class="col-sm-4">
+                                                    @if($data2 != null)
+                                                        @if($data2->Tabbuyer_set != null)
+                                                            <input type="checkbox" name="TabBuyer" value="{{$data2->Tabbuyer_set}}" checked data-toggle="toggle" data-on="เปิด" data-off="ปิด" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                                        @else
+                                                            <input type="checkbox" name="TabBuyer" value="on" data-toggle="toggle" data-on="เปิด" data-off="ปิด" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                                        @endif
+                                                    @else
+                                                        <input type="checkbox" name="TabBuyer" value="on" data-toggle="toggle" data-on="เปิด" data-off="ปิด" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-1">
+                                                <label class="col-sm-8 col-form-label text-right">แท็บ แบบฟอร์มผู้ค้ำ :</label>
+                                                <div class="col-sm-4">
+                                                    @if($data2 != null)
+                                                        @if($data2->Tabsponser_set != null)
+                                                            <input type="checkbox" name="TabSponser" value="{{$data2->Tabsponser_set}}" checked data-toggle="toggle" data-on="เปิด" data-off="ปิด" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                                        @else
+                                                            <input type="checkbox" name="TabSponser" value="on" data-toggle="toggle" data-on="เปิด" data-off="ปิด" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                                        @endif
+                                                    @else
+                                                        <input type="checkbox" name="TabSponser" value="on" data-toggle="toggle" data-on="เปิด" data-off="ปิด" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-1">
+                                                <label class="col-sm-8 col-form-label text-right">แท็บ แบบฟอร์มรถยนต์ :</label>
+                                                <div class="col-sm-4">
+                                                    @if($data2 != null)
+                                                        @if($data2->Tabcardetail_set != null)
+                                                            <input type="checkbox" name="TabCardetail" value="{{$data2->Tabcardetail_set}}" checked data-toggle="toggle" data-on="เปิด" data-off="ปิด" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                                        @else
+                                                            <input type="checkbox" name="TabCardetail" value="on" data-toggle="toggle" data-on="เปิด" data-off="ปิด" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                                        @endif
+                                                    @else
+                                                        <input type="checkbox" name="TabCardetail" value="on" data-toggle="toggle" data-on="เปิด" data-off="ปิด" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-1">
+                                                <label class="col-sm-8 col-form-label text-right">แท็บ แบบฟอร์มค่าใช้จ่าย :</label>
+                                                <div class="col-sm-4">
+                                                    @if($data2 != null)
+                                                        @if($data2->Tabexpense_set != null)
+                                                            <input type="checkbox" name="TabExpense" value="{{$data2->Tabexpense_set}}" checked data-toggle="toggle" data-on="เปิด" data-off="ปิด" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                                        @else
+                                                            <input type="checkbox" name="TabExpense" value="on" data-toggle="toggle" data-on="เปิด" data-off="ปิด" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                                        @endif
+                                                    @else
+                                                        <input type="checkbox" name="TabExpense" value="on" data-toggle="toggle" data-on="เปิด" data-off="ปิด" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-1">
+                                                <label class="col-sm-8 col-form-label text-right">แท็บ checker :</label>
+                                                <div class="col-sm-4">
+                                                    @if($data2 != null)
+                                                        @if($data2->Tabchecker_set != null)
+                                                            <input type="checkbox" name="TabChecker" value="{{$data2->Tabchecker_set}}" checked data-toggle="toggle" data-on="เปิด" data-off="ปิด" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                                        @else
+                                                            <input type="checkbox" name="TabChecker" value="on" data-toggle="toggle" data-on="เปิด" data-off="ปิด" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                                        @endif
+                                                    @else
+                                                        <input type="checkbox" name="TabChecker" value="on" data-toggle="toggle" data-on="เปิด" data-off="ปิด" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-1">
+                                                <label class="col-sm-8 col-form-label text-right">แท็บ ที่มารายได้ :</label>
+                                                <div class="col-sm-4">
+                                                    @if($data2 != null)
+                                                        @if($data2->Tabincome_set != null)
+                                                            <input type="checkbox" name="TabIncome" value="{{$data2->Tabincome_set}}" checked data-toggle="toggle" data-on="เปิด" data-off="ปิด" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                                        @else
+                                                            <input type="checkbox" name="TabIncome" value="on" data-toggle="toggle" data-on="เปิด" data-off="ปิด" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                                        @endif
+                                                    @else
+                                                        <input type="checkbox" name="TabIncome" value="on" data-toggle="toggle" data-on="เปิด" data-off="ปิด" data-onstyle="success" data-offstyle="danger" data-size="sm">
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <input type="hidden" name="SetID" value="{{($data2 != null)?$data2->Set_id:''}}"/>
+                                    <input type="hidden" name="NameUser" value="{{auth::user()->name}}"/>
+                                    <div style="text-align: center;">
+                                        <button type="submit" class="btn btn-success text-center"> <i class="fa fa-save"></i> บันทึก</button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
+                    <!-- /.card -->
                 </div>
-                <div class="row">
-                <div class="col-12">
-                    <div class="form-group row mb-1">
-                    <label class="col-sm-4 col-form-label text-right">ค่าการตลาด :</label>
-                    <div class="col-sm-6">
-                        <input type="text" name="Marketvalue" value="{{($data != null)?$data->Marketvalue_set:''}}" class="form-control form-control" placeholder="ป้อนค่าการตลาด" required/>
-                    </div>
-                    </div>
-                </div>
-                </div>
-                <div class="row">
-                <div class="col-12">
-                    <div class="form-group row mb-1">
-                    <label class="col-sm-4 col-form-label text-right">ค่าคอมหลังหัก :</label>
-                    <div class="col-sm-6">
-                        <input type="text" name="ComAgenttvalue" value="{{($data != null)?$data->Comagent_set:''}}" class="form-control form-control" placeholder="ป้อนค่าคอมหลังหัก" required/>
-                    </div>
-                    <label class="col-sm-1 col-form-label text-left">%</label>
-                    </div>
-                </div>
-                </div>
-                <div class="row">
-                <div class="col-12">
-                    <div class="form-group row mb-1">
-                    <label class="col-sm-4 col-form-label text-right">ภาษี :</label>
-                    <div class="col-sm-6">
-                        <input type="text" name="Taxvalue" value="{{($data != null)?$data->Taxvalue_set:''}}" class="form-control form-control" placeholder="ป้อนภาษี" required/>
-                    </div>
-                    <label class="col-sm-1 col-form-label text-left">%</label>
-                    </div>
-                </div>
-                </div>
-                <hr>
             </div>
-            <input type="hidden" name="Settype" value="เช่าซื้อ"/>
-            <input type="hidden" name="SetID" value="{{($data != null)?$data->Set_id:''}}"/>
-            <input type="hidden" name="NameUser" value="{{auth::user()->name}}"/>
-            <div style="text-align: center;">
-                <button type="submit" class="btn btn-success text-center"> <i class="fa fa-save"></i> บันทึก</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>
-            </div>
-            <br>
-        </form>
+        </div>
     @elseif($type == 2)
         <form name="form1" action="#" method="post" enctype="multipart/form-data">
             <div class="modal-header">

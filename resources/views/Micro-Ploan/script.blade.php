@@ -186,7 +186,7 @@
               if(num11 == ''){
                 var num11 = 0;
               }else{
-                var sumCom = (num1*0.03);
+                var sumCom = (num1 * ({{$SettingValue->Comagent_set}}/100));
                 var result = num1 - sumCom;
               }
             }else{

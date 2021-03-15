@@ -392,24 +392,36 @@
                         <li class="nav-item">
                           <a class="nav-link MainPage" href="{{ route('Analysis',1) }}">หน้าหลัก</a>
                         </li>
+                        @if($SettingValue->Tabbuyer_set == 'on')
                         <li class="nav-item">
                           <a class="nav-link active" id="Sub-custom-tab1" data-toggle="pill" href="#Sub-tab1" role="tab" aria-controls="Sub-tab1" aria-selected="false">แบบฟอร์มผู้เช่าซื้อ</a>
                         </li>
+                        @endif 
+                        @if($SettingValue->Tabsponser_set == 'on')
                         <li class="nav-item">
                           <a class="nav-link" id="Sub-custom-tab2" data-toggle="pill" href="#Sub-tab2" role="tab" aria-controls="Sub-tab2" aria-selected="false">แบบฟอร์มผู้ค้ำ</a>
                         </li>
+                        @endif 
+                        @if($SettingValue->Tabcardetail_set == 'on')
                         <li class="nav-item">
                           <a class="nav-link" id="Sub-custom-tab3" data-toggle="pill" href="#Sub-tab3" role="tab" aria-controls="Sub-tab3" aria-selected="false">แบบฟอร์มรถยนต์</a>
                         </li>
+                        @endif 
+                        @if($SettingValue->Tabexpense_set == 'on')
                         <li class="nav-item">
                           <a class="nav-link" id="Sub-custom-tab4" data-toggle="pill" href="#Sub-tab4" role="tab" aria-controls="Sub-tab4" aria-selected="false">แบบฟอร์มค่าใช้จ่าย</a>
                         </li>
+                        @endif 
+                        @if($SettingValue->Tabchecker_set == 'on')
                         <li class="nav-item">
                           <a class="nav-link" id="Sub-custom-tab5" data-toggle="pill" href="#Sub-tab5" role="tab" aria-controls="Sub-tab5" aria-selected="false">Checker</a>
                         </li>
+                        @endif
+                        @if($SettingValue->Tabincome_set == 'on')
                         <li class="nav-item">
                           <a class="nav-link" id="Sub-custom-tab6" data-toggle="pill" href="#Sub-tab6" role="tab" aria-controls="Sub-tab6" aria-selected="false">ที่มารายได้</a>
                         </li>
+                        @endif
                       </ul>
                     </div>
 
