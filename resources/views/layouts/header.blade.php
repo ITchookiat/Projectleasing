@@ -140,6 +140,7 @@
               </a>
             </div>
           @endif
+          @if(auth::user()->position == "Admin" or auth::user()->position == "MANAGER" or auth::user()->position == "AUDIT")
             <div class="mb-2">
               <a data-toggle="modal" data-target="#modal-program" title="ดูรายการ"
                  data-backdrop="static" data-keyboard="false"
@@ -147,6 +148,7 @@
                 <i class="fa fa-calculator text-red mr-1"></i> โปรแกรมคำนวณค่างวด
               </a>
             </div>
+          @endif
         </div>
       </div>
     </div>

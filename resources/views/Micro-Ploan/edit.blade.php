@@ -2087,7 +2087,7 @@
                           <hr>
                           <div class="row">
                             <div class="col-6">
-                              <div class="form-group row mb-0">
+                              <!-- <div class="form-group row mb-0">
                                 <label class="col-sm-3 col-form-label text-right">ประกันภัย : </label>
                                 <div class="col-sm-8">
                                   @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
@@ -2118,7 +2118,7 @@
                                     @endif
                                   @endif
                                 </div>
-                              </div>
+                              </div> -->
                             </div>
                             <div class="col-6">
                               <div class="form-group row mb-0">
