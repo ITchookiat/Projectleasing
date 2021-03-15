@@ -512,9 +512,13 @@ class MPController extends Controller
       $dataImage = DB::table('MP_Uploadfile_images')->where('MP_id',$data->id)->get();
       $countImage = count($dataImage);
 
+      $SettingValue = DB::table('mainsettings')
+            ->where('Settype_set','=','เงินกู้')
+            ->first();
+
       if ($type == 1 or $type == 4 or $type == 5) {   //P03-P06-P07
         return view('Micro-Ploan.edit',
-          compact('data','id','dataImage','GetDocComplete','fdate','tdate','status','type','countImage','SubStr'));
+          compact('data','id','dataImage','GetDocComplete','fdate','tdate','status','type','countImage','SubStr','SettingValue'));
       }elseif ($type == 3) {  //P04 (จักรยานยนต์)
         return view('Micro-Ploan.edit_Ploan',
           compact('data','id','dataImage','GetDocComplete','fdate','tdate','status','type','countImage','SubStr'));

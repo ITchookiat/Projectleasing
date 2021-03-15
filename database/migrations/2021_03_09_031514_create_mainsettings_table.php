@@ -20,6 +20,14 @@ class CreateMainsettingsTable extends Migration
             $table->string('Comagent_set')->nullable();
             $table->string('Taxvalue_set')->nullable();
             $table->string('Settype_set')->nullable();
+
+            $table->string('Tabbuyer_set')->nullable();
+            $table->string('Tabsponser_set')->nullable();
+            $table->string('Tabcardetail_set')->nullable();
+            $table->string('Tabexpense_set')->nullable();
+            $table->string('Tabchecker_set')->nullable();
+            $table->string('Tabincome_set')->nullable();
+
             $table->string('Userupdate_set')->nullable();
             $table->timestamps();
         });

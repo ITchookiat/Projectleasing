@@ -29,9 +29,13 @@ class MainsettingController extends Controller
             $data = DB::table('mainsettings')
             ->where('Settype_set','=','เช่าซื้อ')
             ->first();
+
+            $data2 = DB::table('mainsettings')
+            ->where('Settype_set','=','เงินกู้')
+            ->first();
         }
         $type = $request->type;
-        return view('setting.option',compact('type','data'));
+        return view('setting.option',compact('type','data','data2'));
     }
 
     /**
@@ -77,12 +81,19 @@ class MainsettingController extends Controller
     public function update(Request $request, $id)
     {
         if($request->type == 1){
+            // dd($request->get('TabBuyer'));
             $Set1 = Mainsetting::find($request->SetID);
             if($Set1 != null){
                 $Set1->Dutyvalue_set = $request->get('Dutyvalue');
                 $Set1->Marketvalue_set = $request->get('Marketvalue');
                 $Set1->Comagent_set = $request->get('ComAgenttvalue');
                 $Set1->Taxvalue_set = $request->get('Taxvalue');
+                $Set1->Tabbuyer_set = $request->get('TabBuyer');
+                $Set1->Tabsponser_set = $request->get('TabSponser');
+                $Set1->Tabcardetail_set = $request->get('TabCardetail');
+                $Set1->Tabexpense_set = $request->get('TabExpense');
+                $Set1->Tabchecker_set = $request->get('TabChecker');
+                $Set1->Tabincome_set = $request->get('TabIncome');
                 $Set1->Userupdate_set = $request->get('NameUser');
                 $Set1->update();
             }else{
@@ -92,8 +103,47 @@ class MainsettingController extends Controller
                     'Marketvalue_set' => $request->get('Marketvalue'),
                     'Comagent_set' => $request->get('ComAgenttvalue'),
                     'Taxvalue_set' => $request->get('Taxvalue'),
+                    'Tabbuyer_set' => $request->get('TabBuyer'),
+                    'Tabsponser_set' => $request->get('TabSponser'),
+                    'Tabcardetail_set' => $request->get('TabCardetail'),
+                    'Tabexpense_set' => $request->get('TabExpense'),
+                    'Tabchecker_set' => $request->get('TabChecker'),
+                    'Tabincome_set' => $request->get('TabIncome'),
                     'Userupdate_set' => $request->get('NameUser'),
                     'Settype_set' => 'เช่าซื้อ',
+                ]);
+                $DataSet->save();
+            }
+        }
+        elseif($request->type == 2){
+            $Set2 = Mainsetting::find($request->SetID);
+            if($Set2 != null){
+                // $Set2->Dutyvalue_set = $request->get('Dutyvalue');
+                // $Set2->Marketvalue_set = $request->get('Marketvalue');
+                $Set2->Comagent_set = $request->get('ComAgenttvalue');
+                $Set2->Taxvalue_set = $request->get('Taxvalue');
+                $Set2->Tabbuyer_set = $request->get('TabBuyer');
+                $Set2->Tabsponser_set = $request->get('TabSponser');
+                $Set2->Tabcardetail_set = $request->get('TabCardetail');
+                $Set2->Tabexpense_set = $request->get('TabExpense');
+                $Set2->Tabchecker_set = $request->get('TabChecker');
+                $Set2->Tabincome_set = $request->get('TabIncome');
+                $Set2->Userupdate_set = $request->get('NameUser');
+                $Set2->update();
+            }else{
+                $DataSet = new Mainsetting([
+                    // 'Dutyvalue_set' => $request->get('Dutyvalue'),
+                    // 'Marketvalue_set' => $request->get('Marketvalue'),
+                    'Comagent_set' => $request->get('ComAgenttvalue'),
+                    'Taxvalue_set' => $request->get('Taxvalue'),
+                    'Tabbuyer_set' => $request->get('TabBuyer'),
+                    'Tabsponser_set' => $request->get('TabSponser'),
+                    'Tabcardetail_set' => $request->get('TabCardetail'),
+                    'Tabexpense_set' => $request->get('TabExpense'),
+                    'Tabchecker_set' => $request->get('TabChecker'),
+                    'Tabincome_set' => $request->get('TabIncome'),
+                    'Userupdate_set' => $request->get('NameUser'),
+                    'Settype_set' => 'เงินกู้',
                 ]);
                 $DataSet->save();
             }
