@@ -344,6 +344,8 @@ class TreasController extends Controller
                 ->orderBy('MP_Datas.Contract_MP', 'ASC')
                 ->get();
 
+                // dd($dataReport);
+
             $type = 101;
             $view = \View::make('Micro-Ploan.ReportDueDate' ,compact('dataReport','date2','type','newfdate','newtdate'));
             $html = $view->render();
