@@ -2132,7 +2132,7 @@
                           <div class="row">
                             <div class="col-6">
                               <div class="form-group row mb-0">
-                                  <label class="col-sm-3 col-form-label text-right text-xs">ปชช.ผู้แนะนำ/นายหน้า : </label>
+                                  <label class="col-sm-3 col-form-label text-right">ปชช.ผู้แนะนำ/นายหน้า : </label>
                                   <div class="col-sm-8">
                                     @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                                       <input type="text" id="IDAgentcar" name="IDAgentcar" value="{{$data->IDcardAgent_car}}" class="form-control form-control-sm"  placeholder="เลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask=""/>
