@@ -219,9 +219,9 @@
                 <div class="row">
                   <div class="col-6">
                     <div class="form-group row mb-0">
-                      <label class="col-sm-4 col-form-label text-right"><font color="red">* ป้ายทะเบียน :</font> </label>
+                      <label class="col-sm-4 col-form-label text-right">ป้ายทะเบียน :</label>
                       <div class="col-sm-8">
-                        <input type="text" name="Licensecar" class="form-control form-control-sm" placeholder="ป้อนป้ายทะเบียน" required/>
+                        <input type="text" name="Licensecar" class="form-control form-control-sm" placeholder="ป้อนป้ายทะเบียน"/>
                       </div>
                     </div>
                   </div>
@@ -280,7 +280,7 @@
                 <div class="row">
                   <div class="col-6">
                     <div class="form-group row mb-0">
-                    <label class="col-sm-4 col-form-label text-right">ยอดจัด : </label>
+                      <label class="col-sm-4 col-form-label text-right">ยอดจัด :</label>
                       <div class="col-sm-8">
                         <input type="text" id="Topcar" name="Topcar" class="form-control form-control-sm" placeholder="ป้อนยอดจัด" maxlength="9" />
                       </div>
@@ -310,7 +310,7 @@
                 <div class="row">
                   <div class="col-6">
                     <div class="form-group row mb-0">
-                    <label class="col-sm-4 col-form-label text-right">ระยะเวลา : </label>
+                      <label class="col-sm-4 col-form-label text-right">ระยะเวลา : </label>
                       <div class="col-sm-8">
                         <input type="text" id="Timelack" name="Timelack" class="form-control form-control-sm" placeholder="ป้อนระยะเวลา" />
                       </div>
@@ -328,7 +328,7 @@
                 <div class="row">
                   <div class="col-6">
                     <div class="form-group row mb-0">
-                    <label id="InterestText" class="col-sm-4 col-form-label text-right">ดอกเบี้ย/เดือน :</label>
+                      <label id="InterestText" class="col-sm-4 col-form-label text-right">ดอกเบี้ย/เดือน :</label>
                       <div class="col-sm-8">
                         <input type="text" id="Interest" name="Interest" class="form-control form-control-sm" placeholder="ป้อนดอกเบี้ย" />
                       </div>
@@ -336,7 +336,7 @@
                   </div>
                   <div class="col-6">
                     <div class="form-group row mb-0">
-                    <label class="col-sm-4 col-form-label text-right text-xs">ยอดชำระทั้งหมด  : </label>
+                    <label class="col-sm-4 col-form-label text-right">ยอดชำระทั้งหมด  : </label>
                       <div class="col-sm-7">
                         <input type="text" id="TotalPeriod" name="TotalPeriod" class="form-control form-control-sm" readonly/>
                         <input type="hidden" id="TotalPeriod2" name="TotalPeriod2" class="form-control form-control-sm" readonly/>
@@ -378,7 +378,7 @@
                     <div class="form-group row mb-0">
                     <label class="col-sm-4 col-form-label text-right">เบอร์ลูกค้า :</label>
                       <div class="col-sm-8">
-                        <input type="text" name="Phonebuyer" class="form-control form-control-sm" placeholder="ป้อนเบอร์ลูกค้า"/>
+                        <input type="text" name="Phonebuyer" class="form-control form-control-sm" placeholder="ป้อนเบอร์ลูกค้า" required/>
                       </div>
                     </div>
                   </div>
@@ -398,6 +398,7 @@
                       <div class="col-sm-8">
                         <input type="text" name="IDCardbuyer" class="form-control form-control-sm" placeholder="ป้อนเลขบัตร ปชช" maxlength="13"/>
                       </div>
+
                       <!-- <br>
                       <label class="col-sm-4 col-form-label text-right">ประเภทการจัด :</label>
                       <div class="col-sm-8">
@@ -411,6 +412,7 @@
                             <option value="P07">P07 - สัญญาเงินกู้พนักงาน</option>
                         </select>
                       </div> -->
+                      
                       <br>
                       <label class="col-sm-4 col-form-label text-right">ที่มาของลูกค้า :</label>
                       <div class="col-sm-8">
