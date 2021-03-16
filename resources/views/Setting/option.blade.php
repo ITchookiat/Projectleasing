@@ -516,56 +516,68 @@
         $("#demotopcar").val(addCommas(Topcar));
 
         if(Topcar != '' && Getinterest != ''){
-            // var Getinterest12 = Getinterest * 12;
+            var Getinterest12 = Getinterest * 12;
             var Interest12 = (Getinterest12 * 1) + 100;
             var Period12 = Math.ceil(((((Topcar * Interest12) / 100) * 1.07) / 12) /10) * 10;
             $("#Period12").text(addCommas(Period12));
 
-            var Interest18 = (Getinterest * 1.5) + 100;
+            var Getinterest18 = Getinterest * 12;
+            var Interest18 = (Getinterest18 * 1.5) + 100;
             var Period18 = Math.ceil(((((Topcar * Interest18) / 100) * 1.07) / 18) /10) * 10;
             $("#Period18").text(addCommas(Period18));
 
-            var Interest24 = (Getinterest * 2) + 100;
+            var Getinterest24 = Getinterest * 12;
+            var Interest24 = (Getinterest24 * 2) + 100;
             var Period24 = Math.ceil(((((Topcar * Interest24) / 100) * 1.07) / 24) /10) * 10;
             $("#Period24").text(addCommas(Period24));
 
-            var Interest30 = (Getinterest * 2.5) + 100;
+            var Getinterest30 = Getinterest * 12;
+            var Interest30 = (Getinterest30 * 2.5) + 100;
             var Period30 = Math.ceil(((((Topcar * Interest30) / 100) * 1.07) / 30) /10) * 10;
             $("#Period30").text(addCommas(Period30));
 
-            var Interest36 = (Getinterest * 3) + 100;
+            var Getinterest36 = Getinterest * 12;
+            var Interest36 = (Getinterest36 * 3) + 100;
             var Period36 = Math.ceil(((((Topcar * Interest36) / 100) * 1.07) / 36) /10) * 10;
             $("#Period36").text(addCommas(Period36));
 
-            var Interest42 = (Getinterest * 3.5) + 100;
+            var Getinterest42 = Getinterest * 12;
+            var Interest42 = (Getinterest42 * 3.5) + 100;
             var Period42 = Math.ceil(((((Topcar * Interest42) / 100) * 1.07) / 42) /10) * 10;
             $("#Period42").text(addCommas(Period42));
 
-            var Interest48 = (Getinterest * 4) + 100;
+            var Getinterest48 = Getinterest * 12;
+            var Interest48 = (Getinterest48 * 4) + 100;
             var Period48 = Math.ceil(((((Topcar * Interest48) / 100) * 1.07) / 48) /10) * 10;
             $("#Period48").text(addCommas(Period48));
 
-            var Interest54 = (Getinterest * 4.5) + 100;
+            var Getinterest54 = Getinterest * 12;
+            var Interest54 = (Getinterest54 * 4.5) + 100;
             var Period54 = Math.ceil(((((Topcar * Interest54) / 100) * 1.07) / 54) /10) * 10;
             $("#Period54").text(addCommas(Period54));
 
-            var Interest60 = (Getinterest * 5) + 100;
+            var Getinterest60 = Getinterest * 12;
+            var Interest60 = (Getinterest60 * 5) + 100;
             var Period60 = Math.ceil(((((Topcar * Interest60) / 100) * 1.07) / 60) /10) * 10;
             $("#Period60").text(addCommas(Period60));
 
-            var Interest66 = (Getinterest * 5.5) + 100;
+            var Getinterest66 = Getinterest * 12;
+            var Interest66 = (Getinterest66 * 5.5) + 100;
             var Period66 = Math.ceil(((((Topcar * Interest66) / 100) * 1.07) / 66) /10) * 10;
             $("#Period66").text(addCommas(Period66));
 
-            var Interest72 = (Getinterest * 6) + 100;
+            var Getinterest72 = Getinterest * 12;
+            var Interest72 = (Getinterest72 * 6) + 100;
             var Period72 = Math.ceil(((((Topcar * Interest72) / 100) * 1.07) / 72) /10) * 10;
             $("#Period72").text(addCommas(Period72));
 
-            var Interest78 = (Getinterest * 6.5) + 100;
+            var Getinterest78 = Getinterest * 12;
+            var Interest78 = (Getinterest78 * 6.5) + 100;
             var Period78 = Math.ceil(((((Topcar * Interest78) / 100) * 1.07) / 78) /10) * 10;
             $("#Period78").text(addCommas(Period78));
 
-            var Interest84 = (Getinterest * 7) + 100;
+            var Getinterest84 = Getinterest * 12;
+            var Interest84 = (Getinterest84 * 7) + 100;
             var Period84 = Math.ceil(((((Topcar * Interest84) / 100) * 1.07) / 84) /10) * 10;
             $("#Period84").text(addCommas(Period84));
 
