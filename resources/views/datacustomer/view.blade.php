@@ -306,7 +306,7 @@
                     </div>
                   </div>
                 </div>
-                <hr>
+                {{--<hr>
                 <div class="row">
                   <div class="col-6">
                     <div class="form-group row mb-0">
@@ -348,6 +348,7 @@
                     </div>
                   </div>
                 </div>
+                --}}
                 <hr>
                 <div class="row">
                   <div class="col-6">
