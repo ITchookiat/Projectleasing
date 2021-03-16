@@ -958,6 +958,8 @@ class AnalysController extends Controller
           // $destination_path = public_path().'/upload-image/'.$SetLicense;
           // Storage::makeDirectory($destination_path, 0777, true, true);
           // $image_array[$i]->move($destination_path,$image_new_name);
+          $path = public_path().'/upload-image/'.$SetLicense;
+          File::makeDirectory($path, $mode = 0777, true, true);
 
           //resize Image
           $image_resize = Image::make($image_array[$i]->getRealPath());

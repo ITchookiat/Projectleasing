@@ -68,8 +68,15 @@ class DataCustomerController extends Controller
             ->orderBY('created_at', 'DESC')
             ->get();
             }
+        $SettingValue = DB::table('mainsettings')
+            ->where('Settype_set','=','เช่าซื้อ')
+            ->first();
+
+        $SettingValue2 = DB::table('mainsettings')
+            ->where('Settype_set','=','เงินกู้')
+            ->first();
         $newtdate = $request->get('Todate');
-        return view('datacustomer.view', compact('data','type','newfdate','newtdate','status'));
+        return view('datacustomer.view', compact('data','type','newfdate','newtdate','status','SettingValue','SettingValue2'));
     }
 
     /**
@@ -95,7 +102,6 @@ class DataCustomerController extends Controller
         }else {
             $SetTopcar = 0;
         }
-
         $Customerdb = new Data_customer([
             'License_car' => $request->get('Licensecar'),
             'Brand_car' => $request->get('Brandcar'),

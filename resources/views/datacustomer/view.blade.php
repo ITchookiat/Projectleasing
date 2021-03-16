@@ -198,7 +198,7 @@
                 <div class="row">
                   <div class="col-6">
                     <div class="form-group row mb-0">
-                      <label class="col-sm-4 col-form-label text-right">ประเภทการจัด :</label>
+                      <label class="col-sm-4 col-form-label text-right"><font color="red"> * ประเภทการจัด : </font></label>
                       <div class="col-sm-8">
                         <select id="TypeLeasing" name="TypeLeasing" class="form-control form-control-sm" required>
                           <option value="" selected>--- เลือกประเภทจัดไฟแนนท์ ---</option>
@@ -219,7 +219,7 @@
                 <div class="row">
                   <div class="col-6">
                     <div class="form-group row mb-0">
-                      <label class="col-sm-4 col-form-label text-right"><font color="red">*** ป้ายทะเบียน :</font> </label>
+                      <label class="col-sm-4 col-form-label text-right"><font color="red">* ป้ายทะเบียน :</font> </label>
                       <div class="col-sm-8">
                         <input type="text" name="Licensecar" class="form-control form-control-sm" placeholder="ป้อนป้ายทะเบียน" required/>
                       </div>
@@ -280,9 +280,9 @@
                 <div class="row">
                   <div class="col-6">
                     <div class="form-group row mb-0">
-                    <label class="col-sm-4 col-form-label text-right"><font color="red"> ยอดจัด : </font> </label>
+                    <label class="col-sm-4 col-form-label text-right">ยอดจัด : </label>
                       <div class="col-sm-8">
-                        <input type="text" id="topcar" name="Topcar" class="form-control form-control-sm" placeholder="ป้อนยอดจัด" oninput="addcomma();" maxlength="9" />
+                        <input type="text" id="Topcar" name="Topcar" class="form-control form-control-sm" placeholder="ป้อนยอดจัด" maxlength="9" />
                       </div>
                     </div>
                   </div>
@@ -306,12 +306,13 @@
                     </div>
                   </div>
                 </div>
+                <hr>
                 <div class="row">
                   <div class="col-6">
                     <div class="form-group row mb-0">
-                    <label class="col-sm-4 col-form-label text-right"><font color="red"> ระยะเวลา : </font> </label>
+                    <label class="col-sm-4 col-form-label text-right">ระยะเวลา : </label>
                       <div class="col-sm-8">
-                        <input type="text" id="topcar" name="Topcar" class="form-control form-control-sm" placeholder="ป้อนระยะเวลา" />
+                        <input type="text" id="Timelack" name="Timelack" class="form-control form-control-sm" placeholder="ป้อนระยะเวลา" />
                       </div>
                     </div>
                   </div>
@@ -319,7 +320,7 @@
                     <div class="form-group row mb-0">
                     <label class="col-sm-4 col-form-label text-right">ชำระต่องวด  : </label>
                       <div class="col-sm-7">
-                        <input type="text" id="topcar" name="Topcar" class="form-control form-control-sm" readonly/>
+                        <input type="text" id="Period" name="Period" class="form-control form-control-sm" readonly/>
                       </div>
                     </div>
                   </div>
@@ -327,9 +328,9 @@
                 <div class="row">
                   <div class="col-6">
                     <div class="form-group row mb-0">
-                    <label class="col-sm-4 col-form-label text-right"><font color="red"> ดอกเบี้ย/ปี : </font> </label>
+                    <label id="InterestText" class="col-sm-4 col-form-label text-right">ดอกเบี้ย/เดือน :</label>
                       <div class="col-sm-8">
-                        <input type="text" id="topcar" name="Topcar" class="form-control form-control-sm" placeholder="ป้อนดอกเบี้ย/ปี" />
+                        <input type="text" id="Interest" name="Interest" class="form-control form-control-sm" placeholder="ป้อนดอกเบี้ย" />
                       </div>
                     </div>
                   </div>
@@ -337,12 +338,17 @@
                     <div class="form-group row mb-0">
                     <label class="col-sm-4 col-form-label text-right text-xs">ยอดชำระทั้งหมด  : </label>
                       <div class="col-sm-7">
-                        <input type="text" id="topcar" name="Topcar" class="form-control form-control-sm" readonly/>
+                        <input type="text" id="TotalPeriod" name="TotalPeriod" class="form-control form-control-sm" readonly/>
+                        <input type="hidden" id="TotalPeriod2" name="TotalPeriod2" class="form-control form-control-sm" readonly/>
+                        <input type="hidden" id="Tax" name="Tax" class="form-control form-control-sm" readonly/>
+                        <input type="hidden" id="Tax2" name="Tax2" class="form-control form-control-sm" readonly/>
+                        <input type="hidden" id="Durate" name="Durate" class="form-control form-control-sm" readonly/>
+                        <input type="hidden" id="Durate2" name="Durate2" class="form-control form-control-sm" readonly/>
                       </div>
                     </div>
                   </div>
                 </div>
-                  <hr>
+                <hr>
                 <div class="row">
                   <div class="col-6">
                     <div class="form-group row mb-0">
@@ -395,7 +401,7 @@
                       <!-- <br>
                       <label class="col-sm-4 col-form-label text-right">ประเภทการจัด :</label>
                       <div class="col-sm-8">
-                        <select id="TypeLeasing" name="TypeLeasing" class="form-control form-control-sm" required>
+                        <select name="TypeLeasing" class="form-control form-control-sm" required>
                           <option value="" selected>--- เลือกประเภทจัดไฟแนนท์ ---</option>
                             <option value="F01">F01 - สัญญาเช่าซื้อ</option>
                             <option value="" style="color:red">---------------------------------------------------------</option>
@@ -442,7 +448,7 @@
                     <div class="form-group row mb-0">
                     <label class="col-sm-4 col-form-label text-right">หมายเหตุ :</label>
                       <div class="col-sm-7">
-                        <textarea class="form-control" name="Notecar" rows="7" placeholder="ป้อนหมายเหตุ..."></textarea>
+                        <textarea class="form-control" name="Notecar" rows="4" placeholder="ป้อนหมายเหตุ..."></textarea>
                       </div>
                     </div>
                   </div>
@@ -521,10 +527,58 @@
         }
       return x1 + x2;
     }
-    function addcomma(){
-      var num11 = document.getElementById('topcar').value;
-      var num1 = num11.replace(",","");
-      document.form2.topcar.value = addCommas(num1);
-    }
+    $('#TypeLeasing,#Topcar,#Timelack,#Interest').on("input" ,function() {
+        var Gettype= document.getElementById('TypeLeasing').value;
+        var Gettopcar = document.getElementById('Topcar').value;
+        var Topcar = Gettopcar.replace(",","");
+        var Gettimelack = document.getElementById('Timelack').value;
+        var Getinterest = document.getElementById('Interest').value;
+        $("#Topcar").val(addCommas(Topcar));
+
+        if(Gettype == ""){
+          // $("#InterestText").text("ดอกเบี้ย :");
+        }
+        else if(Gettype == "F01"){
+          // $("#InterestText").text("ดอกเบี้ย/ปี :");
+          var Interest = Getinterest * 12;
+          var NewInterest = (Interest * 1) + 100;
+          var Period = Math.ceil(((((Topcar * NewInterest) / 100) * 1.07) / Gettimelack) /10) * 10;
+          var TotalPeriod = Period * Gettimelack;
+
+          var Durate = Period / (({{$SettingValue->Taxvalue_set}}/100) + 1);
+          var Durate2 = Durate.toFixed(2) * Gettimelack;
+          var Tax = Period - Durate;
+          var Tax2 = Tax.toFixed(2) * Gettimelack;
+
+          if(Gettimelack != "" && Getinterest != ""){
+            $("#Period").val(addCommas(Period.toFixed(2)));
+            $("#TotalPeriod").val(addCommas(TotalPeriod.toFixed(2)));
+
+            $("#TotalPeriod2").val(addCommas(TotalPeriod.toFixed(2)));
+            $("#Tax").val(addCommas(Tax.toFixed(2)));
+            $("#Tax2").val(addCommas(Tax2.toFixed(2)));
+            $("#Durate").val(addCommas(Durate.toFixed(2)));
+            $("#Durate2").val(addCommas(Durate2.toFixed(2)));
+          }
+        }
+        else{
+          // $("#InterestText").text("ดอกเบี้ย/เดือน :");
+          var InterestP = ((Getinterest / 100) / 1) * 12;
+          var ProcessP = (parseFloat(Topcar) + (parseFloat(Topcar) * parseFloat(InterestP) * (Gettimelack / 12))) / Gettimelack;
+          var str = ProcessP.toString();
+          var Setstring = parseInt(str.split(".", 1));
+          var PeriodP = Math.ceil(Setstring/10)*10;
+          var TotalPeriodP = PeriodP * Gettimelack;
+          var Profit = TotalPeriodP - Topcar;
+
+          if(Gettimelack != "" && Getinterest != ""){
+            $("#Period").val(addCommas(PeriodP));
+            $("#TotalPeriod").val(addCommas(TotalPeriodP));
+            $("#Tax").val(addCommas(Profit.toFixed(2)));
+          }
+        }
+
+
+    });
   </script>
 @endsection
