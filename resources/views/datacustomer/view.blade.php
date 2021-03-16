@@ -117,15 +117,13 @@
                         <thead>
                           <tr>
                             <th class="text-center" style="width:10px;">#</th>
-                            <th class="text-center">ลำดับ</th>
                             <th class="text-center">สาขา</th>
                             <th class="text-center">ประเภท</th>
                             <th class="text-center">วันที่เข้า</th>
                             <th class="text-center">ป้ายทะเบียน</th>
-                            <th class="text-center">ยอดจัด</th>
                             <th class="text-center">ชื่อลูกค้า</th>
                             <th class="text-center">เบอร์ติดต่อ</th>
-                            <th class="text-center">เลขบัตร ปชช</th>
+                            <th class="text-center">หมายเหตุ</th>
                             <th class="text-center" style="width:110px;"></th>
                           </tr>
                         </thead>
@@ -143,23 +141,25 @@
                                 </form>
                               @endif
                               </td>
-                              <td class="text-center">{{$key+1}}</td>
                               <td class="text-center">{{$row->Branch_car}}</td>
-                              <td class="text-center">{{$row->Type_leasing}}</td>
+                              <td class="text-left">{{$row->Type_leasing}}</td>
                               <td class="text-center">{{DateThai(substr($row->created_at,0,10))}}</td>
                               <td class="text-center">{{$row->License_car}}</td>
-                              <td class="text-center">{{number_format($row->Top_car,2)}}</td>
-                              <td class="text-center">{{($row->Name_buyer != Null) ? $row->Name_buyer : '-'}}   {{$row->Last_buyer}}</td>
+                              <td class="text-left">{{($row->Name_buyer != Null) ? $row->Name_buyer : '-'}}   {{$row->Last_buyer}}</td>
                               <td class="text-center">{{($row->Phone_buyer != Null) ? $row->Phone_buyer : '-'}}</td>
-                              <td class="text-center">{{($row->IDCard_buyer != Null) ? $row->IDCard_buyer : '-'}}</td>
+                              <td class="text-left">
+                                <span title="{{$row->Note_car}}">
+                                  {{ str_limit($row->Note_car,20) }}
+                                </span>  
+                              </td>
                               <td class="text-right">
                                 @if($row->Status_leasing == 1) 
                                   <a href="{{ route('DataCustomer.savestatus', [2, $row->Customer_id]) }}" class="btn btn-warning btn-sm" title="จัดไฟแนนท์">
-                                    <i class="far fa-edit"></i> จัดไฟแนนท์
+                                    <i class="far fa-edit"></i>
                                   </a>
                                 @else
                                   <a href="#" class="btn btn-success btn-sm" title="ส่งแล้ว">
-                                    <i class="fas fa-check"></i> ส่งแล้ว
+                                    <i class="fas fa-check"></i>
                                   </a> 
                                 @endif
                               </td>
