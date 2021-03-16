@@ -219,9 +219,9 @@
                 <div class="row">
                   <div class="col-6">
                     <div class="form-group row mb-0">
-                      <label class="col-sm-4 col-form-label text-right"><font color="red">*** ป้ายทะเบียน :</font> </label>
+                      <label class="col-sm-4 col-form-label text-right">ป้ายทะเบียน :</label>
                       <div class="col-sm-8">
-                        <input type="text" name="Licensecar" class="form-control form-control-sm" placeholder="ป้อนป้ายทะเบียน" required/>
+                        <input type="text" name="Licensecar" class="form-control form-control-sm" placeholder="ป้อนป้ายทะเบียน"/>
                       </div>
                     </div>
                   </div>
@@ -280,7 +280,7 @@
                 <div class="row">
                   <div class="col-6">
                     <div class="form-group row mb-0">
-                    <label class="col-sm-4 col-form-label text-right"><font color="red"> ยอดจัด : </font> </label>
+                    <label class="col-sm-4 col-form-label text-right">ยอดจัด :</label>
                       <div class="col-sm-8">
                         <input type="text" id="topcar" name="Topcar" class="form-control form-control-sm" placeholder="ป้อนยอดจัด" oninput="addcomma();" maxlength="9" />
                       </div>
@@ -309,7 +309,7 @@
                 <div class="row">
                   <div class="col-6">
                     <div class="form-group row mb-0">
-                    <label class="col-sm-4 col-form-label text-right"><font color="red"> ระยะเวลา : </font> </label>
+                    <label class="col-sm-4 col-form-label text-right"> ระยะเวลา :</label>
                       <div class="col-sm-8">
                         <input type="text" id="topcar" name="Topcar" class="form-control form-control-sm" placeholder="ป้อนระยะเวลา" />
                       </div>
@@ -327,7 +327,7 @@
                 <div class="row">
                   <div class="col-6">
                     <div class="form-group row mb-0">
-                    <label class="col-sm-4 col-form-label text-right"><font color="red"> ดอกเบี้ย/ปี : </font> </label>
+                    <label class="col-sm-4 col-form-label text-right">ดอกเบี้ย/ปี :</label>
                       <div class="col-sm-8">
                         <input type="text" id="topcar" name="Topcar" class="form-control form-control-sm" placeholder="ป้อนดอกเบี้ย/ปี" />
                       </div>
@@ -335,7 +335,7 @@
                   </div>
                   <div class="col-6">
                     <div class="form-group row mb-0">
-                    <label class="col-sm-4 col-form-label text-right text-xs">ยอดชำระทั้งหมด  : </label>
+                    <label class="col-sm-4 col-form-label text-right">ยอดชำระทั้งหมด  : </label>
                       <div class="col-sm-7">
                         <input type="text" id="topcar" name="Topcar" class="form-control form-control-sm" readonly/>
                       </div>
@@ -372,7 +372,7 @@
                     <div class="form-group row mb-0">
                     <label class="col-sm-4 col-form-label text-right">เบอร์ลูกค้า :</label>
                       <div class="col-sm-8">
-                        <input type="text" name="Phonebuyer" class="form-control form-control-sm" placeholder="ป้อนเบอร์ลูกค้า"/>
+                        <input type="text" name="Phonebuyer" class="form-control form-control-sm" placeholder="ป้อนเบอร์ลูกค้า" required/>
                       </div>
                     </div>
                   </div>
@@ -392,19 +392,6 @@
                       <div class="col-sm-8">
                         <input type="text" name="IDCardbuyer" class="form-control form-control-sm" placeholder="ป้อนเลขบัตร ปชช" maxlength="13"/>
                       </div>
-                      <!-- <br>
-                      <label class="col-sm-4 col-form-label text-right">ประเภทการจัด :</label>
-                      <div class="col-sm-8">
-                        <select id="TypeLeasing" name="TypeLeasing" class="form-control form-control-sm" required>
-                          <option value="" selected>--- เลือกประเภทจัดไฟแนนท์ ---</option>
-                            <option value="F01">F01 - สัญญาเช่าซื้อ</option>
-                            <option value="" style="color:red">---------------------------------------------------------</option>
-                            <option value="P03">P03 - สัญญาเงินกู้รถยนต์</option>
-                            <option value="P04">P04 - สัญญาเงินกู้รถจักรยานยนต์</option>
-                            <option value="P06">P06 - สัญญาเงินกู้ส่วนบุคคล</option>
-                            <option value="P07">P07 - สัญญาเงินกู้พนักงาน</option>
-                        </select>
-                      </div> -->
                       <br>
                       <label class="col-sm-4 col-form-label text-right">ที่มาของลูกค้า :</label>
                       <div class="col-sm-8">
