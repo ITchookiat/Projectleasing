@@ -685,7 +685,8 @@
           }
 
 
-          var a = (num2 * period) + 100;
+          var Newinterest = num2 * 12;
+          var a = (Newinterest * period) + 100;
           var b = (((totaltopcar * a) / 100) * (({{$SettingValue->Taxvalue_set}}/100) + 1)) / num4;
           var result = Math.ceil(b/10) * 10;
           var durate = result / (({{$SettingValue->Taxvalue_set}}/100) + 1);
