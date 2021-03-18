@@ -557,18 +557,18 @@
     </body>
   @elseif($type == 4)     <!-- รายงาน ตรวจสอบการรับชำระ -->
     <body>
-      <br>
       <table border="1">
           <tr align="center" style="background-color: yellow;line-height: 150%;font-weight:bold;">
             <th style="width: 30px">ลำดับ</th>
-            <th style="width: 80px">เลขที่สัญญา</th>
-            <th style="width: 150px">ชื่อ - สกุล</th>
+            <th style="width: 70px">เลขที่สัญญา</th>
+            <th style="width: 130px">ชื่อ - สกุล</th>
             <th style="width: 70px">วันที่รับชำระ</th>
             <th style="width: 60px">ยอดชำระ</th>
+            <th style="width: 60px">ยอดคงเหลือ</th>
             <th style="width: 90px">ประเภทชำระ</th>
-            <th style="width: 75px">เลขที่ใบเสร็จ</th>
-            <th style="width: 130px">ผู้รับชำระ</th>
-            <th style="width: 120px">หมายเหตุ</th>
+            <th style="width: 70px">เลขที่ใบเสร็จ</th>
+            <th style="width: 120px">ผู้รับชำระ</th>
+            <th style="width: 90px">หมายเหตุ</th>
           </tr>
           @php
             $sumTotal = 0;
@@ -581,14 +581,15 @@
             @endphp
             <tr style="line-height: 110%;">
               <td align="center" style="width: 30px">{{$key+1}}</td>
-              <td align="center" style="width: 80px">{{$row->Contract_legis}}</td>
-              <td align="left" style="width: 150px">&nbsp;{{$row->Name_legis}}</td>
+              <td align="center" style="width: 70px">{{$row->Contract_legis}}</td>
+              <td align="left" style="width: 130px">&nbsp;{{$row->Name_legis}}</td>
               <td align="center" style="width: 70px">{{DateThai(substr($row->created_at,0,10))}}</td>
               <td align="right" style="width: 60px">{{number_format($row->Gold_Payment,2)}} &nbsp;</td>
+              <td align="right" style="width: 60px">{{number_format($row->Sum_Promise, 2) }} &nbsp;</td>
               <td align="center" style="width: 90px">{{$row->Type_Payment}}</td>
-              <td align="center" style="width: 75px">{{$row->Jobnumber_Payment}}</td>
-              <td align="left" style="width: 130px">&nbsp; {{$row->Adduser_Payment}}</td>
-              <td align="left" style="width: 120px">&nbsp; {{$row->Note_Payment}}</td>
+              <td align="center" style="width: 70px">{{$row->Jobnumber_Payment}}</td>
+              <td align="left" style="width: 120px">&nbsp; {{$row->Adduser_Payment}}</td>
+              <td align="left" style="width: 90px">&nbsp; {{$row->Note_Payment}}</td>
             </tr>
           @endforeach
       </table>

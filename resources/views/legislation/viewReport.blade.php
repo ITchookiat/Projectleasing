@@ -302,7 +302,7 @@
           </div>
         </form>
       @elseif($type == 3) {{--ตรวจสอบการรับชำระ--}}
-        <form name="form1" action="{{ route('LegisCompro.ReportCompro',[4]) }}" target="_blank" method="get" id="formimage" enctype="multipart/form-data">
+        <form name="form1" action="{{ route('LegisCompro.ReportCompro', 4) }}" target="_blank" method="get" id="formimage" enctype="multipart/form-data">
           <div class="form-row">
             <div class="form-group col-md-6">
               <label>จากวันที่</label>

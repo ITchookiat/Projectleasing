@@ -435,6 +435,8 @@ class LegisComproController extends Controller
         $LegisPromise->update();
       }
 
+
+
       $data = DB::table('legislations')
           ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
           ->where('Legiscompromises.legisPromise_id', $id)
@@ -445,6 +447,7 @@ class LegisComproController extends Controller
       $Legislation = Legislation::find($id);
         $Legislation->KeyCompro_id = $data->Promise_id;
         $Legislation->Status_legis = $SetStatuslegis;
+        $Legislation->UserStatus_legis = auth()->user()->name;
         $Legislation->DateUpState_legis = $SetDateStatuslegis;
       $Legislation->update();
 
@@ -656,6 +659,7 @@ class LegisComproController extends Controller
 
         if ($request->Flag == 1) {
           $data = DB::table('legislations')
+            ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
             ->leftJoin('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
             ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
               return $q->whereBetween('legispayments.created_at',[$newfdate,$newtdate]);
@@ -666,12 +670,13 @@ class LegisComproController extends Controller
             ->orderBy('legispayments.created_at','ASC')
             ->get();
 
+            // dd($data);
           $newtdate = Carbon::parse($tdate);
 
           $pdf = new PDF();
           $pdf::SetTitle('รายงานตรวจสอบยอดชำระ');
           $pdf::AddPage('L', 'A4');
-          $pdf::SetFont('thsarabunpsk', '', 14, '', true);
+          $pdf::SetFont('thsarabunpsk', '', 12, '', true);
           $pdf::SetMargins(5, 5, 5, 0);
           $pdf::SetAutoPageBreak(TRUE, 18);
 
