@@ -31,7 +31,7 @@
                                     <input type="hidden" name="_method" value="PATCH"/>  
                                     <div class="row">
                                         <div class="col-12">
-                                            <div class="form-group row mb-1">
+                                            <div class="form-group row mb-0">
                                             <label class="col-sm-4 col-form-label text-right">ค่าอากร :</label>
                                                 <div class="col-sm-6">
                                                     <input type="text" name="Dutyvalue" value="{{($data != null)?$data->Dutyvalue_set:''}}" class="form-control form-control" placeholder="ป้อนค่าอากร" required/>
@@ -41,7 +41,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-12">
-                                            <div class="form-group row mb-1">
+                                            <div class="form-group row mb-0">
                                             <label class="col-sm-4 col-form-label text-right">ค่าการตลาด :</label>
                                             <div class="col-sm-6">
                                                 <input type="text" name="Marketvalue" value="{{($data != null)?$data->Marketvalue_set:''}}" class="form-control form-control" placeholder="ป้อนค่าการตลาด" required/>
@@ -51,7 +51,32 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-12">
-                                            <div class="form-group row mb-1">
+                                            <div class="form-group row mb-0">
+                                                <label class="col-sm-4 col-form-label text-right">แบบดอกเบี้ย :</label>
+                                                <div class="col-sm-6">
+                                                    <select id="" name="Interesttype" class="form-control form-control">
+                                                    @if($data != null)
+                                                        @if($data->Interesttype_set != null)
+                                                            <option value="12" {{ ($data->Interesttype_set === '12') ? 'selected' : '' }}>ต่อเดือน</option>
+                                                            <option value="1" {{ ($data->Interesttype_set === '1') ? 'selected' : '' }}>ต่อปี</option>
+                                                        @else
+                                                            <option value="" selected>--- เลือกแบบดอกเบี้ย ---</option>
+                                                            <option value="12">ต่อเดือน</option>
+                                                            <option value="1">ต่อปี</option>
+                                                        @endif
+                                                    @else
+                                                            <option value="" selected>--- เลือกแบบดอกเบี้ย ---</option>
+                                                            <option value="12">ต่อเดือน</option>
+                                                            <option value="11">ต่อปี</option>
+                                                    @endif
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group row mb-0">
                                             <label class="col-sm-4 col-form-label text-right">ค่าคอมหลังหัก :</label>
                                             <div class="col-sm-6">
                                                 <input type="text" name="ComAgenttvalue" value="{{($data != null)?$data->Comagent_set:''}}" class="form-control form-control" placeholder="ป้อนค่าคอมหลังหัก" required/>
@@ -62,7 +87,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-12">
-                                            <div class="form-group row mb-1">
+                                            <div class="form-group row mb-0">
                                             <label class="col-sm-4 col-form-label text-right">ภาษี :</label>
                                             <div class="col-sm-6">
                                                 <input type="text" name="Taxvalue" value="{{($data != null)?$data->Taxvalue_set:''}}" class="form-control form-control" placeholder="ป้อนภาษี" required/>
@@ -74,7 +99,7 @@
                                     <hr>
                                     <div class="row">
                                         <div class="col-12">
-                                            <div class="form-group row mb-1">
+                                            <div class="form-group row mb-0">
                                                 <label class="col-sm-8 col-form-label text-right">แท็บ แบบฟอร์มผู้เช่าซื้อ :</label>
                                                 <div class="col-sm-4">
                                                     @if($data != null)
@@ -88,7 +113,7 @@
                                                     @endif
                                                 </div>
                                             </div>
-                                            <div class="form-group row mb-1">
+                                            <div class="form-group row mb-0">
                                                 <label class="col-sm-8 col-form-label text-right">แท็บ แบบฟอร์มผู้ค้ำ :</label>
                                                 <div class="col-sm-4">
                                                     @if($data != null)
@@ -102,7 +127,7 @@
                                                     @endif
                                                 </div>
                                             </div>
-                                            <div class="form-group row mb-1">
+                                            <div class="form-group row mb-0">
                                                 <label class="col-sm-8 col-form-label text-right">แท็บ แบบฟอร์มรถยนต์ :</label>
                                                 <div class="col-sm-4">
                                                     @if($data != null)
@@ -116,7 +141,7 @@
                                                     @endif
                                                 </div>
                                             </div>
-                                            <div class="form-group row mb-1">
+                                            <div class="form-group row mb-0">
                                                 <label class="col-sm-8 col-form-label text-right">แท็บ แบบฟอร์มค่าใช้จ่าย :</label>
                                                 <div class="col-sm-4">
                                                     @if($data != null)
@@ -130,7 +155,7 @@
                                                     @endif
                                                 </div>
                                             </div>
-                                            <div class="form-group row mb-1">
+                                            <div class="form-group row mb-0">
                                                 <label class="col-sm-8 col-form-label text-right">แท็บ checker :</label>
                                                 <div class="col-sm-4">
                                                     @if($data != null)
@@ -144,7 +169,7 @@
                                                     @endif
                                                 </div>
                                             </div>
-                                            <div class="form-group row mb-1">
+                                            <div class="form-group row mb-0">
                                                 <label class="col-sm-8 col-form-label text-right">แท็บ ที่มารายได้ :</label>
                                                 <div class="col-sm-4">
                                                     @if($data != null)
@@ -174,10 +199,35 @@
                                 <form name="form2" action="{{ route('MasterSetting.update',[0]) }}?type={{2}}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     @method('put')
-                                    <input type="hidden" name="_method" value="PATCH"/>  
+                                    <input type="hidden" name="_method" value="PATCH"/>
                                     <div class="row">
                                         <div class="col-12">
-                                            <div class="form-group row mb-1">
+                                            <div class="form-group row mb-0">
+                                                <label class="col-sm-4 col-form-label text-right">แบบดอกเบี้ย :</label>
+                                                <div class="col-sm-6">
+                                                    <select id="" name="Interesttype" class="form-control form-control">
+                                                    @if($data2 != null)
+                                                        @if($data2->Interesttype_set != null)
+                                                            <option value="12" {{ ($data2->Interesttype_set === '12') ? 'selected' : '' }}>ต่อเดือน</option>
+                                                            <option value="1" {{ ($data2->Interesttype_set === '1') ? 'selected' : '' }}>ต่อปี</option>
+                                                        @else
+                                                            <option value="" selected>--- เลือกแบบดอกเบี้ย ---</option>
+                                                            <option value="12">ต่อเดือน</option>
+                                                            <option value="1">ต่อปี</option>
+                                                        @endif
+                                                    @else
+                                                            <option value="" selected>--- เลือกแบบดอกเบี้ย ---</option>
+                                                            <option value="12">ต่อเดือน</option>
+                                                            <option value="1">ต่อปี</option>
+                                                    @endif
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group row mb-0">
                                             <label class="col-sm-4 col-form-label text-right">ค่าคอมหลังหัก :</label>
                                             <div class="col-sm-6">
                                                 <input type="text" name="ComAgenttvalue" value="{{($data2 != null)?$data2->Comagent_set:''}}" class="form-control form-control" placeholder="ป้อนค่าคอมหลังหัก" required/>
@@ -186,9 +236,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{--<div class="row">
+                                    <div class="row">
                                         <div class="col-12">
-                                            <div class="form-group row mb-1">
+                                            <div class="form-group row mb-0">
                                             <label class="col-sm-4 col-form-label text-right">ภาษี :</label>
                                             <div class="col-sm-6">
                                                 <input type="text" name="Taxvalue" value="{{($data2 != null)?$data2->Taxvalue_set:''}}" class="form-control form-control" placeholder="ป้อนภาษี" required/>
@@ -196,11 +246,11 @@
                                             <label class="col-sm-1 col-form-label text-left">%</label>
                                             </div>
                                         </div>
-                                    </div>--}}
+                                    </div>
                                     <hr>
                                     <div class="row">
                                         <div class="col-12">
-                                            <div class="form-group row mb-1">
+                                            <div class="form-group row mb-0">
                                                 <label class="col-sm-8 col-form-label text-right">แท็บ แบบฟอร์มผู้เช่าซื้อ :</label>
                                                 <div class="col-sm-4">
                                                     @if($data2 != null)
@@ -214,7 +264,7 @@
                                                     @endif
                                                 </div>
                                             </div>
-                                            <div class="form-group row mb-1">
+                                            <div class="form-group row mb-0">
                                                 <label class="col-sm-8 col-form-label text-right">แท็บ แบบฟอร์มผู้ค้ำ :</label>
                                                 <div class="col-sm-4">
                                                     @if($data2 != null)
@@ -228,7 +278,7 @@
                                                     @endif
                                                 </div>
                                             </div>
-                                            <div class="form-group row mb-1">
+                                            <div class="form-group row mb-0">
                                                 <label class="col-sm-8 col-form-label text-right">แท็บ แบบฟอร์มรถยนต์ :</label>
                                                 <div class="col-sm-4">
                                                     @if($data2 != null)
@@ -242,7 +292,7 @@
                                                     @endif
                                                 </div>
                                             </div>
-                                            <div class="form-group row mb-1">
+                                            <div class="form-group row mb-0">
                                                 <label class="col-sm-8 col-form-label text-right">แท็บ แบบฟอร์มค่าใช้จ่าย :</label>
                                                 <div class="col-sm-4">
                                                     @if($data2 != null)
@@ -256,7 +306,7 @@
                                                     @endif
                                                 </div>
                                             </div>
-                                            <div class="form-group row mb-1">
+                                            <div class="form-group row mb-0">
                                                 <label class="col-sm-8 col-form-label text-right">แท็บ checker :</label>
                                                 <div class="col-sm-4">
                                                     @if($data2 != null)
@@ -270,7 +320,7 @@
                                                     @endif
                                                 </div>
                                             </div>
-                                            <div class="form-group row mb-1">
+                                            <div class="form-group row mb-0">
                                                 <label class="col-sm-8 col-form-label text-right">แท็บ ที่มารายได้ :</label>
                                                 <div class="col-sm-4">
                                                     @if($data2 != null)
@@ -333,9 +383,18 @@
                                             <div class="col-sm-6 mb-1">
                                                 <input type="text" id="demotopcar" name="demotopcar" maxlength="7" class="form-control form-control" placeholder="ป้อนยอดจัด" required/>
                                             </div>
-                                            <label class="col-sm-4 col-form-label text-right">ดอกเบี้ย/เดือน :</label>
+                                            <label class="col-sm-4 col-form-label text-right">
+                                            @if($data->Interesttype_set == '12')
+                                                ดอกเบี้ย/เดือน :
+                                            @elseif($data->Interesttype_set == '1')
+                                                ดอกเบี้ย/ปี :
+                                            @else 
+                                                ดอกเบี้ย :
+                                            @endif
+                                            </label>
                                             <div class="col-sm-6">
                                                 <input type="text" id="demointerest" name="demointerest" class="form-control form-control" placeholder="ป้อนดอกเบี้ย" required/>
+                                                <input type="hidden" id="interesttype" value="{{($data != null)?$data->Interesttype_set:''}}" class="form-control form-control" required/>
                                             </div>
                                         </div>
                                     </div>
@@ -414,9 +473,18 @@
                                             <div class="col-sm-6 mb-1">
                                                 <input type="text" id="demotopcarP" name="demotopcar" maxlength="7" class="form-control form-control" placeholder="ป้อนเงินต้น" required/>
                                             </div>
-                                            <label class="col-sm-4 col-form-label text-right">ดอกเบี้ย/เดือน :</label>
+                                            <label class="col-sm-4 col-form-label text-right">
+                                                @if($data2->Interesttype_set == '12')
+                                                    ดอกเบี้ย/เดือน :
+                                                @elseif($data2->Interesttype_set == '1')
+                                                    ดอกเบี้ย/ปี :
+                                                @else 
+                                                    ดอกเบี้ย :
+                                                @endif
+                                            </label>
                                             <div class="col-sm-6">
                                                 <input type="text" id="demointerestP" name="demointerest" class="form-control form-control" placeholder="ป้อนดอกเบี้ย" required/>
+                                                <input type="hidden" id="interesttypeP" value="{{($data2 != null)?$data2->Interesttype_set:''}}" class="form-control form-control" required/>
                                             </div>
                                         </div>
                                     </div>
@@ -516,67 +584,69 @@
         $("#demotopcar").val(addCommas(Topcar));
 
         if(Topcar != '' && Getinterest != ''){
-            var Getinterest12 = Getinterest * 12;
+            var Typeinterest = document.getElementById('interesttype').value;
+
+            var Getinterest12 = Getinterest * Typeinterest;
             var Interest12 = (Getinterest12 * 1) + 100;
             var Period12 = Math.ceil(((((Topcar * Interest12) / 100) * 1.07) / 12) /10) * 10;
             $("#Period12").text(addCommas(Period12));
 
-            var Getinterest18 = Getinterest * 12;
+            var Getinterest18 = Getinterest * Typeinterest;
             var Interest18 = (Getinterest18 * 1.5) + 100;
             var Period18 = Math.ceil(((((Topcar * Interest18) / 100) * 1.07) / 18) /10) * 10;
             $("#Period18").text(addCommas(Period18));
 
-            var Getinterest24 = Getinterest * 12;
+            var Getinterest24 = Getinterest * Typeinterest;
             var Interest24 = (Getinterest24 * 2) + 100;
             var Period24 = Math.ceil(((((Topcar * Interest24) / 100) * 1.07) / 24) /10) * 10;
             $("#Period24").text(addCommas(Period24));
 
-            var Getinterest30 = Getinterest * 12;
+            var Getinterest30 = Getinterest * Typeinterest;
             var Interest30 = (Getinterest30 * 2.5) + 100;
             var Period30 = Math.ceil(((((Topcar * Interest30) / 100) * 1.07) / 30) /10) * 10;
             $("#Period30").text(addCommas(Period30));
 
-            var Getinterest36 = Getinterest * 12;
+            var Getinterest36 = Getinterest * Typeinterest;
             var Interest36 = (Getinterest36 * 3) + 100;
             var Period36 = Math.ceil(((((Topcar * Interest36) / 100) * 1.07) / 36) /10) * 10;
             $("#Period36").text(addCommas(Period36));
 
-            var Getinterest42 = Getinterest * 12;
+            var Getinterest42 = Getinterest * Typeinterest;
             var Interest42 = (Getinterest42 * 3.5) + 100;
             var Period42 = Math.ceil(((((Topcar * Interest42) / 100) * 1.07) / 42) /10) * 10;
             $("#Period42").text(addCommas(Period42));
 
-            var Getinterest48 = Getinterest * 12;
+            var Getinterest48 = Getinterest * Typeinterest;
             var Interest48 = (Getinterest48 * 4) + 100;
             var Period48 = Math.ceil(((((Topcar * Interest48) / 100) * 1.07) / 48) /10) * 10;
             $("#Period48").text(addCommas(Period48));
 
-            var Getinterest54 = Getinterest * 12;
+            var Getinterest54 = Getinterest * Typeinterest;
             var Interest54 = (Getinterest54 * 4.5) + 100;
             var Period54 = Math.ceil(((((Topcar * Interest54) / 100) * 1.07) / 54) /10) * 10;
             $("#Period54").text(addCommas(Period54));
 
-            var Getinterest60 = Getinterest * 12;
+            var Getinterest60 = Getinterest * Typeinterest;
             var Interest60 = (Getinterest60 * 5) + 100;
             var Period60 = Math.ceil(((((Topcar * Interest60) / 100) * 1.07) / 60) /10) * 10;
             $("#Period60").text(addCommas(Period60));
 
-            var Getinterest66 = Getinterest * 12;
+            var Getinterest66 = Getinterest * Typeinterest;
             var Interest66 = (Getinterest66 * 5.5) + 100;
             var Period66 = Math.ceil(((((Topcar * Interest66) / 100) * 1.07) / 66) /10) * 10;
             $("#Period66").text(addCommas(Period66));
 
-            var Getinterest72 = Getinterest * 12;
+            var Getinterest72 = Getinterest * Typeinterest;
             var Interest72 = (Getinterest72 * 6) + 100;
             var Period72 = Math.ceil(((((Topcar * Interest72) / 100) * 1.07) / 72) /10) * 10;
             $("#Period72").text(addCommas(Period72));
 
-            var Getinterest78 = Getinterest * 12;
+            var Getinterest78 = Getinterest * Typeinterest;
             var Interest78 = (Getinterest78 * 6.5) + 100;
             var Period78 = Math.ceil(((((Topcar * Interest78) / 100) * 1.07) / 78) /10) * 10;
             $("#Period78").text(addCommas(Period78));
 
-            var Getinterest84 = Getinterest * 12;
+            var Getinterest84 = Getinterest * Typeinterest;
             var Interest84 = (Getinterest84 * 7) + 100;
             var Period84 = Math.ceil(((((Topcar * Interest84) / 100) * 1.07) / 84) /10) * 10;
             $("#Period84").text(addCommas(Period84));
@@ -593,8 +663,8 @@
         $("#demotopcarP").val(addCommas(TopcarP));
 
         if(TopcarP != '' && GetinterestP != ''){
-            var InterestP = ((GetinterestP / 100) / 1) * 12; //กรณีจะคำนวณดอกเบี้ยต่อเดือน
-            // var InterestP = ((GetinterestP / 100) / 1); //กรณีจะคำนวณดอกเบี้ยต่อปี
+            var TypeinterestP = document.getElementById('interesttypeP').value;
+            var InterestP = ((GetinterestP / 100) / 1) * TypeinterestP;
 
             var Process12P = (parseFloat(TopcarP) + (parseFloat(TopcarP) * parseFloat(InterestP) * (12 / 12))) / 12;
             var str12 = Process12P.toString();

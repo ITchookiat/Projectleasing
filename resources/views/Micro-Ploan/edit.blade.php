@@ -1221,6 +1221,11 @@
                                       $Setlisence = $data->License_car;
                                       $SetTypecon = $data->Type_Con;
                                     @endphp
+                                  @else 
+                                    @php
+                                      $Setlisence = '';
+                                      $SetTypecon = '';
+                                    @endphp
                                   @endif
                                   <div class="form-inline">
                                     @if(substr($data->createdBuyers_at,0,10) < $Currdate)
@@ -2007,7 +2012,15 @@
                           <div class="row">
                             <div class="col-6">
                               <div class="form-group row mb-0">
-                                <label class="col-sm-3 col-form-label text-right">ดอกเบี้ย/เดือน : </label>
+                                <label class="col-sm-3 col-form-label text-right">
+                                  @if($SettingValue->Interesttype_set == '12')
+                                      ดอกเบี้ย/เดือน :
+                                  @elseif($SettingValue->Interesttype_set == '1')
+                                      ดอกเบี้ย/ปี :
+                                  @else 
+                                      ดอกเบี้ย :
+                                  @endif
+                                </label>
                                 <div class="col-sm-7">
                                   @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                     <input type="text" id="Interestcar" name="Interestcar" value="{{$data->Interest_car}}" class="form-control form-control-sm" placeholder="ป้อนดอกเบี้ย" oninput="calculate2();balance2();"/>
@@ -2018,6 +2031,7 @@
                                       <input type="text" id="Interestcar" name="Interestcar" value="{{$data->Interest_car}}" class="form-control form-control-sm" placeholder="ป้อนดอกเบี้ย" oninput="calculate2();balance2();"/>
                                     @endif
                                   @endif
+                                  <input type="hidden" id="Interesttype" name="Interestcar" value="{{$SettingValue->Interesttype_set}}" />
                                 </div>
                                 <label class="col-sm-1 col-form-label text-left">% </label>
                               </div>
@@ -2524,14 +2538,6 @@
                                   </div>
                                 </div>
                                 <div class="card-body">
-
-                                  @if($data->License_car != NULL)
-                                    @php
-                                      $Setlisence = $data->License_car;
-                                      $SetTypecon = $data->Type_Con;
-                                    @endphp
-                                  @endif
-
                                   <div class="row">
                                     @if(substr($data->createdBuyers_at,0,10) < $Currdate)
                                       @if ($data->AccountImage_car != NULL)
@@ -2622,7 +2628,7 @@
                             </div>
                             <div class="col-6">
                               <div class="form-group row mb-0">
-                                <label class="col-sm-3 col-form-label text-right">ค่าคอมหลังหัก 3%  : </label>
+                                <label class="col-sm-3 col-form-label text-right">ค่าคอมหลังหัก {{$SettingValue->Comagent_set}}%  : </label>
                                 <div class="col-sm-8">
                                   <input type="text" id="commitPrice" name="commitPrice" value="{{$data->commit_Price}}" class="form-control form-control-sm" placeholder="ค่าคอมหลังหัก" readonly/>
                                 </div>
@@ -2756,11 +2762,6 @@
                                       <div class="card-title">
                                         รูปภาพผู้ค้ำ
                                       </div>
-                                      @if($data->License_car != NULL)
-                                        @php
-                                          $Setlisence = $data->License_car;
-                                        @endphp
-                                      @endif
                                       <div class="card-tools">
                                         <a href="{{ action('MPController@destroyImage',$data->id)}}?type={{2}}&Flag={{3}}&path={{$path}}&Typecon={{$data->Type_Con}}" class="pull-left DeleteImage">
                                           <i class="far fa-trash-alt"></i>
@@ -2945,11 +2946,6 @@
                                       <div class="card-title">
                                         รูปภาพรายได้ผู้เช่าซื้อ
                                       </div>
-                                      @if($data->License_car != NULL)
-                                        @php
-                                          $Setlisence = $data->License_car;
-                                        @endphp
-                                      @endif
                                       <div class="card-tools">
                                         <a href="{{ action('MPController@destroyImage',$data->id)}}?type={{2}}&Flag={{4}}&path={{$path}}&Typecon={{$data->Type_Con}}" class="pull-left DeleteImage">
                                           <i class="far fa-trash-alt"></i>
@@ -3044,11 +3040,6 @@
                                       <div class="card-title">
                                         รูปภาพรายได้ผู้ค้ำ
                                       </div>
-                                      @if($data->License_car != NULL)
-                                        @php
-                                          $Setlisence = $data->License_car;
-                                        @endphp
-                                      @endif
                                       <div class="card-tools">
                                         <a href="{{ action('MPController@destroyImage',$data->id)}}?type={{2}}&Flag={{5}}&path={{$path}}&Typecon={{$data->Type_Con}}" class="pull-left DeleteImage">
                                           <i class="far fa-trash-alt"></i>

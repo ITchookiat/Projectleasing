@@ -1128,6 +1128,10 @@
                                       @php
                                         $Setlisence = $data->License_car;
                                       @endphp
+                                    @else 
+                                      @php
+                                        $Setlisence = '';
+                                      @endphp
                                     @endif
                                     <div class="form-inline">
                                       @if(substr($data->createdBuyers_at,0,10) < $Currdate)
@@ -1918,10 +1922,19 @@
                           <div class="row">
                             <div class="col-6">
                               <div class="form-group row mb-0">
-                                <label class="col-sm-3 col-form-label text-right">ดอกเบี้ย/เดือน : </label>
+                                <label class="col-sm-3 col-form-label text-right">
+                                  @if($SettingValue->Interesttype_set == '12')
+                                      ดอกเบี้ย/เดือน :
+                                  @elseif($SettingValue->Interesttype_set == '1')
+                                      ดอกเบี้ย/ปี :
+                                  @else 
+                                      ดอกเบี้ย :
+                                  @endif
+                                </label>
                                 <div class="col-sm-8">
                                   {{--<input type="text" id="Interestcar" name="Interestcar" class="form-control form-control-sm"  value="{{$data->Interest_car}}" placeholder="ดอกเบี้ย" readonly onchange="calculate();"/> --}}
                                   <input type="text" id="NewInterestcar" name="Interestcar" class="form-control form-control-sm"  value="{{$data->Interest_car}}" placeholder="ดอกเบี้ย" oninput="calculate();"/>
+                                  <input type="hidden" id="Interesttype" name="Interestcar" class="form-control form-control-sm"  value="{{$SettingValue->Interesttype_set}}"/>
                                 </div>
                               </div>
                             </div>
@@ -2389,13 +2402,6 @@
                                   </div>
                                 </div>
                                 <div class="card-body">
-
-                                  @if($data->License_car != NULL)
-                                    @php
-                                      $Setlisence = $data->License_car;
-                                    @endphp
-                                  @endif
-
                                   <div class="row">
                                     @if(substr($data->createdBuyers_at,0,10) < $Currdate)
                                       @if ($data->AccountImage_car != NULL)
@@ -2626,11 +2632,6 @@
                                       <div class="card-title">
                                         รูปภาพผู้เช่าซื้อ
                                       </div>
-                                      @if($data->License_car != NULL)
-                                        @php
-                                          $Setlisence = $data->License_car;
-                                        @endphp
-                                      @endif
                                       <div class="card-tools">
                                         <a href="{{ action('AnalysController@deleteImageAll',[$id,$Setlisence]) }}?type=2" class="pull-left DeleteImage">
                                           <i class="far fa-trash-alt"></i>
@@ -2701,11 +2702,6 @@
                                       <div class="card-title">
                                         รูปภาพผู้ค้ำ
                                       </div>
-                                      @if($data->License_car != NULL)
-                                        @php
-                                          $Setlisence = $data->License_car;
-                                        @endphp
-                                      @endif
                                       <div class="card-tools">
                                         <a href="{{ action('AnalysController@deleteImageAll',[$id,$Setlisence]) }}?type=3" class="pull-left DeleteImage">
                                           <i class="far fa-trash-alt"></i>
@@ -2925,11 +2921,6 @@
                                       <div class="card-title">
                                         รูปภาพรายได้ผู้เช่าซื้อ
                                       </div>
-                                      @if($data->License_car != NULL)
-                                        @php
-                                          $Setlisence = $data->License_car;
-                                        @endphp
-                                      @endif
                                       <div class="card-tools">
                                         <a href="{{ action('AnalysController@deleteImageAll',[$id,$Setlisence]) }}?type=4" class="pull-left DeleteImage">
                                           <i class="far fa-trash-alt"></i>
@@ -3033,11 +3024,6 @@
                                       <div class="card-title">
                                         รูปภาพรายได้ผู้ค้ำ
                                       </div>
-                                      @if($data->License_car != NULL)
-                                        @php
-                                          $Setlisence = $data->License_car;
-                                        @endphp
-                                      @endif
                                       <div class="card-tools">
                                         <a href="{{ action('AnalysController@deleteImageAll',[$id,$Setlisence]) }}?type=5" class="pull-left DeleteImage">
                                           <i class="far fa-trash-alt"></i>

@@ -132,16 +132,18 @@
         var Topcar = Settopcar.replace(",","");
         var Setinterest = document.getElementById('Interestcar').value;
         var Setfee = document.getElementById('Processfee').value;
+        var Interesttype = document.getElementById('Interesttype').value;
             if(Setfee == ''){
               var fee = 0;
             }else{
               var fee = Setfee.replace(",","");
             }
         var Timelack = document.getElementById('Timeslackencar').value;
+        console.log(Topcar);
 
           // var fee = (Setfee/100)/1;
           var capital = parseFloat(Topcar) + parseFloat(fee);
-          var interest = ((Setinterest/100)/1) * 12;
+          var interest = ((Setinterest/100)/1) * Interesttype;
           var process = (parseFloat(Topcar) + (parseFloat(Topcar) * parseFloat(interest) * (Timelack / 12))) / Timelack;
 
           // var total_sum = total_pay * Timelack;
