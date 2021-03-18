@@ -629,7 +629,7 @@
         var num5 = num55.replace(",","");
         var num66 = document.getElementById('P2PriceOri').value;
         var num6 = num66.replace(",","");
-
+        var Interesttype = document.getElementById('Interesttype').value;
           // $('#Topcar').change(function(){
           //   if(num1 >= 150000){
           //    $('#P2Price').val('6,700');
@@ -684,8 +684,7 @@
              var period = '7';
           }
 
-
-          var Newinterest = num2 * 12;
+          var Newinterest = num2 * Interesttype;
           var a = (Newinterest * period) + 100;
           var b = (((totaltopcar * a) / 100) * (({{$SettingValue->Taxvalue_set}}/100) + 1)) / num4;
           var result = Math.ceil(b/10) * 10;

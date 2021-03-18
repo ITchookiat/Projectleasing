@@ -328,7 +328,7 @@
                 <div class="row">
                   <div class="col-6">
                     <div class="form-group row mb-0">
-                      <label id="InterestText" class="col-sm-4 col-form-label text-right">ดอกเบี้ย/เดือน :</label>
+                      <label id="InterestText" class="col-sm-4 col-form-label text-right">ดอกเบี้ย :</label>
                       <div class="col-sm-8">
                         <input type="text" id="Interest" name="Interest" class="form-control form-control-sm" placeholder="ป้อนดอกเบี้ย" />
                       </div>
@@ -352,7 +352,7 @@
                 <div class="row">
                   <div class="col-6">
                     <div class="form-group row mb-0">
-                    <label class="col-sm-4 col-form-label text-right">ชื่อลูกค้า :</label>
+                    <label class="col-sm-4 col-form-label text-right"><font color="red"> * </font> ชื่อลูกค้า :</label>
                       <div class="col-sm-4">
                         <input type="text" name="Namebuyer" class="form-control form-control-sm" placeholder="ป้อนชื่อ" required/>
                       </div>
@@ -376,7 +376,7 @@
                 <div class="row">
                   <div class="col-6">
                     <div class="form-group row mb-0">
-                    <label class="col-sm-4 col-form-label text-right">เบอร์ลูกค้า :</label>
+                    <label class="col-sm-4 col-form-label text-right"><font color="red"> * </font> เบอร์ลูกค้า :</label>
                       <div class="col-sm-8">
                         <input type="text" name="Phonebuyer" class="form-control form-control-sm" placeholder="ป้อนเบอร์ลูกค้า" required/>
                       </div>
@@ -414,7 +414,7 @@
                       </div> -->
                       
                       <br>
-                      <label class="col-sm-4 col-form-label text-right">ที่มาของลูกค้า :</label>
+                      <label class="col-sm-4 col-form-label text-right"><font color="red"> * </font> ที่มาของลูกค้า :</label>
                       <div class="col-sm-8">
                       <select id="News" name="News" class="form-control form-control-sm" required>
                           <option value="" selected>--- เลือกแหล่งที่มา ---</option>
@@ -427,30 +427,30 @@
                         </select>
                       </div>
                       <br>
-                      <label class="col-sm-4 col-form-label text-right">สาขา :</label>
+                      <label class="col-sm-4 col-form-label text-right"><font color="red"> * </font> สาขา :</label>
                       <div class="col-sm-8">
                         <select id="branchcar" name="branchcar" class="form-control form-control-sm" required>
                           <option value="" selected>--- เลือกสาขา ---</option>
-                          <option value="ปัตตานี" {{ (auth::user()->branch == 50) ? 'selected' : '' }}>ปัตตานี</option>
-                          <option value="ยะลา" {{ (auth::user()->branch == 51) ? 'selected' : '' }}>ยะลา</option>
-                          <option value="นราธิวาส" {{ (auth::user()->branch == 52) ? 'selected' : '' }}>นราธิวาส</option>
-                          <option value="สายบุรี" {{ (auth::user()->branch == 53) ? 'selected' : '' }}>สายบุรี</option>
-                          <option value="โกลก" {{ (auth::user()->branch == 54) ? 'selected' : '' }}>โกลก</option>
-                          <option value="เบตง" {{ (auth::user()->branch == 55) ? 'selected' : '' }}>เบตง</option>
-                          <option value="โคกโพธิ์" {{ (auth::user()->branch == 56) ? 'selected' : '' }}>โคกโพธิ์</option>
-                          <option value="ตันหยงมัส" {{ (auth::user()->branch == 57) ? 'selected' : '' }}>ตันหยงมัส</option>
-                          <option value="รือเสาะ" {{ (auth::user()->branch == 58) ? 'selected' : '' }}>รือเสาะ</option>
-                          <option value="บันนังสตา" {{ (auth::user()->branch == 59) ? 'selected' : '' }}>บันนังสตา</option>
-                          <option value="ยะหา" {{ (auth::user()->branch == 60) ? 'selected' : '' }}>ยะหา</option>
+                          <option value="ปัตตานี" {{ (auth::user()->branch == 50) ? 'selected' : '' }} {{ (auth::user()->branch == '01') ? 'selected' : '' }}>ปัตตานี</option>
+                          <option value="ยะลา" {{ (auth::user()->branch == 51) ? 'selected' : '' }} {{ (auth::user()->branch == '03') ? 'selected' : '' }}>ยะลา</option>
+                          <option value="นราธิวาส" {{ (auth::user()->branch == 52) ? 'selected' : '' }} {{ (auth::user()->branch == '04') ? 'selected' : '' }}>นราธิวาส</option>
+                          <option value="สายบุรี" {{ (auth::user()->branch == 53) ? 'selected' : '' }} {{ (auth::user()->branch == '05') ? 'selected' : '' }}>สายบุรี</option>
+                          <option value="โกลก" {{ (auth::user()->branch == 54) ? 'selected' : '' }} {{ (auth::user()->branch == '06') ? 'selected' : '' }}>โกลก</option>
+                          <option value="เบตง" {{ (auth::user()->branch == 55) ? 'selected' : '' }} {{ (auth::user()->branch == '07') ? 'selected' : '' }}>เบตง</option>
+                          <option value="โคกโพธิ์" {{ (auth::user()->branch == 56) ? 'selected' : '' }} {{ (auth::user()->branch == '08') ? 'selected' : '' }}>โคกโพธิ์</option>
+                          <option value="ตันหยงมัส" {{ (auth::user()->branch == 57) ? 'selected' : '' }} {{ (auth::user()->branch == '09') ? 'selected' : '' }}>ตันหยงมัส</option>
+                          <option value="รือเสาะ" {{ (auth::user()->branch == 58) ? 'selected' : '' }} {{ (auth::user()->branch == '12') ? 'selected' : '' }}>รือเสาะ</option>
+                          <option value="บันนังสตา" {{ (auth::user()->branch == 59) ? 'selected' : '' }} {{ (auth::user()->branch == '13') ? 'selected' : '' }}>บันนังสตา</option>
+                          <option value="ยะหา" {{ (auth::user()->branch == 60) ? 'selected' : '' }} {{ (auth::user()->branch == '14') ? 'selected' : '' }}>ยะหา</option>
                         </select>
                       </div>
                     </div>
                   </div>
                   <div class="col-6">
                     <div class="form-group row mb-0">
-                    <label class="col-sm-4 col-form-label text-right">หมายเหตุ :</label>
+                    <label class="col-sm-4 col-form-label text-right"><font color="red"> * </font> หมายเหตุ :</label>
                       <div class="col-sm-7">
-                        <textarea class="form-control" name="Notecar" rows="4" placeholder="ป้อนหมายเหตุ..."></textarea>
+                        <textarea class="form-control" name="Notecar" rows="4" placeholder="ป้อนหมายเหตุ..." required></textarea>
                       </div>
                     </div>
                   </div>
@@ -538,12 +538,43 @@
         $("#Topcar").val(addCommas(Topcar));
 
         if(Gettype == ""){
-          // $("#InterestText").text("ดอกเบี้ย :");
+          $("#InterestText").text("ดอกเบี้ย :");
         }
         else if(Gettype == "F01"){
-          // $("#InterestText").text("ดอกเบี้ย/ปี :");
-          var Interest = Getinterest * 12;
-          var NewInterest = (Interest * 1) + 100;
+          if({{$SettingValue->Interesttype_set}} == '12'){
+            $("#InterestText").text("ดอกเบี้ย/เดือน :");
+          }else if({{$SettingValue->Interesttype_set}} == '1'){
+            $("#InterestText").text("ดอกเบี้ย/ปี :");
+          }
+          if(Gettimelack == '12'){
+             var Timelack = '1';
+          }else if(Gettimelack == '18'){
+             var Timelack = '1.5';
+          }else if(Gettimelack == '24'){
+             var Timelack = '2';
+          }else if(Gettimelack == '30'){
+             var Timelack = '2.5';
+          }else if(Gettimelack == '36'){
+             var Timelack = '3';
+          }else if(Gettimelack == '42'){
+             var Timelack = '3.5';
+          }else if(Gettimelack == '48'){
+            var Timelack = '4';
+          }else if(Gettimelack == '54'){
+             var Timelack = '4.5';
+          }else if(Gettimelack == '60'){
+             var Timelack = '5';
+          }else if(Gettimelack == '66'){
+             var Timelack = '5.5';
+          }else if(Gettimelack == '72'){
+             var Timelack = '6';
+          }else if(Gettimelack == '78'){
+             var Timelack = '6.5';
+          }else if(Gettimelack == '84'){
+             var Timelack = '7';
+          }
+          var Interest = Getinterest * {{$SettingValue->Interesttype_set}};
+          var NewInterest = (Interest * Timelack) + 100;
           var Period = Math.ceil(((((Topcar * NewInterest) / 100) * 1.07) / Gettimelack) /10) * 10;
           var TotalPeriod = Period * Gettimelack;
 
@@ -564,8 +595,12 @@
           }
         }
         else{
-          // $("#InterestText").text("ดอกเบี้ย/เดือน :");
-          var InterestP = ((Getinterest / 100) / 1) * 12;
+          if({{$SettingValue2->Interesttype_set}} == '12'){
+            $("#InterestText").text("ดอกเบี้ย/เดือน :");
+          }else if({{$SettingValue2->Interesttype_set}} == '1'){
+            $("#InterestText").text("ดอกเบี้ย/ปี :");
+          }
+          var InterestP = ((Getinterest / 100) / 1) * {{$SettingValue2->Interesttype_set}};
           var ProcessP = (parseFloat(Topcar) + (parseFloat(Topcar) * parseFloat(InterestP) * (Gettimelack / 12))) / Gettimelack;
           var str = ProcessP.toString();
           var Setstring = parseInt(str.split(".", 1));
@@ -574,8 +609,8 @@
           var Profit = TotalPeriodP - Topcar;
 
           if(Gettimelack != "" && Getinterest != ""){
-            $("#Period").val(addCommas(PeriodP));
-            $("#TotalPeriod").val(addCommas(TotalPeriodP));
+            $("#Period").val(addCommas(PeriodP.toFixed(2)));
+            $("#TotalPeriod").val(addCommas(TotalPeriodP.toFixed(2)));
             $("#Tax").val(addCommas(Profit.toFixed(2)));
           }
         }

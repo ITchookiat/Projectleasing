@@ -25,15 +25,14 @@ class MainsettingController extends Controller
      */
     public function create(Request $request)
     {
-        if($request->type == 1){
-            $data = DB::table('mainsettings')
-            ->where('Settype_set','=','เช่าซื้อ')
-            ->first();
+        $data = DB::table('mainsettings')
+        ->where('Settype_set','=','เช่าซื้อ')
+        ->first();
 
-            $data2 = DB::table('mainsettings')
-            ->where('Settype_set','=','เงินกู้')
-            ->first();
-        }
+        $data2 = DB::table('mainsettings')
+        ->where('Settype_set','=','เงินกู้')
+        ->first();
+
         $type = $request->type;
         return view('setting.option',compact('type','data','data2'));
     }
@@ -80,14 +79,14 @@ class MainsettingController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if($request->type == 1){
-            // dd($request->get('TabBuyer'));
+        if($request->type == 1){ //เช่าซื้อ
             $Set1 = Mainsetting::find($request->SetID);
             if($Set1 != null){
                 $Set1->Dutyvalue_set = $request->get('Dutyvalue');
                 $Set1->Marketvalue_set = $request->get('Marketvalue');
                 $Set1->Comagent_set = $request->get('ComAgenttvalue');
                 $Set1->Taxvalue_set = $request->get('Taxvalue');
+                $Set1->Interesttype_set = $request->get('Interesttype');
                 $Set1->Tabbuyer_set = $request->get('TabBuyer');
                 $Set1->Tabsponser_set = $request->get('TabSponser');
                 $Set1->Tabcardetail_set = $request->get('TabCardetail');
@@ -103,7 +102,8 @@ class MainsettingController extends Controller
                     'Marketvalue_set' => $request->get('Marketvalue'),
                     'Comagent_set' => $request->get('ComAgenttvalue'),
                     'Taxvalue_set' => $request->get('Taxvalue'),
-                    'Tabbuyer_set' => $request->get('TabBuyer'),
+                    'Taxvalue_set' => $request->get('Taxvalue'),
+                    'Interesttype_set' => $request->get('Interesttype'),
                     'Tabsponser_set' => $request->get('TabSponser'),
                     'Tabcardetail_set' => $request->get('TabCardetail'),
                     'Tabexpense_set' => $request->get('TabExpense'),
@@ -115,13 +115,14 @@ class MainsettingController extends Controller
                 $DataSet->save();
             }
         }
-        elseif($request->type == 2){
+        elseif($request->type == 2){ //เงินกู้
             $Set2 = Mainsetting::find($request->SetID);
             if($Set2 != null){
                 // $Set2->Dutyvalue_set = $request->get('Dutyvalue');
                 // $Set2->Marketvalue_set = $request->get('Marketvalue');
                 $Set2->Comagent_set = $request->get('ComAgenttvalue');
                 $Set2->Taxvalue_set = $request->get('Taxvalue');
+                $Set2->Interesttype_set = $request->get('Interesttype');
                 $Set2->Tabbuyer_set = $request->get('TabBuyer');
                 $Set2->Tabsponser_set = $request->get('TabSponser');
                 $Set2->Tabcardetail_set = $request->get('TabCardetail');
@@ -136,6 +137,7 @@ class MainsettingController extends Controller
                     // 'Marketvalue_set' => $request->get('Marketvalue'),
                     'Comagent_set' => $request->get('ComAgenttvalue'),
                     'Taxvalue_set' => $request->get('Taxvalue'),
+                    'Interesttype_set' => $request->get('Interesttype'),
                     'Tabbuyer_set' => $request->get('TabBuyer'),
                     'Tabsponser_set' => $request->get('TabSponser'),
                     'Tabcardetail_set' => $request->get('TabCardetail'),
