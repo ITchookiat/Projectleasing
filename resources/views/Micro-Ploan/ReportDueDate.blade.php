@@ -362,8 +362,7 @@
                 $sumtocompany = $sumtoevaluetion_Price + $sumtomarketing_Price + $sumtoduty_Price;
 
                 @$sumbalanceprice += str_replace(",","",$value->balance_Price);
-
-                if ($type == 101) {
+                if ($value->Type_Con == 'P04') {
                   @$sumcommitprice += str_replace(",","",$value->Commission_car);
                 }
                 else {
@@ -459,7 +458,7 @@
                 </td>
                 <td width="50px">
                   @if($value->Accountbrance_car != $value->Accountagent_car and $value->Accountagent_car != Null)
-                    @if ($type == 101)
+                    @if ($value->Type_Con == 'P04')
                       คอม {{ number_format($value->Commission_car,2) }}
                       @php
                         $sumbalance = $sumbalance + $value->Commission_car;
