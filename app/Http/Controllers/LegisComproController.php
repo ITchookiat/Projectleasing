@@ -687,6 +687,7 @@ class LegisComproController extends Controller
         }
         elseif ($request->Flag == 2) {
           $data = DB::table('legislations')
+            ->leftJoin('Legiscompromises','legislations.id','=','Legiscompromises.legisPromise_id')
             ->leftJoin('legispayments','legislations.id','=','legispayments.legis_Com_Payment_id')
             ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
               return $q->whereBetween('legispayments.created_at',[$newfdate,$newtdate]);
@@ -709,8 +710,8 @@ class LegisComproController extends Controller
                     $cells->setBackground('#FFCC00');
                   });
                   $row = 3;
-                  $sheet->row($row, array('ลำดับ', 'เลขที่สัญญา', 'ประเภทลูกหนี้', 'ชื่อ-สกุล', 'วันที่รับชำระ', 'ยอดชำระ', 'ประเภทชำระ',
-                                          'เลขที่ใบเสร็จ', 'ผูุ้รับชำระ', 'หมายเหตุ'));
+                  $sheet->row($row, array('ลำดับ', 'เลขที่สัญญา', 'ประเภทลูกหนี้', 'ชื่อ-สกุล', 'วันที่รับชำระ', 'ยอดชำระ','ยอดคงเหลือ',
+                                          'ประเภทชำระ','เลขที่ใบเสร็จ', 'ผูุ้รับชำระ', 'หมายเหตุ'));
                   foreach ($data as $key => $value) {
                     if ($value->Flag == 'C') {
                       $SetStatus = "ลูกหนี้ประนอมเก่า";
@@ -725,6 +726,7 @@ class LegisComproController extends Controller
                       $value->Name_legis,
                       substr($value->created_at,0,10),
                       number_format($value->Gold_Payment, 2),
+                      number_format($value->Sum_Promise, 2),
                       $value->Type_Payment,
                       $value->Jobnumber_Payment,
                       $value->Adduser_Payment,
