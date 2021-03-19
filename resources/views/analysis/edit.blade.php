@@ -1934,7 +1934,7 @@
                                 <div class="col-sm-8">
                                   {{--<input type="text" id="Interestcar" name="Interestcar" class="form-control form-control-sm"  value="{{$data->Interest_car}}" placeholder="ดอกเบี้ย" readonly onchange="calculate();"/> --}}
                                   <input type="text" id="NewInterestcar" name="Interestcar" class="form-control form-control-sm"  value="{{$data->Interest_car}}" placeholder="ดอกเบี้ย" oninput="calculate();"/>
-                                  <input type="hidden" id="Interesttype" name="Interestcar" class="form-control form-control-sm"  value="{{$SettingValue->Interesttype_set}}"/>
+                                  <input type="hidden" id="Interesttype" name="Interesttype" class="form-control form-control-sm"  value="{{$SettingValue->Interesttype_set}}"/>
                                 </div>
                               </div>
                             </div>
