@@ -232,7 +232,7 @@
         <tr>
           <th align="right" width="120px"> ยอดจัด &nbsp;</th>
           <th align="right" width="120px" style="background-color: yellow;"> <b>{{number_format($dataReport->Top_car)}} &nbsp;</b></th>
-          <th align="right" width="120px"> ดอกเบี้ย/ปี &nbsp;</th>
+          <th align="right" width="120px"> ดอกเบี้ย/เดือน &nbsp;</th>
           <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataReport->Interest_car}} &nbsp;</b></th>
         </tr>
         <tr>
@@ -600,7 +600,7 @@
           <tr>
             <th align="right" width="120px"> ยอดจัด &nbsp;</th>
             <th align="right" width="120px" style="background-color: yellow;"> <b>{{number_format($dataReport->Top_car)}} &nbsp;</b></th>
-            <th align="right" width="120px"> ดอกเบี้ย/ปี &nbsp;</th>
+            <th align="right" width="120px"> ดอกเบี้ย/เดือน &nbsp;</th>
             <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataReport->Interest_car}} &nbsp;</b></th>
           </tr>
           <tr>
