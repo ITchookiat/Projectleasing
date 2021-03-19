@@ -224,7 +224,15 @@
         <tr>
           <th align="right" width="120px"> เงินต้น &nbsp;</th>
           <th align="right" width="120px" style="background-color: yellow;"> <b>{{number_format($dataReport->Top_car)}} &nbsp;</b></th>
-          <th align="right" width="120px"> ดอกเบี้ย/เดือน &nbsp;</th>
+          <th align="right" width="120px">
+              @if($SettingValue2->Interesttype_set == '12')
+                  ดอกเบี้ย/เดือน :
+              @elseif($SettingValue2->Interesttype_set == '1')
+                  ดอกเบี้ย/ปี :
+              @else 
+                  ดอกเบี้ย :
+              @endif&nbsp;
+          </th>
           <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataReport->Interest_car}} &nbsp;</b></th>
         </tr>
         <tr>

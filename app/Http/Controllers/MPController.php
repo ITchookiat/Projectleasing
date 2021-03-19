@@ -1371,6 +1371,13 @@ class MPController extends Controller
           ->where('MP_Datas.id',$id)
           ->first();
 
+          $SettingValue = DB::table('mainsettings')
+          ->where('Settype_set','=','เช่าซื้อ')
+          ->first();
+          $SettingValue2 = DB::table('mainsettings')
+          ->where('Settype_set','=','เงินกู้')
+          ->first();
+
         $DateDue = \Carbon\Carbon::parse($dataReport->Date_Due)->format('d')."-".\Carbon\Carbon::parse($dataReport->Date_Due)->format('m');
         $DateDueYear = \Carbon\Carbon::parse($dataReport->Date_Due)->format('Y')+543;
   
@@ -1378,7 +1385,7 @@ class MPController extends Controller
         $now = Carbon::now();
         $date = Carbon::parse($now)->format('d-m-Y');
   
-        $view = \View::make('Micro-Ploan.ReportMP' ,compact('dataReport','newDateDue','date'));
+        $view = \View::make('Micro-Ploan.ReportMP' ,compact('dataReport','newDateDue','date','SettingValue','SettingValue2'));
         $html = $view->render();
   
         $pdf = new PDF();

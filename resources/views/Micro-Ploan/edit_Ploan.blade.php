@@ -1899,7 +1899,7 @@
                                       <input type="text" id="Interestcar" name="Interestcar" value="{{$data->Interest_car}}" class="form-control form-control-sm" placeholder="ป้อนดอกเบี้ย" oninput="calculate2();balance2();"/>
                                     @endif
                                   @endif
-                                  <input type="hidden" id="Interesttype" name="Interestcar" value="{{$SettingValue->Interesttype_set}}" />
+                                  <input type="hidden" id="Interesttype" name="Interesttype" value="{{$SettingValue->Interesttype_set}}" />
                                 </div>
                                 <label class="col-sm-1 col-form-label text-left">% </label>
                               </div>
