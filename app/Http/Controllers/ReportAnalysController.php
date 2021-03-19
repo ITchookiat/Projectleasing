@@ -111,7 +111,14 @@ class ReportAnalysController extends Controller
       $date = Carbon::parse($now)->format('d-m-Y');
       // dd($date);
 
-      $view = \View::make('analysis.ReportAnalys' ,compact('dataReport','newDateDue','date','type','dataStructure'));
+      $SettingValue = DB::table('mainsettings')
+            ->where('Settype_set','=','เช่าซื้อ')
+            ->first();
+      $SettingValue2 = DB::table('mainsettings')
+      ->where('Settype_set','=','เงินกู้')
+      ->first();
+
+      $view = \View::make('analysis.ReportAnalys' ,compact('dataReport','newDateDue','date','type','dataStructure','SettingValue','SettingValue2'));
       $html = $view->render();
 
       $pdf = new PDF();
