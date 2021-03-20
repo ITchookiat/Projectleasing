@@ -2436,9 +2436,9 @@
                                 <label class="col-sm-3 col-form-label text-right">พรบ. : </label>
                                 <div class="col-sm-8">
                                   @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
-                                    <input type="text" id="actPrice" name="actPrice" value="{{number_format($data->act_Price)}}" class="form-control form-control-sm" placeholder="พรบ." onchange="balance();"/>
+                                    <input type="text" id="actPrice" name="actPrice" value="{{number_format($data->act_Price)}}" class="form-control form-control-sm" placeholder="พรบ." oninput="balance();"/>
                                   @else
-                                    <input type="text" id="actPrice" name="actPrice" value="{{number_format($data->act_Price)}}" class="form-control form-control-sm" placeholder="พรบ." onchange="balance();" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                    <input type="text" id="actPrice" name="actPrice" value="{{number_format($data->act_Price)}}" class="form-control form-control-sm" placeholder="พรบ." oninput="balance();" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
                                   @endif
                                 </div>
                               </div>
@@ -2464,9 +2464,9 @@
                                 <label class="col-sm-3 col-form-label text-right">ยอดปิดบัญชี : </label>
                                 <div class="col-sm-8">
                                   @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
-                                    <input type="text" id="closeAccountPrice" name="closeAccountPrice" value="{{number_format($data->closeAccount_Price)}}" class="form-control form-control-sm" placeholder="ยอดปิดบัญชี" onchange="balance()"/>
+                                    <input type="text" id="closeAccountPrice" name="closeAccountPrice" value="{{number_format($data->closeAccount_Price)}}" class="form-control form-control-sm" placeholder="ยอดปิดบัญชี" oninput="balance()"/>
                                   @else
-                                    <input type="text" id="closeAccountPrice" name="closeAccountPrice" value="{{number_format($data->closeAccount_Price)}}" class="form-control form-control-sm" placeholder="ยอดปิดบัญชี" onchange="balance()" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                    <input type="text" id="closeAccountPrice" name="closeAccountPrice" value="{{number_format($data->closeAccount_Price)}}" class="form-control form-control-sm" placeholder="ยอดปิดบัญชี" oninput="balance()" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
                                   @endif
                                 </div>
                               </div>
@@ -2476,11 +2476,11 @@
                                 <label class="col-sm-3 col-form-label text-right">ซื้อ ป2+/ป1 : </label>
                                 <div class="col-sm-8">
                                   @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
-                                    <input type="text" id="P2Price" name="P2Price" value="{{number_format($data->P2_Price)}}" class="form-control form-control-sm" placeholder="ซื้อ ป2+" onchange="balance();"/>
+                                    <input type="text" id="P2Price" name="P2Price" value="{{$data->P2_Price}}" class="form-control form-control-sm" placeholder="ซื้อ ป2+" oninput="balance();"/>
                                   @else
-                                    <input type="text" id="P2Price" name="P2Price" value="{{number_format($data->P2_Price)}}" class="form-control form-control-sm" placeholder="ซื้อ ป2+" onchange="balance();" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                    <input type="text" id="P2Price" name="P2Price" value="{{$data->P2_Price}}" class="form-control form-control-sm" placeholder="ซื้อ ป2+" oninput="balance();" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
                                   @endif
-                                  <input type="hidden" id="P2PriceOri" name="P2PriceOri" class="form-control form-control-sm" value="{{number_format($data->P2_Price)}}" placeholder="ซื้อ ป2+" onchange="calculate();" readonly/>
+                                  <input type="hidden" id="P2PriceOri" name="P2PriceOri" class="form-control form-control-sm" value="{{$data->P2_Price}}" placeholder="ซื้อ ป2+" oninput="calculate();" readonly/>
                                 </div>
                               </div>
                             </div>
@@ -2512,7 +2512,7 @@
                                 <label class="col-sm-3 col-form-label text-right">ค่าประเมิน : </label>
                                 <div class="col-sm-8">
                                   @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
-                                    <select id="evaluetionPrice" name="evaluetionPrice" class="form-control form-control-sm" onchange="balance();">
+                                    <select id="evaluetionPrice" name="evaluetionPrice" class="form-control form-control-sm" oninput="balance();">
                                       <option value="" selected>--- ค่าประเมิน ---</option>
                                       @foreach ($evaluetionPricee as $key => $value)
                                         <option value="{{$key}}" {{ ($key == $data->evaluetion_Price) ? 'selected' : '' }}>{{$value}}</option>
@@ -2520,9 +2520,9 @@
                                     </select>
                                   @else
                                     @if($GetDocComplete != Null)
-                                      <input type="text" id="evaluetionPrice" name="evaluetionPrice" value="{{ $data->evaluetion_Price }}" class="form-control form-control-sm" placeholder="พรบ." onchange="balance()" readonly/>
+                                      <input type="text" id="evaluetionPrice" name="evaluetionPrice" value="{{ $data->evaluetion_Price }}" class="form-control form-control-sm" placeholder="พรบ." oninput="balance()" readonly/>
                                     @else
-                                      <select id="evaluetionPrice" name="evaluetionPrice" class="form-control form-control-sm" onchange="balance();">
+                                      <select id="evaluetionPrice" name="evaluetionPrice" class="form-control form-control-sm" oninput="balance();">
                                         <option value="" selected>--- ค่าประเมิน ---</option>
                                         @foreach ($evaluetionPricee as $key => $value)
                                           <option value="{{$key}}" {{ ($key == $data->evaluetion_Price) ? 'selected' : '' }}>{{$value}}</option>
@@ -2537,7 +2537,7 @@
                               <div class="form-group row mb-0">
                                 <label class="col-sm-3 col-form-label text-right">อากร : </label>
                                 <div class="col-sm-8">
-                                  <input type="text" id="dutyPrice" name="dutyPrice" value="{{($data->duty_Price != Null) ? $data->duty_Price : number_format($SettingValue->Dutyvalue_set)}}" class="form-control form-control-sm" placeholder="อากร" onchange="balance();"/>
+                                  <input type="text" id="dutyPrice" name="dutyPrice" value="{{($data->duty_Price != Null) ? $data->duty_Price : number_format($SettingValue->Dutyvalue_set)}}" class="form-control form-control-sm" placeholder="อากร" oninput="balance();"/>
                                 </div>
                               </div>
                             </div>
@@ -2548,7 +2548,7 @@
                               <div class="form-group row mb-0">
                                 <label class="col-sm-3 col-form-label text-right">ค่าการตลาด : </label>
                                 <div class="col-sm-8">
-                                  <input type="text" id="marketingPrice" name="marketingPrice" value="{{ ($data->marketing_Price != Null) ? $data->marketing_Price : number_format($SettingValue->Marketvalue_set) }}" class="form-control form-control-sm" placeholder="การตลาด" onchange="balance();"/>
+                                  <input type="text" id="marketingPrice" name="marketingPrice" value="{{ ($data->marketing_Price != Null) ? $data->marketing_Price : number_format($SettingValue->Marketvalue_set) }}" class="form-control form-control-sm" placeholder="การตลาด" oninput="balance();"/>
                                 </div>                                                        
                               </div>
                             </div>
