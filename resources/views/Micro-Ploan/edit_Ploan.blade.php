@@ -1747,7 +1747,11 @@
                                   @if(auth::user()->type == "Admin")
                                     <input type="text" name="Licensecar"  value="{{ $data->License_car}}" class="form-control form-control-sm"  placeholder="ป้ายเดิม"/>
                                   @else
-                                    <input type="text" name="Licensecar"  value="{{ $data->License_car}}" class="form-control form-control-sm"  readonly/>
+                                    @if($countImage == 0)
+                                      <input type="text" name="Licensecar"  value="{{ $data->License_car}}" class="form-control form-control-sm"/>
+                                    @else
+                                      <input type="text" name="Licensecar"  value="{{ $data->License_car}}" class="form-control form-control-sm"  readonly/>
+                                    @endif
                                   @endif
                                 </div>
                               </div>
