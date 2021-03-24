@@ -180,6 +180,7 @@ class TreasController extends Controller
 
     public function SearchData(Request $request, $type, $id)
     {
+        $SetStateP04 = NULL;
         if ($type == 1 or $type == 2) {     //F01
             $data = DB::table('buyers')
                     ->join('sponsors','buyers.id','=','sponsors.Buyer_id')
@@ -208,7 +209,7 @@ class TreasController extends Controller
             }
 
             $GetType = $type;
-            return view('treasury.viewDetail', compact('data','GetType','SetAccount','SetTell','SetAccountGT','SetTellGT'));
+            return view('treasury.viewDetail', compact('data','GetType','SetAccount','SetTell','SetAccountGT','SetTellGT','SetStateP04'));
         }
         elseif ($type == 3) {       //แจ้งเตือนรายการ sidebar
             $data = DB::table('buyers')
@@ -260,9 +261,10 @@ class TreasController extends Controller
                 $SetAccountGT = "";
                 $SetTellGT = "";
             }
-
+            
+            $SetStateP04 = $data->Type_Con;
             $GetType = $type;
-            return view('treasury.viewDetail', compact('data','GetType','SetAccount','SetTell','SetAccountGT','SetTellGT'));
+            return view('treasury.viewDetail', compact('data','GetType','SetAccount','SetTell','SetAccountGT','SetTellGT','SetStateP04'));
         }
     }
 
