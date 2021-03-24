@@ -396,7 +396,12 @@
                           @else
                             <label><font color="red">ยอดโอนค่าคอม : </font></label>
                           @endif
-                          <input type="text" class="form-control form-control-sm mb-1 text-right" style="width: 220px; background-color: red; color: white" value="{{number_format($data->commit_Price, 2)}}" readonly/>
+
+                          @if($SetStateP04 == 'P04')
+                            <input type="text" class="form-control form-control-sm mb-1 text-right" style="width: 220px; background-color: red; color: white" value="{{number_format($data->Commission_car, 2)}}" readonly/>
+                          @else
+                            <input type="text" class="form-control form-control-sm mb-1 text-right" style="width: 220px; background-color: red; color: white" value="{{number_format($data->commit_Price, 2)}}" readonly/>
+                          @endif
                           </div>
                         </div>
                         <div class="col-md-6">
