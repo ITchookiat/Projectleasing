@@ -244,7 +244,7 @@
                           <option value="" style="color:red">--- ยี่ห้อรถจักรยานยนต์ ------</option>
                           <option value="HONDA">HONDA</option>
                           <option value="YAMAHA">YAMAHA</option>
-                          <option value="KAWASAKI">KAWASAKI</option>
+                          <option value="SUZUKI">SUZUKI</option>
                         </select>
                       </div>
                     </div>
