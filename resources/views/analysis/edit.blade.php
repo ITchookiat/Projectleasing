@@ -2358,6 +2358,26 @@
                               </div>
                             </div>
                             <div class="col-6">
+                              <div class="form-group row mb-0">
+                                <label class="col-sm-3 col-form-label text-right"><font color="brown" > ชื่อเล่น/ฉายา นายหน้า </font> : </label>
+                                <div class="col-sm-8">
+                                  @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
+                                    <input type="text" name="Nicknameagentcar" value="{{$data->AgentNickname_car}}" class="form-control form-control-sm"  placeholder="ชื่อเล่น/ฉายา นายหน้า"/>
+                                  @else
+                                    <input type="text" name="Nicknameagentcar" value="{{$data->AgentNickname_car}}" class="form-control form-control-sm"  placeholder="ชื่อเล่น/ฉายา นายหน้า" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                  @endif
+                                </div>
+                              </div>
+                              <div class="form-group row mb-0">
+                                <label class="col-sm-3 col-form-label text-right"><font color="brown" > ชื่อร้าน/เต้นท์ นายหน้า </font>  : </label>
+                                <div class="col-sm-8">
+                                  @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
+                                    <input type="text" name="Shopagentcar" value="{{$data->AgentShop_car}}" class="form-control form-control-sm"  placeholder="ชื่อร้าน/เต้นท์ นายหน้า"/>
+                                  @else
+                                    <input type="text" name="Shopagentcar" value="{{$data->AgentShop_car}}" class="form-control form-control-sm"  placeholder="ชื่อร้าน/เต้นท์ นายหน้า" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                  @endif
+                                </div>
+                              </div>
                             </div>
                           </div>
 

@@ -234,7 +234,7 @@ class DataCustomerController extends Controller
         }elseif(auth()->user()->branch == '14'){
             $SetUserBranch = 'ยะหา';
         }else{
-            $SetUserBranch = 'แอดมิน';
+            $SetUserBranch = $data->Branch_car;
         }
 
         //Save ลูกค้าเช่าซื้อ && Save ลูกค้า PM
