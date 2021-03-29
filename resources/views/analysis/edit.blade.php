@@ -2378,6 +2378,16 @@
                                   @endif
                                 </div>
                               </div>
+                              <div class="form-group row mb-0">
+                                <label class="col-sm-3 col-form-label text-right"><font color="brown" > สถานที่ตั้งเต้นท์ </font>  : </label>
+                                <div class="col-sm-8">
+                                  @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
+                                    <input type="text" name="Shoplocationcar" value="{{$data->AgentShoplocation_car}}" class="form-control form-control-sm"  placeholder="สถานที่ตั้งเต้นท์"/>
+                                  @else
+                                    <input type="text" name="Shoplocationcar" value="{{$data->AgentShoplocation_car}}" class="form-control form-control-sm"  placeholder="สถานที่ตั้งเต้นท์" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                  @endif
+                                </div>
+                              </div>
                             </div>
                           </div>
 

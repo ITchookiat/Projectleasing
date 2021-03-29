@@ -1839,6 +1839,7 @@ class AnalysController extends Controller
         $cardetail->Tellagent_car = $request->get('Tellagentcar');
         $cardetail->AgentNickname_car = $request->get('Nicknameagentcar'); //ฉายานายหน้า
         $cardetail->AgentShop_car = $request->get('Shopagentcar');          //เต้นท์นายหน้า
+        $cardetail->AgentShoplocation_car = $request->get('Shoplocationcar');   //ที่ตั้งเต้นท์นายหน้า
         $cardetail->Purchasehistory_car = $request->get('Purchasehistorycar');
         $cardetail->Supporthistory_car = $request->get('Supporthistorycar');
         $cardetail->DocComplete_car = $SetDocComplete;             //เอกสารครบ
