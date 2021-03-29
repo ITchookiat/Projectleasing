@@ -15,7 +15,7 @@ class Cardetail extends Model
                         'Payee_car','IDcardPayee_car','Accountbrance_car','Tellbrance_car','Agent_car','IDcardAgent_car','Accountagent_car','Commission_car','Tellagent_car',
                         'Purchasehistory_car','Supporthistory_car','Loanofficer_car','Approvers_car','Date_Appcar','Check_car',
                         'StatusApp_car','DocComplete_car','branch_car','ManagerApp_car','DataManager_car','branchbrance_car','branchAgent_car','Note_car','Insurance_key','Salemethod_car',
-                        'AccountImage_car','UserCheckAc_car','DateCheckAc_car'];
+                        'AccountImage_car','UserCheckAc_car','DateCheckAc_car','AgentNickname_car','AgentShop_car'];
 
   public function Buyercardetails()
   {

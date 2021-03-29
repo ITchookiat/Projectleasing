@@ -866,6 +866,8 @@ class MPController extends Controller
           $cardetail->Accountbrance_car = $request->get('Accountbrancecar');
           $cardetail->Tellbrance_car = $request->get('Tellbrancecar');
           $cardetail->Agent_car = $request->get('Agentcar');
+          $cardetail->AgentNickname_car = $request->get('Nicknameagentcar'); //ฉายานายหน้า
+          $cardetail->AgentShop_car = $request->get('Shopagentcar');          //เต้นท์นายหน้า
           $cardetail->IDcardAgent_car = $request->get('IDAgentcar');
           $cardetail->Accountagent_car = $request->get('Accountagentcar');
           $cardetail->Commission_car = $SetCommissioncar;

@@ -75,6 +75,9 @@ class CreateCardetailsTable extends Migration
             $table->string('AccountImage_car')->nullable();     //รูปหน้าเล่มบัญชี
             $table->string('UserCheckAc_car')->nullable();      //ลงชื่อ คนอนุมัติ
             $table->string('DateCheckAc_car')->nullable();      //วันที่ อนุมัติ
+
+            $table->string('AgentNickname_car')->nullable();      //ฉายานายหน้า
+            $table->string('AgentShop_car')->nullable();      //ชื่อเต้นท์(ร้าน)
             $table->timestamps();
         });
     }
