@@ -733,7 +733,7 @@ class AnalysController extends Controller
       }     
 
       if ($request->patch_type == 4) {  //เมนู รถบ้าน
-        if (auth()->user()->branch == 10 or auth()->user()->branch == 11 or auth()->user()->type == 4 or auth()->user()->type == 1){
+        if (auth()->user()->branch == 10 or auth()->user()->branch == 11 or auth()->user()->type == 4 or auth()->user()->type == 1 or auth()->user()->position == "Admin"){
           $Homecardetaildb = new homecardetail([
             'Buyerhomecar_id' => $Buyerdb->id,
             'brand_HC' => $request->get('brandHC'),

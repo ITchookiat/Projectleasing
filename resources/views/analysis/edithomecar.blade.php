@@ -559,7 +559,7 @@
                                       $path = $data->oldplate_HC;
                                     @endphp
                                   <br/>
-                                  @if(auth::user()->type == 1 or auth::user()->type == 2)
+                                  @if(auth::user()->position == "Admin" or auth::user()->position == "MANAGER" or auth::user()->position == "AUDIT")
                                     <a href="{{ action('AnalysController@deleteImageAll',[$data->id,$path]) }}" class="btn btn-danger pull-left DeleteImage" title="ลบรูปภาพทั้งหมด"> ลบรูปภาพทั้งหมด..</a>
                                   @endif
                                     <a href="{{ action('AnalysController@deleteImageEach',[$Gettype,$data->id,$fdate,$tdate,$status,$path]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
@@ -920,7 +920,7 @@
                                 <div class="form-group row mb-0">
                                   <label class="col-sm-3 col-form-label text-right">ป้ายเดิม : </label>
                                   <div class="col-sm-8">
-                                    <input type="text" name="oldplateHC"  value="{{ $data->oldplate_HC}}" class="form-control form-control-sm" readonly/>
+                                    <input type="text" name="oldplateHC"  value="{{ $data->oldplate_HC}}" class="form-control form-control-sm" {{ ($countImage !== 0) ? 'readonly' : '' }}/>
                                   </div>
                                 </div>
                               </div>
