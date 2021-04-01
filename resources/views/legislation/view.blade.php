@@ -219,60 +219,60 @@
                 <h5 class="text-center font-weight-bold"> รายงาน ลูกหนี้กฏหมาย </h5>
             </div>
             <div class="div2 py-2">
-                <p class="px-4">You'll continue to see news from your selected preference of news sources on stories.</p>
-                <hr class="d-flex my-0 mx-4">
-                <div class="row">
-                  <div class="col-6">
-                    <div class="form-check py-2"> 
-                      <input class="form-check-input option-input" name="Flag" type="checkbox" value="1"> 
-                      <label class="form-check-label" for="check1"> ลูกหนี้เตรียมฟ้อง</label> 
-                    </div>
-                  </div>
-                  <div class="col-6">
-                    <div class="form-check py-2"> 
-                      <input class="form-check-input option-input" name="Flag" type="checkbox" value="2"> 
-                      <label class="form-check-label " for="check2"> ลูกหนี้รอฟ้อง</label> 
-                    </div> 
-                  </div>
-                  <div class="col-6">
-                    <div class="form-check py-2"> 
-                      <input class="form-check-input option-input" name="Flag" type="checkbox" value="3"> 
-                      <label class="form-check-label " for="check3"> ลูกหนี้ชั้นศาล</label> 
-                    </div> 
-                  </div>
-                  <div class="col-6">
-                    <div class="form-check py-2"> 
-                      <input class="form-check-input option-input" name="Flag" type="checkbox" value="4"> 
-                      <label class="form-check-label " for="check4"> ลูกหนี้ชั้นบังคับคดี</label> 
-                    </div> 
-                  </div>
-                  <div class="col-6">
-                    <div class="form-check py-2"> 
-                      <input class="form-check-input option-input" name="Flag" type="checkbox" value="5"> 
-                      <label class="form-check-label " for="check5"> ลูกหนี้ชั้นโกงเจ้าหนี้</label> 
-                    </div> 
-                  </div>
-                  <div class="col-6">
-                    <div class="form-check py-2"> 
-                      <input class="form-check-input option-input" name="Flag" type="checkbox" value="6"> 
-                      <label class="form-check-label " for="check6"> ลูกหนี้ปิดจบงาน</label> 
-                    </div> 
-                  </div>
-                  <div class="col-6">
-                    <div class="form-check py-2"> 
-                      <input class="form-check-input option-input" name="Flag" type="checkbox" value="7"> 
-                      <label class="form-check-label " for="check7"> ลูกหนี้สืบทรัพย์</label> 
-                    </div> 
-                  </div>
-                  <div class="col-6">
-                    <div class="form-check py-2"> 
-                      <input class="form-check-input option-input" name="Flag" type="checkbox" value="8"> 
-                      <label class="form-check-label " for="check8"> ลูกหนี้ทั้งหมด</label> 
-                    </div> 
+              <p class="px-4">You'll continue to see news from your selected preference of news sources on stories.</p>
+              <hr class="d-flex my-0 mx-4">
+              <div class="row">
+                <div class="col-6">
+                  <div class="form-check py-2"> 
+                    <input class="form-check-input option-input" name="Flag" type="checkbox" value="1"> 
+                    <label class="form-check-label" for="check1"> ลูกหนี้เตรียมฟ้อง</label> 
                   </div>
                 </div>
-                <br>
-                <button class="btn text-white pt-0 pb-1 px-4 my-3" type="submit" id="btn-save">Prints</button>
+                <div class="col-6">
+                  <div class="form-check py-2"> 
+                    <input class="form-check-input option-input" name="Flag" type="checkbox" value="2"> 
+                    <label class="form-check-label " for="check2"> ลูกหนี้รอฟ้อง</label> 
+                  </div> 
+                </div>
+                <div class="col-6">
+                  <div class="form-check py-2"> 
+                    <input class="form-check-input option-input" name="Flag" type="checkbox" value="3"> 
+                    <label class="form-check-label " for="check3"> ลูกหนี้ชั้นศาล</label> 
+                  </div> 
+                </div>
+                <div class="col-6">
+                  <div class="form-check py-2"> 
+                    <input class="form-check-input option-input" name="Flag" type="checkbox" value="4"> 
+                    <label class="form-check-label " for="check4"> ลูกหนี้ชั้นบังคับคดี</label> 
+                  </div> 
+                </div>
+                <div class="col-6">
+                  <div class="form-check py-2"> 
+                    <input class="form-check-input option-input" name="Flag" type="checkbox" value="5"> 
+                    <label class="form-check-label " for="check5"> ลูกหนี้ชั้นโกงเจ้าหนี้</label> 
+                  </div> 
+                </div>
+                <div class="col-6">
+                  <div class="form-check py-2"> 
+                    <input class="form-check-input option-input" name="Flag" type="checkbox" value="6"> 
+                    <label class="form-check-label " for="check6"> ลูกหนี้ปิดจบงาน</label> 
+                  </div> 
+                </div>
+                <div class="col-6">
+                  <div class="form-check py-2"> 
+                    <input class="form-check-input option-input" name="Flag" type="checkbox" value="7"> 
+                    <label class="form-check-label " for="check7"> ลูกหนี้สืบทรัพย์</label> 
+                  </div> 
+                </div>
+                <div class="col-6">
+                  <div class="form-check py-2"> 
+                    <input class="form-check-input option-input" name="Flag" type="checkbox" value="8"> 
+                    <label class="form-check-label " for="check8"> ลูกหนี้ทั้งหมด</label> 
+                  </div> 
+                </div>
+              </div>
+              <br>
+              <button class="btn btn-success" type="submit" id="btn-save">Prints</button>
             </div>
           </div>
         </div>
@@ -331,16 +331,12 @@
     });
   </script>
 
-  {{-- <script src="{{ asset('js/scriptLegis.js') }}"></script> --}}
-  {{-- <script>
-    $("#button-id").click(function(e){
-      e.preventDefault();
-        var id = $('#ID').val();
-        var url = "{{ route('MasterLegis.index') }}?type={{2}}&id="+id;
-      FunctionGetUser(url);
-    });
-  </script>  --}}
-  
+  <script>
+    $(function () {
+      $('[data-mask]').inputmask()
+    })
+  </script>
+
   <script>
     $("#button-id").click(function(e){
     e.preventDefault();
@@ -350,6 +346,16 @@
         });
     });
   </script> 
+
+  {{-- <script src="{{ asset('js/scriptLegis.js') }}"></script> --}}
+  {{-- <script>
+    $("#button-id").click(function(e){
+      e.preventDefault();
+        var id = $('#ID').val();
+        var url = "{{ route('MasterLegis.index') }}?type={{2}}&id="+id;
+      FunctionGetUser(url);
+    });
+  </script>  --}}
 
   {{-- <script type="text/javascript">
     $("#button-id").click(function(e){
@@ -372,10 +378,5 @@
     });
   </script> --}}
 
-  <script>
-    $(function () {
-      $('[data-mask]').inputmask()
-    })
-  </script>
 @endsection
 
