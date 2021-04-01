@@ -656,7 +656,7 @@
                                       @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก กฎหมาย")
                                         <form method="post" class="delete_form" action="{{ route('MasterLegis.destroy',$data->id) }}" style="display:inline;">
                                         {{csrf_field()}}
-                                          <input type="hidden" name="type" value="5" />
+                                          <input type="hidden" name="type" value="6" />
                                           <input type="hidden" name="file_id" value="{{$row->image_id}}" />
                                           <input type="hidden" name="contract" value="{{ $data->Contract_legis }}"> 
 

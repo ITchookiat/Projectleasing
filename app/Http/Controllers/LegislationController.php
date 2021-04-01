@@ -1071,6 +1071,7 @@ class LegislationController extends Controller
           ->get();
 
         $countDataImages = count($dataImages);
+
         if($request->preview == 2){
           $dataFile = DB::table('legisimages')
             ->where('legisimages.image_id',$request->file_id)
@@ -1078,7 +1079,6 @@ class LegislationController extends Controller
             ->orderBy('legisimages.image_id', 'ASC')
             ->first();
           $contractNo = str_replace("/","",$data->Contract_legis);
-
           return view('legislation.preview',compact('dataFile','contractNo'));
         }
 
@@ -1091,8 +1091,27 @@ class LegislationController extends Controller
           ->where('legislations.id', $id)
           ->first();
 
+          
+          $dataImages = DB::table('legisimages')
+          ->where('legisimages.legisImage_id',$id)
+          ->where('legisimages.type_image',4)
+          ->orderBy('legisimages.image_id', 'ASC')
+          ->get();
+          $countDataImages = count($dataImages);
+          
+          // dump($dataImages,$countDataImages,$request);
+        if($request->preview == 4){
+          $dataFile = DB::table('legisimages')
+            ->where('legisimages.image_id',$request->file_id)
+            ->where('legisimages.type_image',4)
+            ->orderBy('legisimages.image_id', 'ASC')
+            ->first();
+          $contractNo = str_replace("/","",$data->Contract_legis);
+          return view('legislation.preview',compact('dataFile','contractNo'));
+        }
+
         $type = $request->type;
-        return view('legislation.asset',compact('data','id','type'));
+        return view('legislation.asset',compact('data','id','type','dataImages','countDataImages'));
       }
       elseif ($request->type == 10){ //ของกลาง
         $data = DB::table('legisexhibits')
@@ -1513,6 +1532,27 @@ class LegislationController extends Controller
           $LegisAsset->update();
         }
 
+        if ($request->hasFile('filePDF')) {
+          $image_array = $request->file('filePDF');
+          $contractNo = str_replace("/","",$request->contract);
+
+            $image_size = $image_array->getClientSize();
+            $image_lastname = $image_array->getClientOriginalExtension();
+            // $image_new_name = str_replace("/","",$user->Contract_legis). '.' .$image_array->getClientOriginalExtension();
+            $image_new_name = $image_array->getClientOriginalName();
+
+            $destination_path = public_path().'/legislation/'.$contractNo;
+            $image_array->move($destination_path,$image_new_name);
+
+            $Uploaddb = new LegisImage([
+              'legisImage_id' => $id,
+              'name_image' => $image_new_name,
+              'size_image' => $image_size,
+              'type_image' => '4',
+            ]);
+            $Uploaddb ->save();
+        }
+
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อย');
       }
       elseif ($request->type == 10){ //ของกลาง
@@ -1673,7 +1713,7 @@ class LegislationController extends Controller
         $item = Legisland::where('legisland_id',$id);
         $item->Delete();
       }
-      elseif ($request->type == 5) { //ลบไฟล์อัพโหลดเอกสาร
+      elseif ($request->type == 5 or $request->type == 6) { //ลบไฟล์อัพโหลดเอกสาร
         $contractNo = str_replace("/","",$request->contract);
         $item1 = LegisImage::where('image_id','=', $request->file_id)->first();
         $itemPath = public_path().'/Legislation/'.$contractNo.'/'.$item1->name_image;
