@@ -2,6 +2,18 @@
 @section('title','กฏหมาย/ลูกหนี้สืบทรัพย์')
 @section('content')
 
+@php
+    function DateThai($strDate){
+      $strYear = date("Y",strtotime($strDate))+543;
+      $strMonth= date("n",strtotime($strDate));
+      $strDay= date("d",strtotime($strDate));
+      $strMonthCut = Array("" , "ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค.");
+      $strMonthThai=$strMonthCut[$strMonth];
+      return "$strDay $strMonthThai $strYear";
+      //return "$strDay-$strMonthThai-$strYear";
+    }
+@endphp
+
   <style>
     [type="radio"]:checked,
     [type="radio"]:not(:checked) {
@@ -171,7 +183,7 @@
 
               <h5 class="" align="left">ขั้นตอนสืบทรัพย์</h5>
               <div class="row">
-                <div class="col-12">
+                <div class="col-8">
                   <div class="card card-success card-tabs">
                     <div class="card-header p-0 pt-1">
                       <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
@@ -186,8 +198,8 @@
                           <div class="row">
                             <div class="col-6">
                               <div class="form-group row mb-0">
-                                <label class="col-sm-3 col-form-label text-right">สถานะทรัพย์ : </label>
-                                <div class="col-sm-9">
+                                <label class="col-sm-4 col-form-label text-right">สถานะทรัพย์ : </label>
+                                <div class="col-sm-8">
                                   <input type="radio" id="test1" name="radio_propertied" value="Y" {{ ($data->propertied_asset === 'Y') ? 'checked' : '' }} />
                                   <label for="test1" class="mr-sm-5">มีทรัพย์</label>
                                   <input type="radio" id="test2" name="radio_propertied" value="N" {{ ($data->propertied_asset === 'N') ? 'checked' : '' }}/>
@@ -196,22 +208,22 @@
                               </div>
                               
                               <div class="form-group row mb-0">
-                                <label class="col-sm-3 col-form-label text-right">วันสืบทรัพย์ : </label>
-                                <div class="col-sm-9">
+                                <label class="col-sm-4 col-form-label text-right">วันสืบทรัพย์ : </label>
+                                <div class="col-sm-8">
                                   <input type="date" id="Dateasset" name="Dateasset" class="form-control form-control-sm" value="{{ ($data->Date_asset != Null) ? $data->Date_asset : date('Y-m-d') }}" readonly/>
                                 </div>
                               </div>
 
                               <div class="form-group row mb-0">
-                                <label class="col-sm-3 col-form-label text-right">วันสืบทรัพย์ครั้งแรก : </label>
-                                <div class="col-sm-9">
+                                <label class="col-sm-4 col-form-label text-right text-sm">วันสืบทรัพย์ครั้งแรก : </label>
+                                <div class="col-sm-8">
                                   <input type="date" id="sequesterasset" name="sequesterasset" class="form-control form-control-sm" value="{{ $data->sequester_asset }}"/>
                                 </div>
                               </div>
 
                               <div class="form-group row mb-0">
-                                <label class="col-sm-3 col-form-label text-right">ผลสืบ : </label>
-                                <div class="col-sm-9">
+                                <label class="col-sm-4 col-form-label text-right">ผลสืบ : </label>
+                                <div class="col-sm-8">
                                   <select id="sendsequesterasset" name="sendsequesterasset" class="form-control form-control-sm">
                                     <option value="" selected>--- เลือกผล ---</option>
                                     <option value="สืบทรัพย์เจอ" {{ ($data->sendsequester_asset === 'สืบทรัพย์เจอ') ? 'selected' : '' }}>สืบทรัพย์เจอ</option>
@@ -223,23 +235,23 @@
                               </div>
 
                               <div class="form-group row mb-0">
-                                <label class="col-sm-3 col-form-label text-right">ค่าใช้จ่าย : </label>
-                                <div class="col-sm-9">
+                                <label class="col-sm-4 col-form-label text-right">ค่าใช้จ่าย : </label>
+                                <div class="col-sm-8">
                                   <input type="text" id="Priceasset" name="Priceasset" class="form-control form-control-sm" value="{{ number_format($data->Price_asset) }}" oninput="Comma();"/>
                                 </div>
                               </div>
 
                               <div class="form-group row mb-0">
-                                <label class="col-sm-3 col-form-label text-right">วันที่สืบทรัพย์ใหม่ : </label>
-                                <div class="col-sm-9">
+                                <label class="col-sm-4 col-form-label text-right">วันที่สืบทรัพย์ใหม่ : </label>
+                                <div class="col-sm-8">
                                   <input type="date" id="NewpursueDateasset" name="NewpursueDateasset" class="form-control form-control-sm" value="{{ $data->NewpursueDate_asset }}"/>
                                 </div>
                               </div>
                             </div>
                             <div class="col-6">
                               <div class="form-group row mb-0">
-                                <label class="col-sm-2 col-form-label text-right">สถานะสืบ : </label>
-                                <div class="col-sm-10">
+                                <label class="col-sm-4 col-form-label text-right">สถานะสืบ : </label>
+                                <div class="col-sm-8">
                                   <select id="statusasset" name="statusasset" class="form-control form-control-sm">
                                     <option value="" selected>--- สถานะสืบ ---</option>
                                     <option value="สืบทรัพย์ชั้นศาล" {{ ($data->Status_asset === 'สืบทรัพย์ชั้นศาล') ? 'selected' : '' }}>สืบทรัพย์ชั้นศาล</option>
@@ -248,8 +260,8 @@
                                 </div>
                               </div>
                               <div class="form-group row mb-0">
-                                <label class="col-sm-2 col-form-label text-right">หมายเหตุ : </label>
-                                <div class="col-sm-10">
+                                <label class="col-sm-4 col-form-label text-right">หมายเหตุ : </label>
+                                <div class="col-sm-8">
                                   <textarea name="Notepursueasset" class="form-control form-control-sm" rows="8">{{ $data->Notepursue_asset }}</textarea>
                                 </div>
                               </div>
@@ -260,10 +272,88 @@
                     </div>
                   </div>
                 </div>
+                <input type="hidden" name="_method" value="PATCH"/>
+          </form>
+
+                <div class="col-4">
+                  <div class="card card-primary">
+                    <div class="card-header">
+                      <h3 class="card-title"><i class="fas fa-archive"></i> อัพโหลดเอกสาร</h3>
+
+                      <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-12">
+                            เลือกไฟล์ :
+                              <div class="input-group">
+                                <div class="custom-file">
+                                  <input type="file" name="filePDF" class="custom-file-input" id="exampleInputFile" value="">
+                                  <label class="custom-file-label" for="exampleInputFile">เลือกไฟล์อัพโหลด</label>
+                                </div>
+                              </div>
+                            <input type="hidden" name="contract" value="{{ $data->Contract_legis }}">    
+                        </div>
+                      </div>
+                
+                      @if($countDataImages != 0)
+                        <hr>
+                        <div class="row">
+                          <div class="table-responsive">
+                            <table class="table table-striped table-valign-middle" id="table1">
+                              <thead>
+                                <tr>
+                                  <th class="text-center"  style="width: 50px;">No.</th>
+                                  <th class="text-center">File Name</th>
+                                  <th class="text-center">Date Upload</th>
+                                  <th class="text-center">Action</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                  @foreach($dataImages as $key => $row)
+                                  <tr>
+                                    <td class="text-center"> {{$key+1}}</td>
+                                    <td class="text-left"> 
+                                        <i class="fas fa-file-pdf-o text-red"></i>
+                                      &nbsp;{{$row->name_image}}
+                                    </td>
+                                    <td class="text-left">{{DateThai(substr($row->created_at,0,10))}}</td>
+                                    <td class="text-right">
+                                        <a target="_blank" href="{{ route('MasterLegis.edit',[$data->id]) }}?type={{$type}}&preview={{4}}&file_id={{$row->image_id}}" class="btn btn-warning btn-xs" title="ดูไฟล์">
+                                          <i class="far fa-eye"></i>
+                                        </a>
+                                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก กฎหมาย")
+                                        <form method="post" class="delete_form" action="{{ route('MasterLegis.destroy',$data->id) }}" style="display:inline;">
+                                        {{csrf_field()}}
+                                          <input type="hidden" name="type" value="5" />
+                                          <input type="hidden" name="file_id" value="{{$row->image_id}}" />
+                                          <input type="hidden" name="contract" value="{{ $data->Contract_legis }}"> 
+
+                                          <input type="hidden" name="_method" value="DELETE" />
+                                          <button type="submit" data-name="{{$row->name_image}}" class="delete-modal btn btn-danger btn-xs AlertForm" title="ลบไฟล์">
+                                            <i class="far fa-trash-alt"></i>
+                                          </button>
+                                        </form>
+                                      @endif
+                                    </td>
+                                  </tr>
+                                  @endforeach
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      @endif
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <input type="hidden" name="_method" value="PATCH"/>
-          </form>
+
         </div>
       </section>
     </div>
@@ -299,5 +389,35 @@
       var x = document.getElementById("ShowMe");
       x.style.display = "none";
     }
+  </script>
+
+<div class="modal fade" id="modal-preview">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content bg-default">
+        <div class="modal-body">
+          <p>One fine body…</p>
+        </div>
+        <div class="modal-footer">
+          <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      bsCustomFileInput.init();
+    });
+  </script>
+
+  <script>
+    $(function () {
+      $("#modal-preview").on("show.bs.modal", function (e) {
+        var link = $(e.relatedTarget).data("link");
+        $("#modal-preview .modal-body").load(link, function(){
+        });
+      });
+    });
   </script>
 @endsection
