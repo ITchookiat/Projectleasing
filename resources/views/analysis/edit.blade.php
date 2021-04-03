@@ -898,14 +898,18 @@
                               <div class="col-md-4">
                                 <h5 class="text-center"><b>รูปภาพประกอบ</b></h5>
                                 @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
-                                  <div class="file-loading">
-                                    <input id="image-file" type="file" name="file_image[]" accept="image/*" data-min-file-count="1" multiple>
-                                  </div>
-                                @else
-                                  @if($data->Approvers_car == Null)
+                                  @if($data->License_car != '')
                                     <div class="file-loading">
                                       <input id="image-file" type="file" name="file_image[]" accept="image/*" data-min-file-count="1" multiple>
                                     </div>
+                                  @endif
+                                @else
+                                  @if($data->Approvers_car == Null)
+                                    @if($data->License_car != '')
+                                      <div class="file-loading">
+                                        <input id="image-file" type="file" name="file_image[]" accept="image/*" data-min-file-count="1" multiple>
+                                      </div>
+                                    @endif
                                   @endif
                                 @endif
                                 <!-- <div class="form-group">
