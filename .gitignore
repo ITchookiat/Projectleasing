@@ -1,6 +1,12 @@
 /node_modules
 /public/hot
 /public/storage
+/public/file-documents
+/public/legislation
+/public/Upload-Events
+/public/Upload-image
+/public/Upload-image-MP
+/public/Upload-Info
 /storage/*.key
 /vendor
 .env
