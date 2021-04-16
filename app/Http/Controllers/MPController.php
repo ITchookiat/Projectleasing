@@ -749,6 +749,12 @@ class MPController extends Controller
           $cardetail->Mile_car = $request->get('Milecar');
           $cardetail->Midprice_car = $request->get('Midpricecar');
           $cardetail->Model_car = $request->get('Modelcar');
+          $cardetail->DateFInsurance_car = $request->get('DateFInsurance');
+          $cardetail->DateLInsurance_car = $request->get('DateLInsurance');
+          $cardetail->DateFAct_car = $request->get('DateFAct');
+          $cardetail->DateLAct_car = $request->get('DateLAct');
+          $cardetail->DateFRegister_car = $request->get('DateFRegister');
+          $cardetail->DateLRegister_car = $request->get('DateLRegister');
           $cardetail->Top_car = $SetTopcar;
           $cardetail->Interest_car = $request->get('Interestcar');
           $cardetail->Vat_car = $request->get('Vatcar');

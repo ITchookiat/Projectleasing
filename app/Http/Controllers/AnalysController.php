@@ -1610,12 +1610,6 @@ class AnalysController extends Controller
         $cardetail->Nowlicense_car = $request->get('Nowlicensecar');
         $cardetail->Mile_car = $request->get('Milecar');
         $cardetail->Midprice_car = $request->get('Midpricecar');
-        $cardetail->DateFInsurance_car = $request->get('DateFInsurance');
-        $cardetail->DateLInsurance_car = $request->get('DateLInsurance');
-        $cardetail->DateFAct_car = $request->get('DateFAct');
-        $cardetail->DateLAct_car = $request->get('DateLAct');
-        $cardetail->DateFRegister_car = $request->get('DateFRegister');
-        $cardetail->DateLRegister_car = $request->get('DateLRegister');
         $cardetail->Model_car = $request->get('Modelcar');
         $cardetail->DateFInsurance_car = $request->get('DateFInsurance');
         $cardetail->DateLInsurance_car = $request->get('DateLInsurance');
@@ -2607,12 +2601,6 @@ class AnalysController extends Controller
           $cardetail->Nowlicense_car = $request->get('Nowlicensecar');
           $cardetail->Mile_car = $request->get('Milecar');
           $cardetail->Midprice_car = $request->get('Midpricecar');
-          $cardetail->DateFInsurance_car = $request->get('DateFInsurance');
-          $cardetail->DateLInsurance_car = $request->get('DateLInsurance');
-          $cardetail->DateFAct_car = $request->get('DateFAct');
-          $cardetail->DateLAct_car = $request->get('DateLAct');
-          $cardetail->DateFRegister_car = $request->get('DateFRegister');
-          $cardetail->DateLRegister_car = $request->get('DateLRegister');
           $cardetail->Model_car = $request->get('Modelcar');
           $cardetail->DateFInsurance_car = $request->get('DateFInsurance');
           $cardetail->DateLInsurance_car = $request->get('DateLInsurance');
