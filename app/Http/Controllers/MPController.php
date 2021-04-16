@@ -85,6 +85,11 @@ class MPController extends Controller
               ->orderBy('MP_Datas.Contract_MP', 'ASC')
               ->get();
           }else {
+            if($contno != ''){
+              $newfdate = '';
+              $newtdate = '';
+              $status = '';
+            }
             $data = DB::table('MP_Datas')
               ->leftJoin('MP_Datacars','MP_Datas.id','=','MP_Datacars.MP_id')
               ->leftJoin('MP_Expenses','MP_Datas.id','=','MP_Expenses.MP_id')
@@ -170,6 +175,11 @@ class MPController extends Controller
                 ->orderBy('MP_Datas.Contract_MP', 'ASC')
                 ->get();
             }else {
+              if($contno != ''){
+                $newfdate = '';
+                $newtdate = '';
+                $status = '';
+              }
               $data = DB::table('MP_Datas')
                 ->leftJoin('MP_Datacars','MP_Datas.id','=','MP_Datacars.MP_id')
                 ->leftJoin('MP_Expenses','MP_Datas.id','=','MP_Expenses.MP_id')
@@ -254,6 +264,11 @@ class MPController extends Controller
               ->orderBy('MP_Datas.Contract_MP', 'ASC')
               ->get();
           }else {
+            if($contno != ''){
+              $newfdate = '';
+              $newtdate = '';
+              $status = '';
+            }
             $data = DB::table('MP_Datas')
               ->leftJoin('MP_Datacars','MP_Datas.id','=','MP_Datacars.MP_id')
               ->leftJoin('MP_Expenses','MP_Datas.id','=','MP_Expenses.MP_id')
@@ -338,6 +353,11 @@ class MPController extends Controller
               ->orderBy('MP_Datas.Contract_MP', 'ASC')
               ->get();
           }else {
+            if($contno != ''){
+              $newfdate = '';
+              $newtdate = '';
+              $status = '';
+            }
             $data = DB::table('MP_Datas')
               ->leftJoin('MP_Datacars','MP_Datas.id','=','MP_Datacars.MP_id')
               ->leftJoin('MP_Expenses','MP_Datas.id','=','MP_Expenses.MP_id')
