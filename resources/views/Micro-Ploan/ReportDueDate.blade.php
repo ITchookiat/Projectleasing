@@ -165,7 +165,7 @@
                   @endif
                 </td>
                 <td width="35px" rowspan="4" style="background-color: #FFFF00; line-height:750%;">
-                  @if($value->Type_Con == "P03")
+                  @if($value->Type_Con == "P03" or $value->Type_Con == "P04")
                     PLoan
                   @else
                     Micro
@@ -275,7 +275,7 @@
                   @endif
                 </td>
                 <td width="50px" style="background-color: #00FF89;">
-                  @if($value->Approvers_car == 'อรุณวรรณ แก้วมลทิน')
+                  <!-- @if($value->Approvers_car == 'อรุณวรรณ แก้วมลทิน')
                     อรุณวรรณ
                   @elseif($value->Approvers_car == 'นายอำพัน ดือราแมหะยี')
                     อำพัน
@@ -285,6 +285,9 @@
                     ซอลาฮุดดีน
                   @elseif($value->Approvers_car == 'อารอปะห์ มุนะ')
                     อารอปะห์
+                  @endif -->
+                  @if($value->ManagerApp_car != NULL)
+                    อนุมัติแล้ว
                   @endif
                 </td>
               </tr>
