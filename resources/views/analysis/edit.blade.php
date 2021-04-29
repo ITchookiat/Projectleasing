@@ -245,11 +245,11 @@
                             <button type="submit" class="delete-modal btn btn-success">
                               <i class="fas fa-save"></i> อัพเดท
                             </button>
-                            <a class="delete-modal btn btn-sm btn-danger" href="{{ route('Analysis',1) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
+                            <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
                               <i class="far fa-window-close"></i> ยกเลิก
                             </a>
                           @else
-                            <a class="delete-modal btn btn-sm btn-danger" href="{{ route('Analysis',1) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
+                            <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
                               <i class="fas fa-undo"></i> ย้อนกลับ
                             </a>
                           @endif
@@ -262,10 +262,34 @@
                   <div class="container-fluid">
                     <div class="row mb-1">
                       <div class="col-sm-3">
-                        {{-- <h1 class="m-0 text-dark">Dashboard v2</h1> --}}
+                      {{-- เช็คเล่มทะเบียน --}}
+                          <div class="float-left form-inline">
+                            <i class="fas fa-book text-primary fa-lg"></i>
+                              <span class="todo-wrap">
+                                @if(auth::user()->type == "Admin" or auth::user()->position == "MASTER" or auth::user()->position == "AUDIT")
+                                  @if($data->BookCheck_car != NULL)
+                                    <input type="checkbox" class="checkbox" name="BOOKCHECK" id="6" value="{{ $data->BookCheck_car }}" {{ ($data->BookCheck_car !== NULL) ? 'checked' : '' }}>
+                                  @else
+                                    <input type="checkbox" class="checkbox" name="BOOKCHECK" id="6" value="{{ date('Y-m-d') }}">
+                                  @endif
+                                @else
+                                  <input type="checkbox" class="checkbox" id="6" {{ ($data->BookCheck_car !== NULL) ? 'checked' : '' }} disabled>
+                                @endif
+                                <label for="6" class="todo">
+                                  <i class="fa fa-check"></i>
+                                  <font color="red">BOOK REGIST CHECK &nbsp;&nbsp;</font>
+                                </label>
+                              </span>
+                              @if(auth::user()->type != "Admin" and auth::user()->position != "MASTER" and auth::user()->position != "AUDIT")
+                                @if($data->BookCheck_car != NULL)
+                                  <input type="hidden" name="BOOKCHECK" value="{{ $data->BookCheck_car }}">
+                                @endif
+                              @endif
+                          </div>
                       </div>
                       <div class="col-sm-9">
                         <ol class="breadcrumb float-sm-right">
+
                           {{-- ผู้จัดการ --}}
                           <div class="float-right form-inline">
                             <i class="fas fa-grip-vertical"></i>
