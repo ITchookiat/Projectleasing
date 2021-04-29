@@ -1907,6 +1907,7 @@ class AnalysController extends Controller
         $expenses->duty_Price = $request->get('dutyPrice');
         $expenses->insurance_Price = $request->get('insurancePrice');
         $expenses->note_Price = $request->get('notePrice');
+        $expenses->BookCheck_car = $request->get('BOOKCHECK');
       $expenses->update();
       
 
