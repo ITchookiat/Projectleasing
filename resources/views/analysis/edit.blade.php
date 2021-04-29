@@ -220,22 +220,22 @@
                       <div class="card-tools d-inline float-right">
                         @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                           @if(auth::user()->type == "Admin")
-                            <button type="submit" class="delete-modal btn btn-sm btn-success">
+                            <button type="submit" class="delete-modal btn btn-success">
                               <i class="fas fa-save"></i> อัพเดท
                             </button>
-                            <a class="delete-modal btn btn-sm btn-danger" href="{{ route('Analysis',1) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
+                            <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
                               <i class="far fa-window-close"></i> ยกเลิก
                             </a>
                           @elseif(auth::user()->position == "MANAGER")
                             @if($data->StatusApp_car != 'อนุมัติ')
-                              <button type="submit" class="delete-modal btn btn-sm btn-success">
+                              <button type="submit" class="delete-modal btn btn-success">
                                 <i class="fas fa-save"></i> อัพเดท
                               </button>
-                              <a class="delete-modal btn btn-sm btn-danger" href="{{ route('Analysis',1) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
+                              <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
                                 <i class="far fa-window-close"></i> ยกเลิก
                               </a>
                             @else
-                              <a class="delete-modal btn btn-sm btn-danger" href="{{ route('Analysis',1) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
+                              <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
                                 <i class="fas fa-undo"></i> ย้อนกลับ
                               </a>
                             @endif
