@@ -263,10 +263,10 @@
                     <div class="row mb-1">
                       <div class="col-sm-3">
                       {{-- เช็คเล่มทะเบียน --}}
-                          <div class="float-left form-inline">
+                          <!-- <div class="float-left form-inline">
                             <i class="fas fa-book text-primary fa-lg"></i>
                               <span class="todo-wrap">
-                                @if(auth::user()->type == "Admin" or auth::user()->position == "MASTER" or auth::user()->position == "AUDIT")
+                                @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER" or auth::user()->position == "MASTER" or auth::user()->position == "AUDIT")
                                   @if($data->BookCheck_car != NULL)
                                     <input type="checkbox" class="checkbox" name="BOOKCHECK" id="6" value="{{ $data->BookCheck_car }}" {{ ($data->BookCheck_car !== NULL) ? 'checked' : '' }}>
                                   @else
@@ -280,12 +280,12 @@
                                   <font color="red">BOOK REGIST CHECK &nbsp;&nbsp;</font>
                                 </label>
                               </span>
-                              @if(auth::user()->type != "Admin" and auth::user()->position != "MASTER" and auth::user()->position != "AUDIT")
+                              @if(auth::user()->type != "Admin" and auth::user()->position != "MANAGER" and auth::user()->position != "MASTER" and auth::user()->position != "AUDIT")
                                 @if($data->BookCheck_car != NULL)
                                   <input type="hidden" name="BOOKCHECK" value="{{ $data->BookCheck_car }}">
                                 @endif
                               @endif
-                          </div>
+                          </div> -->
                       </div>
                       <div class="col-sm-9">
                         <ol class="breadcrumb float-sm-right">
