@@ -12,6 +12,9 @@
   $time = date('H:i');
   $date = $Y.'-'.$m.'-'.$d;
   $date2 = $Y2.'-'.'01'.'-'.'01';
+
+  $SetTDate = date('Y-m-d', strtotime('+ 5year'));
+  $SetFDate = date('Y-m-d', strtotime('- 2year'));
 @endphp
 
   <link type="text/css" rel="stylesheet" href="{{ asset('css/magiczoomplus.css') }}"/>
@@ -1803,9 +1806,9 @@
                                 <label class="col-sm-3 col-form-label text-right">วันที่ทำประกัน : </label>
                                 <div class="col-sm-8">
                                   @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
-                                    <input type="date" name="DateFInsurance" value="{{$data->DateFInsurance_car}}" class="form-control form-control-sm"  placeholder="วันที่ทำประกัน" />
+                                    <input type="date" name="DateFInsurance" value="{{$data->DateFInsurance_car}}" min="{{$SetFDate}}" max="{{$SetTDate}}" class="form-control form-control-sm"  placeholder="วันที่ทำประกัน" />
                                   @else
-                                    <input type="date" name="DateFInsurance" value="{{$data->DateFInsurance_car}}" class="form-control form-control-sm"  placeholder="วันที่ทำประกัน" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                    <input type="date" name="DateFInsurance" value="{{$data->DateFInsurance_car}}" min="{{$SetFDate}}" max="{{$SetTDate}}" class="form-control form-control-sm"  placeholder="วันที่ทำประกัน" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
                                   @endif
                                 </div>
                               </div>
@@ -1815,9 +1818,9 @@
                                 <label class="col-sm-3 col-form-label text-right">วันที่หมดประกัน : </label>
                                 <div class="col-sm-8">
                                   @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
-                                    <input type="date" name="DateLInsurance" value="{{$data->DateLInsurance_car}}" class="form-control form-control-sm"  placeholder="วันที่หมดประกัน"/>
+                                    <input type="date" name="DateLInsurance" value="{{$data->DateLInsurance_car}}" min="{{$SetFDate}}" max="{{$SetTDate}}" class="form-control form-control-sm"  placeholder="วันที่หมดประกัน"/>
                                   @else
-                                    <input type="date" name="DateLInsurance" value="{{$data->DateLInsurance_car}}" class="form-control form-control-sm"  placeholder="วันที่หมดประกัน" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                    <input type="date" name="DateLInsurance" value="{{$data->DateLInsurance_car}}" min="{{$SetFDate}}" max="{{$SetTDate}}" class="form-control form-control-sm"  placeholder="วันที่หมดประกัน" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
                                   @endif
                                 </div>
                               </div>
@@ -1830,9 +1833,9 @@
                                 <label class="col-sm-3 col-form-label text-right">วันที่ทำ พ.ร.บ : </label>
                                 <div class="col-sm-8">
                                   @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
-                                    <input type="date" name="DateFAct" value="{{$data->DateFAct_car}}" class="form-control form-control-sm"  placeholder="วันที่ทำ พ.ร.บ" />
+                                    <input type="date" name="DateFAct" value="{{$data->DateFAct_car}}" min="{{$SetFDate}}" max="{{$SetTDate}}" class="form-control form-control-sm"  placeholder="วันที่ทำ พ.ร.บ" />
                                   @else
-                                    <input type="date" name="DateFAct" value="{{$data->DateFAct_car}}" class="form-control form-control-sm"  placeholder="วันที่ทำ พ.ร.บ" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                    <input type="date" name="DateFAct" value="{{$data->DateFAct_car}}"  min="{{$SetFDate}}" max="{{$SetTDate}}" class="form-control form-control-sm"  placeholder="วันที่ทำ พ.ร.บ" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
                                   @endif
                                 </div>
                               </div>
@@ -1842,9 +1845,9 @@
                                 <label class="col-sm-3 col-form-label text-right">วันที่หมด พ.ร.บ : </label>
                                 <div class="col-sm-8">
                                   @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
-                                    <input type="date" name="DateLAct" value="{{$data->DateLAct_car}}" class="form-control form-control-sm"  placeholder="วันที่หมด พ.ร.บ"/>
+                                    <input type="date" name="DateLAct" value="{{$data->DateLAct_car}}" min="{{$SetFDate}}" max="{{$SetTDate}}" class="form-control form-control-sm"  placeholder="วันที่หมด พ.ร.บ"/>
                                   @else
-                                    <input type="date" name="DateLAct" value="{{$data->DateLAct_car}}" class="form-control form-control-sm"  placeholder="วันที่หมด พ.ร.บ" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                    <input type="date" name="DateLAct" value="{{$data->DateLAct_car}}" min="{{$SetFDate}}" max="{{$SetTDate}}" class="form-control form-control-sm"  placeholder="วันที่หมด พ.ร.บ" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
                                   @endif
                                 </div>
                               </div>
@@ -1857,9 +1860,9 @@
                                 <label class="col-sm-3 col-form-label text-right">วันที่ทำต่อทะเบียน : </label>
                                 <div class="col-sm-8">
                                   @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
-                                    <input type="date" name="DateFRegister" value="{{$data->DateFRegister_car}}" class="form-control form-control-sm"  placeholder="วันที่ทำต่อทะเบียน" />
+                                    <input type="date" name="DateFRegister" value="{{$data->DateFRegister_car}}" min="{{$SetFDate}}" max="{{$SetTDate}}" class="form-control form-control-sm"  placeholder="วันที่ทำต่อทะเบียน" />
                                   @else
-                                    <input type="date" name="DateFRegister" value="{{$data->DateFRegister_car}}" class="form-control form-control-sm"  placeholder="วันที่ทำต่อทะเบียน" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                    <input type="date" name="DateFRegister" value="{{$data->DateFRegister_car}}" min="{{$SetFDate}}" max="{{$SetTDate}}" class="form-control form-control-sm"  placeholder="วันที่ทำต่อทะเบียน" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
                                   @endif
                                 </div>
                               </div>
@@ -1869,9 +1872,9 @@
                                 <label class="col-sm-3 col-form-label text-right">วันที่หมดทะเบียน : </label>
                                 <div class="col-sm-8">
                                   @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
-                                    <input type="date" name="DateLRegister" value="{{$data->DateLRegister_car}}" class="form-control form-control-sm"  placeholder="วันที่หมดทะเบียน"/>
+                                    <input type="date" name="DateLRegister" value="{{$data->DateLRegister_car}}" min="{{$SetFDate}}" max="{{$SetTDate}}" class="form-control form-control-sm"  placeholder="วันที่หมดทะเบียน"/>
                                   @else
-                                    <input type="date" name="DateLRegister" value="{{$data->DateLRegister_car}}" class="form-control form-control-sm"  placeholder="วันที่หมดทะเบียน" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                    <input type="date" name="DateLRegister" value="{{$data->DateLRegister_car}}" min="{{$SetFDate}}" max="{{$SetTDate}}" class="form-control form-control-sm"  placeholder="วันที่หมดทะเบียน" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
                                   @endif
                                 </div>
                               </div>
