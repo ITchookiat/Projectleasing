@@ -98,7 +98,7 @@
             -o-transition:all .9s ease;
             -ms-transition:all .9s ease; 
             width: 100%;
-            height: 250px;
+            height: 200px;
             }
             #cards_landscape_wrap-2 .card-flyer:hover .image-box img{
             opacity: 0.7;
@@ -168,7 +168,7 @@
         <div id="cards_landscape_wrap-2">
             <div class="container">
                 <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
                         <a href="{{ route('login') }}">
                             <div class="card-flyer">
                                 <div class="text-box">
@@ -176,30 +176,14 @@
                                         <img src="{{ asset('dist/img/leasing02.png') }}" alt=""/>
                                     </div>
                                     <div class="text-container">
-                                        <h6>chookiat Leasing</h6>
+                                        <h6>chookiat Leasing.</h6>
                                         <p style="font-family: 'Prompt', sans-serif;">อาชีพไหนๆก็ได้กู้ ง่ายๆ คนใต้ด้วยกัน เราพร้อมเคียงข้างทุกความสำเร็จของคุณ</p>
-                                        <br>
                                     </div>
                                 </div>
                             </div>
                         </a>
                     </div>
-                    {{-- <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-                        <a href="http://192.168.200.9/ProjectLabPM/public/login">
-                            <div class="card-flyer">
-                                <div class="text-box">
-                                    <div class="image-box">
-                                        <img src="{{ asset('dist/img/leasing03.png') }}" alt=""/>
-                                    </div>
-                                    <div class="text-container">                                    
-                                        <h6>chookiat LabPM</h6>
-                                        <p style="font-family: 'Prompt', sans-serif;">จำนำทะเบียนแบบไม่โอนเล่ม เร็วสุด ไวสุด ในสามจังหวัดชายแดนภาคใต้ พร้อมให้บริการคุณในทุกโอกาส</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div> --}}
-                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
                         <a href="http://192.168.200.9/ProjectHomeCar/public/login">
                             <div class="card-flyer">
                                 <div class="text-box">
@@ -208,15 +192,14 @@
                                     </div>
         
                                     <div class="text-container">
-                                        <h6>chookiat HomeCar</h6>
+                                        <h6>chookiat HomeCar.</h6>
                                         <p style="font-family: 'Prompt', sans-serif;">ศูนย์รวมรถยนต์มือสอง อันดับ 1 ในสามจังหวัดชายแดนภาคใต้ สาขาปัตตานี</p>
-                                        <br>
                                     </div>
                                 </div>
                             </div>
                         </a>
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
                         <a href="http://192.168.200.9/ProjectLabBP/public/login">
                             <div class="card-flyer">
                                 <div class="text-box">
@@ -224,13 +207,28 @@
                                        <img src="{{ asset('dist/img/Mazda.png') }}"/>
                                     </div>
                                     <div class="text-container">
-                                        <h6>Mazda LabBP</h6>
+                                        <h6>Mazda LabBP.</h6>
                                         <p style="font-family: 'Prompt', sans-serif;">ศูนย์ซ่อมตัวถังและสี มาตรฐานจากโรงงานมาสด้า บริการด้วยทีมช่างมืออาชีพ รับประกันคุณภาพการซ่อม</p>
                                     </div>
                                 </div>
                             </div>
                         </a>
                     </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <a href="#">
+                        <div class="card-flyer">
+                            <div class="text-box">
+                                <div class="image-box">
+                                    <img src="{{ asset('dist/img/DLT.png') }}" alt=""/>
+                                </div>
+                                <div class="text-container">                                    
+                                    <h6>chookiat DLT.</h6>
+                                    <p style="font-family: 'Prompt', sans-serif;">จำนำทะเบียนแบบไม่โอนเล่ม เร็วสุด ไวสุด ในสามจังหวัดชายแดนภาคใต้ พร้อมให้บริการคุณในทุกโอกาส</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
                 </div>
             </div>
         </div>
