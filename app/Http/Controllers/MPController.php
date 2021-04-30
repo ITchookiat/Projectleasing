@@ -952,6 +952,7 @@ class MPController extends Controller
           $expenses->balance_Price = $SetbalancePrice;
           $expenses->commit_Price = $SetcommitPrice;
           $expenses->note_Price = $request->get('notePrice');
+          $expenses->BookCheck_car = $request->get('BOOKCHECK');
         $expenses->update();
       }
 
@@ -1596,7 +1597,7 @@ class MPController extends Controller
             $excel->sheet($status, function ($sheet) use($data,$status) {
                 $sheet->prependRow(1, array("บริษัท ชูเกียรติลิสซิ่ง จำกัด"));
                 $sheet->prependRow(2, array($status));
-                $sheet->cells('A3:AR3', function($cells) {
+                $sheet->cells('A3:AY3', function($cells) {
                   $cells->setBackground('#FFCC00');
                 });
                 $row = 3;
@@ -1605,10 +1606,15 @@ class MPController extends Controller
                   'พรบ.','ยอดปิดบัญชี','ซื้อประกัน', '% ยอดจัด','ค่าใช้จ่ายขนส่ง','อื่นๆ','ค่าประเมิน','ค่าการตลาด','อากร',
                   'รวม คชจ', 'คงเหลือ', 'ค่าคอมก่อนหัก 3%', 'ค่าคอมหลังหัก 3%', 
                   'เลขที่โฉนดผู้ค่ำ', 'ผู้รับเงิน','เลขบัญชี','เบอร์โทรผู้รับเงิน', 'ผู้รับค่าคอม','เลขบัญชี','เบอร์โทรผู้แนะนำ', 
-                  'ใบขับขี่','ประกันภัย','สถานะผู้เช่าซื้อ','ตำแหน่งที่อยู่ผู้เช่าซื้อ', 'ตำแหน่งที่อยู่ผู้ค่ำ','รายละเอียดอาชีพ','ผลการประเมินลูกค้า', 'ผลการตรวจสอบลูกค้า','ความพึงพอใจลูกค้า','ผลการตรวจสอบนายหน้า','ความพึงพอใจนายหน้า'));
+                  'ใบขับขี่','ประกันภัย','สถานะผู้เช่าซื้อ','ตำแหน่งที่อยู่ผู้เช่าซื้อ', 'ตำแหน่งที่อยู่ผู้ค่ำ','รายละเอียดอาชีพ','ผลการประเมินลูกค้า', 'ผลการตรวจสอบลูกค้า','ความพึงพอใจลูกค้า','ผลการตรวจสอบนายหน้า','ความพึงพอใจนายหน้า',
+                  'วันที่เช็คเล่มทะเบียน','ค่าเช็คเล่มทะเบียน'));
   
                 foreach ($data as $key => $value) {
-  
+                  if($value->BookCheck_car == null){
+                    $BooKcheck_price = 0;
+                  }else{
+                    $BooKcheck_price = 50;
+                  }
                   $sheet->row(++$row, array(
                     $key+1,
                     $value->Type_Con,
@@ -1659,6 +1665,8 @@ class MPController extends Controller
                     $value->Prefer_MP,
                     $value->Memo_broker,
                     $value->Prefer_broker,
+                    $value->BookCheck_car,
+                    $BooKcheck_price,
                   ));
   
                 }
