@@ -1515,7 +1515,7 @@
                               </div>
                             </div>
                             <div class="col-6">
-                              <div class="form-group row mb-0">
+                              <!-- <div class="form-group row mb-0">
                                 <label class="col-sm-3 col-form-label text-right">อาชีพ : </label>
                                 <div class="col-sm-8">
                                   @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
@@ -1538,28 +1538,7 @@
                                     @endif
                                   @endif
                                 </div>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="row">
-                            <div class="col-6">
-                              <div class="form-group row mb-0">
-                                <label class="col-sm-3 col-form-label text-right">รายได้ : </label>
-                                <div class="col-sm-8">
-                                  @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
-                                    <input type="text" id="incomeSP" name="incomeSP" value="{{$data->income_SP}}" class="form-control form-control-sm" oninput="income();"/>
-                                  @else
-                                    @if($GetDocComplete != Null)
-                                        <input type="text" name="incomeSP" value="{{$data->income_SP}}" class="form-control form-control-sm" readonly/>
-                                    @else
-                                      <input type="text" id="incomeSP" name="incomeSP" value="{{$data->income_SP}}" class="form-control form-control-sm" oninput="income();"/>
-                                    @endif
-                                  @endif
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col-6">
+                              </div> -->
                               <div class="form-group row mb-0">
                                 <label class="col-sm-3 col-form-label text-right">ประวัติซื้อ/ค้ำ  : </label>
                                 <div class="col-sm-4">
@@ -1605,6 +1584,72 @@
                                   @endif
                                 </div>
                               </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-6">
+                              <!-- <div class="form-group row mb-0">
+                                <label class="col-sm-3 col-form-label text-right">รายได้ : </label>
+                                <div class="col-sm-8">
+                                  @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
+                                    <input type="text" id="incomeSP" name="incomeSP" value="{{$data->income_SP}}" class="form-control form-control-sm" oninput="income();"/>
+                                  @else
+                                    @if($GetDocComplete != Null)
+                                        <input type="text" name="incomeSP" value="{{$data->income_SP}}" class="form-control form-control-sm" readonly/>
+                                    @else
+                                      <input type="text" id="incomeSP" name="incomeSP" value="{{$data->income_SP}}" class="form-control form-control-sm" oninput="income();"/>
+                                    @endif
+                                  @endif
+                                </div>
+                              </div> -->
+                            </div>
+                            <div class="col-6">
+                              <!-- <div class="form-group row mb-0">
+                                <label class="col-sm-3 col-form-label text-right">ประวัติซื้อ/ค้ำ  : </label>
+                                <div class="col-sm-4">
+                                  @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
+                                    <select name="puchaseSP" class="form-control form-control-sm">
+                                      <option value="" selected>--- ซื้อ ---</option>
+                                      @foreach ($HisCarby as $key => $value)
+                                        <option value="{{$key}}" {{ ($key == $data->puchase_SP) ? 'selected' : '' }}>{{$value}}</option>
+                                      @endforeach
+                                    </select>
+                                  @else
+                                    @if($GetDocComplete != Null)
+                                      <input type="text" name="puchaseSP" value="{{$data->puchase_SP}}" class="form-control form-control-sm" placeholder="ซื้อ" readonly/>
+                                    @else
+                                      <select name="puchaseSP" class="form-control form-control-sm">
+                                        <option value="" selected>--- ซื้อ ---</option>
+                                        @foreach ($HisCarby as $key => $value)
+                                          <option value="{{$key}}" {{ ($key == $data->puchase_SP) ? 'selected' : '' }}>{{$value}}</option>
+                                        @endforeach
+                                      </select>
+                                    @endif
+                                  @endif
+                                </div>
+                                <div class="col-sm-4">
+                                  @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
+                                    <select name="supportSP" class="form-control form-control-sm">
+                                      <option value="" selected>--- ค้ำ ---</option>
+                                      @foreach ($HisCarby as $key => $value)
+                                        <option value="{{$key}}" {{ ($key == $data->support_SP) ? 'selected' : '' }}>{{$value}}</option>
+                                      @endforeach
+                                    </select>
+                                  @else
+                                    @if($GetDocComplete != Null)
+                                      <input type="text" name="supportSP" value="{{$data->support_SP}}" class="form-control form-control-sm" placeholder="ค้ำ" readonly/>
+                                    @else
+                                      <select name="supportSP" class="form-control form-control-sm">
+                                        <option value="" selected>--- ค้ำ ---</option>
+                                        @foreach ($HisCarby as $key => $value)
+                                          <option value="{{$key}}" {{ ($key == $data->support_SP) ? 'selected' : '' }}>{{$value}}</option>
+                                        @endforeach
+                                      </select>
+                                    @endif
+                                  @endif
+                                </div>
+                              </div> -->
                             </div>
                           </div>
 
