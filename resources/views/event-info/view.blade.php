@@ -202,19 +202,39 @@
                     </div>
                   </div>
 
-                  <div class="form-group mb-1">
-                    <label>Notes :</label>
-                    <div class="input-group">
-                      <textarea name="Note" class="form-control form-control-sm" placeholder="ป้อนหมายเหตุ" rows="3"></textarea>
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="form-group mb-1">
+                        <label>Notes :</label>
+                        <div class="input-group">
+                          <textarea name="Note" class="form-control form-control-sm" placeholder="ป้อนหมายเหตุ" rows="3"></textarea>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
-                  <div class="form-group mb-1">
-                    <label>Upload Images :</label>
-                    <div class="file-loading">
-                      <input id="image_Event" type="file" name="image_Event[]" accept="image/*" data-min-file-count="1" multiple >
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="form-group mb-1">
+                        <label>Upload Images :</label>
+                        <div class="file-loading">
+                          <input id="image_Event" type="file" name="image_Event[]" accept="image/*" data-min-file-count="1" multiple >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="form-group mb-3">
+                        <label>Upload Files :</label>
+                        <div class="input-group">
+                          <div class="custom-file">
+                            <input type="file" name="fileEvent" class="custom-file-input" id="exampleInputFile" value="">
+                            <label class="custom-file-label" for="exampleInputFile">เลือกไฟล์อัพโหลด</label>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
+
                 </div>
               </div>
             </div>
@@ -222,9 +242,9 @@
         </div>
       </div>
 
-      <input type="hidden" name="type" value="1" />
-      <input type="hidden" name="_token" value="{{csrf_token()}}" />
-    </form>
+    <input type="hidden" name="type" value="1" />
+    <input type="hidden" name="_token" value="{{csrf_token()}}" />
+  </form>
 
     <div class="modal fade" id="modal-events">
       <div class="modal-dialog modal-lg">
@@ -325,5 +345,11 @@
     $('.prem').fadeIn(1500);
     }
     setInterval(blinker, 1500);
+  </script>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      bsCustomFileInput.init();
+    });
   </script>
 @endsection

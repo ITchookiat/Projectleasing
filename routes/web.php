@@ -94,6 +94,7 @@ Route::group(['middleware' => 'auth'], function()
     route::resource('MasterEvents','EventController');
     Route::get('/MasterEvents/ShowEvent/{type}', 'EventController@ShowEvent')->name('Events.ShowEvent');
     Route::get('/MasterEvents/DeleteEvents/{id}/{path}/{type}', 'EventController@DeleteEvents');
+    Route::get('/MasterEvents/Download/{name}', 'EventController@download');
 
       //------------------Settings-----------------//
     route::resource('MasterSetting','MainsettingController');

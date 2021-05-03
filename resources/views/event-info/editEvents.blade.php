@@ -1,4 +1,14 @@
-
+@php
+    function DateThai($strDate){
+      $strYear = date("Y",strtotime($strDate))+543;
+      $strMonth= date("n",strtotime($strDate));
+      $strDay= date("d",strtotime($strDate));
+      $strMonthCut = Array("" , "ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค.");
+      $strMonthThai=$strMonthCut[$strMonth];
+      return "$strDay $strMonthThai $strYear";
+      //return "$strDay-$strMonthThai-$strYear";
+    }
+@endphp
 {{-- Date Rang --}}
 <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
 <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
@@ -101,47 +111,127 @@
           </div>
         </div>
 
-        <div class="form-group mb-1">
-          <label>Note :</label>
-          <div class="input-group">
-            <textarea name="Note" class="form-control form-control-sm" placeholder="ป้อนหมายเหตุ" rows="3">{{$data->Note_events}}</textarea>
-          </div>
-        </div>
-
-        <div class="form-group mb-1">
-          <label>Upload Images :</label>
-          <div class="input-group">
-            <div class="custom-file">
-              <input type="file" name="image_Event[]" class="custom-file-input" id="image_Event" multiple>
-              <label class="custom-file-label" for="1">เลือกไฟล์ที่ต้องการ</label>
+        <div class="row">
+          <div class="col-12">
+            <div class="form-group mb-1">
+              <label>Note :</label>
+              <div class="input-group mb-3">
+                <textarea name="Note" class="form-control form-control-sm" placeholder="ป้อนหมายเหตุ" rows="3">{{$data->Note_events}}</textarea>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="card card-primary">
-          <div class="card-header">
-            <div class="card-title">
-              รูปภาพผู้เช่าซื้อ
-            </div>
-            <div class="card-tools">
-              @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER" or auth::user()->position == "MASTER")
-                <button href="{{ action('EventController@DeleteEvents',[$data->events_id, $data->title, 2]) }}" data-name="{{ $data->title }}" style="color: white;" class="btn btn-primary btn-tool DeleteImage" title="ลบรูปภาพทั้งหมด">
-                  <i class="far fa-trash-alt"></i>
-                </button>
-              @endif
-            </div>
-          </div>
-          
-          <div class="card-body">
-            <div class="row">
-              @foreach($image as $key => $items)
-                <div class="col-sm-3">
-                  <a href="{{ asset('upload-Events/'.$data->title.'/'.$items->Name_fileimage) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier;">
-                    <img id="myImg" src="{{ asset('upload-Events/'.$data->title.'/'.$items->Name_fileimage) }}">
-                  </a>
+        <div class="row">
+          <div class="col-12">
+
+            <!-- <div class="form-group mb-1">
+              <label>Upload Images :</label>
+              <div class="input-group">
+                <div class="custom-file">
+                  <input type="file" name="image_Event[]" class="custom-file-input" id="image_Event" multiple>
+                  <label class="custom-file-label" for="1">เลือกไฟล์ที่ต้องการ</label>
                 </div>
-              @endforeach
+              </div>
+            </div> -->
+
+            <div class="card">
+              <div class="card-header" style="background-color:{{$data->color}}">
+                <div class="card-title">
+                @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER" or auth::user()->position == "MASTER")
+                  @if($data->Branch_user == auth::user()->branch or auth::user()->type == "Admin")
+                  <button href="{{ action('EventController@DeleteEvents',[$data->events_id, $data->title, 2]) }}" data-name="{{ $data->title }}" style="color: white;" class="btn btn-primary btn-tool DeleteImage" title="ลบรูปภาพทั้งหมด">
+                    <i class="far fa-trash-alt text-danger"></i>
+                  </button>
+                  @endif
+                @endif
+                Upload Images :
+                </div>
+                <div class="card-tools">
+                  <div class="input-group">
+                    <div class="custom-file">
+                      <input type="file" name="image_Event[]" class="custom-file-input" id="image_Event" multiple>
+                      <label class="custom-file-label" for="1">เลือกรูปที่จะอัพโหลด</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="card-body">
+                <div class="row">
+                  @foreach($image as $key => $items)
+                    <div class="col-sm-3">
+                      <a href="{{ asset('upload-Events/'.$data->title.'/'.$items->Name_fileimage) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier;">
+                        <img id="myImg" src="{{ asset('upload-Events/'.$data->title.'/'.$items->Name_fileimage) }}">
+                      </a>
+                    </div>
+                  @endforeach
+                </div>
+              </div>
             </div>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+
+            <div class="card card-warning">
+              <div class="card-header" style="background-color:{{$data->color}}">
+                <div class="card-title">
+                  Upload Files :
+                </div>
+                <div class="card-tools">
+                  <div class="input-group">
+                    <div class="custom-file">
+                      <input type="file" name="fileEvent" class="custom-file-input" id="exampleInputFile" value="">
+                      <label class="custom-file-label" for="exampleInputFile">เลือกไฟล์ที่จะอัพโหลด</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="card-body">
+                <div class="row">
+                  <div class="table-responsive">
+                    <table class="table table-striped table-valign-middle" id="table1">
+                        <thead>
+                          <tr>
+                              <th class="text-center"  style="width: 50px;">No.</th>
+                              <th class="text-left">File Name</th>
+                              <th class="text-center">Date Upload</th>
+                              <th class="text-right">#</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($file as $key => $row)
+                              <tr>
+                                <td class="text-center"> {{$key+1}}</td>
+                                <td class="text-left"> 
+                                  &nbsp;{{$row->Name_fileimage}}
+                                </td>
+                                <td class="text-center">
+                                  &nbsp;{{DateThai(substr($row->created_at,0,10))}}
+                                </td>
+                                <td class="text-right">
+                                  <a href="{{ action('EventController@download',[$row->Name_fileimage])}}?foldername={{$data->title}}" class="btn btn-info" title="ดาวน์โหลดไฟล์">
+                                    <i class="fas fa-download"></i>
+                                  </a>
+                                  @if(auth::user()->position == "Admin" or auth::user()->position == "MANAGER")
+                                    <button href="{{ action('EventController@DeleteEvents',[$row->fileimage_id, $data->title, 3]) }}" data-name="{{ $row->Name_fileimage }}" style="color: white;" class="btn btn-danger DeleteImage AlertForm" title="ลบไฟล์">
+                                      <i class="far fa-trash-alt"></i>
+                                    </button>
+                                  @endif
+                                </td>
+                              </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
 
