@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class UploadfileImage extends Model
 {
   protected $table = 'uploadfile_images';
-  protected $primaryKey = 'Buyerfileimage_id';
+  protected $primaryKey = 'fileimage_id';
   protected $fillable = ['Buyerfileimage_id','Type_fileimage','Name_fileimage','Size_fileimage'];
 
   public function Buyeruploadfileimages()

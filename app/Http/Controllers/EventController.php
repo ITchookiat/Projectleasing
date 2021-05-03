@@ -113,6 +113,24 @@ class EventController extends Controller
             }
         }
 
+        if ($request->hasFile('fileEvent')) {
+            $file_array = $request->file('fileEvent');
+            $image_size = $file_array->getClientSize();
+            $image_new_name = $file_array->getClientOriginalName();
+
+            $destination_path = public_path().'/upload-Events/'.$request->get('title');
+            $file_array->move($destination_path,$image_new_name);
+
+            $SetType = "FileEvents"; //ประเภทรูปภาพ รูปประกอบ
+            $Uploaddb = new UploadfileImage([
+                'Buyerfileimage_id' => $Events->events_id,
+                'Type_fileimage' => $SetType,
+                'Name_fileimage' => $image_new_name,
+                'Size_fileimage' => $image_size,
+            ]);
+            $Uploaddb ->save();
+        }
+
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
     }
 
@@ -127,10 +145,17 @@ class EventController extends Controller
             if ($data != NULL) {
                 $image = DB::table('uploadfile_images')
                     ->where('uploadfile_images.Buyerfileimage_id','=', $GeteventID)
+                    ->where('uploadfile_images.Type_fileimage','=', 'Events')
                     ->get();
+
+                $file = DB::table('uploadfile_images')
+                    ->where('uploadfile_images.Buyerfileimage_id','=', $GeteventID)
+                    ->where('uploadfile_images.Type_fileimage','=', 'FileEvents')
+                    ->get();
+                    
             }
 
-            return response()->view('event-info.editEvents', compact('data','image'));
+            return response()->view('event-info.editEvents', compact('data','image','file'));
             // return view('event-info.view', compact('data','image','events'));
         }
     }
@@ -204,6 +229,23 @@ class EventController extends Controller
                     $Uploaddb ->save();
                 }
             }
+            if ($request->hasFile('fileEvent')) {
+                $file_array = $request->file('fileEvent');
+                $image_size = $file_array->getClientSize();
+                $image_new_name = $file_array->getClientOriginalName();
+    
+                $destination_path = public_path().'/upload-Events/'.$request->get('title');
+                $file_array->move($destination_path,$image_new_name);
+    
+                $SetType = "FileEvents"; //ประเภทรูปภาพ รูปประกอบ
+                $Uploaddb = new UploadfileImage([
+                    'Buyerfileimage_id' => $Events->events_id,
+                    'Type_fileimage' => $SetType,
+                    'Name_fileimage' => $image_new_name,
+                    'Size_fileimage' => $image_size,
+                ]);
+                $Uploaddb ->save();
+            }
 
             return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
         }
@@ -217,7 +259,6 @@ class EventController extends Controller
      */
     public function destroy($id)
     {
-        //
     }
 
     public function DeleteEvents($id, $path, $type)
@@ -241,7 +282,9 @@ class EventController extends Controller
             return redirect()->Route('MasterEvents.index',['type' => 1])->with('success','ลบข้อมูลเรียบร้อย');
         }
         elseif ($type == 2) {
-            $item = UploadfileImage::where('Buyerfileimage_id','=',$id)->get();
+            $item = UploadfileImage::where('Buyerfileimage_id','=',$id)
+                    ->where('Type_fileimage','=', 'Events')
+                    ->get();
             if ($item != NULL) {
                 foreach ($item as $key => $value) {
                   $itemPath = public_path().'/upload-Events/'.$path.'/'.$value->Name_fileimage;
@@ -254,5 +297,20 @@ class EventController extends Controller
       
             return redirect()->route('MasterEvents.index',['type' => 1])->with('success','ลบรูปทั้งหมดเรียบร้อยแล้ว');
         }
+        elseif ($type == 3) {
+                $item = UploadfileImage::where('fileimage_id','=',$id)
+                ->where('Type_fileimage','=', 'FileEvents')
+                ->first();
+                $itemPath = public_path().'/upload-Events/'.$path.'/'.$item->Name_fileimage;
+                File::delete($itemPath);
+                $item->Delete();
+            return redirect()->route('MasterEvents.index',['type' => 1])->with('success','ลบรูปไฟล์แล้ว');
+        }
+    }
+
+    public function download(Request $request, $file)
+    {   
+        $destination_path = public_path('upload-Events');
+        return response()->download($destination_path. '/' .$request->foldername. '/' .$file);
     }
 }
