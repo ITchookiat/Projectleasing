@@ -214,7 +214,7 @@
                   </div>
 
                   <div class="row">
-                    <div class="col-6">
+                    <div class="col-12 mb-2">
                       <div class="form-group mb-1">
                         <label>Upload Images :</label>
                         <div class="file-loading">
@@ -222,7 +222,29 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-6">
+                    <!-- <div class="col-6">
+                      <div class="form-group mb-3">
+                        <label>Upload Files :</label>
+                        <div class="input-group">
+                          <div class="custom-file">
+                            <input type="file" name="fileEvent" class="custom-file-input" id="exampleInputFile" value="">
+                            <label class="custom-file-label" for="exampleInputFile">เลือกไฟล์อัพโหลด</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div> -->
+                  </div>
+
+                  <div class="row">
+                    <!-- <div class="col-6">
+                      <div class="form-group mb-1">
+                        <label>Upload Images :</label>
+                        <div class="file-loading">
+                          <input id="image_Event" type="file" name="image_Event[]" accept="image/*" data-min-file-count="1" multiple >
+                        </div>
+                      </div>
+                    </div> -->
+                    <div class="col-12">
                       <div class="form-group mb-3">
                         <label>Upload Files :</label>
                         <div class="input-group">
