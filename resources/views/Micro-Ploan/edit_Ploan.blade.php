@@ -2285,9 +2285,9 @@
                                   <label class="col-sm-3 col-form-label text-right">ค่าคอม : </label>
                                   <div class="col-sm-8">
                                     @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                                      <input type="text" id="Commissioncar" name="Commissioncar" value="{{number_format($data->Commission_car, 2)}}" class="form-control form-control-sm" placeholder="ค่าคอม" readonly/>
+                                      <input type="text" id="Commissioncar" name="Commissioncar" value="{{$data->Commission_car}}" class="form-control form-control-sm" placeholder="ค่าคอม" readonly/>
                                     @else
-                                      <input type="text" id="Commissioncar" name="Commissioncar" value="{{number_format($data->Commission_car, 2)}}" class="form-control form-control-sm"  placeholder="ค่าคอม" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                      <input type="text" id="Commissioncar" name="Commissioncar" value="{{$data->Commission_car}}" class="form-control form-control-sm"  placeholder="ค่าคอม" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
                                     @endif
                                   </div>
                                 </div>
