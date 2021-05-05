@@ -1150,7 +1150,7 @@
                           </div>
 
                           <hr />
-                          @include('analysis.script')
+                          {{--@include('analysis.script')--}}
 
                           <div class="row">
                             <div class="col-6">
