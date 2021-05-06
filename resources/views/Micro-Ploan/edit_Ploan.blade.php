@@ -279,6 +279,7 @@
                               @endif
                           </div>
                       </div>
+
                       <div class="col-sm-9">
                         <ol class="breadcrumb float-sm-right">
                           {{-- ผู้จัดการ --}}
@@ -396,7 +397,7 @@
                                 @endif
                               @endif
 
-                              <label for="4" class="todo">
+                              <label for="5" class="todo">
                                 <i class="fa fa-check"></i>
                                 <font color="red">RESTRICT RIGHTS</font>
                               </label>
