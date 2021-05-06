@@ -379,7 +379,7 @@
                               @if ($data->Approvers_car != NULL)
                                 <input type="hidden" name="MASTER" value="{{ $data->Check_car }}">
                               @endif
-                            @elseif(auth::user()->position == "STAFF")
+                            @elseif(auth::user()->position == "STAFF" or auth::user()->position == "MANAGER")
                               <input type="hidden" name="MASTER" value="{{ $data->Check_car }}">
                             @endif
                           </div>
@@ -418,7 +418,7 @@
                               </label>
                             </span>
 
-                            @if(auth::user()->type == "Admin" or auth::user()->position == "AUDIT")
+                            @if(auth::user()->type == "Admin" or auth::user()->position == "AUDIT" or auth::user()->position == "MANAGER")
                               <input type="hidden" name="doccomplete" value="{{ $data->DocComplete_car }}">
                             @elseif(auth::user()->position == "MASTER")
                               @if ($data->Approvers_car != NULL)
