@@ -349,22 +349,34 @@
                               <span class="todo-wrap">
                                 @if(auth::user()->type == "Admin" or auth::user()->position == "MASTER" or auth::user()->position == "AUDIT")
                                   @if($data->Check_car != NULL)
-                                    <input type="checkbox" class="checkbox" name="MASTER" id="3" value="{{ $data->Check_car }}" {{ ($data->Check_car !== NULL) ? 'checked' : '' }}>
+                                    @if ($data->Approvers_car != NULL)
+                                      @if (auth::user()->position == "AUDIT" or auth::user()->type == "Admin")
+                                        <input type="checkbox" class="checkbox" name="MASTER" id="3" value="{{ $data->Check_car }}" {{ ($data->Check_car !== NULL) ? 'checked' : '' }}>
+                                      @else
+                                        <input type="checkbox" class="checkbox" id="3" {{ ($data->Check_car !== NULL) ? 'checked' : '' }} disabled>
+                                      @endif
+                                    @else
+                                      <input type="checkbox" class="checkbox" name="MASTER" id="3" value="{{ $data->Check_car }}" {{ ($data->Check_car !== NULL) ? 'checked' : '' }}>
+                                    @endif
                                   @else
                                     <input type="checkbox" class="checkbox" name="MASTER" id="3" value="{{ auth::user()->name }}">
                                   @endif
                                 @else
                                   <input type="checkbox" class="checkbox" id="3" {{ ($data->Check_car !== NULL) ? 'checked' : '' }} disabled>
                                 @endif
+                                
                                 <label for="3" class="todo">
                                   <i class="fa fa-check"></i>
                                   <font color="red">MASTER &nbsp;&nbsp;</font>
                                 </label>
                               </span>
-                              @if(auth::user()->type != "Admin" and auth::user()->position != "MASTER" and auth::user()->position != "AUDIT")
-                                @if($data->Check_car != NULL)
+
+                              @if(auth::user()->position == "MASTER")
+                                @if ($data->Approvers_car != NULL)
                                   <input type="hidden" name="MASTER" value="{{ $data->Check_car }}">
                                 @endif
+                              @elseif(auth::user()->position == "STAFF")
+                                <input type="hidden" name="MASTER" value="{{ $data->Check_car }}">
                               @endif
                           </div>
 
@@ -372,9 +384,13 @@
                           <div class="float-right form-inline">
                             <i class="fas fa-grip-vertical"></i>
                             <span class="todo-wrap">
-                              @if(auth::user()->type == "Admin" or auth::user()->position == "MASTER" or auth::user()->position == "AUDIT")
+                              @if(auth::user()->type == "Admin" or auth::user()->position == "MASTER")
                                 @if($data->DocComplete_car != NULL)
-                                  <input type="checkbox" class="checkbox" name="doccomplete" id="5" value="{{ $data->DocComplete_car }}" {{ ($data->DocComplete_car !== NULL) ? 'checked' : '' }}>
+                                  @if ($data->Approvers_car != NULL)
+                                    <input type="checkbox" class="checkbox" name="doccomplete" id="5" value="{{ $data->DocComplete_car }}" {{ ($data->DocComplete_car !== NULL) ? 'checked' : '' }} disabled>
+                                  @else
+                                    <input type="checkbox" class="checkbox" name="doccomplete" id="5" value="{{ $data->DocComplete_car }}" {{ ($data->DocComplete_car !== NULL) ? 'checked' : '' }}>
+                                  @endif
                                 @else
                                   <input type="checkbox" class="checkbox" name="doccomplete" id="5" value="{{ auth::user()->name }}">
                                 @endif
@@ -397,16 +413,18 @@
                                 <font color="red">RESTRICT RIGHTS</font>
                               </label>
                             </span>
-                            @if(auth::user()->type != "Admin" and auth::user()->position != "MASTER" and auth::user()->position != "STAFF" and auth::user()->position != "AUDIT")
-                              <input type="hidden" name="doccomplete" value="{{ $data->DocComplete_car }}">
-                            @endif
 
-                            @if(auth::user()->position == "STAFF")
-                              @if($data->DocComplete_car != NULL)
+                            @if(auth::user()->type == "Admin" or auth::user()->position == "AUDIT")
+                              <input type="hidden" name="doccomplete" value="{{ $data->DocComplete_car }}">
+                            @elseif(auth::user()->position == "MASTER")
+                              @if ($data->Approvers_car != NULL)
+                                <input type="hidden" name="doccomplete" value="{{ $data->DocComplete_car }}">
+                              @endif
+                            @elseif(auth::user()->position == "STAFF")
+                              @if ($data->DocComplete_car != NULL)
                                 <input type="hidden" name="doccomplete" value="{{ $data->DocComplete_car }}">
                               @endif
                             @endif
-                           
                           </div>  
                         </ol>
                       </div>
