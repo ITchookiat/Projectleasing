@@ -412,7 +412,7 @@
                                 @endif
                               @endif
 
-                              <label for="4" class="todo">
+                              <label for="5" class="todo">
                                 <i class="fa fa-check"></i>
                                 <font color="red">RESTRICT RIGHTS</font>
                               </label>
