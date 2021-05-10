@@ -13,6 +13,18 @@
     </script>
   @endif
 
+  @php
+    function DateThai($strDate){
+      $strYear = date("Y",strtotime($strDate))+543;
+      $strMonth= date("n",strtotime($strDate));
+      $strDay= date("d",strtotime($strDate));
+      $strMonthCut = Array("" , "ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค.");
+      $strMonthThai=$strMonthCut[$strMonth];
+      return "$strDay $strMonthThai $strYear";
+      //return "$strDay-$strMonthThai-$strYear";
+    }
+  @endphp
+
   @php 
     $TotalAllProduct = $SumMicroAll + $SumPloanAll + $SumLeasingAll + $SumStaffAll + $SumHomecarAll + $SumMotorAll;
     $TotalAllProduct2 = $SumTopcar_MicroAll + $SumTopcar_PloanAll + $SumTopcar_LeasingAll + $SumTopcar_HomecarAll + $SumTopcar_StaffAll + $SumTopcar_MotorAll;
@@ -444,7 +456,7 @@
                         <div class="tab-content" id="vert-tabs-tabContent">
                             <div class="tab-pane fade active show" id="vert-tabs-1" role="tabpanel" aria-labelledby="vert-tabs-1-tab">
                               <div class="card-header">
-                                <h3 class="card-title">ยอดคัน</h3>
+                                <h3 class="card-title pr-2">ยอดคัน</h3> ( วันที่ {{DateThai($newfdate)}} - {{DateThai($newtdate)}} )
                                 <div class="card-tools">
                                   <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
                                   </button>
@@ -599,7 +611,7 @@
                             </div>
                             <div class="tab-pane fade" id="vert-tabs-2" role="tabpanel" aria-labelledby="vert-tabs-2-tab">
                               <div class="card-header">
-                                <h3 class="card-title">ยอดเงิน</h3>
+                                <h3 class="card-title pr-2">ยอดเงิน</h3> ( วันที่ {{DateThai($newfdate)}} - {{DateThai($newtdate)}} )
                                 <div class="card-tools">
                                   <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
                                   </button>
