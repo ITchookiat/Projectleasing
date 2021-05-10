@@ -115,20 +115,24 @@ class EventController extends Controller
 
         if ($request->hasFile('fileEvent')) {
             $file_array = $request->file('fileEvent');
-            $image_size = $file_array->getClientSize();
-            $image_new_name = $file_array->getClientOriginalName();
+            $array_len = count($file_array);
 
-            $destination_path = public_path().'/upload-Events/'.$request->get('title');
-            $file_array->move($destination_path,$image_new_name);
-
-            $SetType = "FileEvents"; //ประเภทรูปภาพ รูปประกอบ
-            $Uploaddb = new UploadfileImage([
-                'Buyerfileimage_id' => $Events->events_id,
-                'Type_fileimage' => $SetType,
-                'Name_fileimage' => $image_new_name,
-                'Size_fileimage' => $image_size,
-            ]);
-            $Uploaddb ->save();
+            for ($i=0; $i < $array_len; $i++) {
+                $image_size = $file_array[$i]->getClientSize();
+                $image_new_name = $file_array[$i]->getClientOriginalName();
+    
+                $destination_path = public_path().'/upload-Events/'.$request->get('title');
+                $file_array[$i]->move($destination_path,$image_new_name);
+    
+                $SetType = "FileEvents"; //ประเภทรูปภาพ รูปประกอบ
+                $Uploaddb = new UploadfileImage([
+                    'Buyerfileimage_id' => $Events->events_id,
+                    'Type_fileimage' => $SetType,
+                    'Name_fileimage' => $image_new_name,
+                    'Size_fileimage' => $image_size,
+                ]);
+                $Uploaddb ->save();
+            }
         }
 
         return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');
@@ -231,20 +235,24 @@ class EventController extends Controller
             }
             if ($request->hasFile('fileEvent')) {
                 $file_array = $request->file('fileEvent');
-                $image_size = $file_array->getClientSize();
-                $image_new_name = $file_array->getClientOriginalName();
-    
-                $destination_path = public_path().'/upload-Events/'.$request->get('title');
-                $file_array->move($destination_path,$image_new_name);
-    
-                $SetType = "FileEvents"; //ประเภทรูปภาพ รูปประกอบ
-                $Uploaddb = new UploadfileImage([
-                    'Buyerfileimage_id' => $Events->events_id,
-                    'Type_fileimage' => $SetType,
-                    'Name_fileimage' => $image_new_name,
-                    'Size_fileimage' => $image_size,
-                ]);
-                $Uploaddb ->save();
+                $array_len = count($file_array);
+
+                for ($i=0; $i < $array_len; $i++) {
+                    $image_size = $file_array[$i]->getClientSize();
+                    $image_new_name = $file_array[$i]->getClientOriginalName();
+        
+                    $destination_path = public_path().'/upload-Events/'.$request->get('title');
+                    $file_array[$i]->move($destination_path,$image_new_name);
+        
+                    $SetType = "FileEvents"; //ประเภทรูปภาพ รูปประกอบ
+                    $Uploaddb = new UploadfileImage([
+                        'Buyerfileimage_id' => $Events->events_id,
+                        'Type_fileimage' => $SetType,
+                        'Name_fileimage' => $image_new_name,
+                        'Size_fileimage' => $image_size,
+                    ]);
+                    $Uploaddb ->save();
+                }
             }
 
             return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อยแล้ว');

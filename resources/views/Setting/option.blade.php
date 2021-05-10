@@ -351,7 +351,8 @@
                 </div>
             </div>
         </div>
-    @elseif($type == 2)
+    @endif
+    @if($type == 2)
         <form name="form1" action="#" method="post" enctype="multipart/form-data">
             <div class="modal-header">
                 <h4 class="modal-title">โปรแกรมคำนวณค่างวด</h4>
@@ -377,182 +378,142 @@
                         {{--ค่างวดเช่าซื้อ--}}
                             <div class="tab-pane fade active show" id="custom-tabs-one-home" role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
                                 <div class="row">
-                                    <div class="col-7">
+                                    <div class="col-12">
                                         <div class="form-group row mb-1">
+                                            <label class="col-sm-4 col-form-label text-right">ประเภทรถ :</label>
+                                            <div class="col-sm-6 mb-1">
+                                            <select id="TypecarLS" name="TypecarLS" class="form-control form-control-sm">
+                                                <option value="" selected style="color:red">--- ประเภทรถยนต์ ---</option>
+                                                <option value="รถกระบะ">รถกระบะ</option>
+                                                <option value="รถตอนเดียว">รถตอนเดียว</option>
+                                                <option value="รถเก๋ง/7ที่นั่ง">รถเก๋ง/7ที่นั่ง</option>
+                                            </select>
+                                            </div>
+                                            <label class="col-sm-4 col-form-label text-right">ปีรถ :</label>
+                                            <div class="col-sm-6 mb-1">
+                                                <input type="text" id="YearcarLS" name="YearcarLS" class="form-control form-control" required/>
+                                                {{--<select id="YearcarLS" name="YearcarLS" class="form-control form-control-sm" required>
+                                                    <option value="" selected>--- เลือกปี ---</option>
+                                                    @php
+                                                        $Year = date('Y');
+                                                    @endphp
+                                                    @for ($i = 0; $i < 20; $i++)
+                                                        <option value="{{ $Year }}">{{ $Year }}</option>
+                                                        @php
+                                                            $Year -= 1;
+                                                        @endphp
+                                                    @endfor
+                                                </select>--}}
+                                            </div>
+                                            <label class="col-sm-4 col-form-label text-right">ระยะเวลา :</label>
+                                            <div class="col-sm-6 mb-1">
+                                                <input type="text" id="TimelackLS" name="TimelackLS" class="form-control form-control" required/>
+                                                {{--<select id="TimelackLS" name="TimelackLS" class="form-control form-control-sm" required>
+                                                    <option value="" selected>--- ระยะเวลาผ่อน ---</option>
+                                                    <option value="12">12</option>
+                                                    <option value="18">18</option>
+                                                    <option value="24">24</option>
+                                                    <option value="30">30</option>
+                                                    <option value="36">36</option>
+                                                    <option value="42">42</option>
+                                                    <option value="48">48</option>
+                                                    <option value="54">54</option>
+                                                    <option value="60">60</option>
+                                                    <option value="66">66</option>
+                                                    <option value="72">72</option>
+                                                    <option value="78">78</option>
+                                                    <option value="84">84</option>
+                                                </select>--}}
+                                            </div>
                                             <label class="col-sm-4 col-form-label text-right">ยอดจัด :</label>
                                             <div class="col-sm-6 mb-1">
-                                                <input type="text" id="demotopcar" name="demotopcar" maxlength="7" class="form-control form-control" placeholder="ป้อนยอดจัด" required/>
-                                            </div>
-                                            <label class="col-sm-4 col-form-label text-right">
-                                            @if($data->Interesttype_set == '12')
-                                                ดอกเบี้ย/เดือน :
-                                            @elseif($data->Interesttype_set == '1')
-                                                ดอกเบี้ย/ปี :
-                                            @else 
-                                                ดอกเบี้ย :
-                                            @endif
-                                            </label>
-                                            <div class="col-sm-6">
-                                                <input type="text" id="demointerest" name="demointerest" class="form-control form-control" placeholder="ป้อนดอกเบี้ย" required/>
-                                                <input type="hidden" id="interesttype" value="{{($data != null)?$data->Interesttype_set:''}}" class="form-control form-control" required/>
+                                                <input type="text" id="TopcarLS" name="TopcarLS" class="form-control form-control" maxlength="7" required/>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-3">
-                                        <img class="float-right" src="{{ asset('dist/img/leasing02.png') }}" width="150" height="80" style="border-radius:75px;"/>
-                                    </div>
                                 </div>
                                 <hr>
-                                <table class="table table-bordered table-valign-middle">
-                                    <tbody>
-                                        <tr>
-                                            <td class="text-center"><b>12</b></td>
-                                            <td class="text-center" width="200px"><span id="Period12"></span></td>
-                                            <td class="text-center" rowspan="7" width="5px"></td>
-                                            <td class="text-center"><b>54</b></td>
-                                            <td class="text-center" width="200px"><span id="Period54"></span></td>
-                                        </tr>
-                                    
-                                        <tr>
-                                            <td class="text-center"><b>18</b></td>
-                                            <td class="text-center"><span id="Period18"></span></td>
-                                            <!-- <td class="text-center"></td> -->
-                                            <td class="text-center"><b>60</b></td>
-                                            <td class="text-center"><span id="Period60"></span></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="text-center"><b>24</b></td>
-                                            <td class="text-center"><span id="Period24"></span></td>
-                                            <!-- <td class="text-center"></td> -->
-                                            <td class="text-center"><b>66</b></td>
-                                            <td class="text-center"><span id="Period66"></span></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="text-center"><b>30</b></td>
-                                            <td class="text-center"><span id="Period30"></span></td>
-                                            <!-- <td class="text-center"></td> -->
-                                            <td class="text-center"><b>72</b></td>
-                                            <td class="text-center"><span id="Period72"></span></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="text-center"><b>36</b></td>
-                                            <td class="text-center"><span id="Period36"></span></td>
-                                            <!-- <td class="text-center"></td> -->
-                                            <td class="text-center"><b>78</b></td>
-                                            <td class="text-center"><span id="Period78"></span></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="text-center"><b>42</b></td>
-                                            <td class="text-center"><span id="Period42"></span></td>
-                                            <!-- <td class="text-center"></td> -->
-                                            <td class="text-center"><b>84</b></td>
-                                            <td class="text-center"><span id="Period84"></span></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="text-center"><b>48</b></td>
-                                            <td class="text-center"><span id="Period48"></span></td>
-                                            <!-- <td class="text-center"></td> -->
-                                            <td class="text-center"></td>
-                                            <td class="text-center"></td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
+                                <div class="row" style="background-color:#D0D4D7;">
+                                    <div class="col-12">
+                                        <br>
+                                        <div class="form-group row mb-1 text-sm">
+                                            <label class="col-sm-4 col-form-label text-right">ดอกเบี้ย/เดือน :</label>
+                                            <div class="col-sm-6 mb-1">
+                                                <input type="text" id="InterestLS" name="InterestLS" class="form-control form-control" readonly/>
+                                            </div>
+                                            <label class="col-sm-4 col-form-label text-right">ค่างวดละ :</label>
+                                            <div class="col-sm-6 mb-1">
+                                                <input type="text" id="DueLS" name="DueLS" class="form-control form-control" readonly/>
+                                            </div>
+                                            <label class="col-sm-4 col-form-label text-right">ยอดชำระทั้งหมด :</label>
+                                            <div class="col-sm-6 mb-1">
+                                                <input type="text" id="TotalpayLS" name="TotalpayLS" class="form-control form-control" readonly/>
+                                            </div>
+                                        </div>
+                                        <br>
+                                    </div>
+                                </div>
+                                
                             </div>
-                            {{--ค่างวดเงินกู้--}}
+                        {{--ค่างวดเงินกู้--}}
                             <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
                                 <div class="row">
-                                    <div class="col-7">
+                                    <div class="col-12">
                                         <div class="form-group row mb-1">
-                                            <label class="col-sm-4 col-form-label text-right">เงินต้น :</label>
+                                            <label class="col-sm-4 col-form-label text-right">กรรมสิทธิ์ :</label>
                                             <div class="col-sm-6 mb-1">
-                                                <input type="text" id="demotopcarP" name="demotopcar" maxlength="7" class="form-control form-control" placeholder="ป้อนเงินต้น" required/>
+                                                <select id="OwnerLoan" name="OwnerLoan" class="form-control form-control-sm">
+                                                    <option value="" selected style="color:red">--- กรรมสิทธิ์รถ ---</option>
+                                                    <option value="ถือกรรมสิทธิ์">ถือกรรมสิทธิ์</option>
+                                                    <option value="ไม่ถือกรรมสิทธิ์">ไม่ถือกรรมสิทธิ์</option>
+                                                </select>
                                             </div>
-                                            <label class="col-sm-4 col-form-label text-right">
-                                                @if($data2->Interesttype_set == '12')
-                                                    ดอกเบี้ย/เดือน :
-                                                @elseif($data2->Interesttype_set == '1')
-                                                    ดอกเบี้ย/ปี :
-                                                @else 
-                                                    ดอกเบี้ย :
-                                                @endif
-                                            </label>
-                                            <div class="col-sm-6">
-                                                <input type="text" id="demointerestP" name="demointerest" class="form-control form-control" placeholder="ป้อนดอกเบี้ย" required/>
-                                                <input type="hidden" id="interesttypeP" value="{{($data2 != null)?$data2->Interesttype_set:''}}" class="form-control form-control" required/>
+                                            <label class="col-sm-4 col-form-label text-right">ประเภทรถ :</label>
+                                            <div class="col-sm-6 mb-1">
+                                                <select id="TypecarLoan" name="TypecarLoan" class="form-control form-control-sm">
+                                                    <option value="" selected style="color:red">--- ประเภทรถยนต์ ---</option>
+                                                    <option value="รถกระบะ">รถกระบะ</option>
+                                                    <option value="รถตอนเดียว">รถตอนเดียว</option>
+                                                    <option value="รถเก๋ง/7ที่นั่ง">รถเก๋ง/7ที่นั่ง</option>
+                                                    <option value="รถจักรยานยนต์">รถจักรยานยนต์</option>
+                                                </select>
+                                            </div>
+                                            <label class="col-sm-4 col-form-label text-right">ปีรถ :</label>
+                                            <div class="col-sm-6 mb-1">
+                                                <input type="text" id="YearcarLoan" name="YearcarLoan" class="form-control form-control" required/>
+                                            </div>
+                                            <label class="col-sm-4 col-form-label text-right">ระยะเวลาจัด :</label>
+                                            <div class="col-sm-6 mb-1">
+                                                <input type="text" id="TimelackLoan" name="TimelackLoan" maxlength="7" class="form-control form-control" required/>
+                                            </div>
+                                            <label class="col-sm-4 col-form-label text-right">ยอดจัด :</label>
+                                            <div class="col-sm-6 mb-1">
+                                                <input type="text" id="TopcarLoan" name="TopcarLoan" maxlength="7" class="form-control form-control" required/>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-3">
-                                        <img class="float-right" src="{{ asset('dist/img/leasing03.png') }}" width="150" height="80" style="border-radius:75px;"/>
-                                    </div>
                                 </div>
                                 <hr>
-                                <table class="table table-bordered table-valign-middle">
-                                    <tbody>
-                                        <tr>
-                                            <td class="text-center"><b>12</b></td>
-                                            <td class="text-center" width="200px"><span id="Period12P"></span></td>
-                                            <td class="text-center" rowspan="7" width="5px"></td>
-                                            <td class="text-center"><b>54</b></td>
-                                            <td class="text-center" width="200px"><span id="Period54P"></span></td>
-                                        </tr>
-                                    
-                                        <tr>
-                                            <td class="text-center"><b>18</b></td>
-                                            <td class="text-center"><span id="Period18P"></span></td>
-                                            <!-- <td class="text-center"></td> -->
-                                            <td class="text-center"><b>60</b></td>
-                                            <td class="text-center"><span id="Period60P"></span></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="text-center"><b>24</b></td>
-                                            <td class="text-center"><span id="Period24P"></span></td>
-                                            <!-- <td class="text-center"></td> -->
-                                            <td class="text-center"><b>66</b></td>
-                                            <td class="text-center"><span id="Period66P"></span></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="text-center"><b>30</b></td>
-                                            <td class="text-center"><span id="Period30P"></span></td>
-                                            <!-- <td class="text-center"></td> -->
-                                            <td class="text-center"><b>72</b></td>
-                                            <td class="text-center"><span id="Period72P"></span></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="text-center"><b>36</b></td>
-                                            <td class="text-center"><span id="Period36P"></span></td>
-                                            <!-- <td class="text-center"></td> -->
-                                            <td class="text-center"><b>78</b></td>
-                                            <td class="text-center"><span id="Period78P"></span></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="text-center"><b>42</b></td>
-                                            <td class="text-center"><span id="Period42P"></span></td>
-                                            <!-- <td class="text-center"></td> -->
-                                            <td class="text-center"><b>84</b></td>
-                                            <td class="text-center"><span id="Period84P"></span></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="text-center"><b>48</b></td>
-                                            <td class="text-center"><span id="Period48P"></span></td>
-                                            <!-- <td class="text-center"></td> -->
-                                            <td class="text-center"></td>
-                                            <td class="text-center"></td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
+                                <div class="row" style="background-color:#D0D4D7;">
+                                    <div class="col-12">
+                                        <br>
+                                        <div class="form-group row mb-1 text-sm">
+                                            <label class="col-sm-4 col-form-label text-right">ดอกเบี้ย/เดือน :</label>
+                                            <div class="col-sm-6 mb-1">
+                                                <input type="text" id="InrestLoan" name="InrestLoan" class="form-control form-control" readonly/>
+                                            </div>
+                                            <label class="col-sm-4 col-form-label text-right">ค่างวดละ :</label>
+                                            <div class="col-sm-6 mb-1">
+                                                <input type="text" id="DueLoan" name="DueLoan" class="form-control form-control" readonly/>
+                                            </div>
+                                            <label class="col-sm-4 col-form-label text-right">ยอดชำระทั้งหมด :</label>
+                                            <div class="col-sm-6 mb-1">
+                                                <input type="text" id="TotalpayLoan" name="TotalpayLoan" class="form-control form-control" readonly/>
+                                            </div>
+                                        </div>
+                                        <br>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -577,172 +538,247 @@
       return x1 + x2;
     }
 
-    $('#demotopcar,#demointerest').on("input" ,function() {
-        var Gettopcar = document.getElementById('demotopcar').value;
-        var Topcar = Gettopcar.replace(",","");
-        var Getinterest = document.getElementById('demointerest').value;
-        $("#demotopcar").val(addCommas(Topcar));
+    $('#TypecarLS,#YearcarLS,#TimelackLS,#TopcarLS').on("input" ,function() {
+        var GetType = document.getElementById('TypecarLS').value;
+        var GetYear = document.getElementById('YearcarLS').value;
+        var GetTimelack = document.getElementById('TimelackLS').value;
+        var GetTopcar = document.getElementById('TopcarLS').value;
+        var Topcar = GetTopcar.replace(",","");
+        $("#TopcarLS").val(addCommas(Topcar));
 
-        if(Topcar != '' && Getinterest != ''){
-            var Typeinterest = document.getElementById('interesttype').value;
+        if(GetType != '' && GetYear != '' && GetTimelack != '' && Topcar != ''){
+            if (GetType == "รถกระบะ" && GetYear >= 2015) {
+                if (GetTimelack >= 12 && GetTimelack <= 48) {
+                var Interest = 0.47;
+                } else if (GetTimelack >= 54 && GetTimelack <= 60) {
+                var Interest = 0.50;
+                } else if (GetTimelack >= 66 && GetTimelack <= 72) {
+                var Interest = 0.54;
+                } else if (GetTimelack >= 78 && GetTimelack <= 84) {
+                var Interest = 0.60;
+                }
+            } else if (GetType == "รถกระบะ" && GetYear >= 2012 && GetYear <= 2014) {
+                if (GetTimelack >= 12 && GetTimelack <= 48) {
+                var Interest = 0.79;
+                } else if (GetTimelack >= 54 && GetTimelack <= 60) {
+                var Interest = 0.80;
+                } else if (GetTimelack >= 66 && GetTimelack <= 72) {
+                var Interest = 0.81;
+                }
+            } else if (GetType == "รถกระบะ" && GetYear >= 2010 && GetYear <= 2011) {
+                if (GetTimelack >= 12 && GetTimelack <= 48) {
+                var Interest = 0.90;
+                } else if (GetTimelack >= 54 && GetTimelack <= 60) {
+                var Interest = 0.91;
+                } else if (GetTimelack >= 66 && GetTimelack <= 72) {
+                var Interest = 0.92;
+                }
+            } else if (GetType == "รถกระบะ" && GetYear == 2009) {
+                if (GetTimelack >= 12 && GetTimelack <= 48) {
+                var Interest = 1.04;
+                } else if (GetTimelack >= 54 && GetTimelack <= 60) {
+                var Interest = 1.05;
+                } else if (GetTimelack >= 66 && GetTimelack <= 72) {
+                var Interest = 1.06;
+                }
+            } else if (GetType == "รถกระบะ" && GetYear == 2008) {
+                if (GetTimelack >= 12 && GetTimelack <= 48) {
+                var Interest = 1.20;
+                } else if (GetTimelack >= 54 && GetTimelack <= 60) {
+                var Interest = 1.21;
+                } else if (GetTimelack >= 66 && GetTimelack <= 72) {
+                var Interest = 1.22;
+                }
+            } else if (GetType == "รถกระบะ" && GetYear == 2007) {
+                if (GetTimelack >= 12 && GetTimelack <= 48) {
+                var Interest = 1.21;
+                } else if (GetTimelack >= 54 && GetTimelack <= 60) {
+                var Interest = 1.22;
+                }
+            } else if (GetType == "รถกระบะ" && GetYear == 2006) {
+                if (GetTimelack >= 12 && GetTimelack <= 48) {
+                var Interest = 1.22;
+                } else if (GetTimelack >= 54 && GetTimelack <= 60) {
+                var Interest = 1.23;
+                }
+            } else if (GetType == "รถกระบะ" && GetYear >= 2003 && GetYear <= 2005) {
+                if (GetTimelack >= 12 && GetTimelack <= 48) {
+                var Interest = 1.56;
+                }
+            }
 
-            var Getinterest12 = Getinterest * Typeinterest;
-            var Interest12 = (Getinterest12 * 1) + 100;
-            var Period12 = Math.ceil(((((Topcar * Interest12) / 100) * 1.07) / 12) /10) * 10;
-            $("#Period12").text(addCommas(Period12));
+            if (GetType == "รถเก๋ง / รถ 7 ที่นั่ง" && GetYear >= 2015) {
+                if (GetTimelack >= 12 && GetTimelack <= 48) {
+                var Interest = 0.51;
+                } else if (GetTimelack >= 54 && GetTimelack <= 60) {
+                var Interest = 0.55;
+                } else if (GetTimelack >= 66 && GetTimelack <= 72) {
+                var Interest = 0.58;
+                } else if (GetTimelack >= 78 && GetTimelack <= 84) {
+                var Interest = 0.64;
+                }
+            } else if (GetType == "รถเก๋ง / รถ 7 ที่นั่ง" && GetYear >= 2012 && GetYear <= 2014) {
+                if (GetTimelack >= 12 && GetTimelack <= 48) {
+                var Interest = 0.80;
+                } else if (GetTimelack >= 54 && GetTimelack <= 60) {
+                var Interest = 0.81;
+                } else if (GetTimelack >= 66 && GetTimelack <= 72) {
+                var Interest = 0.82;
+                }
+            } else if (GetType == "รถเก๋ง / รถ 7 ที่นั่ง" && GetYear >= 2010 && GetYear <= 2011) {
+                if (GetTimelack >= 12 && GetTimelack <= 48) {
+                var Interest = 0.92;
+                } else if (GetTimelack >= 54 && GetTimelack <= 60) {
+                var Interest = 0.93;
+                } else if (GetTimelack >= 66 && GetTimelack <= 72) {
+                var Interest = 0.94;
+                }
+            } else if (GetType == "รถเก๋ง / รถ 7 ที่นั่ง" && GetYear == 2009) {
+                if (GetTimelack >= 12 && GetTimelack <= 48) {
+                var Interest = 1.05;
+                } else if (GetTimelack >= 54 && GetTimelack <= 60) {
+                var Interest = 1.06;
+                } else if (GetTimelack >= 66 && GetTimelack <= 72) {
+                var Interest = 1.07;
+                }
+            } else if (GetType == "รถเก๋ง / รถ 7 ที่นั่ง" && GetYear == 2008) {
+                if (GetTimelack >= 12 && GetTimelack <= 48) {
+                var Interest = 1.21;
+                } else if (GetTimelack >= 54 && GetTimelack <= 60) {
+                var Interest = 1.22;
+                } else if (GetTimelack >= 66 && GetTimelack <= 72) {
+                var Interest = 1.23;
+                }
+            } else if (GetType == "รถเก๋ง / รถ 7 ที่นั่ง" && GetYear == 2007) {
+                if (GetTimelack >= 12 && GetTimelack <= 48) {
+                var Interest = 1.22;
+                } else if (GetTimelack >= 54 && GetTimelack <= 60) {
+                var Interest = 1.23;
+                }
+            } else if (GetType == "รถเก๋ง / รถ 7 ที่นั่ง" && GetYear == 2006) {
+                if (GetTimelack >= 12 && GetTimelack <= 48) {
+                var Interest = 1.23;
+                } else if (GetTimelack >= 54 && GetTimelack <= 60) {
+                var Interest = 1.25;
+                }
+            } else if (GetType == "รถเก๋ง / รถ 7 ที่นั่ง" && GetYear == 2005) {
+                if (GetTimelack >= 12 && GetTimelack <= 48) {
+                var Interest = 1.59;
+                }
+            }
 
-            var Getinterest18 = Getinterest * Typeinterest;
-            var Interest18 = (Getinterest18 * 1.5) + 100;
-            var Period18 = Math.ceil(((((Topcar * Interest18) / 100) * 1.07) / 18) /10) * 10;
-            $("#Period18").text(addCommas(Period18));
+            if (GetType == "รถตอนเดียว" && GetYear >= 2015) {
+                if (GetTimelack >= 12 && GetTimelack <= 60) {
+                var Interest = 0.90;
+                }
+            } else if (GetType == "รถตอนเดียว" && GetYear >= 2013 && GetYear <= 2014) {
+                if (GetTimelack >= 12 && GetTimelack <= 60) {
+                var Interest = 1.05;
+                }
+            } else if (GetType == "รถตอนเดียว" && GetYear >= 2010 && GetYear <= 2012) {
+                if (GetTimelack >= 12 && GetTimelack <= 60) {
+                var Interest = 1.20;
+                }
+            } else if (GetType == "รถตอนเดียว" && GetYear >= 2008 && GetYear <= 2009) {
+                if (GetTimelack >= 12 && GetTimelack <= 48) {
+                var Interest = 1.40;
+                }
+            } else if (GetType == "รถตอนเดียว" && GetYear >= 2006 && GetYear <= 2007) {
+                if (GetTimelack >= 12 && GetTimelack <= 48) {
+                var Interest = 1.55;
+                }
+            } else if (GetType == "รถตอนเดียว" && GetYear >= 2004 && GetYear <= 2005) {
+                if (GetTimelack >= 12 && GetTimelack <= 36) {
+                var Interest = 1.70;
+                }
+            }
+            var setInterest = Interest * 12;
+            var Newinterest = (setInterest * (GetTimelack / 12)) + 100;
+            var Resultperiod = Math.ceil(((((Topcar * Newinterest) / 100) * 1.07) / GetTimelack) /10) * 10;
+            var Resulttotal = Resultperiod * GetTimelack;
 
-            var Getinterest24 = Getinterest * Typeinterest;
-            var Interest24 = (Getinterest24 * 2) + 100;
-            var Period24 = Math.ceil(((((Topcar * Interest24) / 100) * 1.07) / 24) /10) * 10;
-            $("#Period24").text(addCommas(Period24));
-
-            var Getinterest30 = Getinterest * Typeinterest;
-            var Interest30 = (Getinterest30 * 2.5) + 100;
-            var Period30 = Math.ceil(((((Topcar * Interest30) / 100) * 1.07) / 30) /10) * 10;
-            $("#Period30").text(addCommas(Period30));
-
-            var Getinterest36 = Getinterest * Typeinterest;
-            var Interest36 = (Getinterest36 * 3) + 100;
-            var Period36 = Math.ceil(((((Topcar * Interest36) / 100) * 1.07) / 36) /10) * 10;
-            $("#Period36").text(addCommas(Period36));
-
-            var Getinterest42 = Getinterest * Typeinterest;
-            var Interest42 = (Getinterest42 * 3.5) + 100;
-            var Period42 = Math.ceil(((((Topcar * Interest42) / 100) * 1.07) / 42) /10) * 10;
-            $("#Period42").text(addCommas(Period42));
-
-            var Getinterest48 = Getinterest * Typeinterest;
-            var Interest48 = (Getinterest48 * 4) + 100;
-            var Period48 = Math.ceil(((((Topcar * Interest48) / 100) * 1.07) / 48) /10) * 10;
-            $("#Period48").text(addCommas(Period48));
-
-            var Getinterest54 = Getinterest * Typeinterest;
-            var Interest54 = (Getinterest54 * 4.5) + 100;
-            var Period54 = Math.ceil(((((Topcar * Interest54) / 100) * 1.07) / 54) /10) * 10;
-            $("#Period54").text(addCommas(Period54));
-
-            var Getinterest60 = Getinterest * Typeinterest;
-            var Interest60 = (Getinterest60 * 5) + 100;
-            var Period60 = Math.ceil(((((Topcar * Interest60) / 100) * 1.07) / 60) /10) * 10;
-            $("#Period60").text(addCommas(Period60));
-
-            var Getinterest66 = Getinterest * Typeinterest;
-            var Interest66 = (Getinterest66 * 5.5) + 100;
-            var Period66 = Math.ceil(((((Topcar * Interest66) / 100) * 1.07) / 66) /10) * 10;
-            $("#Period66").text(addCommas(Period66));
-
-            var Getinterest72 = Getinterest * Typeinterest;
-            var Interest72 = (Getinterest72 * 6) + 100;
-            var Period72 = Math.ceil(((((Topcar * Interest72) / 100) * 1.07) / 72) /10) * 10;
-            $("#Period72").text(addCommas(Period72));
-
-            var Getinterest78 = Getinterest * Typeinterest;
-            var Interest78 = (Getinterest78 * 6.5) + 100;
-            var Period78 = Math.ceil(((((Topcar * Interest78) / 100) * 1.07) / 78) /10) * 10;
-            $("#Period78").text(addCommas(Period78));
-
-            var Getinterest84 = Getinterest * Typeinterest;
-            var Interest84 = (Getinterest84 * 7) + 100;
-            var Period84 = Math.ceil(((((Topcar * Interest84) / 100) * 1.07) / 84) /10) * 10;
-            $("#Period84").text(addCommas(Period84));
-
+            $("#InterestLS").val(Interest);
+            $("#DueLS").val(addCommas(Resultperiod.toFixed(2)));
+            $("#TotalpayLS").val(addCommas(Resulttotal.toFixed(2)));
+         
         }
+
 
 
     });
 
-    $('#demotopcarP,#demointerestP').on("input" ,function() {
-        var GettopcarP = document.getElementById('demotopcarP').value;
-        var TopcarP = GettopcarP.replace(",","");
-        var GetinterestP = document.getElementById('demointerestP').value;
-        $("#demotopcarP").val(addCommas(TopcarP));
+    $('#OwnerLoan,#TypecarLoan,#YearcarLoan,#TimelackLoan,#TopcarLoan').on("input" ,function() {
+        var GetOwn = document.getElementById('OwnerLoan').value;
+        var GetTypeL = document.getElementById('TypecarLoan').value;
+        var GetYearL = document.getElementById('YearcarLoan').value;
+        var GetTimelackL = document.getElementById('TimelackLoan').value;
+        var GetTopcarL = document.getElementById('TopcarLoan').value;
+        var TopcarL = GetTopcarL.replace(",","");
+        $("#TopcarLoan").val(addCommas(TopcarL));
 
-        if(TopcarP != '' && GetinterestP != ''){
-            var TypeinterestP = document.getElementById('interesttypeP').value;
-            var InterestP = ((GetinterestP / 100) / 1) * TypeinterestP;
+        if(GetTypeL != '' && GetYearL != '' && GetTimelackL != '' && TopcarL != ''){
 
-            var Process12P = (parseFloat(TopcarP) + (parseFloat(TopcarP) * parseFloat(InterestP) * (12 / 12))) / 12;
-            var str12 = Process12P.toString();
-            var setstring12 = parseInt(str12.split(".", 1));
-            var Period12P = Math.ceil(setstring12/10)*10;
-            $("#Period12P").text(addCommas(Period12P));
+            if (GetOwn == 'ไม่ถือกรรมสิทธิ์') {
+                var Extrainterest = '0.2';
+            } else{
+                var Extrainterest = '0.0';
+            }
+            
 
-            var Process18P = (parseFloat(TopcarP) + (parseFloat(TopcarP) * parseFloat(InterestP) * (18 / 12))) / 18;
-            var str18 = Process18P.toString();
-            var setstring18 = parseInt(str18.split(".", 1));
-            var Period18P = Math.ceil(setstring18/10)*10;
-            $("#Period18P").text(addCommas(Period18P));
+            if (GetTypeL == 'รถจักรยานยนต์') {
+                var interest = 0.69;
+            } else {
+                if (TopcarL <= 100000) {
+                    if (GetYearL >= 2003 && GetYearL <= 2009) {
+                        if (GetTimelackL >= 12 && GetTimelackL <= 48) {
+                        var interest = 0.86 + parseFloat(Extrainterest);
+                        } else if (GetTimelackL >= 54 && GetTimelackL <= 60) {
+                        var interest = 0.96 + parseFloat(Extrainterest);
+                        } else if (GetTimelackL >= 66 && GetTimelackL <= 72) {
+                        var interest = 0.99 + parseFloat(Extrainterest);
+                        }
+                    } else if (GetYearL >= 2010) {
+                        if (GetTimelackL >= 12 && GetTimelackL <= 48) {
+                        var interest = 0.78 + parseFloat(Extrainterest);
+                        } else if (GetTimelackL >= 54 && GetTimelackL <= 60) {
+                        var interest = 0.86 + parseFloat(Extrainterest);
+                        } else if (GetTimelackL >= 66 && GetTimelackL <= 72) {
+                        var interest = 0.96 + parseFloat(Extrainterest);
+                        }
+                    }
+                } else if (TopcarL > 100000) {
+                    if (GetYearL >= 2003 && GetYearL <= 2009) {
+                        if (GetTimelackL >= 12 && GetTimelackL <= 48) {
+                        var interest = 0.76 + parseFloat(Extrainterest);
+                        } else if (GetTimelackL >= 54 && GetTimelackL <= 60) {
+                        var interest = 0.86 + parseFloat(Extrainterest);
+                        } else if (GetTimelackL >= 66 && GetTimelackL <= 72) {
+                        var interest = 0.96 + parseFloat(Extrainterest);
+                        }
+                    } else if (GetYearL >= 2010) {
+                        if (GetTimelackL >= 12 && GetTimelackL <= 48) {
+                        var interest = 0.66 + parseFloat(Extrainterest);
+                        } else if (GetTimelackL >= 54 && GetTimelackL <= 60) {
+                        var interest = 0.76 + parseFloat(Extrainterest);
+                        } else if (GetTimelackL >= 66 && GetTimelackL <= 72) {
+                        var interest = 0.86 + parseFloat(Extrainterest);
+                        }
+                    }
+                }
+            }
 
-            var Process24P = (parseFloat(TopcarP) + (parseFloat(TopcarP) * parseFloat(InterestP) * (24 / 12))) / 24;
-            var str24 = Process24P.toString();
-            var setstring24 = parseInt(str24.split(".", 1));
-            var Period24P = Math.ceil(setstring24/10)*10;
-            $("#Period24P").text(addCommas(Period24P));
+            var SetInterestL = ((interest/100)/1) * 12;
+            var Process = (parseFloat(TopcarL) + (parseFloat(TopcarL) * parseFloat(SetInterestL) * (GetTimelackL / 12))) / GetTimelackL;      
+            
+            var str = Process.toString();
+            var setstring = parseInt(str.split(".", 1));
+            var Resultperiod = Math.ceil(setstring/10)*10;
+            var Resulttotal = Resultperiod * GetTimelackL;
+            
+            $("#InrestLoan").val(interest);
+            $("#DueLoan").val(addCommas(Resultperiod.toFixed(2)));
+            $("#TotalpayLoan").val(addCommas(Resulttotal.toFixed(2)));
 
-            var Process30P = (parseFloat(TopcarP) + (parseFloat(TopcarP) * parseFloat(InterestP) * (30 / 12))) / 30;
-            var str30 = Process30P.toString();
-            var setstring30 = parseInt(str30.split(".", 1));
-            var Period30P = Math.ceil(setstring30/10)*10;
-            $("#Period30P").text(addCommas(Period30P));
-
-            var Process36P = (parseFloat(TopcarP) + (parseFloat(TopcarP) * parseFloat(InterestP) * (36 / 12))) / 36;
-            var str36 = Process36P.toString();
-            var setstring36 = parseInt(str36.split(".", 1));
-            var Period36P = Math.ceil(setstring36/10)*10;
-            $("#Period36P").text(addCommas(Period36P));
-
-            var Process42P = (parseFloat(TopcarP) + (parseFloat(TopcarP) * parseFloat(InterestP) * (42 / 12))) / 42;
-            var str42 = Process42P.toString();
-            var setstring42 = parseInt(str42.split(".", 1));
-            var Period42P = Math.ceil(setstring42/10)*10;
-            $("#Period42P").text(addCommas(Period42P));
-
-            var Process48P = (parseFloat(TopcarP) + (parseFloat(TopcarP) * parseFloat(InterestP) * (48 / 12))) / 48;
-            var str48 = Process48P.toString();
-            var setstring48 = parseInt(str48.split(".", 1));
-            var Period48P = Math.ceil(setstring48/10)*10;
-            $("#Period48P").text(addCommas(Period48P));
-
-            var Process54P = (parseFloat(TopcarP) + (parseFloat(TopcarP) * parseFloat(InterestP) * (54 / 12))) / 54;
-            var str54 = Process54P.toString();
-            var setstring54 = parseInt(str54.split(".", 1));
-            var Period54P = Math.ceil(setstring54/10)*10;
-            $("#Period54P").text(addCommas(Period54P));
-
-            var Process60P = (parseFloat(TopcarP) + (parseFloat(TopcarP) * parseFloat(InterestP) * (60 / 12))) / 60;
-            var str60 = Process60P.toString();
-            var setstring60 = parseInt(str60.split(".", 1));
-            var Period60P = Math.ceil(setstring60/10)*10;
-            $("#Period60P").text(addCommas(Period60P));
-
-            var Process66P = (parseFloat(TopcarP) + (parseFloat(TopcarP) * parseFloat(InterestP) * (66 / 12))) / 66;
-            var str66 = Process66P.toString();
-            var setstring66 = parseInt(str66.split(".", 1));
-            var Period66P = Math.ceil(setstring66/10)*10;
-            $("#Period66P").text(addCommas(Period66P));
-
-            var Process72P = (parseFloat(TopcarP) + (parseFloat(TopcarP) * parseFloat(InterestP) * (72 / 12))) / 72;
-            var str72 = Process72P.toString();
-            var setstring72 = parseInt(str72.split(".", 1));
-            var Period72P = Math.ceil(setstring72/10)*10;
-            $("#Period72P").text(addCommas(Period72P));
-
-            var Process78P = (parseFloat(TopcarP) + (parseFloat(TopcarP) * parseFloat(InterestP) * (78 / 12))) / 78;
-            var str78 = Process78P.toString();
-            var setstring78 = parseInt(str78.split(".", 1));
-            var Period78P = Math.ceil(setstring78/10)*10;
-            $("#Period78P").text(addCommas(Period78P));
-
-            var Process84P = (parseFloat(TopcarP) + (parseFloat(TopcarP) * parseFloat(InterestP) * (84 / 12))) / 84;
-            var str84 = Process84P.toString();
-            var setstring84 = parseInt(str84.split(".", 1));
-            var Period84P = Math.ceil(setstring84/10)*10;
-            $("#Period84P").text(addCommas(Period84P));
         }
     });
 </script>
