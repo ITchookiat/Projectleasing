@@ -147,6 +147,9 @@
                  data-link="{{ route('MasterSetting.create') }}?type={{2}}">
                 <i class="fa fa-calculator text-red mr-1"></i> โปรแกรมคำนวณค่างวด
               </a>
+              <!-- <a href="{{ route('MasterSetting.create') }}?type={{2}}">
+                <i class="fa fa-calculator text-red mr-1"></i> โปรแกรมคำนวณค่างวด
+              </a> -->
             </div>
           @endif
         </div>
@@ -175,7 +178,7 @@
 </div>
 
 <div class="modal fade" id="modal-program">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog">
     <div class="modal-content">
       
     </div>

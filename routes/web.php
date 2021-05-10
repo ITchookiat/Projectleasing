@@ -99,6 +99,9 @@ Route::group(['middleware' => 'auth'], function()
       //------------------Settings-----------------//
     route::resource('MasterSetting','MainsettingController');
 
+    //------------------หน้าแรก--------------------//
+    route::resource('HomeBP','HomeController');
+
     //---------------- logout --------------------//
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
     Route::get('/{name}', 'HomeController@index')->name('index');

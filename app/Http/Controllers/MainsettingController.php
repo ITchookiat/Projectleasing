@@ -34,7 +34,13 @@ class MainsettingController extends Controller
         ->first();
 
         $type = $request->type;
-        return view('setting.option',compact('type','data','data2'));
+        if($request->type == 1){
+            return view('setting.option',compact('type','data','data2'));
+        }
+        elseif($request->type == 2){
+            return view('setting.option',compact('type','data','data2'));
+            // return view('setting.program',compact('type','data','data2'));
+        }
     }
 
     /**

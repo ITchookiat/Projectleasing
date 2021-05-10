@@ -359,7 +359,7 @@
                     <div class="form-group mb-1">
                       <label>Notes :</label>
                       <div class="input-group">
-                        <textarea name="Note" class="form-control form-control-sm" placeholder="คำอธิบายสั้นๆ..." rows="3">{{$item->Notes_info}}</textarea>
+                        <textarea name="Note" class="form-control form-control-sm" placeholder="คำอธิบายสั้นๆ..." rows="10">{{$item->Notes_info}}</textarea>
                       </div>
                     </div>
       

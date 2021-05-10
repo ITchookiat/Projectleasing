@@ -116,7 +116,7 @@
             <div class="form-group mb-1">
               <label>Note :</label>
               <div class="input-group mb-3">
-                <textarea name="Note" class="form-control form-control-sm" placeholder="ป้อนหมายเหตุ" rows="3">{{$data->Note_events}}</textarea>
+                <textarea name="Note" class="form-control form-control-sm" placeholder="ป้อนหมายเหตุ" rows="10">{{$data->Note_events}}</textarea>
               </div>
             </div>
           </div>
@@ -184,7 +184,7 @@
                 <div class="card-tools">
                   <div class="input-group">
                     <div class="custom-file">
-                      <input type="file" name="fileEvent" class="custom-file-input" id="exampleInputFile" value="">
+                      <input type="file" name="fileEvent[]" class="custom-file-input" id="exampleInputFile" multiple>
                       <label class="custom-file-label" for="exampleInputFile">เลือกไฟล์ที่จะอัพโหลด</label>
                     </div>
                   </div>
@@ -284,25 +284,25 @@
     });
 
     $('.AlertForm').click(function (evt) {
-      var Contract_buyer = $(this).data("name");
-      var form = $(this).closest("form");
+      // var Contract_buyer = $(this).data("name");
+      // var form = $(this).closest("form");
       var _this = $(this)
       
       evt.preventDefault();
       swal({
-          title: `${Contract_buyer}`,
+          title: "ต้องการไฟล์นี้หรือไม่",
           icon: "warning",
           text: "คุณต้องการยืนยันการลบหรือไม่ ?",
           buttons: true,
           dangerMode: true,
       }).then((isConfirm)=>{
-          if (isConfirm) {
-              swal("ลบข้อมูลสำเร็จ !", {
-                  icon: "success",
-                  timer: 3000,
-              })
+          // if (isConfirm) {
+          //     swal("ลบข้อมูลสำเร็จ !", {
+          //         icon: "success",
+          //         timer: 3000,
+          //     })
+          // }
               window.location.href = _this.attr('href')
-          }
       });
     });
  });

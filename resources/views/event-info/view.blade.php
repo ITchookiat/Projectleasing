@@ -207,7 +207,7 @@
                       <div class="form-group mb-1">
                         <label>Notes :</label>
                         <div class="input-group">
-                          <textarea name="Note" class="form-control form-control-sm" placeholder="ป้อนหมายเหตุ" rows="3"></textarea>
+                          <textarea name="Note" class="form-control form-control-sm" placeholder="ป้อนหมายเหตุ" rows="10"></textarea>
                         </div>
                       </div>
                     </div>
@@ -249,7 +249,7 @@
                         <label>Upload Files :</label>
                         <div class="input-group">
                           <div class="custom-file">
-                            <input type="file" name="fileEvent" class="custom-file-input" id="exampleInputFile" value="">
+                            <input type="file" name="fileEvent[]" class="custom-file-input" id="exampleInputFile" multiple>
                             <label class="custom-file-label" for="exampleInputFile">เลือกไฟล์อัพโหลด</label>
                           </div>
                         </div>
