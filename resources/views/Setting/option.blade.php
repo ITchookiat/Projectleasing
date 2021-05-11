@@ -607,7 +607,7 @@
                 }
             }
 
-            if (GetType == "รถเก๋ง / รถ 7 ที่นั่ง" && GetYear >= 2015) {
+            if (GetType == "รถเก๋ง/7ที่นั่ง" && GetYear >= 2015) {
                 if (GetTimelack >= 12 && GetTimelack <= 48) {
                 var Interest = 0.51;
                 } else if (GetTimelack >= 54 && GetTimelack <= 60) {
@@ -617,7 +617,7 @@
                 } else if (GetTimelack >= 78 && GetTimelack <= 84) {
                 var Interest = 0.64;
                 }
-            } else if (GetType == "รถเก๋ง / รถ 7 ที่นั่ง" && GetYear >= 2012 && GetYear <= 2014) {
+            } else if (GetType == "รถเก๋ง/7ที่นั่ง" && GetYear >= 2012 && GetYear <= 2014) {
                 if (GetTimelack >= 12 && GetTimelack <= 48) {
                 var Interest = 0.80;
                 } else if (GetTimelack >= 54 && GetTimelack <= 60) {
@@ -625,7 +625,7 @@
                 } else if (GetTimelack >= 66 && GetTimelack <= 72) {
                 var Interest = 0.82;
                 }
-            } else if (GetType == "รถเก๋ง / รถ 7 ที่นั่ง" && GetYear >= 2010 && GetYear <= 2011) {
+            } else if (GetType == "รถเก๋ง/7ที่นั่ง" && GetYear >= 2010 && GetYear <= 2011) {
                 if (GetTimelack >= 12 && GetTimelack <= 48) {
                 var Interest = 0.92;
                 } else if (GetTimelack >= 54 && GetTimelack <= 60) {
@@ -633,7 +633,7 @@
                 } else if (GetTimelack >= 66 && GetTimelack <= 72) {
                 var Interest = 0.94;
                 }
-            } else if (GetType == "รถเก๋ง / รถ 7 ที่นั่ง" && GetYear == 2009) {
+            } else if (GetType == "รถเก๋ง/7ที่นั่ง" && GetYear == 2009) {
                 if (GetTimelack >= 12 && GetTimelack <= 48) {
                 var Interest = 1.05;
                 } else if (GetTimelack >= 54 && GetTimelack <= 60) {
@@ -641,7 +641,7 @@
                 } else if (GetTimelack >= 66 && GetTimelack <= 72) {
                 var Interest = 1.07;
                 }
-            } else if (GetType == "รถเก๋ง / รถ 7 ที่นั่ง" && GetYear == 2008) {
+            } else if (GetType == "รถเก๋ง/7ที่นั่ง" && GetYear == 2008) {
                 if (GetTimelack >= 12 && GetTimelack <= 48) {
                 var Interest = 1.21;
                 } else if (GetTimelack >= 54 && GetTimelack <= 60) {
@@ -649,19 +649,19 @@
                 } else if (GetTimelack >= 66 && GetTimelack <= 72) {
                 var Interest = 1.23;
                 }
-            } else if (GetType == "รถเก๋ง / รถ 7 ที่นั่ง" && GetYear == 2007) {
+            } else if (GetType == "รถเก๋ง/7ที่นั่ง" && GetYear == 2007) {
                 if (GetTimelack >= 12 && GetTimelack <= 48) {
                 var Interest = 1.22;
                 } else if (GetTimelack >= 54 && GetTimelack <= 60) {
                 var Interest = 1.23;
                 }
-            } else if (GetType == "รถเก๋ง / รถ 7 ที่นั่ง" && GetYear == 2006) {
+            } else if (GetType == "รถเก๋ง/7ที่นั่ง" && GetYear == 2006) {
                 if (GetTimelack >= 12 && GetTimelack <= 48) {
                 var Interest = 1.23;
                 } else if (GetTimelack >= 54 && GetTimelack <= 60) {
                 var Interest = 1.25;
                 }
-            } else if (GetType == "รถเก๋ง / รถ 7 ที่นั่ง" && GetYear == 2005) {
+            } else if (GetType == "รถเก๋ง/7ที่นั่ง" && GetYear == 2005) {
                 if (GetTimelack >= 12 && GetTimelack <= 48) {
                 var Interest = 1.59;
                 }

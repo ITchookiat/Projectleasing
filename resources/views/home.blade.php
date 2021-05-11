@@ -443,6 +443,10 @@
                           <i class="fas fa-money"></i> ยอดเงิน
                             <span class="badge bg-primary float-right">{{number_format($TotalAllProduct2)}}</span>
                         </a>
+                        <a class="nav-link" id="vert-tabs-3-tab" data-toggle="pill" href="#vert-tabs-3" role="tab" aria-controls="vert-tabs-3" aria-selected="false">
+                          <i class="fa fa-list-alt"></i> ยอดจัดเฉลี่ย
+                            <span class="badge bg-primary float-right"></span>
+                        </a>
                     </div>
                   </div>
                 </div>
@@ -454,6 +458,7 @@
                     <div class="row">
                       <div class="col-12 col-sm-12">
                         <div class="tab-content" id="vert-tabs-tabContent">
+
                             <div class="tab-pane fade active show" id="vert-tabs-1" role="tabpanel" aria-labelledby="vert-tabs-1-tab">
                               <div class="card-header">
                                 <h3 class="card-title pr-2">ยอดคัน</h3> ( วันที่ {{DateThai($newfdate)}} - {{DateThai($newtdate)}} )
@@ -473,7 +478,7 @@
                                       <td>พนักงาน</td>
                                       <td>รถบ้าน</td>
                                       <td>มอเตอร์ไซค์</td>
-                                      <td style="width: 50px">ผลรวม</td>
+                                      <td style="width: 50px">ผลรวมยอดคัน</td>
                                     </tr>
                                     <tr class="text-center">
                                       <td><b>ปัตตานี</b></td>
@@ -628,7 +633,7 @@
                                       <td>พนักงาน</td>
                                       <td>รถบ้าน</td>
                                       <td>มอเตอร์ไซค์</td>
-                                      <td style="width: 50px">ผลรวม</td>
+                                      <td style="width: 50px">ผลรวมยอดเงิน</td>
                                       <!-- <td>ยอดเฉลี่ย</td> -->
                                     </tr>
                                     <tr class="text-center">
@@ -640,6 +645,185 @@
                                       <td></td>
                                       <td>@if($Topcar_Motor50 != 0){{number_format($Topcar_Motor50)}}@endif</td>
                                       <td class="bg-warning"><b>{{number_format($Topcar_Micro50 + $Topcar_Ploan50 + $Topcar_Leasing01 + $Topcar_Staff50 + $Topcar_Motor50)}}</b></td>
+                                      <!-- <td>0</td> -->
+                                    </tr>
+                                    <tr class="text-center">
+                                      <td><b>ยะลา</b></td>
+                                      <td>@if($Topcar_Micro51 != 0){{number_format($Topcar_Micro51)}}@endif</td>
+                                      <td>@if($Topcar_Ploan51 != 0){{number_format($Topcar_Ploan51)}}@endif</td>
+                                      <td>@if($Topcar_Leasing03 != 0){{number_format($Topcar_Leasing03)}}@endif</td>
+                                      <td>@if($Topcar_Staff51 != 0){{number_format($Topcar_Staff51)}}@endif</td>
+                                      <td></td>
+                                      <td>@if($Topcar_Motor51 != 0){{number_format($Topcar_Motor51)}}@endif</td>
+                                      <td class="bg-warning"><b>{{number_format($Topcar_Micro51 + $Topcar_Ploan51 + $Topcar_Leasing03 + $Topcar_Staff51 + $Topcar_Motor51)}}</b></td>
+                                      <!-- <td>0</td> -->
+                                    </tr>
+                                    <tr class="text-center">
+                                      <td><b>นราธิวาส</b></td>
+                                      <td>@if($Topcar_Micro52 != 0){{number_format($Topcar_Micro52)}}@endif</td>
+                                      <td>@if($Topcar_Ploan52 != 0){{number_format($Topcar_Ploan52)}}@endif</td>
+                                      <td>@if($Topcar_Leasing04 != 0){{number_format($Topcar_Leasing04)}}@endif</td>
+                                      <td>@if($Topcar_Staff52 != 0){{number_format($Topcar_Staff52)}}@endif</td>
+                                      <td></td>
+                                      <td>@if($Topcar_Motor52 != 0){{number_format($Topcar_Motor52)}}@endif</td>
+                                      <td class="bg-warning"><b>{{number_format($Topcar_Micro52 + $Topcar_Ploan52 + $Topcar_Leasing04 + $Topcar_Staff52 + $Topcar_Motor52)}}</b></td>
+                                      <!-- <td>0</td> -->
+                                    </tr>
+                                    <tr class="text-center">
+                                      <td><b>สายบุรี</b></td>
+                                      <td>@if($Topcar_Micro53 != 0){{number_format($Topcar_Micro53)}}@endif</td>
+                                      <td>@if($Topcar_Ploan53 != 0){{number_format($Topcar_Ploan53)}}@endif</td>
+                                      <td>@if($Topcar_Leasing05 != 0){{number_format($Topcar_Leasing05)}}@endif</td>
+                                      <td>@if($Topcar_Staff53 != 0){{number_format($Topcar_Staff53)}}@endif</td>
+                                      <td></td>
+                                      <td>@if($Topcar_Motor53 != 0){{number_format($Topcar_Motor53)}}@endif</td>
+                                      <td class="bg-warning"><b>{{number_format($Topcar_Micro53 + $Topcar_Ploan53 + $Topcar_Leasing05 + $Topcar_Staff53 + $Topcar_Motor53)}}</b></td>
+                                      <!-- <td>0</td> -->
+                                    </tr>
+                                    <tr class="text-center">
+                                      <td><b>โกลก</b></td>
+                                      <td>@if($Topcar_Micro54 != 0){{number_format($Topcar_Micro54)}}@endif</td>
+                                      <td>@if($Topcar_Ploan54 != 0){{number_format($Topcar_Ploan54)}}@endif</td>
+                                      <td>@if($Topcar_Leasing06 != 0){{number_format($Topcar_Leasing06)}}@endif</td>
+                                      <td>@if($Topcar_Staff54 != 0){{number_format($Topcar_Staff54)}}@endif</td>
+                                      <td></td>
+                                      <td>@if($Topcar_Motor54 != 0){{number_format($Topcar_Motor54)}}@endif</td>
+                                      <td class="bg-warning"><b>{{number_format($Topcar_Micro54 + $Topcar_Ploan54 + $Topcar_Leasing06 + $Topcar_Staff54 + $Topcar_Motor54)}}</b></td>
+                                      <!-- <td>0</td> -->
+                                    </tr>
+                                    <tr class="text-center">
+                                      <td><b>เบตง</b></td>
+                                      <td>@if($Topcar_Micro55 != 0){{number_format($Topcar_Micro55)}}@endif</td>
+                                      <td>@if($Topcar_Ploan55 != 0){{number_format($Topcar_Ploan55)}}@endif</td>
+                                      <td>@if($Topcar_Leasing07 != 0){{number_format($Topcar_Leasing07)}}@endif</td>
+                                      <td>@if($Topcar_Staff55 != 0){{number_format($Topcar_Staff55)}}@endif</td>
+                                      <td></td>
+                                      <td>@if($Topcar_Motor55 != 0){{number_format($Topcar_Motor55)}}@endif</td>
+                                      <td class="bg-warning"><b>{{number_format($Topcar_Micro55 + $Topcar_Ploan55 + $Topcar_Leasing07 + $Topcar_Staff55 + $Topcar_Motor55)}}</b></td>
+                                      <!-- <td>0</td> -->
+                                    </tr>
+                                    <tr class="text-center">
+                                      <td><b>โคกโพธิ์</b></td>
+                                      <td>@if($Topcar_Micro56 != 0){{number_format($Topcar_Micro56)}}@endif</td>
+                                      <td>@if($Topcar_Ploan56 != 0){{number_format($Topcar_Ploan56)}}@endif</td>
+                                      <td>@if($Topcar_Leasing08 != 0){{number_format($Topcar_Leasing08)}}@endif</td>
+                                      <td>@if($Topcar_Staff56 != 0){{number_format($Topcar_Staff56)}}@endif</td>
+                                      <td></td>
+                                      <td>@if($Topcar_Motor56 != 0){{number_format($Topcar_Motor56)}}@endif</td>
+                                      <td class="bg-warning"><b>{{number_format($Topcar_Micro56 + $Topcar_Ploan56 + $Topcar_Leasing08 + $Topcar_Staff56 + $Topcar_Motor56)}}</b></td>
+                                      <!-- <td>0</td> -->
+                                    </tr>
+                                    <tr class="text-center">
+                                      <td><b>ตันหยงมัส</b></td>
+                                      <td>@if($Topcar_Micro57 != 0){{number_format($Topcar_Micro57)}}@endif</td>
+                                      <td>@if($Topcar_Ploan57 != 0){{number_format($Topcar_Ploan57)}}@endif</td>
+                                      <td>@if($Topcar_Leasing09 != 0){{number_format($Topcar_Leasing09)}}@endif</td>
+                                      <td>@if($Topcar_Staff57 != 0){{number_format($Topcar_Staff57)}}@endif</td>
+                                      <td></td>
+                                      <td>@if($Topcar_Motor57 != 0){{number_format($Topcar_Motor57)}}@endif</td>
+                                      <td class="bg-warning"><b>{{number_format($Topcar_Micro57 + $Topcar_Ploan57 + $Topcar_Leasing09 + $Topcar_Staff57 + $Topcar_Motor57)}}</b></td>
+                                      <!-- <td>0</td> -->
+                                    </tr>
+                                    <tr class="text-center">
+                                      <td><b>รือเสาะ</b></td>
+                                      <td>@if($Topcar_Micro58 != 0){{number_format($Topcar_Micro58)}}@endif</td>
+                                      <td>@if($Topcar_Ploan58 != 0){{number_format($Topcar_Ploan58)}}@endif</td>
+                                      <td>@if($Topcar_Leasing12 != 0){{number_format($Topcar_Leasing12)}}@endif</td>
+                                      <td>@if($Topcar_Staff58 != 0){{number_format($Topcar_Staff58)}}@endif</td>
+                                      <td></td>
+                                      <td>@if($Topcar_Motor58 != 0){{number_format($Topcar_Motor58)}}@endif</td>
+                                      <td class="bg-warning"><b>{{number_format($Topcar_Micro58 + $Topcar_Ploan58 + $Topcar_Leasing12 + $Topcar_Staff58 + $Topcar_Motor58)}}</b></td>
+                                      <!-- <td>0</td> -->
+                                    </tr>
+                                    <tr class="text-center">
+                                      <td><b>บันนังสตา</b></td>
+                                      <td>@if($Topcar_Micro59 != 0){{number_format($Topcar_Micro59)}}@endif</td>
+                                      <td>@if($Topcar_Ploan59 != 0){{number_format($Topcar_Ploan59)}}@endif</td>
+                                      <td>@if($Topcar_Leasing13 != 0){{number_format($Topcar_Leasing13)}}@endif</td>
+                                      <td>@if($Topcar_Staff59 != 0){{number_format($Topcar_Staff59)}}@endif</td>
+                                      <td></td>
+                                      <td>@if($Topcar_Motor59 != 0){{number_format($Topcar_Motor59)}}@endif</td>
+                                      <td class="bg-warning"><b>{{number_format($Topcar_Micro59 + $Topcar_Ploan59 + $Topcar_Leasing13 + $Topcar_Staff59 + $Topcar_Motor59)}}</b></td>
+                                      <!-- <td>0</td> -->
+                                    </tr>
+                                    <tr class="text-center">
+                                      <td><b>ยะหา</b></td>
+                                      <td>@if($Topcar_Micro60 != 0){{number_format($Topcar_Micro60)}}@endif</td>
+                                      <td>@if($Topcar_Ploan60 != 0){{number_format($Topcar_Ploan60)}}@endif</td>
+                                      <td>@if($Topcar_Leasing14 != 0){{number_format($Topcar_Leasing14)}}@endif</td>
+                                      <td>@if($Topcar_Staff60 != 0){{number_format($Topcar_Staff60)}}@endif</td>
+                                      <td></td>
+                                      <td>@if($Topcar_Motor60 != 0){{number_format($Topcar_Motor60)}}@endif</td>
+                                      <td class="bg-warning"><b>{{number_format($Topcar_Micro60 + $Topcar_Ploan60 + $Topcar_Leasing14 + $Topcar_Staff60 + $Topcar_Motor60)}}</b></td>
+                                      <!-- <td>0</td> -->
+                                    </tr>
+                                    <tr class="text-center">
+                                      <td><b>รถบ้าน</b></td>
+                                      <td></td>
+                                      <td></td>
+                                      <td></td>
+                                      <td></td>
+                                      <td>{{number_format($SumTopcar_HomecarAll)}}</td>
+                                      <td></td>
+                                      <td class="bg-warning"></td>
+                                      <!-- <td></td> -->
+                                    </tr>
+                                    <tr class="text-center bg-warning">
+                                      <td><b>รวม</b></td>
+                                      <td><b>{{number_format($SumTopcar_MicroAll)}}</b></td>
+                                      <td><b>{{number_format($SumTopcar_PloanAll)}}</b></td>
+                                      <td><b>{{number_format($SumTopcar_LeasingAll)}}</b></td>
+                                      <td><b>{{number_format($SumTopcar_StaffAll)}}</td>
+                                      <td><b>{{number_format($SumTopcar_HomecarAll)}}</b></td>
+                                      <td><b>{{number_format($SumTopcar_MotorAll)}}</b></td>
+                                      <td style="background-color: red;"><b>{{number_format($TotalAllProduct2)}}</b></td>
+                                      <!-- <td><b>0</b></td> -->
+                                    </tr>
+                                    <!-- <tr class="text-center bg-success">
+                                      <td><b>ยอดเฉลี่ย</b></td>
+                                      <td>0</td>
+                                      <td>0</td>
+                                      <td>0</td>
+                                      <td>0</td>
+                                      <td>0</td>
+                                      <td>0</td>
+                                      <td>0</td>
+                                    </tr> -->
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                            <div class="tab-pane fade" id="vert-tabs-3" role="tabpanel" aria-labelledby="vert-tabs-3-tab">
+                              <div class="card-header">
+                                <h3 class="card-title pr-2">ยอดจัดเฉลี่ย</h3> ( วันที่ {{DateThai($newfdate)}} - {{DateThai($newtdate)}} )
+                                <div class="card-tools">
+                                  <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
+                                  </button>
+                                </div>
+                              </div>
+                              <div class="col-12">
+                                <table class="table table-bordered table-hover dataTable dtr-inline" style="border: radius 10px;line-height: 90%;">
+                                  <tbody>
+                                    <tr class="text-center bg-success">
+                                      <td>สาขา</td>
+                                      <td>Micro</td>
+                                      <td>P-Loan</td>
+                                      <td>เช่าซื้อ</td>
+                                      <td>พนักงาน</td>
+                                      <td>รถบ้าน</td>
+                                      <td>มอเตอร์ไซค์</td>
+                                      <td style="width: 50px">ผลรวมเฉลี่ย</td>
+                                      <!-- <td>ยอดเฉลี่ย</td> -->
+                                    </tr>
+                                    <tr class="text-center">
+                                      <td><b>ปัตตานี</b></td>
+                                      <td>@if($Topcar_Micro50 != 0){{number_format($Topcar_Micro50 / $Micro50)}}@endif</td>
+                                      <td>@if($Topcar_Ploan50 != 0){{number_format($Topcar_Ploan50 / $Ploan50)}}@endif</td>
+                                      <td>@if($Topcar_Leasing01 != 0){{number_format($Topcar_Leasing01 / $Leasing01)}}@endif</td>
+                                      <td>@if($Topcar_Staff50 != 0){{number_format($Topcar_Staff50 / $Staff50)}}@endif</td>
+                                      <td></td>
+                                      <td>@if($Topcar_Motor50 != 0){{number_format($Topcar_Motor50 / $Motor50)}}@endif</td>
+                                      <td class="bg-warning"><b>{{number_format(($Topcar_Micro50 + $Topcar_Ploan50 + $Topcar_Leasing01 + $Topcar_Staff50 + $Topcar_Motor50) / ($Micro50 + $Ploan50 + $Leasing01 + $Staff50 + $Motor50))}}</b></td>
                                       <!-- <td>0</td> -->
                                     </tr>
                                     <tr class="text-center">
