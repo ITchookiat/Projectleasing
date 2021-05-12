@@ -448,20 +448,20 @@
                             <span class="badge bg-primary float-right">{{number_format($TotalAllProduct2 / $TotalAllProduct)}}</span>
                         </a>
                         <a class="nav-link" id="vert-tabs-4-tab" data-toggle="pill" href="#vert-tabs-4" role="tab" aria-controls="vert-tabs-4" aria-selected="false">
-                          <i class="far fa-dot-circle nav-icon text-success pr-2"></i> ยอดจัดเช่าซื้อตามแบบ
-                            <span class="badge bg-primary float-right"></span>
+                          <i class="far fa-dot-circle nav-icon text-success pr-2"></i> แบบจัด (เช่าซื้อ)
+                            <span class="badge bg-success float-right">{{number_format($Total_baabLeasing)}}</span>
                         </a>
                         <a class="nav-link" id="vert-tabs-5-tab" data-toggle="pill" href="#vert-tabs-5" role="tab" aria-controls="vert-tabs-5" aria-selected="false">
-                          <i class="far fa-dot-circle nav-icon text-secondary pr-2"></i> ยอดจัดพีโลนตามแบบ
-                            <span class="badge bg-primary float-right"></span>
+                          <i class="far fa-dot-circle nav-icon text-secondary pr-2"></i> แบบจัด (Ploan)
+                            <span class="badge bg-success float-right"></span>
                         </a>
                         <a class="nav-link" id="vert-tabs-6-tab" data-toggle="pill" href="#vert-tabs-6" role="tab" aria-controls="vert-tabs-6" aria-selected="false">
-                          <i class="far fa-dot-circle nav-icon text-warning pr-2"></i> ยอดจัดไมโครตามแบบ
-                            <span class="badge bg-primary float-right"></span>
+                          <i class="far fa-dot-circle nav-icon text-warning pr-2"></i> แบบจัด (Micro)
+                            <span class="badge bg-success float-right"></span>
                         </a>
                         <a class="nav-link" id="vert-tabs-7-tab" data-toggle="pill" href="#vert-tabs-7" role="tab" aria-controls="vert-tabs-7" aria-selected="false">
-                          <i class="far fa-dot-circle nav-icon text-danger pr-2"></i> ยอดจัดมอไซค์ตามแบบ
-                            <span class="badge bg-primary float-right"></span>
+                          <i class="far fa-dot-circle nav-icon text-danger pr-2"></i> แบบจัด (มอไซค์)
+                            <span class="badge bg-success float-right"></span>
                         </a>
                     </div>
                   </div>
@@ -975,7 +975,7 @@
                             </div>
                             <div class="tab-pane fade" id="vert-tabs-4" role="tabpanel" aria-labelledby="vert-tabs-4-tab">
                               <div class="card-header">
-                                <h3 class="card-title pr-2">ยอดจัดเช่าซื้อตามแบบ</h3> ( วันที่ {{DateThai($newfdate)}} - {{DateThai($newtdate)}} )
+                                <h3 class="card-title pr-2">แบบจัด (เช่าซื้อ)</h3> ( วันที่ {{DateThai($newfdate)}} - {{DateThai($newtdate)}} )
                                 <div class="card-tools">
                                   <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
                                   </button>
@@ -1006,7 +1006,7 @@
                                       <td>{{($PN_BuyNoHaveProperty != 0) ?$PN_BuyNoHaveProperty: ''}}</td>
                                       <td>{{($PN_BuyNoWarranty != 0) ?$PN_BuyNoWarranty: ''}}</td>
                                       <td>{{($PN_VIPbuy != 0) ?$PN_VIPbuy: ''}}</td>
-                                      <td><b>{{$Total_PN}}</b></td>
+                                      <td class="bg-warning"><b>{{$Total_PN}}</b></td>
                                     </tr>
                                     <tr class="text-center" style="background-color:#FBFCA1;">
                                       <td class="text-left">สายบุรี (05)</td>
@@ -1018,7 +1018,7 @@
                                       <td>{{($SB_BuyNoHaveProperty != 0) ?$SB_BuyNoHaveProperty: ''}}</td>
                                       <td>{{($SB_BuyNoWarranty != 0) ?$SB_BuyNoWarranty: ''}}</td>
                                       <td>{{($SB_VIPbuy != 0) ?$SB_VIPbuy: ''}}</td>
-                                      <td><b>{{$Total_SB}}</b></td>
+                                      <td class="bg-warning"><b>{{$Total_SB}}</b></td>
                                     </tr>
                                     <tr class="text-center" style="background-color:#FBFCA1;">
                                       <td class="text-left">โคกโพธิ์ (08)</td>
@@ -1030,7 +1030,7 @@
                                       <td>{{($KP_BuyNoHaveProperty != 0) ?$KP_BuyNoHaveProperty: ''}}</td>
                                       <td>{{($KP_BuyNoWarranty != 0) ?$KP_BuyNoWarranty: ''}}</td>
                                       <td>{{($KP_VIPbuy != 0) ?$KP_VIPbuy: ''}}</td>
-                                      <td><b>{{$Total_KP}}</b></td>
+                                      <td class="bg-warning"><b>{{$Total_KP}}</b></td>
                                     </tr>
                                     <tr class="text-center" style="background-color:#DCFBBB;">
                                       <td class="text-left">ยะลา (03)</td>
@@ -1042,7 +1042,7 @@
                                       <td>{{($YL_BuyNoHaveProperty != 0) ?$YL_BuyNoHaveProperty: ''}}</td>
                                       <td>{{($YL_BuyNoWarranty != 0) ?$YL_BuyNoWarranty: ''}}</td>
                                       <td>{{($YL_VIPbuy != 0) ?$YL_VIPbuy: ''}}</td>
-                                      <td><b>{{$Total_YL}}</b></td>
+                                      <td class="bg-warning"><b>{{$Total_YL}}</b></td>
                                     </tr>
                                     <tr class="text-center" style="background-color:#DCFBBB;">
                                       <td class="text-left">เบตง (07)</td>
@@ -1054,7 +1054,7 @@
                                       <td>{{($BT_BuyNoHaveProperty != 0) ?$BT_BuyNoHaveProperty: ''}}</td>
                                       <td>{{($BT_BuyNoWarranty != 0) ?$BT_BuyNoWarranty: ''}}</td>
                                       <td>{{($BT_VIPbuy != 0) ?$BT_VIPbuy: ''}}</td>
-                                      <td><b>{{$Total_BT}}</b></td>
+                                      <td class="bg-warning"><b>{{$Total_BT}}</b></td>
                                     </tr>
                                     <tr class="text-center" style="background-color:#DCFBBB;">
                                       <td class="text-left">บันนังสตา (13)</td>
@@ -1066,7 +1066,7 @@
                                       <td>{{($BNT_BuyNoHaveProperty != 0) ?$BNT_BuyNoHaveProperty: ''}}</td>
                                       <td>{{($BNT_BuyNoWarranty != 0) ?$BNT_BuyNoWarranty: ''}}</td>
                                       <td>{{($BNT_VIPbuy != 0) ?$BNT_VIPbuy: ''}}</td>
-                                      <td><b>{{$Total_BNT}}</b></td>
+                                      <td class="bg-warning"><b>{{$Total_BNT}}</b></td>
                                     </tr>
                                     <tr class="text-center" style="background-color:#DCFBBB;">
                                       <td class="text-left">ยะหา (14)</td>
@@ -1078,7 +1078,7 @@
                                       <td>{{($YH_BuyNoHaveProperty != 0) ?$YH_BuyNoHaveProperty: ''}}</td>
                                       <td>{{($YH_BuyNoWarranty != 0) ?$YH_BuyNoWarranty: ''}}</td>
                                       <td>{{($YH_VIPbuy != 0) ?$YH_VIPbuy: ''}}</td>
-                                      <td><b>{{$Total_YH}}</b></td>
+                                      <td class="bg-warning"><b>{{$Total_YH}}</b></td>
                                     </tr>
                                     <tr class="text-center" style="background-color:#ECD3FE;">
                                       <td class="text-left">นราธิวาส (04)</td>
@@ -1090,7 +1090,7 @@
                                       <td>{{($NR_BuyNoHaveProperty != 0) ?$NR_BuyNoHaveProperty: ''}}</td>
                                       <td>{{($NR_BuyNoWarranty != 0) ?$NR_BuyNoWarranty: ''}}</td>
                                       <td>{{($NR_VIPbuy != 0) ?$NR_VIPbuy: ''}}</td>
-                                      <td><b>{{$Total_NR}}</b></td>
+                                      <td class="bg-warning"><b>{{$Total_NR}}</b></td>
                                     </tr>
                                     <tr class="text-center" style="background-color:#ECD3FE;">
                                       <td class="text-left">โกลก (06)</td>
@@ -1102,7 +1102,7 @@
                                       <td>{{($KOL_BuyNoHaveProperty != 0) ?$KOL_BuyNoHaveProperty: ''}}</td>
                                       <td>{{($KOL_BuyNoWarranty != 0) ?$KOL_BuyNoWarranty: ''}}</td>
                                       <td>{{($KOL_VIPbuy != 0) ?$KOL_VIPbuy: ''}}</td>
-                                      <td><b>{{$Total_KOL}}</b></td>
+                                      <td class="bg-warning"><b>{{$Total_KOL}}</b></td>
                                     </tr>
                                     <tr class="text-center" style="background-color:#ECD3FE;">
                                       <td class="text-left">ตันหยงมัส (09)</td>
@@ -1114,7 +1114,7 @@
                                       <td>{{($TM_BuyNoHaveProperty != 0) ?$TM_BuyNoHaveProperty: ''}}</td>
                                       <td>{{($TM_BuyNoWarranty != 0) ?$TM_BuyNoWarranty: ''}}</td>
                                       <td>{{($TM_VIPbuy != 0) ?$TM_VIPbuy: ''}}</td>
-                                      <td><b>{{$Total_TM}}</b></td>
+                                      <td class="bg-warning"><b>{{$Total_TM}}</b></td>
                                     </tr>
                                     <tr class="text-center" style="background-color:#ECD3FE;">
                                       <td class="text-left">รือเสาะ (12)</td>
@@ -1126,7 +1126,7 @@
                                       <td>{{($RS_BuyNoHaveProperty != 0) ?$RS_BuyNoHaveProperty: ''}}</td>
                                       <td>{{($RS_BuyNoWarranty != 0) ?$RS_BuyNoWarranty: ''}}</td>
                                       <td>{{($RS_VIPbuy != 0) ?$RS_VIPbuy: ''}}</td>
-                                      <td><b>{{$Total_RS}}</b></td>
+                                      <td class="bg-warning"><b>{{$Total_RS}}</b></td>
                                     </tr>
                                     <tr class="text-center bg-warning">
                                       <td class="text-left">ยอดรวม</td>
@@ -1138,7 +1138,7 @@
                                       <td><b>{{($PN_BuyNoHaveProperty + $SB_BuyNoHaveProperty + $KP_BuyNoHaveProperty + $YL_BuyNoHaveProperty + $BT_BuyNoHaveProperty + $BNT_BuyNoHaveProperty + $YH_BuyNoHaveProperty + $NR_BuyNoHaveProperty + $KOL_BuyNoHaveProperty + $TM_BuyNoHaveProperty + $RS_BuyNoHaveProperty)}}</b></td>
                                       <td><b>{{($PN_BuyNoWarranty + $SB_BuyNoWarranty + $KP_BuyNoWarranty + $YL_BuyNoWarranty + $BT_BuyNoWarranty + $BNT_BuyNoWarranty + $YH_BuyNoWarranty + $NR_BuyNoWarranty + $KOL_BuyNoWarranty + $TM_BuyNoWarranty + $RS_BuyNoWarranty)}}</b></td>
                                       <td><b>{{($PN_VIPbuy + $SB_VIPbuy + $KP_VIPbuy + $YL_VIPbuy + $BT_VIPbuy + $BNT_VIPbuy + $YH_VIPbuy + $NR_VIPbuy + $KOL_VIPbuy + $TM_VIPbuy + $RS_VIPbuy)}}</b></td>
-                                      <td><b>{{$Total_baabLeasing}}</b></td>
+                                      <td style="background-color: red;"><b>{{$Total_baabLeasing}}</b></td>
                                     </tr>
                                     <tr class="text-center bg-warning">
                                       <td class="text-left">% แบบ</td>
@@ -1150,7 +1150,7 @@
                                       <td><b>{{round((($PN_BuyNoHaveProperty + $SB_BuyNoHaveProperty + $KP_BuyNoHaveProperty + $YL_BuyNoHaveProperty + $BT_BuyNoHaveProperty + $BNT_BuyNoHaveProperty + $YH_BuyNoHaveProperty + $NR_BuyNoHaveProperty + $KOL_BuyNoHaveProperty + $TM_BuyNoHaveProperty + $RS_BuyNoHaveProperty) / $Total_baabLeasing) * 100)}} %</b></td>
                                       <td><b>{{round((($PN_BuyNoWarranty + $SB_BuyNoWarranty + $KP_BuyNoWarranty + $YL_BuyNoWarranty + $BT_BuyNoWarranty + $BNT_BuyNoWarranty + $YH_BuyNoWarranty + $NR_BuyNoWarranty + $KOL_BuyNoWarranty + $TM_BuyNoWarranty + $RS_BuyNoWarranty) / $Total_baabLeasing) * 100)}} %</b></td>
                                       <td><b>{{round((($PN_VIPbuy + $SB_VIPbuy + $KP_VIPbuy + $YL_VIPbuy + $BT_VIPbuy + $BNT_VIPbuy + $YH_VIPbuy + $NR_VIPbuy + $KOL_VIPbuy + $TM_VIPbuy + $RS_VIPbuy) / $Total_baabLeasing) * 100)}} %</b></td>
-                                      <td><b>{{round(($Total_baabLeasing / $Total_baabLeasing) * 100)}} %</b></td>
+                                      <td style="background-color: red;"><b>{{round(($Total_baabLeasing / $Total_baabLeasing) * 100)}} %</b></td>
                                     </tr>
                                   </tbody>
                                 </table>
