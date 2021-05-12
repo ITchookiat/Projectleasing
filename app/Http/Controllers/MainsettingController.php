@@ -39,7 +39,9 @@ class MainsettingController extends Controller
         }
         elseif($request->type == 2){
             return view('setting.option',compact('type','data','data2'));
-            // return view('setting.program',compact('type','data','data2'));
+        }
+        elseif($request->type == 3){
+            return view('setting.program',compact('type','data','data2'));
         }
     }
 
