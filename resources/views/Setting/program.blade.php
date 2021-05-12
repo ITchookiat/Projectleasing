@@ -14,12 +14,12 @@
   @endif
 
 
-  <div class="content-header" style="padding: 50px;">
+  <div class="content-header">
     <div class="row justify-content-center">
       <div class="col-md-12 table-responsive">
         <div class="card">
       
-          <div class="card-header mb-1">
+          {{--<div class="card-header mb-1">
             <div class="form-inline">
               <div class="col-sm-4">
                 <h4 class="m-0 text-dark text-left"><i class="fa fa-calculator"></i> Programs</h4>
@@ -42,7 +42,7 @@
                 @endif
               </div>
             </div>
-          </div>
+          </div>--}}
 
           <!-- <div class="card-body"> -->
 
@@ -51,61 +51,127 @@
 
                 <div class="card card-primary card-outline">
                   <div class="card-header">
-                    <!-- <h3 class="card-title">โปรแกรมคำนวณค่างวด</h3> -->
+                    <h3 class="card-title"><i class="fa fa-calculator"></i> โปรแกรมคำนวณค่างวด</h3>
                   </div>
                   <div class="card-body p-0">
                     <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
                         <a class="nav-link" id="vert-tabs-1-tab" data-toggle="pill" href="#vert-tabs-1" role="tab" aria-controls="vert-tabs-1" aria-selected="false">
-                          <i class="fas fa-car"></i> คำนวณค่างวดเช่าซื้อ
-
-                            <span class="badge bg-primary float-right"></span>
+                          <img class="img-responsive" src="{{ asset('dist/img/leasing02.png') }}" alt="User Image" style = "width: 10%"> 
+                          คำนวณค่างวดเช่าซื้อ
+                          <span class="badge bg-primary float-right"></span>
                         </a>
                         <a class="nav-link" id="vert-tabs-2-tab" data-toggle="pill" href="#vert-tabs-2" role="tab" aria-controls="vert-tabs-2" aria-selected="false">
-                          <i class="fas fa-money"></i> คำนวณค่างวดเงินกู้
-
-                            <span class="badge bg-primary float-right"></span>
+                          <img class="img-responsive" src="{{ asset('dist/img/leasing03.png') }}" alt="User Image" style = "width: 10%">
+                          คำนวณค่างวดเงินกู้
+                          <span class="badge bg-primary float-right"></span>
                         </a>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div class="col-md-5">
+              <div class="col-md-4">
                 <div class="card card-outline">
                   <div class="card-body p-0 text-sm">
                     <div class="row">
                       <div class="col-12 col-sm-12">
                         <div class="tab-content" id="vert-tabs-tabContent">
                             <div class="tab-pane fade active show" id="vert-tabs-1" role="tabpanel" aria-labelledby="vert-tabs-1-tab">
-                              <div class="card-header">
+                              <div class="card-header bg-warning">
                                 <h3 class="card-title">คำนวณค่างวดเช่าซื้อ</h3>
+                                <div class="card-tools">
+                                  <button type="button" id="LS" class="btn btn-tool"><i class="fas fa-image"></i>
+                                  </button>
+                                </div>
                               </div>
                               <div class="col-12">
                                 <br>
                                 <div class="form-group row mb-2">
                                     <label class="col-sm-3 col-form-label text-right">ยอดจัด :</label>
                                     <div class="col-sm-7 mb-1">
-                                        <input type="text" id="demotopcar" name="demotopcar" maxlength="7" class="form-control form-control" placeholder="ป้อนยอดจัด" required/>
+                                        <input type="text" id="TopcarLS" name="TopcarLS" maxlength="7" class="form-control form-control" required/>
                                     </div>
                                 </div>
                                 <div class="form-group row mb-2">
-                                    <label class="col-sm-3 col-form-label text-right">ยอดจัด :</label>
+                                    <label class="col-sm-3 col-form-label text-right">ระยะเวลา :</label>
                                     <div class="col-sm-7 mb-1">
-                                        <input type="text" id="demotopcar" name="demotopcar" maxlength="7" class="form-control form-control" placeholder="ป้อนยอดจัด" required/>
+                                        <input type="text" id="TimelackLS" name="TimelackLS" maxlength="7" class="form-control form-control" required/>
                                     </div>
                                 </div>
+                                <div class="form-group row mb-2">
+                                    <label class="col-sm-3 col-form-label text-right">ดอกเบี้ย :</label>
+                                    <div class="col-sm-7 mb-1">
+                                        <input type="text" id="InterestLS" name="InterestLS" maxlength="7" class="form-control form-control" required/>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-group row mb-2">
+                                    <label class="col-sm-3 col-form-label text-right">ค่างวดละ :</label>
+                                    <div class="col-sm-7 mb-1">
+                                        <input type="text" id="DueLS" class="form-control form-control" readonly/>
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-2">
+                                    <label class="col-sm-3 col-form-label text-right">ยอดทั้งหมด :</label>
+                                    <div class="col-sm-7 mb-1">
+                                        <input type="text" id="TotalLS" class="form-control form-control" readonly/>
+                                    </div>
+                                </div>
+                                <br>
                               </div>
                             </div>
                             <div class="tab-pane fade" id="vert-tabs-2" role="tabpanel" aria-labelledby="vert-tabs-2-tab">
-                              <div class="card-header">
+                              <div class="card-header bg-danger">
                                 <h3 class="card-title">คำนวณค่างวดเงินกู้</h3>
                                 <div class="card-tools">
-                                  <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
+                                  <button type="button" id="PL" class="btn btn-tool"><i class="fas fa-image"></i>
                                   </button>
                                 </div>
                               </div>
                               <div class="col-12">
-                                1111111111111111111111111111111111111
+                                <br>
+                                <div class="form-group row mb-2">
+                                    <label class="col-sm-3 col-form-label text-right">กรรมสิทธิ์ :</label>
+                                    <div class="col-sm-7 mb-1">
+                                        <select id="OwnerLoan" name="OwnerLoan" class="form-control form-control-sm" required>
+                                            <option value="" selected style="color:red">--- กรรมสิทธิ์รถ ---</option>
+                                            <option value="ถือกรรมสิทธิ์">ถือกรรมสิทธิ์</option>
+                                            <option value="ไม่ถือกรรมสิทธิ์">ไม่ถือกรรมสิทธิ์</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-2">
+                                    <label class="col-sm-3 col-form-label text-right">ยอดกู้ :</label>
+                                    <div class="col-sm-7 mb-1">
+                                        <input type="text" id="TopcarPL" name="TopcarPL" maxlength="7" class="form-control form-control" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-2">
+                                    <label class="col-sm-3 col-form-label text-right">ระยะเวลา :</label>
+                                    <div class="col-sm-7 mb-1">
+                                        <input type="text" id="TimelackPL" name="TimelackPL" maxlength="7" class="form-control form-control" required/>
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-2">
+                                    <label class="col-sm-3 col-form-label text-right">ดอกเบี้ย :</label>
+                                    <div class="col-sm-7 mb-1">
+                                        <input type="text" id="InterestPL" name="InterestPL" maxlength="7" class="form-control form-control" required/>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-group row mb-2">
+                                    <label class="col-sm-3 col-form-label text-right">ค่างวดละ :</label>
+                                    <div class="col-sm-7 mb-1">
+                                        <input type="text" id="DuePL" class="form-control form-control" readonly/>
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-2">
+                                    <label class="col-sm-3 col-form-label text-right">ยอดทั้งหมด :</label>
+                                    <div class="col-sm-7 mb-1">
+                                        <input type="text" id="TotalPL" class="form-control form-control" readonly/>
+                                    </div>
+                                </div>
+                                <br>
                               </div>
                             </div>
 
@@ -116,25 +182,46 @@
                 </div>
               </div>
 
-              <div class="col-md-4">
-                <div class="card">
+              <div class="col-md-5">
+                <div class="card" id="LS-TAB">
                   <div class="card-body p-0 text-sm">
                     <div class="row">
                       <div class="col-12 col-sm-12">
-                        <div class="tab-content" id="vert-tabs-tabContent">
-                            <div class="tab-pane fade active show" id="vert-tabs-1" role="tabpanel" aria-labelledby="vert-tabs-1-tab">
-                              <div class="card-header">
-                                <h3 class="card-title">ผลลัพธ์</h3>
-                                <div class="card-tools">
-                                  <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="col-12">
-                                555555555555555555555555555555
+                          <div class="tab-pane fade active show mb-3" role="tabpanel">
+                            <div class="card-header bg-warning">
+                              <h3 class="card-title"></h3>
+                              <div class="card-tools">
+                                <button type="button" id="LS-close" class="btn btn-tool"><i class="fas fa-times-circle"></i>
+                                </button>
                               </div>
                             </div>
-                        </div>
+                            <div class="col-12">
+                              <img class="img-responsive mb-1" src="{{ asset('dist/img/programs/LS-krabat.png') }}" alt="User Image" style = "width: 100%">
+                              <img class="img-responsive mb-1" src="{{ asset('dist/img/programs/LS-sevenseat.png') }}" alt="User Image" style = "width: 100%">
+                              <img class="img-responsive mb-1" src="{{ asset('dist/img/programs/LS-oneton.png') }}" alt="User Image" style = "width: 100%">
+                            </div>
+                          </div>
+                      </div>
+                    </div>     
+                  </div>
+                </div>
+                <div class="card" id="PL-TAB">
+                  <div class="card-body p-0 text-sm">
+                    <div class="row">
+                      <div class="col-12 col-sm-12">
+                          <div class="tab-pane fade active show" role="tabpanel">
+                            <div class="card-header bg-danger">
+                              <h3 class="card-title"></h3>
+                              <div class="card-tools">
+                                <button type="button" id="PL-close" class="btn btn-tool"><i class="fas fa-times-circle"></i>
+                                </button>
+                              </div>
+                            </div>
+                            <div class="col-12">
+                              <br>
+                              <img class="img-responsive mb-1" src="{{ asset('dist/img/programs/PL-all.png') }}" alt="User Image" style = "width: 100%">
+                            </div>
+                          </div>
                       </div>
                     </div>     
                   </div>
@@ -147,236 +234,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Walkin modal -->
-  <form name="form2" action="{{ route('MasterDataCustomer.store') }}" method="post" enctype="multipart/form-data">
-    @csrf
-      <div class="modal fade" id="modal-walkin" aria-hidden="true" style="display: none;">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content" style="border-radius: 30px 30px 30px 30px;">
-              <div class="modal-header bg-warning" style="border-radius: 30px 30px 30px 30px;">
-                <div class="col text-center">
-                  <h5 class="modal-title"><i class="fas fa-users"></i> ลูกค้า WALK IN</h5>
-                </div>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">x</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                  <div class="row">
-                    <div class="col-6">
-                      <div class="form-group row mb-1">
-                        <label class="col-sm-5 col-form-label text-right"><font color="red">*** ป้ายทะเบียน :</font> </label>
-                        <div class="col-sm-7">
-                          <input type="text" name="Licensecar" class="form-control" placeholder="ป้อนป้ายทะเบียน" required/>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <div class="form-group row mb-1">
-                      <label class="col-sm-4 col-form-label text-right">ยี่ห้อรถ : </label>
-                        <div class="col-sm-7">
-                          <select name="Brandcar" class="form-control">
-                            <option value="" selected>--- ยี่ห้อ ---</option>
-                            <option value="ISUZU">ISUZU</option>
-                            <option value="MITSUBISHI">MITSUBISHI</option>
-                            <option value="TOYOTA">TOYOTA</option>
-                            <option value="MAZDA">MAZDA</option>
-                            <option value="FORD">FORD</option>
-                            <option value="NISSAN">NISSAN</option>
-                            <option value="HONDA">HONDA</option>
-                            <option value="CHEVROLET">CHEVROLET</option>
-                            <option value="MG">MG</option>
-                            <option value="SUZUKI">SUZUKI</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-6">
-                      <div class="form-group row mb-1">
-                      <label class="col-sm-5 col-form-label text-right">รุ่นรถ : </label>
-                        <div class="col-sm-7">
-                          <input type="text" name="Modelcar" class="form-control" placeholder="ป้อนรุ่นรถ" />
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <div class="form-group row mb-1">
-                      <label class="col-sm-4 col-form-label text-right">ประเภทรถ : </label>
-                        <div class="col-sm-7">
-                          <select id="Typecardetail" name="Typecardetail" class="form-control">
-                            <option value="" selected>--- ประเภทรถ ---</option>
-                            <option value="รถกระบะ">รถกระบะ</option>
-                            <option value="รถตอนเดียว">รถตอนเดียว</option>
-                            <option value="รถเก๋ง/7ที่นั่ง">รถเก๋ง/7ที่นั่ง</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-6">
-                      <div class="form-group row mb-1">
-                      <label class="col-sm-5 col-form-label text-right"><font color="red"> ยอดจัด : </font> </label>
-                        <div class="col-sm-7">
-                          <input type="text" id="topcar" name="Topcar" class="form-control" placeholder="ป้อนยอดจัด" oninput="addcomma();" maxlength="9" required/>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <div class="form-group row mb-1">
-                      <label class="col-sm-4 col-form-label text-right">ปีรถ : </label>
-                        <div class="col-sm-7">
-                          <select id="Yearcar" name="Yearcar" class="form-control">
-                            <option value="" selected>--- เลือกปี ---</option>
-                              @php
-                                  $Year = date('Y');
-                              @endphp
-                              @for ($i = 0; $i < 20; $i++)
-                                <option value="{{ $Year }}">{{ $Year }}</option>
-                                @php
-                                    $Year -= 1;
-                                @endphp
-                              @endfor
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-6">
-                      <div class="form-group row mb-1">
-                      <label class="col-sm-5 col-form-label text-right">ชื่อลูกค้า :</label>
-                        <div class="col-sm-4">
-                          <input type="text" name="Namebuyer" class="form-control" placeholder="ชื่อลูกค้า"/>
-                        </div>
-                        <div class="col-sm-3">
-                          <input type="text" name="Lastbuyer" class="form-control" placeholder="นามสกุล"/>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <div class="form-group row mb-1">
-                      <label class="col-sm-4 col-form-label text-right">ชื่อนายหน้า :</label>
-                        <div class="col-sm-7">
-                          <input type="text" name="Nameagent" class="form-control" placeholder="ป้อนชื่อนายหน้า"/>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-6">
-                      <div class="form-group row mb-1">
-                      <label class="col-sm-5 col-form-label text-right">เบอร์ลูกค้า :</label>
-                        <div class="col-sm-7">
-                          <input type="text" name="Phonebuyer" class="form-control" placeholder="ป้อนเบอร์ลูกค้า"/>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <div class="form-group row mb-1">
-                      <label class="col-sm-4 col-form-label text-right">เบอร์นายหน้า :</label>
-                        <div class="col-sm-7">
-                          <input type="text" name="Phoneagent" class="form-control" placeholder="ป้อนเบอร์นายหน้า"/>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-6">
-                      <div class="form-group row mb-1">
-                      <label class="col-sm-5 col-form-label text-right">เลขบัตร ปชช :</label>
-                        <div class="col-sm-7">
-                          <input type="text" name="IDCardbuyer" class="form-control" placeholder="ป้อนเลขบัตร ปชช" maxlength="13"/>
-                        </div>
-                        <br><br>
-                        <label class="col-sm-5 col-form-label text-right"><font color="red">ที่มาของลูกค้า :</font></label>
-                        <div class="col-sm-7">
-                        <!-- <select id="TypeLeasing" name="TypeLeasing" class="form-control" required>
-                            <option value="" selected>--- เลือกประเภทสินเชื่อ ---</option>
-                            <option value="เช่าซื้อ">เช่าซื้อ</option>
-                            <option value="เงินกู้">เงินกู้</option>
-                        </select> -->
-                        <select id="News" name="News" class="form-control" required>
-                            <option value="" selected>--- เลือกแหล่งที่มา ---</option>
-                            <option value="นายหน้าแนะนำ">นายหน้าแนะนำ</option>
-                            <option value="Facebook">Facebook</option>
-                            <option value="Line">Line</option>
-                            <option value="ป้ายโฆษณา">ป้ายโฆษณา</option>
-                            <option value="วิทยุ">วิทยุ</option>
-                            <option value="เพื่อนแนะนำ">เพื่อนแนะนำ</option>
-                            <option value="Websites">Websites</option>
-                          </select>
-                        </div>
-                        <br><br>
-                        <label class="col-sm-5 col-form-label text-right">สาขา :</label>
-                        <div class="col-sm-7">
-                          <select id="branchcar" name="branchcar" class="form-control" required>
-                                <option value="" selected>--- เลือกสาขา ---</option>
-                                <option value="ปัตตานี" {{ (auth::user()->branch == '01') ? 'selected' : '' }}>ปัตตานี</option>
-                                <option value="ยะลา" {{ (auth::user()->branch == '03') ? 'selected' : '' }}>ยะลา</option>
-                                <option value="นราธิวาส" {{ (auth::user()->branch == '04') ? 'selected' : '' }}>นราธิวาส</option>
-                                <option value="สายบุรี" {{ (auth::user()->branch == '05') ? 'selected' : '' }}>สายบุรี</option>
-                                <option value="โกลก" {{ (auth::user()->branch == '06') ? 'selected' : '' }}>โกลก</option>
-                                <option value="เบตง" {{ (auth::user()->branch == '07') ? 'selected' : '' }}>เบตง</option>
-                                <option value="โคกโพธิ์" {{ (auth::user()->branch == '08') ? 'selected' : '' }}>โคกโพธิ์</option>
-                                <option value="ตันหยงมัส" {{ (auth::user()->branch == '09') ? 'selected' : '' }}>ตันหยงมัส</option>
-                                <option value="รือเสาะ" {{ (auth::user()->branch == '12') ? 'selected' : '' }}>รือเสาะ</option>
-                                <option value="บังนังสตา" {{ (auth::user()->branch == '13') ? 'selected' : '' }}>บังนังสตา</option>
-                                <option value="ยะหา" {{ (auth::user()->branch == '14') ? 'selected' : '' }}>ยะหา</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <div class="form-group row mb-1">
-                      <label class="col-sm-4 col-form-label text-right">หมายเหตุ :</label>
-                        <div class="col-sm-7">
-                          <textarea class="form-control" name="Notecar" rows="5" placeholder="ป้อนหมายเหตุ..."></textarea>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-              </div>
-
-              <input type="hidden" name="NameUser" value="{{auth::user()->name}}"/>
-
-              <div style="text-align: center;">
-                  <button type="submit" class="btn btn-success text-center" style="border-radius: 50px;">บันทึก</button>
-                  <button type="button" class="btn btn-danger" style="border-radius: 50px;" data-dismiss="modal">ยกเลิก</button>
-              </div>
-              <br>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-      </div>
-  </form>
-
-  <script>
-      function blinker() {
-      $('.prem').fadeOut(1500);
-      $('.prem').fadeIn(1500);
-      }
-      setInterval(blinker, 1500);
-  </script>
-
-<script>
-    $(function () {
-      $("#table1,#table2").DataTable({
-        "responsive": true,
-        "autoWidth": false,
-        "ordering": true,
-        "searching": false,
-        "lengthChange": false,
-        "order": [[ 0, "asc" ]],
-        "pageLength": 25,
-      });
-    });
-  </script>
 
   <script>
     function addCommas(nStr){
@@ -395,5 +252,25 @@
       var num1 = num11.replace(",","");
       document.form2.topcar.value = addCommas(num1);
     }
+  </script>
+
+  <script>
+  $("#LS-TAB").hide();
+  $("#PL-TAB").hide();
+    $('#LS').on("click" ,function() {
+      $("#LS-TAB").show();
+      $("#PL-TAB").hide();
+    });
+      $('#LS-close').on("click" ,function() {
+        $("#LS-TAB").hide();
+      });
+
+    $('#PL').on("click" ,function() {
+      $("#PL-TAB").show();
+      $("#LS-TAB").hide();
+    });
+      $('#PL-close').on("click" ,function() {
+        $("#PL-TAB").hide();
+      });
   </script>
 @endsection

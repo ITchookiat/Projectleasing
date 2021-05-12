@@ -147,9 +147,11 @@
                  data-link="{{ route('MasterSetting.create') }}?type={{2}}">
                 <i class="fa fa-calculator text-red mr-1"></i> โปรแกรมคำนวณค่างวด
               </a>
-              <!-- <a href="{{ route('MasterSetting.create') }}?type={{2}}">
-                <i class="fa fa-calculator text-red mr-1"></i> โปรแกรมคำนวณค่างวด
-              </a> -->
+            </div>
+            <div class="mb-2">
+              <a href="{{ route('MasterSetting.create') }}?type={{3}}">
+                <i class="fa fa-calculator text-red mr-1"></i> โปรแกรมคำนวณค่างวด2
+              </a>
             </div>
           @endif
         </div>

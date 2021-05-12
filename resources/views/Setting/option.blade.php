@@ -739,7 +739,7 @@
                         }
                     } else if (GetYearL >= 2010) {
                         if (GetTimelackL >= 12 && GetTimelackL <= 48) {
-                        var interest = 0.78 + parseFloat(Extrainterest);
+                        var interest = 0.76 + parseFloat(Extrainterest);
                         } else if (GetTimelackL >= 54 && GetTimelackL <= 60) {
                         var interest = 0.86 + parseFloat(Extrainterest);
                         } else if (GetTimelackL >= 66 && GetTimelackL <= 72) {
