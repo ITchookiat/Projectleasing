@@ -777,5 +777,41 @@ class LegisComproController extends Controller
         $pdf::WriteHTML($html,true,false,true,false,'');
         $pdf::Output('report.pdf');
       }
+      elseif ($type == 6) {   // รายงาน ลูกหนี้ Non-Vat
+        $data = DB::connection('ibmi')
+          ->table('SFHP.ARMAST')
+          ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+          ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+          ->where('SFHP.ARMAST.HLDNO','>', 2.99)
+          ->where('SFHP.ARMAST.DTSTOPV','=', NULL)
+          ->get();
+
+        $SetFdate = date('d-m-Y');
+        $SetTdate = date('d-m-Y');
+
+        $status = 'รายงานลูกหนี้ Non-Vat';
+        Excel::create('รายงานลูกหนี้ Non-Vat', function ($excel) use($data,$status,$SetFdate,$SetTdate) {
+          $excel->sheet($status, function ($sheet) use($data,$status,$SetFdate,$SetTdate) {
+              $sheet->prependRow(1, array("บริษัท ชูเกียรติลิสซิ่ง จำกัด"));
+              $sheet->prependRow(2, array($status.'  จากวันที่ '.$SetFdate.' ถึงวันที่ '.$SetTdate));
+              $sheet->cells('A3:I3', function($cells) {
+                $cells->setBackground('#FFCC00');
+              });
+              $row = 3;
+              $sheet->row($row, array('ลำดับ', 'เลขที่สัญญา','ชื่อ-สกุล','วันที่ชำระ','ยอดค้างจริง','สถานะ'));
+              foreach ($data as $key => $value) {
+
+                $sheet->row(++$row, array(
+                  $key+1,
+                  $value->CONTNO,
+                  $value->NAME1.'-'.$value->NAME2,
+                  $value->LPAYD,
+                  $value->HLDNO,
+                  $value->CONTSTAT,
+                ));
+              }
+          });
+        })->export('xlsx');
+      }
     }
 }
