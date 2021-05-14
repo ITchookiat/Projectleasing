@@ -737,7 +737,7 @@ class HomeController extends Controller
                     }elseif ($value6->status_car == 'VIP.ซื้อขาย') {
                         $RS_VIPbuy += 1;
                     }
-                }else if ($value6->branch_car == 'บังนังสตา') {
+                }else if ($value6->branch_car == 'บันนังสตา') {
                     if ($value6->status_car == 'กส.ค้ำมีหลักทรัพย์') {
                         $BNT_HaveProperty += 1;
                     }elseif ($value6->status_car == 'กส.ค้ำไม่มีหลักทรัพย์') {
@@ -1063,7 +1063,7 @@ class HomeController extends Controller
                     }elseif ($value7->status_car == 'VIP.ซื้อขาย') {
                         $RS_Ploan_VIPbuy += 1;
                     }
-                }else if ($value7->branch_car == 'บังนังสตา') {
+                }else if ($value7->branch_car == 'บันนังสตา') {
                     if ($value7->status_car == 'กส.ค้ำมีหลักทรัพย์') {
                         $BNT_Ploan_HaveProperty += 1;
                     }elseif ($value7->status_car == 'กส.ค้ำไม่มีหลักทรัพย์') {
@@ -1114,6 +1114,658 @@ class HomeController extends Controller
             $Total_BNT_Ploan = $BNT_Ploan_HaveProperty+$BNT_Ploan_NoProperty+$BNT_Ploan_NoWarranty+$BNT_Ploan_BuyHaveProperty+$BNT_Ploan_BuyNoHaveProperty+$BNT_Ploan_BuyNoWarranty+$BNT_Ploan_VIPowner+$BNT_Ploan_VIPbuy;
             $Total_YH_Ploan = $YH_Ploan_HaveProperty+$YH_Ploan_NoProperty+$YH_Ploan_NoWarranty+$YH_Ploan_BuyHaveProperty+$YH_Ploan_BuyNoHaveProperty+$YH_Ploan_BuyNoWarranty+$YH_Ploan_VIPowner+$YH_Ploan_VIPbuy;
         }
+
+        if ($dataMicro != NULL) {
+            $PN_Micro_HaveProperty = 0;
+            $PN_Micro_NoProperty = 0;
+            $PN_Micro_NoWarranty = 0;
+            $PN_Micro_BuyHaveProperty = 0;
+            $PN_Micro_BuyNoHaveProperty = 0;
+            $PN_Micro_BuyNoWarranty = 0;
+            $PN_Micro_VIPowner = 0;
+            $PN_Micro_VIPbuy = 0;
+            $Total_PN_Micro = 0;
+
+            $YL_Micro_HaveProperty = 0;
+            $YL_Micro_NoProperty = 0;
+            $YL_Micro_NoWarranty = 0;
+            $YL_Micro_BuyHaveProperty = 0;
+            $YL_Micro_BuyNoHaveProperty = 0;
+            $YL_Micro_BuyNoWarranty = 0;
+            $YL_Micro_VIPowner = 0;
+            $YL_Micro_VIPbuy = 0;
+            $Total_YL_Micro = 0;
+
+            $NR_Micro_HaveProperty = 0;
+            $NR_Micro_NoProperty = 0;
+            $NR_Micro_NoWarranty = 0;
+            $NR_Micro_BuyHaveProperty = 0;
+            $NR_Micro_BuyNoHaveProperty = 0;
+            $NR_Micro_BuyNoWarranty = 0;
+            $NR_Micro_VIPowner = 0;
+            $NR_Micro_VIPbuy = 0;
+            $Total_NR_Micro = 0;
+
+            $SB_Micro_HaveProperty = 0;
+            $SB_Micro_NoProperty = 0;
+            $SB_Micro_NoWarranty = 0;
+            $SB_Micro_BuyHaveProperty = 0;
+            $SB_Micro_BuyNoHaveProperty = 0;
+            $SB_Micro_BuyNoWarranty = 0;
+            $SB_Micro_VIPowner = 0;
+            $SB_Micro_VIPbuy = 0;
+            $Total_SB_Micro = 0;
+
+            $KOL_Micro_HaveProperty = 0;
+            $KOL_Micro_NoProperty = 0;
+            $KOL_Micro_NoWarranty = 0;
+            $KOL_Micro_BuyHaveProperty = 0;
+            $KOL_Micro_BuyNoHaveProperty = 0;
+            $KOL_Micro_BuyNoWarranty = 0;
+            $KOL_Micro_VIPowner = 0;
+            $KOL_Micro_VIPbuy = 0;
+            $Total_KOL_Micro = 0;
+
+            $BT_Micro_HaveProperty = 0;
+            $BT_Micro_NoProperty = 0;
+            $BT_Micro_NoWarranty = 0;
+            $BT_Micro_BuyHaveProperty = 0;
+            $BT_Micro_BuyNoHaveProperty = 0;
+            $BT_Micro_BuyNoWarranty = 0;
+            $BT_Micro_VIPowner = 0;
+            $BT_Micro_VIPbuy = 0;
+            $Total_BT_Micro = 0;
+
+            $KP_Micro_HaveProperty = 0;
+            $KP_Micro_NoProperty = 0;
+            $KP_Micro_NoWarranty = 0;
+            $KP_Micro_BuyHaveProperty = 0;
+            $KP_Micro_BuyNoHaveProperty = 0;
+            $KP_Micro_BuyNoWarranty = 0;
+            $KP_Micro_VIPowner = 0;
+            $KP_Micro_VIPbuy = 0;
+            $Total_KP_Micro = 0;
+
+            $TM_Micro_HaveProperty = 0;
+            $TM_Micro_NoProperty = 0;
+            $TM_Micro_NoWarranty = 0;
+            $TM_Micro_BuyHaveProperty = 0;
+            $TM_Micro_BuyNoHaveProperty = 0;
+            $TM_Micro_BuyNoWarranty = 0;
+            $TM_Micro_VIPowner = 0;
+            $TM_Micro_VIPbuy = 0;
+            $Total_TM_Micro = 0;
+
+            $RS_Micro_HaveProperty = 0;
+            $RS_Micro_NoProperty = 0;
+            $RS_Micro_NoWarranty = 0;
+            $RS_Micro_BuyHaveProperty = 0;
+            $RS_Micro_BuyNoHaveProperty = 0;
+            $RS_Micro_BuyNoWarranty = 0;
+            $RS_Micro_VIPowner = 0;
+            $RS_Micro_VIPbuy = 0;
+            $Total_RS_Micro = 0;
+
+            $BNT_Micro_HaveProperty = 0;
+            $BNT_Micro_NoProperty = 0;
+            $BNT_Micro_NoWarranty = 0;
+            $BNT_Micro_BuyHaveProperty = 0;
+            $BNT_Micro_BuyNoHaveProperty = 0;
+            $BNT_Micro_BuyNoWarranty = 0;
+            $BNT_Micro_VIPowner = 0;
+            $BNT_Micro_VIPbuy = 0;
+            $Total_BNT_Micro = 0;
+
+            $YH_Micro_HaveProperty = 0;
+            $YH_Micro_NoProperty = 0;
+            $YH_Micro_NoWarranty = 0;
+            $YH_Micro_BuyHaveProperty = 0;
+            $YH_Micro_BuyNoHaveProperty = 0;
+            $YH_Micro_BuyNoWarranty = 0;
+            $YH_Micro_VIPowner = 0;
+            $YH_Micro_VIPbuy = 0;
+            $Total_YH_Micro = 0;
+
+            foreach ($dataMicro as $key => $value8) {
+                if ($value8->branch_car == 'ปัตตานี') {
+                    if ($value8->status_car == 'กส.ค้ำมีหลักทรัพย์') {
+                        $PN_Micro_HaveProperty += 1;
+                    }elseif ($value8->status_car == 'กส.ค้ำไม่มีหลักทรัพย์') {
+                        $PN_Micro_NoProperty += 1;
+                    }elseif ($value8->status_car == 'กส.ไม่ค้ำประกัน') {
+                        $PN_Micro_NoWarranty += 1;
+                    }elseif ($value8->status_car == 'ซข.ค้ำมีหลักทรัพย์') {
+                        $PN_Micro_BuyHaveProperty += 1;
+                    }elseif ($value8->status_car == 'ซข.ค้ำไม่มีหลักทรัพย์') {
+                        $PN_Micro_BuyNoHaveProperty += 1;
+                    }elseif ($value8->status_car == 'ซข.ไม่ค้ำประกัน') {
+                        $PN_Micro_BuyNoWarranty += 1;
+                    }elseif ($value8->status_car == 'VIP.กรรมสิทธิ์') {
+                        $PN_Micro_VIPowner += 1;
+                    }elseif ($value8->status_car == 'VIP.ซื้อขาย') {
+                        $PN_Micro_VIPbuy += 1;
+                    }
+                }else if ($value8->branch_car == 'ยะลา') {
+                    if ($value8->status_car == 'กส.ค้ำมีหลักทรัพย์') {
+                        $YL_Micro_HaveProperty += 1;
+                    }elseif ($value8->status_car == 'กส.ค้ำไม่มีหลักทรัพย์') {
+                        $YL_Micro_NoProperty += 1;
+                    }elseif ($value8->status_car == 'กส.ไม่ค้ำประกัน') {
+                        $YL_Micro_NoWarranty += 1;
+                    }elseif ($value8->status_car == 'ซข.ค้ำมีหลักทรัพย์') {
+                        $YL_Micro_BuyHaveProperty += 1;
+                    }elseif ($value8->status_car == 'ซข.ค้ำไม่มีหลักทรัพย์') {
+                        $YL_Micro_BuyNoHaveProperty += 1;
+                    }elseif ($value8->status_car == 'ซข.ไม่ค้ำประกัน') {
+                        $YL_Micro_BuyNoWarranty += 1;
+                    }elseif ($value8->status_car == 'VIP.กรรมสิทธิ์') {
+                        $YL_Micro_VIPowner += 1;
+                    }elseif ($value8->status_car == 'VIP.ซื้อขาย') {
+                        $YL_Micro_VIPbuy += 1;
+                    }
+                }else if ($value8->branch_car == 'นราธิวาส') {
+                    if ($value8->status_car == 'กส.ค้ำมีหลักทรัพย์') {
+                        $NR_Micro_HaveProperty += 1;
+                    }elseif ($value8->status_car == 'กส.ค้ำไม่มีหลักทรัพย์') {
+                        $NR_Micro_NoProperty += 1;
+                    }elseif ($value8->status_car == 'กส.ไม่ค้ำประกัน') {
+                        $NR_Micro_NoWarranty += 1;
+                    }elseif ($value8->status_car == 'ซข.ค้ำมีหลักทรัพย์') {
+                        $NR_Micro_BuyHaveProperty += 1;
+                    }elseif ($value8->status_car == 'ซข.ค้ำไม่มีหลักทรัพย์') {
+                        $NR_Micro_BuyNoHaveProperty += 1;
+                    }elseif ($value8->status_car == 'ซข.ไม่ค้ำประกัน') {
+                        $NR_Micro_BuyNoWarranty += 1;
+                    }elseif ($value8->status_car == 'VIP.กรรมสิทธิ์') {
+                        $NR_Micro_VIPowner += 1;
+                    }elseif ($value8->status_car == 'VIP.ซื้อขาย') {
+                        $NR_Micro_VIPbuy += 1;
+                    }
+                }else if ($value8->branch_car == 'สายบุรี') {
+                    if ($value8->status_car == 'กส.ค้ำมีหลักทรัพย์') {
+                        $SB_Micro_HaveProperty += 1;
+                    }elseif ($value8->status_car == 'กส.ค้ำไม่มีหลักทรัพย์') {
+                        $SB_Micro_NoProperty += 1;
+                    }elseif ($value8->status_car == 'กส.ไม่ค้ำประกัน') {
+                        $SB_Micro_NoWarranty += 1;
+                    }elseif ($value8->status_car == 'ซข.ค้ำมีหลักทรัพย์') {
+                        $SB_Micro_BuyHaveProperty += 1;
+                    }elseif ($value8->status_car == 'ซข.ค้ำไม่มีหลักทรัพย์') {
+                        $SB_Micro_BuyNoHaveProperty += 1;
+                    }elseif ($value8->status_car == 'ซข.ไม่ค้ำประกัน') {
+                        $SB_Micro_BuyNoWarranty += 1;
+                    }elseif ($value8->status_car == 'VIP.กรรมสิทธิ์') {
+                        $SB_Micro_VIPowner += 1;
+                    }elseif ($value8->status_car == 'VIP.ซื้อขาย') {
+                        $SB_Micro_VIPbuy += 1;
+                    }
+                }else if ($value8->branch_car == 'โกลก') {
+                    if ($value8->status_car == 'กส.ค้ำมีหลักทรัพย์') {
+                        $KOL_Micro_HaveProperty += 1;
+                    }elseif ($value8->status_car == 'กส.ค้ำไม่มีหลักทรัพย์') {
+                        $KOL_Micro_NoProperty += 1;
+                    }elseif ($value8->status_car == 'กส.ไม่ค้ำประกัน') {
+                        $KOL_Micro_NoWarranty += 1;
+                    }elseif ($value8->status_car == 'ซข.ค้ำมีหลักทรัพย์') {
+                        $KOL_Micro_BuyHaveProperty += 1;
+                    }elseif ($value8->status_car == 'ซข.ค้ำไม่มีหลักทรัพย์') {
+                        $KOL_Micro_BuyNoHaveProperty += 1;
+                    }elseif ($value8->status_car == 'ซข.ไม่ค้ำประกัน') {
+                        $KOL_Micro_BuyNoWarranty += 1;
+                    }elseif ($value8->status_car == 'VIP.กรรมสิทธิ์') {
+                        $KOL_Micro_VIPowner += 1;
+                    }elseif ($value8->status_car == 'VIP.ซื้อขาย') {
+                        $KOL_Micro_VIPbuy += 1;
+                    }
+                }else if ($value8->branch_car == 'เบตง') {
+                    if ($value8->status_car == 'กส.ค้ำมีหลักทรัพย์') {
+                        $BT_Micro_HaveProperty += 1;
+                    }elseif ($value8->status_car == 'กส.ค้ำไม่มีหลักทรัพย์') {
+                        $BT_Micro_NoProperty += 1;
+                    }elseif ($value8->status_car == 'กส.ไม่ค้ำประกัน') {
+                        $BT_Micro_NoWarranty += 1;
+                    }elseif ($value8->status_car == 'ซข.ค้ำมีหลักทรัพย์') {
+                        $BT_Micro_BuyHaveProperty += 1;
+                    }elseif ($value8->status_car == 'ซข.ค้ำไม่มีหลักทรัพย์') {
+                        $BT_Micro_BuyNoHaveProperty += 1;
+                    }elseif ($value8->status_car == 'ซข.ไม่ค้ำประกัน') {
+                        $BT_Micro_BuyNoWarranty += 1;
+                    }elseif ($value8->status_car == 'VIP.กรรมสิทธิ์') {
+                        $BT_Micro_VIPowner += 1;
+                    }elseif ($value8->status_car == 'VIP.ซื้อขาย') {
+                        $BT_Micro_VIPbuy += 1;
+                    }
+                }else if ($value8->branch_car == 'โคกโพธิ์') {
+                    if ($value8->status_car == 'กส.ค้ำมีหลักทรัพย์') {
+                        $KP_Micro_HaveProperty += 1;
+                    }elseif ($value8->status_car == 'กส.ค้ำไม่มีหลักทรัพย์') {
+                        $KP_Micro_NoProperty += 1;
+                    }elseif ($value8->status_car == 'กส.ไม่ค้ำประกัน') {
+                        $KP_Micro_NoWarranty += 1;
+                    }elseif ($value8->status_car == 'ซข.ค้ำมีหลักทรัพย์') {
+                        $KP_Micro_BuyHaveProperty += 1;
+                    }elseif ($value8->status_car == 'ซข.ค้ำไม่มีหลักทรัพย์') {
+                        $KP_Micro_BuyNoHaveProperty += 1;
+                    }elseif ($value8->status_car == 'ซข.ไม่ค้ำประกัน') {
+                        $KP_Micro_BuyNoWarranty += 1;
+                    }elseif ($value8->status_car == 'VIP.กรรมสิทธิ์') {
+                        $KP_Micro_VIPowner += 1;
+                    }elseif ($value8->status_car == 'VIP.ซื้อขาย') {
+                        $KP_Micro_VIPbuy += 1;
+                    }
+                }else if ($value8->branch_car == 'ตันหยงมัส') {
+                    if ($value8->status_car == 'กส.ค้ำมีหลักทรัพย์') {
+                        $TM_Micro_HaveProperty += 1;
+                    }elseif ($value8->status_car == 'กส.ค้ำไม่มีหลักทรัพย์') {
+                        $TM_Micro_NoProperty += 1;
+                    }elseif ($value8->status_car == 'กส.ไม่ค้ำประกัน') {
+                        $TM_Micro_NoWarranty += 1;
+                    }elseif ($value8->status_car == 'ซข.ค้ำมีหลักทรัพย์') {
+                        $TM_Micro_BuyHaveProperty += 1;
+                    }elseif ($value8->status_car == 'ซข.ค้ำไม่มีหลักทรัพย์') {
+                        $TM_Micro_BuyNoHaveProperty += 1;
+                    }elseif ($value8->status_car == 'ซข.ไม่ค้ำประกัน') {
+                        $TM_Micro_BuyNoWarranty += 1;
+                    }elseif ($value8->status_car == 'VIP.กรรมสิทธิ์') {
+                        $TM_Micro_VIPowner += 1;
+                    }elseif ($value8->status_car == 'VIP.ซื้อขาย') {
+                        $TM_Micro_VIPbuy += 1;
+                    }
+                }else if ($value8->branch_car == 'รือเสาะ') {
+                    if ($value8->status_car == 'กส.ค้ำมีหลักทรัพย์') {
+                        $RS_Micro_HaveProperty += 1;
+                    }elseif ($value8->status_car == 'กส.ค้ำไม่มีหลักทรัพย์') {
+                        $RS_Micro_NoProperty += 1;
+                    }elseif ($value8->status_car == 'กส.ไม่ค้ำประกัน') {
+                        $RS_Micro_NoWarranty += 1;
+                    }elseif ($value8->status_car == 'ซข.ค้ำมีหลักทรัพย์') {
+                        $RS_Micro_BuyHaveProperty += 1;
+                    }elseif ($value8->status_car == 'ซข.ค้ำไม่มีหลักทรัพย์') {
+                        $RS_Micro_BuyNoHaveProperty += 1;
+                    }elseif ($value8->status_car == 'ซข.ไม่ค้ำประกัน') {
+                        $RS_Micro_BuyNoWarranty += 1;
+                    }elseif ($value8->status_car == 'VIP.กรรมสิทธิ์') {
+                        $RS_Micro_VIPowner += 1;
+                    }elseif ($value8->status_car == 'VIP.ซื้อขาย') {
+                        $RS_Micro_VIPbuy += 1;
+                    }
+                }else if ($value8->branch_car == 'บันนังสตา') {
+                    if ($value8->status_car == 'กส.ค้ำมีหลักทรัพย์') {
+                        $BNT_Micro_HaveProperty += 1;
+                    }elseif ($value8->status_car == 'กส.ค้ำไม่มีหลักทรัพย์') {
+                        $BNT_Micro_NoProperty += 1;
+                    }elseif ($value8->status_car == 'กส.ไม่ค้ำประกัน') {
+                        $BNT_Micro_NoWarranty += 1;
+                    }elseif ($value8->status_car == 'ซข.ค้ำมีหลักทรัพย์') {
+                        $BNT_Micro_BuyHaveProperty += 1;
+                    }elseif ($value8->status_car == 'ซข.ค้ำไม่มีหลักทรัพย์') {
+                        $BNT_Micro_BuyNoHaveProperty += 1;
+                    }elseif ($value8->status_car == 'ซข.ไม่ค้ำประกัน') {
+                        $BNT_Micro_BuyNoWarranty += 1;
+                    }elseif ($value8->status_car == 'VIP.กรรมสิทธิ์') {
+                        $BNT_Micro_VIPowner += 1;
+                    }elseif ($value8->status_car == 'VIP.ซื้อขาย') {
+                        $BNT_Micro_VIPbuy += 1;
+                    }
+                }else if ($value8->branch_car == 'ยะหา') {
+                    if ($value8->status_car == 'กส.ค้ำมีหลักทรัพย์') {
+                        $YH_Micro_HaveProperty += 1;
+                    }elseif ($value8->status_car == 'กส.ค้ำไม่มีหลักทรัพย์') {
+                        $YH_Micro_NoProperty += 1;
+                    }elseif ($value8->status_car == 'กส.ไม่ค้ำประกัน') {
+                        $YH_Micro_NoWarranty += 1;
+                    }elseif ($value8->status_car == 'ซข.ค้ำมีหลักทรัพย์') {
+                        $YH_Micro_BuyHaveProperty += 1;
+                    }elseif ($value8->status_car == 'ซข.ค้ำไม่มีหลักทรัพย์') {
+                        $YH_Micro_BuyNoHaveProperty += 1;
+                    }elseif ($value8->status_car == 'ซข.ไม่ค้ำประกัน') {
+                        $YH_Micro_BuyNoWarranty += 1;
+                    }elseif ($value8->status_car == 'VIP.กรรมสิทธิ์') {
+                        $YH_Micro_VIPowner += 1;
+                    }elseif ($value8->status_car == 'VIP.ซื้อขาย') {
+                        $YH_Micro_VIPbuy += 1;
+                    }
+                }
+            }
+
+            $Total_PN_Micro = $PN_Micro_HaveProperty+$PN_Micro_NoProperty+$PN_Micro_NoWarranty+$PN_Micro_BuyHaveProperty+$PN_Micro_BuyNoHaveProperty+$PN_Micro_BuyNoWarranty+$PN_Micro_VIPowner+$PN_Micro_VIPbuy;
+            $Total_YL_Micro = $YL_Micro_HaveProperty+$YL_Micro_NoProperty+$YL_Micro_NoWarranty+$YL_Micro_BuyHaveProperty+$YL_Micro_BuyNoHaveProperty+$YL_Micro_BuyNoWarranty+$YL_Micro_VIPowner+$YL_Micro_VIPbuy;
+            $Total_NR_Micro = $NR_Micro_HaveProperty+$NR_Micro_NoProperty+$NR_Micro_NoWarranty+$NR_Micro_BuyHaveProperty+$NR_Micro_BuyNoHaveProperty+$NR_Micro_BuyNoWarranty+$NR_Micro_VIPowner+$NR_Micro_VIPbuy;
+            $Total_SB_Micro = $SB_Micro_HaveProperty+$SB_Micro_NoProperty+$SB_Micro_NoWarranty+$SB_Micro_BuyHaveProperty+$SB_Micro_BuyNoHaveProperty+$SB_Micro_BuyNoWarranty+$SB_Micro_VIPowner+$SB_Micro_VIPbuy;
+            $Total_KOL_Micro = $KOL_Micro_HaveProperty+$KOL_Micro_NoProperty+$KOL_Micro_NoWarranty+$KOL_Micro_BuyHaveProperty+$KOL_Micro_BuyNoHaveProperty+$KOL_Micro_BuyNoWarranty+$KOL_Micro_VIPowner+$KOL_Micro_VIPbuy;
+            $Total_BT_Micro = $BT_Micro_HaveProperty+$BT_Micro_NoProperty+$BT_Micro_NoWarranty+$BT_Micro_BuyHaveProperty+$BT_Micro_BuyNoHaveProperty+$BT_Micro_BuyNoWarranty+$BT_Micro_VIPowner+$BT_Micro_VIPbuy;
+            $Total_KP_Micro = $KP_Micro_HaveProperty+$KP_Micro_NoProperty+$KP_Micro_NoWarranty+$KP_Micro_BuyHaveProperty+$KP_Micro_BuyNoHaveProperty+$KP_Micro_BuyNoWarranty+$KP_Micro_VIPowner+$KP_Micro_VIPbuy;
+            $Total_TM_Micro = $TM_Micro_HaveProperty+$TM_Micro_NoProperty+$TM_Micro_NoWarranty+$TM_Micro_BuyHaveProperty+$TM_Micro_BuyNoHaveProperty+$TM_Micro_BuyNoWarranty+$TM_Micro_VIPowner+$TM_Micro_VIPbuy;
+            $Total_RS_Micro = $RS_Micro_HaveProperty+$RS_Micro_NoProperty+$RS_Micro_NoWarranty+$RS_Micro_BuyHaveProperty+$RS_Micro_BuyNoHaveProperty+$RS_Micro_BuyNoWarranty+$RS_Micro_VIPowner+$RS_Micro_VIPbuy;
+            $Total_BNT_Micro = $BNT_Micro_HaveProperty+$BNT_Micro_NoProperty+$BNT_Micro_NoWarranty+$BNT_Micro_BuyHaveProperty+$BNT_Micro_BuyNoHaveProperty+$BNT_Micro_BuyNoWarranty+$BNT_Micro_VIPowner+$BNT_Micro_VIPbuy;
+            $Total_YH_Micro = $YH_Micro_HaveProperty+$YH_Micro_NoProperty+$YH_Micro_NoWarranty+$YH_Micro_BuyHaveProperty+$YH_Micro_BuyNoHaveProperty+$YH_Micro_BuyNoWarranty+$YH_Micro_VIPowner+$YH_Micro_VIPbuy;
+        }
+
+        if ($dataMotor != NULL) {
+            $PN_Motor_HaveProperty = 0;
+            $PN_Motor_NoProperty = 0;
+            $PN_Motor_NoWarranty = 0;
+            $PN_Motor_BuyHaveProperty = 0;
+            $PN_Motor_BuyNoHaveProperty = 0;
+            $PN_Motor_BuyNoWarranty = 0;
+            $PN_Motor_VIPowner = 0;
+            $PN_Motor_VIPbuy = 0;
+            $Total_PN_Motor = 0;
+
+            $YL_Motor_HaveProperty = 0;
+            $YL_Motor_NoProperty = 0;
+            $YL_Motor_NoWarranty = 0;
+            $YL_Motor_BuyHaveProperty = 0;
+            $YL_Motor_BuyNoHaveProperty = 0;
+            $YL_Motor_BuyNoWarranty = 0;
+            $YL_Motor_VIPowner = 0;
+            $YL_Motor_VIPbuy = 0;
+            $Total_YL_Motor = 0;
+
+            $NR_Motor_HaveProperty = 0;
+            $NR_Motor_NoProperty = 0;
+            $NR_Motor_NoWarranty = 0;
+            $NR_Motor_BuyHaveProperty = 0;
+            $NR_Motor_BuyNoHaveProperty = 0;
+            $NR_Motor_BuyNoWarranty = 0;
+            $NR_Motor_VIPowner = 0;
+            $NR_Motor_VIPbuy = 0;
+            $Total_NR_Motor = 0;
+
+            $SB_Motor_HaveProperty = 0;
+            $SB_Motor_NoProperty = 0;
+            $SB_Motor_NoWarranty = 0;
+            $SB_Motor_BuyHaveProperty = 0;
+            $SB_Motor_BuyNoHaveProperty = 0;
+            $SB_Motor_BuyNoWarranty = 0;
+            $SB_Motor_VIPowner = 0;
+            $SB_Motor_VIPbuy = 0;
+            $Total_SB_Motor = 0;
+
+            $KOL_Motor_HaveProperty = 0;
+            $KOL_Motor_NoProperty = 0;
+            $KOL_Motor_NoWarranty = 0;
+            $KOL_Motor_BuyHaveProperty = 0;
+            $KOL_Motor_BuyNoHaveProperty = 0;
+            $KOL_Motor_BuyNoWarranty = 0;
+            $KOL_Motor_VIPowner = 0;
+            $KOL_Motor_VIPbuy = 0;
+            $Total_KOL_Motor = 0;
+
+            $BT_Motor_HaveProperty = 0;
+            $BT_Motor_NoProperty = 0;
+            $BT_Motor_NoWarranty = 0;
+            $BT_Motor_BuyHaveProperty = 0;
+            $BT_Motor_BuyNoHaveProperty = 0;
+            $BT_Motor_BuyNoWarranty = 0;
+            $BT_Motor_VIPowner = 0;
+            $BT_Motor_VIPbuy = 0;
+            $Total_BT_Motor = 0;
+
+            $KP_Motor_HaveProperty = 0;
+            $KP_Motor_NoProperty = 0;
+            $KP_Motor_NoWarranty = 0;
+            $KP_Motor_BuyHaveProperty = 0;
+            $KP_Motor_BuyNoHaveProperty = 0;
+            $KP_Motor_BuyNoWarranty = 0;
+            $KP_Motor_VIPowner = 0;
+            $KP_Motor_VIPbuy = 0;
+            $Total_KP_Motor = 0;
+
+            $TM_Motor_HaveProperty = 0;
+            $TM_Motor_NoProperty = 0;
+            $TM_Motor_NoWarranty = 0;
+            $TM_Motor_BuyHaveProperty = 0;
+            $TM_Motor_BuyNoHaveProperty = 0;
+            $TM_Motor_BuyNoWarranty = 0;
+            $TM_Motor_VIPowner = 0;
+            $TM_Motor_VIPbuy = 0;
+            $Total_TM_Motor = 0;
+
+            $RS_Motor_HaveProperty = 0;
+            $RS_Motor_NoProperty = 0;
+            $RS_Motor_NoWarranty = 0;
+            $RS_Motor_BuyHaveProperty = 0;
+            $RS_Motor_BuyNoHaveProperty = 0;
+            $RS_Motor_BuyNoWarranty = 0;
+            $RS_Motor_VIPowner = 0;
+            $RS_Motor_VIPbuy = 0;
+            $Total_RS_Motor = 0;
+
+            $BNT_Motor_HaveProperty = 0;
+            $BNT_Motor_NoProperty = 0;
+            $BNT_Motor_NoWarranty = 0;
+            $BNT_Motor_BuyHaveProperty = 0;
+            $BNT_Motor_BuyNoHaveProperty = 0;
+            $BNT_Motor_BuyNoWarranty = 0;
+            $BNT_Motor_VIPowner = 0;
+            $BNT_Motor_VIPbuy = 0;
+            $Total_BNT_Motor = 0;
+
+            $YH_Motor_HaveProperty = 0;
+            $YH_Motor_NoProperty = 0;
+            $YH_Motor_NoWarranty = 0;
+            $YH_Motor_BuyHaveProperty = 0;
+            $YH_Motor_BuyNoHaveProperty = 0;
+            $YH_Motor_BuyNoWarranty = 0;
+            $YH_Motor_VIPowner = 0;
+            $YH_Motor_VIPbuy = 0;
+            $Total_YH_Motor = 0;
+
+            foreach ($dataMotor as $key => $value9) {
+                if ($value9->branch_car == 'ปัตตานี') {
+                    if ($value9->status_car == 'กส.ค้ำมีหลักทรัพย์') {
+                        $PN_Motor_HaveProperty += 1;
+                    }elseif ($value9->status_car == 'กส.ค้ำไม่มีหลักทรัพย์') {
+                        $PN_Motor_NoProperty += 1;
+                    }elseif ($value9->status_car == 'กส.ไม่ค้ำประกัน') {
+                        $PN_Motor_NoWarranty += 1;
+                    }elseif ($value9->status_car == 'ซข.ค้ำมีหลักทรัพย์') {
+                        $PN_Motor_BuyHaveProperty += 1;
+                    }elseif ($value9->status_car == 'ซข.ค้ำไม่มีหลักทรัพย์') {
+                        $PN_Motor_BuyNoHaveProperty += 1;
+                    }elseif ($value9->status_car == 'ซข.ไม่ค้ำประกัน') {
+                        $PN_Motor_BuyNoWarranty += 1;
+                    }elseif ($value9->status_car == 'VIP.กรรมสิทธิ์') {
+                        $PN_Motor_VIPowner += 1;
+                    }elseif ($value9->status_car == 'VIP.ซื้อขาย') {
+                        $PN_Motor_VIPbuy += 1;
+                    }
+                }else if ($value9->branch_car == 'ยะลา') {
+                    if ($value9->status_car == 'กส.ค้ำมีหลักทรัพย์') {
+                        $YL_Motor_HaveProperty += 1;
+                    }elseif ($value9->status_car == 'กส.ค้ำไม่มีหลักทรัพย์') {
+                        $YL_Motor_NoProperty += 1;
+                    }elseif ($value9->status_car == 'กส.ไม่ค้ำประกัน') {
+                        $YL_Motor_NoWarranty += 1;
+                    }elseif ($value9->status_car == 'ซข.ค้ำมีหลักทรัพย์') {
+                        $YL_Motor_BuyHaveProperty += 1;
+                    }elseif ($value9->status_car == 'ซข.ค้ำไม่มีหลักทรัพย์') {
+                        $YL_Motor_BuyNoHaveProperty += 1;
+                    }elseif ($value9->status_car == 'ซข.ไม่ค้ำประกัน') {
+                        $YL_Motor_BuyNoWarranty += 1;
+                    }elseif ($value9->status_car == 'VIP.กรรมสิทธิ์') {
+                        $YL_Motor_VIPowner += 1;
+                    }elseif ($value9->status_car == 'VIP.ซื้อขาย') {
+                        $YL_Motor_VIPbuy += 1;
+                    }
+                }else if ($value9->branch_car == 'นราธิวาส') {
+                    if ($value9->status_car == 'กส.ค้ำมีหลักทรัพย์') {
+                        $NR_Motor_HaveProperty += 1;
+                    }elseif ($value9->status_car == 'กส.ค้ำไม่มีหลักทรัพย์') {
+                        $NR_Motor_NoProperty += 1;
+                    }elseif ($value9->status_car == 'กส.ไม่ค้ำประกัน') {
+                        $NR_Motor_NoWarranty += 1;
+                    }elseif ($value9->status_car == 'ซข.ค้ำมีหลักทรัพย์') {
+                        $NR_Motor_BuyHaveProperty += 1;
+                    }elseif ($value9->status_car == 'ซข.ค้ำไม่มีหลักทรัพย์') {
+                        $NR_Motor_BuyNoHaveProperty += 1;
+                    }elseif ($value9->status_car == 'ซข.ไม่ค้ำประกัน') {
+                        $NR_Motor_BuyNoWarranty += 1;
+                    }elseif ($value9->status_car == 'VIP.กรรมสิทธิ์') {
+                        $NR_Motor_VIPowner += 1;
+                    }elseif ($value9->status_car == 'VIP.ซื้อขาย') {
+                        $NR_Motor_VIPbuy += 1;
+                    }
+                }else if ($value9->branch_car == 'สายบุรี') {
+                    if ($value9->status_car == 'กส.ค้ำมีหลักทรัพย์') {
+                        $SB_Motor_HaveProperty += 1;
+                    }elseif ($value9->status_car == 'กส.ค้ำไม่มีหลักทรัพย์') {
+                        $SB_Motor_NoProperty += 1;
+                    }elseif ($value9->status_car == 'กส.ไม่ค้ำประกัน') {
+                        $SB_Motor_NoWarranty += 1;
+                    }elseif ($value9->status_car == 'ซข.ค้ำมีหลักทรัพย์') {
+                        $SB_Motor_BuyHaveProperty += 1;
+                    }elseif ($value9->status_car == 'ซข.ค้ำไม่มีหลักทรัพย์') {
+                        $SB_Motor_BuyNoHaveProperty += 1;
+                    }elseif ($value9->status_car == 'ซข.ไม่ค้ำประกัน') {
+                        $SB_Motor_BuyNoWarranty += 1;
+                    }elseif ($value9->status_car == 'VIP.กรรมสิทธิ์') {
+                        $SB_Motor_VIPowner += 1;
+                    }elseif ($value9->status_car == 'VIP.ซื้อขาย') {
+                        $SB_Motor_VIPbuy += 1;
+                    }
+                }else if ($value9->branch_car == 'โกลก') {
+                    if ($value9->status_car == 'กส.ค้ำมีหลักทรัพย์') {
+                        $KOL_Motor_HaveProperty += 1;
+                    }elseif ($value9->status_car == 'กส.ค้ำไม่มีหลักทรัพย์') {
+                        $KOL_Motor_NoProperty += 1;
+                    }elseif ($value9->status_car == 'กส.ไม่ค้ำประกัน') {
+                        $KOL_Motor_NoWarranty += 1;
+                    }elseif ($value9->status_car == 'ซข.ค้ำมีหลักทรัพย์') {
+                        $KOL_Motor_BuyHaveProperty += 1;
+                    }elseif ($value9->status_car == 'ซข.ค้ำไม่มีหลักทรัพย์') {
+                        $KOL_Motor_BuyNoHaveProperty += 1;
+                    }elseif ($value9->status_car == 'ซข.ไม่ค้ำประกัน') {
+                        $KOL_Motor_BuyNoWarranty += 1;
+                    }elseif ($value9->status_car == 'VIP.กรรมสิทธิ์') {
+                        $KOL_Motor_VIPowner += 1;
+                    }elseif ($value9->status_car == 'VIP.ซื้อขาย') {
+                        $KOL_Motor_VIPbuy += 1;
+                    }
+                }else if ($value9->branch_car == 'เบตง') {
+                    if ($value9->status_car == 'กส.ค้ำมีหลักทรัพย์') {
+                        $BT_Motor_HaveProperty += 1;
+                    }elseif ($value9->status_car == 'กส.ค้ำไม่มีหลักทรัพย์') {
+                        $BT_Motor_NoProperty += 1;
+                    }elseif ($value9->status_car == 'กส.ไม่ค้ำประกัน') {
+                        $BT_Motor_NoWarranty += 1;
+                    }elseif ($value9->status_car == 'ซข.ค้ำมีหลักทรัพย์') {
+                        $BT_Motor_BuyHaveProperty += 1;
+                    }elseif ($value9->status_car == 'ซข.ค้ำไม่มีหลักทรัพย์') {
+                        $BT_Motor_BuyNoHaveProperty += 1;
+                    }elseif ($value9->status_car == 'ซข.ไม่ค้ำประกัน') {
+                        $BT_Motor_BuyNoWarranty += 1;
+                    }elseif ($value9->status_car == 'VIP.กรรมสิทธิ์') {
+                        $BT_Motor_VIPowner += 1;
+                    }elseif ($value9->status_car == 'VIP.ซื้อขาย') {
+                        $BT_Motor_VIPbuy += 1;
+                    }
+                }else if ($value9->branch_car == 'โคกโพธิ์') {
+                    if ($value9->status_car == 'กส.ค้ำมีหลักทรัพย์') {
+                        $KP_Motor_HaveProperty += 1;
+                    }elseif ($value9->status_car == 'กส.ค้ำไม่มีหลักทรัพย์') {
+                        $KP_Motor_NoProperty += 1;
+                    }elseif ($value9->status_car == 'กส.ไม่ค้ำประกัน') {
+                        $KP_Motor_NoWarranty += 1;
+                    }elseif ($value9->status_car == 'ซข.ค้ำมีหลักทรัพย์') {
+                        $KP_Motor_BuyHaveProperty += 1;
+                    }elseif ($value9->status_car == 'ซข.ค้ำไม่มีหลักทรัพย์') {
+                        $KP_Motor_BuyNoHaveProperty += 1;
+                    }elseif ($value9->status_car == 'ซข.ไม่ค้ำประกัน') {
+                        $KP_Motor_BuyNoWarranty += 1;
+                    }elseif ($value9->status_car == 'VIP.กรรมสิทธิ์') {
+                        $KP_Motor_VIPowner += 1;
+                    }elseif ($value9->status_car == 'VIP.ซื้อขาย') {
+                        $KP_Motor_VIPbuy += 1;
+                    }
+                }else if ($value9->branch_car == 'ตันหยงมัส') {
+                    if ($value9->status_car == 'กส.ค้ำมีหลักทรัพย์') {
+                        $TM_Motor_HaveProperty += 1;
+                    }elseif ($value9->status_car == 'กส.ค้ำไม่มีหลักทรัพย์') {
+                        $TM_Motor_NoProperty += 1;
+                    }elseif ($value9->status_car == 'กส.ไม่ค้ำประกัน') {
+                        $TM_Motor_NoWarranty += 1;
+                    }elseif ($value9->status_car == 'ซข.ค้ำมีหลักทรัพย์') {
+                        $TM_Motor_BuyHaveProperty += 1;
+                    }elseif ($value9->status_car == 'ซข.ค้ำไม่มีหลักทรัพย์') {
+                        $TM_Motor_BuyNoHaveProperty += 1;
+                    }elseif ($value9->status_car == 'ซข.ไม่ค้ำประกัน') {
+                        $TM_Motor_BuyNoWarranty += 1;
+                    }elseif ($value9->status_car == 'VIP.กรรมสิทธิ์') {
+                        $TM_Motor_VIPowner += 1;
+                    }elseif ($value9->status_car == 'VIP.ซื้อขาย') {
+                        $TM_Motor_VIPbuy += 1;
+                    }
+                }else if ($value9->branch_car == 'รือเสาะ') {
+                    if ($value9->status_car == 'กส.ค้ำมีหลักทรัพย์') {
+                        $RS_Motor_HaveProperty += 1;
+                    }elseif ($value9->status_car == 'กส.ค้ำไม่มีหลักทรัพย์') {
+                        $RS_Motor_NoProperty += 1;
+                    }elseif ($value9->status_car == 'กส.ไม่ค้ำประกัน') {
+                        $RS_Motor_NoWarranty += 1;
+                    }elseif ($value9->status_car == 'ซข.ค้ำมีหลักทรัพย์') {
+                        $RS_Motor_BuyHaveProperty += 1;
+                    }elseif ($value9->status_car == 'ซข.ค้ำไม่มีหลักทรัพย์') {
+                        $RS_Motor_BuyNoHaveProperty += 1;
+                    }elseif ($value9->status_car == 'ซข.ไม่ค้ำประกัน') {
+                        $RS_Motor_BuyNoWarranty += 1;
+                    }elseif ($value9->status_car == 'VIP.กรรมสิทธิ์') {
+                        $RS_Motor_VIPowner += 1;
+                    }elseif ($value9->status_car == 'VIP.ซื้อขาย') {
+                        $RS_Motor_VIPbuy += 1;
+                    }
+                }else if ($value9->branch_car == 'บันนังสตา') {
+                    if ($value9->status_car == 'กส.ค้ำมีหลักทรัพย์') {
+                        $BNT_Motor_HaveProperty += 1;
+                    }elseif ($value9->status_car == 'กส.ค้ำไม่มีหลักทรัพย์') {
+                        $BNT_Motor_NoProperty += 1;
+                    }elseif ($value9->status_car == 'กส.ไม่ค้ำประกัน') {
+                        $BNT_Motor_NoWarranty += 1;
+                    }elseif ($value9->status_car == 'ซข.ค้ำมีหลักทรัพย์') {
+                        $BNT_Motor_BuyHaveProperty += 1;
+                    }elseif ($value9->status_car == 'ซข.ค้ำไม่มีหลักทรัพย์') {
+                        $BNT_Motor_BuyNoHaveProperty += 1;
+                    }elseif ($value9->status_car == 'ซข.ไม่ค้ำประกัน') {
+                        $BNT_Motor_BuyNoWarranty += 1;
+                    }elseif ($value9->status_car == 'VIP.กรรมสิทธิ์') {
+                        $BNT_Motor_VIPowner += 1;
+                    }elseif ($value9->status_car == 'VIP.ซื้อขาย') {
+                        $BNT_Motor_VIPbuy += 1;
+                    }
+                }else if ($value9->branch_car == 'ยะหา') {
+                    if ($value9->status_car == 'กส.ค้ำมีหลักทรัพย์') {
+                        $YH_Motor_HaveProperty += 1;
+                    }elseif ($value9->status_car == 'กส.ค้ำไม่มีหลักทรัพย์') {
+                        $YH_Motor_NoProperty += 1;
+                    }elseif ($value9->status_car == 'กส.ไม่ค้ำประกัน') {
+                        $YH_Motor_NoWarranty += 1;
+                    }elseif ($value9->status_car == 'ซข.ค้ำมีหลักทรัพย์') {
+                        $YH_Motor_BuyHaveProperty += 1;
+                    }elseif ($value9->status_car == 'ซข.ค้ำไม่มีหลักทรัพย์') {
+                        $YH_Motor_BuyNoHaveProperty += 1;
+                    }elseif ($value9->status_car == 'ซข.ไม่ค้ำประกัน') {
+                        $YH_Motor_BuyNoWarranty += 1;
+                    }elseif ($value9->status_car == 'VIP.กรรมสิทธิ์') {
+                        $YH_Motor_VIPowner += 1;
+                    }elseif ($value9->status_car == 'VIP.ซื้อขาย') {
+                        $YH_Motor_VIPbuy += 1;
+                    }
+                }
+            }
+
+            $Total_PN_Motor = $PN_Motor_HaveProperty+$PN_Motor_NoProperty+$PN_Motor_NoWarranty+$PN_Motor_BuyHaveProperty+$PN_Motor_BuyNoHaveProperty+$PN_Motor_BuyNoWarranty+$PN_Motor_VIPowner+$PN_Motor_VIPbuy;
+            $Total_YL_Motor = $YL_Motor_HaveProperty+$YL_Motor_NoProperty+$YL_Motor_NoWarranty+$YL_Motor_BuyHaveProperty+$YL_Motor_BuyNoHaveProperty+$YL_Motor_BuyNoWarranty+$YL_Motor_VIPowner+$YL_Motor_VIPbuy;
+            $Total_NR_Motor = $NR_Motor_HaveProperty+$NR_Motor_NoProperty+$NR_Motor_NoWarranty+$NR_Motor_BuyHaveProperty+$NR_Motor_BuyNoHaveProperty+$NR_Motor_BuyNoWarranty+$NR_Motor_VIPowner+$NR_Motor_VIPbuy;
+            $Total_SB_Motor = $SB_Motor_HaveProperty+$SB_Motor_NoProperty+$SB_Motor_NoWarranty+$SB_Motor_BuyHaveProperty+$SB_Motor_BuyNoHaveProperty+$SB_Motor_BuyNoWarranty+$SB_Motor_VIPowner+$SB_Motor_VIPbuy;
+            $Total_KOL_Motor = $KOL_Motor_HaveProperty+$KOL_Motor_NoProperty+$KOL_Motor_NoWarranty+$KOL_Motor_BuyHaveProperty+$KOL_Motor_BuyNoHaveProperty+$KOL_Motor_BuyNoWarranty+$KOL_Motor_VIPowner+$KOL_Motor_VIPbuy;
+            $Total_BT_Motor = $BT_Motor_HaveProperty+$BT_Motor_NoProperty+$BT_Motor_NoWarranty+$BT_Motor_BuyHaveProperty+$BT_Motor_BuyNoHaveProperty+$BT_Motor_BuyNoWarranty+$BT_Motor_VIPowner+$BT_Motor_VIPbuy;
+            $Total_KP_Motor = $KP_Motor_HaveProperty+$KP_Motor_NoProperty+$KP_Motor_NoWarranty+$KP_Motor_BuyHaveProperty+$KP_Motor_BuyNoHaveProperty+$KP_Motor_BuyNoWarranty+$KP_Motor_VIPowner+$KP_Motor_VIPbuy;
+            $Total_TM_Motor = $TM_Motor_HaveProperty+$TM_Motor_NoProperty+$TM_Motor_NoWarranty+$TM_Motor_BuyHaveProperty+$TM_Motor_BuyNoHaveProperty+$TM_Motor_BuyNoWarranty+$TM_Motor_VIPowner+$TM_Motor_VIPbuy;
+            $Total_RS_Motor = $RS_Motor_HaveProperty+$RS_Motor_NoProperty+$RS_Motor_NoWarranty+$RS_Motor_BuyHaveProperty+$RS_Motor_BuyNoHaveProperty+$RS_Motor_BuyNoWarranty+$RS_Motor_VIPowner+$RS_Motor_VIPbuy;
+            $Total_BNT_Motor = $BNT_Motor_HaveProperty+$BNT_Motor_NoProperty+$BNT_Motor_NoWarranty+$BNT_Motor_BuyHaveProperty+$BNT_Motor_BuyNoHaveProperty+$BNT_Motor_BuyNoWarranty+$BNT_Motor_VIPowner+$BNT_Motor_VIPbuy;
+            $Total_YH_Motor = $YH_Motor_HaveProperty+$YH_Motor_NoProperty+$YH_Motor_NoWarranty+$YH_Motor_BuyHaveProperty+$YH_Motor_BuyNoHaveProperty+$YH_Motor_BuyNoWarranty+$YH_Motor_VIPowner+$YH_Motor_VIPbuy;
+        }
         
         return view($name, compact('newfdate','newtdate',
         'SumLeasingAll','Leasing01','Leasing03','Leasing04','Leasing05','Leasing06','Leasing07','Leasing08','Leasing09','Leasing12','Leasing13','Leasing14',
@@ -1149,7 +1801,29 @@ class HomeController extends Controller
         'Total_TM_Ploan','TM_Ploan_HaveProperty','TM_Ploan_NoProperty','TM_Ploan_NoWarranty','TM_Ploan_BuyHaveProperty','TM_Ploan_BuyNoHaveProperty','TM_Ploan_BuyNoWarranty','TM_Ploan_VIPowner','TM_Ploan_VIPbuy',
         'Total_RS_Ploan','RS_Ploan_HaveProperty','RS_Ploan_NoProperty','RS_Ploan_NoWarranty','RS_Ploan_BuyHaveProperty','RS_Ploan_BuyNoHaveProperty','RS_Ploan_BuyNoWarranty','RS_Ploan_VIPowner','RS_Ploan_VIPbuy',
         'Total_BNT_Ploan','BNT_Ploan_HaveProperty','BNT_Ploan_NoProperty','BNT_Ploan_NoWarranty','BNT_Ploan_BuyHaveProperty','BNT_Ploan_BuyNoHaveProperty','BNT_Ploan_BuyNoWarranty','BNT_Ploan_VIPowner','BNT_Ploan_VIPbuy',
-        'Total_YH_Ploan','YH_Ploan_HaveProperty','YH_Ploan_NoProperty','YH_Ploan_NoWarranty','YH_Ploan_BuyHaveProperty','YH_Ploan_BuyNoHaveProperty','YH_Ploan_BuyNoWarranty','YH_Ploan_VIPowner','YH_Ploan_VIPbuy'
+        'Total_YH_Ploan','YH_Ploan_HaveProperty','YH_Ploan_NoProperty','YH_Ploan_NoWarranty','YH_Ploan_BuyHaveProperty','YH_Ploan_BuyNoHaveProperty','YH_Ploan_BuyNoWarranty','YH_Ploan_VIPowner','YH_Ploan_VIPbuy',
+        'Total_PN_Micro','PN_Micro_HaveProperty','PN_Micro_NoProperty','PN_Micro_NoWarranty','PN_Micro_BuyHaveProperty','PN_Micro_BuyNoHaveProperty','PN_Micro_BuyNoWarranty','PN_Micro_VIPowner','PN_Micro_VIPbuy',
+        'Total_YL_Micro','YL_Micro_HaveProperty','YL_Micro_NoProperty','YL_Micro_NoWarranty','YL_Micro_BuyHaveProperty','YL_Micro_BuyNoHaveProperty','YL_Micro_BuyNoWarranty','YL_Micro_VIPowner','YL_Micro_VIPbuy',
+        'Total_NR_Micro','NR_Micro_HaveProperty','NR_Micro_NoProperty','NR_Micro_NoWarranty','NR_Micro_BuyHaveProperty','NR_Micro_BuyNoHaveProperty','NR_Micro_BuyNoWarranty','NR_Micro_VIPowner','NR_Micro_VIPbuy',
+        'Total_SB_Micro','SB_Micro_HaveProperty','SB_Micro_NoProperty','SB_Micro_NoWarranty','SB_Micro_BuyHaveProperty','SB_Micro_BuyNoHaveProperty','SB_Micro_BuyNoWarranty','SB_Micro_VIPowner','SB_Micro_VIPbuy',
+        'Total_KOL_Micro','KOL_Micro_HaveProperty','KOL_Micro_NoProperty','KOL_Micro_NoWarranty','KOL_Micro_BuyHaveProperty','KOL_Micro_BuyNoHaveProperty','KOL_Micro_BuyNoWarranty','KOL_Micro_VIPowner','KOL_Micro_VIPbuy',
+        'Total_BT_Micro','BT_Micro_HaveProperty','BT_Micro_NoProperty','BT_Micro_NoWarranty','BT_Micro_BuyHaveProperty','BT_Micro_BuyNoHaveProperty','BT_Micro_BuyNoWarranty','BT_Micro_VIPowner','BT_Micro_VIPbuy',
+        'Total_KP_Micro','KP_Micro_HaveProperty','KP_Micro_NoProperty','KP_Micro_NoWarranty','KP_Micro_BuyHaveProperty','KP_Micro_BuyNoHaveProperty','KP_Micro_BuyNoWarranty','KP_Micro_VIPowner','KP_Micro_VIPbuy',
+        'Total_TM_Micro','TM_Micro_HaveProperty','TM_Micro_NoProperty','TM_Micro_NoWarranty','TM_Micro_BuyHaveProperty','TM_Micro_BuyNoHaveProperty','TM_Micro_BuyNoWarranty','TM_Micro_VIPowner','TM_Micro_VIPbuy',
+        'Total_RS_Micro','RS_Micro_HaveProperty','RS_Micro_NoProperty','RS_Micro_NoWarranty','RS_Micro_BuyHaveProperty','RS_Micro_BuyNoHaveProperty','RS_Micro_BuyNoWarranty','RS_Micro_VIPowner','RS_Micro_VIPbuy',
+        'Total_BNT_Micro','BNT_Micro_HaveProperty','BNT_Micro_NoProperty','BNT_Micro_NoWarranty','BNT_Micro_BuyHaveProperty','BNT_Micro_BuyNoHaveProperty','BNT_Micro_BuyNoWarranty','BNT_Micro_VIPowner','BNT_Micro_VIPbuy',
+        'Total_YH_Micro','YH_Micro_HaveProperty','YH_Micro_NoProperty','YH_Micro_NoWarranty','YH_Micro_BuyHaveProperty','YH_Micro_BuyNoHaveProperty','YH_Micro_BuyNoWarranty','YH_Micro_VIPowner','YH_Micro_VIPbuy',
+        'Total_PN_Motor','PN_Motor_HaveProperty','PN_Motor_NoProperty','PN_Motor_NoWarranty','PN_Motor_BuyHaveProperty','PN_Motor_BuyNoHaveProperty','PN_Motor_BuyNoWarranty','PN_Motor_VIPowner','PN_Motor_VIPbuy',
+        'Total_YL_Motor','YL_Motor_HaveProperty','YL_Motor_NoProperty','YL_Motor_NoWarranty','YL_Motor_BuyHaveProperty','YL_Motor_BuyNoHaveProperty','YL_Motor_BuyNoWarranty','YL_Motor_VIPowner','YL_Motor_VIPbuy',
+        'Total_NR_Motor','NR_Motor_HaveProperty','NR_Motor_NoProperty','NR_Motor_NoWarranty','NR_Motor_BuyHaveProperty','NR_Motor_BuyNoHaveProperty','NR_Motor_BuyNoWarranty','NR_Motor_VIPowner','NR_Motor_VIPbuy',
+        'Total_SB_Motor','SB_Motor_HaveProperty','SB_Motor_NoProperty','SB_Motor_NoWarranty','SB_Motor_BuyHaveProperty','SB_Motor_BuyNoHaveProperty','SB_Motor_BuyNoWarranty','SB_Motor_VIPowner','SB_Motor_VIPbuy',
+        'Total_KOL_Motor','KOL_Motor_HaveProperty','KOL_Motor_NoProperty','KOL_Motor_NoWarranty','KOL_Motor_BuyHaveProperty','KOL_Motor_BuyNoHaveProperty','KOL_Motor_BuyNoWarranty','KOL_Motor_VIPowner','KOL_Motor_VIPbuy',
+        'Total_BT_Motor','BT_Motor_HaveProperty','BT_Motor_NoProperty','BT_Motor_NoWarranty','BT_Motor_BuyHaveProperty','BT_Motor_BuyNoHaveProperty','BT_Motor_BuyNoWarranty','BT_Motor_VIPowner','BT_Motor_VIPbuy',
+        'Total_KP_Motor','KP_Motor_HaveProperty','KP_Motor_NoProperty','KP_Motor_NoWarranty','KP_Motor_BuyHaveProperty','KP_Motor_BuyNoHaveProperty','KP_Motor_BuyNoWarranty','KP_Motor_VIPowner','KP_Motor_VIPbuy',
+        'Total_TM_Motor','TM_Motor_HaveProperty','TM_Motor_NoProperty','TM_Motor_NoWarranty','TM_Motor_BuyHaveProperty','TM_Motor_BuyNoHaveProperty','TM_Motor_BuyNoWarranty','TM_Motor_VIPowner','TM_Motor_VIPbuy',
+        'Total_RS_Motor','RS_Motor_HaveProperty','RS_Motor_NoProperty','RS_Motor_NoWarranty','RS_Motor_BuyHaveProperty','RS_Motor_BuyNoHaveProperty','RS_Motor_BuyNoWarranty','RS_Motor_VIPowner','RS_Motor_VIPbuy',
+        'Total_BNT_Motor','BNT_Motor_HaveProperty','BNT_Motor_NoProperty','BNT_Motor_NoWarranty','BNT_Motor_BuyHaveProperty','BNT_Motor_BuyNoHaveProperty','BNT_Motor_BuyNoWarranty','BNT_Motor_VIPowner','BNT_Motor_VIPbuy',
+        'Total_YH_Motor','YH_Motor_HaveProperty','YH_Motor_NoProperty','YH_Motor_NoWarranty','YH_Motor_BuyHaveProperty','YH_Motor_BuyNoHaveProperty','YH_Motor_BuyNoWarranty','YH_Motor_VIPowner','YH_Motor_VIPbuy'
     ));
     }
 
