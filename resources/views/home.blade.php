@@ -31,6 +31,8 @@
 
     $Total_baabLeasing = $Total_PN + $Total_SB + $Total_KP + $Total_YL + $Total_BT + $Total_BNT + $Total_YH + $Total_NR + $Total_KOL + $Total_TM + $Total_RS;
     $Total_baabPloan = $Total_PN_Ploan + $Total_SB_Ploan + $Total_KP_Ploan + $Total_YL_Ploan + $Total_BT_Ploan + $Total_BNT_Ploan + $Total_YH_Ploan + $Total_NR_Ploan + $Total_KOL_Ploan + $Total_TM_Ploan + $Total_RS_Ploan;
+    $Total_baabMicro = $Total_PN_Micro + $Total_SB_Micro + $Total_KP_Micro + $Total_YL_Micro + $Total_BT_Micro + $Total_BNT_Micro + $Total_YH_Micro + $Total_NR_Micro + $Total_KOL_Micro + $Total_TM_Micro + $Total_RS_Micro;
+    $Total_baabMotor = $Total_PN_Motor + $Total_SB_Motor + $Total_KP_Motor + $Total_YL_Motor + $Total_BT_Motor + $Total_BNT_Motor + $Total_YH_Motor + $Total_NR_Motor + $Total_KOL_Motor + $Total_TM_Motor + $Total_RS_Motor;
   @endphp
 
   <!-- <div class="pricing-header px-3 py-3 pt-md-3 pb-md-0 mx-auto text-center">
@@ -94,7 +96,7 @@
                           <tbody>
                             <tr class="text-center bg-success" >
                               <td>สาขา</td>
-                              <td>Micro</td>
+                              <td>Motor</td>
                               <td>P-Loan</td>
                               <td>เช่าซื้อ</td>
                               <td>พนักงาน</td>
@@ -458,11 +460,15 @@
                         </a>
                         <a class="nav-link" id="vert-tabs-6-tab" data-toggle="pill" href="#vert-tabs-6" role="tab" aria-controls="vert-tabs-6" aria-selected="false">
                           <i class="far fa-dot-circle nav-icon text-warning"></i> แบบจัด(Micro)
-                            <span class="badge bg-success float-right"></span>
+                            <span class="badge bg-success float-right">{{number_format($Total_baabMicro)}}</span>
                         </a>
                         <a class="nav-link" id="vert-tabs-7-tab" data-toggle="pill" href="#vert-tabs-7" role="tab" aria-controls="vert-tabs-7" aria-selected="false">
                           <i class="far fa-dot-circle nav-icon text-danger"></i> แบบจัด(มอไซค์)
-                            <span class="badge bg-success float-right"></span>
+                            <span class="badge bg-success float-right">{{number_format($Total_baabMotor)}}</span>
+                        </a>
+                        <a class="nav-link" id="vert-tabs-8-tab" data-toggle="pill" href="#vert-tabs-8" role="tab" aria-controls="vert-tabs-8" aria-selected="false">
+                          <i class="far fa-dot-circle nav-icon text-primary"></i> แบบจัด(รถบ้าน)
+                            <span class="badge bg-success float-right">{{number_format($SumHomecarAll)}}</span>
                         </a>
                     </div>
                   </div>
@@ -625,7 +631,7 @@
                                       <td><b>{{$SumStaffAll}}</b></td>
                                       <td><b>{{$SumHomecarAll}}</b></td>
                                       <td><b>{{$SumMotorAll}}</b></td>
-                                      <td style="background-color: red;"><b>{{$TotalAllProduct}}</b></td>
+                                      <td style="background-color: red;color:white;"><b>{{$TotalAllProduct}}</b></td>
                                     </tr>
                                   </tbody>
                                 </table>
@@ -780,7 +786,7 @@
                                       <td><b>{{number_format($SumTopcar_StaffAll)}}</td>
                                       <td><b>{{number_format($SumTopcar_HomecarAll)}}</b></td>
                                       <td><b>{{number_format($SumTopcar_MotorAll)}}</b></td>
-                                      <td style="background-color: red;"><b>{{number_format($TotalAllProduct2)}}</b></td>
+                                      <td style="background-color: red;color:white;"><b>{{number_format($TotalAllProduct2)}}</b></td>
                                     </tr>
                                   </tbody>
                                 </table>
@@ -968,7 +974,7 @@
                                       <td><b>@if($SumStaffAll != 0 ){{number_format($SumTopcar_StaffAll / $SumStaffAll)}}@endif</b></td>
                                       <td><b>@if($SumHomecarAll != 0 ){{number_format($SumTopcar_HomecarAll / $SumHomecarAll)}}@endif</b></td>
                                       <td><b>@if($SumMotorAll != 0 ){{number_format($SumTopcar_MotorAll / $SumMotorAll)}}@endif</b></td>
-                                      <td style="background-color: red;"><b>@if($TotalAllProduct != 0 ){{number_format($TotalAllProduct2 / $TotalAllProduct)}}@endif</b></td>
+                                      <td style="background-color: red;color:white;"><b>@if($TotalAllProduct != 0 ){{number_format($TotalAllProduct2 / $TotalAllProduct)}}@endif</b></td>
                                     </tr>
                                   </tbody>
                                 </table>
@@ -1139,19 +1145,19 @@
                                       <td><b>{{($PN_BuyNoHaveProperty + $SB_BuyNoHaveProperty + $KP_BuyNoHaveProperty + $YL_BuyNoHaveProperty + $BT_BuyNoHaveProperty + $BNT_BuyNoHaveProperty + $YH_BuyNoHaveProperty + $NR_BuyNoHaveProperty + $KOL_BuyNoHaveProperty + $TM_BuyNoHaveProperty + $RS_BuyNoHaveProperty)}}</b></td>
                                       <td><b>{{($PN_BuyNoWarranty + $SB_BuyNoWarranty + $KP_BuyNoWarranty + $YL_BuyNoWarranty + $BT_BuyNoWarranty + $BNT_BuyNoWarranty + $YH_BuyNoWarranty + $NR_BuyNoWarranty + $KOL_BuyNoWarranty + $TM_BuyNoWarranty + $RS_BuyNoWarranty)}}</b></td>
                                       <td><b>{{($PN_VIPbuy + $SB_VIPbuy + $KP_VIPbuy + $YL_VIPbuy + $BT_VIPbuy + $BNT_VIPbuy + $YH_VIPbuy + $NR_VIPbuy + $KOL_VIPbuy + $TM_VIPbuy + $RS_VIPbuy)}}</b></td>
-                                      <td style="background-color: red;"><b>{{$Total_baabLeasing}}</b></td>
+                                      <td style="background-color: red;color:white;"><b>{{$Total_baabLeasing}}</b></td>
                                     </tr>
                                     <tr class="text-center bg-warning">
                                       <td class="text-left">% แบบ</td>
-                                      <td><b>{{round((($PN_HaveProperty + $SB_HaveProperty + $KP_HaveProperty + $YL_HaveProperty + $BT_HaveProperty + $BNT_HaveProperty + $YH_HaveProperty + $NR_HaveProperty + $KOL_HaveProperty + $TM_HaveProperty + $RS_HaveProperty) / $Total_baabLeasing) * 100)}} %</b></td>
-                                      <td><b>{{round((($PN_NoProperty + $SB_NoProperty + $KP_NoProperty + $YL_NoProperty + $BT_NoProperty + $BNT_NoProperty + $YH_NoProperty + $NR_NoProperty + $KOL_NoProperty + $TM_NoProperty + $RS_NoProperty) / $Total_baabLeasing) * 100)}} %</b></td>
-                                      <td><b>{{round((($PN_NoWarranty + $SB_NoWarranty + $KP_NoWarranty + $YL_NoWarranty + $BT_NoWarranty + $BNT_NoWarranty + $YH_NoWarranty + $NR_NoWarranty + $KOL_NoWarranty + $TM_NoWarranty + $RS_NoWarranty) / $Total_baabLeasing) * 100)}} %</b></td>
-                                      <td><b>{{round((($PN_VIPowner + $SB_VIPowner + $KP_VIPowner + $YL_VIPowner + $BT_VIPowner + $BNT_VIPowner + $YH_VIPowner + $NR_VIPowner + $KOL_VIPowner + $TM_VIPowner + $RS_VIPowner) / $Total_baabLeasing) * 100)}} %</b></td>
-                                      <td><b>{{round((($PN_BuyHaveProperty + $SB_BuyHaveProperty + $KP_BuyHaveProperty + $YL_BuyHaveProperty + $BT_BuyHaveProperty + $BNT_BuyHaveProperty + $YH_BuyHaveProperty + $NR_BuyHaveProperty + $KOL_BuyHaveProperty + $TM_BuyHaveProperty + $RS_BuyHaveProperty) / $Total_baabLeasing) * 100)}} %</b></td>
-                                      <td><b>{{round((($PN_BuyNoHaveProperty + $SB_BuyNoHaveProperty + $KP_BuyNoHaveProperty + $YL_BuyNoHaveProperty + $BT_BuyNoHaveProperty + $BNT_BuyNoHaveProperty + $YH_BuyNoHaveProperty + $NR_BuyNoHaveProperty + $KOL_BuyNoHaveProperty + $TM_BuyNoHaveProperty + $RS_BuyNoHaveProperty) / $Total_baabLeasing) * 100)}} %</b></td>
-                                      <td><b>{{round((($PN_BuyNoWarranty + $SB_BuyNoWarranty + $KP_BuyNoWarranty + $YL_BuyNoWarranty + $BT_BuyNoWarranty + $BNT_BuyNoWarranty + $YH_BuyNoWarranty + $NR_BuyNoWarranty + $KOL_BuyNoWarranty + $TM_BuyNoWarranty + $RS_BuyNoWarranty) / $Total_baabLeasing) * 100)}} %</b></td>
-                                      <td><b>{{round((($PN_VIPbuy + $SB_VIPbuy + $KP_VIPbuy + $YL_VIPbuy + $BT_VIPbuy + $BNT_VIPbuy + $YH_VIPbuy + $NR_VIPbuy + $KOL_VIPbuy + $TM_VIPbuy + $RS_VIPbuy) / $Total_baabLeasing) * 100)}} %</b></td>
-                                      <td style="background-color: red;"><b>{{round(($Total_baabLeasing / $Total_baabLeasing) * 100)}} %</b></td>
+                                      <td><b>@if($Total_baabLeasing != 0) {{round((($PN_HaveProperty + $SB_HaveProperty + $KP_HaveProperty + $YL_HaveProperty + $BT_HaveProperty + $BNT_HaveProperty + $YH_HaveProperty + $NR_HaveProperty + $KOL_HaveProperty + $TM_HaveProperty + $RS_HaveProperty) / $Total_baabLeasing) * 100)}} % @endif</b></td>
+                                      <td><b>@if($Total_baabLeasing != 0) {{round((($PN_NoProperty + $SB_NoProperty + $KP_NoProperty + $YL_NoProperty + $BT_NoProperty + $BNT_NoProperty + $YH_NoProperty + $NR_NoProperty + $KOL_NoProperty + $TM_NoProperty + $RS_NoProperty) / $Total_baabLeasing) * 100)}} % @endif</b></td>
+                                      <td><b>@if($Total_baabLeasing != 0) {{round((($PN_NoWarranty + $SB_NoWarranty + $KP_NoWarranty + $YL_NoWarranty + $BT_NoWarranty + $BNT_NoWarranty + $YH_NoWarranty + $NR_NoWarranty + $KOL_NoWarranty + $TM_NoWarranty + $RS_NoWarranty) / $Total_baabLeasing) * 100)}} % @endif</b></td>
+                                      <td><b>@if($Total_baabLeasing != 0) {{round((($PN_VIPowner + $SB_VIPowner + $KP_VIPowner + $YL_VIPowner + $BT_VIPowner + $BNT_VIPowner + $YH_VIPowner + $NR_VIPowner + $KOL_VIPowner + $TM_VIPowner + $RS_VIPowner) / $Total_baabLeasing) * 100)}} % @endif</b></td>
+                                      <td><b>@if($Total_baabLeasing != 0) {{round((($PN_BuyHaveProperty + $SB_BuyHaveProperty + $KP_BuyHaveProperty + $YL_BuyHaveProperty + $BT_BuyHaveProperty + $BNT_BuyHaveProperty + $YH_BuyHaveProperty + $NR_BuyHaveProperty + $KOL_BuyHaveProperty + $TM_BuyHaveProperty + $RS_BuyHaveProperty) / $Total_baabLeasing) * 100)}} % @endif</b></td>
+                                      <td><b>@if($Total_baabLeasing != 0) {{round((($PN_BuyNoHaveProperty + $SB_BuyNoHaveProperty + $KP_BuyNoHaveProperty + $YL_BuyNoHaveProperty + $BT_BuyNoHaveProperty + $BNT_BuyNoHaveProperty + $YH_BuyNoHaveProperty + $NR_BuyNoHaveProperty + $KOL_BuyNoHaveProperty + $TM_BuyNoHaveProperty + $RS_BuyNoHaveProperty) / $Total_baabLeasing) * 100)}} % @endif</b></td>
+                                      <td><b>@if($Total_baabLeasing != 0) {{round((($PN_BuyNoWarranty + $SB_BuyNoWarranty + $KP_BuyNoWarranty + $YL_BuyNoWarranty + $BT_BuyNoWarranty + $BNT_BuyNoWarranty + $YH_BuyNoWarranty + $NR_BuyNoWarranty + $KOL_BuyNoWarranty + $TM_BuyNoWarranty + $RS_BuyNoWarranty) / $Total_baabLeasing) * 100)}} % @endif</b></td>
+                                      <td><b>@if($Total_baabLeasing != 0) {{round((($PN_VIPbuy + $SB_VIPbuy + $KP_VIPbuy + $YL_VIPbuy + $BT_VIPbuy + $BNT_VIPbuy + $YH_VIPbuy + $NR_VIPbuy + $KOL_VIPbuy + $TM_VIPbuy + $RS_VIPbuy) / $Total_baabLeasing) * 100)}} % @endif</b></td>
+                                      <td style="background-color: red;color:white;"><b>@if($Total_baabLeasing != 0) {{round(($Total_baabLeasing / $Total_baabLeasing) * 100)}} % @endif</b></td>
                                     </tr>
                                   </tbody>
                                 </table>
@@ -1322,19 +1328,385 @@
                                       <td><b>{{($PN_Ploan_BuyNoHaveProperty + $SB_Ploan_BuyNoHaveProperty + $KP_Ploan_BuyNoHaveProperty + $YL_Ploan_BuyNoHaveProperty + $BT_Ploan_BuyNoHaveProperty + $BNT_Ploan_BuyNoHaveProperty + $YH_Ploan_BuyNoHaveProperty + $NR_Ploan_BuyNoHaveProperty + $KOL_Ploan_BuyNoHaveProperty + $TM_Ploan_BuyNoHaveProperty + $RS_Ploan_BuyNoHaveProperty)}}</b></td>
                                       <td><b>{{($PN_Ploan_BuyNoWarranty + $SB_Ploan_BuyNoWarranty + $KP_Ploan_BuyNoWarranty + $YL_Ploan_BuyNoWarranty + $BT_Ploan_BuyNoWarranty + $BNT_Ploan_BuyNoWarranty + $YH_Ploan_BuyNoWarranty + $NR_Ploan_BuyNoWarranty + $KOL_Ploan_BuyNoWarranty + $TM_Ploan_BuyNoWarranty + $RS_Ploan_BuyNoWarranty)}}</b></td>
                                       <td><b>{{($PN_Ploan_VIPbuy + $SB_Ploan_VIPbuy + $KP_Ploan_VIPbuy + $YL_Ploan_VIPbuy + $BT_Ploan_VIPbuy + $BNT_Ploan_VIPbuy + $YH_Ploan_VIPbuy + $NR_Ploan_VIPbuy + $KOL_Ploan_VIPbuy + $TM_Ploan_VIPbuy + $RS_Ploan_VIPbuy)}}</b></td>
-                                      <td style="background-color: red;"><b>{{$Total_baabPloan}}</b></td>
+                                      <td style="background-color: red;color:white;"><b>{{$Total_baabPloan}}</b></td>
                                     </tr>
                                     <tr class="text-center bg-warning">
                                       <td class="text-left">% แบบ</td>
-                                      <td><b>{{round((($PN_Ploan_HaveProperty + $SB_Ploan_HaveProperty + $KP_Ploan_HaveProperty + $YL_Ploan_HaveProperty + $BT_Ploan_HaveProperty + $BNT_Ploan_HaveProperty + $YH_Ploan_HaveProperty + $NR_Ploan_HaveProperty + $KOL_Ploan_HaveProperty + $TM_Ploan_HaveProperty + $RS_Ploan_HaveProperty) / $Total_baabPloan) * 100)}} %</b></td>
-                                      <td><b>{{round((($PN_Ploan_NoProperty + $SB_Ploan_NoProperty + $KP_Ploan_NoProperty + $YL_Ploan_NoProperty + $BT_Ploan_NoProperty + $BNT_Ploan_NoProperty + $YH_Ploan_NoProperty + $NR_Ploan_NoProperty + $KOL_Ploan_NoProperty + $TM_Ploan_NoProperty + $RS_Ploan_NoProperty) / $Total_baabPloan) * 100)}} %</b></td>
-                                      <td><b>{{round((($PN_Ploan_NoWarranty + $SB_Ploan_NoWarranty + $KP_Ploan_NoWarranty + $YL_Ploan_NoWarranty + $BT_Ploan_NoWarranty + $BNT_Ploan_NoWarranty + $YH_Ploan_NoWarranty + $NR_Ploan_NoWarranty + $KOL_Ploan_NoWarranty + $TM_Ploan_NoWarranty + $RS_Ploan_NoWarranty) / $Total_baabPloan) * 100)}} %</b></td>
-                                      <td><b>{{round((($PN_Ploan_VIPowner + $SB_Ploan_VIPowner + $KP_Ploan_VIPowner + $YL_Ploan_VIPowner + $BT_Ploan_VIPowner + $BNT_Ploan_VIPowner + $YH_Ploan_VIPowner + $NR_Ploan_VIPowner + $KOL_Ploan_VIPowner + $TM_Ploan_VIPowner + $RS_Ploan_VIPowner) / $Total_baabPloan) * 100)}} %</b></td>
-                                      <td><b>{{round((($PN_Ploan_BuyHaveProperty + $SB_Ploan_BuyHaveProperty + $KP_Ploan_BuyHaveProperty + $YL_Ploan_BuyHaveProperty + $BT_Ploan_BuyHaveProperty + $BNT_Ploan_BuyHaveProperty + $YH_Ploan_BuyHaveProperty + $NR_Ploan_BuyHaveProperty + $KOL_Ploan_BuyHaveProperty + $TM_Ploan_BuyHaveProperty + $RS_Ploan_BuyHaveProperty) / $Total_baabPloan) * 100)}} %</b></td>
-                                      <td><b>{{round((($PN_Ploan_BuyNoHaveProperty + $SB_Ploan_BuyNoHaveProperty + $KP_Ploan_BuyNoHaveProperty + $YL_Ploan_BuyNoHaveProperty + $BT_Ploan_BuyNoHaveProperty + $BNT_Ploan_BuyNoHaveProperty + $YH_Ploan_BuyNoHaveProperty + $NR_Ploan_BuyNoHaveProperty + $KOL_Ploan_BuyNoHaveProperty + $TM_Ploan_BuyNoHaveProperty + $RS_Ploan_BuyNoHaveProperty) / $Total_baabPloan) * 100)}} %</b></td>
-                                      <td><b>{{round((($PN_Ploan_BuyNoWarranty + $SB_Ploan_BuyNoWarranty + $KP_Ploan_BuyNoWarranty + $YL_Ploan_BuyNoWarranty + $BT_Ploan_BuyNoWarranty + $BNT_Ploan_BuyNoWarranty + $YH_Ploan_BuyNoWarranty + $NR_Ploan_BuyNoWarranty + $KOL_Ploan_BuyNoWarranty + $TM_Ploan_BuyNoWarranty + $RS_Ploan_BuyNoWarranty) / $Total_baabPloan) * 100)}} %</b></td>
-                                      <td><b>{{round((($PN_Ploan_VIPbuy + $SB_Ploan_VIPbuy + $KP_Ploan_VIPbuy + $YL_Ploan_VIPbuy + $BT_Ploan_VIPbuy + $BNT_Ploan_VIPbuy + $YH_Ploan_VIPbuy + $NR_Ploan_VIPbuy + $KOL_Ploan_VIPbuy + $TM_Ploan_VIPbuy + $RS_Ploan_VIPbuy) / $Total_baabPloan) * 100)}} %</b></td>
-                                      <td style="background-color: red;"><b>{{round(($Total_baabPloan / $Total_baabPloan) * 100)}} %</b></td>
+                                      <td><b>@if($Total_baabPloan != 0) {{round((($PN_Ploan_HaveProperty + $SB_Ploan_HaveProperty + $KP_Ploan_HaveProperty + $YL_Ploan_HaveProperty + $BT_Ploan_HaveProperty + $BNT_Ploan_HaveProperty + $YH_Ploan_HaveProperty + $NR_Ploan_HaveProperty + $KOL_Ploan_HaveProperty + $TM_Ploan_HaveProperty + $RS_Ploan_HaveProperty) / $Total_baabPloan) * 100)}} % @endif</b></td>
+                                      <td><b>@if($Total_baabPloan != 0) {{round((($PN_Ploan_NoProperty + $SB_Ploan_NoProperty + $KP_Ploan_NoProperty + $YL_Ploan_NoProperty + $BT_Ploan_NoProperty + $BNT_Ploan_NoProperty + $YH_Ploan_NoProperty + $NR_Ploan_NoProperty + $KOL_Ploan_NoProperty + $TM_Ploan_NoProperty + $RS_Ploan_NoProperty) / $Total_baabPloan) * 100)}} % @endif</b></td>
+                                      <td><b>@if($Total_baabPloan != 0) {{round((($PN_Ploan_NoWarranty + $SB_Ploan_NoWarranty + $KP_Ploan_NoWarranty + $YL_Ploan_NoWarranty + $BT_Ploan_NoWarranty + $BNT_Ploan_NoWarranty + $YH_Ploan_NoWarranty + $NR_Ploan_NoWarranty + $KOL_Ploan_NoWarranty + $TM_Ploan_NoWarranty + $RS_Ploan_NoWarranty) / $Total_baabPloan) * 100)}} % @endif</b></td>
+                                      <td><b>@if($Total_baabPloan != 0) {{round((($PN_Ploan_VIPowner + $SB_Ploan_VIPowner + $KP_Ploan_VIPowner + $YL_Ploan_VIPowner + $BT_Ploan_VIPowner + $BNT_Ploan_VIPowner + $YH_Ploan_VIPowner + $NR_Ploan_VIPowner + $KOL_Ploan_VIPowner + $TM_Ploan_VIPowner + $RS_Ploan_VIPowner) / $Total_baabPloan) * 100)}} % @endif</b></td>
+                                      <td><b>@if($Total_baabPloan != 0) {{round((($PN_Ploan_BuyHaveProperty + $SB_Ploan_BuyHaveProperty + $KP_Ploan_BuyHaveProperty + $YL_Ploan_BuyHaveProperty + $BT_Ploan_BuyHaveProperty + $BNT_Ploan_BuyHaveProperty + $YH_Ploan_BuyHaveProperty + $NR_Ploan_BuyHaveProperty + $KOL_Ploan_BuyHaveProperty + $TM_Ploan_BuyHaveProperty + $RS_Ploan_BuyHaveProperty) / $Total_baabPloan) * 100)}} % @endif</b></td>
+                                      <td><b>@if($Total_baabPloan != 0) {{round((($PN_Ploan_BuyNoHaveProperty + $SB_Ploan_BuyNoHaveProperty + $KP_Ploan_BuyNoHaveProperty + $YL_Ploan_BuyNoHaveProperty + $BT_Ploan_BuyNoHaveProperty + $BNT_Ploan_BuyNoHaveProperty + $YH_Ploan_BuyNoHaveProperty + $NR_Ploan_BuyNoHaveProperty + $KOL_Ploan_BuyNoHaveProperty + $TM_Ploan_BuyNoHaveProperty + $RS_Ploan_BuyNoHaveProperty) / $Total_baabPloan) * 100)}} % @endif</b></td>
+                                      <td><b>@if($Total_baabPloan != 0) {{round((($PN_Ploan_BuyNoWarranty + $SB_Ploan_BuyNoWarranty + $KP_Ploan_BuyNoWarranty + $YL_Ploan_BuyNoWarranty + $BT_Ploan_BuyNoWarranty + $BNT_Ploan_BuyNoWarranty + $YH_Ploan_BuyNoWarranty + $NR_Ploan_BuyNoWarranty + $KOL_Ploan_BuyNoWarranty + $TM_Ploan_BuyNoWarranty + $RS_Ploan_BuyNoWarranty) / $Total_baabPloan) * 100)}} % @endif</b></td>
+                                      <td><b>@if($Total_baabPloan != 0) {{round((($PN_Ploan_VIPbuy + $SB_Ploan_VIPbuy + $KP_Ploan_VIPbuy + $YL_Ploan_VIPbuy + $BT_Ploan_VIPbuy + $BNT_Ploan_VIPbuy + $YH_Ploan_VIPbuy + $NR_Ploan_VIPbuy + $KOL_Ploan_VIPbuy + $TM_Ploan_VIPbuy + $RS_Ploan_VIPbuy) / $Total_baabPloan) * 100)}} % @endif</b></td>
+                                      <td style="background-color: red;color:white;"><b>@if($Total_baabPloan != 0) {{round(($Total_baabPloan / $Total_baabPloan) * 100)}} % @endif</b></td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                            <div class="tab-pane fade" id="vert-tabs-6" role="tabpanel" aria-labelledby="vert-tabs-6-tab">
+                              <div class="card-header">
+                                <h3 class="card-title pr-2">แบบจัด(Micro)</h3> ( วันที่ {{DateThai($newfdate)}} - {{DateThai($newtdate)}} )
+                                <div class="card-tools">
+                                  <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
+                                  </button>
+                                </div>
+                              </div>
+                              <div class="col-12">
+                                <table class="table table-bordered table-hover dataTable dtr-inline" style="border: radius 10px;line-height: 90%;">
+                                  <tbody>
+                                    <tr class="text-center bg-success">
+                                      <td width="90px">สาขา</td>
+                                      <td>กส.ค้ำมีหลักทรัพย์</td>
+                                      <td>กส.ค้ำไม่มีหลักทรัพย์</td>
+                                      <td>กส.ไม่ค้ำประกัน</td>
+                                      <td>VIP กรรมสิทธิ์</td>
+                                      <td>ซข.ค้ำมีหลักทรัพย์</td>
+                                      <td>ซข.ค้ำไม่มีหลักทรัพย์</td>
+                                      <td>ซข.ไม่ค้ำประกัน</td>
+                                      <td>VIP ซื้อขาย</td>
+                                      <td>รวม</td>
+                                    </tr>
+                                    <tr class="text-center" style="background-color:#FBFCA1;">
+                                      <td class="text-left">ปัตตานี (01)</td>
+                                      <td>{{($PN_Micro_HaveProperty != 0) ?$PN_Micro_HaveProperty: ''}}</td>
+                                      <td>{{($PN_Micro_NoProperty != 0) ?$PN_Micro_NoProperty: ''}}</td>
+                                      <td>{{($PN_Micro_NoWarranty != 0) ?$PN_Micro_NoWarranty: ''}}</td>
+                                      <td>{{($PN_Micro_VIPowner != 0) ?$PN_Micro_VIPowner: ''}}</td>
+                                      <td>{{($PN_Micro_BuyHaveProperty != 0) ?$PN_Micro_BuyHaveProperty: ''}}</td>
+                                      <td>{{($PN_Micro_BuyNoHaveProperty != 0) ?$PN_Micro_BuyNoHaveProperty: ''}}</td>
+                                      <td>{{($PN_Micro_BuyNoWarranty != 0) ?$PN_Micro_BuyNoWarranty: ''}}</td>
+                                      <td>{{($PN_Micro_VIPbuy != 0) ?$PN_Micro_VIPbuy: ''}}</td>
+                                      <td class="bg-warning"><b>{{$Total_PN_Micro}}</b></td>
+                                    </tr>
+                                    <tr class="text-center" style="background-color:#FBFCA1;">
+                                      <td class="text-left">สายบุรี (05)</td>
+                                      <td>{{($SB_Micro_HaveProperty != 0) ?$SB_Micro_HaveProperty: ''}}</td>
+                                      <td>{{($SB_Micro_NoProperty != 0) ?$SB_Micro_NoProperty: ''}}</td>
+                                      <td>{{($SB_Micro_NoWarranty != 0) ?$SB_Micro_NoWarranty: ''}}</td>
+                                      <td>{{($SB_Micro_VIPowner != 0) ?$SB_Micro_VIPowner: ''}}</td>
+                                      <td>{{($SB_Micro_BuyHaveProperty != 0) ?$SB_Micro_BuyHaveProperty: ''}}</td>
+                                      <td>{{($SB_Micro_BuyNoHaveProperty != 0) ?$SB_Micro_BuyNoHaveProperty: ''}}</td>
+                                      <td>{{($SB_Micro_BuyNoWarranty != 0) ?$SB_Micro_BuyNoWarranty: ''}}</td>
+                                      <td>{{($SB_Micro_VIPbuy != 0) ?$SB_Micro_VIPbuy: ''}}</td>
+                                      <td class="bg-warning"><b>{{$Total_SB_Micro}}</b></td>
+                                    </tr>
+                                    <tr class="text-center" style="background-color:#FBFCA1;">
+                                      <td class="text-left">โคกโพธิ์ (08)</td>
+                                      <td>{{($KP_Micro_HaveProperty != 0) ?$KP_Micro_HaveProperty: ''}}</td>
+                                      <td>{{($KP_Micro_NoProperty != 0) ?$KP_Micro_NoProperty: ''}}</td>
+                                      <td>{{($KP_Micro_NoWarranty != 0) ?$KP_Micro_NoWarranty: ''}}</td>
+                                      <td>{{($KP_Micro_VIPowner != 0) ?$KP_Micro_VIPowner: ''}}</td>
+                                      <td>{{($KP_Micro_BuyHaveProperty != 0) ?$KP_Micro_BuyHaveProperty: ''}}</td>
+                                      <td>{{($KP_Micro_BuyNoHaveProperty != 0) ?$KP_Micro_BuyNoHaveProperty: ''}}</td>
+                                      <td>{{($KP_Micro_BuyNoWarranty != 0) ?$KP_Micro_BuyNoWarranty: ''}}</td>
+                                      <td>{{($KP_Micro_VIPbuy != 0) ?$KP_Micro_VIPbuy: ''}}</td>
+                                      <td class="bg-warning"><b>{{$Total_KP_Micro}}</b></td>
+                                    </tr>
+                                    <tr class="text-center" style="background-color:#DCFBBB;">
+                                      <td class="text-left">ยะลา (03)</td>
+                                      <td>{{($YL_Micro_HaveProperty != 0) ?$YL_Micro_HaveProperty: ''}}</td>
+                                      <td>{{($YL_Micro_NoProperty != 0) ?$YL_Micro_NoProperty: ''}}</td>
+                                      <td>{{($YL_Micro_NoWarranty != 0) ?$YL_Micro_NoWarranty: ''}}</td>
+                                      <td>{{($YL_Micro_VIPowner != 0) ?$YL_Micro_VIPowner: ''}}</td>
+                                      <td>{{($YL_Micro_BuyHaveProperty != 0) ?$YL_Micro_BuyHaveProperty: ''}}</td>
+                                      <td>{{($YL_Micro_BuyNoHaveProperty != 0) ?$YL_Micro_BuyNoHaveProperty: ''}}</td>
+                                      <td>{{($YL_Micro_BuyNoWarranty != 0) ?$YL_Micro_BuyNoWarranty: ''}}</td>
+                                      <td>{{($YL_Micro_VIPbuy != 0) ?$YL_Micro_VIPbuy: ''}}</td>
+                                      <td class="bg-warning"><b>{{$Total_YL_Micro}}</b></td>
+                                    </tr>
+                                    <tr class="text-center" style="background-color:#DCFBBB;">
+                                      <td class="text-left">เบตง (07)</td>
+                                      <td>{{($BT_Micro_HaveProperty != 0) ?$BT_Micro_HaveProperty: ''}}</td>
+                                      <td>{{($BT_Micro_NoProperty != 0) ?$BT_Micro_NoProperty: ''}}</td>
+                                      <td>{{($BT_Micro_NoWarranty != 0) ?$BT_Micro_NoWarranty: ''}}</td>
+                                      <td>{{($BT_Micro_VIPowner != 0) ?$BT_Micro_VIPowner: ''}}</td>
+                                      <td>{{($BT_Micro_BuyHaveProperty != 0) ?$BT_Micro_BuyHaveProperty: ''}}</td>
+                                      <td>{{($BT_Micro_BuyNoHaveProperty != 0) ?$BT_Micro_BuyNoHaveProperty: ''}}</td>
+                                      <td>{{($BT_Micro_BuyNoWarranty != 0) ?$BT_Micro_BuyNoWarranty: ''}}</td>
+                                      <td>{{($BT_Micro_VIPbuy != 0) ?$BT_Micro_VIPbuy: ''}}</td>
+                                      <td class="bg-warning"><b>{{$Total_BT_Micro}}</b></td>
+                                    </tr>
+                                    <tr class="text-center" style="background-color:#DCFBBB;">
+                                      <td class="text-left">บันนังสตา (13)</td>
+                                      <td>{{($BNT_Micro_HaveProperty != 0) ?$BNT_Micro_HaveProperty: ''}}</td>
+                                      <td>{{($BNT_Micro_NoProperty != 0) ?$BNT_Micro_NoProperty: ''}}</td>
+                                      <td>{{($BNT_Micro_NoWarranty != 0) ?$BNT_Micro_NoWarranty: ''}}</td>
+                                      <td>{{($BNT_Micro_VIPowner != 0) ?$BNT_Micro_VIPowner: ''}}</td>
+                                      <td>{{($BNT_Micro_BuyHaveProperty != 0) ?$BNT_Micro_BuyHaveProperty: ''}}</td>
+                                      <td>{{($BNT_Micro_BuyNoHaveProperty != 0) ?$BNT_Micro_BuyNoHaveProperty: ''}}</td>
+                                      <td>{{($BNT_Micro_BuyNoWarranty != 0) ?$BNT_Micro_BuyNoWarranty: ''}}</td>
+                                      <td>{{($BNT_Micro_VIPbuy != 0) ?$BNT_Micro_VIPbuy: ''}}</td>
+                                      <td class="bg-warning"><b>{{$Total_BNT_Micro}}</b></td>
+                                    </tr>
+                                    <tr class="text-center" style="background-color:#DCFBBB;">
+                                      <td class="text-left">ยะหา (14)</td>
+                                      <td>{{($YH_Micro_HaveProperty != 0) ?$YH_Micro_HaveProperty: ''}}</td>
+                                      <td>{{($YH_Micro_NoProperty != 0) ?$YH_Micro_NoProperty: ''}}</td>
+                                      <td>{{($YH_Micro_NoWarranty != 0) ?$YH_Micro_NoWarranty: ''}}</td>
+                                      <td>{{($YH_Micro_VIPowner != 0) ?$YH_Micro_VIPowner: ''}}</td>
+                                      <td>{{($YH_Micro_BuyHaveProperty != 0) ?$YH_Micro_BuyHaveProperty: ''}}</td>
+                                      <td>{{($YH_Micro_BuyNoHaveProperty != 0) ?$YH_Micro_BuyNoHaveProperty: ''}}</td>
+                                      <td>{{($YH_Micro_BuyNoWarranty != 0) ?$YH_Micro_BuyNoWarranty: ''}}</td>
+                                      <td>{{($YH_Micro_VIPbuy != 0) ?$YH_Micro_VIPbuy: ''}}</td>
+                                      <td class="bg-warning"><b>{{$Total_YH_Micro}}</b></td>
+                                    </tr>
+                                    <tr class="text-center" style="background-color:#ECD3FE;">
+                                      <td class="text-left">นราธิวาส (04)</td>
+                                      <td>{{($NR_Micro_HaveProperty != 0) ?$NR_Micro_HaveProperty: ''}}</td>
+                                      <td>{{($NR_Micro_NoProperty != 0) ?$NR_Micro_NoProperty: ''}}</td>
+                                      <td>{{($NR_Micro_NoWarranty != 0) ?$NR_Micro_NoWarranty: ''}}</td>
+                                      <td>{{($NR_Micro_VIPowner != 0) ?$NR_Micro_VIPowner: ''}}</td>
+                                      <td>{{($NR_Micro_BuyHaveProperty != 0) ?$NR_Micro_BuyHaveProperty: ''}}</td>
+                                      <td>{{($NR_Micro_BuyNoHaveProperty != 0) ?$NR_Micro_BuyNoHaveProperty: ''}}</td>
+                                      <td>{{($NR_Micro_BuyNoWarranty != 0) ?$NR_Micro_BuyNoWarranty: ''}}</td>
+                                      <td>{{($NR_Micro_VIPbuy != 0) ?$NR_Micro_VIPbuy: ''}}</td>
+                                      <td class="bg-warning"><b>{{$Total_NR_Micro}}</b></td>
+                                    </tr>
+                                    <tr class="text-center" style="background-color:#ECD3FE;">
+                                      <td class="text-left">โกลก (06)</td>
+                                      <td>{{($KOL_Micro_HaveProperty != 0) ?$KOL_Micro_HaveProperty: ''}}</td>
+                                      <td>{{($KOL_Micro_NoProperty != 0) ?$KOL_Micro_NoProperty: ''}}</td>
+                                      <td>{{($KOL_Micro_NoWarranty != 0) ?$KOL_Micro_NoWarranty: ''}}</td>
+                                      <td>{{($KOL_Micro_VIPowner != 0) ?$KOL_Micro_VIPowner: ''}}</td>
+                                      <td>{{($KOL_Micro_BuyHaveProperty != 0) ?$KOL_Micro_BuyHaveProperty: ''}}</td>
+                                      <td>{{($KOL_Micro_BuyNoHaveProperty != 0) ?$KOL_Micro_BuyNoHaveProperty: ''}}</td>
+                                      <td>{{($KOL_Micro_BuyNoWarranty != 0) ?$KOL_Micro_BuyNoWarranty: ''}}</td>
+                                      <td>{{($KOL_Micro_VIPbuy != 0) ?$KOL_Micro_VIPbuy: ''}}</td>
+                                      <td class="bg-warning"><b>{{$Total_KOL_Micro}}</b></td>
+                                    </tr>
+                                    <tr class="text-center" style="background-color:#ECD3FE;">
+                                      <td class="text-left">ตันหยงมัส (09)</td>
+                                      <td>{{($TM_Micro_HaveProperty != 0) ?$TM_Micro_HaveProperty: ''}}</td>
+                                      <td>{{($TM_Micro_NoProperty != 0) ?$TM_Micro_NoProperty: ''}}</td>
+                                      <td>{{($TM_Micro_NoWarranty != 0) ?$TM_Micro_NoWarranty: ''}}</td>
+                                      <td>{{($TM_Micro_VIPowner != 0) ?$TM_Micro_VIPowner: ''}}</td>
+                                      <td>{{($TM_Micro_BuyHaveProperty != 0) ?$TM_Micro_BuyHaveProperty: ''}}</td>
+                                      <td>{{($TM_Micro_BuyNoHaveProperty != 0) ?$TM_Micro_BuyNoHaveProperty: ''}}</td>
+                                      <td>{{($TM_Micro_BuyNoWarranty != 0) ?$TM_Micro_BuyNoWarranty: ''}}</td>
+                                      <td>{{($TM_Micro_VIPbuy != 0) ?$TM_Micro_VIPbuy: ''}}</td>
+                                      <td class="bg-warning"><b>{{$Total_TM_Micro}}</b></td>
+                                    </tr>
+                                    <tr class="text-center" style="background-color:#ECD3FE;">
+                                      <td class="text-left">รือเสาะ (12)</td>
+                                      <td>{{($RS_Micro_HaveProperty != 0) ?$RS_Micro_HaveProperty: ''}}</td>
+                                      <td>{{($RS_Micro_NoProperty != 0) ?$RS_Micro_NoProperty: ''}}</td>
+                                      <td>{{($RS_Micro_NoWarranty != 0) ?$RS_Micro_NoWarranty: ''}}</td>
+                                      <td>{{($RS_Micro_VIPowner != 0) ?$RS_Micro_VIPowner: ''}}</td>
+                                      <td>{{($RS_Micro_BuyHaveProperty != 0) ?$RS_Micro_BuyHaveProperty: ''}}</td>
+                                      <td>{{($RS_Micro_BuyNoHaveProperty != 0) ?$RS_Micro_BuyNoHaveProperty: ''}}</td>
+                                      <td>{{($RS_Micro_BuyNoWarranty != 0) ?$RS_Micro_BuyNoWarranty: ''}}</td>
+                                      <td>{{($RS_Micro_VIPbuy != 0) ?$RS_Micro_VIPbuy: ''}}</td>
+                                      <td class="bg-warning"><b>{{$Total_RS_Micro}}</b></td>
+                                    </tr>
+                                    <tr class="text-center bg-warning">
+                                      <td class="text-left">ยอดรวม</td>
+                                      <td><b>{{($PN_Micro_HaveProperty + $SB_Micro_HaveProperty + $KP_Micro_HaveProperty + $YL_Micro_HaveProperty + $BT_Micro_HaveProperty + $BNT_Micro_HaveProperty + $YH_Micro_HaveProperty + $NR_Micro_HaveProperty + $KOL_Micro_HaveProperty + $TM_Micro_HaveProperty + $RS_Micro_HaveProperty)}}</b></td>
+                                      <td><b>{{($PN_Micro_NoProperty + $SB_Micro_NoProperty + $KP_Micro_NoProperty + $YL_Micro_NoProperty + $BT_Micro_NoProperty + $BNT_Micro_NoProperty + $YH_Micro_NoProperty + $NR_Micro_NoProperty + $KOL_Micro_NoProperty + $TM_Micro_NoProperty + $RS_Micro_NoProperty)}}</b></td>
+                                      <td><b>{{($PN_Micro_NoWarranty + $SB_Micro_NoWarranty + $KP_Micro_NoWarranty + $YL_Micro_NoWarranty + $BT_Micro_NoWarranty + $BNT_Micro_NoWarranty + $YH_Micro_NoWarranty + $NR_Micro_NoWarranty + $KOL_Micro_NoWarranty + $TM_Micro_NoWarranty + $RS_Micro_NoWarranty)}}</b></td>
+                                      <td><b>{{($PN_Micro_VIPowner + $SB_Micro_VIPowner + $KP_Micro_VIPowner + $YL_Micro_VIPowner + $BT_Micro_VIPowner + $BNT_Micro_VIPowner + $YH_Micro_VIPowner + $NR_Micro_VIPowner + $KOL_Micro_VIPowner + $TM_Micro_VIPowner + $RS_Micro_VIPowner)}}</b></td>
+                                      <td><b>{{($PN_Micro_BuyHaveProperty + $SB_Micro_BuyHaveProperty + $KP_Micro_BuyHaveProperty + $YL_Micro_BuyHaveProperty + $BT_Micro_BuyHaveProperty + $BNT_Micro_BuyHaveProperty + $YH_Micro_BuyHaveProperty + $NR_Micro_BuyHaveProperty + $KOL_Micro_BuyHaveProperty + $TM_Micro_BuyHaveProperty + $RS_Micro_BuyHaveProperty)}}</b></td>
+                                      <td><b>{{($PN_Micro_BuyNoHaveProperty + $SB_Micro_BuyNoHaveProperty + $KP_Micro_BuyNoHaveProperty + $YL_Micro_BuyNoHaveProperty + $BT_Micro_BuyNoHaveProperty + $BNT_Micro_BuyNoHaveProperty + $YH_Micro_BuyNoHaveProperty + $NR_Micro_BuyNoHaveProperty + $KOL_Micro_BuyNoHaveProperty + $TM_Micro_BuyNoHaveProperty + $RS_Micro_BuyNoHaveProperty)}}</b></td>
+                                      <td><b>{{($PN_Micro_BuyNoWarranty + $SB_Micro_BuyNoWarranty + $KP_Micro_BuyNoWarranty + $YL_Micro_BuyNoWarranty + $BT_Micro_BuyNoWarranty + $BNT_Micro_BuyNoWarranty + $YH_Micro_BuyNoWarranty + $NR_Micro_BuyNoWarranty + $KOL_Micro_BuyNoWarranty + $TM_Micro_BuyNoWarranty + $RS_Micro_BuyNoWarranty)}}</b></td>
+                                      <td><b>{{($PN_Micro_VIPbuy + $SB_Micro_VIPbuy + $KP_Micro_VIPbuy + $YL_Micro_VIPbuy + $BT_Micro_VIPbuy + $BNT_Micro_VIPbuy + $YH_Micro_VIPbuy + $NR_Micro_VIPbuy + $KOL_Micro_VIPbuy + $TM_Micro_VIPbuy + $RS_Micro_VIPbuy)}}</b></td>
+                                      <td style="background-color: red;color:white;"><b>{{$Total_baabMicro}}</b></td>
+                                    </tr>
+                                    <tr class="text-center bg-warning">
+                                      <td class="text-left">% แบบ</td>
+                                      <td><b>@if($Total_baabMicro != 0) {{round((($PN_Micro_HaveProperty + $SB_Micro_HaveProperty + $KP_Micro_HaveProperty + $YL_Micro_HaveProperty + $BT_Micro_HaveProperty + $BNT_Micro_HaveProperty + $YH_Micro_HaveProperty + $NR_Micro_HaveProperty + $KOL_Micro_HaveProperty + $TM_Micro_HaveProperty + $RS_Micro_HaveProperty) / $Total_baabMicro) * 100)}} % @endif</b></td>
+                                      <td><b>@if($Total_baabMicro != 0) {{round((($PN_Micro_NoProperty + $SB_Micro_NoProperty + $KP_Micro_NoProperty + $YL_Micro_NoProperty + $BT_Micro_NoProperty + $BNT_Micro_NoProperty + $YH_Micro_NoProperty + $NR_Micro_NoProperty + $KOL_Micro_NoProperty + $TM_Micro_NoProperty + $RS_Micro_NoProperty) / $Total_baabMicro) * 100)}} % @endif</b></td>
+                                      <td><b>@if($Total_baabMicro != 0) {{round((($PN_Micro_NoWarranty + $SB_Micro_NoWarranty + $KP_Micro_NoWarranty + $YL_Micro_NoWarranty + $BT_Micro_NoWarranty + $BNT_Micro_NoWarranty + $YH_Micro_NoWarranty + $NR_Micro_NoWarranty + $KOL_Micro_NoWarranty + $TM_Micro_NoWarranty + $RS_Micro_NoWarranty) / $Total_baabMicro) * 100)}} % @endif</b></td>
+                                      <td><b>@if($Total_baabMicro != 0) {{round((($PN_Micro_VIPowner + $SB_Micro_VIPowner + $KP_Micro_VIPowner + $YL_Micro_VIPowner + $BT_Micro_VIPowner + $BNT_Micro_VIPowner + $YH_Micro_VIPowner + $NR_Micro_VIPowner + $KOL_Micro_VIPowner + $TM_Micro_VIPowner + $RS_Micro_VIPowner) / $Total_baabMicro) * 100)}} % @endif</b></td>
+                                      <td><b>@if($Total_baabMicro != 0) {{round((($PN_Micro_BuyHaveProperty + $SB_Micro_BuyHaveProperty + $KP_Micro_BuyHaveProperty + $YL_Micro_BuyHaveProperty + $BT_Micro_BuyHaveProperty + $BNT_Micro_BuyHaveProperty + $YH_Micro_BuyHaveProperty + $NR_Micro_BuyHaveProperty + $KOL_Micro_BuyHaveProperty + $TM_Micro_BuyHaveProperty + $RS_Micro_BuyHaveProperty) / $Total_baabMicro) * 100)}} % @endif</b></td>
+                                      <td><b>@if($Total_baabMicro != 0) {{round((($PN_Micro_BuyNoHaveProperty + $SB_Micro_BuyNoHaveProperty + $KP_Micro_BuyNoHaveProperty + $YL_Micro_BuyNoHaveProperty + $BT_Micro_BuyNoHaveProperty + $BNT_Micro_BuyNoHaveProperty + $YH_Micro_BuyNoHaveProperty + $NR_Micro_BuyNoHaveProperty + $KOL_Micro_BuyNoHaveProperty + $TM_Micro_BuyNoHaveProperty + $RS_Micro_BuyNoHaveProperty) / $Total_baabMicro) * 100)}} % @endif</b></td>
+                                      <td><b>@if($Total_baabMicro != 0) {{round((($PN_Micro_BuyNoWarranty + $SB_Micro_BuyNoWarranty + $KP_Micro_BuyNoWarranty + $YL_Micro_BuyNoWarranty + $BT_Micro_BuyNoWarranty + $BNT_Micro_BuyNoWarranty + $YH_Micro_BuyNoWarranty + $NR_Micro_BuyNoWarranty + $KOL_Micro_BuyNoWarranty + $TM_Micro_BuyNoWarranty + $RS_Micro_BuyNoWarranty) / $Total_baabMicro) * 100)}} % @endif</b></td>
+                                      <td><b>@if($Total_baabMicro != 0) {{round((($PN_Micro_VIPbuy + $SB_Micro_VIPbuy + $KP_Micro_VIPbuy + $YL_Micro_VIPbuy + $BT_Micro_VIPbuy + $BNT_Micro_VIPbuy + $YH_Micro_VIPbuy + $NR_Micro_VIPbuy + $KOL_Micro_VIPbuy + $TM_Micro_VIPbuy + $RS_Micro_VIPbuy) / $Total_baabMicro) * 100)}} % @endif</b></td>
+                                      <td style="background-color: red;color:white;"><b>@if($Total_baabMicro != 0) {{round(($Total_baabMicro / $Total_baabMicro) * 100)}} % @endif</b></td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                            <div class="tab-pane fade" id="vert-tabs-7" role="tabpanel" aria-labelledby="vert-tabs-7-tab">
+                              <div class="card-header">
+                                <h3 class="card-title pr-2">แบบจัด(มอไซค์)</h3> ( วันที่ {{DateThai($newfdate)}} - {{DateThai($newtdate)}} )
+                                <div class="card-tools">
+                                  <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
+                                  </button>
+                                </div>
+                              </div>
+                              <div class="col-12">
+                                <table class="table table-bordered table-hover dataTable dtr-inline" style="border: radius 10px;line-height: 90%;">
+                                  <tbody>
+                                    <tr class="text-center bg-success">
+                                      <td width="90px">สาขา</td>
+                                      <td>กส.ค้ำมีหลักทรัพย์</td>
+                                      <td>กส.ค้ำไม่มีหลักทรัพย์</td>
+                                      <td>กส.ไม่ค้ำประกัน</td>
+                                      <td>VIP กรรมสิทธิ์</td>
+                                      <td>ซข.ค้ำมีหลักทรัพย์</td>
+                                      <td>ซข.ค้ำไม่มีหลักทรัพย์</td>
+                                      <td>ซข.ไม่ค้ำประกัน</td>
+                                      <td>VIP ซื้อขาย</td>
+                                      <td>รวม</td>
+                                    </tr>
+                                    <tr class="text-center" style="background-color:#FBFCA1;">
+                                      <td class="text-left">ปัตตานี (01)</td>
+                                      <td>{{($PN_Motor_HaveProperty != 0) ?$PN_Motor_HaveProperty: ''}}</td>
+                                      <td>{{($PN_Motor_NoProperty != 0) ?$PN_Motor_NoProperty: ''}}</td>
+                                      <td>{{($PN_Motor_NoWarranty != 0) ?$PN_Motor_NoWarranty: ''}}</td>
+                                      <td>{{($PN_Motor_VIPowner != 0) ?$PN_Motor_VIPowner: ''}}</td>
+                                      <td>{{($PN_Motor_BuyHaveProperty != 0) ?$PN_Motor_BuyHaveProperty: ''}}</td>
+                                      <td>{{($PN_Motor_BuyNoHaveProperty != 0) ?$PN_Motor_BuyNoHaveProperty: ''}}</td>
+                                      <td>{{($PN_Motor_BuyNoWarranty != 0) ?$PN_Motor_BuyNoWarranty: ''}}</td>
+                                      <td>{{($PN_Motor_VIPbuy != 0) ?$PN_Motor_VIPbuy: ''}}</td>
+                                      <td class="bg-warning"><b>{{$Total_PN_Motor}}</b></td>
+                                    </tr>
+                                    <tr class="text-center" style="background-color:#FBFCA1;">
+                                      <td class="text-left">สายบุรี (05)</td>
+                                      <td>{{($SB_Motor_HaveProperty != 0) ?$SB_Motor_HaveProperty: ''}}</td>
+                                      <td>{{($SB_Motor_NoProperty != 0) ?$SB_Motor_NoProperty: ''}}</td>
+                                      <td>{{($SB_Motor_NoWarranty != 0) ?$SB_Motor_NoWarranty: ''}}</td>
+                                      <td>{{($SB_Motor_VIPowner != 0) ?$SB_Motor_VIPowner: ''}}</td>
+                                      <td>{{($SB_Motor_BuyHaveProperty != 0) ?$SB_Motor_BuyHaveProperty: ''}}</td>
+                                      <td>{{($SB_Motor_BuyNoHaveProperty != 0) ?$SB_Motor_BuyNoHaveProperty: ''}}</td>
+                                      <td>{{($SB_Motor_BuyNoWarranty != 0) ?$SB_Motor_BuyNoWarranty: ''}}</td>
+                                      <td>{{($SB_Motor_VIPbuy != 0) ?$SB_Motor_VIPbuy: ''}}</td>
+                                      <td class="bg-warning"><b>{{$Total_SB_Motor}}</b></td>
+                                    </tr>
+                                    <tr class="text-center" style="background-color:#FBFCA1;">
+                                      <td class="text-left">โคกโพธิ์ (08)</td>
+                                      <td>{{($KP_Motor_HaveProperty != 0) ?$KP_Motor_HaveProperty: ''}}</td>
+                                      <td>{{($KP_Motor_NoProperty != 0) ?$KP_Motor_NoProperty: ''}}</td>
+                                      <td>{{($KP_Motor_NoWarranty != 0) ?$KP_Motor_NoWarranty: ''}}</td>
+                                      <td>{{($KP_Motor_VIPowner != 0) ?$KP_Motor_VIPowner: ''}}</td>
+                                      <td>{{($KP_Motor_BuyHaveProperty != 0) ?$KP_Motor_BuyHaveProperty: ''}}</td>
+                                      <td>{{($KP_Motor_BuyNoHaveProperty != 0) ?$KP_Motor_BuyNoHaveProperty: ''}}</td>
+                                      <td>{{($KP_Motor_BuyNoWarranty != 0) ?$KP_Motor_BuyNoWarranty: ''}}</td>
+                                      <td>{{($KP_Motor_VIPbuy != 0) ?$KP_Motor_VIPbuy: ''}}</td>
+                                      <td class="bg-warning"><b>{{$Total_KP_Motor}}</b></td>
+                                    </tr>
+                                    <tr class="text-center" style="background-color:#DCFBBB;">
+                                      <td class="text-left">ยะลา (03)</td>
+                                      <td>{{($YL_Motor_HaveProperty != 0) ?$YL_Motor_HaveProperty: ''}}</td>
+                                      <td>{{($YL_Motor_NoProperty != 0) ?$YL_Motor_NoProperty: ''}}</td>
+                                      <td>{{($YL_Motor_NoWarranty != 0) ?$YL_Motor_NoWarranty: ''}}</td>
+                                      <td>{{($YL_Motor_VIPowner != 0) ?$YL_Motor_VIPowner: ''}}</td>
+                                      <td>{{($YL_Motor_BuyHaveProperty != 0) ?$YL_Motor_BuyHaveProperty: ''}}</td>
+                                      <td>{{($YL_Motor_BuyNoHaveProperty != 0) ?$YL_Motor_BuyNoHaveProperty: ''}}</td>
+                                      <td>{{($YL_Motor_BuyNoWarranty != 0) ?$YL_Motor_BuyNoWarranty: ''}}</td>
+                                      <td>{{($YL_Motor_VIPbuy != 0) ?$YL_Motor_VIPbuy: ''}}</td>
+                                      <td class="bg-warning"><b>{{$Total_YL_Motor}}</b></td>
+                                    </tr>
+                                    <tr class="text-center" style="background-color:#DCFBBB;">
+                                      <td class="text-left">เบตง (07)</td>
+                                      <td>{{($BT_Motor_HaveProperty != 0) ?$BT_Motor_HaveProperty: ''}}</td>
+                                      <td>{{($BT_Motor_NoProperty != 0) ?$BT_Motor_NoProperty: ''}}</td>
+                                      <td>{{($BT_Motor_NoWarranty != 0) ?$BT_Motor_NoWarranty: ''}}</td>
+                                      <td>{{($BT_Motor_VIPowner != 0) ?$BT_Motor_VIPowner: ''}}</td>
+                                      <td>{{($BT_Motor_BuyHaveProperty != 0) ?$BT_Motor_BuyHaveProperty: ''}}</td>
+                                      <td>{{($BT_Motor_BuyNoHaveProperty != 0) ?$BT_Motor_BuyNoHaveProperty: ''}}</td>
+                                      <td>{{($BT_Motor_BuyNoWarranty != 0) ?$BT_Motor_BuyNoWarranty: ''}}</td>
+                                      <td>{{($BT_Motor_VIPbuy != 0) ?$BT_Motor_VIPbuy: ''}}</td>
+                                      <td class="bg-warning"><b>{{$Total_BT_Motor}}</b></td>
+                                    </tr>
+                                    <tr class="text-center" style="background-color:#DCFBBB;">
+                                      <td class="text-left">บันนังสตา (13)</td>
+                                      <td>{{($BNT_Motor_HaveProperty != 0) ?$BNT_Motor_HaveProperty: ''}}</td>
+                                      <td>{{($BNT_Motor_NoProperty != 0) ?$BNT_Motor_NoProperty: ''}}</td>
+                                      <td>{{($BNT_Motor_NoWarranty != 0) ?$BNT_Motor_NoWarranty: ''}}</td>
+                                      <td>{{($BNT_Motor_VIPowner != 0) ?$BNT_Motor_VIPowner: ''}}</td>
+                                      <td>{{($BNT_Motor_BuyHaveProperty != 0) ?$BNT_Motor_BuyHaveProperty: ''}}</td>
+                                      <td>{{($BNT_Motor_BuyNoHaveProperty != 0) ?$BNT_Motor_BuyNoHaveProperty: ''}}</td>
+                                      <td>{{($BNT_Motor_BuyNoWarranty != 0) ?$BNT_Motor_BuyNoWarranty: ''}}</td>
+                                      <td>{{($BNT_Motor_VIPbuy != 0) ?$BNT_Motor_VIPbuy: ''}}</td>
+                                      <td class="bg-warning"><b>{{$Total_BNT_Motor}}</b></td>
+                                    </tr>
+                                    <tr class="text-center" style="background-color:#DCFBBB;">
+                                      <td class="text-left">ยะหา (14)</td>
+                                      <td>{{($YH_Motor_HaveProperty != 0) ?$YH_Motor_HaveProperty: ''}}</td>
+                                      <td>{{($YH_Motor_NoProperty != 0) ?$YH_Motor_NoProperty: ''}}</td>
+                                      <td>{{($YH_Motor_NoWarranty != 0) ?$YH_Motor_NoWarranty: ''}}</td>
+                                      <td>{{($YH_Motor_VIPowner != 0) ?$YH_Motor_VIPowner: ''}}</td>
+                                      <td>{{($YH_Motor_BuyHaveProperty != 0) ?$YH_Motor_BuyHaveProperty: ''}}</td>
+                                      <td>{{($YH_Motor_BuyNoHaveProperty != 0) ?$YH_Motor_BuyNoHaveProperty: ''}}</td>
+                                      <td>{{($YH_Motor_BuyNoWarranty != 0) ?$YH_Motor_BuyNoWarranty: ''}}</td>
+                                      <td>{{($YH_Motor_VIPbuy != 0) ?$YH_Motor_VIPbuy: ''}}</td>
+                                      <td class="bg-warning"><b>{{$Total_YH_Motor}}</b></td>
+                                    </tr>
+                                    <tr class="text-center" style="background-color:#ECD3FE;">
+                                      <td class="text-left">นราธิวาส (04)</td>
+                                      <td>{{($NR_Motor_HaveProperty != 0) ?$NR_Motor_HaveProperty: ''}}</td>
+                                      <td>{{($NR_Motor_NoProperty != 0) ?$NR_Motor_NoProperty: ''}}</td>
+                                      <td>{{($NR_Motor_NoWarranty != 0) ?$NR_Motor_NoWarranty: ''}}</td>
+                                      <td>{{($NR_Motor_VIPowner != 0) ?$NR_Motor_VIPowner: ''}}</td>
+                                      <td>{{($NR_Motor_BuyHaveProperty != 0) ?$NR_Motor_BuyHaveProperty: ''}}</td>
+                                      <td>{{($NR_Motor_BuyNoHaveProperty != 0) ?$NR_Motor_BuyNoHaveProperty: ''}}</td>
+                                      <td>{{($NR_Motor_BuyNoWarranty != 0) ?$NR_Motor_BuyNoWarranty: ''}}</td>
+                                      <td>{{($NR_Motor_VIPbuy != 0) ?$NR_Motor_VIPbuy: ''}}</td>
+                                      <td class="bg-warning"><b>{{$Total_NR_Motor}}</b></td>
+                                    </tr>
+                                    <tr class="text-center" style="background-color:#ECD3FE;">
+                                      <td class="text-left">โกลก (06)</td>
+                                      <td>{{($KOL_Motor_HaveProperty != 0) ?$KOL_Motor_HaveProperty: ''}}</td>
+                                      <td>{{($KOL_Motor_NoProperty != 0) ?$KOL_Motor_NoProperty: ''}}</td>
+                                      <td>{{($KOL_Motor_NoWarranty != 0) ?$KOL_Motor_NoWarranty: ''}}</td>
+                                      <td>{{($KOL_Motor_VIPowner != 0) ?$KOL_Motor_VIPowner: ''}}</td>
+                                      <td>{{($KOL_Motor_BuyHaveProperty != 0) ?$KOL_Motor_BuyHaveProperty: ''}}</td>
+                                      <td>{{($KOL_Motor_BuyNoHaveProperty != 0) ?$KOL_Motor_BuyNoHaveProperty: ''}}</td>
+                                      <td>{{($KOL_Motor_BuyNoWarranty != 0) ?$KOL_Motor_BuyNoWarranty: ''}}</td>
+                                      <td>{{($KOL_Motor_VIPbuy != 0) ?$KOL_Motor_VIPbuy: ''}}</td>
+                                      <td class="bg-warning"><b>{{$Total_KOL_Motor}}</b></td>
+                                    </tr>
+                                    <tr class="text-center" style="background-color:#ECD3FE;">
+                                      <td class="text-left">ตันหยงมัส (09)</td>
+                                      <td>{{($TM_Motor_HaveProperty != 0) ?$TM_Motor_HaveProperty: ''}}</td>
+                                      <td>{{($TM_Motor_NoProperty != 0) ?$TM_Motor_NoProperty: ''}}</td>
+                                      <td>{{($TM_Motor_NoWarranty != 0) ?$TM_Motor_NoWarranty: ''}}</td>
+                                      <td>{{($TM_Motor_VIPowner != 0) ?$TM_Motor_VIPowner: ''}}</td>
+                                      <td>{{($TM_Motor_BuyHaveProperty != 0) ?$TM_Motor_BuyHaveProperty: ''}}</td>
+                                      <td>{{($TM_Motor_BuyNoHaveProperty != 0) ?$TM_Motor_BuyNoHaveProperty: ''}}</td>
+                                      <td>{{($TM_Motor_BuyNoWarranty != 0) ?$TM_Motor_BuyNoWarranty: ''}}</td>
+                                      <td>{{($TM_Motor_VIPbuy != 0) ?$TM_Motor_VIPbuy: ''}}</td>
+                                      <td class="bg-warning"><b>{{$Total_TM_Motor}}</b></td>
+                                    </tr>
+                                    <tr class="text-center" style="background-color:#ECD3FE;">
+                                      <td class="text-left">รือเสาะ (12)</td>
+                                      <td>{{($RS_Motor_HaveProperty != 0) ?$RS_Motor_HaveProperty: ''}}</td>
+                                      <td>{{($RS_Motor_NoProperty != 0) ?$RS_Motor_NoProperty: ''}}</td>
+                                      <td>{{($RS_Motor_NoWarranty != 0) ?$RS_Motor_NoWarranty: ''}}</td>
+                                      <td>{{($RS_Motor_VIPowner != 0) ?$RS_Motor_VIPowner: ''}}</td>
+                                      <td>{{($RS_Motor_BuyHaveProperty != 0) ?$RS_Motor_BuyHaveProperty: ''}}</td>
+                                      <td>{{($RS_Motor_BuyNoHaveProperty != 0) ?$RS_Motor_BuyNoHaveProperty: ''}}</td>
+                                      <td>{{($RS_Motor_BuyNoWarranty != 0) ?$RS_Motor_BuyNoWarranty: ''}}</td>
+                                      <td>{{($RS_Motor_VIPbuy != 0) ?$RS_Motor_VIPbuy: ''}}</td>
+                                      <td class="bg-warning"><b>{{$Total_RS_Motor}}</b></td>
+                                    </tr>
+                                    <tr class="text-center bg-warning">
+                                      <td class="text-left">ยอดรวม</td>
+                                      <td><b>{{($PN_Motor_HaveProperty + $SB_Motor_HaveProperty + $KP_Motor_HaveProperty + $YL_Motor_HaveProperty + $BT_Motor_HaveProperty + $BNT_Motor_HaveProperty + $YH_Motor_HaveProperty + $NR_Motor_HaveProperty + $KOL_Motor_HaveProperty + $TM_Motor_HaveProperty + $RS_Motor_HaveProperty)}}</b></td>
+                                      <td><b>{{($PN_Motor_NoProperty + $SB_Motor_NoProperty + $KP_Motor_NoProperty + $YL_Motor_NoProperty + $BT_Motor_NoProperty + $BNT_Motor_NoProperty + $YH_Motor_NoProperty + $NR_Motor_NoProperty + $KOL_Motor_NoProperty + $TM_Motor_NoProperty + $RS_Motor_NoProperty)}}</b></td>
+                                      <td><b>{{($PN_Motor_NoWarranty + $SB_Motor_NoWarranty + $KP_Motor_NoWarranty + $YL_Motor_NoWarranty + $BT_Motor_NoWarranty + $BNT_Motor_NoWarranty + $YH_Motor_NoWarranty + $NR_Motor_NoWarranty + $KOL_Motor_NoWarranty + $TM_Motor_NoWarranty + $RS_Motor_NoWarranty)}}</b></td>
+                                      <td><b>{{($PN_Motor_VIPowner + $SB_Motor_VIPowner + $KP_Motor_VIPowner + $YL_Motor_VIPowner + $BT_Motor_VIPowner + $BNT_Motor_VIPowner + $YH_Motor_VIPowner + $NR_Motor_VIPowner + $KOL_Motor_VIPowner + $TM_Motor_VIPowner + $RS_Motor_VIPowner)}}</b></td>
+                                      <td><b>{{($PN_Motor_BuyHaveProperty + $SB_Motor_BuyHaveProperty + $KP_Motor_BuyHaveProperty + $YL_Motor_BuyHaveProperty + $BT_Motor_BuyHaveProperty + $BNT_Motor_BuyHaveProperty + $YH_Motor_BuyHaveProperty + $NR_Motor_BuyHaveProperty + $KOL_Motor_BuyHaveProperty + $TM_Motor_BuyHaveProperty + $RS_Motor_BuyHaveProperty)}}</b></td>
+                                      <td><b>{{($PN_Motor_BuyNoHaveProperty + $SB_Motor_BuyNoHaveProperty + $KP_Motor_BuyNoHaveProperty + $YL_Motor_BuyNoHaveProperty + $BT_Motor_BuyNoHaveProperty + $BNT_Motor_BuyNoHaveProperty + $YH_Motor_BuyNoHaveProperty + $NR_Motor_BuyNoHaveProperty + $KOL_Motor_BuyNoHaveProperty + $TM_Motor_BuyNoHaveProperty + $RS_Motor_BuyNoHaveProperty)}}</b></td>
+                                      <td><b>{{($PN_Motor_BuyNoWarranty + $SB_Motor_BuyNoWarranty + $KP_Motor_BuyNoWarranty + $YL_Motor_BuyNoWarranty + $BT_Motor_BuyNoWarranty + $BNT_Motor_BuyNoWarranty + $YH_Motor_BuyNoWarranty + $NR_Motor_BuyNoWarranty + $KOL_Motor_BuyNoWarranty + $TM_Motor_BuyNoWarranty + $RS_Motor_BuyNoWarranty)}}</b></td>
+                                      <td><b>{{($PN_Motor_VIPbuy + $SB_Motor_VIPbuy + $KP_Motor_VIPbuy + $YL_Motor_VIPbuy + $BT_Motor_VIPbuy + $BNT_Motor_VIPbuy + $YH_Motor_VIPbuy + $NR_Motor_VIPbuy + $KOL_Motor_VIPbuy + $TM_Motor_VIPbuy + $RS_Motor_VIPbuy)}}</b></td>
+                                      <td style="background-color: red;color:white;"><b>{{$Total_baabMotor}}</b></td>
+                                    </tr>
+                                    <tr class="text-center bg-warning">
+                                      <td class="text-left">% แบบ</td>
+                                      <td><b>@if($Total_baabMotor != 0) {{round((($PN_Motor_HaveProperty + $SB_Motor_HaveProperty + $KP_Motor_HaveProperty + $YL_Motor_HaveProperty + $BT_Motor_HaveProperty + $BNT_Motor_HaveProperty + $YH_Motor_HaveProperty + $NR_Motor_HaveProperty + $KOL_Motor_HaveProperty + $TM_Motor_HaveProperty + $RS_Motor_HaveProperty) / $Total_baabMotor) * 100)}} % @endif</b></td>
+                                      <td><b>@if($Total_baabMotor != 0) {{round((($PN_Motor_NoProperty + $SB_Motor_NoProperty + $KP_Motor_NoProperty + $YL_Motor_NoProperty + $BT_Motor_NoProperty + $BNT_Motor_NoProperty + $YH_Motor_NoProperty + $NR_Motor_NoProperty + $KOL_Motor_NoProperty + $TM_Motor_NoProperty + $RS_Motor_NoProperty) / $Total_baabMotor) * 100)}} % @endif</b></td>
+                                      <td><b>@if($Total_baabMotor != 0) {{round((($PN_Motor_NoWarranty + $SB_Motor_NoWarranty + $KP_Motor_NoWarranty + $YL_Motor_NoWarranty + $BT_Motor_NoWarranty + $BNT_Motor_NoWarranty + $YH_Motor_NoWarranty + $NR_Motor_NoWarranty + $KOL_Motor_NoWarranty + $TM_Motor_NoWarranty + $RS_Motor_NoWarranty) / $Total_baabMotor) * 100)}} % @endif</b></td>
+                                      <td><b>@if($Total_baabMotor != 0) {{round((($PN_Motor_VIPowner + $SB_Motor_VIPowner + $KP_Motor_VIPowner + $YL_Motor_VIPowner + $BT_Motor_VIPowner + $BNT_Motor_VIPowner + $YH_Motor_VIPowner + $NR_Motor_VIPowner + $KOL_Motor_VIPowner + $TM_Motor_VIPowner + $RS_Motor_VIPowner) / $Total_baabMotor) * 100)}} % @endif</b></td>
+                                      <td><b>@if($Total_baabMotor != 0) {{round((($PN_Motor_BuyHaveProperty + $SB_Motor_BuyHaveProperty + $KP_Motor_BuyHaveProperty + $YL_Motor_BuyHaveProperty + $BT_Motor_BuyHaveProperty + $BNT_Motor_BuyHaveProperty + $YH_Motor_BuyHaveProperty + $NR_Motor_BuyHaveProperty + $KOL_Motor_BuyHaveProperty + $TM_Motor_BuyHaveProperty + $RS_Motor_BuyHaveProperty) / $Total_baabMotor) * 100)}} % @endif</b></td>
+                                      <td><b>@if($Total_baabMotor != 0) {{round((($PN_Motor_BuyNoHaveProperty + $SB_Motor_BuyNoHaveProperty + $KP_Motor_BuyNoHaveProperty + $YL_Motor_BuyNoHaveProperty + $BT_Motor_BuyNoHaveProperty + $BNT_Motor_BuyNoHaveProperty + $YH_Motor_BuyNoHaveProperty + $NR_Motor_BuyNoHaveProperty + $KOL_Motor_BuyNoHaveProperty + $TM_Motor_BuyNoHaveProperty + $RS_Motor_BuyNoHaveProperty) / $Total_baabMotor) * 100)}} % @endif</b></td>
+                                      <td><b>@if($Total_baabMotor != 0) {{round((($PN_Motor_BuyNoWarranty + $SB_Motor_BuyNoWarranty + $KP_Motor_BuyNoWarranty + $YL_Motor_BuyNoWarranty + $BT_Motor_BuyNoWarranty + $BNT_Motor_BuyNoWarranty + $YH_Motor_BuyNoWarranty + $NR_Motor_BuyNoWarranty + $KOL_Motor_BuyNoWarranty + $TM_Motor_BuyNoWarranty + $RS_Motor_BuyNoWarranty) / $Total_baabMotor) * 100)}} % @endif</b></td>
+                                      <td><b>@if($Total_baabMotor != 0) {{round((($PN_Motor_VIPbuy + $SB_Motor_VIPbuy + $KP_Motor_VIPbuy + $YL_Motor_VIPbuy + $BT_Motor_VIPbuy + $BNT_Motor_VIPbuy + $YH_Motor_VIPbuy + $NR_Motor_VIPbuy + $KOL_Motor_VIPbuy + $TM_Motor_VIPbuy + $RS_Motor_VIPbuy) / $Total_baabMotor) * 100)}} % @endif</b></td>
+                                      <td style="background-color: red;color:white;"><b>@if($Total_baabMotor != 0) {{round(($Total_baabMotor / $Total_baabMotor) * 100)}} % @endif</b></td>
                                     </tr>
                                   </tbody>
                                 </table>
