@@ -160,7 +160,7 @@
               <form method="get" action="{{ route('MasterMicroPloan.index') }}">
                 <input type="hidden" name="type" value="1">
                 <div class="float-right form-inline">
-                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
+                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MASTER")
                     <button type="button" class="btn bg-primary btn-app" data-toggle="dropdown">
                       <span class="fas fa-print"></span> ปริ้นรายงาน
                     </button>
