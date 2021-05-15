@@ -195,7 +195,7 @@
             @if($type == 1)
               <form method="get" action="{{ route('Analysis',1) }}">
                 <div class="float-right form-inline">
-                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
+                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MASTER")
                     {{-- <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', $type) }}" class="btn bg-primary btn-app">
                       <span class="fas fa-print"></span> ปริ้นรายการ
                     </a> --}}

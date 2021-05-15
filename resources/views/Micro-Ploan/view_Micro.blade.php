@@ -56,7 +56,7 @@
     </div>
     <div class="row">
       <div class="col-md-3">
-        @if(auth::user()->type == 'Admin' or auth::user()->type == 'แผนก วิเคราะห์')
+        @if(auth::user()->type == 'Admin' or auth::user()->type == 'แผนก วิเคราะห์' or auth::user()->position == "MASTER")
           <div class="row">
             <div class="col-md-6">
               <button type="button" class="btn btn-success btn-block mb-3" data-toggle="modal" data-target="#modal-primary">Compose</button>
