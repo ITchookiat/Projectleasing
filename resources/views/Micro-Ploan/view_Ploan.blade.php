@@ -202,7 +202,7 @@
               <form method="get" action="{{ route('MasterMicroPloan.index') }}">
                 <input type="hidden" name="type" value="3">
                 <div class="float-right form-inline">
-                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
+                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MASTER")
                     <button type="button" class="btn bg-primary btn-app" data-toggle="dropdown">
                       <span class="fas fa-print"></span> ปริ้นรายงาน
                     </button>
@@ -217,7 +217,7 @@
                   </button>
                 </div>
                 <div class="float-right form-inline">
-                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MASTER")
+                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
                     <label class="mr-sm-2">เลขที่สัญญา : </label>
                     <input type="type" name="Contno" value="{{$contno}}" maxlength="13" class="form-control form-control-sm"/>
                   @else

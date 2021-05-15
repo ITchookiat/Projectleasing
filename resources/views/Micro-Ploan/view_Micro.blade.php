@@ -56,7 +56,7 @@
     </div>
     <div class="row">
       <div class="col-md-3">
-        @if(auth::user()->type == 'Admin' or auth::user()->type == 'แผนก วิเคราะห์' or auth::user()->position == "MASTER")
+        @if(auth::user()->type == 'Admin' or auth::user()->type == 'แผนก วิเคราะห์')
           <div class="row">
             <div class="col-md-6">
               <button type="button" class="btn btn-success btn-block mb-3" data-toggle="modal" data-target="#modal-primary">Compose</button>
@@ -218,7 +218,7 @@
                   </button>
                 </div>
                 <div class="float-right form-inline">
-                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
+                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MASTER")
                     <label class="mr-sm-2">เลขที่สัญญา : </label>
                     <input type="type" name="Contno" value="{{$contno}}" maxlength="13" class="form-control form-control-sm"/>
                   @else
