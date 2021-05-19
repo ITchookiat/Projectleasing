@@ -313,6 +313,10 @@
       $('#LS-close').on("click" ,function() {
         $("#LS-TAB").hide();
       });
+      $('#vert-tabs-1-tab').on("click" ,function() {
+        $("#PL-TAB").hide();
+      });
+      
 
     $('#PL').on("click" ,function() {
       $("#PL-TAB").show();
@@ -320,6 +324,9 @@
     });
       $('#PL-close').on("click" ,function() {
         $("#PL-TAB").hide();
+      });
+      $('#vert-tabs-2-tab').on("click" ,function() {
+        $("#LS-TAB").hide();
       });
   </script>
 @endsection

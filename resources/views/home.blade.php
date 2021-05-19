@@ -962,7 +962,7 @@
                                       <td></td>
                                       <td></td>
                                       <td></td>
-                                      <td>{{number_format($SumTopcar_HomecarAll / $Homecar10)}}</td>
+                                      <td>@if($Homecar10 != 0){{number_format($SumTopcar_HomecarAll / $Homecar10)}}@endif</td>
                                       <td></td>
                                       <td class="bg-warning"></td>
                                     </tr>
