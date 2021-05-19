@@ -76,6 +76,7 @@
                     <div class="row">
                       <div class="col-12 col-sm-12">
                         <div class="tab-content" id="vert-tabs-tabContent">
+
                             <div class="tab-pane fade active show" id="vert-tabs-1" role="tabpanel" aria-labelledby="vert-tabs-1-tab">
                               <div class="card-header bg-warning">
                                 <h3 class="card-title">คำนวณค่างวดเช่าซื้อ</h3>
@@ -89,37 +90,38 @@
                                 <div class="form-group row mb-2">
                                     <label class="col-sm-3 col-form-label text-right">ยอดจัด :</label>
                                     <div class="col-sm-7 mb-1">
-                                        <input type="text" id="TopcarLS" name="TopcarLS" maxlength="7" class="form-control form-control" required/>
+                                        <input type="text" id="TopcarLeasing" name="TopcarLeasing" maxlength="7" class="form-control form-control" required/>
                                     </div>
                                 </div>
                                 <div class="form-group row mb-2">
                                     <label class="col-sm-3 col-form-label text-right">ระยะเวลา :</label>
                                     <div class="col-sm-7 mb-1">
-                                        <input type="text" id="TimelackLS" name="TimelackLS" maxlength="7" class="form-control form-control" required/>
+                                        <input type="text" id="TimelackLeasing" name="TimelackLeasing" maxlength="7" class="form-control form-control" required/>
                                     </div>
                                 </div>
                                 <div class="form-group row mb-2">
                                     <label class="col-sm-3 col-form-label text-right">ดอกเบี้ย :</label>
                                     <div class="col-sm-7 mb-1">
-                                        <input type="text" id="InterestLS" name="InterestLS" maxlength="7" class="form-control form-control" required/>
+                                        <input type="text" id="InterestLeasing" name="InterestLeasing" maxlength="7" class="form-control form-control" required/>
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="form-group row mb-2">
                                     <label class="col-sm-3 col-form-label text-right">ค่างวดละ :</label>
                                     <div class="col-sm-7 mb-1">
-                                        <input type="text" id="DueLS" class="form-control form-control" readonly/>
+                                        <input type="text" id="DueLeasing" class="form-control form-control" readonly/>
                                     </div>
                                 </div>
                                 <div class="form-group row mb-2">
                                     <label class="col-sm-3 col-form-label text-right">ยอดทั้งหมด :</label>
                                     <div class="col-sm-7 mb-1">
-                                        <input type="text" id="TotalLS" class="form-control form-control" readonly/>
+                                        <input type="text" id="TotalLeasing" class="form-control form-control" readonly/>
                                     </div>
                                 </div>
                                 <br>
                               </div>
                             </div>
+
                             <div class="tab-pane fade" id="vert-tabs-2" role="tabpanel" aria-labelledby="vert-tabs-2-tab">
                               <div class="card-header bg-danger">
                                 <h3 class="card-title">คำนวณค่างวดเงินกู้</h3>
@@ -130,45 +132,45 @@
                               </div>
                               <div class="col-12">
                                 <br>
-                                <div class="form-group row mb-2">
+                                <!-- <div class="form-group row mb-2">
                                     <label class="col-sm-3 col-form-label text-right">กรรมสิทธิ์ :</label>
                                     <div class="col-sm-7 mb-1">
-                                        <select id="OwnerLoan" name="OwnerLoan" class="form-control form-control-sm" required>
+                                        <select id="OwnerPLoan" name="OwnerPLoan" class="form-control form-control-sm" required>
                                             <option value="" selected style="color:red">--- กรรมสิทธิ์รถ ---</option>
                                             <option value="ถือกรรมสิทธิ์">ถือกรรมสิทธิ์</option>
                                             <option value="ไม่ถือกรรมสิทธิ์">ไม่ถือกรรมสิทธิ์</option>
                                         </select>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="form-group row mb-2">
                                     <label class="col-sm-3 col-form-label text-right">ยอดกู้ :</label>
                                     <div class="col-sm-7 mb-1">
-                                        <input type="text" id="TopcarPL" name="TopcarPL" maxlength="7" class="form-control form-control" required/>
+                                        <input type="text" id="TopcarPLoan" name="TopcarPLoan" maxlength="7" class="form-control form-control" required/>
                                     </div>
                                 </div>
                                 <div class="form-group row mb-2">
                                     <label class="col-sm-3 col-form-label text-right">ระยะเวลา :</label>
                                     <div class="col-sm-7 mb-1">
-                                        <input type="text" id="TimelackPL" name="TimelackPL" maxlength="7" class="form-control form-control" required/>
+                                        <input type="text" id="TimelackPLoan" name="TimelackPLoan" maxlength="7" class="form-control form-control" required/>
                                     </div>
                                 </div>
                                 <div class="form-group row mb-2">
                                     <label class="col-sm-3 col-form-label text-right">ดอกเบี้ย :</label>
                                     <div class="col-sm-7 mb-1">
-                                        <input type="text" id="InterestPL" name="InterestPL" maxlength="7" class="form-control form-control" required/>
+                                        <input type="text" id="InterestPLoan" name="InterestPLoan" maxlength="7" class="form-control form-control" required/>
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="form-group row mb-2">
                                     <label class="col-sm-3 col-form-label text-right">ค่างวดละ :</label>
                                     <div class="col-sm-7 mb-1">
-                                        <input type="text" id="DuePL" class="form-control form-control" readonly/>
+                                        <input type="text" id="DuePLoan" class="form-control form-control" readonly/>
                                     </div>
                                 </div>
                                 <div class="form-group row mb-2">
                                     <label class="col-sm-3 col-form-label text-right">ยอดทั้งหมด :</label>
                                     <div class="col-sm-7 mb-1">
-                                        <input type="text" id="TotalPL" class="form-control form-control" readonly/>
+                                        <input type="text" id="TotalPLoan" class="form-control form-control" readonly/>
                                     </div>
                                 </div>
                                 <br>
@@ -247,11 +249,58 @@
         }
       return x1 + x2;
     }
-    function addcomma(){
-      var num11 = document.getElementById('topcar').value;
-      var num1 = num11.replace(",","");
-      document.form2.topcar.value = addCommas(num1);
-    }
+    $('#TopcarLeasing,#TimelackLeasing,#InterestLeasing').on("input" ,function() {
+        var GetTopcarLS = document.getElementById('TopcarLeasing').value;
+        var GetTimelackLS = document.getElementById('TimelackLeasing').value;
+        var GetInterestLS = document.getElementById('InterestLeasing').value;
+        var TopcarLS = GetTopcarLS.replace(",","");
+        $("#TopcarLeasing").val(addCommas(TopcarLS));
+
+        if(GetTopcarLS != '' && GetTimelackLS != '' && GetInterestLS != ''){
+
+          var setInterest = GetInterestLS * 12;
+          var Newinterest = (setInterest * (GetTimelackLS / 12)) + 100;
+          var ResultperiodLS = Math.ceil(((((TopcarLS * Newinterest) / 100) * 1.07) / GetTimelackLS) /10) * 10;
+          var ResulttotalLS = ResultperiodLS * GetTimelackLS;
+
+          $("#DueLeasing").val(addCommas(ResultperiodLS.toFixed(2)));
+          $("#TotalLeasing").val(addCommas(ResulttotalLS.toFixed(2)));
+
+        }
+
+
+    });
+
+    $('#TopcarPLoan,#TimelackPLoan,#InterestPLoan').on("input" ,function() {
+        // var GetOwnPL = document.getElementById('OwnerPLoan').value;
+        var GetTopcarPL = document.getElementById('TopcarPLoan').value;
+        var GetTimelackPL = document.getElementById('TimelackPLoan').value;
+        var GetInterestPL = document.getElementById('InterestPLoan').value;
+        var TopcarPL = GetTopcarPL.replace(",","");
+        $("#TopcarPLoan").val(addCommas(TopcarPL));
+
+        if(GetTopcarPL != '' && GetTimelackPL != '' && GetInterestPL != ''){
+
+            // if (GetOwnPL == 'ไม่ถือกรรมสิทธิ์') {
+            //     var Extrainterest = '0.2';
+            // } else{
+            //     var Extrainterest = '0.0';
+            // }
+            
+            var interestPL = parseFloat(GetInterestPL);
+            var SetInterestPL = ((interestPL/100)/1) * 12;
+            var ProcessPL = (parseFloat(TopcarPL) + (parseFloat(TopcarPL) * parseFloat(SetInterestPL) * (GetTimelackPL / 12))) / GetTimelackPL;      
+            
+            var strPL = ProcessPL.toString();
+            var setstringPL = parseInt(strPL.split(".", 1));
+            var ResultperiodPL = Math.ceil(setstringPL/10)*10;
+            var ResulttotalPL = ResultperiodPL * GetTimelackPL;
+            
+            $("#DuePLoan").val(addCommas(ResultperiodPL.toFixed(2)));
+            $("#TotalPLoan").val(addCommas(ResulttotalPL.toFixed(2)));
+
+        }
+    });
   </script>
 
   <script>

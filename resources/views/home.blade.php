@@ -962,7 +962,7 @@
                                       <td></td>
                                       <td></td>
                                       <td></td>
-                                      <td>{{number_format($SumTopcar_HomecarAll)}}</td>
+                                      <td>{{number_format($SumTopcar_HomecarAll / $Homecar10)}}</td>
                                       <td></td>
                                       <td class="bg-warning"></td>
                                     </tr>
