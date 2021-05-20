@@ -520,7 +520,7 @@
                                       <td>{{($Leasing03 != 0) ?$Leasing03: ''}}</td>
                                       <td>{{($Staff51 != 0) ?$Staff51: ''}}</td>
                                       <td></td>
-                                      <td>{{($Motor51 != 0) ?$Motor52: ''}}</td>
+                                      <td>{{($Motor51 != 0) ?$Motor51: ''}}</td>
                                       <td class="bg-warning"><b>{{$Micro51 + $Ploan51 + $Leasing03 + $Staff51 + $Motor51}}</b></td>
                                     </tr>
                                     <tr class="text-center">
