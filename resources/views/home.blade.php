@@ -491,7 +491,7 @@
                                 </div>
                               </div>
                               <div class="col-12">
-                                <table class="table table-bordered table-hover dataTable dtr-inline" id="table1" style="border: radius 10px;line-height: 90%;">
+                                <table class="table table-bordered table-hover dataTable dtr-inline" id="table1" style="border-radius : 20px;line-height: 90%;">
                                   <tbody>
                                     <tr class="text-center bg-success">
                                       <td style="width: 90px">สาขา</td>
@@ -646,7 +646,7 @@
                                 </div>
                               </div>
                               <div class="col-12">
-                                <table class="table table-bordered table-hover dataTable dtr-inline" style="border: radius 10px;line-height: 90%;">
+                                <table class="table table-bordered table-hover dataTable dtr-inline" style="border-radius: 10px;line-height: 90%;">
                                   <tbody>
                                     <tr class="text-center bg-success">
                                       <td style="width: 90px">สาขา</td>
@@ -801,7 +801,7 @@
                                 </div>
                               </div>
                               <div class="col-12">
-                                <table class="table table-bordered table-hover dataTable dtr-inline" style="border: radius 10px;line-height: 90%;">
+                                <table class="table table-bordered table-hover dataTable dtr-inline" style="border-radius: 10px;line-height: 90%;">
                                   <tbody>
                                     <tr class="text-center bg-success">
                                       <td style="width: 90px">สาขา</td>
@@ -989,7 +989,7 @@
                                 </div>
                               </div>
                               <div class="col-12">
-                                <table class="table table-bordered table-hover dataTable dtr-inline" style="border: radius 10px;line-height: 90%;">
+                                <table class="table table-bordered table-hover dataTable dtr-inline" style="border-radius: 10px;line-height: 90%;">
                                   <tbody>
                                     <tr class="text-center bg-success">
                                       <td width="90px">สาขา</td>
@@ -1172,7 +1172,7 @@
                                 </div>
                               </div>
                               <div class="col-12">
-                                <table class="table table-bordered table-hover dataTable dtr-inline" style="border: radius 10px;line-height: 90%;">
+                                <table class="table table-bordered table-hover dataTable dtr-inline" style="border-radius: 10px;line-height: 90%;">
                                   <tbody>
                                     <tr class="text-center bg-success">
                                       <td width="90px">สาขา</td>
@@ -1355,7 +1355,7 @@
                                 </div>
                               </div>
                               <div class="col-12">
-                                <table class="table table-bordered table-hover dataTable dtr-inline" style="border: radius 10px;line-height: 90%;">
+                                <table class="table table-bordered table-hover dataTable dtr-inline" style="border-radius: 10px;line-height: 90%;">
                                   <tbody>
                                     <tr class="text-center bg-success">
                                       <td width="90px">สาขา</td>
@@ -1538,7 +1538,7 @@
                                 </div>
                               </div>
                               <div class="col-12">
-                                <table class="table table-bordered table-hover dataTable dtr-inline" style="border: radius 10px;line-height: 90%;">
+                                <table class="table table-bordered table-hover dataTable dtr-inline" style="border-radius: 10px;line-height: 90%;">
                                   <tbody>
                                     <tr class="text-center bg-success">
                                       <td width="90px">สาขา</td>
