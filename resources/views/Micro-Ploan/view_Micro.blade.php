@@ -160,7 +160,7 @@
               <form method="get" action="{{ route('MasterMicroPloan.index') }}">
                 <input type="hidden" name="type" value="5">
                 <div class="float-right form-inline">
-
+                
                     <button type="button" class="btn bg-primary btn-app" data-toggle="dropdown">
                       <span class="fas fa-print"></span> ปริ้นรายงาน
                     </button>
@@ -203,6 +203,7 @@
               <form method="get" action="{{ route('MasterMicroPloan.index') }}">
                 <input type="hidden" name="type" value="4">
                 <div class="float-right form-inline">
+
                     <button type="button" class="btn bg-primary btn-app" data-toggle="dropdown">
                       <span class="fas fa-print"></span> ปริ้นรายงาน
                     </button>

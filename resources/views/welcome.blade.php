@@ -215,7 +215,7 @@
                         </a>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-                    <a href="#">
+                    <a href="http://192.168.200.9/ProjectLabRegis/public/login">
                         <div class="card-flyer">
                             <div class="text-box">
                                 <div class="image-box">
@@ -223,7 +223,7 @@
                                 </div>
                                 <div class="text-container">                                    
                                     <h6>chookiat DLT.</h6>
-                                    <p style="font-family: 'Prompt', sans-serif;">จำนำทะเบียนแบบไม่โอนเล่ม เร็วสุด ไวสุด ในสามจังหวัดชายแดนภาคใต้ พร้อมให้บริการคุณในทุกโอกาส</p>
+                                    <p style="font-family: 'Prompt', sans-serif;">บริการต่อทะเบียน ต่อประกันภัย บริการด้วยใจ ที่ใครๆก็มาสารถเข้าถึงได้</p>
                                 </div>
                             </div>
                         </div>
