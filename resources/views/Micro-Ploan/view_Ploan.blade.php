@@ -160,7 +160,7 @@
               <form method="get" action="{{ route('MasterMicroPloan.index') }}">
                 <input type="hidden" name="type" value="1">
                 <div class="float-right form-inline">
-                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MASTER")
+
                     <button type="button" class="btn bg-primary btn-app" data-toggle="dropdown">
                       <span class="fas fa-print"></span> ปริ้นรายงาน
                     </button>
@@ -169,7 +169,7 @@
                       <li class="dropdown-divider"></li>
                       <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-report"> รายงาน เงินกู้รถยนต์ (P03)</a></li>
                     </ul>
-                  @endif
+
                   <button type="submit" class="btn bg-warning btn-app">
                     <span class="fas fa-search"></span> Search
                   </button>
@@ -202,7 +202,7 @@
               <form method="get" action="{{ route('MasterMicroPloan.index') }}">
                 <input type="hidden" name="type" value="3">
                 <div class="float-right form-inline">
-                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MASTER")
+
                     <button type="button" class="btn bg-primary btn-app" data-toggle="dropdown">
                       <span class="fas fa-print"></span> ปริ้นรายงาน
                     </button>
@@ -211,7 +211,7 @@
                       <li class="dropdown-divider"></li>
                       <li><a target="_blank" class="dropdown-item" data-toggle="modal" data-target="#modal-report"> รายงาน เงินกู้รถจักรยานยนต์ (P04)</a></li>
                     </ul>
-                  @endif
+
                   <button type="submit" class="btn bg-warning btn-app">
                     <span class="fas fa-search"></span> Search
                   </button>

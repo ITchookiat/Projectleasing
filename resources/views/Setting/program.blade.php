@@ -25,21 +25,7 @@
                 <h4 class="m-0 text-dark text-left"><i class="fa fa-calculator"></i> Programs</h4>
               </div>
               <div class="col-sm-8">
-                @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์" or auth::user()->type == "แผนก รถบ้าน")
-                  <!-- <form method="get" action="#">
-                    <div class="float-right">
-                      <small class="badge" style="font-size: 14px;">
-                        <i class="fas fa-sign"></i> วันที่ :
-                        <input type="date" name="Fromdate" value="" class="form-control pr-3" />
-                        ถึงวันที่ :
-                        <input type="date" name="Todate" value="" class="form-control" />&nbsp;
-                        <button type="submit" class="btn btn-info" title="ค้นหา">
-                          <span class="fas fa-search"></span> ค้นหา
-                        </button>
-                      </small>
-                    </div>
-                  </form> -->
-                @endif
+
               </div>
             </div>
           </div>--}}
@@ -230,8 +216,6 @@
                 </div>
               </div>
             </div>
-          <!-- </div> -->
-
         </div>
       </div>
     </div>
@@ -304,8 +288,8 @@
   </script>
 
   <script>
-  $("#LS-TAB").hide();
-  $("#PL-TAB").hide();
+    $("#LS-TAB").hide();
+    $("#PL-TAB").hide();
     $('#LS').on("click" ,function() {
       $("#LS-TAB").show();
       $("#PL-TAB").hide();
