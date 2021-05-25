@@ -2572,15 +2572,28 @@
                                 <label class="col-sm-3 col-form-label text-right">เปอร์เซ็นต์ค่าคอม : </label>
                                 <div class="col-sm-8">
                                   @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
-                                    <input type="text" name="vatPrice" value="{{$data->vat_Price}}" class="form-control form-control-sm" placeholder="เปอร์เซ็นต์ค่าคอม" />
+                                    <input type="text" id="vatPrice" name="vatPrice" value="{{$data->vat_Price}}" class="form-control form-control-sm" placeholder="เปอร์เซ็นต์ค่าคอม" />
                                   @else
-                                    <input type="text" name="vatPrice" value="{{$data->vat_Price}}" class="form-control form-control-sm" placeholder="เปอร์เซ็นต์ค่าคอม" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                    <input type="text" id="vatPrice" name="vatPrice" value="{{$data->vat_Price}}" class="form-control form-control-sm" placeholder="เปอร์เซ็นต์ค่าคอม" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
                                   @endif
                                   <input type="hidden" id="tempTopcar" value="{{$data->Top_car}}" name="tempTopcar" class="form-control form-control-sm" placeholder="รวมยอดจัด" readonly/>
                                 </div>
                               </div>
                             </div>
                           </div>
+
+                          <script>
+                            $('#Yearcar').on("input" ,function() {
+                                var GetYear = document.getElementById('Yearcar').value;
+
+                                if(GetYear <= 2008){
+                                  $("#vatPrice").val('5 %');
+                                }else{
+                                  $("#vatPrice").val('6 %');
+                                }
+
+                            });
+                          </script>
 
                           <div class="row">
                             <div class="col-6">
