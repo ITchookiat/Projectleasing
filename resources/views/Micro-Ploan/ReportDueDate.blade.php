@@ -217,7 +217,7 @@
                   @endif
                 </td>
                 <td width="50px">
-                  @if($value->Accountbrance_car != $value->Accountagent_car and $value->Accountagent_car != Null)
+                  @if($value->Accountbrance_car == $value->Accountagent_car and $value->Accountagent_car != Null)
                     คอม {{ number_format($value->Commission_car,2) }}
                     @php
                       $sumbalance = $sumbalance + $value->Commission_car;

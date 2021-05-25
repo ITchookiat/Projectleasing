@@ -438,9 +438,15 @@
 
           @php $sumArcsum = 0; @endphp
           @if($data->Payee_car == $data->Agent_car and $data->Accountbrance_car == $data->Accountagent_car)
-            @php
-              $sumArcsum = $data->balance_Price + $data->commit_Price;
-            @endphp
+            @if($GetType == 5)
+              @php
+                $sumArcsum = $data->balance_Price + $data->Commission_car;
+              @endphp
+            @else
+              @php
+                $sumArcsum = $data->balance_Price + $data->commit_Price;
+              @endphp
+            @endif
           @endif
 
           <div class="row">
