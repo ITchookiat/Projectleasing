@@ -1368,6 +1368,8 @@
                                       <option value="เจ้าบ้าน">เจ้าบ้าน</option>
                                       <option value="บุคคลธรรมดา">บุคคลธรรมดา</option>
                                       <option value="ไม่ค้ำ">ไม่ค้ำ</option>
+                                      <option value="ลูกจ้างหน่วยงานรัฐ">ลูกจ้างหน่วยงานรัฐ</option>
+                                      <option value="ลูกจ้างหน่วยงานเอกชน">ลูกจ้างหน่วยงานเอกชน</option>
                                     </select>
                                   </div>
                                 </div>

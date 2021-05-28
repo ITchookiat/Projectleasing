@@ -429,6 +429,7 @@
                   @if($value->Accountbrance_car == $value->Accountagent_car and $value->Accountbrance_car != Null)
                     @php
                         $ArcSum = $value->balance_Price + $value->commit_Price;
+                        //$ArcSum = $value->balance_Price + $value->Commission_car;
                         $sumArcsum = $sumArcsum + $ArcSum;
                     @endphp
                     {{number_format($ArcSum,2)}}
