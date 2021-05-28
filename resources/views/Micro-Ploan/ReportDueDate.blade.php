@@ -48,6 +48,7 @@
        hideRow('optionD');
      }
     </SCRIPT>
+    
 
   </head>
     <label align="right">วันที่ : <u>{{$date2}}</u></label>
@@ -481,6 +482,13 @@
                       $sumbalance = $sumbalance + $value->commit_Price;
                     @endphp
                   @elseif($value->Accountagent_car == Null)
+                  @elseif($value->Accountbrance_car != $value->Accountagent_car and $value->Accountagent_car != Null)
+                    @if ($value->Type_Con == 'P03' or $value->Type_Con == 'P07')
+                      คอม {{ number_format($value->commit_Price,2) }}
+                      @php
+                        $sumbalance = $sumbalance + $value->commit_Price;
+                      @endphp
+                    @endif
                   @endif
                 </td>
               </tr>
