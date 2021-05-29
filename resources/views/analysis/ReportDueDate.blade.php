@@ -51,14 +51,14 @@
 
   </head>
     <label align="right">วันที่ : <u>{{$date2}}</u></label>
-    @if($type == 1)
+    @if($type == 1 or $type == 7)
       <h2 class="card-title p-3" align="center" style="font-weight: bold;line-height:1px;">รายงานขออนุมัติโอนเงิน เช่าซื้อ</h2>
     @endif
     <h4 class="card-title p-3" align="center">จากวันที่ {{date('d-m-Y', strtotime($newfdate))}} ถึงวันที่ {{date('d-m-Y', strtotime($newtdate))}}</h4>
     <hr>
   <body>
     <br />
-    @if($type == 1)
+    @if($type == 1 or $type == 7)
       <table border="1">
         <thead>
           <tr align="center" style="line-height: 250%;">
