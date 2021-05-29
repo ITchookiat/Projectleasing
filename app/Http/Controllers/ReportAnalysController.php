@@ -258,11 +258,11 @@ class ReportAnalysController extends Controller
         }
         if ($request->has('Fromdate')) {
           $fdate = $request->get('Fromdate');
-          $fdate = \Carbon\Carbon::parse($fdate)->format('Y') ."-". \Carbon\Carbon::parse($fdate)->format('m')."-". \Carbon\Carbon::parse($fdate)->format('d');
+          $newfdate  = \Carbon\Carbon::parse($fdate)->format('Y') ."-". \Carbon\Carbon::parse($fdate)->format('m')."-". \Carbon\Carbon::parse($fdate)->format('d');
         }
         if ($request->has('Todate')) {
           $tdate = $request->get('Todate');
-          $tdate = \Carbon\Carbon::parse($tdate)->format('Y') ."-". \Carbon\Carbon::parse($tdate)->format('m')."-". \Carbon\Carbon::parse($tdate)->format('d');
+          $newtdate  = \Carbon\Carbon::parse($tdate)->format('Y') ."-". \Carbon\Carbon::parse($tdate)->format('m')."-". \Carbon\Carbon::parse($tdate)->format('d');
         }
 
         $dataReport = DB::table('buyers')
@@ -279,8 +279,9 @@ class ReportAnalysController extends Controller
             ->orderBy('buyers.Contract_buyer', 'ASC')
             ->get();
 
+            
         $type = $request->type;
-        $view = \View::make('analysis.ReportDueDate' ,compact('dataReport','date2','type'));
+        $view = \View::make('analysis.ReportDueDate' ,compact('dataReport','date2','type','newfdate','newtdate'));
         $html = $view->render();
         $pdf = new PDF();
         $pdf::SetTitle('รายงานนำเสนอ');
