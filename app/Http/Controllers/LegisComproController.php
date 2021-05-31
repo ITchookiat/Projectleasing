@@ -780,10 +780,15 @@ class LegisComproController extends Controller
       elseif ($type == 6) {   // รายงาน ลูกหนี้ Non-Vat
         $data = DB::connection('ibmi')
           ->table('SFHP.ARMAST')
-          ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+          // ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
           ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
-          ->where('SFHP.ARMAST.HLDNO','>', 2.99)
-          ->where('SFHP.ARMAST.DTSTOPV','=', NULL)
+          ->whereBetween('SFHP.ARMAST.HLDNO',[3.00,8.00])
+          ->where('SFHP.ARMAST.LPAYD','<', date('Y-m-d', strtotime('-1 month')))
+          ->where('SFHP.ARMAST.CONTNO','not like', '10%')
+          ->where('SFHP.ARMAST.CONTNO','not like', '11%')
+          ->where('SFHP.ARMAST.CONTNO','not like', '12%')
+          ->where('SFHP.ARMAST.CONTNO','not like', '22%')
+          ->where('SFHP.ARMAST.DTSTOPV', NULL)
           ->get();
 
         $SetFdate = date('d-m-Y');
@@ -794,11 +799,11 @@ class LegisComproController extends Controller
           $excel->sheet($status, function ($sheet) use($data,$status,$SetFdate,$SetTdate) {
               $sheet->prependRow(1, array("บริษัท ชูเกียรติลิสซิ่ง จำกัด"));
               $sheet->prependRow(2, array($status.'  จากวันที่ '.$SetFdate.' ถึงวันที่ '.$SetTdate));
-              $sheet->cells('A3:F3', function($cells) {
+              $sheet->cells('A3:G3', function($cells) {
                 $cells->setBackground('#FFCC00');
               });
               $row = 3;
-              $sheet->row($row, array('ลำดับ', 'เลขที่สัญญา','ชื่อ-สกุล','วันที่ชำระ','ยอดค้างจริง','สถานะ'));
+              $sheet->row($row, array('ลำดับ', 'เลขที่สัญญา','ชื่อ-สกุล','วันที่ชำระล่าสุด','ยอดค้างจริง','ยอดคงเหลือ','สถานะ'));
               foreach ($data as $key => $value) {
 
                 $sheet->row(++$row, array(
@@ -807,6 +812,7 @@ class LegisComproController extends Controller
                   (iconv('TIS-620', 'utf-8', str_replace(" ","",$value->SNAM)))." ".(iconv('TIS-620', 'utf-8', str_replace(" ","",$value->NAME1)))." ".(iconv('TIS-620', 'utf-8', str_replace(" ","",$value->NAME2))),
                   $value->LPAYD,
                   $value->HLDNO,
+                  number_format($value->BALANC - $value->SMPAY,2),
                   (iconv('TIS-620', 'utf-8', str_replace(" ","",$value->CONTSTAT))),
                 ));
               }
