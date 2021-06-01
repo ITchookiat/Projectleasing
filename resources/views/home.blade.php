@@ -448,7 +448,7 @@
                         </a>
                         <a class="nav-link" id="vert-tabs-3-tab" data-toggle="pill" href="#vert-tabs-3" role="tab" aria-controls="vert-tabs-3" aria-selected="false">
                           <i class="fa fa-list-alt"></i> ยอดจัดเฉลี่ย
-                            <span class="badge bg-primary float-right">{{number_format($TotalAllProduct2 / $TotalAllProduct)}}</span>
+                            <span class="badge bg-primary float-right">@if($TotalAllProduct != 0 ){{number_format($TotalAllProduct2 / $TotalAllProduct)}}@else 0 @endif</span>
                         </a>
                         <a class="nav-link" id="vert-tabs-4-tab" data-toggle="pill" href="#vert-tabs-4" role="tab" aria-controls="vert-tabs-4" aria-selected="false">
                           <i class="far fa-dot-circle nav-icon text-success"></i> แบบจัด(เช่าซื้อ)
