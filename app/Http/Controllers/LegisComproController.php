@@ -799,17 +799,18 @@ class LegisComproController extends Controller
           $excel->sheet($status, function ($sheet) use($data,$status,$SetFdate,$SetTdate) {
               $sheet->prependRow(1, array("บริษัท ชูเกียรติลิสซิ่ง จำกัด"));
               $sheet->prependRow(2, array($status.'  จากวันที่ '.$SetFdate.' ถึงวันที่ '.$SetTdate));
-              $sheet->cells('A3:G3', function($cells) {
+              $sheet->cells('A3:H3', function($cells) {
                 $cells->setBackground('#FFCC00');
               });
               $row = 3;
-              $sheet->row($row, array('ลำดับ', 'เลขที่สัญญา','ชื่อ-สกุล','วันที่ชำระล่าสุด','ยอดค้างจริง','ยอดคงเหลือ','สถานะ'));
+              $sheet->row($row, array('ลำดับ', 'เลขที่สัญญา','ชื่อ-สกุล','วันที่ทำสัญญา','วันที่ชำระล่าสุด','ยอดค้างจริง','ยอดคงเหลือ','สถานะ'));
               foreach ($data as $key => $value) {
 
                 $sheet->row(++$row, array(
                   $key+1,
                   (iconv('TIS-620', 'utf-8', str_replace(" ","",$value->CONTNO))),
                   (iconv('TIS-620', 'utf-8', str_replace(" ","",$value->SNAM)))." ".(iconv('TIS-620', 'utf-8', str_replace(" ","",$value->NAME1)))." ".(iconv('TIS-620', 'utf-8', str_replace(" ","",$value->NAME2))),
+                  $value->ISSUDT,
                   $value->LPAYD,
                   $value->HLDNO,
                   number_format($value->BALANC - $value->SMPAY,2),
