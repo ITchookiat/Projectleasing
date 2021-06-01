@@ -776,7 +776,7 @@
                                       <td></td>
                                       <td>{{number_format($SumTopcar_HomecarAll)}}</td>
                                       <td></td>
-                                      <td class="bg-warning"></td>
+                                      <td class="bg-warning"><b>{{number_format($SumTopcar_HomecarAll)}}</b></td>
                                     </tr>
                                     <tr class="text-center bg-warning">
                                       <td class="text-left"><b>รวม</b></td>
@@ -964,7 +964,7 @@
                                       <td></td>
                                       <td>@if($Homecar10 != 0){{number_format($SumTopcar_HomecarAll / $Homecar10)}}@endif</td>
                                       <td></td>
-                                      <td class="bg-warning"></td>
+                                      <td class="bg-warning"><b>@if($Homecar10 != 0){{number_format($SumTopcar_HomecarAll / $Homecar10)}}@else 0 @endif</b></td>
                                     </tr>
                                     <tr class="text-center bg-warning">
                                       <td class="text-left"><b>รวม</b></td>
