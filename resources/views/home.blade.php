@@ -495,12 +495,12 @@
                                   <tbody>
                                     <tr class="text-center bg-success">
                                       <td style="width: 90px">สาขา</td>
-                                      <td>Micro</td>
-                                      <td>P-Loan</td>
-                                      <td>เช่าซื้อ</td>
-                                      <td>พนักงาน</td>
-                                      <td>รถบ้าน</td>
-                                      <td>มอเตอร์ไซค์</td>
+                                      <td><a href="{{ route('MasterMicroPloan.index') }}?type={{5}}" style="color:#FFF;">Micro</a></td>
+                                      <td><a href="{{ route('MasterMicroPloan.index') }}?type={{1}}" style="color:#FFF;">P-Loan</a></td>
+                                      <td><a href="{{ route('Analysis', 1) }}" style="color:#FFF;">เช่าซื้อ</a></td>
+                                      <td><a href="{{ route('MasterMicroPloan.index') }}?type={{4}}" style="color:#FFF;">พนักงาน</a></td>
+                                      <td><a href="{{ route('Analysis',4) }}" style="color:#FFF;">รถบ้าน</a></td>
+                                      <td><a href="{{ route('MasterMicroPloan.index') }}?type={{3}}" style="color:#FFF;">มอเตอร์ไซค์</a></td>
                                       <td style="width: 90px">ผลรวมยอดคัน</td>
                                     </tr>
                                     <tr class="text-center">
