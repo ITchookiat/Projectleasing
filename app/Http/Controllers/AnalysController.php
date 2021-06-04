@@ -139,7 +139,7 @@ class AnalysController extends Controller
               $Count09 += 1;
             }elseif ($value->branch_car == 'รือเสาะ') {
               $Count12 += 1;
-            }elseif ($value->branch_car == 'บังนังสตา') {
+            }elseif ($value->branch_car == 'บันนังสตา') {
               $Count13 += 1;
             }elseif ($value->branch_car == 'ยะหา') {
               $Count14 += 1;
