@@ -118,6 +118,7 @@ class HomeController extends Controller
               ->where('MP_Datas.Type_Con','=','P07')
               ->get();
 
+        
         if ($data != NULL) {
             $Leasing01 = 0;
             $Leasing03 = 0;
@@ -171,7 +172,7 @@ class HomeController extends Controller
                 }elseif ($value->branch_car == 'รือเสาะ') {
                     $Leasing12 += 1;
                     $Topcar_Leasing12 += $value->Top_car;
-                }elseif ($value->branch_car == 'บังนังสตา') {
+                }elseif ($value->branch_car == 'บันนังสตา') {
                     $Leasing13 += 1;
                     $Topcar_Leasing13 += $value->Top_car;
                 }elseif ($value->branch_car == 'ยะหา') {
@@ -462,6 +463,8 @@ class HomeController extends Controller
             $SumStaffAll = $Staff50 + $Staff51 + $Staff52 + $Staff53 + $Staff54 + $Staff55 + $Staff56 + $Staff57 + $Staff58 + $Staff59 + $Staff60;
             $SumTopcar_StaffAll = $Topcar_Staff50 + $Topcar_Staff51 + $Topcar_Staff52 + $Topcar_Staff53 + $Topcar_Staff54 + $Topcar_Staff55 + $Topcar_Staff56 + $Topcar_Staff57 + $Topcar_Staff58 + $Topcar_Staff59 + $Topcar_Staff60;
         }
+
+        //แบบจัดต่างๆ
         
         if ($data != NULL) {
             $PN_HaveProperty = 0;
