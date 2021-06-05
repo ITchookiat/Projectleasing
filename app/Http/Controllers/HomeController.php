@@ -41,8 +41,15 @@ class HomeController extends Controller
      */
     public function index($name, Request $request)
     {
-        $newfdate = date('Y-m-01');
-        $newtdate = date('Y-m-d');
+        // dump($request->all);
+
+        if($request->all == 'Y'){
+            $newfdate = '';
+            $newtdate = '';
+        }else{
+            $newfdate = date('Y-m-01');
+            $newtdate = date('Y-m-d');
+        }
 
         if ($request->has('Fromdate')) {
          $newfdate = $request->get('Fromdate');
@@ -1769,8 +1776,10 @@ class HomeController extends Controller
             $Total_BNT_Motor = $BNT_Motor_HaveProperty+$BNT_Motor_NoProperty+$BNT_Motor_NoWarranty+$BNT_Motor_BuyHaveProperty+$BNT_Motor_BuyNoHaveProperty+$BNT_Motor_BuyNoWarranty+$BNT_Motor_VIPowner+$BNT_Motor_VIPbuy;
             $Total_YH_Motor = $YH_Motor_HaveProperty+$YH_Motor_NoProperty+$YH_Motor_NoWarranty+$YH_Motor_BuyHaveProperty+$YH_Motor_BuyNoHaveProperty+$YH_Motor_BuyNoWarranty+$YH_Motor_VIPowner+$YH_Motor_VIPbuy;
         }
+
+        $Allproducts = $request->all;
         
-        return view($name, compact('newfdate','newtdate',
+        return view($name, compact('newfdate','newtdate','Allproducts',
         'SumLeasingAll','Leasing01','Leasing03','Leasing04','Leasing05','Leasing06','Leasing07','Leasing08','Leasing09','Leasing12','Leasing13','Leasing14',
         'SumTopcar_LeasingAll','Topcar_Leasing01','Topcar_Leasing03','Topcar_Leasing04','Topcar_Leasing05','Topcar_Leasing06','Topcar_Leasing07','Topcar_Leasing08','Topcar_Leasing09','Topcar_Leasing12','Topcar_Leasing13','Topcar_Leasing14',
         'SumHomecarAll','Homecar10','Homecar11',

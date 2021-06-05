@@ -35,19 +35,6 @@
     $Total_baabMotor = $Total_PN_Motor + $Total_SB_Motor + $Total_KP_Motor + $Total_YL_Motor + $Total_BT_Motor + $Total_BNT_Motor + $Total_YH_Motor + $Total_NR_Motor + $Total_KOL_Motor + $Total_TM_Motor + $Total_RS_Motor;
   @endphp
 
-  <!-- <div class="pricing-header px-3 py-3 pt-md-3 pb-md-0 mx-auto text-center">
-    <div class="card-tools">
-      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์" or auth::user()->type == "แผนก รถบ้าน")
-        {{-- <a class="btn bg-warning btn-app float-right btn-tool" data-toggle="modal" data-target="#modal-walkin" data-backdrop="static" data-keyboard="false" style="border-radius: 10px;">
-          <span class="fas fa-users prem fa-5x"></span> <label class="prem">WALK IN</label>
-        </a> --}}
-      @endif
-    </div>
-    <div align="center">
-      <a href="{{ route('Analysis', 1) }}"><img class="img-responsive" src="{{ asset('dist/img/leasing02.png') }}" alt="User Image" style = "width: 53%"></a>
-    </div>
-  </div> -->
-
   <div class="content-header" style="padding:15px;">
     <div class="row justify-content-center">
       <div class="col-md-12 table-responsive">
@@ -59,6 +46,7 @@
                 <h4 class="m-0 text-dark text-left"><i class="fa fa-dashboard"></i> Dashboard</h4>
               </div>
               <div class="col-sm-8">
+                @if($Allproducts == '')
                   <form method="get" action="#">
                     <div class="float-right">
                       <small class="badge" style="font-size: 14px;">
@@ -72,6 +60,7 @@
                       </small>
                     </div>
                   </form>
+                @endif
               </div>
             </div>
           </div>
@@ -434,45 +423,57 @@
 
                 <div class="card card-primary card-outline">
                   <div class="card-header">
-                    <h3 class="card-title">ยอดจัดไฟแนนซ์และเงินกู้</h3>
+                    <h3 class="card-title">
+                      <a href="{{ route('index','home') }}" style="color:black;">
+                        ยอดจัดไฟแนนซ์และเงินกู้
+                      </a>
+                    </h3>
                   </div>
                   <div class="card-body p-0">
                     <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
                         <a class="nav-link" id="vert-tabs-1-tab" data-toggle="pill" href="#vert-tabs-1" role="tab" aria-controls="vert-tabs-1" aria-selected="false">
                           <i class="fas fa-car"></i> ยอดคัน
-                            <span class="badge bg-primary float-right">{{number_format($TotalAllProduct)}}</span>
+                            <span class="badge bg-primary float-right">@if($Allproducts == '') {{number_format($TotalAllProduct)}} @endif</span>
                         </a>
                         <a class="nav-link" id="vert-tabs-2-tab" data-toggle="pill" href="#vert-tabs-2" role="tab" aria-controls="vert-tabs-2" aria-selected="false">
                           <i class="fas fa-money"></i> ยอดเงิน
-                            <span class="badge bg-primary float-right">{{number_format($TotalAllProduct2)}}</span>
+                            <span class="badge bg-primary float-right">@if($Allproducts == '') {{number_format($TotalAllProduct2)}} @endif</span>
                         </a>
                         <a class="nav-link" id="vert-tabs-3-tab" data-toggle="pill" href="#vert-tabs-3" role="tab" aria-controls="vert-tabs-3" aria-selected="false">
                           <i class="fa fa-list-alt"></i> ยอดจัดเฉลี่ย
-                            <span class="badge bg-primary float-right">@if($TotalAllProduct != 0 ){{number_format($TotalAllProduct2 / $TotalAllProduct)}}@else 0 @endif</span>
+                            <span class="badge bg-primary float-right">@if($Allproducts == '') @if($TotalAllProduct != 0 ){{number_format($TotalAllProduct2 / $TotalAllProduct)}}@else 0 @endif @endif</span>
                         </a>
                         <a class="nav-link" id="vert-tabs-4-tab" data-toggle="pill" href="#vert-tabs-4" role="tab" aria-controls="vert-tabs-4" aria-selected="false">
                           <i class="far fa-dot-circle nav-icon text-success"></i> แบบจัด(เช่าซื้อ)
-                            <span class="badge bg-success float-right">{{number_format($Total_baabLeasing)}}</span>
+                            <span class="badge bg-success float-right">@if($Allproducts == '') {{number_format($Total_baabLeasing)}} @endif</span>
                         </a>
                         <a class="nav-link" id="vert-tabs-5-tab" data-toggle="pill" href="#vert-tabs-5" role="tab" aria-controls="vert-tabs-5" aria-selected="false">
                           <i class="far fa-dot-circle nav-icon text-secondary"></i> แบบจัด(Ploan)
-                            <span class="badge bg-success float-right">{{number_format($Total_baabPloan)}}</span>
+                            <span class="badge bg-success float-right">@if($Allproducts == '') {{number_format($Total_baabPloan)}} @endif</span>
                         </a>
                         <a class="nav-link" id="vert-tabs-6-tab" data-toggle="pill" href="#vert-tabs-6" role="tab" aria-controls="vert-tabs-6" aria-selected="false">
                           <i class="far fa-dot-circle nav-icon text-warning"></i> แบบจัด(Micro)
-                            <span class="badge bg-success float-right">{{number_format($Total_baabMicro)}}</span>
+                            <span class="badge bg-success float-right">@if($Allproducts == '') {{number_format($Total_baabMicro)}} @endif</span>
                         </a>
                         <a class="nav-link" id="vert-tabs-7-tab" data-toggle="pill" href="#vert-tabs-7" role="tab" aria-controls="vert-tabs-7" aria-selected="false">
                           <i class="far fa-dot-circle nav-icon text-danger"></i> แบบจัด(มอไซค์)
-                            <span class="badge bg-success float-right">{{number_format($Total_baabMotor)}}</span>
+                            <span class="badge bg-success float-right">@if($Allproducts == '') {{number_format($Total_baabMotor)}} @endif</span>
                         </a>
                         <a class="nav-link" id="vert-tabs-8-tab" data-toggle="pill" href="#vert-tabs-8" role="tab" aria-controls="vert-tabs-8" aria-selected="false">
                           <i class="far fa-dot-circle nav-icon text-primary"></i> แบบจัด(รถบ้าน)
-                            <span class="badge bg-success float-right">{{number_format($SumHomecarAll)}}</span>
+                            <span class="badge bg-success float-right">@if($Allproducts == '') {{number_format($SumHomecarAll)}} @endif</span>
                         </a>
                     </div>
                   </div>
                 </div>
+                <hr>
+                <div class="card" style="background-color:#E2DEDF ;">
+                    <a class="nav-link" href="{{ route('index','home') }}?all={{'Y'}}">
+                        ยอดจัด(All products)
+                        <span class="badge bg-danger float-right">@if($Allproducts == 'Y'){{number_format($TotalAllProduct)}}@endif</span>
+                    </a>
+                </div>
+
               </div>
 
               <div class="col-md-10">
@@ -482,6 +483,7 @@
                       <div class="col-12 col-sm-12">
                         <div class="tab-content" id="vert-tabs-tabContent">
 
+                          @if($Allproducts == '')
                             <div class="tab-pane fade active show" id="vert-tabs-1" role="tabpanel" aria-labelledby="vert-tabs-1-tab">
                               <div class="card-header">
                                 <h3 class="card-title pr-2">ยอดคัน</h3> ( วันที่ {{DateThai($newfdate)}} - {{DateThai($newtdate)}} )
@@ -619,7 +621,7 @@
                                       <td></td>
                                       <td></td>
                                       <td></td>
-                                      <td>{{($Homecar10 != 0) ?$Homecar10: ''}}</td>
+                                      <td>{{($SumHomecarAll != 0) ?$SumHomecarAll: ''}}</td>
                                       <td></td>
                                       <td class="bg-warning"><b>{{$SumHomecarAll}}</b></td>
                                     </tr>
@@ -962,9 +964,9 @@
                                       <td></td>
                                       <td></td>
                                       <td></td>
-                                      <td>@if($Homecar10 != 0){{number_format($SumTopcar_HomecarAll / $Homecar10)}}@endif</td>
+                                      <td>@if($SumHomecarAll != 0){{number_format($SumTopcar_HomecarAll / $SumHomecarAll)}}@endif</td>
                                       <td></td>
-                                      <td class="bg-warning"><b>@if($Homecar10 != 0){{number_format($SumTopcar_HomecarAll / $Homecar10)}}@else 0 @endif</b></td>
+                                      <td class="bg-warning"><b>@if($SumHomecarAll != 0){{number_format($SumTopcar_HomecarAll / $SumHomecarAll)}}@else 0 @endif</b></td>
                                     </tr>
                                     <tr class="text-center bg-warning">
                                       <td class="text-left"><b>รวม</b></td>
@@ -1712,7 +1714,163 @@
                                 </table>
                               </div>
                             </div>
-
+                          @else
+                            <div class="tab-pane fade active show" id="vert-tabs-9" role="tabpanel" aria-labelledby="vert-tabs-9-tab">
+                              <div class="card-header" style="background-color:#E2DEDF ;">
+                                <h3 class="card-title pr-2">ยอดจัด(All products)</h3>
+                                <div class="card-tools">
+                                  <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
+                                  </button>
+                                </div>
+                              </div>
+                              <div class="col-12">
+                                <table class="table table-bordered table-hover dataTable dtr-inline" id="table1" style="border-radius : 20px;line-height: 90%;">
+                                  <tbody>
+                                    <tr class="text-center bg-success">
+                                      <td style="width: 90px">สาขา</td>
+                                      <td><a href="{{ route('MasterMicroPloan.index') }}?type={{5}}" style="color:#FFF;">Micro</a></td>
+                                      <td><a href="{{ route('MasterMicroPloan.index') }}?type={{1}}" style="color:#FFF;">P-Loan</a></td>
+                                      <td><a href="{{ route('Analysis', 1) }}" style="color:#FFF;">เช่าซื้อ</a></td>
+                                      <td><a href="{{ route('MasterMicroPloan.index') }}?type={{4}}" style="color:#FFF;">พนักงาน</a></td>
+                                      <td><a href="{{ route('Analysis',4) }}" style="color:#FFF;">รถบ้าน</a></td>
+                                      <td><a href="{{ route('MasterMicroPloan.index') }}?type={{3}}" style="color:#FFF;">มอเตอร์ไซค์</a></td>
+                                      <td style="width: 90px">ผลรวมยอดคัน</td>
+                                    </tr>
+                                    <tr class="text-center">
+                                      <td class="text-left"><b>ปัตตานี</b></td>
+                                      <td>{{($Micro50 != 0) ?$Micro50: ''}}</td>
+                                      <td>{{($Ploan50 != 0) ?$Ploan50: ''}}</td>
+                                      <td>{{($Leasing01 != 0) ?$Leasing01: ''}}</td>
+                                      <td>{{($Staff50 != 0) ?$Staff50: ''}}</td>
+                                      <td></td>
+                                      <td>{{($Motor50 != 0) ?$Motor50: ''}}</td>
+                                      <td class="bg-warning"><b>{{$Micro50 + $Ploan50 + $Leasing01 + $Staff50 + $Motor50}}</b></td>
+                                    </tr>
+                                    <tr class="text-center">
+                                      <td class="text-left"><b>ยะลา</b></td>
+                                      <td>{{($Micro51 != 0) ?$Micro51: ''}}</td>
+                                      <td>{{($Ploan51 != 0) ?$Ploan51: ''}}</td>
+                                      <td>{{($Leasing03 != 0) ?$Leasing03: ''}}</td>
+                                      <td>{{($Staff51 != 0) ?$Staff51: ''}}</td>
+                                      <td></td>
+                                      <td>{{($Motor51 != 0) ?$Motor51: ''}}</td>
+                                      <td class="bg-warning"><b>{{$Micro51 + $Ploan51 + $Leasing03 + $Staff51 + $Motor51}}</b></td>
+                                    </tr>
+                                    <tr class="text-center">
+                                      <td class="text-left"><b>นราธิวาส</b></td>
+                                      <td>{{($Micro52 != 0) ?$Micro52: ''}}</td>
+                                      <td>{{($Ploan52 != 0) ?$Ploan52: ''}}</td>
+                                      <td>{{($Leasing04 != 0) ?$Leasing04: ''}}</td>
+                                      <td>{{($Staff52 != 0) ?$Staff52: ''}}</td>
+                                      <td></td>
+                                      <td>{{($Motor52 != 0) ?$Motor52: ''}}</td>
+                                      <td class="bg-warning"><b>{{$Micro52 + $Ploan52 + $Leasing04 + $Staff52 + $Motor52}}</b></td>
+                                    </tr>
+                                    <tr class="text-center">
+                                      <td class="text-left"><b>สายบุรี</b></td>
+                                      <td>{{($Micro53 != 0) ?$Micro53: ''}}</td>
+                                      <td>{{($Ploan53 != 0) ?$Ploan53: ''}}</td>
+                                      <td>{{($Leasing05 != 0) ?$Leasing05: ''}}</td>
+                                      <td>{{($Staff53 != 0) ?$Staff53: ''}}</td>
+                                      <td></td>
+                                      <td>{{($Motor53 != 0) ?$Motor53: ''}}</td>
+                                      <td class="bg-warning"><b>{{$Micro53 + $Ploan53 + $Leasing05 + $Staff53 + $Motor53}}</b></td>
+                                    </tr>
+                                    <tr class="text-center">
+                                      <td class="text-left"><b>โกลก</b></td>
+                                      <td>{{($Micro54 != 0) ?$Micro54: ''}}</td>
+                                      <td>{{($Ploan54 != 0) ?$Ploan54: ''}}</td>
+                                      <td>{{($Leasing06 != 0) ?$Leasing06: ''}}</td>
+                                      <td>{{($Staff54 != 0) ?$Staff54: ''}}</td>
+                                      <td></td>
+                                      <td>{{($Motor54 != 0) ?$Motor54: ''}}</td>
+                                      <td class="bg-warning"><b>{{$Micro54 + $Ploan54 + $Leasing06 + $Staff54 + $Motor54}}</b></td>
+                                    </tr>
+                                    <tr class="text-center">
+                                      <td class="text-left"><b>เบตง</b></td>
+                                      <td>{{($Micro55 != 0) ?$Micro55: ''}}</td>
+                                      <td>{{($Ploan55 != 0) ?$Ploan55: ''}}</td>
+                                      <td>{{($Leasing07 != 0) ?$Leasing07: ''}}</td>
+                                      <td>{{($Staff55 != 0) ?$Staff55: ''}}</td>
+                                      <td></td>
+                                      <td>{{($Motor55 != 0) ?$Motor55: ''}}</td>
+                                      <td class="bg-warning"><b>{{$Micro55 + $Ploan55 + $Leasing07 + $Staff55 + $Motor55}}</b></td>
+                                    </tr>
+                                    <tr class="text-center">
+                                      <td class="text-left"><b>โคกโพธิ์</b></td>
+                                      <td>{{($Micro56 != 0) ?$Micro56: ''}}</td>
+                                      <td>{{($Ploan56 != 0) ?$Ploan56: ''}}</td>
+                                      <td>{{($Leasing08 != 0) ?$Leasing08: ''}}</td>
+                                      <td>{{($Staff56 != 0) ?$Staff56: ''}}</td>
+                                      <td></td>
+                                      <td>{{($Motor56 != 0) ?$Motor56: ''}}</td>
+                                      <td class="bg-warning"><b>{{$Micro56 + $Ploan56 + $Leasing08 + $Staff56 + $Motor56}}</b></td>
+                                    </tr>
+                                    <tr class="text-center">
+                                      <td class="text-left"><b>ตันหยงมัส</b></td>
+                                      <td>{{($Micro57 != 0) ?$Micro57: ''}}</td>
+                                      <td>{{($Ploan57 != 0) ?$Ploan57: ''}}</td>
+                                      <td>{{($Leasing09 != 0) ?$Leasing09: ''}}</td>
+                                      <td>{{($Staff57 != 0) ?$Staff57: ''}}</td>
+                                      <td></td>
+                                      <td>{{($Motor57 != 0) ?$Motor57: ''}}</td>
+                                      <td class="bg-warning"><b>{{$Micro57 + $Ploan57 + $Leasing09 + $Staff57 + $Motor57}}</b></td>
+                                    </tr>
+                                    <tr class="text-center">
+                                      <td class="text-left"><b>รือเสาะ</b></td>
+                                      <td>{{($Micro58 != 0) ?$Micro58: ''}}</td>
+                                      <td>{{($Ploan58 != 0) ?$Ploan58: ''}}</td>
+                                      <td>{{($Leasing12 != 0) ?$Leasing12: ''}}</td>
+                                      <td>{{($Staff58 != 0) ?$Staff58: ''}}</td>
+                                      <td></td>
+                                      <td>{{($Motor58 != 0) ?$Motor58: ''}}</td>
+                                      <td class="bg-warning"><b>{{$Micro58 + $Ploan58 + $Leasing12 + $Staff58 + $Motor58}}</b></td>
+                                    </tr>
+                                    <tr class="text-center">
+                                      <td class="text-left"><b>บันนังสตา</b></td>
+                                      <td>{{($Micro59 != 0) ?$Micro59: ''}}</td>
+                                      <td>{{($Ploan59 != 0) ?$Ploan59: ''}}</td>
+                                      <td>{{($Leasing13 != 0) ?$Leasing13: ''}}</td>
+                                      <td>{{($Staff59 != 0) ?$Staff59: ''}}</td>
+                                      <td></td>
+                                      <td>{{($Motor59 != 0) ?$Motor59: ''}}</td>
+                                      <td class="bg-warning"><b>{{$Micro59 + $Ploan59 + $Leasing13 + $Staff59 + $Motor59}}</b></td>
+                                    </tr>
+                                    <tr class="text-center">
+                                      <td class="text-left"><b>ยะหา</b></td>
+                                      <td>{{($Micro60 != 0) ?$Micro60: ''}}</td>
+                                      <td>{{($Ploan60 != 0) ?$Ploan60: ''}}</td>
+                                      <td>{{($Leasing14 != 0) ?$Leasing14: ''}}</td>
+                                      <td>{{($Staff60 != 0) ?$Staff60: ''}}</td>
+                                      <td></td>
+                                      <td>{{($Motor60 != 0) ?$Motor60: ''}}</td>
+                                      <td class="bg-warning"><b>{{$Micro60 + $Ploan60 + $Leasing14 + $Staff60 + $Motor60}}</b></td>
+                                    </tr>
+                                    <tr class="text-center">
+                                      <td class="text-left"><b>รถบ้าน</b></td>
+                                      <td></td>
+                                      <td></td>
+                                      <td></td>
+                                      <td></td>
+                                      <td>{{($SumHomecarAll != 0) ?$SumHomecarAll: ''}}</td>
+                                      <td></td>
+                                      <td class="bg-warning"><b>{{$SumHomecarAll}}</b></td>
+                                    </tr>
+                                    <tr class="text-center bg-warning">
+                                      <td class="text-left"><b>รวม</b></td>
+                                      <td><b>{{$SumMicroAll}}</b></td>
+                                      <td><b>{{$SumPloanAll}}</b></td>
+                                      <td><b>{{$SumLeasingAll}}</b></td>
+                                      <td><b>{{$SumStaffAll}}</b></td>
+                                      <td><b>{{$SumHomecarAll}}</b></td>
+                                      <td><b>{{$SumMotorAll}}</b></td>
+                                      <td style="background-color: red;color:white;"><b>{{$TotalAllProduct}}</b></td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          @endif
                         </div>
                       </div>
                     </div>     
