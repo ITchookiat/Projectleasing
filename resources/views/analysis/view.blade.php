@@ -320,7 +320,7 @@
                             <tr>
                               {{-- <th class="text-center">สาขา</th> --}}
                               <th class="text-left">เลขที่สัญญา</th>
-                              <!-- <th class="text-left">แบบ</th> -->
+                              <th class="text-left">แบบ</th>
                               <th class="text-left">ยีห้อ</th>
                               <th class="text-left">ทะเบียน</th>
                               <th class="text-left">ปี</th>
@@ -337,7 +337,7 @@
                                 <tr>
                                   {{-- <td class="text-center"> {{ $row->branch_car}} </td> --}}
                                   <td class="text-left"> {{ $row->Contract_buyer}} </td>
-                                  <!-- <td class="text-left"> {{ $row->status_car}} </td> -->
+                                  <td class="text-left"> {{ $row->status_car}} </td>
                                   <td class="text-left"> {{ $row->Brand_car}} </td>
                                   <td class="text-left"> {{ $row->License_car}} </td>
                                   <td class="text-left"> {{ $row->Year_car}} </td>
@@ -458,7 +458,7 @@
                             <tr>
                               {{-- <th class="text-center">สาขา</th> --}}
                               <th class="text-left">เลขที่สัญญา</th>
-                              <!-- <th class="text-left">แบบ</th> -->
+                              <th class="text-left">แบบ</th>
                               <th class="text-left">ยีห้อ</th>
                               <th class="text-left">ทะเบียน</th>
                               <th class="text-left">ปี</th>
@@ -475,7 +475,7 @@
                                 <tr>
                                   {{-- <td class="text-center"> {{ $row->branch_car}} </td> --}}
                                   <td class="text-left"> {{ $row->Contract_buyer}} </td>
-                                  <!-- <td class="text-left"> {{ $row->status_car}} </td> -->
+                                  <td class="text-left"> {{ $row->status_car}} </td>
                                   <td class="text-left"> {{ $row->Brand_car}} </td>
                                   <td class="text-left"> {{ $row->License_car}} </td>
                                   <td class="text-left"> {{ $row->Year_car}} </td>

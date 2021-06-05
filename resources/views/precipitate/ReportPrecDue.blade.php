@@ -128,11 +128,9 @@
               <td style="line-height:250%;" width="200px" align="left"> {{$value->Note_hold}} </td>
               <td style="line-height:250%;" width="90px">
                 @if($value->Statuscar == 1)
-                ยึดจากลูกค้าครั้งแรก
+                รถยึด
                 @elseif($value->Statuscar == 2)
                 ลูกค้ามารับรถคืน
-                @elseif($value->Statuscar == 3)
-                ยึดจากลูกค้าครั้งที่สอง
                 @elseif($value->Statuscar == 4)
                 รับรถจากของกลาง
                 @elseif($value->Statuscar == 5)
@@ -157,11 +155,9 @@
               <td style="line-height:250%;" width="200px" align="left"> {{$value->Note_hold}} </td>
               <td style="line-height:250%;" width="90px">
                 @if($value->Statuscar == 1)
-                ยึดจากลูกค้าครั้งแรก
+                รถยึด
                 @elseif($value->Statuscar == 2)
                 ลูกค้ามารับรถคืน
-                @elseif($value->Statuscar == 3)
-                ยึดจากลูกค้าครั้งที่สอง
                 @elseif($value->Statuscar == 4)
                 รับรถจากของกลาง
                 @elseif($value->Statuscar == 5)
@@ -186,15 +182,17 @@
               <td style="line-height:250%;" width="200px" align="left"> {{$value->Note_hold}} </td>
               <td style="line-height:250%;" width="90px">
                 @if($value->Statuscar == 1)
-                ยึดจากลูกค้าครั้งแรก
+                รถยึด
                 @elseif($value->Statuscar == 2)
                 ลูกค้ามารับรถคืน
-                @elseif($value->Statuscar == 3)
-                ยึดจากลูกค้าครั้งที่สอง
                 @elseif($value->Statuscar == 4)
                 รับรถจากของกลาง
                 @elseif($value->Statuscar == 5)
-                ส่งรถบ้าน
+                    @if($value->StatSold_Homecar != NULL)
+                      <font color="#046817">ส่งรถบ้าน/ตัดขายแล้ว</font>
+                    @else
+                      <font color="#046817">ส่งรถบ้าน</font>
+                    @endif
                 @elseif($value->Statuscar == 6)
                 ลูกค้าส่งรถคืน
                 @endif
@@ -215,11 +213,9 @@
               <td style="line-height:250%;" width="200px" align="left"> {{$value->Note_hold}} </td>
               <td style="line-height:250%;" width="90px">
                 @if($value->Statuscar == 1)
-                ยึดจากลูกค้าครั้งแรก
+                รถยึด
                 @elseif($value->Statuscar == 2)
                 ลูกค้ามารับรถคืน
-                @elseif($value->Statuscar == 3)
-                ยึดจากลูกค้าครั้งที่สอง
                 @elseif($value->Statuscar == 4)
                 รับรถจากของกลาง
                 @elseif($value->Statuscar == 5)
@@ -244,11 +240,9 @@
               <td style="line-height:250%;" width="200px" align="left"> {{$value->Note_hold}} </td>
               <td style="line-height:250%;" width="90px">
                 @if($value->Statuscar == 1)
-                ยึดจากลูกค้าครั้งแรก
+                รถยึด
                 @elseif($value->Statuscar == 2)
                 ลูกค้ามารับรถคืน
-                @elseif($value->Statuscar == 3)
-                ยึดจากลูกค้าครั้งที่สอง
                 @elseif($value->Statuscar == 4)
                 รับรถจากของกลาง
                 @elseif($value->Statuscar == 5)

@@ -265,16 +265,7 @@ class PrecController extends Controller
           if ($request->has('Statuscar')) {
             $Statuscar = $request->get('Statuscar');
           }
-          if($Statuscar == 7){
-            $data = DB::table('holdcars')
-            ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
-              return $q->whereBetween('holdcars.Date_hold',[$fdate,$tdate]);
-            })
-            ->whereIn('holdcars.Statuscar', [1, 3])
-            ->orderBy('holdcars.Date_hold', 'ASC')
-            ->get();
-          }
-          else{
+
             $data = DB::table('holdcars')
             ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
               return $q->whereBetween('holdcars.Date_hold',[$fdate,$tdate]);
@@ -284,7 +275,6 @@ class PrecController extends Controller
             })
             ->orderBy('holdcars.Date_hold', 'ASC')
             ->get();
-          }
 
           $type = $request->type;
           return view('precipitate.viewstock', compact('data','type','fdate','tdate','Statuscar'));
@@ -1352,9 +1342,9 @@ class PrecController extends Controller
           $type = $request->type;
 
           $Statuscar = [
-            '1' => 'ยึดจากลูกค้าครั้งแรก',
+            '1' => 'รถยึด',
             '2' => 'ลูกค้ามารับรถคืน',
-            '3' => 'ยึดจากลูกค้าครั้งที่ 2',
+            // '3' => 'ยึดจากลูกค้าครั้งที่ 2',
             '4' => 'รับรถจากของกลาง',
             '5' => 'ส่งรถบ้าน',
             '6' => 'ลูกค้าส่งรถคืน',
@@ -2089,16 +2079,6 @@ class PrecController extends Controller
           $Statuscar = $request->get('Statuscar');
         }
         // dd($fdate,$tdate,$Statuscar);
-        if($Statuscar == 7){
-          $data = DB::table('holdcars')
-          ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
-            return $q->whereBetween('holdcars.Date_hold',[$fdate,$tdate]);
-          })
-          ->whereIn('holdcars.Statuscar', [1, 3])
-          ->orderBy('holdcars.Date_hold', 'ASC')
-          ->get();
-        }
-        else{
           $data = DB::table('holdcars')
           ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
             return $q->whereBetween('holdcars.Date_hold',[$fdate,$tdate]);
@@ -2108,7 +2088,7 @@ class PrecController extends Controller
           })
           ->orderBy('holdcars.Date_hold', 'ASC')
           ->get();
-        }
+        
 
         $type = $request->type;
 
@@ -2909,16 +2889,7 @@ class PrecController extends Controller
           $Statuscar = $request->get('Statuscar');
         }
         // dd($fdate,$tdate,$Statuscar);
-        if($Statuscar == 7){
-          $data = DB::table('holdcars')
-          ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
-            return $q->whereBetween('holdcars.Date_hold',[$fdate,$tdate]);
-          })
-          ->whereIn('holdcars.Statuscar', [1, 3])
-          ->orderBy('holdcars.Date_hold', 'ASC')
-          ->get();
-        }
-        else{
+
           $data = DB::table('holdcars')
           ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
             return $q->whereBetween('holdcars.Date_hold',[$fdate,$tdate]);
@@ -2928,7 +2899,6 @@ class PrecController extends Controller
           })
           ->orderBy('holdcars.Date_hold', 'ASC')
           ->get();
-        }
 
         $type = $request->type;
 
@@ -2957,15 +2927,17 @@ class PrecController extends Controller
                           $Date_send = date_format($date6, 'd-m-Y');
 
                           if($row->Statuscar == 1){
-                          $Statuscar = 'ยึดจากลูกค้าครั้งแรก';
+                          $Statuscar = 'รถยึด';
                           }elseif($row->Statuscar == 2){
                             $Statuscar = 'ลูกค้ามารับรถคืน';
-                          }elseif($row->Statuscar == 3){
-                            $Statuscar = 'ยึดจากลูกค้าครั้งที่ 2';
                           }elseif($row->Statuscar == 4){
                             $Statuscar = 'รับรถจากของกลาง';
                           }elseif($row->Statuscar == 5){
-                            $Statuscar = 'ส่งรถบ้าน';
+                            if($row->StatSold_Homecar != NULL){
+                              $Statuscar = 'ส่งรถบ้าน/ตัดขายแล้ว';
+                            }else{
+                              $Statuscar = 'ส่งรถบ้าน';
+                            }
                           }
 
 
