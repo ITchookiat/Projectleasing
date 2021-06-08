@@ -464,7 +464,7 @@
                   @endif
                 </td>
                 <td width="50px">
-                  @if($value->Accountbrance_car == $value->Accountagent_car and $value->Accountagent_car != Null)
+                  @if($value->Accountbrance_car != $value->Accountagent_car and $value->Accountagent_car != Null)
                     @if ($value->Type_Con == 'P04')
                       คอม {{ number_format($value->Commission_car,2) }}
                       @php
