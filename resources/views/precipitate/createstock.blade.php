@@ -222,8 +222,14 @@
                                 <input type="date" name="Datecame" class="form-control" style="width: 250px;">
                                 </div>
                               </div>
+                              <div class="col-5">
+                                <div class="float-right form-inline">
+                                <label>วันที่ส่งรถบ้าน : </label>
+                                <input type="date" name="DatesendStockhome" class="form-control" style="width: 250px;">
+                                </div>
+                              </div>
                             </div>
-          
+                            <hr>
                             <div class="row mb-1">
                               <div class="col-5">
                                 <div class="float-right form-inline">
@@ -248,8 +254,16 @@
                               </div>
                               <div class="col-5">
                                 <div class="float-right form-inline">
-                                <label>วันที่ส่งรถบ้าน : </label>
-                                <input type="date" name="DatesendStockhome" class="form-control" style="width: 250px;">
+                                  <label>ต้นทุนยอดจัด : </label>
+                                  <input type="text" id="CapitalTopprice" name="CapitalTopprice" class="form-control" style="width: 250px;" placeholder="ป้อนต้นทุนยอดจัด" oninput="comma();">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row mb-1">
+                              <div class="col-5">
+                                <div class="float-right form-inline">
+                                  <label>ต้นทุนบัญชี : </label>
+                                  <input type="text" id="CapitalAccount" name="CapitalAccount" class="form-control" style="width: 250px;" placeholder="ป้อนต้นทุนบัญชี" oninput="comma();">
                                 </div>
                               </div>
                             </div>
@@ -270,44 +284,29 @@
                                 <div class="row">
                                   <div class="col-6">
                                     <div class="float-right form-inline">
+                                      <label>เลขบาร์โค๊ด : </label>
+                                      <input type="text" name="BarcodeNo" class="form-control" style="width: 250px;" placeholder="ป้อนเลขบาร์โค๊ด">
+                                    </div>
+                                  </div>
+                                  <div class="col-6">
+                                    <div class="float-right form-inline">
                                       <label>วันที่ส่งจดหมาย : </label>
-                                      <input type="date" name="DatesendLetter" class="form-control" style="width: 300px;">
+                                      <input type="date" name="DatesendLetter" class="form-control" style="width: 250px;">
+                                    </div>
+                                  </div>
+                                </div>
+            
+                                <div class="row">
+                                  <div class="col-6">
+                                    <div class="float-right form-inline">
+                                      <label style="vertical-align: top;">หมายเหตุ : </label>
+                                      <textarea name="Note2" class="form-control" placeholder="ป้อนหมายเหตุ" rows="3" style="width: 250px;"></textarea>
                                     </div>
                                   </div>
                                   <div class="col-6">
                                     <div class="float-right form-inline">
                                       <label>วันที่ได้รับจดหมาย : </label>
-                                      <input type="date" name="DateBuyergetLetter" class="form-control" style="width: 300px;">
-                                    </div>
-                                  </div>
-                                </div>
-            
-                                <div class="row">
-                                  <div class="col-6">
-                                    <div class="float-right form-inline">
-                                    <label>ต้นทุนบัญชี : </label>
-                                    <input type="text" id="CapitalAccount" name="CapitalAccount" class="form-control" style="width: 300px;" placeholder="ป้อนต้นทุนบัญชี" oninput="comma();">
-                                    </div>
-                                  </div>
-                                  <div class="col-6">
-                                    <div class="float-right form-inline">
-                                      <label>เลขบาร์โค๊ด : </label>
-                                      <input type="text" name="BarcodeNo" class="form-control" style="width: 300px;" placeholder="ป้อนเลขบาร์โค๊ด">
-                                    </div>
-                                  </div>
-                                </div>
-            
-                                <div class="row">
-                                  <div class="col-6">
-                                    <div class="float-right form-inline">
-                                    <label style="vertical-align: top;">หมายเหตุ : </label>
-                                    <textarea name="Note2" class="form-control" placeholder="ป้อนหมายเหตุ" rows="2" style="width: 300px;"></textarea>
-                                    </div>
-                                  </div>
-                                  <div class="col-6">
-                                    <div class="float-right form-inline">
-                                      <label>ต้นทุนยอดจัด : </label>
-                                      <input type="text" id="CapitalTopprice" name="CapitalTopprice" class="form-control" style="width: 300px;" placeholder="ป้อนต้นทุนยอดจัด" oninput="comma();">
+                                      <input type="date" name="DateBuyergetLetter" class="form-control" style="width: 250px;">
                                     </div>
                                   </div>
                                 </div>
@@ -328,14 +327,14 @@
                                 <div class="row">
                                   <div class="col-6">
                                     <div class="float-right form-inline">
-                                    <label>จดหมาย : </label>
-                                    <input type="text" name="Letter" class="form-control" style="width: 300px;" placeholder="ป้อนจดหมาย">
+                                    <label>จดหมายถึง : </label>
+                                    <input type="text" name="Letter" class="form-control" style="width: 250px;" placeholder="ป้อนจดหมาย">
                                     </div>
                                   </div>
                                   <div class="col-6">
                                     <div class="float-right form-inline">
                                       <label>วันส่งจดหมาย : </label>
-                                      <input type="date" name="Datesend" class="form-control" style="width: 300px;">
+                                      <input type="date" name="Datesend" class="form-control" style="width: 250px;">
                                     </div>
                                   </div>
                                 </div>
@@ -344,13 +343,13 @@
                                   <div class="col-6">
                                     <div class="float-right form-inline">
                                       <label>บาร์โค๊ดผู้ค้ำ : </label>
-                                      <input type="text" name="Barcode2" class="form-control" style="width: 300px;" placeholder="ป้อนบาร์โค๊ด">
+                                      <input type="text" name="Barcode2" class="form-control" style="width: 250px;" placeholder="ป้อนบาร์โค๊ด">
                                     </div>
                                   </div>
                                   <div class="col-6">
                                     <div class="float-right form-inline">
                                       <label>วันได้รับจดหมาย : </label>
-                                      <input type="date" name="DateSupportGet" class="form-control" style="width: 300px;">
+                                      <input type="date" name="DateSupportGet" class="form-control" style="width: 250px;">
                                     </div>
                                   </div>
                                 </div>
@@ -358,9 +357,9 @@
                                 <div class="row">
                                   <div class="col-6">
                                     <div class="float-right form-inline">
-                                    <label>รับ : </label>
+                                    <label>สถานะจดหมาย : </label>
                                     <!-- <input type="text" name="Accept" class="form-control" style="width: 250px;" placeholder="ป้อนข้อมูล"> -->
-                                    <select name="Accept" class="form-control" style="width: 300px">
+                                    <select name="Accept" class="form-control" style="width: 250px">
                                       <option selected disabled value="">---เลือก---</option>
                                         <option value="ได้รับ">ได้รับ</otion>
                                         <option value="รอส่ง">รอส่ง</otion>
@@ -370,8 +369,8 @@
                                   </div>
                                   <div class="col-6">
                                     <div class="float-right form-inline">
-                                    <label>ขายได้ : </label>
-                                    <input type="text" name="Soldout" class="form-control" style="width: 300px;" readonly>
+                                    <label>ผลการขายได้ : </label>
+                                    <input type="text" name="Soldout" class="form-control" style="width: 250px;" readonly>
                                     </div>
                                   </div>
                                 </div>
