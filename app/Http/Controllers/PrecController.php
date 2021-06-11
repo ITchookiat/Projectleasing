@@ -759,7 +759,7 @@ class PrecController extends Controller
      */
     public function store(Request $request)
     {
-      if($request->type == 6) {
+      if($request->type == 6) { //สร้างสต็อกรถเร่งรัด
         if($request->get('Pricehold') == ''){
           $SetPricehold = 0;
         }else{
@@ -808,12 +808,14 @@ class PrecController extends Controller
           'Datecheck_Capital' => $request->get('DatecheckCapital'),
           'Datesend_Stockhome' => $request->get('DatesendStockhome'),
           'Datesend_Letter' => $request->get('DatesendLetter'),
+          'DateBuyerget_Letter' => $request->get('DateBuyergetLetter'),
           'Barcode_No' => $request->get('BarcodeNo'),
           'Capital_Account' => $SetCapitalAccount,
           'Capital_Topprice' => $SetCapitalTopprice,
           'Note2_hold' => $request->get('Note2'),
           'Letter_hold' => $request->get('Letter'),
           'Date_send' => $request->get('Datesend'),
+          'Date_SupportGet' => $request->get('DateSupportGet'),
           'Barcode2' => $request->get('Barcode2'),
           'Accept_hold' => $request->get('Accept'),
           'Soldout_hold' => $request->get('Soldout'),
@@ -1333,7 +1335,7 @@ class PrecController extends Controller
      */
     public function edit(Request $request, $id)
     {
-        if($request->type == 5) {
+        if($request->type == 5) { //สต๊อกรถเร่งรัด
           // dd($id);
           $data = DB::table('holdcars')
                     ->where('holdcars.hold_id',$id)
@@ -1413,7 +1415,7 @@ class PrecController extends Controller
     public function update(Request $request, $id)
     {    
       // dd($request);
-      if($request->type == 5) {
+      if($request->type == 5) { //สต็อกรถเร่งรัด
         date_default_timezone_set('Asia/Bangkok');
         $date = date('Y-m-d', strtotime('+45 days'));
 
@@ -1444,12 +1446,14 @@ class PrecController extends Controller
           $hold->Datecheck_Capital = $request->get('DatecheckCapital');
           $hold->Datesend_Stockhome = $request->get('DatesendStockhome');
           $hold->Datesend_Letter = $request->get('DatesendLetter');
+          $hold->DateBuyerget_Letter = $request->get('DateBuyergetLetter');
           $hold->Barcode_No = $request->get('BarcodeNo');
           $hold->Capital_Account = $SetCapitalAccount;
           $hold->Capital_Topprice = $SetCapitalTopprice;
           $hold->Note2_hold = $request->get('Note2');
           $hold->Letter_hold = $request->get('Letter');
           $hold->Date_send = $request->get('Datesend');
+          $hold->Date_SupportGet = $request->get('DateSupportGet');
           $hold->Barcode2 = $request->get('Barcode2');
           $hold->Accept_hold = $request->get('Accept');
           if($request->get('Accept') == 'ได้รับ'){

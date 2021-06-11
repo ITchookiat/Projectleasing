@@ -34,12 +34,14 @@ class CreateHoldcarsTable extends Migration
             $table->string('Datecheck_Capital')->nullable();
             $table->string('Datesend_Stockhome')->nullable();
             $table->string('Datesend_Letter')->nullable();
+            $table->string('DateBuyerget_Letter')->nullable();
             $table->string('Barcode_No')->nullable();
             $table->string('Capital_Account')->nullable();
             $table->string('Capital_Topprice')->nullable();
             $table->string('Note2_hold')->nullable();
             $table->string('Letter_hold')->nullable();
             $table->string('Date_send')->nullable();
+            $table->string('Date_SupportGet')->nullable();
             $table->string('Barcode2')->nullable();
             $table->string('Accept_hold')->nullable();
             $table->string('Date_accept_hold')->nullable();

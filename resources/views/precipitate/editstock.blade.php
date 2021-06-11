@@ -118,7 +118,7 @@
                             </div>
                           </div>
                           <div class="card-body">
-                            <div class="row">
+                            <div class="row mb-1">
                               <div class="col-5">
                                 <div class="float-right form-inline">
                                   <label>เลขที่สัญญา : </label>
@@ -133,7 +133,7 @@
                               </div>
                             </div>
           
-                            <div class="row">
+                            <div class="row mb-1">
                               <div class="col-5">
                                 <div class="float-right form-inline">
                                   <label>ยี่ห้อ : </label>
@@ -153,7 +153,7 @@
                               </div>
                             </div>
           
-                            <div class="row">
+                            <div class="row mb-1">
                               <div class="col-5">
                                 <div class="float-right form-inline">
                                   <label>ปี : </label>
@@ -180,7 +180,7 @@
                               </div>
                             </div>
           
-                            <div class="row">
+                            <div class="row mb-1">
                               <div class="col-5">
                                 <div class="float-right form-inline">
                                   <label>ทีมยึด : </label>
@@ -204,7 +204,7 @@
                               </div>
                             </div>
           
-                            <div class="row">
+                            <div class="row mb-1">
                               <div class="col-5">
                                 <div class="float-right form-inline">
                                   <label><font color="red">สถานะรถ : </font></label>
@@ -225,7 +225,7 @@
                             </div>
       
                             <hr>
-                            <div class="row">
+                            <div class="row mb-1">
                               <div class="col-5">
                                 <div class="float-right form-inline">
                                   <label>วันที่มารับรถคืน : </label>
@@ -234,7 +234,7 @@
                               </div>
                             </div>
           
-                            <div class="row">
+                            <div class="row mb-1">
                               <div class="col-5">
                                 <div class="float-right form-inline">
                                   <label>ค่างวดยึดค้าง : </label>
@@ -257,7 +257,7 @@
                               </div>
                             </div>
           
-                            <div class="row">
+                            <div class="row mb-1">
                               <div class="col-5">
                                 <div class="float-right form-inline">
                                   <label>วันที่เช็คต้นทุน : </label>
@@ -273,128 +273,144 @@
                             </div>
                           </div>
                         </div>
-
-                        <div class="card card-warning">
-                          <div class="card-header">
-                            <h3 class="card-title">ข้อมูลผู้เช่าซื้อ</h3>
-                            <div class="card-tools">
-                              <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                              </button>
-                            </div>
-                          </div>
-                          <div class="card-body">
-                            <div class="row">
-                              <div class="col-5">
-                                <div class="float-right form-inline">
-                                  <label>วันที่ส่งจดหมาย : </label>
-                                  <input type="date" name="DatesendLetter" class="form-control" style="width: 250px;" value="{{ $data->Datesend_Letter }}">
-                                </div>
-                              </div>
-                              <div class="col-5">
-                                <div class="float-right form-inline">
-                                  <label bel>เลขบาร์โค๊ด : </label>
-                                  <input type="text" name="BarcodeNo" class="form-control" style="width: 250px;" placeholder="ป้อนเลขบาร์โค๊ด" value="{{ $data->Barcode_No }}">
-                                </div>
+                      
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="card card-warning">
+                            <div class="card-header">
+                              <h3 class="card-title">ข้อมูลผู้เช่าซื้อ</h3>
+                              <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                                </button>
                               </div>
                             </div>
-        
-                            <div class="row">
-                              <div class="col-5">
-                                <div class="float-right form-inline">
-                                  <label>ต้นทุนบัญชี : </label>
-                                  @if($data->Capital_Account == Null)
-                                    <input type="text" id="CapitalAccount" name="CapitalAccount" class="form-control" style="width: 250px;" placeholder="ป้อนต้นทุนบัญชี" oninput="comma();">
-                                  @else
-                                    <input type="text" id="CapitalAccount" name="CapitalAccount" class="form-control" style="width: 250px;" oninput="comma();" value="{{ number_format($data->Capital_Account,2) }}">
-                                  @endif
-                                </div>
-                              </div>
-                              <div class="col-5">
-                                <div class="float-right form-inline">
-                                  <label>ต้นทุนยอดจัด : </label>
-                                  @if($data->Capital_Topprice == Null)
-                                    <input type="text" id="CapitalTopprice" name="CapitalTopprice" class="form-control" style="width: 250px;" placeholder="ป้อนต้นทุนยอดจัด" oninput="comma();">
-                                  @else
-                                    <input type="text" id="CapitalTopprice" name="CapitalTopprice" class="form-control" style="width: 250px;" oninput="comma();" value="{{ number_format($data->Capital_Topprice,2) }}">
-                                  @endif
-                                </div>
-                              </div>
-                            </div>
-        
-                            <div class="row">
-                              <div class="col-5">
-                                <div class="float-right form-inline">
-                                  <label style="vertical-align: top;">หมายเหตุ : </label>
-                                  <textarea name="Note2" class="form-control" placeholder="ป้อนหมายเหตุ" rows="2" style="width: 250px;">{{ $data->Note2_hold }}</textarea>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="card card-warning">
-                          <div class="card-header">
-                            <h3 class="card-title">ข้อมูลผู้ค้ำ</h3>
-                            <div class="card-tools">
-                              <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                              </button>
-                            </div>
-                          </div>
-                          <div class="card-body">
-                            <div class="row">
-                              <div class="col-5">
-                                <div class="float-right form-inline">
-                                  <label>จดหมาย : </label>
-                                  <input type="text" name="Letter" class="form-control" style="width: 250px;" placeholder="ป้อนจดหมาย" value="{{ $data->Letter_hold }}">
-                                </div>
-                              </div>
-                              <div class="col-5">
-                                <div class="float-right form-inline">
-                                  <label>วันส่ง : </label>
-                                  <input type="date" name="Datesend" class="form-control" style="width: 250px;" value="{{ $data->Date_send }}">
-                                </div>
-                              </div>
-                            </div>
-          
-                            <div class="row">
-                              <div class="col-5">
-                                <div class="float-right form-inline">
-                                  <label>บาร์โค๊ดผู้ค้ำ : </label>
-                                  <input type="text" name="Barcode2" class="form-control" style="width: 250px;" placeholder="ป้อนบาร์โค๊ด" value="{{ $data->Barcode2 }}">
-                                </div>
-                              </div>
-                              @if($data->Accept_hold == 'ได้รับ')
-                                <div class="col-5">
+                            <div class="card-body">
+                              <div class="row mb-1">
+                                <div class="col-6">
                                   <div class="float-right form-inline">
-                                    <label>วันที่จะขายได้ : </label>
-                                    <input type="date" name="sell" class="form-control" style="width: 250px;" value="{{ $data->Date_accept_hold }}" readonly>
+                                    <label>วันที่ส่งจดหมาย : </label>
+                                    <input type="date" name="DatesendLetter" class="form-control" style="width: 300px;" value="{{ $data->Datesend_Letter }}">
                                   </div>
                                 </div>
-                              @endif
-                            </div>
-          
-                            <div class="row">
-                              <div class="col-5">
-                                <div class="float-right form-inline">
-                                  <label>รับ : </label>
-                                  <select name="Accept" class="form-control" style="width: 250px">
-                                    <option selected disabled value="">---เลือกสถานะ---</option>
-                                    @foreach ($Accept as $key => $value)
-                                      <option value="{{$key}}" {{ ($key == $data->Accept_hold) ? 'selected' : '' }}>{{$value}}</option>
-                                    @endforeach
-                                  </select>
+                                <div class="col-6">
+                                  <div class="float-right form-inline">
+                                    <label>วันที่ได้รับจดหมาย : </label>
+                                    <input type="date" name="DateBuyergetLetter" class="form-control" style="width: 300px;" value="{{ $data->DateBuyerget_Letter }}">
+                                  </div>
                                 </div>
                               </div>
-                              <div class="col-5">
-                                <div class="float-right form-inline">
-                                  <label>ขายได้ : </label>
-                                  <input type="text" name="Soldout" class="form-control" style="width: 250px;" placeholder="ป้อนข้อมูล" value="{{ $data->Soldout_hold }}">
+          
+                              <div class="row mb-1">
+                                <div class="col-6">
+                                  <div class="float-right form-inline">
+                                    <label>ต้นทุนบัญชี : </label>
+                                    @if($data->Capital_Account == Null)
+                                      <input type="text" id="CapitalAccount" name="CapitalAccount" class="form-control" style="width: 300px;" placeholder="ป้อนต้นทุนบัญชี" oninput="comma();">
+                                    @else
+                                      <input type="text" id="CapitalAccount" name="CapitalAccount" class="form-control" style="width: 300px;" oninput="comma();" value="{{ number_format($data->Capital_Account,2) }}">
+                                    @endif
+                                  </div>
+                                </div>
+                                <div class="col-6">
+                                  <div class="float-right form-inline">
+                                    <label bel>เลขบาร์โค๊ด : </label>
+                                    <input type="text" name="BarcodeNo" class="form-control" style="width: 300px;" placeholder="ป้อนเลขบาร์โค๊ด" value="{{ $data->Barcode_No }}">
+                                  </div>
+                                </div>
+                              </div>
+          
+                              <div class="row mb-1">
+                                <div class="col-6">
+                                  <div class="float-right form-inline">
+                                    <label style="vertical-align: top;">หมายเหตุ : </label>
+                                    <textarea name="Note2" class="form-control" placeholder="ป้อนหมายเหตุ" rows="2" style="width: 300px;">{{ $data->Note2_hold }}</textarea>
+                                  </div>
+                                </div>
+                                <div class="col-6">
+                                  <div class="float-right form-inline">
+                                    <label>ต้นทุนยอดจัด : </label>
+                                    @if($data->Capital_Topprice == Null)
+                                      <input type="text" id="CapitalTopprice" name="CapitalTopprice" class="form-control" style="width: 300px;" placeholder="ป้อนต้นทุนยอดจัด" oninput="comma();">
+                                    @else
+                                      <input type="text" id="CapitalTopprice" name="CapitalTopprice" class="form-control" style="width: 300px;" oninput="comma();" value="{{ number_format($data->Capital_Topprice,2) }}">
+                                    @endif
+                                  </div>
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                        <input type="hidden" name="_method" value="PATCH"/>
+
+                        <div class="col-md-6">
+                          <div class="card card-warning">
+                            <div class="card-header">
+                              <h3 class="card-title">ข้อมูลผู้ค้ำ</h3>
+                              <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                                </button>
+                              </div>
+                            </div>
+                            <div class="card-body">
+                              <div class="row mb-1">
+                                <div class="col-6">
+                                  <div class="float-right form-inline">
+                                    <label>จดหมาย : </label>
+                                    <input type="text" name="Letter" class="form-control" style="width: 300px;" placeholder="ป้อนจดหมาย" value="{{ $data->Letter_hold }}">
+                                  </div>
+                                </div>
+                                <div class="col-6">
+                                  <div class="float-right form-inline">
+                                    <label>วันส่งจดหมาย : </label>
+                                    <input type="date" name="Datesend" class="form-control" style="width: 300px;" value="{{ $data->Date_send }}">
+                                  </div>
+                                </div>
+                              </div>
+            
+                              <div class="row mb-1">
+                                <div class="col-6">
+                                  <div class="float-right form-inline">
+                                    <label>บาร์โค๊ดผู้ค้ำ : </label>
+                                    <input type="text" name="Barcode2" class="form-control" style="width: 300px;" placeholder="ป้อนบาร์โค๊ด" value="{{ $data->Barcode2 }}">
+                                  </div>
+                                </div>
+                                <div class="col-6">
+                                  <div class="float-right form-inline">
+                                    <label>วันได้รับจดหมาย : </label>
+                                    <input type="date" name="DateSupportGet" class="form-control" style="width: 300px;" value="{{ $data->Date_SupportGet }}">
+                                  </div>
+                                </div>
+                              </div>
+            
+                              <div class="row mb-1">
+                                <div class="col-6">
+                                  <div class="float-right form-inline">
+                                    <label>รับ : </label>
+                                    <select name="Accept" class="form-control" style="width: 300px">
+                                      <option selected disabled value="">---เลือกสถานะ---</option>
+                                      @foreach ($Accept as $key => $value)
+                                        <option value="{{$key}}" {{ ($key == $data->Accept_hold) ? 'selected' : '' }}>{{$value}}</option>
+                                      @endforeach
+                                    </select>
+                                  </div>
+                                  @if($data->Accept_hold == 'ได้รับ')
+                                    <div class="float-right form-inline">
+                                      <label>วันที่จะขายได้ : </label>
+                                      <input type="date" name="sell" class="form-control" style="width: 300px;" value="{{ $data->Date_accept_hold }}" readonly>
+                                    </div>
+                                  @endif
+                                </div>
+                                <div class="col-6">
+                                  <div class="float-right form-inline">
+                                    <label>ขายได้ : </label>
+                                    <input type="text" name="Soldout" class="form-control" style="width: 300px;" placeholder="ป้อนข้อมูล" value="{{ $data->Soldout_hold }}">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <input type="hidden" name="_method" value="PATCH"/>
                     </div>
                   </div>
 
