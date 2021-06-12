@@ -99,7 +99,7 @@
                   </ul>
                 </li>
               </ul>
-              @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
+              @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "MASTER")
                 <ul class="nav nav-treeview">
                   <li class="nav-item has-treeview {{ Request::is('Analysis/Home/12') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/13') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/14') ? 'menu-open' : '' }} {{ Request::is('Analysis/edit/9/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/edit/12/*') ? 'menu-open' : '' }} {{ Request::is('Analysis/deleteImageEach/9/*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
