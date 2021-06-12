@@ -459,5 +459,110 @@ class ReportAnalysController extends Controller
           })->export('xlsx');
         }
       }
+      elseif ($request->type == 9) {  //Excel เปลี่ยนสัญญา
+        $newfdate = '';
+        $newtdate = '';
+
+        if ($request->has('Fromdate')){
+            $newfdate = $request->get('Fromdate');
+        }
+        if ($request->has('Todate')){
+            $newtdate = $request->get('Todate');
+        }
+
+      $data = DB::table('buyers')
+        ->leftJoin('sponsors','buyers.id','=','sponsors.Buyer_id')
+        ->leftJoin('cardetails','Buyers.id','=','cardetails.Buyercar_id')
+        ->leftJoin('Expenses','Buyers.id','=','Expenses.Buyerexpenses_id')
+        ->leftjoin('upload_lat_longs','buyers.id','=','upload_lat_longs.Use_id')
+        ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
+          return $q->whereBetween('buyers.Datechange_Contract',[$newfdate,$newtdate]);
+        })
+        ->where('buyers.Status_Contract','!=',NULL)
+        ->where('buyers.Contract_buyer','not like', '22%')
+        ->where('buyers.Contract_buyer','not like', '33%')
+        ->where('buyers.Contract_buyer','not like', '10%')
+        ->where('buyers.Contract_buyer','not like', '11%')
+        ->where('cardetails.Approvers_car','!=',NULL)
+        ->orderBy('buyers.Contract_buyer', 'ASC')
+        ->get();
+
+      $status = 'รายงานเปลี่ยนสัญญา';
+      Excel::create('รายงานเปลี่ยนสัญญา', function ($excel) use($data,$status) {
+        $excel->sheet($status, function ($sheet) use($data,$status) {
+            $sheet->prependRow(1, array("บริษัท ชูเกียรติลิสซิ่ง จำกัด"));
+            $sheet->prependRow(2, array($status));
+            $sheet->cells('A3:AY3', function($cells) {
+              $cells->setBackground('#FFCC00');
+            });
+            $row = 3;
+            $sheet->row($row, array('ลำดับ','ประเภท','เลขที่สัญญา', 'ชื่อ-สกุล','สาขา', 'วันที่โอน', 'สถานะ',
+              'ยี่ห้อ','รุ่น','ปี', 'ทะเบียนเดิม','ทะเบียนใหม่', 'ยอดจัด', 'ค่าดำเนินการ', 'ชำระต่องวด', 'กำไรดอกเบี้ย','ดอกเบี้ย/เดือน','งวดผ่อน(เดือน)',
+              'พรบ.','ยอดปิดบัญชี','ซื้อประกัน', '% ยอดจัด','ค่าใช้จ่ายขนส่ง','อื่นๆ','ค่าประเมิน','ค่าการตลาด','อากร',
+              'รวม คชจ', 'คงเหลือ', 'ค่าคอมก่อนหัก 3%', 'ค่าคอมหลังหัก 3%', 
+              'เลขที่โฉนดผู้ค่ำ', 'ผู้รับเงิน','เลขบัญชี','เบอร์โทรผู้รับเงิน', 'ผู้รับค่าคอม','เลขบัญชี','เบอร์โทรผู้แนะนำ', 
+              'ใบขับขี่','ประกันภัย','สถานะผู้เช่าซื้อ','ตำแหน่งที่อยู่ผู้เช่าซื้อ', 'ตำแหน่งที่อยู่ผู้ค่ำ','รายละเอียดอาชีพ','ผลการประเมินลูกค้า', 'ผลการตรวจสอบลูกค้า','ความพึงพอใจลูกค้า','ผลการตรวจสอบนายหน้า','ความพึงพอใจนายหน้า',
+              'วันที่เปลี่ยนสัญญา','ผู้เปลี่ยนสัญญา'));
+
+            foreach ($data as $key => $value) {
+              $sheet->row(++$row, array(
+                $key+1,
+                'F01',
+                $value->Contract_buyer,
+                $value->Name_buyer.' '.$value->last_buyer,
+                $value->branch_car,
+                $value->Date_Due,
+                $value->status_car,
+                $value->Brand_car,
+                $value->Model_car,
+                $value->Year_car,
+                $value->License_car,
+                $value->Nowlicense_car,
+                number_format($value->Top_car, 2),
+                $value->Vat_car,
+                $value->Pay_car,
+                $value->Tax_car,
+                $value->Interest_car,
+                $value->Timeslacken_car,
+                $value->act_Price,
+                $value->closeAccount_Price,
+                $value->P2_Price,
+                $value->Percent_car,
+                $value->tran_Price,
+                $value->other_Price,
+                $value->evaluetion_Price,
+                $value->marketing_Price,
+                $value->duty_Price,
+                $value->totalk_Price,
+                $value->balance_Price,
+                $value->Commission_car,
+                $value->commit_Price,
+                $value->deednumber_SP,
+                $value->Payee_car,
+                $value->Accountbrance_car,
+                $value->Tellbrance_car,
+                $value->Agent_car,
+                $value->Accountagent_car,
+                $value->Tellagent_car,
+                $value->Driver_buyer,
+                $value->Insurance_car,
+                $value->Gradebuyer_car,
+                $value->Buyer_latlong,
+                $value->Support_latlong,
+                $value->CareerDetail_buyer,
+                $value->ApproveDetail_buyer,
+                $value->Memo_buyer,
+                $value->Prefer_buyer,
+                $value->Memo_broker,
+                $value->Prefer_broker,
+                $value->Datechange_Contract,
+                $value->Userchange_Contract,
+              ));
+
+            }
+        });
+      })->export('xlsx');
+
+      }
     }
 }

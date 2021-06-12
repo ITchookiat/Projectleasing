@@ -1078,6 +1078,7 @@ class AnalysController extends Controller
                   
         $GetDocComplete = $data->DocComplete_car;
         $Gettype = $type;
+        $Recontract = $request->Recontract;
 
       }
       elseif ($type == 4) {
@@ -1370,7 +1371,7 @@ class AnalysController extends Controller
             compact('data','id','dataImage','Statusby','Addby','Houseby','Driverby','HouseStyleby','Careerby','Incomeby',
             'HisCarby','StatusSPp','relationSPp','addSPp','housestyleSPp','Brandcarr','Interestcarr','Timeslackencarr',
             'Insurancecarr','statuscarr','newDateDue','evaluetionPricee','securitiesSPp','GetDocComplete','Getinsurance',
-            'Gettransfer','Getinterest','fdate','tdate','status','type','Gettype','countImage','GradeBuyer','Typecardetail','objectivecar','SettingValue'));
+            'Gettransfer','Getinterest','fdate','tdate','status','type','Gettype','countImage','GradeBuyer','Typecardetail','objectivecar','SettingValue','Recontract'));
       }
       elseif ($type == 4) {
         return view('analysis.edithomecar',
@@ -1400,7 +1401,7 @@ class AnalysController extends Controller
      */
     public function update(Request $request, $id, $type)
     {
-      // dd($request);
+      // dd($request->StatusContract);
 
       date_default_timezone_set('Asia/Bangkok');
       $Currdate = date('2021-01-01');   //วันที่เช็ตค่า รูป
@@ -1519,6 +1520,11 @@ class AnalysController extends Controller
         $user->Memo_broker = $request->get('Memobroker');
         $user->Prefer_broker = $request->get('Brokerprefer');
         $user->MemoIncome_buyer = $request->get('BuyerIncomeNote');
+        if($request->StatusContract != NULL){
+          $user->Status_Contract = $request->get('StatusContract');
+          $user->Datechange_Contract = Date('Y-m-d');
+          $user->Userchange_Contract = auth()->user()->name;
+        }
       $user->update();
 
       $SettelSP = str_replace ("_","",$request->get('telSP'));

@@ -250,15 +250,14 @@
 
     function percent(){
       var num11 = document.getElementById('Midpricecar').value;
-      var num1 = num11.replace(",","");
+      var num1 = num11.replace(",","").replace(",","");
       var num22 = document.getElementById('Topcar').value;
       var num2 = num22.replace(",","");
       var percentt = (num2/num1) * 100;
       var result1 = percentt;
-        document.form1.Topcar.value = addCommas(num2);
-        if(num1 != ''){
-          document.form1.Percentcar.value = result1.toFixed(0);
-        }
-
+      if(num1 != ''){
+        document.form1.Percentcar.value = result1.toFixed(0);
+        document.form1.Topcar.value = addCommas(num2);      
+      }
     }
 </script>

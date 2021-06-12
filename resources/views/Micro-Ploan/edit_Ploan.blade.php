@@ -1965,12 +1965,12 @@
                                 <label class="col-sm-3 col-form-label text-right"><font color="red">เงินต้น :</font></label>
                                 <div class="col-sm-8">
                                   @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                                    <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control form-control-sm"  placeholder="ป้อนเงินต้น" oninput="calculate2();balance2();" />
+                                    <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control form-control-sm"  placeholder="ป้อนเงินต้น" oninput="calculate2();balance2();percent();" />
                                   @else
                                     @if($GetDocComplete != Null)
-                                      <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control form-control-sm"  placeholder="ป้อนเงินต้น" oninput="calculate2();balance2();" readonly/>
+                                      <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control form-control-sm"  placeholder="ป้อนเงินต้น" oninput="calculate2();balance2();percent();" readonly/>
                                     @else
-                                      <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control form-control-sm"  placeholder="ป้อนเงินต้น" oninput="calculate2();balance2();"/>
+                                      <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control form-control-sm"  placeholder="ป้อนเงินต้น" oninput="calculate2();balance2();percent();"/>
                                     @endif
                                   @endif
                                 </div>
@@ -1980,6 +1980,7 @@
                               <div class="form-group row mb-0">
                                 <div class="col-sm-8">
                                   <input type="hidden" id="Totalfee" name="Paymemtcar" class="form-control form-control-sm" value="{{$data->Paymemt_car}}" placeholder="-" readonly/>
+                                  <input type="hidden" name="Percentcar" value="{{$data->Percent_car}}" class="form-control form-control-sm int"  placeholder="เปอร์เซ็นจัดไฟแนนซ์" readonly/>
                                 </div>
                               </div>
                             </div>

@@ -55,14 +55,14 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-3">
+      <div class="col-md-2">
         @if(auth::user()->type == 'Admin' or auth::user()->type == 'แผนก วิเคราะห์')
           <div class="row">
             <div class="col-md-6">
               <button type="button" class="btn btn-success btn-block mb-3" data-toggle="modal" data-target="#modal-primary">Compose</button>
             </div>
             <div class="col-md-6">
-              <a href="{{ route('DataCustomer', 1) }}" class="btn btn-danger btn-block mb-3">New Walk-in</a>
+              <a href="{{ route('DataCustomer', 1) }}" class="btn btn-danger btn-block mb-3">Walk-in</a>
             </div>
           </div>
         @else
@@ -153,7 +153,7 @@
         @endif
       </div>
 
-      <div class="col-md-9">
+      <div class="col-md-10">
         <div class="card">
           <div class="card-body text-sm">
             @if($type == 5)
@@ -175,13 +175,8 @@
                   </button>
                 </div>
                 <div class="float-right form-inline">
-                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                    <label class="mr-sm-2">เลขที่สัญญา : </label>
-                    <input type="type" name="Contno" value="{{$contno}}" maxlength="13" class="form-control form-control-sm"/>
-                  @else
-                    <label class="mr-sm-2">เลขที่สัญญา : </label>
-                    <input type="type" name="Contno" value="{{$contno}}" maxlength="13" class="form-control form-control-sm"/>
-                  @endif
+                  <label class="mr-sm-2">เลขที่สัญญา : </label>
+                  <input type="type" name="Contno" value="{{$contno}}" maxlength="13" class="form-control form-control-sm" style="width:155px;"/>
 
                   <label for="text" class="mr-sm-2">สถานะ : </label>
                   <select name="status" class="form-control form-control-sm">
@@ -218,13 +213,8 @@
                   </button>
                 </div>
                 <div class="float-right form-inline">
-                  @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
-                    <label class="mr-sm-2">เลขที่สัญญา : </label>
-                    <input type="type" name="Contno" value="{{$contno}}" maxlength="13" class="form-control form-control-sm"/>
-                  @else
-                    <label class="mr-sm-2">เลขที่สัญญา : </label>
-                    <input type="type" name="Contno" value="{{$contno}}" maxlength="13" class="form-control form-control-sm"/>
-                  @endif
+                  <label class="mr-sm-2">เลขที่สัญญา : </label>
+                  <input type="type" name="Contno" value="{{$contno}}" maxlength="13" class="form-control form-control-sm" style="width:155px;"/>
 
                   <label for="text" class="mr-sm-2">สถานะ : </label>
                   <select name="status" class="form-control form-control-sm">
@@ -270,7 +260,7 @@
                               @endif
                               <th class="text-center"></th>
                               <th class="text-left" style="width: 100px">สถานะ</th>
-                              <th class="text-center" style="width: 105px"></th>
+                              <th class="text-center" style="width: 125px"></th>
                             </tr>
                           </thead>
                           <tbody>
@@ -408,7 +398,7 @@
                               @endif
                               <th class="text-center"></th>
                               <th class="text-left" style="width: 100px">สถานะ</th>
-                              <th class="text-center" style="width: 105px"></th>
+                              <th class="text-center" style="width: 125px"></th>
                             </tr>
                           </thead>
                           <tbody>
@@ -546,7 +536,7 @@
                               @endif
                               <th class="text-center"></th>
                               <th class="text-left" style="width: 100px">สถานะ</th>
-                              <th class="text-center" style="width: 105px"></th>
+                              <th class="text-center" style="width: 125px"></th>
                             </tr>
                           </thead>
                           <tbody>
@@ -684,7 +674,7 @@
                               @endif
                               <th class="text-center"></th>
                               <th class="text-left" style="width: 100px">สถานะ</th>
-                              <th class="text-center" style="width: 105px"></th>
+                              <th class="text-center" style="width: 125px"></th>
                             </tr>
                           </thead>
                           <tbody>
@@ -822,7 +812,7 @@
                               @endif
                               <th class="text-center"></th>
                               <th class="text-left" style="width: 100px">สถานะ</th>
-                              <th class="text-center" style="width: 105px"></th>
+                              <th class="text-center" style="width: 125px"></th>
                             </tr>
                           </thead>
                           <tbody>
@@ -960,7 +950,7 @@
                               @endif
                               <th class="text-center"></th>
                               <th class="text-left" style="width: 100px">สถานะ</th>
-                              <th class="text-center" style="width: 105px"></th>
+                              <th class="text-center" style="width: 125px"></th>
                             </tr>
                           </thead>
                           <tbody>
@@ -1098,7 +1088,7 @@
                               @endif
                               <th class="text-center"></th>
                               <th class="text-left" style="width: 100px">สถานะ</th>
-                              <th class="text-center" style="width: 105px"></th>
+                              <th class="text-center" style="width: 125px"></th>
                             </tr>
                           </thead>
                           <tbody>
@@ -1236,7 +1226,7 @@
                               @endif
                               <th class="text-center"></th>
                               <th class="text-left" style="width: 100px">สถานะ</th>
-                              <th class="text-center" style="width: 105px"></th>
+                              <th class="text-center" style="width: 125px"></th>
                             </tr>
                           </thead>
                           <tbody>
@@ -1374,7 +1364,7 @@
                               @endif
                               <th class="text-center"></th>
                               <th class="text-left" style="width: 100px">สถานะ</th>
-                              <th class="text-center" style="width: 105px"></th>
+                              <th class="text-center" style="width: 125px"></th>
                             </tr>
                           </thead>
                           <tbody>
@@ -1512,7 +1502,7 @@
                               @endif
                               <th class="text-center"></th>
                               <th class="text-left" style="width: 100px">สถานะ</th>
-                              <th class="text-center" style="width: 105px"></th>
+                              <th class="text-center" style="width: 125px"></th>
                             </tr>
                           </thead>
                           <tbody>
@@ -1650,7 +1640,7 @@
                               @endif
                               <th class="text-center"></th>
                               <th class="text-left" style="width: 100px">สถานะ</th>
-                              <th class="text-center" style="width: 105px"></th>
+                              <th class="text-center" style="width: 125px"></th>
                             </tr>
                           </thead>
                           <tbody>
