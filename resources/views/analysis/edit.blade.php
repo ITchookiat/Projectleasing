@@ -223,12 +223,33 @@
                       <div class="card-tools d-inline float-right">
                         @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                           @if(auth::user()->type == "Admin")
+                          <div class="form-inline float-right">
+                            <!-- <i class="fas fa-grip-vertical"></i>
+                            <span class="todo-wrap">
+                              @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
+                                <input type="checkbox" class="checkbox" id="11">
+                              @endif
+                              <label for="11" class="todo">
+                                <i class="fa fa-check"></i>
+                                <font color="green">PASS &nbsp;</font>
+                              </label>
+                            </span>  -->
+                            <div class="info-box-content pr-2">
+                                <small class="badge badge-secondary" style="font-size: 16px;">
+                                  <i class="fas fa-sign"></i>&nbsp; สถานะสัญญา :
+                                  <select name="StatusContract" class="form-control form-control-sm">
+                                    <option value="" selected>--------- status ----------</option>
+                                    <option value="เปลี่ยนสัญญา" {{ ($data->Status_Contract === 'เปลี่ยนสัญญา') ? 'selected' : '' }}>เปลี่ยนสัญญา</option>
+                                  </select>
+                                </small>
+                            </div>
                             <button type="submit" class="delete-modal btn btn-success">
                               <i class="fas fa-save"></i> อัพเดท
                             </button>
                             <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
                               <i class="far fa-window-close"></i> ยกเลิก
                             </a>
+                          </div>
                           @elseif(auth::user()->position == "MANAGER")
                             @if($data->StatusApp_car != 'อนุมัติ')
                               <button type="submit" class="delete-modal btn btn-success">
@@ -238,9 +259,41 @@
                                 <i class="far fa-window-close"></i> ยกเลิก
                               </a>
                             @else
-                              <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
-                                <i class="fas fa-undo"></i> ย้อนกลับ
-                              </a>
+                              @if($Recontract == 'Y')
+                              <div class="form-inline float-right">
+                                <!-- <i class="fas fa-grip-vertical"></i>
+                                <span class="todo-wrap">
+                                  @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
+                                    <input type="checkbox" class="checkbox" id="11">
+                                  @endif
+                                  <label for="11" class="todo">
+                                    <i class="fa fa-check"></i>
+                                    <font color="green">PASS &nbsp;</font>
+                                  </label>
+                                </span>  -->
+                                <div class="info-box-content pr-2">
+                                  <div class="form-inline float-right">
+                                    <small class="badge badge-secondary" style="font-size: 16px;">
+                                      <i class="fas fa-sign"></i>&nbsp; สถานะสัญญา :
+                                      <select id="StatusContract" name="StatusContract" class="form-control form-control-sm">
+                                        <option value="" selected>--------- status ----------</option>
+                                        <option value="เปลี่ยนสัญญา" {{ ($data->Status_Contract === 'เปลี่ยนสัญญา') ? 'selected' : '' }}>เปลี่ยนสัญญา</option>
+                                      </select>
+                                    </small>
+                                  </div>
+                                </div>
+                                  <button id="UpdateCont" type="submit" class="delete-modal btn btn-success" {{ ($Recontract === 'Y') ? 'disabled' : '' }}>
+                                    <i class="fas fa-save"></i> อัพเดท
+                                  </button>
+                                  <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
+                                    <i class="far fa-window-close"></i> ยกเลิก
+                                  </a>
+                              </div>
+                              @else 
+                                <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
+                                  <i class="fas fa-undo"></i> ย้อนกลับ
+                                </a>
+                              @endif
                             @endif
                           @endif
                         @else
@@ -252,9 +305,41 @@
                               <i class="far fa-window-close"></i> ยกเลิก
                             </a>
                           @else
-                            <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
-                              <i class="fas fa-undo"></i> ย้อนกลับ
-                            </a>
+                              @if($Recontract == 'Y')
+                                <div class="form-inline float-right">
+                                <!-- <i class="fas fa-grip-vertical"></i>
+                                <span class="todo-wrap">
+                                  @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
+                                    <input type="checkbox" class="checkbox" id="11" {{ ($Recontract !== 'Y') ? 'disabled' : '' }}>
+                                  @endif
+                                  <label for="11" class="todo">
+                                    <i class="fa fa-check"></i>
+                                    <font color="green">PASS &nbsp;</font>
+                                  </label>
+                                </span>  -->
+                                <div class="info-box-content pr-2">
+                                  <div class="form-inline float-right">
+                                    <small class="badge badge-secondary" style="font-size: 16px;">
+                                      <i class="fas fa-sign"></i>&nbsp; สถานะสัญญา :
+                                      <select id="StatusContract" name="StatusContract" class="form-control form-control-sm">
+                                        <option value="" selected>---------- status ----------</option>
+                                        <option value="เปลี่ยนสัญญา" {{ ($data->Status_Contract === 'เปลี่ยนสัญญา') ? 'selected' : '' }}>เปลี่ยนสัญญา</option>
+                                      </select>
+                                    </small>
+                                  </div>
+                                </div>
+                                <button id="UpdateCont" type="submit" class="delete-modal btn btn-success" {{ ($Recontract === 'Y') ? 'disabled' : '' }}>
+                                  <i class="fas fa-save"></i> อัพเดท
+                                </button>
+                                <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
+                                  <i class="far fa-window-close"></i> ยกเลิก
+                                </a>
+                              </div>
+                              @else 
+                                <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
+                                  <i class="fas fa-undo"></i> ย้อนกลับ
+                                </a>
+                              @endif
                           @endif
                         @endif
                       </div>
@@ -519,7 +604,7 @@
                                     @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                       <input type="text" name="Namebuyer" value="{{ $data->Name_buyer }}" class="form-control form-control-sm" placeholder="ป้อนชื่อ" />
                                     @else
-                                      <input type="text" name="Namebuyer" value="{{ $data->Name_buyer }}" class="form-control form-control-sm" placeholder="ป้อนชื่อ" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                      <input type="text" name="Namebuyer" value="{{ $data->Name_buyer }}" class="form-control form-control-sm" placeholder="ป้อนชื่อ" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}/>
                                     @endif
                                   </div>
                                 </div>
@@ -531,7 +616,7 @@
                                     @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                       <input type="text" name="lastbuyer" value="{{ $data->last_buyer }}" class="form-control form-control-sm" placeholder="ป้อนนามสกุล" />
                                     @else
-                                      <input type="text" name="lastbuyer" value="{{ $data->last_buyer }}" class="form-control form-control-sm" placeholder="ป้อนนามสกุล" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                      <input type="text" name="lastbuyer" value="{{ $data->last_buyer }}" class="form-control form-control-sm" placeholder="ป้อนนามสกุล" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}/>
                                     @endif
                                   </div>
                                 </div>
@@ -546,7 +631,7 @@
                                     @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                       <input type="text" name="Nickbuyer" value="{{ $data->Nick_buyer }}" class="form-control form-control-sm" placeholder="ป้อนชื่อเล่น" />
                                     @else
-                                      <input type="text" name="Nickbuyer" value="{{ $data->Nick_buyer }}" class="form-control form-control-sm" placeholder="ป้อนชื่อเล่น" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                      <input type="text" name="Nickbuyer" value="{{ $data->Nick_buyer }}" class="form-control form-control-sm" placeholder="ป้อนชื่อเล่น" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}/>
                                     @endif
                                   </div>
                                 </div>
@@ -563,15 +648,24 @@
                                         @endforeach
                                       </select>
                                     @else
-                                      @if($GetDocComplete != Null)
-                                        <input type="text" name="Statusbuyer" value="{{ $data->Status_buyer }}" class="form-control form-control-sm" readonly/>
-                                      @else
+                                      @if($Recontract == 'Y')
                                         <select name="Statusbuyer" class="form-control form-control-sm">
                                           <option value="" disabled selected>--- เลือกสถานะ ---</option>
                                           @foreach ($Statusby as $key => $value)
                                             <option value="{{$key}}" {{ ($key == $data->Status_buyer) ? 'selected' : '' }}>{{$value}}</option>
                                           @endforeach
                                         </select>
+                                      @else 
+                                        @if($GetDocComplete != Null)
+                                          <input type="text" name="Statusbuyer" value="{{ $data->Status_buyer }}" class="form-control form-control-sm" readonly/>
+                                        @else
+                                          <select name="Statusbuyer" class="form-control form-control-sm">
+                                            <option value="" disabled selected>--- เลือกสถานะ ---</option>
+                                            @foreach ($Statusby as $key => $value)
+                                              <option value="{{$key}}" {{ ($key == $data->Status_buyer) ? 'selected' : '' }}>{{$value}}</option>
+                                            @endforeach
+                                          </select>
+                                        @endif
                                       @endif
                                     @endif
                                   </div>
@@ -587,7 +681,7 @@
                                     @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                       <input type="text" name="Phonebuyer" value="{{ $data->Phone_buyer }}" class="form-control form-control-sm"  placeholder="ป้อนเบอร์โทรศัพท์" data-inputmask="&quot;mask&quot;:&quot;999-9999999,999-9999999&quot;" data-mask=""/>
                                     @else
-                                      <input type="text" name="Phonebuyer" value="{{ $data->Phone_buyer }}" class="form-control form-control-sm"  placeholder="ป้อนเบอร์โทรศัพท์" data-inputmask="&quot;mask&quot;:&quot;999-9999999,999-9999999&quot;" data-mask="" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                      <input type="text" name="Phonebuyer" value="{{ $data->Phone_buyer }}" class="form-control form-control-sm"  placeholder="ป้อนเบอร์โทรศัพท์" data-inputmask="&quot;mask&quot;:&quot;999-9999999,999-9999999&quot;" data-mask="" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}/>
                                     @endif
                                   </div>
                                 </div>
@@ -599,7 +693,7 @@
                                     @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                       <input type="text" name="Phone2buyer" value="{{ $data->Phone2_buyer }}" class="form-control form-control-sm"  placeholder="ป้อนเบอร์โทรอื่นๆ" />
                                     @else
-                                      <input type="text" name="Phone2buyer" value="{{ $data->Phone2_buyer }}" class="form-control form-control-sm"  placeholder="ป้อนเบอร์โทรอื่นๆ" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                      <input type="text" name="Phone2buyer" value="{{ $data->Phone2_buyer }}" class="form-control form-control-sm"  placeholder="ป้อนเบอร์โทรอื่นๆ" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}/>
                                     @endif
                                   </div>
                                 </div>
@@ -614,7 +708,7 @@
                                     @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                       <input type="text" name="Idcardbuyer" value="{{ $data->Idcard_buyer }}" class="form-control form-control-sm"  placeholder="ป้อนเลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask=""/>
                                     @else
-                                      <input type="text" name="Idcardbuyer" value="{{ $data->Idcard_buyer }}" class="form-control form-control-sm"  placeholder="ป้อนเลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask="" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                      <input type="text" name="Idcardbuyer" value="{{ $data->Idcard_buyer }}" class="form-control form-control-sm"  placeholder="ป้อนเลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask="" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}/>
                                     @endif
                                   </div>
                                 </div>
@@ -626,7 +720,7 @@
                                     @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                       <input type="text" name="Matebuyer" value="{{ $data->Mate_buyer }}" class="form-control form-control-sm"  placeholder="ป้อนคู่สมรส" />
                                     @else
-                                      <input type="text" name="Matebuyer" value="{{ $data->Mate_buyer }}" class="form-control form-control-sm"  placeholder="ป้อนคู่สมรส" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                      <input type="text" name="Matebuyer" value="{{ $data->Mate_buyer }}" class="form-control form-control-sm"  placeholder="ป้อนคู่สมรส" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}/>
                                     @endif
                                   </div>
                                 </div>
@@ -646,15 +740,24 @@
                                         @endforeach
                                       </select>
                                     @else
-                                      @if($GetDocComplete != Null)
-                                        <input type="text" name="Addressbuyer" value="{{ $data->Address_buyer }}" class="form-control form-control-sm"  placeholder="เลือกที่อยู่" readonly/>
-                                      @else
+                                      @if($Recontract == 'Y')
                                         <select name="Addressbuyer" class="form-control form-control-sm" >
                                           <option value=""  selected>--- เลือกที่อยู่ ---</option>
                                           @foreach ($Addby as $key => $value)
                                             <option value="{{$key}}" {{ ($key == $data->Address_buyer) ? 'selected' : '' }}>{{$value}}</option>
                                           @endforeach
                                         </select>
+                                      @else 
+                                        @if($GetDocComplete != Null)
+                                          <input type="text" name="Addressbuyer" value="{{ $data->Address_buyer }}" class="form-control form-control-sm"  placeholder="เลือกที่อยู่" readonly/>
+                                        @else
+                                          <select name="Addressbuyer" class="form-control form-control-sm" >
+                                            <option value=""  selected>--- เลือกที่อยู่ ---</option>
+                                            @foreach ($Addby as $key => $value)
+                                              <option value="{{$key}}" {{ ($key == $data->Address_buyer) ? 'selected' : '' }}>{{$value}}</option>
+                                            @endforeach
+                                          </select>
+                                        @endif
                                       @endif
                                     @endif
                                   </div>
@@ -667,7 +770,7 @@
                                     @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                       <input type="text" name="AddNbuyer" value="{{ $data->AddN_buyer }}" class="form-control form-control-sm"  placeholder="ที่อยู่ปัจจุบัน/ส่งเอกสาร" />
                                     @else
-                                      <input type="text" name="AddNbuyer" value="{{ $data->AddN_buyer }}" class="form-control form-control-sm"  placeholder="ที่อยู่ปัจจุบัน/ส่งเอกสาร" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                      <input type="text" name="AddNbuyer" value="{{ $data->AddN_buyer }}" class="form-control form-control-sm"  placeholder="ที่อยู่ปัจจุบัน/ส่งเอกสาร" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}/>
                                     @endif
                                   </div>
                                 </div>
@@ -682,7 +785,7 @@
                                     @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                       <input type="text" name="StatusAddbuyer" value="{{ $data->StatusAdd_buyer }}" class="form-control form-control-sm"  placeholder="ป้อนรายละเอียดที่อยู่" />
                                     @else
-                                      <input type="text" name="StatusAddbuyer" value="{{ $data->StatusAdd_buyer }}" class="form-control form-control-sm"  placeholder="ป้อนรายละเอียดที่อยู่" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                      <input type="text" name="StatusAddbuyer" value="{{ $data->StatusAdd_buyer }}" class="form-control form-control-sm"  placeholder="ป้อนรายละเอียดที่อยู่" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}/>
                                     @endif
                                   </div>
                                 </div>
@@ -694,7 +797,7 @@
                                     @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                       <input type="text" name="Workplacebuyer" value="{{ $data->Workplace_buyer }}" class="form-control form-control-sm"  placeholder="ป้อนสถานที่ทำงาน" />
                                     @else
-                                      <input type="text" name="Workplacebuyer" value="{{ $data->Workplace_buyer }}" class="form-control form-control-sm"  placeholder="ป้อนสถานที่ทำงาน" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                      <input type="text" name="Workplacebuyer" value="{{ $data->Workplace_buyer }}" class="form-control form-control-sm"  placeholder="ป้อนสถานที่ทำงาน" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}/>
                                     @endif
                                   </div>
                                 </div>
@@ -714,15 +817,24 @@
                                         @endforeach
                                       </select>
                                     @else
-                                      @if($GetDocComplete != Null)
-                                        <input type="text" name="Housebuyer" value="{{ $data->House_buyer }}" class="form-control form-control-sm"  placeholder="เลือกลักษณะบ้าน" readonly/>
-                                      @else
+                                      @if($Recontract == 'Y')
                                         <select name="Housebuyer" class="form-control form-control-sm" >
                                           <option value="" selected>--- เลือกลักษณะบ้าน ---</option>
                                           @foreach ($Houseby as $key => $value)
                                           <option value="{{$key}}" {{ ($key == $data->House_buyer) ? 'selected' : '' }}>{{$value}}</option>
                                           @endforeach
                                         </select>
+                                      @else 
+                                        @if($GetDocComplete != Null)
+                                          <input type="text" name="Housebuyer" value="{{ $data->House_buyer }}" class="form-control form-control-sm"  placeholder="เลือกลักษณะบ้าน" readonly/>
+                                        @else
+                                          <select name="Housebuyer" class="form-control form-control-sm" >
+                                            <option value="" selected>--- เลือกลักษณะบ้าน ---</option>
+                                            @foreach ($Houseby as $key => $value)
+                                            <option value="{{$key}}" {{ ($key == $data->House_buyer) ? 'selected' : '' }}>{{$value}}</option>
+                                            @endforeach
+                                          </select>
+                                        @endif
                                       @endif
                                     @endif
                                   </div>
@@ -740,15 +852,24 @@
                                         @endforeach
                                       </select>
                                     @else
-                                      @if($GetDocComplete != Null)
-                                        <input type="text" name="securitiesbuyer" value="{{ $data->securities_buyer }}" class="form-control form-control-sm"  placeholder="ประเภทหลักทรัพย์" readonly/>
-                                      @else
+                                      @if($Recontract == 'Y')
                                         <select name="securitiesbuyer" class="form-control form-control-sm" >
                                           <option value="" selected>--- ประเภทหลักทรัพย์ ---</option>
                                           @foreach ($securitiesSPp as $key => $value)
                                             <option value="{{$key}}" {{ ($key == $data->securities_buyer) ? 'selected' : '' }}>{{$value}}</option>
                                           @endforeach
                                         </select>
+                                      @else 
+                                        @if($GetDocComplete != Null)
+                                          <input type="text" name="securitiesbuyer" value="{{ $data->securities_buyer }}" class="form-control form-control-sm"  placeholder="ประเภทหลักทรัพย์" readonly/>
+                                        @else
+                                          <select name="securitiesbuyer" class="form-control form-control-sm" >
+                                            <option value="" selected>--- ประเภทหลักทรัพย์ ---</option>
+                                            @foreach ($securitiesSPp as $key => $value)
+                                              <option value="{{$key}}" {{ ($key == $data->securities_buyer) ? 'selected' : '' }}>{{$value}}</option>
+                                            @endforeach
+                                          </select>
+                                        @endif
                                       @endif
                                     @endif
                                   </div>
@@ -764,7 +885,7 @@
                                     @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                       <input type="text" name="deednumberbuyer" value="{{$data->deednumber_buyer}}" class="form-control form-control-sm"  placeholder="เลขที่โฉนด" />
                                     @else
-                                      <input type="text" name="deednumberbuyer" value="{{$data->deednumber_buyer}}" class="form-control form-control-sm"  placeholder="เลขที่โฉนด" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                      <input type="text" name="deednumberbuyer" value="{{$data->deednumber_buyer}}" class="form-control form-control-sm"  placeholder="เลขที่โฉนด" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}/>
                                     @endif
                                   </div>
                                 </div>
@@ -776,7 +897,7 @@
                                     @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                       <input type="text" name="areabuyer" value="{{$data->area_buyer}}" class="form-control form-control-sm"  placeholder="เนื้อที่" data-inputmask="&quot;mask&quot;:&quot;99-9-99&quot;" data-mask=""/>
                                     @else
-                                      <input type="text" name="areabuyer" value="{{$data->area_buyer}}" class="form-control form-control-sm"  placeholder="เนื้อที่" data-inputmask="&quot;mask&quot;:&quot;99-9-99&quot;" data-mask="" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                      <input type="text" name="areabuyer" value="{{$data->area_buyer}}" class="form-control form-control-sm"  placeholder="เนื้อที่" data-inputmask="&quot;mask&quot;:&quot;99-9-99&quot;" data-mask="" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}/>
                                     @endif
                                   </div>
                                 </div>
@@ -796,15 +917,24 @@
                                         @endforeach
                                       </select>
                                     @else
-                                      @if($GetDocComplete != Null)
-                                        <input type="text" name="HouseStylebuyer" value="{{ $data->HouseStyle_buyer }}" class="form-control form-control-sm"  placeholder="เลือกประเภทบ้าน" readonly/>
-                                      @else
+                                      @if($Recontract == 'Y')
                                         <select name="HouseStylebuyer" class="form-control form-control-sm" >
                                           <option value="" selected>--- ประเภทบ้าน ---</option>
                                           @foreach ($HouseStyleby as $key => $value)
                                             <option value="{{$key}}" {{ ($key == $data->HouseStyle_buyer) ? 'selected' : '' }}>{{$value}}</option>
                                           @endforeach
                                         </select>
+                                      @else 
+                                        @if($GetDocComplete != Null)
+                                          <input type="text" name="HouseStylebuyer" value="{{ $data->HouseStyle_buyer }}" class="form-control form-control-sm"  placeholder="เลือกประเภทบ้าน" readonly/>
+                                        @else
+                                          <select name="HouseStylebuyer" class="form-control form-control-sm" >
+                                            <option value="" selected>--- ประเภทบ้าน ---</option>
+                                            @foreach ($HouseStyleby as $key => $value)
+                                              <option value="{{$key}}" {{ ($key == $data->HouseStyle_buyer) ? 'selected' : '' }}>{{$value}}</option>
+                                            @endforeach
+                                          </select>
+                                        @endif
                                       @endif
                                     @endif
                                   </div>
@@ -822,15 +952,24 @@
                                         @endforeach
                                       </select>
                                     @else
-                                      @if($GetDocComplete != Null)
-                                        <input type="text" name="Driverbuyer" value="{{ $data->Driver_buyer }}" class="form-control form-control-sm"  placeholder="เลือกใบขับขี่" readonly/>
-                                      @else
+                                      @if($Recontract == 'Y') 
                                         <select name="Driverbuyer" class="form-control form-control-sm" >
                                           <option value="" selected>--- เลือกใบขับขี่ ---</option>
                                           @foreach ($Driverby as $key => $value)
                                             <option value="{{$key}}" {{ ($key == $data->Driver_buyer) ? 'selected' : '' }}>{{$value}}</option>
                                           @endforeach
                                         </select>
+                                      @else 
+                                        @if($GetDocComplete != Null)
+                                          <input type="text" name="Driverbuyer" value="{{ $data->Driver_buyer }}" class="form-control form-control-sm"  placeholder="เลือกใบขับขี่" readonly/>
+                                        @else
+                                          <select name="Driverbuyer" class="form-control form-control-sm" >
+                                            <option value="" selected>--- เลือกใบขับขี่ ---</option>
+                                            @foreach ($Driverby as $key => $value)
+                                              <option value="{{$key}}" {{ ($key == $data->Driver_buyer) ? 'selected' : '' }}>{{$value}}</option>
+                                            @endforeach
+                                          </select>
+                                        @endif
                                       @endif
                                     @endif
                                   </div>
@@ -851,15 +990,24 @@
                                         @endforeach
                                       </select>
                                     @else
-                                      @if($GetDocComplete != Null)
-                                        <input type="text" name="Purchasebuyer" value="{{ $data->Purchase_buyer }}" class="form-control form-control-sm" placeholder="ซื้อ" readonly/>
-                                      @else
+                                      @if($Recontract == 'Y')
                                         <select name="Purchasebuyer" class="form-control form-control-sm">
                                           <option value="" selected>--- ซื้อ ---</option>
                                           @foreach ($HisCarby as $key => $value)
                                             <option value="{{$key}}" {{ ($key == $data->Purchase_buyer) ? 'selected' : '' }}>{{$value}}</option>
                                           @endforeach
                                         </select>
+                                      @else 
+                                        @if($GetDocComplete != Null)
+                                          <input type="text" name="Purchasebuyer" value="{{ $data->Purchase_buyer }}" class="form-control form-control-sm" placeholder="ซื้อ" readonly/>
+                                        @else
+                                          <select name="Purchasebuyer" class="form-control form-control-sm">
+                                            <option value="" selected>--- ซื้อ ---</option>
+                                            @foreach ($HisCarby as $key => $value)
+                                              <option value="{{$key}}" {{ ($key == $data->Purchase_buyer) ? 'selected' : '' }}>{{$value}}</option>
+                                            @endforeach
+                                          </select>
+                                        @endif
                                       @endif
                                     @endif
                                   </div>
@@ -872,15 +1020,24 @@
                                         @endforeach
                                       </select>
                                     @else
-                                      @if($GetDocComplete != Null)
-                                        <input type="text" name="Supportbuyer" value="{{ $data->Support_buyer }}" class="form-control form-control-sm" placeholder="ค้ำ" readonly/>
-                                      @else
+                                      @if($Recontract == 'Y')
                                         <select name="Supportbuyer" class="form-control form-control-sm">
                                           <option value="" selected>--- ค้ำ ---</option>
                                           @foreach ($HisCarby as $key => $value)
                                             <option value="{{$key}}" {{ ($key == $data->Support_buyer) ? 'selected' : '' }}>{{$value}}</option>
                                           @endforeach
                                         </select>
+                                      @else 
+                                        @if($GetDocComplete != Null)
+                                          <input type="text" name="Supportbuyer" value="{{ $data->Support_buyer }}" class="form-control form-control-sm" placeholder="ค้ำ" readonly/>
+                                        @else
+                                          <select name="Supportbuyer" class="form-control form-control-sm">
+                                            <option value="" selected>--- ค้ำ ---</option>
+                                            @foreach ($HisCarby as $key => $value)
+                                              <option value="{{$key}}" {{ ($key == $data->Support_buyer) ? 'selected' : '' }}>{{$value}}</option>
+                                            @endforeach
+                                          </select>
+                                        @endif
                                       @endif
                                     @endif
                                   </div>
@@ -898,15 +1055,24 @@
                                         @endforeach
                                       </select>
                                     @else
-                                      @if($GetDocComplete != Null)
-                                        <input type="text" name="Gradebuyer" value="{{ $data->Gradebuyer_car }}" class="form-control form-control-sm"  placeholder="เลือกสถานะผู้เช่าซื้อ" readonly/>
-                                      @else
+                                      @if($Recontract == 'Y')
                                         <select name="Gradebuyer" class="form-control form-control-sm" >
                                           <option value="" selected>--- สถานะผู้เช่าซื้อ ---</option>
                                           @foreach ($GradeBuyer as $key => $value)
                                           <option value="{{$key}}" {{ ($key == $data->Gradebuyer_car) ? 'selected' : '' }}>{{$value}}</option>
                                           @endforeach
                                         </select>
+                                      @else 
+                                        @if($GetDocComplete != Null)
+                                          <input type="text" name="Gradebuyer" value="{{ $data->Gradebuyer_car }}" class="form-control form-control-sm"  placeholder="เลือกสถานะผู้เช่าซื้อ" readonly/>
+                                        @else
+                                          <select name="Gradebuyer" class="form-control form-control-sm" >
+                                            <option value="" selected>--- สถานะผู้เช่าซื้อ ---</option>
+                                            @foreach ($GradeBuyer as $key => $value)
+                                            <option value="{{$key}}" {{ ($key == $data->Gradebuyer_car) ? 'selected' : '' }}>{{$value}}</option>
+                                            @endforeach
+                                          </select>
+                                        @endif
                                       @endif
                                     @endif
                                   </div>
@@ -949,36 +1115,20 @@
                                     </div>
                                   @endif
                                 @else
-                                  @if($data->Approvers_car == Null)
-                                    @if($data->License_car != '')
+                                  @if($Recontract == 'Y')
                                       <div class="file-loading">
                                         <input id="image-file" type="file" name="file_image[]" accept="image/*" data-min-file-count="1" multiple>
                                       </div>
-                                    @endif
-                                  @endif
-                                @endif
-                                <!-- <div class="form-group">
-                                  @if($countImage != 0)
-                                    @php
-                                      $path = $data->License_car;
-                                    @endphp
-                                    <p></p>
-                                    @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
-                                      <a href="{{ action('AnalysController@deleteImageAll',[$data->id,$path]) }}" class="btn btn-danger pull-left DeleteImage" title="ลบรูปภาพทั้งหมด"> ลบรูปภาพทั้งหมด..</a>
-                                      <a href="{{ action('AnalysController@deleteImageEach',[$type,$data->id,$fdate,$tdate,$status,$path]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
-                                        <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ..
-                                      </a>
-                                    @else
-                                      @if($data->Approvers_car == Null)
-                                        @if($GetDocComplete == Null)
-                                        <a href="{{ action('AnalysController@deleteImageEach',[$type,$data->id,$fdate,$tdate,$status,$path]) }}" class="btn btn-danger pull-right" title="การจัดการรูป">
-                                          <span class="glyphicon glyphicon-picture"></span> ลบรูปภาพ..
-                                        </a>
-                                        @endif
+                                  @else
+                                    @if($data->Approvers_car == Null)
+                                      @if($data->License_car != '')
+                                        <div class="file-loading">
+                                          <input id="image-file" type="file" name="file_image[]" accept="image/*" data-min-file-count="1" multiple>
+                                        </div>
                                       @endif
                                     @endif
                                   @endif
-                                </div> -->
+                                @endif
                               </div>
                               <div class="col-md-8">
                                 <div class="row">
@@ -987,21 +1137,13 @@
                                     @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                       <textarea class="form-control" name="CareerDetail" rows="5" placeholder="ป้อนรายละเอียด">{{$data->CareerDetail_buyer}}</textarea>
                                     @else
-                                        @if($GetDocComplete != Null)
-                                          <textarea class="form-control" name="CareerDetail" rows="5" placeholder="ป้อนรายละเอียด" readonly>{{$data->CareerDetail_buyer}}</textarea>
-                                        @else
-                                          <textarea class="form-control" name="CareerDetail" rows="5" placeholder="ป้อนรายละเอียด">{{$data->CareerDetail_buyer}}</textarea>
-                                        @endif
+                                      <textarea class="form-control" name="CareerDetail" rows="5" placeholder="ป้อนรายละเอียด" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}>{{$data->CareerDetail_buyer}}</textarea>
                                     @endif
                                     <h5 class="text-center"><b>วัตถุประสงค์สินเชื่อ</b></h5>
                                     @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                         <textarea class="form-control" name="objectivecar" rows="5" placeholder="ป้อนวัตถุประสงค์สินเชื่อ">{{$data->Objective_car}}</textarea>
                                     @else
-                                        @if($GetDocComplete != Null)
-                                          <textarea class="form-control" name="objectivecar" rows="5" placeholder="ป้อนวัตถุประสงค์สินเชื่อ" readonly>{{$data->Objective_car}}</textarea>
-                                        @else
-                                          <textarea class="form-control" name="objectivecar" rows="5" placeholder="ป้อนวัตถุประสงค์สินเชื่อ">{{$data->Objective_car}}</textarea>
-                                        @endif
+                                        <textarea class="form-control" name="objectivecar" rows="5" placeholder="ป้อนวัตถุประสงค์สินเชื่อ" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}>{{$data->Objective_car}}</textarea>
                                     @endif
                                   </div>
                                   <div class="col-md-6">
@@ -1009,21 +1151,13 @@
                                     @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                       <textarea class="form-control" name="ApproveDetail" rows="5" placeholder="ป้อนเหตุผล">{{$data->ApproveDetail_buyer}}</textarea>
                                     @else
-                                        @if($GetDocComplete != Null)
-                                          <textarea class="form-control" name="ApproveDetail" rows="5" placeholder="ป้อนเหตุผล" readonly>{{$data->ApproveDetail_buyer}}</textarea>
-                                        @else
-                                          <textarea class="form-control" name="ApproveDetail" rows="5" placeholder="ป้อนเหตุผล">{{$data->ApproveDetail_buyer}}</textarea>
-                                        @endif
+                                      <textarea class="form-control" name="ApproveDetail" rows="5" placeholder="ป้อนเหตุผล" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}>{{$data->ApproveDetail_buyer}}</textarea>
                                     @endif
                                     <h5 class="text-center text-red"><b>หมายเหตุ / กรณีพิเศษ</b></h5>
                                     @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER" or auth::user()->position == "AUDIT")
                                         <textarea class="form-control" name="Notecar" rows="5" placeholder="ป้อนหมายเหตุ">{{$data->Note_car}}</textarea>
                                     @else
-                                        @if($GetDocComplete != Null)
-                                          <textarea class="form-control" name="Notecar" rows="5" placeholder="ป้อนหมายเหตุ" readonly>{{$data->Note_car}}</textarea>
-                                        @else
-                                          <textarea class="form-control" name="Notecar" rows="5" placeholder="ป้อนหมายเหตุ">{{$data->Note_car}}</textarea>
-                                        @endif
+                                        <textarea class="form-control" name="Notecar" rows="5" placeholder="ป้อนหมายเหตุ" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}>{{$data->Note_car}}</textarea>
                                     @endif
                                   </div>
                                 </div>
@@ -1035,14 +1169,10 @@
                               <div class="col-md-4"></div>
                               <div class="col-md-4">
                                 <h5 class="text-center"><b>ผลการตรวจสอบลูกค้า</b></h5>
-                                  @if(auth::user()->type == "Admin")
+                                  @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER" or auth::user()->position == "AUDIT")
                                     <textarea class="form-control mb-3" name="Memo" rows="3" placeholder="ป้อนเหตุผล">{{$data->Memo_buyer}}</textarea>
                                   @else
-                                    @if($data->ManagerApp_car != Null)
-                                      <textarea class="form-control mb-3" name="Memo" rows="3" placeholder="ป้อนเหตุผล" readonly>{{$data->Memo_buyer}}</textarea>
-                                    @else 
-                                      <textarea class="form-control mb-3" name="Memo" rows="3" placeholder="ป้อนเหตุผล">{{$data->Memo_buyer}}</textarea>
-                                    @endif 
+                                      <textarea class="form-control mb-3" name="Memo" rows="3" placeholder="ป้อนเหตุผล" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}>{{$data->Memo_buyer}}</textarea>
                                   @endif
                                   <div class="card">
                                     <h5 class="text-center"><b>ความพึงพอใจลูกค้า</b></h5>
@@ -1083,14 +1213,10 @@
                               </div>
                               <div class="col-md-4">
                                 <h5 class="text-center"><b>ผลการตรวจสอบนายหน้า</b></h5>
-                                  @if(auth::user()->type == "Admin")
+                                  @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER" or auth::user()->position == "AUDIT")
                                     <textarea class="form-control mb-3" name="Memobroker" rows="3" placeholder="ป้อนเหตุผล">{{$data->Memo_broker}}</textarea>
                                   @else
-                                    @if($data->ManagerApp_car != Null)
-                                      <textarea class="form-control mb-3" name="Memobroker" rows="3" placeholder="ป้อนเหตุผล" readonly>{{$data->Memo_broker}}</textarea>
-                                    @else
-                                      <textarea class="form-control mb-3" name="Memobroker" rows="3" placeholder="ป้อนเหตุผล">{{$data->Memo_broker}}</textarea>
-                                    @endif 
+                                    <textarea class="form-control mb-3" name="Memobroker" rows="3" placeholder="ป้อนเหตุผล" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}>{{$data->Memo_broker}}</textarea>
                                   @endif
                                   <div class="card">
                                     <h5 class="text-center"><b>ความพึงพอใจนายหน้า</b></h5>
@@ -1227,7 +1353,7 @@
                                   @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                     <input type="text" name="nameSP" value="{{$data->name_SP}}" class="form-control form-control-sm" placeholder="ชื่อ" />
                                   @else
-                                    <input type="text" name="nameSP" value="{{$data->name_SP}}" class="form-control form-control-sm" placeholder="ชื่อ" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                    <input type="text" name="nameSP" value="{{$data->name_SP}}" class="form-control form-control-sm" placeholder="ชื่อ" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}/>
                                   @endif
                                 </div>
                               </div>
@@ -1239,7 +1365,7 @@
                                   @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                     <input type="text" name="lnameSP" value="{{$data->lname_SP}}" class="form-control form-control-sm" placeholder="นามสกุล" />
                                   @else
-                                    <input type="text" name="lnameSP" value="{{$data->lname_SP}}" class="form-control form-control-sm" placeholder="นามสกุล" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                    <input type="text" name="lnameSP" value="{{$data->lname_SP}}" class="form-control form-control-sm" placeholder="นามสกุล" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}/>
                                   @endif
                                 </div>
                               </div>
@@ -1254,7 +1380,7 @@
                                   @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                     <input type="text" name="niknameSP" value="{{$data->nikname_SP}}" class="form-control form-control-sm" placeholder="ชื่อเล่น" />
                                   @else
-                                    <input type="text" name="niknameSP" value="{{$data->nikname_SP}}" class="form-control form-control-sm" placeholder="ชื่อเล่น" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                    <input type="text" name="niknameSP" value="{{$data->nikname_SP}}" class="form-control form-control-sm" placeholder="ชื่อเล่น" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}/>
                                   @endif
                                 </div>
                               </div>
@@ -1271,15 +1397,24 @@
                                       @endforeach
                                     </select>
                                   @else
-                                    @if($GetDocComplete != Null)
-                                      <input type="text" name="statusSP" value="{{$data->status_SP}}" class="form-control form-control-sm" placeholder="เลือกสถานะ" readonly/>
-                                    @else
+                                    @if($Recontract == 'Y')
                                       <select name="statusSP" class="form-control form-control-sm">
                                         <option value="" selected>--- สถานะ ---</option>
                                           @foreach ($Statusby as $key => $value)
                                             <option value="{{$key}}" {{ ($key == $data->status_SP) ? 'selected' : '' }}>{{$value}}</option>
                                           @endforeach
                                       </select>
+                                    @else 
+                                      @if($GetDocComplete != Null)
+                                        <input type="text" name="statusSP" value="{{$data->status_SP}}" class="form-control form-control-sm" placeholder="เลือกสถานะ" readonly/>
+                                      @else
+                                        <select name="statusSP" class="form-control form-control-sm">
+                                          <option value="" selected>--- สถานะ ---</option>
+                                            @foreach ($Statusby as $key => $value)
+                                              <option value="{{$key}}" {{ ($key == $data->status_SP) ? 'selected' : '' }}>{{$value}}</option>
+                                            @endforeach
+                                        </select>
+                                      @endif
                                     @endif
                                   @endif
                                 </div>
@@ -1295,7 +1430,7 @@
                                     @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                     <input type="text" name="telSP" value="{{$data->tel_SP}}" class="form-control form-control-sm" placeholder="เบอร์โทร" data-inputmask="&quot;mask&quot;:&quot;999-9999999,999-9999999&quot;" data-mask=""/>
                                   @else
-                                    <input type="text" name="telSP" value="{{$data->tel_SP}}" class="form-control form-control-sm" placeholder="เบอร์โทร" data-inputmask="&quot;mask&quot;:&quot;999-9999999,999-9999999&quot;" data-mask="" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                    <input type="text" name="telSP" value="{{$data->tel_SP}}" class="form-control form-control-sm" placeholder="เบอร์โทร" data-inputmask="&quot;mask&quot;:&quot;999-9999999,999-9999999&quot;" data-mask="" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}/>
                                   @endif
                                 </div>
                               </div>
@@ -1312,15 +1447,24 @@
                                         @endforeach
                                     </select>
                                   @else
-                                    @if($GetDocComplete != Null)
-                                      <input type="text" name="relationSP" value="{{$data->relation_SP}}" class="form-control form-control-sm" placeholder="เลือกความสัมพันธ์" readonly/>
-                                    @else
+                                    @if($Recontract == 'Y')
                                       <select name="relationSP" class="form-control form-control-sm">
                                         <option value="" selected>--- ความสัมพันธ์ ---</option>
                                         @foreach ($relationSPp as $key => $value)
                                           <option value="{{$key}}" {{ ($key == $data->relation_SP) ? 'selected' : '' }}>{{$value}}</option>
                                         @endforeach
                                       </select>
+                                    @else 
+                                      @if($GetDocComplete != Null)
+                                        <input type="text" name="relationSP" value="{{$data->relation_SP}}" class="form-control form-control-sm" placeholder="เลือกความสัมพันธ์" readonly/>
+                                      @else
+                                        <select name="relationSP" class="form-control form-control-sm">
+                                          <option value="" selected>--- ความสัมพันธ์ ---</option>
+                                          @foreach ($relationSPp as $key => $value)
+                                            <option value="{{$key}}" {{ ($key == $data->relation_SP) ? 'selected' : '' }}>{{$value}}</option>
+                                          @endforeach
+                                        </select>
+                                      @endif
                                     @endif
                                   @endif
                                 </div>
@@ -1336,7 +1480,7 @@
                                   @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                     <input type="text" name="idcardSP" value="{{$data->idcard_SP}}" class="form-control form-control-sm" placeholder="เลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask=""/>
                                   @else
-                                    <input type="text" name="idcardSP" value="{{$data->idcard_SP}}" class="form-control form-control-sm" placeholder="เลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask="" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                    <input type="text" name="idcardSP" value="{{$data->idcard_SP}}" class="form-control form-control-sm" placeholder="เลขบัตรประชาชน" data-inputmask="&quot;mask&quot;:&quot;9-9999-99999-99-9&quot;" data-mask="" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}/>
                                   @endif
                                 </div>
                               </div>
@@ -1348,7 +1492,7 @@
                                   @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                     <input type="text" name="mateSP" value="{{$data->mate_SP}}" class="form-control form-control-sm" placeholder="คู่สมรส" />
                                   @else
-                                    <input type="text" name="mateSP" value="{{$data->mate_SP}}" class="form-control form-control-sm" placeholder="คู่สมรส" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                    <input type="text" name="mateSP" value="{{$data->mate_SP}}" class="form-control form-control-sm" placeholder="คู่สมรส" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}/>
                                   @endif
                                 </div>
                               </div>
@@ -1368,15 +1512,24 @@
                                         @endforeach
                                     </select>
                                   @else
-                                    @if($GetDocComplete != Null)
-                                    <input type="text" name="addSP" value="{{$data->add_SP}}" class="form-control form-control-sm" placeholder="เลือกที่อยู่" readonly/>
-                                    @else
+                                    @if($Recontract == 'Y')
                                       <select name="addSP" class="form-control form-control-sm">
                                         <option value="" selected>--- ที่อยู่ ---</option>
                                           @foreach ($Addby as $key => $value)
                                             <option value="{{$key}}" {{ ($key == $data->add_SP) ? 'selected' : '' }}>{{$value}}</option>
                                           @endforeach
                                       </select>
+                                    @else 
+                                      @if($GetDocComplete != Null)
+                                      <input type="text" name="addSP" value="{{$data->add_SP}}" class="form-control form-control-sm" placeholder="เลือกที่อยู่" readonly/>
+                                      @else
+                                        <select name="addSP" class="form-control form-control-sm">
+                                          <option value="" selected>--- ที่อยู่ ---</option>
+                                            @foreach ($Addby as $key => $value)
+                                              <option value="{{$key}}" {{ ($key == $data->add_SP) ? 'selected' : '' }}>{{$value}}</option>
+                                            @endforeach
+                                        </select>
+                                      @endif
                                     @endif
                                   @endif
                                 </div>
@@ -1384,12 +1537,12 @@
                             </div>
                             <div class="col-6">
                               <div class="form-group row mb-0">
-                                <label class="col-sm-3 col-form-label text-right">ที่อยู่ปัจจุบัน/จัดส่งเอกสาร : </label>
+                                <label class="col-sm-3 col-form-label text-right">ที่อยู่ปัจจุบัน/ส่งเอกสาร : </label>
                                 <div class="col-sm-8">
                                   @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                     <input type="text" name="addnowSP" value="{{$data->addnow_SP}}" class="form-control form-control-sm" placeholder="ที่อยู่ปัจจุบัน/จัดส่งเอกสาร" />
                                   @else
-                                    <input type="text" name="addnowSP" value="{{$data->addnow_SP}}" class="form-control form-control-sm" placeholder="ที่อยู่ปัจจุบัน/จัดส่งเอกสาร" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                    <input type="text" name="addnowSP" value="{{$data->addnow_SP}}" class="form-control form-control-sm" placeholder="ที่อยู่ปัจจุบัน/จัดส่งเอกสาร" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}/>
                                   @endif
                                 </div>
                               </div>
@@ -1404,7 +1557,7 @@
                                   @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                     <input type="text" name="statusaddSP" value="{{$data->statusadd_SP}}" class="form-control form-control-sm" placeholder="รายละเอียดที่อยู่" />
                                   @else
-                                    <input type="text" name="statusaddSP" value="{{$data->statusadd_SP}}" class="form-control form-control-sm" placeholder="รายละเอียดที่อยู่" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                    <input type="text" name="statusaddSP" value="{{$data->statusadd_SP}}" class="form-control form-control-sm" placeholder="รายละเอียดที่อยู่" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}/>
                                   @endif
                                 </div>
                               </div>
@@ -1416,7 +1569,7 @@
                                   @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                     <input type="text" name="workplaceSP" value="{{$data->workplace_SP}}" class="form-control form-control-sm" placeholder="สถานที่ทำงาน" />
                                   @else
-                                    <input type="text" name="workplaceSP" value="{{$data->workplace_SP}}" class="form-control form-control-sm" placeholder="สถานที่ทำงาน" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                    <input type="text" name="workplaceSP" value="{{$data->workplace_SP}}" class="form-control form-control-sm" placeholder="สถานที่ทำงาน" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}/>
                                   @endif
                                 </div>
                               </div>
@@ -1436,15 +1589,24 @@
                                         @endforeach
                                     </select>
                                   @else
-                                    @if($GetDocComplete != Null)
-                                      <input type="text" name="houseSP" value="{{$data->house_SP}}" class="form-control form-control-sm" placeholder="เลือกลักษณะบ้าน" readonly/>
-                                    @else
+                                    @if($Recontract == 'Y')
                                       <select name="houseSP" class="form-control form-control-sm">
                                         <option value="" selected>--- เลือกลักษณะบ้าน ---</option>
                                           @foreach ($Houseby as $key => $value)
                                             <option value="{{$key}}" {{ ($key == $data->house_SP) ? 'selected' : '' }}>{{$value}}</option>
                                           @endforeach
                                       </select>
+                                    @else 
+                                      @if($GetDocComplete != Null)
+                                        <input type="text" name="houseSP" value="{{$data->house_SP}}" class="form-control form-control-sm" placeholder="เลือกลักษณะบ้าน" readonly/>
+                                      @else
+                                        <select name="houseSP" class="form-control form-control-sm">
+                                          <option value="" selected>--- เลือกลักษณะบ้าน ---</option>
+                                            @foreach ($Houseby as $key => $value)
+                                              <option value="{{$key}}" {{ ($key == $data->house_SP) ? 'selected' : '' }}>{{$value}}</option>
+                                            @endforeach
+                                        </select>
+                                      @endif
                                     @endif
                                   @endif
                                 </div>
@@ -1462,15 +1624,24 @@
                                         @endforeach
                                     </select>
                                   @else
-                                    @if($GetDocComplete != Null)
-                                      <input type="text" name="securitiesSP" value="{{$data->securities_SP}}" class="form-control form-control-sm" placeholder="ประเภทหลักทรัพย์" readonly/>
-                                    @else
+                                    @if($Recontract == 'Y')
                                       <select name="securitiesSP" class="form-control form-control-sm">
                                         <option value="" selected>--- ประเภทหลักทรัพย์ ---</option>
                                           @foreach ($securitiesSPp as $key => $value)
                                             <option value="{{$key}}" {{ ($key == $data->securities_SP) ? 'selected' : '' }}>{{$value}}</option>
                                           @endforeach
                                       </select>
+                                    @else 
+                                      @if($GetDocComplete != Null)
+                                        <input type="text" name="securitiesSP" value="{{$data->securities_SP}}" class="form-control form-control-sm" placeholder="ประเภทหลักทรัพย์" readonly/>
+                                      @else
+                                        <select name="securitiesSP" class="form-control form-control-sm">
+                                          <option value="" selected>--- ประเภทหลักทรัพย์ ---</option>
+                                            @foreach ($securitiesSPp as $key => $value)
+                                              <option value="{{$key}}" {{ ($key == $data->securities_SP) ? 'selected' : '' }}>{{$value}}</option>
+                                            @endforeach
+                                        </select>
+                                      @endif
                                     @endif
                                   @endif
                                 </div>
@@ -1486,7 +1657,7 @@
                                   @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                     <input type="text" name="deednumberSP" value="{{$data->deednumber_SP}}" class="form-control form-control-sm" placeholder="เลขที่โฉนด" />
                                   @else
-                                    <input type="text" name="deednumberSP" value="{{$data->deednumber_SP}}" class="form-control form-control-sm" placeholder="เลขที่โฉนด" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                    <input type="text" name="deednumberSP" value="{{$data->deednumber_SP}}" class="form-control form-control-sm" placeholder="เลขที่โฉนด" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}/>
                                   @endif
                                 </div>
                               </div>
@@ -1498,7 +1669,7 @@
                                   @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                     <input type="text" name="areaSP" value="{{$data->area_SP}}" class="form-control form-control-sm" placeholder="เนื้อที่" data-inputmask="&quot;mask&quot;:&quot;99-9-99&quot;" data-mask=""/>
                                   @else
-                                    <input type="text" name="areaSP" value="{{$data->area_SP}}" class="form-control form-control-sm" placeholder="เนื้อที่" data-inputmask="&quot;mask&quot;:&quot;99-9-99&quot;" data-mask="" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                    <input type="text" name="areaSP" value="{{$data->area_SP}}" class="form-control form-control-sm" placeholder="เนื้อที่" data-inputmask="&quot;mask&quot;:&quot;99-9-99&quot;" data-mask="" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}/>
                                   @endif
                                 </div>
                               </div>
@@ -1518,45 +1689,30 @@
                                       @endforeach
                                     </select>
                                   @else
-                                    @if($GetDocComplete != Null)
-                                        <input type="text" name="housestyleSP" value="{{$data->housestyle_SP}}" class="form-control form-control-sm" placeholder="ประเภทบ้าน" readonly/>
-                                    @else
+                                    @if($Recontract == 'Y')
                                       <select name="housestyleSP" class="form-control form-control-sm">
                                         <option value="" selected>--- ประเภทบ้าน ---</option>
                                         @foreach ($HouseStyleby as $key => $value)
                                         <option value="{{$key}}" {{ ($key == $data->housestyle_SP) ? 'selected' : '' }}>{{$value}}</option>
                                         @endforeach
                                       </select>
+                                    @else 
+                                      @if($GetDocComplete != Null)
+                                          <input type="text" name="housestyleSP" value="{{$data->housestyle_SP}}" class="form-control form-control-sm" placeholder="ประเภทบ้าน" readonly/>
+                                      @else
+                                        <select name="housestyleSP" class="form-control form-control-sm">
+                                          <option value="" selected>--- ประเภทบ้าน ---</option>
+                                          @foreach ($HouseStyleby as $key => $value)
+                                          <option value="{{$key}}" {{ ($key == $data->housestyle_SP) ? 'selected' : '' }}>{{$value}}</option>
+                                          @endforeach
+                                        </select>
+                                      @endif
                                     @endif
                                   @endif
                                 </div>
                               </div>
                             </div>
                             <div class="col-6">
-                              <!-- <div class="form-group row mb-0">
-                                <label class="col-sm-3 col-form-label text-right">อาชีพ : </label>
-                                <div class="col-sm-8">
-                                  @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
-                                    <select name="careerSP" class="form-control form-control-sm">
-                                      <option value="" selected>--- อาชีพ ---</option>
-                                      @foreach ($Careerby as $key => $value)
-                                        <option value="{{$key}}" {{ ($key == $data->career_SP) ? 'selected' : '' }}>{{$value}}</option>
-                                      @endforeach
-                                    </select>
-                                  @else
-                                    @if($GetDocComplete != Null)
-                                      <input type="text" name="careerSP" value="{{$data->career_SP}}" class="form-control form-control-sm" placeholder="อาชีพ" readonly/>
-                                    @else
-                                      <select name="careerSP" class="form-control form-control-sm">
-                                        <option value="" selected>--- อาชีพ ---</option>
-                                        @foreach ($Careerby as $key => $value)
-                                          <option value="{{$key}}" {{ ($key == $data->career_SP) ? 'selected' : '' }}>{{$value}}</option>
-                                        @endforeach
-                                      </select>
-                                    @endif
-                                  @endif
-                                </div>
-                              </div> -->
                               <div class="form-group row mb-0">
                                 <label class="col-sm-3 col-form-label text-right">ประวัติซื้อ/ค้ำ  : </label>
                                 <div class="col-sm-4">
@@ -1568,15 +1724,24 @@
                                       @endforeach
                                     </select>
                                   @else
-                                    @if($GetDocComplete != Null)
-                                      <input type="text" name="puchaseSP" value="{{$data->puchase_SP}}" class="form-control form-control-sm" placeholder="ซื้อ" readonly/>
-                                    @else
+                                    @if($Recontract == 'Y')
                                       <select name="puchaseSP" class="form-control form-control-sm">
                                         <option value="" selected>--- ซื้อ ---</option>
                                         @foreach ($HisCarby as $key => $value)
                                           <option value="{{$key}}" {{ ($key == $data->puchase_SP) ? 'selected' : '' }}>{{$value}}</option>
                                         @endforeach
                                       </select>
+                                    @else 
+                                      @if($GetDocComplete != Null)
+                                        <input type="text" name="puchaseSP" value="{{$data->puchase_SP}}" class="form-control form-control-sm" placeholder="ซื้อ" readonly/>
+                                      @else
+                                        <select name="puchaseSP" class="form-control form-control-sm">
+                                          <option value="" selected>--- ซื้อ ---</option>
+                                          @foreach ($HisCarby as $key => $value)
+                                            <option value="{{$key}}" {{ ($key == $data->puchase_SP) ? 'selected' : '' }}>{{$value}}</option>
+                                          @endforeach
+                                        </select>
+                                      @endif
                                     @endif
                                   @endif
                                 </div>
@@ -1589,85 +1754,28 @@
                                       @endforeach
                                     </select>
                                   @else
-                                    @if($GetDocComplete != Null)
-                                      <input type="text" name="supportSP" value="{{$data->support_SP}}" class="form-control form-control-sm" placeholder="ค้ำ" readonly/>
-                                    @else
+                                    @if($Recontract == 'Y')
                                       <select name="supportSP" class="form-control form-control-sm">
                                         <option value="" selected>--- ค้ำ ---</option>
                                         @foreach ($HisCarby as $key => $value)
                                           <option value="{{$key}}" {{ ($key == $data->support_SP) ? 'selected' : '' }}>{{$value}}</option>
                                         @endforeach
                                       </select>
+                                    @else 
+                                      @if($GetDocComplete != Null)
+                                        <input type="text" name="supportSP" value="{{$data->support_SP}}" class="form-control form-control-sm" placeholder="ค้ำ" readonly/>
+                                      @else
+                                        <select name="supportSP" class="form-control form-control-sm">
+                                          <option value="" selected>--- ค้ำ ---</option>
+                                          @foreach ($HisCarby as $key => $value)
+                                            <option value="{{$key}}" {{ ($key == $data->support_SP) ? 'selected' : '' }}>{{$value}}</option>
+                                          @endforeach
+                                        </select>
+                                      @endif
                                     @endif
                                   @endif
                                 </div>
                               </div>
-                            </div>
-                          </div>
-
-                          <div class="row">
-                            <div class="col-6">
-                              <!-- <div class="form-group row mb-0">
-                                <label class="col-sm-3 col-form-label text-right">รายได้ : </label>
-                                <div class="col-sm-8">
-                                  @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
-                                    <input type="text" id="incomeSP" name="incomeSP" value="{{$data->income_SP}}" class="form-control form-control-sm" oninput="income();"/>
-                                  @else
-                                    @if($GetDocComplete != Null)
-                                        <input type="text" name="incomeSP" value="{{$data->income_SP}}" class="form-control form-control-sm" readonly/>
-                                    @else
-                                      <input type="text" id="incomeSP" name="incomeSP" value="{{$data->income_SP}}" class="form-control form-control-sm" oninput="income();"/>
-                                    @endif
-                                  @endif
-                                </div>
-                              </div> -->
-                            </div>
-                            <div class="col-6">
-                              <!-- <div class="form-group row mb-0">
-                                <label class="col-sm-3 col-form-label text-right">ประวัติซื้อ/ค้ำ  : </label>
-                                <div class="col-sm-4">
-                                  @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
-                                    <select name="puchaseSP" class="form-control form-control-sm">
-                                      <option value="" selected>--- ซื้อ ---</option>
-                                      @foreach ($HisCarby as $key => $value)
-                                        <option value="{{$key}}" {{ ($key == $data->puchase_SP) ? 'selected' : '' }}>{{$value}}</option>
-                                      @endforeach
-                                    </select>
-                                  @else
-                                    @if($GetDocComplete != Null)
-                                      <input type="text" name="puchaseSP" value="{{$data->puchase_SP}}" class="form-control form-control-sm" placeholder="ซื้อ" readonly/>
-                                    @else
-                                      <select name="puchaseSP" class="form-control form-control-sm">
-                                        <option value="" selected>--- ซื้อ ---</option>
-                                        @foreach ($HisCarby as $key => $value)
-                                          <option value="{{$key}}" {{ ($key == $data->puchase_SP) ? 'selected' : '' }}>{{$value}}</option>
-                                        @endforeach
-                                      </select>
-                                    @endif
-                                  @endif
-                                </div>
-                                <div class="col-sm-4">
-                                  @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
-                                    <select name="supportSP" class="form-control form-control-sm">
-                                      <option value="" selected>--- ค้ำ ---</option>
-                                      @foreach ($HisCarby as $key => $value)
-                                        <option value="{{$key}}" {{ ($key == $data->support_SP) ? 'selected' : '' }}>{{$value}}</option>
-                                      @endforeach
-                                    </select>
-                                  @else
-                                    @if($GetDocComplete != Null)
-                                      <input type="text" name="supportSP" value="{{$data->support_SP}}" class="form-control form-control-sm" placeholder="ค้ำ" readonly/>
-                                    @else
-                                      <select name="supportSP" class="form-control form-control-sm">
-                                        <option value="" selected>--- ค้ำ ---</option>
-                                        @foreach ($HisCarby as $key => $value)
-                                          <option value="{{$key}}" {{ ($key == $data->support_SP) ? 'selected' : '' }}>{{$value}}</option>
-                                        @endforeach
-                                      </select>
-                                    @endif
-                                  @endif
-                                </div>
-                              </div> -->
                             </div>
                           </div>
 
@@ -1818,7 +1926,7 @@
                               <div class="form-group row mb-0">
                                 <label class="col-sm-3 col-form-label text-right">ป้ายใหม่ : </label>
                                 <div class="col-sm-8">
-                                  <input type="text" name="Nowlicensecar" value="{{$data->Nowlicense_car}}" class="form-control form-control-sm"  placeholder="ป้ายใหม่" />
+                                  <input type="text" name="Nowlicensecar" value="{{$data->Nowlicense_car}}" class="form-control form-control-sm"  placeholder="ป้ายใหม่" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
                                 </div>
                               </div>
                             </div>
@@ -2027,7 +2135,7 @@
                                 </label>
                                 <div class="col-sm-8">
                                   {{--<input type="text" id="Interestcar" name="Interestcar" class="form-control form-control-sm"  value="{{$data->Interest_car}}" placeholder="ดอกเบี้ย" readonly onchange="calculate();"/> --}}
-                                  <input type="text" id="NewInterestcar" name="Interestcar" class="form-control form-control-sm"  value="{{$data->Interest_car}}" placeholder="ดอกเบี้ย" oninput="calculate();"/>
+                                  <input type="text" id="NewInterestcar" name="Interestcar" class="form-control form-control-sm"  value="{{$data->Interest_car}}" placeholder="ดอกเบี้ย" oninput="calculate();" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
                                   <input type="hidden" id="Interesttype" name="Interesttype" class="form-control form-control-sm"  value="{{$SettingValue->Interesttype_set}}"/>
                                 </div>
                               </div>
@@ -2629,7 +2737,7 @@
                               <div class="form-group row mb-0">
                                 <label class="col-sm-3 col-form-label text-right">ค่าใช้จ่ายขนส่ง : </label>
                                 <div class="col-sm-8">
-                                  <input type="text" id="tranPrice" name="tranPrice" value="{{number_format($data->tran_Price)}}" class="form-control form-control-sm" placeholder="ค่าใช้จ่ายขนส่ง" oninput="balance();"/>
+                                  <input type="text" id="tranPrice" name="tranPrice" value="{{number_format($data->tran_Price)}}" class="form-control form-control-sm" placeholder="ค่าใช้จ่ายขนส่ง" oninput="balance();" {{ ($GetDocComplete !== NULL && $Recontract === 'Y') ? 'readonly' : '' }}/>
                                 </div>
                               </div>
                             </div>
@@ -2637,7 +2745,7 @@
                               <div class="form-group row mb-0">
                                 <label class="col-sm-3 col-form-label text-right">อื่นๆ : </label>
                                 <div class="col-sm-8">
-                                  <input type="text" id="otherPrice" name="otherPrice" value="{{number_format($data->other_Price)}}" class="form-control form-control-sm" placeholder="อื่นๆ" oninput="balance();"/>
+                                  <input type="text" id="otherPrice" name="otherPrice" value="{{number_format($data->other_Price)}}" class="form-control form-control-sm" placeholder="อื่นๆ" oninput="balance();" {{ ($GetDocComplete !== NULL && $Recontract === 'Y') ? 'readonly' : '' }}/>
                                 </div>
                               </div>
                             </div>
@@ -2674,7 +2782,7 @@
                               <div class="form-group row mb-0">
                                 <label class="col-sm-3 col-form-label text-right">อากร : </label>
                                 <div class="col-sm-8">
-                                  <input type="text" id="dutyPrice" name="dutyPrice" value="{{($data->duty_Price != Null) ? $data->duty_Price : number_format($SettingValue->Dutyvalue_set)}}" class="form-control form-control-sm" placeholder="อากร" oninput="balance();"/>
+                                  <input type="text" id="dutyPrice" name="dutyPrice" value="{{($data->duty_Price != Null) ? $data->duty_Price : number_format($SettingValue->Dutyvalue_set)}}" class="form-control form-control-sm" placeholder="อากร" oninput="balance();" {{ ($GetDocComplete !== NULL && $Recontract === 'Y') ? 'readonly' : '' }}/>
                                 </div>
                               </div>
                             </div>
@@ -2685,7 +2793,7 @@
                               <div class="form-group row mb-0">
                                 <label class="col-sm-3 col-form-label text-right">ค่าการตลาด : </label>
                                 <div class="col-sm-8">
-                                  <input type="text" id="marketingPrice" name="marketingPrice" value="{{ ($data->marketing_Price != Null) ? $data->marketing_Price : number_format($SettingValue->Marketvalue_set) }}" class="form-control form-control-sm" placeholder="การตลาด" oninput="balance();"/>
+                                  <input type="text" id="marketingPrice" name="marketingPrice" value="{{ ($data->marketing_Price != Null) ? $data->marketing_Price : number_format($SettingValue->Marketvalue_set) }}" class="form-control form-control-sm" placeholder="การตลาด" oninput="balance();" {{ ($GetDocComplete !== NULL && $Recontract === 'Y') ? 'readonly' : '' }}/>
                                 </div>                                                        
                               </div>
                             </div>
@@ -2725,7 +2833,7 @@
                               <div class="form-group row mb-0">
                                 <label class="col-sm-3 col-form-label text-right">หมายเหตุ : </label>
                                 <div class="col-sm-8">
-                                  <input type="text" name="notePrice" value="{{ $data->note_Price }}" class="form-control form-control-sm" placeholder="หมายเหตุ" />
+                                  <input type="text" name="notePrice" value="{{ $data->note_Price }}" class="form-control form-control-sm" placeholder="หมายเหตุ" {{ ($GetDocComplete !== NULL && $Recontract === 'Y') ? 'readonly' : '' }}/>
                                 </div>
                               </div>
                             </div>
@@ -2803,11 +2911,7 @@
                                     @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                       <textarea class="form-control form-control-sm" name="BuyerNote" rows="3" placeholder="ป้อนหมายเหตุ...">{{$data->Buyer_note}}</textarea>
                                     @else
-                                      @if($GetDocComplete != Null)
-                                        <textarea class="form-control form-control-sm" name="BuyerNote" rows="3" placeholder="ป้อนหมายเหตุ..." readonly>{{$data->Buyer_note}}</textarea>
-                                      @else
-                                        <textarea class="form-control form-control-sm" name="BuyerNote" rows="3" placeholder="ป้อนหมายเหตุ...">{{$data->Buyer_note}}</textarea>
-                                      @endif
+                                        <textarea class="form-control form-control-sm" name="BuyerNote" rows="3" placeholder="ป้อนหมายเหตุ..." {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}>{{$data->Buyer_note}}</textarea>
                                     @endif
                                   </div>
 
@@ -2873,11 +2977,7 @@
                                     @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                       <textarea class="form-control form-control-sm" name="SupportNote" rows="3" placeholder="ป้อนหมายเหตุ...">{{$data->Support_note}}</textarea>
                                     @else
-                                      @if($GetDocComplete != Null)
-                                        <textarea class="form-control form-control-sm" name="SupportNote" rows="3" placeholder="ป้อนหมายเหตุ..." readonly>{{$data->Support_note}}</textarea>
-                                      @else
-                                        <textarea class="form-control form-control-sm" name="SupportNote" rows="3" placeholder="ป้อนหมายเหตุ...">{{$data->Support_note}}</textarea>
-                                      @endif
+                                        <textarea class="form-control form-control-sm" name="SupportNote" rows="3" placeholder="ป้อนหมายเหตุ..." {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}>{{$data->Support_note}}</textarea>
                                     @endif
                                   </div>
 
@@ -2905,11 +3005,7 @@
                                             @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                               <input type="text" id="Buyer_latlong" name="Buyer_latlong" class="form-control form-control-sm" value="{{ $data->Buyer_latlong }}"/>
                                             @else
-                                              @if($GetDocComplete != Null)
-                                                <input type="text" id="Buyer_latlong" name="Buyer_latlong" class="form-control form-control-sm" value="{{ $data->Buyer_latlong }}" readonly/>
-                                              @else
-                                                <input type="text" id="Buyer_latlong" name="Buyer_latlong" class="form-control form-control-sm" value="{{ $data->Buyer_latlong }}"/>
-                                              @endif
+                                                <input type="text" id="Buyer_latlong" name="Buyer_latlong" class="form-control form-control-sm" value="{{ $data->Buyer_latlong }}" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}/>
                                             @endif
                                             <br>
                                           <div class="form-inline float-left">
@@ -2918,11 +3014,7 @@
                                             @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                                <input type="text" id="Support_latlong" name="Support_latlong" class="form-control form-control-sm" value="{{ $data->Support_latlong }}"/>
                                             @else
-                                              @if($GetDocComplete != Null)
-                                                 <input type="text" id="Support_latlong" name="Support_latlong" class="form-control form-control-sm" value="{{ $data->Support_latlong }}" readonly/>
-                                              @else
-                                                 <input type="text" id="Support_latlong" name="Support_latlong" class="form-control form-control-sm" value="{{ $data->Support_latlong }}"/>
-                                              @endif
+                                                 <input type="text" id="Support_latlong" name="Support_latlong" class="form-control form-control-sm" value="{{ $data->Support_latlong }}" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}/>
                                             @endif
                                       </div>
                                     </div>
@@ -2960,6 +3052,14 @@
                                             @endforeach
                                           </select>
                                         @else
+                                        @if($Recontract == 'Y')
+                                          <select name="Careerbuyer" class="form-control form-control-sm" >
+                                            <option value="" selected>--- อาชีพ ---</option>
+                                            @foreach ($Careerby as $key => $value)
+                                              <option value="{{$key}}" {{ ($key == $data->Career_buyer) ? 'selected' : '' }}>{{$value}}</option>
+                                            @endforeach
+                                          </select>
+                                        @else 
                                           @if($GetDocComplete != Null)
                                             <input type="text" name="Careerbuyer" value="{{ $data->Career_buyer }}" class="form-control form-control-sm"  placeholder="เลือกอาชีพ" readonly/>
                                           @else
@@ -2971,6 +3071,7 @@
                                             </select>
                                           @endif
                                         @endif
+                                        @endif
                                       </div>
                                     </div>
                                     <div class="form-group row mb-0">
@@ -2979,11 +3080,7 @@
                                         @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                           <input type="text" id="Incomebuyer" name="Incomebuyer" value="{{ $data->Income_buyer }}" class="form-control form-control-sm" oninput="income();"/>
                                         @else
-                                          @if($GetDocComplete != Null)
-                                            <input type="text" name="Incomebuyer" value="{{ $data->Income_buyer }}" class="form-control form-control-sm" readonly/>
-                                          @else
-                                            <input type="text" id="Incomebuyer" name="Incomebuyer" value="{{ $data->Income_buyer }}" class="form-control form-control-sm" oninput="income();"/>
-                                          @endif
+                                          <input type="text" id="Incomebuyer" name="Incomebuyer" value="{{ $data->Income_buyer }}" class="form-control form-control-sm" oninput="income();" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}/>
                                         @endif
                                       </div>
                                     </div>
@@ -2993,7 +3090,7 @@
                                         @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                           <input type="text" id="Beforeincome" name="Beforeincome" value="{{ number_format($data->BeforeIncome_buyer,0) }}" class="form-control form-control-sm"  placeholder="ก่อนหักค่าใช้จ่าย" onchange="income();" />
                                         @else
-                                          <input type="text" id="Beforeincome" name="Beforeincome" value="{{ number_format($data->BeforeIncome_buyer,0) }}" class="form-control form-control-sm"  placeholder="ก่อนหักค่าใช้จ่าย" onchange="income();" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }} />
+                                          <input type="text" id="Beforeincome" name="Beforeincome" value="{{ number_format($data->BeforeIncome_buyer,0) }}" class="form-control form-control-sm"  placeholder="ก่อนหักค่าใช้จ่าย" onchange="income();" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }} />
                                         @endif
                                       </div>
                                     </div>
@@ -3003,7 +3100,7 @@
                                         @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                           <input type="text" id="Afterincome" name="Afterincome" value="{{ number_format($data->AfterIncome_buyer,0) }}" class="form-control form-control-sm"  placeholder="ก่อนหักค่าใช้จ่าย" onchange="income();" />
                                         @else
-                                          <input type="text" id="Afterincome" name="Afterincome" value="{{ number_format($data->AfterIncome_buyer,0) }}" class="form-control form-control-sm"  placeholder="ก่อนหักค่าใช้จ่าย" onchange="income();" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }} />
+                                          <input type="text" id="Afterincome" name="Afterincome" value="{{ number_format($data->AfterIncome_buyer,0) }}" class="form-control form-control-sm"  placeholder="ก่อนหักค่าใช้จ่าย" onchange="income();" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }} />
                                         @endif
                                       </div>
                                     </div>
@@ -3037,11 +3134,7 @@
                                         @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                           <textarea class="form-control form-control-sm" name="BuyerIncomeNote" rows="3" placeholder="ป้อนหมายเหตุ...">{{$data->MemoIncome_buyer}}</textarea>
                                         @else
-                                          @if($GetDocComplete != Null)
-                                            <textarea class="form-control form-control-sm" name="BuyerIncomeNote" rows="3" placeholder="ป้อนหมายเหตุ..." readonly>{{$data->MemoIncome_buyer}}</textarea>
-                                          @else
-                                            <textarea class="form-control form-control-sm" name="BuyerIncomeNote" rows="3" placeholder="ป้อนหมายเหตุ...">{{$data->MemoIncome_buyer}}</textarea>
-                                          @endif
+                                            <textarea class="form-control form-control-sm" name="BuyerIncomeNote" rows="3" placeholder="ป้อนหมายเหตุ..." {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}>{{$data->MemoIncome_buyer}}</textarea>
                                         @endif
                                       </div>
                                     </div>
@@ -3107,15 +3200,24 @@
                                             @endforeach
                                           </select>
                                         @else
-                                          @if($GetDocComplete != Null)
-                                            <input type="text" name="careerSP" value="{{$data->career_SP}}" class="form-control form-control-sm" placeholder="อาชีพ" readonly/>
-                                          @else
+                                          @if($Recontract == 'Y')
                                             <select name="careerSP" class="form-control form-control-sm">
                                               <option value="" selected>--- อาชีพ ---</option>
                                               @foreach ($Careerby as $key => $value)
                                                 <option value="{{$key}}" {{ ($key == $data->career_SP) ? 'selected' : '' }}>{{$value}}</option>
                                               @endforeach
                                             </select>
+                                          @else 
+                                            @if($GetDocComplete != Null)
+                                              <input type="text" name="careerSP" value="{{$data->career_SP}}" class="form-control form-control-sm" placeholder="อาชีพ" readonly/>
+                                            @else
+                                              <select name="careerSP" class="form-control form-control-sm">
+                                                <option value="" selected>--- อาชีพ ---</option>
+                                                @foreach ($Careerby as $key => $value)
+                                                  <option value="{{$key}}" {{ ($key == $data->career_SP) ? 'selected' : '' }}>{{$value}}</option>
+                                                @endforeach
+                                              </select>
+                                            @endif
                                           @endif
                                         @endif
                                       </div>
@@ -3126,11 +3228,7 @@
                                         @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                           <input type="text" id="incomeSP" name="incomeSP" value="{{$data->income_SP}}" class="form-control form-control-sm" oninput="income();"/>
                                         @else
-                                          @if($GetDocComplete != Null)
-                                              <input type="text" name="incomeSP" value="{{$data->income_SP}}" class="form-control form-control-sm" readonly/>
-                                          @else
-                                            <input type="text" id="incomeSP" name="incomeSP" value="{{$data->income_SP}}" class="form-control form-control-sm" oninput="income();"/>
-                                          @endif
+                                          <input type="text" id="incomeSP" name="incomeSP" value="{{$data->income_SP}}" class="form-control form-control-sm" oninput="income();" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}/>
                                         @endif
                                       </div>
                                     </div>
@@ -3140,11 +3238,7 @@
                                         @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                           <textarea class="form-control form-control-sm" name="SupportIncomeNote" rows="3" placeholder="ป้อนหมายเหตุ...">{{$data->MemoIncome_SP}}</textarea>
                                         @else
-                                          @if($GetDocComplete != Null)
-                                            <textarea class="form-control form-control-sm" name="SupportIncomeNote" rows="3" placeholder="ป้อนหมายเหตุ..." readonly>{{$data->MemoIncome_SP}}</textarea>
-                                          @else
-                                            <textarea class="form-control form-control-sm" name="SupportIncomeNote" rows="3" placeholder="ป้อนหมายเหตุ...">{{$data->MemoIncome_SP}}</textarea>
-                                          @endif
+                                          <textarea class="form-control form-control-sm" name="SupportIncomeNote" rows="3" placeholder="ป้อนหมายเหตุ..." {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}>{{$data->MemoIncome_SP}}</textarea>
                                         @endif
                                       </div>
                                     </div>
@@ -3724,5 +3818,17 @@
     
   <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHvHdio8MNE9aqZZmfvd49zHgLbixudMs&callback=initMap&language=th">
+  </script>
+
+  <script>
+    $('#StatusContract').on("change" ,function() {
+      var GetStatus = document.getElementById('StatusContract').value;
+      if(GetStatus == 'เปลี่ยนสัญญา'){
+        $("#UpdateCont").removeAttr('disabled', true);
+      }
+      else{
+        $("#UpdateCont").attr('disabled', true);
+      }
+    });
   </script>
 @endsection

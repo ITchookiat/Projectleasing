@@ -65,7 +65,7 @@
     </div>
 
     <div class="row">
-      <div class="col-md-3">
+      <div class="col-md-2">
         @if($type == 1)
           @if(auth::user()->type == 'Admin' or auth::user()->type == 'แผนก วิเคราะห์')
           <div class="row">
@@ -73,7 +73,7 @@
               <a href="{{ route('Analysis', 2) }}" class="btn btn-success btn-block mb-3">Compose</a>
             </div>
             <div class="col-md-6">
-              <a href="{{ route('DataCustomer', 1) }}" class="btn btn-danger btn-block mb-3">New Walk-in</a>
+              <a href="{{ route('DataCustomer', 1) }}" class="btn btn-danger btn-block mb-3">Walk-in</a>
             </div>
           </div>
           @else
@@ -189,13 +189,12 @@
         </div>
       </div>
 
-      <div class="col-md-9">
+      <div class="col-md-10">
         <div class="card">
           <div class="card-body text-sm">
             @if($type == 1)
               <form method="get" action="{{ route('Analysis',1) }}">
                 <div class="float-right form-inline">
-
                     {{-- <a target="_blank" href="{{ action('ReportAnalysController@ReportDueDate', $type) }}" class="btn bg-primary btn-app">
                       <span class="fas fa-print"></span> ปริ้นรายการ
                     </a> --}}
@@ -206,24 +205,25 @@
                       <li><a target="_blank" class="dropdown-item" href="{{ action('ReportAnalysController@ReportDueDate', 1) }}?Flag={{1}}"> รายงานขออนุมัติประจำวัน</a></li>
                       <li class="dropdown-divider"></li>
                       <li><a class="dropdown-item" data-toggle="modal" data-target="#modal-leasing"> รายงาน สินเชื่อเช่าซื้อ</a></li>
+                      <li class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" data-toggle="modal" data-target="#modal-Recontract"> รายงาน เปลี่ยนสัญญา</a></li>
                     </ul>
-
-                  
-                  <button type="submit" class="btn bg-warning btn-app">
-                    <span class="fas fa-search"></span> Search
-                  </button>
+                    <button type="submit" class="btn bg-warning btn-app">
+                      <span class="fas fa-search"></span> Search
+                    </button>
                 </div>
                 <div class="float-right form-inline">
                   <label class="mr-sm-2">เลขที่สัญญา : </label>
-                  <input type="type" name="Contno" value="{{$contno}}" maxlength="12" class="form-control form-control-sm"/>
-
+                  <input type="text" name="Contno" value="{{$contno}}" maxlength="12" class="form-control form-control-sm" style="width:155px;"/>
                   <label for="text" class="mr-sm-2">สถานะ : </label>
                   <select name="status" class="form-control form-control-sm">
-                    <option selected value="">---------สถานะ--------</option>
+                  <option selected value="">--------สถานะ---------</option>
                     <option value="อนุมัติ"{{ ($status == 'อนุมัติ') ? 'selected' : '' }}>อนุมัติ</option>
                     <option value="รออนุมัติ"{{ ($status == 'รออนุมัติ') ? 'selected' : '' }}>รออนุมัติ</option>
                   </select>
                 </div>
+                  <br>
+                  <br>
                 <div class="float-right form-inline">
                   <label class="mr-sm-2">จากวันที่ : </label>
                   <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control form-control-sm" />
@@ -250,7 +250,7 @@
                 </div>
                 <div class="float-right form-inline">
                   <label class="mr-sm-2">เลขที่สัญญา : </label>
-                  <input type="type" name="Contno" value="{{$contno}}" maxlength="12" class="form-control form-control-sm"/>
+                  <input type="type" name="Contno" value="{{$contno}}" maxlength="12" class="form-control form-control-sm" style="width:155px;"/>
 
                   <label for="text" class="mr-sm-1">สถานะ : </label>
                   <select name="status" class="form-control form-control-sm" id="text" >
@@ -284,20 +284,22 @@
                 </div>
                 <div class="float-right form-inline">
                   <label>เลขที่สัญญา : </label>
-                  <input type="type" name="Contno" value="{{$contno}}" maxlength="12" class="form-control form-control-lg"/>
-
-                  <label>จากวันที่ : </label>
-                  <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control" />
-
-                  <label>ถึงวันที่ : </label>
-                  <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control" />
-
+                  <input type="type" name="Contno" value="{{$contno}}" maxlength="12" class="form-control form-control-sm" style="width:150px;"/>
                   <label for="text" class="mr-sm-2">สถานะ : </label>
-                  <select name="status" class="form-control" id="text">
-                    <option selected value="">-------สถานะ-------</option>
+                  <select name="status" class="form-control form-control-sm" id="text">
+                    <option selected value="">---------สถานะ--------</option>
                     <option value="อนุมัติ"{{ ($status == 'อนุมัติ') ? 'selected' : '' }}>อนุมัติ</otion>
                     <option value="รออนุมัติ"{{ ($status == 'รออนุมัติ') ? 'selected' : '' }}>รออนุมัติ</otion>
                   </select>
+                </div>
+                <br>
+                <br>
+                <div class="float-right form-inline">
+                  <label>จากวันที่ : </label>
+                  <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control form-control-sm" />
+
+                  <label>ถึงวันที่ : </label>
+                  <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control form-control-sm" />
                 </div>
               </form>
             @endif
@@ -328,7 +330,7 @@
                               <th class="text-center">% ยอดจัด</th>
                               <th class="text-center"></th>
                               <th class="text-left" style="width: 100px">สถานะ</th>
-                              <th class="text-center" style="width: 105px"></th>
+                              <th class="text-center" style="width: 125px"></th>
                             </tr>
                           </thead>
                           <tbody>
@@ -336,7 +338,12 @@
                               @if($row->branch_car == 'ปัตตานี')
                                 <tr>
                                   {{-- <td class="text-center"> {{ $row->branch_car}} </td> --}}
-                                  <td class="text-left"> {{ $row->Contract_buyer}} </td>
+                                  <td class="text-left"> 
+                                  {{ $row->Contract_buyer}} 
+                                  @if($row->Status_Contract != NULL)
+                                    <i class="fa fa-info-circle text-danger" title="{{$row->Status_Contract}}"></i>
+                                  @endif
+                                  </td>
                                   <td class="text-left"> {{ $row->status_car}} </td>
                                   <td class="text-left"> {{ $row->Brand_car}} </td>
                                   <td class="text-left"> {{ $row->License_car}} </td>
@@ -413,6 +420,9 @@
                                       @if($row->StatusApp_car == 'อนุมัติ')
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
                                           <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}?Recontract={{'Y'}}" data-name="{{ $row->Contract_buyer }}" class="btn btn-warning btn-sm Recontract" title="แก้ไขสัญญา">
+                                          <i class="fas fa-handshake"></i>
                                         </a>
                                       @else
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
@@ -466,7 +476,7 @@
                               <th class="text-center">% ยอดจัด</th>
                               <th class="text-center"></th>
                               <th class="text-left" style="width: 100px">สถานะ</th>
-                              <th class="text-center" style="width: 105px"></th>
+                              <th class="text-center" style="width: 125px"></th>
                             </tr>
                           </thead>
                           <tbody>
@@ -474,7 +484,12 @@
                               @if($row->branch_car == 'ยะลา')
                                 <tr>
                                   {{-- <td class="text-center"> {{ $row->branch_car}} </td> --}}
-                                  <td class="text-left"> {{ $row->Contract_buyer}} </td>
+                                  <td class="text-left"> 
+                                  {{ $row->Contract_buyer}}
+                                  @if($row->Status_Contract != NULL)
+                                    <i class="fa fa-info-circle text-danger" title="{{$row->Status_Contract}}"></i>
+                                  @endif
+                                   </td>
                                   <td class="text-left"> {{ $row->status_car}} </td>
                                   <td class="text-left"> {{ $row->Brand_car}} </td>
                                   <td class="text-left"> {{ $row->License_car}} </td>
@@ -551,6 +566,9 @@
                                       @if($row->StatusApp_car == 'อนุมัติ')
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
                                           <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}?Recontract={{'Y'}}" data-name="{{ $row->Contract_buyer }}" class="btn btn-warning btn-sm Recontract" title="แก้ไขสัญญา">
+                                          <i class="fas fa-handshake"></i>
                                         </a>
                                       @else
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
@@ -604,7 +622,7 @@
                               <th class="text-center">% ยอดจัด</th>
                               <th class="text-center"></th>
                               <th class="text-left" style="width: 100px">สถานะ</th>
-                              <th class="text-center" style="width: 105px"></th>
+                              <th class="text-center" style="width: 125px"></th>
                             </tr>
                           </thead>
                           <tbody>
@@ -612,7 +630,12 @@
                               @if($row->branch_car == 'นราธิวาส')
                                 <tr>
                                   {{-- <td class="text-center"> {{ $row->branch_car}} </td> --}}
-                                  <td class="text-left"> {{ $row->Contract_buyer}} </td>
+                                  <td class="text-left"> 
+                                  {{ $row->Contract_buyer}} 
+                                  @if($row->Status_Contract != NULL)
+                                    <i class="fa fa-info-circle text-danger" title="{{$row->Status_Contract}}"></i>
+                                  @endif
+                                  </td>
                                   <td class="text-left"> {{ $row->status_car}} </td>
                                   <td class="text-left"> {{ $row->Brand_car}} </td>
                                   <td class="text-left"> {{ $row->License_car}} </td>
@@ -689,6 +712,9 @@
                                       @if($row->StatusApp_car == 'อนุมัติ')
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
                                           <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}?Recontract={{'Y'}}" data-name="{{ $row->Contract_buyer }}" class="btn btn-warning btn-sm Recontract" title="แก้ไขสัญญา">
+                                          <i class="fas fa-handshake"></i>
                                         </a>
                                       @else
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
@@ -742,7 +768,7 @@
                               <th class="text-center">% ยอดจัด</th>
                               <th class="text-center"></th>
                               <th class="text-left" style="width: 100px">สถานะ</th>
-                              <th class="text-center" style="width: 105px"></th>
+                              <th class="text-center" style="width: 125px"></th>
                             </tr>
                           </thead>
                           <tbody>
@@ -750,7 +776,12 @@
                               @if($row->branch_car == 'สายบุรี')
                                 <tr>
                                   {{-- <td class="text-center"> {{ $row->branch_car}} </td> --}}
-                                  <td class="text-left"> {{ $row->Contract_buyer}} </td>
+                                  <td class="text-left"> 
+                                  {{ $row->Contract_buyer}} 
+                                  @if($row->Status_Contract != NULL)
+                                    <i class="fa fa-info-circle text-danger" title="{{$row->Status_Contract}}"></i>
+                                  @endif
+                                  </td>
                                   <td class="text-left"> {{ $row->status_car}} </td>
                                   <td class="text-left"> {{ $row->Brand_car}} </td>
                                   <td class="text-left"> {{ $row->License_car}} </td>
@@ -827,6 +858,9 @@
                                       @if($row->StatusApp_car == 'อนุมัติ')
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
                                           <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}?Recontract={{'Y'}}" data-name="{{ $row->Contract_buyer }}" class="btn btn-warning btn-sm Recontract" title="แก้ไขสัญญา">
+                                          <i class="fas fa-handshake"></i>
                                         </a>
                                       @else
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
@@ -880,7 +914,7 @@
                               <th class="text-center">% ยอดจัด</th>
                               <th class="text-center"></th>
                               <th class="text-left" style="width: 100px">สถานะ</th>
-                              <th class="text-center" style="width: 105px"></th>
+                              <th class="text-center" style="width: 125px"></th>
                             </tr>
                           </thead>
                           <tbody>
@@ -888,7 +922,12 @@
                               @if($row->branch_car == 'โกลก')
                                 <tr>
                                   {{-- <td class="text-center"> {{ $row->branch_car}} </td> --}}
-                                  <td class="text-left"> {{ $row->Contract_buyer}} </td>
+                                  <td class="text-left"> 
+                                  {{ $row->Contract_buyer}} 
+                                  @if($row->Status_Contract != NULL)
+                                    <i class="fa fa-info-circle text-danger" title="{{$row->Status_Contract}}"></i>
+                                  @endif
+                                  </td>
                                   <td class="text-left"> {{ $row->status_car}} </td>
                                   <td class="text-left"> {{ $row->Brand_car}} </td>
                                   <td class="text-left"> {{ $row->License_car}} </td>
@@ -965,6 +1004,9 @@
                                       @if($row->StatusApp_car == 'อนุมัติ')
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
                                           <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}?Recontract={{'Y'}}" data-name="{{ $row->Contract_buyer }}" class="btn btn-warning btn-sm Recontract" title="แก้ไขสัญญา">
+                                          <i class="fas fa-handshake"></i>
                                         </a>
                                       @else
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
@@ -1018,7 +1060,7 @@
                               <th class="text-center">% ยอดจัด</th>
                               <th class="text-center"></th>
                               <th class="text-left" style="width: 100px">สถานะ</th>
-                              <th class="text-center" style="width: 105px"></th>
+                              <th class="text-center" style="width: 125px"></th>
                             </tr>
                           </thead>
                           <tbody>
@@ -1026,7 +1068,12 @@
                               @if($row->branch_car == 'เบตง')
                                 <tr>
                                   {{-- <td class="text-center"> {{ $row->branch_car}} </td> --}}
-                                  <td class="text-left"> {{ $row->Contract_buyer}} </td>
+                                  <td class="text-left"> 
+                                  {{ $row->Contract_buyer}}
+                                  @if($row->Status_Contract != NULL)
+                                    <i class="fa fa-info-circle text-danger" title="{{$row->Status_Contract}}"></i>
+                                  @endif
+                                  </td>
                                   <td class="text-left"> {{ $row->status_car}} </td>
                                   <td class="text-left"> {{ $row->Brand_car}} </td>
                                   <td class="text-left"> {{ $row->License_car}} </td>
@@ -1104,6 +1151,9 @@
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
                                           <i class="fas fa-eye"></i>
                                         </a>
+                                        <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}?Recontract={{'Y'}}" data-name="{{ $row->Contract_buyer }}" class="btn btn-warning btn-sm Recontract" title="แก้ไขสัญญา">
+                                          <i class="fas fa-handshake"></i>
+                                        </a>
                                       @else
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                           <i class="far fa-edit"></i>
@@ -1156,7 +1206,7 @@
                               <th class="text-center">% ยอดจัด</th>
                               <th class="text-center"></th>
                               <th class="text-left" style="width: 100px">สถานะ</th>
-                              <th class="text-center" style="width: 105px"></th>
+                              <th class="text-center" style="width: 125px"></th>
                             </tr>
                           </thead>
                           <tbody>
@@ -1164,7 +1214,12 @@
                               @if($row->branch_car == 'โคกโพธิ์')
                                 <tr>
                                   {{-- <td class="text-center"> {{ $row->branch_car}} </td> --}}
-                                  <td class="text-left"> {{ $row->Contract_buyer}} </td>
+                                  <td class="text-left"> 
+                                  {{ $row->Contract_buyer}} 
+                                  @if($row->Status_Contract != NULL)
+                                    <i class="fa fa-info-circle text-danger" title="{{$row->Status_Contract}}"></i>
+                                  @endif
+                                  </td>
                                   <td class="text-left"> {{ $row->status_car}} </td>
                                   <td class="text-left"> {{ $row->Brand_car}} </td>
                                   <td class="text-left"> {{ $row->License_car}} </td>
@@ -1242,6 +1297,9 @@
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
                                           <i class="fas fa-eye"></i>
                                         </a>
+                                        <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}?Recontract={{'Y'}}" data-name="{{ $row->Contract_buyer }}" class="btn btn-warning btn-sm Recontract" title="แก้ไขสัญญา">
+                                          <i class="fas fa-handshake"></i>
+                                        </a>
                                       @else
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                           <i class="far fa-edit"></i>
@@ -1294,7 +1352,7 @@
                               <th class="text-center">% ยอดจัด</th>
                               <th class="text-center"></th>
                               <th class="text-left" style="width: 100px">สถานะ</th>
-                              <th class="text-center" style="width: 105px"></th>
+                              <th class="text-center" style="width: 125px"></th>
                             </tr>
                           </thead>
                           <tbody>
@@ -1302,7 +1360,12 @@
                               @if($row->branch_car == 'ตันหยงมัส')
                                 <tr>
                                   {{-- <td class="text-center"> {{ $row->branch_car}} </td> --}}
-                                  <td class="text-left"> {{ $row->Contract_buyer}} </td>
+                                  <td class="text-left"> 
+                                  {{ $row->Contract_buyer}}
+                                  @if($row->Status_Contract != NULL)
+                                    <i class="fa fa-info-circle text-danger" title="{{$row->Status_Contract}}"></i>
+                                  @endif
+                                  </td>
                                   <td class="text-left"> {{ $row->status_car}} </td>
                                   <td class="text-left"> {{ $row->Brand_car}} </td>
                                   <td class="text-left"> {{ $row->License_car}} </td>
@@ -1379,6 +1442,9 @@
                                       @if($row->StatusApp_car == 'อนุมัติ')
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
                                           <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}?Recontract={{'Y'}}" data-name="{{ $row->Contract_buyer }}" class="btn btn-warning btn-sm Recontract" title="แก้ไขสัญญา">
+                                          <i class="fas fa-handshake"></i>
                                         </a>
                                       @else
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
@@ -1432,7 +1498,7 @@
                               <th class="text-center">% ยอดจัด</th>
                               <th class="text-center"></th>
                               <th class="text-left" style="width: 100px">สถานะ</th>
-                              <th class="text-center" style="width: 105px"></th>
+                              <th class="text-center" style="width: 125px"></th>
                             </tr>
                           </thead>
                           <tbody>
@@ -1440,7 +1506,12 @@
                               @if($row->branch_car == 'รือเสาะ')
                                 <tr>
                                   {{-- <td class="text-center"> {{ $row->branch_car}} </td> --}}
-                                  <td class="text-left"> {{ $row->Contract_buyer}} </td>
+                                  <td class="text-left"> 
+                                  {{ $row->Contract_buyer}} 
+                                  @if($row->Status_Contract != NULL)
+                                    <i class="fa fa-info-circle text-danger" title="{{$row->Status_Contract}}"></i>
+                                  @endif
+                                  </td>
                                   <td class="text-left"> {{ $row->status_car}} </td>
                                   <td class="text-left"> {{ $row->Brand_car}} </td>
                                   <td class="text-left"> {{ $row->License_car}} </td>
@@ -1517,6 +1588,9 @@
                                       @if($row->StatusApp_car == 'อนุมัติ')
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
                                           <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}?Recontract={{'Y'}}" data-name="{{ $row->Contract_buyer }}" class="btn btn-warning btn-sm Recontract" title="แก้ไขสัญญา">
+                                          <i class="fas fa-handshake"></i>
                                         </a>
                                       @else
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
@@ -1569,14 +1643,19 @@
                               <th class="text-center">% ยอดจัด</th>
                               <th class="text-center"></th>
                               <th class="text-left" style="width: 100px">สถานะ</th>
-                              <th class="text-center" style="width: 105px"></th>
+                              <th class="text-center" style="width: 125px"></th>
                             </tr>
                           </thead>
                           <tbody>
                             @foreach($data as $row)
                               @if($row->branch_car == 'บันนังสตา')
                                 <tr>
-                                  <td class="text-left"> {{ $row->Contract_buyer}} </td>
+                                  <td class="text-left"> 
+                                  {{ $row->Contract_buyer}}
+                                  @if($row->Status_Contract != NULL)
+                                    <i class="fa fa-info-circle text-danger" title="{{$row->Status_Contract}}"></i>
+                                  @endif
+                                   </td>
                                   <td class="text-left"> {{ $row->status_car}} </td>
                                   <td class="text-left"> {{ $row->Brand_car}} </td>
                                   <td class="text-left"> {{ $row->License_car}} </td>
@@ -1653,6 +1732,9 @@
                                       @if($row->StatusApp_car == 'อนุมัติ')
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
                                           <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}?Recontract={{'Y'}}" data-name="{{ $row->Contract_buyer }}" class="btn btn-warning btn-sm Recontract" title="แก้ไขสัญญา">
+                                          <i class="fas fa-handshake"></i>
                                         </a>
                                       @else
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
@@ -1705,14 +1787,19 @@
                               <th class="text-center">% ยอดจัด</th>
                               <th class="text-center"></th>
                               <th class="text-left" style="width: 100px">สถานะ</th>
-                              <th class="text-center" style="width: 105px"></th>
+                              <th class="text-center" style="width: 125px"></th>
                             </tr>
                           </thead>
                           <tbody>
                             @foreach($data as $row)
                               @if($row->branch_car == 'ยะหา')
                                 <tr>
-                                  <td class="text-left"> {{ $row->Contract_buyer}} </td>
+                                  <td class="text-left"> 
+                                  {{ $row->Contract_buyer}} 
+                                  @if($row->Status_Contract != NULL)
+                                    <i class="fa fa-info-circle text-danger" title="{{$row->Status_Contract}}"></i>
+                                  @endif
+                                  </td>
                                   <td class="text-left"> {{ $row->status_car}} </td>
                                   <td class="text-left"> {{ $row->Brand_car}} </td>
                                   <td class="text-left"> {{ $row->License_car}} </td>
@@ -1789,6 +1876,9 @@
                                       @if($row->StatusApp_car == 'อนุมัติ')
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
                                           <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}?Recontract={{'Y'}}" data-name="{{ $row->Contract_buyer }}" class="btn btn-warning btn-sm Recontract" title="แก้ไขสัญญา">
+                                          <i class="fas fa-handshake"></i>
                                         </a>
                                       @else
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
@@ -2218,6 +2308,47 @@
     </div>
   </form>
 
+    <form action="{{ action('ReportAnalysController@ReportDueDate', 9) }}" method="get">
+      @csrf
+    <input type="hidden" name="Flag" value="3">
+    <div class="modal fade show" id="modal-Recontract" style="display: none;" aria-modal="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-warning">
+              <h5 class="modal-title">รายงาน เปลี่ยนสัญญา</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body text-sm">
+              <div class="row">
+                <div class="col-12">
+                  <div class="form-group row mb-1">
+                    <label class="col-sm-4 col-form-label text-right">จากวันที่เปลี่ยนสัญญา :</label>
+                    <div class="col-sm-8">
+                      <input type="date" name="Fromdate" value="{{ date('Y-m-d') }}" class="form-control form-control-sm"/>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-group row mb-1">
+                    <label class="col-sm-4 col-form-label text-right">ถึงวันที่เปลี่ยนสัญญา :</label>
+                    <div class="col-sm-8">
+                      <input type="date" name="Todate" value="{{ date('Y-m-d') }}" class="form-control form-control-sm"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary text-center">ปริ้น</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">ยกเลิก</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
   {{-- button-to-top --}}
   <script>
     var btn = $('#button');
@@ -2256,4 +2387,27 @@
     }
     setInterval(blinker, 1500);
   </script>
+
+<script type="text/javascript">
+ $(document).ready(function () {
+    $('.Recontract').click(function (evt) {
+      var Contract_buyer = $(this).data("name");
+      // var form = $(this).closest("form");
+      var _this = $(this)
+      
+      evt.preventDefault();
+      swal({
+          title: `${Contract_buyer}`,
+          icon: "warning",
+          text: "ยืนยันเปลี่ยนแปลงสัญญานี้หรือไม่",
+          buttons: true,
+          dangerMode: true,
+      }).then((isConfirm)=>{
+          if (isConfirm) {
+              window.location.href = _this.attr('href')
+          }
+      });
+    });
+ });
+</script>
 @endsection
