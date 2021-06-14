@@ -492,7 +492,7 @@ class ReportAnalysController extends Controller
         $excel->sheet($status, function ($sheet) use($data,$status) {
             $sheet->prependRow(1, array("บริษัท ชูเกียรติลิสซิ่ง จำกัด"));
             $sheet->prependRow(2, array($status));
-            $sheet->cells('A3:AY3', function($cells) {
+            $sheet->cells('A3:AZ3', function($cells) {
               $cells->setBackground('#FFCC00');
             });
             $row = 3;
@@ -502,7 +502,7 @@ class ReportAnalysController extends Controller
               'รวม คชจ', 'คงเหลือ', 'ค่าคอมก่อนหัก 3%', 'ค่าคอมหลังหัก 3%', 
               'เลขที่โฉนดผู้ค่ำ', 'ผู้รับเงิน','เลขบัญชี','เบอร์โทรผู้รับเงิน', 'ผู้รับค่าคอม','เลขบัญชี','เบอร์โทรผู้แนะนำ', 
               'ใบขับขี่','ประกันภัย','สถานะผู้เช่าซื้อ','ตำแหน่งที่อยู่ผู้เช่าซื้อ', 'ตำแหน่งที่อยู่ผู้ค่ำ','รายละเอียดอาชีพ','ผลการประเมินลูกค้า', 'ผลการตรวจสอบลูกค้า','ความพึงพอใจลูกค้า','ผลการตรวจสอบนายหน้า','ความพึงพอใจนายหน้า',
-              'วันที่เปลี่ยนสัญญา','ผู้เปลี่ยนสัญญา'));
+              'วันที่เปลี่ยนสัญญา','ผู้เปลี่ยนสัญญา','ค่าเปลี่ยนสัญญา'));
 
             foreach ($data as $key => $value) {
               $sheet->row(++$row, array(
@@ -557,6 +557,7 @@ class ReportAnalysController extends Controller
                 $value->Prefer_broker,
                 $value->Datechange_Contract,
                 $value->Userchange_Contract,
+                2500,
               ));
 
             }
