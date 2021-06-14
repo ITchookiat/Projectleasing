@@ -18,7 +18,9 @@
 
   </head>
     <label>วันที่ : {{$date}}</label>
-    @if($type == 11)
+    @if($type == 10)
+      <h3 class="card-title p-3" align="center" style="line-height: 3px;">แบบฟอร์มขอเปลี่ยนสัญญาเช่าซื้อรถยนต์</h3>
+    @elseif($type == 11)
       <h3 class="card-title p-3" align="center" style="line-height: 3px;">แบบฟอร์มขออนุมัติปรับโครงสร้างหนี้</h3>
     @else
       <h3 class="card-title p-3" align="center" style="line-height: 3px;">แบบฟอร์มขออนุมัติเช่าซื้อรถยนต์</h3>
@@ -201,7 +203,7 @@
     </table>
 
     <h4 align="left"><u>รายละเอียดรถยนต์</u></h4>
-    @if($type == 1)
+    @if($type == 1 or $type == 10)
       <table border="1">
         <thead>
           <tr align="center">

@@ -15,6 +15,7 @@
 
   $SetTDate = date('Y-m-d', strtotime('+ 5year'));
   $SetFDate = date('Y-m-d', strtotime('- 2year'));
+
 @endphp
 
   <link type="text/css" rel="stylesheet" href="{{ asset('css/magiczoomplus.css') }}"/>
@@ -246,7 +247,7 @@
                             <button type="submit" class="delete-modal btn btn-success">
                               <i class="fas fa-save"></i> อัพเดท
                             </button>
-                            <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
+                            <a class="delete-modal btn btn-danger" href="{{ route('Analysis',$type) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
                               <i class="far fa-window-close"></i> ยกเลิก
                             </a>
                           </div>
@@ -255,7 +256,7 @@
                               <button type="submit" class="delete-modal btn btn-success">
                                 <i class="fas fa-save"></i> อัพเดท
                               </button>
-                              <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
+                              <a class="delete-modal btn btn-danger" href="{{ route('Analysis',$type) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
                                 <i class="far fa-window-close"></i> ยกเลิก
                               </a>
                             @else
@@ -282,15 +283,15 @@
                                     </small>
                                   </div>
                                 </div>
-                                  <button id="UpdateCont" type="submit" class="delete-modal btn btn-success" {{ ($Recontract === 'Y') ? 'disabled' : '' }}>
+                                  <button id="UpdateCont" type="submit" class="delete-modal btn btn-success" {{ ($Recontract === 'Y' && $data->Status_Contract === '') ? 'disabled' : '' }}>
                                     <i class="fas fa-save"></i> อัพเดท
                                   </button>
-                                  <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
+                                  <a class="delete-modal btn btn-danger" href="{{ route('Analysis',$type) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
                                     <i class="far fa-window-close"></i> ยกเลิก
                                   </a>
                               </div>
                               @else 
-                                <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
+                                <a class="delete-modal btn btn-danger" href="{{ route('Analysis',$type) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
                                   <i class="fas fa-undo"></i> ย้อนกลับ
                                 </a>
                               @endif
@@ -301,7 +302,7 @@
                             <button type="submit" class="delete-modal btn btn-success">
                               <i class="fas fa-save"></i> อัพเดท
                             </button>
-                            <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
+                            <a class="delete-modal btn btn-danger" href="{{ route('Analysis',$type) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
                               <i class="far fa-window-close"></i> ยกเลิก
                             </a>
                           @else
@@ -328,15 +329,15 @@
                                     </small>
                                   </div>
                                 </div>
-                                <button id="UpdateCont" type="submit" class="delete-modal btn btn-success" {{ ($Recontract === 'Y') ? 'disabled' : '' }}>
+                                <button id="UpdateCont" type="submit" class="delete-modal btn btn-success" {{ ($Recontract === 'Y' && $data->Status_Contract === '') ? 'disabled' : '' }}>
                                   <i class="fas fa-save"></i> อัพเดท
                                 </button>
-                                <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
+                                <a class="delete-modal btn btn-danger" href="{{ route('Analysis',$type) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
                                   <i class="far fa-window-close"></i> ยกเลิก
                                 </a>
                               </div>
                               @else 
-                                <a class="delete-modal btn btn-danger" href="{{ route('Analysis',1) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
+                                <a class="delete-modal btn btn-danger" href="{{ route('Analysis',$type) }}?Fromdate={{$fdate}}&Todate={{$tdate}}&status={{$status}}">
                                   <i class="fas fa-undo"></i> ย้อนกลับ
                                 </a>
                               @endif
@@ -348,179 +349,181 @@
                 </div>
                 <div class="card-body text-sm">
                   <div class="container-fluid">
-                    <div class="row mb-1">
-                      <div class="col-sm-3">
-                      {{-- เช็คเล่มทะเบียน --}}
-                          <!-- <div class="float-left form-inline">
-                            <i class="fas fa-book text-primary fa-lg"></i>
-                              <span class="todo-wrap">
-                                @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER" or auth::user()->position == "MASTER" or auth::user()->position == "AUDIT")
-                                  @if($data->BookCheck_car != NULL)
-                                    <input type="checkbox" class="checkbox" name="BOOKCHECK" id="6" value="{{ $data->BookCheck_car }}" {{ ($data->BookCheck_car !== NULL) ? 'checked' : '' }}>
-                                  @else
-                                    <input type="checkbox" class="checkbox" name="BOOKCHECK" id="6" value="{{ date('Y-m-d') }}">
-                                  @endif
-                                @else
-                                  <input type="checkbox" class="checkbox" id="6" {{ ($data->BookCheck_car !== NULL) ? 'checked' : '' }} disabled>
-                                @endif
-                                <label for="6" class="todo">
-                                  <i class="fa fa-check"></i>
-                                  <font color="red">BOOK REGIST CHECK &nbsp;&nbsp;</font>
-                                </label>
-                              </span>
-                              @if(auth::user()->type != "Admin" and auth::user()->position != "MANAGER" and auth::user()->position != "MASTER" and auth::user()->position != "AUDIT")
-                                @if($data->BookCheck_car != NULL)
-                                  <input type="hidden" name="BOOKCHECK" value="{{ $data->BookCheck_car }}">
-                                @endif
-                              @endif
-                          </div> -->
-                      </div>
-                      <div class="col-sm-9">
-                        <ol class="breadcrumb float-sm-right">
-
-                          {{-- ผู้จัดการ --}}
-                          <div class="float-right form-inline">
-                            <i class="fas fa-grip-vertical"></i>
-                            <span class="todo-wrap">
-                              @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
-                                @if ($data->ManagerApp_car != NULL)
-                                  <input type="checkbox" class="checkbox" name="MANAGER" id="1" value="{{ $data->ManagerApp_car }}" {{ ($data->ManagerApp_car !== NULL) ? 'checked' : '' }}>
-                                @else
-                                  <input type="checkbox" class="checkbox" name="MANAGER" id="1" value="{{ auth::user()->name }}">
-                                @endif
-                              @else
-                                <input type="checkbox" class="checkbox" id="1" {{ ($data->ManagerApp_car !== NULL) ? 'checked' : '' }} disabled>
-                              @endif
-                              <label for="1" class="todo">
-                                <i class="fa fa-check"></i>
-                                <font color="red">MANAGER &nbsp;&nbsp;</font>
-                              </label>
-                            </span> 
-                            @if(auth::user()->type != "Admin" and auth::user()->position != "MANAGER")
-                              @if($data->ManagerApp_car != NULL)
-                                <input type="hidden" name="MANAGER" value="{{ $data->ManagerApp_car }}">
-                              @endif
-                            @endif  
-                          </div>
-
-                          {{-- audit --}}
-                          <div class="float-right form-inline">
-                            <i class="fas fa-grip-vertical"></i>
-                            <span class="todo-wrap">
-                              @if(auth::user()->type == "Admin" or auth::user()->position == "AUDIT" or auth::user()->position == "MANAGER")
-                                @if ($data->Approvers_car != NULL)
-                                  <input type="checkbox" id="2" name="AUDIT" value="{{ $data->Approvers_car }}" {{ ($data->Approvers_car !== NULL) ? 'checked' : '' }}/>
-                                @else
-                                  <input type="checkbox" id="2" name="AUDIT" value="{{ auth::user()->name }}"/>
-                                @endif
-                              @else
-                                <input type="checkbox" class="checkbox" id="2" {{ ($data->Approvers_car !== NULL) ? 'checked' : '' }} disabled>
-                              @endif
-                                <label for="2" class="todo">
-                                <i class="fa fa-check"></i>
-                                <font color="red">AUDIT &nbsp;&nbsp;</font>
-                              </label>
-                            </span>
-                            @if(auth::user()->type != "Admin" and auth::user()->position != "AUDIT")
-                              @if($data->Approvers_car != NULL)
-                                <input type="hidden" name="AUDIT" value="{{ $data->Approvers_car }}">
-                              @endif
-                            @endif
-                          </div>
-
-                          {{-- หัวหน้าสาขา --}}
-                          <div class="float-right form-inline">
-                            <i class="fas fa-grip-vertical"></i>
-                              <span class="todo-wrap">
-                                @if(auth::user()->type == "Admin" or auth::user()->position == "MASTER" or auth::user()->position == "AUDIT")
-                                  @if($data->Check_car != NULL)
-                                    @if ($data->Approvers_car != NULL)
-                                      @if (auth::user()->position == "AUDIT" or auth::user()->type == "Admin")
-                                        <input type="checkbox" class="checkbox" name="MASTER" id="3" value="{{ $data->Check_car }}" {{ ($data->Check_car !== NULL) ? 'checked' : '' }}>
-                                      @else
-                                        <input type="checkbox" class="checkbox" id="3" {{ ($data->Check_car !== NULL) ? 'checked' : '' }} disabled>
-                                      @endif
+                    @if($type != 10)
+                      <div class="row mb-1">
+                        <div class="col-sm-3">
+                        {{-- เช็คเล่มทะเบียน --}}
+                            <!-- <div class="float-left form-inline">
+                              <i class="fas fa-book text-primary fa-lg"></i>
+                                <span class="todo-wrap">
+                                  @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER" or auth::user()->position == "MASTER" or auth::user()->position == "AUDIT")
+                                    @if($data->BookCheck_car != NULL)
+                                      <input type="checkbox" class="checkbox" name="BOOKCHECK" id="6" value="{{ $data->BookCheck_car }}" {{ ($data->BookCheck_car !== NULL) ? 'checked' : '' }}>
                                     @else
-                                      <input type="checkbox" class="checkbox" name="MASTER" id="3" value="{{ $data->Check_car }}" {{ ($data->Check_car !== NULL) ? 'checked' : '' }}>
+                                      <input type="checkbox" class="checkbox" name="BOOKCHECK" id="6" value="{{ date('Y-m-d') }}">
                                     @endif
                                   @else
-                                    <input type="checkbox" class="checkbox" name="MASTER" id="3" value="{{ auth::user()->name }}">
+                                    <input type="checkbox" class="checkbox" id="6" {{ ($data->BookCheck_car !== NULL) ? 'checked' : '' }} disabled>
+                                  @endif
+                                  <label for="6" class="todo">
+                                    <i class="fa fa-check"></i>
+                                    <font color="red">BOOK REGIST CHECK &nbsp;&nbsp;</font>
+                                  </label>
+                                </span>
+                                @if(auth::user()->type != "Admin" and auth::user()->position != "MANAGER" and auth::user()->position != "MASTER" and auth::user()->position != "AUDIT")
+                                  @if($data->BookCheck_car != NULL)
+                                    <input type="hidden" name="BOOKCHECK" value="{{ $data->BookCheck_car }}">
+                                  @endif
+                                @endif
+                            </div> -->
+                        </div>
+                        <div class="col-sm-9">
+                          <ol class="breadcrumb float-sm-right">
+
+                            {{-- ผู้จัดการ --}}
+                            <div class="float-right form-inline">
+                              <i class="fas fa-grip-vertical"></i>
+                              <span class="todo-wrap">
+                                @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
+                                  @if ($data->ManagerApp_car != NULL)
+                                    <input type="checkbox" class="checkbox" name="MANAGER" id="1" value="{{ $data->ManagerApp_car }}" {{ ($data->ManagerApp_car !== NULL) ? 'checked' : '' }}>
+                                  @else
+                                    <input type="checkbox" class="checkbox" name="MANAGER" id="1" value="{{ auth::user()->name }}">
                                   @endif
                                 @else
-                                  <input type="checkbox" class="checkbox" id="3" {{ ($data->Check_car !== NULL) ? 'checked' : '' }} disabled>
+                                  <input type="checkbox" class="checkbox" id="1" {{ ($data->ManagerApp_car !== NULL) ? 'checked' : '' }} disabled>
                                 @endif
-                                
-                                <label for="3" class="todo">
+                                <label for="1" class="todo">
                                   <i class="fa fa-check"></i>
-                                  <font color="red">MASTER &nbsp;&nbsp;</font>
+                                  <font color="red">MANAGER &nbsp;&nbsp;</font>
+                                </label>
+                              </span> 
+                              @if(auth::user()->type != "Admin" and auth::user()->position != "MANAGER")
+                                @if($data->ManagerApp_car != NULL)
+                                  <input type="hidden" name="MANAGER" value="{{ $data->ManagerApp_car }}">
+                                @endif
+                              @endif  
+                            </div>
+
+                            {{-- audit --}}
+                            <div class="float-right form-inline">
+                              <i class="fas fa-grip-vertical"></i>
+                              <span class="todo-wrap">
+                                @if(auth::user()->type == "Admin" or auth::user()->position == "AUDIT" or auth::user()->position == "MANAGER")
+                                  @if ($data->Approvers_car != NULL)
+                                    <input type="checkbox" id="2" name="AUDIT" value="{{ $data->Approvers_car }}" {{ ($data->Approvers_car !== NULL) ? 'checked' : '' }}/>
+                                  @else
+                                    <input type="checkbox" id="2" name="AUDIT" value="{{ auth::user()->name }}"/>
+                                  @endif
+                                @else
+                                  <input type="checkbox" class="checkbox" id="2" {{ ($data->Approvers_car !== NULL) ? 'checked' : '' }} disabled>
+                                @endif
+                                  <label for="2" class="todo">
+                                  <i class="fa fa-check"></i>
+                                  <font color="red">AUDIT &nbsp;&nbsp;</font>
+                                </label>
+                              </span>
+                              @if(auth::user()->type != "Admin" and auth::user()->position != "AUDIT")
+                                @if($data->Approvers_car != NULL)
+                                  <input type="hidden" name="AUDIT" value="{{ $data->Approvers_car }}">
+                                @endif
+                              @endif
+                            </div>
+
+                            {{-- หัวหน้าสาขา --}}
+                            <div class="float-right form-inline">
+                              <i class="fas fa-grip-vertical"></i>
+                                <span class="todo-wrap">
+                                  @if(auth::user()->type == "Admin" or auth::user()->position == "MASTER" or auth::user()->position == "AUDIT")
+                                    @if($data->Check_car != NULL)
+                                      @if ($data->Approvers_car != NULL)
+                                        @if (auth::user()->position == "AUDIT" or auth::user()->type == "Admin")
+                                          <input type="checkbox" class="checkbox" name="MASTER" id="3" value="{{ $data->Check_car }}" {{ ($data->Check_car !== NULL) ? 'checked' : '' }}>
+                                        @else
+                                          <input type="checkbox" class="checkbox" id="3" {{ ($data->Check_car !== NULL) ? 'checked' : '' }} disabled>
+                                        @endif
+                                      @else
+                                        <input type="checkbox" class="checkbox" name="MASTER" id="3" value="{{ $data->Check_car }}" {{ ($data->Check_car !== NULL) ? 'checked' : '' }}>
+                                      @endif
+                                    @else
+                                      <input type="checkbox" class="checkbox" name="MASTER" id="3" value="{{ auth::user()->name }}">
+                                    @endif
+                                  @else
+                                    <input type="checkbox" class="checkbox" id="3" {{ ($data->Check_car !== NULL) ? 'checked' : '' }} disabled>
+                                  @endif
+                                  
+                                  <label for="3" class="todo">
+                                    <i class="fa fa-check"></i>
+                                    <font color="red">MASTER &nbsp;&nbsp;</font>
+                                  </label>
+                                </span>
+
+                                @if(auth::user()->position == "MASTER")
+                                  @if ($data->Approvers_car != NULL)
+                                    <input type="hidden" name="MASTER" value="{{ $data->Check_car }}">
+                                  @endif
+                                @elseif(auth::user()->position == "STAFF" or auth::user()->position == "MANAGER")
+                                  <input type="hidden" name="MASTER" value="{{ $data->Check_car }}">
+                                @endif
+                            </div>
+
+                            {{-- ปิดสิทธ์แก้ไข / เอกสารครบ --}}
+                            <div class="float-right form-inline">
+                              <i class="fas fa-grip-vertical"></i>
+                              <span class="todo-wrap">
+                                @if(auth::user()->type == "Admin" or auth::user()->position == "MASTER")
+                                  @if($data->DocComplete_car != NULL)
+                                    @if ($data->Approvers_car != NULL)
+                                      <input type="checkbox" class="checkbox" name="doccomplete" id="5" value="{{ $data->DocComplete_car }}" {{ ($data->DocComplete_car !== NULL) ? 'checked' : '' }} disabled>
+                                    @else
+                                      <input type="checkbox" class="checkbox" name="doccomplete" id="5" value="{{ $data->DocComplete_car }}" {{ ($data->DocComplete_car !== NULL) ? 'checked' : '' }}>
+                                    @endif
+                                  @else
+                                    <input type="checkbox" class="checkbox" name="doccomplete" id="5" value="{{ auth::user()->name }}">
+                                  @endif
+                                @else
+                                  @if(auth::user()->position != "STAFF")
+                                    <input type="checkbox" class="checkbox" id="5" {{ ($data->DocComplete_car !== NULL) ? 'checked' : '' }} disabled>
+                                  @endif
+                                @endif
+
+                                @if(auth::user()->position == "STAFF")
+                                  @if($data->DocComplete_car != NULL)
+                                    <input type="checkbox" class="checkbox" name="doccomplete" id="5" value="{{ $data->DocComplete_car }}" {{ ($data->DocComplete_car !== NULL) ? 'checked' : '' }} disabled>
+                                  @else
+                                    <input type="checkbox" class="checkbox" name="doccomplete" id="5" value="{{ auth::user()->name }}">
+                                  @endif
+                                @endif
+
+                                <label for="5" class="todo">
+                                  <i class="fa fa-check"></i>
+                                  <font color="red">RESTRICT RIGHTS</font>
                                 </label>
                               </span>
 
-                              @if(auth::user()->position == "MASTER")
+                              @if(auth::user()->type == "Admin" or auth::user()->position == "AUDIT" or auth::user()->position == "MANAGER")
+                                <input type="hidden" name="doccomplete" value="{{ $data->DocComplete_car }}">
+                              @elseif(auth::user()->position == "MASTER")
                                 @if ($data->Approvers_car != NULL)
-                                  <input type="hidden" name="MASTER" value="{{ $data->Check_car }}">
+                                  <input type="hidden" name="doccomplete" value="{{ $data->DocComplete_car }}">
                                 @endif
-                              @elseif(auth::user()->position == "STAFF" or auth::user()->position == "MANAGER")
-                                <input type="hidden" name="MASTER" value="{{ $data->Check_car }}">
-                              @endif
-                          </div>
-
-                          {{-- ปิดสิทธ์แก้ไข / เอกสารครบ --}}
-                          <div class="float-right form-inline">
-                            <i class="fas fa-grip-vertical"></i>
-                            <span class="todo-wrap">
-                              @if(auth::user()->type == "Admin" or auth::user()->position == "MASTER")
-                                @if($data->DocComplete_car != NULL)
-                                  @if ($data->Approvers_car != NULL)
-                                    <input type="checkbox" class="checkbox" name="doccomplete" id="5" value="{{ $data->DocComplete_car }}" {{ ($data->DocComplete_car !== NULL) ? 'checked' : '' }} disabled>
-                                  @else
-                                    <input type="checkbox" class="checkbox" name="doccomplete" id="5" value="{{ $data->DocComplete_car }}" {{ ($data->DocComplete_car !== NULL) ? 'checked' : '' }}>
-                                  @endif
-                                @else
-                                  <input type="checkbox" class="checkbox" name="doccomplete" id="5" value="{{ auth::user()->name }}">
-                                @endif
-                              @else
-                                @if(auth::user()->position != "STAFF")
-                                  <input type="checkbox" class="checkbox" id="5" {{ ($data->DocComplete_car !== NULL) ? 'checked' : '' }} disabled>
+                              @elseif(auth::user()->position == "STAFF")
+                                @if ($data->DocComplete_car != NULL)
+                                  <input type="hidden" name="doccomplete" value="{{ $data->DocComplete_car }}">
                                 @endif
                               @endif
-
-                              @if(auth::user()->position == "STAFF")
-                                @if($data->DocComplete_car != NULL)
-                                  <input type="checkbox" class="checkbox" name="doccomplete" id="5" value="{{ $data->DocComplete_car }}" {{ ($data->DocComplete_car !== NULL) ? 'checked' : '' }} disabled>
-                                @else
-                                  <input type="checkbox" class="checkbox" name="doccomplete" id="5" value="{{ auth::user()->name }}">
-                                @endif
-                              @endif
-
-                              <label for="5" class="todo">
-                                <i class="fa fa-check"></i>
-                                <font color="red">RESTRICT RIGHTS</font>
-                              </label>
-                            </span>
-
-                            @if(auth::user()->type == "Admin" or auth::user()->position == "AUDIT" or auth::user()->position == "MANAGER")
-                              <input type="hidden" name="doccomplete" value="{{ $data->DocComplete_car }}">
-                            @elseif(auth::user()->position == "MASTER")
-                              @if ($data->Approvers_car != NULL)
-                                <input type="hidden" name="doccomplete" value="{{ $data->DocComplete_car }}">
-                              @endif
-                            @elseif(auth::user()->position == "STAFF")
-                              @if ($data->DocComplete_car != NULL)
-                                <input type="hidden" name="doccomplete" value="{{ $data->DocComplete_car }}">
-                              @endif
-                            @endif
-                          </div>  
-                        </ol>
+                            </div>  
+                          </ol>
+                        </div>
                       </div>
-                    </div>
+                    @endif
                   </div>
 
                   <div class="card card-warning card-tabs">
                     <div class="card-header p-0 pt-1">
                       <ul class="nav nav-tabs" id="custom-tabs-five-tab" role="tablist">
                         <li class="nav-item">
-                          <a class="nav-link MainPage" href="{{ route('Analysis',1) }}">หน้าหลัก</a>
+                          <a class="nav-link MainPage" href="{{ route('Analysis',$type) }}">หน้าหลัก</a>
                         </li>
                         @if($SettingValue->Tabbuyer_set == 'on')
                         <li class="nav-item">
@@ -538,9 +541,13 @@
                         </li>
                         @endif 
                         @if($SettingValue->Tabexpense_set == 'on')
-                        <li class="nav-item">
-                          <a class="nav-link" id="Sub-custom-tab4" data-toggle="pill" href="#Sub-tab4" role="tab" aria-controls="Sub-tab4" aria-selected="false">แบบฟอร์มค่าใช้จ่าย</a>
-                        </li>
+                          @if($Recontract != 'Y')
+                            @if($type != 10)
+                              <li class="nav-item">
+                                <a class="nav-link" id="Sub-custom-tab4" data-toggle="pill" href="#Sub-tab4" role="tab" aria-controls="Sub-tab4" aria-selected="false">แบบฟอร์มค่าใช้จ่าย</a>
+                              </li>
+                            @endif
+                          @endif
                         @endif 
                         @if($SettingValue->Tabchecker_set == 'on')
                         <li class="nav-item">
@@ -569,6 +576,9 @@
                                   @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                     <input type="text" name="Contract_buyer" class="form-control form-control-sm" maxlength="12" value="{{ $data->Contract_buyer }}" />
                                   @else
+                                  @if($type == 10)
+                                    <input type="text" name="Contract_buyer" class="form-control form-control-sm" maxlength="12" value="{{ $data->Contract_buyer }}" />
+                                  @else 
                                     @if($GetDocComplete != Null)
                                       <input type="text" name="Contract_buyer" class="form-control form-control-sm" value="{{ $data->Contract_buyer }}" readonly/>
                                     @else
@@ -578,6 +588,7 @@
                                         <input type="text" name="Contract_buyer" maxlength="8" class="form-control form-control-sm" data-inputmask="&quot;mask&quot;:&quot;99-9999/&quot;" data-mask="" value="{{ $data->Contract_buyer }}"/>
                                       @endif
                                     @endif
+                                  @endif
                                   @endif
                                   </div>
                                 </div>
@@ -1154,7 +1165,7 @@
                                       <textarea class="form-control" name="ApproveDetail" rows="5" placeholder="ป้อนเหตุผล" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}>{{$data->ApproveDetail_buyer}}</textarea>
                                     @endif
                                     <h5 class="text-center text-red"><b>หมายเหตุ / กรณีพิเศษ</b></h5>
-                                    @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER" or auth::user()->position == "AUDIT")
+                                    @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                         <textarea class="form-control" name="Notecar" rows="5" placeholder="ป้อนหมายเหตุ">{{$data->Note_car}}</textarea>
                                     @else
                                         <textarea class="form-control" name="Notecar" rows="5" placeholder="ป้อนหมายเหตุ" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}>{{$data->Note_car}}</textarea>
@@ -1979,7 +1990,7 @@
                                   @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                     <input type="date" name="DateFInsurance" value="{{$data->DateFInsurance_car}}" min="{{$SetFDate}}" max="{{$SetTDate}}" class="form-control form-control-sm"  placeholder="วันที่ทำประกัน" />
                                   @else
-                                    <input type="date" name="DateFInsurance" value="{{$data->DateFInsurance_car}}" min="{{$SetFDate}}" max="{{$SetTDate}}" class="form-control form-control-sm"  placeholder="วันที่ทำประกัน" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                    <input type="date" name="DateFInsurance" value="{{$data->DateFInsurance_car}}" min="{{$SetFDate}}" max="{{$SetTDate}}" class="form-control form-control-sm"  placeholder="วันที่ทำประกัน" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}/>
                                   @endif
                                 </div>
                               </div>
@@ -1991,7 +2002,7 @@
                                   @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                     <input type="date" name="DateLInsurance" value="{{$data->DateLInsurance_car}}" min="{{$SetFDate}}" max="{{$SetTDate}}" class="form-control form-control-sm"  placeholder="วันที่หมดประกัน"/>
                                   @else
-                                    <input type="date" name="DateLInsurance" value="{{$data->DateLInsurance_car}}" min="{{$SetFDate}}" max="{{$SetTDate}}" class="form-control form-control-sm"  placeholder="วันที่หมดประกัน" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                    <input type="date" name="DateLInsurance" value="{{$data->DateLInsurance_car}}" min="{{$SetFDate}}" max="{{$SetTDate}}" class="form-control form-control-sm"  placeholder="วันที่หมดประกัน" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}/>
                                   @endif
                                 </div>
                               </div>
@@ -2006,7 +2017,7 @@
                                   @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                     <input type="date" name="DateFAct" value="{{$data->DateFAct_car}}" min="{{$SetFDate}}" max="{{$SetTDate}}" class="form-control form-control-sm"  placeholder="วันที่ทำ พ.ร.บ" />
                                   @else
-                                    <input type="date" name="DateFAct" value="{{$data->DateFAct_car}}"  min="{{$SetFDate}}" max="{{$SetTDate}}" class="form-control form-control-sm"  placeholder="วันที่ทำ พ.ร.บ" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                    <input type="date" name="DateFAct" value="{{$data->DateFAct_car}}"  min="{{$SetFDate}}" max="{{$SetTDate}}" class="form-control form-control-sm"  placeholder="วันที่ทำ พ.ร.บ" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}/>
                                   @endif
                                 </div>
                               </div>
@@ -2018,7 +2029,7 @@
                                   @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                     <input type="date" name="DateLAct" value="{{$data->DateLAct_car}}" min="{{$SetFDate}}" max="{{$SetTDate}}" class="form-control form-control-sm"  placeholder="วันที่หมด พ.ร.บ"/>
                                   @else
-                                    <input type="date" name="DateLAct" value="{{$data->DateLAct_car}}" min="{{$SetFDate}}" max="{{$SetTDate}}" class="form-control form-control-sm"  placeholder="วันที่หมด พ.ร.บ" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                    <input type="date" name="DateLAct" value="{{$data->DateLAct_car}}" min="{{$SetFDate}}" max="{{$SetTDate}}" class="form-control form-control-sm"  placeholder="วันที่หมด พ.ร.บ" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}/>
                                   @endif
                                 </div>
                               </div>
@@ -2033,7 +2044,7 @@
                                   @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                     <input type="date" name="DateFRegister" value="{{$data->DateFRegister_car}}" min="{{$SetFDate}}" max="{{$SetTDate}}" class="form-control form-control-sm"  placeholder="วันที่ทำต่อทะเบียน" />
                                   @else
-                                    <input type="date" name="DateFRegister" value="{{$data->DateFRegister_car}}" min="{{$SetFDate}}" max="{{$SetTDate}}" class="form-control form-control-sm"  placeholder="วันที่ทำต่อทะเบียน" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                    <input type="date" name="DateFRegister" value="{{$data->DateFRegister_car}}" min="{{$SetFDate}}" max="{{$SetTDate}}" class="form-control form-control-sm"  placeholder="วันที่ทำต่อทะเบียน" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}/>
                                   @endif
                                 </div>
                               </div>
@@ -2045,7 +2056,7 @@
                                   @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                     <input type="date" name="DateLRegister" value="{{$data->DateLRegister_car}}" min="{{$SetFDate}}" max="{{$SetTDate}}" class="form-control form-control-sm"  placeholder="วันที่หมดทะเบียน"/>
                                   @else
-                                    <input type="date" name="DateLRegister" value="{{$data->DateLRegister_car}}" min="{{$SetFDate}}" max="{{$SetTDate}}" class="form-control form-control-sm"  placeholder="วันที่หมดทะเบียน" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                    <input type="date" name="DateLRegister" value="{{$data->DateLRegister_car}}" min="{{$SetFDate}}" max="{{$SetTDate}}" class="form-control form-control-sm"  placeholder="วันที่หมดทะเบียน" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}/>
                                   @endif
                                 </div>
                               </div>
