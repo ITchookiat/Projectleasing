@@ -363,6 +363,10 @@
   {{-- Date Rang --}}
   <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
   <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
+
+  {{-- Graph on Homepage --}}
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
   
   <script>
     $.widget.bridge('uibutton', $.ui.button)

@@ -71,7 +71,7 @@ class AnalysController extends Controller
               ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
               ->join('expenses','buyers.id','=','expenses.Buyerexpenses_id')
               ->where('cardetails.Date_Appcar','=',Null)
-              ->where('buyers.Status_Contract','=',Null)
+              // ->where('buyers.Status_Contract','=',Null)
               ->where('buyers.Contract_buyer','not like', '22%')
               ->where('buyers.Contract_buyer','not like', '33%')
               ->orderBy('buyers.Contract_buyer', 'ASC')
@@ -96,7 +96,7 @@ class AnalysController extends Controller
               ->when(!empty($contno), function($q) use($contno){
                 return $q->where('buyers.Contract_buyer','=',$contno);
               })
-              ->where('buyers.Status_Contract','=',Null)
+              // ->where('buyers.Status_Contract','=',Null)
               ->where('buyers.Contract_buyer','not like', '22%')
               ->where('buyers.Contract_buyer','not like', '33%')
               ->orderBy('buyers.Contract_buyer', 'ASC')
@@ -349,7 +349,7 @@ class AnalysController extends Controller
               ->join('cardetails','buyers.id','=','cardetails.Buyercar_id')
               ->join('expenses','buyers.id','=','expenses.Buyerexpenses_id')
               ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
-                return $q->whereBetween('buyers.Date_Due',[$newfdate,$newtdate]);
+                return $q->whereBetween('buyers.Datechange_Contract',[$newfdate,$newtdate]);
               })
               ->when(!empty($status), function($q) use($status){
                 return $q->where('cardetails.StatusApp_car','=',$status);
