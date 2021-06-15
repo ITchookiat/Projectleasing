@@ -285,6 +285,10 @@
                                 </div>
                                 <div class="row mb-1">
                                   <div class="col-6">
+                                    <div class="float-right form-inline">
+                                      <label>ผลจากการขายได้ : </label>
+                                      <input type="text" name="Soldout" class="form-control" style="width: 250px;" placeholder="ป้อนข้อมูล">
+                                    </div>
                                   </div>
                                   <div class="col-6">
                                     <div class="float-right form-inline">
