@@ -310,6 +310,7 @@ class ReportAnalysController extends Controller
             ->leftJoin('cardetails','Buyers.id','=','cardetails.Buyercar_id')
             ->leftJoin('Expenses','Buyers.id','=','Expenses.Buyerexpenses_id')
             ->leftjoin('upload_lat_longs','buyers.id','=','upload_lat_longs.Use_id')
+            ->leftJoin('data_customers','Buyers.Walkin_id','=','data_customers.Customer_id')
             ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
               return $q->whereBetween('buyers.Date_Due',[$newfdate,$newtdate]);
             })
@@ -336,7 +337,7 @@ class ReportAnalysController extends Controller
                   'รวม คชจ', 'คงเหลือ', 'ค่าคอมก่อนหัก 3%', 'ค่าคอมหลังหัก 3%', 
                   'เลขที่โฉนดผู้ค่ำ', 'ผู้รับเงิน','เลขบัญชี','เบอร์โทรผู้รับเงิน', 'ผู้รับค่าคอม','เลขบัญชี','เบอร์โทรผู้แนะนำ', 
                   'ใบขับขี่','ประกันภัย','สถานะผู้เช่าซื้อ','ตำแหน่งที่อยู่ผู้เช่าซื้อ', 'ตำแหน่งที่อยู่ผู้ค่ำ','รายละเอียดอาชีพ','ผลการประเมินลูกค้า', 'ผลการตรวจสอบลูกค้า','ความพึงพอใจลูกค้า','ผลการตรวจสอบนายหน้า','ความพึงพอใจนายหน้า',
-                  'วันที่เช็คเล่มทะเบียน','ค่าเช็คเล่มทะเบียน'));
+                  'แหล่งที่มาลูกค้า'));
 
                 foreach ($data as $key => $value) {
                   if($value->BookCheck_car == null){
@@ -394,8 +395,7 @@ class ReportAnalysController extends Controller
                     $value->Prefer_buyer,
                     $value->Memo_broker,
                     $value->Prefer_broker,
-                    $value->BookCheck_car,
-                    $BooKcheck_price,
+                    $value->Resource_news
                   ));
 
                 }

@@ -43,7 +43,10 @@
           <div class="card-header mb-1">
             <div class="form-inline">
               <div class="col-sm-4">
-                <h4 class="m-0 text-dark text-left"><i class="fa fa-dashboard"></i> Dashboard</h4>
+                <h5 class="m-0 text-dark text-left">
+                <i class="fa fa-dashboard"></i> 
+                  <a class="text-dark" href="{{ route('index','home') }}">Dashboard</a> | <a class="text-dark" href="{{ route('index','home') }}?Dashboard={{2}}">Dashboard 2</a>
+                </h5>
               </div>
               <div class="col-sm-8">
                 @if($Allproducts == '')
