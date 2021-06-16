@@ -2146,7 +2146,11 @@
                                 </label>
                                 <div class="col-sm-8">
                                   {{--<input type="text" id="Interestcar" name="Interestcar" class="form-control form-control-sm"  value="{{$data->Interest_car}}" placeholder="ดอกเบี้ย" readonly onchange="calculate();"/> --}}
-                                  <input type="text" id="NewInterestcar" name="Interestcar" class="form-control form-control-sm"  value="{{$data->Interest_car}}" placeholder="ดอกเบี้ย" oninput="calculate();" {{ (auth::user()->type !== "Admin" && $Recontract !== 'Y') ? 'readonly' : '' }}/>
+                                  @if(auth::user()->type !== "Admin" && $Recontract !== 'Y')
+                                  <input type="text" id="NewInterestcar" name="Interestcar" class="form-control form-control-sm"  value="{{$data->Interest_car}}" placeholder="ดอกเบี้ย" oninput="calculate();"/>
+                                  @else
+                                    <input type="text" id="NewInterestcar" name="Interestcar" class="form-control form-control-sm"  value="{{$data->Interest_car}}" placeholder="ดอกเบี้ย" oninput="calculate();" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}/>
+                                  @endif
                                   <input type="hidden" id="Interesttype" name="Interesttype" class="form-control form-control-sm"  value="{{$SettingValue->Interesttype_set}}"/>
                                 </div>
                               </div>
