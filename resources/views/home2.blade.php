@@ -58,13 +58,13 @@
                   <form method="get" action="#">
                     <div class="float-right">
                       <small class="badge" style="font-size: 14px;">
-                        <i class="fas fa-sign"></i> วันที่ :
+                        วันที่ :
                         <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control pr-3" />
                         ถึงวันที่ :
                         <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control" />&nbsp;
-                        <button type="submit" class="btn btn-info" title="ค้นหา">
+                        <!-- <button type="submit" class="btn btn-info" title="ค้นหา">
                           <span class="fas fa-search"></span> ค้นหา
-                        </button>
+                        </button> -->
                       </small>
                     </div>
                   </form>
@@ -206,7 +206,7 @@
     }],
       chart: {
       type: 'bar',
-      height: 350,
+      height: 300,
     },
     colors: ['#64B10B'],
     plotOptions: {
@@ -366,9 +366,9 @@
     }],
       chart: {
       type: 'bar',
-      height: 350,
+      height: 300,
     },
-    colors: ['#E95433'],
+    colors: ['#64B10B'],
     plotOptions: {
       bar: {
         borderRadius: 4,
