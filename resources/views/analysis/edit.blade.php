@@ -2114,7 +2114,7 @@
                                           <option value="{{$key}}" {{ ($key == $data->Timeslacken_car) ? 'selected' : '' }}>{{$value}}</option>
                                         @endforeach
                                       </select> --}}
-                                      <input type="text" id="NewTimeslackencar" name="Timeslackencar" value="{{$data->Timeslacken_car}}" class="form-control form-control-sm"  placeholder="ระยะเวลาผ่อน" oninput="calculate();" {{ (auth::user()->type !== "Admin" && $Recontract !== 'Y') ? 'readonly' : '' }}/>
+                                      <input type="text" id="NewTimeslackencar" name="Timeslackencar" value="{{$data->Timeslacken_car}}" class="form-control form-control-sm"  placeholder="ระยะเวลาผ่อน" oninput="calculate();" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}/>
                                   @endif
                                 </div>
                               </div>
