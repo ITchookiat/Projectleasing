@@ -1612,48 +1612,51 @@ class AnalysController extends Controller
       }
 
       // กำหนด วันอนุมัติสัญญา
-      $StatusApp = "รออนุมัติ";
-      if ($Getcardetail->Date_Appcar == NULL) { //เช็คอนุมัติ
-        $newDateDue = $request->get('DateDue');
-        if ($request->get('MANAGER') != Null) {
-          if ($Getcardetail->Date_Appcar == Null) {
-            $newDateDue = date('Y-m-d');
-          }
-          $StatusApp = "อนุมัติ";
-        }else {
+      if($type != 10){
+        $StatusApp = "รออนุมัติ";
+        if ($Getcardetail->Date_Appcar == NULL) { //เช็คอนุมัติ
           $newDateDue = $request->get('DateDue');
-          $StatusApp = "รออนุมัติ";
+          if ($request->get('MANAGER') != Null) {
+            if ($Getcardetail->Date_Appcar == Null) {
+              $newDateDue = date('Y-m-d');
+            }
+            $StatusApp = "อนุมัติ";
+          }else {
+            $newDateDue = $request->get('DateDue');
+            $StatusApp = "รออนุมัติ";
+          }
+  
+          // if ($SetTopcar > 250000) {
+          //   if ($request->get('MANAGER') != Null) {
+          //     if ($Getcardetail->Date_Appcar == Null) {
+          //       $newDateDue = date('Y-m-d');
+          //     }
+          //     $StatusApp = "อนุมัติ";
+          //   }else {
+          //     $newDateDue = $request->get('DateDue');
+          //     $StatusApp = "รออนุมัติ";
+          //   }
+          // }else {
+          //   if ($request->get('AUDIT') != Null) {
+          //     if ($Getcardetail->Date_Appcar == Null) {
+          //       $newDateDue = date('Y-m-d');
+          //     }
+          //     $StatusApp = "อนุมัติ";
+          //   }elseif ($request->get('MASTER') != Null) {
+          //       $newDateDue = $request->get('DateDue');
+          //       $StatusApp = "รออนุมัติ";
+          //   }
+          // }
+        }
+        //เอกสารครบ
+        if ($request->get('doccomplete') != Null) {
+          $SetDocComplete = $request->get('doccomplete');
+        }else {
+          $SetDocComplete = NULL;
         }
 
-        // if ($SetTopcar > 250000) {
-        //   if ($request->get('MANAGER') != Null) {
-        //     if ($Getcardetail->Date_Appcar == Null) {
-        //       $newDateDue = date('Y-m-d');
-        //     }
-        //     $StatusApp = "อนุมัติ";
-        //   }else {
-        //     $newDateDue = $request->get('DateDue');
-        //     $StatusApp = "รออนุมัติ";
-        //   }
-        // }else {
-        //   if ($request->get('AUDIT') != Null) {
-        //     if ($Getcardetail->Date_Appcar == Null) {
-        //       $newDateDue = date('Y-m-d');
-        //     }
-        //     $StatusApp = "อนุมัติ";
-        //   }elseif ($request->get('MASTER') != Null) {
-        //       $newDateDue = $request->get('DateDue');
-        //       $StatusApp = "รออนุมัติ";
-        //   }
-        // }
       }
 
-      //เอกสารครบ
-      if ($request->get('doccomplete') != Null) {
-        $SetDocComplete = $request->get('doccomplete');
-      }else {
-        $SetDocComplete = NULL;
-      }
 
       //เพิ่มค่าใช้จ่ายขนส่ง
       if ($request->get('tranPrice') != 0) {
@@ -2013,24 +2016,26 @@ class AnalysController extends Controller
           }
         }
 
+        if($type != 10){
+          $cardetail->Insurance_car = $request->get('Insurancecar');
+          $cardetail->status_car = $request->get('statuscar');
+          $cardetail->Percent_car = $request->get('Percentcar');
+          $cardetail->Payee_car = $request->get('Payeecar');
+          $cardetail->IDcardPayee_car = $request->get('IDcardPayeecar');
+          $cardetail->Accountbrance_car = $request->get('Accountbrancecar');
+          $cardetail->Tellbrance_car = $request->get('Tellbrancecar');
+          $cardetail->Agent_car = $request->get('Agentcar');
+          $cardetail->IDcardAgent_car = $request->get('IDAgentcar');
+          $cardetail->Accountagent_car = $request->get('Accountagentcar');
+          $cardetail->Commission_car = $SetCommissioncar;
+          $cardetail->Tellagent_car = $request->get('Tellagentcar');
+          $cardetail->AgentNickname_car = $request->get('Nicknameagentcar'); //ฉายานายหน้า
+          $cardetail->AgentShop_car = $request->get('Shopagentcar');          //เต้นท์นายหน้า
+          $cardetail->AgentShoplocation_car = $request->get('Shoplocationcar');   //ที่ตั้งเต้นท์นายหน้า
+          $cardetail->Purchasehistory_car = $request->get('Purchasehistorycar');
+          $cardetail->Supporthistory_car = $request->get('Supporthistorycar');
+        }
 
-        $cardetail->Insurance_car = $request->get('Insurancecar');
-        $cardetail->status_car = $request->get('statuscar');
-        $cardetail->Percent_car = $request->get('Percentcar');
-        $cardetail->Payee_car = $request->get('Payeecar');
-        $cardetail->IDcardPayee_car = $request->get('IDcardPayeecar');
-        $cardetail->Accountbrance_car = $request->get('Accountbrancecar');
-        $cardetail->Tellbrance_car = $request->get('Tellbrancecar');
-        $cardetail->Agent_car = $request->get('Agentcar');
-        $cardetail->IDcardAgent_car = $request->get('IDAgentcar');
-        $cardetail->Accountagent_car = $request->get('Accountagentcar');
-        $cardetail->Commission_car = $SetCommissioncar;
-        $cardetail->Tellagent_car = $request->get('Tellagentcar');
-        $cardetail->AgentNickname_car = $request->get('Nicknameagentcar'); //ฉายานายหน้า
-        $cardetail->AgentShop_car = $request->get('Shopagentcar');          //เต้นท์นายหน้า
-        $cardetail->AgentShoplocation_car = $request->get('Shoplocationcar');   //ที่ตั้งเต้นท์นายหน้า
-        $cardetail->Purchasehistory_car = $request->get('Purchasehistorycar');
-        $cardetail->Supporthistory_car = $request->get('Supporthistorycar');
         $cardetail->DocComplete_car = $SetDocComplete;             //เอกสารครบ
         $cardetail->Check_car = $SetStatusMas;                     //หัวหน้า
         $cardetail->Approvers_car = $request->get('AUDIT');        //audit
@@ -2038,6 +2043,10 @@ class AnalysController extends Controller
         $cardetail->branchbrance_car = $request->get('branchbrancecar');
         $cardetail->branchAgent_car = $request->get('branchAgentcar');
         $cardetail->Note_car = $request->get('Notecar');
+
+        if($type == 10){
+          $cardetail->Dateduefirst_car = $request->get('Dateduefirstcar');
+        }
       $cardetail->update();
 
       if ($request->get('tranPrice') != Null) {
@@ -2082,6 +2091,7 @@ class AnalysController extends Controller
       }
 
       $expenses = Expenses::where('Buyerexpenses_id',$id)->first();
+      if($type != 10){
         $expenses->act_Price = $SetactPrice;
         $expenses->closeAccount_Price = $SetcloseAccountPrice;
         $expenses->P2_Price = $SetP2Price;
@@ -2097,6 +2107,10 @@ class AnalysController extends Controller
         $expenses->insurance_Price = $request->get('insurancePrice');
         $expenses->note_Price = $request->get('notePrice');
         $expenses->BookCheck_car = $request->get('BOOKCHECK');
+      }
+      if($type == 10){
+        $expenses->note_Price = $request->get('notePrice');
+      }
       $expenses->update();
       
 

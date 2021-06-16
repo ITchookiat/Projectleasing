@@ -19,7 +19,7 @@
   </head>
     <label>วันที่ : {{$date}}</label>
     @if($type == 10)
-      <h3 class="card-title p-3" align="center" style="line-height: 3px;">แบบฟอร์มขอเปลี่ยนสัญญาเช่าซื้อรถยนต์</h3>
+      <h3 class="card-title p-3" align="center" style="line-height: 3px;">แบบฟอร์มขออนุมัติสัญญาโอนสิทธิ์</h3>
     @elseif($type == 11)
       <h3 class="card-title p-3" align="center" style="line-height: 3px;">แบบฟอร์มขออนุมัติปรับโครงสร้างหนี้</h3>
     @else
@@ -34,7 +34,11 @@
         <tr align="center">
           <th width="180px">บริษัท ชูเกียรติลิสซิ่ง จำกัด</th>
           <th width="180px">เลขที่สัญญา <b>{{$dataReport->Contract_buyer}}</b></th>
-          <th width="180px">วันที่ทำสัญญา <b>{{$newDateDue}}</b></th>
+          @if($type == 10)
+            <th width="180px">วันที่ทำสัญญา <b>{{DateThai($dataReport->Datechange_Contract)}}</b></th>
+          @else 
+            <th width="180px">วันที่ทำสัญญา <b>{{$newDateDue}}</b></th>
+          @endif
         </tr>
       </tbody>
     </table>
@@ -203,7 +207,7 @@
     </table>
 
     <h4 align="left"><u>รายละเอียดรถยนต์</u></h4>
-    @if($type == 1 or $type == 10)
+    @if($type == 1)
       <table border="1">
         <thead>
           <tr align="center">
@@ -578,6 +582,120 @@
           <th align="right" width="120px"> ผู้ทำสัญญา &nbsp;</th>
           <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataReport->contrac_HC}}</b></th>
         </tr>
+      </table>
+    @elseif($type = 10)
+      <table border="1">
+        <thead>
+          <tr align="center">
+            <th class="text-center" width="120px">ยี่ห้อ</th>
+            <th class="text-center" width="60px">ปี</th>
+            <th class="text-center" width="60px">สี</th>
+            <th class="text-center" width="120px">ป้ายเดิม</th>
+            <th class="text-center" width="85px">ป้ายใหม่</th>
+            <th class="text-center" width="95px">เลขไมล์</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr align="center" style="background-color: yellow;">
+            <td width="120px"> <b>{{$dataReport->Brand_car}}</b></td>
+            <td width="60px"> <b>{{$dataReport->Year_car}}</b></td>
+            <td width="60px"> <b>{{$dataReport->Colour_car}}</b></td>
+            <td width="120px"> <b>{{$dataReport->License_car}}</b></td>
+            <td width="85px"> <b>{{$dataReport->Nowlicense_car}}</b></td>
+            <td width="95px"> <b>{{$dataReport->Mile_car}}</b></td>
+          </tr>
+        </tbody>
+      </table>
+      <table border="1">
+        <tr>
+          <th align="right" width="120px"> รุ่น &nbsp;</th>
+          <th class="text-center" width="420px" style="background-color: yellow;"> <b>{{$dataReport->Model_car}}</b></th>
+        </tr>
+        <tr>
+          <th class="text-center" width="540px"></th>
+        </tr>
+        <tr>
+          <th align="right" width="120px"></th>
+          <th align="left" width="120px"> ราคารถ &nbsp;</th>
+          <th align="right" width="120px" style="background-color: green;"> <b>{{number_format($dataReport->Top_car)}} &nbsp;</b> </th>
+          <th class="text-center" width="180px"></th>
+        </tr>
+        <tr>
+          <th align="right" width="120px"></th>
+          <th align="left" width="120px"> VAT &nbsp; </th>
+          <th align="right" width="120px" style="background-color: yellow;"> <b>{{($dataReport->Vat_car != null)?$dataReport->Vat_car: '7%'}} &nbsp;</b> </th>
+          <th class="text-center" width="180px" ></th>
+        </tr>
+        <tr>
+          <th align="right" width="120px"></th>
+          <th align="left" width="120px"> ดอกเบี้ยต่อปี &nbsp; </th>
+          <th align="right" width="120px" style="background-color: yellow;"> <b>{{$dataReport->Interest_car}} &nbsp;</b> </th>
+          <th class="text-center" width="180px" ></th>
+        </tr>
+        <tr>
+          <th align="right" width="120px"></th>
+          <th align="left" width="120px"> ระยะเวลาผ่อน &nbsp; </th>
+          <th align="right" width="120px" style="background-color: yellow;"> <b>{{$dataReport->Timeslacken_car}} &nbsp;</b> </th>
+          <th class="text-center" width="180px" ></th>
+        </tr>
+        <tr>
+          <th align="right" width="120px"></th>
+          <th align="left" width="120px"> ชำระต่องวด &nbsp; </th>
+          <th align="right" width="120px" style="background-color: yellow;"> <b>{{$dataReport->Pay_car}} &nbsp;</b> </th>
+          <th class="text-center" width="180px" ></th>
+        </tr>
+        <tr>
+          <th align="right" width="120px"></th>
+          <th align="left" width="120px"> ค่างวด x ระยะเวลาผ่อน &nbsp; </th>
+          <th align="right" width="120px" style="background-color: yellow;"> <b>{{$dataReport->Paymemt_car}} &nbsp;</b> </th>
+          <th align="right" width="85px" style="background-color: yellow;"> <b>{{$dataReport->Timepayment_car}} &nbsp;</b> </th>
+          <th class="text-center" width="95px" ></th>
+        </tr>
+        <tr>
+          <th align="right" width="120px"></th>
+          <th align="left" width="120px"> ภาษี x ระยะเวลาผ่อน &nbsp; </th>
+          <th align="right" width="120px" style="background-color: yellow;"> <b>{{$dataReport->Tax_car}} &nbsp;</b> </th>
+          <th align="right" width="85px" style="background-color: yellow;"> <b>{{$dataReport->Taxpay_car}} &nbsp;</b> </th>
+          <th class="text-center" width="95px" ></th>
+        </tr>
+        <tr>
+          <th align="right" width="120px"></th>
+          <th align="left" width="120px"> ยอดผ่อนชำระทั้งหมด &nbsp; </th>
+          <th align="right" width="120px" style="background-color: green;"> <b>{{number_format($dataReport->Top_car,2)}} &nbsp;</b> </th>
+          <th align="right" width="85px" style="background-color: green;"> <b>{{number_format($dataReport->Top_car,2)}} &nbsp;</b> </th>
+          <th class="text-center" width="95px" ></th>
+        </tr>
+        <tr>
+          <th class="text-center" width="540px"></th>
+        </tr>
+        <tr>
+          <th align="right" width="120px"> วันที่ชำระงวดแรก &nbsp;</th>
+          <th class="text-center" width="120px" style="background-color: yellow;"> <b>{{$dataReport->Dateduefirst_car}}</b></th>
+          <th align="right" width="120px"> ประกันภัย &nbsp;</th>
+          <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataReport->Insurance_car}}</b></th>
+        </tr>
+        <tr>
+          <th class="text-center" width="540px"></th>
+        </tr>
+        <tr>
+          <th align="right" width="120px"> หมายเหตุ &nbsp;</th>
+          <th class="text-center" width="420px" style="background-color: yellow;"> <b>{{$dataReport->Note_car}}</b></th>
+        </tr>
+        <tr>
+          <th align="right" width="120px"></th>
+          <th class="text-center" width="420px" style="background-color: yellow;"> <b>ค่าเปลี่ยนสัญญา 2,500 บาท</b></th>
+        </tr>
+        <tr>
+          <th class="text-center" width="540px"></th>
+        </tr>
+        <tr>
+          <th align="right" width="120px"> พนักงานขาย &nbsp;</th>
+          <th class="text-center" width="420px" style="background-color: yellow;"> <b>{{$dataReport->Userchange_Contract}}</b></th>
+        </tr>
+        <tr>
+          <th align="right" width="120px"> ผู้อนุมัติ &nbsp;</th>
+          <th class="text-center" width="420px" style="background-color: yellow;"> <b>{{$dataReport->ManagerApp_car}}</b></th>
+        </tr>        
       </table>
     @elseif($type == 11 or $type == 12)
         <table border="1">

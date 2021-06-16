@@ -1937,7 +1937,7 @@
                               <div class="form-group row mb-0">
                                 <label class="col-sm-3 col-form-label text-right">ป้ายใหม่ : </label>
                                 <div class="col-sm-8">
-                                  <input type="text" name="Nowlicensecar" value="{{$data->Nowlicense_car}}" class="form-control form-control-sm"  placeholder="ป้ายใหม่" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                  <input type="text" name="Nowlicensecar" value="{{$data->Nowlicense_car}}" class="form-control form-control-sm"  placeholder="ป้ายใหม่" {{ (auth::user()->type !== "Admin" && $Recontract !== 'Y' && $GetDocComplete !== NULL) ? 'readonly' : '' }}/>
                                 </div>
                               </div>
                             </div>
@@ -2069,12 +2069,16 @@
                           <div class="row">
                             <div class="col-6">
                               <div class="form-group row mb-0">
+                                @if($type == 10)
+                                <label class="col-sm-3 col-form-label text-right">ราคารถ : </label> 
+                                @else 
                                 <label class="col-sm-3 col-form-label text-right">ยอดจัด : </label>
+                                @endif
                                 <div class="col-sm-8">
                                   @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
                                     <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control form-control-sm"  placeholder="กรอกยอดจัด" oninput="calculate();balance();percent();" />
                                   @else
-                                    <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control form-control-sm"  placeholder="กรอกยอดจัด" oninput="calculate();balance();percent();" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                    <input type="text" id="Topcar" name="Topcar" value="{{number_format($data->Top_car)}}" class="form-control form-control-sm"  placeholder="กรอกยอดจัด" oninput="calculate();balance();percent();" {{ ($GetDocComplete !== NULL && $Recontract !== 'Y') ? 'readonly' : '' }}/>
                                   @endif
                                   <input type="hidden" id="TopcarOri" name="TopcarOri" class="form-control form-control-sm"  placeholder="กรอกยอดจัด" />
                                 </div>
@@ -2084,7 +2088,7 @@
                               <div class="form-group row mb-0">
                                 <label class="col-sm-3 col-form-label text-right">ชำระต่องวด : </label>
                                 <div class="col-sm-8">
-                                  <input type="text" id="Paycar" name="Paycar" value="{{$data->Pay_car}}" class="form-control form-control-sm"  readonly onchange="calculate()" />
+                                  <input type="text" id="Paycar" name="Paycar" value="{{$data->Pay_car}}" class="form-control form-control-sm" onchange="calculate()" {{ (auth::user()->type !== "Admin" && $Recontract !== 'Y') ? 'readonly' : '' }}/>
                                 </div>
                               </div>
                             </div>
@@ -2104,17 +2108,13 @@
                                     </select>--}}
                                     <input type="text" id="NewTimeslackencar" name="Timeslackencar" value="{{$data->Timeslacken_car}}" class="form-control form-control-sm"  placeholder="ระยะเวลาผ่อน" oninput="calculate();"/>
                                   @else
-                                    @if($GetDocComplete != Null)
-                                      <input type="text" id="Timeslackencar" name="Timeslackencar" value="{{$data->Timeslacken_car}}" class="form-control form-control-sm"  placeholder="ระยะเวลาผ่อน" readonly />
-                                    @else
                                       {{--<select id="Timeslackencar" name="Timeslackencar" class="form-control form-control-sm"  oninput="calculate();">
                                         <option value="" selected>--- ระยะเวลาผ่อน ---</option>
                                         @foreach ($Timeslackencarr as $key => $value)
                                           <option value="{{$key}}" {{ ($key == $data->Timeslacken_car) ? 'selected' : '' }}>{{$value}}</option>
                                         @endforeach
                                       </select> --}}
-                                      <input type="text" id="NewTimeslackencar" name="Timeslackencar" value="{{$data->Timeslacken_car}}" class="form-control form-control-sm"  placeholder="ระยะเวลาผ่อน" oninput="calculate();"/>
-                                    @endif
+                                      <input type="text" id="NewTimeslackencar" name="Timeslackencar" value="{{$data->Timeslacken_car}}" class="form-control form-control-sm"  placeholder="ระยะเวลาผ่อน" oninput="calculate();" {{ (auth::user()->type !== "Admin" && $Recontract !== 'Y') ? 'readonly' : '' }}/>
                                   @endif
                                 </div>
                               </div>
@@ -2123,10 +2123,10 @@
                               <div class="form-group row mb-0">
                                 <label class="col-sm-3 col-form-label text-right">ภาษี/ระยะเวลาผ่อน : </label>
                                 <div class="col-sm-4">
-                                  <input type="text" id="Taxcar" name="Taxcar" value="{{$data->Tax_car}}" class="form-control form-control-sm" readonly />
+                                  <input type="text" id="Taxcar" name="Taxcar" value="{{$data->Tax_car}}" class="form-control form-control-sm" {{ (auth::user()->type !== "Admin" && $Recontract !== 'Y') ? 'readonly' : '' }} />
                                 </div>
                                 <div class="col-sm-4">
-                                  <input type="text" id="Taxpaycar" name="Taxpaycar" value="{{$data->Taxpay_car}}" class="form-control form-control-sm" readonly />
+                                  <input type="text" id="Taxpaycar" name="Taxpaycar" value="{{$data->Taxpay_car}}" class="form-control form-control-sm" {{ (auth::user()->type !== "Admin" && $Recontract !== 'Y') ? 'readonly' : '' }} />
                                 </div>
                               </div>
                             </div>
@@ -2146,7 +2146,7 @@
                                 </label>
                                 <div class="col-sm-8">
                                   {{--<input type="text" id="Interestcar" name="Interestcar" class="form-control form-control-sm"  value="{{$data->Interest_car}}" placeholder="ดอกเบี้ย" readonly onchange="calculate();"/> --}}
-                                  <input type="text" id="NewInterestcar" name="Interestcar" class="form-control form-control-sm"  value="{{$data->Interest_car}}" placeholder="ดอกเบี้ย" oninput="calculate();" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                  <input type="text" id="NewInterestcar" name="Interestcar" class="form-control form-control-sm"  value="{{$data->Interest_car}}" placeholder="ดอกเบี้ย" oninput="calculate();" {{ (auth::user()->type !== "Admin" && $Recontract !== 'Y') ? 'readonly' : '' }}/>
                                   <input type="hidden" id="Interesttype" name="Interesttype" class="form-control form-control-sm"  value="{{$SettingValue->Interesttype_set}}"/>
                                 </div>
                               </div>
@@ -2155,15 +2155,16 @@
                               <div class="form-group row mb-0">
                                 <label class="col-sm-3 col-form-label text-right">ค่างวด/ระยะเวลาผ่อน : </label>
                                 <div class="col-sm-4">
-                                  <input type="text" id="Paymemtcar" name="Paymemtcar" value="{{$data->Paymemt_car}}" class="form-control form-control-sm" readonly />
+                                  <input type="text" id="Paymemtcar" name="Paymemtcar" value="{{$data->Paymemt_car}}" class="form-control form-control-sm" {{ (auth::user()->type !== "Admin" && $Recontract !== 'Y') ? 'readonly' : '' }} />
                                 </div>
                                 <div class="col-sm-4">
-                                  <input type="text" id="Timepaymentcar" name="Timepaymentcar" value="{{$data->Timepayment_car}}" class="form-control form-control-sm" readonly />
+                                  <input type="text" id="Timepaymentcar" name="Timepaymentcar" value="{{$data->Timepayment_car}}" class="form-control form-control-sm" {{ (auth::user()->type !== "Admin" && $Recontract !== 'Y') ? 'readonly' : '' }} />
                                 </div>
                               </div>
                             </div>
                           </div>
 
+                        @if($type != 10)
                           <div class="row">
                             <div class="col-6">
                               <div class="form-group row mb-0">
@@ -2259,7 +2260,7 @@
                               <div class="form-group row mb-0">
                                 <label class="col-sm-3 col-form-label text-right">วันที่ชำระงวดแรก : </label>
                                 <div class="col-sm-8">
-                                  <input type="text" name="Dateduefirstcar" value="{{$data->Dateduefirst_car}}" class="form-control form-control-sm"  readonly placeholder="วันที่ชำระงวดแรก" />
+                                  <input type="text" name="Dateduefirstcar" value="{{$data->Dateduefirst_car}}" class="form-control form-control-sm" placeholder="วันที่ชำระงวดแรก" {{ ($Recontract === 'Y') ? 'readonly' : '' }}/>
                                 </div>
                               </div>
                             </div>
@@ -2368,7 +2369,7 @@
 
                             });
                           </script>
-
+                        
                           <hr />
                           <div class="row">
                             <div class="col-6">
@@ -2604,22 +2605,8 @@
                             </div>
                           </div>
 
-                          {{--<div class="row">
-                            <div class="col-6">
-                              <div class="form-group row mb-0">
-                                <label class="col-sm-3 col-form-label text-right">หมายเหตุ : </label>
-                                <div class="col-sm-8">
-                                  @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
-                                    <input type="text" name="Notecar" value="{{$data->Note_car}}" class="form-control form-control-sm"  placeholder="หมายเหตุ"/>
-                                  @else
-                                    <input type="text" name="Notecar" value="{{$data->Note_car}}" class="form-control form-control-sm" placeholder="หมายเหตุ" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
-                                  @endif
-                                </div>
-                              </div>
-                            </div>
-                          </div>--}}
-
                           <hr>
+                          
                           <div class="row">
                             <div class="col-md-6">
                               <h5 class="text-center"><font color="red"><b>เพิ่มรูปหน้าบัญชี</b></font></h5>
@@ -2668,6 +2655,53 @@
                               </div>
                             </div>
                           </div>
+                        @else
+                          <div class="row">
+                            <div class="col-6">
+                              <div class="form-group row mb-0">
+                                <label class="col-sm-3 col-form-label text-right">VAT : </label>
+                                <div class="col-sm-8">
+                                  <input type="text" id="Vatcar" name="Vatcar" placeholder="{{$SettingValue->Taxvalue_set}} %" class="form-control form-control-sm" readonly onchange="calculate()"/>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-6">
+                              <div class="form-group row mb-0">
+                                <label class="col-sm-3 col-form-label text-right">วันที่ชำระงวดแรก : </label>
+                                <div class="col-sm-8">
+                                  <input type="text" name="Dateduefirstcar" value="{{$data->Dateduefirst_car}}" class="form-control form-control-sm" placeholder="วันที่ชำระงวดแรก" {{ (auth::user()->type !== "Admin" && $Recontract !== 'Y') ? 'readonly' : '' }}/>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <hr>
+                          <div class="row">
+                            <div class="col-6">
+                              <div class="form-group row mb-0">
+                                <label class="col-sm-3 col-form-label text-right">หมายเหตุ : </label>
+                                <div class="col-sm-8">
+                                  @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
+                                    <input type="text" name="Notecar" value="{{$data->Note_car}}" class="form-control form-control-sm"  placeholder="หมายเหตุ"/>
+                                  @else
+                                    <input type="text" name="Notecar" value="{{$data->Note_car}}" class="form-control form-control-sm" placeholder="หมายเหตุ" {{ (auth::user()->type !== "Admin" && $Recontract !== 'Y') ? 'readonly' : '' }}/>
+                                  @endif
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-6">
+                              <div class="form-group row mb-0">
+                                <label class="col-sm-3 col-form-label text-right">ค่าเปลี่ยนสัญญา : </label>
+                                <div class="col-sm-8">
+                                    <input type="text" value="2,500" class="form-control form-control-sm" readonly/>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <input type="hidden" name="MANAGER" value="{{ $data->ManagerApp_car }}" {{ ($data->ManagerApp_car !== NULL) ? 'checked' : '' }}>
+                          <input type="hidden" name="AUDIT" value="{{ $data->Approvers_car }}" {{ ($data->Approvers_car !== NULL) ? 'checked' : '' }}/>
+                          <input type="hidden" name="MASTER" value="{{ $data->Check_car }}" {{ ($data->Check_car !== NULL) ? 'checked' : '' }}>
+                          <input type="hidden" name="doccomplete" value="{{ $data->DocComplete_car }}" {{ ($data->DocComplete_car !== NULL) ? 'checked' : '' }}>
+                        @endif
                         </div>
                         <div class="tab-pane fade" id="Sub-tab4" role="tabpanel" aria-labelledby="Sub-custom-tab4">
                           <h5 class="text-center"><b>แบบฟอร์มรายละเอียดค่าใช้จ่าย</b></h5>
