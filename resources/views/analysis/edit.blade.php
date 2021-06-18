@@ -2026,7 +2026,11 @@
                                   @endif
                                 </label>
                                 <div class="col-sm-8">
-                                  <input type="text" id="NewInterestcar" name="Interestcar" class="form-control form-control-sm"  value="{{$data->Interest_car}}" placeholder="ดอกเบี้ย" oninput="calculate();" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                  @if(auth::user()->type == "Admin" or auth::user()->position == "MANAGER")
+                                    <input type="text" id="NewInterestcar" name="Interestcar" class="form-control form-control-sm"  value="{{$data->Interest_car}}" placeholder="ดอกเบี้ย" oninput="calculate();"/>
+                                  @else
+                                    <input type="text" id="NewInterestcar" name="Interestcar" class="form-control form-control-sm"  value="{{$data->Interest_car}}" placeholder="ดอกเบี้ย" oninput="calculate();" {{ ($GetDocComplete !== NULL) ? 'readonly' : '' }}/>
+                                  @endif
                                   <input type="hidden" id="Interesttype" name="Interesttype" class="form-control form-control-sm"  value="{{$SettingValue->Interesttype_set}}"/>
                                 </div>
                               </div>
