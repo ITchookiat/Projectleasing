@@ -1551,7 +1551,7 @@ class AnalysController extends Controller
             ->where('Settype_set','=','เช่าซื้อ')
             ->first();
 
-      if ($type == 1 or $type == 10) {
+      if ($type == 1) {
         return view('Analysis.edit',
             compact('data','id','dataImage','Statusby','Addby','Houseby','Driverby','HouseStyleby','Careerby','Incomeby',
             'HisCarby','StatusSPp','relationSPp','addSPp','housestyleSPp','Brandcarr','Interestcarr','Timeslackencarr',
@@ -1565,6 +1565,13 @@ class AnalysController extends Controller
             'Insurancecarr','statuscarr','newDateDue','evaluetionPricee','securitiesSPp','Getinsurance',
             'Gettransfer','Getinterest','fdate','tdate','status','Gettype','GetypeHC','GetbaabHC',
             'GetguaranteeHC','relationSP','countImage','GradeBuyer','Typecardetail','objectivecar'));
+      }
+      elseif ($type == 10) {
+        return view('Analysis.editrecontract',
+            compact('data','id','dataImage','Statusby','Addby','Houseby','Driverby','HouseStyleby','Careerby','Incomeby',
+            'HisCarby','StatusSPp','relationSPp','addSPp','housestyleSPp','Brandcarr','Interestcarr','Timeslackencarr',
+            'Insurancecarr','statuscarr','newDateDue','evaluetionPricee','securitiesSPp','GetDocComplete','Getinsurance',
+            'Gettransfer','Getinterest','fdate','tdate','status','type','Gettype','countImage','GradeBuyer','Typecardetail','objectivecar','SettingValue','Recontract'));
       }
       elseif ($type == 12) {
         $type = $request->type;
@@ -1672,8 +1679,10 @@ class AnalysController extends Controller
     
       $user = Buyer::find($id);
         $user->Contract_buyer = $request->get('Contract_buyer');
-        if ($Getcardetail->Date_Appcar == NULL) { //เช็คอนุมัติ
-          $user->Date_Due = $newDateDue;
+        if($type != 10){
+          if ($Getcardetail->Date_Appcar == NULL) { //เช็คอนุมัติ
+            $user->Date_Due = $newDateDue;
+          }
         }
         $user->Name_buyer = $request->get('Namebuyer');
         $user->last_buyer = $request->get('lastbuyer');
@@ -1708,11 +1717,14 @@ class AnalysController extends Controller
         $user->Memo_broker = $request->get('Memobroker');
         $user->Prefer_broker = $request->get('Brokerprefer');
         $user->MemoIncome_buyer = $request->get('BuyerIncomeNote');
-        if($request->StatusContract != NULL){
+        if($type == 10){
           $user->Status_Contract = $request->get('StatusContract');
-          $user->Datechange_Contract = Date('Y-m-d');
-          $user->Userchange_Contract = auth()->user()->name;
+          if($user->Status_Contract != 'เปลี่ยนสัญญา'){
+            $user->Datechange_Contract = Date('Y-m-d');
+            $user->Userchange_Contract = auth()->user()->name;
+          }
         }
+        $user->UserApp_Contract = $request->get('approveRecontract');
       $user->update();
 
       $SettelSP = str_replace ("_","",$request->get('telSP'));
@@ -2018,7 +2030,6 @@ class AnalysController extends Controller
 
         if($type != 10){
           $cardetail->Insurance_car = $request->get('Insurancecar');
-          $cardetail->status_car = $request->get('statuscar');
           $cardetail->Percent_car = $request->get('Percentcar');
           $cardetail->Payee_car = $request->get('Payeecar');
           $cardetail->IDcardPayee_car = $request->get('IDcardPayeecar');
@@ -2034,18 +2045,20 @@ class AnalysController extends Controller
           $cardetail->AgentShoplocation_car = $request->get('Shoplocationcar');   //ที่ตั้งเต้นท์นายหน้า
           $cardetail->Purchasehistory_car = $request->get('Purchasehistorycar');
           $cardetail->Supporthistory_car = $request->get('Supporthistorycar');
+          $cardetail->DocComplete_car = $SetDocComplete;             //เอกสารครบ
+          $cardetail->Check_car = $SetStatusMas;                     //หัวหน้า
+          $cardetail->Approvers_car = $request->get('AUDIT');        //audit
+          $cardetail->ManagerApp_car = $request->get('MANAGER');     //ผู้จัดการ
+          $cardetail->branchbrance_car = $request->get('branchbrancecar');
+          $cardetail->branchAgent_car = $request->get('branchAgentcar');
         }
 
-        $cardetail->DocComplete_car = $SetDocComplete;             //เอกสารครบ
-        $cardetail->Check_car = $SetStatusMas;                     //หัวหน้า
-        $cardetail->Approvers_car = $request->get('AUDIT');        //audit
-        $cardetail->ManagerApp_car = $request->get('MANAGER');     //ผู้จัดการ
-        $cardetail->branchbrance_car = $request->get('branchbrancecar');
-        $cardetail->branchAgent_car = $request->get('branchAgentcar');
+        $cardetail->status_car = $request->get('statuscar');
         $cardetail->Note_car = $request->get('Notecar');
 
         if($type == 10){
           $cardetail->Dateduefirst_car = $request->get('Dateduefirstcar');
+          $cardetail->StatusApp_car = 'อนุมัติ';
         }
       $cardetail->update();
 
@@ -3256,7 +3269,7 @@ class AnalysController extends Controller
     public function deleteImageEach($type,$id,$fdate,$tdate,$status,$path,Request $request)
     {
       // dd($type,$id,$fdate,$tdate,$status,$path);
-      if ($type == 1 or $type == 11 or $type == 4) {       //สินเชื่อ(เงินกู้) && ปรับโครงสร้างหนี้
+      if ($type == 1 or $type == 10 or $type == 11 or $type == 4) {       //สินเชื่อ(เงินกู้) && ปรับโครงสร้างหนี้
         $created_at = '';
         $data = UploadfileImage::where('Buyerfileimage_id','=',$id)->where('Type_fileimage','=','1')->get();
         $countData = count($data);
@@ -3272,7 +3285,7 @@ class AnalysController extends Controller
 
     public function destroyImage($type,$id,$fdate,$tdate,$status,$path,Request $request)
     {
-      if ($type == 1 or $type == 11 or $type == 4) {       //สินเชื่อ(เงินกู้) && ปรับโครงสร้างหนี้
+      if ($type == 1 or $type == 10 or $type == 11 or $type == 4) {       //สินเชื่อ(เงินกู้) && ปรับโครงสร้างหนี้
         $mainid = $request->mainid;
         $created_at = '';
         $Currdate = date('2021-01-01');

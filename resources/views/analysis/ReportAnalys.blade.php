@@ -617,7 +617,7 @@
         <tr>
           <th align="right" width="120px"></th>
           <th align="left" width="120px"> ราคารถ &nbsp;</th>
-          <th align="right" width="120px" style="background-color: green;"> <b>{{number_format($dataReport->Top_car)}} &nbsp;</b> </th>
+          <th align="right" width="120px" style="background-color: #BFFC8C;"> <b>{{number_format($dataReport->Top_car)}} &nbsp;</b> </th>
           <th class="text-center" width="180px"></th>
         </tr>
         <tr>
@@ -661,8 +661,8 @@
         <tr>
           <th align="right" width="120px"></th>
           <th align="left" width="120px"> ยอดผ่อนชำระทั้งหมด &nbsp; </th>
-          <th align="right" width="120px" style="background-color: green;"> <b>{{number_format($dataReport->Top_car,2)}} &nbsp;</b> </th>
-          <th align="right" width="85px" style="background-color: green;"> <b>{{number_format($dataReport->Top_car,2)}} &nbsp;</b> </th>
+          <th align="right" width="120px" style="background-color: #BFFC8C;"> <b>{{number_format($dataReport->Top_car,2)}} &nbsp;</b> </th>
+          <th align="right" width="85px" style="background-color: #BFFC8C;"> <b>{{number_format($dataReport->Top_car,2)}} &nbsp;</b> </th>
           <th class="text-center" width="95px" ></th>
         </tr>
         <tr>

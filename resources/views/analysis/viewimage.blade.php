@@ -49,7 +49,7 @@
                     <div class="row">
                       <div class="col-9"></div>
                       <div class="col-3">
-                        @if($type == 1 or $type == 4)
+                        @if($type == 1 or $type == 4 or $type == 10)
                           <div class="card-tools d-inline float-right">
                             <a href="{{ action('AnalysController@edit',[$type,$id,$fdate,$tdate,$status,$path]) }}" class="btn bg-danger  btn-sm">
                               <i class="far fa-arrow-alt-circle-left"></i> ย้อนกลับ
