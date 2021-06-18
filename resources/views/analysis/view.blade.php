@@ -350,10 +350,6 @@
                       <span class="fas fa-print"></span> ปริ้นรายงาน
                     </button>
                     <ul class="dropdown-menu" role="menu">
-                      <!-- <li><a target="_blank" class="dropdown-item" href="{{ action('ReportAnalysController@ReportDueDate', 1) }}?Flag={{1}}"> รายงานขออนุมัติประจำวัน</a></li>
-                      <li class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" data-toggle="modal" data-target="#modal-leasing"> รายงาน สินเชื่อเช่าซื้อ</a></li>
-                      <li class="dropdown-divider"></li> -->
                       <li><a class="dropdown-item" data-toggle="modal" data-target="#modal-Recontract"> รายงาน เปลี่ยนสัญญา</a></li>
                     </ul>
                     <button type="submit" class="btn bg-warning btn-app">
@@ -532,7 +528,7 @@
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
                                           <i class="fas fa-eye"></i>
                                         </a>
-                                        <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}?Recontract={{'Y'}}" data-name="{{ $row->Contract_buyer }}" class="btn btn-warning btn-sm Recontract" title="แก้ไขสัญญา">
+                                        <a href="{{ action('AnalysController@edit',[10,$row->id,$newfdate,$newtdate,$status]) }}?Recontract={{'Y'}}" data-name="{{ $row->Contract_buyer }}" class="btn btn-warning btn-sm Recontract" title="แก้ไขสัญญา">
                                           <i class="fas fa-handshake"></i>
                                         </a>
                                       @else
@@ -678,7 +674,7 @@
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
                                           <i class="fas fa-eye"></i>
                                         </a>
-                                        <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}?Recontract={{'Y'}}" data-name="{{ $row->Contract_buyer }}" class="btn btn-warning btn-sm Recontract" title="แก้ไขสัญญา">
+                                        <a href="{{ action('AnalysController@edit',[10,$row->id,$newfdate,$newtdate,$status]) }}?Recontract={{'Y'}}" data-name="{{ $row->Contract_buyer }}" class="btn btn-warning btn-sm Recontract" title="แก้ไขสัญญา">
                                           <i class="fas fa-handshake"></i>
                                         </a>
                                       @else
@@ -824,7 +820,7 @@
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
                                           <i class="fas fa-eye"></i>
                                         </a>
-                                        <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}?Recontract={{'Y'}}" data-name="{{ $row->Contract_buyer }}" class="btn btn-warning btn-sm Recontract" title="แก้ไขสัญญา">
+                                        <a href="{{ action('AnalysController@edit',[10,$row->id,$newfdate,$newtdate,$status]) }}?Recontract={{'Y'}}" data-name="{{ $row->Contract_buyer }}" class="btn btn-warning btn-sm Recontract" title="แก้ไขสัญญา">
                                           <i class="fas fa-handshake"></i>
                                         </a>
                                       @else
@@ -970,7 +966,7 @@
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
                                           <i class="fas fa-eye"></i>
                                         </a>
-                                        <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}?Recontract={{'Y'}}" data-name="{{ $row->Contract_buyer }}" class="btn btn-warning btn-sm Recontract" title="แก้ไขสัญญา">
+                                        <a href="{{ action('AnalysController@edit',[10,$row->id,$newfdate,$newtdate,$status]) }}?Recontract={{'Y'}}" data-name="{{ $row->Contract_buyer }}" class="btn btn-warning btn-sm Recontract" title="แก้ไขสัญญา">
                                           <i class="fas fa-handshake"></i>
                                         </a>
                                       @else
@@ -1116,7 +1112,7 @@
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
                                           <i class="fas fa-eye"></i>
                                         </a>
-                                        <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}?Recontract={{'Y'}}" data-name="{{ $row->Contract_buyer }}" class="btn btn-warning btn-sm Recontract" title="แก้ไขสัญญา">
+                                        <a href="{{ action('AnalysController@edit',[10,$row->id,$newfdate,$newtdate,$status]) }}?Recontract={{'Y'}}" data-name="{{ $row->Contract_buyer }}" class="btn btn-warning btn-sm Recontract" title="แก้ไขสัญญา">
                                           <i class="fas fa-handshake"></i>
                                         </a>
                                       @else
@@ -1262,7 +1258,7 @@
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
                                           <i class="fas fa-eye"></i>
                                         </a>
-                                        <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}?Recontract={{'Y'}}" data-name="{{ $row->Contract_buyer }}" class="btn btn-warning btn-sm Recontract" title="แก้ไขสัญญา">
+                                        <a href="{{ action('AnalysController@edit',[10,$row->id,$newfdate,$newtdate,$status]) }}?Recontract={{'Y'}}" data-name="{{ $row->Contract_buyer }}" class="btn btn-warning btn-sm Recontract" title="แก้ไขสัญญา">
                                           <i class="fas fa-handshake"></i>
                                         </a>
                                       @else
@@ -1408,7 +1404,7 @@
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
                                           <i class="fas fa-eye"></i>
                                         </a>
-                                        <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}?Recontract={{'Y'}}" data-name="{{ $row->Contract_buyer }}" class="btn btn-warning btn-sm Recontract" title="แก้ไขสัญญา">
+                                        <a href="{{ action('AnalysController@edit',[10,$row->id,$newfdate,$newtdate,$status]) }}?Recontract={{'Y'}}" data-name="{{ $row->Contract_buyer }}" class="btn btn-warning btn-sm Recontract" title="แก้ไขสัญญา">
                                           <i class="fas fa-handshake"></i>
                                         </a>
                                       @else
@@ -1554,7 +1550,7 @@
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
                                           <i class="fas fa-eye"></i>
                                         </a>
-                                        <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}?Recontract={{'Y'}}" data-name="{{ $row->Contract_buyer }}" class="btn btn-warning btn-sm Recontract" title="แก้ไขสัญญา">
+                                        <a href="{{ action('AnalysController@edit',[10,$row->id,$newfdate,$newtdate,$status]) }}?Recontract={{'Y'}}" data-name="{{ $row->Contract_buyer }}" class="btn btn-warning btn-sm Recontract" title="แก้ไขสัญญา">
                                           <i class="fas fa-handshake"></i>
                                         </a>
                                       @else
@@ -1700,7 +1696,7 @@
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
                                           <i class="fas fa-eye"></i>
                                         </a>
-                                        <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}?Recontract={{'Y'}}" data-name="{{ $row->Contract_buyer }}" class="btn btn-warning btn-sm Recontract" title="แก้ไขสัญญา">
+                                        <a href="{{ action('AnalysController@edit',[10,$row->id,$newfdate,$newtdate,$status]) }}?Recontract={{'Y'}}" data-name="{{ $row->Contract_buyer }}" class="btn btn-warning btn-sm Recontract" title="แก้ไขสัญญา">
                                           <i class="fas fa-handshake"></i>
                                         </a>
                                       @else
@@ -1844,7 +1840,7 @@
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
                                           <i class="fas fa-eye"></i>
                                         </a>
-                                        <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}?Recontract={{'Y'}}" data-name="{{ $row->Contract_buyer }}" class="btn btn-warning btn-sm Recontract" title="แก้ไขสัญญา">
+                                        <a href="{{ action('AnalysController@edit',[10,$row->id,$newfdate,$newtdate,$status]) }}?Recontract={{'Y'}}" data-name="{{ $row->Contract_buyer }}" class="btn btn-warning btn-sm Recontract" title="แก้ไขสัญญา">
                                           <i class="fas fa-handshake"></i>
                                         </a>
                                       @else
@@ -1988,7 +1984,7 @@
                                         <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
                                           <i class="fas fa-eye"></i>
                                         </a>
-                                        <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}?Recontract={{'Y'}}" data-name="{{ $row->Contract_buyer }}" class="btn btn-warning btn-sm Recontract" title="แก้ไขสัญญา">
+                                        <a href="{{ action('AnalysController@edit',[10,$row->id,$newfdate,$newtdate,$status]) }}?Recontract={{'Y'}}" data-name="{{ $row->Contract_buyer }}" class="btn btn-warning btn-sm Recontract" title="แก้ไขสัญญา">
                                           <i class="fas fa-handshake"></i>
                                         </a>
                                       @else
@@ -2236,10 +2232,8 @@
                               <th class="text-left">ทะเบียน</th>
                               <th class="text-left">ปี</th>
                               <th class="text-center">ยอดจัด</th>
-                              <th class="text-center">% ยอดจัด</th>
-                              <th class="text-center"></th>
                               <th class="text-left" style="width: 100px">สถานะ</th>
-                              <th class="text-center" style="width: 125px"></th>
+                              <th class="text-center" style="width: 105px">ตัวเลือก</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -2249,9 +2243,6 @@
                                   {{-- <td class="text-center"> {{ $row->branch_car}} </td> --}}
                                   <td class="text-left"> 
                                   {{ $row->Contract_buyer}} 
-                                  @if($row->Status_Contract != NULL)
-                                    <i class="fa fa-info-circle text-danger" title="{{$row->Status_Contract}}"></i>
-                                  @endif
                                   </td>
                                   <td class="text-left"> {{ $row->status_car}} </td>
                                   <td class="text-left"> {{ $row->Brand_car}} </td>
@@ -2264,50 +2255,14 @@
                                       0
                                     @endif
                                   </td>
-                                  <td class="text-center">{{ ($row->Percent_car != Null) ? $row->Percent_car.'%' : ' ' }}</td>
-                                  <td class="text-center">
-                                    <div class="float-right form-inline">
-                                      @if ( $row->DocComplete_car != Null)
-                                        <h5><span class="badge badge-danger">
-                                          <i class="fas fa-clipboard-check"></i>
-                                        </span></h5>&nbsp;
-                                      @endif
-
-                                      @if ( $row->tran_Price != 0)
-                                        <h5><span class="badge badge-info">
-                                            <i class="fas fa-spell-check"></i>
-                                        </span></h5>
-                                      @endif
-                                    </div>
-                                  </td>
                                   <td class="text-left">
-                                    @if ( $row->Check_car != Null)
+                                    @if ( $row->UserApp_Contract != Null)
                                       <button type="button" class="btn btn-success btn-xs">
                                         <i class="fas fa-user-check prem"></i>
                                       </button>
                                     @else
                                       <button type="button" class="btn btn-warning btn-xs">
                                         <i class="fas fa-user-check prem"></i>
-                                      </button>
-                                    @endif
-
-                                    @if ( $row->Approvers_car != Null)
-                                      <button type="button" class="btn btn-success btn-xs">
-                                        <i class="fas fa-user-tie prem"></i>
-                                      </button>
-                                    @else
-                                      <button type="button" class="btn btn-warning btn-xs">
-                                        <i class="fas fa-user-tie prem"></i>
-                                      </button>
-                                    @endif
-
-                                    @if ($row->ManagerApp_car != Null)
-                                      <button type="button" class="btn btn-success btn-xs">
-                                        <i class="fas fa-user-lock prem"></i>
-                                      </button>
-                                    @else
-                                      <button type="button" class="btn btn-warning btn-xs">
-                                        <i class="fas fa-user-lock prem"></i>
                                       </button>
                                     @endif
                                   </td>
@@ -2326,18 +2281,9 @@
                                         <i class="far fa-edit"></i>
                                       </a>
                                     @elseif(auth::user()->position == "MANAGER" or auth::user()->position == "AUDIT" or auth::user()->position == "MASTER" or auth::user()->position == "STAFF")
-                                      @if($row->StatusApp_car == 'อนุมัติ' and $row->Status_Contract == '')
-                                        <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}" class="btn btn-success btn-sm" title="ดูรายการ">
-                                          <i class="fas fa-eye"></i>
-                                        </a>
-                                        <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}?Recontract={{'Y'}}" data-name="{{ $row->Contract_buyer }}" class="btn btn-warning btn-sm Recontract" title="แก้ไขสัญญา">
-                                          <i class="fas fa-handshake"></i>
-                                        </a>
-                                      @else
-                                        <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}?Recontract={{'Y'}}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
-                                          <i class="far fa-edit"></i>
-                                        </a>
-                                      @endif
+                                      <a href="{{ action('AnalysController@edit',[$type,$row->id,$newfdate,$newtdate,$status]) }}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
+                                        <i class="far fa-edit"></i>
+                                      </a>
                                     @endif
 
                                     @if(auth::user()->type == "Admin") 
@@ -2348,16 +2294,6 @@
                                           <i class="far fa-trash-alt"></i>
                                         </button>
                                       </form>
-                                    @elseif(auth::user()->position == "MASTER" or auth::user()->position == "STAFF")
-                                      @if($row->ManagerApp_car == '')
-                                        <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
-                                          {{csrf_field()}}
-                                          <input type="hidden" name="_method" value="DELETE" />
-                                          <button type="submit" data-name="{{ $row->Contract_buyer }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
-                                            <i class="far fa-trash-alt"></i>
-                                          </button>
-                                        </form>
-                                      @endif
                                     @endif
                                   </td>
                                 </tr>
@@ -2382,10 +2318,8 @@
                               <th class="text-left">ทะเบียน</th>
                               <th class="text-left">ปี</th>
                               <th class="text-center">ยอดจัด</th>
-                              <th class="text-center">% ยอดจัด</th>
-                              <th class="text-center"></th>
                               <th class="text-left" style="width: 100px">สถานะ</th>
-                              <th class="text-center" style="width: 125px"></th>
+                              <th class="text-center" style="width: 105px">ตัวเลือก</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -2395,9 +2329,6 @@
                                   {{-- <td class="text-center"> {{ $row->branch_car}} </td> --}}
                                   <td class="text-left"> 
                                   {{ $row->Contract_buyer}}
-                                  @if($row->Status_Contract != NULL)
-                                    <i class="fa fa-info-circle text-danger" title="{{$row->Status_Contract}}"></i>
-                                  @endif
                                    </td>
                                   <td class="text-left"> {{ $row->status_car}} </td>
                                   <td class="text-left"> {{ $row->Brand_car}} </td>
@@ -2410,50 +2341,14 @@
                                       0
                                     @endif
                                   </td>
-                                  <td class="text-center">{{ ($row->Percent_car != Null) ? $row->Percent_car.'%' : ' ' }}</td>
-                                  <td class="text-center">
-                                    <div class="float-right form-inline">
-                                      @if ( $row->DocComplete_car != Null)
-                                        <h5><span class="badge badge-danger">
-                                          <i class="fas fa-clipboard-check"></i>
-                                        </span></h5>&nbsp;
-                                      @endif
-
-                                      @if ( $row->tran_Price != 0)
-                                        <h5><span class="badge badge-info">
-                                            <i class="fas fa-spell-check"></i>
-                                        </span></h5>
-                                      @endif
-                                    </div>
-                                  </td>
                                   <td class="text-left">
-                                    @if ( $row->Check_car != Null)
+                                    @if ( $row->UserApp_Contract != Null)
                                       <button type="button" class="btn btn-success btn-xs">
                                         <i class="fas fa-user-check prem"></i>
                                       </button>
                                     @else
                                       <button type="button" class="btn btn-warning btn-xs">
                                         <i class="fas fa-user-check prem"></i>
-                                      </button>
-                                    @endif
-
-                                    @if ( $row->Approvers_car != Null)
-                                      <button type="button" class="btn btn-success btn-xs">
-                                        <i class="fas fa-user-tie prem"></i>
-                                      </button>
-                                    @else
-                                      <button type="button" class="btn btn-warning btn-xs">
-                                        <i class="fas fa-user-tie prem"></i>
-                                      </button>
-                                    @endif
-
-                                    @if ($row->ManagerApp_car != Null)
-                                      <button type="button" class="btn btn-success btn-xs">
-                                        <i class="fas fa-user-lock prem"></i>
-                                      </button>
-                                    @else
-                                      <button type="button" class="btn btn-warning btn-xs">
-                                        <i class="fas fa-user-lock prem"></i>
                                       </button>
                                     @endif
                                   </td>
@@ -2494,16 +2389,6 @@
                                           <i class="far fa-trash-alt"></i>
                                         </button>
                                       </form>
-                                    @elseif(auth::user()->position == "MASTER" or auth::user()->position == "STAFF")
-                                      @if($row->StatusApp_car == '')
-                                        <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
-                                          {{csrf_field()}}
-                                          <input type="hidden" name="_method" value="DELETE" />
-                                          <button type="submit" data-name="{{ $row->Contract_buyer }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
-                                            <i class="far fa-trash-alt"></i>
-                                          </button>
-                                        </form>
-                                      @endif
                                     @endif
                                   </td>
                                 </tr>
@@ -2528,10 +2413,8 @@
                               <th class="text-left">ทะเบียน</th>
                               <th class="text-left">ปี</th>
                               <th class="text-center">ยอดจัด</th>
-                              <th class="text-center">% ยอดจัด</th>
-                              <th class="text-center"></th>
                               <th class="text-left" style="width: 100px">สถานะ</th>
-                              <th class="text-center" style="width: 125px"></th>
+                              <th class="text-center" style="width: 105px">ตัวเลือก</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -2541,9 +2424,6 @@
                                   {{-- <td class="text-center"> {{ $row->branch_car}} </td> --}}
                                   <td class="text-left"> 
                                   {{ $row->Contract_buyer}} 
-                                  @if($row->Status_Contract != NULL)
-                                    <i class="fa fa-info-circle text-danger" title="{{$row->Status_Contract}}"></i>
-                                  @endif
                                   </td>
                                   <td class="text-left"> {{ $row->status_car}} </td>
                                   <td class="text-left"> {{ $row->Brand_car}} </td>
@@ -2556,50 +2436,14 @@
                                       0
                                     @endif
                                   </td>
-                                  <td class="text-center">{{ ($row->Percent_car != Null) ? $row->Percent_car.'%' : ' ' }}</td>
-                                  <td class="text-center">
-                                    <div class="float-right form-inline">
-                                      @if ( $row->DocComplete_car != Null)
-                                        <h5><span class="badge badge-danger">
-                                          <i class="fas fa-clipboard-check"></i>
-                                        </span></h5>&nbsp;
-                                      @endif
-
-                                      @if ( $row->tran_Price != 0)
-                                        <h5><span class="badge badge-info">
-                                            <i class="fas fa-spell-check"></i>
-                                        </span></h5>
-                                      @endif
-                                    </div>
-                                  </td>
                                   <td class="text-left">
-                                    @if ( $row->Check_car != Null)
+                                    @if ( $row->UserApp_Contract != Null)
                                       <button type="button" class="btn btn-success btn-xs">
                                         <i class="fas fa-user-check prem"></i>
                                       </button>
                                     @else
                                       <button type="button" class="btn btn-warning btn-xs">
                                         <i class="fas fa-user-check prem"></i>
-                                      </button>
-                                    @endif
-
-                                    @if ( $row->Approvers_car != Null)
-                                      <button type="button" class="btn btn-success btn-xs">
-                                        <i class="fas fa-user-tie prem"></i>
-                                      </button>
-                                    @else
-                                      <button type="button" class="btn btn-warning btn-xs">
-                                        <i class="fas fa-user-tie prem"></i>
-                                      </button>
-                                    @endif
-
-                                    @if ($row->ManagerApp_car != Null)
-                                      <button type="button" class="btn btn-success btn-xs">
-                                        <i class="fas fa-user-lock prem"></i>
-                                      </button>
-                                    @else
-                                      <button type="button" class="btn btn-warning btn-xs">
-                                        <i class="fas fa-user-lock prem"></i>
                                       </button>
                                     @endif
                                   </td>
@@ -2640,16 +2484,6 @@
                                           <i class="far fa-trash-alt"></i>
                                         </button>
                                       </form>
-                                    @elseif(auth::user()->position == "MASTER" or auth::user()->position == "STAFF")
-                                      @if($row->ManagerApp_car == '')
-                                        <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
-                                          {{csrf_field()}}
-                                          <input type="hidden" name="_method" value="DELETE" />
-                                          <button type="submit" data-name="{{ $row->Contract_buyer }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
-                                            <i class="far fa-trash-alt"></i>
-                                          </button>
-                                        </form>
-                                      @endif
                                     @endif
                                   </td>
                                 </tr>
@@ -2674,10 +2508,8 @@
                               <th class="text-left">ทะเบียน</th>
                               <th class="text-left">ปี</th>
                               <th class="text-center">ยอดจัด</th>
-                              <th class="text-center">% ยอดจัด</th>
-                              <th class="text-center"></th>
                               <th class="text-left" style="width: 100px">สถานะ</th>
-                              <th class="text-center" style="width: 125px"></th>
+                              <th class="text-center" style="width: 105px">ตัวเลือก</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -2687,9 +2519,6 @@
                                   {{-- <td class="text-center"> {{ $row->branch_car}} </td> --}}
                                   <td class="text-left"> 
                                   {{ $row->Contract_buyer}} 
-                                  @if($row->Status_Contract != NULL)
-                                    <i class="fa fa-info-circle text-danger" title="{{$row->Status_Contract}}"></i>
-                                  @endif
                                   </td>
                                   <td class="text-left"> {{ $row->status_car}} </td>
                                   <td class="text-left"> {{ $row->Brand_car}} </td>
@@ -2702,50 +2531,14 @@
                                       0
                                     @endif
                                   </td>
-                                  <td class="text-center">{{ ($row->Percent_car != Null) ? $row->Percent_car.'%' : ' ' }}</td>
-                                  <td class="text-center">
-                                    <div class="float-right form-inline">
-                                      @if ( $row->DocComplete_car != Null)
-                                        <h5><span class="badge badge-danger">
-                                          <i class="fas fa-clipboard-check"></i>
-                                        </span></h5>&nbsp;
-                                      @endif
-
-                                      @if ( $row->tran_Price != 0)
-                                        <h5><span class="badge badge-info">
-                                            <i class="fas fa-spell-check"></i>
-                                        </span></h5>
-                                      @endif
-                                    </div>
-                                  </td>
                                   <td class="text-left">
-                                    @if ( $row->Check_car != Null)
+                                    @if ( $row->UserApp_Contract != Null)
                                       <button type="button" class="btn btn-success btn-xs">
                                         <i class="fas fa-user-check prem"></i>
                                       </button>
                                     @else
                                       <button type="button" class="btn btn-warning btn-xs">
                                         <i class="fas fa-user-check prem"></i>
-                                      </button>
-                                    @endif
-
-                                    @if ( $row->Approvers_car != Null)
-                                      <button type="button" class="btn btn-success btn-xs">
-                                        <i class="fas fa-user-tie prem"></i>
-                                      </button>
-                                    @else
-                                      <button type="button" class="btn btn-warning btn-xs">
-                                        <i class="fas fa-user-tie prem"></i>
-                                      </button>
-                                    @endif
-
-                                    @if ($row->ManagerApp_car != Null)
-                                      <button type="button" class="btn btn-success btn-xs">
-                                        <i class="fas fa-user-lock prem"></i>
-                                      </button>
-                                    @else
-                                      <button type="button" class="btn btn-warning btn-xs">
-                                        <i class="fas fa-user-lock prem"></i>
                                       </button>
                                     @endif
                                   </td>
@@ -2786,16 +2579,6 @@
                                           <i class="far fa-trash-alt"></i>
                                         </button>
                                       </form>
-                                    @elseif(auth::user()->position == "MASTER" or auth::user()->position == "STAFF")
-                                      @if($row->ManagerApp_car == '')
-                                        <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
-                                          {{csrf_field()}}
-                                          <input type="hidden" name="_method" value="DELETE" />
-                                          <button type="submit" data-name="{{ $row->Contract_buyer }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
-                                            <i class="far fa-trash-alt"></i>
-                                          </button>
-                                        </form>
-                                      @endif
                                     @endif
                                   </td>
                                 </tr>
@@ -2820,10 +2603,8 @@
                               <th class="text-left">ทะเบียน</th>
                               <th class="text-left">ปี</th>
                               <th class="text-center">ยอดจัด</th>
-                              <th class="text-center">% ยอดจัด</th>
-                              <th class="text-center"></th>
                               <th class="text-left" style="width: 100px">สถานะ</th>
-                              <th class="text-center" style="width: 125px"></th>
+                              <th class="text-center" style="width: 105px">ตัวเลือก</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -2833,9 +2614,6 @@
                                   {{-- <td class="text-center"> {{ $row->branch_car}} </td> --}}
                                   <td class="text-left"> 
                                   {{ $row->Contract_buyer}} 
-                                  @if($row->Status_Contract != NULL)
-                                    <i class="fa fa-info-circle text-danger" title="{{$row->Status_Contract}}"></i>
-                                  @endif
                                   </td>
                                   <td class="text-left"> {{ $row->status_car}} </td>
                                   <td class="text-left"> {{ $row->Brand_car}} </td>
@@ -2848,50 +2626,14 @@
                                       0
                                     @endif
                                   </td>
-                                  <td class="text-center">{{ ($row->Percent_car != Null) ? $row->Percent_car.'%' : ' ' }}</td>
-                                  <td class="text-center">
-                                    <div class="float-right form-inline">
-                                      @if ( $row->DocComplete_car != Null)
-                                        <h5><span class="badge badge-danger">
-                                          <i class="fas fa-clipboard-check"></i>
-                                        </span></h5>&nbsp;
-                                      @endif
-
-                                      @if ( $row->tran_Price != 0)
-                                        <h5><span class="badge badge-info">
-                                            <i class="fas fa-spell-check"></i>
-                                        </span></h5>
-                                      @endif
-                                    </div>
-                                  </td>
                                   <td class="text-left">
-                                    @if ( $row->Check_car != Null)
+                                    @if ( $row->UserApp_Contract != Null)
                                       <button type="button" class="btn btn-success btn-xs">
                                         <i class="fas fa-user-check prem"></i>
                                       </button>
                                     @else
                                       <button type="button" class="btn btn-warning btn-xs">
                                         <i class="fas fa-user-check prem"></i>
-                                      </button>
-                                    @endif
-
-                                    @if ( $row->Approvers_car != Null)
-                                      <button type="button" class="btn btn-success btn-xs">
-                                        <i class="fas fa-user-tie prem"></i>
-                                      </button>
-                                    @else
-                                      <button type="button" class="btn btn-warning btn-xs">
-                                        <i class="fas fa-user-tie prem"></i>
-                                      </button>
-                                    @endif
-
-                                    @if ($row->ManagerApp_car != Null)
-                                      <button type="button" class="btn btn-success btn-xs">
-                                        <i class="fas fa-user-lock prem"></i>
-                                      </button>
-                                    @else
-                                      <button type="button" class="btn btn-warning btn-xs">
-                                        <i class="fas fa-user-lock prem"></i>
                                       </button>
                                     @endif
                                   </td>
@@ -2932,16 +2674,6 @@
                                           <i class="far fa-trash-alt"></i>
                                         </button>
                                       </form>
-                                    @elseif(auth::user()->position == "MASTER" or auth::user()->position == "STAFF")
-                                      @if($row->ManagerApp_car == '')
-                                        <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
-                                          {{csrf_field()}}
-                                          <input type="hidden" name="_method" value="DELETE" />
-                                          <button type="submit" data-name="{{ $row->Contract_buyer }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
-                                            <i class="far fa-trash-alt"></i>
-                                          </button>
-                                        </form>
-                                      @endif
                                     @endif
                                   </td>
                                 </tr>
@@ -2966,10 +2698,8 @@
                               <th class="text-left">ทะเบียน</th>
                               <th class="text-left">ปี</th>
                               <th class="text-center">ยอดจัด</th>
-                              <th class="text-center">% ยอดจัด</th>
-                              <th class="text-center"></th>
                               <th class="text-left" style="width: 100px">สถานะ</th>
-                              <th class="text-center" style="width: 125px"></th>
+                              <th class="text-center" style="width: 105px">ตัวเลือก</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -2979,9 +2709,6 @@
                                   {{-- <td class="text-center"> {{ $row->branch_car}} </td> --}}
                                   <td class="text-left"> 
                                   {{ $row->Contract_buyer}}
-                                  @if($row->Status_Contract != NULL)
-                                    <i class="fa fa-info-circle text-danger" title="{{$row->Status_Contract}}"></i>
-                                  @endif
                                   </td>
                                   <td class="text-left"> {{ $row->status_car}} </td>
                                   <td class="text-left"> {{ $row->Brand_car}} </td>
@@ -2994,50 +2721,14 @@
                                       0
                                     @endif
                                   </td>
-                                  <td class="text-center">{{ ($row->Percent_car != Null) ? $row->Percent_car.'%' : ' ' }}</td>
-                                  <td class="text-center">
-                                    <div class="float-right form-inline">
-                                      @if ( $row->DocComplete_car != Null)
-                                        <h5><span class="badge badge-danger">
-                                          <i class="fas fa-clipboard-check"></i>
-                                        </span></h5>&nbsp;
-                                      @endif
-
-                                      @if ( $row->tran_Price != 0)
-                                        <h5><span class="badge badge-info">
-                                            <i class="fas fa-spell-check"></i>
-                                        </span></h5>
-                                      @endif
-                                    </div>
-                                  </td>
                                   <td class="text-left">
-                                    @if ( $row->Check_car != Null)
+                                    @if ( $row->UserApp_Contract != Null)
                                       <button type="button" class="btn btn-success btn-xs">
                                         <i class="fas fa-user-check prem"></i>
                                       </button>
                                     @else
                                       <button type="button" class="btn btn-warning btn-xs">
                                         <i class="fas fa-user-check prem"></i>
-                                      </button>
-                                    @endif
-
-                                    @if ( $row->Approvers_car != Null)
-                                      <button type="button" class="btn btn-success btn-xs">
-                                        <i class="fas fa-user-tie prem"></i>
-                                      </button>
-                                    @else
-                                      <button type="button" class="btn btn-warning btn-xs">
-                                        <i class="fas fa-user-tie prem"></i>
-                                      </button>
-                                    @endif
-
-                                    @if ($row->ManagerApp_car != Null)
-                                      <button type="button" class="btn btn-success btn-xs">
-                                        <i class="fas fa-user-lock prem"></i>
-                                      </button>
-                                    @else
-                                      <button type="button" class="btn btn-warning btn-xs">
-                                        <i class="fas fa-user-lock prem"></i>
                                       </button>
                                     @endif
                                   </td>
@@ -3078,16 +2769,6 @@
                                           <i class="far fa-trash-alt"></i>
                                         </button>
                                       </form>
-                                    @elseif(auth::user()->position == "MASTER" or auth::user()->position == "STAFF")
-                                      @if($row->ManagerApp_car == '')
-                                        <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
-                                          {{csrf_field()}}
-                                          <input type="hidden" name="_method" value="DELETE" />
-                                          <button type="submit" data-name="{{ $row->Contract_buyer }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
-                                            <i class="far fa-trash-alt"></i>
-                                          </button>
-                                        </form>
-                                      @endif
                                     @endif
                                   </td>
                                 </tr>
@@ -3112,10 +2793,8 @@
                               <th class="text-left">ทะเบียน</th>
                               <th class="text-left">ปี</th>
                               <th class="text-center">ยอดจัด</th>
-                              <th class="text-center">% ยอดจัด</th>
-                              <th class="text-center"></th>
                               <th class="text-left" style="width: 100px">สถานะ</th>
-                              <th class="text-center" style="width: 125px"></th>
+                              <th class="text-center" style="width: 105px">ตัวเลือก</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -3125,9 +2804,6 @@
                                   {{-- <td class="text-center"> {{ $row->branch_car}} </td> --}}
                                   <td class="text-left"> 
                                   {{ $row->Contract_buyer}} 
-                                  @if($row->Status_Contract != NULL)
-                                    <i class="fa fa-info-circle text-danger" title="{{$row->Status_Contract}}"></i>
-                                  @endif
                                   </td>
                                   <td class="text-left"> {{ $row->status_car}} </td>
                                   <td class="text-left"> {{ $row->Brand_car}} </td>
@@ -3140,50 +2816,14 @@
                                       0
                                     @endif
                                   </td>
-                                  <td class="text-center">{{ ($row->Percent_car != Null) ? $row->Percent_car.'%' : ' ' }}</td>
-                                  <td class="text-center">
-                                    <div class="float-right form-inline">
-                                      @if ( $row->DocComplete_car != Null)
-                                        <h5><span class="badge badge-danger">
-                                          <i class="fas fa-clipboard-check"></i>
-                                        </span></h5>&nbsp;
-                                      @endif
-
-                                      @if ( $row->tran_Price != 0)
-                                        <h5><span class="badge badge-info">
-                                            <i class="fas fa-spell-check"></i>
-                                        </span></h5>
-                                      @endif
-                                    </div>
-                                  </td>
                                   <td class="text-left">
-                                    @if ( $row->Check_car != Null)
+                                    @if ( $row->UserApp_Contract != Null)
                                       <button type="button" class="btn btn-success btn-xs">
                                         <i class="fas fa-user-check prem"></i>
                                       </button>
                                     @else
                                       <button type="button" class="btn btn-warning btn-xs">
                                         <i class="fas fa-user-check prem"></i>
-                                      </button>
-                                    @endif
-
-                                    @if ( $row->Approvers_car != Null)
-                                      <button type="button" class="btn btn-success btn-xs">
-                                        <i class="fas fa-user-tie prem"></i>
-                                      </button>
-                                    @else
-                                      <button type="button" class="btn btn-warning btn-xs">
-                                        <i class="fas fa-user-tie prem"></i>
-                                      </button>
-                                    @endif
-
-                                    @if ($row->ManagerApp_car != Null)
-                                      <button type="button" class="btn btn-success btn-xs">
-                                        <i class="fas fa-user-lock prem"></i>
-                                      </button>
-                                    @else
-                                      <button type="button" class="btn btn-warning btn-xs">
-                                        <i class="fas fa-user-lock prem"></i>
                                       </button>
                                     @endif
                                   </td>
@@ -3224,16 +2864,6 @@
                                           <i class="far fa-trash-alt"></i>
                                         </button>
                                       </form>
-                                    @elseif(auth::user()->position == "MASTER" or auth::user()->position == "STAFF")
-                                      @if($row->ManagerApp_car == '')
-                                        <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
-                                          {{csrf_field()}}
-                                          <input type="hidden" name="_method" value="DELETE" />
-                                          <button type="submit" data-name="{{ $row->Contract_buyer }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
-                                            <i class="far fa-trash-alt"></i>
-                                          </button>
-                                        </form>
-                                      @endif
                                     @endif
                                   </td>
                                 </tr>
@@ -3258,10 +2888,8 @@
                               <th class="text-left">ทะเบียน</th>
                               <th class="text-left">ปี</th>
                               <th class="text-center">ยอดจัด</th>
-                              <th class="text-center">% ยอดจัด</th>
-                              <th class="text-center"></th>
                               <th class="text-left" style="width: 100px">สถานะ</th>
-                              <th class="text-center" style="width: 125px"></th>
+                              <th class="text-center" style="width: 105px">ตัวเลือก</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -3271,9 +2899,6 @@
                                   {{-- <td class="text-center"> {{ $row->branch_car}} </td> --}}
                                   <td class="text-left"> 
                                   {{ $row->Contract_buyer}}
-                                  @if($row->Status_Contract != NULL)
-                                    <i class="fa fa-info-circle text-danger" title="{{$row->Status_Contract}}"></i>
-                                  @endif
                                   </td>
                                   <td class="text-left"> {{ $row->status_car}} </td>
                                   <td class="text-left"> {{ $row->Brand_car}} </td>
@@ -3286,50 +2911,14 @@
                                       0
                                     @endif
                                   </td>
-                                  <td class="text-center">{{ ($row->Percent_car != Null) ? $row->Percent_car.'%' : ' ' }}</td>
-                                  <td class="text-center">
-                                    <div class="float-right form-inline">
-                                      @if ( $row->DocComplete_car != Null)
-                                        <h5><span class="badge badge-danger">
-                                          <i class="fas fa-clipboard-check"></i>
-                                        </span></h5>&nbsp;
-                                      @endif
-
-                                      @if ( $row->tran_Price != 0)
-                                        <h5><span class="badge badge-info">
-                                            <i class="fas fa-spell-check"></i>
-                                        </span></h5>
-                                      @endif
-                                    </div>
-                                  </td>
                                   <td class="text-left">
-                                    @if ( $row->Check_car != Null)
+                                    @if ( $row->UserApp_Contract != Null)
                                       <button type="button" class="btn btn-success btn-xs">
                                         <i class="fas fa-user-check prem"></i>
                                       </button>
                                     @else
                                       <button type="button" class="btn btn-warning btn-xs">
                                         <i class="fas fa-user-check prem"></i>
-                                      </button>
-                                    @endif
-
-                                    @if ( $row->Approvers_car != Null)
-                                      <button type="button" class="btn btn-success btn-xs">
-                                        <i class="fas fa-user-tie prem"></i>
-                                      </button>
-                                    @else
-                                      <button type="button" class="btn btn-warning btn-xs">
-                                        <i class="fas fa-user-tie prem"></i>
-                                      </button>
-                                    @endif
-
-                                    @if ($row->ManagerApp_car != Null)
-                                      <button type="button" class="btn btn-success btn-xs">
-                                        <i class="fas fa-user-lock prem"></i>
-                                      </button>
-                                    @else
-                                      <button type="button" class="btn btn-warning btn-xs">
-                                        <i class="fas fa-user-lock prem"></i>
                                       </button>
                                     @endif
                                   </td>
@@ -3370,16 +2959,6 @@
                                           <i class="far fa-trash-alt"></i>
                                         </button>
                                       </form>
-                                    @elseif(auth::user()->position == "MASTER" or auth::user()->position == "STAFF")
-                                      @if($row->ManagerApp_car == '')
-                                        <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
-                                          {{csrf_field()}}
-                                          <input type="hidden" name="_method" value="DELETE" />
-                                          <button type="submit" data-name="{{ $row->Contract_buyer }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
-                                            <i class="far fa-trash-alt"></i>
-                                          </button>
-                                        </form>
-                                      @endif
                                     @endif
                                   </td>
                                 </tr>
@@ -3404,10 +2983,8 @@
                               <th class="text-left">ทะเบียน</th>
                               <th class="text-left">ปี</th>
                               <th class="text-center">ยอดจัด</th>
-                              <th class="text-center">% ยอดจัด</th>
-                              <th class="text-center"></th>
                               <th class="text-left" style="width: 100px">สถานะ</th>
-                              <th class="text-center" style="width: 125px"></th>
+                              <th class="text-center" style="width: 105px">ตัวเลือก</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -3417,9 +2994,6 @@
                                   {{-- <td class="text-center"> {{ $row->branch_car}} </td> --}}
                                   <td class="text-left"> 
                                   {{ $row->Contract_buyer}} 
-                                  @if($row->Status_Contract != NULL)
-                                    <i class="fa fa-info-circle text-danger" title="{{$row->Status_Contract}}"></i>
-                                  @endif
                                   </td>
                                   <td class="text-left"> {{ $row->status_car}} </td>
                                   <td class="text-left"> {{ $row->Brand_car}} </td>
@@ -3432,50 +3006,14 @@
                                       0
                                     @endif
                                   </td>
-                                  <td class="text-center">{{ ($row->Percent_car != Null) ? $row->Percent_car.'%' : ' ' }}</td>
-                                  <td class="text-center">
-                                    <div class="float-right form-inline">
-                                      @if ( $row->DocComplete_car != Null)
-                                        <h5><span class="badge badge-danger">
-                                          <i class="fas fa-clipboard-check"></i>
-                                        </span></h5>&nbsp;
-                                      @endif
-
-                                      @if ( $row->tran_Price != 0)
-                                        <h5><span class="badge badge-info">
-                                            <i class="fas fa-spell-check"></i>
-                                        </span></h5>
-                                      @endif
-                                    </div>
-                                  </td>
                                   <td class="text-left">
-                                    @if ( $row->Check_car != Null)
+                                    @if ( $row->UserApp_Contract != Null)
                                       <button type="button" class="btn btn-success btn-xs">
                                         <i class="fas fa-user-check prem"></i>
                                       </button>
                                     @else
                                       <button type="button" class="btn btn-warning btn-xs">
                                         <i class="fas fa-user-check prem"></i>
-                                      </button>
-                                    @endif
-
-                                    @if ( $row->Approvers_car != Null)
-                                      <button type="button" class="btn btn-success btn-xs">
-                                        <i class="fas fa-user-tie prem"></i>
-                                      </button>
-                                    @else
-                                      <button type="button" class="btn btn-warning btn-xs">
-                                        <i class="fas fa-user-tie prem"></i>
-                                      </button>
-                                    @endif
-
-                                    @if ($row->ManagerApp_car != Null)
-                                      <button type="button" class="btn btn-success btn-xs">
-                                        <i class="fas fa-user-lock prem"></i>
-                                      </button>
-                                    @else
-                                      <button type="button" class="btn btn-warning btn-xs">
-                                        <i class="fas fa-user-lock prem"></i>
                                       </button>
                                     @endif
                                   </td>
@@ -3516,16 +3054,6 @@
                                           <i class="far fa-trash-alt"></i>
                                         </button>
                                       </form>
-                                    @elseif(auth::user()->position == "MASTER" or auth::user()->position == "STAFF")
-                                      @if($row->ManagerApp_car == '')
-                                        <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
-                                          {{csrf_field()}}
-                                          <input type="hidden" name="_method" value="DELETE" />
-                                          <button type="submit" data-name="{{ $row->Contract_buyer }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
-                                            <i class="far fa-trash-alt"></i>
-                                          </button>
-                                        </form>
-                                      @endif
                                     @endif
                                   </td>
                                 </tr>
@@ -3550,9 +3078,8 @@
                               <th class="text-left">ปี</th>
                               <th class="text-center">ยอดจัด</th>
                               <th class="text-center">% ยอดจัด</th>
-                              <th class="text-center"></th>
                               <th class="text-left" style="width: 100px">สถานะ</th>
-                              <th class="text-center" style="width: 125px"></th>
+                              <th class="text-center" style="width: 105px">ตัวเลือก</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -3561,9 +3088,6 @@
                                 <tr>
                                   <td class="text-left"> 
                                   {{ $row->Contract_buyer}}
-                                  @if($row->Status_Contract != NULL)
-                                    <i class="fa fa-info-circle text-danger" title="{{$row->Status_Contract}}"></i>
-                                  @endif
                                    </td>
                                   <td class="text-left"> {{ $row->status_car}} </td>
                                   <td class="text-left"> {{ $row->Brand_car}} </td>
@@ -3577,49 +3101,14 @@
                                     @endif
                                   </td>
                                   <td class="text-center">{{ ($row->Percent_car != Null) ? $row->Percent_car.'%' : ' ' }}</td>
-                                  <td class="text-center">
-                                    <div class="float-right form-inline">
-                                      @if ( $row->DocComplete_car != Null)
-                                        <h5><span class="badge badge-danger">
-                                          <i class="fas fa-clipboard-check"></i>
-                                        </span></h5>&nbsp;
-                                      @endif
-
-                                      @if ( $row->tran_Price != 0)
-                                        <h5><span class="badge badge-info">
-                                            <i class="fas fa-spell-check"></i>
-                                        </span></h5>
-                                      @endif
-                                    </div>
-                                  </td>
                                   <td class="text-left">
-                                    @if ( $row->Check_car != Null)
+                                    @if ( $row->UserApp_Contract != Null)
                                       <button type="button" class="btn btn-success btn-xs">
                                         <i class="fas fa-user-check prem"></i>
                                       </button>
                                     @else
                                       <button type="button" class="btn btn-warning btn-xs">
                                         <i class="fas fa-user-check prem"></i>
-                                      </button>
-                                    @endif
-
-                                    @if ( $row->Approvers_car != Null)
-                                      <button type="button" class="btn btn-success btn-xs">
-                                        <i class="fas fa-user-tie prem"></i>
-                                      </button>
-                                    @else
-                                      <button type="button" class="btn btn-warning btn-xs">
-                                        <i class="fas fa-user-tie prem"></i>
-                                      </button>
-                                    @endif
-
-                                    @if ($row->ManagerApp_car != Null)
-                                      <button type="button" class="btn btn-success btn-xs">
-                                        <i class="fas fa-user-lock prem"></i>
-                                      </button>
-                                    @else
-                                      <button type="button" class="btn btn-warning btn-xs">
-                                        <i class="fas fa-user-lock prem"></i>
                                       </button>
                                     @endif
                                   </td>
@@ -3660,16 +3149,6 @@
                                           <i class="far fa-trash-alt"></i>
                                         </button>
                                       </form>
-                                    @elseif(auth::user()->position == "MASTER" or auth::user()->position == "STAFF")
-                                      @if($row->ManagerApp_car == '')
-                                        <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
-                                          {{csrf_field()}}
-                                          <input type="hidden" name="_method" value="DELETE" />
-                                          <button type="submit" data-name="{{ $row->Contract_buyer }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
-                                            <i class="far fa-trash-alt"></i>
-                                          </button>
-                                        </form>
-                                      @endif
                                     @endif
                                   </td>
                                 </tr>
@@ -3693,10 +3172,8 @@
                               <th class="text-left">ทะเบียน</th>
                               <th class="text-left">ปี</th>
                               <th class="text-center">ยอดจัด</th>
-                              <th class="text-center">% ยอดจัด</th>
-                              <th class="text-center"></th>
                               <th class="text-left" style="width: 100px">สถานะ</th>
-                              <th class="text-center" style="width: 125px"></th>
+                              <th class="text-center" style="width: 105px">ตัวเลือก</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -3705,9 +3182,6 @@
                                 <tr>
                                   <td class="text-left"> 
                                   {{ $row->Contract_buyer}} 
-                                  @if($row->Status_Contract != NULL)
-                                    <i class="fa fa-info-circle text-danger" title="{{$row->Status_Contract}}"></i>
-                                  @endif
                                   </td>
                                   <td class="text-left"> {{ $row->status_car}} </td>
                                   <td class="text-left"> {{ $row->Brand_car}} </td>
@@ -3720,50 +3194,14 @@
                                       0
                                     @endif
                                   </td>
-                                  <td class="text-center">{{ ($row->Percent_car != Null) ? $row->Percent_car.'%' : ' ' }}</td>
-                                  <td class="text-center">
-                                    <div class="float-right form-inline">
-                                      @if ( $row->DocComplete_car != Null)
-                                        <h5><span class="badge badge-danger">
-                                          <i class="fas fa-clipboard-check"></i>
-                                        </span></h5>&nbsp;
-                                      @endif
-
-                                      @if ( $row->tran_Price != 0)
-                                        <h5><span class="badge badge-info">
-                                            <i class="fas fa-spell-check"></i>
-                                        </span></h5>
-                                      @endif
-                                    </div>
-                                  </td>
                                   <td class="text-left">
-                                    @if ( $row->Check_car != Null)
+                                    @if ( $row->UserApp_Contract != Null)
                                       <button type="button" class="btn btn-success btn-xs">
                                         <i class="fas fa-user-check prem"></i>
                                       </button>
                                     @else
                                       <button type="button" class="btn btn-warning btn-xs">
                                         <i class="fas fa-user-check prem"></i>
-                                      </button>
-                                    @endif
-
-                                    @if ( $row->Approvers_car != Null)
-                                      <button type="button" class="btn btn-success btn-xs">
-                                        <i class="fas fa-user-tie prem"></i>
-                                      </button>
-                                    @else
-                                      <button type="button" class="btn btn-warning btn-xs">
-                                        <i class="fas fa-user-tie prem"></i>
-                                      </button>
-                                    @endif
-
-                                    @if ($row->ManagerApp_car != Null)
-                                      <button type="button" class="btn btn-success btn-xs">
-                                        <i class="fas fa-user-lock prem"></i>
-                                      </button>
-                                    @else
-                                      <button type="button" class="btn btn-warning btn-xs">
-                                        <i class="fas fa-user-lock prem"></i>
                                       </button>
                                     @endif
                                   </td>
@@ -3804,16 +3242,6 @@
                                           <i class="far fa-trash-alt"></i>
                                         </button>
                                       </form>
-                                    @elseif(auth::user()->position == "MASTER" or auth::user()->position == "STAFF")
-                                      @if($row->ManagerApp_car == '')
-                                        <form method="post" class="delete_form" action="{{ action('AnalysController@destroy',[$row->id,$type]) }}" style="display:inline;">
-                                          {{csrf_field()}}
-                                          <input type="hidden" name="_method" value="DELETE" />
-                                          <button type="submit" data-name="{{ $row->Contract_buyer }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
-                                            <i class="far fa-trash-alt"></i>
-                                          </button>
-                                        </form>
-                                      @endif
                                     @endif
                                   </td>
                                 </tr>

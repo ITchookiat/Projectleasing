@@ -55,6 +55,7 @@ class CreateBuyersTable extends Migration
             $table->string('Status_Contract')->nullable();
             $table->string('Datechange_Contract')->nullable();
             $table->string('Userchange_Contract')->nullable();
+            $table->string('UserApp_Contract')->nullable();
             $table->timestamps();
         });
     }
