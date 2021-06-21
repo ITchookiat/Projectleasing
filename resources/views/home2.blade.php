@@ -200,6 +200,7 @@
 
   {{-- ยอดจัด เช่าซื้อ --}}
   <script>
+    var Totalprice = addCommas({{$TotalAllProduct2}});
     var options = {
       series: [{
         data: [{{$Topcar_Leasing01}}, {{$Topcar_Leasing03}}, {{$Topcar_Leasing04}}, {{$Topcar_Leasing05}}, {{$Topcar_Leasing06}}, {{$Topcar_Leasing07}}, {{$Topcar_Leasing08}}, {{$Topcar_Leasing09}}, {{$Topcar_Leasing12}}, {{$Topcar_Leasing13}}, {{$Topcar_Leasing14}},{{$SumTopcar_HomecarAll}}]
@@ -235,7 +236,7 @@
     },
     yaxis: {
       title: {
-        text: 'ยอดจัด',
+        text: 'ยอดจัด ' + '( ' +  Totalprice + ' บาท' + ' )',
       },
     },
     };
@@ -275,6 +276,7 @@
 
   {{-- ยอดคัน เช่าซื้อ --}}
   <script>
+    var TotalCon = addCommas({{$SumLeasingAll}});
     var options = {
       series: [{
       name: 'ยอดคัน',
@@ -338,7 +340,7 @@
         show: false
       },
       title: {
-        text: 'ยอดคัน',
+        text: 'ยอดคัน ' + '( ' + TotalCon + ' คัน' + ' )',
         fontSize: '12px',
       },
       axisTicks: {
