@@ -267,17 +267,45 @@ class PrecController extends Controller
           }
 
             $data = DB::table('holdcars')
-            ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
-              return $q->whereBetween('holdcars.Date_hold',[$fdate,$tdate]);
-            })
-            ->when(!empty($Statuscar), function($q) use ($Statuscar) {
-              return $q->where('holdcars.Statuscar',$Statuscar);
-            })
-            ->orderBy('holdcars.Date_hold', 'ASC')
-            ->get();
+                  ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+                    return $q->whereBetween('holdcars.Date_hold',[$fdate,$tdate]);
+                  })
+                  ->when(!empty($Statuscar), function($q) use ($Statuscar) {
+                    return $q->where('holdcars.Statuscar',$Statuscar);
+                  })
+                  ->orderBy('holdcars.Date_hold', 'ASC')
+                  ->get();
+            // $countStock = count($data);
+            $Count1 = 0;
+            $Count2 = 0;
+            $Count3 = 0;
+            $Count4 = 0;
+            $Count5 = 0;
+            $Count6 = 0;
+            $CountStock = 0;
+
+            if ($data != NULL) {
+              foreach ($data as $key => $value) {
+                if ($value->Statuscar == 1) {
+                  $Count1 += 1;
+                }elseif ($value->Statuscar == 2) {
+                  $Count2 += 1;
+                }elseif ($value->Statuscar == 3) {
+                  $Count3 += 1;
+                }elseif ($value->Statuscar == 4) {
+                  $Count4 += 1;
+                }elseif ($value->Statuscar == 5) {
+                  $Count5 += 1;
+                }elseif ($value->Statuscar == 6) {
+                  $Count6 += 1;
+                }
+              }
+              $CountStock = $Count1 + $Count2 + $Count3 + $Count4 + $Count5 + $Count6;
+            }
 
           $type = $request->type;
-          return view('precipitate.viewstock', compact('data','type','fdate','tdate','Statuscar'));
+          return view('precipitate.viewstock', compact('data','type','fdate','tdate','Statuscar',
+                      'CountStock','Count1','Count2','Count3','Count4','Count5','Count6'));
         }
         elseif ($request->type == 6) {  //หน้า เพิ่มรถ
           $type = $request->type;
@@ -746,9 +774,42 @@ class PrecController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        if($request->type == 1){
+          if($request->DB_type == 1){
+            $data = DB::connection('ibmi')
+                ->table('SFHP.ARMAST')
+                ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+                ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+                ->where('SFHP.ARMAST.CONTNO','=', $request->Contno)
+                ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+                ->first();
+  
+            $dataGT = DB::connection('ibmi')
+                ->table('SFHP.VIEW_ARMGAR')
+                ->where('SFHP.VIEW_ARMGAR.CONTNO','=', $request->Contno)
+                ->first();
+
+          }elseif($request->DB_type == 2){
+            $data = DB::connection('ibmi2')
+                ->table('PSFHP.ARMAST')
+                ->join('PSFHP.INVTRAN','PSFHP.ARMAST.CONTNO','=','PSFHP.INVTRAN.CONTNO')
+                ->join('PSFHP.VIEW_CUSTMAIL','PSFHP.ARMAST.CUSCOD','=','PSFHP.VIEW_CUSTMAIL.CUSCOD')
+                ->where('PSFHP.ARMAST.CONTNO','=', $request->Contno)
+                ->orderBy('PSFHP.ARMAST.CONTNO', 'ASC')
+                ->first();
+
+            $dataGT = DB::connection('ibmi2')
+                ->table('PSFHP.VIEW_ARMGAR')
+                ->where('PSFHP.VIEW_ARMGAR.CONTNO','=', $request->Contno)
+                ->first();
+          }
+          // dd($data);
+          $type = 6;
+          $DB_type = $request->DB_type;
+          return view('precipitate.createstock', compact('type','data','dataGT','DB_type'));
+        }
     }
 
     /**
@@ -760,6 +821,7 @@ class PrecController extends Controller
     public function store(Request $request)
     {
       if($request->type == 6) { //สร้างสต็อกรถเร่งรัด
+        
         if($request->get('Pricehold') == ''){
           $SetPricehold = 0;
         }else{
@@ -819,6 +881,14 @@ class PrecController extends Controller
           'Barcode2' => $request->get('Barcode2'),
           'Accept_hold' => $request->get('Accept'),
           'Soldout_hold' => $request->get('Soldout'),
+
+          'Idcard_customer' => $request->get('IdcardCustomer'),
+          'Address_customer' => $request->get('AddressCustomer'),
+          'Phone_customer' => $request->get('PhoneCustomer'),
+          'Name_support' => $request->get('nameSP'),
+          'Idcard_support' => $request->get('idcardSP'),
+          'Phone_support' => $request->get('phoneSP'),
+          'Address_support' => $request->get('addressSP'),
         ]);
         $Holdcardb->save();
         $type = 5;
@@ -1463,6 +1533,14 @@ class PrecController extends Controller
           $hold->Date_accept_hold = NULL;
           }
           $hold->Soldout_hold = $request->get('Soldout');
+
+          $hold->Idcard_customer = $request->get('IdcardCustomer');
+          $hold->Address_customer = $request->get('AddressCustomer');
+          $hold->Phone_customer = $request->get('PhoneCustomer');
+          $hold->Name_support = $request->get('nameSP');
+          $hold->Idcard_support = $request->get('idcardSP');
+          $hold->Phone_support = $request->get('phoneSP');
+          $hold->Address_support = $request->get('addressSP');
         $hold->update();
         // return redirect()->Route('Precipitate', 5)->with('success','อัพเดทข้อมูลเรียบร้อย');
         return redirect()->back()->with('success','อัพเดทข้อมูลเรียบร้อย');
@@ -2881,107 +2959,152 @@ class PrecController extends Controller
       }
       elseif($request->type == 4){
       }
-      elseif($request->type == 5){ //excel สต๊อกรถเร่งรัด
-        $fdate = '';
-        $tdate = '';
-        $Statuscar = '';
-        if ($request->has('Fromdate')) {
-          $fdate = $request->get('Fromdate');
+      elseif($request->type == 5){ //รายงาน สต๊อกรถเร่งรัด
+        if($request->Typereport == 'pdf'){ //PDF
+          $fdate = '';
+          $tdate = '';
+          $Statuscar = '';
+          if ($request->has('Fromdate')) {
+            $fdate = $request->get('Fromdate');
+          }
+          if ($request->has('Todate')) {
+            $tdate = $request->get('Todate');
+          }
+          if ($request->has('Statuscar')) {
+            $Statuscar = $request->get('Statuscar');
+          }
+          // dd($fdate,$tdate,$Statuscar);
+            $data = DB::table('holdcars')
+                  ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+                    return $q->whereBetween('holdcars.Date_hold',[$fdate,$tdate]);
+                  })
+                  ->when(!empty($Statuscar), function($q) use ($Statuscar) {
+                    return $q->where('holdcars.Statuscar',$Statuscar);
+                  })
+                  ->orderBy('holdcars.Date_hold', 'ASC')
+                  ->get();
+          
+          $type = $request->type;
+  
+          $view = \View::make('precipitate.ReportPrecDue' ,compact('data','date','fdate','tdate','type'));
+          $html = $view->render();
+          $pdf = new PDF();
+          $pdf::SetTitle('รายงานสต็อกรถเร่งรัด');
+          $pdf::AddPage('L', 'A4');
+          $pdf::SetMargins(5, 5, 5, 0);
+          $pdf::SetFont('thsarabunpsk', '', 12, '', true);
+          $pdf::SetAutoPageBreak(TRUE, 20);
+          $pdf::WriteHTML($html,true,false,true,false,'');
+          $pdf::Output('ReportHoldcar.pdf');
         }
-        if ($request->has('Todate')) {
-          $tdate = $request->get('Todate');
+        elseif($request->Typereport == 'excel'){ //Excel
+
+          $fdate = '';
+          $tdate = '';
+          $Statuscar = '';
+          if ($request->has('Fromdate')) {
+            $fdate = $request->get('Fromdate');
+          }
+          if ($request->has('Todate')) {
+            $tdate = $request->get('Todate');
+          }
+          if ($request->has('Statuscar')) {
+            $Statuscar = $request->get('Statuscar');
+          }
+  
+            $data = DB::table('holdcars')
+                  ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+                    return $q->whereBetween('holdcars.Date_hold',[$fdate,$tdate]);
+                  })
+                  ->when(!empty($Statuscar), function($q) use ($Statuscar) {
+                    return $q->where('holdcars.Statuscar',$Statuscar);
+                  })
+                  ->orderBy('holdcars.Date_hold', 'ASC')
+                  ->get();
+  
+          $type = $request->type;
+  
+          $status = 'สต็อกรถเร่งรัด';
+          Excel::create('รายงาน สต็อกรถเร่งรัด', function ($excel) use($data,$status) {
+            $excel->sheet($status, function ($sheet) use($data,$status) {
+                $sheet->prependRow(1, array("บริษัท ชูเกียรติลิสซิ่ง จำกัด"));
+                $sheet->prependRow(2, array($status));
+                $sheet->cells('A3:Z3', function($cells) {
+                  $cells->setBackground('#FFCC00');
+                });
+                $row = 3;
+                $sheet->row($row, array('ลำดับ', 'เลขที่สัญญา', 'ชื่อ - สกุล', 'ยี่ห้อ', 'ทะเบียน', 'ปีรถ', 'วันที่ยึด', 'ทีมยึด',
+                                        'ค่ายึด', 'รายละเอียด', 'วันที่มารับรถคืน', 'ค่างวดยึดค้าง', 'ชำระค่างวดยึด', 'วันที่เช็คต้นทุน', 'วันที่ส่งรถบ้าน', 'วันที่ส่งจดหมาย',
+                                        'เลขบาร์โค้ด', 'ต้นทุนบัญชี', 'ต้นทุนยอดจัด', 'หมายเหตุ', 'จดหมาย', 'วันส่งจดหมาย', 'บาร์โค้ดผู้ค้ำ', 'รับ', 'ขายได้', 'สถานะ'));
+
+                foreach ($data as $key => $value) {
+                  $date1 = date_create($value->Date_hold);
+                  $Date_hold = date_format($date1, 'd-m-Y');
+
+                  $date2 = date_create($value->Date_came);
+                  $Date_came = date_format($date2, 'd-m-Y');
+
+                  $date3 = date_create($value->Datecheck_Capital);
+                  $Datecheck_Capital = date_format($date3, 'd-m-Y');
+
+                  $date4 = date_create($value->Datesend_Stockhome);
+                  $Datesend_Stockhome = date_format($date4, 'd-m-Y');
+
+                  $date5 = date_create($value->Datesend_Letter);
+                  $Datesend_Letter = date_format($date5, 'd-m-Y');
+
+                  $date6 = date_create($value->Date_send);
+                  $Date_send = date_format($date6, 'd-m-Y');
+
+                  if($value->Statuscar == 1){
+                  $Statuscar = 'รถยึด';
+                  }elseif($value->Statuscar == 3){
+                  $Statuscar = 'รถยึด (Ploan)';
+                  }elseif($value->Statuscar == 2){
+                    $Statuscar = 'ลูกค้ามารับรถคืน';
+                  }elseif($value->Statuscar == 4){
+                    $Statuscar = 'รับรถจากของกลาง';
+                  }elseif($value->Statuscar == 5){
+                    if($value->StatSold_Homecar != NULL){
+                      $Statuscar = 'ส่งรถบ้าน(ขายแล้ว)';
+                    }else{
+                      $Statuscar = 'ส่งรถบ้าน';
+                    }
+                  }
+
+                  $sheet->row(++$row, array(
+                    $key+1,
+                    $value->Contno_hold,
+                    $value->Name_hold,
+                    $value->Brandcar_hold,
+                    $value->Number_Regist,
+                    $value->Year_Product,
+                    $Date_hold,
+                    $value->Team_hold,
+                    $value->Price_hold,
+                    $value->Note_hold,
+                    $Date_came,
+                    $value->Amount_hold,
+                    $value->Pay_hold,
+                    $Datecheck_Capital,
+                    $Datesend_Stockhome,
+                    $Datesend_Letter,
+                    $value->Barcode_No,
+                    $value->Capital_Account,
+                    $value->Capital_Topprice,
+                    $value->Note2_hold,
+                    $value->Letter_hold,
+                    $Date_send,
+                    $value->Barcode2,
+                    $value->Accept_hold,
+                    $value->Soldout_hold,
+                    $Statuscar,
+                  ));
+
+                }
+            });
+          })->export('xlsx');
         }
-        if ($request->has('Statuscar')) {
-          $Statuscar = $request->get('Statuscar');
-        }
-        // dd($fdate,$tdate,$Statuscar);
-
-          $data = DB::table('holdcars')
-          ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
-            return $q->whereBetween('holdcars.Date_hold',[$fdate,$tdate]);
-          })
-          ->when(!empty($Statuscar), function($q) use ($Statuscar) {
-            return $q->where('holdcars.Statuscar',$Statuscar);
-          })
-          ->orderBy('holdcars.Date_hold', 'ASC')
-          ->get();
-
-        $type = $request->type;
-
-        // dd($data);
-        // $data_array[] = array('jhasgdjkgzl;hlkgndklgldk');
-        $data_array[] = array('ลำดับ', 'เลขที่สัญญา', 'ชื่อ - สกุล', 'ยี่ห้อ', 'ทะเบียน', 'ปีรถ', 'วันที่ยึด', 'ทีมยึด',
-                        'ค่ายึด', 'รายละเอียด', 'วันที่มารับรถคืน', 'ค่างวดยึดค้าง', 'ชำระค่างวดยึด', 'วันที่เช็คต้นทุน', 'วันที่ส่งรถบ้าน', 'วันที่ส่งจดหมาย',
-                        'เลขบาร์โค้ด', 'ต้นทุนบัญชี', 'ต้นทุนยอดจัด', 'หมายเหตุ', 'จดหมาย', 'วันส่งจดหมาย', 'บาร์โค้ดผู้ค้ำ', 'รับ', 'ขายได้', 'สถานะ');
-                        foreach($data as $key => $row){
-                          $date1 = date_create($row->Date_hold);
-                          $Date_hold = date_format($date1, 'd-m-Y');
-
-                          $date2 = date_create($row->Date_came);
-                          $Date_came = date_format($date2, 'd-m-Y');
-
-                          $date3 = date_create($row->Datecheck_Capital);
-                          $Datecheck_Capital = date_format($date3, 'd-m-Y');
-
-                          $date4 = date_create($row->Datesend_Stockhome);
-                          $Datesend_Stockhome = date_format($date4, 'd-m-Y');
-
-                          $date5 = date_create($row->Datesend_Letter);
-                          $Datesend_Letter = date_format($date5, 'd-m-Y');
-
-                          $date6 = date_create($row->Date_send);
-                          $Date_send = date_format($date6, 'd-m-Y');
-
-                          if($row->Statuscar == 1){
-                          $Statuscar = 'รถยึด';
-                          }elseif($row->Statuscar == 2){
-                            $Statuscar = 'ลูกค้ามารับรถคืน';
-                          }elseif($row->Statuscar == 4){
-                            $Statuscar = 'รับรถจากของกลาง';
-                          }elseif($row->Statuscar == 5){
-                            if($row->StatSold_Homecar != NULL){
-                              $Statuscar = 'ส่งรถบ้าน/ตัดขายแล้ว';
-                            }else{
-                              $Statuscar = 'ส่งรถบ้าน';
-                            }
-                          }
-
-
-                          $data_array[] = array(
-                           'ลำดับ' => $key+1,
-                           'เลขที่สัญญา' => $row->Contno_hold,
-                           'ชื่อ - สกุล' => $row->Name_hold,
-                           'ยี่ห้อ' => $row->Brandcar_hold,
-                           'ทะเบียน' => $row->Number_Regist,
-                           'ปีรถ' => $row->Year_Product,
-                           'วันที่ยึด' => $Date_hold,
-                           'ทีมยึด' => $row->Team_hold,
-                           'ค่ายึด' => $row->Price_hold,
-                           'รายละเอียด' => $row->Note_hold,
-                           'วันที่มารับรถคืน' => $Date_came,
-                           'ค่างวดยึดค้าง' => $row->Amount_hold,
-                           'ชำระค่างวดยึด' => $row->Pay_hold,
-                           'วันที่เช็คต้นทุน' => $Datecheck_Capital,
-                           'วันที่ส่งรถบ้าน' => $Datesend_Stockhome,
-                           'วันที่ส่งจดหมาย' => $Datesend_Letter,
-                           'เลขบาร์โค้ด' => $row->Barcode_No,
-                           'ต้นทุนบัญชี' => $row->Capital_Account,
-                           'ต้นทุนยอดจัด' => $row->Capital_Topprice,
-                           'หมายเหตุ' => $row->Note2_hold,
-                           'จดหมาย' => $row->Letter_hold,
-                           'วันส่งจดหมาย' => $Date_send,
-                           'บาร์โค้ดผู้ค้ำ' => $row->Barcode2,
-                           'รับ' => $row->Accept_hold,
-                           'ขายได้' => $row->Soldout_hold,
-                           'สถานะ' => $Statuscar,
-                          );
-                        }
-                      $data_array = collect($data_array);
-                      $excel = Exporter::make('Excel');
-                      $excel->load($data_array);
-
-                      return $excel->stream('StockHoldcar.xlsx');
-
       }
       elseif($request->type == 9) {
         $date = date('Y-m-d');

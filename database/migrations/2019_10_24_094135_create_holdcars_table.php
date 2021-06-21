@@ -46,6 +46,14 @@ class CreateHoldcarsTable extends Migration
             $table->string('Accept_hold')->nullable();
             $table->string('Date_accept_hold')->nullable();
             $table->string('Soldout_hold')->nullable();
+
+            $table->string('Idcard_customer')->nullable();
+            $table->string('Address_customer')->nullable();
+            $table->string('Phone_customer')->nullable();
+            $table->string('Name_support')->nullable();
+            $table->string('Idcard_support')->nullable();
+            $table->string('Phone_support')->nullable();
+            $table->string('Address_support')->nullable();
             $table->timestamps();
         });
     }
