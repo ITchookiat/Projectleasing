@@ -34,26 +34,24 @@
           <div class="col-sm-9 col-12">
               <form method="get" action="{{ route('Precipitate', 5) }}">
                 <div class="float-right form-inline">
-                    <button type="submit" title="ค้นหา" class="btn bg-warning">
+                    <!-- <button type="submit" title="ค้นหา" class="btn bg-warning">
+                      <span class="fas fa-search"></span>
+                    </button> -->
+                    <button type="button" title="ค้นหา" class="btn bg-warning" data-toggle="modal" data-target="#modal-search">
                       <span class="fas fa-search"></span>
                     </button>
                     &nbsp;
                     <button type="button" title="ปริ้นรายงาน" class="btn bg-primary" data-toggle="modal" data-target="#modal-report">
                       <span class="fas fa-print"></span>
                     </button>
-                    <!-- <ul class="dropdown-menu" role="menu">
-                      <li><a target="_blank" class="dropdown-item" href="{{ action('ReportAnalysController@ReportDueDate', 1) }}?Flag={{1}}"> รายงานขออนุมัติประจำวัน</a></li>
-                      <li class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" data-toggle="modal" data-target="#modal-leasing"> รายงาน สินเชื่อเช่าซื้อ</a></li>
-                    </ul> -->
                 </div>
-                <div class="float-right form-inline">
+                <!-- <div class="float-right form-inline">
                   <label class="mr-sm-2">จากวันที่ : </label>
                   <input type="date" name="Fromdate" value="{{ ($fdate != '') ?$fdate: '' }}" class="form-control" />&nbsp;
 
                   <label class="mr-sm-2">ถึงวันที่ : </label>
                   <input type="date" name="Todate" value="{{ ($tdate != '') ?$tdate: '' }}" class="form-control" />&nbsp;
-                </div>
+                </div> -->
               </form>
           </div>
         </div>
@@ -78,27 +76,53 @@
             <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
                 <a class="nav-link active" id="vert-tabs-01-tab" data-toggle="pill" href="#vert-tabs-01" role="tab" aria-controls="vert-tabs-01" aria-selected="true">
                   <i class="fas fa-car"></i> รถยึด
+                  @if($Count1 != null)
                     <span class="badge bg-primary float-right">{{$Count1}}</span>
+                  @endif
                 </a>
                 <a class="nav-link" id="vert-tabs-03-tab" data-toggle="pill" href="#vert-tabs-03" role="tab" aria-controls="vert-tabs-03" aria-selected="false">
                   <i class="fas fa-car"></i> รถยึด (Ploan)
+                  @if($Count3 != null)
                     <span class="badge bg-primary float-right">{{$Count3}}</span>
+                  @endif
                 </a>
                 <a class="nav-link" id="vert-tabs-04-tab" data-toggle="pill" href="#vert-tabs-04" role="tab" aria-controls="vert-tabs-04" aria-selected="false">
                   <i class="fas fa-car"></i> ลูกค้ารับรถคืน
+                  @if($Count2 != null)
                     <span class="badge bg-primary float-right">{{$Count2}}</span>
+                  @endif
                 </a>
                 <a class="nav-link" id="vert-tabs-05-tab" data-toggle="pill" href="#vert-tabs-05" role="tab" aria-controls="vert-tabs-05" aria-selected="false">
                   <i class="fas fa-car"></i> รถของกลาง
+                  @if($Count4 != null)
                     <span class="badge bg-primary float-right">{{$Count4}}</span>
+                  @endif
                 </a>
                 <a class="nav-link" id="vert-tabs-06-tab" data-toggle="pill" href="#vert-tabs-06" role="tab" aria-controls="vert-tabs-06" aria-selected="false">
                   <i class="fas fa-car"></i> ส่งรถบ้าน
+                  @if($Count5 != null)
                     <span class="badge bg-primary float-right">{{$Count5}}</span>
+                  @endif
                 </a>
+                <div id="showDetail" style="display:none;">
+                  <!-- <a class="nav-link text-xs" id="vert-tabs-06-tab" data-toggle="pill">
+                    <i class="fas fa-minus"></i> อยู่สต๊อกรถบ้าน
+                      <span class="badge bg-success float-right">{{$Count51 + $Count53}}</span>
+                  </a>
+                  <a class="nav-link text-xs" id="vert-tabs-06-tab" data-toggle="pill">
+                    <i class="fas fa-minus"></i> รถบ้านขายได้
+                      <span class="badge bg-danger float-right">{{$Count52}}</span>
+                  </a> -->
+                  <!-- <a class="nav-link text-xs" id="vert-tabs-06-tab" data-toggle="pill">
+                    <i class="fas fa-minus"></i> อื่นๆ
+                      <span class="badge bg-danger float-right">{{$Count53}}</span>
+                  </a> -->
+                </div>
                 <a class="nav-link" id="vert-tabs-07-tab" data-toggle="pill" href="#vert-tabs-07" role="tab" aria-controls="vert-tabs-07" aria-selected="false">
                   <i class="fas fa-car"></i> ลูกค้าส่งรถคืน
+                  @if($Count6 != null)
                     <span class="badge bg-primary float-right">{{$Count6}}</span>
+                  @endif
                 </a>
               
             </div>
@@ -729,15 +753,15 @@
     <a id="button"></a>
   </section>
 
-
+  {{-- popup report --}}
   <form target="_blank" action="{{ action('PrecController@excel')}}" method="get">
     @csrf
     <input type="hidden" name="type" value="5">
     <div class="modal fade show" id="modal-report" style="display: none;" aria-modal="true">
       <div class="modal-dialog">
         <div class="modal-content">
-          <div class="modal-header bg-warning">
-              <h5 class="modal-title">รายงาน สต็อกรถเร่งรัด</h5>
+          <div class="modal-header bg-primary">
+              <h3 class="modal-title">Report Holdcar</h3>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
@@ -800,7 +824,54 @@
     </div>
   </form>
 
+  {{-- popup search --}}
+  <form action="{{ route('Precipitate', 5) }}" method="get">
+    @csrf
+    <div class="modal fade show" id="modal-search" style="display: none;" aria-modal="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-warning">
+              <h3 class="modal-title">Search Data</h3>
+          </div>
+          <div class="modal-body text-sm">
+              <div class="row">
+                <div class="col-12">
 
+                  <div class="form-group row mb-1">
+                    <label class="col-sm-4 col-form-label text-right">เลขที่สัญญา :</label>
+                    <div class="col-sm-7">
+                      <input type="text" name="Contract" value="" class="form-control"/>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="form-group row mb-1">
+                    <label class="col-sm-4 col-form-label text-right">จากวันที่ :</label>
+                    <div class="col-sm-7">
+                      <input type="date" name="Fromdate" value="{{ ($fdate != '') ?$fdate: '' }}" class="form-control"/>
+                    </div>
+                  </div>
+
+                  <div class="form-group row mb-1">
+                    <label class="col-sm-4 col-form-label text-right">ถึงวันที่ :</label>
+                    <div class="col-sm-7">
+                      <input type="date" name="Todate" value="{{ ($tdate != '') ?$tdate: '' }}" class="form-control"/>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            <hr>
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary text-center"><i class="fas fa-search"></i> ค้นหา</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i>  ยกเลิก</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  {{-- pop up add stock --}}
   <form name="form1" action="{{ route('MasterPrecipitate.create') }}" method="get" id="formimage" enctype="multipart/form-data">
     @csrf
     <input type="hidden" name="type" value="1"/>
@@ -904,6 +975,28 @@
               }
           });
         });
+    });
+  </script>
+
+  <script type="text/javascript">
+
+    $('#vert-tabs-01-tab').on("click" ,function() {
+      $('#showDetail').hide();
+    });
+    $('#vert-tabs-03-tab').on("click" ,function() {
+      $('#showDetail').hide();
+    });
+    $('#vert-tabs-04-tab').on("click" ,function() {
+      $('#showDetail').hide();
+    });
+    $('#vert-tabs-05-tab').on("click" ,function() {
+      $('#showDetail').hide();
+    });
+    $('#vert-tabs-06-tab').on("click" ,function() {
+      $('#showDetail').show();
+    });
+    $('#vert-tabs-07-tab').on("click" ,function() {
+      $('#showDetail').hide();
     });
   </script>
 @endsection

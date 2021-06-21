@@ -256,6 +256,8 @@ class PrecController extends Controller
           $fdate = '';
           $tdate = '';
           $Statuscar = '';
+          $Contract = '';
+
           if ($request->has('Fromdate')) {
             $fdate = $request->get('Fromdate');
           }
@@ -265,7 +267,11 @@ class PrecController extends Controller
           if ($request->has('Statuscar')) {
             $Statuscar = $request->get('Statuscar');
           }
+          if ($request->has('Contract')) {
+            $Contract = $request->get('Contract');
+          }
 
+          if($Contract == ''){
             $data = DB::table('holdcars')
                   ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
                     return $q->whereBetween('holdcars.Date_hold',[$fdate,$tdate]);
@@ -275,6 +281,14 @@ class PrecController extends Controller
                   })
                   ->orderBy('holdcars.Date_hold', 'ASC')
                   ->get();
+          }else{
+            $data = DB::table('holdcars')
+                  ->when(!empty($Contract), function($q) use ($Contract) {
+                    return $q->where('holdcars.Contno_hold',$Contract);
+                  })
+                  ->get();
+          }
+
             // $countStock = count($data);
             $Count1 = 0;
             $Count2 = 0;
@@ -283,6 +297,9 @@ class PrecController extends Controller
             $Count5 = 0;
             $Count6 = 0;
             $CountStock = 0;
+            $Count51 = 0;
+            $Count52 = 0;
+            $Count53 = 0;
 
             if ($data != NULL) {
               foreach ($data as $key => $value) {
@@ -296,6 +313,13 @@ class PrecController extends Controller
                   $Count4 += 1;
                 }elseif ($value->Statuscar == 5) {
                   $Count5 += 1;
+                  if ($value->StatPark_Homecar != NULL and $value->StatSold_Homecar == NULL) {
+                    $Count51 += 1;
+                  }elseif ($value->StatPark_Homecar != NULL and $value->StatSold_Homecar != NULL) {
+                    $Count52 += 1;
+                  }else{
+                    $Count53 += 1;
+                  }
                 }elseif ($value->Statuscar == 6) {
                   $Count6 += 1;
                 }
@@ -305,7 +329,7 @@ class PrecController extends Controller
 
           $type = $request->type;
           return view('precipitate.viewstock', compact('data','type','fdate','tdate','Statuscar',
-                      'CountStock','Count1','Count2','Count3','Count4','Count5','Count6'));
+                      'CountStock','Count1','Count2','Count3','Count4','Count5','Count6','Count51','Count52','Count53'));
         }
         elseif ($request->type == 6) {  //หน้า เพิ่มรถ
           $type = $request->type;
