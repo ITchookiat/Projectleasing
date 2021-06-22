@@ -29,6 +29,31 @@
           <a href="#" class="d-block">{{ Auth::user()->username }}</a>
         </div>
       </div>
+      
+
+      @php
+        if (isset($_GET['type'])) {
+          if ($_GET['type'] == 1) {
+            $ActivePloan = true;
+            $ActiveP03 = true;
+          }elseif ($_GET['type'] == 3) {
+            $ActivePloan = true;
+            $ActiveP04 = true;
+          }elseif ($_GET['type'] == 4) {
+            $ActiveMicro = true;
+            $ActiveP07 = true;
+          }elseif ($_GET['type'] == 5) {
+            $ActiveMicro = true;
+            $ActiveP06 = true;
+          }
+        }
+        elseif (isset($_GET['type']) and Request::is('MasterAnalytical')) {
+          $MasterAnalytical = true;
+          if ($_GET['type'] == 1) {
+            $Analytical01 = true;
+          }
+        }
+      @endphp
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
@@ -51,6 +76,25 @@
               </li>
             </ul>
           </li>
+
+          {{-- <li class="nav-item has-treeview @if(isset($MasterAnalytical)) {{($MasterAnalytical == true) ? 'menu-open' : '' }} @endif">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fab fa-audible"></i>
+              <span id="Info"></span>
+              <p>
+                  Data Analysis
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview" style="margin-left: 15px;">
+              <li class="nav-item">
+                <a href="{{ route('MasterAnalytical.index') }}?type={{1}}" class="nav-link @if(isset($Analytical01)) {{($Analytical01 == true) ? 'active' : '' }} @endif">
+                  <i class="far fa-dot-circle nav-icon"></i>
+                  <p>Board Commission</p>
+                </a>
+              </li>
+            </ul>
+          </li> --}}
 
           <li class="nav-item has-treeview {{ Request::is('Analysis/*') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link active">
@@ -127,23 +171,6 @@
             @endif
           </li>
 
-          @php
-            if (isset($_GET['type'])) {
-              if ($_GET['type'] == 1) {
-                $ActivePloan = true;
-                $ActiveP03 = true;
-              }elseif ($_GET['type'] == 3) {
-                $ActivePloan = true;
-                $ActiveP04 = true;
-              }elseif ($_GET['type'] == 4) {
-                $ActiveMicro = true;
-                $ActiveP07 = true;
-              }elseif ($_GET['type'] == 5) {
-                $ActiveMicro = true;
-                $ActiveP06 = true;
-              }
-            }
-          @endphp
           <li class="nav-item has-treeview {{ Request::is('MasterMicroPloan') ? 'menu-open' : '' }} {{ Request::is('MasterMicroPloan/*/*') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-layer-group"></i>
