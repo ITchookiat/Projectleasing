@@ -634,14 +634,14 @@ class AnalysController extends Controller
           $Contno = $request->Contno;
         }
         $data = DB::connection('ibmi')
-        ->table('SFHP.ARMAST')
-        ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
-        ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
-        ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
-        ->join('SFHP.CUSTMAST','SFHP.ARMAST.CUSCOD','=','SFHP.CUSTMAST.CUSCOD')
-        ->where('SFHP.ARMAST.CONTNO','=', $Contno)
-        ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
-        ->first();
+          ->table('SFHP.ARMAST')
+          ->join('SFHP.ARPAY','SFHP.ARMAST.CONTNO','=','SFHP.ARPAY.CONTNO')
+          ->join('SFHP.INVTRAN','SFHP.ARMAST.CONTNO','=','SFHP.INVTRAN.CONTNO')
+          ->join('SFHP.VIEW_CUSTMAIL','SFHP.ARMAST.CUSCOD','=','SFHP.VIEW_CUSTMAIL.CUSCOD')
+          ->join('SFHP.CUSTMAST','SFHP.ARMAST.CUSCOD','=','SFHP.CUSTMAST.CUSCOD')
+          ->where('SFHP.ARMAST.CONTNO','=', $Contno)
+          ->orderBy('SFHP.ARMAST.CONTNO', 'ASC')
+          ->first();
         if($data != null){
           $NewBrand = iconv('Tis-620','utf-8',str_replace(" ","",$data->TYPE));
         }
@@ -655,10 +655,10 @@ class AnalysController extends Controller
         }
         $type = $request->type;
         $dataPay = DB::connection('ibmi')
-        ->table('SFHP.ARPAY')
-        ->where('SFHP.ARPAY.CONTNO','=', $Contno)
-        ->orderBy('SFHP.ARPAY.CONTNO', 'ASC')
-        ->get();
+          ->table('SFHP.ARPAY')
+          ->where('SFHP.ARPAY.CONTNO','=', $Contno)
+          ->orderBy('SFHP.ARPAY.CONTNO', 'ASC')
+          ->get();
         return view('analysis.createextra', compact('type','data','dataGT','NewBrand','NewRelate','dataPay'));
       }
       elseif ($request->type == 14){ //รายงาน พักชำระหนี้

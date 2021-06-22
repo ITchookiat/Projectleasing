@@ -102,6 +102,9 @@ Route::group(['middleware' => 'auth'], function()
     //------------------หน้าแรก--------------------//
     route::resource('HomeBP','HomeController');
 
+    //------------------วิเคราะห์--------------------//
+    route::resource('MasterAnalytical','AnalyticalController');
+
     //---------------- logout --------------------//
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
     Route::get('/{name}', 'HomeController@index')->name('index');
