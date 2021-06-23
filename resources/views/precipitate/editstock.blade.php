@@ -37,8 +37,10 @@
     }
   </style>
 
+  <link type="text/css" rel="stylesheet" href="{{ asset('css/magiczoomplus.css') }}"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
 
+  <script type="text/javascript" src="{{ asset('js/magiczoomplus.js') }}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/js/fileinput.js" type="text/javascript"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/themes/fa/theme.js" type="text/javascript"></script>
 
@@ -569,7 +571,7 @@
                               <h3 class="card-title"><i class="fas fa-image"></i> รูปภาพประกอบ</h3>
                               <div class="card-tools">
                               @if($CountImage > 0)
-                                <button type="button" class="btn btn-tool" data-toggle="modal" data-target="#modal-del-image"><i class="fas fa-trash text-dark"></i>
+                                <button type="button" class="btn btn-tool" data-toggle="modal" data-target="#modal-del-image" data-backdrop="static" data-keyboard="false"><i class="fas fa-trash text-dark"></i>
                               @endif
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                                 </button>
@@ -583,7 +585,7 @@
                                 @foreach($dataImage as $key => $images)
                                   @if($images->type_image == "100")
                                   <div class="col-md-4">
-                                      <a href="{{ asset('upload-imageholdcar/'.$contractNo.'/'.$images->name_image) }}" data-toggle="lightbox" data-title="ภาพผู้เช่าซื้อ">
+                                      <a href="{{ asset('upload-imageholdcar/'.$contractNo.'/'.$images->name_image) }}" class="MagicZoom" data-gallery="gallery" data-options="hint:true; zoomMode:magnifier; variableZoom: true">
                                         <img src="{{ asset('upload-imageholdcar/'.$contractNo.'/'.$images->name_image) }}" class="img-responsive" width="200px;" height="150px;">
                                       </a>
                                   </div>
@@ -626,7 +628,7 @@
               @if($images->type_image == "100")
                 <div class="col-md-4">
                   <div class="show-image">
-                    <a href="{{ asset('upload-imageholdcar/'.$contractNo.'/'.$images->name_image) }}">
+                    <a href="#">
                       <img src="{{ asset('upload-imageholdcar/'.$contractNo.'/'.$images->name_image) }}" class="img-responsive" width="200px;" height="150px;">
                     </a>
                     <a href="{{ action('PrecController@destroy',[$images->image_id])}}?type={{5}}&deltype={{2}}&Contract={{$contractNo}}&Nameimage={{$images->name_image}}" class="DeleteImage"><i class="fas fa-trash fa-3x delete text-danger"></i></a>
