@@ -177,11 +177,11 @@
                           <thead>
                             <tr>
                               <!-- <th class="text-center">ลำดับ</th> -->
-                              <th class="text-center" width="70px">วันที่ยึด</th>
-                              <th class="text-center" width="70px">ระยะเวลา</th>
+                              <th class="text-center" >วันที่ยึด</th>
+                              <th class="text-center" >ระยะเวลา</th>
                               <th class="text-center">เลขที่สัญญา</th>
                               <th class="text-center">ชื่อ-สกุล</th>
-                              <th class="text-center" width="70px">ทะเบียน</th>
+                              <th class="text-center" >ทะเบียน</th>
                               <th class="text-center">ทีมยึด</th>
                               <th class="text-center">ค่ายึด</th>
                               <th class="text-center">ตัวเลือก</th>
@@ -266,7 +266,7 @@
                         <h3 class="card-title">รายการ รถยึด (Ploan)</h3>
                       </div>
                       <div class="col-12">
-                        <table class="table table-striped table-valign-middle" id="table1">
+                        <table class="table table-striped table-valign-middle" id="table2">
                           <thead>
                             <tr>
                               <!-- <th class="text-center">ลำดับ</th> -->
@@ -359,7 +359,7 @@
                         <h3 class="card-title">รายการ ลูกค้ารับรถคืน</h3>
                       </div>
                       <div class="col-12">
-                        <table class="table table-striped table-valign-middle" id="table1">
+                        <table class="table table-striped table-valign-middle" id="table3">
                           <thead>
                             <tr>
                               <!-- <th class="text-center">ลำดับ</th> -->
@@ -452,7 +452,7 @@
                         <h3 class="card-title">รายการ รถของกลาง</h3>
                       </div>
                       <div class="col-12">
-                        <table class="table table-striped table-valign-middle" id="table1">
+                        <table class="table table-striped table-valign-middle" id="table4">
                           <thead>
                             <tr>
                               <!-- <th class="text-center">ลำดับ</th> -->
@@ -545,7 +545,7 @@
                         <h3 class="card-title">รายการ รถส่งรถบ้าน</h3>
                       </div>
                       <div class="col-12">
-                        <table class="table table-striped table-valign-middle" id="table1">
+                        <table class="table table-striped table-valign-middle" id="table5">
                           <thead>
                             <tr>
                               <!-- <th class="text-center">ลำดับ</th> -->
@@ -643,7 +643,7 @@
                         <h3 class="card-title">รายการ ลูกค้าส่งรถคืน</h3>
                       </div>
                       <div class="col-12">
-                        <table class="table table-striped table-valign-middle" id="table1">
+                        <table class="table table-striped table-valign-middle" id="table6">
                           <thead>
                             <tr>
                               <!-- <th class="text-center">ลำดับ</th> -->
@@ -931,7 +931,7 @@
         "autoWidth": false,
         "ordering": true,
         "lengthChange": true,
-        "order": [[ 0, "asc" ]],
+        "order": [[ 7, "asc" ]],
         "pageLength": 5,
       });
     });
