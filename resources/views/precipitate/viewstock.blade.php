@@ -34,24 +34,14 @@
           <div class="col-sm-9 col-12">
               <form method="get" action="{{ route('Precipitate', 5) }}">
                 <div class="float-right form-inline">
-                    <!-- <button type="submit" title="ค้นหา" class="btn bg-warning">
-                      <span class="fas fa-search"></span>
-                    </button> -->
-                    <button type="button" title="ค้นหา" class="btn bg-warning" data-toggle="modal" data-target="#modal-search">
-                      <span class="fas fa-search"></span>
+                    <button type="button" title="ค้นหา" class="btn bg-warning" data-toggle="modal" data-target="#modal-search" data-backdrop="static" data-keyboard="false">
+                      <span class="fas fa-search"></span> ค้นหา
                     </button>
                     &nbsp;
-                    <button type="button" title="ปริ้นรายงาน" class="btn bg-primary" data-toggle="modal" data-target="#modal-report">
-                      <span class="fas fa-print"></span>
+                    <button type="button" title="ปริ้นรายงาน" class="btn bg-primary" data-toggle="modal" data-target="#modal-report" data-backdrop="static" data-keyboard="false">
+                      <span class="fas fa-print"></span> ปริ้น
                     </button>
                 </div>
-                <!-- <div class="float-right form-inline">
-                  <label class="mr-sm-2">จากวันที่ : </label>
-                  <input type="date" name="Fromdate" value="{{ ($fdate != '') ?$fdate: '' }}" class="form-control" />&nbsp;
-
-                  <label class="mr-sm-2">ถึงวันที่ : </label>
-                  <input type="date" name="Todate" value="{{ ($tdate != '') ?$tdate: '' }}" class="form-control" />&nbsp;
-                </div> -->
               </form>
           </div>
         </div>
@@ -762,9 +752,9 @@
         <div class="modal-content">
           <div class="modal-header bg-primary">
               <h3 class="modal-title">Report Holdcar</h3>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <!-- <button type="button" id="btnclose" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
-            </button>
+            </button> -->
           </div>
           <div class="modal-body text-sm">
               <div class="row">
@@ -772,7 +762,7 @@
                   <div class="form-group row mb-1">
                     <label class="col-sm-4 col-form-label text-right">จากวันที่ :</label>
                     <div class="col-sm-7">
-                      <input type="date" name="Fromdate" value="" class="form-control form-control-sm"/>
+                      <input type="date" id="Fromdate" name="Fromdate" value="" class="form-control"/>
                     </div>
                   </div>
                 </div>
@@ -780,7 +770,7 @@
                   <div class="form-group row mb-1">
                     <label class="col-sm-4 col-form-label text-right">ถึงวันที่ :</label>
                     <div class="col-sm-7">
-                      <input type="date" name="Todate" value="" class="form-control form-control-sm"/>
+                      <input type="date" id="Todate" name="Todate" value="" class="form-control"/>
                     </div>
                   </div>
                 </div>
@@ -788,7 +778,7 @@
                   <div class="form-group row mb-1">
                     <label class="col-sm-4 col-form-label text-right">สถานะ :</label>
                     <div class="col-sm-7">
-                      <select name="Statuscar" class="form-control form-control-sm" id="text">
+                      <select id="Statuscar" name="Statuscar" class="form-control" id="text">
                         <option selected value="">----- เลือกสถานะ ----</option>
                         <option value="1"> รถยึด</otion>
                         <option value="3"> รถยึด (Ploan)</otion>
@@ -804,7 +794,7 @@
                   <div class="form-group row mb-1">
                     <label class="col-sm-4 col-form-label text-right text-danger">* รูปแบบ :</label>
                     <div class="col-sm-7">
-                      <select name="Typereport" class="form-control form-control-sm" required>
+                      <select id="Typereport" name="Typereport" class="form-control" required>
                         <option selected value="">----- เลือกรูปแบบ ----</option>
                         <option value="pdf"> .PDF</otion>
                         <option value="excel" > .Excel</otion>
@@ -816,7 +806,7 @@
             <hr>
             <div class="text-center">
               <button type="submit" class="btn btn-primary text-center"><i class="fas fa-print"></i> ปริ้น</button>
-              <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i>  ยกเลิก</button>
+              <button type="button" id="btnclose" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i>  ยกเลิก</button>
             </div>
           </div>
         </div>
@@ -840,21 +830,21 @@
                   <div class="form-group row mb-1">
                     <label class="col-sm-4 col-form-label text-right">เลขที่สัญญา :</label>
                     <div class="col-sm-7">
-                      <input type="text" name="Contract" value="" class="form-control"/>
+                      <input type="text" id="Contract" name="Contract" value="" class="form-control"/>
                     </div>
                   </div>
                   <hr>
                   <div class="form-group row mb-1">
                     <label class="col-sm-4 col-form-label text-right">จากวันที่ :</label>
                     <div class="col-sm-7">
-                      <input type="date" name="Fromdate" value="{{ ($fdate != '') ?$fdate: '' }}" class="form-control"/>
+                      <input type="date" id="Fromdate1" name="Fromdate" value="{{ ($fdate != '') ?$fdate: '' }}" class="form-control"/>
                     </div>
                   </div>
 
                   <div class="form-group row mb-1">
                     <label class="col-sm-4 col-form-label text-right">ถึงวันที่ :</label>
                     <div class="col-sm-7">
-                      <input type="date" name="Todate" value="{{ ($tdate != '') ?$tdate: '' }}" class="form-control"/>
+                      <input type="date" id="Todate1" name="Todate" value="{{ ($tdate != '') ?$tdate: '' }}" class="form-control"/>
                     </div>
                   </div>
 
@@ -863,7 +853,7 @@
             <hr>
             <div class="text-center">
               <button type="submit" class="btn btn-primary text-center"><i class="fas fa-search"></i> ค้นหา</button>
-              <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i>  ยกเลิก</button>
+              <button type="button" id="btnclose1" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i>  ยกเลิก</button>
             </div>
           </div>
         </div>
@@ -979,6 +969,21 @@
   </script>
 
   <script type="text/javascript">
+
+    $("#btnclose").click(function () {
+      $("#modal-report").modal('hide');
+      $('#Fromdate').val('');
+      $('#Todate').val('');
+      $('#Statuscar').val('');
+      $('#Typereport').val('');
+    });
+
+    $("#btnclose1").click(function () {
+      $("#modal-search").modal('hide');
+      $('#Fromdate1').val('');
+      $('#Todate1').val('');
+      $('#Contract').val('');
+    });
 
     $('#vert-tabs-01-tab').on("click" ,function() {
       $('#showDetail').hide();

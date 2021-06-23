@@ -282,7 +282,7 @@
                     <div class="form-group row mb-0">
                       <label class="col-sm-4 col-form-label text-right">ยอดจัด :</label>
                       <div class="col-sm-8">
-                        <input type="text" id="Topcar" name="Topcar" class="form-control form-control-sm" placeholder="ป้อนยอดจัด" maxlength="9" />
+                        <input type="number" id="Topcar" name="Topcar" class="form-control form-control-sm" placeholder="ป้อนยอดจัด" maxlength="9" />
                       </div>
                     </div>
                   </div>
@@ -312,7 +312,7 @@
                     <div class="form-group row mb-0">
                       <label class="col-sm-4 col-form-label text-right">ระยะเวลา : </label>
                       <div class="col-sm-8">
-                        <input type="text" id="Timelack" name="Timelack" class="form-control form-control-sm" placeholder="ป้อนระยะเวลา" />
+                        <input type="number" id="Timelack" name="Timelack" class="form-control form-control-sm" placeholder="ป้อนระยะเวลา" />
                       </div>
                     </div>
                   </div>
@@ -330,7 +330,7 @@
                     <div class="form-group row mb-0">
                       <label id="InterestText" class="col-sm-4 col-form-label text-right">ดอกเบี้ย :</label>
                       <div class="col-sm-8">
-                        <input type="text" id="Interest" name="Interest" class="form-control form-control-sm" placeholder="ป้อนดอกเบี้ย" />
+                        <input type="number" id="Interest" name="Interest" class="form-control form-control-sm" placeholder="ป้อนดอกเบี้ย" />
                       </div>
                     </div>
                   </div>
@@ -536,7 +536,7 @@
         var Topcar = Gettopcar.replace(",","");
         var Gettimelack = document.getElementById('Timelack').value;
         var Getinterest = document.getElementById('Interest').value;
-        $("#Topcar").val(addCommas(Topcar));
+        // $("#Topcar").val(addCommas(Topcar));
 
         if(Gettype == ""){
           $("#InterestText").text("ดอกเบี้ย :");

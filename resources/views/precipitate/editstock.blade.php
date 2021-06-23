@@ -14,6 +14,29 @@
     $date2 = $Y2.'-'.$m.'-'.$d;
   @endphp
 
+  <style>
+    div.show-image {
+      position: relative;
+      float:left;
+      margin:5px;
+    }
+    div.show-image:hover img{
+        opacity:0.5;
+    }
+    div.show-image:hover i {
+        display: block;
+    }
+    div.show-image i {
+        position:absolute;
+        display:none;
+    }
+    div.show-image i.delete {
+        top:38%;
+        left:40%;
+        color: red;
+    }
+  </style>
+
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/js/fileinput.js" type="text/javascript"></script>
@@ -519,6 +542,59 @@
                           </div>
                         </div>
                       </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="card">
+                            <div class="card-header">
+                              <h3 class="card-title"><i class="fas fa-image"></i> เพิ่มรูปภาพ</h3>
+                              <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                                </button>
+                              </div>
+                            </div>
+                            <div class="card-body">
+                              <div class="form-group">
+                                <div class="file-loading">
+                                  <input id="image-file" type="file" name="file_image[]" accept="image/*" data-min-file-count="1" multiple>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="card">
+                            <div class="card-header">
+                              <h3 class="card-title"><i class="fas fa-image"></i> รูปภาพประกอบ</h3>
+                              <div class="card-tools">
+                              @if($CountImage > 0)
+                                <button type="button" class="btn btn-tool" data-toggle="modal" data-target="#modal-del-image"><i class="fas fa-trash text-dark"></i>
+                              @endif
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                                </button>
+                              </div>
+                            </div>
+                            <div class="card-body">
+                              <div class="row">
+                                @php 
+                                  $contractNo = str_replace("/","",$data->Contno_hold);
+                                @endphp
+                                @foreach($dataImage as $key => $images)
+                                  @if($images->type_image == "100")
+                                  <div class="col-md-4">
+                                      <a href="{{ asset('upload-imageholdcar/'.$contractNo.'/'.$images->name_image) }}" data-toggle="lightbox" data-title="ภาพผู้เช่าซื้อ">
+                                        <img src="{{ asset('upload-imageholdcar/'.$contractNo.'/'.$images->name_image) }}" class="img-responsive" width="200px;" height="150px;">
+                                      </a>
+                                  </div>
+                                  @endif
+                                @endforeach
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
                       <input type="hidden" name="_method" value="PATCH"/>
                     </div>
                   </div>
@@ -531,5 +607,115 @@
       </section>
     </div>
   </section>
+
+  <div class="modal fade show" id="modal-del-image" aria-modal="true" role="dialog" style="display: none;">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-sm">ลบรูปภาพ</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            @php 
+              $contractNo = str_replace("/","",$data->Contno_hold);
+            @endphp
+            @foreach($dataImage as $key => $images)
+              @if($images->type_image == "100")
+                <div class="col-md-4">
+                  <div class="show-image">
+                    <a href="{{ asset('upload-imageholdcar/'.$contractNo.'/'.$images->name_image) }}">
+                      <img src="{{ asset('upload-imageholdcar/'.$contractNo.'/'.$images->name_image) }}" class="img-responsive" width="200px;" height="150px;">
+                    </a>
+                    <a href="{{ action('PrecController@destroy',[$images->image_id])}}?type={{5}}&deltype={{2}}&Contract={{$contractNo}}&Nameimage={{$images->name_image}}" class="DeleteImage"><i class="fas fa-trash fa-3x delete text-danger"></i></a>
+                  </div>
+                </div>
+              @endif
+            @endforeach
+          </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+        @if($CountImage > 0)
+          <button href="{{ action('PrecController@destroy',[$images->legisImage_id])}}?type={{5}}&deltype={{1}}&Contract={{$contractNo}}" type="button" class="btn btn-danger btn-sm DeleteAll"><i class="fas fa-trash"></i> ลบทั้งหมด</button>
+        @endif
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{-- image --}}
+  <script type="text/javascript">
+    $("#Account_image,#image-file,#image_checker_1,#image_checker_2").fileinput({
+      uploadUrl:"{{ route('MasterAnalysis.store') }}",
+      theme:'fa',
+      uploadExtraData:function(){
+        return{
+          _token:"{{csrf_token()}}",
+        }
+      },
+      allowedFileExtensions:['jpg','png','gif'],
+      maxFileSize:10240
+    })
+  </script>
+
+  <script>
+    $(function () {
+      $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+        event.preventDefault();
+        $(this).ekkoLightbox({
+          alwaysShowClose: true
+        });
+      });
+    })
+  </script>
+
+<script type="text/javascript">
+ $(document).ready(function () {
+    $('.DeleteImage').click(function (evt) {
+        var form = $(this).closest("form");
+        var _this = $(this)
+
+        evt.preventDefault();
+        swal({
+          icon: "error",
+          title: "ต้องการลบรูปภาพนี้หรือไม่ ?",
+          text: "หากลบแล้วจะไม่สามารถดึงข้อมูลกลับมาได้อีก !",
+          buttons: true,
+          dangerMode: true
+        }).then((willDelete)=>{
+          if (willDelete) {
+              swal("ลบข้อมูลสำเร็จ !", {
+                  icon: "success",
+                  timer: 3000,
+              })
+              window.location.href = _this.attr('href')
+          }
+      });
+    });
+    $('.DeleteAll').click(function (evt) {
+        var form = $(this).closest("form");
+        var _this = $(this)
+
+        evt.preventDefault();
+        swal({
+          icon: "error",
+          title: "ต้องการลบรูปภาพทั้งหมดหรือไม่ ?",
+          text: "หากลบแล้วจะไม่สามารถดึงข้อมูลกลับมาได้อีก !",
+          buttons: true,
+          dangerMode: true
+        }).then((willDelete)=>{
+          if (willDelete) {
+              swal("ลบข้อมูลสำเร็จ !", {
+                  icon: "success",
+                  timer: 3000,
+              })
+              window.location.href = _this.attr('href')
+          }
+      });
+    });
+ });
+</script>
 
 @endsection

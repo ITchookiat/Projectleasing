@@ -568,6 +568,70 @@
                             </div>
                           </div>
                         </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="card card-success">
+                              <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-image"></i> เพิ่มรูปภาพ</h3>
+                                <div class="card-tools">
+                                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                                  </button>
+                                </div>
+                              </div>
+                              <div class="card-body">
+                                <div class="form-group">
+                                  <div class="file-loading">
+                                    <input id="image-file" type="file" name="file_image[]" accept="image/*" data-min-file-count="1" multiple>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          {{--<div class="col-md-6">
+                            <div class="card card-success">
+                              <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-image"></i> รูปภาพประกอบ</h3>
+                                <div class="card-tools">
+                                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                                  </button>
+                                </div>
+                              </div>
+                              <div class="card-body">
+                                <div class="row">
+                                  <div class="col-6">
+                                    <div class="float-right form-inline">
+                                      <label>บาร์โค๊ดผู้ค้ำ : </label>
+                                      <input type="text" name="Barcode2" class="form-control form-control-sm" style="width: 250px;" placeholder="ป้อนบาร์โค๊ด">
+                                    </div>
+                                  </div>
+                                  <div class="col-6">
+                                    <div class="float-right form-inline">
+                                      <label>วันส่งจดหมาย : </label>
+                                      <input type="date" name="Datesend" class="form-control form-control-sm" style="width: 250px;">
+                                    </div>
+                                  </div>
+                                </div>
+              
+                                <div class="row">
+                                  <div class="col-6">
+                                    <div class="float-right form-inline">
+                                      <label style="vertical-align: top;">หมายเหตุ : </label>
+                                      <textarea name="Letter" class="form-control form-control-sm" placeholder="ป้อนหมายเหตุ" rows="3" style="width: 250px;"></textarea>
+                                    </div>
+                                  </div>
+                                  <div class="col-6">
+                                    <div class="float-right form-inline">
+                                      <label>วันได้รับจดหมาย : </label>
+                                      <input type="date" name="DateSupportGet" class="form-control form-control-sm" style="width: 250px;">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>--}}
+                        </div>
       
                         <input type="hidden" name="_token" value="{{csrf_token()}}" />
                         <input type="hidden" name="type" value="6" />
@@ -587,6 +651,21 @@
   <script>
     $(function () {
       $('[data-mask]').inputmask()
+    })
+  </script>
+
+  {{-- image --}}
+  <script type="text/javascript">
+    $("#Account_image,#image-file,#image_checker_1,#image_checker_2").fileinput({
+      uploadUrl:"{{ route('MasterAnalysis.store') }}",
+      theme:'fa',
+      uploadExtraData:function(){
+        return{
+          _token:"{{csrf_token()}}",
+        }
+      },
+      allowedFileExtensions:['jpg','png','gif'],
+      maxFileSize:10240
     })
   </script>
 @endsection
