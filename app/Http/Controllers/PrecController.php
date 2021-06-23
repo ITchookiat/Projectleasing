@@ -10,6 +10,7 @@ use Excel;
 use Helper;
 use Storage;
 use File;
+use Image;
 
 use Carbon\Carbon;
 use App\Holdcar;
@@ -19,6 +20,7 @@ use App\Sponsor;
 use App\Sponsor2;
 use App\Expenses;
 use App\UploadfileImage;
+use App\LegisImage;
 
 class PrecController extends Controller
 {
@@ -800,7 +802,7 @@ class PrecController extends Controller
      */
     public function create(Request $request)
     {
-        if($request->type == 1){
+        if($request->type == 1){ //stock เร่งรัด
           if($request->DB_type == 1){
             $data = DB::connection('ibmi')
                 ->table('SFHP.ARMAST')
@@ -915,6 +917,35 @@ class PrecController extends Controller
           'Address_support' => $request->get('addressSP'),
         ]);
         $Holdcardb->save();
+        
+        if ($request->hasFile('file_image')) {
+          $contractNo = str_replace("/","",$request->get('Contno'));
+          $image_array = $request->file('file_image');
+          $array_len = count($image_array);
+
+          for ($i=0; $i < $array_len; $i++) {
+            $image_size = $image_array[$i]->getClientSize();
+            $image_new_name = str_random(10).time(). '.' .$image_array[$i]->getClientOriginalExtension();
+
+            $path = public_path().'/upload-imageholdcar/'.$contractNo;
+            File::makeDirectory($path, $mode = 0777, true, true);
+
+             //resize Image
+            $image_resize = Image::make($image_array[$i]->getRealPath());
+            $image_resize->resize(1200, null, function ($constraint) {
+              $constraint->aspectRatio();
+            });
+            $image_resize->save(public_path().'/upload-imageholdcar/'.$contractNo.'/'.$image_new_name);
+            $Uploaddb = new LegisImage([
+              'legisImage_id' => $Holdcardb->Hold_id,
+              'name_image' => $image_new_name,
+              'size_image' => $image_size,
+              'type_image' => '100',
+            ]);
+            $Uploaddb ->save();
+          }
+        }
+
         $type = 5;
         return redirect()->Route('Precipitate', $type)->with('success','บันทึกข้อมูลเรียบร้อย');
       }
@@ -1435,6 +1466,12 @@ class PrecController extends Controller
                     ->where('holdcars.hold_id',$id)
                     ->first();
 
+          $dataImage = DB::table('legisimages')
+          ->where('legisimages.legisImage_id',$id)
+          ->get();
+
+          $CountImage = count($dataImage);
+
           $type = $request->type;
 
           $Statuscar = [
@@ -1476,7 +1513,7 @@ class PrecController extends Controller
             'ส่งใหม่' => 'ส่งใหม่',
           ];
 
-          return view('Precipitate.editstock', compact('data','type','id','Statuscar','Brandcarr','Teamhold','Accept'));
+          return view('Precipitate.editstock', compact('data','type','id','Statuscar','Brandcarr','Teamhold','Accept','dataImage','CountImage'));
         }
     }
 
@@ -1567,6 +1604,33 @@ class PrecController extends Controller
           $hold->Address_support = $request->get('addressSP');
         $hold->update();
         // return redirect()->Route('Precipitate', 5)->with('success','อัพเดทข้อมูลเรียบร้อย');
+        if ($request->hasFile('file_image')) {
+          $contractNo = str_replace("/","",$request->get('Contno'));
+          $image_array = $request->file('file_image');
+          $array_len = count($image_array);
+
+          for ($i=0; $i < $array_len; $i++) {
+            $image_size = $image_array[$i]->getClientSize();
+            $image_new_name = str_random(10).time(). '.' .$image_array[$i]->getClientOriginalExtension();
+
+            $path = public_path().'/upload-imageholdcar/'.$contractNo;
+            File::makeDirectory($path, $mode = 0777, true, true);
+
+             //resize Image
+            $image_resize = Image::make($image_array[$i]->getRealPath());
+            $image_resize->resize(1200, null, function ($constraint) {
+              $constraint->aspectRatio();
+            });
+            $image_resize->save(public_path().'/upload-imageholdcar/'.$contractNo.'/'.$image_new_name);
+            $Uploaddb = new LegisImage([
+              'legisImage_id' => $hold->Hold_id,
+              'name_image' => $image_new_name,
+              'size_image' => $image_size,
+              'type_image' => '100',
+            ]);
+            $Uploaddb ->save();
+          }
+        }
         return redirect()->back()->with('success','อัพเดทข้อมูลเรียบร้อย');
       }
       elseif ($request->type == 11) { //ปรับโครงสร้างหนี้
@@ -1960,9 +2024,24 @@ class PrecController extends Controller
      */
     public function destroy(Request $request,$id)
     {
-      if($request->type == 5) {
-        $item1 = Holdcar::find($id);
-        $item1->Delete();
+      if($request->type == 5) { //ลบรายการสต็อกรถเร่งรัด
+        
+        if($request->deltype == 1){ //ลบรูปทั้งหมด
+          $itemAll = LegisImage::where('legisImage_id',$id);
+          $itemPath = public_path().'/upload-imageholdcar/'.$request->Contract;
+          File::deleteDirectory($itemPath);
+          $itemAll->Delete();
+        }
+        elseif($request->deltype == 2){ //ลบทีละรูป
+          $itemEach = LegisImage::find($id);
+          $itemName = public_path().'/upload-imageholdcar/'.$request->Contract.'/'.$request->Nameimage;
+          File::delete($itemName);
+          $itemEach->Delete();
+        }
+        else{
+          $item1 = Holdcar::find($id);
+          $item1->Delete();
+        }
 
         return redirect()->back()->with('success','ลบข้อมูลเรียบร้อย');
       }

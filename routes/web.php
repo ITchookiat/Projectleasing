@@ -64,6 +64,8 @@ Route::group(['middleware' => 'auth'], function()
     Route::get('/Precipitate/ReportPrecDue/{Str1}/{Str2}', 'PrecController@ReportPrecDue');
     Route::get('/Precipitate/DebtEdit/{type}/{id}/{fdate}/{tdate}/{branch}/{status}', 'PrecController@DebtEdit')->name('Precipitate.DebtEdit');
     Route::get('/Precipitate/report/{type}', 'PrecController@ReportLetter')->name('Precipitate.report');
+    Route::get('/Precipitate/delimage/{id}', 'PrecController@destroy')->name('Precipitate.delete');
+
 
     //------------------งานการเงิน---------------------//
     route::resource('MasterTreasury','TreasController');
