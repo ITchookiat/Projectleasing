@@ -330,7 +330,7 @@
                     <div class="form-group row mb-0">
                       <label id="InterestText" class="col-sm-4 col-form-label text-right">ดอกเบี้ย :</label>
                       <div class="col-sm-8">
-                        <input type="number" id="Interest" name="Interest" class="form-control form-control-sm" placeholder="ป้อนดอกเบี้ย" />
+                        <input type="text" id="Interest" name="Interest" class="form-control form-control-sm" placeholder="ป้อนดอกเบี้ย" />
                       </div>
                     </div>
                   </div>
