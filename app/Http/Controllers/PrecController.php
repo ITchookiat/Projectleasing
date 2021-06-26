@@ -3088,8 +3088,9 @@ class PrecController extends Controller
                   ->get();
           
           $type = $request->type;
+          $stylePDF = 1;
   
-          $view = \View::make('precipitate.ReportPrecDue' ,compact('data','date','fdate','tdate','type'));
+          $view = \View::make('precipitate.ReportPrecDue' ,compact('data','date','fdate','tdate','type','stylePDF'));
           $html = $view->render();
           $pdf = new PDF();
           $pdf::SetTitle('รายงานสต็อกรถเร่งรัด');
@@ -3207,6 +3208,89 @@ class PrecController extends Controller
                 }
             });
           })->export('xlsx');
+        }
+        elseif($request->Typereport == 'table'){ //table
+          $fdate = '';
+          $tdate = '';
+          $Statuscar = '';
+          if ($request->has('Fromdate')) {
+            $fdate = $request->get('Fromdate');
+          }
+          if ($request->has('Todate')) {
+            $tdate = $request->get('Todate');
+          }
+          if ($request->has('Statuscar')) {
+            $Statuscar = $request->get('Statuscar');
+          }
+          // dd($fdate,$tdate,$Statuscar);
+          $data = DB::table('holdcars')
+                ->when(!empty($fdate)  && !empty($tdate), function($q) use ($fdate, $tdate) {
+                  return $q->whereBetween('holdcars.Date_hold',[$fdate,$tdate]);
+                })
+                ->when(!empty($Statuscar), function($q) use ($Statuscar) {
+                  return $q->where('holdcars.Statuscar',$Statuscar);
+                })
+                ->orderBy('holdcars.Date_hold', 'ASC')
+                ->get();
+
+          if ($data != NULL) {
+              $HoldcarAll = 0;
+              $CusGetBack = 0;
+              $CusSendCar = 0;
+              $HomecarSock = 0;
+              $HomecarSoldout = 0;
+              $HoldcarLeasing = 0;
+              $HoldcarPloan = 0;
+              $Sum_HoldcarAll = 0;
+              $Sum_CusGetBack = 0;
+              $Sum_CusSendCar = 0;
+              $Sum_HomecarSock = 0;
+              $Sum_HomecarSoldout = 0;
+              $Sum_HoldcarLeasing = 0;
+              $Sum_HoldcarPloan = 0;
+              foreach ($data as $key => $value) {
+                  if ($value->Statuscar == 1) {
+                      $HoldcarLeasing += 1;
+                      $Sum_HoldcarLeasing += str_replace(",","",$value->Price_hold);
+                  }elseif ($value->Statuscar == 3) {
+                      $HoldcarPloan += 1;
+                      $Sum_HoldcarPloan += str_replace(",","",$value->Price_hold);
+                  }elseif ($value->Statuscar == 2) {
+                      $CusGetBack += 1;
+                      $Sum_CusGetBack += str_replace(",","",$value->Price_hold);
+                  }elseif ($value->Statuscar == 5) {
+                    if($value->StatPark_Homecar != Null && $value->StatSold_Homecar == Null){
+                      $HomecarSock += 1;
+                      $Sum_HomecarSock += str_replace(",","",$value->Price_hold);
+                    }elseif($value->StatPark_Homecar != Null && $value->StatSold_Homecar != Null){
+                      $HomecarSoldout += 1;
+                      $Sum_HomecarSoldout += str_replace(",","",$value->Price_hold);
+                    }
+                  }elseif ($value->Statuscar == 6) {
+                    $CusSendCar += 1;
+                    $Sum_CusSendCar += str_replace(",","",$value->Price_hold);
+                  }
+              }
+              $HoldcarAll = $CusGetBack + $CusSendCar + $HomecarSock + $HomecarSoldout + $HoldcarLeasing + $HoldcarPloan;
+              $Sum_HoldcarAll = $Sum_CusGetBack + $Sum_CusSendCar + $Sum_HomecarSock + $Sum_HomecarSoldout + $Sum_HoldcarLeasing + $Sum_HoldcarPloan;
+          }
+          
+          $type = $request->type;
+          $stylePDF = 2;
+  
+          $view = \View::make('precipitate.ReportPrecDue' ,
+          compact('data','date','fdate','tdate','type','stylePDF',
+                  'CusGetBack', 'CusSendCar', 'HomecarSock', 'HomecarSoldout', 'HoldcarLeasing', 'HoldcarPloan', 'HoldcarAll',
+                  'Sum_CusGetBack', 'Sum_CusSendCar', 'Sum_HomecarSock', 'Sum_HomecarSoldout', 'Sum_HoldcarLeasing', 'Sum_HoldcarPloan', 'Sum_HoldcarAll'));
+          $html = $view->render();
+          $pdf = new PDF();
+          $pdf::SetTitle('รายงานการยึดรถ');
+          $pdf::AddPage('L', 'A4');
+          $pdf::SetMargins(5, 5, 5, 0);
+          $pdf::SetFont('thsarabunpsk', '', 14, '', true);
+          $pdf::SetAutoPageBreak(TRUE, 20);
+          $pdf::WriteHTML($html,true,false,true,false,'');
+          $pdf::Output('ReportHoldcar.pdf');
         }
       }
       elseif($request->type == 9) {

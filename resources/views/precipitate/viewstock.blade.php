@@ -11,6 +11,14 @@
     $strMonthThai=$strMonthCut[$strMonth];
     return "$strDay $strMonthThai $strYear";
   }
+  function DateThai2($strDate){
+    $strYear = date("Y",strtotime($strDate))+543;
+    $strMonth= date("n",strtotime($strDate));
+    $strDay= date("d",strtotime($strDate));
+    $strMonthCut = Array("" , "มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม");
+    $strMonthThai=$strMonthCut[$strMonth];
+    return "$strDay $strMonthThai $strYear";
+  }
 @endphp
 
   <!-- Main content -->
@@ -34,6 +42,13 @@
           <div class="col-sm-9 col-12">
               <form method="get" action="{{ route('Precipitate', 5) }}">
                 <div class="float-right form-inline">
+                  @if($fdate != Null)
+                    <label>ข้อมูลวันที่ : </label>
+                    <input type="text" name="Fromdate" value="{{DateThai2($fdate)}}" class="form-control" style="background-color:#E9E9E8;"/>
+                    <label>ถึงวันที่ : </label>
+                    <input type="text" name="Todate" value="{{DateThai2($tdate)}}" class="form-control" style="background-color:#E9E9E8;"/>
+                    &nbsp;
+                  @endif
                     <button type="button" title="ค้นหา" class="btn bg-warning" data-toggle="modal" data-target="#modal-search" data-backdrop="static" data-keyboard="false">
                       <span class="fas fa-search"></span> ค้นหา
                     </button>
@@ -94,20 +109,16 @@
                     <span class="badge bg-primary float-right">{{$Count5}}</span>
                   @endif
                 </a>
-                <div id="showDetail" style="display:none;">
-                  <!-- <a class="nav-link text-xs" id="vert-tabs-06-tab" data-toggle="pill">
-                    <i class="fas fa-minus"></i> อยู่สต๊อกรถบ้าน
-                      <span class="badge bg-success float-right">{{$Count51 + $Count53}}</span>
+                <!-- <div id="showDetail"> -->
+                  <a class="nav-link text-xs" id="vert-tabs-08-tab" data-toggle="pill" href="#vert-tabs-08" role="tab" aria-controls="vert-tabs-08" aria-selected="false">
+                    <i class="fas fa-minus text-secondary"> อยู่สต๊อกรถบ้าน </i> 
+                      <span class="badge bg-success float-right">{{$Count51}}</span>
                   </a>
-                  <a class="nav-link text-xs" id="vert-tabs-06-tab" data-toggle="pill">
-                    <i class="fas fa-minus"></i> รถบ้านขายได้
+                  <a class="nav-link text-xs" id="vert-tabs-09-tab" data-toggle="pill" href="#vert-tabs-09" role="tab" aria-controls="vert-tabs-09" aria-selected="false">
+                    <i class="fas fa-minus text-secondary"> รถบ้านตัดขายแล้ว </i> 
                       <span class="badge bg-danger float-right">{{$Count52}}</span>
-                  </a> -->
-                  <!-- <a class="nav-link text-xs" id="vert-tabs-06-tab" data-toggle="pill">
-                    <i class="fas fa-minus"></i> อื่นๆ
-                      <span class="badge bg-danger float-right">{{$Count53}}</span>
-                  </a> -->
-                </div>
+                  </a>
+                <!-- </div> -->
                 <a class="nav-link" id="vert-tabs-07-tab" data-toggle="pill" href="#vert-tabs-07" role="tab" aria-controls="vert-tabs-07" aria-selected="false">
                   <i class="fas fa-car"></i> ลูกค้าส่งรถคืน
                   @if($Count6 != null)
@@ -606,7 +617,7 @@
                                     <td class="text-center"> 
                                     {{ $row->Contno_hold }}
                                     @if($row->StatSold_Homecar != NULL)
-                                    <i class="fas fa-info-circle fa-sm text-info prem" title="รถบ้านตัดขายแล้ว"></i>
+                                    <i class="fas fa-info-circle fa-sm text-info " title="รถบ้านตัดขายแล้ว วันที่ {{$row->StatSold_Homecar}}"></i>
                                     @endif 
                                     </td>
                                     <td class="text-left"> {{ $row->Name_hold }} </td>
@@ -632,6 +643,206 @@
                                       </form>
                                     </td>
                                   </tr>
+                                @endif
+                              @endforeach
+                            </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="tab-pane fade" id="vert-tabs-08" role="tabpanel" aria-labelledby="vert-tabs-08-tab">
+                      <div class="card-header">
+                        <h3 class="card-title">รายการ รถส่งรถบ้าน (อยู่สต็อกรถบ้าน)</h3>
+                      </div>
+                      <div class="col-12">
+                        <table class="table table-striped table-valign-middle" id="table8">
+                          <thead>
+                            <tr>
+                              <!-- <th class="text-center">ลำดับ</th> -->
+                              <th class="text-center" width="70px">วันที่ยึด</th>
+                              <th class="text-center" width="70px">ระยะเวลา</th>
+                              <th class="text-center">เลขที่สัญญา</th>
+                              <th class="text-center">ชื่อ-สกุล</th>
+                              <th class="text-center" width="70px">ทะเบียน</th>
+                              <th class="text-center">ทีมยึด</th>
+                              <th class="text-center">ค่ายึด</th>
+                              <th class="text-center">ตัวเลือก</th>
+                            </tr>
+                          </thead>
+                            <tbody>
+                              @foreach($data as $key => $row)
+                                @if($row->Statuscar == 5)
+                                  @if($row->StatPark_Homecar != Null and $row->StatSold_Homecar == Null)
+                                    <tr>
+                                      <!-- <td class="text-center"> {{ $key+1 }} </td> -->
+                                      <td class="text-center"> {{ DateThai($row->Date_hold) }} </td>
+                                      <td class="text-center">
+                                        @if($row->Statuscar == 1 or $row->Statuscar == 3 or $row->Statuscar == 7)
+                                          @php
+                                            $nowday = date('Y-m-d');
+                                            $Cldate = date_create($row->Date_hold);
+                                            $nowCldate = date_create($nowday);
+                                            $ClDateDiff = date_diff($Cldate,$nowCldate);
+                                            $duration = $ClDateDiff->format("%a วัน")
+                                          @endphp
+                                          <font color="red">{{$duration}}</font>
+                                        @else
+                                          @if($row->Datesend_Stockhome != null)
+                                            @php
+                                              $Cldate = date_create($row->Date_hold);
+                                              $nowCldate = date_create($row->Datesend_Stockhome);
+                                              $ClDateDiff = date_diff($Cldate,$nowCldate);
+                                              $duration = $ClDateDiff->format("%a วัน")
+                                            @endphp
+                                            <font color="green" title="วันที่ส่งรถบ้าน {{DateThai($row->Datesend_Stockhome)}}">{{$duration}}</font>
+                                          @elseif($row->Date_came != null)
+                                            @php
+                                              $Cldate = date_create($row->Date_hold);
+                                              $nowCldate = date_create($row->Date_came);
+                                              $ClDateDiff = date_diff($Cldate,$nowCldate);
+                                              $duration = $ClDateDiff->format("%a วัน")
+                                            @endphp
+                                            <font color="blue" title="วันที่มารับคืน {{DateThai($row->Date_came)}}">{{$duration}}</font>
+                                          @else
+                                            @php
+                                              $Cldate = date_create($row->Date_hold);
+                                              $nowCldate = date_create($row->Dateupdate_hold);
+                                              $ClDateDiff = date_diff($Cldate,$nowCldate);
+                                              $duration = $ClDateDiff->format("%a วัน")
+                                            @endphp
+                                            <font color="blue">{{$duration}}</font>
+                                          @endif
+                                        @endif
+                                      </td>
+                                      <td class="text-center"> 
+                                      {{ $row->Contno_hold }}
+                                      @if($row->StatSold_Homecar != NULL)
+                                      <i class="fas fa-info-circle fa-sm text-info " title="รถบ้านตัดขายแล้ว วันที่ {{$row->StatSold_Homecar}}"></i>
+                                      @endif 
+                                      </td>
+                                      <td class="text-left"> {{ $row->Name_hold }} </td>
+                                      <td class="text-center"> {{ $row->Number_Regist }} </td>
+                                      <td class="text-center"> {{ $row->Team_hold }} </td>
+                                      <td class="text-right">
+                                        @if($row->Price_hold == Null)
+                                          {{ $row->Price_hold }}
+                                        @else
+                                          {{ number_format($row->Price_hold, 2) }}
+                                        @endif
+                                      </td>
+                                      <td class="text-center">
+                                        <a href="{{ route('MasterPrecipitate.edit',[$row->Hold_id]) }}?type={{5}}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
+                                          <i class="far fa-edit"></i>
+                                        </a>
+                                        <form method="post" class="delete_form" action="{{ route('MasterPrecipitate.destroy',[$row->Hold_id]) }}?type={{5}}" style="display:inline;">
+                                        {{csrf_field()}}
+                                          <input type="hidden" name="_method" value="DELETE" />
+                                          <button type="submit" data-name="{{ $row->Contno_hold }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
+                                            <i class="far fa-trash-alt"></i>
+                                          </button>
+                                        </form>
+                                      </td>
+                                    </tr>
+                                  @endif
+                                @endif
+                              @endforeach
+                            </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="tab-pane fade" id="vert-tabs-09" role="tabpanel" aria-labelledby="vert-tabs-09-tab">
+                      <div class="card-header">
+                        <h3 class="card-title">รายการ รถส่งรถบ้าน (รถบ้านตัดขายแล้ว)</h3>
+                      </div>
+                      <div class="col-12">
+                        <table class="table table-striped table-valign-middle" id="table9">
+                          <thead>
+                            <tr>
+                              <!-- <th class="text-center">ลำดับ</th> -->
+                              <th class="text-center" width="70px">วันที่ยึด</th>
+                              <th class="text-center" width="70px">ระยะเวลา</th>
+                              <th class="text-center">เลขที่สัญญา</th>
+                              <th class="text-center">ชื่อ-สกุล</th>
+                              <th class="text-center" width="70px">ทะเบียน</th>
+                              <th class="text-center">ทีมยึด</th>
+                              <th class="text-center">ค่ายึด</th>
+                              <th class="text-center">ตัวเลือก</th>
+                            </tr>
+                          </thead>
+                            <tbody>
+                              @foreach($data as $key => $row)
+                                @if($row->Statuscar == 5)
+                                  @if($row->StatPark_Homecar != Null and $row->StatSold_Homecar != Null)
+                                    <tr>
+                                      <!-- <td class="text-center"> {{ $key+1 }} </td> -->
+                                      <td class="text-center"> {{ DateThai($row->Date_hold) }} </td>
+                                      <td class="text-center">
+                                        @if($row->Statuscar == 1 or $row->Statuscar == 3 or $row->Statuscar == 7)
+                                          @php
+                                            $nowday = date('Y-m-d');
+                                            $Cldate = date_create($row->Date_hold);
+                                            $nowCldate = date_create($nowday);
+                                            $ClDateDiff = date_diff($Cldate,$nowCldate);
+                                            $duration = $ClDateDiff->format("%a วัน")
+                                          @endphp
+                                          <font color="red">{{$duration}}</font>
+                                        @else
+                                          @if($row->Datesend_Stockhome != null)
+                                            @php
+                                              $Cldate = date_create($row->Date_hold);
+                                              $nowCldate = date_create($row->Datesend_Stockhome);
+                                              $ClDateDiff = date_diff($Cldate,$nowCldate);
+                                              $duration = $ClDateDiff->format("%a วัน")
+                                            @endphp
+                                            <font color="green" title="วันที่ส่งรถบ้าน {{DateThai($row->Datesend_Stockhome)}}">{{$duration}}</font>
+                                          @elseif($row->Date_came != null)
+                                            @php
+                                              $Cldate = date_create($row->Date_hold);
+                                              $nowCldate = date_create($row->Date_came);
+                                              $ClDateDiff = date_diff($Cldate,$nowCldate);
+                                              $duration = $ClDateDiff->format("%a วัน")
+                                            @endphp
+                                            <font color="blue" title="วันที่มารับคืน {{DateThai($row->Date_came)}}">{{$duration}}</font>
+                                          @else
+                                            @php
+                                              $Cldate = date_create($row->Date_hold);
+                                              $nowCldate = date_create($row->Dateupdate_hold);
+                                              $ClDateDiff = date_diff($Cldate,$nowCldate);
+                                              $duration = $ClDateDiff->format("%a วัน")
+                                            @endphp
+                                            <font color="blue">{{$duration}}</font>
+                                          @endif
+                                        @endif
+                                      </td>
+                                      <td class="text-center"> 
+                                      {{ $row->Contno_hold }}
+                                      @if($row->StatSold_Homecar != NULL)
+                                      <i class="fas fa-info-circle fa-sm text-info " title="รถบ้านตัดขายแล้ว วันที่ {{$row->StatSold_Homecar}}"></i>
+                                      @endif 
+                                      </td>
+                                      <td class="text-left"> {{ $row->Name_hold }} </td>
+                                      <td class="text-center"> {{ $row->Number_Regist }} </td>
+                                      <td class="text-center"> {{ $row->Team_hold }} </td>
+                                      <td class="text-right">
+                                        @if($row->Price_hold == Null)
+                                          {{ $row->Price_hold }}
+                                        @else
+                                          {{ number_format($row->Price_hold, 2) }}
+                                        @endif
+                                      </td>
+                                      <td class="text-center">
+                                        <a href="{{ route('MasterPrecipitate.edit',[$row->Hold_id]) }}?type={{5}}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
+                                          <i class="far fa-edit"></i>
+                                        </a>
+                                        <form method="post" class="delete_form" action="{{ route('MasterPrecipitate.destroy',[$row->Hold_id]) }}?type={{5}}" style="display:inline;">
+                                        {{csrf_field()}}
+                                          <input type="hidden" name="_method" value="DELETE" />
+                                          <button type="submit" data-name="{{ $row->Contno_hold }}" class="delete-modal btn btn-danger btn-sm AlertForm" title="ลบรายการ">
+                                            <i class="far fa-trash-alt"></i>
+                                          </button>
+                                        </form>
+                                      </td>
+                                    </tr>
+                                  @endif
                                 @endif
                               @endforeach
                             </tbody>
@@ -751,7 +962,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header bg-primary">
-              <h3 class="modal-title">Report Holdcar</h3>
+              <h5 class="modal-title">Report Holdcar</h5>
             <!-- <button type="button" id="btnclose" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button> -->
@@ -791,13 +1002,14 @@
                   </div>
                 </div>
                 <div class="col-12">
-                  <div class="form-group row mb-1">
+                  <div class="form-group row mb-1" style="background-color:#E9E9E8;">
                     <label class="col-sm-4 col-form-label text-right text-danger">* รูปแบบ :</label>
                     <div class="col-sm-7">
                       <select id="Typereport" name="Typereport" class="form-control" required>
                         <option selected value="">----- เลือกรูปแบบ ----</option>
-                        <option value="pdf"> .PDF</otion>
-                        <option value="excel" > .Excel</otion>
+                        <option value="table"> Table</otion>
+                        <option value="pdf"> PDF</otion>
+                        <option value="excel" > Excel</otion>
                       </select>
                     </div>
                   </div>
@@ -821,7 +1033,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header bg-warning">
-              <h3 class="modal-title">Search Data</h3>
+              <h5 class="modal-title">Search Data</h5>
           </div>
           <div class="modal-body text-sm">
               <div class="row">
@@ -926,7 +1138,7 @@
 
   <script>
     $(function () {
-      $("#table,#table1,#table3,#table4,#table5,#table6,#table7,#table08,#table09,#table12,#table33").DataTable({
+      $("#table,#table1,#table3,#table4,#table5,#table6,#table7,#table8,#table9,#table12,#table33").DataTable({
         "responsive": true,
         "autoWidth": false,
         "ordering": true,
@@ -985,23 +1197,24 @@
       $('#Contract').val('');
     });
 
-    $('#vert-tabs-01-tab').on("click" ,function() {
-      $('#showDetail').hide();
-    });
-    $('#vert-tabs-03-tab').on("click" ,function() {
-      $('#showDetail').hide();
-    });
-    $('#vert-tabs-04-tab').on("click" ,function() {
-      $('#showDetail').hide();
-    });
-    $('#vert-tabs-05-tab').on("click" ,function() {
-      $('#showDetail').hide();
-    });
-    $('#vert-tabs-06-tab').on("click" ,function() {
-      $('#showDetail').show();
-    });
-    $('#vert-tabs-07-tab').on("click" ,function() {
-      $('#showDetail').hide();
-    });
+    // $('#vert-tabs-01-tab').on("click" ,function() {
+    //   $('#showDetail').hide();
+    // });
+    // $('#vert-tabs-03-tab').on("click" ,function() {
+    //   $('#showDetail').hide();
+    // });
+    // $('#vert-tabs-04-tab').on("click" ,function() {
+    //   $('#showDetail').hide();
+    // });
+    // $('#vert-tabs-05-tab').on("click" ,function() {
+    //   $('#showDetail').hide();
+    // });
+    // $('#vert-tabs-06-tab').on("click" ,function() {
+    //   $('#showDetail').toggle();
+    // });
+    // $('#vert-tabs-07-tab').on("click" ,function() {
+    //   $('#showDetail').hide();
+    // });
+
   </script>
 @endsection
