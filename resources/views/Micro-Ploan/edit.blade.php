@@ -3747,7 +3747,7 @@
             </div>
           </div>
 
-          <input type="hidden" name="type" value="{{$type}}"/>
+          <input type="hidden" name="type" id="type" value="{{$type}}"/>
           <input type="hidden" name="_method" value="PATCH"/>
         </form>
       </section>
