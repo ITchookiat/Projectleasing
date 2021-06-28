@@ -127,82 +127,55 @@
 
   <script>
     var options = {
-      series: [
-        {
-          name: 'Marine Sprite',
-          data: [408, 298, 93, 17]
-        }, 
-        {
-          name: 'Striking Calf',
-          data: [107, 68, 23, 16]
-        }, 
-        {
-          name: 'Tank Picture',
-          data: [31, 17, 11, 20]
-        }, 
-        {
-          name: 'Bucket Slope',
-          data: [23, 7, 5, 5]
-        }
-      ],
-      chart: {
+        series: [{
+        name: 'Net Profit',
+        data: [44, 55, 57]
+      }, {
+        name: 'Revenue',
+        data: [76, 85, 101]
+      }, {
+        name: 'Free Cash Flow',
+        data: [35, 41, 36]
+      }, {
+        name: 'Free',
+        data: [35, 41, 36]
+      }],
+        chart: {
         type: 'bar',
-        height: 350,
-        stacked: true,
+        height: 300
       },
       plotOptions: {
         bar: {
-          horizontal: true,
+          horizontal: false,
+          columnWidth: '30%',
+          endingShape: 'rounded'
         },
+      },
+      dataLabels: {
+        enabled: false
       },
       stroke: {
         show: true,
-        width: 1,
-        colors: ['#fff']
-      },
-      title: {
-        text: 'Fiction Books Sales'
-      },
-      dataLabels: {
-        enabled: true,
-        // formatter: function(val, opt) {
-        //   const goals = opt.w.config.series[opt.seriesIndex].data[opt.dataPointIndex].goals
-
-        //   console.log(goals);
-      
-        //   if (goals && goals.length) {
-        //   }
-        //   return `${val} / ${goals[0].value}`
-        //   return val
-        // }
+        width: 5,
+        colors: ['transparent']
       },
       xaxis: {
-        categories: [2008, 2009, 2010],
-        // labels: {
-        //   formatter: function (val) {
-        //     return val + "K"
-        //   }
-        // }
+        categories: ['Feb', 'Mar', 'Apr'],
       },
       yaxis: {
         title: {
-          text: undefined
-        },
-      },
-      tooltip: {
-        y: {
-          formatter: function (val) {
-            return val + "K"
-          }
+          text: '$ (thousands)'
         }
       },
       fill: {
         opacity: 1
       },
-      legend: {
-        position: 'top',
-        horizontalAlign: 'left',
-        offsetX: 40
+      tooltip: {
+        y: {
+          formatter: function (val) {
+            return "$ " + val + " thousands"
+          }
+        }
       }
     };
 
@@ -211,121 +184,64 @@
   </script>
 
   <script>
-     var options = {
-          series: [
-          {
-            name: 'Actual',
-            data: [
-              {
-                x: '2011',
-                y: 12,
-                goals: [
-                  {
-                    name: 'Expected',
-                    value: 14,
-                    strokeWidth: 5,
-                    strokeColor: '#775DD0'
-                  }
-                ]
-              },
-              {
-                x: '2012',
-                y: 44,
-                goals: [
-                  {
-                    name: 'Expected',
-                    value: 54,
-                    strokeWidth: 5,
-                    strokeColor: '#775DD0'
-                  }
-                ]
-              },
-              {
-                x: '2013',
-                y: 54,
-                goals: [
-                  {
-                    name: 'Expected',
-                    value: 52,
-                    strokeWidth: 5,
-                    strokeColor: '#775DD0'
-                  }
-                ]
-              },
-              {
-                x: '2014',
-                y: 66,
-                goals: [
-                  {
-                    name: 'Expected',
-                    value: 65,
-                    strokeWidth: 5,
-                    strokeColor: '#775DD0'
-                  }
-                ]
-              },
-              {
-                x: '2015',
-                y: 81,
-                goals: [
-                  {
-                    name: 'Expected',
-                    value: 66,
-                    strokeWidth: 5,
-                    strokeColor: '#775DD0'
-                  }
-                ]
-              },
-              {
-                x: '2016',
-                y: 67,
-                goals: [
-                  {
-                    name: 'Expected',
-                    value: 70,
-                    strokeWidth: 5,
-                    strokeColor: '#775DD0'
-                  }
-                ]
-              }
-            ]
+      var options = {
+        series: [{
+          name: 'LEASING',
+          data: [{{$SumF01}}, 55, 41, 67, 22, 43]
+        }, {
+          name: 'PLOAN-03',
+          data: [13, 23, 20, 8, 13, 27]
+        }, {
+          name: 'PLOAN-04',
+          data: [11, 17, 15, 15, 21, 14]
+        }, {
+          name: 'MICRO-06',
+          data: [21, 7, 25, 13, 22, 8]
+        }],
+        chart: {
+          type: 'bar',
+          height: 300,
+          stacked: true,
+          toolbar: {
+            show: true
+          },
+          zoom: {
+            enabled: true
           }
-        ],
-          chart: {
-          height: 350,
-          type: 'bar'
         },
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            legend: {
+              position: 'bottom',
+              offsetX: -10,
+              offsetY: 0
+            }
+          }
+        }],
         plotOptions: {
           bar: {
-            horizontal: true,
-          }
+            horizontal: false,
+            borderRadius: 5
+          },
         },
-        colors: ['#00E396'],
-        dataLabels: {
-          formatter: function(val, opt) {
-            const goals =
-              opt.w.config.series[opt.seriesIndex].data[opt.dataPointIndex]
-                .goals
-        
-            if (goals && goals.length) {
-              return `${val} / ${goals[0].value}`
-            }
-            return val
-          }
+        xaxis: {
+          // type: 'datetime',
+          categories: ['Master PN', 'Master YL', 'Master NW'],
         },
         legend: {
-          show: true,
-          showForSingleSeries: true,
-          customLegendItems: ['Actual', 'Expected'],
-          markers: {
-            fillColors: ['#00E396', '#775DD0']
-          }
+          position: 'right',
+          offsetY: 40
+        },
+        fill: {
+          opacity: 1
         }
-        };
+      };
 
-        var Master02 = new ApexCharts(document.querySelector("#Master02"), options);
-        Master02.render();
+      var Master02 = new ApexCharts(document.querySelector("#Master02"), options);
+      Master02.render();
   </script>
+
 
   {{-- leasing --}}
   <script>

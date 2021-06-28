@@ -664,13 +664,15 @@ class AnalyticalController extends Controller
 
             /**********************/
 
-            // $SumF01 = count($data1)+count($data3)+count($data4)+count($data5)+count($data6)+count($data7)+count($data8)+count($data9)+count($data13)+count($data13)+count($data14);
+            $SumF01 = count($data1)+$P03_1+$P04_1+$P06_1+
+                      count($data5)+$P03_5+$P04_5+$P06_5+
+                      count($data8)+$P03_8+$P04_8+$P06_8;
 
             // $CountP06 = $P06_1+$P06_3+$P06_4+$P06_5+$P06_6+$P06_7+$P06_8+$P06_9+$P06_12+$P06_13+$P06_14;
             // $P06 = $P06_Pay1+$P06_Pay3+$P06_Pay4+$P06_Pay5+$P06_Pay6+$P06_Pay7+$P06_Pay8+$P06_Pay9+$P06_Pay12+$P06_Pay13+$P06_Pay14;
             // dd($P06_Pay1,$P06_Pay3,$P06_Pay4,$P06_Pay5,$P06_Pay6,$P06_Pay7,$P06_Pay8,$P06_Pay9,$P06_Pay12,$P06_Pay13,$P06_Pay14);
 
-            return view('analytical.view', compact('type',
+            return view('analytical.view', compact('type','SumF01',
                     'data1','data3','data4','data5','data6','data7','data8','data9','data12','data13','data14',
                     'countPay1','countPay3','countPay4','countPay5','countPay6','countPay7','countPay8','countPay9','countPay12','countPay13','countPay14',
                     'P03_1','P03_3','P03_4','P03_5','P03_6','P03_7','P03_8','P03_9','P03_12','P03_13','P03_14',

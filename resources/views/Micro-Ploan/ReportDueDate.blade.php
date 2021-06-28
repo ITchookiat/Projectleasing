@@ -178,13 +178,13 @@
                 <td width="45px" rowspan="4" style="background-color: #FFFF00; line-height:750%;">{{ $value->Tax_car }}</td>
                 <td width="45px" rowspan="4" style="line-height:750%;">{{number_format($value->totalk_Price,0)}}</td>
                 <td width="35px" rowspan="4" style="line-height:750%;">{{number_format($value->balance_Price,0)}}</td>
-                <td width="35px" rowspan="4" style="line-height:750%;">{{number_format($value->commit_Price,2)}}</td>
+                <td width="35px" rowspan="4" style="line-height:750%;">0.00</td>
                 <td width="105px">{{$value->Payee_car}}</td>
                 <td width="105px">{{$value->Agent_car}}</td>
                 <td width="50px">
                   @if($value->Accountbrance_car == $value->Accountagent_car and $value->Accountbrance_car != Null)
                     @php
-                        $ArcSum = $value->balance_Price + $value->commit_Price;
+                        $ArcSum = $value->balance_Price + $value->Commission_car;
                         $sumArcsum = $sumArcsum + $ArcSum;
                     @endphp
                     {{number_format($ArcSum,2)}}
@@ -218,7 +218,7 @@
                   @endif
                 </td>
                 <td width="50px">
-                  @if($value->Accountbrance_car == $value->Accountagent_car and $value->Accountagent_car != Null)
+                  @if($value->Accountbrance_car != $value->Accountagent_car and $value->Accountagent_car != Null)
                     คอม {{ number_format($value->Commission_car,2) }}
                     @php
                       $sumbalance = $sumbalance + $value->Commission_car;
@@ -230,7 +230,6 @@
                     @endphp
                   @elseif($value->Accountagent_car == Null)
                   @endif
-
                 </td>
               </tr>
               <tr align="center" style="line-height: 200%;">
