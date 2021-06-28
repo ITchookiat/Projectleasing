@@ -2135,7 +2135,7 @@
                           </div>
 
                           <!-- สคริปคิดค่าคอม -->
-                          <script>
+                          {{-- <script>
                             $('#statuscar').change(function(){
                               var value = document.getElementById('statuscar').value;
                               var Year = document.getElementById('Yearcar').value;
@@ -2180,7 +2180,7 @@
                                     $('#Commissioncar').val(addCommas(ResultPrice.toFixed(2)));
                                 }
                             });
-                          </script>
+                          </script> --}}
 
                           <hr />
                           <div class="row">
@@ -3476,7 +3476,7 @@
             </div>
           </div>
 
-          <input type="hidden" name="type" value="{{$type}}"/>
+          <input type="hidden" name="type" id="type" value="{{$type}}"/>
           <input type="hidden" name="_method" value="PATCH"/>
         </form>
       </section>
