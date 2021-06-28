@@ -128,6 +128,7 @@
     }
 
     function calculate2(){
+        var GetType = document.getElementById('type').value;
         var Settopcar = document.getElementById('Topcar').value;
         var Topcar = Settopcar.replace(",","");
         var Setinterest = document.getElementById('Interestcar').value;
@@ -162,7 +163,9 @@
 
             document.form1.Topcar.value = addCommas(Topcar);
             document.form1.Processfee.value = addCommas(fee);
-            document.form1.Totalfee.value = addCommas(capital.toFixed(2));
+            if (GetType != 3) {   //ถ้าไม่ใช้ P04
+              document.form1.Totalfee.value = addCommas(capital.toFixed(2));
+            }
 
           if(Timelack != ''){
             // document.form1.Paycar_ori.value = addCommas(total_pay_ori.toFixed(3));
@@ -215,6 +218,7 @@
     }
 
     function balance2(){
+          var GetType = document.getElementById('type').value;
           var Settopcar = document.getElementById('Topcar').value;
           var Topcar = Settopcar.replace(",","");
           var Setfee = document.getElementById('Processfee').value;
@@ -223,29 +227,32 @@
             }else{
               var fee = Setfee.replace(",","");
             }
-          var SetactPrice = document.getElementById('actPrice').value;
-          var actPrice = SetactPrice.replace(",","");
-          var SetcloseAccountPrice = document.getElementById('closeAccountPrice').value;
-          var closeAccountPrice = SetcloseAccountPrice.replace(",","");
-          var SetP2Price = document.getElementById('P2Price').value;
-          var P2Price = SetP2Price.replace(",","");
-            // var fee = (Setfee/100)/1;
-            var capital = parseFloat(fee);
-            var Totalcapital = parseFloat(Topcar) + parseFloat(fee);
-            var TotalPrice = parseFloat(capital) + parseFloat(actPrice) + parseFloat(closeAccountPrice) + parseFloat(P2Price);
-            var TotalBalance = parseFloat(Totalcapital) - parseFloat(TotalPrice) - parseFloat(capital) ;
 
-          if(Totalfee != ''){
-            document.form1.actPrice.value = addCommas(actPrice);
-            document.form1.P2Price.value = addCommas(P2Price);
-            document.form1.closeAccountPrice.value = addCommas(closeAccountPrice);
-            document.form1.totalkPrice.value = addCommas(TotalPrice.toFixed(2));
-            document.form1.balancePrice.value = addCommas(TotalBalance.toFixed(2));
-          }
-          else if(actPrice != '' || closeAccountPrice != '' || P2Price != '')
-          {
-            document.form1.totalkPrice.value = addCommas(TotalPrice.toFixed(2));
-          }
+            if (GetType != 3) { //ถ้าไม่ใช้ P04
+              var SetactPrice = document.getElementById('actPrice').value;
+              var actPrice = SetactPrice.replace(",","");
+              var SetcloseAccountPrice = document.getElementById('closeAccountPrice').value;
+              var closeAccountPrice = SetcloseAccountPrice.replace(",","");
+              var SetP2Price = document.getElementById('P2Price').value;
+              var P2Price = SetP2Price.replace(",","");
+                // var fee = (Setfee/100)/1;
+                var capital = parseFloat(fee);
+                var Totalcapital = parseFloat(Topcar) + parseFloat(fee);
+                var TotalPrice = parseFloat(capital) + parseFloat(actPrice) + parseFloat(closeAccountPrice) + parseFloat(P2Price);
+                var TotalBalance = parseFloat(Totalcapital) - parseFloat(TotalPrice) - parseFloat(capital) ;
+    
+              if(Totalfee != ''){
+                document.form1.actPrice.value = addCommas(actPrice);
+                document.form1.P2Price.value = addCommas(P2Price);
+                document.form1.closeAccountPrice.value = addCommas(closeAccountPrice);
+                document.form1.totalkPrice.value = addCommas(TotalPrice.toFixed(2));
+                document.form1.balancePrice.value = addCommas(TotalBalance.toFixed(2));
+              }
+              else if(actPrice != '' || closeAccountPrice != '' || P2Price != '')
+              {
+                document.form1.totalkPrice.value = addCommas(TotalPrice.toFixed(2));
+              }
+            }
     }
 
     function percent(){
