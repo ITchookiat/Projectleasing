@@ -77,7 +77,7 @@
             </ul>
           </li>
 
-          <li class="nav-item has-treeview @if(isset($MasterAnalytical)) {{($MasterAnalytical == true) ? 'menu-open' : '' }} @endif">
+          {{-- <li class="nav-item has-treeview @if(isset($MasterAnalytical)) {{($MasterAnalytical == true) ? 'menu-open' : '' }} @endif">
             <a href="#" class="nav-link active">
               <i class="nav-icon fab fa-audible"></i>
               <span id="Info"></span>
@@ -94,7 +94,7 @@
                 </a>
               </li>
             </ul>
-          </li>
+          </li> --}}
 
           <li class="nav-item has-treeview {{ Request::is('Analysis/*') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link active">
