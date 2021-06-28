@@ -50,7 +50,7 @@ return [
             // charset
             'toolkit' => [
             'plugSize' => '512K',
-            'encoding' => "UTF-8",
+            'encoding' => 'TIS620-1',
             'ccsid' => "874/1208",
         ],
         ],
