@@ -583,7 +583,7 @@
           <th class="text-center" width="180px" style="background-color: yellow;"> <b>{{$dataReport->contrac_HC}}</b></th>
         </tr>
       </table>
-    @elseif($type = 10)
+    @elseif($type == 10)
       <table border="1">
         <thead>
           <tr align="center">

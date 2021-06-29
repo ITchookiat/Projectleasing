@@ -11,6 +11,143 @@
       font-family: Roboto, sans-serif;
     }
   </style>
+  <style>
+    #todo-list{
+    width:100%;
+    /* margin:0 auto 190px auto; */
+    padding:5px;
+    background:white;
+    position:relative;
+    /*box-shadow*/
+    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
+          box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
+    /*border-radius*/
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+          border-radius:5px;}
+    #todo-list:before{
+    content:"";
+    position:absolute;
+    z-index:-1;
+    /*box-shadow*/
+    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.4);
+    -moz-box-shadow:0 0 20px rgba(0,0,0,0.4);
+          box-shadow:0 0 20px rgba(0,0,0,0.4);
+    top:50%;
+    bottom:0;
+    left:10px;
+    right:10px;
+    /*border-radius*/
+    -webkit-border-radius:100px / 10px;
+    -moz-border-radius:100px / 10px;
+          border-radius:100px / 10px;
+    }
+    .todo-wrap{
+    display:block;
+    position:relative;
+    padding-left:35px;
+    /*box-shadow*/
+    -webkit-box-shadow:0 2px 0 -1px #ebebeb;
+    -moz-box-shadow:0 2px 0 -1px #ebebeb;
+          box-shadow:0 2px 0 -1px #ebebeb;
+    }
+    .todo-wrap:last-of-type{
+    /*box-shadow*/
+    -webkit-box-shadow:none;
+    -moz-box-shadow:none;
+          box-shadow:none;
+    }
+    input[type="checkbox"]{
+    position:absolute;
+    height:0;
+    width:0;
+    opacity:0;
+    /* top:-600px; */
+    }
+    .todo{
+    display:inline-block;
+    font-weight:200;
+    padding:10px 5px;
+    height:37px;
+    position:relative;
+    }
+    .todo:before{
+    content:'';
+    display:block;
+    position:absolute;
+    top:calc(50% + 10px);
+    left:0;
+    width:0%;
+    height:1px;
+    /* background:#cd4400; */
+    /*transition*/
+    -webkit-transition:.25s ease-in-out;
+    -moz-transition:.25s ease-in-out;
+      -o-transition:.25s ease-in-out;
+          transition:.25s ease-in-out;
+    }
+    .todo:after{
+    content:'';
+    display:block;
+    position:absolute;
+    z-index:0;
+    height:18px;
+    width:18px;
+    top:9px;
+    left:-25px;
+    /*box-shadow*/
+    -webkit-box-shadow:inset 0 0 0 2px #d8d8d8;
+    -moz-box-shadow:inset 0 0 0 2px #d8d8d8;
+          box-shadow:inset 0 0 0 2px #d8d8d8;
+    /*transition*/
+    -webkit-transition:.25s ease-in-out;
+    -moz-transition:.25s ease-in-out;
+      -o-transition:.25s ease-in-out;
+          transition:.25s ease-in-out;
+    /*border-radius*/
+    -webkit-border-radius:4px;
+    -moz-border-radius:4px;
+          border-radius:4px;
+    }
+    .todo:hover:after{
+    /*box-shadow*/
+    -webkit-box-shadow:inset 0 0 0 2px #949494;
+    -moz-box-shadow:inset 0 0 0 2px #949494;
+          box-shadow:inset 0 0 0 2px #949494;
+    }
+    .todo .fa-check{
+    position:absolute;
+    z-index:1;
+    left:-31px;
+    top:0;
+    font-size:1px;
+    line-height:36px;
+    width:36px;
+    height:36px;
+    text-align:center;
+    color:transparent;
+    text-shadow:1px 1px 0 white, -1px -1px 0 white;
+    }
+    :checked + .todo{
+    color:#717171;
+    }
+    :checked + .todo:before{
+    width:100%;
+    }
+    :checked + .todo:after{
+    /*box-shadow*/
+    -webkit-box-shadow:inset 0 0 0 2px #0eb0b7;
+    -moz-box-shadow:inset 0 0 0 2px #0eb0b7;
+          box-shadow:inset 0 0 0 2px #0eb0b7;
+    }
+    :checked + .todo .fa-check{
+    font-size:20px;
+    line-height:35px;
+    color:#0eb0b7;
+    }
+
+  </style>
 
   @if(session()->has('success'))
     <script type="text/javascript">
@@ -40,12 +177,10 @@
     $Total_baabMotor = $Total_PN_Motor + $Total_SB_Motor + $Total_KP_Motor + $Total_YL_Motor + $Total_BT_Motor + $Total_BNT_Motor + $Total_YH_Motor + $Total_NR_Motor + $Total_KOL_Motor + $Total_TM_Motor + $Total_RS_Motor;
   @endphp
 
-  <div class="content-header text-xs" style="padding:15px;">
+  <div class="content-header text-sm" style="padding:15px;">
     <div class="row justify-content-center">
       <div class="col-md-12 table-responsive">
-        <div class="card">
       
-          <div class="card-header mb-1 text-sm">
             <div class="form-inline">
               <div class="col-sm-4">
                 <h5 class="m-0 text-dark text-left">
@@ -58,10 +193,10 @@
                   <form method="get" action="#">
                     <div class="float-right">
                       <small class="badge" style="font-size: 14px;">
-                        วันที่ :
-                        <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control pr-3" />
+                        ข้อมูลวันที่ :
+                        <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control pr-3" style="background-color:#E9E9E8;"/>
                         ถึงวันที่ :
-                        <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control" />&nbsp;
+                        <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control" style="background-color:#E9E9E8;"/>&nbsp;
                         <!-- <button type="submit" class="btn btn-info" title="ค้นหา">
                           <span class="fas fa-search"></span> ค้นหา
                         </button> -->
@@ -71,7 +206,6 @@
                 @endif
               </div>
             </div>
-          </div>
 
           <!-- <div class="card-body"> -->
             <div class="row">
@@ -107,15 +241,126 @@
                       <div class="tab-content" id="custom-tabs-four-tabContent">
                         <div class="tab-pane fade active show" id="custom-tabs-leasing" role="tabpanel" aria-labelledby="custom-tabs-leasing-tab">
                           <div class="row mb-1">
-                            <section class="col-lg-7 connectedSortable ui-sortable">
+                            <section class="col-lg-8 connectedSortable ui-sortable">
                               <div class="col-md-12 card">
-                                <div id="chartLeasing"></div>
+                                <!-- <div id="chartLeasing"></div> -->
+                                <div id="chartLeasingPercent"></div>
                               </div>
                             </section>
-                            <section class="col-lg-5 connectedSortable ui-sortable">
+                            <section class="col-lg-4 connectedSortable ui-sortable">
                               <div class="col-md-12 card">
-                                <div id="chartLeasingPercent"></div>
-                                <!-- <div id="chartLeasingPercent" style="height: 260px; width: 100%;"></div> -->
+                                  <div class="card-header text-xs">
+                                    <h5 class="card-title"><i class="fas fa-tasks"></i> เป้าเช่าซื้อ</h5>
+                                    <!-- <div class="card-tools">
+                                      <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                                      </button>
+                                      <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
+                                      </button>
+                                    </div> -->
+                                  </div>
+                                <!-- <div class="card-body"> -->
+                                  <div class="col-md-12">
+                                    <div class="row">
+                                      <br>
+                                      <div class="col-md-4">
+                                        <div class="text-sm" id="todo-list" style="background-color:#F5F9B1;">
+                                          <span class="todo-wrap">
+                                            <input type="checkbox" id="1" name="ContractsCar" value="complete"/>
+                                            <label for="1" class="todo">
+                                              <i class="fa fa-check"></i>
+                                              ปัตตานี
+                                            </label>
+                                          </span>
+                                          <span class="todo-wrap">
+                                            <input type="checkbox" id="2" name="ManualCar" value="complete"/>
+                                            <label for="2" class="todo">
+                                              <i class="fa fa-check"></i>
+                                              สายบุรี
+                                            </label>
+                                          </span>
+                                          <span class="todo-wrap">
+                                            <input type="checkbox" id="3" name="KeyReserve" value="complete"/>
+                                            <label for="3" class="todo">
+                                              <i class="fa fa-check"></i>
+                                              โคกโพธิ์
+                                            </label>
+                                          </span>
+                                          <span class="todo-wrap">
+                                            <input type="checkbox" id="4" name="KeyReserve" value="complete"/>
+                                            <label for="4" class="todo">
+                                              <i class="fa fa-check"></i>
+                                              
+                                            </label>
+                                          </span>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-4">
+                                        <div class="text-sm" id="todo-list" style="background-color:#D7FCC0;">
+                                          <span class="todo-wrap">
+                                            <input type="checkbox" id="5" name="ContractsCar" value="complete"/>
+                                            <label for="5" class="todo">
+                                              <i class="fa fa-check"></i>
+                                              ยะลา
+                                            </label>
+                                          </span>
+                                          <span class="todo-wrap">
+                                            <input type="checkbox" id="6" name="ManualCar" value="complete"/>
+                                            <label for="6" class="todo">
+                                              <i class="fa fa-check"></i>
+                                              เบตง
+                                            </label>
+                                          </span>
+                                          <span class="todo-wrap">
+                                            <input type="checkbox" id="7" name="KeyReserve" value="complete"/>
+                                            <label for="7" class="todo">
+                                              <i class="fa fa-check"></i>
+                                              บันนังสตา
+                                            </label>
+                                          </span>
+                                          <span class="todo-wrap">
+                                            <input type="checkbox" id="8" name="ExpireTax" value="complete"/>
+                                            <label for="8" class="todo">
+                                              <i class="fa fa-check"></i>
+                                              ยะหา
+                                            </label>
+                                          </span>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-4">
+                                        <div class="text-sm" id="todo-list" style="background-color:#E4DAF3;">
+                                          <span class="todo-wrap">
+                                            <input type="checkbox" id="9" name="ContractsCar" value="complete"/>
+                                            <label for="9" class="todo">
+                                              <i class="fa fa-check"></i>
+                                              นราธิวาส
+                                            </label>
+                                          </span>
+                                          <span class="todo-wrap">
+                                            <input type="checkbox" id="10" name="ManualCar" value="complete"/>
+                                            <label for="10" class="todo">
+                                              <i class="fa fa-check"></i>
+                                              โกลก
+                                            </label>
+                                          </span>
+                                          <span class="todo-wrap">
+                                            <input type="checkbox" id="11" name="KeyReserve" value="complete"/>
+                                            <label for="11" class="todo">
+                                              <i class="fa fa-check"></i>
+                                              ตันหยงมัส
+                                            </label>
+                                          </span>
+                                          <span class="todo-wrap">
+                                            <input type="checkbox" id="12" name="ExpireTax" value="complete"/>
+                                            <label for="12" class="todo">
+                                              <i class="fa fa-check"></i>
+                                              รือเสาะ
+                                            </label>
+                                          </span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                <!-- </div> -->
                               </div>
                             </section>
                           </div>
@@ -166,7 +411,6 @@
             </div>
           <!-- </div> -->
 
-        </div>
       </div>
     </div>
   </div>
@@ -203,13 +447,19 @@
     var Totalprice = addCommas({{$TotalAllProduct2}});
     var options = {
       series: [{
-        data: [{{$Topcar_Leasing01}}, {{$Topcar_Leasing03}}, {{$Topcar_Leasing04}}, {{$Topcar_Leasing05}}, {{$Topcar_Leasing06}}, {{$Topcar_Leasing07}}, {{$Topcar_Leasing08}}, {{$Topcar_Leasing09}}, {{$Topcar_Leasing12}}, {{$Topcar_Leasing13}}, {{$Topcar_Leasing14}},{{$SumTopcar_HomecarAll}}]
+        data: [0,{{$Topcar_Leasing01}}, {{$Topcar_Leasing03}}, {{$Topcar_Leasing04}}, {{$Topcar_Leasing05}}, {{$Topcar_Leasing06}}, {{$Topcar_Leasing07}}, {{$Topcar_Leasing08}}, {{$Topcar_Leasing09}}, {{$Topcar_Leasing12}}, {{$Topcar_Leasing13}}, {{$Topcar_Leasing14}},{{$SumTopcar_HomecarAll}}]
     }],
       chart: {
-      type: 'bar',
+      type: 'line',
       height: 300,
+      zoom: {
+          enabled: false
+        }
     },
-    colors: ['#64B10B'],
+    title: {
+      text: 'ยอดจัด ' + '( ' +  Totalprice + ' บาท' + ' )',
+    },
+    colors: ['#34B8F7'],
     plotOptions: {
       bar: {
         borderRadius: 4,
@@ -227,17 +477,12 @@
       },
       offsetX: -6,
       style: {
-        fontSize: '12px',
+        fontSize: '10px',
         colors: ["#304758"]
       }
     },
     xaxis: {
-      categories: ["ปัตตานี", "ยะลา", "นราธิวาส", "สายบุรี", "โกลก", "เบตง", "โคกโพธิ์", "ตันหยงมัส", "รือเสาะ", "บันนังสตา", "ยะหา", "รถบ้าน"],
-    },
-    yaxis: {
-      title: {
-        text: 'ยอดจัด ' + '( ' +  Totalprice + ' บาท' + ' )',
-      },
+      categories: ["","ปัตตานี", "ยะลา", "นราธิวาส", "สายบุรี", "โกลก", "เบตง", "โคกโพธิ์", "ตันหยงมัส", "รือเสาะ", "บันนังสตา", "ยะหา", "รถบ้าน"],
     },
     };
 
@@ -245,33 +490,66 @@
     chart.render();
   </script>
 
-  {{-- ยอดคัน(%) เช่าซื้อ --}}
+  {{-- ยอดคัน(เป้า)) เช่าซื้อ --}}
   <script>
-    var options = {
-      series: [{{$Leasing01}}, {{$Leasing03}}, {{$Leasing04}}, {{$Leasing05}}, {{$Leasing06}}, {{$Leasing07}}, {{$Leasing08}}, {{$Leasing09}}, {{$Leasing12}}, {{$Leasing13}}, {{$Leasing14}},{{$SumHomecarAll}}],
-      chart: {
-      width: 380,
-      type: 'pie',
-    },
-    title: {
-      text: 'ยอดคัน(%)',
-    },
-    labels: ["ปัตตานี", "ยะลา", "นราธิวาส", "สายบุรี", "โกลก", "เบตง", "โคกโพธิ์", "ตันหยงมัส", "รือเสาะ", "บันนังสตา", "ยะหา", "รถบ้าน"],
-    responsive: [{
-      breakpoint: 500,
-      options: {
-        chart: {
-          width: 300
+      var TotalCon = addCommas({{$SumLeasingAll}});
+      var options = {
+      series: [
+        {
+          name: "ยอดคัน",
+          type: "column",
+          color: "#3EA513",
+          data: [{{$Leasing01}}, {{$Leasing03}}, {{$Leasing04}}, {{$Leasing05}}, {{$Leasing06}}, {{$Leasing07}}, {{$Leasing08}}, {{$Leasing09}}, {{$Leasing12}}, {{$Leasing13}}, {{$Leasing14}},{{$SumHomecarAll}}]
         },
-        legend: {
-          position: 'bottom'
+        {
+          name: "ยอดเป้า",
+          type: "line",
+          color: "#FB2108",
+          data: [23, 42, 35, 27, 43, 22, 17, 31, 22, 22, 12, 16]
         }
-      }
-    }]
+      ],
+      chart: {
+        height: 300,
+        type: "line",
+        zoom: {
+          enabled: false
+        }
+      },
+      title: {
+        text: 'ยอดคัน ' + '( ' + TotalCon + ' คัน' + ' )',
+      },
+      stroke: {
+        width: [1, 1],
+        dashArray: [0,10]
+      },
+      plotOptions: {
+        bar: {
+          dataLabels: {
+            position: "bottom" // top, center, bottom
+          },
+        }
+      },
+      dataLabels: {
+        enabled: true,
+        formatter: function (val) {
+          return val;
+        },
+        style: {
+          fontSize: "10px",
+          colors: ["#3EA513","#FB2108"]
+        }
+      },
+      labels: [
+        "ปัตตานี", "ยะลา", "นราธิวาส", "สายบุรี", "โกลก", "เบตง", "โคกโพธิ์", "ตันหยงมัส", "รือเสาะ", "บันนังสตา", "ยะหา", "รถบ้าน"
+      ],
+      xaxis: {
+        type: "text"
+      },
     };
 
     var chart = new ApexCharts(document.querySelector("#chartLeasingPercent"), options);
     chart.render();
+
   </script>
 
   {{-- ยอดคัน เช่าซื้อ --}}
@@ -288,7 +566,7 @@
     },
     plotOptions: {
       bar: {
-        borderRadius: 10,
+        borderRadius: 2,
         dataLabels: {
           position: 'top', // top, center, bottom
         },

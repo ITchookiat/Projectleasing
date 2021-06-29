@@ -106,6 +106,8 @@ class ReportAnalysController extends Controller
       $DateDue = \Carbon\Carbon::parse($dataReport->Date_Due)->format('d')."-".\Carbon\Carbon::parse($dataReport->Date_Due)->format('m');
       $DateDueYear = \Carbon\Carbon::parse($dataReport->Date_Due)->format('Y')+543;
 
+      // dd($dataReport,$type);
+
       $newDateDue = $DateDue."-".$DateDueYear;
       $now = Carbon::now();
       $date = Carbon::parse($now)->format('d-m-Y');
