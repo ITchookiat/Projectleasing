@@ -596,6 +596,7 @@
                                   <a target="_blank" href="{{ action('ReportAnalysController@ReportPDFIndex',[$row->id,$type]) }}" class="btn btn-info btn-sm" title="พิมพ์">
                                     <i class="fas fa-print"></i> พิมพ์
                                   </a>
+                                  
                                   {{-- @if(auth::user()->type == 3 and $row->StatusApp_car == 'อนุมัติ')
                                       @php $branch = 'Null'; @endphp
                                       @php $status = 'Null'; @endphp

@@ -176,32 +176,32 @@
                   @endphp
                 @endforeach
                 <tr align="center" style="line-height: 200%;">
-                  <td style="background-color: #33FF00; line-height:250%;" align="left" width="150px"> รถยึดเช่าซื้อ </td>
+                  <td style="background-color: #A3F95A; line-height:250%;" align="left" width="150px"> รถยึดเช่าซื้อ </td>
                   <td style="line-height:250%;" width="70px" align="right"> {{$HoldcarLeasing}} &nbsp;</td>
                   <td style="line-height:250%;" width="70px" align="right"> {{round(($HoldcarLeasing / $HoldcarAll) * 100)}}% &nbsp;</td>
                 </tr>
                 <tr align="center" style="line-height: 200%;">
-                  <td style="background-color: #33FF00; line-height:250%;" align="left" width="150px"> รถยึด Ploan </td>
+                  <td style="background-color: #A3F95A; line-height:250%;" align="left" width="150px"> รถยึด Ploan </td>
                   <td style="line-height:250%;" width="70px" align="right"> {{$HoldcarPloan}} &nbsp;</td>
                   <td style="line-height:250%;" width="70px" align="right"> {{round(($HoldcarPloan / $HoldcarAll) * 100)}}% &nbsp;</td>
                 </tr>
                 <tr align="center" style="line-height: 200%;">
-                  <td style="background-color: #33FF00; line-height:250%;" align="left" width="150px"> ลูกค้ามารับรถคืน </td>
+                  <td style="background-color: #A3F95A; line-height:250%;" align="left" width="150px"> ลูกค้ามารับรถคืน </td>
                   <td style="line-height:250%;" width="70px" align="right"> {{$CusGetBack}} &nbsp;</td>
                   <td style="line-height:250%;" width="70px" align="right"> {{round(($CusGetBack / $HoldcarAll) * 100)}}% &nbsp;</td>
                 </tr>
                 <tr align="center" style="line-height: 200%;">
-                  <td style="background-color: #33FF00; line-height:250%;" align="left" width="150px"> ลูกค้ามาส่งรถคืน </td>
+                  <td style="background-color: #A3F95A; line-height:250%;" align="left" width="150px"> ลูกค้ามาส่งรถคืน </td>
                   <td style="line-height:250%;" width="70px" align="right"> {{$CusSendCar}} &nbsp;</td>
                   <td style="line-height:250%;" width="70px" align="right"> {{round(($CusSendCar / $HoldcarAll) * 100)}}% &nbsp;</td>
                 </tr>
                 <tr align="center" style="line-height: 200%;">
-                  <td style="background-color: #33FF00; line-height:250%;" align="left" width="150px"> อยู่รถบ้าน </td>
+                  <td style="background-color: #A3F95A; line-height:250%;" align="left" width="150px"> อยู่รถบ้าน </td>
                   <td style="line-height:250%;" width="70px" align="right"> {{$HomecarSock}} &nbsp;</td>
                   <td style="line-height:250%;" width="70px" align="right"> {{round(($HomecarSock / $HoldcarAll) * 100)}}% &nbsp;</td>
                 </tr>
                 <tr align="center" style="line-height: 200%;">
-                  <td style="background-color: #33FF00; line-height:250%;" align="left" width="150px"> รถบ้านตัดขายแล้ว </td>
+                  <td style="background-color: #A3F95A; line-height:250%;" align="left" width="150px"> รถบ้านตัดขายแล้ว </td>
                   <td style="line-height:250%;" width="70px" align="right"> {{$HomecarSoldout}} &nbsp;</td>
                   <td style="line-height:250%;" width="70px" align="right"> {{round(($HomecarSoldout / $HoldcarAll) * 100)}}% &nbsp;</td>
                 </tr>
@@ -227,32 +227,32 @@
                   @endphp
                 @endforeach
                 <tr align="center" style="line-height: 200%;">
-                  <td style="background-color: #33FF00; line-height:250%;" align="left" width="150px"> รถยึดเช่าซื้อ </td>
+                  <td style="background-color: #A3F95A; line-height:250%;" align="left" width="150px"> รถยึดเช่าซื้อ </td>
                   <td style="line-height:250%;" width="70px" align="right"> {{number_format($Sum_HoldcarLeasing)}} &nbsp;</td>
                   <td style="line-height:250%;" width="70px" align="right"> {{round(($Sum_HoldcarLeasing / $Sum_HoldcarAll) * 100)}}% &nbsp;</td>
                 </tr>
                 <tr align="center" style="line-height: 200%;">
-                  <td style="background-color: #33FF00; line-height:250%;" align="left" width="150px"> รถยึด Ploan </td>
+                  <td style="background-color: #A3F95A; line-height:250%;" align="left" width="150px"> รถยึด Ploan </td>
                   <td style="line-height:250%;" width="70px" align="right"> {{number_format($Sum_HoldcarPloan)}} &nbsp;</td>
                   <td style="line-height:250%;" width="70px" align="right"> {{round(($Sum_HoldcarPloan / $Sum_HoldcarAll) * 100)}}% &nbsp;</td>
                 </tr>
                 <tr align="center" style="line-height: 200%;">
-                  <td style="background-color: #33FF00; line-height:250%;" align="left" width="150px"> ลูกค้ามารับรถคืน </td>
+                  <td style="background-color: #A3F95A; line-height:250%;" align="left" width="150px"> ลูกค้ามารับรถคืน </td>
                   <td style="line-height:250%;" width="70px" align="right"> {{number_format($Sum_CusGetBack)}} &nbsp;</td>
                   <td style="line-height:250%;" width="70px" align="right"> {{round(($Sum_CusGetBack / $Sum_HoldcarAll) * 100)}}% &nbsp;</td>
                 </tr>
                 <tr align="center" style="line-height: 200%;">
-                  <td style="background-color: #33FF00; line-height:250%;" align="left" width="150px"> ลูกค้ามาส่งรถคืน </td>
+                  <td style="background-color: #A3F95A; line-height:250%;" align="left" width="150px"> ลูกค้ามาส่งรถคืน </td>
                   <td style="line-height:250%;" width="70px" align="right"> {{number_format($Sum_CusSendCar)}} &nbsp;</td>
                   <td style="line-height:250%;" width="70px" align="right"> {{round(($Sum_CusSendCar / $Sum_HoldcarAll) * 100)}}% &nbsp;</td>
                 </tr>
                 <tr align="center" style="line-height: 200%;">
-                  <td style="background-color: #33FF00; line-height:250%;" align="left" width="150px"> อยู่รถบ้าน </td>
+                  <td style="background-color: #A3F95A; line-height:250%;" align="left" width="150px"> อยู่รถบ้าน </td>
                   <td style="line-height:250%;" width="70px" align="right"> {{number_format($Sum_HomecarSock)}} &nbsp;</td>
                   <td style="line-height:250%;" width="70px" align="right"> {{round(($Sum_HomecarSock / $Sum_HoldcarAll) * 100)}}% &nbsp;</td>
                 </tr>
                 <tr align="center" style="line-height: 200%;">
-                  <td style="background-color: #33FF00; line-height:250%;" align="left" width="150px"> รถบ้านตัดขายแล้ว </td>
+                  <td style="background-color: #A3F95A; line-height:250%;" align="left" width="150px"> รถบ้านตัดขายแล้ว </td>
                   <td style="line-height:250%;" width="70px" align="right"> {{number_format($Sum_HomecarSoldout)}} &nbsp;</td>
                   <td style="line-height:250%;" width="70px" align="right"> {{round(($Sum_HomecarSoldout / $Sum_HoldcarAll) * 100)}}% &nbsp;</td>
                 </tr>
