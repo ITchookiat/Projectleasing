@@ -255,13 +255,13 @@
                       <div class="tab-content" id="custom-tabs-four-tabContent">
                         <div class="tab-pane fade active show" id="custom-tabs-leasing" role="tabpanel" aria-labelledby="custom-tabs-leasing-tab">
                           <div class="row mb-1">
-                            <section class="col-lg-6 connectedSortable ui-sortable">
+                            <section class="col-lg-7 connectedSortable ui-sortable">
                               <div class="col-md-12 card">
                                 <!-- <div id="chartLeasing"></div> -->
                                 <div id="chartLeasingPercent"></div>
                               </div>
                             </section>
-                            <section class="col-lg-6 connectedSortable ui-sortable">
+                            <section class="col-lg-5 connectedSortable ui-sortable">
                               <div class="col-md-12 card">
                                   <div class="card-header text-xs">
                                     <h5 class="card-title"><i class="fas fa-tasks"></i> เป้าเช่าซื้อ</h5>
@@ -270,14 +270,16 @@
                                       </button>
                                       <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
                                       </button>
+                                      <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                        <i class="fas fa-times"></i>
+                                      </button>
                                     </div> -->
                                   </div>
-                                <!-- <div class="card-body"> -->
                                   <div class="col-md-12">
                                     <br>
                                     <div class="row">
                                       <div class="col-md-4">
-                                        <div class="text-sm" id="todo-list" style="background-color:#F5F9B1;">
+                                        <div class="text-xs" id="todo-list" style="background-color:#F5F9B1;">
                                           <span class="todo-wrap">
                                             <input type="checkbox" id="1" name="ContractsCar" value="complete" {{ ($TargetPattani >= 100) ? 'checked' : '' }}/>
                                             <label for="1" class="todo">
@@ -309,7 +311,7 @@
                                         </div>
                                       </div>
                                       <div class="col-md-4">
-                                        <div class="text-sm" id="todo-list" style="background-color:#D7FCC0;">
+                                        <div class="text-xs" id="todo-list" style="background-color:#D7FCC0;">
                                           <span class="todo-wrap">
                                             <input type="checkbox" id="5" name="ContractsCar" value="complete" {{ ($TargetYala >= 100) ? 'checked' : '' }}/>
                                             <label for="5" class="todo">
@@ -341,7 +343,7 @@
                                         </div>
                                       </div>
                                       <div class="col-md-4">
-                                        <div class="text-sm" id="todo-list" style="background-color:#E4DAF3;">
+                                        <div class="text-xs" id="todo-list" style="background-color:#E4DAF3;">
                                           <span class="todo-wrap">
                                             <input type="checkbox" id="9" name="ContractsCar" value="complete" {{ ($TargetNara >= 100) ? 'checked' : '' }}/>
                                             <label for="9" class="todo">
@@ -373,8 +375,8 @@
                                         </div>
                                       </div>
                                     </div>
+                                    <br>
                                   </div>
-                                <!-- </div> -->
                               </div>
                             </section>
                           </div>
