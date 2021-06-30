@@ -175,6 +175,18 @@
     $Total_baabPloan = $Total_PN_Ploan + $Total_SB_Ploan + $Total_KP_Ploan + $Total_YL_Ploan + $Total_BT_Ploan + $Total_BNT_Ploan + $Total_YH_Ploan + $Total_NR_Ploan + $Total_KOL_Ploan + $Total_TM_Ploan + $Total_RS_Ploan;
     $Total_baabMicro = $Total_PN_Micro + $Total_SB_Micro + $Total_KP_Micro + $Total_YL_Micro + $Total_BT_Micro + $Total_BNT_Micro + $Total_YH_Micro + $Total_NR_Micro + $Total_KOL_Micro + $Total_TM_Micro + $Total_RS_Micro;
     $Total_baabMotor = $Total_PN_Motor + $Total_SB_Motor + $Total_KP_Motor + $Total_YL_Motor + $Total_BT_Motor + $Total_BNT_Motor + $Total_YH_Motor + $Total_NR_Motor + $Total_KOL_Motor + $Total_TM_Motor + $Total_RS_Motor;
+
+    $TargetPattani = round(($Leasing01 / $dataLeasing->Target_Pattani) * 100);
+    $TargetSaiburi = round(($Leasing05 / $dataLeasing->Target_Saiburi) * 100);
+    $TargetKophor = round(($Leasing08 / $dataLeasing->Target_Kophor) * 100);
+    $TargetYala = round(($Leasing03 / $dataLeasing->Target_Yala) * 100);
+    $TargetBetong = round(($Leasing07 / $dataLeasing->Target_Betong) * 100);
+    $TargetBannangsta = round(($Leasing13 / $dataLeasing->Target_Bannangsta) * 100);
+    $TargetYaha = round(($Leasing14 / $dataLeasing->Target_Yaha) * 100);
+    $TargetNara = round(($Leasing04 / $dataLeasing->Target_Narathiwat) * 100);
+    $TargetKolok = round(($Leasing06 / $dataLeasing->Target_Kolok) * 100);
+    $TargetTanyongmas = round(($Leasing09/ $dataLeasing->Target_Tanyongmas) * 100);
+    $TargetRosok = round(($Leasing12 / $dataLeasing->Target_Rosok) * 100);
   @endphp
 
   <div class="content-header text-sm" style="padding:15px;">
@@ -194,13 +206,13 @@
                     <div class="float-right">
                       <small class="badge" style="font-size: 14px;">
                         ข้อมูลวันที่ :
-                        <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control pr-3" style="background-color:#E9E9E8;"/>
+                        <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control pr-3"/>
                         ถึงวันที่ :
-                        <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control" style="background-color:#E9E9E8;"/>&nbsp;
+                        <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control"/>&nbsp;
                         <button type="submit" class="btn btn-info" title="ค้นหา">
                           <span class="fas fa-search"></span> ค้นหา
                         </button>
-                        <input type="text" name="Dashboard" value="2"/>&nbsp;
+                        <input type="hidden" name="Dashboard" value="2"/>&nbsp;
                         
                       </small>
                     </div>
@@ -243,13 +255,13 @@
                       <div class="tab-content" id="custom-tabs-four-tabContent">
                         <div class="tab-pane fade active show" id="custom-tabs-leasing" role="tabpanel" aria-labelledby="custom-tabs-leasing-tab">
                           <div class="row mb-1">
-                            <section class="col-lg-8 connectedSortable ui-sortable">
+                            <section class="col-lg-6 connectedSortable ui-sortable">
                               <div class="col-md-12 card">
                                 <!-- <div id="chartLeasing"></div> -->
                                 <div id="chartLeasingPercent"></div>
                               </div>
                             </section>
-                            <section class="col-lg-4 connectedSortable ui-sortable">
+                            <section class="col-lg-6 connectedSortable ui-sortable">
                               <div class="col-md-12 card">
                                   <div class="card-header text-xs">
                                     <h5 class="card-title"><i class="fas fa-tasks"></i> เป้าเช่าซื้อ</h5>
@@ -267,24 +279,24 @@
                                       <div class="col-md-4">
                                         <div class="text-sm" id="todo-list" style="background-color:#F5F9B1;">
                                           <span class="todo-wrap">
-                                            <input type="checkbox" id="1" name="ContractsCar" value="complete"/>
+                                            <input type="checkbox" id="1" name="ContractsCar" value="complete" {{ ($TargetPattani >= 100) ? 'checked' : '' }}/>
                                             <label for="1" class="todo">
                                               <i class="fa fa-check"></i>
-                                              ปัตตานี
+                                              ปัตตานี @if($Leasing01 != null)({{$TargetPattani}}%)@endif
                                             </label>
                                           </span>
                                           <span class="todo-wrap">
-                                            <input type="checkbox" id="2" name="ManualCar" value="complete"/>
+                                            <input type="checkbox" id="2" name="ManualCar" value="complete" {{ ($TargetSaiburi >= 100) ? 'checked' : '' }}/>
                                             <label for="2" class="todo">
                                               <i class="fa fa-check"></i>
-                                              สายบุรี
+                                              สายบุรี @if($Leasing05 != null)({{$TargetSaiburi}}%)@endif
                                             </label>
                                           </span>
                                           <span class="todo-wrap">
-                                            <input type="checkbox" id="3" name="KeyReserve" value="complete"/>
+                                            <input type="checkbox" id="3" name="KeyReserve" value="complete" {{ ($TargetKophor >= 100) ? 'checked' : '' }}/>
                                             <label for="3" class="todo">
                                               <i class="fa fa-check"></i>
-                                              โคกโพธิ์
+                                              โคกโพธิ์ @if($Leasing08 != null)({{$TargetKophor}}%)@endif
                                             </label>
                                           </span>
                                           <span class="todo-wrap">
@@ -299,31 +311,31 @@
                                       <div class="col-md-4">
                                         <div class="text-sm" id="todo-list" style="background-color:#D7FCC0;">
                                           <span class="todo-wrap">
-                                            <input type="checkbox" id="5" name="ContractsCar" value="complete"/>
+                                            <input type="checkbox" id="5" name="ContractsCar" value="complete" {{ ($TargetYala >= 100) ? 'checked' : '' }}/>
                                             <label for="5" class="todo">
                                               <i class="fa fa-check"></i>
-                                              ยะลา
+                                              ยะลา @if($Leasing03 != null)({{$TargetYala}}%)@endif
                                             </label>
                                           </span>
                                           <span class="todo-wrap">
-                                            <input type="checkbox" id="6" name="ManualCar" value="complete"/>
+                                            <input type="checkbox" id="6" name="ManualCar" value="complete" {{ ($TargetBetong >= 100) ? 'checked' : '' }}/>
                                             <label for="6" class="todo">
                                               <i class="fa fa-check"></i>
-                                              เบตง
+                                              เบตง @if($Leasing07 != null)({{$TargetBetong}}%)@endif
                                             </label>
                                           </span>
                                           <span class="todo-wrap">
-                                            <input type="checkbox" id="7" name="KeyReserve" value="complete"/>
+                                            <input type="checkbox" id="7" name="KeyReserve" value="complete" {{ ($TargetBannangsta >= 100) ? 'checked' : '' }}/>
                                             <label for="7" class="todo">
                                               <i class="fa fa-check"></i>
-                                              บันนังสตา
+                                              บันนังสตา @if($Leasing13 != null)({{$TargetBannangsta}}%)@endif
                                             </label>
                                           </span>
                                           <span class="todo-wrap">
-                                            <input type="checkbox" id="8" name="ExpireTax" value="complete"/>
+                                            <input type="checkbox" id="8" name="ExpireTax" value="complete" {{ ($TargetYaha >= 100) ? 'checked' : '' }}/>
                                             <label for="8" class="todo">
                                               <i class="fa fa-check"></i>
-                                              ยะหา
+                                              ยะหา @if($Leasing14 != null)({{$TargetYaha}}%)@endif
                                             </label>
                                           </span>
                                         </div>
@@ -331,31 +343,31 @@
                                       <div class="col-md-4">
                                         <div class="text-sm" id="todo-list" style="background-color:#E4DAF3;">
                                           <span class="todo-wrap">
-                                            <input type="checkbox" id="9" name="ContractsCar" value="complete"/>
+                                            <input type="checkbox" id="9" name="ContractsCar" value="complete" {{ ($TargetNara >= 100) ? 'checked' : '' }}/>
                                             <label for="9" class="todo">
                                               <i class="fa fa-check"></i>
-                                              นราธิวาส
+                                              นราธิวาส @if($Leasing04 != null)({{$TargetNara}}%)@endif
                                             </label>
                                           </span>
                                           <span class="todo-wrap">
-                                            <input type="checkbox" id="10" name="ManualCar" value="complete"/>
+                                            <input type="checkbox" id="10" name="ManualCar" value="complete" {{ ($TargetKolok >= 100) ? 'checked' : '' }}/>
                                             <label for="10" class="todo">
                                               <i class="fa fa-check"></i>
-                                              โกลก
+                                              โกลก @if($Leasing06 != null)({{$TargetKolok}}%)@endif
                                             </label>
                                           </span>
                                           <span class="todo-wrap">
-                                            <input type="checkbox" id="11" name="KeyReserve" value="complete"/>
+                                            <input type="checkbox" id="11" name="KeyReserve" value="complete" {{ ($TargetTanyongmas >= 100) ? 'checked' : '' }}/>
                                             <label for="11" class="todo">
                                               <i class="fa fa-check"></i>
-                                              ตันหยงมัส
+                                              ตันหยงมัส @if($Leasing06 != null)({{$TargetTanyongmas}}%)@endif
                                             </label>
                                           </span>
                                           <span class="todo-wrap">
-                                            <input type="checkbox" id="12" name="ExpireTax" value="complete"/>
+                                            <input type="checkbox" id="12" name="ExpireTax" value="complete" {{ ($TargetRosok >= 100) ? 'checked' : '' }}/>
                                             <label for="12" class="todo">
                                               <i class="fa fa-check"></i>
-                                              รือเสาะ
+                                              รือเสาะ @if($Leasing12 != null)({{$TargetRosok}}%)@endif
                                             </label>
                                           </span>
                                         </div>
@@ -507,7 +519,18 @@
           name: "ยอดเป้า",
           type: "line",
           color: "#FB2108",
-          data: [{{$dataLeasing->Target_Pattani}}, {{$dataLeasing->Target_Yala}}, {{$dataLeasing->Target_Narathiwat}}, {{$dataLeasing->Target_Saiburi}}, {{$dataLeasing->Target_Kolok}}, {{$dataLeasing->Target_Betong}}, {{$dataLeasing->Target_Kophor}}, {{$dataLeasing->Target_Tanyongmas}}, {{$dataLeasing->Target_Rosok}}, {{$dataLeasing->Target_Bannangsta}}, {{$dataLeasing->Target_Yaha}}, {{$SumHomecarAll}}]
+          data: [{{($dataLeasing->Target_Pattani != '') ?$dataLeasing->Target_Pattani: 0 }},
+                 {{($dataLeasing->Target_Yala != '') ?$dataLeasing->Target_Yala: 0 }}, 
+                 {{($dataLeasing->Target_Narathiwat != '') ?$dataLeasing->Target_Narathiwat: 0 }}, 
+                 {{($dataLeasing->Target_Saiburi != '') ?$dataLeasing->Target_Saiburi: 0 }}, 
+                 {{($dataLeasing->Target_Kolok != '') ?$dataLeasing->Target_Kolok: 0 }}, 
+                 {{($dataLeasing->Target_Betong != '') ?$dataLeasing->Target_Betong: 0 }}, 
+                 {{($dataLeasing->Target_Kophor != '') ?$dataLeasing->Target_Kophor: 0 }}, 
+                 {{($dataLeasing->Target_Tanyongmas != '') ?$dataLeasing->Target_Tanyongmas: 0 }}, 
+                 {{($dataLeasing->Target_Rosok != '') ?$dataLeasing->Target_Rosok: 0 }}, 
+                 {{($dataLeasing->Target_Bannangsta != '') ?$dataLeasing->Target_Bannangsta: 0 }}, 
+                 {{($dataLeasing->Target_Yaha != '') ?$dataLeasing->Target_Yaha: 0 }}, 
+                 {{$SumHomecarAll}}]
         }
       ],
       chart: {
@@ -521,13 +544,13 @@
         text: 'ยอดคัน ' + '( ' + TotalCon + ' คัน' + ' )',
       },
       stroke: {
-        width: [1, 0],
-        dashArray: [0,10]
+        width: [1, 1],
+        dashArray: [0,5]
       },
       plotOptions: {
         bar: {
           dataLabels: {
-            position: "center" // top, center, bottom
+            position: "bottom" // top, center, bottom
           },
         }
       },
