@@ -538,7 +538,7 @@
                             <div class="tab-content" id="vert-tabs-tabContent">
                                 <div class="tab-pane fade active show" id="vert-tabs-1" role="tabpanel" aria-labelledby="vert-tabs-1-tab">
                                 <div class="card-header bg-warning">
-                                    <h3 class="card-title"><i class="fas fa-chart-line mr-1"></i> เพิ่มเป้าผลิตภัณฑ์</h3>
+                                    <h3 class="card-title"><i class="fas fa-chart-line mr-1"></i> แก้ไขเป้าผลิตภัณฑ์</h3>
                                     <div class="card-tools">
                                     <button type="submit" class="delete-modal btn-xs btn btn-success">
                                         <i class="fas fa-save"></i> อัพเดท
@@ -601,8 +601,8 @@
                                     </div>
                                     <div class="row form-group">
                                     <div class="col-4">
-                                        <div class="card">
-                                        <div class="card-header" style="background-color:#E9E9E8;">
+                                      <div class="card card-warning">
+                                        <div class="card-header">
                                             <h5 class="card-title text-sm">จังหวัดปัตตานี</h5>
                                             <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -623,11 +623,11 @@
                                                 <input type="number" name="TargetKhopor" value="{{$data->Target_Kophor}}" maxlength="7" class="form-control"/>
                                             </div>
                                         </div>
-                                        </div>
+                                      </div>
                                     </div>
                                     <div class="col-4">
-                                        <div class="card">
-                                        <div class="card-header" style="background-color:#E9E9E8;">
+                                        <div class="card card-warning">
+                                        <div class="card-header">
                                             <h5 class="card-title text-sm">จังหวัดยะลา</h5>
                                             <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -655,8 +655,8 @@
                                         </div>
                                     </div>
                                     <div class="col-4">
-                                        <div class="card">
-                                        <div class="card-header" style="background-color:#E9E9E8;">
+                                        <div class="card card-warning">
+                                        <div class="card-header">
                                             <h5 class="card-title text-sm">จังหวัดนราธิวาส</h5>
                                             <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
