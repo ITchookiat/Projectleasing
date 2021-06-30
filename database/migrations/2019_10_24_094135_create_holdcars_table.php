@@ -16,6 +16,7 @@ class CreateHoldcarsTable extends Migration
         Schema::create('holdcars', function (Blueprint $table) {
             $table->bigIncrements('Hold_id');
             $table->string('Contno_hold')->nullable();
+            $table->string('StatPark_Homecar')->nullable();
             $table->string('StatSold_Homecar')->nullable();
             $table->string('Name_hold')->nullable();
             $table->string('Brandcar_hold')->nullable();

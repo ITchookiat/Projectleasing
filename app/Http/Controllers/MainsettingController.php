@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\Mainsetting;
+use App\Target;
 
 class MainsettingController extends Controller
 {
@@ -43,6 +44,33 @@ class MainsettingController extends Controller
         elseif($request->type == 3){
             return view('setting.program',compact('type','data','data2'));
         }
+        elseif($request->type == 4){
+            $dataLeasing = DB::table('targets')
+                ->where('Target_Type','=','Leasing')
+                ->where('Target_Month','=',date('m'))
+                ->where('Target_Year','=',date('Y'))
+                ->first();
+
+            $dataPloan = DB::table('targets')
+                ->where('Target_Type','=','Ploan')
+                ->where('Target_Month','=',date('m'))
+                ->where('Target_Year','=',date('Y'))
+                ->first();
+
+            $dataMicro = DB::table('targets')
+                ->where('Target_Type','=','Micro')
+                ->where('Target_Month','=',date('m'))
+                ->where('Target_Year','=',date('Y'))
+                ->first();
+
+            $dataMotor = DB::table('targets')
+                ->where('Target_Type','=','Motor')
+                ->where('Target_Month','=',date('m'))
+                ->where('Target_Year','=',date('Y'))
+                ->first();
+            // dump($dataLeasing,$dataPloan,$dataMicro,$dataMotor);
+            return view('setting.program',compact('type','dataLeasing','dataPloan','dataMicro','dataMotor'));
+        }
     }
 
     /**
@@ -53,7 +81,29 @@ class MainsettingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if($request->type == 1){
+            $TargetDB = new Target([
+                'Target_Type' => $request->get('TargetType'),
+                'Target_Month' => $request->get('TargetMonth'),
+                'Target_Year' => $request->get('TargetYear'),
+                'Target_Pattani' => $request->get('TargetPattani'),
+                'Target_Saiburi' => $request->get('TargetSaiburi'),
+                'Target_Kophor' => $request->get('TargetKhopor'),
+                'Target_Yarang' => $request->get('TargetYarang'),
+                'Target_Yala' => $request->get('TargetYala'),
+                'Target_Betong' => $request->get('TargetBetong'),
+                'Target_Bannangsta' => $request->get('TargetBangnansta'),
+                'Target_Yaha' => $request->get('TargetYaha'),
+                'Target_Narathiwat' => $request->get('TargetNara'),
+                'Target_Kolok' => $request->get('TargetKolok'),
+                'Target_Tanyongmas' => $request->get('TargetTangyongmas'),
+                'Target_Rosok' => $request->get('TargetRosok'),
+                'Target_Dateadd' => Date('Y-m-d'),
+                'Target_Useradd' => auth()->user()->name
+            ]);
+            $TargetDB->save();
+        }
+        return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อย');
     }
 
     /**
@@ -62,9 +112,14 @@ class MainsettingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
-        //
+        $data = DB::table('targets')
+            ->where('Target_id','=',$id)
+            ->first();
+        // dd($data);
+        $type = $request->type;
+        return view('setting.option',compact('type','data'));
     }
 
     /**
@@ -158,7 +213,27 @@ class MainsettingController extends Controller
                 $DataSet->save();
             }
         }
-        return redirect()->back()->with('success','บันทึกข้อมูลเรียบร้อย');
+        elseif($request->type == 3){ //ยอดเป้า
+        $target = Target::where('Target_id',$id)->first();
+            $target->Target_Type = $request->get('TargetType');
+            $target->Target_Month = $request->get('TargetMonth');
+            $target->Target_Year = $request->get('TargetYear');
+            $target->Target_Pattani = $request->get('TargetPattani');
+            $target->Target_Saiburi = $request->get('TargetSaiburi');
+            $target->Target_Kophor = $request->get('TargetKhopor');
+            $target->Target_Yarang = $request->get('TargetYarang');
+            $target->Target_Yala = $request->get('TargetYala');
+            $target->Target_Betong = $request->get('TargetBetong');
+            $target->Target_Bannangsta = $request->get('TargetBangnansta');
+            $target->Target_Yaha = $request->get('TargetYaha');
+            $target->Target_Narathiwat = $request->get('TargetNara');
+            $target->Target_Kolok = $request->get('TargetKolok');
+            $target->Target_Tanyongmas = $request->get('TargetTangyongmas');
+            $target->Target_Rosok = $request->get('TargetRosok');
+        $target->update();
+
+        }
+        return redirect()->back()->with('success','อัพเดทข้อมูลเรียบร้อย');
     }
 
     /**

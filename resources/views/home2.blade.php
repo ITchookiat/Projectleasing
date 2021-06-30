@@ -260,8 +260,8 @@
                                   </div>
                                 <!-- <div class="card-body"> -->
                                   <div class="col-md-12">
+                                    <br>
                                     <div class="row">
-                                      <br>
                                       <div class="col-md-4">
                                         <div class="text-sm" id="todo-list" style="background-color:#F5F9B1;">
                                           <span class="todo-wrap">
@@ -359,6 +359,8 @@
                                         </div>
                                       </div>
                                     </div>
+                                    <br>
+                                    <br>
                                   </div>
                                 <!-- </div> -->
                               </div>
@@ -519,7 +521,7 @@
         text: 'ยอดคัน ' + '( ' + TotalCon + ' คัน' + ' )',
       },
       stroke: {
-        width: [1, 1],
+        width: [1, 0],
         dashArray: [0,10]
       },
       plotOptions: {
