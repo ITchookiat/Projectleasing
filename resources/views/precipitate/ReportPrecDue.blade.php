@@ -176,20 +176,20 @@
                   @endphp
                 @endforeach
                 <tr align="center" style="line-height: 200%;">
-                  <td style="background-color: #A3F95A; line-height:250%;" align="left" width="150px"> รถยึดเช่าซื้อ </td>
-                  <td style="line-height:250%;" width="70px" align="right"> {{$HoldcarLeasing}} &nbsp;</td>
-                  <td style="line-height:250%;" width="70px" align="right"> {{round(($HoldcarLeasing / $HoldcarAll) * 100)}}% &nbsp;</td>
+                  <td style="background-color: #A3F95A; line-height:250%;" align="left" width="150px"> รถยึดเช่าซื้อ(ที่ลาน) </td>
+                  <td style="line-height:250%;" width="70px" align="right"> {{$HoldcarLeasing + $CusSendCar}} &nbsp;</td>
+                  <td style="line-height:250%;" width="70px" align="right"> {{round((($HoldcarLeasing + $CusSendCar) / $HoldcarAll) * 100)}}% &nbsp;</td>
                 </tr>
                 <tr align="center" style="line-height: 200%;">
                   <td style="background-color: #A3F95A; line-height:250%;" align="left" width="150px"> รถยึด Ploan </td>
                   <td style="line-height:250%;" width="70px" align="right"> {{$HoldcarPloan}} &nbsp;</td>
                   <td style="line-height:250%;" width="70px" align="right"> {{round(($HoldcarPloan / $HoldcarAll) * 100)}}% &nbsp;</td>
                 </tr>
-                <tr align="center" style="line-height: 200%;">
+                <!-- <tr align="center" style="line-height: 200%;">
                   <td style="background-color: #A3F95A; line-height:250%;" align="left" width="150px"> ลูกค้ามารับรถคืน </td>
                   <td style="line-height:250%;" width="70px" align="right"> {{$CusGetBack}} &nbsp;</td>
                   <td style="line-height:250%;" width="70px" align="right"> {{round(($CusGetBack / $HoldcarAll) * 100)}}% &nbsp;</td>
-                </tr>
+                </tr> -->
                 <tr align="center" style="line-height: 200%;">
                   <td style="background-color: #A3F95A; line-height:250%;" align="left" width="150px"> ลูกค้ามาส่งรถคืน </td>
                   <td style="line-height:250%;" width="70px" align="right"> {{$CusSendCar}} &nbsp;</td>
@@ -227,20 +227,20 @@
                   @endphp
                 @endforeach
                 <tr align="center" style="line-height: 200%;">
-                  <td style="background-color: #A3F95A; line-height:250%;" align="left" width="150px"> รถยึดเช่าซื้อ </td>
+                  <td style="background-color: #A3F95A; line-height:250%;" align="left" width="150px"> รถยึดเช่าซื้อ(ที่ลาน) </td>
                   <td style="line-height:250%;" width="70px" align="right"> {{number_format($Sum_HoldcarLeasing)}} &nbsp;</td>
-                  <td style="line-height:250%;" width="70px" align="right"> {{round(($Sum_HoldcarLeasing / $Sum_HoldcarAll) * 100)}}% &nbsp;</td>
+                  <td style="line-height:250%;" width="70px" align="right"> {{round((($Sum_HoldcarLeasing + $Sum_CusGetBack) / $Sum_HoldcarAll) * 100)}}% &nbsp;</td>
                 </tr>
                 <tr align="center" style="line-height: 200%;">
                   <td style="background-color: #A3F95A; line-height:250%;" align="left" width="150px"> รถยึด Ploan </td>
                   <td style="line-height:250%;" width="70px" align="right"> {{number_format($Sum_HoldcarPloan)}} &nbsp;</td>
                   <td style="line-height:250%;" width="70px" align="right"> {{round(($Sum_HoldcarPloan / $Sum_HoldcarAll) * 100)}}% &nbsp;</td>
                 </tr>
-                <tr align="center" style="line-height: 200%;">
+                <!-- <tr align="center" style="line-height: 200%;">
                   <td style="background-color: #A3F95A; line-height:250%;" align="left" width="150px"> ลูกค้ามารับรถคืน </td>
                   <td style="line-height:250%;" width="70px" align="right"> {{number_format($Sum_CusGetBack)}} &nbsp;</td>
                   <td style="line-height:250%;" width="70px" align="right"> {{round(($Sum_CusGetBack / $Sum_HoldcarAll) * 100)}}% &nbsp;</td>
-                </tr>
+                </tr> -->
                 <tr align="center" style="line-height: 200%;">
                   <td style="background-color: #A3F95A; line-height:250%;" align="left" width="150px"> ลูกค้ามาส่งรถคืน </td>
                   <td style="line-height:250%;" width="70px" align="right"> {{number_format($Sum_CusSendCar)}} &nbsp;</td>

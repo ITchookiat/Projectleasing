@@ -153,6 +153,11 @@
                 <i class="fa fa-calculator text-red mr-1"></i> โปรแกรมคำนวณค่างวด2
               </a>
             </div>
+            <div class="mb-2">
+              <a href="{{ route('MasterSetting.create') }}?type={{4}}">
+                <i class="fas fa-chart-line text-red mr-1"></i> ยอดเป้าผลิตภัณฑ์
+              </a>
+            </div>
           @endif
         </div>
       </div>

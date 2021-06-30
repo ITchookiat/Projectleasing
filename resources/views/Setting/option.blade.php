@@ -352,7 +352,7 @@
             </div>
         </div>
     @endif
-    @if($type == 2)
+    @if($type == 2) {{-- โปรแกรมคำนวณค่างวด --}}
         <form name="form1" action="#" method="post" enctype="multipart/form-data">
             <div class="modal-header">
                 <h4 class="modal-title">โปรแกรมคำนวณค่างวด</h4>
@@ -522,6 +522,180 @@
                 </div>
             </div>
         </form>
+    @endif
+    @if($type == 3) {{-- แก้ไขรายการยอดเป้า --}}
+    <form name="form2" action="{{ route('MasterSetting.update',[$data->Target_id]) }}?type={{3}}" method="post" enctype="multipart/form-data">
+        @csrf
+        @method('put')
+        <input type="hidden" name="_method" value="PATCH"/>  
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <div class="card card-outline">
+                    <div class="card-body p-0">
+                        <div class="row">
+                        <div class="col-12 col-sm-12">
+                            <div class="tab-content" id="vert-tabs-tabContent">
+                                <div class="tab-pane fade active show" id="vert-tabs-1" role="tabpanel" aria-labelledby="vert-tabs-1-tab">
+                                <div class="card-header bg-warning">
+                                    <h3 class="card-title"><i class="fas fa-chart-line mr-1"></i> เพิ่มเป้าผลิตภัณฑ์</h3>
+                                    <div class="card-tools">
+                                    <button type="submit" class="delete-modal btn-xs btn btn-success">
+                                        <i class="fas fa-save"></i> อัพเดท
+                                    </button>
+                                    <a href="" class="btn btn-xs btn btn-danger" data-dismiss="modal" aria-label="Close">
+                                        <i class="fas fa-close"></i> ยกเลิก
+                                    </a>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-12">
+                                    <br>
+                                    <div class="card">
+                                        <div class="card-body" style="display: block;">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <label class="text-right">ประเภท :</label>
+                                                <div class="mb-1">
+                                                    <input type="text" name="TargetType" value="{{$data->Target_Type}}" class="form-control" readonly />
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <label class="text-right">เดือน :</label>
+                                                <div class="mb-1">
+                                                    <select name="TargetMonth" class="form-control" required>
+                                                    <option value="" selected>--- เลือกเดือน ---</option>
+                                                    <option value="01" {{ (date('m') == '01') ? 'selected' : '' }}>มกราคม</option>
+                                                    <option value="02" {{ (date('m') == '02') ? 'selected' : '' }}>กุมภาพันธ์</option>
+                                                    <option value="03" {{ (date('m') == '03') ? 'selected' : '' }}>มีนาคม</option>
+                                                    <option value="04" {{ (date('m') == '04') ? 'selected' : '' }}>เมษายน</option>
+                                                    <option value="05" {{ (date('m') == '05') ? 'selected' : '' }}>พฤษภาคม</option>
+                                                    <option value="06" {{ (date('m') == '06') ? 'selected' : '' }}>มิถุนายน</option>
+                                                    <option value="07" {{ (date('m') == '07') ? 'selected' : '' }}>กรกฎาคม</option>
+                                                    <option value="08" {{ (date('m') == '08') ? 'selected' : '' }}>สิงหาคม</option>
+                                                    <option value="09" {{ (date('m') == '09') ? 'selected' : '' }}>กันยายน</option>
+                                                    <option value="10" {{ (date('m') == '10') ? 'selected' : '' }}>ตุลาคม</option>
+                                                    <option value="11" {{ (date('m') == '11') ? 'selected' : '' }}>พฤศจิกายน</option>
+                                                    <option value="12" {{ (date('m') == '12') ? 'selected' : '' }}>ธันวาคม</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                            <label class="text-right">ปี :</label>
+                                            <div class="mb-1">
+                                                <select name="TargetYear" class="form-control" required>
+                                                <option value="" selected>--- เลือกปี ---</option>
+                                                @php
+                                                    $Year = date('Y');
+                                                @endphp
+                                                @for ($i = 0; $i < 10; $i++)
+                                                <option value="{{ $Year }}" {{ (date('Y') == $Year) ? 'selected' : '' }}>{{ $Year }}</option>
+                                                @php
+                                                    $Year -= 1;
+                                                @endphp
+                                                @endfor
+                                                </select>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                    <div class="col-4">
+                                        <div class="card">
+                                        <div class="card-header" style="background-color:#E9E9E8;">
+                                            <h5 class="card-title text-sm">จังหวัดปัตตานี</h5>
+                                            <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                                            </button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body" style="display: block;">
+                                            <label class="text-right">01 - ปัตตานี :</label>
+                                            <div class="mb-1">
+                                                <input type="number" name="TargetPattani" value="{{$data->Target_Pattani}}" maxlength="7" class="form-control"/>
+                                            </div>
+                                            <label class="text-right">05 - สายบุรี :</label>
+                                            <div class="mb-1">
+                                                <input type="number" name="TargetSaiburi" value="{{$data->Target_Saiburi}}" maxlength="7" class="form-control"/>
+                                            </div>
+                                            <label class="text-right">08 - โคกโพธิ์ :</label>
+                                            <div class="mb-1">
+                                                <input type="number" name="TargetKhopor" value="{{$data->Target_Kophor}}" maxlength="7" class="form-control"/>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="card">
+                                        <div class="card-header" style="background-color:#E9E9E8;">
+                                            <h5 class="card-title text-sm">จังหวัดยะลา</h5>
+                                            <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                                            </button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body" style="display: block;">
+                                            <label class="text-right">03 - ยะลา :</label>
+                                            <div class="mb-1">
+                                                <input type="number" name="TargetYala" value="{{$data->Target_Yala}}" maxlength="7" class="form-control"/>
+                                            </div>
+                                            <label class="text-right">07 - เบตง :</label>
+                                            <div class="mb-1">
+                                                <input type="number" name="TargetBetong" value="{{$data->Target_Betong}}" maxlength="7" class="form-control"/>
+                                            </div>
+                                            <label class="text-right">13 - บันนังสตา :</label>
+                                            <div class="mb-1">
+                                                <input type="number" name="TargetBangnansta" value="{{$data->Target_Bannangsta}}" maxlength="7" class="form-control"/>
+                                            </div>
+                                            <label class="text-right">14 - ยะหา :</label>
+                                            <div class="mb-1">
+                                                <input type="number" name="TargetYaha" value="{{$data->Target_Yaha}}" maxlength="7" class="form-control"/>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="card">
+                                        <div class="card-header" style="background-color:#E9E9E8;">
+                                            <h5 class="card-title text-sm">จังหวัดนราธิวาส</h5>
+                                            <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                                            </button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body" style="display: block;">
+                                            <label class="text-right">04 - นราธิวาส :</label>
+                                            <div class="mb-1">
+                                                <input type="number" name="TargetNara" value="{{$data->Target_Narathiwat}}" maxlength="7" class="form-control"/>
+                                            </div>
+                                            <label class="text-right">06 - โกลก :</label>
+                                            <div class="mb-1">
+                                                <input type="number" name="TargetKolok" value="{{$data->Target_Kolok}}" maxlength="7" class="form-control"/>
+                                            </div>
+                                            <label class="text-right">09 - ตันหยงมัส :</label>
+                                            <div class="mb-1">
+                                                <input type="number" name="TargetTangyongmas" value="{{$data->Target_Tanyongmas}}" maxlength="7" class="form-control"/>
+                                            </div>
+                                            <label class="text-right">12 - รือเสาะ :</label>
+                                            <div class="mb-1">
+                                                <input type="number" name="TargetRosok" value="{{$data->Target_Rosok}}" maxlength="7" class="form-control"/>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <br>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>     
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
     @endif
 </section>
 

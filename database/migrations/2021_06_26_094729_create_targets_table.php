@@ -30,6 +30,7 @@ class CreateTargetsTable extends Migration
             $table->string('Target_Kolok')->nullable();
             $table->string('Target_Tanyongmas')->nullable();
             $table->string('Target_Rosok')->nullable();
+            $table->string('Target_Dateadd')->nullable();
             $table->string('Target_Useradd')->nullable();
             $table->timestamps();
         });
