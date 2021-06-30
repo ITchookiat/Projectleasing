@@ -391,7 +391,10 @@
                             <td width="60px">
                               @if($dataPloan != null)
                                 <div class="form-inline">
-                                  <a href="#"><i class="fa fa-edit text-warning pr-2"></i></a>
+                                  <a href="#" title="แก้ไขรายการ" data-toggle="modal" data-target="#modal-editlist" data-backdrop="static"
+                                    data-link="{{ route('MasterSetting.show',[$dataPloan->Target_id]) }}?type={{3}}">
+                                    <i class="fa fa-edit text-warning pr-2"></i>
+                                  </a>
                                   <!-- <a href="#"><i class="fa fa-trash text-danger"></i></a> -->
                                 </div>
                               @endif
@@ -410,7 +413,10 @@
                             <td width="60px">
                               @if($dataMicro != null)
                                 <div class="form-inline">
-                                  <a href="#"><i class="fa fa-edit text-warning pr-2"></i></a>
+                                  <a href="#" title="แก้ไขรายการ" data-toggle="modal" data-target="#modal-editlist" data-backdrop="static"
+                                    data-link="{{ route('MasterSetting.show',[$dataMicro->Target_id]) }}?type={{3}}">
+                                    <i class="fa fa-edit text-warning pr-2"></i>
+                                  </a>
                                   <!-- <a href="#"><i class="fa fa-trash text-danger"></i></a> -->
                                 </div>
                               @endif
@@ -429,7 +435,10 @@
                             <td width="60px">
                               @if($dataMotor != null)
                                 <div class="form-inline">
-                                  <a href="#"><i class="fa fa-edit text-warning pr-2"></i></a>
+                                  <a href="#" title="แก้ไขรายการ" data-toggle="modal" data-target="#modal-editlist" data-backdrop="static"
+                                    data-link="{{ route('MasterSetting.show',[$dataMotor->Target_id]) }}?type={{3}}">
+                                    <i class="fa fa-edit text-warning pr-2"></i>
+                                  </a>
                                   <!-- <a href="#"><i class="fa fa-trash text-danger"></i></a> -->
                                 </div>
                               @endif
@@ -517,8 +526,8 @@
                                   </div>
                                   <div class="row form-group">
                                     <div class="col-4">
-                                      <div class="card">
-                                        <div class="card-header" style="background-color:#E9E9E8;">
+                                      <div class="card card-warning">
+                                        <div class="card-header">
                                           <h5 class="card-title text-sm">จังหวัดปัตตานี</h5>
                                           <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -542,8 +551,8 @@
                                       </div>
                                     </div>
                                     <div class="col-4">
-                                      <div class="card">
-                                        <div class="card-header" style="background-color:#E9E9E8;">
+                                      <div class="card card-warning">
+                                        <div class="card-header">
                                           <h5 class="card-title text-sm">จังหวัดยะลา</h5>
                                           <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -571,8 +580,8 @@
                                       </div>
                                     </div>
                                     <div class="col-4">
-                                      <div class="card">
-                                        <div class="card-header" style="background-color:#E9E9E8;">
+                                      <div class="card card-warning">
+                                        <div class="card-header">
                                           <h5 class="card-title text-sm">จังหวัดนราธิวาส</h5>
                                           <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>

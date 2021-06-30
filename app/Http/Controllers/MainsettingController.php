@@ -214,24 +214,23 @@ class MainsettingController extends Controller
             }
         }
         elseif($request->type == 3){ //ยอดเป้า
-        $target = Target::where('Target_id',$id)->first();
-            $target->Target_Type = $request->get('TargetType');
-            $target->Target_Month = $request->get('TargetMonth');
-            $target->Target_Year = $request->get('TargetYear');
-            $target->Target_Pattani = $request->get('TargetPattani');
-            $target->Target_Saiburi = $request->get('TargetSaiburi');
-            $target->Target_Kophor = $request->get('TargetKhopor');
-            $target->Target_Yarang = $request->get('TargetYarang');
-            $target->Target_Yala = $request->get('TargetYala');
-            $target->Target_Betong = $request->get('TargetBetong');
-            $target->Target_Bannangsta = $request->get('TargetBangnansta');
-            $target->Target_Yaha = $request->get('TargetYaha');
-            $target->Target_Narathiwat = $request->get('TargetNara');
-            $target->Target_Kolok = $request->get('TargetKolok');
-            $target->Target_Tanyongmas = $request->get('TargetTangyongmas');
-            $target->Target_Rosok = $request->get('TargetRosok');
-        $target->update();
-
+            $target = Target::where('Target_id',$id)->first();
+                $target->Target_Type = $request->get('TargetType');
+                $target->Target_Month = $request->get('TargetMonth');
+                $target->Target_Year = $request->get('TargetYear');
+                $target->Target_Pattani = $request->get('TargetPattani');
+                $target->Target_Saiburi = $request->get('TargetSaiburi');
+                $target->Target_Kophor = $request->get('TargetKhopor');
+                $target->Target_Yarang = $request->get('TargetYarang');
+                $target->Target_Yala = $request->get('TargetYala');
+                $target->Target_Betong = $request->get('TargetBetong');
+                $target->Target_Bannangsta = $request->get('TargetBangnansta');
+                $target->Target_Yaha = $request->get('TargetYaha');
+                $target->Target_Narathiwat = $request->get('TargetNara');
+                $target->Target_Kolok = $request->get('TargetKolok');
+                $target->Target_Tanyongmas = $request->get('TargetTangyongmas');
+                $target->Target_Rosok = $request->get('TargetRosok');
+            $target->update();
         }
         return redirect()->back()->with('success','อัพเดทข้อมูลเรียบร้อย');
     }

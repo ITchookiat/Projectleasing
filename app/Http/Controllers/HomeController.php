@@ -42,6 +42,7 @@ class HomeController extends Controller
     public function index($name, Request $request)
     {
         // dump($request->Dashboard);
+        // dd($request);
 
         if($request->all == 'Y'){
             $newfdate = '';
@@ -1779,6 +1780,30 @@ class HomeController extends Controller
 
         $Allproducts = $request->all;
 
+        $dataLeasing = DB::table('targets')
+                ->where('Target_Type','=','Leasing')
+                ->where('Target_Month','=',date('m'))
+                ->where('Target_Year','=',date('Y'))
+                ->first();
+
+        $dataPloan = DB::table('targets')
+                ->where('Target_Type','=','Ploan')
+                ->where('Target_Month','=',date('m'))
+                ->where('Target_Year','=',date('Y'))
+                ->first();
+
+        $dataMicro = DB::table('targets')
+                ->where('Target_Type','=','Micro')
+                ->where('Target_Month','=',date('m'))
+                ->where('Target_Year','=',date('Y'))
+                ->first();
+
+        $dataMotor = DB::table('targets')
+                ->where('Target_Type','=','Motor')
+                ->where('Target_Month','=',date('m'))
+                ->where('Target_Year','=',date('Y'))
+                ->first();
+
         if($request->Dashboard == 2){
             return view('home2', compact('newfdate','newtdate','Allproducts',
             'SumLeasingAll','Leasing01','Leasing03','Leasing04','Leasing05','Leasing06','Leasing07','Leasing08','Leasing09','Leasing12','Leasing13','Leasing14',
@@ -1836,7 +1861,8 @@ class HomeController extends Controller
             'Total_TM_Motor','TM_Motor_HaveProperty','TM_Motor_NoProperty','TM_Motor_NoWarranty','TM_Motor_BuyHaveProperty','TM_Motor_BuyNoHaveProperty','TM_Motor_BuyNoWarranty','TM_Motor_VIPowner','TM_Motor_VIPbuy',
             'Total_RS_Motor','RS_Motor_HaveProperty','RS_Motor_NoProperty','RS_Motor_NoWarranty','RS_Motor_BuyHaveProperty','RS_Motor_BuyNoHaveProperty','RS_Motor_BuyNoWarranty','RS_Motor_VIPowner','RS_Motor_VIPbuy',
             'Total_BNT_Motor','BNT_Motor_HaveProperty','BNT_Motor_NoProperty','BNT_Motor_NoWarranty','BNT_Motor_BuyHaveProperty','BNT_Motor_BuyNoHaveProperty','BNT_Motor_BuyNoWarranty','BNT_Motor_VIPowner','BNT_Motor_VIPbuy',
-            'Total_YH_Motor','YH_Motor_HaveProperty','YH_Motor_NoProperty','YH_Motor_NoWarranty','YH_Motor_BuyHaveProperty','YH_Motor_BuyNoHaveProperty','YH_Motor_BuyNoWarranty','YH_Motor_VIPowner','YH_Motor_VIPbuy'
+            'Total_YH_Motor','YH_Motor_HaveProperty','YH_Motor_NoProperty','YH_Motor_NoWarranty','YH_Motor_BuyHaveProperty','YH_Motor_BuyNoHaveProperty','YH_Motor_BuyNoWarranty','YH_Motor_VIPowner','YH_Motor_VIPbuy',
+            'dataLeasing','dataPlaon','dataMicro','dataMotor'
         ));
         }else{
             return view($name, compact('newfdate','newtdate','Allproducts',

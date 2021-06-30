@@ -197,9 +197,11 @@
                         <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control pr-3" style="background-color:#E9E9E8;"/>
                         ถึงวันที่ :
                         <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control" style="background-color:#E9E9E8;"/>&nbsp;
-                        <!-- <button type="submit" class="btn btn-info" title="ค้นหา">
+                        <button type="submit" class="btn btn-info" title="ค้นหา">
                           <span class="fas fa-search"></span> ค้นหา
-                        </button> -->
+                        </button>
+                        <input type="text" name="Dashboard" value="2"/>&nbsp;
+                        
                       </small>
                     </div>
                   </form>
@@ -217,13 +219,13 @@
                         <li class="nav-item">
                           <a class="nav-link active" id="custom-tabs-leasing-tab" data-toggle="pill" href="#custom-tabs-leasing" role="tab" aria-controls="custom-tabs-leasing" aria-selected="false">
                             เช่าซื้อ&nbsp;
-                            <span class="badge bg-primary float-right">@if($Allproducts == '') {{number_format($SumLeasingAll)}} @endif</span>
+                            <!-- <span class="badge bg-primary float-right">@if($Allproducts == '') {{number_format($SumLeasingAll)}} @endif</span> -->
                           </a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" id="custom-tabs-ploan-tab" data-toggle="pill" href="#custom-tabs-ploan" role="tab" aria-controls="custom-tabs-ploan" aria-selected="false">
                           Ploan&nbsp;
-                          <span class="badge bg-primary float-right">@if($Allproducts == '') {{number_format($SumPloanAll)}} @endif</span>
+                          <!-- <span class="badge bg-primary float-right">@if($Allproducts == '') {{number_format($SumPloanAll)}} @endif</span> -->
                           </a>
                         </li>
                         <li class="nav-item">
@@ -359,8 +361,6 @@
                                         </div>
                                       </div>
                                     </div>
-                                    <br>
-                                    <br>
                                   </div>
                                 <!-- </div> -->
                               </div>
@@ -507,11 +507,11 @@
           name: "ยอดเป้า",
           type: "line",
           color: "#FB2108",
-          data: [23, 42, 35, 27, 43, 22, 17, 31, 22, 22, 12, 16]
+          data: [{{$dataLeasing->Target_Pattani}}, {{$dataLeasing->Target_Yala}}, {{$dataLeasing->Target_Narathiwat}}, {{$dataLeasing->Target_Saiburi}}, {{$dataLeasing->Target_Kolok}}, {{$dataLeasing->Target_Betong}}, {{$dataLeasing->Target_Kophor}}, {{$dataLeasing->Target_Tanyongmas}}, {{$dataLeasing->Target_Rosok}}, {{$dataLeasing->Target_Bannangsta}}, {{$dataLeasing->Target_Yaha}}, {{$SumHomecarAll}}]
         }
       ],
       chart: {
-        height: 300,
+        height: 250,
         type: "line",
         zoom: {
           enabled: false
@@ -527,7 +527,7 @@
       plotOptions: {
         bar: {
           dataLabels: {
-            position: "bottom" // top, center, bottom
+            position: "center" // top, center, bottom
           },
         }
       },
