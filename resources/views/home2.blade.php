@@ -2,151 +2,76 @@
 @section('title','Home')
 @section('content')
   <style>
-    i:hover {
-      color: blue;
+    @import url('https://fonts.googleapis.com/css?family=Arimo:400,700&display=swap');
+    body{
+      font-family: 'Arimo', sans-serif;
     }
-    @import url(https://fonts.googleapis.com/css?family=Roboto);
-
-    body {
-      font-family: Roboto, sans-serif;
+    h2{
+      color:#000;
+      text-align:center;
+      font-size:2em;
     }
-  </style>
-  <style>
-    #todo-list{
-    width:100%;
-    /* margin:0 auto 190px auto; */
-    padding:5px;
-    background:white;
-    position:relative;
-    /*box-shadow*/
-    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
-    -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
-          box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
-    /*border-radius*/
-    -webkit-border-radius:5px;
-    -moz-border-radius:5px;
-          border-radius:5px;}
-    #todo-list:before{
-    content:"";
-    position:absolute;
-    z-index:-1;
-    /*box-shadow*/
-    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.4);
-    -moz-box-shadow:0 0 20px rgba(0,0,0,0.4);
-          box-shadow:0 0 20px rgba(0,0,0,0.4);
-    top:50%;
-    bottom:0;
-    left:10px;
-    right:10px;
-    /*border-radius*/
-    -webkit-border-radius:100px / 10px;
-    -moz-border-radius:100px / 10px;
-          border-radius:100px / 10px;
+    .warpper{
+      display:flex;
+      flex-direction: column;
+      align-items: center;
     }
-    .todo-wrap{
-    display:block;
-    position:relative;
-    padding-left:35px;
-    /*box-shadow*/
-    -webkit-box-shadow:0 2px 0 -1px #ebebeb;
-    -moz-box-shadow:0 2px 0 -1px #ebebeb;
-          box-shadow:0 2px 0 -1px #ebebeb;
+    .tab{
+      cursor: pointer;
+      padding:10px 20px;
+      margin:0px 2px;
+      background:#C6BDBA;
+      display:inline-block;
+      color:#fff;
+      border-radius:3px 3px 0px 0px;
+      box-shadow: 0 0.5rem 0.8rem #00000080;
     }
-    .todo-wrap:last-of-type{
-    /*box-shadow*/
-    -webkit-box-shadow:none;
-    -moz-box-shadow:none;
-          box-shadow:none;
+    .panels{
+      background:#fffffff6;
+      box-shadow: 0 2rem 2rem #00000080;
+      min-height:200px;
+      width:100%;
+      border-radius:3px;
+      overflow:hidden;
+      padding:20px;  
     }
-    input[type="checkbox"]{
-    position:absolute;
-    height:0;
-    width:0;
-    opacity:0;
-    /* top:-600px; */
+    .panel{
+      display:none;
+      animation: fadein .8s;
     }
-    .todo{
-    display:inline-block;
-    font-weight:200;
-    padding:10px 5px;
-    height:37px;
-    position:relative;
+    @keyframes fadein {
+        from {
+            opacity:0;
+        }
+        to {
+            opacity:1;
+        }
     }
-    .todo:before{
-    content:'';
-    display:block;
-    position:absolute;
-    top:calc(50% + 10px);
-    left:0;
-    width:0%;
-    height:1px;
-    /* background:#cd4400; */
-    /*transition*/
-    -webkit-transition:.25s ease-in-out;
-    -moz-transition:.25s ease-in-out;
-      -o-transition:.25s ease-in-out;
-          transition:.25s ease-in-out;
+    .panel-title{
+      font-size:1.5em;
+      font-weight:bold
     }
-    .todo:after{
-    content:'';
-    display:block;
-    position:absolute;
-    z-index:0;
-    height:18px;
-    width:18px;
-    top:9px;
-    left:-25px;
-    /*box-shadow*/
-    -webkit-box-shadow:inset 0 0 0 2px #d8d8d8;
-    -moz-box-shadow:inset 0 0 0 2px #d8d8d8;
-          box-shadow:inset 0 0 0 2px #d8d8d8;
-    /*transition*/
-    -webkit-transition:.25s ease-in-out;
-    -moz-transition:.25s ease-in-out;
-      -o-transition:.25s ease-in-out;
-          transition:.25s ease-in-out;
-    /*border-radius*/
-    -webkit-border-radius:4px;
-    -moz-border-radius:4px;
-          border-radius:4px;
+    .radio{
+      display:none;
     }
-    .todo:hover:after{
-    /*box-shadow*/
-    -webkit-box-shadow:inset 0 0 0 2px #949494;
-    -moz-box-shadow:inset 0 0 0 2px #949494;
-          box-shadow:inset 0 0 0 2px #949494;
+    #one:checked ~ .panels #one-panel,
+    #two:checked ~ .panels #two-panel,
+    #three:checked ~ .panels #three-panel,
+    #four:checked ~ .panels #four-panel,
+    #five:checked ~ .panels #five-panel,
+    #six:checked ~ .panels #six-panel{
+      display:block
     }
-    .todo .fa-check{
-    position:absolute;
-    z-index:1;
-    left:-31px;
-    top:0;
-    font-size:1px;
-    line-height:36px;
-    width:36px;
-    height:36px;
-    text-align:center;
-    color:transparent;
-    text-shadow:1px 1px 0 white, -1px -1px 0 white;
+    #one:checked ~ .tabs #one-tab,
+    #two:checked ~ .tabs #two-tab,
+    #three:checked ~ .tabs #three-tab,
+    #four:checked ~ .tabs #four-tab,
+    #five:checked ~ .tabs #five-tab,
+    #six:checked ~ .tabs #six-tab{
+      background:#fffffff6;
+      color:#000;
+      border-top: 3px solid #000;
     }
-    :checked + .todo{
-    color:#717171;
-    }
-    :checked + .todo:before{
-    width:100%;
-    }
-    :checked + .todo:after{
-    /*box-shadow*/
-    -webkit-box-shadow:inset 0 0 0 2px #0eb0b7;
-    -moz-box-shadow:inset 0 0 0 2px #0eb0b7;
-          box-shadow:inset 0 0 0 2px #0eb0b7;
-    }
-    :checked + .todo .fa-check{
-    font-size:20px;
-    line-height:35px;
-    color:#0eb0b7;
-    }
-
   </style>
 
   @if(session()->has('success'))
@@ -167,29 +92,40 @@
     }
   @endphp
 
-  @php 
-    $TotalAllProduct = $SumMicroAll + $SumPloanAll + $SumLeasingAll + $SumStaffAll + $SumHomecarAll + $SumMotorAll;
-    $TotalAllProduct2 = $SumTopcar_MicroAll + $SumTopcar_PloanAll + $SumTopcar_LeasingAll + $SumTopcar_HomecarAll + $SumTopcar_StaffAll + $SumTopcar_MotorAll;
+  @if($dataLeasing != null)
+    @php 
+      $TargetPattani_LS = round(($Leasing01 / $dataLeasing->Target_Pattani) * 100);
+      $TargetYala_LS = round(($Leasing03 / $dataLeasing->Target_Yala) * 100);
+      $TargetNara_LS = round(($Leasing04 / $dataLeasing->Target_Narathiwat) * 100);
+      $TargetSaiburi_LS = round(($Leasing05 / $dataLeasing->Target_Saiburi) * 100);
+      $TargetKolok_LS = round(($Leasing06 / $dataLeasing->Target_Kolok) * 100);
+      $TargetBetong_LS = round(($Leasing07 / $dataLeasing->Target_Betong) * 100);
+      $TargetKophor_LS = round(($Leasing08 / $dataLeasing->Target_Kophor) * 100);
+      $TargetTanyongmas_LS = round(($Leasing09/ $dataLeasing->Target_Tanyongmas) * 100);
+      $TargetRosok_LS = round(($Leasing12 / $dataLeasing->Target_Rosok) * 100);
+      $TargetBannangsta_LS = round(($Leasing13 / $dataLeasing->Target_Bannangsta) * 100);
+      $TargetYaha_LS = round(($Leasing14 / $dataLeasing->Target_Yaha) * 100);
+      $TargetHomecar_LS = round(($SumHomecarAll / $SumHomecarAll) * 100);
+    @endphp
+  @endif
 
-    $Total_baabLeasing = $Total_PN + $Total_SB + $Total_KP + $Total_YL + $Total_BT + $Total_BNT + $Total_YH + $Total_NR + $Total_KOL + $Total_TM + $Total_RS;
-    $Total_baabPloan = $Total_PN_Ploan + $Total_SB_Ploan + $Total_KP_Ploan + $Total_YL_Ploan + $Total_BT_Ploan + $Total_BNT_Ploan + $Total_YH_Ploan + $Total_NR_Ploan + $Total_KOL_Ploan + $Total_TM_Ploan + $Total_RS_Ploan;
-    $Total_baabMicro = $Total_PN_Micro + $Total_SB_Micro + $Total_KP_Micro + $Total_YL_Micro + $Total_BT_Micro + $Total_BNT_Micro + $Total_YH_Micro + $Total_NR_Micro + $Total_KOL_Micro + $Total_TM_Micro + $Total_RS_Micro;
-    $Total_baabMotor = $Total_PN_Motor + $Total_SB_Motor + $Total_KP_Motor + $Total_YL_Motor + $Total_BT_Motor + $Total_BNT_Motor + $Total_YH_Motor + $Total_NR_Motor + $Total_KOL_Motor + $Total_TM_Motor + $Total_RS_Motor;
+  @if($dataPloan != null)
+    @php 
+      $TargetPattani_PL = round(($Ploan50 / $dataPloan->Target_Pattani) * 100);
+      $TargetYala_PL = round(($Ploan51 / $dataPloan->Target_Yala) * 100);
+      $TargetNara_PL = round(($Ploan52 / $dataPloan->Target_Narathiwat) * 100);
+      $TargetSaiburi_PL = round(($Ploan53 / $dataPloan->Target_Saiburi) * 100);
+      $TargetKolok_PL = round(($Ploan54 / $dataPloan->Target_Kolok) * 100);
+      $TargetBetong_PL = round(($Ploan55 / $dataPloan->Target_Betong) * 100);
+      $TargetKophor_PL = round(($Ploan56 / $dataPloan->Target_Kophor) * 100);
+      $TargetTanyongmas_PL = round(($Ploan57 / $dataPloan->Target_Tanyongmas) * 100);
+      $TargetRosok_PL = round(($Ploan58 / $dataPloan->Target_Rosok) * 100);
+      $TargetBannangsta_PL = round(($Ploan59 / $dataPloan->Target_Bannangsta) * 100);
+      $TargetYaha_PL = round(($Ploan60 / $dataPloan->Target_Yaha) * 100);
+    @endphp
+  @endif
 
-    $TargetPattani = round(($Leasing01 / $dataLeasing->Target_Pattani) * 100);
-    $TargetSaiburi = round(($Leasing05 / $dataLeasing->Target_Saiburi) * 100);
-    $TargetKophor = round(($Leasing08 / $dataLeasing->Target_Kophor) * 100);
-    $TargetYala = round(($Leasing03 / $dataLeasing->Target_Yala) * 100);
-    $TargetBetong = round(($Leasing07 / $dataLeasing->Target_Betong) * 100);
-    $TargetBannangsta = round(($Leasing13 / $dataLeasing->Target_Bannangsta) * 100);
-    $TargetYaha = round(($Leasing14 / $dataLeasing->Target_Yaha) * 100);
-    $TargetNara = round(($Leasing04 / $dataLeasing->Target_Narathiwat) * 100);
-    $TargetKolok = round(($Leasing06 / $dataLeasing->Target_Kolok) * 100);
-    $TargetTanyongmas = round(($Leasing09/ $dataLeasing->Target_Tanyongmas) * 100);
-    $TargetRosok = round(($Leasing12 / $dataLeasing->Target_Rosok) * 100);
-  @endphp
-
-  <div class="content-header text-sm" style="padding:15px;">
+  <div class="content-header text-xs">
     <div class="row justify-content-center">
       <div class="col-md-12 table-responsive">
       
@@ -204,16 +140,15 @@
                 @if($Allproducts == '')
                   <form method="get" action="#">
                     <div class="float-right">
-                      <small class="badge" style="font-size: 14px;">
+                      <small class="badge" style="font-size: 12px;">
                         ข้อมูลวันที่ :
-                        <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control pr-3"/>
+                        <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control form-control-sm pr-3"/>
                         ถึงวันที่ :
-                        <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control"/>&nbsp;
-                        <button type="submit" class="btn btn-info" title="ค้นหา">
+                        <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control form-control-sm"/>&nbsp;
+                        <button type="submit" class="btn btn-sm btn-dark" title="ค้นหา">
                           <span class="fas fa-search"></span> ค้นหา
                         </button>
                         <input type="hidden" name="Dashboard" value="2"/>&nbsp;
-                        
                       </small>
                     </div>
                   </form>
@@ -224,203 +159,76 @@
           <!-- <div class="card-body"> -->
             <div class="row">
               <div class="col-md-12">
-                <div class="col-12 col-sm-12">
-                  <div class="card card-primary card-outline card-outline-tabs">
-                    <div class="card-header p-0 border-bottom-0">
-                      <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
-                        <li class="nav-item">
-                          <a class="nav-link active" id="custom-tabs-leasing-tab" data-toggle="pill" href="#custom-tabs-leasing" role="tab" aria-controls="custom-tabs-leasing" aria-selected="false">
-                            เช่าซื้อ&nbsp;
-                            <!-- <span class="badge bg-primary float-right">@if($Allproducts == '') {{number_format($SumLeasingAll)}} @endif</span> -->
-                          </a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" id="custom-tabs-ploan-tab" data-toggle="pill" href="#custom-tabs-ploan" role="tab" aria-controls="custom-tabs-ploan" aria-selected="false">
-                          Ploan&nbsp;
-                          <!-- <span class="badge bg-primary float-right">@if($Allproducts == '') {{number_format($SumPloanAll)}} @endif</span> -->
-                          </a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" id="custom-tabs-micro-tab" data-toggle="pill" href="#custom-tabs-micro" role="tab" aria-controls="custom-tabs-micro" aria-selected="false">Micro</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" id="custom-tabs-motor-tab" data-toggle="pill" href="#custom-tabs-motor" role="tab" aria-controls="custom-tabs-motor" aria-selected="true">มอเตอร์ไซค์</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" id="custom-tabs-staff-tab" data-toggle="pill" href="#custom-tabs-staff" role="tab" aria-controls="custom-tabs-staff" aria-selected="true">พนักงาน</a>
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="card-body">
-                      <div class="tab-content" id="custom-tabs-four-tabContent">
-                        <div class="tab-pane fade active show" id="custom-tabs-leasing" role="tabpanel" aria-labelledby="custom-tabs-leasing-tab">
-                          <div class="row mb-1">
-                            <section class="col-lg-7 connectedSortable ui-sortable">
-                              <div class="col-md-12 card">
-                                <!-- <div id="chartLeasing"></div> -->
-                                <div id="chartLeasingPercent"></div>
-                              </div>
-                            </section>
-                            <section class="col-lg-5 connectedSortable ui-sortable">
-                              <div class="col-md-12 card">
-                                  <div class="card-header text-xs">
-                                    <h5 class="card-title"><i class="fas fa-tasks"></i> เป้าเช่าซื้อ</h5>
-                                    <!-- <div class="card-tools">
-                                      <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                                      </button>
-                                      <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
-                                      </button>
-                                      <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                        <i class="fas fa-times"></i>
-                                      </button>
-                                    </div> -->
-                                  </div>
-                                  <div class="col-md-12">
-                                    <br>
-                                    <div class="row">
-                                      <div class="col-md-4">
-                                        <div class="text-xs" id="todo-list" style="background-color:#F5F9B1;">
-                                          <span class="todo-wrap">
-                                            <input type="checkbox" id="1" name="ContractsCar" value="complete" {{ ($TargetPattani >= 100) ? 'checked' : '' }}/>
-                                            <label for="1" class="todo">
-                                              <i class="fa fa-check"></i>
-                                              ปัตตานี @if($Leasing01 != null)({{$TargetPattani}}%)@endif
-                                            </label>
-                                          </span>
-                                          <span class="todo-wrap">
-                                            <input type="checkbox" id="2" name="ManualCar" value="complete" {{ ($TargetSaiburi >= 100) ? 'checked' : '' }}/>
-                                            <label for="2" class="todo">
-                                              <i class="fa fa-check"></i>
-                                              สายบุรี @if($Leasing05 != null)({{$TargetSaiburi}}%)@endif
-                                            </label>
-                                          </span>
-                                          <span class="todo-wrap">
-                                            <input type="checkbox" id="3" name="KeyReserve" value="complete" {{ ($TargetKophor >= 100) ? 'checked' : '' }}/>
-                                            <label for="3" class="todo">
-                                              <i class="fa fa-check"></i>
-                                              โคกโพธิ์ @if($Leasing08 != null)({{$TargetKophor}}%)@endif
-                                            </label>
-                                          </span>
-                                          <span class="todo-wrap">
-                                            <input type="checkbox" id="4" name="KeyReserve" value="complete"/>
-                                            <label for="4" class="todo">
-                                              <i class="fa fa-check"></i>
-                                              
-                                            </label>
-                                          </span>
-                                        </div>
-                                      </div>
-                                      <div class="col-md-4">
-                                        <div class="text-xs" id="todo-list" style="background-color:#D7FCC0;">
-                                          <span class="todo-wrap">
-                                            <input type="checkbox" id="5" name="ContractsCar" value="complete" {{ ($TargetYala >= 100) ? 'checked' : '' }}/>
-                                            <label for="5" class="todo">
-                                              <i class="fa fa-check"></i>
-                                              ยะลา @if($Leasing03 != null)({{$TargetYala}}%)@endif
-                                            </label>
-                                          </span>
-                                          <span class="todo-wrap">
-                                            <input type="checkbox" id="6" name="ManualCar" value="complete" {{ ($TargetBetong >= 100) ? 'checked' : '' }}/>
-                                            <label for="6" class="todo">
-                                              <i class="fa fa-check"></i>
-                                              เบตง @if($Leasing07 != null)({{$TargetBetong}}%)@endif
-                                            </label>
-                                          </span>
-                                          <span class="todo-wrap">
-                                            <input type="checkbox" id="7" name="KeyReserve" value="complete" {{ ($TargetBannangsta >= 100) ? 'checked' : '' }}/>
-                                            <label for="7" class="todo">
-                                              <i class="fa fa-check"></i>
-                                              บันนังสตา @if($Leasing13 != null)({{$TargetBannangsta}}%)@endif
-                                            </label>
-                                          </span>
-                                          <span class="todo-wrap">
-                                            <input type="checkbox" id="8" name="ExpireTax" value="complete" {{ ($TargetYaha >= 100) ? 'checked' : '' }}/>
-                                            <label for="8" class="todo">
-                                              <i class="fa fa-check"></i>
-                                              ยะหา @if($Leasing14 != null)({{$TargetYaha}}%)@endif
-                                            </label>
-                                          </span>
-                                        </div>
-                                      </div>
-                                      <div class="col-md-4">
-                                        <div class="text-xs" id="todo-list" style="background-color:#E4DAF3;">
-                                          <span class="todo-wrap">
-                                            <input type="checkbox" id="9" name="ContractsCar" value="complete" {{ ($TargetNara >= 100) ? 'checked' : '' }}/>
-                                            <label for="9" class="todo">
-                                              <i class="fa fa-check"></i>
-                                              นราธิวาส @if($Leasing04 != null)({{$TargetNara}}%)@endif
-                                            </label>
-                                          </span>
-                                          <span class="todo-wrap">
-                                            <input type="checkbox" id="10" name="ManualCar" value="complete" {{ ($TargetKolok >= 100) ? 'checked' : '' }}/>
-                                            <label for="10" class="todo">
-                                              <i class="fa fa-check"></i>
-                                              โกลก @if($Leasing06 != null)({{$TargetKolok}}%)@endif
-                                            </label>
-                                          </span>
-                                          <span class="todo-wrap">
-                                            <input type="checkbox" id="11" name="KeyReserve" value="complete" {{ ($TargetTanyongmas >= 100) ? 'checked' : '' }}/>
-                                            <label for="11" class="todo">
-                                              <i class="fa fa-check"></i>
-                                              ตันหยงมัส @if($Leasing06 != null)({{$TargetTanyongmas}}%)@endif
-                                            </label>
-                                          </span>
-                                          <span class="todo-wrap">
-                                            <input type="checkbox" id="12" name="ExpireTax" value="complete" {{ ($TargetRosok >= 100) ? 'checked' : '' }}/>
-                                            <label for="12" class="todo">
-                                              <i class="fa fa-check"></i>
-                                              รือเสาะ @if($Leasing12 != null)({{$TargetRosok}}%)@endif
-                                            </label>
-                                          </span>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <br>
-                                  </div>
-                              </div>
-                            </section>
+                <div class="warpper">
+                  <input class="radio" id="one" name="group" type="radio" checked>
+                  <input class="radio" id="two" name="group" type="radio">
+                  <input class="radio" id="three" name="group" type="radio">
+                  <input class="radio" id="four" name="group" type="radio">
+                  <input class="radio" id="five" name="group" type="radio">
+                  <input class="radio" id="six" name="group" type="radio">
+                  <div class="tabs">
+                    <label class="tab" id="one-tab" for="one"> เช่าซื้อ </label>
+                    <label class="tab" id="two-tab" for="two"> Ploan </label>
+                    <label class="tab" id="three-tab" for="three"> Micro </label>
+                    <label class="tab" id="four-tab" for="four"> มอเตอร์ไซค์ </label>
+                    <label class="tab" id="five-tab" for="five"> พนักงาน </label>
+                    <label class="tab" id="six-tab" for="six"> รถบ้าน </label>
+                  </div>
+                  <div class="panels">
+                    <div class="panel" id="one-panel">
+                      <div class="row mb-1">
+                        <section class="col-lg-8 connectedSortable ui-sortable">
+                          <div class="col-md-12 card">
+                            <div id="chartLeasingPercent"></div>
                           </div>
-                          <div class="row mb-1">
-                            <section class="col-lg-12 connectedSortable ui-sortable">
-                              <div class="col-md-12 card">
-                                <div id="chartLeasingCash"></div>
-                              </div>
-                            </section>
+                        </section>
+                        <section class="col-lg-4 connectedSortable ui-sortable">
+                          <div class="col-md-12 card">
+                            <div id="chartLeasingTarget"></div>
                           </div>
-                        </div>
-                        <div class="tab-pane fade" id="custom-tabs-ploan" role="tabpanel" aria-labelledby="custom-tabs-ploan-tab">
-                          <div class="row mb-1">
-                            <section class="col-lg-7 connectedSortable ui-sortable">
-                              <div class="col-md-12 card">
-                                <div id="chartPloan"></div>
-                              </div>
-                            </section>
-                            <section class="col-lg-5 connectedSortable ui-sortable">
-                              <div class="col-md-12 card">
-                                <div id="chartPloanPercent"></div>
-                              </div>
-                            </section>
+                        </section>
+                        <section class="col-lg-12 connectedSortable ui-sortable">
+                          <div class="col-md-12 card">
+                            <div id="chartLeasingCash"></div>
                           </div>
-                          <div class="row mb-1">
-                            <section class="col-lg-12 connectedSortable ui-sortable">
-                              <div class="col-md-12 card">
-                                <div id="chartPloanCash"></div>
-                              </div>
-                            </section>
-                          </div>
-                        </div>
-                        <div class="tab-pane fade" id="custom-tabs-micro" role="tabpanel" aria-labelledby="custom-tabs-micro-tab">
-                          Micro Coming soon...
-                        </div>
-                        <div class="tab-pane fade" id="custom-tabs-motor" role="tabpanel" aria-labelledby="custom-tabs-motor-tab">
-                          Motor Coming soon...
-                        </div>
-                        <div class="tab-pane fade" id="custom-tabs-staff" role="tabpanel" aria-labelledby="custom-tabs-staff-tab">
-                          Staff Coming soon...
-                        </div>
+                        </section>
                       </div>
                     </div>
-                    <!-- /.card -->
+                    <div class="panel" id="two-panel">
+                      <div class="row mb-1">
+                        <section class="col-lg-8 connectedSortable ui-sortable">
+                          <div class="col-md-12 card">
+                            <div id="chartPloanPercent"></div>
+                          </div>
+                        </section>
+                        <section class="col-lg-4 connectedSortable ui-sortable">
+                          <div class="col-md-12 card">
+                            <div id="chartPloanTarget"></div>
+                          </div>
+                        </section>
+                        <section class="col-lg-12 connectedSortable ui-sortable">
+                          <div class="col-md-12 card">
+                            <div id="chartPloanCash"></div>
+                          </div>
+                        </section>
+                      </div>
+                    </div>
+                    <div class="panel" id="three-panel">
+                      <div class="panel-title">Note on Prerequisites</div>
+                      <p>We recommend that you complete Learn HTML before learning CSS.</p>
+                    </div>
+                    <div class="panel" id="four-panel">
+                      <div class="panel-title">Note on Prerequisites</div>
+                      <p>We recommend that you complete Learn HTML before learning 444444444444</p>
+                    </div>
+                    <div class="panel" id="five-panel">
+                      <div class="panel-title">Note on Prerequisites</div>
+                      <p>We recommend that you complete Learn HTML before learning5555555555555</p>
+                    </div>
+                    <div class="panel" id="six-panel">
+                      <div class="panel-title">Note on Prerequisites</div>
+                      <p>We recommend that you complete Learn HTML before learning5555555555555</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -458,16 +266,16 @@
     }
   </script>
 
-  {{-- ยอดจัด เช่าซื้อ --}}
+  {{-- เช่าซื้อ ยอดจัด --}}
   <script>
-    var Totalprice = addCommas({{$TotalAllProduct2}});
+    var Totalprice = addCommas({{$SumTopcar_LeasingAll}});
     var options = {
       series: [{
-        data: [0,{{$Topcar_Leasing01}}, {{$Topcar_Leasing03}}, {{$Topcar_Leasing04}}, {{$Topcar_Leasing05}}, {{$Topcar_Leasing06}}, {{$Topcar_Leasing07}}, {{$Topcar_Leasing08}}, {{$Topcar_Leasing09}}, {{$Topcar_Leasing12}}, {{$Topcar_Leasing13}}, {{$Topcar_Leasing14}},{{$SumTopcar_HomecarAll}}]
+        data: [0,{{$Topcar_Leasing01}}, {{$Topcar_Leasing03}}, {{$Topcar_Leasing04}}, {{$Topcar_Leasing05}}, {{$Topcar_Leasing06}}, {{$Topcar_Leasing07}}, {{$Topcar_Leasing08}}, {{$Topcar_Leasing09}}, {{$Topcar_Leasing12}}, {{$Topcar_Leasing13}}, {{$Topcar_Leasing14}}]
     }],
       chart: {
       type: 'line',
-      height: 300,
+      height: 250,
       zoom: {
           enabled: false
         }
@@ -475,7 +283,7 @@
     title: {
       text: 'ยอดจัด ' + '( ' +  Totalprice + ' บาท' + ' )',
     },
-    colors: ['#34B8F7'],
+    colors: ['#F5E30F'],
     plotOptions: {
       bar: {
         borderRadius: 4,
@@ -498,7 +306,7 @@
       }
     },
     xaxis: {
-      categories: ["","ปัตตานี", "ยะลา", "นราธิวาส", "สายบุรี", "โกลก", "เบตง", "โคกโพธิ์", "ตันหยงมัส", "รือเสาะ", "บันนังสตา", "ยะหา", "รถบ้าน"],
+      categories: ["","ปัตตานี", "ยะลา", "นราธิวาส", "สายบุรี", "โกลก", "เบตง", "โคกโพธิ์", "ตันหยงมัส", "รือเสาะ", "บันนังสตา", "ยะหา"],
     },
     };
 
@@ -506,7 +314,7 @@
     chart.render();
   </script>
 
-  {{-- ยอดคัน(เป้า)) เช่าซื้อ --}}
+  {{-- เช่าซื้อ ยอดคัน(เป้า)) --}}
   <script>
       var TotalCon = addCommas({{$SumLeasingAll}});
       var options = {
@@ -515,24 +323,25 @@
           name: "ยอดคัน",
           type: "column",
           color: "#3EA513",
-          data: [{{$Leasing01}}, {{$Leasing03}}, {{$Leasing04}}, {{$Leasing05}}, {{$Leasing06}}, {{$Leasing07}}, {{$Leasing08}}, {{$Leasing09}}, {{$Leasing12}}, {{$Leasing13}}, {{$Leasing14}},{{$SumHomecarAll}}]
+          data: [{{$Leasing01}}, {{$Leasing03}}, {{$Leasing04}}, {{$Leasing05}}, {{$Leasing06}}, {{$Leasing07}}, {{$Leasing08}}, {{$Leasing09}}, {{$Leasing12}}, {{$Leasing13}}, {{$Leasing14}}]
         },
         {
           name: "ยอดเป้า",
           type: "line",
           color: "#FB2108",
-          data: [{{($dataLeasing->Target_Pattani != '') ?$dataLeasing->Target_Pattani: 0 }},
-                 {{($dataLeasing->Target_Yala != '') ?$dataLeasing->Target_Yala: 0 }}, 
-                 {{($dataLeasing->Target_Narathiwat != '') ?$dataLeasing->Target_Narathiwat: 0 }}, 
-                 {{($dataLeasing->Target_Saiburi != '') ?$dataLeasing->Target_Saiburi: 0 }}, 
-                 {{($dataLeasing->Target_Kolok != '') ?$dataLeasing->Target_Kolok: 0 }}, 
-                 {{($dataLeasing->Target_Betong != '') ?$dataLeasing->Target_Betong: 0 }}, 
-                 {{($dataLeasing->Target_Kophor != '') ?$dataLeasing->Target_Kophor: 0 }}, 
-                 {{($dataLeasing->Target_Tanyongmas != '') ?$dataLeasing->Target_Tanyongmas: 0 }}, 
-                 {{($dataLeasing->Target_Rosok != '') ?$dataLeasing->Target_Rosok: 0 }}, 
-                 {{($dataLeasing->Target_Bannangsta != '') ?$dataLeasing->Target_Bannangsta: 0 }}, 
-                 {{($dataLeasing->Target_Yaha != '') ?$dataLeasing->Target_Yaha: 0 }}, 
-                 {{$SumHomecarAll}}]
+          data: [
+                 {{($dataLeasing != '') ?$dataLeasing->Target_Pattani: 0 }},
+                 {{($dataLeasing != '') ?$dataLeasing->Target_Yala: 0 }}, 
+                 {{($dataLeasing != '') ?$dataLeasing->Target_Narathiwat: 0 }}, 
+                 {{($dataLeasing != '') ?$dataLeasing->Target_Saiburi: 0 }}, 
+                 {{($dataLeasing != '') ?$dataLeasing->Target_Kolok: 0 }}, 
+                 {{($dataLeasing != '') ?$dataLeasing->Target_Betong: 0 }}, 
+                 {{($dataLeasing != '') ?$dataLeasing->Target_Kophor: 0 }}, 
+                 {{($dataLeasing != '') ?$dataLeasing->Target_Tanyongmas: 0 }}, 
+                 {{($dataLeasing != '') ?$dataLeasing->Target_Rosok: 0 }}, 
+                 {{($dataLeasing != '') ?$dataLeasing->Target_Bannangsta: 0 }}, 
+                 {{($dataLeasing != '') ?$dataLeasing->Target_Yaha: 0 }},
+                 ]
         }
       ],
       chart: {
@@ -567,7 +376,7 @@
         }
       },
       labels: [
-        "ปัตตานี", "ยะลา", "นราธิวาส", "สายบุรี", "โกลก", "เบตง", "โคกโพธิ์", "ตันหยงมัส", "รือเสาะ", "บันนังสตา", "ยะหา", "รถบ้าน"
+        "ปัตตานี", "ยะลา", "นราธิวาส", "สายบุรี", "โกลก", "เบตง", "โคกโพธิ์", "ตันหยงมัส", "รือเสาะ", "บันนังสตา", "ยะหา"
       ],
       xaxis: {
         type: "text"
@@ -579,13 +388,13 @@
 
   </script>
 
-  {{-- ยอดคัน เช่าซื้อ --}}
+  {{-- เช่าซื้อ ยอดคัน(%) --}}
   <script>
     var TotalCon = addCommas({{$SumLeasingAll}});
     var options = {
       series: [{
-      name: 'ยอดคัน',
-      data: [{{$Leasing01}}, {{$Leasing03}}, {{$Leasing04}}, {{$Leasing05}}, {{$Leasing06}}, {{$Leasing07}}, {{$Leasing08}}, {{$Leasing09}}, {{$Leasing12}}, {{$Leasing13}}, {{$Leasing14}},{{$SumHomecarAll}}]
+      name: 'ผลงาน',
+      data: [{{@$TargetPattani_LS}}, {{@$TargetYala_LS}}, {{@$TargetNara_LS}}, {{@$TargetSaiburi_LS}}, {{@$TargetKolok_LS}}, {{@$TargetBetong_LS}}, {{@$TargetKophor_LS}}, {{@$TargetTanyongmas_LS}}, {{@$TargetRosok_LS}}, {{@$TargetBannangsta_LS}}, {{@$TargetYaha_LS}}]
     }],
       chart: {
       height: 250,
@@ -593,7 +402,7 @@
     },
     plotOptions: {
       bar: {
-        borderRadius: 2,
+        // borderRadius: 2,
         dataLabels: {
           position: 'top', // top, center, bottom
         },
@@ -603,20 +412,24 @@
     legend: {
       show: false
     },
+    colors: ['#FF3200'],
     dataLabels: {
       enabled: true,
       formatter: function (val) {
-        return val + " คัน";
+        return val + " %";
       },
       offsetY: -20,
       style: {
-        fontSize: '12px',
+        fontSize: '10px',
         colors: ["#304758"]
       },
     },
-    
+    title: {
+        text: 'เปอร์เซ็นต์ผลงาน ',
+        fontSize: '12px',
+      },
     xaxis: {
-      categories: ["ปัตตานี", "ยะลา", "นราธิวาส", "สายบุรี", "โกลก", "เบตง", "โคกโพธิ์", "ตันหยงมัส", "รือเสาะ", "บันนังสตา", "ยะหา", "รถบ้าน"],
+      categories: ["ปัตตานี", "ยะลา", "นราธิวาส", "สายบุรี", "โกลก", "เบตง", "โคกโพธิ์", "ตันหยงมัส", "รือเสาะ", "บันนังสตา", "ยะหา"],
       position: 'bottom',
       axisBorder: {
         show: false
@@ -644,38 +457,41 @@
       axisBorder: {
         show: false
       },
-      title: {
-        text: 'ยอดคัน ' + '( ' + TotalCon + ' คัน' + ' )',
-        fontSize: '12px',
-      },
       axisTicks: {
         show: false,
       },
       labels: {
         show: false,
         formatter: function (val) {
-          return val + "คัน";
+          return val + "%";
         }
       },
     
     }
     };
 
-    var chart = new ApexCharts(document.querySelector("#chartLeasing"), options);
+    var chart = new ApexCharts(document.querySelector("#chartLeasingTarget"), options);
     chart.render();
   </script>
 
-  {{-- ยอดจัด Ploan --}}
+  {{-- Ploan ยอดจัด --}}
   <script>
+    var Totalprice = addCommas({{$SumTopcar_PloanAll}});
     var options = {
       series: [{
-        data: [{{$Topcar_Ploan50}}, {{$Topcar_Ploan51}}, {{$Topcar_Ploan52}}, {{$Topcar_Ploan53}}, {{$Topcar_Ploan54}}, {{$Topcar_Ploan55}}, {{$Topcar_Ploan56}}, {{$Topcar_Ploan57}}, {{$Topcar_Ploan58}}, {{$Topcar_Ploan59}}, {{$Topcar_Ploan60}}]
+        data: [0,{{$Topcar_Ploan50}}, {{$Topcar_Ploan51}}, {{$Topcar_Ploan52}}, {{$Topcar_Ploan53}}, {{$Topcar_Ploan54}}, {{$Topcar_Ploan55}}, {{$Topcar_Ploan56}}, {{$Topcar_Ploan57}}, {{$Topcar_Ploan58}}, {{$Topcar_Ploan59}}, {{$Topcar_Ploan60}}]
     }],
       chart: {
-      type: 'bar',
-      height: 300,
+      type: 'line',
+      height: 250,
+      zoom: {
+          enabled: false
+        }
     },
-    colors: ['#64B10B'],
+    title: {
+      text: 'ยอดจัด ' + '( ' +  Totalprice + ' บาท' + ' )',
+    },
+    colors: ['#F5E30F'],
     plotOptions: {
       bar: {
         borderRadius: 4,
@@ -693,17 +509,12 @@
       },
       offsetX: -6,
       style: {
-        fontSize: '12px',
+        fontSize: '10px',
         colors: ["#304758"]
       }
     },
     xaxis: {
-      categories: ["ปัตตานี", "ยะลา", "นราธิวาส", "สายบุรี", "โกลก", "เบตง", "โคกโพธิ์", "ตันหยงมัส", "รือเสาะ", "บันนังสตา", "ยะหา"],
-    },
-    yaxis: {
-      title: {
-        text: 'ยอดจัด',
-      },
+      categories: ["","ปัตตานี", "ยะลา", "นราธิวาส", "สายบุรี", "โกลก", "เบตง", "โคกโพธิ์", "ตันหยงมัส", "รือเสาะ", "บันนังสตา", "ยะหา"],
     },
     };
 
@@ -711,12 +522,87 @@
     chart.render();
   </script>
 
-  {{-- ยอดคัน Ploan --}}
+  {{-- Ploan ยอดคัน(เป้า)) --}}
   <script>
+      var TotalCon = addCommas({{$SumPloanAll}});
+      var options = {
+      series: [
+        {
+          name: "ยอดคัน",
+          type: "column",
+          color: "#3EA513",
+          data: [{{$Ploan50}}, {{$Ploan51}}, {{$Ploan52}}, {{$Ploan53}}, {{$Ploan54}}, {{$Ploan55}}, {{$Ploan56}}, {{$Ploan57}}, {{$Ploan58}}, {{$Ploan59}}, {{$Ploan60}}]
+        },
+        {
+          name: "ยอดเป้า",
+          type: "line",
+          color: "#FB2108",
+          data: [
+                 {{($dataPloan != '') ?$dataPloan->Target_Pattani: 0 }},
+                 {{($dataPloan != '') ?$dataPloan->Target_Yala: 0 }}, 
+                 {{($dataPloan != '') ?$dataPloan->Target_Narathiwat: 0 }}, 
+                 {{($dataPloan != '') ?$dataPloan->Target_Saiburi: 0 }}, 
+                 {{($dataPloan != '') ?$dataPloan->Target_Kolok: 0 }}, 
+                 {{($dataPloan != '') ?$dataPloan->Target_Betong: 0 }}, 
+                 {{($dataPloan != '') ?$dataPloan->Target_Kophor: 0 }}, 
+                 {{($dataPloan != '') ?$dataPloan->Target_Tanyongmas: 0 }}, 
+                 {{($dataPloan != '') ?$dataPloan->Target_Rosok: 0 }}, 
+                 {{($dataPloan != '') ?$dataPloan->Target_Bannangsta: 0 }}, 
+                 {{($dataPloan != '') ?$dataPloan->Target_Yaha: 0 }},
+                 ]
+        }
+      ],
+      chart: {
+        height: 250,
+        type: "line",
+        zoom: {
+          enabled: false
+        }
+      },
+      title: {
+        text: 'ยอดคัน ' + '( ' + TotalCon + ' คัน' + ' )',
+      },
+      stroke: {
+        width: [1, 1],
+        dashArray: [0,5]
+      },
+      plotOptions: {
+        bar: {
+          dataLabels: {
+            position: "bottom" // top, center, bottom
+          },
+        }
+      },
+      dataLabels: {
+        enabled: true,
+        formatter: function (val) {
+          return val;
+        },
+        style: {
+          fontSize: "10px",
+          colors: ["#3EA513","#FB2108"]
+        }
+      },
+      labels: [
+        "ปัตตานี", "ยะลา", "นราธิวาส", "สายบุรี", "โกลก", "เบตง", "โคกโพธิ์", "ตันหยงมัส", "รือเสาะ", "บันนังสตา", "ยะหา"
+      ],
+      xaxis: {
+        type: "text"
+      },
+    };
+
+    var chart = new ApexCharts(document.querySelector("#chartPloanPercent"), options);
+    chart.render();
+
+  </script>
+
+  {{-- Ploan ยอดคัน(%) --}}
+  <script>
+    var TotalCon = addCommas({{$SumPloanAll}});
     var options = {
       series: [{
-      name: 'ยอดคัน',
-      data: [{{$Ploan50}}, {{$Ploan51}}, {{$Ploan52}}, {{$Ploan53}}, {{$Ploan54}}, {{$Ploan55}}, {{$Ploan56}}, {{$Ploan57}}, {{$Ploan58}}, {{$Ploan59}}, {{$Ploan60}}]
+      name: 'ผลงาน',
+      data: [{{@$TargetPattani_PL}}, {{@$TargetYala_PL}}, {{@$TargetNara_PL}}, {{@$TargetSaiburi_PL}}, {{@$TargetKolok_PL}}, {{@$TargetBetong_PL}}, {{@$TargetKophor_PL}}, {{@$TargetTanyongmas_PL}}, {{@$TargetRosok_PL}}, {{@$TargetBannangsta_PL}}, {{@$TargetYaha_PL}}]
     }],
       chart: {
       height: 250,
@@ -724,7 +610,7 @@
     },
     plotOptions: {
       bar: {
-        borderRadius: 10,
+        // borderRadius: 2,
         dataLabels: {
           position: 'top', // top, center, bottom
         },
@@ -734,18 +620,22 @@
     legend: {
       show: false
     },
+    colors: ['#FF3200'],
     dataLabels: {
       enabled: true,
       formatter: function (val) {
-        return val + " คัน";
+        return val + " %";
       },
       offsetY: -20,
       style: {
-        fontSize: '12px',
+        fontSize: '10px',
         colors: ["#304758"]
       },
     },
-    
+    title: {
+        text: 'เปอร์เซ็นต์ผลงาน ',
+        fontSize: '12px',
+      },
     xaxis: {
       categories: ["ปัตตานี", "ยะลา", "นราธิวาส", "สายบุรี", "โกลก", "เบตง", "โคกโพธิ์", "ตันหยงมัส", "รือเสาะ", "บันนังสตา", "ยะหา"],
       position: 'bottom',
@@ -775,53 +665,20 @@
       axisBorder: {
         show: false
       },
-      title: {
-        text: 'ยอดคัน',
-        fontSize: '12px',
-      },
       axisTicks: {
         show: false,
       },
       labels: {
         show: false,
         formatter: function (val) {
-          return val + "คัน";
+          return val + "%";
         }
       },
     
     }
     };
 
-    var chart = new ApexCharts(document.querySelector("#chartPloan"), options);
-    chart.render();
-  </script>
-
-  {{-- ยอดคัน(%) Ploan --}}
-  <script>
-    var options = {
-      series: [{{$Ploan50}}, {{$Ploan51}}, {{$Ploan52}}, {{$Ploan53}}, {{$Ploan54}}, {{$Ploan55}}, {{$Ploan56}}, {{$Ploan57}}, {{$Ploan58}}, {{$Ploan59}}, {{$Ploan60}}],
-      chart: {
-      width: 380,
-      type: 'pie',
-    },
-    title: {
-      text: 'ยอดคัน(%)',
-    },
-    labels: ["ปัตตานี", "ยะลา", "นราธิวาส", "สายบุรี", "โกลก", "เบตง", "โคกโพธิ์", "ตันหยงมัส", "รือเสาะ", "บันนังสตา", "ยะหา"],
-    responsive: [{
-      breakpoint: 500,
-      options: {
-        chart: {
-          width: 300
-        },
-        legend: {
-          position: 'bottom'
-        }
-      }
-    }]
-    };
-
-    var chart = new ApexCharts(document.querySelector("#chartPloanPercent"), options);
+    var chart = new ApexCharts(document.querySelector("#chartPloanTarget"), options);
     chart.render();
   </script>
 
