@@ -35,12 +35,10 @@
     $Total_baabMotor = $Total_PN_Motor + $Total_SB_Motor + $Total_KP_Motor + $Total_YL_Motor + $Total_BT_Motor + $Total_BNT_Motor + $Total_YH_Motor + $Total_NR_Motor + $Total_KOL_Motor + $Total_TM_Motor + $Total_RS_Motor;
   @endphp
 
-  <div class="content-header" style="padding:15px;">
+  <div class="content-header">
     <div class="row justify-content-center">
       <div class="col-md-12 table-responsive">
-        <div class="card">
       
-          <div class="card-header mb-1">
             <div class="form-inline">
               <div class="col-sm-4">
                 <h5 class="m-0 text-dark text-left">
@@ -52,12 +50,12 @@
                 @if($Allproducts == '')
                   <form method="get" action="#">
                     <div class="float-right">
-                      <small class="badge" style="font-size: 14px;">
-                        <i class="fas fa-sign"></i> วันที่ :
-                        <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control pr-3" />
+                      <small class="badge" style="font-size: 12px;">
+                        ข้อมูลวันที่ :
+                        <input type="date" name="Fromdate" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control form-control-sm pr-3" />
                         ถึงวันที่ :
-                        <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control" />&nbsp;
-                        <button type="submit" class="btn btn-info" title="ค้นหา">
+                        <input type="date" name="Todate" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control form-control-sm" />&nbsp;
+                        <button type="submit" class="btn btn-sm btn-dark" title="ค้นหา">
                           <span class="fas fa-search"></span> ค้นหา
                         </button>
                       </small>
@@ -66,361 +64,8 @@
                 @endif
               </div>
             </div>
-          </div>
 
           <!-- <div class="card-body"> -->
-            {{--<div class="row">
-              <div class="col-6">
-                <div class="card">
-                  <div class="card-header mb-0">
-                    <h3 class="card-title">ยอดคัน</h3>
-
-                    <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="remove">
-                        <i class="fas fa-times"></i>
-                      </button>
-                    </div>
-                  </div>
-                  
-                    <div class="row text-sm">
-                      <div class="col-12">
-                        <table class="table table-bordered table-valign-middle">
-                          <tbody>
-                            <tr class="text-center bg-success" >
-                              <td>สาขา</td>
-                              <td>Motor</td>
-                              <td>P-Loan</td>
-                              <td>เช่าซื้อ</td>
-                              <td>พนักงาน</td>
-                              <td>รถบ้าน</td>
-                              <td>มอเตอร์ไซค์</td>
-                              <td>ผลรวม</td>
-                            </tr>
-                            <tr class="text-center">
-                              <td><b>ปัตตานี</b></td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                            </tr>
-                            <tr class="text-center">
-                              <td><b>ยะลา</b></td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                            </tr>
-                            <tr class="text-center">
-                              <td><b>นราธิวาส</b></td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                            </tr>
-                            <tr class="text-center">
-                              <td><b>สายบุรี</b></td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                            </tr>
-                            <tr class="text-center">
-                              <td><b>โกลก</b></td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                            </tr>
-                            <tr class="text-center">
-                              <td><b>เบตง</b></td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                            </tr>
-                            <tr class="text-center">
-                              <td><b>โคกโพธิ์</b></td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                            </tr>
-                            <tr class="text-center">
-                              <td><b>ตันหยงมัส</b></td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                            </tr>
-                            <tr class="text-center">
-                              <td><b>รือเสาะ</b></td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                            </tr>
-                            <tr class="text-center">
-                              <td><b>บันนังสตา</b></td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                            </tr>
-                            <tr class="text-center">
-                              <td><b>ยะหา</b></td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                            </tr>
-                            <tr class="text-center">
-                              <td><b>รถบ้าน</b></td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                            </tr>
-                            <tr class="text-center bg-warning">
-                              <td><b>รวม</b></td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  
-                </div>
-              </div>
-              <div class="col-6">
-                <div class="card">
-                  <div class="card-header mb-1">
-                    <h3 class="card-title">ยอดเงิน</h3>
-
-                    <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="remove">
-                        <i class="fas fa-times"></i>
-                      </button>
-                    </div>
-                  </div>
-                  
-                    <div class="row text-sm">
-                      <div class="col-12">
-                        <table class="table table-bordered table-valign-middle" id="table2">
-                          <tbody>
-                            <tr class="text-center bg-success">
-                              <td>สาขา</td>
-                              <td>Micro</td>
-                              <td>P-Loan</td>
-                              <td>เช่าซื้อ</td>
-                              <td>พนักงาน</td>
-                              <td>รถบ้าน</td>
-                              <td>มอเตอร์ไซค์</td>
-                              <td>ผลรวม</td>
-                              <td>ยอดเฉลี่ย</td>
-                            </tr>
-                            <tr class="text-center">
-                              <td><b>ปัตตานี</b></td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                            </tr>
-                            <tr class="text-center">
-                              <td><b>ยะลา</b></td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                            </tr>
-                            <tr class="text-center">
-                              <td><b>นราธิวาส</b></td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                            </tr>
-                            <tr class="text-center">
-                              <td><b>สายบุรี</b></td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                            </tr>
-                            <tr class="text-center">
-                              <td><b>โกลก</b></td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                            </tr>
-                            <tr class="text-center">
-                              <td><b>เบตง</b></td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                            </tr>
-                            <tr class="text-center">
-                              <td><b>โคกโพธิ์</b></td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                            </tr>
-                            <tr class="text-center">
-                              <td><b>ตันหยงมัส</b></td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                            </tr>
-                            <tr class="text-center">
-                              <td><b>รือเสาะ</b></td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                            </tr>
-                            <tr class="text-center">
-                              <td><b>บันนังสตา</b></td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                            </tr>
-                            <tr class="text-center">
-                              <td><b>ยะหา</b></td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                            </tr>
-                            <tr class="text-center">
-                              <td><b>รถบ้าน</b></td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                            </tr>
-                            <tr class="text-center bg-warning">
-                              <td><b>รวม</b></td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                            </tr>
-                            <tr class="text-center bg-success">
-                              <td><b>ยอดเฉลี่ย</b></td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                              <td>0</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  
-                </div>
-              </div>
-            </div>--}}
             <div class="row">
               <div class="col-md-2">
 
@@ -428,7 +73,7 @@
                   <div class="card-header">
                     <h3 class="card-title">
                       <a href="{{ route('index','home') }}" style="color:black;">
-                        ยอดจัดไฟแนนซ์และเงินกู้
+                        ยอดไฟแนนซ์และเงินกู้
                       </a>
                     </h3>
                   </div>
@@ -1883,7 +1528,6 @@
             </div>
           <!-- </div> -->
 
-        </div>
       </div>
     </div>
   </div>
