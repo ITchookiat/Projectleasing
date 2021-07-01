@@ -1782,26 +1782,26 @@ class HomeController extends Controller
 
         $dataLeasing = DB::table('targets')
                 ->where('Target_Type','=','Leasing')
-                ->where('Target_Month','=',date('m'))
-                ->where('Target_Year','=',date('Y'))
+                ->where('Target_Month','=',substr($newfdate,5,2))
+                ->where('Target_Year','=',substr($newfdate,0,4))
                 ->first();
 
         $dataPloan = DB::table('targets')
                 ->where('Target_Type','=','Ploan')
-                ->where('Target_Month','=',date('m'))
-                ->where('Target_Year','=',date('Y'))
+                ->where('Target_Month','=',substr($newfdate,5,2))
+                ->where('Target_Year','=',substr($newfdate,0,4))
                 ->first();
 
         $dataMicro = DB::table('targets')
                 ->where('Target_Type','=','Micro')
-                ->where('Target_Month','=',date('m'))
-                ->where('Target_Year','=',date('Y'))
+                ->where('Target_Month','=',substr($newfdate,5,2))
+                ->where('Target_Year','=',substr($newfdate,0,4))
                 ->first();
 
         $dataMotor = DB::table('targets')
                 ->where('Target_Type','=','Motor')
-                ->where('Target_Month','=',date('m'))
-                ->where('Target_Year','=',date('Y'))
+                ->where('Target_Month','=',substr($newfdate,5,2))
+                ->where('Target_Year','=',substr($newfdate,0,4))
                 ->first();
 
         if($request->Dashboard == 2){
@@ -1862,7 +1862,7 @@ class HomeController extends Controller
             'Total_RS_Motor','RS_Motor_HaveProperty','RS_Motor_NoProperty','RS_Motor_NoWarranty','RS_Motor_BuyHaveProperty','RS_Motor_BuyNoHaveProperty','RS_Motor_BuyNoWarranty','RS_Motor_VIPowner','RS_Motor_VIPbuy',
             'Total_BNT_Motor','BNT_Motor_HaveProperty','BNT_Motor_NoProperty','BNT_Motor_NoWarranty','BNT_Motor_BuyHaveProperty','BNT_Motor_BuyNoHaveProperty','BNT_Motor_BuyNoWarranty','BNT_Motor_VIPowner','BNT_Motor_VIPbuy',
             'Total_YH_Motor','YH_Motor_HaveProperty','YH_Motor_NoProperty','YH_Motor_NoWarranty','YH_Motor_BuyHaveProperty','YH_Motor_BuyNoHaveProperty','YH_Motor_BuyNoWarranty','YH_Motor_VIPowner','YH_Motor_VIPbuy',
-            'dataLeasing','dataPlaon','dataMicro','dataMotor'
+            'dataLeasing','dataPloan','dataMicro','dataMotor'
         ));
         }else{
             return view($name, compact('newfdate','newtdate','Allproducts',
