@@ -9,7 +9,8 @@ class legisasset extends Model
   protected $table = 'legisassets';
   protected $primaryKey = 'legisAsset_id';
   protected $fillable = ['legisAsset_id','Date_asset','Status_asset','Price_asset','propertied_asset','sequester_asset',
-                         'sendsequester_asset','Dateresult_asset','NewpursueDate_asset','Notepursue_asset','User_asset'];
+                         'sendsequester_asset','Dateresult_asset','NewpursueDate_asset','Notepursue_asset','User_asset',
+                         'DateTakephoto_asset','DateGetphoto_asset'];
 
   public function legislationAsset()
   {

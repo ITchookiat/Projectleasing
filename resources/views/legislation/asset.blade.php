@@ -267,6 +267,25 @@
                               </div>
                             </div>
                           </div>
+                          <hr>
+                          <div class="row">
+                            <div class="col-6">
+                              <div class="form-group row mb-0">
+                                <label class="col-sm-4 col-form-label text-right">วันที่ส่งถ่ายภาพ : </label>
+                                <div class="col-sm-8">
+                                  <input type="date" name="Date_Takephoto" class="form-control" value="{{ $data->DateTakephoto_asset }}"/>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-6">
+                              <div class="form-group row mb-0">
+                                <label class="col-sm-4 col-form-label text-right">วันที่ได้รับภาพ : </label>
+                                <div class="col-sm-8">
+                                  <input type="date" name="Date_Getphoto" class="form-control" value="{{ $data->DateGetphoto_asset }}"/>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
