@@ -1396,8 +1396,9 @@ class MPController extends Controller
           ->leftJoin('MP_Sponsors','MP_Datas.id','=','MP_Sponsors.MP_id')
           ->leftJoin('MP_Sponsors2','MP_Datas.id','=','MP_Sponsors2.MP_id')
           ->leftJoin('MP_Expenses','MP_Datas.id','=','MP_Expenses.MP_id')
+          ->leftJoin('MP_Upload_lat_longs','MP_Datas.id','=','MP_Upload_lat_longs.MP_id')
           ->leftJoin('data_customers','MP_Datas.Walkin_id','=','data_customers.Customer_id')
-          ->select('MP_Datas.*','MP_Sponsors.*','MP_Sponsors2.*','MP_Datacars.*','MP_Expenses.*','data_customers.Customer_id','data_customers.Resource_news','MP_Datas.created_at AS createdBuyers_at')
+          ->select('MP_Datas.*','MP_Sponsors.*','MP_Sponsors2.*','MP_Datacars.*','MP_Expenses.*','MP_Upload_lat_longs.*','data_customers.Customer_id','data_customers.Resource_news','MP_Datas.created_at AS createdBuyers_at')
           ->where('MP_Datas.id',$id)
           ->first();
 
@@ -1535,6 +1536,7 @@ class MPController extends Controller
               ->leftJoin('MP_Expenses','MP_Datas.id','=','MP_Expenses.MP_id')
               ->leftJoin('MP_Upload_lat_longs','MP_Datas.id','=','MP_Upload_lat_longs.MP_id')
               ->leftJoin('data_customers','MP_Datas.Walkin_id','=','data_customers.Customer_id')
+              ->select('MP_Datas.*','MP_Datacars.*','MP_Sponsors.*','MP_Expenses.*','MP_Upload_lat_longs.*','data_customers.Customer_id','data_customers.Resource_news')
               ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
                 return $q->whereBetween('MP_Datas.Date_Due',[$newfdate,$newtdate]);
               })
@@ -1552,6 +1554,7 @@ class MPController extends Controller
               ->leftJoin('MP_Expenses','MP_Datas.id','=','MP_Expenses.MP_id')
               ->leftJoin('MP_Upload_lat_longs','MP_Datas.id','=','MP_Upload_lat_longs.MP_id')
               ->leftJoin('data_customers','MP_Datas.Walkin_id','=','data_customers.Customer_id')
+              ->select('MP_Datas.*','MP_Datacars.*','MP_Sponsors.*','MP_Expenses.*','MP_Upload_lat_longs.*','data_customers.Customer_id','data_customers.Resource_news')
               ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
                 return $q->whereBetween('MP_Datas.Date_Due',[$newfdate,$newtdate]);
               })
@@ -1569,6 +1572,7 @@ class MPController extends Controller
               ->leftJoin('MP_Expenses','MP_Datas.id','=','MP_Expenses.MP_id')
               ->leftJoin('MP_Upload_lat_longs','MP_Datas.id','=','MP_Upload_lat_longs.MP_id')
               ->leftJoin('data_customers','MP_Datas.Walkin_id','=','data_customers.Customer_id')
+              ->select('MP_Datas.*','MP_Datacars.*','MP_Sponsors.*','MP_Expenses.*','MP_Upload_lat_longs.*','data_customers.Customer_id','data_customers.Resource_news')
               ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
                 return $q->whereBetween('MP_Datas.Date_Due',[$newfdate,$newtdate]);
               })
@@ -1586,6 +1590,7 @@ class MPController extends Controller
             ->leftJoin('MP_Expenses','MP_Datas.id','=','MP_Expenses.MP_id')
             ->leftJoin('MP_Upload_lat_longs','MP_Datas.id','=','MP_Upload_lat_longs.MP_id')
             ->leftJoin('data_customers','MP_Datas.Walkin_id','=','data_customers.Customer_id')
+            ->select('MP_Datas.*','MP_Datacars.*','MP_Sponsors.*','MP_Expenses.*','MP_Upload_lat_longs.*','data_customers.Customer_id','data_customers.Resource_news')
             ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
               return $q->whereBetween('MP_Datas.Date_Due',[$newfdate,$newtdate]);
             })

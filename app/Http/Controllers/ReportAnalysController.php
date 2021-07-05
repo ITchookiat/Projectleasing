@@ -313,6 +313,7 @@ class ReportAnalysController extends Controller
             ->leftJoin('Expenses','Buyers.id','=','Expenses.Buyerexpenses_id')
             ->leftjoin('upload_lat_longs','buyers.id','=','upload_lat_longs.Use_id')
             ->leftJoin('data_customers','Buyers.Walkin_id','=','data_customers.Customer_id')
+            ->select('buyers.*','sponsors.*','cardetails.*','expenses.*','upload_lat_longs.*','data_customers.Customer_id','data_customers.Resource_news')
             ->when(!empty($newfdate)  && !empty($newtdate), function($q) use ($newfdate, $newtdate) {
               return $q->whereBetween('buyers.Date_Due',[$newfdate,$newtdate]);
             })

@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- <title>{{ config('app.name', 'Laravel') }}</title> -->
-    <title>CHOOKIAT LEASING</title>
+    <title>CHOOKIAT GROUP</title>
     <link rel="icon" href="{{ asset('dist/img/leasingLogo2.png') }}" type="image/ico" />
 
     <!-- Scripts -->
