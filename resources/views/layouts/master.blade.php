@@ -25,6 +25,11 @@
   <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
   <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
 
+  {{-- fonts --}}
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300&display=swap');
+  </style>
+
   <style>
     .a1 {color: #E6E6FA;}
     .a2 {color: #4A0B52;}

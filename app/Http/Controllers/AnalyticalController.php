@@ -14,22 +14,28 @@ class AnalyticalController extends Controller
 {
     public function index(Request $request)
     {
-        if ($request->type == 1) {
-            $newfdate = '2021-05-01';
-            $newtdate = '2021-05-31';
+        $SearchMoth = NULL;
+        if ($request->has('SearchMoth')) {
+            $SearchMoth = $request->SearchMoth;
+        }else {
+            $SearchMoth = date('m');
+        }
 
-            // $User = S_ARMAST::where('CONTNO','01-2562/0002')->first();
-            //     $User->MEMO1 = iconv('UTF-8','TIS-620//TRANSLIT', "ทดสอบครั้งที่ 1");
-            //     // ขาเข้าแปล้ง uft เป็น tis
-            //     // ตอนselect แปลงเป็น utf iconv('TIS-620','UTF-8//TRANSLIT', "ทดสอบนะครับ")
-            // $User->update();
+        // $User = S_ARMAST::where('CONTNO','01-2562/0002')->first();
+        //     $User->MEMO1 = iconv('UTF-8','TIS-620//TRANSLIT', "ทดสอบครั้งที่ 1");
+        //     // ขาเข้าแปล้ง uft เป็น tis
+        //     // ตอนselect แปลงเป็น utf iconv('TIS-620','UTF-8//TRANSLIT', "ทดสอบนะครับ")
+        // $User->update();
 
+
+        if ($request->type == 1 or $request->type == 2) {
             //ลค.เช้าซื้อ
                 $data1 = S_ARPAY::where('NOPAY','<=', 6)
-                    ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    // ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    ->whereMonth('DDATE', $SearchMoth)
                     ->where('CONTNO','like', '01-%')
                     ->Wherehas('S_ARPAYtoS_ARMAST',function ($query) {
-                        return $query->where('ISSUDT', '>=', '2021-03-01');
+                        return $query->where('ISSUDT', '>=', '2020-12-01');
                     })
                     ->orderBy('CONTNO', 'ASC')
                     ->get();
@@ -42,10 +48,11 @@ class AnalyticalController extends Controller
                 }
 
                 $data3 = S_ARPAY::where('NOPAY','<=', 6)
-                    ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    // ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    ->whereMonth('DDATE', $SearchMoth)
                     ->where('CONTNO','like', '03-%')
                     ->Wherehas('S_ARPAYtoS_ARMAST',function ($query) {
-                        return $query->where('ISSUDT', '>=', '2021-03-01');
+                        return $query->where('ISSUDT', '>=', '2020-12-01');
                     })
                     ->orderBy('CONTNO', 'ASC')
                     ->get();
@@ -58,10 +65,11 @@ class AnalyticalController extends Controller
                 }
 
                 $data4 = S_ARPAY::where('NOPAY','<=', 6)
-                    ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    // ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    ->whereMonth('DDATE', $SearchMoth)
                     ->where('CONTNO','like', '04-%')
                     ->Wherehas('S_ARPAYtoS_ARMAST',function ($query) {
-                        return $query->where('ISSUDT', '>=', '2021-03-01');
+                        return $query->where('ISSUDT', '>=', '2020-12-01');
                     })
                     ->orderBy('CONTNO', 'ASC')
                     ->get();
@@ -74,10 +82,11 @@ class AnalyticalController extends Controller
                 }
 
                 $data5 = S_ARPAY::where('NOPAY','<=', 6)
-                    ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    // ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    ->whereMonth('DDATE', $SearchMoth)
                     ->where('CONTNO','like', '05-%')
                     ->Wherehas('S_ARPAYtoS_ARMAST',function ($query) {
-                        return $query->where('ISSUDT', '>=', '2021-03-01');
+                        return $query->where('ISSUDT', '>=', '2020-12-01');
                     })
                     ->orderBy('CONTNO', 'ASC')
                     ->get();
@@ -90,10 +99,11 @@ class AnalyticalController extends Controller
                 }
 
                 $data6 = S_ARPAY::where('NOPAY','<=', 6)
-                    ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    // ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    ->whereMonth('DDATE', $SearchMoth)
                     ->where('CONTNO','like', '06-%')
                     ->Wherehas('S_ARPAYtoS_ARMAST',function ($query) {
-                        return $query->where('ISSUDT', '>=', '2021-03-01');
+                        return $query->where('ISSUDT', '>=', '2020-12-01');
                     })
                     ->orderBy('CONTNO', 'ASC')
                     ->get();
@@ -106,10 +116,11 @@ class AnalyticalController extends Controller
                 }
 
                 $data7 = S_ARPAY::where('NOPAY','<=', 6)
-                    ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    // ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    ->whereMonth('DDATE', $SearchMoth)
                     ->where('CONTNO','like', '07-%')
                     ->Wherehas('S_ARPAYtoS_ARMAST',function ($query) {
-                        return $query->where('ISSUDT', '>=', '2021-03-01');
+                        return $query->where('ISSUDT', '>=', '2020-12-01');
                     })
                     ->orderBy('CONTNO', 'ASC')
                     ->get();
@@ -122,10 +133,11 @@ class AnalyticalController extends Controller
                 }
 
                 $data8 = S_ARPAY::where('NOPAY','<=', 6)
-                    ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    // ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    ->whereMonth('DDATE', $SearchMoth)
                     ->where('CONTNO','like', '08-%')
                     ->Wherehas('S_ARPAYtoS_ARMAST',function ($query) {
-                        return $query->where('ISSUDT', '>=', '2021-03-01');
+                        return $query->where('ISSUDT', '>=', '2020-12-01');
                     })
                     ->orderBy('CONTNO', 'ASC')
                     ->get();
@@ -138,10 +150,11 @@ class AnalyticalController extends Controller
                 }
 
                 $data9 = S_ARPAY::where('NOPAY','<=', 6)
-                    ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    // ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    ->whereMonth('DDATE', $SearchMoth)
                     ->where('CONTNO','like', '09-%')
                     ->Wherehas('S_ARPAYtoS_ARMAST',function ($query) {
-                        return $query->where('ISSUDT', '>=', '2021-03-01');
+                        return $query->where('ISSUDT', '>=', '2020-12-01');
                     })
                     ->orderBy('CONTNO', 'ASC')
                     ->get();
@@ -154,10 +167,11 @@ class AnalyticalController extends Controller
                 }
 
                 $data12 = S_ARPAY::where('NOPAY','<=', 6)
-                    ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    // ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    ->whereMonth('DDATE', $SearchMoth)
                     ->where('CONTNO','like', '12-%')
                     ->Wherehas('S_ARPAYtoS_ARMAST',function ($query) {
-                        return $query->where('ISSUDT', '>=', '2021-03-01');
+                        return $query->where('ISSUDT', '>=', '2020-12-01');
                     })
                     ->orderBy('CONTNO', 'ASC')
                     ->get();
@@ -170,10 +184,11 @@ class AnalyticalController extends Controller
                 }
 
                 $data13 = S_ARPAY::where('NOPAY','<=', 6)
-                    ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    // ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    ->whereMonth('DDATE', $SearchMoth)
                     ->where('CONTNO','like', '13-%')
                     ->Wherehas('S_ARPAYtoS_ARMAST',function ($query) {
-                        return $query->where('ISSUDT', '>=', '2021-03-01');
+                        return $query->where('ISSUDT', '>=', '2020-12-01');
                     })
                     ->orderBy('CONTNO', 'ASC')
                     ->get();
@@ -186,10 +201,11 @@ class AnalyticalController extends Controller
                 }
 
                 $data14 = S_ARPAY::where('NOPAY','<=', 6)
-                    ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    // ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    ->whereMonth('DDATE', $SearchMoth)
                     ->where('CONTNO','like', '14-%')
                     ->Wherehas('S_ARPAYtoS_ARMAST',function ($query) {
-                        return $query->where('ISSUDT', '>=', '2021-03-01');
+                        return $query->where('ISSUDT', '>=', '2020-12-01');
                     })
                     ->orderBy('CONTNO', 'ASC')
                     ->get();
@@ -204,11 +220,12 @@ class AnalyticalController extends Controller
 
             //ลค.PLoan-Micro
                 $Ploan_1 = P_ARPAY::where('NOPAY','<=', 6)
-                    ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    // ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    ->whereMonth('DDATE', $SearchMoth)
                     ->where('LOCAT','PNHQ')
                     ->where('CONTNO','not like', 'P07-%')
                     ->Wherehas('P_ARPAYtoP_ARMAST',function ($query) {
-                        return $query->where('SDATE', '>=', '2021-03-01');
+                        return $query->where('SDATE', '>=', '2020-12-01');
                     })
                     ->orderBy('CONTNO', 'ASC')
                     ->get();
@@ -243,11 +260,12 @@ class AnalyticalController extends Controller
                 }
 
                 $Ploan_3 = P_ARPAY::where('NOPAY','<=', 6)
-                    ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    // ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    ->whereMonth('DDATE', $SearchMoth)
                     ->where('LOCAT','PNYL')
                     ->where('CONTNO','not like', 'P07-%')
                     ->Wherehas('P_ARPAYtoP_ARMAST',function ($query) {
-                        return $query->where('SDATE', '>=', '2021-03-01');
+                        return $query->where('SDATE', '>=', '2020-12-01');
                     })
                     ->orderBy('CONTNO', 'ASC')
                     ->get();
@@ -282,11 +300,12 @@ class AnalyticalController extends Controller
                 }
 
                 $Ploan_4 = P_ARPAY::where('NOPAY','<=', 6)
-                    ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    // ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    ->whereMonth('DDATE', $SearchMoth)
                     ->where('LOCAT','PNNW')
                     ->where('CONTNO','not like', 'P07-%')
                     ->Wherehas('P_ARPAYtoP_ARMAST',function ($query) {
-                        return $query->where('SDATE', '>=', '2021-03-01');
+                        return $query->where('SDATE', '>=', '2020-12-01');
                     })
                     ->orderBy('CONTNO', 'ASC')
                     ->get();
@@ -320,11 +339,12 @@ class AnalyticalController extends Controller
                 }
 
                 $Ploan_5 = P_ARPAY::where('NOPAY','<=', 6)
-                    ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    // ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    ->whereMonth('DDATE', $SearchMoth)
                     ->where('LOCAT','PNSB')
                     ->where('CONTNO','not like', 'P07-%')
                     ->Wherehas('P_ARPAYtoP_ARMAST',function ($query) {
-                        return $query->where('SDATE', '>=', '2021-03-01');
+                        return $query->where('SDATE', '>=', '2020-12-01');
                     })
                     ->orderBy('CONTNO', 'ASC')
                     ->get();
@@ -358,11 +378,12 @@ class AnalyticalController extends Controller
                 }
 
                 $Ploan_6 = P_ARPAY::where('NOPAY','<=', 6)
-                    ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    // ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    ->whereMonth('DDATE', $SearchMoth)
                     ->where('LOCAT','PNSKL')
                     ->where('CONTNO','not like', 'P07-%')
                     ->Wherehas('P_ARPAYtoP_ARMAST',function ($query) {
-                        return $query->where('SDATE', '>=', '2021-03-01');
+                        return $query->where('SDATE', '>=', '2020-12-01');
                     })
                     ->orderBy('CONTNO', 'ASC')
                     ->get();
@@ -396,11 +417,12 @@ class AnalyticalController extends Controller
                 }
 
                 $Ploan_7 = P_ARPAY::where('NOPAY','<=', 6)
-                    ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    // ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    ->whereMonth('DDATE', $SearchMoth)
                     ->where('LOCAT','PNBT')
                     ->where('CONTNO','not like', 'P07-%')
                     ->Wherehas('P_ARPAYtoP_ARMAST',function ($query) {
-                        return $query->where('SDATE', '>=', '2021-03-01');
+                        return $query->where('SDATE', '>=', '2020-12-01');
                     })
                     ->orderBy('CONTNO', 'ASC')
                     ->get();
@@ -434,11 +456,12 @@ class AnalyticalController extends Controller
                 }
 
                 $Ploan_7 = P_ARPAY::where('NOPAY','<=', 6)
-                    ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    // ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    ->whereMonth('DDATE', $SearchMoth)
                     ->where('LOCAT','PNBT')
                     ->where('CONTNO','not like', 'P07-%')
                     ->Wherehas('P_ARPAYtoP_ARMAST',function ($query) {
-                        return $query->where('SDATE', '>=', '2021-03-01');
+                        return $query->where('SDATE', '>=', '2020-12-01');
                     })
                     ->orderBy('CONTNO', 'ASC')
                     ->get();
@@ -472,11 +495,12 @@ class AnalyticalController extends Controller
                 }
 
                 $Ploan_8 = P_ARPAY::where('NOPAY','<=', 6)
-                    ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    // ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    ->whereMonth('DDATE', $SearchMoth)
                     ->where('LOCAT','PNKP')
                     ->where('CONTNO','not like', 'P07-%')
                     ->Wherehas('P_ARPAYtoP_ARMAST',function ($query) {
-                        return $query->where('SDATE', '>=', '2021-03-01');
+                        return $query->where('SDATE', '>=', '2020-12-01');
                     })
                     ->orderBy('CONTNO', 'ASC')
                     ->get();
@@ -511,14 +535,16 @@ class AnalyticalController extends Controller
 
 
                 $Ploan_9 = P_ARPAY::where('NOPAY','<=', 6)
-                    ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    // ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    ->whereMonth('DDATE', $SearchMoth)
                     ->where('LOCAT','PNRNG')
                     ->where('CONTNO','not like', 'P07-%')
                     ->Wherehas('P_ARPAYtoP_ARMAST',function ($query) {
-                        return $query->where('SDATE', '>=', '2021-03-01');
+                        return $query->where('SDATE', '>=', '2020-12-01');
                     })
                     ->orderBy('CONTNO', 'ASC')
                     ->get();
+
                 $P03_9 = 0;
                 $P03_Pay9 = 0;
                 $P04_9 = 0;
@@ -549,11 +575,12 @@ class AnalyticalController extends Controller
                 }
 
                 $Ploan_12 = P_ARPAY::where('NOPAY','<=', 6)
-                    ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    // ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    ->whereMonth('DDATE', $SearchMoth)
                     ->where('LOCAT','PNREU')
                     ->where('CONTNO','not like', 'P07-%')
                     ->Wherehas('P_ARPAYtoP_ARMAST',function ($query) {
-                        return $query->where('SDATE', '>=', '2021-03-01');
+                        return $query->where('SDATE', '>=', '2020-12-01');
                     })
                     ->orderBy('CONTNO', 'ASC')
                     ->get();
@@ -587,11 +614,12 @@ class AnalyticalController extends Controller
                 }
 
                 $Ploan_13 = P_ARPAY::where('NOPAY','<=', 6)
-                    ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    // ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    ->whereMonth('DDATE', $SearchMoth)
                     ->where('LOCAT','PNBNT')
                     ->where('CONTNO','not like', 'P07-%')
                     ->Wherehas('P_ARPAYtoP_ARMAST',function ($query) {
-                        return $query->where('SDATE', '>=', '2021-03-01');
+                        return $query->where('SDATE', '>=', '2020-12-01');
                     })
                     ->orderBy('CONTNO', 'ASC')
                     ->get();
@@ -625,11 +653,12 @@ class AnalyticalController extends Controller
                 }
 
                 $Ploan_14 = P_ARPAY::where('NOPAY','<=', 6)
-                    ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    // ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    ->whereMonth('DDATE', $SearchMoth)
                     ->where('LOCAT','PNYH')
                     ->where('CONTNO','not like', 'P07-%')
                     ->Wherehas('P_ARPAYtoP_ARMAST',function ($query) {
-                        return $query->where('SDATE', '>=', '2021-03-01');
+                        return $query->where('SDATE', '>=', '2020-12-01');
                     })
                     ->orderBy('CONTNO', 'ASC')
                     ->get();
@@ -664,15 +693,23 @@ class AnalyticalController extends Controller
 
             /**********************/
 
-            $SumF01 = count($data1)+$P03_1+$P04_1+$P06_1+
-                      count($data5)+$P03_5+$P04_5+$P06_5+
-                      count($data8)+$P03_8+$P04_8+$P06_8;
+            // dump(((count($data9)+$P03_9+$P04_9+$P06_9)) - ($countPay9+$P03_Pay9+$P04_Pay9+$P06_Pay9));
+            // dd(($countPay9+$P03_Pay9+$P04_Pay9+$P06_Pay9));
 
-            // $CountP06 = $P06_1+$P06_3+$P06_4+$P06_5+$P06_6+$P06_7+$P06_8+$P06_9+$P06_12+$P06_13+$P06_14;
-            // $P06 = $P06_Pay1+$P06_Pay3+$P06_Pay4+$P06_Pay5+$P06_Pay6+$P06_Pay7+$P06_Pay8+$P06_Pay9+$P06_Pay12+$P06_Pay13+$P06_Pay14;
-            // dd($P06_Pay1,$P06_Pay3,$P06_Pay4,$P06_Pay5,$P06_Pay6,$P06_Pay7,$P06_Pay8,$P06_Pay9,$P06_Pay12,$P06_Pay13,$P06_Pay14);
+            $financePN =((count($data1)+$P03_1+$P04_1+$P06_1)) - ($countPay1+$P03_Pay1+$P04_Pay1+$P06_Pay1);
 
-            return view('analytical.view', compact('type','SumF01',
+            $AllMasterPN = count($data1)+count($data5)+count($data8)+$P03_1+$P03_5+$P03_8+$P04_1+$P04_5+$P04_8+$P06_1+$P06_5+$P06_8;
+            $PayMasterPN = $countPay1+$countPay5+$countPay8+$P03_Pay1+$P03_Pay5+$P03_Pay8+$P04_Pay1+$P04_Pay5+$P04_Pay8+$P06_Pay1+$P06_Pay5+$P06_Pay8;
+
+            $AllMasterYL = count($data3)+count($data7)+count($data13)+count($data14)+$P03_3+$P03_7+$P03_13+$P03_14+$P04_3+$P04_7+$P04_13+$P04_14+$P06_3+$P06_7+$P06_13+$P06_14;
+            $PayMasterYL = $countPay3+$countPay7+$countPay13+$countPay14+$P03_Pay3+$P03_Pay7+$P03_Pay13+$P03_Pay14+$P04_Pay3+$P04_Pay7+$P04_Pay13+$P04_Pay14+$P06_Pay3+$P06_Pay7+$P06_Pay13+$P06_Pay14;
+
+            $AllMasterNW = count($data4)+count($data6)+count($data9)+count($data12)+$P03_4+$P03_6+$P03_9+$P03_12+$P04_4+$P04_6+$P04_9+$P04_12+$P06_4+$P06_6+$P06_9+$P06_12;
+            $PayMasterNW = $countPay4+$countPay6+$countPay9+$countPay12+$P03_Pay4+$P03_Pay6+$P03_Pay9+$P03_Pay12+$P04_Pay4+$P04_Pay6+$P04_Pay9+$P04_Pay12+$P06_Pay4+$P06_Pay6+$P06_Pay9+$P06_Pay12;
+
+            if ($request->type == 1) {
+                return view('analytical.viewMaster', compact('type','SearchMoth',
+                    'AllMasterPN','PayMasterPN','AllMasterYL','PayMasterYL','AllMasterNW','PayMasterNW',
                     'data1','data3','data4','data5','data6','data7','data8','data9','data12','data13','data14',
                     'countPay1','countPay3','countPay4','countPay5','countPay6','countPay7','countPay8','countPay9','countPay12','countPay13','countPay14',
                     'P03_1','P03_3','P03_4','P03_5','P03_6','P03_7','P03_8','P03_9','P03_12','P03_13','P03_14',
@@ -682,6 +719,21 @@ class AnalyticalController extends Controller
                     'P06_1','P06_3','P06_4','P06_5','P06_6','P06_7','P06_8','P06_9','P06_12','P06_13','P06_14',
                     'P06_Pay1','P06_Pay3','P06_Pay4','P06_Pay5','P06_Pay6','P06_Pay7','P06_Pay8','P06_Pay9','P06_Pay12','P06_Pay13','P06_Pay14'
                 ));
+            }
+            elseif ($request->type == 2) {
+                return view('analytical.viewFinance', compact('type','SearchMoth',
+                    'AllMasterPN','PayMasterPN','AllMasterYL','PayMasterYL','AllMasterNW','PayMasterNW',
+                    'data1','data3','data4','data5','data6','data7','data8','data9','data12','data13','data14',
+                    'countPay1','countPay3','countPay4','countPay5','countPay6','countPay7','countPay8','countPay9','countPay12','countPay13','countPay14',
+                    'P03_1','P03_3','P03_4','P03_5','P03_6','P03_7','P03_8','P03_9','P03_12','P03_13','P03_14',
+                    'P03_Pay1','P03_Pay3','P03_Pay4','P03_Pay5','P03_Pay6','P03_Pay7','P03_Pay8','P03_Pay9','P03_Pay12','P03_Pay13','P03_Pay14',
+                    'P04_1','P04_3','P04_4','P04_5','P04_6','P04_7','P04_8','P04_9','P04_12','P04_13','P04_14',
+                    'P04_Pay1','P04_Pay3','P04_Pay4','P04_Pay5','P04_Pay6','P04_Pay7','P04_Pay8','P04_Pay9','P04_Pay12','P04_Pay13','P04_Pay14',
+                    'P06_1','P06_3','P06_4','P06_5','P06_6','P06_7','P06_8','P06_9','P06_12','P06_13','P06_14',
+                    'P06_Pay1','P06_Pay3','P06_Pay4','P06_Pay5','P06_Pay6','P06_Pay7','P06_Pay8','P06_Pay9','P06_Pay12','P06_Pay13','P06_Pay14'
+                ));
+
+            }
         }
     }
 }

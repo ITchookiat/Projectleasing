@@ -93,6 +93,7 @@
                               <option value="" selected>--------- แผนก ----------</option>
                               <option value="Admin" {{ ($user->type === 'Admin') ? 'selected' : '' }}>Admin</option>
                               <option value="แผนก วิเคราะห์" {{ ($user->type === 'แผนก วิเคราะห์') ? 'selected' : '' }}>แผนก วิเคราะห์</option>
+                              <option value="แผนก ตรวจสอบ" {{ ($user->type === 'แผนก ตรวจสอบ') ? 'selected' : '' }}>แผนก ตรวจสอบ</option>
                               <option value="แผนก จัดไฟแนนท์" {{ ($user->type === 'แผนก จัดไฟแนนท์') ? 'selected' : '' }}>แผนก จัดไฟแนนท์</option>
                               <option value="แผนก รถบ้าน" {{ ($user->type === 'แผนก รถบ้าน') ? 'selected' : '' }}>แผนก รถบ้าน</option>
                               <option value="แผนก กฏหมาย" {{ ($user->type === 'แผนก กฏหมาย') ? 'selected' : '' }}>แผนก กฏหมาย</option>
