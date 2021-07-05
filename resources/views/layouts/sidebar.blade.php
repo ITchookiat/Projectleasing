@@ -47,10 +47,13 @@
             $ActiveP06 = true;
           }
         }
-        elseif (isset($_GET['type']) and Request::is('MasterAnalytical')) {
+
+        if (isset($_GET['type']) and Request::is('MasterAnalytical')) {
           $MasterAnalytical = true;
           if ($_GET['type'] == 1) {
             $Analytical01 = true;
+          }elseif ($_GET['type'] == 2) {
+            $Analytical02 = true;
           }
         }
       @endphp
@@ -77,24 +80,30 @@
             </ul>
           </li>
 
-          {{-- <li class="nav-item has-treeview @if(isset($MasterAnalytical)) {{($MasterAnalytical == true) ? 'menu-open' : '' }} @endif">
+          <li class="nav-item has-treeview @if(isset($MasterAnalytical)) {{($MasterAnalytical == true) ? 'menu-open' : '' }} @endif">
             <a href="#" class="nav-link active">
               <i class="nav-icon fab fa-audible"></i>
               <span id="Info"></span>
               <p>
-                Data Analysis
+                Data Analyticals
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview" style="margin-left: 15px;">
-              <li class="nav-item">
-                <a href="{{ route('MasterAnalytical.index') }}?type={{1}}" class="nav-link @if(isset($Analytical01)) {{($Analytical01 == true) ? 'active' : '' }} @endif">
-                  <i class="far fa-dot-circle nav-icon"></i>
-                  <p>Board Commission</p>
-                </a>
-              </li>
-            </ul>
-          </li> --}}
+            @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
+              <ul class="nav nav-treeview" style="margin-left: 15px;">
+                <li class="nav-item">
+                  <a href="{{ route('MasterAnalytical.index') }}?type={{1}}" class="nav-link @if(isset($Analytical01)) {{($Analytical01 == true) ? 'active' : '' }} @endif">
+                    <i class="far fa-dot-circle nav-icon"></i>
+                    <p>Board Masters (Fn)</p>
+                  </a>
+                  <a href="{{ route('MasterAnalytical.index') }}?type={{2}}" class="nav-link @if(isset($Analytical02)) {{($Analytical02 == true) ? 'active' : '' }} @endif">
+                    <i class="far fa-dot-circle nav-icon"></i>
+                    <p>Board Finanaces (Fn)</p>
+                  </a>
+                </li>
+              </ul>
+            @endif
+          </li>
 
           <li class="nav-item has-treeview {{ Request::is('Analysis/*') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link active">
@@ -105,7 +114,7 @@
               </p>
             </a>
             
-            @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์" or auth::user()->type == "แผนก รถบ้าน" or auth::user()->type == "แผนก การเงินใน" or auth::user()->type == "แผนก กฏหมาย")
+            @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์" or auth::user()->type == "แผนก รถบ้าน" or auth::user()->type == "แผนก การเงินใน" or auth::user()->type == "แผนก กฏหมาย" or auth::user()->type == "แผนก ตรวจสอบ")
               <ul class="nav nav-treeview">
                 <li class="nav-item has-treeview {{ Request::is('Analysis/Home/1') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/2') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/3') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/4') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/5') ? 'menu-open' : '' }}
                                                  {{ Request::is('Analysis/Home/6') ? 'menu-open' : '' }} {{ Request::is('Analysis/Home/7') ? 'menu-open' : '' }} 
@@ -119,7 +128,7 @@
                     </p>
                   </a>
                   <ul class="nav nav-treeview" style="margin-left: 15px;">
-                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์" or auth::user()->type == "แผนก การเงินใน" or auth::user()->type == "แผนก กฏหมาย")
+                    @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก ตรวจสอบ" or auth::user()->type == "แผนก จัดไฟแนนท์" or auth::user()->type == "แผนก การเงินใน" or auth::user()->type == "แผนก กฏหมาย")
                       <li class="nav-item">
                         <a href="{{ route('Analysis', 1) }}" class="nav-link {{ Request::is('Analysis/Home/1') ? 'active' : '' }} {{ Request::is('Analysis/Home/2') ? 'active' : '' }} {{ Request::is('Analysis/edit/1/*') ? 'active' : '' }}
                                                                               {{ Request::is('DataCustomer/*/*') ? 'active' : '' }} {{ Request::is('Analysis/Home/3') ? 'active' : '' }}">
@@ -211,7 +220,7 @@
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์" or auth::user()->type == "แผนก การเงินใน")
+            @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก ตรวจสอบ" or auth::user()->type == "แผนก จัดไฟแนนท์" or auth::user()->type == "แผนก การเงินใน")
               <ul class="nav nav-treeview">
                 <li class="nav-item has-treeview @if(isset($ActivePloan)) {{($ActivePloan == true) ? 'menu-open' : '' }} @endif">
                   <a href="#" class="nav-link">
@@ -222,7 +231,7 @@
                     </p>
                   </a>
                   <ul class="nav nav-treeview" style="margin-left: 15px;">
-                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์" or auth::user()->type == "แผนก การเงินใน")
+                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก ตรวจสอบ" or auth::user()->type == "แผนก จัดไฟแนนท์" or auth::user()->type == "แผนก การเงินใน")
                         <li class="nav-item">
                           <a href="{{ route('MasterMicroPloan.index') }}?type={{1}}" class="nav-link @if(isset($ActiveP03)) {{($ActiveP03 == true) ? 'active' : '' }} @endif">
                             <i class="fas fa-car nav-icon"></i>
@@ -239,7 +248,7 @@
               </ul>
             @endif
          
-            @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์" or auth::user()->type == "แผนก การเงินใน")
+            @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก ตรวจสอบ" or auth::user()->type == "แผนก จัดไฟแนนท์" or auth::user()->type == "แผนก การเงินใน")
               <ul class="nav nav-treeview">
                 <li class="nav-item has-treeview @if(isset($ActiveMicro)) {{($ActiveMicro == true) ? 'menu-open' : '' }} @endif">
                   <a href="#" class="nav-link">
@@ -250,7 +259,7 @@
                     </p>
                   </a>
                   <ul class="nav nav-treeview" style="margin-left: 15px;">
-                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก จัดไฟแนนท์" or auth::user()->type == "แผนก การเงินใน")
+                      @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->type == "แผนก ตรวจสอบ" or auth::user()->type == "แผนก จัดไฟแนนท์" or auth::user()->type == "แผนก การเงินใน")
                         <li class="nav-item">
                           <a href="{{ route('MasterMicroPloan.index') }}?type={{5}}" class="nav-link @if(isset($ActiveP06)) {{($ActiveP06 == true) ? 'active' : '' }} @endif">
                             <i class="fas fa-car nav-icon"></i>

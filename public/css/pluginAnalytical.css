@@ -1,0 +1,48 @@
+.content{
+    padding-top: 1%;
+    padding-right: 1.8%;
+    font-family: 'Prompt', sans-serif;
+    color: rgb(3, 141, 184);
+}
+.btn-page button {
+    background-color: #f4851e;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    width: 40px;
+    padding: 5px;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+
+.btn-page a:hover {
+    background-color: #f4851e;
+    text-align: center;
+    color: #FFFFFF;
+    transition: all 0.3s;
+}
+
+/* Click Hover */
+    .hover-up {
+        top: 0;
+        position: relative;
+        transition: all 0.2s ease-in-out;
+    }
+    .hover-up:hover {
+        box-shadow: 0 20px 40px rgba(61, 65, 84, 0.25);
+        top: -2px;
+    }
+    .hover-line::before {
+        content: '';
+        display: block;
+        height:3px;
+        width: 0;
+        position: absolute;
+        left: 0;
+        top: 0;
+        background-color: #1A9AE1;
+        transition: all 0.2s ease-in-out;
+    }
+/* End Hover */
+

@@ -99,6 +99,7 @@
                             <option selected disabled value="" >เลือกแผนก</option>
                             <option value="Admin"> Admin</option>
                             <option value="แผนก วิเคราะห์"> แผนก วิเคราะห์</option>
+                            <option value="แผนก ตรวจสอบ"> แผนก ตรวจสอบ</option>
                             <option value="แผนก จัดไฟแนนท์"> แผนก จัดไฟแนนท์</option>
                             <option value="แผนก รถบ้าน"> แผนก รถบ้าน</option>
                             <option value="แผนก กฏหมาย"> แผนก กฏหมาย</option>
