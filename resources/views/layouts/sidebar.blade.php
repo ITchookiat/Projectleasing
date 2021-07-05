@@ -82,7 +82,7 @@
 
           <li class="nav-item has-treeview @if(isset($MasterAnalytical)) {{($MasterAnalytical == true) ? 'menu-open' : '' }} @endif">
             <a href="#" class="nav-link active">
-              <i class="nav-icon fab fa-audible"></i>
+              <i class="nav-icon fas fa-server"></i>
               <span id="Info"></span>
               <p>
                 Data Analyticals
