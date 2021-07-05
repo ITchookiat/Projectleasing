@@ -1505,6 +1505,8 @@ class LegislationController extends Controller
               'NewpursueDate_asset' => $request->get('NewpursueDateasset'),
               'Notepursue_asset' =>  $request->get('Notepursueasset'),
               'User_asset' =>  auth()->user()->name,
+              'DateTakephoto_asset' =>  $request->get('Date_Takephoto'),
+              'DateGetphoto_asset' =>  $request->get('Date_Getphoto'),
             ]);
             $LegisAsset->save();
         }else {
@@ -1529,6 +1531,8 @@ class LegislationController extends Controller
             $LegisAsset->Dateresult_asset = $Dateresult;
             $LegisAsset->NewpursueDate_asset = $request->get('NewpursueDateasset');
             $LegisAsset->Notepursue_asset =  $request->get('Notepursueasset');
+            $LegisAsset->DateTakephoto_asset =  $request->get('Date_Takephoto');
+            $LegisAsset->DateGetphoto_asset =  $request->get('Date_Getphoto');
           $LegisAsset->update();
         }
 
