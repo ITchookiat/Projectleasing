@@ -1055,7 +1055,7 @@
                               </div>
                             </div>
                           <hr>
-                          @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์")
+                          @if(auth::user()->type == "Admin" or auth::user()->type == "แผนก วิเคราะห์" or auth::user()->position == "AUDIT")
                             <div class="row">
                               <div class="col-md-4"></div>
                               <div class="col-md-4">
