@@ -27,11 +27,10 @@ class AnalyticalController extends Controller
         //     // ตอนselect แปลงเป็น utf iconv('TIS-620','UTF-8//TRANSLIT', "ทดสอบนะครับ")
         // $User->update();
 
-
         if ($request->type == 1 or $request->type == 2) {
             //ลค.เช้าซื้อ
                 $data1 = S_ARPAY::where('NOPAY','<=', 6)
-                    // ->whereBetween('DDATE', [$newfdate,$newtdate])
+                    // ->whereBetween('DDATE', ['2021-06-01','2021-06-30'])
                     ->whereMonth('DDATE', $SearchMoth)
                     ->where('CONTNO','like', '01-%')
                     ->Wherehas('S_ARPAYtoS_ARMAST',function ($query) {
@@ -673,23 +672,24 @@ class AnalyticalController extends Controller
                     $sumbalance = ($value->N_DAMT - $value->PAYMENT);
                     if ($StrConn == 'P03') {
                         if($sumbalance == 0){
-                            $P03_Pay13 += 1;
+                            $P03_Pay14 += 1;
                         }
-                        $P03_13 += 1;
+                        $P03_14 += 1;
                     }
                     elseif ($StrConn == 'P04') {
                         if($sumbalance == 0){
-                            $P04_Pay13 += 1;
+                            $P04_Pay14 += 1;
                         }
-                        $P04_13 += 1;
+                        $P04_14 += 1;
                     }
                     elseif ($StrConn == 'P06') {
                         if($sumbalance == 0){
-                            $P06_Pay13 += 1;
+                            $P06_Pay14 += 1;
                         }
-                        $P06_13 += 1;
+                        $P06_14 += 1;
                     }
                 }
+
 
             /**********************/
 
@@ -734,6 +734,51 @@ class AnalyticalController extends Controller
                 ));
 
             }
+        }
+        elseif ($request->type == 3){
+
+            // $data1 = DB::connection('ibmi')
+            //     ->table('SFHP.ARPAY')
+            //     ->join('SFHP.ARMAST','SFHP.ARPAY.CONTNO','=','SFHP.ARMAST.CONTNO')
+            //     // ->whereRaw('CASE WHEN SFHP.ARMAST.BALANC-SFHP.ARMAST.SMPAY=0 THEN 1 ELSE 0 END = 1')
+            //     ->whereBetween('SFHP.ARPAY.DDATE', ['2021-05-01','2021-05-31'])
+            //     ->whereBetween('SFHP.ARPAY.DATE1', ['2021-05-01','2021-05-31'])
+            //     ->whereRaw('SFHP.ARMAST.BALANC-SFHP.ARMAST.SMPAY=0')
+            //     ->get();
+
+            // $data2 = DB::connection('ibmi')
+            //     ->table('SFHP.ARPAY')
+            //     ->join('SFHP.ARMAST','SFHP.ARPAY.CONTNO','=','SFHP.ARMAST.CONTNO')
+            //     ->whereBetween('SFHP.ARPAY.DDATE', ['2021-05-01','2021-05-31'])
+            //     ->whereBetween('SFHP.ARPAY.DATE1', ['2021-05-01','2021-05-31'])
+            //     ->whereRaw('SFHP.ARPAY.DAMT-SFHP.ARPAY.PAYMENT=0')
+            //     ->get();
+
+            $data3 = DB::connection('ibmi')
+                ->table('SFHP.CHQTRAN')
+                ->join('SFHP.ARMAST','SFHP.ARMAST.CONTNO','=','SFHP.CHQTRAN.CONTNO')
+                ->whereBetween('SFHP.CHQTRAN.TMBILDT', ['2021-05-01','2021-05-31'])
+                ->whereRaw('SFHP.ARMAST.KEYINFUPAY<SFHP.CHQTRAN.PAYAMT')
+                ->get();
+
+                dd($data3);
+
+
+            // $data4 = DB::connection('ibmi')
+            //     ->table('SFHP.ARPAY')
+            //     ->join('SFHP.ARMAST','SFHP.ARPAY.CONTNO','=','SFHP.ARMAST.CONTNO')
+            //     // ->whereRaw('SFHP.ARMAST.LPAYA>SFHP.ARPAY.DAMT')
+            //     ->whereBetween('SFHP.ARPAY.DDATE', ['2021-05-01','2021-05-31'])
+            //     ->where('SFHP.ARPAY.PAYMENT', 0)
+            //     ->get();
+
+
+
+            // $DataPay2 = S_ARPAY::whereBetween('DDATE', ['2021-05-01','2021-05-31'])
+            //     ->whereBetween('DATE1', ['2021-05-01','2021-05-31'])
+            //     ->count();
+
+            //     dd($countPay1,$DataPay2);
         }
     }
 }
