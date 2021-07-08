@@ -689,8 +689,6 @@ class AnalyticalController extends Controller
                         $P06_14 += 1;
                     }
                 }
-
-
             /**********************/
 
             // dump(((count($data9)+$P03_9+$P04_9+$P06_9)) - ($countPay9+$P03_Pay9+$P04_Pay9+$P06_Pay9));

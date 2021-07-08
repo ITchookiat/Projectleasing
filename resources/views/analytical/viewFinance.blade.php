@@ -270,7 +270,7 @@
                  {{($countPay8+$P03_Pay8+$P04_Pay8+$P06_Pay8)}},
                  {{($countPay9+$P03_Pay9+$P04_Pay9+$P06_Pay9)}},
                  {{($countPay12+$P03_Pay12+$P04_Pay12+$P06_Pay12)}},
-                 {{($countPay13+$P03_Pay13+$P04_Pay14+$P06_Pay13)}},
+                 {{($countPay13+$P03_Pay13+$P04_Pay13+$P06_Pay13)}},
                  {{($countPay14+$P03_Pay14+$P04_Pay14+$P06_Pay14)}}]
         }, 
         {
@@ -286,7 +286,7 @@
                  {{((count($data8)+$P03_8+$P04_8+$P06_8)) - ($countPay8+$P03_Pay8+$P04_Pay8+$P06_Pay8)}},
                  {{((count($data9)+$P03_9+$P04_9+$P06_9)) - ($countPay9+$P03_Pay9+$P04_Pay9+$P06_Pay9)}},
                  {{((count($data12)+$P03_12+$P04_12+$P06_12)) - ($countPay12+$P03_Pay12+$P04_Pay12+$P06_Pay12)}},
-                 {{((count($data13)+$P03_13+$P04_13+$P06_13)) - ($countPay13+$P03_Pay13+$P04_Pay14+$P06_Pay13)}},
+                 {{((count($data13)+$P03_13+$P04_13+$P06_13)) - ($countPay13+$P03_Pay13+$P04_Pay13+$P06_Pay13)}},
                  {{((count($data14)+$P03_14+$P04_14+$P06_14)) - ($countPay14+$P03_Pay14+$P04_Pay14+$P06_Pay14)}}]
         }
       ],
