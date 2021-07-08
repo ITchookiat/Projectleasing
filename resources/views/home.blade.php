@@ -103,7 +103,7 @@
       $TargetRosok_LS = round(($Leasing12 / $dataLeasing->Target_Rosok) * 100);
       $TargetBannangsta_LS = round(($Leasing13 / $dataLeasing->Target_Bannangsta) * 100);
       $TargetYaha_LS = round(($Leasing14 / $dataLeasing->Target_Yaha) * 100);
-      $TargetHomecar_LS = round(($SumHomecarAll / $SumHomecarAll) * 100);
+      //$TargetHomecar_LS = round(($SumHomecarAll / $SumHomecarAll) * 100);
     @endphp
   @endif
 
@@ -386,6 +386,13 @@
         // distributed: true,
       }
     },
+    tooltip: {
+      y: {
+        formatter: function(value, { series, dataPointIndex, w }) {
+          return addCommas(value)
+        }
+      },
+    },
     dataLabels: {
       enabled: true,
       formatter: function (val) {
@@ -609,6 +616,13 @@
         },
         // distributed: true,
       }
+    },
+    tooltip: {
+      y: {
+        formatter: function(value, { series, dataPointIndex, w }) {
+          return addCommas(value)
+        }
+      },
     },
     dataLabels: {
       enabled: true,
@@ -834,6 +848,13 @@
         // distributed: true,
       }
     },
+    tooltip: {
+      y: {
+        formatter: function(value, { series, dataPointIndex, w }) {
+          return addCommas(value)
+        }
+      },
+    },
     dataLabels: {
       enabled: true,
       formatter: function (val) {
@@ -1058,6 +1079,13 @@
         // distributed: true,
       }
     },
+    tooltip: {
+      y: {
+        formatter: function(value, { series, dataPointIndex, w }) {
+          return addCommas(value)
+        }
+      },
+    },
     dataLabels: {
       enabled: true,
       formatter: function (val) {
@@ -1256,7 +1284,7 @@
 
   {{-- Staff&Homecar ยอดคัน --}}
   <script>
-      var TotalCon = addCommas({{$SumHomecarAll}});
+      var TotalCon = addCommas({{$SumStaffAll + $SumHomecarAll}});
       var options = {
       series: [
         {
@@ -1312,7 +1340,7 @@
 
   {{-- Staff&Homecar ยอดจัด --}}
   <script>
-      var TotalCon = addCommas({{$SumTopcar_HomecarAll}});
+      var TotalCon = addCommas({{$SumTopcar_StaffAll + $SumTopcar_HomecarAll}});
       var options = {
       series: [
         {
@@ -1343,6 +1371,13 @@
             position: "center" // top, center, bottom
           },
         }
+      },
+      tooltip: {
+      y: {
+          formatter: function(value, { series, dataPointIndex, w }) {
+            return addCommas(value)
+          }
+        },
       },
       dataLabels: {
         enabled: true,

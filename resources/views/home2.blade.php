@@ -109,8 +109,8 @@
                             <span class="badge bg-success float-right">@if($Allproducts == '') {{number_format($Total_baabMotor)}} @endif</span>
                         </a>
                         <a class="nav-link" id="vert-tabs-8-tab" data-toggle="pill" href="#vert-tabs-8" role="tab" aria-controls="vert-tabs-8" aria-selected="false">
-                          <i class="far fa-dot-circle nav-icon text-primary"></i> แบบจัด(รถบ้าน)
-                            <span class="badge bg-success float-right">@if($Allproducts == '') {{number_format($SumHomecarAll)}} @endif</span>
+                          <i class="far fa-dot-circle nav-icon text-primary"></i> พนักงาน & รถบ้าน
+                            <span class="badge bg-success float-right">@if($Allproducts == '') {{number_format($SumStaffAll + $SumHomecarAll)}} @endif</span>
                         </a>
                     </div>
                   </div>
