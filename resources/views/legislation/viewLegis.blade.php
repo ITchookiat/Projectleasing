@@ -32,139 +32,142 @@
 
 <style>
   #todo-list{
-  width:100%;
-  margin:0 auto 50px auto;
-  padding:5px;
-  background:white;
-  position:relative;
-  /*box-shadow*/
-  -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
-    -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
-        box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
-  /*border-radius*/
-  -webkit-border-radius:5px;
-    -moz-border-radius:5px;
-        border-radius:5px;
+    width:100%;
+    margin:0 auto 50px auto;
+    padding:5px;
+    background:white;
+    position:relative;
+    /*box-shadow*/
+    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
+      -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
+          box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
+    /*border-radius*/
+    -webkit-border-radius:5px;
+      -moz-border-radius:5px;
+          border-radius:5px;
   }
   #todo-list:before{
-  content:"";
-  position:absolute;
-  z-index:-1;
-  /*box-shadow*/
-  -webkit-box-shadow:0 0 20px rgba(0,0,0,0.4);
-    -moz-box-shadow:0 0 20px rgba(0,0,0,0.4);
-        box-shadow:0 0 20px rgba(0,0,0,0.4);
-  top:50%;
-  bottom:0;
-  left:10px;
-  right:10px;
-  /*border-radius*/
-  -webkit-border-radius:100px / 10px;
-    -moz-border-radius:100px / 10px;
-        border-radius:100px / 10px;
+    content:"";
+    position:absolute;
+    z-index:-1;
+    /*box-shadow*/
+    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.4);
+      -moz-box-shadow:0 0 20px rgba(0,0,0,0.4);
+          box-shadow:0 0 20px rgba(0,0,0,0.4);
+    top:50%;
+    bottom:0;
+    left:10px;
+    right:10px;
+    /*border-radius*/
+    -webkit-border-radius:100px / 10px;
+      -moz-border-radius:100px / 10px;
+          border-radius:100px / 10px;
   }
   .todo-wrap{
-  display:block;
-  position:relative;
-  padding-left:35px;
-  /*box-shadow*/
-  -webkit-box-shadow:0 2px 0 -1px #ebebeb;
-    -moz-box-shadow:0 2px 0 -1px #ebebeb;
-        box-shadow:0 2px 0 -1px #ebebeb;
+    display:block;
+    position:relative;
+    padding-left:35px;
+    /*box-shadow*/
+    -webkit-box-shadow:0 2px 0 -1px #ebebeb;
+      -moz-box-shadow:0 2px 0 -1px #ebebeb;
+          box-shadow:0 2px 0 -1px #ebebeb;
   }
   .todo-wrap:last-of-type{
-  /*box-shadow*/
-  -webkit-box-shadow:none;
-    -moz-box-shadow:none;
-        box-shadow:none;
+    /*box-shadow*/
+    -webkit-box-shadow:none;
+      -moz-box-shadow:none;
+          box-shadow:none;
   }
   input[type="checkbox"]{
-  position:absolute;
-  height:0;
-  width:0;
-  opacity:0;
-  /* top:-600px; */
+    position:absolute;
+    height:0;
+    width:0;
+    opacity:0;
+    /* top:-600px; */
   }
   .todo{
-  display:inline-block;
-  font-weight:200;
-  padding:10px 5px;
-  height:3px;
-  position:relative;
+    display:inline-block;
+    font-weight:200;
+    padding:10px 5px;
+    height:3px;
+    position:relative;
   }
   .todo:before{
-  content:'';
-  display:block;
-  position:absolute;
-  top:calc(50% + 2px);
-  left:0;
-  width:0%;
-  height:1px;
-  background:#cd4400;
-  /*transition*/
-  -webkit-transition:.25s ease-in-out;
-    -moz-transition:.25s ease-in-out;
-      -o-transition:.25s ease-in-out;
-        transition:.25s ease-in-out;
+    content:'';
+    display:block;
+    position:absolute;
+    top:calc(50% + 2px);
+    left:0;
+    width:0%;
+    height:1px;
+    background:#cd4400;
+    /*transition*/
+    -webkit-transition:.25s ease-in-out;
+      -moz-transition:.25s ease-in-out;
+        -o-transition:.25s ease-in-out;
+          transition:.25s ease-in-out;
   }
   .todo:after{
-  content:'';
-  display:block;
-  position:absolute;
-  z-index:0;
-  height:18px;
-  width:18px;
-  top:9px;
-  left:-25px;
-  /*box-shadow*/
-  -webkit-box-shadow:inset 0 0 0 2px #d8d8d8;
-    -moz-box-shadow:inset 0 0 0 2px #d8d8d8;
-        box-shadow:inset 0 0 0 2px #d8d8d8;
-  /*transition*/
-  -webkit-transition:.25s ease-in-out;
-    -moz-transition:.25s ease-in-out;
-      -o-transition:.25s ease-in-out;
-        transition:.25s ease-in-out;
-  /*border-radius*/
-  -webkit-border-radius:4px;
-    -moz-border-radius:4px;
-        border-radius:4px;
+    content:'';
+    display:block;
+    position:absolute;
+    z-index:0;
+    height:18px;
+    width:18px;
+    top:9px;
+    left:-25px;
+    /*box-shadow*/
+    -webkit-box-shadow:inset 0 0 0 2px #d8d8d8;
+      -moz-box-shadow:inset 0 0 0 2px #d8d8d8;
+          box-shadow:inset 0 0 0 2px #d8d8d8;
+    /*transition*/
+    -webkit-transition:.25s ease-in-out;
+      -moz-transition:.25s ease-in-out;
+        -o-transition:.25s ease-in-out;
+          transition:.25s ease-in-out;
+    /*border-radius*/
+    -webkit-border-radius:4px;
+      -moz-border-radius:4px;
+          border-radius:4px;
   }
   .todo:hover:after{
-  /*box-shadow*/
-  -webkit-box-shadow:inset 0 0 0 2px #949494;
-    -moz-box-shadow:inset 0 0 0 2px #949494;
-        box-shadow:inset 0 0 0 2px #949494;
+    /*box-shadow*/
+    -webkit-box-shadow:inset 0 0 0 2px #949494;
+      -moz-box-shadow:inset 0 0 0 2px #949494;
+          box-shadow:inset 0 0 0 2px #949494;
   }
   .todo .fa-check{
-  position:absolute;
-  z-index:1;
-  left:-31px;
-  top:0;
-  font-size:1px;
-  line-height:36px;
-  width:36px;
-  height:36px;
-  text-align:center;
-  color:transparent;
-  text-shadow:1px 1px 0 white, -1px -1px 0 white;
+    position:absolute;
+    z-index:1;
+    left:-31px;
+    top:0;
+    font-size:1px;
+    line-height:36px;
+    width:36px;
+    height:36px;
+    text-align:center;
+    color:transparent;
+    text-shadow:1px 1px 0 white, -1px -1px 0 white;
   }
   :checked + .todo{
-  color:#717171;
+    color:#717171;
   }
   :checked + .todo:before{
-  width:100%;
+    width:100%;
   }
   :checked + .todo:after{
-  /*box-shadow*/
-  -webkit-box-shadow:inset 0 0 0 2px #0eb0b7;
-    -moz-box-shadow:inset 0 0 0 2px #0eb0b7;
-        box-shadow:inset 0 0 0 2px #0eb0b7;
+    /*box-shadow*/
+    -webkit-box-shadow:inset 0 0 0 2px #0eb0b7;
+      -moz-box-shadow:inset 0 0 0 2px #0eb0b7;
+          box-shadow:inset 0 0 0 2px #0eb0b7;
   }
   :checked + .todo .fa-check{
-  font-size:20px;
-  line-height:35px;
-  color:#0eb0b7;
+    font-size:20px;
+    line-height:35px;
+    color:#0eb0b7;
+  }
+  .textSize{
+    font-size: 13px;
   }
 </style>
 
@@ -334,20 +337,20 @@
                     <div class="col-md-12">
                       <form method="get" action="{{ route('MasterLegis.index') }}">
                         <input type="hidden" name="type" value="8" />
-                        <div class="float-right form-inline">
+                        <div class="float-right form-inline textSize">
                           <button type="submit" class="btn bg-warning btn-app">
                             <span class="fas fa-search"></span> Search
                           </button>
                         </div>
-                        <div class="float-right form-inline">
+                        <div class="float-right form-inline textSize">
                           <label>จากวันที่ : </label>
-                          <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control form-control-sm" />
+                          <input type="date" name="Fromdate" style="width: 180px;" value="{{ ($newfdate != '') ?$newfdate: date('Y-m-d') }}" class="form-control form-control-sm textSize" />
   
                           <label>ถึงวันที่ : </label>
-                          <input type="date" name="Todate" style="width: 180px;" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control form-control-sm" />
+                          <input type="date" name="Todate" style="width: 180px;" value="{{ ($newtdate != '') ?$newtdate: date('Y-m-d') }}" class="form-control form-control-sm textSize" />
                         
                           <label for="text" class="mr-sm-2">สถานะ : </label>
-                          <select name="status" class="form-control form-control-sm" id="text" style="width: 177px">
+                          <select name="status" class="form-control form-control-sm textSize" id="text" style="width: 177px">
                             <option selected value="">--- สถานะ ---</option>
                             <option value="Y" {{ ($SetSelect == 'Y') ? 'selected' : '' }}>ลูกหนี้มีทรัพย์</otion>
                             <option value="N" {{ ($SetSelect == 'N') ? 'selected' : '' }}>ลูกหนี้ไม่มีทรัพย์</otion>
@@ -358,7 +361,7 @@
                       </form>
                     </div>
                     <div class="col-md-12">
-                      <div class="table-responsive">
+                      <div class="table-responsive textSize">
                         <table class="table table-hover" id="table">
                           <thead>
                             <tr>
@@ -369,6 +372,7 @@
                               <th class="text-center">ระยะเวลา</th>
                               <th class="text-center">สถานะทรัพย์</th>
                               <th class="text-center">สถานะแจ้งเตือน</th>
+                              <th class="text-center">หมายเหตุ</th>
                               <th class="text-center">ผู้สืบทรัพย์</th>
                               <th class="text-center" style="width: 80px"></th>
                             </tr>
@@ -411,11 +415,11 @@
                                 </td>
                                 <td class="text-center">  <!-- สถานะทรัพย์ -->
                                   @if($row->propertied_asset == "Y")
-                                    <button type="button" class="btn btn-success btn-sm" title="มีทรัพย์">
-                                      <i class="fa fa-map prem"></i> มีทรัพย์
+                                    <button type="button" class="btn btn-success btn-sm textSize" title="มีทรัพย์">
+                                      <i class="fa fa-map prem "></i> มีทรัพย์
                                     </button>
                                   @elseif($row->propertied_asset == "N")
-                                    <button type="button" class="btn btn-danger btn-sm" title="ไม่มีทรัพย์">
+                                    <button type="button" class="btn btn-danger btn-sm textSize" title="ไม่มีทรัพย์">
                                       <i class="fa fa-map prem"></i> ไม่มีทรัพย์
                                     </button>
                                   @endif
@@ -493,7 +497,8 @@
                                     @endif
                                   @endif
                                 </td>
-                                <td class="text-center"> {{ $row->User_asset }}</td>
+                                <td class="text-left" title="{{$row->Notepursue_asset}}">{{str_limit($row->Notepursue_asset,30)}}</td>
+                                <td class="text-right"> {{ $row->User_asset }}</td>
                                 <td class="text-right">
                                   <a href="{{ route('MasterLegis.edit',[$row->id]) }}?type={{8}}" class="btn btn-warning btn-sm" title="แก้ไขรายการ">
                                     <i class="far fa-edit"></i>
