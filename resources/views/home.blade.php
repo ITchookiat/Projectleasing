@@ -103,7 +103,7 @@
       $TargetRosok_LS = round(($Leasing12 / $dataLeasing->Target_Rosok) * 100);
       $TargetBannangsta_LS = round(($Leasing13 / $dataLeasing->Target_Bannangsta) * 100);
       $TargetYaha_LS = round(($Leasing14 / $dataLeasing->Target_Yaha) * 100);
-      $TargetHomecar_LS = round(($SumHomecarAll / $SumHomecarAll) * 100);
+      //$TargetHomecar_LS = round(($SumHomecarAll / $SumHomecarAll) * 100);
     @endphp
   @endif
 
@@ -207,16 +207,22 @@
                       <!-- <a href="#" class="text-dark text-sm"><i class="fas fa-print float-right" onclick="printDiv('printLeasing')"></i></a> -->
                       <div id="printLeasing">
                         <div class="row mb-1">
+                        @if($dataLeasing != null)
                           <section class="col-lg-8 connectedSortable ui-sortable">
+                        @else
+                          <section class="col-lg-12 connectedSortable ui-sortable">
+                        @endif
                             <div class="col-md-12 card">
                               <div id="chartLeasingPercent"></div>
                             </div>
                           </section>
+                        @if($dataLeasing != null)
                           <section class="col-lg-4 connectedSortable ui-sortable">
                             <div class="col-md-12 card">
                               <div id="chartLeasingTarget"></div>
                             </div>
                           </section>
+                        @endif
                           <section class="col-lg-12 connectedSortable ui-sortable">
                             <div class="col-md-12 card">
                               <div id="chartLeasingCash"></div>
@@ -229,16 +235,22 @@
                       <!-- <a href="#" class="text-dark text-sm"><i class="fas fa-print float-right" onclick="printDiv('printPloan')"></i></a> -->
                       <div id="printPloan">
                         <div class="row mb-1">
+                        @if($dataPloan != null)
                           <section class="col-lg-8 connectedSortable ui-sortable">
+                        @else
+                          <section class="col-lg-12 connectedSortable ui-sortable">
+                        @endif
                             <div class="col-md-12 card">
                               <div id="chartPloanPercent"></div>
                             </div>
                           </section>
+                        @if($dataPloan != null)
                           <section class="col-lg-4 connectedSortable ui-sortable">
                             <div class="col-md-12 card">
                               <div id="chartPloanTarget"></div>
                             </div>
                           </section>
+                        @endif
                           <section class="col-lg-12 connectedSortable ui-sortable">
                             <div class="col-md-12 card">
                               <div id="chartPloanCash"></div>
@@ -251,16 +263,22 @@
                       <!-- <a href="#" class="text-dark text-sm"><i class="fas fa-print float-right" onclick="printDiv('printMicro')"></i></a> -->
                       <div id="printMicro">
                         <div class="row mb-1">
+                        @if($dataMicro != null)
                           <section class="col-lg-8 connectedSortable ui-sortable">
+                        @else
+                          <section class="col-lg-12 connectedSortable ui-sortable">
+                        @endif
                             <div class="col-md-12 card">
                               <div id="chartMicroPercent"></div>
                             </div>
                           </section>
+                        @if($dataMicro != null)
                           <section class="col-lg-4 connectedSortable ui-sortable">
                             <div class="col-md-12 card">
                               <div id="chartMicroTarget"></div>
                             </div>
                           </section>
+                        @endif
                           <section class="col-lg-12 connectedSortable ui-sortable">
                             <div class="col-md-12 card">
                               <div id="chartMicroCash"></div>
@@ -273,16 +291,22 @@
                       <!-- <a href="#" class="text-dark text-sm"><i class="fas fa-print float-right" onclick="printDiv('printMotor')"></i></a> -->
                       <div id="printMotor">
                         <div class="row mb-1">
+                        @if($dataMotor != null)
                           <section class="col-lg-8 connectedSortable ui-sortable">
+                        @else
+                          <section class="col-lg-12 connectedSortable ui-sortable">
+                        @endif
                             <div class="col-md-12 card">
                               <div id="chartMotorPercent"></div>
                             </div>
                           </section>
+                        @if($dataMotor != null)
                           <section class="col-lg-4 connectedSortable ui-sortable">
                             <div class="col-md-12 card">
                               <div id="chartMotorTarget"></div>
                             </div>
                           </section>
+                        @endif
                           <section class="col-lg-12 connectedSortable ui-sortable">
                             <div class="col-md-12 card">
                               <div id="chartMotorCash"></div>
@@ -385,6 +409,13 @@
         },
         // distributed: true,
       }
+    },
+    tooltip: {
+      y: {
+        formatter: function(value, { series, dataPointIndex, w }) {
+          return addCommas(value)
+        }
+      },
     },
     dataLabels: {
       enabled: true,
@@ -610,6 +641,13 @@
         // distributed: true,
       }
     },
+    tooltip: {
+      y: {
+        formatter: function(value, { series, dataPointIndex, w }) {
+          return addCommas(value)
+        }
+      },
+    },
     dataLabels: {
       enabled: true,
       formatter: function (val) {
@@ -833,6 +871,13 @@
         },
         // distributed: true,
       }
+    },
+    tooltip: {
+      y: {
+        formatter: function(value, { series, dataPointIndex, w }) {
+          return addCommas(value)
+        }
+      },
     },
     dataLabels: {
       enabled: true,
@@ -1058,6 +1103,13 @@
         // distributed: true,
       }
     },
+    tooltip: {
+      y: {
+        formatter: function(value, { series, dataPointIndex, w }) {
+          return addCommas(value)
+        }
+      },
+    },
     dataLabels: {
       enabled: true,
       formatter: function (val) {
@@ -1256,7 +1308,7 @@
 
   {{-- Staff&Homecar ยอดคัน --}}
   <script>
-      var TotalCon = addCommas({{$SumHomecarAll}});
+      var TotalCon = addCommas({{$SumStaffAll + $SumHomecarAll}});
       var options = {
       series: [
         {
@@ -1312,7 +1364,7 @@
 
   {{-- Staff&Homecar ยอดจัด --}}
   <script>
-      var TotalCon = addCommas({{$SumTopcar_HomecarAll}});
+      var TotalCon = addCommas({{$SumTopcar_StaffAll + $SumTopcar_HomecarAll}});
       var options = {
       series: [
         {
@@ -1343,6 +1395,13 @@
             position: "center" // top, center, bottom
           },
         }
+      },
+      tooltip: {
+      y: {
+          formatter: function(value, { series, dataPointIndex, w }) {
+            return addCommas(value)
+          }
+        },
       },
       dataLabels: {
         enabled: true,
